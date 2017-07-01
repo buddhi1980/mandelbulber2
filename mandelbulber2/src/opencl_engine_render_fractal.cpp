@@ -297,6 +297,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		}
 	}
 
+	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
 
 	if (paramRender->shadow) definesCollector += " -DSHADOWS";
@@ -333,6 +334,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->fogEnabled)
 	{
 		definesCollector += " -DBASIC_FOG";
+		anyVolumetricShaderUsed = true;
+	}
+	if (paramRender->volFogEnabled && paramRender->volFogDensity > 0)
+	{
+		definesCollector += " -DVOLUMETRIC_FOG";
 		anyVolumetricShaderUsed = true;
 	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";

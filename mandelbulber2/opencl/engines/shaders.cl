@@ -563,12 +563,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	float3 output = oldPixel.xyz;
 	float totalOpacity = 0.0f;
 
-	// volumetric fog init
-	float colourThresh = consts->params.volFogColour1Distance;
-	float colourThresh2 = consts->params.volFogColour2Distance;
-	float fogReduce = consts->params.volFogDistanceFactor;
-	float fogIntensity = consts->params.volFogDensity;
-
 	// visible lights init
 	int numberOfLights = input->numberOfLights;
 	if (numberOfLights < 4) numberOfLights = 4;
@@ -760,6 +754,40 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
 #endif // BASIC_FOG
+
+//-------------------- volumetric fog
+#ifdef VOLUMETRIC_FOG
+		{
+			float densityTemp =
+				step * consts->params.volFogDistanceFactor
+				/ (distance * distance
+						+ consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
+
+			float k = distance / consts->params.volFogColour1Distance;
+			if (k > 1.0f) k = 1.0f;
+			float kn = 1.0f - k;
+			float3 fogTemp;
+			fogTemp.s0 = consts->params.volFogColour1.s0 * kn + consts->params.volFogColour2.s0 * k;
+			fogTemp.s1 = consts->params.volFogColour1.s1 * kn + consts->params.volFogColour2.s1 * k;
+			fogTemp.s2 = consts->params.volFogColour1.s2 * kn + consts->params.volFogColour2.s2 * k;
+
+			float k2 = distance / consts->params.volFogColour2Distance * k;
+			if (k2 > 1) k2 = 1.0;
+			kn = 1.0f - k2;
+			fogTemp.s0 = fogTemp.s0 * kn + consts->params.volFogColour3.s0 * k2;
+			fogTemp.s1 = fogTemp.s1 * kn + consts->params.volFogColour3.s1 * k2;
+			fogTemp.s2 = fogTemp.s2 * kn + consts->params.volFogColour3.s2 * k2;
+
+			float fogDensity = 0.3f * consts->params.volFogDensity * densityTemp
+												 / (1.0f + consts->params.volFogDensity * densityTemp);
+			if (fogDensity > 1) fogDensity = 1.0f;
+
+			output = fogDensity * fogTemp / 65536.0f + (1.0f - fogDensity) * output;
+
+			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
+			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
+		}
+#endif // VOLUMETRIC_FOG
 
 		if (totalOpacity > 1.0f) totalOpacity = 1.0f;
 		if (out4.s3 > 1.0f) out4.s3 = 1.0f; // alpha channel
