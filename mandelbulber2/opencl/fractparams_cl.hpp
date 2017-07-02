@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -110,20 +110,20 @@ typedef struct
 	cl_int volumetricLightAnyEnabled;
 	cl_int volFogEnabled;
 
-	cl_int3 auxLightPreColour[4];
-	cl_int3 background_color1; // background colour
-	cl_int3 background_color2;
-	cl_int3 background_color3;
-	cl_int3 fogColor;
-	cl_int3 glowColor1;
-	cl_int3 glowColor2;
-	cl_int3 iterFogColour1;
-	cl_int3 iterFogColour2;
-	cl_int3 iterFogColour3;
-	cl_int3 mainLightColour;
-	cl_int3 volFogColour1;
-	cl_int3 volFogColour2;
-	cl_int3 volFogColour3;
+	cl_float3 auxLightPreColour[4];
+	cl_float3 background_color1; // background colour
+	cl_float3 background_color2;
+	cl_float3 background_color3;
+	cl_float3 fogColor;
+	cl_float3 glowColor1;
+	cl_float3 glowColor2;
+	cl_float3 iterFogColour1;
+	cl_float3 iterFogColour2;
+	cl_float3 iterFogColour3;
+	cl_float3 mainLightColour;
+	cl_float3 volFogColour1;
+	cl_float3 volFogColour2;
+	cl_float3 volFogColour3;
 
 	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
@@ -265,21 +265,21 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.volFogEnabled = source.volFogEnabled;
 	for (int i = 0; i < 4; i++)
 	{
-		target.auxLightPreColour[i] = toClInt3(source.auxLightPreColour[i]);
+		target.auxLightPreColour[i] = toClFloat3(source.auxLightPreColour[i]);
 	}
-	target.background_color1 = toClInt3(source.background_color1);
-	target.background_color2 = toClInt3(source.background_color2);
-	target.background_color3 = toClInt3(source.background_color3);
-	target.fogColor = toClInt3(source.fogColor);
-	target.glowColor1 = toClInt3(source.glowColor1);
-	target.glowColor2 = toClInt3(source.glowColor2);
-	target.iterFogColour1 = toClInt3(source.iterFogColour1);
-	target.iterFogColour2 = toClInt3(source.iterFogColour2);
-	target.iterFogColour3 = toClInt3(source.iterFogColour3);
-	target.mainLightColour = toClInt3(source.mainLightColour);
-	target.volFogColour1 = toClInt3(source.volFogColour1);
-	target.volFogColour2 = toClInt3(source.volFogColour2);
-	target.volFogColour3 = toClInt3(source.volFogColour3);
+	target.background_color1 = toClFloat3(source.background_color1);
+	target.background_color2 = toClFloat3(source.background_color2);
+	target.background_color3 = toClFloat3(source.background_color3);
+	target.fogColor = toClFloat3(source.fogColor);
+	target.glowColor1 = toClFloat3(source.glowColor1);
+	target.glowColor2 = toClFloat3(source.glowColor2);
+	target.iterFogColour1 = toClFloat3(source.iterFogColour1);
+	target.iterFogColour2 = toClFloat3(source.iterFogColour2);
+	target.iterFogColour3 = toClFloat3(source.iterFogColour3);
+	target.mainLightColour = toClFloat3(source.mainLightColour);
+	target.volFogColour1 = toClFloat3(source.volFogColour1);
+	target.volFogColour2 = toClFloat3(source.volFogColour2);
+	target.volFogColour3 = toClFloat3(source.volFogColour3);
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
 	for (int i = 0; i < 4; i++)

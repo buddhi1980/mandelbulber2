@@ -279,7 +279,7 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 
 		sVectorsAroundCl vector;
 		vector.v = toClFloat3(AOVectors[i].v);
-		vector.color = toClInt3(sRGB(AOVectors[i].R, AOVectors[i].G, AOVectors[i].B));
+		vector.color = toClFloat3(sRGB(AOVectors[i].R, AOVectors[i].G, AOVectors[i].B));
 		vector.alpha = AOVectors[i].alpha;
 		vector.beta = AOVectors[i].beta;
 
@@ -331,7 +331,7 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		sLightCl lightCl;
 		sLight *light = lights->GetLight(i);
 		lightCl.position = toClFloat3(light->position);
-		lightCl.colour = toClInt3(light->colour);
+		lightCl.colour = toClFloat3(light->colour);
 		lightCl.intensity = light->intensity;
 		lightCl.enabled = light->enabled;
 

@@ -60,10 +60,10 @@ typedef struct
 	cl_float displacementTextureHeight;
 	cl_float normalMapTextureHeight;
 
-	cl_int3 color;
-	cl_int3 luminosityColor;
-	cl_int3 transparencyInteriorColor;
-	cl_int3 specularColor;
+	cl_float3 color;
+	cl_float3 luminosityColor;
+	cl_float3 transparencyInteriorColor;
+	cl_float3 specularColor;
 
 	// cColorPalette palette;
 
@@ -114,10 +114,10 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.displacementTextureHeight = source.displacementTextureHeight;
 	target.normalMapTextureHeight = source.normalMapTextureHeight;
 
-	target.color = toClInt3(source.color);
-	target.luminosityColor = toClInt3(source.luminosityColor);
-	target.transparencyInteriorColor = toClInt3(source.transparencyInteriorColor);
-	target.specularColor = toClInt3(source.specularColor);
+	target.color = toClFloat3(source.color);
+	target.luminosityColor = toClFloat3(source.luminosityColor);
+	target.transparencyInteriorColor = toClFloat3(source.transparencyInteriorColor);
+	target.specularColor = toClFloat3(source.specularColor);
 
 	target.textureCenter = toClFloat3(source.textureCenter);
 	target.textureRotation = toClFloat3(source.textureRotation);

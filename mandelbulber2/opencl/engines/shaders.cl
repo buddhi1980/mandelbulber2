@@ -66,34 +66,19 @@ float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	float3 viewVectorNorm = input->viewVector;
 	viewVectorNorm = normalize(viewVectorNorm);
 	float grad = dot(viewVectorNorm, vector) + 1.0f;
-	int3 pixel;
+	float3 pixel;
 	if (grad < 1.0f)
 	{
 		float gradN = 1.0f - grad;
-		pixel.s0 =
-			consts->params.background_color3.s0 * gradN + consts->params.background_color2.s0 * grad;
-		pixel.s1 =
-			consts->params.background_color3.s1 * gradN + consts->params.background_color2.s1 * grad;
-		pixel.s2 =
-			consts->params.background_color3.s2 * gradN + consts->params.background_color2.s2 * grad;
+		pixel = consts->params.background_color3 * gradN + consts->params.background_color2 * grad;
 	}
 	else
 	{
 		grad = grad - 1.0f;
 		float gradN = 1.0f - grad;
-		pixel.s0 =
-			consts->params.background_color2.s0 * gradN + consts->params.background_color1.s0 * grad;
-		pixel.s1 =
-			consts->params.background_color2.s1 * gradN + consts->params.background_color1.s1 * grad;
-		pixel.s2 =
-			consts->params.background_color2.s2 * gradN + consts->params.background_color1.s2 * grad;
+		pixel = consts->params.background_color2 * gradN + consts->params.background_color1 * grad;
 	}
-
-	pixel2.s0 = pixel.s0 / 65536.0f;
-	pixel2.s1 = pixel.s1 / 65536.0f;
-	pixel2.s2 = pixel.s2 / 65536.0f;
-
-	return pixel2;
+	return pixel;
 }
 
 //----------------- object shaders -----------------
@@ -148,9 +133,7 @@ float3 SurfaceColor(
 	}
 	else
 	{
-		color.x = input->material->color.x / 65536.0f;
-		color.y = input->material->color.y / 65536.0f;
-		color.z = input->material->color.z / 65536.0f;
+		color = input->material->color;
 	}
 
 	out = (float3){color.x, color.y, color.z};
@@ -174,9 +157,7 @@ float3 MainSpecular(sShaderInputDataCl *input)
 	specular = pow(specular, 30.0f / input->material->specularWidth);
 	if (specular > 15.0f) specular = 15.0f;
 	float3 out = specular;
-	out.s0 *= input->material->specularColor.s0 / 65536.0f;
-	out.s1 *= input->material->specularColor.s1 / 65536.0f;
-	out.s2 *= input->material->specularColor.s2 / 65536.0f;
+	out *= input->material->specularColor;
 	return out;
 }
 
@@ -363,11 +344,9 @@ float3 AmbientOcclusion(
 
 		intense = shadowTemp;
 
-		AO.s0 += intense * v.color.s0;
-		AO.s1 += intense * v.color.s1;
-		AO.s2 += intense * v.color.s2;
+		AO += intense * v.color;
 	}
-	AO /= input->AOVectorsCount * 65536.0f;
+	AO /= input->AOVectorsCount;
 
 	return AO;
 }
@@ -488,14 +467,10 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 		}
 	}
 
-	shading.s0 = shade * light->colour.s0 / 65536.0f;
-	shading.s1 = shade * light->colour.s1 / 65536.0f;
-	shading.s2 = shade * light->colour.s2 / 65536.0f;
+	shading = shade * light->colour;
 
 	float3 specular;
-	specular.s0 = shade2 * light->colour.s0 / 65536.0f;
-	specular.s1 = shade2 * light->colour.s1 / 65536.0f;
-	specular.s2 = shade2 * light->colour.s2 / 65536.0f;
+	specular = shade2 * light->colour.s0;
 
 	*outSpecular = specular;
 
@@ -536,10 +511,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	float3 normal = NormalVector(consts, input->point, input->lastDist, input->distThresh, calcParam);
 	input->normal = normal;
 
-	float3 mainLight =
-		(float3){consts->params.mainLightColour.s0 / 65536.0f,
-			consts->params.mainLightColour.s1 / 65536.0f, consts->params.mainLightColour.s2 / 65536.0f}
-		* consts->params.mainLightIntensity;
+	float3 mainLight = consts->params.mainLightColour * consts->params.mainLightIntensity;
 
 	float3 shade = 0.0f;
 	float3 specular = 0.0f;
@@ -609,12 +581,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	float3 glowColor;
 
-	glowColor.s0 =
-		(glowN * consts->params.glowColor1.s0 + consts->params.glowColor2.s0 * glow) / 65536.0f;
-	glowColor.s1 =
-		(glowN * consts->params.glowColor1.s1 + consts->params.glowColor2.s1 * glow) / 65536.0f;
-	glowColor.s2 =
-		(glowN * consts->params.glowColor1.s2 + consts->params.glowColor2.s2 * glow) / 65536.0f;
+	glowColor = (glowN * consts->params.glowColor1 + consts->params.glowColor2 * glow);
+
 #endif // GLOW
 
 #ifdef SIMPLE_GLOW // only simple glow, no another shaders
@@ -714,9 +682,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 						float lightDensity =
 							native_divide(miniStep * bellFunction * consts->params.auxLightVisibility, lightSize);
 
-						output.s0 += lightDensity * light->colour.s0 * 1.5258e-5f;
-						output.s1 += lightDensity * light->colour.s1 * 1.5258e-5f;
-						output.s2 += lightDensity * light->colour.s2 * 1.5258e-5f;
+						output += lightDensity * light->colour;
 						out4.s3 += lightDensity;
 					}
 				}
@@ -736,12 +702,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			if (i == 0 && consts->params.volumetricLightEnabled[0])
 			{
 				float3 shadowOutputTemp = MainShadow(consts, &input2, calcParam);
-				output.s0 += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]
-										 * consts->params.mainLightColour.s0 / 65536.0f;
-				output.s1 += shadowOutputTemp.s1 * step * consts->params.volumetricLightIntensity[0]
-										 * consts->params.mainLightColour.s1 / 65536.0f;
-				output.s2 += shadowOutputTemp.s2 * step * consts->params.volumetricLightIntensity[0]
-										 * consts->params.mainLightColour.s2 / 65536.0f;
+				output += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]
+									* consts->params.mainLightColour;
 				out4.s3 += (shadowOutputTemp.s0 + shadowOutputTemp.s1 + shadowOutputTemp.s2) / 3.0f * step
 									 * consts->params.volumetricLightIntensity[0];
 			}
@@ -757,12 +719,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 					lightVectorTemp = normalize(lightVectorTemp);
 					float lightShadow = AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
 
-					output.s0 += lightShadow * light->colour.s0 / 65536.0f
-											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
-					output.s1 += lightShadow * light->colour.s1 / 65536.0f
-											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
-					output.s2 += lightShadow * light->colour.s2 / 65536.0f
-											 * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
+					output += lightShadow * light->colour * consts->params.volumetricLightIntensity[i] * step
+										/ distanceLight2;
 					out4.s3 +=
 						lightShadow * consts->params.volumetricLightIntensity[i] * step / distanceLight2;
 				}
@@ -777,12 +735,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			float fogDensity = step / consts->params.fogVisibility;
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
 
-			output.s0 =
-				fogDensity * consts->params.fogColor.s0 / 65536.0f + (1.0f - fogDensity) * output.s0;
-			output.s1 =
-				fogDensity * consts->params.fogColor.s1 / 65536.0f + (1.0f - fogDensity) * output.s1;
-			output.s2 =
-				fogDensity * consts->params.fogColor.s2 / 65536.0f + (1.0f - fogDensity) * output.s2;
+			output = fogDensity * consts->params.fogColor + (1.0f - fogDensity) * output;
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
@@ -801,22 +754,18 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			if (k > 1.0f) k = 1.0f;
 			float kn = 1.0f - k;
 			float3 fogTemp;
-			fogTemp.s0 = consts->params.volFogColour1.s0 * kn + consts->params.volFogColour2.s0 * k;
-			fogTemp.s1 = consts->params.volFogColour1.s1 * kn + consts->params.volFogColour2.s1 * k;
-			fogTemp.s2 = consts->params.volFogColour1.s2 * kn + consts->params.volFogColour2.s2 * k;
+			fogTemp = consts->params.volFogColour1 * kn + consts->params.volFogColour2 * k;
 
 			float k2 = distance / consts->params.volFogColour2Distance * k;
 			if (k2 > 1) k2 = 1.0;
 			kn = 1.0f - k2;
-			fogTemp.s0 = fogTemp.s0 * kn + consts->params.volFogColour3.s0 * k2;
-			fogTemp.s1 = fogTemp.s1 * kn + consts->params.volFogColour3.s1 * k2;
-			fogTemp.s2 = fogTemp.s2 * kn + consts->params.volFogColour3.s2 * k2;
+			fogTemp = fogTemp * kn + consts->params.volFogColour3 * k2;
 
 			float fogDensity = 0.3f * consts->params.volFogDensity * densityTemp
 												 / (1.0f + consts->params.volFogDensity * densityTemp);
 			if (fogDensity > 1) fogDensity = 1.0f;
 
-			output = fogDensity * fogTemp / 65536.0f + (1.0f - fogDensity) * output;
+			output = fogDensity * fogTemp + (1.0f - fogDensity) * output;
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;

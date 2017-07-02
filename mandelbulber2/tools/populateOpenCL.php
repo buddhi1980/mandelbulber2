@@ -75,7 +75,7 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/(\s)bool(\s)/', 'replace' => '$1cl_int$2'),
 	    array('find' => '/(\s)double(\s)/', 'replace' => '$1cl_float$2'),
 	    array('find' => '/(\s)float(\s)/', 'replace' => '$1cl_float$2'),
-	    array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_int3$2'),
+	    array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
 

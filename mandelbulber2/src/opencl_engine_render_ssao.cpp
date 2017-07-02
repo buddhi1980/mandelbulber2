@@ -350,7 +350,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 			if (*stopRequest)
 			{
-				break;
+				return false;
 			}
 		}
 

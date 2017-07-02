@@ -82,7 +82,7 @@ typedef struct
 typedef struct
 {
 	cl_float3 v;
-	cl_int3 color;
+	cl_float3 color;
 	cl_float alpha;
 	cl_float beta;
 } sVectorsAroundCl;
@@ -90,7 +90,7 @@ typedef struct
 typedef struct
 {
 	cl_float3 position;
-	cl_int3 colour;
+	cl_float3 colour;
 	float intensity;
 	cl_int enabled;
 } sLightCl;

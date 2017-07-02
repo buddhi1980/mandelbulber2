@@ -525,22 +525,25 @@ bool cRenderJob::Execute()
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
-		if (params->ambientOcclusionEnabled
-				&& params->ambientOcclusionMode == params::AOModeScreenSpace)
+		if (!*renderData->stopRequest)
 		{
-			gOpenCl->openClEngineRenderSSAO->Lock();
-			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
-			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
+			if (params->ambientOcclusionEnabled
+					&& params->ambientOcclusionMode == params::AOModeScreenSpace)
 			{
-				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
-				gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
-				gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
-				result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
-			}
-			gOpenCl->openClEngineRenderSSAO->Unlock();
+				gOpenCl->openClEngineRenderSSAO->Lock();
+				gOpenCl->openClEngineRenderSSAO->SetParameters(params);
+				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
+				{
+					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
+					gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
+					gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+					result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
+				}
+				gOpenCl->openClEngineRenderSSAO->Unlock();
 
-			emit updateProgressAndStatus(
-				tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
+				emit updateProgressAndStatus(
+					tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
+			}
 		}
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
