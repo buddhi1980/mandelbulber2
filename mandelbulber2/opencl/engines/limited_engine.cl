@@ -40,12 +40,11 @@ int GetInteger(int byte, __global char *array)
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(
-	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts, int Gcl_offset)
+	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts)
 {
-	int cl_offset = Gcl_offset;
-
 	// get actual pixel
-	const int id = get_global_id(0) + cl_offset;
+	const int id = get_global_id(0);
+	const int cl_offset = get_global_offset(0);
 	const int imageX = id % consts->params.imageWidth;
 	const int imageYTemp = id / consts->params.imageWidth;
 	const int buffIndex = (id - cl_offset);
@@ -203,7 +202,8 @@ kernel void fractal3D(
 	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
 	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
 		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
-	lightVector = Matrix33MulFloat3(rot, lightVector);
+
+	if (consts->params.mainLightPositionAsRelative) lightVector = Matrix33MulFloat3(rot, lightVector);
 
 	distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
 	distThresh = max(1e-6, distThresh);

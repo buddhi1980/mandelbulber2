@@ -33,13 +33,12 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
-	__constant sClInConstants *consts, int Gcl_offset)
+kernel void fractal3D(
+	__global sClPixel *out, __global sClInBuff *inBuff, __constant sClInConstants *consts)
 {
-	int cl_offset = Gcl_offset;
-
 	// get actual pixel
-	const int id = get_global_id(0) + cl_offset;
+	const int id = get_global_id(0);
+	const int cl_offset = get_global_offset(0);
 	const int imageX = id % consts->params.imageWidth;
 	const int imageYTemp = id / consts->params.imageWidth;
 	const int buffIndex = (id - cl_offset);

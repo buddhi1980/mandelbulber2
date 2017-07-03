@@ -263,6 +263,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelsLeft, int pixelIndex)
 			limitedWorkgroupSize = pixelsLeft;
 		}
 	}
+	optimalJob.stepSize = stepSize;
 
 	cl_int err = queue->enqueueNDRangeKernel(
 		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));

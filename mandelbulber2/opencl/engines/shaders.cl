@@ -367,15 +367,40 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	float DE_factor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0;
 
+	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
+	float maxSoft = 0.0f;
+
+	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
+										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
+
 	for (float i = input->delta; i < distance; i += dist * DE_factor)
 	{
 		float3 point2 = input->point + lightVector * i;
 
-		calcParam->distThresh = input->distThresh;
+		float dist_thresh;
+		if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled)
+		{
+			dist_thresh = CalcDistThresh(point2, consts);
+		}
+		else
+			dist_thresh = input->distThresh;
+
+		calcParam->distThresh = dist_thresh;
 		formulaOut outF;
 
 		outF = CalculateDistance(consts, point2, calcParam);
 		dist = outF.distance;
+
+		if (bSoft)
+		{
+			double angle = (dist - dist_thresh) / i;
+			if (angle < 0) angle = 0;
+			if (dist < dist_thresh) angle = 0;
+			double softShadow = 1.0 - angle / softRange;
+			if (consts->params.penetratingLights) softShadow *= (distance - i) / distance;
+			if (softShadow < 0) softShadow = 0;
+			if (softShadow > maxSoft) maxSoft = softShadow;
+		}
 
 		if (consts->params.iterFogEnabled)
 		{
@@ -387,14 +412,6 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 			opacity = 0.0f;
 		}
 		shadowTemp -= opacity * (distance - i) / distance;
-
-		float dist_thresh;
-		if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled)
-		{
-			dist_thresh = CalcDistThresh(point2, consts);
-		}
-		else
-			dist_thresh = input->distThresh;
 
 		if (dist < dist_thresh || shadowTemp < 0.0f)
 		{
@@ -410,7 +427,16 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 			break;
 		}
 	}
-	light = shadowTemp;
+
+	if (!bSoft)
+	{
+		light = shadowTemp;
+	}
+	else
+	{
+		light = 1.0f - maxSoft;
+	}
+
 	return light;
 }
 #endif // SHADOWS

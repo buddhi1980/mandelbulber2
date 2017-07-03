@@ -95,9 +95,9 @@ public:
 		sRenderData *renderData);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool ReAllocateImageBuffers();
-	bool AssignParametersToKernel(int pixelIndex);
+	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
-	bool ProcessQueue();
+	bool ProcessQueue(int pixelsLeft, int pixelIndex);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
 

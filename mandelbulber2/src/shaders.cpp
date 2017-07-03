@@ -1176,14 +1176,39 @@ double cRenderWorker::AuxShadow(
 	double DE_factor = params->DEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 
+	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
+	double maxSoft = 0.0;
+
+	const bool bSoft = !params->iterFogEnabled && !params->limitsEnabled
+										 && !params->common.iterThreshMode && softRange > 0.0;
+
 	for (double i = input.delta; i < distance; i += dist * DE_factor)
 	{
 		CVector3 point2 = input.point + lightVector * i;
+
+		float dist_thresh;
+		if (params->iterFogEnabled || params->volumetricLightAnyEnabled)
+		{
+			dist_thresh = CalcDistThresh(point2);
+		}
+		else
+			dist_thresh = input.distThresh;
 
 		sDistanceOut distanceOut;
 		sDistanceIn distanceIn(point2, input.distThresh, false);
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
+
+		if (bSoft)
+		{
+			double angle = (dist - dist_thresh) / i;
+			if (angle < 0) angle = 0;
+			if (dist < dist_thresh) angle = 0;
+			double softShadow = 1.0 - angle / softRange;
+			if (params->penetratingLights) softShadow *= (distance - i) / distance;
+			if (softShadow < 0) softShadow = 0;
+			if (softShadow > maxSoft) maxSoft = softShadow;
+		}
 
 		if (params->iterFogEnabled)
 		{
@@ -1195,14 +1220,6 @@ double cRenderWorker::AuxShadow(
 			opacity = 0.0;
 		}
 		shadowTemp -= opacity * (distance - i) / distance;
-
-		float dist_thresh;
-		if (params->iterFogEnabled || params->volumetricLightAnyEnabled)
-		{
-			dist_thresh = CalcDistThresh(point2);
-		}
-		else
-			dist_thresh = input.distThresh;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
@@ -1218,7 +1235,15 @@ double cRenderWorker::AuxShadow(
 			break;
 		}
 	}
-	light = shadowTemp;
+
+	if (!bSoft)
+	{
+		light = shadowTemp;
+	}
+	else
+	{
+		light = 1.0f - maxSoft;
+	}
 	return light;
 }
 

@@ -482,13 +482,13 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 			ReAllocateImageBuffers();
 
 			// assign parameters to kernel
-			if (!AssignParametersToKernel(pixelIndex)) return false;
+			if (!AssignParametersToKernel()) return false;
 
 			// writing data to queue
 			if (!WriteBuffersToQueue()) return false;
 
 			// processing queue
-			if (!ProcessQueue()) return false;
+			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
 
 			// update image when OpenCl kernel is working
 			if (lastRenderedLines.size() > 0)
@@ -593,7 +593,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 	return parts.join("");
 }
 
-bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
+bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 {
 	cl_int err = kernel->setArg(0, *outCL); // output image
 
@@ -619,15 +619,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel(int pixelIndex)
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(3, pixelIndex); // pixel offset
-	if (!checkErr(err, "kernel->setArg(3, pixelIndex)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("pixel index")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -678,10 +669,29 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderFractal::ProcessQueue()
+bool cOpenClEngineRenderFractal::ProcessQueue(int pixelsLeft, int pixelIndex)
 {
-	cl_int err = queue->enqueueNDRangeKernel(*kernel, cl::NullRange, cl::NDRange(optimalJob.stepSize),
-		cl::NDRange(optimalJob.workGroupSize));
+	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
+	int stepSize = optimalJob.stepSize;
+
+	if (optimalJob.stepSize > pixelsLeft)
+	{
+		int mul = pixelsLeft / optimalJob.workGroupSize;
+		if (mul > 0)
+		{
+			stepSize = mul * optimalJob.workGroupSize;
+		}
+		else
+		{
+			// in this case will be limited workGroupSize
+			stepSize = pixelsLeft;
+			limitedWorkgroupSize = pixelsLeft;
+		}
+	}
+
+	optimalJob.stepSize = stepSize;
+	cl_int err = queue->enqueueNDRangeKernel(
+		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
