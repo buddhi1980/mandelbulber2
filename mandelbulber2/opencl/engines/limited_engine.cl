@@ -43,13 +43,11 @@ kernel void fractal3D(
 	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts)
 {
 	// get actual pixel
-	const int id = get_global_id(0);
-	const int cl_offset = get_global_offset(0);
-	const int imageX = id % consts->params.imageWidth;
-	const int imageYTemp = id / consts->params.imageWidth;
-	const int buffIndex = (id - cl_offset);
-
-	const int imageY = clamp(imageYTemp, 0, consts->params.imageHeight - 1);
+	const int imageX = get_global_id(0);
+	const int imageY = get_global_id(1);
+	const int cl_offsetX = get_global_offset(0);
+	const int cl_offsetY = get_global_offset(1);
+	const int buffIndex = (imageX - cl_offsetX) + (imageY - cl_offsetY) * get_global_size(0);
 
 	float2 screenPoint = (float2){convert_float(imageX), convert_float(imageY)};
 	float width = convert_float(consts->params.imageWidth);

@@ -246,7 +246,9 @@ public:
 	QWidget *GetImageWidget(void) { return imageWidget; }
 
 	void CompileImage(QList<int> *list = nullptr);
+	void CompileImage(const QList<QRect> *list);
 	void NullPostEffect(QList<int> *list = nullptr);
+	void NullPostEffect(const QList<QRect> *list);
 
 	int GetWidth(void) const { return width; }
 	int GetHeight(void) const { return height; }
@@ -261,11 +263,13 @@ public:
 	sImageOptional *GetImageOptional(void) { return &opt; }
 
 	quint8 *ConvertTo8bit(void) const;
+	quint8 *ConvertTo8bit(const QList<QRect> *list) const;
 	quint8 *ConvertAlphaTo8bit(void) const;
 	quint8 *ConvertNormalTo16Bit(void) const;
 	quint8 *ConvertNormalTo8Bit(void) const;
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
+	void UpdatePreview(const QList<QRect> *list);
 	quint8 *GetPreviewPtr(void) const;
 	quint8 *GetPreviewPrimaryPtr(void) const;
 	bool IsPreview(void) const;

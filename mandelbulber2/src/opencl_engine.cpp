@@ -221,11 +221,14 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t pixelCnt = width * height;
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
 
-	optimalJob.pixelsPerJob = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
-	optimalJob.numberOfSteps = pixelCnt / optimalJob.pixelsPerJob + 1;
-	optimalJob.stepSize =
-		(pixelCnt / optimalJob.numberOfSteps / optimalJob.pixelsPerJob + 1) * optimalJob.pixelsPerJob;
-	optimalJob.workGroupSizeMultiplier = 1;
+	optimalJob.stepSize = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
+
+	int exp = log(sqrt(optimalJob.stepSize)) / log(2);
+
+	optimalJob.stepSizeX = pow(2, exp);
+	optimalJob.stepSizeY = optimalJob.stepSize / optimalJob.stepSizeX;
+
+	optimalJob.workGroupSizeMultiplier = optimalJob.workGroupSizeOptimalMultiplier;
 	optimalJob.lastProcessingTime = 1.0;
 
 	size_t maxAllocMemSize = deviceInfo.maxMemAllocSize;
@@ -243,9 +246,9 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 		optimalJob.jobSizeLimit = pixelCnt;
 	}
 
-	qDebug() << "pixelsPerJob:" << optimalJob.pixelsPerJob;
-	qDebug() << "numberOfSteps:" << optimalJob.numberOfSteps;
 	qDebug() << "stepSize:" << optimalJob.stepSize;
+	qDebug() << "stepSizeX:" << optimalJob.stepSizeX;
+	qDebug() << "stepSizeY:" << optimalJob.stepSizeY;
 }
 
 bool cOpenClEngine::CreateCommandQueue()

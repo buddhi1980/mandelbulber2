@@ -466,83 +466,89 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		QList<int> lastRenderedLines;
+		QList<QRect> lastRenderedRects;
 
 		// TODO:
 		// insert device for loop here
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
-		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+
+		for (int jobY = 0; jobY < height; jobY += optimalJob.stepSizeY)
 		{
-			size_t pixelsLeft = width * height - pixelIndex;
-			UpdateOptimalJobStart(pixelsLeft);
-
-			qDebug() << "Step size: " << optimalJob.stepSize;
-
-			ReAllocateImageBuffers();
-
-			// assign parameters to kernel
-			if (!AssignParametersToKernel()) return false;
-
-			// writing data to queue
-			if (!WriteBuffersToQueue()) return false;
-
-			// processing queue
-			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
-
-			// update image when OpenCl kernel is working
-			if (lastRenderedLines.size() > 0)
+			for (int jobX = 0; jobX < width; jobX += optimalJob.stepSizeX)
 			{
-				QElapsedTimer timerImageRefresh;
-				timerImageRefresh.start();
-				image->NullPostEffect(&lastRenderedLines);
-				image->CompileImage(&lastRenderedLines);
-				image->ConvertTo8bit();
-				image->UpdatePreview(&lastRenderedLines);
-				image->GetImageWidget()->update();
-				lastRenderedLines.clear();
-				optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
-				if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
-			}
+				size_t pixelsLeftX = width - jobX;
+				size_t pixelsLeftY = height - jobY;
 
-			if (!ReadBuffersFromQueue()) return false;
+				// UpdateOptimalJobStart(pixelsLeft);
 
-			UpdateOptimalJobEnd();
+				qDebug() << "Step size: " << optimalJob.stepSize;
 
-			// Collect Pixel information from the rgbBuffer
-			// Populate the data into image->Put
-			for (unsigned int i = 0; i < optimalJob.stepSize; i++)
-			{
-				unsigned int a = pixelIndex + i;
-				sClPixel pixelCl = rgbBuffer[i];
-				sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-				sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-				unsigned short opacity = pixelCl.opacity;
-				unsigned short alpha = pixelCl.alpha;
-				int x = a % width;
-				int y = a / width;
+				ReAllocateImageBuffers();
 
-				image->PutPixelImage(x, y, pixel);
-				image->PutPixelZBuffer(x, y, rgbBuffer[i].zBuffer);
-				image->PutPixelColor(x, y, color);
-				image->PutPixelOpacity(x, y, opacity);
-				image->PutPixelAlpha(x, y, alpha);
-			}
+				// assign parameters to kernel
+				if (!AssignParametersToKernel()) return false;
 
-			for (unsigned int i = 0; i < optimalJob.stepSize; i += width)
-			{
-				unsigned int a = pixelIndex + i;
-				int y = a / width;
-				lastRenderedLines.append(y);
-			}
+				// writing data to queue
+				if (!WriteBuffersToQueue()) return false;
 
-			double percentDone = double(pixelIndex) / (width * height);
-			emit updateProgressAndStatus(
-				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
-			gApplication->processEvents();
-			if (*stopRequest)
-			{
-				return false;
+				// processing queue
+				if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
+
+				// update image when OpenCl kernel is working
+				if (lastRenderedRects.size() > 0)
+				{
+					QElapsedTimer timerImageRefresh;
+					timerImageRefresh.start();
+					image->NullPostEffect(&lastRenderedRects);
+					image->CompileImage(&lastRenderedRects);
+					image->ConvertTo8bit(&lastRenderedRects);
+					image->UpdatePreview(&lastRenderedRects);
+					image->GetImageWidget()->update();
+					lastRenderedRects.clear();
+					optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
+					if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
+				}
+
+				if (!ReadBuffersFromQueue()) return false;
+
+				// UpdateOptimalJobEnd();
+
+				// Collect Pixel information from the rgbBuffer
+				// Populate the data into image->Put
+
+				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				for (int x = 0; x < jobWidth2; x++)
+				{
+					for (int y = 0; y < jobHeight2; y++)
+					{
+						sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
+						sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+						sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+						unsigned short opacity = pixelCl.opacity;
+						unsigned short alpha = pixelCl.alpha;
+						int xx = x + jobX;
+						int yy = y + jobY;
+
+						image->PutPixelImage(xx, yy, pixel);
+						image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+						image->PutPixelColor(xx, yy, color);
+						image->PutPixelOpacity(xx, yy, opacity);
+						image->PutPixelAlpha(xx, yy, alpha);
+					}
+				}
+
+				lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
+
+				double percentDone = double(jobX + jobY * width) / (width * height);
+				emit updateProgressAndStatus(
+					tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+				gApplication->processEvents();
+				if (*stopRequest)
+				{
+					return false;
+				}
 			}
 		}
 
@@ -669,29 +675,34 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderFractal::ProcessQueue(int pixelsLeft, int pixelIndex)
+bool cOpenClEngineRenderFractal::ProcessQueue(int jobX, int jobY, int pixelsLeftX, int pixelsLeftY)
 {
-	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
-	int stepSize = optimalJob.stepSize;
+	//	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
+	//	int stepSize = optimalJob.stepSize;
+	//
+	//	if (optimalJob.stepSize > pixelsLeft)
+	//	{
+	//		int mul = pixelsLeft / optimalJob.workGroupSize;
+	//		if (mul > 0)
+	//		{
+	//			stepSize = mul * optimalJob.workGroupSize;
+	//		}
+	//		else
+	//		{
+	//			// in this case will be limited workGroupSize
+	//			stepSize = pixelsLeft;
+	//			limitedWorkgroupSize = pixelsLeft;
+	//		}
+	//	}
 
-	if (optimalJob.stepSize > pixelsLeft)
-	{
-		int mul = pixelsLeft / optimalJob.workGroupSize;
-		if (mul > 0)
-		{
-			stepSize = mul * optimalJob.workGroupSize;
-		}
-		else
-		{
-			// in this case will be limited workGroupSize
-			stepSize = pixelsLeft;
-			limitedWorkgroupSize = pixelsLeft;
-		}
-	}
+	int stepSizeX = optimalJob.stepSizeX;
+	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
+	int stepSizeY = optimalJob.stepSizeY;
+	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
-	optimalJob.stepSize = stepSize;
+	// optimalJob.stepSize = stepSize;
 	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+		*kernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(

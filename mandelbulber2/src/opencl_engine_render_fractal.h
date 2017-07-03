@@ -97,7 +97,7 @@ public:
 	bool ReAllocateImageBuffers();
 	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
-	bool ProcessQueue(int pixelsLeft, int pixelIndex);
+	bool ProcessQueue(int jobX, int jobY, int pixelsLeftX, int pixelsLeftY);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
 
