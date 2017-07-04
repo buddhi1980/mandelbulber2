@@ -448,6 +448,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
+		QElapsedTimer progressRefreshTimer;
+		progressRefreshTimer.start();
+
 		QList<QRect> lastRenderedRects;
 
 		// TODO:
@@ -530,10 +533,15 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 
 				pixelsRendered += jobWidth2 * jobHeight2;
 
-				double percentDone = double(pixelsRendered) / numberOfPixels;
-				emit updateProgressAndStatus(
-					tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
-				gApplication->processEvents();
+				if(progressRefreshTimer.elapsed() > 100)
+				{
+					double percentDone = double(pixelsRendered) / numberOfPixels;
+					emit updateProgressAndStatus(
+						tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+					gApplication->processEvents();
+					progressRefreshTimer.restart();
+				}
+
 				if (*stopRequest)
 				{
 					return false;

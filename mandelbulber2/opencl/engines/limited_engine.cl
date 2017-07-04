@@ -123,6 +123,7 @@ kernel void fractal3D(
 	float x2, z2;
 	x2 = (screenPoint.x / width - 0.5f) * aspectRatio;
 	z2 = -(screenPoint.y / height - 0.5f);
+	if(consts->params.legacyCoordinateSystem) z2 *= -1.0f;
 	float3 viewVector = (float3){x2 * consts->params.fov, 1.0f, z2 * consts->params.fov};
 	float3 viewVectorNotRotated = viewVector;
 	viewVector = Matrix33MulFloat3(rot, viewVector);

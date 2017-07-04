@@ -274,6 +274,14 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelsLeft, int pixelIndex)
 		return false;
 	}
 
+	err = queue->finish();
+	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot finish rendering SSAO"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
 	return true;
 }
 
@@ -344,7 +352,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 			double percentDone = double(pixelIndex) / (width * height);
 			emit updateProgressAndStatus(
-				tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+				tr("OpenCl - rendering SSAO"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
 
 			UpdateOptimalJobEnd();
