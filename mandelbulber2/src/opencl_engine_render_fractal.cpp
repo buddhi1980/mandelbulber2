@@ -429,24 +429,6 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	return true;
 }
 
-bool cOpenClEngineRenderFractal::ReAllocateImageBuffers()
-{
-	cl_int err;
-
-	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-	if (rgbBuffer) delete[] rgbBuffer;
-	rgbBuffer = new sClPixel[optimalJob.stepSize];
-
-	if (outCL) delete outCL;
-	outCL = new cl::Buffer(
-		*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err);
-	if (!checkErr(
-				err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
-		return false;
-	else
-		return true;
-}
-
 // TODO:
 // This is the hot spot for heterogeneous execution
 // requires opencl for all compute resources
@@ -473,18 +455,25 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
 
-		for (int jobY = 0; jobY < height; jobY += optimalJob.stepSizeY)
+		int pixelsRendered = 0;
+		int numberOfPixels = width * height;
+		int gridWidth = width / optimalJob.stepSizeX;
+		int gridHeight = height / optimalJob.stepSizeY;
+		int gridX = (gridWidth - 1) / 2;
+		int gridY = gridHeight / 2;
+		int dir = 0;
+		int gridPass = 0;
+		int gridStep = 1;
+
+		while (pixelsRendered < numberOfPixels)
 		{
-			for (int jobX = 0; jobX < width; jobX += optimalJob.stepSizeX)
+			int jobX = gridX * optimalJob.stepSizeX;
+			int jobY = gridY * optimalJob.stepSizeY;
+
+			if (jobX >= 0 && jobX < width && jobY >= 0 && jobY < height)
 			{
 				size_t pixelsLeftX = width - jobX;
 				size_t pixelsLeftY = height - jobY;
-
-				// UpdateOptimalJobStart(pixelsLeft);
-
-				qDebug() << "Step size: " << optimalJob.stepSize;
-
-				ReAllocateImageBuffers();
 
 				// assign parameters to kernel
 				if (!AssignParametersToKernel()) return false;
@@ -511,8 +500,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				}
 
 				if (!ReadBuffersFromQueue()) return false;
-
-				// UpdateOptimalJobEnd();
 
 				// Collect Pixel information from the rgbBuffer
 				// Populate the data into image->Put
@@ -541,7 +528,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 
 				lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
 
-				double percentDone = double(jobX + jobY * width) / (width * height);
+				pixelsRendered += jobWidth2 * jobHeight2;
+
+				double percentDone = double(pixelsRendered) / numberOfPixels;
 				emit updateProgressAndStatus(
 					tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
 				gApplication->processEvents();
@@ -550,6 +539,49 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					return false;
 				}
 			}
+			// selection of next piece
+			switch (dir)
+			{
+				case 0:
+					gridX++;
+					if (gridStep > gridPass)
+					{
+						gridStep = 0;
+						dir = 1;
+					}
+					break;
+
+				case 1:
+					gridY++;
+					if (gridStep > gridPass)
+					{
+						gridStep = 0;
+						gridPass++;
+						dir = 2;
+					}
+					break;
+
+				case 2:
+					gridX--;
+					if (gridStep > gridPass)
+					{
+						gridStep = 0;
+						dir = 3;
+					}
+					break;
+
+				case 3:
+					gridY--;
+					if (gridStep > gridPass)
+					{
+						gridStep = 0;
+						gridPass++;
+						dir = 0;
+					}
+					break;
+			}
+
+			gridStep++;
 		}
 
 		qDebug() << "GPU jobs finished";

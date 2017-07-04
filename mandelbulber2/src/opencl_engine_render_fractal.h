@@ -94,7 +94,6 @@ public:
 		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
 		sRenderData *renderData);
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
-	bool ReAllocateImageBuffers();
 	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(int jobX, int jobY, int pixelsLeftX, int pixelsLeftY);
