@@ -190,6 +190,23 @@ inline float3 wrap(float3 x, float3 a, float3 s)
 	return out;
 }
 
+//********** Random ******************************
+int RandomInt(unsigned int *randomSeed)
+{
+	int s = *randomSeed;
+	int i = 0;
+	int const a = 15484817;
+	int const m = 6571759;
+	s = ((long)(s * a)) % m;
+
+	return *randomSeed = s;
+}
+
+int Random(int max, unsigned int *randomSeed)
+{
+	return RandomInt(randomSeed) % (max + 1);
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_

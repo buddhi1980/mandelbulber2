@@ -46,6 +46,7 @@ typedef struct
 	int stepCount;
 	int AOVectorsCount;
 	int numberOfLights;
+	int randomSeed;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
@@ -641,6 +642,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		input2.delta = CalcDelta(point, consts);
 
 		float step = distance * consts->params.DEFactor;
+		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
+
 		step = max(step, input2.delta);
 
 		bool end = false;

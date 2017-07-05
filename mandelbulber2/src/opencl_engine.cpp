@@ -223,7 +223,7 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 
 	optimalJob.stepSize = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
 
-	int exp = log(sqrt(optimalJob.stepSize)) / log(2);
+	int exp = log(sqrt(optimalJob.stepSize + 1)) / log(2);
 
 	optimalJob.stepSizeX = pow(2, exp);
 	optimalJob.stepSizeY = optimalJob.stepSize / optimalJob.stepSizeX;

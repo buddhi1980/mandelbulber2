@@ -49,6 +49,13 @@ kernel void fractal3D(
 	const int cl_offsetY = get_global_offset(1);
 	const int buffIndex = (imageX - cl_offsetX) + (imageY - cl_offsetY) * get_global_size(0);
 
+	// randomizing random seed
+	int randomSeed = imageX + imageY * consts->params.imageWidth;
+	for (int i = 0; i < 3; i++)
+	{
+		randomSeed = RandomInt(&randomSeed);
+	}
+
 	float2 screenPoint = (float2){convert_float(imageX), convert_float(imageY)};
 	float width = convert_float(consts->params.imageWidth);
 	float height = convert_float(consts->params.imageHeight);
@@ -123,7 +130,7 @@ kernel void fractal3D(
 	float x2, z2;
 	x2 = (screenPoint.x / width - 0.5f) * aspectRatio;
 	z2 = -(screenPoint.y / height - 0.5f);
-	if(consts->params.legacyCoordinateSystem) z2 *= -1.0f;
+	if (consts->params.legacyCoordinateSystem) z2 *= -1.0f;
 	float3 viewVector = (float3){x2 * consts->params.fov, 1.0f, z2 * consts->params.fov};
 	float3 viewVectorNotRotated = viewVector;
 	viewVector = Matrix33MulFloat3(rot, viewVector);
@@ -161,6 +168,8 @@ kernel void fractal3D(
 		}
 
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
+		step *= (1.0f - Random(1000, &randomSeed) / 10000.0f);
+
 		scan += step / length(viewVector);
 	}
 
@@ -225,6 +234,7 @@ kernel void fractal3D(
 	shaderInputData.lights = lights;
 	shaderInputData.numberOfLights = numberOfLights;
 	shaderInputData.stepCount = count;
+	shaderInputData.randomSeed = randomSeed;
 
 	float3 surfaceColor = 0.0f;
 	float3 specular = 0.0f;
