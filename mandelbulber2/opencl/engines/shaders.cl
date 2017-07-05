@@ -56,6 +56,18 @@ typedef struct
 
 } sShaderInputDataCl;
 
+#ifdef ITER_FOG
+float IterOpacity(const float step, float iters, float maxN, float trim, float opacitySp)
+{
+	float opacity = (iters - trim) / maxN;
+	if (opacity < 0.0) opacity = 0.0;
+	opacity *= opacity;
+	opacity *= step * opacitySp;
+	if (opacity > 1.0) opacity = 1.0;
+	return opacity;
+}
+#endif // ITER_FOG
+
 //-------------- background shaders ---------------
 
 float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
@@ -178,7 +190,7 @@ float3 MainShadow(
 	float DEFactor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0]) DEFactor = 1.0f;
 
-	// double start = input->delta;
+	// float start = input->delta;
 	float start = input->distThresh;
 	if (consts->params.interiorMode) start = input->distThresh * DEFactor;
 
@@ -220,15 +232,13 @@ float3 MainShadow(
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}
 
-		if (consts->params.iterFogEnabled)
-		{
-			//			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, consts->params.N,
-			//				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
-		}
-		else
-		{
-			opacity = 0.0f;
-		}
+#ifdef ITER_FOG
+		opacity = IterOpacity(dist * DEFactor, outF.iters, consts->params.N,
+			consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+#else
+		opacity = 0.0f;
+#endif
+
 		shadowTemp -= opacity * (factor - i) / factor;
 
 		if (dist < dist_thresh || shadowTemp < 0.0f)
@@ -315,16 +325,13 @@ float3 AmbientOcclusion(
 			outF = CalculateDistance(consts, point2, calcParam);
 			dist = outF.distance;
 
-			if (consts->params.iterFogEnabled)
-			{
-				//				opacity = IterOpacity(dist * 2.0, distanceOut.iters, consts->params.N,
-				// consts->params.iterFogOpacityTrim,
-				//					consts->params.iterFogOpacity);
-			}
-			else
-			{
-				opacity = 0.0f;
-			}
+#ifdef ITER_FOG
+			opacity = IterOpacity(dist * 2.0, outF.iters, consts->params.N,
+				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+#else
+			opacity = 0.0f;
+#endif
+
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
 
 			float dist_thresh;
@@ -394,24 +401,22 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 
 		if (bSoft)
 		{
-			double angle = (dist - dist_thresh) / i;
+			float angle = (dist - dist_thresh) / i;
 			if (angle < 0) angle = 0;
 			if (dist < dist_thresh) angle = 0;
-			double softShadow = 1.0 - angle / softRange;
+			float softShadow = 1.0 - angle / softRange;
 			if (consts->params.penetratingLights) softShadow *= (distance - i) / distance;
 			if (softShadow < 0) softShadow = 0;
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}
 
-		if (consts->params.iterFogEnabled)
-		{
-			//			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, consts->params.N,
-			//				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
-		}
-		else
-		{
-			opacity = 0.0f;
-		}
+#ifdef ITER_FOG
+		opacity = IterOpacity(dist * DE_factor, outF.iters, consts->params.N,
+			consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+#else
+		opacity = 0.0f;
+#endif
+
 		shadowTemp -= opacity * (distance - i) / distance;
 
 		if (dist < dist_thresh || shadowTemp < 0.0f)
@@ -800,6 +805,82 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			out4.s3 = fogDensity + (1.0f - fogDensity) * out4.s3;
 		}
 #endif // VOLUMETRIC_FOG
+
+// ---------- iter fog
+#ifdef ITER_FOG
+		{
+			int L = outF.iters;
+			float opacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
+				consts->params.iterFogOpacity);
+
+			float3 newColour = 0.0f;
+
+			if (opacity > 0.0f)
+			{
+				// fog colour
+				float iterFactor1 =
+					(L - consts->params.iterFogOpacityTrim)
+					/ (consts->params.iterFogColor1Maxiter - consts->params.iterFogOpacityTrim);
+				float k = iterFactor1;
+				if (k > 1.0f) k = 1.0f;
+				if (k < 0.0f) k = 0.0f;
+				float kn = 1.0f - k;
+				float3 fogCol = consts->params.iterFogColour1 * kn + consts->params.iterFogColour2 * k;
+
+				float iterFactor2 =
+					(L - consts->params.iterFogColor1Maxiter)
+					/ (consts->params.iterFogColor2Maxiter - consts->params.iterFogColor1Maxiter);
+				float k2 = iterFactor2;
+				if (k2 < 0.0f) k2 = 0.0;
+				if (k2 > 1.0f) k2 = 1.0;
+				kn = 1.0f - k2;
+				fogCol = fogCol * kn + consts->params.iterFogColour3 * k2;
+				//----
+
+				for (int i = 0; i < 5; i++)
+				{
+					if (i == 0)
+					{
+						if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
+						{
+							float3 shadowOutputTemp = MainShadow(consts, &input2, calcParam);
+							newColour += shadowOutputTemp * consts->params.mainLightColour
+													 * consts->params.mainLightIntensity;
+						}
+					}
+
+#ifdef AUX_LIGHTS
+					if (i > 0)
+					{
+						__global sLightCl *light = &input->lights[i - 1];
+						if (light->enabled)
+						{
+							float3 lightVectorTemp = light->position - point;
+							float distanceLight = length(lightVectorTemp);
+							float distanceLight2 = distanceLight * distanceLight;
+							lightVectorTemp = normalize(lightVectorTemp);
+							float lightShadow =
+								AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
+							float intensity = light->intensity * 100.0f;
+							newColour += lightShadow * light->colour / distanceLight2 * intensity;
+						}
+					}
+#endif // AUX_LIGHTS
+				}
+
+#ifdef AO_MODE_MULTIPLE_RAYS
+				float3 AO = AmbientOcclusion(consts, &input2, calcParam);
+				newColour += AO * consts->params.ambientOcclusion;
+#endif // AO_MODE_MULTIPLE_RAYS
+
+				if (opacity > 1.0f) opacity = 1.0f;
+
+				output = output * (1.0f - opacity) + newColour * opacity * fogCol;
+				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
+				out4.s3 = opacity + (1.0f - opacity) * out4.s3;
+			}
+		}
+#endif // ITER FOG
 
 		if (totalOpacity > 1.0f) totalOpacity = 1.0f;
 		if (out4.s3 > 1.0f) out4.s3 = 1.0f; // alpha channel

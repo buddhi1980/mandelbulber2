@@ -336,6 +336,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DVOLUMETRIC_FOG";
 		anyVolumetricShaderUsed = true;
 	}
+	if (paramRender->iterFogEnabled > 0)
+	{
+		definesCollector += " -DITER_FOG";
+		anyVolumetricShaderUsed = true;
+	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
@@ -533,7 +538,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 
 				pixelsRendered += jobWidth2 * jobHeight2;
 
-				if(progressRefreshTimer.elapsed() > 100)
+				if (progressRefreshTimer.elapsed() > 100)
 				{
 					double percentDone = double(pixelsRendered) / numberOfPixels;
 					emit updateProgressAndStatus(

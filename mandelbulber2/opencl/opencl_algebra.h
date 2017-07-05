@@ -191,7 +191,7 @@ inline float3 wrap(float3 x, float3 a, float3 s)
 }
 
 //********** Random ******************************
-int RandomInt(unsigned int *randomSeed)
+int RandomInt(int *randomSeed)
 {
 	int s = *randomSeed;
 	int i = 0;
@@ -202,7 +202,7 @@ int RandomInt(unsigned int *randomSeed)
 	return *randomSeed = s;
 }
 
-int Random(int max, unsigned int *randomSeed)
+int Random(int max, int *randomSeed)
 {
 	return RandomInt(randomSeed) % (max + 1);
 }
