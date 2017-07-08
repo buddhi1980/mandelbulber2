@@ -511,6 +511,8 @@ bool cRenderJob::Execute()
 		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
+		image->SetImageParameters(params->imageAdjustments);
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
 			paramsContainer, fractalContainer, params, fractals, renderData);

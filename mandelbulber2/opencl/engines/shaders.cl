@@ -535,6 +535,59 @@ float3 AuxLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *in
 }
 #endif // AUX_LIGHTS
 
+#ifdef FAKE_LIGHTS
+float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
+	sClCalcParams *calcParams, float3 *specularOut)
+{
+	float3 fakeLights;
+
+	float delta = input->distThresh * consts->params.smoothness;
+
+	formulaOut outF;
+
+	outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap);
+	float rr = outF.orbitTrapR;
+
+	float fakeLight = consts->params.fakeLightsIntensity / rr;
+	float r = 1.0f / (rr + 1e-20f);
+	float3 out;
+	calcParams->distThresh = input->distThresh;
+	calcParams->detailSize = input->delta;
+
+	outF = Fractal(consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap);
+	float rx = 1.0 / (outF.orbitTrapR + 1e-30);
+
+	outF = Fractal(consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap);
+	float ry = 1.0 / (outF.orbitTrapR + 1e-30);
+
+	outF = Fractal(consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap);
+	float rz = 1.0 / (outF.orbitTrapR + 1e-30);
+
+	float3 fakeLightNormal;
+	fakeLightNormal.x = r - rx;
+	fakeLightNormal.y = r - ry;
+	fakeLightNormal.z = r - rz;
+
+	fakeLightNormal = normalize(fakeLightNormal);
+
+	float fakeLight2 = fakeLight * dot(input->normal, fakeLightNormal);
+	if (fakeLight2 < 0.0f) fakeLight2 = 0.0f;
+
+	fakeLights = fakeLight2; // TODO add color definition
+
+	float3 halfVector = normalize(fakeLightNormal - input->viewVector);
+	float fakeSpecular = dot(input->normal, halfVector);
+	if (fakeSpecular < 0.0f) fakeSpecular = 0.0f;
+	fakeSpecular = pow(fakeSpecular, 30.0f / input->material->specularWidth);
+	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
+	float3 fakeSpec = fakeSpecular;
+
+	fakeSpec = 0.0f; // TODO to check why in CPU code it's zero
+	*specularOut = fakeSpec;
+	return fakeLights;
+}
+#endif // FAKE_LIGTS
+
 float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
 	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular)
 {
@@ -586,10 +639,16 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	auxLights = AuxLightsShader(consts, input, calcParam, &auxSpecular);
 #endif
 
-	color =
-		surfaceColor * (mainLight * shadow * shade + auxLights + AO) + specular * shadow + auxSpecular;
+	float3 fakeLights = 0.0f;
+	float3 fakeLightsSpecular = 0.0f;
+#ifdef FAKE_LIGHTS
+	fakeLights = FakeLightsShader(consts, input, calcParam, &fakeLightsSpecular);
+#endif
+
+	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
+					+ specular * shadow + auxSpecular + fakeLightsSpecular;
 	*outSurfaceColor = surfaceColor;
-	*outSpecular = specular;
+	*outSpecular = specular + fakeLightsSpecular; // TODO correct calculation of specular
 
 	return color;
 }
@@ -657,7 +716,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			step = input->depth - scan;
 			end = true;
 		}
-
 		scan += step;
 
 //------------------- glow
@@ -729,6 +787,22 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 			}
 		}
 #endif
+
+#ifdef FAKE_LIGHTS
+		// fake lights (orbit trap)
+		{
+			formulaOut outF;
+			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap);
+			float r = outF.orbitTrapR;
+			r = sqrt(1.0f / (r + 1.0e-20f));
+			float fakeLight = 1.0f / (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
+																	 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+																 + 1e-20f);
+			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
+			output += light;
+			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
+		}
+#endif // FAKE_LIGHTS
 
 #ifdef VOLUMETRIC_LIGHTS
 		for (int i = 0; i < 5; i++)
@@ -808,6 +882,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 // ---------- iter fog
 #ifdef ITER_FOG
+		if (step > input2.delta)
 		{
 			int L = outF.iters;
 			float opacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,
@@ -831,8 +906,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 					(L - consts->params.iterFogColor1Maxiter)
 					/ (consts->params.iterFogColor2Maxiter - consts->params.iterFogColor1Maxiter);
 				float k2 = iterFactor2;
-				if (k2 < 0.0f) k2 = 0.0;
-				if (k2 > 1.0f) k2 = 1.0;
+				if (k2 < 0.0f) k2 = 0.0f;
+				if (k2 > 1.0f) k2 = 1.0f;
 				kn = 1.0f - k2;
 				fogCol = fogCol * kn + consts->params.iterFogColour3 * k2;
 				//----

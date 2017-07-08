@@ -72,6 +72,7 @@ typedef struct
 	float iters;
 	float distance;
 	float colorIndex;
+	float orbitTrapR;
 	bool maxiter;
 } formulaOut;
 
@@ -110,6 +111,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	out.maxiter = consts->params.iterThreshMode;
 
 	float colorMin = 1e8f;
+	float orbitTrapTotal = 0.0f;
 
 	// formula init
 	sExtendedAuxCl aux;
@@ -215,10 +217,23 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (aux.r < colorMin) colorMin = aux.r;
 				if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
 			}
+#ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				// TODO orbit traps
+				float4 delta = z - (float4){consts->params.common.fakeLightsOrbitTrap.x,
+														 consts->params.common.fakeLightsOrbitTrap.y,
+														 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
+				float distance = length(delta);
+				if (i >= consts->params.common.fakeLightsMinIter
+						&& i <= consts->params.common.fakeLightsMaxIter)
+					orbitTrapTotal += (1.0f / (distance * distance));
+				if (distance > 1000.0f)
+				{
+					out.orbitTrapR = orbitTrapTotal;
+					break;
+				}
 			}
+#endif //FAKE_LIGHTS
 		}
 	}
 

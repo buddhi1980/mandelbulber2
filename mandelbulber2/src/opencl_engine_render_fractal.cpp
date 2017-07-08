@@ -129,7 +129,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		programEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
 		programEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
 		programEngine.append("#define Q_UNUSED(x) (void)x;\n");
-		programEngine.append("#define MAX_RAYMARCHING " + QString::number(5000) + "\n");
+		programEngine.append("#define MAX_RAYMARCHING " + QString::number(20000) + "\n");
 
 		QStringList clHeaderFiles;
 		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
@@ -339,6 +339,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->iterFogEnabled > 0)
 	{
 		definesCollector += " -DITER_FOG";
+		anyVolumetricShaderUsed = true;
+	}
+	if (paramRender->fakeLightsEnabled > 0)
+	{
+		definesCollector += " -DFAKE_LIGHTS";
 		anyVolumetricShaderUsed = true;
 	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
