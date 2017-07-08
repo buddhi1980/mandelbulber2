@@ -573,14 +573,14 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	float fakeLight2 = fakeLight * dot(input->normal, fakeLightNormal);
 	if (fakeLight2 < 0.0f) fakeLight2 = 0.0f;
 
-	fakeLights = fakeLight2; // TODO add color definition
+	fakeLights = fakeLight2 * consts->params.fakeLightsColor;
 
 	float3 halfVector = normalize(fakeLightNormal - input->viewVector);
 	float fakeSpecular = dot(input->normal, halfVector);
 	if (fakeSpecular < 0.0f) fakeSpecular = 0.0f;
 	fakeSpecular = pow(fakeSpecular, 30.0f / input->material->specularWidth);
 	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
-	float3 fakeSpec = fakeSpecular;
+	float3 fakeSpec = fakeSpecular * consts->params.fakeLightsColor;
 
 	fakeSpec = 0.0f; // TODO to check why in CPU code it's zero
 	*specularOut = fakeSpec;
@@ -799,7 +799,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 																	 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
 																 + 1e-20f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
-			output += light;
+			output += light * consts->params.fakeLightsColor;
 			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
 		}
 #endif // FAKE_LIGHTS

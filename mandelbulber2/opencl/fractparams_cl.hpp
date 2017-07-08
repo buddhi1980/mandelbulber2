@@ -114,6 +114,7 @@ typedef struct
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
 	cl_float3 background_color3;
+	cl_float3 fakeLightsColor;
 	cl_float3 fogColor;
 	cl_float3 glowColor1;
 	cl_float3 glowColor2;
@@ -270,6 +271,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
 	target.background_color3 = toClFloat3(source.background_color3);
+	target.fakeLightsColor = toClFloat3(source.fakeLightsColor);
 	target.fogColor = toClFloat3(source.fogColor);
 	target.glowColor1 = toClFloat3(source.glowColor1);
 	target.glowColor2 = toClFloat3(source.glowColor2);

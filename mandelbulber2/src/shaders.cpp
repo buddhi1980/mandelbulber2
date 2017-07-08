@@ -433,9 +433,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
 																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
 																 + 1e-100);
-			output.R += fakeLight * step * params->fakeLightsVisibility;
-			output.G += fakeLight * step * params->fakeLightsVisibility;
-			output.B += fakeLight * step * params->fakeLightsVisibility;
+			output.R +=
+				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
+			output.G +=
+				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.G / 65536.0f;
+			output.B +=
+				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.B / 65536.0f;
 			output.A += fakeLight * step * params->fakeLightsVisibility;
 		}
 
@@ -1306,9 +1309,9 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	float fakeLight2 = fakeLight * input.normal.Dot(fakeLightNormal);
 	if (fakeLight2 < 0) fakeLight2 = 0;
 
-	fakeLights.R = fakeLight2;
-	fakeLights.G = fakeLight2;
-	fakeLights.B = fakeLight2;
+	fakeLights.R = fakeLight2 * params->fakeLightsColor.R / 65536.0f;
+	fakeLights.G = fakeLight2 * params->fakeLightsColor.G / 65536.0f;
+	fakeLights.B = fakeLight2 * params->fakeLightsColor.B / 65536.0f;
 
 	CVector3 half = fakeLightNormal - input.viewVector;
 	half.Normalize();
@@ -1320,9 +1323,9 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 	fakeSpecular = pow(fakeSpecular, 30.0f / input.material->specularWidth / diffuse) / diffuse;
 	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
-	fakeSpec->R = fakeSpecular;
-	fakeSpec->G = fakeSpecular;
-	fakeSpec->B = fakeSpecular;
+	fakeSpec->R = fakeSpecular * params->fakeLightsColor.R / 65536.0f;
+	fakeSpec->G = fakeSpecular * params->fakeLightsColor.G / 65536.0f;
+	fakeSpec->B = fakeSpecular * params->fakeLightsColor.B / 65536.0f;
 
 	*fakeSpec = sRGBAfloat();
 	return fakeLights;

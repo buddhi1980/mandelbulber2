@@ -88,6 +88,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	DOFMaxNoise = container->Get<double>("DOF_max_noise");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
+	fakeLightsColor = container->Get<sRGB>("fake_lights_color");
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
