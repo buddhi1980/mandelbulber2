@@ -70,7 +70,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 			out->maxiter = false;
 			out->distance = limitBoxDist;
 			out->objectId = 0;
-			out->maxiter = false;
 			out->iters = 0;
 			return limitBoxDist;
 		}

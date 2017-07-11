@@ -150,24 +150,31 @@ kernel void fractal3D(
 	formulaOut outF;
 	float step = 0.0f;
 
+	float searchAccuracy = 0.001f * consts->params.detailLevel;
+	float searchLimit = 1.0f - searchAccuracy;
+
 	// ray-marching
 	for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 	{
 		point = start + viewVector * scan;
-		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-		distThresh = max(1e-6, distThresh);
+		distThresh = CalcDistThresh(point, consts);
 		calcParam.distThresh = distThresh;
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam);
 		distance = outF.distance;
 
-		if (distance < distThresh * 0.95f)
+		if (distance < distThresh)
 		{
 			found = true;
 			break;
 		}
 
+#ifdef INTERIOR_MODE
+		step = (distance - 0.8f * distThresh) * consts->params.DEFactor;
+#else
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
+#endif
+
 		step *= (1.0f - Random(1000, &randomSeed) / 10000.0f);
 
 		scan += step / length(viewVector);
@@ -179,9 +186,9 @@ kernel void fractal3D(
 	if (found)
 	{
 		step *= 0.5f;
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 30; i++)
 		{
-			if (distance < distThresh && distance > distThresh * 0.95f)
+			if (distance < distThresh && distance > distThresh * searchLimit)
 			{
 				break;
 			}
@@ -189,11 +196,13 @@ kernel void fractal3D(
 			{
 				if (distance > distThresh)
 				{
-					point += viewVector * step;
+					scan += step;
+					point = start + viewVector * scan;
 				}
-				else if (distance < distThresh * 0.95f)
+				else if (distance < distThresh * searchLimit)
 				{
-					point -= viewVector * step;
+					scan -= step;
+					point = start + viewVector * scan;
 				}
 			}
 			outF = CalculateDistance(consts, point, &calcParam);
@@ -213,8 +222,7 @@ kernel void fractal3D(
 
 	if (consts->params.mainLightPositionAsRelative) lightVector = Matrix33MulFloat3(rot, lightVector);
 
-	distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-	distThresh = max(1e-6, distThresh);
+	distThresh = CalcDistThresh(point, consts);
 
 	sShaderInputDataCl shaderInputData;
 	shaderInputData.point = point;

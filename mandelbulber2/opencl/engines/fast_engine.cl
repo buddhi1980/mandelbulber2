@@ -94,8 +94,7 @@ kernel void fractal3D(
 	for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 	{
 		point = start + viewVector * scan;
-		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-		distThresh = max(1e-6, distThresh);
+		distThresh = CalcDistThresh(point, consts);
 		calcParam.distThresh = distThresh;
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam);
@@ -146,8 +145,7 @@ kernel void fractal3D(
 	float3 surfaceColour = 1.0f;
 	if (found)
 	{
-		distThresh = length(point - consts->params.camera) * resolution * consts->params.fov;
-		distThresh = max(1e-6, distThresh);
+		distThresh = CalcDistThresh(point, consts);
 
 		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
 		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;

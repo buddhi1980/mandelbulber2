@@ -36,13 +36,25 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 	float distThresh, sClCalcParams *calcParam)
 {
 #ifndef SLOW_SHADING
-	float delta = distThresh;
+	float delta = distThresh * consts->params.smoothness;
+#ifdef INTERIOR_MODE
+	delta = calcParam->distThresh * 0.2f * consts->params.smoothness;
+#endif
+
 	calcParam->distThresh = distThresh;
-	float s1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
-	float s2 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
-	float s3 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
-	float3 normal = (float3){s1 - mainDistance, s2 - mainDistance, s3 - mainDistance};
+	calcParam->normalCalculationMode = true;
+	float sx1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
+	float sx2 = CalculateDistance(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam).distance;
+
+	float sy1 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
+	float sy2 = CalculateDistance(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam).distance;
+
+	float sz1 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
+	float sz2 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam).distance;
+
+	float3 normal = (float3){sx1 - sx2, sy1 - sy2, sz1 - sz2};
 	normal = normalize(normal);
+	calcParam->normalCalculationMode = false;
 	return normal;
 #else
 
@@ -50,9 +62,13 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 
 	float3 point2;
 	float3 point3;
-	float delta = distThresh * consts->params.smoothness * 0.5f;
 
+	float delta = calcParam->detailSize * consts->params.smoothness;
+#ifdef INTERIOR_MODE
+	delta = calcParam->distThresh * 0.2f * consts->params.smoothness;
+#endif
 	calcParam->distThresh = distThresh;
+	calcParam->normalCalculationMode = true;
 
 	float3 normal = 0.0f;
 	for (point2.x = -1.0; point2.x <= 1.0; point2.x += 0.2) //+0.2
@@ -67,7 +83,7 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 			}
 		}
 	}
-
+	calcParam->normalCalculationMode = false;
 	normal = normalize(normal);
 	return normal;
 #endif

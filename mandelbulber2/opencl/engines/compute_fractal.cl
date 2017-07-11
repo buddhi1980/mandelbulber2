@@ -96,6 +96,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// begin
 	float dist = 0.0f;
 	int N = calcParam->N;
+
+	if (calcParam->normalCalculationMode) N *= 5;
+
 	float4 z;
 	z.x = point.x;
 	z.y = point.y;
@@ -233,7 +236,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					break;
 				}
 			}
-#endif //FAKE_LIGHTS
+#endif // FAKE_LIGHTS
 		}
 	}
 
