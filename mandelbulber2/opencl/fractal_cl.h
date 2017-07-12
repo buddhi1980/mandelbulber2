@@ -605,7 +605,7 @@ typedef struct
 
 typedef struct
 {
-
+	cl_int formula;
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
 	sFractalMandelboxCl mandelbox;
@@ -1204,6 +1204,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 inline sFractalCl clCopySFractalCl(sFractal &source)
 {
 	sFractalCl target;
+	target.formula = cl_int(source.formula);
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);

@@ -164,23 +164,42 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		if (consts->sequence.addCConstant[formulaIndex])
 		{
-			if (consts->sequence.juliaEnabled[formulaIndex])
+			switch (fractal->formula)
 			{
-				z += consts->sequence.juliaConstant[formulaIndex]
-						 * consts->sequence.constantMultiplier[formulaIndex];
-			}
-			else
-			{
-				z += c * consts->sequence.constantMultiplier[formulaIndex];
+				case 64: // aboxMod1
+				case 73: // amazingSurf
+				{
+					if (consts->sequence.juliaEnabled[formulaIndex])
+					{
+						float4 juliaC = consts->sequence.juliaConstant[formulaIndex]
+														* consts->sequence.constantMultiplier[formulaIndex];
+						z += (float4){juliaC.y, juliaC.x, juliaC.z, juliaC.w};
+					}
+					else
+					{
+						z += (float4){aux.const_c.y, aux.const_c.x, aux.const_c.z, aux.const_c.w}
+								 * consts->sequence.constantMultiplier[formulaIndex];
+					}
+					break;
+				}
+
+				default:
+				{
+					if (consts->sequence.juliaEnabled[formulaIndex])
+					{
+						z += consts->sequence.juliaConstant[formulaIndex]
+								 * consts->sequence.constantMultiplier[formulaIndex];
+					}
+					else
+					{
+						z += aux.const_c * consts->sequence.constantMultiplier[formulaIndex];
+					}
+				}
 			}
 		}
 
-// calculate r
-#ifdef ANALYTIC_PSEUDO_KLEINIAN_DE
-		aux.r = length(z.xy);
-#else
+		// calculate r
 		aux.r = length(z);
-#endif
 
 		// escape conditions
 		if (consts->sequence.checkForBailout[formulaIndex])
@@ -217,7 +236,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			{
 				// TODO another coloring modes
 				// TODO exception for mandelbox
-				if (aux.r < colorMin) colorMin = aux.r;
+				if (fractal->formula != 8) // not mandelbox
+				{
+					if (aux.r < colorMin) colorMin = aux.r;
+				}
 				if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
 			}
 #ifdef FAKE_LIGHTS
@@ -247,7 +269,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #elif ANALYTIC_LINEAR_DE
 	dist = (aux.r - 2.0f) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
-	dist = max(aux.r - aux.pseudoKleinianDE, fabs(aux.r * z.z) / aux.r) / (aux.DE);
+	float rxy = length(z.xy);
+	dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
 #elif ANALYTIC_JOS_KLEINIAN_DE
 	if (fractal->transformCommon.functionEnabled)
 		z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
@@ -275,8 +298,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			switch (consts->sequence.coloringFunction[formulaIndex])
 			{
 				case clColoringFunctionABox:
-					out.colorIndex = aux.color * 100.0f + aux.r * fractal->mandelbox.color.factorR / 1.0e13f
-													 + colorMin * 1000.0f;
+					out.colorIndex = aux.color * 100.0f + aux.r * fractal->mandelbox.color.factorR / 1.0e13f;
 					// TODO another coloring modes
 					break;
 				case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
