@@ -17,8 +17,7 @@
 #ifndef DOUBLE_PRECISION
 float4 AmazingSurfMod1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -109,6 +108,9 @@ float4 AmazingSurfMod1Iteration(float4 z, __constant sFractalCl *fractal, sExten
 		1.0f * (1.0f - fractal->transformCommon.scale1));
 
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	aux->foldFactor = fractal->foldColor.compFold0; // fold group weight
@@ -122,8 +124,7 @@ float4 AmazingSurfMod1Iteration(float4 z, __constant sFractalCl *fractal, sExten
 #else
 double4 AmazingSurfMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -214,6 +215,9 @@ double4 AmazingSurfMod1Iteration(double4 z, __constant sFractalCl *fractal, sExt
 			 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
 	aux->foldFactor = fractal->foldColor.compFold0; // fold group weight

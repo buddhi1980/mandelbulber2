@@ -22,8 +22,6 @@ float4 MandelboxVaryScale4dIteration(float4 z, __constant sFractalCl *fractal, s
 		z.w += paraAddP0;
 	}
 
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	float4 oldZ = z;
 	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
@@ -51,6 +49,8 @@ float4 MandelboxVaryScale4dIteration(float4 z, __constant sFractalCl *fractal, s
 	}
 	z *= m;
 	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
@@ -114,8 +114,7 @@ double4 MandelboxVaryScale4dIteration(
 		z.w += paraAddP0;
 	}
 
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	double4 oldZ = z;
 	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
@@ -143,6 +142,8 @@ double4 MandelboxVaryScale4dIteration(
 	}
 	z *= m;
 	aux->DE = aux->DE * fabs(m) + 1.0;
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR

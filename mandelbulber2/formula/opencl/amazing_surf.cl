@@ -21,8 +21,7 @@ float4 AmazingSurfIteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 {
 	float4 c = aux->const_c;
 
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -39,6 +38,8 @@ float4 AmazingSurfIteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 	float m = native_divide(aux->actualScale, dividend);
 	z *= mad(m, fractal->transformCommon.scale1, 1.0f * (1.0f - fractal->transformCommon.scale1));
 	aux->DE = mad(aux->DE, fabs(m), 1.0f);
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += (float4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
@@ -51,8 +52,6 @@ double4 AmazingSurfIteration(double4 z, __constant sFractalCl *fractal, sExtende
 {
 	double4 c = aux->const_c;
 
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -70,6 +69,8 @@ double4 AmazingSurfIteration(double4 z, __constant sFractalCl *fractal, sExtende
 	z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 	aux->DE = aux->DE * fabs(m) + 1.0;
 
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 		z += (double4){c.y, c.x, c.z, c.w} * fractal->transformCommon.constantMultiplier111;
 
