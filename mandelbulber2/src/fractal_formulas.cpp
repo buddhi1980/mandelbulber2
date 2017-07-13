@@ -725,8 +725,7 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
 
-	aux.actualScale =
-		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
 
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
@@ -768,6 +767,9 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -866,10 +868,11 @@ void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	// Scale
-	aux.actualScale =
-		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	aux.actualScale =
+	fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -1063,10 +1066,11 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		aux.actualScale =
-			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 		z *= aux.actualScale;
 		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+
+		aux.actualScale =
+			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
