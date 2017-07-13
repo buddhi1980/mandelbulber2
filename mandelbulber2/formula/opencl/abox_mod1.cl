@@ -121,7 +121,6 @@ double4 AboxMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	double4 c = aux->const_c;
 
-
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
 							 - fractal->mandelbox.foldingValue)

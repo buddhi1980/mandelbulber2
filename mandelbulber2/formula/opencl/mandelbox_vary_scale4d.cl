@@ -114,7 +114,6 @@ double4 MandelboxVaryScale4dIteration(
 		z.w += paraAddP0;
 	}
 
-
 	double4 oldZ = z;
 	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;

@@ -53,6 +53,7 @@ float4 AboxVSIcen1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 	}
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+
 	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 
 	if (fractal->transformCommon.juliaMode)
@@ -104,6 +105,7 @@ double4 AboxVSIcen1Iteration(double4 z, __constant sFractalCl *fractal, sExtende
 	}
 	z *= aux->actualScale;
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+
 	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0);
 
 	if (fractal->transformCommon.juliaMode)

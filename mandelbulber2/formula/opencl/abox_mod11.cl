@@ -158,7 +158,6 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-
 		z *= aux->actualScale;
 		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
 
@@ -369,9 +368,9 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-
 		z *= aux->actualScale;
 		aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+
 		aux->actualScale = mad(
 			(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	}

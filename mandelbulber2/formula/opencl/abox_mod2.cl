@@ -66,10 +66,8 @@ float4 AboxMod2Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
-
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
-
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -162,7 +160,6 @@ double4 AboxMod2Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
-
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
