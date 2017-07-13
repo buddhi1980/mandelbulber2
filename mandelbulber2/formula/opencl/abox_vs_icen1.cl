@@ -19,8 +19,6 @@ float4 AboxVSIcen1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 {
 	float4 c = aux->const_c;
 
-	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
-
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -54,8 +52,8 @@ float4 AboxVSIcen1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z *= aux->actualScale;
-
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 
 	if (fractal->transformCommon.juliaMode)
 	{
@@ -71,8 +69,6 @@ float4 AboxVSIcen1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedA
 double4 AboxVSIcen1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
-	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0);
 
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -107,8 +103,8 @@ double4 AboxVSIcen1Iteration(double4 z, __constant sFractalCl *fractal, sExtende
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z *= aux->actualScale;
-
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+	aux->actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0);
 
 	if (fractal->transformCommon.juliaMode)
 	{

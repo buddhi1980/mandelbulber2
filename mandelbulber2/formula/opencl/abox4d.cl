@@ -57,10 +57,12 @@ float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset0000;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
@@ -164,10 +166,12 @@ double4 Abox4dIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset0000;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	z *= aux->actualScale;
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR

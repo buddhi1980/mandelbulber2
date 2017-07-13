@@ -1265,8 +1265,6 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 {
 	CVector4 c = aux.const_c;
 
-	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -1300,8 +1298,9 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z *= aux.actualScale;
-
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+
+	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	if (fractal->transformCommon.juliaMode)
 	{
@@ -8949,10 +8948,12 @@ void Abox4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset0000;
-	aux.actualScale =
-		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
