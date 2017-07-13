@@ -1272,9 +1272,9 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	sFractalOut fractOut;
 	Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 	double rr = fractOut.orbitTrapR;
-
-	double fakeLight = params->fakeLightsIntensity / rr;
 	double r = 1.0 / (rr + 1e-30);
+
+	double fakeLight = params->fakeLightsIntensity / r;
 
 	CVector3 deltaX(delta, 0.0, 0.0);
 	CVector3 deltaY(0.0, delta, 0.0);
