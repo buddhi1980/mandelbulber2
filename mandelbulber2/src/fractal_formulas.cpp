@@ -8051,6 +8051,30 @@ void TransfScaleVaryAboxIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z *= aux.actualScale;
 		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 		aux.r_dz *= fabs(aux.actualScale);
+		aux.actualScale =
+			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	}
+	else
+	{
+		z *= fractal->mandelbox.scale;
+		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+		aux.r_dz *= fabs(fractal->mandelbox.scale);
+	}
+}
+
+/**
+ * scale vary Abox v2- based on DarkBeams maths
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfScaleVaryAboxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		z *= aux.actualScale;
+		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		aux.r_dz *= fabs(aux.actualScale);
 
 		double base = fractal->mandelbox.scale;
 		double vary = (fabs(aux.actualScale) - fractal->transformCommon.offset1);
