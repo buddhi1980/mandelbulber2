@@ -19,11 +19,12 @@ float4 TransfScaleVaryAboxIteration(float4 z, __constant sFractalCl *fractal, sE
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
-			fractal->mandelbox.scale);
 		z *= aux->actualScale;
 		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
 		aux->r_dz *= fabs(aux->actualScale);
+
+		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
+			fractal->mandelbox.scale);
 	}
 	else
 	{
@@ -39,11 +40,13 @@ double4 TransfScaleVaryAboxIteration(double4 z, __constant sFractalCl *fractal, 
 	if (aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		aux->actualScale = mad(
-			(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 		z *= aux->actualScale;
 		aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
 		aux->r_dz *= fabs(aux->actualScale);
+
+		aux->actualScale = mad(
+			(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	}
 	else
 	{

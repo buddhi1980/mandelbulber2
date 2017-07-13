@@ -61,7 +61,7 @@ enum enumFractalFormula
 	mandelbulb4 = 15,
 	boxFoldBulbPow2 = 16,
 	mandelboxSmooth = 17,
-	mandelboxVaryScale4d = 18, // updated V2.10, fix scale v2.11
+	mandelboxVaryScale4d = 18, // updated V2.10, fix scaleVary v2.12
 	aexion = 19,
 	benesi = 20,
 	bristorbrot = 21,
@@ -101,7 +101,7 @@ enum enumFractalFormula
 	mengerMod1 = 61, // fix V2.10
 	quaternion3d = 62,
 	aexionOctopusMod = 63,
-	aboxMod1 = 64,				// fix scale v2.11
+	aboxMod1 = 64,				// fix scale v2.11 v2.12
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
 	benesiT1PineTree = 67, // updated V2.09
@@ -112,9 +112,9 @@ enum enumFractalFormula
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73, // fix scale v2.12
 	kalisets1 = 74,
-	aboxMod2 = 75, // fix scale v2.11
+	aboxMod2 = 75, // fix scale v2.11 v2.12
 	aboxVSIcen1 = 76,
-	amazingSurfMod1 = 77, // updated V2.08
+	amazingSurfMod1 = 77, // updated V2.08 v2.12
 	mandelbulbVaryPowerV1 = 78,
 	quaternion4d = 79, // updated V2.10
 	msltoeSym3Mod2 = 80,
@@ -156,11 +156,11 @@ enum enumFractalFormula
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
-	abox4d = 116,
+	abox4d = 116,  // fixed varyscale v2.12
 	// V2.11
 	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118, // mbulb default changed V2.12
-	aboxMod11 = 119,
+	aboxMod11 = 119,  // fixed varyscale v2.12
 	// V2.12
 	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,

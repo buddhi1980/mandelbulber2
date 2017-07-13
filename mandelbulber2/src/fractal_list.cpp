@@ -537,7 +537,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSphericalInvC, TransfSphericalInvCIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold", "transf_spherical_fold",
-		transfSphericalFold, TransfSphericalFoldIteration, analyticDEType, withoutDEFunction,
+		transfSphericalFold, TransfSphericalFoldIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold ABox", "transf_spherical_fold_abox",
 		transfSphericalFoldAbox, TransfSphericalFoldAboxIteration, analyticDEType, linearDEFunction,

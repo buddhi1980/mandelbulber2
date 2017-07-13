@@ -8039,7 +8039,7 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
- * scale vary Abox- DarkBeams
+ * scale vary Abox- based on DarkBeams maths
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
@@ -8048,11 +8048,44 @@ void TransfScaleVaryAboxIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		aux.actualScale =
-			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 		z *= aux.actualScale;
 		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 		aux.r_dz *= fabs(aux.actualScale);
+
+		double base = fractal->mandelbox.scale;
+		double vary = (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+
+		if (fractal->transformCommon.functionEnabled)
+		{
+			aux.actualScale =
+				base + fractal->mandelboxVary4D.scaleVary * (vary);
+		}
+		else if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			base = aux.actualScale;
+			aux.actualScale =
+				base + fractal->transformCommon.scale0 * (vary);
+		}
+
+		else if (fractal->transformCommon.functionEnabledByFalse)
+		{
+			double base2 =
+				base + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+
+			aux.actualScale =
+				base2 + fractal->transformCommon.scale0 * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+		}
+
+		else if (fractal->transformCommon.functionEnabledBzFalse)
+		{
+
+				base = aux.actualScale;
+				double base2 =
+					base + fractal->transformCommon.scale0 * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+
+				aux.actualScale =
+					base2 + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+		}
 	}
 	else
 	{
@@ -8060,6 +8093,22 @@ void TransfScaleVaryAboxIteration(CVector4 &z, const sFractal *fractal, sExtende
 		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
 		aux.r_dz *= fabs(fractal->mandelbox.scale);
 	}
+
+/*	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		z *= aux.actualScale;
+		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		aux.r_dz *= fabs(aux.actualScale);
+		aux.actualScale =
+			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	}
+	else
+	{
+		z *= fractal->mandelbox.scale;
+		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+		aux.r_dz *= fabs(fractal->mandelbox.scale);
+	}*/
 }
 
 /**
