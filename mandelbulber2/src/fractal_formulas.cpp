@@ -6231,7 +6231,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 	// (Y + L*a).Dot(Nv) = solid.
 	// a = (solid - Y.Dot(Nv))/L.Dot(Nv) = b/c
 	CVector3 L = zXYZ;
-	double a = 1;
+	double a = 1.0;
 	CVector3 Y; // Y is the origin in this case.
 	int side = -1;
 	double b, c;
@@ -6260,7 +6260,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 		// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
 		L = X_m - Nv_m;
 		Y = Nv_m;
-		a = 1;
+		a = 1.0;
 		side = -1;
 
 		for (i = 0; i < sides; i++)
@@ -6297,7 +6297,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 			if (a_rmin < 0.0)
 			{
 				a_rmin = -a_rmin;
-				L_r = L_r * (-1);
+				L_r = L_r * (-1.0);
 			}
 			CVector3 X_r = Xmr_intersect + L_r * a_rmin;
 
@@ -6306,7 +6306,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 			// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.
 			L = X_r - Xmr_intersect;
 			Y = Xmr_intersect;
-			a = 1;
+			a = 1.0;
 			side = -1;
 
 			for (i = 0; i < sides; i++)

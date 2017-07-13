@@ -66,7 +66,7 @@ float4 GeneralizedFoldBoxIteration(float4 z, __constant sFractalCl *fractal, sEx
 	// (Y + L*a).Dot(Nv) = solid.
 	// a = (solid - dot(Y, Nv))/dot(L, Nv) = b/c
 	float3 L = zXYZ;
-	float a = 1;
+	float a = 1.0f;
 	float3 Y; // Y is the origin in this case.
 	int side = -1;
 	float b, c;
@@ -95,7 +95,7 @@ float4 GeneralizedFoldBoxIteration(float4 z, __constant sFractalCl *fractal, sEx
 		// a = (solid - dot(Y, Nv)/dot(L, Nv) = b/c.
 		L = X_m - Nv_m;
 		Y = Nv_m;
-		a = 1;
+		a = 1.0f;
 		side = -1;
 
 		for (i = 0; i < sides; i++)
@@ -132,7 +132,7 @@ float4 GeneralizedFoldBoxIteration(float4 z, __constant sFractalCl *fractal, sEx
 			if (a_rmin < 0.0f)
 			{
 				a_rmin = -a_rmin;
-				L_r = L_r * (-1);
+				L_r = L_r * (-1.0f);
 			}
 			float3 X_r = mad(a_rmin, L_r, Xmr_intersect);
 
@@ -141,7 +141,7 @@ float4 GeneralizedFoldBoxIteration(float4 z, __constant sFractalCl *fractal, sEx
 			// a = (solid - dot(Y, Nv)/dot(L, Nv) = b/c.
 			L = X_r - Xmr_intersect;
 			Y = Xmr_intersect;
-			a = 1;
+			a = 1.0f;
 			side = -1;
 
 			for (i = 0; i < sides; i++)
@@ -284,7 +284,7 @@ double4 GeneralizedFoldBoxIteration(double4 z, __constant sFractalCl *fractal, s
 	// (Y + L*a).Dot(Nv) = solid.
 	// a = (solid - dot(Y, Nv))/dot(L, Nv) = b/c
 	double3 L = zXYZ;
-	double a = 1;
+	double a = 1.0;
 	double3 Y; // Y is the origin in this case.
 	int side = -1;
 	double b, c;
@@ -313,7 +313,7 @@ double4 GeneralizedFoldBoxIteration(double4 z, __constant sFractalCl *fractal, s
 		// a = (solid - dot(Y, Nv)/dot(L, Nv) = b/c.
 		L = X_m - Nv_m;
 		Y = Nv_m;
-		a = 1;
+		a = 1.0;
 		side = -1;
 
 		for (i = 0; i < sides; i++)
@@ -350,7 +350,7 @@ double4 GeneralizedFoldBoxIteration(double4 z, __constant sFractalCl *fractal, s
 			if (a_rmin < 0.0)
 			{
 				a_rmin = -a_rmin;
-				L_r = L_r * (-1);
+				L_r = L_r * (-1.0);
 			}
 			double3 X_r = mad(a_rmin, L_r, Xmr_intersect);
 
@@ -359,7 +359,7 @@ double4 GeneralizedFoldBoxIteration(double4 z, __constant sFractalCl *fractal, s
 			// a = (solid - dot(Y, Nv)/dot(L, Nv) = b/c.
 			L = X_r - Xmr_intersect;
 			Y = Xmr_intersect;
-			a = 1;
+			a = 1.0;
 			side = -1;
 
 			for (i = 0; i < sides; i++)
