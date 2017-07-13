@@ -53,30 +53,30 @@ inline matrix33 toClMatrix33(CRotationMatrix source)
 {
 	CMatrix33 matrix = source.GetMatrix();
 	matrix33 m;
-	m.m1 = {cl_float(matrix.m11), cl_float(matrix.m12), cl_float(matrix.m13), cl_float(0.0)};
-	m.m2 = {cl_float(matrix.m21), cl_float(matrix.m22), cl_float(matrix.m23), cl_float(0.0)};
-	m.m3 = {cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33), cl_float(0.0)};
+	m.m1 = {{cl_float(matrix.m11), cl_float(matrix.m12), cl_float(matrix.m13), cl_float(0.0)}};
+	m.m2 = {{cl_float(matrix.m21), cl_float(matrix.m22), cl_float(matrix.m23), cl_float(0.0)}};
+	m.m3 = {{cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33), cl_float(0.0)}};
 	return m;
 }
 inline cl_float3 toClFloat3(CVector3 v)
 {
-	cl_float3 retVal = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)};
+	cl_float3 retVal = {{cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)}};
 	return retVal;
 }
 inline cl_int3 toClInt3(sRGB c)
 {
-	cl_int3 retVal = {cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)};
+	cl_int3 retVal = {{cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)}};
 	return retVal;
 }
 inline cl_float3 toClFloat3(sRGB c)
 {
 	cl_float3 retVal = {
-		cl_float(c.R / 65536.0f), cl_float(c.G / 65536.0f), cl_float(c.B / 65536.0f), cl_float(1.0f)};
+		{cl_float(c.R / 65536.0f), cl_float(c.G / 65536.0f), cl_float(c.B / 65536.0f), cl_float(1.0f)}};
 	return retVal;
 }
 inline cl_float4 toClFloat4(CVector4 v)
 {
-	cl_float4 retVal = {cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)};
+	cl_float4 retVal = {{cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(v.w)}};
 	return retVal;
 }
 #endif
