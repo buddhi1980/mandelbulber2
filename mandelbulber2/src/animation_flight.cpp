@@ -486,6 +486,9 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		ImageFileSave::enumImageFileType fileType =
 			ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+		gApplication->processEvents();
+
 		index++;
 	}
 
