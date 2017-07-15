@@ -167,6 +167,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// normal vector calculation
 		programEngine.append("#include \"" + openclEnginePath + "normal_vector.cl\"\n");
 
+		// 3D projections (3point, equirectagular, fisheye)
+		programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
+
 		if (params->Get<int>("gpu_mode") != clRenderEngineTypeFast)
 		{
 			// shaders
@@ -290,6 +293,15 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			QString functionName = internalID.left(1).toUpper() + internalID.mid(1) + "Iteration";
 			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 		}
+	}
+
+	// ---- perspective projections ------
+	switch (paramRender->perspectiveType)
+	{
+		case params::perspThreePoint: definesCollector += " -DPERSP_THREE_POINT"; break;
+		case params::perspEquirectangular: definesCollector += " -DPERSP_EQUIRECTANGULAR"; break;
+		case params::perspFishEye: definesCollector += " -DPERSP_FISH_EYE"; break;
+		case params::perspFishEyeCut: definesCollector += " -DPERSP_FISH_EYE_CUT"; break;
 	}
 
 	// ------------ enabling shaders ----------

@@ -48,6 +48,7 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 	paramsSSAO.height = 0;
 	paramsSSAO.width = 0;
 	paramsSSAO.height = 0;
+	paramsSSAO.quality = 0;
 	intensity = 0.0;
 	numberOfPixels = 0;
 	inCLZBuffer = nullptr;
@@ -277,8 +278,8 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelsLeft, int pixelIndex)
 	err = queue->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot finish rendering SSAO"),
-			cErrorMessage::errorMessage, nullptr);
+		emit showErrorMessage(
+			QObject::tr("Cannot finish rendering SSAO"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 

@@ -384,7 +384,6 @@ void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int i
 		gOpenCl->Reset();
 		gOpenCl->openClHardware->CreateContext(
 			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
-		gOpenCl->openClHardware->getClDevices();
 
 		ui->listWidget_gpu_device_list->clear();
 
