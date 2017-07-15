@@ -707,6 +707,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
+	par->addParam("transf_offset_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_8", 8.0, morphAkima, paramStandard);
@@ -732,6 +733,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_scaleB_3", 3.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_8", 8.0, morphAkima, paramStandard);
+
+	par->addParam("transf_scale_main_2", 2.0, morphAkima, paramStandard);
+	par->addParam("transf_scale_vary_0", 0.0, morphAkima, paramStandard);
 
 	par->addParam("transf_int_A", 0, morphLinear, paramStandard);
 	par->addParam("transf_int_B", 0, morphLinear, paramStandard);

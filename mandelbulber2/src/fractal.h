@@ -75,6 +75,7 @@ struct sExtendedAux
 	double DE;
 	double color;
 	double actualScale;
+	double actualScaleA;
 	double pseudoKleinianDE;
 	double linearDE;
 	double cw;
@@ -424,6 +425,7 @@ struct sFractalTransformCommon
 	double offset1;
 	double offset105;
 	double offset2;
+	double offset4;
 	double multiplication;
 	double minRNeg1;
 	double minR0;
@@ -453,6 +455,10 @@ struct sFractalTransformCommon
 	double scaleB3;
 	double scale4;
 	double scale8;
+
+	double scaleMain2;
+	double scaleVary0;
+
 	double pwr05;
 	double pwr4;
 	double pwr8;

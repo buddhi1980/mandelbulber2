@@ -266,6 +266,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offset1 = container->Get<double>("transf_offset_1");
 	transformCommon.offset105 = container->Get<double>("transf_offset_105");
 	transformCommon.offset2 = container->Get<double>("transf_offset_2");
+	transformCommon.offset4 = container->Get<double>("transf_offset_4");
 	transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
 	transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
 	transformCommon.pwr8 = container->Get<double>("transf_pwr_8");
@@ -291,6 +292,9 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.scaleB3 = container->Get<double>("transf_scaleB_3");
 	transformCommon.scale4 = container->Get<double>("transf_scale_4");
 	transformCommon.scale8 = container->Get<double>("transf_scale_8");
+
+	transformCommon.scaleMain2 = container->Get<double>("transf_scale_main_2");
+	transformCommon.scaleVary0 = container->Get<double>("transf_scale_vary_0");
 
 	transformCommon.intA = container->Get<int>("transf_int_A");
 	transformCommon.intB = container->Get<int>("transf_int_B");
