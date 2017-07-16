@@ -516,8 +516,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Scale", "transf_scale", transfScale,
 		TransfScaleIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Scale Vary ABox", "transf_scale_vary_abox",
-		transfScaleVaryAbox, TransfScaleVaryAboxIteration, analyticDEType, withoutDEFunction,
+	fractalList->append(sFractalDescription("T>Scale Vary V2.12", "transf_scale_vary_v212",
+		transfScaleVaryV212, TransfScaleVaryV212Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Scale Vary ABoxV2", "transf_scale_vary_abox_v2",

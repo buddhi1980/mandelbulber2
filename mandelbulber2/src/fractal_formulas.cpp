@@ -8039,56 +8039,50 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
- * scale vary Abox- based on DarkBeams maths
+ * scale vary V2.12.- based on DarkBeams maths
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
-void TransfScaleVaryAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		if (fractal->transformCommon.functionEnabledFalse) // old v2.11
+		if (fractal->transformCommon.functionEnabledBxFalse)
 		{
-			aux.actualScaleA =
-				fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) - 1.0);
+			aux.actualScaleA = fabs(aux.actualScaleA);
 		}
-		else
-		{
-			aux.actualScaleA =
-				fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) - 1.0) + fractal->transformCommon.scaleVary0;
-		}
+		aux.actualScaleA =
+			fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * aux.actualScaleA;
 
-		if (fractal->transformCommon.functionEnabledBxFalse) // limits
+		if (fractal->transformCommon.functionEnabledByFalse) // limits
 		{
 			if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
 			if (aux.actualScaleA > fractal->transformCommon.offset4) aux.actualScaleA = fractal->transformCommon.offset4;
 		}
 
-			z *= aux.actualScaleA;// version v2.12
+			z *= aux.actualScaleA;
 			aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
 			aux.r_dz *= fabs(aux.actualScaleA);
 	}
 
-	if (aux.i < fractal->transformCommon.startIterations)
+	else if (aux.i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
 
-	if ( aux.i >= fractal->transformCommon.stopIterations)
+	else
 	{
+		if (fractal->transformCommon.functionEnabledBzFalse)
+				{
+					aux.actualScaleA = fractal->transformCommon.scaleMain2;
+				}
 		z *= aux.actualScaleA;
 		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
 		aux.r_dz *= fabs(aux.actualScaleA);
 	}
-
-	/*if (fractal->transformCommon.functionEnabledBxFalse)
-	{
-		if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
-		if (aux.actualScaleA > fractal->transformCommon.offset4) aux.actualScaleA = fractal->transformCommon.offset4;
-	}*/
 }
 
 /**
