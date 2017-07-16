@@ -8054,16 +8054,16 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 		aux.actualScaleA =
 			fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * aux.actualScaleA;
-
+		double temp = aux.actualScaleA;
 		if (fractal->transformCommon.functionEnabledByFalse) // limits
 		{
-			if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
-			if (aux.actualScaleA > fractal->transformCommon.offset4) aux.actualScaleA = fractal->transformCommon.offset4;
+			if (aux.actualScaleA < fractal->transformCommon.offset0) temp = fractal->transformCommon.offset0;
+			if (aux.actualScaleA > fractal->transformCommon.offset4) temp = fractal->transformCommon.offset4;
 		}
 
-			z *= aux.actualScaleA;
-			aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
-			aux.r_dz *= fabs(aux.actualScaleA);
+			z *= temp;
+			aux.DE = aux.DE * fabs(temp) + 1.0;
+			aux.r_dz *= fabs(temp);
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
