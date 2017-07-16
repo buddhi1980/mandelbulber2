@@ -8045,51 +8045,45 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void TransfScaleVaryAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledBxFalse)
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
-		if (aux.actualScaleA > fractal->transformCommon.offset4) aux.actualScaleA = fractal->transformCommon.offset4;
-	}
-
-
-	if (fractal->transformCommon.functionEnabledFalse) // old v2.11
-	{
-		if (aux.i >= fractal->transformCommon.startIterations
-				&& aux.i < fractal->transformCommon.stopIterations)
+		if (fractal->transformCommon.functionEnabledFalse) // old v2.11
 		{
-			aux.actualScaleA =
-				fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) - 1.0);
-
-			z *= aux.actualScaleA;
-			aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
-			aux.r_dz *= fabs(aux.actualScaleA);
-		}
-		else
-		{
-			z *= fractal->transformCommon.scaleMain2;
-			aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
-			aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
-		}
-	}
-	else // version v2.12
-	{
-		if (aux.i >= fractal->transformCommon.startIterations
-					&& aux.i < fractal->transformCommon.stopIterations)
-		{
-			z *= aux.actualScaleA;
-			aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
-			aux.r_dz *= fabs(aux.actualScaleA);
-
 			aux.actualScaleA =
 				fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) - 1.0);
 		}
 		else
 		{
-			z *= fractal->transformCommon.scaleMain2;
-			aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
-			aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
+			aux.actualScaleA =
+				fractal->transformCommon.scaleMain2 + fractal->transformCommon.scaleVary0 * (fabs(aux.actualScaleA) - 1.0) + fractal->transformCommon.scaleVary0;
 		}
+
+		if (fractal->transformCommon.functionEnabledBxFalse) // limits
+		{
+			if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
+			if (aux.actualScaleA > fractal->transformCommon.offset4) aux.actualScaleA = fractal->transformCommon.offset4;
+		}
+
+			z *= aux.actualScaleA;// version v2.12
+			aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
+			aux.r_dz *= fabs(aux.actualScaleA);
 	}
+
+	if (aux.i < fractal->transformCommon.startIterations)
+	{
+		z *= fractal->transformCommon.scaleMain2;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
+		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
+	}
+
+	if ( aux.i >= fractal->transformCommon.stopIterations)
+	{
+		z *= aux.actualScaleA;
+		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
+		aux.r_dz *= fabs(aux.actualScaleA);
+	}
+
 	/*if (fractal->transformCommon.functionEnabledBxFalse)
 	{
 		if (aux.actualScaleA < fractal->transformCommon.offset0) aux.actualScaleA = fractal->transformCommon.offset0;
