@@ -79,6 +79,7 @@ typedef struct
 	cl_float DE;
 	cl_float color;
 	cl_float actualScale;
+	cl_float actualScaleA;
 	cl_float pseudoKleinianDE;
 	cl_float linearDE;
 	cl_float cw;
@@ -407,6 +408,7 @@ typedef struct
 	cl_float offset1;
 	cl_float offset105;
 	cl_float offset2;
+	cl_float offset4;
 	cl_float multiplication;
 	cl_float minRNeg1;
 	cl_float minR0;
@@ -436,6 +438,8 @@ typedef struct
 	cl_float scaleB3;
 	cl_float scale4;
 	cl_float scale8;
+	cl_float scaleMain2;
+	cl_float scaleVary0;
 	cl_float pwr05;
 	cl_float pwr4;
 	cl_float pwr8;
@@ -645,6 +649,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.DE = source.DE;
 	target.color = source.color;
 	target.actualScale = source.actualScale;
+	target.actualScaleA = source.actualScaleA;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
 	target.linearDE = source.linearDE;
 	target.cw = source.cw;
@@ -1012,6 +1017,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.offset1 = source.offset1;
 	target.offset105 = source.offset105;
 	target.offset2 = source.offset2;
+	target.offset4 = source.offset4;
 	target.multiplication = source.multiplication;
 	target.minRNeg1 = source.minRNeg1;
 	target.minR0 = source.minR0;
@@ -1041,6 +1047,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.scaleB3 = source.scaleB3;
 	target.scale4 = source.scale4;
 	target.scale8 = source.scale8;
+	target.scaleMain2 = source.scaleMain2;
+	target.scaleVary0 = source.scaleVary0;
 	target.pwr05 = source.pwr05;
 	target.pwr4 = source.pwr4;
 	target.pwr8 = source.pwr8;
