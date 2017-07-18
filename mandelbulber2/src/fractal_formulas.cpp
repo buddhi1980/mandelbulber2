@@ -1285,6 +1285,7 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	aux.actualScale = fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 c = aux.const_c;
 	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -1321,7 +1322,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.DE *= tglad_factor2;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
-	aux.actualScale += fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
@@ -1406,10 +1407,19 @@ void AmazingSurfIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	double sqrtMinR = sqrt(fractal->transformCommon.minR05);
 	double dividend = rr < sqrtMinR ? sqrtMinR : min(rr, 1.0);
 
+	/*if (rr < sqrtMinR)
+	{
+		aux.color += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < 1.0)
+	{
+		aux.color += fractal->mandelbox.color.factorSp2;
+	}*/
 	// use aux.actualScale
 	double m = aux.actualScale / dividend;
 
-	z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
+	z *= (m - 1.0) * fractal->transformCommon.scale1 + 1.0;
+	//z *= m * fractal->transformCommon.scale1 + 1.0 * (1.0 - fractal->transformCommon.scale1);
 	aux.DE = aux.DE * fabs(m) + 1.0;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
@@ -8087,9 +8097,9 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 			if (aux.actualScaleA > fractal->transformCommon.offset4) temp = fractal->transformCommon.offset4;
 		}
 
-			z *= temp;
-			aux.DE = aux.DE * fabs(temp) + 1.0;
-			aux.r_dz *= fabs(temp);
+		z *= temp;
+		aux.DE = aux.DE * fabs(temp) + 1.0;
+		aux.r_dz *= fabs(temp);
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
