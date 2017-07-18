@@ -25,6 +25,7 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
+		float4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -32,9 +33,9 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 
-		aux->color += fractal->mandelbox.color.factor.x;
-		aux->color += fractal->mandelbox.color.factor.y;
-		aux->color += fractal->mandelbox.color.factor.z;
+		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -158,11 +159,17 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
+		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
+			fractal->mandelbox.scale);
+
 		z *= aux->actualScale;
 		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
 
-		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
-			fractal->mandelbox.scale);
+		//aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
+		//	fractal->mandelbox.scale);
+
+
+
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -235,6 +242,7 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
+		double4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -242,9 +250,9 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 
-		aux->color += fractal->mandelbox.color.factor.x;
-		aux->color += fractal->mandelbox.color.factor.y;
-		aux->color += fractal->mandelbox.color.factor.z;
+		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -368,11 +376,12 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		z *= aux->actualScale;
-		aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
-
 		aux->actualScale = mad(
 			(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+		z *= aux->actualScale;
+		aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
+;
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
