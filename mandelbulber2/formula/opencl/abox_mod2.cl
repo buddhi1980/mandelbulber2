@@ -26,13 +26,23 @@ float4 AboxMod2Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	float4 c = aux->const_c;
 
-	// Tglad Fold
+
+	aux->actualScale =  mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+
+	// Tglad Fold  default was 1.5f
+	float4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5f
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	/*	float rr;
 		if (temp > 0.0f)
@@ -63,11 +73,9 @@ float4 AboxMod2Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	// Scale
-
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -117,14 +125,20 @@ float4 AboxMod2Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 double4 AboxMod2Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// Tglad Fold
+	double4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
+				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	/*	double rr;
 		if (temp > 0.0)
@@ -155,11 +169,9 @@ double4 AboxMod2Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	// Scale
-
 	z *= aux->actualScale;
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE

@@ -27,6 +27,10 @@ float4 AboxMod1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	float4 c = aux->const_c;
 
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+	float4 oldZ = z;
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
 							 - fractal->mandelbox.foldingValue)
@@ -35,7 +39,8 @@ float4 AboxMod1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				- fabs(fabs(z.y + fractal->transformCommon.additionConstant000.y)
 							 - fractal->mandelbox.foldingValue)
 				- fabs(fractal->transformCommon.additionConstant000.y);
-
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1
@@ -43,6 +48,7 @@ float4 AboxMod1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 							fabs(z.z + fractal->transformCommon.additionConstant000.z)))
 					- fabs(fractal->transformCommon.additionConstant000.z);
 	}
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	float rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -68,9 +74,6 @@ float4 AboxMod1Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
-
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -121,6 +124,10 @@ double4 AboxMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	double4 c = aux->const_c;
 
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+	double4 oldZ = z;
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
 							 - fractal->mandelbox.foldingValue)
@@ -129,7 +136,8 @@ double4 AboxMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 				- fabs(fabs(z.y + fractal->transformCommon.additionConstant000.y)
 							 - fractal->mandelbox.foldingValue)
 				- fabs(fractal->transformCommon.additionConstant000.y);
-
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1
@@ -137,6 +145,7 @@ double4 AboxMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 							fabs(z.z + fractal->transformCommon.additionConstant000.z)))
 					- fabs(fractal->transformCommon.additionConstant000.z);
 	}
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	double rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -162,9 +171,6 @@ double4 AboxMod1Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	z *= aux->actualScale;
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
-
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE

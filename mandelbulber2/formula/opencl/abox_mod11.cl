@@ -20,7 +20,8 @@
 float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-
+	aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
+		fractal->mandelbox.scale);
 	// tglad fold
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -159,17 +160,13 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
-			fractal->mandelbox.scale);
-
+		//aux->actualScale = fractal->mandelbox.scale;
+		/*aux->actualScaleA = mad((fabs(aux->actualScaleA) - 1.0f), fractal->mandelboxVary4D.scaleVary,
+				fractal->mandelbox.scale);
+		z *= aux->actualScaleA;
+		aux->DE = mad(aux->DE, fabs(aux->actualScaleA), 1.0f);*/
 		z *= aux->actualScale;
 		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
-
-		//aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
-		//	fractal->mandelbox.scale);
-
-
-
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -237,7 +234,8 @@ float4 AboxMod11Iteration(float4 z, __constant sFractalCl *fractal, sExtendedAux
 double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// tglad fold
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -376,9 +374,6 @@ double4 AboxMod11Iteration(double4 z, __constant sFractalCl *fractal, sExtendedA
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		aux->actualScale = mad(
-			(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
-
 		z *= aux->actualScale;
 		aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
 ;

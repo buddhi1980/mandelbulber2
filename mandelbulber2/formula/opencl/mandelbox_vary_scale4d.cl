@@ -14,6 +14,9 @@
 #ifndef DOUBLE_PRECISION
 float4 MandelboxVaryScale4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	float paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
@@ -49,8 +52,7 @@ float4 MandelboxVaryScale4dIteration(float4 z, __constant sFractalCl *fractal, s
 	}
 	z *= m;
 	aux->DE = mad(aux->DE, fabs(m), 1.0f);
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
@@ -106,7 +108,10 @@ float4 MandelboxVaryScale4dIteration(float4 z, __constant sFractalCl *fractal, s
 double4 MandelboxVaryScale4dIteration(
 	double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	double paraAddP0 = 0.0;
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+		double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux->i * fractal->Cpara.parabSlope)
@@ -141,8 +146,7 @@ double4 MandelboxVaryScale4dIteration(
 	}
 	z *= m;
 	aux->DE = aux->DE * fabs(m) + 1.0;
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR

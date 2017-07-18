@@ -13,7 +13,11 @@
 
 #ifndef DOUBLE_PRECISION
 float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+{
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+
+		// parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	float paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -57,9 +61,6 @@ float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset0000;
-
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	z *= aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
@@ -124,7 +125,12 @@ float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 }
 #else
 double4 Abox4dIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
+{
+
+	aux->actualScale = mad(
+		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
+		// parabolic = paraOffset + iter *slope + (iter *iter *scale)
+
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -167,9 +173,6 @@ double4 Abox4dIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset0000;
-
-	aux->actualScale = mad(
-		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	z *= aux->actualScale;
 	aux->DE = aux->DE * fabs(aux->actualScale) + 1.0;
