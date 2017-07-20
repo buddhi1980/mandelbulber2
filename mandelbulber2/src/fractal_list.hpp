@@ -156,11 +156,11 @@ enum enumFractalFormula
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
-	abox4d = 116,  // fixed varyscale v2.12
+	abox4d = 116, // fixed varyscale v2.12
 	// V2.11
 	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118, // mbulb default changed V2.12
-	aboxMod11 = 119,  // fixed varyscale v2.12
+	aboxMod11 = 119,				// fixed varyscale v2.12
 	// V2.12
 	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,
@@ -243,12 +243,11 @@ enum enumFractalFormula
 	transfRotation4d = 1069,
 	// 2.11
 	transfParabFold = 1070,
-	transfScaleVaryV212 = 1071,// fixed V2.12
+	transfScaleVaryV212 = 1071, // fixed V2.12
 	transfSphericalFoldCHS = 1072,
 	transfSphericalFoldParab = 1073,
 	// 2.12
 	transfScaleVaryAboxV2 = 1074,
-
 
 };
 }
