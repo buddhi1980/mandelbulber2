@@ -4,7 +4,7 @@
 # - generates the information boxes in the ui from the source code
 # - generates opencl formulas
 #
-# requires highlight package and php (apt-get install highlight php5-cli)
+# requires highlight package and php (apt-get install highlight php5-cli clang-format)
 # 
 # on default this script runs dry, 
 # it will try to parse all formulas and show which ui files would be modified
