@@ -122,7 +122,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.r_dz = 1.0f;
 	aux.r = length(z);
 	aux.color = 1.0f;
-	aux.actualScale = 2.0f; // fractals.GetFractal(fractalIndex)->mandelbox.scale;
+	aux.actualScale =
+		consts->fractal[0].mandelbox.scale; // TODO: forcedFormulaIndex has to be added here
 	aux.DE = 1.0f;
 	aux.c = c;
 	aux.const_c = c;
