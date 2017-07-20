@@ -78,6 +78,7 @@ foreach($copyFiles as $type => $copyFile){
 	    array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 	    array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
+			array('find' => '/(\s)[a-zA-Z0-9_]+::[a-zA-Z0-9_]+(\s)/', 'replace' => '$1cl_int$2'), // enums with outer scope (::) get cast to int
 
         array('find' => '/struct\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef struct\n$2$3 $1"),
 		array('find' => '/enum\s([a-zA-Z0-9_]+)\n(\s*)({[\S\s]+?\n\2})/', 'replace' => "typedef enum\n$2$3 $1"),

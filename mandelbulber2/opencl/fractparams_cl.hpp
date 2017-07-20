@@ -77,6 +77,13 @@ typedef struct
 	cl_int DOFSamples;
 	cl_int DOFMinSamples;
 
+	cl_int perspectiveType;
+	cl_int ambientOcclusionMode;
+	cl_int texturedBackgroundMapType;
+	cl_int booleanOperator[NUMBER_OF_FRACTALS - 1];
+	cl_int delta_DE_method;
+	cl_int delta_DE_function;
+
 	cl_int antialiasingEnabled;
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
@@ -226,6 +233,11 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.DOFNumberOfPasses = source.DOFNumberOfPasses;
 	target.DOFSamples = source.DOFSamples;
 	target.DOFMinSamples = source.DOFMinSamples;
+	target.perspectiveType = source.perspectiveType;
+	target.ambientOcclusionMode = source.ambientOcclusionMode;
+	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
+	target.delta_DE_method = source.delta_DE_method;
+	target.delta_DE_function = source.delta_DE_function;
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
 	for (int i = 0; i < 4; i++)

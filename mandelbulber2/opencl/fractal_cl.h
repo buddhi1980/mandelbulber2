@@ -438,8 +438,10 @@ typedef struct
 	cl_float scaleB3;
 	cl_float scale4;
 	cl_float scale8;
+
 	cl_float scaleMain2;
 	cl_float scaleVary0;
+
 	cl_float pwr05;
 	cl_float pwr4;
 	cl_float pwr8;
@@ -609,6 +611,7 @@ typedef struct
 
 typedef struct
 {
+
 	cl_int formula;
 	sFractalMandelbulbCl bulb;
 	sFractalIFSCl IFS;
@@ -635,7 +638,7 @@ typedef struct
 //	cl_float customParameters[15];
 //	cl_float deltaDEStep;
 //	char customOCLFormulaName[100];
-
+//	cl_int customOCLFormulaDEMode;
 #endif
 } sFractalCl;
 
@@ -1212,7 +1215,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 inline sFractalCl clCopySFractalCl(sFractal &source)
 {
 	sFractalCl target;
-	target.formula = cl_int(source.formula);
+	target.formula = source.formula;
 	target.bulb = clCopySFractalMandelbulbCl(source.bulb);
 	target.IFS = clCopySFractalIFSCl(source.IFS);
 	target.mandelbox = clCopySFractalMandelboxCl(source.mandelbox);
