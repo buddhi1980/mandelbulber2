@@ -2,7 +2,7 @@
 #
 # this file autogenerates misc files from cpp to opencl
 #
-# requires php (apt-get install php5-cli)
+# requires php (apt-get install php5-cli clang-format)
 # 
 # on default this script runs dry, 
 # it will try to generate the needed files and show which files would be modified
