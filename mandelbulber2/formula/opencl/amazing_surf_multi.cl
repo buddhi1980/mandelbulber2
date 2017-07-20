@@ -17,7 +17,7 @@
 float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-
+	float4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse,
@@ -45,22 +45,22 @@ float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExte
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type3:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type4:
 					// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
@@ -74,8 +74,8 @@ float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExte
 						z.y = copysign(fractal->mandelbox.foldingValue, z.y) - z.y;
 						// aux->color += fractal->mandelbox.color.factor.y;
 					}
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type5:
 					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
@@ -87,6 +87,8 @@ float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExte
 								- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 											 - fractal->transformCommon.offset2)
 								- fractal->transformCommon.additionConstant111.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 			}
 		}
@@ -99,7 +101,7 @@ float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExte
 		if (fabs(z.z) > zLimit)
 		{
 			z.z = copysign(zValue, z.z) - z.z;
-			aux->color += fractal->mandelbox.color.factor.z;
+			if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 		}
 	}
 	z += fractal->transformCommon.additionConstant000;
@@ -215,7 +217,7 @@ float4 AmazingSurfMultiIteration(float4 z, __constant sFractalCl *fractal, sExte
 double4 AmazingSurfMultiIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
+	double4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse,
@@ -243,22 +245,22 @@ double4 AmazingSurfMultiIteration(double4 z, __constant sFractalCl *fractal, sEx
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type3:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type4:
 					// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
@@ -272,8 +274,8 @@ double4 AmazingSurfMultiIteration(double4 z, __constant sFractalCl *fractal, sEx
 						z.y = copysign(fractal->mandelbox.foldingValue, z.y) - z.y;
 						// aux->color += fractal->mandelbox.color.factor.y;
 					}
-					aux->color += fractal->mandelbox.color.factor.x;
-					aux->color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 				case multi_orderOfFoldsCl_type5:
 					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
@@ -285,6 +287,8 @@ double4 AmazingSurfMultiIteration(double4 z, __constant sFractalCl *fractal, sEx
 								- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 											 - fractal->transformCommon.offset2)
 								- fractal->transformCommon.additionConstant111.y;
+					if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+					if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 					break;
 			}
 		}
@@ -297,7 +301,7 @@ double4 AmazingSurfMultiIteration(double4 z, __constant sFractalCl *fractal, sEx
 		if (fabs(z.z) > zLimit)
 		{
 			z.z = copysign(zValue, z.z) - z.z;
-			aux->color += fractal->mandelbox.color.factor.z;
+			if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 		}
 	}
 	z += fractal->transformCommon.additionConstant000;

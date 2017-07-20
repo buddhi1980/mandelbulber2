@@ -17,7 +17,7 @@ float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
-		// parabolic = paraOffset + iter *slope + (iter *iter *scale)
+	// parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	float paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -126,11 +126,10 @@ float4 Abox4dIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 #else
 double4 Abox4dIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
-		// parabolic = paraOffset + iter *slope + (iter *iter *scale)
 
+	// parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{

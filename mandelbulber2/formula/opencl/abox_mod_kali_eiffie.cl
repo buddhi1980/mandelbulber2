@@ -16,7 +16,7 @@
 float4 AboxModKaliEiffieIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	float4 c = aux->const_c;
-
+	float4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -24,9 +24,9 @@ float4 AboxModKaliEiffieIteration(float4 z, __constant sFractalCl *fractal, sExt
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 
-	aux->color += fractal->mandelbox.color.factor.x;
-	aux->color += fractal->mandelbox.color.factor.y;
-	aux->color += fractal->mandelbox.color.factor.z;
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
@@ -119,7 +119,7 @@ float4 AboxModKaliEiffieIteration(float4 z, __constant sFractalCl *fractal, sExt
 double4 AboxModKaliEiffieIteration(double4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	double4 c = aux->const_c;
-
+	double4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
@@ -127,9 +127,9 @@ double4 AboxModKaliEiffieIteration(double4 z, __constant sFractalCl *fractal, sE
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 
-	aux->color += fractal->mandelbox.color.factor.x;
-	aux->color += fractal->mandelbox.color.factor.y;
-	aux->color += fractal->mandelbox.color.factor.z;
+	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA

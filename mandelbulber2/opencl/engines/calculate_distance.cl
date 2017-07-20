@@ -44,11 +44,12 @@ float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 	else
 		distThresh = length(consts->params.camera - point) * consts->params.resolution
 								 * consts->params.fov / consts->params.detailLevel;
-	distThresh = max(distThresh, 1e-6f);
 
 #if defined(PERSP_FISH_EYE) || defined(PERSP_FISH_EYE_CUT) || defined(PERSP_EQUIRECTANGULAR)
 	distThresh *= M_PI;
 #endif
+
+	distThresh = max(distThresh, 1e-6f);
 
 	return distThresh;
 }

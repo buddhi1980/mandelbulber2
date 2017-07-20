@@ -1265,7 +1265,7 @@ offset:</string>
   &lt;span style=&quot;color:#2929cc&quot;&gt;// (Y + L*a).Dot(Nv) = solid.&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// a = (solid - Y.Dot(Nv))/L.Dot(Nv) = b/c&lt;/span&gt;
   CVector3 L &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; zXYZ&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   CVector3 Y&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// Y is the origin in this case.&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;int&lt;/span&gt; side &lt;span style=&quot;color:#676767&quot;&gt;= -&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; b&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; c&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -1294,7 +1294,7 @@ offset:</string>
     &lt;span style=&quot;color:#2929cc&quot;&gt;// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.&lt;/span&gt;
     L &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; X_m &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; Nv_m&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     Y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; Nv_m&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     side &lt;span style=&quot;color:#676767&quot;&gt;= -&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;for&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; sides&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; i&lt;span style=&quot;color:#676767&quot;&gt;++)&lt;/span&gt;
@@ -1331,7 +1331,7 @@ offset:</string>
       &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;a_rmin &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
       &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
         a_rmin &lt;span style=&quot;color:#676767&quot;&gt;= -&lt;/span&gt;a_rmin&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-        L_r &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; L_r &lt;span style=&quot;color:#676767&quot;&gt;* (-&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+        L_r &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; L_r &lt;span style=&quot;color:#676767&quot;&gt;* (-&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
       &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
       CVector3 X_r &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; Xmr_intersect &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; L_r &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; a_rmin&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
@@ -1340,7 +1340,7 @@ offset:</string>
       &lt;span style=&quot;color:#2929cc&quot;&gt;// a = (solid - Y.Dot(Nv)/L.Dot(Nv) = b/c.&lt;/span&gt;
       L &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; X_r &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; Xmr_intersect&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       Y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; Xmr_intersect&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+      a &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       side &lt;span style=&quot;color:#676767&quot;&gt;= -&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
       &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;for&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; sides&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt; i&lt;span style=&quot;color:#676767&quot;&gt;++)&lt;/span&gt;
