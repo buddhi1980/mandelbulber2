@@ -8122,11 +8122,11 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
- * scale vary Abox v2- based on DarkBeams maths
+ * scale vary multi- based on DarkBeams maths
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  */
-void TransfScaleVaryAboxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)

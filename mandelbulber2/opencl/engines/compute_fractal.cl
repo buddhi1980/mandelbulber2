@@ -124,6 +124,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.color = 1.0f;
 	aux.actualScale =
 		consts->fractal[0].mandelbox.scale; // TODO: forcedFormulaIndex has to be added here
+	aux.actualScaleA = 0.0f;
 	aux.DE = 1.0f;
 	aux.c = c;
 	aux.const_c = c;

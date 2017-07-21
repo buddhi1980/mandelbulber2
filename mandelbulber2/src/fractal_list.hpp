@@ -243,11 +243,11 @@ enum enumFractalFormula
 	transfRotation4d = 1069,
 	// 2.11
 	transfParabFold = 1070,
-	transfScaleVaryV212 = 1071, // fixed V2.12
+	transfScaleVaryV212 = 1071, // upated, renamed V2.12
 	transfSphericalFoldCHS = 1072,
 	transfSphericalFoldParab = 1073,
 	// 2.12
-	transfScaleVaryAboxV2 = 1074,
+	transfScaleVaryMulti = 1074,
 
 };
 }
