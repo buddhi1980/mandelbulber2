@@ -8131,53 +8131,81 @@ void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		z *= aux.actualScale;
-		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-		aux.r_dz *= fabs(aux.actualScale);
-
-		double base = fractal->mandelbox.scale;
-		double vary = (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			aux.actualScaleA = fabs(aux.actualScaleA);
+		}
+		double base = fractal->transformCommon.scaleMain2;
+		double vary = (aux.actualScaleA - fractal->transformCommon.offset1);
 
 		if (fractal->transformCommon.functionEnabled)
 		{
-			aux.actualScale = base + fractal->mandelboxVary4D.scaleVary * (vary);
+			aux.actualScaleA = base + fractal->transformCommon.scaleVary0 * vary;
 		}
-		else if (fractal->transformCommon.functionEnabledBxFalse)
+		else if (fractal->transformCommon.functionEnabledCxFalse)
 		{
-			base = aux.actualScale;
-			aux.actualScale = base + fractal->transformCommon.scale0 * (vary);
+			base = aux.actualScaleA;
+			aux.actualScaleA = base + fractal->transformCommon.scale0 * vary;
 		}
 
-		else if (fractal->transformCommon.functionEnabledByFalse)
+		else if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			double base2 = base
-										 + fractal->mandelboxVary4D.scaleVary
-												 * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+										 + fractal->transformCommon.scaleVary0
+												 * (aux.actualScaleA - fractal->transformCommon.offset1);
 
-			aux.actualScale = base2
+			aux.actualScaleA = base2
 												+ fractal->transformCommon.scale0
-														* (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+														* (aux.actualScaleA - fractal->transformCommon.offset1);
 		}
 
-		else if (fractal->transformCommon.functionEnabledBzFalse)
+		else if (fractal->transformCommon.functionEnabledCzFalse)
 		{
 
-			base = aux.actualScale;
+			base = aux.actualScaleA;
 			double base2 = base
 										 + fractal->transformCommon.scale0
-												 * (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+												 * (aux.actualScaleA - fractal->transformCommon.offset1);
 
-			aux.actualScale = base2
-												+ fractal->mandelboxVary4D.scaleVary
-														* (fabs(aux.actualScale) - fractal->transformCommon.offset1);
+			aux.actualScaleA = base2
+												+ fractal->transformCommon.scaleVary0
+														* (aux.actualScaleA - fractal->transformCommon.offset1);
 		}
+		double temp = aux.actualScaleA;
+		if (fractal->transformCommon.functionEnabledByFalse) // limits
+		{
+			if (aux.actualScaleA < fractal->transformCommon.offset0)
+				temp = fractal->transformCommon.offset0;
+			if (aux.actualScaleA > fractal->transformCommon.offset4)
+				temp = fractal->transformCommon.offset4;
+		}
+		z *= temp;
+		aux.DE = aux.DE * fabs(temp) + 1.0;
+		aux.r_dz *= fabs(temp);
 	}
+	else if (aux.i < fractal->transformCommon.startIterations)
+	{
+		z *= fractal->transformCommon.scaleMain2;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
+		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
+	}
+/*	else
+	{
+		z *= fractal->transformCommon.scaleMain2;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
+		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
+	}*/
 	else
 	{
-		z *= fractal->mandelbox.scale;
-		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-		aux.r_dz *= fabs(fractal->mandelbox.scale);
+		if (fractal->transformCommon.functionEnabledBzFalse)
+		{
+			aux.actualScaleA = fractal->transformCommon.scaleMain2;
+		}
+		z *= aux.actualScaleA;
+		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
+		aux.r_dz *= fabs(aux.actualScaleA);
 	}
+
 
 	/*
 	if (aux.i >= fractal->transformCommon.startIterations
