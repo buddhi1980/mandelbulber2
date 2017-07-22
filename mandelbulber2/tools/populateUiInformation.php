@@ -5,7 +5,7 @@
 # - generates opencl formulas
 # - generates formula thumbnails
 #
-# requires highlight package and php (apt-get install highlight php5-cli clang-format)
+# requires packages: highlight, clang-format, git and php (apt-get install highlight clang-format git php5-cli)
 #
 # on default this script runs dry,
 # it will try to parse all formulas and show which ui files would be modified
@@ -613,7 +613,9 @@ transf_scale_2 1,079812;';
 	if (!file_exists($tempFractPath)) { // allow manual override
 		file_put_contents($tempFractPath, $settings);
 	}
-	$cmd = PROJECT_PATH . "Debug/mandelbulber2 -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+	// $mandelbulberPath = PROJECT_PATH . "Debug/mandelbulber2";
+	$mandelbulberPath = PROJECT_PATH . "build-mandelbulber-opencl-qt5_7-Release/mandelbulber2";
+	$cmd = $mandelbulberPath . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
 	echo PHP_EOL . $cmd . PHP_EOL;
 	shell_exec($cmd);
 	shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png

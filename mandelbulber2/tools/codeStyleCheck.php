@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 #
 # this file checks the source and header files
-# requires clang-format, git and php (apt-get install clang-format php5-cli)
+# requires clang-format, git and php (apt-get install clang-format php5-cli git)
 #
 # on default this script runs dry,
 # it will try to parse all files and prints problems inside the files
