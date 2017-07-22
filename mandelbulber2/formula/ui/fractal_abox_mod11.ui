@@ -3438,7 +3438,6 @@ offset:</string>
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;!=&lt;/span&gt; oldZ&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;factor4D&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;!=&lt;/span&gt; oldZ&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;factor4D&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-
     &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (fabs(z.x) &amp;gt; fractal-&amp;gt;transformCommon.additionConstant111.x)&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    {&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;      aux.color += fractal-&amp;gt;mandelbox.color.factor.x;&lt;/span&gt;
@@ -3452,9 +3451,9 @@ offset:</string>
 &lt;span style=&quot;color:#2929cc&quot;&gt;      aux.color += fractal-&amp;gt;mandelbox.color.factor.z;&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    }*/&lt;/span&gt;
 
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//aux.color += fractal-&amp;gt;mandelbox.color.factor.x;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//aux.color += fractal-&amp;gt;mandelbox.color.factor.y;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//aux.color += fractal-&amp;gt;mandelbox.color.factor.z;&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color += fractal-&amp;gt;mandelbox.color.factor.x;&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color += fractal-&amp;gt;mandelbox.color.factor.y;&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color += fractal-&amp;gt;mandelbox.color.factor.z;&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledFalse
       &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsD

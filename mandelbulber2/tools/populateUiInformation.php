@@ -17,7 +17,10 @@
 require_once(dirname(__FILE__) . '/common.inc.php');
 printStart();
 
+echo PHP_EOL . 'READING FORMULA DATA';
 $formulas = getFormulasData();
+
+echo PHP_EOL . 'CHECKING EXAMPLE USAGE';
 $formulaExampleUsage = getFormulaExampleUsage();
 
 // update information boxes in the ui
@@ -437,7 +440,7 @@ function getIndexIdLookUp()
 function parseToOpenCL($code, $mode = 'single')
 {
 	// $fod = $mode == 'single' ? 'float' : 'double';
-	$fod = 'DECIMAL';
+	$fod = 'REAL';
 	$var = '-?[A-Za-z_][A-Za-z0-9\.\-\>_\[\]]*'; // regex for a var name
 	$functionName = '[A-Za-z_][A-Za-z0-9\.\-\>_]*'; // regex for a function name
 	$double = '(?:-?\d+\.?\d*(?:[eE][+-]?\d+)?|-?\d*\.?\d+(?:[eE][+-]?\d+)?)'; // regex for a double value

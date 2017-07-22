@@ -45,15 +45,15 @@ typedef unsigned short cl_ushort;
 typedef unsigned char cl_uchar;
 
 #ifndef DOUBLE_PRECISION
-#define DECIMAL float
-#define DECIMAL2 float2
-#define DECIMAL3 float3
-#define DECIMAL4 float4
+#define REAL float
+#define REAL2 float2
+#define REAL3 float3
+#define REAL4 float4
 #else
-#define DECIMAL double
-#define DECIMAL2 double2
-#define DECIMAL3 double3
-#define DECIMAL4 double4
+#define REAL double
+#define REAL2 double2
+#define REAL3 double3
+#define REAL4 double4
 #endif /*DOUBLE_PRECISION*/
 
 #endif /* MANDELBULBER2_OPENCL_OPENCL_TYPEDEFS_H_ */
