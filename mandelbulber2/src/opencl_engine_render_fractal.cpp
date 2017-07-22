@@ -131,6 +131,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		programEngine.append("#define Q_UNUSED(x) (void)x;\n");
 		programEngine.append("#define MAX_RAYMARCHING " + QString::number(10000) + "\n");
 
+		if (params->Get<bool>("gpu_precision"))
+			programEngine.append("#define DOUBLE_PRECISION " + QString::number(1) + "\n");
+
 		QStringList clHeaderFiles;
 		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
 		clHeaderFiles.append("opencl_algebra.h");				 // algebra for kernels
