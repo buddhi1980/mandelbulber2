@@ -446,7 +446,7 @@ function parseToOpenCL($code, $mode = 'single'){
 			array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
 			array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $1 = $2; $2 = temp; }'),// swap vals
 			array('find' => "/($s|\()(-?\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
-			array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x)
+			// array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x) (this is wrong! probably copysign not usable at all)
 
       // from here on its getting messy
 			array('find' => "/1.0f$s\/$s($rval)/", 'replace' => 'native_recip($1)'),		// native reciprocal
