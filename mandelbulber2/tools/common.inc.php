@@ -4,69 +4,77 @@
 
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 
-function printStart(){
+function printStart()
+{
 	echo 'Processing...' . PHP_EOL . PHP_EOL;
 }
 
-function printFinish(){
-	if(isDryRun()){
+function printFinish()
+{
+	if (isDryRun()) {
 		echo 'This is a dry run.' . PHP_EOL;
 		echo 'If you want to apply the changes, execute with argument "nondry"' . PHP_EOL;
-	}
-	else{
+	} else {
 		echo 'Changes applied' . PHP_EOL;
 	}
 }
 
-function printResultLine($name, $success, $status){
+function printResultLine($name, $success, $status)
+{
 	$out = str_pad('> ' . $name, 30);
-	if($success && !isVerbose() && count($status) == 0) return;
-	if($success)
-	{
+	if ($success && !isVerbose() && count($status) == 0) return;
+	if ($success) {
 		echo $out . successString(' -> All Well') . PHP_EOL;
-	}
-	else{
+	} else {
 		echo $out . errorString(' -> Error') . PHP_EOL;
 	}
-	if(count($status) > 0){
+	if (count($status) > 0) {
 		echo ' |-' . implode(PHP_EOL . ' |-', $status) . PHP_EOL;
 	}
 }
 
-function errorString($s){
+function errorString($s)
+{
 	return "\033[0;31m\033[47m" . $s . "\033[0m";
 }
-function successString($s){
+
+function successString($s)
+{
 	return "\033[0;32m\033[47m" . $s . "\033[0m";
 }
-function noticeString($s){
+
+function noticeString($s)
+{
 	return "\033[0;34m\033[47m" . $s . "\033[0m";
 }
-function warningString($s){
+
+function warningString($s)
+{
 	return "\033[0;33m\033[47m" . $s . "\033[0m";
 }
 
-function isDryRun(){
-	global $argv;
-	if(count($argv) > 1 && in_array('nondry', $argv)){
-		return false;
-	}
-	return true;
+function isDryRun()
+{
+	return !argumentContains('nondry');
 }
 
-function isVerbose(){
+function isVerbose()
+{
+	return argumentContains('verbose');
+}
+
+function isWarning()
+{
+	return argumentContains('verbose') || argumentContains('warning');
+}
+
+function argumentContains($needle)
+{
 	global $argv;
-	if(count($argv) > 1 && in_array('verbose', $argv)){
+	if (count($argv) > 1 && in_array($needle, $argv)) {
 		return true;
 	}
 	return false;
 }
 
-function isWarning(){
-	global $argv;
-	if(count($argv) > 1 && (in_array('verbose', $argv) || in_array('warning', $argv))){
-		return true;
-	}
-	return false;
-}
 ?>
