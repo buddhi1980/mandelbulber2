@@ -47,7 +47,7 @@ public:
 		simpleTestMode,
 		benchmarkTestMode
 	};
-	Test(enumTestMode _testMode, int _difficulty = 10, QString _exampleOutputPath = false)
+	Test(enumTestMode _testMode, int _difficulty = 10, QString _exampleOutputPath = "")
 	{
 		testMode = _testMode;
 		difficulty = _difficulty;
