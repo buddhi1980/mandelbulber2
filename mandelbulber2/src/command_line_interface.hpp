@@ -74,7 +74,9 @@ public:
 		cliErrorKeyframeEndFrameOutOfRange = -43,
 
 		cliErrorVoxelOutputFolderDoesNotExists = -50,
-		cliErrorVoxelOutputFormatInvalid = -51
+		cliErrorVoxelOutputFormatInvalid = -51,
+
+		cliErrorBenchmarkOutputFolderInvalid = -60
 	};
 
 	void ReadCLI();
@@ -88,7 +90,7 @@ private:
 	static void printInputHelpAndExit();
 	static void printParametersAndExit();
 	void runTestCasesAndExit() const;
-	void runBenchmarksAndExit() const;
+	void runBenchmarksAndExit();
 
 	// argument handling methods
 	void handleServer();

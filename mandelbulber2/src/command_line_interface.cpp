@@ -148,7 +148,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QStringList({"b", "benchmark"}),
 		QCoreApplication::translate("main",
 			"Runs benchmarks on the mandelbulber instance, specify optional"
-			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)"));
+			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
+			" When [output] option is set to a folder, the example-test images will be stored there."));
 
 	QCommandLineOption touchOption(
 		QStringList({"T", "touch"}),
@@ -523,13 +524,15 @@ void cCommandLineInterface::runTestCasesAndExit() const
 	exit(status);
 }
 
-void cCommandLineInterface::runBenchmarksAndExit() const
+void cCommandLineInterface::runBenchmarksAndExit()
 {
 	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--benchmark"));
 	arguments.removeOne(QString("-b"));
 	int difficulty = 10;
+	QString exampleOutputPath = "";
+
 	if (args.size() > 0)
 	{
 		if (args[0] != "")
@@ -540,15 +543,38 @@ void cCommandLineInterface::runBenchmarksAndExit() const
 			{
 				difficulty = difficultyTemp;
 			}
+			arguments.removeOne(args[0]);
 		}
-		arguments.removeLast();
+	}
+
+	if (cliData.outputText != "")
+	{
+		exampleOutputPath = cliData.outputText;
+		if(!QDir(exampleOutputPath).exists())
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Example output path does not exist\n"), cErrorMessage::errorMessage);
+			parser.showHelp(cliErrorBenchmarkOutputFolderInvalid);
+		}
+
+		QStringList outputStrings({"-o", "-output"});
+		for(int i = 0; i < outputStrings.size(); i++)
+		{
+			int index = arguments.indexOf(outputStrings[i]);
+			if(index >= 0)
+			{
+				arguments.removeAt(index);
+				arguments.removeAt(index);
+			}
+		}
 	}
 
 	int status = 0;
 	QTextStream out(stdout);
-	out << QObject::tr("Starting benchmark with difficulty %1").arg(difficulty) << "\n";
+	out << QObject::tr("Starting benchmark with difficulty [%1] and example output path [%2]")
+				 .arg(difficulty).arg(exampleOutputPath) << "\n";
 	out.flush();
-	Test test(Test::benchmarkTestMode, difficulty);
+	Test test(Test::benchmarkTestMode, difficulty, exampleOutputPath);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
 }

@@ -47,10 +47,11 @@ public:
 		simpleTestMode,
 		benchmarkTestMode
 	};
-	Test(enumTestMode _testMode, int _difficulty = 10)
+	Test(enumTestMode _testMode, int _difficulty = 10, QString _exampleOutputPath = false)
 	{
 		testMode = _testMode;
 		difficulty = _difficulty;
+		exampleOutputPath = _exampleOutputPath;
 	}
 	bool IsBenchmarking() const { return testMode == enumTestMode::benchmarkTestMode; }
 private:
@@ -59,6 +60,8 @@ private:
 
 	/* difficulty for the benchmark: 1 -> very easy, > 20 -> very hard, 10 -> default */
 	int difficulty;
+
+	QString exampleOutputPath;
 
 	void renderExamples();
 	void testFlight();
