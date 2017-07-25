@@ -144,19 +144,19 @@ formulaOut CalculateDistance(
 
 	float r = length(out.z);
 	float r11 =
-		length(Fractal(consts, point + (float3){delta, 0.0, 0.0}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2).z);
 	float r12 =
-		length(Fractal(consts, point + (float3){-delta, 0.0, 0.0}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2).z);
 	dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
 	float r21 =
-		length(Fractal(consts, point + (float3){0.0, delta, 0.0}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, calcModeDeltaDE2).z);
 	float r22 =
-		length(Fractal(consts, point + (float3){0.0, -delta, 0.0}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, calcModeDeltaDE2).z);
 	dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
 	float r31 =
-		length(Fractal(consts, point + (float3){0.0, 0.0, delta}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, calcModeDeltaDE2).z);
 	float r32 =
-		length(Fractal(consts, point + (float3){0.0, 0.0, -delta}, calcParam, calcModeDeltaDE2).z);
+		length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, calcModeDeltaDE2).z);
 	dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 	float d = length(dr);
 
@@ -167,9 +167,9 @@ formulaOut CalculateDistance(
 	else
 	{
 #ifdef DELTA_LINEAR_DE
-		out.distance = 0.5 * r / d;
+		out.distance = 0.5f * r / d;
 #elif DELTA_LOG_DE
-		out.distance = 0.5 * r * native_log(r) / d;
+		out.distance = 0.5f * r * native_log(r) / d;
 #elif DELTA_PSEUDO_KLEINIAN_DE
 		out.distance = .... // TODO to be written later
 #endif

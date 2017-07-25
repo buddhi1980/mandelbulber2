@@ -267,7 +267,7 @@ kernel void fractal3D(
 		else
 		{
 			color = BackgroundShader(consts, &shaderInputData);
-			scan = 1e20;
+			scan = 1e20f;
 		}
 
 		color4 = (float4){color.s0, color.s1, color.s2, 0.0f};

@@ -59,9 +59,9 @@ kernel void SSAO(__global float *zBuffer, __global float *out, sParamsSSAO p)
 		for (float angle = 0.0f; angle < quality; angle += 1.0f)
 		{
 			float2 dir = (float2){cos(angle), sin(angle)};
-			float maxDiff = -1e10;
+			float maxDiff = -1e10f;
 
-			for (float r = 1.0f; r < quality; r += 1.0)
+			for (float r = 1.0f; r < quality; r += 1.0f)
 			{
 				float rr = r * r * scaleFactor;
 				float2 v = scr_f + rr * dir;

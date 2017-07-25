@@ -60,10 +60,10 @@ typedef struct
 float IterOpacity(const float step, float iters, float maxN, float trim, float opacitySp)
 {
 	float opacity = (iters - trim) / maxN;
-	if (opacity < 0.0) opacity = 0.0;
+	if (opacity < 0.0f) opacity = 0.0f;
 	opacity *= opacity;
 	opacity *= step * opacitySp;
-	if (opacity > 1.0) opacity = 1.0;
+	if (opacity > 1.0f) opacity = 1.0f;
 	return opacity;
 }
 #endif // ITER_FOG
@@ -74,7 +74,7 @@ float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 {
 	float3 pixel2;
 
-	float3 vector = (float3){0.0, 0.0, 1.0f};
+	float3 vector = (float3){0.0f, 0.0f, 1.0f};
 	vector = normalize(vector);
 	float3 viewVectorNorm = input->viewVector;
 	viewVectorNorm = normalize(viewVectorNorm);
@@ -287,7 +287,7 @@ float3 FastAmbientOcclusion(
 
 		if (dist > lastDist * 2.0f) dist = lastDist * 2.0f;
 		lastDist = dist;
-		aoTemp += 1.0 / pow(2.0, i) * (scan - consts->params.ambientOcclusionFastTune * dist)
+		aoTemp += 1.0f / pow(2.0f, i) * (scan - consts->params.ambientOcclusionFastTune * dist)
 							/ input->distThresh;
 	}
 	float ao = 1.0f - 0.2f * aoTemp;
@@ -373,7 +373,7 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	float shadowTemp = 1.0f;
 
 	float DE_factor = consts->params.DEFactor;
-	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0;
+	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
 
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
@@ -402,11 +402,11 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 		if (bSoft)
 		{
 			float angle = (dist - dist_thresh) / i;
-			if (angle < 0) angle = 0;
-			if (dist < dist_thresh) angle = 0;
-			float softShadow = 1.0 - angle / softRange;
+			if (angle < 0.0f) angle = 0.0f;
+			if (dist < dist_thresh) angle = 0.0f;
+			float softShadow = 1.0f - angle / softRange;
 			if (consts->params.penetratingLights) softShadow *= (distance - i) / distance;
-			if (softShadow < 0) softShadow = 0;
+			if (softShadow < 0.0f) softShadow = 0.0f;
 			if (softShadow > maxSoft) maxSoft = softShadow;
 		}
 
@@ -494,8 +494,8 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 	{
 		if (consts->params.shadow)
 		{
-			shade = 0.0;
-			shade2 = 0.0;
+			shade = 0.0f;
+			shade2 = 0.0f;
 		}
 	}
 
@@ -556,13 +556,13 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	calcParams->detailSize = input->delta;
 
 	outF = Fractal(consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap);
-	float rx = 1.0 / (outF.orbitTrapR + 1e-30);
+	float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 	outF = Fractal(consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap);
-	float ry = 1.0 / (outF.orbitTrapR + 1e-30);
+	float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 	outF = Fractal(consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap);
-	float rz = 1.0 / (outF.orbitTrapR + 1e-30);
+	float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 	float3 fakeLightNormal;
 	fakeLightNormal.x = r - rx;
@@ -679,7 +679,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 #ifdef SIMPLE_GLOW // only simple glow, no another shaders
 #ifdef GLOW
-	glow *= 0.7;
+	glow *= 0.7f;
 	float glowOpacity = 1.0f * glow;
 	if (glowOpacity > 1.0f) glowOpacity = 1.0f;
 	output = glow * glowColor + (1.0f - glowOpacity) * output;
@@ -687,7 +687,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 #endif // GLOW
 
 #else // not SIMPLE_GLOW
-	float totalStep = 0.0;
+	float totalStep = 0.0f;
 	float scan = CalcDelta(input->point, consts);
 
 	sShaderInputDataCl input2 = *input;
@@ -872,7 +872,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 			float fogDensity = 0.3f * consts->params.volFogDensity * densityTemp
 												 / (1.0f + consts->params.volFogDensity * densityTemp);
-			if (fogDensity > 1) fogDensity = 1.0f;
+			if (fogDensity > 1.0f) fogDensity = 1.0f;
 
 			output = fogDensity * fogTemp + (1.0f - fogDensity) * output;
 

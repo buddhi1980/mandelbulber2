@@ -71,11 +71,11 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 	calcParam->normalCalculationMode = true;
 
 	float3 normal = 0.0f;
-	for (point2.x = -1.0; point2.x <= 1.0; point2.x += 0.2) //+0.2
+	for (point2.x = -1.0f; point2.x <= 1.0f; point2.x += 0.2f) //+0.2
 	{
-		for (point2.y = -1.0; point2.y <= 1.0; point2.y += 0.2)
+		for (point2.y = -1.0f; point2.y <= 1.0f; point2.y += 0.2f)
 		{
-			for (point2.z = -1.0; point2.z <= 1.0; point2.z += 0.2)
+			for (point2.z = -1.0f; point2.z <= 1.0f; point2.z += 0.2f)
 			{
 				point3 = point + point2 * delta;
 				float dist = CalculateDistance(consts, point3, calcParam).distance;
