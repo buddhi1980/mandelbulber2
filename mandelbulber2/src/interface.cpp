@@ -2079,7 +2079,7 @@ void cInterface::PeriodicRefresh()
 		}
 	}
 
-	autoRefreshTimer->start(2000);
+	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 void cInterface::DisablePeriodicRefresh()
@@ -2108,7 +2108,7 @@ void cInterface::InitPeriodicRefresh()
 	autoRefreshTimer = new QTimer(mainWindow);
 	autoRefreshTimer->setSingleShot(true);
 	connect(autoRefreshTimer, SIGNAL(timeout()), mainWindow, SLOT(slotAutoRefresh()));
-	autoRefreshTimer->start(2000);
+	autoRefreshTimer->start(int(gPar->Get<double>("auto_refresh_period") * 1000.0));
 }
 
 void cInterface::InitMaterialsUi()

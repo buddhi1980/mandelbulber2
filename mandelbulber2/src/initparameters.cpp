@@ -437,6 +437,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("system_tray_notify", false, morphNone, paramApp);
 
 	par->addParam("auto_refresh", false, morphNone, paramApp);
+	par->addParam("auto_refresh_period", 0.1, 0.02, 10.0, morphNone, paramApp);
 	par->addParam("connect_detail_level", false, morphNone, paramNoSave);
 	par->addParam("connect_detail_level_2", false, morphNone, paramNoSave);
 
