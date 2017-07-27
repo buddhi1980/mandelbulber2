@@ -534,11 +534,12 @@ void cInterface::StartRender(bool noUndo)
 	QThread *thread = new QThread; // deleted by deleteLater()
 	renderJob->moveToThread(thread);
 	QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
-	thread->setObjectName("RenderJob");
-	thread->start();
-
+	QObject::connect(renderJob, SIGNAL(finished()), thread, SLOT(quit()));
 	QObject::connect(renderJob, SIGNAL(finished()), renderJob, SLOT(deleteLater()));
 	QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+	thread->setObjectName("RenderJob");
+	thread->start();
 }
 
 void cInterface::MoveCamera(QString buttonName)
