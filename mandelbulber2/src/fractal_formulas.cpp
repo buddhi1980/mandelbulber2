@@ -2675,6 +2675,8 @@ void MandelbulbBermarteIteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 /**
  * mandelbulb juliabulb hybrid 3D
+ * constructed from Mandelbulb, Msltoe - Julia Bulb Eiffie & Msltoe - Sym4 Mod formulas.
+ * note: an Offset Radius of 0.1 can sommetimesimprove the DE statistic
  */
 void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -2747,9 +2749,6 @@ void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 	}
 
-
-
-
 	// sym4
 	if (fractal->transformCommon.functionEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -2777,14 +2776,6 @@ void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtende
 		temp.z = 2.0 * z.x * z.z;
 
 		z = temp + fractal->transformCommon.offsetF000;
-
-		/*double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21)
-		//	lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-		// scale
-		z *= fractal->transformCommon.scale1;
-		aux.r_dz *= fabs(fractal->transformCommon.scale1);*/
 	}
 
 	// sym3 msltoe eiffie
@@ -8615,14 +8606,20 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		}
 	}
 	z -= fractal->mandelbox.offset;
+
+	// post scale
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		aux.actualScale = fractal->transformCommon.scaleA1
-											+ fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
-		z *= aux.actualScale;
-		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-		aux.r_dz *= fabs(aux.actualScale);
+		double useScale = aux.actualScaleA + fractal->transformCommon.scaleA1;
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.r_dz *= fabs(useScale);
+		// update actualScale for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse) aux.actualScaleA = fractal->transformCommon.scaleA1;
+		aux.actualScaleA =  aux.actualScaleA - vary;
 	}
 }
 
