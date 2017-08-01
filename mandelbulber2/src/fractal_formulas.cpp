@@ -2318,10 +2318,29 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
+	double useScale = aux.actualScaleA + fractal->mandelbox.scale;
 
-	z *= fractal->mandelbox.scale;
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-	aux.r_dz *= fabs(fractal->mandelbox.scale);
+	if (aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+	{
+
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		// update actualScale for next iteration
+
+		double vary = fractal->transformCommon.scaleVary0
+				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse) aux.actualScaleA = - vary;
+		else aux.actualScaleA =  aux.actualScaleA - vary;
+	}
+	else
+	{
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+	}
+
+
+
 
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -8217,12 +8236,6 @@ void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtend
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
-/*	else
-	{
-		z *= fractal->transformCommon.scaleMain2;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
-		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
-	}*/
 	else
 	{
 		if (fractal->transformCommon.functionEnabledBzFalse)
@@ -8233,26 +8246,6 @@ void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtend
 		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
 		aux.r_dz *= fabs(aux.actualScaleA);
 	}
-
-
-	/*
-	if (aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
-	{
-		z *= aux.actualScale;
-		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-		aux.r_dz *= fabs(aux.actualScale);
-		aux.actualScale =
-			fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) -
-	1.0);
-	}
-	else
-	{
-		z *= fractal->mandelbox.scale;
-		aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-		aux.r_dz *= fabs(fractal->mandelbox.scale);
-	}
-	*/
 }
 
 /**
