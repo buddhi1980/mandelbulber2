@@ -8616,10 +8616,12 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		aux.DE = aux.DE * fabs(useScale) + 1.0;
 		aux.r_dz *= fabs(useScale);
 		// update actualScale for next iteration
+
 		double vary = fractal->transformCommon.scaleVary0
 				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse) aux.actualScaleA = fractal->transformCommon.scaleA1;
-		aux.actualScaleA =  aux.actualScaleA - vary;
+		if (fractal->transformCommon.functionEnabledMFalse) aux.actualScaleA = - vary;
+		else aux.actualScaleA =  aux.actualScaleA - vary;
+
 	}
 }
 
