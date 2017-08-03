@@ -550,7 +550,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	if (cliData.outputText != "")
 	{
 		exampleOutputPath = cliData.outputText;
-		if(!QDir(exampleOutputPath).exists())
+		if (!QDir(exampleOutputPath).exists())
 		{
 			cErrorMessage::showMessage(
 				QObject::tr("Example output path does not exist\n"), cErrorMessage::errorMessage);
@@ -558,10 +558,10 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		}
 
 		QStringList outputStrings({"-o", "-output"});
-		for(int i = 0; i < outputStrings.size(); i++)
+		for (int i = 0; i < outputStrings.size(); i++)
 		{
 			int index = arguments.indexOf(outputStrings[i]);
-			if(index >= 0)
+			if (index >= 0)
 			{
 				arguments.removeAt(index);
 				arguments.removeAt(index);
@@ -572,7 +572,9 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	int status = 0;
 	QTextStream out(stdout);
 	out << QObject::tr("Starting benchmark with difficulty [%1] and example output path [%2]")
-				 .arg(difficulty).arg(exampleOutputPath) << "\n";
+					 .arg(difficulty)
+					 .arg(exampleOutputPath)
+			<< "\n";
 	out.flush();
 	Test test(Test::benchmarkTestMode, difficulty, exampleOutputPath);
 	status |= QTest::qExec(&test, arguments);

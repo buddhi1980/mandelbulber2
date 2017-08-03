@@ -127,9 +127,10 @@ void Test::renderExamples()
 		else
 			QVERIFY2(renderJob->Execute(), "example render failed.");
 
-		if(exampleOutputPath != "")
+		if (exampleOutputPath != "")
 		{
-			QString imgFileName = QDir(exampleOutputPath).absolutePath() + QDir::separator() + QFileInfo(filename).baseName();
+			QString imgFileName =
+				QDir(exampleOutputPath).absolutePath() + QDir::separator() + QFileInfo(filename).baseName();
 			SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
 		}
 		delete renderJob;

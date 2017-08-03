@@ -34,21 +34,21 @@
      <item row="1" column="0" colspan="3">
       <widget class="QLabel" name="label_147">
        <property name="text">
-        <string>if ( i &lt; = starVaryt iters. )                                                                 scale = baseScale</string>
+        <string>if ( i &lt; = starVaryt iters. )                                                                scale = baseScale</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0" colspan="3">
       <widget class="QLabel" name="label_159">
        <property name="text">
-        <string>if ( i &gt; startVary iters. and i &lt;= stopVary iters )                        scale = actualScale (varying from baseScale value)</string>
+        <string>if ( i &gt; startVary iters. and i &lt;= stopVary iters )                       scale = actualScale (varying from baseScale value)</string>
        </property>
       </widget>
      </item>
      <item row="3" column="0" colspan="3">
       <widget class="QLabel" name="label_157">
        <property name="text">
-        <string>if ( i &gt; stopVary iters. )                                                                     scale =  actualScale (final value) or baseScale option</string>
+        <string>if ( i &gt; stopVary iters. )                                                                    scale =  actualScale (final value) or baseScale option</string>
        </property>
       </widget>
      </item>
@@ -61,7 +61,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Scale Vary V2.12    actualScale = baseScale + scaleVary * actualScale ;</string>
+        <string>Scale Vary V2.12   actualScale = baseScale + scaleVary * actualScale ;</string>
        </property>
       </widget>
      </item>

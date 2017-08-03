@@ -52,7 +52,7 @@ public:
 	void SetCamera(CVector3 _camera, enumRotationMode mode);
 	void SetTarget(CVector3 _target, enumRotationMode mode);
 	CVector3 GetCamera() const { return camera; }
-	CVector3 GetTarget() const { return target; };
+	CVector3 GetTarget() const { return target; }
 	CVector3 GetRotation() const { return CVector3(yaw, pitch, roll); }
 	CVector3 GetForwardVector() const { return forwardVector; }
 	CVector3 GetTopVector() const { return topVector; }

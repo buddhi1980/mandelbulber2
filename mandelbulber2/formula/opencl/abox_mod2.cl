@@ -12,6 +12,7 @@
  * The formula Cylinder Half Size transform changes the spherical fold
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
+ * V.12 added full Mbox color controls
  *
  * based on DarkBeam's Mandelbulb3D code
  *
@@ -27,16 +28,24 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// Tglad Fold
-	// REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5f
-	// if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-	// if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
-	// if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
+	if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
+	{
+		aux->color += fractal->mandelbox.color.factor.x;
+	}
+	if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
+	{
+		aux->color += fractal->mandelbox.color.factor.y;
+	}
+	if (fabs(z.z) > fractal->transformCommon.additionConstant111.z)
+	{
+		aux->color += fractal->mandelbox.color.factor.z;
+	}
 	/*	REAL rr;
 		if (temp > 0.0f)
 			rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // on top & bottom of cyl. z.z should be tempZ
@@ -112,5 +121,11 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
+	aux->foldFactor = fractal->foldColor.compFold; // fold group weight
+	aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight
+
+	REAL scaleColor = fractal->foldColor.colorMin + fabs(aux->actualScale); // scale, useScale, m, etc
+	// scaleColor += fabs(fractal->mandelbox.scale);
+	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
 	return z;
 }

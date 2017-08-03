@@ -60,9 +60,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Abox - Mod 1", "abox_mod1", aboxMod1, AboxMod1Iteration, analyticDEType,
 			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
 
-	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2,
-		AboxMod2Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox2));
+	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration,
+		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
+		coloringFunctionABox2));
 
 	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11,
 		AboxMod11Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
