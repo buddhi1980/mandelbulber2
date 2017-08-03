@@ -165,6 +165,7 @@ enum enumFractalFormula
 	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,
 	josKleinian = 122,
+	aboxMod12 = 123,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
