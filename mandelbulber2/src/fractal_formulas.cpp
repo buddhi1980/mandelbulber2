@@ -831,6 +831,7 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  * The formula Cylinder Half Size transform changes the spherical fold
  * In V2.11 minimum radius is MinimumR2, for settings made in
  * older versions, you need to use the square root of the old parameter.
+ * V.12 added full Mbox color controls
  *
  * based on DarkBeam's Mandelbulb3D code
  *
@@ -935,6 +936,12 @@ void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	aux.foldFactor = fractal->foldColor.compFold; // fold group weight
+	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
+
+	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);// scale, useScale, m, etc
+	// scaleColor += fabs(fractal->mandelbox.scale);
+	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
 
 /**
@@ -1153,10 +1160,10 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 
 	// color
-	aux.foldFactor = fractal->foldColor.compFold; // fold group weight
+	aux.foldFactor = fractal->foldColor.compFold; // fold group weight (old use compFold)
 	aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight
 
-	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);
+	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);// scale, useScale, m, etc
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
@@ -1177,19 +1184,19 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		//CVector4 oldZ = z;
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		if (fabs(z.x) > fractal->transformCommon.additionConstant111.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (fabs(z.z) > fractal->transformCommon.additionConstant111.z) aux.color += fractal->mandelbox.color.factor.z;
-		//if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
-		//if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
-		//if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+		if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
+			aux.color += fractal->mandelbox.color.factor.x;
+		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
+			aux.color += fractal->mandelbox.color.factor.y;
+		if (fabs(z.z) > fractal->transformCommon.additionConstant111.z)
+			aux.color += fractal->mandelbox.color.factor.z;
+
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -1300,33 +1307,6 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z -= fractal->transformCommon.offset000;
 		}
 	}
-
-	/*{
-		// spherical fold
-		if (aux.i >= fractal->transformCommon.startIterationsS
-				&& aux.i < fractal->transformCommon.stopIterationsS)
-		{
-			double rr = z.Dot(z);
-
-			z += fractal->transformCommon.offset000;
-			// if (r2 < 1e-21) r2 = 1e-21;
-			if (rr < fractal->transformCommon.minR2p25)
-			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
-				z *= tglad_factor1;
-				aux.DE *= tglad_factor1;
-				aux.color += fractal->mandelbox.color.factorSp1;
-			}
-			else if (rr < fractal->transformCommon.maxR2d1)
-			{
-				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-				z *= tglad_factor2;
-				aux.DE *= tglad_factor2;
-				aux.color += fractal->mandelbox.color.factorSp2;
-			}
-			z -= fractal->transformCommon.offset000;
-		}
-	}*/
 
 	// scale
 	double useScale = aux.actualScaleA + fractal->transformCommon.scale2;
@@ -1549,6 +1529,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+
 	if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 	{
 		aux.color += fractal->mandelbox.color.factor.x;
@@ -1561,6 +1542,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	{
 		aux.color += fractal->mandelbox.color.factor.z;
 	}
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z += c * fractal->transformCommon.constantMultiplier111;
@@ -1587,8 +1569,8 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
-	z *= aux.actualScale;
-	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	z *= 2.0; //aux.actualScale;
+	aux.DE = aux.DE * fabs(2.0) + 1.0;
 
 	if (fractal->transformCommon.juliaMode)
 	{
