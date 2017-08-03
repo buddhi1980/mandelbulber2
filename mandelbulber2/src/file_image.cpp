@@ -142,6 +142,7 @@ void ImageFileSavePNG::SaveImage()
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
 										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
+	if(hasAppendAlphaCustom) appendAlpha = appendAlphaCustom;
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -152,7 +153,6 @@ void ImageFileSavePNG::SaveImage()
 		emit updateProgressAndStatus(getJobName(),
 			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
-		currentChannel++;
 
 		switch (currentChannelKey)
 		{
@@ -164,6 +164,7 @@ void ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_NORMAL:
 			default: SavePNG(fullFilename, image, channel.value()); break;
 		}
+		currentChannel++;
 	}
 	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
@@ -181,7 +182,6 @@ void ImageFileSaveJPG::SaveImage()
 		emit updateProgressAndStatus(getJobName(),
 			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
-		currentChannel++;
 
 		switch (currentChannelKey)
 		{
@@ -202,6 +202,7 @@ void ImageFileSaveJPG::SaveImage()
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
 		}
+		currentChannel++;
 	}
 	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
@@ -224,7 +225,6 @@ void ImageFileSaveTIFF::SaveImage()
 		emit updateProgressAndStatus(getJobName(),
 			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
-		currentChannel++;
 
 		switch (currentChannelKey)
 		{
@@ -236,6 +236,7 @@ void ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_NORMAL:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
+		currentChannel++;
 	}
 	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
 }
@@ -304,8 +305,10 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_COLOR:
 				colorType = appendAlpha ? PNG_COLOR_TYPE_RGB_ALPHA : PNG_COLOR_TYPE_RGB;
 				break;
-			case IMAGE_CONTENT_ALPHA: colorType = PNG_COLOR_TYPE_GRAY; break;
-			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
+			case IMAGE_CONTENT_ALPHA:
+			case IMAGE_CONTENT_ZBUFFER:
+				colorType = PNG_COLOR_TYPE_GRAY;
+				break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
@@ -486,10 +489,9 @@ void ImageFileSavePNG::SavePNG(
 		{
 			uint64_t leftToWrite = height - r;
 			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), min(leftToWrite, chunkSize));
-			/* TODO: make SavePNG private non static and rewrite direct accesses to static function
 			 emit updateProgressAndStatus(getJobName(),
 				QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
-				(1.0 * currentChannel / totalChannel) + (1.0 * r / (totalChannel * height)));*/
+				(1.0 * currentChannel / totalChannel) + (1.0 * r / (totalChannel * height)));
 		}
 
 		/* end write */
@@ -1038,8 +1040,10 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	switch (imageChannel.contentType)
 	{
 		case IMAGE_CONTENT_COLOR: colorType = appendAlpha ? PHOTOMETRIC_RGB : PHOTOMETRIC_RGB; break;
-		case IMAGE_CONTENT_ALPHA: colorType = PHOTOMETRIC_MINISBLACK; break;
-		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
+		case IMAGE_CONTENT_ALPHA:
+		case IMAGE_CONTENT_ZBUFFER:
+			colorType = PHOTOMETRIC_MINISBLACK;
+			break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}

@@ -142,14 +142,20 @@ public:
 	ImageFileSavePNG(QString filename, cImage *image, ImageConfig imageConfig)
 			: ImageFileSave(filename, image, imageConfig)
 	{
+		hasAppendAlphaCustom = false;
+		appendAlphaCustom = false;
 	}
+	void SetAppendAlphaCustom(bool _appendAlphaCustom) { appendAlphaCustom = _appendAlphaCustom; hasAppendAlphaCustom = true; }
 	void SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("PNG"); }
-	static void SavePNG(
+	void SavePNG(
 		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
+private:
+	bool hasAppendAlphaCustom;
+	bool appendAlphaCustom;
 };
 
 class ImageFileSaveJPG : public ImageFileSave

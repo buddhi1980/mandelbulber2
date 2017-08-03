@@ -478,7 +478,11 @@ void RenderWindow::slotMenuSaveImagePNG16()
 		gApplication->processEvents();
 		ImageFileSave::structSaveImageChannel saveImageChannel(
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
-		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
+		ImageFileSave::ImageConfig imageConfig;
+		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
+		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		imageSaver.SetAppendAlphaCustom(false);
+		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
@@ -506,7 +510,11 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 		gApplication->processEvents();
 		ImageFileSave::structSaveImageChannel saveImageChannel(
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
-		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
+		ImageFileSave::ImageConfig imageConfig;
+		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
+		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		imageSaver.SetAppendAlphaCustom(true);
+		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
