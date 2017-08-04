@@ -135,6 +135,13 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 	return fi.path() + QDir::separator() + fileName;
 }
 
+void ImageFileSave::updateProgressAndStatusChannel(double progress)
+{
+	emit updateProgressAndStatus(getJobName(),
+		QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+		(1.0 * currentChannel / totalChannel) + (progress / totalChannel));
+}
+
 void ImageFileSavePNG::SaveImage()
 {
 	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
@@ -142,7 +149,7 @@ void ImageFileSavePNG::SaveImage()
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
 										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
-	if(hasAppendAlphaCustom) appendAlpha = appendAlphaCustom;
+	if (hasAppendAlphaCustom) appendAlpha = appendAlphaCustom;
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -306,9 +313,7 @@ void ImageFileSavePNG::SavePNG(
 				colorType = appendAlpha ? PNG_COLOR_TYPE_RGB_ALPHA : PNG_COLOR_TYPE_RGB;
 				break;
 			case IMAGE_CONTENT_ALPHA:
-			case IMAGE_CONTENT_ZBUFFER:
-				colorType = PNG_COLOR_TYPE_GRAY;
-				break;
+			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
@@ -484,14 +489,11 @@ void ImageFileSavePNG::SavePNG(
 		}
 
 		// png_write_image(png_ptr, row_pointers);
-		uint64_t chunkSize = 100;
-		for (uint64_t r = 0; r < height; r += chunkSize)
+		for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
 		{
-			uint64_t leftToWrite = height - r;
-			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), min(leftToWrite, chunkSize));
-			 emit updateProgressAndStatus(getJobName(),
-				QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
-				(1.0 * currentChannel / totalChannel) + (1.0 * r / (totalChannel * height)));
+			uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), currentChunkSize);
+			emit updateProgressAndStatusChannel(1.0 * r / height);
 		}
 
 		/* end write */
@@ -1000,7 +1002,14 @@ void ImageFileSaveEXR::SaveEXR(
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
 	file.setFrameBuffer(frameBuffer);
-	file.writePixels(height);
+
+	// file.writePixels(height);
+	for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
+	{
+		uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+		file.writePixels(currentChunkSize);
+		emit updateProgressAndStatus(getJobName(), QString("Saving all channels"), 1.0 * r / height);
+	}
 }
 #endif /* USE_EXR */
 
@@ -1041,9 +1050,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	{
 		case IMAGE_CONTENT_COLOR: colorType = appendAlpha ? PHOTOMETRIC_RGB : PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_ALPHA:
-		case IMAGE_CONTENT_ZBUFFER:
-			colorType = PHOTOMETRIC_MINISBLACK;
-			break;
+		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
@@ -1061,7 +1068,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFSetField(tiff, TIFFTAG_IMAGELENGTH, height);
 	TIFFSetField(tiff, TIFFTAG_BITSPERSAMPLE, qualitySize);
 	TIFFSetField(tiff, TIFFTAG_SAMPLESPERPIXEL, samplesPerPixel);
-	TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, height);
+	TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, SAVE_CHUNK_SIZE);
 
 	TIFFSetField(tiff, TIFFTAG_COMPRESSION, COMPRESSION_DEFLATE);
 	TIFFSetField(tiff, TIFFTAG_PHOTOMETRIC, colorType);
@@ -1225,8 +1232,17 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		}
 	}
 
-	TIFFWriteEncodedStrip(
-		tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
+	// TIFFWriteEncodedStrip(
+	//	tiff, 0, static_cast<void *>(colorPtr), tsize_t(width * height * pixelSize));
+	for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
+	{
+		uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
+		// needs buffer with offset position
+		char *buf = static_cast<char *>(colorPtr) + r * pixelSize * width;
+		tsize_t size = tsize_t(currentChunkSize * pixelSize * width);
+		TIFFWriteEncodedStrip(tiff, r / SAVE_CHUNK_SIZE, buf, size);
+		updateProgressAndStatusChannel(1.0 * r / height);
+	}
 	TIFFClose(tiff);
 	delete[] colorPtr;
 	return true;

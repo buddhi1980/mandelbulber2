@@ -120,8 +120,10 @@ public:
 		QString filename, enumImageFileType fileType, cImage *image, ImageConfig imageConfig);
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
+	void updateProgressAndStatusChannel(double progress);
 
 protected:
+	static const uint64_t SAVE_CHUNK_SIZE = 100;
 	QString filename;
 	cImage *image;
 	ImageConfig imageConfig;
@@ -145,7 +147,11 @@ public:
 		hasAppendAlphaCustom = false;
 		appendAlphaCustom = false;
 	}
-	void SetAppendAlphaCustom(bool _appendAlphaCustom) { appendAlphaCustom = _appendAlphaCustom; hasAppendAlphaCustom = true; }
+	void SetAppendAlphaCustom(bool _appendAlphaCustom)
+	{
+		appendAlphaCustom = _appendAlphaCustom;
+		hasAppendAlphaCustom = true;
+	}
 	void SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("PNG"); }
 	void SavePNG(
@@ -153,6 +159,7 @@ public:
 	static void SavePNG16(QString filename, int width, int height, sRGB16 *image16);
 	static void SaveFromTilesPNG16(const char *filename, int width, int height, int tiles);
 	static bool SavePNGQtBlackAndWhite(QString filename, unsigned char *image, int width, int height);
+
 private:
 	bool hasAppendAlphaCustom;
 	bool appendAlphaCustom;
@@ -185,7 +192,7 @@ public:
 	}
 	void SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("TIFF"); }
-	static bool SaveTIFF(
+	bool SaveTIFF(
 		QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha = false);
 };
 #endif /* USE_TIFF */
@@ -201,7 +208,7 @@ public:
 	}
 	void SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("EXR"); }
-	static void SaveEXR(QString filename, cImage *image,
+	void SaveEXR(QString filename, cImage *image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 };
 #endif /* USE_EXR */
