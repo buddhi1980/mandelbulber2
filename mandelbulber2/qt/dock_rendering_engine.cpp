@@ -222,6 +222,7 @@ void cDockRenderingEngine::slotNetRenderStatusClientUpdate() const
 {
 	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
 	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
+	ui->label_netrender_client_connected_server->setText(gNetRender->GetServerName());
 	ui->label_netrender_client_status->setText(text);
 	ui->label_netrender_client_status->setStyleSheet(
 		"QLabel { color: " + color + "; font-weight: bold; border: 2px solid darkgray; border-radius: 3px;"

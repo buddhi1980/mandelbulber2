@@ -159,6 +159,8 @@ public:
 	qint32 getTotalWorkerCount();
 	// get status
 	netRenderStatus GetStatus() const { return status; }
+	// get name of the connected server
+	QString GetServerName() const { return serverName; }
 	// update status
 	void SetStatus(netRenderStatus _status) { status = _status; }
 	// get status of Client
@@ -201,6 +203,7 @@ private:
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes
 	QString address;
+	QString serverName;
 	qint32 portNo;
 	qint32 totalReceived;
 	qint32 totalReceivedUncompressed;
