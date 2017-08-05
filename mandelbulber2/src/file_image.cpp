@@ -1241,7 +1241,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		char *buf = static_cast<char *>(colorPtr) + r * pixelSize * width;
 		tsize_t size = tsize_t(currentChunkSize * pixelSize * width);
 		TIFFWriteEncodedStrip(tiff, r / SAVE_CHUNK_SIZE, buf, size);
-		updateProgressAndStatusChannel(1.0 * r / height);
+		emit updateProgressAndStatusChannel(1.0 * r / height);
 	}
 	TIFFClose(tiff);
 	delete[] colorPtr;

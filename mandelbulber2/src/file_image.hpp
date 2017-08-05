@@ -123,7 +123,7 @@ public:
 	void updateProgressAndStatusChannel(double progress);
 
 protected:
-	static const uint64_t SAVE_CHUNK_SIZE = 100;
+	static const uint64_t SAVE_CHUNK_SIZE = 64;
 	QString filename;
 	cImage *image;
 	ImageConfig imageConfig;
