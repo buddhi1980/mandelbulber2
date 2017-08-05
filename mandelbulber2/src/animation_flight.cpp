@@ -55,12 +55,11 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_global.h"
 #include "render_job.hpp"
+#include "render_window.hpp"
+#include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
-
-#include "render_window.hpp"
-#include "rendered_image_widget.hpp"
 
 #include "qt/my_progress_bar.h"
 #include "qt/my_table_widget_anim.hpp"

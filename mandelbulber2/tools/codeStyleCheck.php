@@ -258,7 +258,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 		}
 		return true;
 	} else {
-		$status[] = noticeString('no includes in file');
+		if(isVerbose()) $status[] = noticeString('no includes in file');
 		return true;
 	}
 	return false;

@@ -43,11 +43,11 @@
 
 #include <qmessagebox.h>
 
+#include "algebra.hpp"
+#include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "progress_text.hpp"
 #include "statistics.h"
-#include "algebra.hpp"
-#include "animation_frames.hpp"
 
 // forward declarations
 class cImage;

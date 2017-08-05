@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_SRC_AUDIO_TRACK_H_
 #define MANDELBULBER2_SRC_AUDIO_TRACK_H_
 
-#include <QObject>
 #include <QAudioDecoder>
+#include <QObject>
 
 #include "audio_fft_data.h"
 

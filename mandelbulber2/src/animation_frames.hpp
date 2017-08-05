@@ -38,10 +38,10 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 
-#include "parameters.hpp"
 #include <QtGui>
 
 #include "audio_track_collection.h"
+#include "parameters.hpp"
 
 // forward declarations
 class cFractalContainer;

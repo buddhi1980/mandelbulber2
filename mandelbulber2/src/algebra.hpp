@@ -50,15 +50,14 @@
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
-#include <QString>
 #include <gsl/gsl_sys.h>
 
-// custom includes
+#include <QString>
 
+// custom includes
 // MSVC defines math constants elsewhere, do not warn about the
 // redefinition in math.h
 #include <math.h>
-
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER
