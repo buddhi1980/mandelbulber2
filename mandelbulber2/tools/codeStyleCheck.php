@@ -188,7 +188,7 @@ function checkClang($filepath, &$fileContent, &$status)
 
 function checkIncludeHeaders($filepath, &$fileContent, &$status)
 {
-	return true; // unfinished
+    // return true; // activated
 	$contentsBefore = $fileContent;
 
 	$includeRegex = '/^([\s\S]*?)(\n#include[\s\S]+)?(\n#include.*)([\s\S]+)$/';
@@ -197,6 +197,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 		$includesCapture = $match[2] . $match[3];
 		$afterCapture = $match[4];
 		$includesIn = array_filter(explode(PHP_EOL, $includesCapture));
+		$includesIn = array_values($includesIn);
 		$includesOut = array(
 			'moduleHeader' => array(),
 			'cHeader' => array(),
@@ -206,10 +207,15 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 			'srcHeader' => array(), 
 			'uiHeader' => array(), 
 		);
-		foreach($includesIn as $includeLine){
-			$includeLine = str_replace('../src/', 'src/', $includeLine);
+		$customIncludes = '';
+		foreach($includesIn as $k => $includeLine){
+		    $includeLine = str_replace('../src/', 'src/', $includeLine);
 			$includeLine = str_replace('../qt/', 'qt/', $includeLine);
 			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
+			if($includeLine == '// custom includes'){
+				$customIncludes = implode(PHP_EOL, array_splice($includesIn, $k));
+				break;
+			}
 			if (preg_match($includeFormatRegex, $includeLine, $matchInclude)) {
 				$includeFileName = $matchInclude[2];
 				if($matchInclude[1] == '"'){		
@@ -241,9 +247,10 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 		foreach($includesOut as $includeGroup){
 			if(empty($includeGroup)) continue;
 			sort($includeGroup, SORT_STRING);
+			$includeGroup = array_unique($includeGroup); 
 			$newIncludes .= PHP_EOL . PHP_EOL . implode(PHP_EOL, $includeGroup);
 		}
-
+		if(!empty($customIncludes)) $newIncludes .= PHP_EOL . PHP_EOL . $customIncludes;
 		$newFileContent = $beforeCapture . PHP_EOL . trim($newIncludes) . $afterCapture;
 		if ($newFileContent != $fileContent) {
 			$fileContent = $newFileContent;

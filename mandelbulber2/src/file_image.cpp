@@ -58,6 +58,8 @@
 #include <half.h>
 #endif // USE_EXR
 
+const uint64_t ImageFileSave::SAVE_CHUNK_SIZE;
+
 ImageFileSave::ImageFileSave(QString filename, cImage *image, ImageConfig imageConfig)
 {
 	this->filename = filename;

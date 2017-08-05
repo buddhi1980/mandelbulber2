@@ -40,17 +40,11 @@
 
 #include "animation_keyframes.hpp"
 
-#include "../qt/my_progress_bar.h"
-#include "../qt/my_table_widget_keyframes.hpp"
-#include "../qt/player_widget.hpp"
-#include "../qt/system_tray.hpp"
-#include "../qt/thumbnail_widget.h"
-#include "../qt/pushbutton_anim_sound.h"
-#include "../src/render_window.hpp"
 #include "cimage.hpp"
+#include "common_math.h"
 #include "dock_animation.h"
-#include "dock_statistics.h"
 #include "dock_navigation.h"
+#include "dock_statistics.h"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
@@ -60,7 +54,15 @@
 #include "rendering_configuration.hpp"
 #include "ui_dock_animation.h"
 #include "undo.h"
-#include "common_math.h"
+
+#include "src/render_window.hpp"
+
+#include "qt/my_progress_bar.h"
+#include "qt/my_table_widget_keyframes.hpp"
+#include "qt/player_widget.hpp"
+#include "qt/pushbutton_anim_sound.h"
+#include "qt/system_tray.hpp"
+#include "qt/thumbnail_widget.h"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
@@ -1133,8 +1135,8 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	if (gAnimFrames->GetFrames().size() > 0)
 	{
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
+		reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+			QObject::tr("Export keyframes to flight"),
 			QObject::tr(
 				"There are already captured flight frames present.\nDiscard current flight frames ?"),
 			QMessageBox::Yes | QMessageBox::No);

@@ -37,9 +37,9 @@
 
 #include "animation_frames.hpp"
 
+#include "audio_track.h"
 #include "audio_track_collection.h"
 #include "fractal_container.hpp"
-#include "audio_track.h"
 #include "initparameters.hpp"
 
 cAnimationFrames *gAnimFrames = nullptr;

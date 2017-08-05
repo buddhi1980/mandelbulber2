@@ -82,6 +82,7 @@ set(ADDITIONAL_EXECUTABLE ../qt/icons.qrc)
 file(GLOB qt_UI "../qt/*.ui")
 QT5_WRAP_UI(qt_UI_H ${qt_UI})
 
+include_directories(..)
 include_directories(../qt)
 include_directories(../src)
 
