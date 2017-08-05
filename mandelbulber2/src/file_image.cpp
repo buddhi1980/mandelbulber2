@@ -138,13 +138,21 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 void ImageFileSave::updateProgressAndStatusChannel(double progress)
 {
 	emit updateProgressAndStatus(getJobName(),
-		QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+		QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 		(1.0 * currentChannel / totalChannel) + (progress / totalChannel));
+}
+void ImageFileSave::updateProgressAndStatusStarted()
+{
+	emit updateProgressAndStatus(getJobName(), QObject::tr("Started"), 0.0);
+}
+void ImageFileSave::updateProgressAndStatusFinished()
+{
+	emit updateProgressAndStatus(getJobName(), QObject::tr("Finished"), 1.0);
 }
 
 void ImageFileSavePNG::SaveImage()
 {
-	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+	emit updateProgressAndStatusStarted();
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
@@ -158,7 +166,7 @@ void ImageFileSavePNG::SaveImage()
 		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".png";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
 
 		switch (currentChannelKey)
@@ -173,12 +181,12 @@ void ImageFileSavePNG::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
+	emit updateProgressAndStatusFinished();
 }
 
 void ImageFileSaveJPG::SaveImage()
 {
-	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+	emit updateProgressAndStatusStarted();
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -187,7 +195,7 @@ void ImageFileSaveJPG::SaveImage()
 		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".jpg";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
 
 		switch (currentChannelKey)
@@ -211,26 +219,26 @@ void ImageFileSaveJPG::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
+	emit updateProgressAndStatusFinished();
 }
 
 #ifdef USE_TIFF
 void ImageFileSaveTIFF::SaveImage()
 {
-	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+	emit updateProgressAndStatusStarted();
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
 										 && imageConfig.contains(IMAGE_CONTENT_ALPHA);
 
-	int currentChannel = 0;
+	currentChannel = 0;
 	totalChannel = imageConfig.size();
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
 		currentChannelKey = channel.key();
 		QString fullFilename = filename + channel.value().postfix + ".tiff";
 		emit updateProgressAndStatus(getJobName(),
-			QString("Saving channel %1").arg(ImageChannelName(currentChannelKey)),
+			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
 
 		switch (currentChannelKey)
@@ -245,17 +253,17 @@ void ImageFileSaveTIFF::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
+	emit updateProgressAndStatusFinished();
 }
 #endif /* USE_TIFF */
 
 #ifdef USE_EXR
 void ImageFileSaveEXR::SaveImage()
 {
-	emit updateProgressAndStatus(getJobName(), QString("Started"), 0.0);
+	emit updateProgressAndStatusStarted();
 	QString fullFilename = filename + ".exr";
 	SaveEXR(fullFilename, image, imageConfig);
-	emit updateProgressAndStatus(getJobName(), QString("Finished"), 1.0);
+	emit updateProgressAndStatusFinished();
 }
 #endif /* USE_EXR */
 

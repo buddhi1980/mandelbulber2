@@ -121,7 +121,8 @@ public:
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
 	void updateProgressAndStatusChannel(double progress);
-
+	void updateProgressAndStatusStarted();
+	void updateProgressAndStatusFinished();
 protected:
 	static const uint64_t SAVE_CHUNK_SIZE = 64;
 	QString filename;
