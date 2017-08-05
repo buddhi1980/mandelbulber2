@@ -35,13 +35,12 @@
 #ifndef MANDELBULBER2_SRC_COMMON_MATH_H_
 #define MANDELBULBER2_SRC_COMMON_MATH_H_
 
-#include "algebra.hpp"
-#include <QtCore>
-
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif
 
+#include "algebra.hpp"
+#include <QtCore>
 #include <math.h>
 
 #undef MAX

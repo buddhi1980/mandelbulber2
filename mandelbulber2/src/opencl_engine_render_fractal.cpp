@@ -53,9 +53,10 @@
 #include "parameters.hpp"
 #include "progress_text.hpp"
 
+// custom includes
 #ifdef USE_OPENCL
-#include "../opencl/fractal_cl.h"
-#include "../opencl/fractparams_cl.hpp"
+#include "opencl/fractal_cl.h"
+#include "opencl/fractparams_cl.hpp"
 #endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)

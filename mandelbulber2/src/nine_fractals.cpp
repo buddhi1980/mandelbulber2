@@ -41,8 +41,9 @@
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 
+// custom includes
 #ifdef USE_OPENCL
-#include "../opencl/opencl_algebra.h"
+#include "opencl/opencl_algebra.h"
 #endif
 
 cNineFractals::~cNineFractals()

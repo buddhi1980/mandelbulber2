@@ -42,8 +42,7 @@
 #include "parameters.hpp"
 #include "cimage.hpp"
 
-#define PNG_DEBUG 3
-
+// custom includes
 #ifdef USE_TIFF
 #include "tiff.h"
 #include "tiffio.h"
@@ -57,6 +56,8 @@
 #include <ImfOutputFile.h>
 #include <half.h>
 #endif // USE_EXR
+
+#define PNG_DEBUG 3
 
 const uint64_t ImageFileSave::SAVE_CHUNK_SIZE;
 

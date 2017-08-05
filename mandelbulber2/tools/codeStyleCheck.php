@@ -226,7 +226,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 					else if(strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
 					else if(strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
 					else {
-						$status[] = errorString('invalid include line: "' . $include . '"');
+						$status[] = errorString('invalid include line: "' . $includeLine . '"');
 						return false;
 					}
 				}else if($matchInclude[1] == '<'){
@@ -259,6 +259,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 		return true;
 	} else {
 		$status[] = noticeString('no includes in file');
+		return true;
 	}
 	return false;
 }

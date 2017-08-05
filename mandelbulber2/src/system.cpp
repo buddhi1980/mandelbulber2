@@ -47,14 +47,14 @@
 #include <string.h>
 
 #include "../src/render_window.hpp"
+#include <stdio.h>
 
+// custom includes
 #ifndef _WIN32
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
 #endif
-
-#include <stdio.h>
 
 //#define CLSUPPORT
 

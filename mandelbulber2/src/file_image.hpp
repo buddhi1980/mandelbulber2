@@ -42,6 +42,7 @@
 #include <QtCore>
 #include "color_structures.hpp"
 
+// custom includes
 extern "C" {
 #include <png.h>
 }
