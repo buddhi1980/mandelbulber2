@@ -44,10 +44,12 @@ foreach ($sourceFiles as $sourceFilePath) {
 	$sourceContent = file_get_contents($sourceFilePath);
 	if (checkFileHeader($sourceFilePath, $sourceContent, $status)) {
 		if (checkClang($sourceFilePath, $sourceContent, $status)) {
-			if (!isDryRun() && count($status) > 0) {
-				file_put_contents($sourceFilePath, $sourceContent);
+			if (checkIncludeHeaders($sourceFilePath, $sourceContent, $status)) {
+				if (!isDryRun() && count($status) > 0) {
+					file_put_contents($sourceFilePath, $sourceContent);
+				}
+				$success = true;
 			}
-			$success = true;
 		}
 	}
 	printResultLine($sourceFileName, $success, $status);
@@ -65,10 +67,12 @@ foreach ($headerFiles as $headerFilePath) {
 	if (checkFileHeader($headerFilePath, $headerContent, $status)) {
 		if (checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) {
 			if (checkClang($headerFilePath, $headerContent, $status)) {
-				if (!isDryRun() && count($status) > 0) {
-					file_put_contents($headerFilePath, $headerContent);
+				if (checkIncludeHeaders($headerFilePath, $headerContent, $status)) {
+					if (!isDryRun() && count($status) > 0) {
+						file_put_contents($headerFilePath, $headerContent);
+					}
+					$success = true;
 				}
-				$success = true;
 			}
 		}
 	}
@@ -181,6 +185,77 @@ function checkClang($filepath, &$fileContent, &$status)
 	}
 	return true;
 }
+
+function checkIncludeHeaders($filepath, &$fileContent, &$status)
+{
+	return true; // unfinished
+	$contentsBefore = $fileContent;
+
+	$includeRegex = '/^([\s\S]*?)(\n#include[\s\S]+)?(\n#include.*)([\s\S]+)$/';
+	if (preg_match($includeRegex, $fileContent, $match)) {
+		$beforeCapture = $match[1];
+		$includesCapture = $match[2] . $match[3];
+		$afterCapture = $match[4];
+		$includesIn = array_filter(explode(PHP_EOL, $includesCapture));
+		$includesOut = array(
+			'moduleHeader' => array(),
+			'cHeader' => array(),
+			'cppHeader' => array(),
+			'qtHeader' => array(), 
+			'localHeader' => array(),
+			'srcHeader' => array(), 
+			'uiHeader' => array(), 
+		);
+		foreach($includesIn as $includeLine){
+			$includeLine = str_replace('../src/', 'src/', $includeLine);
+			$includeLine = str_replace('../qt/', 'qt/', $includeLine);
+			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
+			if (preg_match($includeFormatRegex, $includeLine, $matchInclude)) {
+				$includeFileName = $matchInclude[2];
+				if($matchInclude[1] == '"'){		
+					// project includes		
+					if(pathinfo(basename($includeFileName), PATHINFO_FILENAME) 
+						== pathinfo(basename($filepath), PATHINFO_FILENAME)) $includesOut['moduleHeader'][] = $includeLine;
+					else if(strpos($includeFileName, '/') === false) $includesOut['localHeader'][] = $includeLine;
+					else if(strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
+					else if(strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
+					else {
+						$status[] = errorString('invalid include line: "' . $include . '"');
+						return false;
+					}
+				}else if($matchInclude[1] == '<'){
+					// system includes
+					if(substr($includeFileName, 0, 1) == 'Q') $includesOut['qtHeader'][] = $includeLine;
+					elseif(substr($includeFileName, -2, 2) == '.h') $includesOut['cHeader'][] = $includeLine;
+					else $includesOut['cppHeader'][] = $includeLine;
+				}else {
+					$status[] = errorString('invalid include line: "' . $includeLine . '"');
+					return false;
+				}
+			}else{
+				$status[] = errorString('invalid include line: "' . $includeLine . '"');
+				return false;				
+			}
+		}
+		$newIncludes = '';
+		foreach($includesOut as $includeGroup){
+			if(empty($includeGroup)) continue;
+			sort($includeGroup, SORT_STRING);
+			$newIncludes .= PHP_EOL . PHP_EOL . implode(PHP_EOL, $includeGroup);
+		}
+
+		$newFileContent = $beforeCapture . PHP_EOL . trim($newIncludes) . $afterCapture;
+		if ($newFileContent != $fileContent) {
+			$fileContent = $newFileContent;
+			$status[] = noticeString('includes changed');
+		}
+		return true;
+	} else {
+		$status[] = noticeString('no includes in file');
+	}
+	return false;
+}
+
 
 function getModificationInterval($filePath)
 {
