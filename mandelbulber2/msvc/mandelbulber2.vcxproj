@@ -103,7 +103,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -126,10 +126,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -154,7 +154,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -173,10 +173,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -201,7 +201,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Debug/</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <CompileAs>CompileAsCpp</CompileAs>
@@ -220,10 +220,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -248,7 +248,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -271,10 +271,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -299,7 +299,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -323,10 +323,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcs);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -351,7 +351,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -370,10 +370,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -398,7 +398,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -418,10 +418,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcs);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -446,7 +446,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -465,10 +465,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -493,7 +493,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|ARM'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>Release/</AssemblerListingLocation>
       <CompileAs>CompileAsCpp</CompileAs>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -513,10 +513,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcs);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SourceDir)build-win;$(SourceDir)mandelbulber2;$(SourceDir)mandelbulber2\qt;$(SourceDir)mandelbulber2\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
