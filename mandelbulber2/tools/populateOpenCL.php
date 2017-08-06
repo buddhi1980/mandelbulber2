@@ -112,14 +112,15 @@ foreach ($copyFiles as $type => $copyFile) {
 
 	// add c++ side includes
 	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
-	$cppIncludes .= '#include "../src/fractal_enums.h"' . PHP_EOL;
-	$cppIncludes .= '#include "../opencl/opencl_algebra.h"' . PHP_EOL;
-	$cppIncludes .= '#include "../opencl/common_params_cl.hpp"' . PHP_EOL;
-	$cppIncludes .= '#include "../opencl/image_adjustments_cl.h"' . PHP_EOL;
-	$cppIncludes .= '#include "../src/common_params.hpp"' . PHP_EOL;
-	$cppIncludes .= '#include "../src/image_adjustments.h"' . PHP_EOL;
-	$cppIncludes .= '#include "../src/fractparams.hpp"' . PHP_EOL;
-	$cppIncludes .= '#include "../src/fractal.h"' . PHP_EOL;
+	if(basename($copyFile['pathTarget']) != 'common_params_cl.hpp') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
+	if(basename($copyFile['pathTarget']) != 'image_adjustments_cl.h')$cppIncludes .= '#include "image_adjustments_cl.h"' . PHP_EOL;
+	if(basename($copyFile['pathTarget']) != 'opencl_algebra.h')$cppIncludes .= '#include "opencl_algebra.h"' . PHP_EOL;
+	$cppIncludes .= PHP_EOL;
+	$cppIncludes .= '#include "src/common_params.hpp"' . PHP_EOL;
+	$cppIncludes .= '#include "src/fractal.h"' . PHP_EOL;
+	$cppIncludes .= '#include "src/fractal_enums.h"' . PHP_EOL;
+	$cppIncludes .= '#include "src/fractparams.hpp"' . PHP_EOL;
+	$cppIncludes .= '#include "src/image_adjustments.h"' . PHP_EOL;
 	$cppIncludes .= '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL;
 
 	$content = preg_replace('/(#define MANDELBULBER2_OPENCL_.*)/', '$1' . PHP_EOL . PHP_EOL . $cppIncludes, $content);
@@ -165,6 +166,7 @@ foreach ($copyFiles as $type => $copyFile) {
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
 	$content = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
+	patchModificationDate($content, $oldContent);
 
 	if ($content != $oldContent) {
 		if (!isDryRun()) {
@@ -175,6 +177,16 @@ foreach ($copyFiles as $type => $copyFile) {
 		if (isVerbose()) {
 			echo noticeString('file ' . $copyFile['pathTarget'] . ' has not changed.') . PHP_EOL;
 		}
+	}
+}
+
+function patchModificationDate(&$content, $oldContent)
+{
+    // patches the modification string
+	if (preg_match('/Copyright \(C\) ([0-9-]+)/', $oldContent, $lineMatch)) {
+	    $modificationString = $lineMatch[1];
+		$content = preg_replace('/Copyright \(C\) [0-9-]+ Mandelbulber Team \s+ §/',
+		    'Copyright (C) ' . $modificationString . ' Mandelbulber Team ' . str_repeat(' ', 10 - strlen($modificationString)) . ' §', $content);
 	}
 }
 

@@ -46,8 +46,6 @@
 #define MANDELBULBER2_OPENCL_IMAGE_ADJUSTMENTS_CL_H_
 
 #ifndef OPENCL_KERNEL_CODE
-#include "image_adjustments_cl.h"
-
 #include "common_params_cl.hpp"
 #include "opencl_algebra.h"
 
