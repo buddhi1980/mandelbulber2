@@ -27,75 +27,40 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * These objects enable an OpenCL backend definition.
+ * This header contains the include dependencies for opencl specific code
+ * see usage in other src/opencl_* files
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_DEVICE_H_
-#define MANDELBULBER2_SRC_OPENCL_DEVICE_H_
+#ifndef MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
+#define MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
 
-#include <QtCore>
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 4005) // macro redefinition
+#pragma warning(disable : 4996) // declared deprecated
+#endif // _MSC_VER
 
-#include "opencl_include_header_wrapper.hpp"
-
-class cOpenClDevice
-{
-
-public:
-	enum enumOpenClDeviceType
-	{
-		openClDeviceTypeGPU,
-		openClDeviceTypeDEF,
-		openClDeviceTypeALL,
-		openClDeviceTypeCPU,
-		openClDeviceTypeACC
-	};
-
+// custom includes
 #ifdef USE_OPENCL
-	struct sDeviceInformation
-	{
-		cl_bool deviceAvailable;
-		cl_bool compilerAvailable;
-		cl_device_fp_config doubleFpConfig;
-		cl_ulong globalMemCacheSize;
-		cl_uint globalMemCachelineSize;
-		cl_ulong globalMemSize;
-		cl_ulong localMemSize;
-		cl_uint maxClockFrequency;
-		cl_uint maxComputeUnits;
-		cl_ulong maxConstantBufferSize;
-		cl_ulong maxMemAllocSize;
-		size_t maxParameterSize;
-		size_t maxWorkGroupSize;
-		QString deviceName;
-		QString deviceVersion;
-		QString driverVersion;
-		QByteArray hash;
-	};
-
-protected:
-	cl::Device clDevice;
-	sDeviceInformation deviceInformation;
-
-public:
-	cOpenClDevice(cl::Device device, sDeviceInformation info);
-
-	const sDeviceInformation &getDeviceInformation() const { return deviceInformation; }
-
-	const cl::Device &getDevice() const { return clDevice; }
-
+#ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
+#include "clew.h"
+#include "clew-cl.hpp"
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.hpp>
+#else
+#include <CL/cl.hpp>
 #endif
+#endif // USE_OPENCL
 
-public:
-	cOpenClDevice();
-	~cOpenClDevice();
-	void Enable();
-	void Disable();
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif // _MSC_VER
 
-protected:
-	int deviceIndex;
-	bool enabled;
-};
-
-#endif /* MANDELBULBER2_SRC_OPENCL_DEVICE_H_ */
+#endif /* MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_ */

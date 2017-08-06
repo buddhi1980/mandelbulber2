@@ -35,29 +35,15 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
 #define MANDELBULBER2_SRC_OPENCL_DYNAMIC_DATA_HPP_
 
-#ifdef USE_OPENCL
-
 #include <QtCore>
 
-// custom includes
-#ifdef _WIN32
-#ifndef _MSC_VER
-// clew for cross compile
-#include "clew.h"
-#include "clew-cl.hpp"
-#endif // NOT _MSC_VER
-#endif // _WIN32
-// OpenCL SDK for all others
-#if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl.hpp>
-#else
-#include <CL/cl.hpp>
-#endif
+#include "opencl_include_header_wrapper.hpp"
 
 class cMaterial;
 struct sVectorsAround;
 class cLights;
 
+#ifdef USE_OPENCL
 class cOpenClDynamicData
 {
 public:
