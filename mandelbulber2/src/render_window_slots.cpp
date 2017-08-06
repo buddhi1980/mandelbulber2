@@ -53,7 +53,7 @@
 #include "system.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
-#include "ui_render_window.h"
+#include "qt/ui_render_window.h"
 #include "global_data.hpp"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const

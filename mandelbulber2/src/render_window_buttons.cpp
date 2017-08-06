@@ -41,7 +41,7 @@
 #include "common_math.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
-#include "ui_render_window.h"
+#include "qt/ui_render_window.h"
 
 void RenderWindow::slotPressedButtonDeletePrimitive() const
 {

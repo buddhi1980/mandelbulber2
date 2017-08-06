@@ -43,13 +43,13 @@
 #include "file_image.hpp"
 #include "files.h"
 #include "global_data.hpp"
-#include "image_save_dialog.h"
+#include "qt/image_save_dialog.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "old_settings.hpp"
-#include "preview_file_dialog.h"
+#include "qt/preview_file_dialog.h"
 #include "settings.hpp"
-#include "ui_render_window.h"
+#include "qt/ui_render_window.h"
 
 void RenderWindow::slotImportOldSettings()
 {

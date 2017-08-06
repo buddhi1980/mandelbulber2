@@ -46,12 +46,12 @@
 #include "initparameters.hpp"
 #include "keyframes.hpp"
 #include "parameters.hpp"
-#include "preview_file_dialog.h"
+#include "qt/preview_file_dialog.h"
 #include "render_queue.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-#include "ui_dock_queue.h"
-#include "dock_queue.h"
+#include "qt/ui_dock_queue.h"
+#include "qt/dock_queue.h"
 
 cQueue *gQueue = nullptr;
 
