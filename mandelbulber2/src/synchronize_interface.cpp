@@ -34,21 +34,23 @@
 
 #include "synchronize_interface.hpp"
 
-#include "../qt/color_palette_widget.h"
-#include "../qt/file_select_widget.h"
-#include "../qt/material_selector.h"
-#include "../qt/my_check_box.h"
-#include "../qt/my_color_button.h"
-#include "../qt/my_double_spin_box.h"
-#include "../qt/my_group_box.h"
-#include "../qt/my_line_edit.h"
-#include "../qt/my_spin_box.h"
-#include "fractal_list.hpp"
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
+
 #include "algebra.hpp"
-#include "parameters.hpp"
+#include "fractal_list.hpp"
 #include "global_data.hpp"
+#include "parameters.hpp"
+
+#include "qt/color_palette_widget.h"
+#include "qt/file_select_widget.h"
+#include "qt/material_selector.h"
+#include "qt/my_check_box.h"
+#include "qt/my_color_button.h"
+#include "qt/my_double_spin_box.h"
+#include "qt/my_group_box.h"
+#include "qt/my_line_edit.h"
+#include "qt/my_spin_box.h"
 
 using namespace qInterface;
 

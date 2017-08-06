@@ -33,6 +33,7 @@
  */
 
 #include "fractal_list.hpp"
+
 #include "fractal_formulas.hpp"
 
 QList<sFractalDescription> fractalList;

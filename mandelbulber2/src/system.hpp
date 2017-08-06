@@ -53,10 +53,11 @@
 #endif
 #endif
 
-#include <QtCore>
 #include <qapplication.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <QtCore>
 
 enum enumRenderingThreadPriority
 {

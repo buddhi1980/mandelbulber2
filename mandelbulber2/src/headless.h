@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_HEADLESS_H_
 #define MANDELBULBER2_SRC_HEADLESS_H_
 
+#include <QtCore>
+
 #include "progress_text.hpp"
 #include "statistics.h"
-#include <QtCore>
 
 class cHeadless : public QObject
 {

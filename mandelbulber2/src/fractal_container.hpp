@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_CONTAINER_HPP_
 
-#include "parameters.hpp"
 #include "fractal_enums.h"
+#include "parameters.hpp"
 
 class cFractalContainer
 {

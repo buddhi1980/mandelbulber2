@@ -37,6 +37,7 @@
 #define MANDELBULBER2_SRC_MARCHINGCUBES_H_
 
 #include <stddef.h>
+
 #include <vector>
 
 namespace mc

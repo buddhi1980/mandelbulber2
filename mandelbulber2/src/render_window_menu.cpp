@@ -36,19 +36,20 @@
  * spread over render_window_*.cpp
  */
 
-#include "../src/material_item_model.h"
-#include "render_window.hpp"
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "file_image.hpp"
 #include "files.h"
 #include "global_data.hpp"
-#include "qt/image_save_dialog.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "material_item_model.h"
 #include "old_settings.hpp"
-#include "qt/preview_file_dialog.h"
+#include "render_window.hpp"
 #include "settings.hpp"
+
+#include "qt/image_save_dialog.h"
+#include "qt/preview_file_dialog.h"
 #include "qt/ui_render_window.h"
 
 void RenderWindow::slotImportOldSettings()

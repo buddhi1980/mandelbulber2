@@ -35,8 +35,9 @@
 #ifndef MANDELBULBER2_SRC_PARAMETERS_HPP_
 #define MANDELBULBER2_SRC_PARAMETERS_HPP_
 
-#include "one_parameter.hpp"
 #include <QtCore>
+
+#include "one_parameter.hpp"
 
 using namespace parameterContainer;
 class cParameterContainer

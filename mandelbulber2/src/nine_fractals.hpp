@@ -36,10 +36,11 @@
 #ifndef MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 #define MANDELBULBER2_SRC_NINE_FRACTALS_HPP_
 
+#include <QtCore>
+
+#include "algebra.hpp"
 #include "fractal_enums.h"
 #include "fractal_list.hpp"
-#include "algebra.hpp"
-#include <QtCore>
 
 // custom includes
 #ifdef USE_OPENCL

@@ -36,6 +36,7 @@
  */
 
 #include "morph.hpp"
+
 #include "common_math.h"
 
 cMorph::cMorph()

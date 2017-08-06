@@ -34,6 +34,7 @@
  */
 
 #include "fractal_formulas.hpp"
+
 #include "common_math.h"
 #include "common_params.hpp"
 #include "fractal.h"

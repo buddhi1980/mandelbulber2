@@ -33,19 +33,21 @@
  */
 
 #include "netrender.hpp"
+
+#include <QAbstractSocket>
+#include <QHostInfo>
+
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "lzo_compression.h"
+#include "render_window.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-#include <QAbstractSocket>
-#include <QHostInfo>
-#include "render_window.hpp"
 #include "texture.hpp"
-#include "lzo_compression.h"
 
 CNetRender *gNetRender = nullptr;
 

@@ -33,6 +33,7 @@
  */
 
 #include "multi_val.hpp"
+
 #include <QLocale>
 #include <QtCore>
 

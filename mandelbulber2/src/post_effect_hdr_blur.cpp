@@ -32,12 +32,13 @@
  * cPostEffectHdrBlur - Renders a weighted blur which works on HDR image data
  */
 
+#include "post_effect_hdr_blur.h"
+
 #include <QtCore>
 
-#include "post_effect_hdr_blur.h"
 #include "cimage.hpp"
-#include "progress_text.hpp"
 #include "global_data.hpp"
+#include "progress_text.hpp"
 
 cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
 {

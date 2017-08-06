@@ -38,11 +38,12 @@
 #include "material_item_view.h"
 
 #include <qpainter.h>
-
-#include "../qt/material_widget.h"
-#include "system.hpp"
 #include <qpushbutton.h>
 #include <qscrollbar.h>
+
+#include "system.hpp"
+
+#include "qt/material_widget.h"
 
 cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent)
 {

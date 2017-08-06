@@ -39,15 +39,15 @@
 
 #include <QCryptographicHash>
 
-#include "error_message.hpp"
-#include "initparameters.hpp"
-#include "primitives.h"
-#include "system.hpp"
 #include "animation_frames.hpp"
+#include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "fractal_enums.h"
+#include "initparameters.hpp"
 #include "keyframes.hpp"
 #include "material.h"
+#include "primitives.h"
+#include "system.hpp"
 
 cSettings::cSettings(enumFormat _format)
 {

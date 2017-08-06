@@ -35,9 +35,9 @@
 #ifndef MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 #define MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 
+#include "calculation_mode.h"
 #include "common_params.hpp"
 #include "fractal_coloring.hpp"
-#include "calculation_mode.h"
 
 // forward declarations
 class cNineFractals;

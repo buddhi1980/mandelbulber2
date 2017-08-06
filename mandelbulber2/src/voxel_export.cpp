@@ -38,14 +38,15 @@
  */
 
 #include "voxel_export.hpp"
+
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "file_image.hpp"
-#include "fractparams.hpp"
 #include "fractal_container.hpp"
+#include "fractparams.hpp"
 #include "initparameters.hpp"
-#include "progress_text.hpp"
 #include "nine_fractals.hpp"
+#include "progress_text.hpp"
 
 cVoxelExport::cVoxelExport(
 	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter)

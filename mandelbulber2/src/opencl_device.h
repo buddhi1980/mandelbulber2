@@ -35,14 +35,15 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 #define MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 
-#include <QtCore>
-
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
+#include <QtCore>
+
+// custom includes
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER

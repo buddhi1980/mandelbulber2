@@ -32,9 +32,10 @@
  * definitions of primitive objects
  */
 
+#include "primitives.h"
+
 #include <QtAlgorithms>
 
-#include "primitives.h"
 #include "displacement_map.hpp"
 #include "parameters.hpp"
 #include "system.hpp"

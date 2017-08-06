@@ -36,18 +36,18 @@
  */
 
 #include "file_image.hpp"
+
+#include "cimage.hpp"
 #include "error_message.hpp"
 #include "files.h"
 #include "initparameters.hpp"
 #include "parameters.hpp"
-#include "cimage.hpp"
 
 // custom includes
 #ifdef USE_TIFF
 #include "tiff.h"
 #include "tiffio.h"
 #endif // USE_TIFF
-
 #ifdef USE_EXR
 #include <ImfAttribute.h>
 #include <ImfChannelList.h>

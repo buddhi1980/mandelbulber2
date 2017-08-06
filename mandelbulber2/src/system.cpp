@@ -34,20 +34,21 @@
 
 #include "system.hpp"
 
-#include "global_data.hpp"
-#include "initparameters.hpp"
-#include "interface.hpp"
-#include <QTextStream>
-#include <QtGui>
-#include <ctime>
 #include <locale.h>
 #include <qstylefactory.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "../src/render_window.hpp"
-#include <stdio.h>
+#include <ctime>
+
+#include <QTextStream>
+#include <QtGui>
+
+#include "global_data.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "render_window.hpp"
 
 // custom includes
 #ifndef _WIN32

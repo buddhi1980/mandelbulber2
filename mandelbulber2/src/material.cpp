@@ -33,6 +33,7 @@
  */
 
 #include "material.h"
+
 #include "netrender.hpp"
 #include "parameters.hpp"
 #include "texture_enums.hpp"

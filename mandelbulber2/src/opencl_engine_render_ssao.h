@@ -35,17 +35,15 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 
-#include "opencl_engine.h"
-
-struct sParamRender;
-class cImage;
-
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
+#include "opencl_engine.h"
+
+// custom includes
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER
@@ -60,8 +58,11 @@ class cImage;
 #else
 #include <CL/cl.hpp>
 #endif
-#include "../opencl/ssao_cl.h"
+#include "opencl/ssao_cl.h"
 #endif // USE_OPENCL
+
+struct sParamRender;
+class cImage;
 
 class cOpenClEngineRenderSSAO : public cOpenClEngine
 {

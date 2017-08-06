@@ -34,20 +34,22 @@
  */
 
 #include "rendered_image_widget.hpp"
-#include "common_math.h"
-#include "primitives.h"
+
 #include <QApplication>
 #include <QKeyEvent>
 #include <QMouseEvent>
 #include <QPainter>
-#include <QtCore>
 #include <QVariant>
-#include "parameters.hpp"
+#include <QtCore>
+
+#include "camera_movement_modes.h"
 #include "cimage.hpp"
+#include "common_math.h"
 #include "fractparams.hpp"
 #include "nine_fractals.hpp"
+#include "parameters.hpp"
+#include "primitives.h"
 #include "trace_behind.h"
-#include "camera_movement_modes.h"
 
 using namespace Qt;
 

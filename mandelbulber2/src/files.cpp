@@ -32,13 +32,15 @@
  * file operation functions
  */
 
-#include <cstdio>
+#include "files.h"
+
 #include <string.h>
 
-#include "error_message.hpp"
-#include "files.h"
-#include "initparameters.hpp"
+#include <cstdio>
+
 #include "cimage.hpp"
+#include "error_message.hpp"
+#include "initparameters.hpp"
 
 // custom includes
 extern "C" {

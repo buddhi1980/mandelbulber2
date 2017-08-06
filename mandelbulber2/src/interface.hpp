@@ -35,9 +35,10 @@
 #define MANDELBULBER2_SRC_INTERFACE_HPP_
 
 #include <QtWidgets/QtWidgets>
+
+#include "algebra.hpp"
 #include "primitives.h"
 #include "synchronize_interface.hpp"
-#include "algebra.hpp"
 
 // forward declarations
 class cParameterContainer;

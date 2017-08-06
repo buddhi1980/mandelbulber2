@@ -36,25 +36,26 @@
  * spread over render_window_*.cpp
  */
 
-#include "../qt/material_editor.h"
-#include "render_window.hpp"
-#include "../qt/preferences_dialog.h"
-#include "../qt/thumbnail_widget.h"
-#include "../qt/voxel_export_dialog.h"
-#include "../qt/mesh_export_dialog.h"
-#include "../src/material_item_model.h"
+#include "animation_flight.hpp"
 #include "animation_frames.hpp"
+#include "animation_keyframes.hpp"
 #include "cimage.hpp"
+#include "global_data.hpp"
 #include "image_scale.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "keyframes.hpp"
+#include "material_item_model.h"
+#include "render_window.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-#include "animation_flight.hpp"
-#include "animation_keyframes.hpp"
+
+#include "qt/material_editor.h"
+#include "qt/mesh_export_dialog.h"
+#include "qt/preferences_dialog.h"
+#include "qt/thumbnail_widget.h"
 #include "qt/ui_render_window.h"
-#include "global_data.hpp"
+#include "qt/voxel_export_dialog.h"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const
 {

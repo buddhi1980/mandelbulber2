@@ -33,20 +33,21 @@
  */
 
 #include "test.hpp"
+
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
+#include "files.h"
 #include "headless.h"
 #include "initparameters.hpp"
+#include "interface.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
-#include "settings.hpp"
-#include "interface.hpp"
 #include "rendering_configuration.hpp"
+#include "settings.hpp"
 #include "system.hpp"
-#include "files.h"
 
 QString Test::testFolder()
 {

@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_SRC_LIGHTS_HPP_
 #define MANDELBULBER2_SRC_LIGHTS_HPP_
 
+#include <QObject>
+
 #include "algebra.hpp"
 #include "color_structures.hpp"
-#include <QObject>
 
 // forward declarations
 class cParameterContainer;

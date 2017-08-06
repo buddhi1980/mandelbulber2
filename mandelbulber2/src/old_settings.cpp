@@ -33,6 +33,7 @@
  */
 
 #include "old_settings.hpp"
+
 #include "camera_target.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"

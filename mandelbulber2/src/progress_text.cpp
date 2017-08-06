@@ -34,9 +34,9 @@
 
 #include "progress_text.hpp"
 
-#include "../src/render_window.hpp"
 #include "headless.h"
 #include "interface.hpp"
+#include "render_window.hpp"
 #include "system.hpp"
 
 cProgressText::cProgressText()

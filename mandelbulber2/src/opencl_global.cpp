@@ -33,10 +33,11 @@
  */
 
 #include "opencl_global.h"
-#include "opencl_hardware.h"
+
+#include "initparameters.hpp"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
-#include "initparameters.hpp"
+#include "opencl_hardware.h"
 
 cGlobalOpenCl *gOpenCl = nullptr;
 

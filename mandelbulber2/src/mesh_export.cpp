@@ -33,16 +33,17 @@
  */
 
 #include "mesh_export.hpp"
+
 #include "calculate_distance.hpp"
 #include "common_math.h"
-#include "file_image.hpp"
-#include "fractparams.hpp"
-#include "fractal_container.hpp"
-#include "initparameters.hpp"
-#include "nine_fractals.hpp"
-#include "marchingcubes.h"
 #include "compute_fractal.hpp"
+#include "file_image.hpp"
 #include "file_mesh.hpp"
+#include "fractal_container.hpp"
+#include "fractparams.hpp"
+#include "initparameters.hpp"
+#include "marchingcubes.h"
+#include "nine_fractals.hpp"
 
 cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax,
 	QString outputFileName, int maxIter, MeshFileSave::structSaveMeshConfig meshConfig)

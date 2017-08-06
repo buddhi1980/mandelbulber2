@@ -33,8 +33,9 @@
  */
 
 #include "opencl_hardware.h"
-#include "opencl_device.h"
+
 #include "error_message.hpp"
+#include "opencl_device.h"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {

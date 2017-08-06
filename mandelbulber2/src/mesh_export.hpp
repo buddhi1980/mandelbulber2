@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_SRC_MESH_EXPORT_HPP_
 #define MANDELBULBER2_SRC_MESH_EXPORT_HPP_
 
-#include "algebra.hpp"
-#include "progress_text.hpp"
-#include "file_mesh.hpp"
 #include <QtCore>
+
+#include "algebra.hpp"
+#include "file_mesh.hpp"
+#include "progress_text.hpp"
 
 class cMeshExport : public QObject
 {

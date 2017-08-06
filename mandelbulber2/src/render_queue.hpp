@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_RENDER_QUEUE_HPP_
 
 #include <QtCore>
+
 #include "progress_text.hpp"
 #include "statistics.h"
 

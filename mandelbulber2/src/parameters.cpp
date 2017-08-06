@@ -33,8 +33,10 @@
  */
 
 #include "parameters.hpp"
-#include <QtAlgorithms>
+
 #include <algorithm>
+
+#include <QtAlgorithms>
 
 //#define _PARAM_DEBUG
 

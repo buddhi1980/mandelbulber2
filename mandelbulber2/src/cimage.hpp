@@ -36,10 +36,11 @@
 #define MANDELBULBER2_SRC_CIMAGE_HPP_
 
 //#include <QtGui/QWidget>
-#include "color_structures.hpp"
-#include "image_adjustments.h"
 #include <QMutex>
 #include <QWidget>
+
+#include "color_structures.hpp"
+#include "image_adjustments.h"
 
 struct sImageOptional
 {

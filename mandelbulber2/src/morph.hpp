@@ -38,10 +38,12 @@
 #ifndef MANDELBULBER2_SRC_MORPH_HPP_
 #define MANDELBULBER2_SRC_MORPH_HPP_
 
-#include "one_parameter.hpp"
-#include <QList>
 #include <gsl/gsl_interp.h>
 #include <gsl/gsl_spline.h>
+
+#include <QList>
+
+#include "one_parameter.hpp"
 
 class cMorph
 {

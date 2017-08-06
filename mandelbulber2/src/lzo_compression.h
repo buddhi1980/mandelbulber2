@@ -38,11 +38,14 @@
 #ifndef MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 #define MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 
+#include <assert.h>
+#include <lzo/lzo1x.h>
+#include <lzo/lzoconf.h>
+
 #include <QByteArray>
 #include <QElapsedTimer>
-#include <lzo/lzoconf.h>
-#include <lzo/lzo1x.h>
-#include <assert.h>
+
+#include "system.hpp"
 
 QByteArray lzoCompress(QByteArray data)
 {

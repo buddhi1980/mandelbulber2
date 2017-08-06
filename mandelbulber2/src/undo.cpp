@@ -39,6 +39,7 @@
  */
 
 #include "undo.h"
+
 #include "error_message.hpp"
 #include "initparameters.hpp"
 #include "settings.hpp"

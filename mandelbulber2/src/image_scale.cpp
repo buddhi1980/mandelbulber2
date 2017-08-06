@@ -34,9 +34,11 @@
 
 #include "image_scale.hpp"
 
-#include "cimage.hpp"
-#include <QtCore>
 #include <algorithm>
+
+#include <QtCore>
+
+#include "cimage.hpp"
 using std::min;
 
 double ImageScaleComboSelection2Double(int index)

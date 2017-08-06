@@ -35,12 +35,12 @@
 #ifndef MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 #define MANDELBULBER2_SRC_FRACTPARAMS_HPP_
 
+#include "ao_modes.h"
 #include "common_params.hpp"
+#include "fractal_enums.h"
 #include "image_adjustments.h"
 #include "primitives.h"
 #include "projection_3d.hpp"
-#include "fractal_enums.h"
-#include "ao_modes.h"
 
 // forward declarations
 class cObjectData;

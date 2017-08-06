@@ -39,6 +39,7 @@
 #define MANDELBULBER2_SRC_FILE_MESH_HPP_
 
 #include <QtCore>
+
 #include "color_structures.hpp"
 
 class MeshFileSave : public QObject

@@ -39,8 +39,8 @@
 #include <QTcpSocket>
 #include <QtCore>
 
-#include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "parameters.hpp"
 
 // forward declarations
 struct sRenderData;
