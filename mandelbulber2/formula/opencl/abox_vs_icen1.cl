@@ -18,16 +18,26 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	aux->actualScale = fractal->mandelboxVary4D.scaleVary * (fabs(aux->actualScale) - 1.0f);
 	REAL4 c = aux->const_c;
-	// REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-	// if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-	// if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
-	// f (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
+
+	if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
+	{
+		aux->color += fractal->mandelbox.color.factor.x;
+	}
+	if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
+	{
+		aux->color += fractal->mandelbox.color.factor.y;
+	}
+	if (fabs(z.z) > fractal->transformCommon.additionConstant111.z)
+	{
+		aux->color += fractal->mandelbox.color.factor.z;
+	}
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z += c * fractal->transformCommon.constantMultiplier111;
@@ -54,8 +64,8 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		aux->color += fractal->mandelbox.color.factorSp2;
 	}
 
-	z *= aux->actualScale;
-	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+	z *= 2.0f; // aux->actualScale;
+	aux->DE = mad(aux->DE, fabs(2.0f), 1.0f);
 
 	if (fractal->transformCommon.juliaMode)
 	{

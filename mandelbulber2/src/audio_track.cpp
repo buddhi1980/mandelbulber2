@@ -37,18 +37,20 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_fft_complex.h>
 
-#include <QAudioRecorder>
-#include <QAudioFormat>
 #include <QAudioDecoder>
+#include <QAudioFormat>
+#include <QAudioRecorder>
 #include <QFileInfo>
 #include <QtCore/QtGlobal>
 
 #include "audio_fft_data.h"
+#include "files.h"
 #include "system.hpp"
+
+// custom includes
 #ifdef USE_SNDFILE
 #include <sndfile.h>
 #endif
-#include "files.h"
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {

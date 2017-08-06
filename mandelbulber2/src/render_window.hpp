@@ -40,6 +40,7 @@
 #define MANDELBULBER2_SRC_RENDER_WINDOW_HPP_
 
 #include "progress_text.hpp"
+#include "files.h"
 #include <QSettings>
 #include <QtCore>
 #include <QtGui>
@@ -141,6 +142,7 @@ private slots:
 	void slotMenuResetDocksPositions();
 	void slotMenuAnimationDocksPositions();
 	void slotMenuSaveDocksPositions();
+
 	void slotMenuSaveImageJPEG();
 	void slotMenuSaveImagePNG();
 #ifdef USE_EXR
@@ -149,6 +151,9 @@ private slots:
 #ifdef USE_TIFF
 	void slotMenuSaveImageTIFF();
 #endif // USE_TIFF
+	void slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
+												 QString titleType, QString defaultSuffix);
+
 	void slotMenuSaveImagePNG16();
 	void slotMenuSaveImagePNG16Alpha();
 

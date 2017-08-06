@@ -44,19 +44,20 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include <QString>
-#include <gsl/gsl_sys.h>
-
 #if defined(_MSC_VER)
 #pragma warning(push)
 #pragma warning(disable : 4005) // macro redefinition
 #pragma warning(disable : 4996) // declared deprecated
 #endif													// _MSC_VER
 
+#include <gsl/gsl_sys.h>
+
+#include <QString>
+
+// custom includes
 // MSVC defines math constants elsewhere, do not warn about the
 // redefinition in math.h
 #include <math.h>
-
 #ifdef USE_OPENCL
 #ifdef _WIN32
 #ifndef _MSC_VER

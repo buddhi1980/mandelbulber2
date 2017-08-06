@@ -463,20 +463,19 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				stream >> size;
 				buffer.resize(size);
 				stream.readRawData(buffer.data(), size);
-				// TODO show server name in client somewhere
-				qDebug() << "Server name is: " << QString::fromUtf8(buffer.data(), buffer.size());
-
+				serverName = QString::fromUtf8(buffer.data(), buffer.size());
 				if (CompareMajorVersion(serverVersion, version))
 				{
-					WriteLog("NetRender - version matches (" + QString::number(version)
-										 + "), connection established",
-						2);
-
+					QString connectionMsg = "NetRender - version matches (" + QString::number(version) + ")";
+					QString serverInfo = QString("NetRender - Connection established, Server is %1:%2 [%3]")
+							.arg(address, QString::number(portNo), serverName);
+					WriteLog(connectionMsg, 2);
+					WriteLog(serverInfo, 2);
 					if (systemData.noGui)
 					{
 						QTextStream out(stdout);
-						out << "NetRender - version matches (" + QString::number(version)
-										 + "), connection established\n";
+						out << connectionMsg << "\n";
+						out << serverInfo << "\n";
 					}
 
 					// server version matches, send worker count

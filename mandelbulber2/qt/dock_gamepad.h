@@ -39,6 +39,7 @@
 
 #include "../src/automated_widgets.hpp"
 
+// custom includes
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepad.h>
 #endif // USE_GAMEPAD

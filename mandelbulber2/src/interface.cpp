@@ -74,6 +74,7 @@
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
 
+// custom includes
 #ifdef USE_GAMEPAD
 #include <QtGamepad/qgamepadmanager.h>
 #endif // USE_GAMEPAD

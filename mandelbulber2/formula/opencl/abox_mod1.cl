@@ -29,7 +29,6 @@ REAL4 AboxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 
 	REAL4 c = aux->const_c;
 
-	// REAL4 oldZ = z;
 	z.x = fractal->mandelbox.foldingValue
 				- fabs(fabs(z.x + fractal->transformCommon.additionConstant000.x)
 							 - fractal->mandelbox.foldingValue)
@@ -45,10 +44,19 @@ REAL4 AboxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 					- fabs(mad(-fractal->mandelbox.foldingValue, fractal->transformCommon.scale1,
 							fabs(z.z + fractal->transformCommon.additionConstant000.z)))
 					- fabs(fractal->transformCommon.additionConstant000.z);
-		// if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
+		if (fabs(z.z) > fractal->transformCommon.additionConstant111.z)
+		{
+			aux->color += fractal->mandelbox.color.factor.z;
+		}
 	}
-	// if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-	// if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+	if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
+	{
+		aux->color += fractal->mandelbox.color.factor.x;
+	}
+	if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
+	{
+		aux->color += fractal->mandelbox.color.factor.y;
+	}
 
 	REAL rr = (z.x * z.x + z.y * z.y + z.z * z.z);
 	if (fractal->transformCommon.functionEnabledFalse)

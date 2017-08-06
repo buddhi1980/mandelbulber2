@@ -80,10 +80,28 @@ REAL4 FoldBoxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			aux->color += fractal->mandelbox.color.factorSp2;
 		}
 	}
+	REAL useScale = aux->actualScaleA + fractal->mandelbox.scale;
 
-	z *= fractal->mandelbox.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
-	aux->r_dz *= fabs(fractal->mandelbox.scale);
+	if (aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD)
+	{
+
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		// update actualScale for next iteration
+
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse)
+			aux->actualScaleA = -vary;
+		else
+			aux->actualScaleA = aux->actualScaleA - vary;
+	}
+	else
+	{
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+	}
 
 	if (fractal->mandelbox.mainRotationEnabled && aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)

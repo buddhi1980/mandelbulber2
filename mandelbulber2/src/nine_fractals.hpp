@@ -41,8 +41,9 @@
 #include "algebra.hpp"
 #include <QtCore>
 
+// custom includes
 #ifdef USE_OPENCL
-#include "../opencl/fractal_sequence_cl.h"
+#include "opencl/fractal_sequence_cl.h"
 #endif
 
 // forward declarations

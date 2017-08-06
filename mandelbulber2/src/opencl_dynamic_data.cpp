@@ -33,15 +33,17 @@
  */
 
 #include "opencl_dynamic_data.hpp"
-
-#ifdef USE_OPENCL
-
 #include "../src/render_worker.hpp"
 #include "../src/material.h"
 #include "../src/lights.hpp"
-#include "../opencl/material_cl.h"
-#include "../opencl/input_data_structures.h"
 
+// custom includes
+#ifdef USE_OPENCL
+#include "opencl/material_cl.h"
+#include "opencl/input_data_structures.h"
+#endif
+
+#ifdef USE_OPENCL
 cOpenClDynamicData::cOpenClDynamicData()
 {
 	totalDataOffset = 0; // counter for actual address in structure

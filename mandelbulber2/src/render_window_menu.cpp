@@ -357,106 +357,53 @@ void RenderWindow::slotMenuSaveDocksPositions()
 	// qDebug() << "settings saved";
 }
 
-// TODO generalize image save functions and add image channel logic to save dialog
 void RenderWindow::slotMenuSaveImageJPEG()
 {
-	cImageSaveDialog dialog(this);
-	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setNameFilter(tr("JPEG images (*.jpg *.jpeg)"));
-	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
-	dialog.setAcceptMode(QFileDialog::AcceptSave);
-	dialog.setWindowTitle(tr("Save image to %1 file...").arg("JPEG"));
-	dialog.setDefaultSuffix("jpeg");
-	QStringList filenames;
-	if (dialog.exec())
-	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image started"),
-			0.0, cProgressText::progress_IMAGE);
-		gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_JPG, gMainInterface->mainImage,
-			gMainInterface->mainWindow);
-		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("JPG"), tr("Saving image finished"),
-			1.0, cProgressText::progress_IMAGE);
-		gApplication->processEvents();
-		systemData.lastImageFile = filename;
-	}
+	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_JPG, tr("JPEG images (*.jpg *.jpeg)"), "JPEG", "jpeg");
 }
 
 void RenderWindow::slotMenuSaveImagePNG()
 {
-	cImageSaveDialog dialog(this);
-	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setNameFilter(tr("PNG images (*.png)"));
-	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
-	dialog.setAcceptMode(QFileDialog::AcceptSave);
-	dialog.setWindowTitle(tr("Save image to %1 file...").arg("8-bit PNG"));
-	dialog.setDefaultSuffix("png");
-	QStringList filenames;
-	if (dialog.exec())
-	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
-		gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_PNG, gMainInterface->mainImage,
-			gMainInterface->mainWindow);
-		gApplication->processEvents();
-		systemData.lastImageFile = filename;
-	}
+	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_PNG, tr("PNG images (*.png)"), "PNG", "png");
 }
 
 #ifdef USE_EXR
 void RenderWindow::slotMenuSaveImageEXR()
 {
-	cImageSaveDialog dialog(this);
-	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setNameFilter(tr("EXR images (*.exr)"));
-	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
-	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
-	dialog.setAcceptMode(QFileDialog::AcceptSave);
-	dialog.setWindowTitle(tr("Save image to %1 file...").arg("EXR"));
-	dialog.setDefaultSuffix("exr");
-	QStringList filenames;
-	if (dialog.exec())
-	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
-		gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_EXR, gMainInterface->mainImage,
-			gMainInterface->mainWindow);
-		gApplication->processEvents();
-		systemData.lastImageFile = filename;
-	}
+	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_EXR, tr("EXR images (*.exr)"), "EXR", "exr");
 }
 #endif // USE_EXR
 
 #ifdef USE_TIFF
 void RenderWindow::slotMenuSaveImageTIFF()
 {
+	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
+}
+#endif // USE_TIFF
+
+void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
+																		 QString titleType, QString defaultSuffix)
+{
 	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
-	dialog.setNameFilter(tr("TIFF images (*.tiff)"));
+	dialog.setNameFilter(nameFilter);
 	dialog.setDirectory(QDir::toNativeSeparators(QFileInfo(systemData.lastImageFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(systemData.GetImageFileNameSuggestion()));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
-	dialog.setWindowTitle(tr("Save image to %1 file...").arg("TIFF"));
-	dialog.setDefaultSuffix("tiff");
+	dialog.setWindowTitle(tr("Save image to %1 file...").arg(titleType));
+	dialog.setDefaultSuffix(defaultSuffix);
 	QStringList filenames;
 	if (dialog.exec())
 	{
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 		gApplication->processEvents();
-		SaveImage(filename, ImageFileSave::IMAGE_FILE_TYPE_TIFF, gMainInterface->mainImage,
+		SaveImage(filename, imageFileType, gMainInterface->mainImage,
 			gMainInterface->mainWindow);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
 }
-#endif // USE_TIFF
 
 void RenderWindow::slotMenuSaveImagePNG16()
 {
@@ -478,7 +425,11 @@ void RenderWindow::slotMenuSaveImagePNG16()
 		gApplication->processEvents();
 		ImageFileSave::structSaveImageChannel saveImageChannel(
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
-		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, false);
+		ImageFileSave::ImageConfig imageConfig;
+		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
+		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		imageSaver.SetAppendAlphaCustom(false);
+		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();
@@ -506,7 +457,11 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 		gApplication->processEvents();
 		ImageFileSave::structSaveImageChannel saveImageChannel(
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
-		ImageFileSavePNG::SavePNG(filename, gMainInterface->mainImage, saveImageChannel, true);
+		ImageFileSave::ImageConfig imageConfig;
+		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
+		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		imageSaver.SetAppendAlphaCustom(true);
+		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),
 			tr("Saving image finished"), 1.0, cProgressText::progress_IMAGE);
 		gApplication->processEvents();

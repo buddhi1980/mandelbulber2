@@ -40,6 +40,7 @@
 #include "initparameters.hpp"
 #include "cimage.hpp"
 
+// custom includes
 extern "C" {
 #include <png.h>
 }

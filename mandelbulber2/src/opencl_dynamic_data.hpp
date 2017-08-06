@@ -39,6 +39,7 @@
 
 #include <QtCore>
 
+// custom includes
 #ifdef _WIN32
 #ifndef _MSC_VER
 // clew for cross compile

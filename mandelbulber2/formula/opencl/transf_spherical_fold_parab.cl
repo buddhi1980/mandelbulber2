@@ -81,14 +81,23 @@ REAL4 TransfSphericalFoldParabIteration(
 		}
 	}
 	z -= fractal->mandelbox.offset;
+
+	// post scale
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		aux->actualScale = mad((fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary,
-			fractal->transformCommon.scaleA1);
-		z *= aux->actualScale;
-		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
-		aux->r_dz *= fabs(aux->actualScale);
+		REAL useScale = aux->actualScaleA + fractal->transformCommon.scaleA1;
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->r_dz *= fabs(useScale);
+		// update actualScale for next iteration
+
+		REAL vary = fractal->transformCommon.scaleVary0
+								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse)
+			aux->actualScaleA = -vary;
+		else
+			aux->actualScaleA = aux->actualScaleA - vary;
 	}
 	return z;
 }

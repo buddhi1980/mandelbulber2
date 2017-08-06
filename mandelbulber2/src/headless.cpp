@@ -84,8 +84,12 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		ext = ".png";
 		ImageFileSave::structSaveImageChannel saveImageChannel(
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
+		ImageFileSave::ImageConfig imageConfig;
+		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
 		bool appendAlpha = (imageFileFormat == "png16alpha");
-		ImageFileSavePNG::SavePNG(filenameWithoutExtension + ext, image, saveImageChannel, appendAlpha);
+		ImageFileSavePNG imageSaver(filenameWithoutExtension + ext, image, imageConfig);
+		imageSaver.SetAppendAlphaCustom(appendAlpha);
+		imageSaver.SaveImage();
 	}
 	else
 	{
