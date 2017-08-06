@@ -67,7 +67,7 @@ foreach ($headerFiles as $headerFilePath) {
 	if ($success && !checkFileHeader($headerFilePath, $headerContent, $status)) $success = false;
 	if ($success && !checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) $success = false;
 	if ($success && !checkClang($headerFilePath, $headerContent, $status)) $success = false;
-	if ($success && !checkIncludeHeaders($headerFilePath, $headerContent, $status)) $success = false;
+	if ($success && !checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName)) $success = false;
 	
 	if ($success && !isDryRun() && count($status) > 0) {
 		file_put_contents($headerFilePath, $headerContent);
@@ -200,13 +200,15 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 			'cppHeader' => array(),
 			'qtHeader' => array(), 
 			'localHeader' => array(),
-			'srcHeader' => array(), 
-			'uiHeader' => array(), 
+			'srcHeader' => array(),
+			'uiHeader' => array(),
+			'openclHeader' => array(),
 		);
 		$customIncludes = '';
 		foreach($includesIn as $k => $includeLine){
-		    	$includeLine = str_replace('../src/', 'src/', $includeLine);
-			$includeLine = str_replace('../qt/', 'qt/', $includeLine);
+		        $includeLine = str_replace('../src/', 'src/', $includeLine);
+				$includeLine = str_replace('../qt/', 'qt/', $includeLine);
+				$includeLine = str_replace('../opencl/', 'opencl/', $includeLine);
 			$includeLine = str_replace('"' . $folderName . '/', '"', $includeLine); // strip folder, when include from same folder
 			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
 			if($includeLine == '// custom includes'){
@@ -222,6 +224,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 					else if(strpos($includeFileName, '/') === false) $includesOut['localHeader'][] = $includeLine;
 					else if(strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
 					else if(strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
+					else if(strpos($includeFileName, 'opencl/') !== false) $includesOut['openclHeader'][] = $includeLine;
 					else {
 						$status[] = errorString('invalid include line: "' . $includeLine . '"');
 						return false;

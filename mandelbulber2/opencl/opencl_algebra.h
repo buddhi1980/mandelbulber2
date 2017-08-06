@@ -37,8 +37,9 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include <QString>
-#include "../src/algebra.hpp"
-#include "../src/color_structures.hpp"
+
+#include "src/algebra.hpp"
+#include "src/color_structures.hpp"
 #endif
 
 typedef struct

@@ -46,14 +46,16 @@
 #define MANDELBULBER2_OPENCL_COMMON_PARAMS_CL_HPP_
 
 #ifndef OPENCL_KERNEL_CODE
-#include "../src/fractal_enums.h"
-#include "../opencl/opencl_algebra.h"
-#include "../opencl/common_params_cl.hpp"
-#include "../opencl/image_adjustments_cl.h"
-#include "../src/common_params.hpp"
-#include "../src/image_adjustments.h"
-#include "../src/fractparams.hpp"
-#include "../src/fractal.h"
+#include "common_params_cl.hpp"
+
+#include "image_adjustments_cl.h"
+#include "opencl_algebra.h"
+
+#include "src/common_params.hpp"
+#include "src/fractal.h"
+#include "src/fractal_enums.h"
+#include "src/fractparams.hpp"
+#include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
 typedef struct
