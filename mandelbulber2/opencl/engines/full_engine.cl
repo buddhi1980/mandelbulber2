@@ -38,114 +38,6 @@ int GetInteger(int byte, __global char *array)
 	return *intPointer;
 }
 
-typedef struct
-{
-	float3 start;
-	float3 direction;
-	float minScan;
-	float maxScan;
-	bool binaryEnable;
-	bool invertMode;
-} sRayMarchingIn;
-
-typedef struct
-{
-	float lastDist;
-	float depth;
-	float distThresh;
-	int objectId;
-	bool found;
-	int count;
-} sRayMarchingOut;
-
-float3 RayMarching(
-	sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts, int *randomSeed)
-{
-	bool found = false;
-	int count;
-
-	float3 point;
-	float scan, distance;
-
-	scan = in.minScan;
-
-	sClCalcParams calcParam;
-	calcParam.N = consts->params.N;
-	float distThresh = 1e-6f;
-
-	formulaOut outF;
-	float step = 0.0f;
-
-	float searchAccuracy = 0.001f * consts->params.detailLevel;
-	float searchLimit = 1.0f - searchAccuracy;
-
-	// ray-marching
-	for (count = 0; count < MAX_RAYMARCHING && scan < in.maxScan; count++)
-	{
-		point = in.start + in.direction * scan;
-		distThresh = CalcDistThresh(point, consts);
-		calcParam.distThresh = distThresh;
-		calcParam.detailSize = distThresh;
-		outF = CalculateDistance(consts, point, &calcParam);
-		distance = outF.distance;
-
-		if (distance < distThresh)
-		{
-			found = true;
-			break;
-		}
-
-#ifdef INTERIOR_MODE
-		step = (distance - 0.8f * distThresh) * consts->params.DEFactor;
-#else
-		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
-#endif
-
-		step *= (1.0f - Random(1000, randomSeed) / 10000.0f);
-
-		scan += step / length(in.direction);
-	}
-
-	point = in.start + in.direction * scan;
-
-	// final binary searching
-	if (found)
-	{
-		step *= 0.5f;
-		for (int i = 0; i < 30; i++)
-		{
-			if (distance < distThresh && distance > distThresh * searchLimit)
-			{
-				break;
-			}
-			else
-			{
-				if (distance > distThresh)
-				{
-					scan += step;
-					point = in.start + in.direction * scan;
-				}
-				else if (distance < distThresh * searchLimit)
-				{
-					scan -= step;
-					point = in.start + in.direction * scan;
-				}
-			}
-			outF = CalculateDistance(consts, point, &calcParam);
-			distance = outF.distance;
-			step *= 0.5f;
-		}
-	}
-
-	out->found = found;
-	out->lastDist = distance;
-	out->depth = scan;
-	out->distThresh = distThresh;
-	out->count = count;
-
-	return point;
-}
-
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(
 	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts)
@@ -243,6 +135,13 @@ kernel void fractal3D(
 	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
 	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
 
+	// main light vector
+	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
+	if (consts->params.mainLightPositionAsRelative) lightVector = Matrix33MulFloat3(rot, lightVector);
+
 #ifdef PERSP_FISH_EYE_CUT
 	bool hemisphereCut = false;
 	if (length(normalizedScreenPoint) > 0.5f / consts->params.fov) hemisphereCut = true;
@@ -255,75 +154,56 @@ kernel void fractal3D(
 	float3 point;
 	float depth = 0.0f;
 
+	int reflectionsMax = consts->params.reflectionsMax * 2;
+	if (!consts->params.raytracedReflections) reflectionsMax = 0;
+
+	sRenderData renderData;
+	renderData.lightVector = lightVector;
+	renderData.viewVectorNotRotated = viewVectorNotRotated;
+	renderData.material = material;
+	renderData.palette = palette;
+	renderData.AOVectors = AOVectors;
+	renderData.lights = lights;
+	renderData.paletteSize = paletteSize;
+	renderData.numberOfLights = numberOfLights;
+	renderData.AOVectorsCount = AOVectorsCount;
+	renderData.reflectionsMax = reflectionsMax;
+
+	float4 resultShader;
+	float3 objectColour;
+	float3 normal;
+	float opacity;
+
 #ifdef PERSP_FISH_EYE_CUT
 	if (!hemisphereCut)
 	{
 #endif // PERSP_FISH_EYE_CUT
 
-		// raymarching
+		sRayRecursionIn recursionIn;
+
 		sRayMarchingIn rayMarchingIn;
-		rayMarchingIn.start = start;
-		rayMarchingIn.direction = viewVector;
-		rayMarchingIn.minScan = 1e-10f;
-		rayMarchingIn.maxScan = consts->params.viewDistanceMax;
 		rayMarchingIn.binaryEnable = true;
+		rayMarchingIn.direction = normalize(viewVector);
+		rayMarchingIn.maxScan = consts->params.viewDistanceMax;
+		rayMarchingIn.minScan = 0.0f;
+		rayMarchingIn.start = start;
 		rayMarchingIn.invertMode = false;
+		recursionIn.rayMarchingIn = rayMarchingIn;
+		recursionIn.calcInside = false;
+		recursionIn.resultShader = resultShader;
+		recursionIn.objectColour = objectColour;
 
-		sRayMarchingOut rayMarchingOut;
-		point = RayMarching(rayMarchingIn, &rayMarchingOut, consts, &randomSeed);
-		bool found = rayMarchingOut.found;
-		depth = rayMarchingOut.depth;
+		sRayRecursionInOut recursionInOut;
+		recursionInOut.rayIndex = 0;
 
-		// shaders
-		float3 color = 0.0f;
-
-		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
-		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
-		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
-			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
-
-		if (consts->params.mainLightPositionAsRelative)
-			lightVector = Matrix33MulFloat3(rot, lightVector);
-
-		float distThresh = CalcDistThresh(point, consts);
-
-		sClCalcParams calcParam;
-		calcParam.N = consts->params.N;
-
-		sShaderInputDataCl shaderInputData;
-		shaderInputData.point = point;
-		shaderInputData.viewVector = viewVector;
-		shaderInputData.viewVectorNotRotated = viewVectorNotRotated;
-		shaderInputData.lightVect = lightVector;
-		shaderInputData.distThresh = distThresh;
-		shaderInputData.lastDist = rayMarchingOut.lastDist;
-		shaderInputData.delta = calcParam.detailSize;
-		shaderInputData.depth = rayMarchingOut.depth;
-		shaderInputData.invertMode = false;
-		shaderInputData.material = material;
-		shaderInputData.palette = palette;
-		shaderInputData.paletteSize = paletteLength;
-		shaderInputData.AOVectors = AOVectors;
-		shaderInputData.AOVectorsCount = AOVectorsCount;
-		shaderInputData.lights = lights;
-		shaderInputData.numberOfLights = numberOfLights;
-		shaderInputData.stepCount = rayMarchingOut.count;
-		shaderInputData.randomSeed = randomSeed;
-
-		float3 specular = 0.0f;
-
-		if (found)
-		{
-			color = ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
-		}
-		else
-		{
-			color = BackgroundShader(consts, &shaderInputData);
-			depth = 1e20f;
-		}
-
-		color4 = (float4){color.s0, color.s1, color.s2, 0.0f};
-		color4 = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
+		sRayRecursionOut recursionOut =
+			RayRecursion(recursionIn, &recursionInOut, &renderData, consts, &randomSeed);
+		resultShader = recursionOut.resultShader;
+		objectColour = recursionOut.objectColour;
+		depth = recursionOut.rayMarchingOut.depth;
+		if (!recursionOut.found) depth = 1e20f;
+		opacity = recursionOut.fogOpacity;
+		normal = recursionOut.normal;
 
 #ifdef PERSP_FISH_EYE_CUT
 	}
@@ -331,15 +211,15 @@ kernel void fractal3D(
 
 	sClPixel pixel;
 
-	pixel.R = color4.s0;
-	pixel.G = color4.s1;
-	pixel.B = color4.s2;
+	pixel.R = resultShader.s0;
+	pixel.G = resultShader.s1;
+	pixel.B = resultShader.s2;
 	pixel.zBuffer = depth;
-	pixel.colR = surfaceColor.s0 * 256.0f;
-	pixel.colG = surfaceColor.s1 * 256.0f;
-	pixel.colB = surfaceColor.s2 * 256.0f;
-	pixel.opacity = opacityOut * 65535;
-	pixel.alpha = color4.s3;
+	pixel.colR = objectColour.s0 * 256.0f;
+	pixel.colG = objectColour.s1 * 256.0f;
+	pixel.colB = objectColour.s2 * 256.0f;
+	pixel.opacity = opacity * 65535;
+	pixel.alpha = 0.0f;
 
 	out[buffIndex] = pixel;
 }

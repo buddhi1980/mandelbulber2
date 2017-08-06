@@ -179,6 +179,12 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
 		}
 
+		if (params->Get<int>("gpu_mode") == clRenderEngineTypeFull)
+		{
+			// ray recursion
+			programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
+		}
+
 		// main engine
 		QString engineFileName;
 		switch (enumClRenderEngineMode(params->Get<int>("gpu_mode")))

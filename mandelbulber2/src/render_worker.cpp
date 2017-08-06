@@ -806,7 +806,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 		{
 			n1 = 1.0;
 			n2 = shaderInputData.material->transparencyIndexOfRefraction;
-			;
 		}
 
 		if (inOut.rayIndex < reflectionsMax)

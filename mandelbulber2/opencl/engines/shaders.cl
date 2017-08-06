@@ -593,10 +593,6 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular)
 {
 	float3 color = 0.7f;
-
-	float3 normal = NormalVector(consts, input->point, input->lastDist, input->distThresh, calcParam);
-	input->normal = normal;
-
 	float3 mainLight = consts->params.mainLightColour * consts->params.mainLightIntensity;
 
 	float3 shade = 0.0f;
