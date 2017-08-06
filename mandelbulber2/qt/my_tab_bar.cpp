@@ -33,8 +33,10 @@
  */
 
 #include "my_tab_bar.h"
-#include "my_check_box.h"
+
 #include <QtWidgets/QtWidgets>
+
+#include "my_check_box.h"
 
 MyTabBar::MyTabBar(QWidget *parent) : QTabBar(parent)
 {

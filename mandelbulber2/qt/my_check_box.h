@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_QT_MY_CHECK_BOX_H_
 #define MANDELBULBER2_QT_MY_CHECK_BOX_H_
 
-#include "../qt/common_my_widget_wrapper.h"
 #include <QCheckBox>
 #include <QtCore>
 #include <QtGui>
+
+#include "common_my_widget_wrapper.h"
 
 class MyCheckBox : public QCheckBox, public CommonMyWidgetWrapper
 {

@@ -36,6 +36,7 @@
  */
 
 #include "my_progress_bar.h"
+
 #include <QHBoxLayout>
 #include <QLabel>
 

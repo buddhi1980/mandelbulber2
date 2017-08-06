@@ -38,10 +38,11 @@
 #include <QWidget>
 #include <QtWidgets/QtWidgets>
 
-#include "../src/fractal_container.hpp"
-#include "../src/parameters.hpp"
-#include "../src/synchronize_interface.hpp"
 #include "tab_fractal.h"
+
+#include "src/fractal_container.hpp"
+#include "src/parameters.hpp"
+#include "src/synchronize_interface.hpp"
 
 // forward declarations
 class cAutomatedWidgets;

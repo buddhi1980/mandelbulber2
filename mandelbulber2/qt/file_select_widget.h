@@ -36,12 +36,13 @@
 #ifndef MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_
 #define MANDELBULBER2_QT_FILE_SELECT_WIDGET_H_
 
-#include "../qt/common_my_widget_wrapper.h"
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QtCore>
 #include <QtGui>
+
+#include "common_my_widget_wrapper.h"
 
 class FileSelectWidget : public QWidget, public CommonMyWidgetWrapper
 {

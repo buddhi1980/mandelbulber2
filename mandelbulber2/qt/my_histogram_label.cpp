@@ -33,8 +33,10 @@
  */
 
 #include "my_histogram_label.h"
-#include <QLabel>
+
 #include <algorithm>
+
+#include <QLabel>
 using std::max;
 
 MyHistogramLabel::MyHistogramLabel(QWidget *parent) : QLabel(parent)

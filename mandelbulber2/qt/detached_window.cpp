@@ -33,6 +33,7 @@
  */
 
 #include "detached_window.h"
+
 #include "ui_detached_window.h"
 
 cDetachedWindow::cDetachedWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::cDetachedWindow)

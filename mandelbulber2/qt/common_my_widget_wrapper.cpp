@@ -40,8 +40,9 @@
  */
 
 #include "common_my_widget_wrapper.h"
-#include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
+
+#include "src/animation_flight.hpp"
+#include "src/animation_keyframes.hpp"
 
 void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu)
 {

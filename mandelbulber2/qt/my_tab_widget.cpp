@@ -33,8 +33,10 @@
  */
 
 #include "my_tab_widget.h"
-#include "my_tab_bar.h"
+
 #include <QPushButton>
+
+#include "my_tab_bar.h"
 
 MyTabWidget::MyTabWidget(QWidget *parent) : QTabWidget(parent)
 {

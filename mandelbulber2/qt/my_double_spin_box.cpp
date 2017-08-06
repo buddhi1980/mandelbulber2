@@ -33,9 +33,11 @@
  */
 
 #include "my_double_spin_box.h"
-#include "../src/animation_flight.hpp"
-#include "../src/animation_keyframes.hpp"
+
 #include <QLineEdit>
+
+#include "src/animation_flight.hpp"
+#include "src/animation_keyframes.hpp"
 
 void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {

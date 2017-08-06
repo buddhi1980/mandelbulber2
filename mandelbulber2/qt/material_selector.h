@@ -35,9 +35,10 @@
 #ifndef MANDELBULBER2_QT_MATERIAL_SELECTOR_H_
 #define MANDELBULBER2_QT_MATERIAL_SELECTOR_H_
 
+#include <qlabel.h>
+
 #include <QWidget>
 #include <QtWidgets/QHBoxLayout>
-#include <qlabel.h>
 
 #include "common_my_widget_wrapper.h"
 

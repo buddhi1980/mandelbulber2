@@ -34,10 +34,12 @@
 
 #include "wave_form_view.h"
 
-#include <QPainter>
 #include <algorithm>
-#include "../src/audio_track.h"
-#include "../src/system.hpp"
+
+#include <QPainter>
+
+#include "src/audio_track.h"
+#include "src/system.hpp"
 
 cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {

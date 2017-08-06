@@ -37,7 +37,7 @@
 
 #include <QWidget>
 
-#include "../src/automated_widgets.hpp"
+#include "src/automated_widgets.hpp"
 
 // custom includes
 #ifdef USE_GAMEPAD

@@ -34,10 +34,11 @@
 
 #include "dock_animation.h"
 
-#include "../src/automated_widgets.hpp"
-#include "../src/file_image.hpp"
-#include "ui_dock_animation.h"
 #include "audio_selector.h"
+#include "ui_dock_animation.h"
+
+#include "src/automated_widgets.hpp"
+#include "src/file_image.hpp"
 
 cDockAnimation::cDockAnimation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockAnimation)
 {

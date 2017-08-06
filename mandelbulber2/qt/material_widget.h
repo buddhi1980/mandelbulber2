@@ -40,7 +40,8 @@
 #define MANDELBULBER2_QT_MATERIAL_WIDGET_H_
 
 #include "thumbnail_widget.h"
-#include "../src/parameters.hpp"
+
+#include "src/parameters.hpp"
 
 class cMaterialWidget : public cThumbnailWidget
 {
