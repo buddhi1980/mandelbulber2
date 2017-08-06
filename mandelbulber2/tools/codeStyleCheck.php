@@ -39,19 +39,18 @@ $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 foreach ($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
 	if ($sourceFileName == 'clew.cpp') continue;
+	$folderName = basename(str_replace($sourceFileName, '', $sourceFilePath));
 	$status = array();
-	$success = false;
+	$success = true;
 	$sourceContent = file_get_contents($sourceFilePath);
-	if (checkFileHeader($sourceFilePath, $sourceContent, $status)) {
-		if (checkClang($sourceFilePath, $sourceContent, $status)) {
-			if (checkIncludeHeaders($sourceFilePath, $sourceContent, $status)) {
-				if (!isDryRun() && count($status) > 0) {
-					file_put_contents($sourceFilePath, $sourceContent);
-				}
-				$success = true;
-			}
-		}
-	}
+
+	if ($success && !checkFileHeader($sourceFilePath, $sourceContent, $status)) $success = false;
+	if ($success && !checkClang($sourceFilePath, $sourceContent, $status)) $success = false;
+	if ($success && !checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName)) $success = false;
+
+	if ($success && !isDryRun() && count($status) > 0) {
+		file_put_contents($sourceFilePath, $sourceContent);
+	}	
 	printResultLine($sourceFileName, $success, $status);
 }
 
@@ -62,19 +61,16 @@ foreach ($headerFiles as $headerFilePath) {
 	if ($headerFileName == 'clew-cl.hpp') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
 	$status = array();
-	$success = false;
+	$success = true;
 	$headerContent = file_get_contents($headerFilePath);
-	if (checkFileHeader($headerFilePath, $headerContent, $status)) {
-		if (checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) {
-			if (checkClang($headerFilePath, $headerContent, $status)) {
-				if (checkIncludeHeaders($headerFilePath, $headerContent, $status)) {
-					if (!isDryRun() && count($status) > 0) {
-						file_put_contents($headerFilePath, $headerContent);
-					}
-					$success = true;
-				}
-			}
-		}
+
+	if ($success && !checkFileHeader($headerFilePath, $headerContent, $status)) $success = false;
+	if ($success && !checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) $success = false;
+	if ($success && !checkClang($headerFilePath, $headerContent, $status)) $success = false;
+	if ($success && !checkIncludeHeaders($headerFilePath, $headerContent, $status)) $success = false;
+	
+	if ($success && !isDryRun() && count($status) > 0) {
+		file_put_contents($headerFilePath, $headerContent);
 	}
 	printResultLine($headerFileName, $success, $status);
 }
@@ -186,7 +182,7 @@ function checkClang($filepath, &$fileContent, &$status)
 	return true;
 }
 
-function checkIncludeHeaders($filepath, &$fileContent, &$status)
+function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 {
     // return true; // activated
 	$contentsBefore = $fileContent;
@@ -209,8 +205,9 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 		);
 		$customIncludes = '';
 		foreach($includesIn as $k => $includeLine){
-		    $includeLine = str_replace('../src/', 'src/', $includeLine);
+		    	$includeLine = str_replace('../src/', 'src/', $includeLine);
 			$includeLine = str_replace('../qt/', 'qt/', $includeLine);
+			$includeLine = str_replace('"' . $folderName . '/', '"', $includeLine); // strip folder, when include from same folder
 			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
 			if($includeLine == '// custom includes'){
 				$customIncludes = implode(PHP_EOL, array_splice($includesIn, $k));

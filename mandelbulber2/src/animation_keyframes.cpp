@@ -48,21 +48,20 @@
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
+#include "render_window.hpp"
 #include "rendering_configuration.hpp"
 #include "undo.h"
-
-#include "src/render_window.hpp"
 
 #include "qt/dock_animation.h"
 #include "qt/dock_navigation.h"
 #include "qt/dock_statistics.h"
-#include "qt/ui_dock_animation.h"
 #include "qt/my_progress_bar.h"
 #include "qt/my_table_widget_keyframes.hpp"
 #include "qt/player_widget.hpp"
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
+#include "qt/ui_dock_animation.h"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 

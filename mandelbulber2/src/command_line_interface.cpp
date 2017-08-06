@@ -34,13 +34,13 @@
 
 #include "command_line_interface.hpp"
 
-#include "../src/interface.hpp"
 #include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "headless.h"
 #include "initparameters.hpp"
+#include "interface.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
 #include "queue.hpp"

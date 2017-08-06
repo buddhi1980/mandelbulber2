@@ -33,8 +33,9 @@
  */
 
 #include "displacement_map.hpp"
-#include "texture_mapping.hpp"
+
 #include "render_data.hpp"
+#include "texture_mapping.hpp"
 
 double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data)
 {

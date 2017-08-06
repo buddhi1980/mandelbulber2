@@ -57,14 +57,14 @@
 #include "rendering_configuration.hpp"
 #include "undo.h"
 
+#include "qt/dock_animation.h"
+#include "qt/dock_navigation.h"
+#include "qt/dock_statistics.h"
 #include "qt/my_progress_bar.h"
 #include "qt/my_table_widget_anim.hpp"
 #include "qt/player_widget.hpp"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
-#include "qt/dock_animation.h"
-#include "qt/dock_navigation.h"
-#include "qt/dock_statistics.h"
 #include "qt/ui_dock_animation.h"
 
 cFlightAnimation *gFlightAnimation = nullptr;
