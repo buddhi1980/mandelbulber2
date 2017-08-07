@@ -39,8 +39,9 @@
 #include <QMessageBox>
 #include <QtCore>
 
-#include "thumbnail_widget.h"
 #include "ui_preferences_dialog.h"
+
+#include "thumbnail_widget.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/file_downloader.hpp"

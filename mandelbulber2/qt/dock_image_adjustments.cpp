@@ -34,8 +34,9 @@
 
 #include "dock_image_adjustments.h"
 
-#include "dock_rendering_engine.h"
 #include "ui_dock_image_adjustments.h"
+
+#include "dock_rendering_engine.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/fractal_container.hpp"

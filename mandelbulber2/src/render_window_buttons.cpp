@@ -36,13 +36,13 @@
  * spread over render_window_*.cpp
  */
 
+#include "ui_render_window.h"
+
 #include "common_math.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
-
-#include "qt/ui_render_window.h"
 
 void RenderWindow::slotPressedButtonDeletePrimitive() const
 {

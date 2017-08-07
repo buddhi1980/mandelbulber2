@@ -41,8 +41,9 @@
 
 #include <QtWidgets/QtWidgets>
 
-#include "material_editor.h"
 #include "ui_material_manager_view.h"
+
+#include "material_editor.h"
 
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"

@@ -37,8 +37,9 @@
 
 #include "tab_fractal.h"
 
-#include "dock_fractal.h"
 #include "ui_tab_fractal.h"
+
+#include "dock_fractal.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"

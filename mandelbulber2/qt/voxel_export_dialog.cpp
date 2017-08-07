@@ -34,8 +34,9 @@
 
 #include "voxel_export_dialog.h"
 
-#include "player_widget.hpp"
 #include "ui_voxel_export_dialog.h"
+
+#include "player_widget.hpp"
 
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"

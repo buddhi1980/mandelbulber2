@@ -34,9 +34,10 @@
 
 #include "dock_statistics.h"
 
+#include "ui_dock_statistics.h"
+
 #include "dock_effects.h"
 #include "dock_rendering_engine.h"
-#include "ui_dock_statistics.h"
 
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"

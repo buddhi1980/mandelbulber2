@@ -34,8 +34,9 @@
 
 #include "dock_effects.h"
 
-#include "dock_image_adjustments.h"
 #include "ui_dock_effects.h"
+
+#include "dock_image_adjustments.h"
 
 #include "src/ao_modes.h"
 #include "src/automated_widgets.hpp"

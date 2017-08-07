@@ -40,6 +40,8 @@
 
 #include "animation_flight.hpp"
 
+#include "ui_dock_animation.h"
+
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
@@ -65,7 +67,6 @@
 #include "qt/player_widget.hpp"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
-#include "qt/ui_dock_animation.h"
 
 cFlightAnimation *gFlightAnimation = nullptr;
 

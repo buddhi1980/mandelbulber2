@@ -36,6 +36,8 @@
  * spread over render_window_*.cpp
  */
 
+#include "ui_render_window.h"
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "file_image.hpp"
@@ -50,7 +52,6 @@
 
 #include "qt/image_save_dialog.h"
 #include "qt/preview_file_dialog.h"
-#include "qt/ui_render_window.h"
 
 void RenderWindow::slotImportOldSettings()
 {

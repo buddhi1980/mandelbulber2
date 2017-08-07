@@ -34,6 +34,8 @@
 
 #include "interface.hpp"
 
+#include "ui_render_window.h"
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "ao_modes.h"
@@ -72,7 +74,6 @@
 #include "qt/my_progress_bar.h"
 #include "qt/player_widget.hpp"
 #include "qt/system_tray.hpp"
-#include "qt/ui_render_window.h"
 
 // custom includes
 #ifdef USE_GAMEPAD

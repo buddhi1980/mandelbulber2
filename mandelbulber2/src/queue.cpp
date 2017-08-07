@@ -34,6 +34,8 @@
 
 #include "queue.hpp"
 
+#include "ui_dock_queue.h"
+
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "error_message.hpp"
@@ -52,7 +54,6 @@
 #include "qt/dock_queue.h"
 #include "qt/preview_file_dialog.h"
 #include "qt/thumbnail_widget.h"
-#include "qt/ui_dock_queue.h"
 
 cQueue *gQueue = nullptr;
 

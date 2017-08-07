@@ -40,6 +40,8 @@
 
 #include "animation_keyframes.hpp"
 
+#include "ui_dock_animation.h"
+
 #include "cimage.hpp"
 #include "common_math.h"
 #include "files.h"
@@ -61,7 +63,6 @@
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
-#include "qt/ui_dock_animation.h"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 

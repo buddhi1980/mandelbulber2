@@ -36,6 +36,8 @@
  * spread over render_window_*.cpp
  */
 
+#include "ui_render_window.h"
+
 #include "animation_flight.hpp"
 #include "animation_frames.hpp"
 #include "animation_keyframes.hpp"
@@ -54,7 +56,6 @@
 #include "qt/mesh_export_dialog.h"
 #include "qt/preferences_dialog.h"
 #include "qt/thumbnail_widget.h"
-#include "qt/ui_render_window.h"
 #include "qt/voxel_export_dialog.h"
 
 void RenderWindow::slotResizedScrolledAreaImage(int width, int height) const

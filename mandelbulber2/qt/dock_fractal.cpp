@@ -34,9 +34,10 @@
 
 #include "dock_fractal.h"
 
+#include "ui_dock_fractal.h"
+
 #include "dock_rendering_engine.h"
 #include "my_tab_bar.h"
-#include "ui_dock_fractal.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/error_message.hpp"

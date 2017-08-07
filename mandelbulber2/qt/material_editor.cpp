@@ -36,8 +36,9 @@
 
 #include <QtCore>
 
-#include "preview_file_dialog.h"
 #include "ui_material_editor.h"
+
+#include "preview_file_dialog.h"
 
 #include "src/automated_widgets.hpp"
 #include "src/common_math.h"

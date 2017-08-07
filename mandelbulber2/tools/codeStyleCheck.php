@@ -45,7 +45,7 @@ foreach ($sourceFiles as $sourceFilePath) {
 	$sourceContent = file_get_contents($sourceFilePath);
 
 	if ($success && !checkFileHeader($sourceFilePath, $sourceContent, $status)) $success = false;
-	if ($success && !checkClang($sourceFilePath, $sourceContent, $status)) $success = false;
+	// if ($success && !checkClang($sourceFilePath, $sourceContent, $status)) $success = false;
 	if ($success && !checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName)) $success = false;
 
 	if ($success && !isDryRun() && count($status) > 0) {
@@ -67,7 +67,7 @@ foreach ($headerFiles as $headerFilePath) {
 
 	if ($success && !checkFileHeader($headerFilePath, $headerContent, $status)) $success = false;
 	if ($success && !checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) $success = false;
-	if ($success && !checkClang($headerFilePath, $headerContent, $status)) $success = false;
+	// if ($success && !checkClang($headerFilePath, $headerContent, $status)) $success = false;
 	if ($success && !checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName)) $success = false;
 	
 	if ($success && !isDryRun() && count($status) > 0) {
@@ -200,6 +200,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 			'cHeader' => array(),
 			'cppHeader' => array(),
 			'qtHeader' => array(), 
+			'uiAutogenHeader' => array(), 
 			'localHeader' => array(),
 			'srcHeader' => array(),
 			'uiHeader' => array(),
@@ -210,6 +211,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 		        $includeLine = str_replace('../src/', 'src/', $includeLine);
 				$includeLine = str_replace('../qt/', 'qt/', $includeLine);
 				$includeLine = str_replace('../opencl/', 'opencl/', $includeLine);
+				$includeLine = str_replace('qt/ui_', 'ui_', $includeLine);
 			$includeLine = str_replace('"' . $folderName . '/', '"', $includeLine); // strip folder, when include from same folder
 			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
 			if($includeLine == '// custom includes'){
@@ -222,6 +224,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 					// project includes		
 					if(pathinfo(basename($includeFileName), PATHINFO_FILENAME) 
 						== pathinfo(basename($filepath), PATHINFO_FILENAME)) $includesOut['moduleHeader'][] = $includeLine;
+					else if(strpos($includeFileName, 'ui_') === 0) $includesOut['uiAutogenHeader'][] = $includeLine;
 					else if(strpos($includeFileName, '/') === false) $includesOut['localHeader'][] = $includeLine;
 					else if(strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
 					else if(strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;

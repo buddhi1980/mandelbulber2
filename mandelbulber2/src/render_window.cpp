@@ -39,9 +39,9 @@
 
 #include "render_window.hpp"
 
-#include "automated_widgets.hpp"
+#include "ui_render_window.h"
 
-#include "qt/ui_render_window.h"
+#include "automated_widgets.hpp"
 
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {
