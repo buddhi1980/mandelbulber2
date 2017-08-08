@@ -60,661 +60,530 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 	if (!gInterfaceReadyForSynchronization && mode == qInterface::read) return;
 
 	WriteLog("cInterface::SynchronizeInterface: QLineEdit", 3);
-	//----------- QLineEdit -------------------
-	{
-		QList<QLineEdit *> widgetListLineEdit = window->findChildren<QLineEdit *>();
-		QList<QLineEdit *>::iterator it;
-
-		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
-		{
-			// qDebug() << "QLineEdit:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-
-			QString name = (*it)->objectName();
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QLineEdit") || className == QString("MyLineEdit")))
-			{
-				QLineEdit *lineEdit = *it;
-				// QString text = lineEdit->text();
-				// qDebug() << name << " - text: " << text << endl;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-				// qDebug() << name << " - type: " << type << endl;
-
-				if (className == QString("MyLineEdit"))
-				{
-					MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(*it);
-					myLineEdit->AssignParameterContainer(par);
-					myLineEdit->AssignParameterName(parameterName);
-				}
-
-				//----- get vectors ------------
-				if (type == QString("vect3") || type == QString("logvect3"))
-				{
-					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-
-					if (mode == qInterface::read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						// qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
-						CVector3 vect = par->Get<CVector3>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x': vect.x = value; break;
-
-							case 'y': vect.y = value; break;
-
-							case 'z': vect.z = value; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-													 << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == qInterface::write)
-					{
-						CVector3 vect = par->Get<CVector3>(nameVect);
-						QString qText;
-
-						switch (lastChar)
-						{
-							case 'x': qText = QString("%L1").arg(vect.x, 0, 'g', 16); break;
-
-							case 'y': qText = QString("%L1").arg(vect.y, 0, 'g', 16); break;
-
-							case 'z': qText = QString("%L1").arg(vect.z, 0, 'g', 16); break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-													 << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						lineEdit->setText(qText);
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//----- get vectors 4D  ------------
-				if (type == QString("vect4"))
-				{
-					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-
-					if (mode == qInterface::read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						// qDebug() << nameVect << " - " << lastChar << " axis = " << value << endl;
-						CVector4 vect = par->Get<CVector4>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x': vect.x = value; break;
-
-							case 'y': vect.y = value; break;
-
-							case 'z': vect.z = value; break;
-
-							case 'w': vect.w = value; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-													 << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == qInterface::write)
-					{
-						CVector4 vect = par->Get<CVector4>(nameVect);
-						QString qText;
-
-						switch (lastChar)
-						{
-							case 'x': qText = QString("%L1").arg(vect.x, 0, 'g', 16); break;
-
-							case 'y': qText = QString("%L1").arg(vect.y, 0, 'g', 16); break;
-
-							case 'z': qText = QString("%L1").arg(vect.z, 0, 'g', 16); break;
-
-							case 'w': qText = QString("%L1").arg(vect.w, 0, 'g', 16); break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): edit field " << nameVect
-													 << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						lineEdit->setText(qText);
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//---------- get double scalars --------
-				else if (type == QString("edit") || type == QString("logedit"))
-				{
-					if (mode == qInterface::read)
-					{
-						double value = systemData.locale.toDouble(lineEdit->text());
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						double value = par->Get<double>(parameterName);
-						lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
-						lineEdit->setCursorPosition(0);
-					}
-				}
-
-				//----------- get texts ------------
-				else if (type == QString("text"))
-				{
-					if (mode == qInterface::read)
-					{
-						QString value = lineEdit->text();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						QString value = par->Get<QString>(parameterName);
-						lineEdit->setText(value);
-					}
-				}
-			}
-		} // end foreach
-	}
+	SynchronizeInterfaceQLineEdit(window->findChildren<QLineEdit *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QDoubleSpinBox", 3);
-	//------------ Double spin-box --------------
-	{
-		QList<QDoubleSpinBox *> widgetListDoubleSpinBox = window->findChildren<QDoubleSpinBox *>();
-		QList<QDoubleSpinBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QDoubleSpinBox") || className == QString("MyDoubleSpinBox")))
-			{
-				QDoubleSpinBox *spinbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyDoubleSpinBox"))
-				{
-					MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
-					myDoubleSpinBox->AssignParameterContainer(par);
-					myDoubleSpinBox->AssignParameterName(parameterName);
-				}
-
-				if (type == QString("spinbox") || type == QString("spinboxd"))
-				{
-					if (mode == qInterface::read)
-					{
-						double value = spinbox->value();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						double value = par->Get<double>(parameterName);
-						spinbox->setValue(value);
-					}
-				}
-				else if (type == QString("spinbox3") || type == QString("spinboxd3"))
-				{
-					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == qInterface::read)
-					{
-						double value = spinbox->value();
-						CVector3 vect = par->Get<CVector3>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x': vect.x = value; break;
-
-							case 'y': vect.y = value; break;
-
-							case 'z': vect.z = value; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-													 << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == qInterface::write)
-					{
-						CVector3 vect = par->Get<CVector3>(nameVect);
-						double value = 0;
-
-						switch (lastChar)
-						{
-							case 'x': value = vect.x; break;
-
-							case 'y': value = vect.y; break;
-
-							case 'z': value = vect.z; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-													 << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						spinbox->setValue(value);
-					}
-				}
-				else if (type == QString("spinbox4") || type == QString("spinboxd4"))
-				{
-					char lastChar = parameterName.at(parameterName.length() - 1).toLatin1();
-					QString nameVect = parameterName.left(parameterName.length() - 2);
-					if (mode == qInterface::read)
-					{
-						double value = spinbox->value();
-						CVector4 vect = par->Get<CVector4>(nameVect);
-
-						switch (lastChar)
-						{
-							case 'x': vect.x = value; break;
-
-							case 'y': vect.y = value; break;
-
-							case 'z': vect.z = value; break;
-
-							case 'w': vect.w = value; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-													 << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						par->Set(nameVect, vect);
-					}
-					else if (mode == qInterface::write)
-					{
-						CVector4 vect = par->Get<CVector4>(nameVect);
-						double value = 0;
-
-						switch (lastChar)
-						{
-							case 'x': value = vect.x; break;
-
-							case 'y': value = vect.y; break;
-
-							case 'z': value = vect.z; break;
-
-							case 'w': value = vect.w; break;
-
-							default:
-								qWarning() << "cInterface::SynchronizeInterfaceWindow(): " << type << " "
-													 << nameVect << " has wrong axis name (is " << lastChar << ")" << endl;
-								break;
-						}
-						spinbox->setValue(value);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceQDoubleSpinBox(window->findChildren<QDoubleSpinBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QSpinBox", 3);
-	//------------ integer spin-box --------------
-	{
-		QList<QSpinBox *> widgetListDoubleSpinBox = window->findChildren<QSpinBox *>();
-		QList<QSpinBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "QDoubleSpinBox:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
-			{
-				QSpinBox *spinbox = *it;
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MySpinBox"))
-				{
-					MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
-					mySpinBox->AssignParameterContainer(par);
-					mySpinBox->AssignParameterName(parameterName);
-				}
-
-				if (type == QString("spinboxInt"))
-				{
-					if (mode == qInterface::read)
-					{
-						int value = spinbox->value();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						int value = par->Get<int>(parameterName);
-						spinbox->setValue(value);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceQSpinBox(window->findChildren<QSpinBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QCheckBox", 3);
-	// checkboxes
-	{
-		QList<QCheckBox *> widgetListDoubleSpinBox = window->findChildren<QCheckBox *>();
-		QList<QCheckBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "QCheckBox:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
-			{
-				QCheckBox *checkbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyCheckBox"))
-				{
-					MyCheckBox *myCheckBox = static_cast<MyCheckBox *>(*it);
-					myCheckBox->AssignParameterContainer(par);
-					myCheckBox->AssignParameterName(parameterName);
-				}
-
-				if (type == QString("checkBox"))
-				{
-					if (mode == qInterface::read)
-					{
-						bool value = checkbox->isChecked();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						bool value = par->Get<bool>(parameterName);
-						checkbox->setChecked(value);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceQCheckBox(window->findChildren<QCheckBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QGroupBox", 3);
-	// groupsBox with checkbox
-	{
-		QList<QGroupBox *> widgetListDoubleSpinBox = window->findChildren<QGroupBox *>();
-		QList<QGroupBox *>::iterator it;
-		for (it = widgetListDoubleSpinBox.begin(); it != widgetListDoubleSpinBox.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "QGroupBox:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1
-					&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
-			{
-				QGroupBox *groupBbox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (className == QString("MyGroupBox"))
-				{
-					MyGroupBox *myGroupBox = static_cast<MyGroupBox *>(*it);
-					myGroupBox->AssignParameterContainer(par);
-					myGroupBox->AssignParameterName(parameterName);
-				}
-
-				if (type == QString("groupCheck"))
-				{
-					if (mode == qInterface::read)
-					{
-						bool value = groupBbox->isChecked();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						bool value = par->Get<bool>(parameterName);
-						groupBbox->setChecked(value);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceQGroupBox(window->findChildren<QGroupBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: FileSelectWidget", 3);
-	//---------- file select widgets -----------
-	{
-		QList<FileSelectWidget *> widgetListPushButton = window->findChildren<FileSelectWidget *>();
-		QList<FileSelectWidget *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
-			{
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				FileSelectWidget *fileSelectWidget = *it;
-				fileSelectWidget->AssignParameterContainer(par);
-				fileSelectWidget->AssignParameterName(parameterName);
-
-				if (mode == qInterface::read)
-				{
-					par->Set(parameterName, fileSelectWidget->GetPath());
-				}
-				else if (mode == qInterface::write)
-				{
-					fileSelectWidget->SetPath(par->Get<QString>(parameterName));
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceFileSelectWidget(window->findChildren<FileSelectWidget *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: MyColorButton", 3);
-	//---------- color buttons -----------
-	{
-		QList<MyColorButton *> widgetListPushButton = window->findChildren<MyColorButton *>();
-		QList<MyColorButton *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
-			{
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				MyColorButton *colorButton = *it;
-				colorButton->AssignParameterContainer(par);
-				colorButton->AssignParameterName(parameterName);
-
-				if (mode == qInterface::read)
-				{
-					par->Set(parameterName, colorButton->GetColor());
-				}
-				else if (mode == qInterface::write)
-				{
-					colorButton->setText("");
-					colorButton->SetColor(par->Get<sRGB>(parameterName));
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceMyColorButton(window->findChildren<MyColorButton *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: ColorPaletteWidget", 3);
-	//---------- colorpalette -----------
-	{
-		QList<ColorPaletteWidget *> widgetListColorPalette =
-			window->findChildren<ColorPaletteWidget *>();
-		QList<ColorPaletteWidget *>::iterator it;
-		for (it = widgetListColorPalette.begin(); it != widgetListColorPalette.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "ColorPalette:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
-			{
-				ColorPaletteWidget *colorPaletteWidget = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				colorPaletteWidget->AssignParameterContainer(par);
-				colorPaletteWidget->AssignParameterName(parameterName);
-
-				if (type == QString("colorpalette"))
-				{
-					if (mode == qInterface::read)
-					{
-						cColorPalette palette = colorPaletteWidget->GetPalette();
-						par->Set(parameterName, palette);
-					}
-					else if (mode == qInterface::write)
-					{
-						cColorPalette palette = par->Get<cColorPalette>(parameterName);
-						colorPaletteWidget->SetPalette(palette);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceColorPaletteWidget(window->findChildren<ColorPaletteWidget *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QComboBox", 3);
-	// combo boxes
-	{
-		QList<QComboBox *> widgetListPushButton = window->findChildren<QComboBox *>();
-		QList<QComboBox *>::iterator it;
-		for (it = widgetListPushButton.begin(); it != widgetListPushButton.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// qDebug() << "QComboBox:" << (*it)->objectName() << " Type:" <<
-			// (*it)->metaObject()->className() << endl;
-
-			if (name.length() > 1
-					&& ((*it)->metaObject()->className() == QString("QComboBox")
-							 || (*it)->metaObject()->className() == QString("cFormulaComboBox")))
-			{
-				QComboBox *comboBox = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				if (type == QString("comboBox"))
-				{
-					if (mode == qInterface::read)
-					{
-						int selection = comboBox->currentIndex();
-						if (parameterName.left(7) == QString("formula"))
-						{
-							selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
-						}
-						par->Set(parameterName, selection);
-					}
-					else if (mode == qInterface::write)
-					{
-						int selection = par->Get<int>(parameterName);
-						if (parameterName.left(7) == QString("formula"))
-						{
-							for (int i = 0; i < fractalList.size(); i++)
-							{
-								if (fractalList[i].internalID == selection)
-								{
-									selection = comboBox->findData(i);
-									break;
-								}
-							}
-						}
-						comboBox->setCurrentIndex(selection);
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfaceQComboBox(window->findChildren<QComboBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: cMaterialSelector", 3);
-	//---------- material selector -----------
-	{
-		QList<cMaterialSelector *> widgetListMaterialSelector =
-			window->findChildren<cMaterialSelector *>();
-		QList<cMaterialSelector *>::iterator it;
-		for (it = widgetListMaterialSelector.begin(); it != widgetListMaterialSelector.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			// QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && (*it)->metaObject()->className() == QString("cMaterialSelector"))
-			{
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				cMaterialSelector *materialSelector = *it;
-				materialSelector->AssignParameterContainer(par);
-				materialSelector->AssignParameterName(parameterName);
-
-				if (type == QString("materialselector"))
-				{
-					if (mode == qInterface::read)
-					{
-						par->Set(parameterName, materialSelector->GetMaterialIndex());
-					}
-					else if (mode == qInterface::write)
-					{
-						materialSelector->SetMaterialIndex(par->Get<int>(parameterName));
-					}
-				}
-			}
-		}
-	}
+	SynchronizeInterfacecMaterialSelector(window->findChildren<cMaterialSelector *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QPlainTextEdit", 3);
-	//----------- QPlainTextEdit -------------------
-	{
-		QList<QPlainTextEdit *> widgetListLineEdit = window->findChildren<QPlainTextEdit *>();
-		QList<QPlainTextEdit *>::iterator it;
-
-		for (it = widgetListLineEdit.begin(); it != widgetListLineEdit.end(); ++it)
-		{
-			QString name = (*it)->objectName();
-			QString className = (*it)->metaObject()->className();
-			if (name.length() > 1 && className == QString("QPlainTextEdit"))
-			{
-				QPlainTextEdit *textEdit = *it;
-
-				QString type, parameterName;
-				GetNameAndType(name, &parameterName, &type);
-
-				//----------- get texts ------------
-				if (type == QString("text"))
-				{
-					if (mode == qInterface::read)
-					{
-						QString value = textEdit->toPlainText();
-						par->Set(parameterName, value);
-					}
-					else if (mode == qInterface::write)
-					{
-						QString value = par->Get<QString>(parameterName);
-						textEdit->setPlainText(value);
-					}
-				}
-			}
-		} // end foreach
-	}
+	SynchronizeInterfaceQPlainTextEdit(window->findChildren<QPlainTextEdit *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: Done", 3);
 }
+
+// widget specific synchronization functions
+void SynchronizeInterfaceQLineEdit(
+	QList<QLineEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	for (QList<QLineEdit *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		widgetProperties props = parseWidgetProterties((*it), {"MyLineEdit", "QLineEdit"});
+		if (props.allowed)
+		{
+			QLineEdit *lineEdit = *it;
+
+			if (props.className == QString("MyLineEdit"))
+			{
+				MyLineEdit *myLineEdit = static_cast<MyLineEdit *>(*it);
+				myLineEdit->AssignParameterContainer(par);
+				myLineEdit->AssignParameterName(props.paramName);
+			}
+
+			//----- get vectors ------------
+			if (props.typeName == QString("vect3") || props.typeName == QString("logvect3"))
+			{
+				char lastChar = props.lastChar();
+				QString nameVect = props.nameVect();
+
+				if (mode == qInterface::read)
+				{
+					double value = systemData.locale.toDouble(lineEdit->text());
+					SynchronizeInterfaceReadVect3d(nameVect, lastChar, value, par);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value;
+					SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setCursorPosition(0);
+				}
+			}
+
+			//----- get vectors 4D  ------------
+			else if (props.typeName == QString("vect4"))
+			{
+				char lastChar = props.lastChar();
+				QString nameVect = props.nameVect();
+
+				if (mode == qInterface::read)
+				{
+					double value = systemData.locale.toDouble(lineEdit->text());
+					SynchronizeInterfaceReadVect4d(nameVect, lastChar, value, par);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value;
+					SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setCursorPosition(0);
+				}
+			}
+
+			//---------- get double scalars --------
+			else if (props.typeName == QString("edit") || props.typeName == QString("logedit"))
+			{
+				if (mode == qInterface::read)
+				{
+					double value = systemData.locale.toDouble(lineEdit->text());
+					par->Set(props.paramName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value = par->Get<double>(props.paramName);
+					lineEdit->setText(QString("%L1").arg(value, 0, 'g', 16));
+					lineEdit->setCursorPosition(0);
+				}
+			}
+
+			//----------- get texts ------------
+			else if (props.typeName == QString("text"))
+			{
+				if (mode == qInterface::read)
+				{
+					QString value = lineEdit->text();
+					par->Set(props.paramName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					QString value = par->Get<QString>(props.paramName);
+					lineEdit->setText(value);
+				}
+			}
+		}
+	} // end foreach
+}
+
+void SynchronizeInterfaceQDoubleSpinBox(
+	QList<QDoubleSpinBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QDoubleSpinBox *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		widgetProperties props = parseWidgetProterties((*it), {"MyDoubleSpinBox", "QDoubleSpinBox"});
+		if (props.allowed)
+		{
+			QDoubleSpinBox *spinbox = *it;
+
+			if (props.className == QString("MyDoubleSpinBox"))
+			{
+				MyDoubleSpinBox *myDoubleSpinBox = static_cast<MyDoubleSpinBox *>(*it);
+				myDoubleSpinBox->AssignParameterContainer(par);
+				myDoubleSpinBox->AssignParameterName(props.paramName);
+			}
+
+			if (props.typeName == QString("spinbox") || props.typeName == QString("spinboxd"))
+			{
+				if (mode == qInterface::read)
+				{
+					double value = spinbox->value();
+					par->Set(props.paramName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value = par->Get<double>(props.paramName);
+					spinbox->setValue(value);
+				}
+			}
+			else if (props.typeName == QString("spinbox3") || props.typeName == QString("spinboxd3"))
+			{
+				char lastChar = props.lastChar();
+				QString nameVect = props.nameVect();
+				if (mode == qInterface::read)
+				{
+					double value = spinbox->value();
+					SynchronizeInterfaceReadVect3d(nameVect, lastChar, value, par);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value = 0;
+					SynchronizeInterfaceWriteVect3d(nameVect, lastChar, value, par);
+					spinbox->setValue(value);
+				}
+			}
+			else if (props.typeName == QString("spinbox4") || props.typeName == QString("spinboxd4"))
+			{
+				char lastChar = props.lastChar();
+				QString nameVect = props.nameVect();
+				if (mode == qInterface::read)
+				{
+					double value = spinbox->value();
+					SynchronizeInterfaceReadVect4d(nameVect, lastChar, value, par);
+				}
+				else if (mode == qInterface::write)
+				{
+					double value = 0;
+					SynchronizeInterfaceWriteVect4d(nameVect, lastChar, value, par);
+					spinbox->setValue(value);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQSpinBox(
+	QList<QSpinBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QSpinBox *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		QString className = (*it)->metaObject()->className();
+		if (name.length() > 1
+				&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
+		{
+			QSpinBox *spinbox = *it;
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (className == QString("MySpinBox"))
+			{
+				MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
+				mySpinBox->AssignParameterContainer(par);
+				mySpinBox->AssignParameterName(parameterName);
+			}
+
+			if (type == QString("spinboxInt"))
+			{
+				if (mode == qInterface::read)
+				{
+					int value = spinbox->value();
+					par->Set(parameterName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					int value = par->Get<int>(parameterName);
+					spinbox->setValue(value);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQCheckBox(
+	QList<QCheckBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QCheckBox *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		QString className = (*it)->metaObject()->className();
+		if (name.length() > 1
+				&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
+		{
+			QCheckBox *checkbox = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (className == QString("MyCheckBox"))
+			{
+				MyCheckBox *myCheckBox = static_cast<MyCheckBox *>(*it);
+				myCheckBox->AssignParameterContainer(par);
+				myCheckBox->AssignParameterName(parameterName);
+			}
+
+			if (type == QString("checkBox"))
+			{
+				if (mode == qInterface::read)
+				{
+					bool value = checkbox->isChecked();
+					par->Set(parameterName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					bool value = par->Get<bool>(parameterName);
+					checkbox->setChecked(value);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQGroupBox(
+	QList<QGroupBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QGroupBox *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		// qDebug() << "QGroupBox:" << (*it)->objectName() << " Type:" <<
+		// (*it)->metaObject()->className() << endl;
+		QString className = (*it)->metaObject()->className();
+		if (name.length() > 1
+				&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
+		{
+			QGroupBox *groupBbox = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (className == QString("MyGroupBox"))
+			{
+				MyGroupBox *myGroupBox = static_cast<MyGroupBox *>(*it);
+				myGroupBox->AssignParameterContainer(par);
+				myGroupBox->AssignParameterName(parameterName);
+			}
+
+			if (type == QString("groupCheck"))
+			{
+				if (mode == qInterface::read)
+				{
+					bool value = groupBbox->isChecked();
+					par->Set(parameterName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					bool value = par->Get<bool>(parameterName);
+					groupBbox->setChecked(value);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceFileSelectWidget(
+	QList<FileSelectWidget *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<FileSelectWidget *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		// QString className = (*it)->metaObject()->className();
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
+		{
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			FileSelectWidget *fileSelectWidget = *it;
+			fileSelectWidget->AssignParameterContainer(par);
+			fileSelectWidget->AssignParameterName(parameterName);
+
+			if (mode == qInterface::read)
+			{
+				par->Set(parameterName, fileSelectWidget->GetPath());
+			}
+			else if (mode == qInterface::write)
+			{
+				fileSelectWidget->SetPath(par->Get<QString>(parameterName));
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceMyColorButton(
+	QList<MyColorButton *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<MyColorButton *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		// QString className = (*it)->metaObject()->className();
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
+		{
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			MyColorButton *colorButton = *it;
+			colorButton->AssignParameterContainer(par);
+			colorButton->AssignParameterName(parameterName);
+
+			if (mode == qInterface::read)
+			{
+				par->Set(parameterName, colorButton->GetColor());
+			}
+			else if (mode == qInterface::write)
+			{
+				colorButton->setText("");
+				colorButton->SetColor(par->Get<sRGB>(parameterName));
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceColorPaletteWidget(
+	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<ColorPaletteWidget *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		// qDebug() << "ColorPalette:" << (*it)->objectName() << " Type:" <<
+		// (*it)->metaObject()->className() << endl;
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
+		{
+			ColorPaletteWidget *colorPaletteWidget = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			colorPaletteWidget->AssignParameterContainer(par);
+			colorPaletteWidget->AssignParameterName(parameterName);
+
+			if (type == QString("colorpalette"))
+			{
+				if (mode == qInterface::read)
+				{
+					cColorPalette palette = colorPaletteWidget->GetPalette();
+					par->Set(parameterName, palette);
+				}
+				else if (mode == qInterface::write)
+				{
+					cColorPalette palette = par->Get<cColorPalette>(parameterName);
+					colorPaletteWidget->SetPalette(palette);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQComboBox(
+	QList<QComboBox *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QComboBox *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+
+		if (name.length() > 1 && ((*it)->metaObject()->className() == QString("QComboBox")
+															 || (*it)->metaObject()->className() == QString("cFormulaComboBox")))
+		{
+			QComboBox *comboBox = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			if (type == QString("comboBox"))
+			{
+				if (mode == qInterface::read)
+				{
+					int selection = comboBox->currentIndex();
+					if (parameterName.left(7) == QString("formula"))
+					{
+						selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
+					}
+					par->Set(parameterName, selection);
+				}
+				else if (mode == qInterface::write)
+				{
+					int selection = par->Get<int>(parameterName);
+					if (parameterName.left(7) == QString("formula"))
+					{
+						for (int i = 0; i < fractalList.size(); i++)
+						{
+							if (fractalList[i].internalID == selection)
+							{
+								selection = comboBox->findData(i);
+								break;
+							}
+						}
+					}
+					comboBox->setCurrentIndex(selection);
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfacecMaterialSelector(
+	QList<cMaterialSelector *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<cMaterialSelector *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		// QString className = (*it)->metaObject()->className();
+		if (name.length() > 1 && (*it)->metaObject()->className() == QString("cMaterialSelector"))
+		{
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			cMaterialSelector *materialSelector = *it;
+			materialSelector->AssignParameterContainer(par);
+			materialSelector->AssignParameterName(parameterName);
+
+			if (type == QString("materialselector"))
+			{
+				if (mode == qInterface::read)
+				{
+					par->Set(parameterName, materialSelector->GetMaterialIndex());
+				}
+				else if (mode == qInterface::write)
+				{
+					materialSelector->SetMaterialIndex(par->Get<int>(parameterName));
+				}
+			}
+		}
+	}
+}
+
+void SynchronizeInterfaceQPlainTextEdit(
+	QList<QPlainTextEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
+{
+	QList<QPlainTextEdit *>::iterator it;
+	for (it = widgets.begin(); it != widgets.end(); ++it)
+	{
+		QString name = (*it)->objectName();
+		QString className = (*it)->metaObject()->className();
+		if (name.length() > 1 && className == QString("QPlainTextEdit"))
+		{
+			QPlainTextEdit *textEdit = *it;
+
+			QString type, parameterName;
+			GetNameAndType(name, &parameterName, &type);
+
+			//----------- get texts ------------
+			if (type == QString("text"))
+			{
+				if (mode == qInterface::read)
+				{
+					QString value = textEdit->toPlainText();
+					par->Set(parameterName, value);
+				}
+				else if (mode == qInterface::write)
+				{
+					QString value = par->Get<QString>(parameterName);
+					textEdit->setPlainText(value);
+				}
+			}
+		}
+	} // end foreach
+}
+
+// utility functions
 
 // extract name and type string from widget name
 void GetNameAndType(QString name, QString *parameterName, QString *type)
@@ -722,4 +591,84 @@ void GetNameAndType(QString name, QString *parameterName, QString *type)
 	int firstDashPosition = name.indexOf("_");
 	*type = name.left(firstDashPosition);
 	*parameterName = name.mid(firstDashPosition + 1);
+}
+
+void SynchronizeInterfaceReadVect3d(
+	QString &nameVect, char lastChar, double value, cParameterContainer *par)
+{
+	CVector3 vect = par->Get<CVector3>(nameVect);
+	switch (lastChar)
+	{
+		case 'x': vect.x = value; break;
+		case 'y': vect.y = value; break;
+		case 'z': vect.z = value; break;
+		default:
+			qWarning() << "cInterface::SynchronizeInterfaceReadVect3d(): edit field " << nameVect
+								 << " has wrong axis name (is " << lastChar << ")" << endl;
+			break;
+	}
+	par->Set(nameVect, vect);
+}
+
+void SynchronizeInterfaceWriteVect3d(
+	QString &nameVect, char lastChar, double &out, cParameterContainer *par)
+{
+	CVector3 vect = par->Get<CVector3>(nameVect);
+	switch (lastChar)
+	{
+		case 'x': out = vect.x; break;
+		case 'y': out = vect.y; break;
+		case 'z': out = vect.z; break;
+		default:
+			qWarning() << "cInterface::SynchronizeInterfaceWriteVect3d(): edit field " << nameVect
+								 << " has wrong axis name (is " << lastChar << ")" << endl;
+			break;
+	}
+}
+
+void SynchronizeInterfaceReadVect4d(
+	QString &nameVect, char lastChar, double value, cParameterContainer *par)
+{
+	CVector4 vect = par->Get<CVector4>(nameVect);
+	switch (lastChar)
+	{
+		case 'x': vect.x = value; break;
+		case 'y': vect.y = value; break;
+		case 'z': vect.z = value; break;
+		case 'w': vect.w = value; break;
+		default:
+			qWarning() << "cInterface::SynchronizeInterfaceReadVect4d(): edit field " << nameVect
+								 << " has wrong axis name (is " << lastChar << ")" << endl;
+			break;
+	}
+	par->Set(nameVect, vect);
+}
+
+void SynchronizeInterfaceWriteVect4d(
+	QString &nameVect, char lastChar, double &out, cParameterContainer *par)
+{
+	CVector4 vect = par->Get<CVector4>(nameVect);
+	switch (lastChar)
+	{
+		case 'x': out = vect.x; break;
+		case 'y': out = vect.y; break;
+		case 'z': out = vect.z; break;
+		case 'w': out = vect.z; break;
+		default:
+			qWarning() << "cInterface::SynchronizeInterfaceWriteVect4d(): edit field " << nameVect
+								 << " has wrong axis name (is " << lastChar << ")" << endl;
+			break;
+	}
+}
+
+widgetProperties parseWidgetProterties(QWidget *widget, QStringList allowedClassNames)
+{
+	widgetProperties props;
+	props.name = widget->objectName();
+	props.className = widget->metaObject()->className();
+	props.allowed = (props.name.length() > 1 && (allowedClassNames.contains(props.className)));
+	int firstDashPosition = props.name.indexOf("_");
+	props.typeName = props.name.left(firstDashPosition);
+	props.paramName = props.name.mid(firstDashPosition + 1);
+	return props;
 }
