@@ -260,32 +260,27 @@ void SynchronizeInterfaceQSpinBox(
 	QList<QSpinBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		QString className = (*it)->metaObject()->className();
-		if (name.length() > 1
-				&& (className == QString("QSpinBox") || className == QString("MySpinBox")))
+		widgetProperties props = parseWidgetProterties((*it), {"QSpinBox", "MySpinBox"});
+		if (props.allowed)
 		{
 			QSpinBox *spinbox = *it;
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (className == QString("MySpinBox"))
+			if (props.className == QString("MySpinBox"))
 			{
 				MySpinBox *mySpinBox = static_cast<MySpinBox *>(*it);
 				mySpinBox->AssignParameterContainer(par);
-				mySpinBox->AssignParameterName(parameterName);
+				mySpinBox->AssignParameterName(props.paramName);
 			}
 
-			if (type == QString("spinboxInt"))
+			if (props.typeName == QString("spinboxInt"))
 			{
 				if (mode == qInterface::read)
 				{
 					int value = spinbox->value();
-					par->Set(parameterName, value);
+					par->Set(props.paramName, value);
 				}
 				else if (mode == qInterface::write)
 				{
-					int value = par->Get<int>(parameterName);
+					int value = par->Get<int>(props.paramName);
 					spinbox->setValue(value);
 				}
 			}
@@ -299,33 +294,27 @@ void SynchronizeInterfaceQCheckBox(
 	QList<QCheckBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		QString className = (*it)->metaObject()->className();
-		if (name.length() > 1
-				&& (className == QString("QCheckBox") || className == QString("MyCheckBox")))
+		widgetProperties props = parseWidgetProterties((*it), {"QCheckBox", "MyCheckBox"});
+		if (props.allowed)
 		{
 			QCheckBox *checkbox = *it;
-
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (className == QString("MyCheckBox"))
+			if (props.className == QString("MyCheckBox"))
 			{
 				MyCheckBox *myCheckBox = static_cast<MyCheckBox *>(*it);
 				myCheckBox->AssignParameterContainer(par);
-				myCheckBox->AssignParameterName(parameterName);
+				myCheckBox->AssignParameterName(props.paramName);
 			}
 
-			if (type == QString("checkBox"))
+			if (props.typeName == QString("checkBox"))
 			{
 				if (mode == qInterface::read)
 				{
 					bool value = checkbox->isChecked();
-					par->Set(parameterName, value);
+					par->Set(props.paramName, value);
 				}
 				else if (mode == qInterface::write)
 				{
-					bool value = par->Get<bool>(parameterName);
+					bool value = par->Get<bool>(props.paramName);
 					checkbox->setChecked(value);
 				}
 			}
@@ -339,35 +328,27 @@ void SynchronizeInterfaceQGroupBox(
 	QList<QGroupBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		// qDebug() << "QGroupBox:" << (*it)->objectName() << " Type:" <<
-		// (*it)->metaObject()->className() << endl;
-		QString className = (*it)->metaObject()->className();
-		if (name.length() > 1
-				&& (className == QString("QGroupBox") || className == QString("MyGroupBox")))
+		widgetProperties props = parseWidgetProterties((*it), {"QGroupBox", "MyGroupBox"});
+		if (props.allowed)
 		{
 			QGroupBox *groupBbox = *it;
-
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (className == QString("MyGroupBox"))
+			if (props.className == QString("MyGroupBox"))
 			{
 				MyGroupBox *myGroupBox = static_cast<MyGroupBox *>(*it);
 				myGroupBox->AssignParameterContainer(par);
-				myGroupBox->AssignParameterName(parameterName);
+				myGroupBox->AssignParameterName(props.paramName);
 			}
 
-			if (type == QString("groupCheck"))
+			if (props.typeName == QString("groupCheck"))
 			{
 				if (mode == qInterface::read)
 				{
 					bool value = groupBbox->isChecked();
-					par->Set(parameterName, value);
+					par->Set(props.paramName, value);
 				}
 				else if (mode == qInterface::write)
 				{
-					bool value = par->Get<bool>(parameterName);
+					bool value = par->Get<bool>(props.paramName);
 					groupBbox->setChecked(value);
 				}
 			}
@@ -381,24 +362,20 @@ void SynchronizeInterfaceFileSelectWidget(
 	QList<FileSelectWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		// QString className = (*it)->metaObject()->className();
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("FileSelectWidget"))
+		widgetProperties props = parseWidgetProterties((*it), {"FileSelectWidget"});
+		if (props.allowed)
 		{
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
 			FileSelectWidget *fileSelectWidget = *it;
 			fileSelectWidget->AssignParameterContainer(par);
-			fileSelectWidget->AssignParameterName(parameterName);
+			fileSelectWidget->AssignParameterName(props.paramName);
 
 			if (mode == qInterface::read)
 			{
-				par->Set(parameterName, fileSelectWidget->GetPath());
+				par->Set(props.paramName, fileSelectWidget->GetPath());
 			}
 			else if (mode == qInterface::write)
 			{
-				fileSelectWidget->SetPath(par->Get<QString>(parameterName));
+				fileSelectWidget->SetPath(par->Get<QString>(props.paramName));
 			}
 		}
 	}
@@ -410,25 +387,21 @@ void SynchronizeInterfaceMyColorButton(
 	QList<MyColorButton *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		// QString className = (*it)->metaObject()->className();
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("MyColorButton"))
+		widgetProperties props = parseWidgetProterties((*it), {"MyColorButton"});
+		if (props.allowed)
 		{
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
 			MyColorButton *colorButton = *it;
 			colorButton->AssignParameterContainer(par);
-			colorButton->AssignParameterName(parameterName);
+			colorButton->AssignParameterName(props.paramName);
 
 			if (mode == qInterface::read)
 			{
-				par->Set(parameterName, colorButton->GetColor());
+				par->Set(props.paramName, colorButton->GetColor());
 			}
 			else if (mode == qInterface::write)
 			{
 				colorButton->setText("");
-				colorButton->SetColor(par->Get<sRGB>(parameterName));
+				colorButton->SetColor(par->Get<sRGB>(props.paramName));
 			}
 		}
 	}
@@ -440,29 +413,23 @@ void SynchronizeInterfaceColorPaletteWidget(
 	QList<ColorPaletteWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		// qDebug() << "ColorPalette:" << (*it)->objectName() << " Type:" <<
-		// (*it)->metaObject()->className() << endl;
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("ColorPaletteWidget"))
+		widgetProperties props = parseWidgetProterties((*it), {"ColorPaletteWidget"});
+		if(props.allowed)
 		{
 			ColorPaletteWidget *colorPaletteWidget = *it;
-
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
 			colorPaletteWidget->AssignParameterContainer(par);
-			colorPaletteWidget->AssignParameterName(parameterName);
+			colorPaletteWidget->AssignParameterName(props.paramName);
 
-			if (type == QString("colorpalette"))
+			if (props.typeName == QString("colorpalette"))
 			{
 				if (mode == qInterface::read)
 				{
 					cColorPalette palette = colorPaletteWidget->GetPalette();
-					par->Set(parameterName, palette);
+					par->Set(props.paramName, palette);
 				}
 				else if (mode == qInterface::write)
 				{
-					cColorPalette palette = par->Get<cColorPalette>(parameterName);
+					cColorPalette palette = par->Get<cColorPalette>(props.paramName);
 					colorPaletteWidget->SetPalette(palette);
 				}
 			}
@@ -476,31 +443,26 @@ void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-
-		if (name.length() > 1 && ((*it)->metaObject()->className() == QString("QComboBox")
-															 || (*it)->metaObject()->className() == QString("cFormulaComboBox")))
+		widgetProperties props = parseWidgetProterties((*it), {"QComboBox", "cFormulaComboBox"});
+		if (props.allowed)
 		{
 			QComboBox *comboBox = *it;
 
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
-			if (type == QString("comboBox"))
+			if (props.typeName == QString("comboBox"))
 			{
 				if (mode == qInterface::read)
 				{
 					int selection = comboBox->currentIndex();
-					if (parameterName.left(7) == QString("formula"))
+					if (props.paramName.left(7) == QString("formula"))
 					{
 						selection = fractalList[comboBox->itemData(selection).toInt()].internalID;
 					}
-					par->Set(parameterName, selection);
+					par->Set(props.paramName, selection);
 				}
 				else if (mode == qInterface::write)
 				{
-					int selection = par->Get<int>(parameterName);
-					if (parameterName.left(7) == QString("formula"))
+					int selection = par->Get<int>(props.paramName);
+					if (props.paramName.left(7) == QString("formula"))
 					{
 						for (int i = 0; i < fractalList.size(); i++)
 						{
@@ -524,26 +486,22 @@ void SynchronizeInterfacecMaterialSelector(
 	QList<cMaterialSelector *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		// QString className = (*it)->metaObject()->className();
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("cMaterialSelector"))
+		widgetProperties props = parseWidgetProterties((*it), {"cMaterialSelector"});
+		if (props.allowed)
 		{
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
 			cMaterialSelector *materialSelector = *it;
 			materialSelector->AssignParameterContainer(par);
-			materialSelector->AssignParameterName(parameterName);
+			materialSelector->AssignParameterName(props.paramName);
 
-			if (type == QString("materialselector"))
+			if (props.typeName == QString("materialselector"))
 			{
 				if (mode == qInterface::read)
 				{
-					par->Set(parameterName, materialSelector->GetMaterialIndex());
+					par->Set(props.paramName, materialSelector->GetMaterialIndex());
 				}
 				else if (mode == qInterface::write)
 				{
-					materialSelector->SetMaterialIndex(par->Get<int>(parameterName));
+					materialSelector->SetMaterialIndex(par->Get<int>(props.paramName));
 				}
 			}
 		}
@@ -556,26 +514,22 @@ void SynchronizeInterfaceQPlainTextEdit(
 	QList<QPlainTextEdit *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		QString name = (*it)->objectName();
-		QString className = (*it)->metaObject()->className();
-		if (name.length() > 1 && className == QString("QPlainTextEdit"))
+		widgetProperties props = parseWidgetProterties((*it), {"QPlainTextEdit"});
+		if (props.allowed)
 		{
 			QPlainTextEdit *textEdit = *it;
 
-			QString type, parameterName;
-			GetNameAndType(name, &parameterName, &type);
-
 			//----------- get texts ------------
-			if (type == QString("text"))
+			if (props.typeName == QString("text"))
 			{
 				if (mode == qInterface::read)
 				{
 					QString value = textEdit->toPlainText();
-					par->Set(parameterName, value);
+					par->Set(props.paramName, value);
 				}
 				else if (mode == qInterface::write)
 				{
-					QString value = par->Get<QString>(parameterName);
+					QString value = par->Get<QString>(props.paramName);
 					textEdit->setPlainText(value);
 				}
 			}
