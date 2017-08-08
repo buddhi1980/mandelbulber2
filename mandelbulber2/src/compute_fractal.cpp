@@ -445,14 +445,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (mboxColor > 1000) mboxColor = 1000;
 			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
 
-			/*if (fractals.GetFractal(9)->formula == fractal::transfHybridColor)
+			//if (fractals.GetFractal(9)->formula == fractal::transfHybridColor)
 			{
 				out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor
 					+ minimumR * 1000.0  * extendedAux.minRFactor
 						//+ mboxColor * 100
 							+ r2 * 5000.0 * extendedAux.scaleFactor;
 			}
-			else
+			/*else
 			{
 			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
 			}*/

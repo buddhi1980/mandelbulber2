@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>COLORING IN HYBRID MODE - BETA</string>
+      <string>COLORING .   Must be used in HYBRID MODE and in SLOT#9</string>
      </property>
     </widget>
    </item>
@@ -1199,10 +1199,10 @@
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>-100.000000000000000</double>
+        <double>-9999.989999999999782</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>9999.989999999999782</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -1227,10 +1227,10 @@
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>-10000.000000000000000</double>
+        <double>-9999.989999999999782</double>
        </property>
        <property name="maximum">
-        <double>10000.000000000000000</double>
+        <double>9999.989999999999782</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>

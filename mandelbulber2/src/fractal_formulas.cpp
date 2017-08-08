@@ -10539,7 +10539,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight
 
 	double scaleColor =
-		fractal->foldColor.colorMin + fabs(aux.actualScale) + fabs(aux.actualScaleA);
+		fractal->foldColor.colorMin +  fabs(aux.actualScaleA); //fabs(aux.actualScale) +
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 
