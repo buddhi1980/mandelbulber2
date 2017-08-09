@@ -10459,6 +10459,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double iterCount = 0.0;
 	double auxColor = 0.0;
 	double distEst = 0.0;
+	double iterAdd = 0.0;
 	double factorR = fractal->mandelbox.color.factorR;
 	//CVector4 tempZ = z;
 
@@ -10471,7 +10472,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double compMinR;
 	double compScale;*/
 
-	// iteration count components
+	// radius squared components
 	if (fractal->transformCommon.functionEnabledAxFalse)
 
 	{
@@ -10528,11 +10529,42 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		distEst = distEst * fractal->transformCommon.constantMultiplierC111.x + temp5 + temp6;
 	}
 
-	components = iterCount + distEst + auxColor + factorR;//nnnnnnnnnnnnnnnnnnnnnnn
-	aux.color = aux.color * fractal->transformCommon.scale0 + components;
+	// iteration components
 
-	if ( aux.color < fractal->transformCommon.scale025) aux.color = fractal->transformCommon.scale025 * 1000;
-	if ( aux.color > fractal->transformCommon.scale8) aux.color = fractal->transformCommon.scale8 * 1000;
+	if (fractal->transformCommon.functionEnabledCxFalse)
+	{
+		double temp7 = 0.0;
+		double temp8 = 0.0;
+		double temp9 = 0.0;
+		if ( aux.i == fractal->transformCommon.startIterationsM)
+			temp7 = fractal->transformCommon.additionConstantA000.x;
+		if ( aux.i == fractal->transformCommon.stopIterationsM)
+			temp8 = fractal->transformCommon.additionConstantA000.y;
+		if ( aux.i == fractal->transformCommon.stopIterationsZ)
+			temp9 = fractal->transformCommon.additionConstantA000.z;
+
+
+
+		iterAdd += temp7 + temp8 + temp9;
+	}
+
+
+
+
+
+
+
+	components = iterCount + distEst + auxColor + iterAdd + factorR;//nnnnnnnnnnnnnnnnnnnnnnn
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		components = components * components *  fractal->transformCommon.scale1 * .0001;
+	}
+
+	// limits components
+	if ( components < fractal->transformCommon.scale025) components = fractal->transformCommon.scale025 * 1000000;
+	if ( components > fractal->transformCommon.scale8) components = fractal->transformCommon.scale8 * 1000000;
+
+	aux.color = aux.color * fractal->transformCommon.scale0 + components;
 
 	// master controls color
 	aux.foldFactor = fractal->foldColor.compFold; // fold group weight
