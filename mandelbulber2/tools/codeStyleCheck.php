@@ -36,6 +36,7 @@ $filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".h";
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
+printStartGroup('RUNNING CHECKS ON SOURCE FILES');
 foreach ($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
 	if ($sourceFileName == 'clew.cpp') continue;
@@ -44,16 +45,17 @@ foreach ($sourceFiles as $sourceFilePath) {
 	$success = true;
 	$sourceContent = file_get_contents($sourceFilePath);
 
-	if ($success && !checkFileHeader($sourceFilePath, $sourceContent, $status)) $success = false;
-	// if ($success && !checkClang($sourceFilePath, $sourceContent, $status)) $success = false;
-	if ($success && !checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName)) $success = false;
+        if ($success) $success = checkFileHeader($sourceFilePath, $sourceContent, $status);
+        if ($success) $success = checkClang($sourceFilePath, $sourceContent, $status);
+        if ($success) $success = checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName);
 
 	if ($success && !isDryRun() && count($status) > 0) {
 		file_put_contents($sourceFilePath, $sourceContent);
 	}	
-	printResultLine($sourceFileName, $success, $status);
+	printResultLine($folderName . '/' . $sourceFileName, $success, $status);
 }
-
+printEndGroup();
+printStartGroup('RUNNING CHECKS ON HEADER FILES');
 foreach ($headerFiles as $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
 	if (substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
@@ -65,17 +67,17 @@ foreach ($headerFiles as $headerFilePath) {
 	$success = true;
 	$headerContent = file_get_contents($headerFilePath);
 
-	if ($success && !checkFileHeader($headerFilePath, $headerContent, $status)) $success = false;
-	if ($success && !checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) $success = false;
-	// if ($success && !checkClang($headerFilePath, $headerContent, $status)) $success = false;
-	if ($success && !checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName)) $success = false;
+        if ($success) $success = checkFileHeader($headerFilePath, $headerContent, $status);
+        if ($success) $success = checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status);
+        if ($success) $success = checkClang($headerFilePath, $headerContent, $status);
+        if ($success) $success = checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName);
 	
 	if ($success && !isDryRun() && count($status) > 0) {
 		file_put_contents($headerFilePath, $headerContent);
 	}
-	printResultLine($headerFileName, $success, $status);
+	printResultLine($folderName . '/' . $headerFileName, $success, $status);
 }
-
+printEndGroup();
 printFinish();
 exit;
 
@@ -262,7 +264,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 		}
 		return true;
 	} else {
-		if(isVerbose()) $status[] = noticeString('no includes in file');
+		if(isVerbose()) $status[] = warningString('no includes in file');
 		return true;
 	}
 	return false;

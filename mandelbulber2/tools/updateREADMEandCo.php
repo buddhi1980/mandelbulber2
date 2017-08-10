@@ -2,8 +2,8 @@
 #
 # this file updates release relevant meta things:
 # - updating READMEs with current cli --help output
-# - updating READMEs with contributors
-# - updating about Mandelbulber popup with contributors
+# - updating READMEs with contributors [not present yet]
+# - updating about Mandelbulber popup with contributors [not present yet]
 #
 # requires php (apt-get install php5-cli) and the current mandelbulber
 # executable in pathToCurrentMandelbulberExec (set locale to english)
@@ -20,7 +20,6 @@ $newsContent = file_get_contents(PROJECT_PATH .'deploy/NEWS');
 
 // $contributorsContent = file_get_contents(PROJECT_PATH .'contributors.txt');
 
-// help output to READMEs
 $helpOutput = getHelpOutput();
 $helpOutput = substr($helpOutput, strpos($helpOutput, 'Options:') + strlen('Options:'));
 
@@ -28,7 +27,23 @@ $readmes['linux']['path'] = PROJECT_PATH .'deploy/README';
 $readmes['osx']['path'] = PROJECT_PATH .'deploy/README-osx.txt';
 $readmes['win']['path'] = PROJECT_PATH .'deploy/README-win32.txt';
 
+printStartGroup('WRITING HELP OUTPUT TO README');
 foreach($readmes as $type => $readme){
+	$status = array();
+	$success = updateReadme($readme, $status);
+	printResultLine(basename($readme['path']), $success, $status);		
+}
+printEndGroup();
+printFinish();
+exit;
+
+// contributors to README
+// TODO
+
+// contributors to about Mandelbulber popup
+// TODO
+
+function updateReadme($readme, &$status){
 	$oldContent = file_get_contents($readme['path']);
 	$content = $oldContent;
 	$content = substr($content, 0, strpos($content, 'Options:') + strlen('Options:'));
@@ -38,22 +53,10 @@ foreach($readmes as $type => $readme){
 		if(!isDryRun()){
 			file_put_contents($readme['path'], $content);
 		}
-		echo successString('readme for ' . $readme['path'] . ' changed.') . PHP_EOL;
-	}else{
-		if(isVerbose()){
-			echo noticeString('readme for ' . $readme['path'] . ' has not changed.') . PHP_EOL;
-		}
+		$status[] = successString('readme changed');
 	}
+	return true;
 }
-
-printFinish();
-exit;
-
-// contributors to README
-// TODO
-
-// contributors to about Mandelbulber popup
-// TODO
 
 function getHelpOutput(){
 	$cmd = pathToCurrentMandelbulberExec . ' --help';

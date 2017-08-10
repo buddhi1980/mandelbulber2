@@ -25,15 +25,26 @@ $copyFiles['image_adjustments_h']['pathTarget'] = PROJECT_PATH . 'opencl/image_a
 $copyFiles['common_params_hpp']['path'] = PROJECT_PATH . 'src/common_params.hpp';
 $copyFiles['common_params_hpp']['pathTarget'] = PROJECT_PATH . 'opencl/common_params_cl.hpp';
 
+printStartGroup('RUNNING OPENCL AUTOGENERATION');
 foreach ($copyFiles as $type => $copyFile) {
+	$status = array();
+	$success = autogenOpenCLFile($copyFile, $status);
+	printResultLine(basename($copyFile['pathTarget']), $success, $status);	
+}
+printEndGroup();
+
+printFinish();
+exit;
+
+function autogenOpenCLFile($copyFile, &$status){
 	$oldContent = file_get_contents($copyFile['pathTarget']);
 	$content = file_get_contents($copyFile['path']);
 
 	// add the "autogen" - line to the file header
 	$headerRegex = '/^(\/\*\*?[\s\S]*?\*\/)([\s\S]*)$/';
 	if (!preg_match($headerRegex, $content, $matchHeader)) {
-		echo errorString('header unknown!');
-		continue;
+		$status[] = errorString('header unknown!');
+		return false;
 	}
 	$fileHeader = $matchHeader[1];
 	$fileSourceCode = $matchHeader[2];
@@ -172,12 +183,9 @@ foreach ($copyFiles as $type => $copyFile) {
 		if (!isDryRun()) {
 			file_put_contents($copyFile['pathTarget'], $content);
 		}
-		echo successString('file ' . $copyFile['pathTarget'] . ' changed.') . PHP_EOL;
-	} else {
-		if (isVerbose()) {
-			echo noticeString('file ' . $copyFile['pathTarget'] . ' has not changed.') . PHP_EOL;
-		}
-	}
+		$status[] = noticeString('file changed.');
+	} 
+	return true;
 }
 
 function patchModificationDate(&$content, $oldContent)
@@ -244,8 +252,6 @@ function getCopyStruct($structName, $properties)
 	return $out;
 }
 
-printFinish();
-exit;
 
 ?>
 
