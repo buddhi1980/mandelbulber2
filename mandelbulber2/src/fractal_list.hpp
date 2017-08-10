@@ -251,9 +251,6 @@ enum enumFractalFormula
 	// 2.12
 	transfScaleVaryMulti = 1074,
 
-
-
-
 	// hybrid color trial
 
 	transfHybridColor = 2000,

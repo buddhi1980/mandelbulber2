@@ -153,7 +153,7 @@ private slots:
 	void slotMenuSaveImageTIFF();
 #endif // USE_TIFF
 	void slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
-												 QString titleType, QString defaultSuffix);
+		QString titleType, QString defaultSuffix);
 
 	void slotMenuSaveImagePNG16();
 	void slotMenuSaveImagePNG16Alpha();

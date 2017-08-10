@@ -470,7 +470,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				{
 					QString connectionMsg = "NetRender - version matches (" + QString::number(version) + ")";
 					QString serverInfo = QString("NetRender - Connection established, Server is %1:%2 [%3]")
-							.arg(address, QString::number(portNo), serverName);
+																 .arg(address, QString::number(portNo), serverName);
 					WriteLog(connectionMsg, 2);
 					WriteLog(serverInfo, 2);
 					if (systemData.noGui)

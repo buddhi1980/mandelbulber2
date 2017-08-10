@@ -23,14 +23,11 @@ REAL4 AmazingSurfIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 
 	REAL4 c = aux->const_c;
-	// REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 	// no z fold
-	// if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-	// if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 
 	REAL rr = dot(z, z);
 	if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold

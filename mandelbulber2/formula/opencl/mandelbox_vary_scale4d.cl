@@ -24,16 +24,33 @@ REAL4 MandelboxVaryScale4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		z.w += paraAddP0;
 	}
 
-	REAL4 oldZ = z;
+	// REAL4 oldZ = z;
 	z.x = fabs(z.x + fractal->mandelboxVary4D.fold) - fabs(z.x - fractal->mandelboxVary4D.fold) - z.x;
 	z.y = fabs(z.y + fractal->mandelboxVary4D.fold) - fabs(z.y - fractal->mandelboxVary4D.fold) - z.y;
 	z.z = fabs(z.z + fractal->mandelboxVary4D.fold) - fabs(z.z - fractal->mandelboxVary4D.fold) - z.z;
 	z.w = fabs(z.w + fractal->mandelboxVary4D.fold) - fabs(z.w - fractal->mandelboxVary4D.fold) - z.w;
 
-	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+	if (fabs(z.x) > fractal->mandelboxVary4D.fold)
+	{
+		aux->color += fractal->mandelbox.color.factor4D.x;
+	}
+	if (fabs(z.y) > fractal->mandelboxVary4D.fold)
+	{
+		aux->color += fractal->mandelbox.color.factor4D.y;
+	}
+	if (fabs(z.z) > fractal->mandelboxVary4D.fold)
+	{
+		aux->color += fractal->mandelbox.color.factor4D.z;
+	}
+	if (fabs(z.w) > fractal->mandelboxVary4D.fold)
+	{
+		aux->color += fractal->mandelbox.color.factor4D.w;
+	}
+
+	/*if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
 	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
-	if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
+	if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;*/
 
 	REAL rr =
 		native_powr(z.x * z.x + mad(z.y, z.y, z.z * z.z) + z.w * z.w, fractal->mandelboxVary4D.rPower);

@@ -361,7 +361,8 @@ void RenderWindow::slotMenuSaveDocksPositions()
 
 void RenderWindow::slotMenuSaveImageJPEG()
 {
-	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_JPG, tr("JPEG images (*.jpg *.jpeg)"), "JPEG", "jpeg");
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_JPG, tr("JPEG images (*.jpg *.jpeg)"), "JPEG", "jpeg");
 }
 
 void RenderWindow::slotMenuSaveImagePNG()
@@ -379,12 +380,13 @@ void RenderWindow::slotMenuSaveImageEXR()
 #ifdef USE_TIFF
 void RenderWindow::slotMenuSaveImageTIFF()
 {
-	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
 }
 #endif // USE_TIFF
 
-void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
-																		 QString titleType, QString defaultSuffix)
+void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType,
+	QString nameFilter, QString titleType, QString defaultSuffix)
 {
 	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -400,8 +402,7 @@ void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileT
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 		gApplication->processEvents();
-		SaveImage(filename, imageFileType, gMainInterface->mainImage,
-			gMainInterface->mainWindow);
+		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}

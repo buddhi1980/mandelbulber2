@@ -414,7 +414,7 @@ void SynchronizeInterfaceColorPaletteWidget(
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
 		widgetProperties props = parseWidgetProterties((*it), {"ColorPaletteWidget"});
-		if(props.allowed)
+		if (props.allowed)
 		{
 			ColorPaletteWidget *colorPaletteWidget = *it;
 			colorPaletteWidget->AssignParameterContainer(par);

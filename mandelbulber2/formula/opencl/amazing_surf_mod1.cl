@@ -18,15 +18,12 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
-	REAL4 oldZ = z;
 	if (fractal->transformCommon.functionEnabledAx)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 
 	// z = fold - fabs( fabs(z) - fold)
@@ -36,16 +33,12 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 					- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 		z.y = fractal->transformCommon.additionConstant111.y
 					- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 
 	// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
@@ -54,12 +47,10 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 		{
 			z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
-			if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
 		}
 		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 		{
 			z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
-			if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 		}
 	}
 
@@ -74,8 +65,6 @@ REAL4 AmazingSurfMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 					- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 
 	z += fractal->transformCommon.additionConstant000;
