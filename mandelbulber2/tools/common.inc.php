@@ -3,6 +3,8 @@
 /* This file contains common logic needed in the php scripts */
 
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
+define('START_TIME', microtime(true));
+
 checkArguments();
 
 function printStart()
@@ -12,6 +14,7 @@ function printStart()
 
 function printFinish()
 {
+    echo 'script took ' . noticeString(number_format(microtime(true) - START_TIME, 2) . ' seconds') . ' to complete.' . PHP_EOL;
 	if (isDryRun()) {
 		echo 'This is a dry run.' . PHP_EOL;
 		echo 'If you want to apply the changes, execute with argument "nondry"' . PHP_EOL;
