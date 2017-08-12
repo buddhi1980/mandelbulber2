@@ -107,4 +107,51 @@ function checkArguments(){
 	}
 }
 
+function getModificationIntervals()
+{
+    $modificationFileInfo = array();
+	$cmd = "git log --format='COMMIT_SEPARATOR_1____________%adCOMMIT_SEPARATOR_2____________%s' --name-only";
+	$commitStringRaw = trim(shell_exec($cmd));
+	$commitStrings = explode('COMMIT_SEPARATOR_1____________', $commitStringRaw);
+	foreach($commitStrings as $commitString){
+	    if(empty($commitString)) continue;
+		$commitLines = explode(PHP_EOL, $commitString);
+		$meta = explode('COMMIT_SEPARATOR_2____________', $commitLines[0]);
+		$date = substr($meta[0], -10, 4);
+		$title = $meta[1];
+
+        // these commits contain only auto formatting code changes
+		// and should not be counted for the modification invertal
+		if(strpos($title, 'source code') !== false) continue;
+		if(strpos($title, 'nullptr') !== false) continue;
+
+        foreach($commitLines as $commitLine){
+		    if(!empty($commitLine) && strpos($commitLine, 'COMMIT_SEPARATOR_2____________') === false){
+			    $modificationFileInfo[$commitLine]['start'] =
+				    min(empty($modificationFileInfo[$commitLine]['start']) ? 10000 : $modificationFileInfo[$commitLine]['start'], $date);
+				$modificationFileInfo[$commitLine]['end'] = max(@$modificationFileInfo[$commitLine]['end'], $date);
+			}
+		}
+	}
+	return $modificationFileInfo;
+}
+
+function getModificationInterval($filePath)
+{
+        global $modificationIntervals;
+		if(empty($modificationIntervals)) $modificationIntervals = getModificationIntervals();
+
+        $filePathRelative = str_replace(PROJECT_PATH, 'mandelbulber2/', $filePath);
+		if(array_key_exists($filePathRelative, $modificationIntervals)){
+		    $yearStart = $modificationIntervals[$filePathRelative]['start'];
+			$yearEnd = $modificationIntervals[$filePathRelative]['end'];
+			}
+			if (empty($yearStart)) return date('Y');
+			if ($yearStart == $yearEnd) {
+		return $yearStart;
+	}
+	return $yearStart . '-' . substr($yearEnd, 2, 2);
+}
+
+
 ?>

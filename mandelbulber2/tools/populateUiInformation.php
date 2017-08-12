@@ -294,7 +294,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
 
 	$fileHeader = '/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______    
- * Copyright (C) ' . date('Y') . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ / 
+ * Copyright (C) ' . getModificationInterval($formula['openclFile']) . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/                       
@@ -309,7 +309,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
 	// $newOpenCLContent .= '#else' . PHP_EOL . $formula['openclCodeDouble'] . PHP_EOL . '#endif' . PHP_EOL;
 
 	// clang-format
-	$filepathTemp = $formula['openclFile'] . '.tmp.c';
+	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $newOpenCLContent);
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
 	$newOpenCLContent = file_get_contents($filepathTemp);

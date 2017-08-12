@@ -172,12 +172,12 @@ function autogenOpenCLFile($copyFile, &$status){
 		. implode(PHP_EOL, $copyStructs) . '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL . PHP_EOL . '$1', $content);
 
 	// clang-format
-	$filepathTemp = $copyFile['path'] . '.tmp.c';
+	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $content);
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
 	$content = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
-	patchModificationDate($content, $oldContent);
+	patchModificationDate($copyFile['pathTarget'], $content);
 
 	if ($content != $oldContent) {
 		if (!isDryRun()) {
@@ -188,14 +188,13 @@ function autogenOpenCLFile($copyFile, &$status){
 	return true;
 }
 
-function patchModificationDate(&$content, $oldContent)
+function patchModificationDate($filePath, &$content)
 {
+    $modificationString = getModificationInterval($filePath);
     // patches the modification string
-	if (preg_match('/Copyright \(C\) ([0-9-]+)/', $oldContent, $lineMatch)) {
-	    $modificationString = $lineMatch[1];
-		$content = preg_replace('/Copyright \(C\) [0-9-]+ Mandelbulber Team \s+ §/',
-		    'Copyright (C) ' . $modificationString . ' Mandelbulber Team ' . str_repeat(' ', 10 - strlen($modificationString)) . ' §', $content);
-	}
+	$content = preg_replace('/Copyright \(C\) [0-9-]+ Mandelbulber Team \s+ §/',
+	    'Copyright (C) ' . $modificationString . ' Mandelbulber Team ' . str_repeat(' ', 10 - strlen($modificationString)) . ' §', $content);
+
 }
 
 function getCopyStruct($structName, $properties)
