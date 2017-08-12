@@ -29,14 +29,15 @@ printStartGroup('RUNNING OPENCL AUTOGENERATION');
 foreach ($copyFiles as $type => $copyFile) {
 	$status = array();
 	$success = autogenOpenCLFile($copyFile, $status);
-	printResultLine(basename($copyFile['pathTarget']), $success, $status);	
+	printResultLine(basename($copyFile['pathTarget']), $success, $status);
 }
 printEndGroup();
 
 printFinish();
 exit;
 
-function autogenOpenCLFile($copyFile, &$status){
+function autogenOpenCLFile($copyFile, &$status)
+{
 	$oldContent = file_get_contents($copyFile['pathTarget']);
 	$content = file_get_contents($copyFile['path']);
 
@@ -123,9 +124,9 @@ function autogenOpenCLFile($copyFile, &$status){
 
 	// add c++ side includes
 	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
-	if(basename($copyFile['pathTarget']) != 'common_params_cl.hpp') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
-	if(basename($copyFile['pathTarget']) != 'image_adjustments_cl.h')$cppIncludes .= '#include "image_adjustments_cl.h"' . PHP_EOL;
-	if(basename($copyFile['pathTarget']) != 'opencl_algebra.h')$cppIncludes .= '#include "opencl_algebra.h"' . PHP_EOL;
+	if (basename($copyFile['pathTarget']) != 'common_params_cl.hpp') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
+	if (basename($copyFile['pathTarget']) != 'image_adjustments_cl.h') $cppIncludes .= '#include "image_adjustments_cl.h"' . PHP_EOL;
+	if (basename($copyFile['pathTarget']) != 'opencl_algebra.h') $cppIncludes .= '#include "opencl_algebra.h"' . PHP_EOL;
 	$cppIncludes .= PHP_EOL;
 	$cppIncludes .= '#include "src/common_params.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "src/fractal.h"' . PHP_EOL;
@@ -184,16 +185,16 @@ function autogenOpenCLFile($copyFile, &$status){
 			file_put_contents($copyFile['pathTarget'], $content);
 		}
 		$status[] = noticeString('file changed.');
-	} 
+	}
 	return true;
 }
 
 function patchModificationDate($filePath, &$content)
 {
-    $modificationString = getModificationInterval($filePath);
-    // patches the modification string
+	$modificationString = getModificationInterval($filePath);
+	// patches the modification string
 	$content = preg_replace('/Copyright \(C\) [0-9-]+ Mandelbulber Team \s+ §/',
-	    'Copyright (C) ' . $modificationString . ' Mandelbulber Team ' . str_repeat(' ', 10 - strlen($modificationString)) . ' §', $content);
+		'Copyright (C) ' . $modificationString . ' Mandelbulber Team ' . str_repeat(' ', 10 - strlen($modificationString)) . ' §', $content);
 
 }
 

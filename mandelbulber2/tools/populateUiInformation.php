@@ -25,10 +25,10 @@ printStartGroup('RUNNING FORMULA CHECKS');
 foreach ($formulas as $index => $formula) {
 	$success = true;
 	$status = array();
-	if($success) $success = updateInfoBoxes($index, $formula, $status);
-	if($success) $success = generateFormulaOpenCLFiles($formula, $status);
-	if($success) $success = generateFormulaIcons($formula, $status);
-	printResultLine($formula['name'], $success, $status);	
+	if ($success) $success = updateInfoBoxes($index, $formula, $status);
+	if ($success) $success = generateFormulaOpenCLFiles($formula, $status);
+	if ($success) $success = generateFormulaIcons($formula, $status);
+	printResultLine($formula['name'], $success, $status);
 }
 printEndGroup();
 
@@ -283,7 +283,7 @@ function updateInfoBoxes($index, $formula, &$status)
 	if (!isDryRun()) {
 		file_put_contents($formula['uiFile'], $newUiFileContent);
 	}
-	$status[] =  noticeString('ui file changed'); // . (' . basename($formula['uiFile']) . ')
+	$status[] = noticeString('ui file changed'); // . (' . basename($formula['uiFile']) . ')
 	return true;
 }
 
@@ -328,7 +328,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
 		file_put_contents($formula['openclFile'], $newOpenCLContent);
 		// file_put_contents($formula['openclFile'] . '.orig', $formula['code']);
 	}
-	$status[] =  noticeString('opencl file changed'); // (' . basename($formula['openclFile']) . ')
+	$status[] = noticeString('opencl file changed'); // (' . basename($formula['openclFile']) . ')
 	return true;
 }
 
@@ -342,16 +342,16 @@ function generateFormulaIcons($formula, &$status)
 	}
 
 	if (!isDryRun()) {
-		if(generate_formula_icon($formula, $imgPath)){
+		if (generate_formula_icon($formula, $imgPath)) {
 			$status[] = successString('image generated.');
 			return true;
-		}else{
+		} else {
 			$status[] = noticeString('image not generated. Maybe Mandelbulber not found?');
 			return true;
 		}
-	}else{
+	} else {
 		$status[] = noticeString('image does not exist');
-		return true;	
+		return true;
 	}
 }
 
@@ -605,10 +605,8 @@ transf_scale_2 1,079812;';
 	if (!file_exists($tempFractPath)) { // allow manual override
 		file_put_contents($tempFractPath, $settings);
 	}
-	// $mandelbulberPath = PROJECT_PATH . "Debug/mandelbulber2";
-	$mandelbulberPath = PROJECT_PATH . "build-mandelbulber-opencl-qt5_7-Release/mandelbulber2";
-	if(!file_exists($mandelbulberPath)) return false;
-	$cmd = $mandelbulberPath . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+	if (!file_exists(MANDELBULBER_EXEC_PATH)) return false;
+	$cmd = MANDELBULBER_EXEC_PATH . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
 	// echo PHP_EOL . $cmd . PHP_EOL;
 	shell_exec($cmd);
 	shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
