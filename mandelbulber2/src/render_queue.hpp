@@ -38,8 +38,8 @@
 #include <QtCore>
 
 #include "progress_text.hpp"
-#include "statistics.h"
 #include "queue.hpp"
+#include "statistics.h"
 
 // forward declarations
 class RenderedImage;

@@ -3,10 +3,13 @@
 /* This file contains common logic needed in the php scripts */
 
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
-// define('MANDELBULBER_EXEC_PATH', PROJECT_PATH . 'Debug/mandelbulber2');
-define('MANDELBULBER_EXEC_PATH', PROJECT_PATH . 'build-mandelbulber-opencl-qt5_7-Release/mandelbulber2');
-
 define('START_TIME', microtime(true));
+
+if(file_exists(realpath(dirname(__FILE__)) . '/customConfig.php'))
+    require_once(realpath(dirname(__FILE__)) . '/customConfig.php');
+
+if(!defined('MANDELBULBER_EXEC_PATH')) define('MANDELBULBER_EXEC_PATH', 'mandelbulber2');
+if(!defined('CLANG_FORMAT_EXEC_PATH')) define('CLANG_FORMAT_EXEC_PATH', 'clang-format');
 
 checkArguments();
 

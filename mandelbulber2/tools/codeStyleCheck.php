@@ -161,7 +161,7 @@ function checkClang(&$fileContent, &$status)
 
 	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $fileContent);
-	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
+	shell_exec(CLANG_FORMAT_EXEC_PATH . ' -i --style=file ' . escapeshellarg($filepathTemp));
 	$fileContent = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 

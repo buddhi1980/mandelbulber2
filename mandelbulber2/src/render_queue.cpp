@@ -176,7 +176,7 @@ bool cRenderQueue::RenderFlight(const cQueue::structQueueItem &queueItem) const
 	bool result;
 
 	QString fullSaveFilename = gPar->Get<QString>("anim_keyframe_dir") + QDir::separator()
-										 + QFileInfo(queueItem.filename).baseName() + ".fract";
+														 + QFileInfo(queueItem.filename).baseName() + ".fract";
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(queuePar, queueParFractal);
 	parSettings.SaveToFile(fullSaveFilename);
@@ -198,7 +198,7 @@ bool cRenderQueue::RenderKeyframe(const cQueue::structQueueItem &queueItem) cons
 	bool result;
 
 	QString fullSaveFilename = gPar->Get<QString>("anim_keyframe_dir") + QDir::separator()
-										 + QFileInfo(queueItem.filename).baseName() + ".fract";
+														 + QFileInfo(queueItem.filename).baseName() + ".fract";
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(queuePar, queueParFractal);
 	parSettings.SaveToFile(fullSaveFilename);
