@@ -121,7 +121,7 @@ cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameter
 	}
 }
 
-void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QString parameterName)
+void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QString parameterName) const
 {
 	if (!params->IfExists(FullParameterName("enable", parameterName)))
 	{
@@ -160,7 +160,7 @@ void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QSt
 }
 
 void cAudioTrackCollection::RemoveParameters(
-	cParameterContainer *params, const QString parameterName)
+	cParameterContainer *params, const QString parameterName) const
 {
 	if (params->IfExists(FullParameterName("enable", parameterName)))
 	{
@@ -183,7 +183,7 @@ void cAudioTrackCollection::RemoveParameters(
 }
 
 QString cAudioTrackCollection::FullParameterName(
-	const QString &nameOfSoundParameter, const QString parameterName)
+	const QString &nameOfSoundParameter, const QString parameterName) const
 {
 	return prefix + QString("_") + nameOfSoundParameter + "_" + parameterName;
 }

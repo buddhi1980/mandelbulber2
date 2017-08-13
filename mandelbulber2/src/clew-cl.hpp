@@ -609,14 +609,14 @@ public:
             return i;
         }
     
-        bool operator==(iterator i)
+        bool operator==(iterator i) const
         {
             return ((vec_ == i.vec_) && 
                     (index_ == i.index_) && 
                     (initialized_ == i.initialized_));
         }
 
-        bool operator!=(iterator i)
+        bool operator!=(iterator i) const
         {
             return (!(*this==i));
         }
@@ -641,7 +641,7 @@ public:
             index_ -= x;
         }
 
-        T operator *()
+        T operator *() const
         {
             return vec_[index_];
         }
@@ -3157,7 +3157,7 @@ public:
 
     KernelFunctor(const KernelFunctor& rhs);
 
-    cl_int getError() { return err_; }
+    cl_int getError() const { return err_; }
 
     inline Event operator()(const VECTOR_CLASS<Event>* events = NULL);
 
