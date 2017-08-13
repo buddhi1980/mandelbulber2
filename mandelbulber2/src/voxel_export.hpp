@@ -40,8 +40,9 @@
 #ifndef MANDELBULBER2_SRC_VOXEL_EXPORT_HPP_
 #define MANDELBULBER2_SRC_VOXEL_EXPORT_HPP_
 
-#include "algebra.hpp"
 #include <QtCore>
+
+#include "algebra.hpp"
 
 class cVoxelExport : public QObject
 {

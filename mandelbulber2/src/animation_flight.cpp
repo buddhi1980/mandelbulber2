@@ -40,12 +40,11 @@
 
 #include "animation_flight.hpp"
 
+#include "ui_dock_animation.h"
+
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
-#include "dock_animation.h"
-#include "dock_navigation.h"
-#include "dock_statistics.h"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
@@ -58,9 +57,11 @@
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
-#include "ui_dock_animation.h"
 #include "undo.h"
 
+#include "qt/dock_animation.h"
+#include "qt/dock_navigation.h"
+#include "qt/dock_statistics.h"
 #include "qt/my_progress_bar.h"
 #include "qt/my_table_widget_anim.hpp"
 #include "qt/player_widget.hpp"

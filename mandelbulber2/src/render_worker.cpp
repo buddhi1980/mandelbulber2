@@ -33,20 +33,21 @@
  */
 
 #include "render_worker.hpp"
-#include "calculate_distance.hpp"
-#include "common_math.h"
-#include "region.hpp"
+
 #include <QtCore>
 
 #include "ao_modes.h"
+#include "calculate_distance.hpp"
 #include "camera_target.hpp"
 #include "cimage.hpp"
+#include "common_math.h"
+#include "fractparams.hpp"
 #include "material.h"
 #include "projection_3d.hpp"
+#include "region.hpp"
 #include "render_data.hpp"
-#include "stereo.h"
-#include "fractparams.hpp"
 #include "scheduler.hpp"
+#include "stereo.h"
 #include "system.hpp"
 
 cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,

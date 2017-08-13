@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_QT_MY_LINE_EDIT_H_
 #define MANDELBULBER2_QT_MY_LINE_EDIT_H_
 
-#include "../qt/common_my_widget_wrapper.h"
 #include <QLineEdit>
 #include <QtCore>
 #include <QtGui>
+
+#include "common_my_widget_wrapper.h"
 
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {

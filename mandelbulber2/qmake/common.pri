@@ -70,7 +70,6 @@ RESOURCES = $$ROOT/qt/icons.qrc
 UI_DIR = $$ROOT/qt
 
 INCLUDEPATH += $$ROOT/
-INCLUDEPATH += $$ROOT/qt/
 
 TRANSLATIONS = $$ROOT/language/en.ts\
                $$ROOT/language/de.ts\

@@ -34,8 +34,10 @@
  */
 
 #include "file_select_widget.h"
-#include "../src/animation_flight.hpp"
+
 #include "preview_file_dialog.h"
+
+#include "src/animation_flight.hpp"
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {

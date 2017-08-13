@@ -35,10 +35,12 @@
  */
 
 #include "system_tray.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
+
 #include <QMenu>
-#include "../src/cimage.hpp"
+
+#include "src/cimage.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
 
 cSystemTray::cSystemTray(cImage *image, QObject *parent)
 {

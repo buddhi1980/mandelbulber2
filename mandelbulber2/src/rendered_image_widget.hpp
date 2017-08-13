@@ -37,8 +37,8 @@
 #define MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_
 
 #include <QWidget>
-#include "QVariant"
 
+#include "QVariant"
 #include "algebra.hpp"
 #include "stereo.h"
 

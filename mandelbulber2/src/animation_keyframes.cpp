@@ -40,23 +40,23 @@
 
 #include "animation_keyframes.hpp"
 
+#include "ui_dock_animation.h"
+
 #include "cimage.hpp"
 #include "common_math.h"
-#include "dock_animation.h"
-#include "dock_navigation.h"
-#include "dock_statistics.h"
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
+#include "render_window.hpp"
 #include "rendering_configuration.hpp"
-#include "ui_dock_animation.h"
 #include "undo.h"
 
-#include "src/render_window.hpp"
-
+#include "qt/dock_animation.h"
+#include "qt/dock_navigation.h"
+#include "qt/dock_statistics.h"
 #include "qt/my_progress_bar.h"
 #include "qt/my_table_widget_keyframes.hpp"
 #include "qt/player_widget.hpp"

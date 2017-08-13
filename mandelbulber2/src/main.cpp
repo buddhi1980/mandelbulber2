@@ -33,6 +33,9 @@
  */
 
 #include "main.hpp"
+
+#include <qapplication.h>
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
@@ -44,17 +47,14 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
-#include "opencl_global.h"
 #include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 #include "queue.hpp"
+#include "render_data.hpp"
 #include "render_window.hpp"
 #include "rendered_image_widget.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-
-#include <qapplication.h>
-
-#include "render_data.hpp"
 
 int main(int argc, char *argv[])
 {

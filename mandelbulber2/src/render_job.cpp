@@ -35,6 +35,7 @@
 #include "render_job.hpp"
 
 #include <QWidget>
+
 #include "ao_modes.h"
 #include "cimage.hpp"
 #include "fractparams.hpp"

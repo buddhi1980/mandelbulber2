@@ -33,9 +33,9 @@
  */
 
 #ifndef OPENCL_KERNEL_CODE
-#include "../opencl/fractparams_cl.hpp"
-#include "../opencl/fractal_cl.h"
-#include "../opencl/fractal_sequence_cl.h"
+#include "fractal_cl.h"
+#include "fractal_sequence_cl.h"
+#include "fractparams_cl.hpp"
 #endif
 
 #ifndef INPUT_DATA_STRUCTURES

@@ -33,12 +33,13 @@
  */
 
 #include "opencl_engine_render_ssao.h"
+
 #include "cimage.hpp"
 #include "files.h"
 #include "fractparams.hpp"
+#include "global_data.hpp"
 #include "opencl_hardware.h"
 #include "progress_text.hpp"
-#include "global_data.hpp"
 
 cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)

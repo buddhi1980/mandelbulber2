@@ -33,9 +33,11 @@
  */
 
 #include "error_message.hpp"
+
+#include <QMessageBox>
+
 #include "global_data.hpp"
 #include "headless.h"
-#include <QMessageBox>
 #include "system.hpp"
 
 cErrorMessage *gErrorMessage = nullptr;

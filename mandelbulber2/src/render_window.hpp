@@ -39,14 +39,15 @@
 #ifndef MANDELBULBER2_SRC_RENDER_WINDOW_HPP_
 #define MANDELBULBER2_SRC_RENDER_WINDOW_HPP_
 
-#include "progress_text.hpp"
-#include "files.h"
+#include <QComboBox>
+#include <QMainWindow>
+#include <QMessageBox>
 #include <QSettings>
 #include <QtCore>
 #include <QtGui>
-#include <QMainWindow>
-#include <QMessageBox>
-#include <QComboBox>
+
+#include "files.h"
+#include "progress_text.hpp"
 
 // forward declarations
 class cAutomatedWidgets;
@@ -152,7 +153,7 @@ private slots:
 	void slotMenuSaveImageTIFF();
 #endif // USE_TIFF
 	void slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
-												 QString titleType, QString defaultSuffix);
+		QString titleType, QString defaultSuffix);
 
 	void slotMenuSaveImagePNG16();
 	void slotMenuSaveImagePNG16Alpha();

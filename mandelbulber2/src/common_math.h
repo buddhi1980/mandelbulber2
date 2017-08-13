@@ -39,9 +39,11 @@
 #define _USE_MATH_DEFINES
 #endif
 
-#include "algebra.hpp"
-#include <QtCore>
 #include <math.h>
+
+#include <QtCore>
+
+#include "algebra.hpp"
 
 #undef MAX
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))

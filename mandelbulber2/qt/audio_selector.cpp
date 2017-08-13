@@ -32,16 +32,18 @@
  * cAudioSelector - This is a file selector widget for audio files.
  */
 
-#include <QtWidgets/QtWidgets>
+#include "audio_selector.h"
+
 #include <QMediaPlayer>
+#include <QtWidgets/QtWidgets>
 
 #include "ui_audio_selector.h"
-#include "audio_selector.h"
-#include "../src/automated_widgets.hpp"
-#include "../src/audio_track.h"
-#include "../src/initparameters.hpp"
-#include "../src/synchronize_interface.hpp"
-#include "../src/animation_frames.hpp"
+
+#include "src/animation_frames.hpp"
+#include "src/audio_track.h"
+#include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
+#include "src/synchronize_interface.hpp"
 
 cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cAudioSelector)
 {

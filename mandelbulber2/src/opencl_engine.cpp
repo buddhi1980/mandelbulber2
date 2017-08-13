@@ -35,13 +35,13 @@
 
 #include "opencl_engine.h"
 
-#include <sstream>
 #include <iostream>
-#include "system.hpp"
+#include <sstream>
 
+#include "error_message.hpp"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
-#include "error_message.hpp"
+#include "system.hpp"
 
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {

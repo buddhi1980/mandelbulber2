@@ -36,6 +36,7 @@
 #define MANDELBULBER2_SRC_RENDER_IMAGE_HPP_
 
 #include <QObject>
+
 #include "statistics.h"
 
 // forward declarations

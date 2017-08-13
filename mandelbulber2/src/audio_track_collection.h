@@ -56,9 +56,9 @@ public:
 	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAllAudioTracks(cParameterContainer *params);
 	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName) const;
-	void AddParameters(cParameterContainer *params, const QString parameterName);
-	void RemoveParameters(cParameterContainer *params, const QString parameterName);
-	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName);
+	void AddParameters(cParameterContainer *params, const QString parameterName) const;
+	void RemoveParameters(cParameterContainer *params, const QString parameterName) const;
+	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName) const;
 	void LoadAllAudioFiles(cParameterContainer *params);
 	void RefreshAllAudioTracks(cParameterContainer *params);
 	void SetPrefix(QString _prefix) { prefix = _prefix; }

@@ -33,25 +33,25 @@
  * cOpenClEngineRenderFractal - prepares and executes fractal rendering on opencl
  */
 
+#include "opencl_engine_render_fractal.h"
+
+#include "camera_target.hpp"
 #include "cimage.hpp"
+#include "common_math.h"
 #include "files.h"
+#include "fractal.h"
 #include "fractal_formulas.hpp"
 #include "fractal_list.hpp"
-#include "fractal.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "material.h"
 #include "nine_fractals.hpp"
-#include "opencl_engine_render_fractal.h"
 #include "opencl_dynamic_data.hpp"
-#include "render_data.hpp"
-#include "render_worker.hpp"
-
-#include "camera_target.hpp"
-#include "common_math.h"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
+#include "render_data.hpp"
+#include "render_worker.hpp"
 
 // custom includes
 #ifdef USE_OPENCL

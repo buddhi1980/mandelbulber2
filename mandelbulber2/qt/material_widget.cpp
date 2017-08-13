@@ -36,18 +36,18 @@
  * See also other functionality inherited from cThumbnailWidget.
  */
 
-#include "../qt/material_widget.h"
+#include "material_widget.h"
 
 #include <QMouseEvent>
 
-#include "../src/fractal_container.hpp"
-#include "../src/fractal_enums.h"
-#include "../src/initparameters.hpp"
-#include "../src/material.h"
-#include "../src/settings.hpp"
-#include "../src/synchronize_interface.hpp"
-#include "../src/system.hpp"
-#include "../src/global_data.hpp"
+#include "src/fractal_container.hpp"
+#include "src/fractal_enums.h"
+#include "src/global_data.hpp"
+#include "src/initparameters.hpp"
+#include "src/material.h"
+#include "src/settings.hpp"
+#include "src/synchronize_interface.hpp"
+#include "src/system.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(

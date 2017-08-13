@@ -32,16 +32,19 @@
  * Widget which contains UI for image adjustments
  */
 
-#include "../src/automated_widgets.hpp"
-#include "../src/fractal_container.hpp"
-#include "../src/fractparams.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/projection_3d.hpp"
-#include "../src/render_window.hpp"
 #include "dock_image_adjustments.h"
-#include "dock_rendering_engine.h"
+
 #include "ui_dock_image_adjustments.h"
+
+#include "dock_rendering_engine.h"
+
+#include "src/automated_widgets.hpp"
+#include "src/fractal_container.hpp"
+#include "src/fractparams.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/projection_3d.hpp"
+#include "src/render_window.hpp"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)

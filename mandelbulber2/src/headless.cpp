@@ -33,6 +33,7 @@
  */
 
 #include "headless.h"
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
@@ -43,11 +44,11 @@
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "mesh_export.hpp"
 #include "queue.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
-#include "mesh_export.hpp"
 
 cHeadless::cHeadless() : QObject()
 {

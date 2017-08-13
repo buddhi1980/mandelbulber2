@@ -37,31 +37,7 @@
 
 #include <QtCore>
 
-#if defined(_MSC_VER)
-#pragma warning(push)
-#pragma warning(disable : 4005) // macro redefinition
-#pragma warning(disable : 4996) // declared deprecated
-#endif													// _MSC_VER
-
-#ifdef USE_OPENCL
-#ifdef _WIN32
-#ifndef _MSC_VER
-// clew for cross compile
-#include "clew.h"
-#include "clew-cl.hpp"
-#endif // NOT _MSC_VER
-#endif // _WIN32
-// OpenCL SDK for all others
-#if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl.hpp>
-#else
-#include <CL/cl.hpp>
-#endif
-#endif // USE_OPENCL
-
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif // _MSC_VER
+#include "opencl_include_header_wrapper.hpp"
 
 class cOpenClDevice
 {

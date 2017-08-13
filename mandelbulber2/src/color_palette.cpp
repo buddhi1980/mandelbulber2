@@ -33,9 +33,11 @@
  */
 
 #include "color_palette.hpp"
+
+#include <QtCore>
+
 #include "common_math.h"
 #include "random.hpp"
-#include <QtCore>
 
 cColorPalette::cColorPalette()
 {

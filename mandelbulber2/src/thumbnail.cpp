@@ -32,16 +32,17 @@
  * cThumbnail class - thumbnail rendering
  */
 
+#include "thumbnail.hpp"
+
 #include <QFileInfo>
 #include <QPixmap>
 
-#include "thumbnail.hpp"
 #include "cimage.hpp"
 #include "file_image.hpp"
 #include "render_job.hpp"
+#include "rendering_configuration.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-#include "rendering_configuration.hpp"
 
 cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
 	int _width, int _height, const QString &_hash = QString())

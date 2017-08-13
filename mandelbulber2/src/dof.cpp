@@ -34,10 +34,11 @@
 
 #include "dof.hpp"
 
+#include <algorithm>
+
 #include "common_math.h"
 #include "global_data.hpp"
 #include "progress_text.hpp"
-#include <algorithm>
 
 using std::max;
 using std::min;

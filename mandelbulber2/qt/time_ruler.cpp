@@ -35,10 +35,11 @@
 
 #include "time_ruler.h"
 
-#include <QPainter>
-#include <QPaintEvent>
 #include <QApplication>
-#include "../src/audio_track.h"
+#include <QPaintEvent>
+#include <QPainter>
+
+#include "src/audio_track.h"
 
 cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 {

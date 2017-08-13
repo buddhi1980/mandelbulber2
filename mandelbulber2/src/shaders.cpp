@@ -33,6 +33,7 @@
  */
 
 #include <algorithm>
+
 #include "ao_modes.h"
 #include "calculate_distance.hpp"
 #include "common_math.h"

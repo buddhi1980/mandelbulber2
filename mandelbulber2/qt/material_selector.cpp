@@ -34,12 +34,13 @@
 
 #include "material_selector.h"
 
-#include "../qt/material_widget.h"
-#include "../src/material.h"
 #include "material_manager_view.h"
-#include "../src/interface.hpp"
-#include "../src/material_item_model.h"
-#include "../src/system.hpp"
+#include "material_widget.h"
+
+#include "src/interface.hpp"
+#include "src/material.h"
+#include "src/material_item_model.h"
+#include "src/system.hpp"
 
 cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {

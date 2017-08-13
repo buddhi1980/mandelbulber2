@@ -84,7 +84,6 @@ QT5_WRAP_UI(qt_UI_H ${qt_UI})
 
 include_directories(..)
 include_directories(../qt)
-include_directories(../src)
 
 # Add source files to the build target.
 add_executable(mandelbulber2 ${SOURCE_FILES} ${ADDITIONAL_EXECUTABLE} ${qt_UI_H})

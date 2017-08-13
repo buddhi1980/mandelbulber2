@@ -59,7 +59,7 @@ public:
 	double GetNumberOfIterationsPerSecond() const { return double(totalNumberOfIterations) / time; }
 	double GetMissedDEPercentage() const { return double(missedDE) / numberOfRaymarchings * 100.0; }
 	QString GetDETypeString() const { return usedDEType; }
-	double GetAverageDOFSamples() { return double(totalNumberOfDOFRepeats) / numberOfRenderedPixels; }
+	double GetAverageDOFSamples() const { return double(totalNumberOfDOFRepeats) / numberOfRenderedPixels; }
 	void Reset();
 };
 

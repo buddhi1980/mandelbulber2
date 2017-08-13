@@ -33,6 +33,7 @@
  */
 
 #include "fractal_list.hpp"
+
 #include "fractal_formulas.hpp"
 
 QList<sFractalDescription> fractalList;
@@ -625,5 +626,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold 4D", "transf_spherical_fold4d",
 		transfSphericalFold4d, TransfSphericalFold4dIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+	// ------------------ hybrid color trial -----------------------
+
+	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",
+		transfHybridColor, TransfHybridColorIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 }

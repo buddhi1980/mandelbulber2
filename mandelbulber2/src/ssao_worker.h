@@ -39,9 +39,10 @@
 #ifndef MANDELBULBER2_SRC_SSAO_WORKER_H_
 #define MANDELBULBER2_SRC_SSAO_WORKER_H_
 
+#include <qobject.h>
+
 #include <QList>
 #include <QThread>
-#include <qobject.h>
 
 #include "region.hpp"
 

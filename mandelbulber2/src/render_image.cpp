@@ -35,18 +35,19 @@
 #include "render_image.hpp"
 
 #include <algorithm>
+
 #include <QtCore>
 
 #include "ao_modes.h"
 #include "dof.hpp"
 #include "fractparams.hpp"
-#include "progress_text.hpp"
-#include "render_worker.hpp"
 #include "global_data.hpp"
 #include "netrender.hpp"
 #include "post_effect_hdr_blur.h"
+#include "progress_text.hpp"
 #include "render_data.hpp"
 #include "render_ssao.h"
+#include "render_worker.hpp"
 #include "scheduler.hpp"
 #include "stereo.h"
 #include "system.hpp"

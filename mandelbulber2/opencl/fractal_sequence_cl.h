@@ -39,7 +39,7 @@
 #define OPENCL_FRACTAL_SEQUENCE_LENGTH 250
 
 #ifndef OPENCL_KERNEL_CODE
-#include "../src/fractal_enums.h"
+#include "src/fractal_enums.h"
 #endif
 
 typedef enum { analyticDEType, deltaDEType } enumDETypeCl;

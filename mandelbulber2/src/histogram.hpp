@@ -35,8 +35,9 @@
 #ifndef MANDELBULBER2_SRC_HISTOGRAM_HPP_
 #define MANDELBULBER2_SRC_HISTOGRAM_HPP_
 
-#include <QtCore>
 #include <algorithm>
+
+#include <QtCore>
 
 class cHistogram
 {

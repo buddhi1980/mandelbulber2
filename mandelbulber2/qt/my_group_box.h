@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_QT_MY_GROUP_BOX_H_
 #define MANDELBULBER2_QT_MY_GROUP_BOX_H_
 
-#include "../qt/common_my_widget_wrapper.h"
 #include <QGroupBox>
 #include <QtCore>
 #include <QtGui>
+
+#include "common_my_widget_wrapper.h"
 
 class MyGroupBox : public QGroupBox, public CommonMyWidgetWrapper
 {

@@ -34,16 +34,18 @@
 
 #include "dock_effects.h"
 
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/rendered_image_widget.hpp"
-#include "../src/synchronize_interface.hpp"
-#include "../src/ao_modes.h"
-#include "../src/automated_widgets.hpp"
-#include "../src/render_window.hpp"
-#include "../src/system.hpp"
-#include "dock_image_adjustments.h"
 #include "ui_dock_effects.h"
+
+#include "dock_image_adjustments.h"
+
+#include "src/ao_modes.h"
+#include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/render_window.hpp"
+#include "src/rendered_image_widget.hpp"
+#include "src/synchronize_interface.hpp"
+#include "src/system.hpp"
 
 cDockEffects::cDockEffects(QWidget *parent) : QWidget(parent), ui(new Ui::cDockEffects)
 {

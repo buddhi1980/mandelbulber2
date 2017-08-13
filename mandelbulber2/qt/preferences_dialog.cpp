@@ -34,28 +34,30 @@
 
 #include "preferences_dialog.h"
 
+#include <QCryptographicHash>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QtCore>
-#include <QCryptographicHash>
 
-#include "../qt/thumbnail_widget.h"
-#include "../src/automated_widgets.hpp"
-#include "../src/file_downloader.hpp"
-#include "../src/fractal_container.hpp"
-#include "../src/fractal_enums.h"
-#include "../src/global_data.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/progress_text.hpp"
-#include "../src/render_window.hpp"
-#include "../src/settings.hpp"
-#include "../src/system.hpp"
-#include "../src/opencl_global.h"
-#include "../src/opencl_hardware.h"
-#include "../src/opencl_engine_render_fractal.h"
-#include "../src/opencl_engine_render_ssao.h"
 #include "ui_preferences_dialog.h"
+
+#include "thumbnail_widget.h"
+
+#include "src/automated_widgets.hpp"
+#include "src/file_downloader.hpp"
+#include "src/fractal_container.hpp"
+#include "src/fractal_enums.h"
+#include "src/global_data.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/opencl_engine_render_fractal.h"
+#include "src/opencl_engine_render_ssao.h"
+#include "src/opencl_global.h"
+#include "src/opencl_hardware.h"
+#include "src/progress_text.hpp"
+#include "src/render_window.hpp"
+#include "src/settings.hpp"
+#include "src/system.hpp"
 
 cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cPreferencesDialog)

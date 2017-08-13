@@ -33,6 +33,7 @@
  */
 
 #include "rendering_configuration.hpp"
+
 #include "netrender.hpp"
 #include "system.hpp"
 

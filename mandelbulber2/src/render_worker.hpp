@@ -35,12 +35,12 @@
 #ifndef MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 #define MANDELBULBER2_SRC_RENDER_WORKER_HPP_
 
-#include <QThread>
 #include <QObject>
+#include <QThread>
 
+#include "algebra.hpp"
 #include "color_structures.hpp"
 #include "texture_enums.hpp"
-#include "algebra.hpp"
 
 // forward declarations
 class cMaterial;

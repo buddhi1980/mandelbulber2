@@ -37,15 +37,17 @@
 
 #include "tab_fractal.h"
 
-#include "../src/automated_widgets.hpp"
-#include "../src/error_message.hpp"
-#include "../src/fractal_container.hpp"
-#include "../src/fractal_list.hpp"
-#include "../src/interface.hpp"
-#include "../src/my_ui_loader.h"
-#include "../src/render_window.hpp"
-#include "dock_fractal.h"
 #include "ui_tab_fractal.h"
+
+#include "dock_fractal.h"
+
+#include "src/automated_widgets.hpp"
+#include "src/error_message.hpp"
+#include "src/fractal_container.hpp"
+#include "src/fractal_list.hpp"
+#include "src/interface.hpp"
+#include "src/my_ui_loader.h"
+#include "src/render_window.hpp"
 
 cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFractal)
 {

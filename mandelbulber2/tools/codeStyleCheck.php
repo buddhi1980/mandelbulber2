@@ -36,49 +36,48 @@ $filesToCheckSource[] = PROJECT_PATH . "opencl/" . WILDCARD . ".h";
 $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
+printStartGroup('RUNNING CHECKS ON SOURCE FILES');
 foreach ($sourceFiles as $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
 	if ($sourceFileName == 'clew.cpp') continue;
+	$folderName = basename(str_replace($sourceFileName, '', $sourceFilePath));
 	$status = array();
-	$success = false;
+	$success = true;
 	$sourceContent = file_get_contents($sourceFilePath);
-	if (checkFileHeader($sourceFilePath, $sourceContent, $status)) {
-		if (checkClang($sourceFilePath, $sourceContent, $status)) {
-			if (checkIncludeHeaders($sourceFilePath, $sourceContent, $status)) {
-				if (!isDryRun() && count($status) > 0) {
-					file_put_contents($sourceFilePath, $sourceContent);
-				}
-				$success = true;
-			}
-		}
-	}
-	printResultLine($sourceFileName, $success, $status);
-}
 
+	if ($success) $success = checkFileHeader($sourceFilePath, $sourceContent, $status);
+	if ($success) $success = checkClang($sourceContent, $status);
+	if ($success) $success = checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName);
+
+	if ($success && !isDryRun() && count($status) > 0) {
+		file_put_contents($sourceFilePath, $sourceContent);
+	}
+	printResultLine($folderName . '/' . $sourceFileName, $success, $status);
+}
+printEndGroup();
+printStartGroup('RUNNING CHECKS ON HEADER FILES');
 foreach ($headerFiles as $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
 	if (substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	if ($headerFileName == 'clew.h') continue;
 	if ($headerFileName == 'clew-cl.hpp') continue;
+	if ($headerFileName == 'opencl_include_header_wrapper.hpp') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
 	$status = array();
-	$success = false;
+	$success = true;
 	$headerContent = file_get_contents($headerFilePath);
-	if (checkFileHeader($headerFilePath, $headerContent, $status)) {
-		if (checkDefines($headerContent, $headerFilePath, $headerFileName, $folderName, $status)) {
-			if (checkClang($headerFilePath, $headerContent, $status)) {
-				if (checkIncludeHeaders($headerFilePath, $headerContent, $status)) {
-					if (!isDryRun() && count($status) > 0) {
-						file_put_contents($headerFilePath, $headerContent);
-					}
-					$success = true;
-				}
-			}
-		}
-	}
-	printResultLine($headerFileName, $success, $status);
-}
 
+	if ($success) $success = checkFileHeader($headerFilePath, $headerContent, $status);
+	if ($success) $success = checkDefines($headerContent, $headerFileName, $folderName, $status);
+	if ($success) $success = checkClang($headerContent, $status);
+	if ($success) $success = checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName);
+
+	if ($success && !isDryRun() && count($status) > 0) {
+		file_put_contents($headerFilePath, $headerContent);
+	}
+	printResultLine($folderName . '/' . $headerFileName, $success, $status);
+}
+printEndGroup();
 printFinish();
 exit;
 
@@ -87,7 +86,6 @@ function checkFileHeader($filePath, &$fileContent, &$status)
 {
 	$headerRegex = '/^(\/\*\*?[\s\S]*?\*\/)([\s\S]*)$/';
 	if (preg_match($headerRegex, $fileContent, $matchHeader)) {
-		$functionContentFound = true;
 		$fileHeader = $matchHeader[1];
 		// $fileSourceCode = $matchHeader[2];
 		$modificationString = getModificationInterval($filePath);
@@ -139,7 +137,7 @@ function checkFileHeader($filePath, &$fileContent, &$status)
 	return false;
 }
 
-function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderName, &$status)
+function checkDefines(&$fileContent, $headerFileName, $folderName, &$status)
 {
 	$defineRegex = '/^([\s\S]*?#ifndef\s)([\s\S]+?)(\n#define\s)(\S+)([\S\s]+)(#endif\s)[\s\S]+$/';
 	if (preg_match($defineRegex, $fileContent, $match)) {
@@ -157,40 +155,24 @@ function checkDefines(&$fileContent, $headerFilePath, $headerFileName, $folderNa
 	return false;
 }
 
-function checkClang($filepath, &$fileContent, &$status)
+function checkClang(&$fileContent, &$status)
 {
 	$contentsBefore = $fileContent;
-	// method 1
-	// $cmd = 'cat <<EOF |' . PHP_EOL . escapeshellarg($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
-	// $cmd = 'echo ' . escapeshellarg($fileContent) . ' | ';
-	// $cmd .= "clang-format --style=file --assume-filename=" . escapeshellarg($filePath);
 
-	// method 2
-	// $cmd = 'cat <<EOF | ' . PHP_EOL . ($fileContent) . PHP_EOL . 'EOF' . PHP_EOL;
-	// $cmd .= "clang-format";
-	// $fileContent = shell_exec($cmd);
-
-	// method 3
-	$filepathTemp = $filepath . '.tmp.c';
+	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $fileContent);
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
 	$fileContent = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 
-	// $fileContent = str_replace('// forward declarations', '//forward declarations', $fileContent);
-
-	// echo $fileContent; exit;
 	if ($contentsBefore != $fileContent) {
 		$status[] = noticeString('checkClang changed');
 	}
 	return true;
 }
 
-function checkIncludeHeaders($filepath, &$fileContent, &$status)
+function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 {
-    // return true; // activated
-	$contentsBefore = $fileContent;
-
 	$includeRegex = '/^([\s\S]*?)(\n#include[\s\S]+)?(\n#include.*)([\s\S]+)$/';
 	if (preg_match($includeRegex, $fileContent, $match)) {
 		$beforeCapture = $match[1];
@@ -202,84 +184,72 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status)
 			'moduleHeader' => array(),
 			'cHeader' => array(),
 			'cppHeader' => array(),
-			'qtHeader' => array(), 
+			'qtHeader' => array(),
+			'uiAutogenHeader' => array(),
 			'localHeader' => array(),
-			'srcHeader' => array(), 
-			'uiHeader' => array(), 
+			'srcHeader' => array(),
+			'uiHeader' => array(),
+			'openclHeader' => array(),
 		);
 		$customIncludes = '';
-		foreach($includesIn as $k => $includeLine){
-		    $includeLine = str_replace('../src/', 'src/', $includeLine);
+		foreach ($includesIn as $k => $includeLine) {
+			$includeLine = str_replace('../src/', 'src/', $includeLine);
 			$includeLine = str_replace('../qt/', 'qt/', $includeLine);
+			$includeLine = str_replace('../opencl/', 'opencl/', $includeLine);
+			$includeLine = str_replace('qt/ui_', 'ui_', $includeLine);
+			$includeLine = str_replace('"' . $folderName . '/', '"', $includeLine); // strip folder, when include from same folder
 			$includeFormatRegex = '/^#include ([<"])([a-zA-Z0-9._\/]+)([>"])$/';
-			if($includeLine == '// custom includes'){
+			if ($includeLine == '// custom includes') {
 				$customIncludes = implode(PHP_EOL, array_splice($includesIn, $k));
 				break;
 			}
 			if (preg_match($includeFormatRegex, $includeLine, $matchInclude)) {
 				$includeFileName = $matchInclude[2];
-				if($matchInclude[1] == '"'){		
+				if ($matchInclude[1] == '"') {
 					// project includes		
-					if(pathinfo(basename($includeFileName), PATHINFO_FILENAME) 
+					if (pathinfo(basename($includeFileName), PATHINFO_FILENAME)
 						== pathinfo(basename($filepath), PATHINFO_FILENAME)) $includesOut['moduleHeader'][] = $includeLine;
-					else if(strpos($includeFileName, '/') === false) $includesOut['localHeader'][] = $includeLine;
-					else if(strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
-					else if(strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
+					else if (strpos($includeFileName, 'ui_') === 0) $includesOut['uiAutogenHeader'][] = $includeLine;
+					else if (strpos($includeFileName, '/') === false) $includesOut['localHeader'][] = $includeLine;
+					else if (strpos($includeFileName, 'src/') !== false) $includesOut['srcHeader'][] = $includeLine;
+					else if (strpos($includeFileName, 'qt/') !== false) $includesOut['uiHeader'][] = $includeLine;
+					else if (strpos($includeFileName, 'opencl/') !== false) $includesOut['openclHeader'][] = $includeLine;
 					else {
 						$status[] = errorString('invalid include line: "' . $includeLine . '"');
 						return false;
 					}
-				}else if($matchInclude[1] == '<'){
+				} else if ($matchInclude[1] == '<') {
 					// system includes
-					if(substr($includeFileName, 0, 1) == 'Q') $includesOut['qtHeader'][] = $includeLine;
-					elseif(substr($includeFileName, -2, 2) == '.h') $includesOut['cHeader'][] = $includeLine;
+					if (substr($includeFileName, 0, 1) == 'Q') $includesOut['qtHeader'][] = $includeLine;
+          elseif (substr($includeFileName, -2, 2) == '.h') $includesOut['cHeader'][] = $includeLine;
 					else $includesOut['cppHeader'][] = $includeLine;
-				}else {
+				} else {
 					$status[] = errorString('invalid include line: "' . $includeLine . '"');
 					return false;
 				}
-			}else{
+			} else {
 				$status[] = errorString('invalid include line: "' . $includeLine . '"');
-				return false;				
+				return false;
 			}
 		}
 		$newIncludes = '';
-		foreach($includesOut as $includeGroup){
-			if(empty($includeGroup)) continue;
+		foreach ($includesOut as $includeGroup) {
+			if (empty($includeGroup)) continue;
 			sort($includeGroup, SORT_STRING);
-			$includeGroup = array_unique($includeGroup); 
+			$includeGroup = array_unique($includeGroup);
 			$newIncludes .= PHP_EOL . PHP_EOL . implode(PHP_EOL, $includeGroup);
 		}
-		if(!empty($customIncludes)) $newIncludes .= PHP_EOL . PHP_EOL . $customIncludes;
+		if (!empty($customIncludes)) $newIncludes .= PHP_EOL . PHP_EOL . $customIncludes;
 		$newFileContent = $beforeCapture . PHP_EOL . trim($newIncludes) . $afterCapture;
 		if ($newFileContent != $fileContent) {
 			$fileContent = $newFileContent;
 			$status[] = noticeString('includes changed');
 		}
 		return true;
-	} else {
-		if(isVerbose()) $status[] = noticeString('no includes in file');
-		return true;
 	}
-	return false;
-}
 
-
-function getModificationInterval($filePath)
-{
-	// these commits contain only auto formatting code changes
-	// and should not be counted for the modification invertal
-	$ignoreString = 'source\scode|nullptr';
-
-	$cmd = "git log --format=%ad%s " . $filePath . " | grep -vE '" . $ignoreString . "' | tail -1 | egrep -o '\s([0-9]{4})\s'";
-	$yearStart = trim(shell_exec($cmd));
-	$cmd = "git log --format=%ad%s " . $filePath . " | grep -m 1 -vE '" . $ignoreString . "' | head -1 | egrep -o '\s([0-9]{4})\s'";
-	$yearEnd = trim(shell_exec($cmd));
-	if (empty($yearStart)) return date('Y');
-	if ($yearStart == $yearEnd) {
-		return $yearStart;
-	}
-	return $yearStart . '-' . substr($yearEnd, 2, 2);
+	if (isVerbose()) $status[] = warningString('no includes in file');
+	return true;
 }
 
 function getFileHeader($author, $description, $modificationString)
@@ -345,7 +315,6 @@ EOT;
 function formatAuthorLine($authorLine)
 {
 	$oldAuthors = explode(',', $authorLine);
-	$authors = array();
 	$out = '';
 	foreach ($oldAuthors as $oldAuthor) {
 		$name = trim($oldAuthor);

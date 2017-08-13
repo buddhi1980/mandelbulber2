@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -35,10 +35,23 @@
 #ifndef MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 #define MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_
 
-#include <QWidget>
+#include <QtCore>
 
 // forward declarations
 class cParameterContainer;
+
+class QWidget;
+class QLineEdit;
+class QGroupBox;
+class QDoubleSpinBox;
+class QSpinBox;
+class QCheckBox;
+class FileSelectWidget;
+class MyColorButton;
+class ColorPaletteWidget;
+class QComboBox;
+class cMaterialSelector;
+class QPlainTextEdit;
 
 namespace qInterface
 {
@@ -47,10 +60,55 @@ enum enumReadWrite
 	read,
 	write
 };
+struct widgetProperties
+{
+	QString name;
+	QString className;
+	QString paramName;
+	QString typeName;
+	bool allowed;
+	char lastChar() { return paramName.at(paramName.length() - 1).toLatin1(); }
+	QString nameVect() { return paramName.left(paramName.length() - 2); }
+};
 }
 
 void SynchronizeInterfaceWindow(
 	QWidget *window, cParameterContainer *par, qInterface::enumReadWrite mode);
+
+// widget specific synchronization functions
+void SynchronizeInterfaceQLineEdit(
+	QList<QLineEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQDoubleSpinBox(
+	QList<QDoubleSpinBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQSpinBox(
+	QList<QSpinBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQCheckBox(
+	QList<QCheckBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQGroupBox(
+	QList<QGroupBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceFileSelectWidget(
+	QList<FileSelectWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceMyColorButton(
+	QList<MyColorButton *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceColorPaletteWidget(
+	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQComboBox(
+	QList<QComboBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfacecMaterialSelector(
+	QList<cMaterialSelector *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceQPlainTextEdit(
+	QList<QPlainTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+
+// utility functions
 void GetNameAndType(QString name, QString *parameterName, QString *type);
+void SynchronizeInterfaceReadVect3d(
+	QString &nameVect, char lastChar, double value, cParameterContainer *par);
+void SynchronizeInterfaceWriteVect3d(
+	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
+void SynchronizeInterfaceReadVect4d(
+	QString &nameVect, char lastChar, double value, cParameterContainer *par);
+void SynchronizeInterfaceWriteVect4d(
+	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
+qInterface::widgetProperties parseWidgetProterties(QWidget *widget, QStringList allowedClassNames);
 
 #endif /* MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_ */

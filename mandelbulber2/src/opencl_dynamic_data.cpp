@@ -33,9 +33,10 @@
  */
 
 #include "opencl_dynamic_data.hpp"
-#include "../src/render_worker.hpp"
-#include "../src/material.h"
-#include "../src/lights.hpp"
+
+#include "lights.hpp"
+#include "material.h"
+#include "render_worker.hpp"
 
 // custom includes
 #ifdef USE_OPENCL

@@ -37,6 +37,7 @@
  */
 
 #include "scheduler.hpp"
+
 #include <QtCore>
 
 #include "system.hpp"

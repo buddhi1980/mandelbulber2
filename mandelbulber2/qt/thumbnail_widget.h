@@ -40,9 +40,10 @@
 #ifndef MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_
 #define MANDELBULBER2_QT_THUMBNAIL_WIDGET_H_
 
-#include <QWidget>
 #include <qprogressbar.h>
+
 #include <QElapsedTimer>
+#include <QWidget>
 
 // forward declarations
 class cParameterContainer;

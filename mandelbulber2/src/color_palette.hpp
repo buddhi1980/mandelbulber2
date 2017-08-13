@@ -35,8 +35,9 @@
 #ifndef MANDELBULBER2_SRC_COLOR_PALETTE_HPP_
 #define MANDELBULBER2_SRC_COLOR_PALETTE_HPP_
 
-#include "color_structures.hpp"
 #include <QtCore>
+
+#include "color_structures.hpp"
 
 class cColorPalette
 {

@@ -40,13 +40,13 @@
 
 #include "compute_fractal.hpp"
 #include "displacement_map.hpp"
-#include "fractal_enums.h"
 #include "fractal.h"
+#include "fractal_enums.h"
 #include "fractparams.hpp"
+#include "global_data.hpp"
 #include "nine_fractals.hpp"
 #include "render_data.hpp"
 #include "texture_mapping.hpp"
-#include "global_data.hpp"
 
 using namespace std;
 

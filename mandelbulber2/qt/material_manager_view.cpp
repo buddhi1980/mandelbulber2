@@ -38,19 +38,22 @@
  */
 
 #include "material_manager_view.h"
-#include "ui_material_manager_view.h"
+
 #include <QtWidgets/QtWidgets>
 
-#include "../qt/material_editor.h"
-#include "../src/error_message.hpp"
-#include "../src/fractal_container.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/material.h"
-#include "../src/material_item_model.h"
-#include "../src/material_item_view.h"
-#include "../src/settings.hpp"
-#include "../src/synchronize_interface.hpp"
-#include "../src/system.hpp"
+#include "ui_material_manager_view.h"
+
+#include "material_editor.h"
+
+#include "src/error_message.hpp"
+#include "src/fractal_container.hpp"
+#include "src/initparameters.hpp"
+#include "src/material.h"
+#include "src/material_item_model.h"
+#include "src/material_item_view.h"
+#include "src/settings.hpp"
+#include "src/synchronize_interface.hpp"
+#include "src/system.hpp"
 
 cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cMaterialManagerView)

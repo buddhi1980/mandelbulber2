@@ -42,9 +42,9 @@
 #include <QObject>
 
 #include "camera_target.hpp"
-#include "statistics.h"
-#include "parameters.hpp"
 #include "fractal_container.hpp"
+#include "parameters.hpp"
+#include "statistics.h"
 
 // forward declarations
 class cImage;

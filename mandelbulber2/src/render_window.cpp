@@ -38,8 +38,10 @@
  */
 
 #include "render_window.hpp"
-#include "../src/automated_widgets.hpp"
+
 #include "ui_render_window.h"
+
+#include "automated_widgets.hpp"
 
 RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::RenderWindow)
 {

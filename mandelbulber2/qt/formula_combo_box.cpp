@@ -38,6 +38,7 @@
  */
 
 #include "formula_combo_box.h"
+
 #include <QStandardItemModel>
 
 QMap<QString, QIcon> cFormulaComboBox::iconCache;

@@ -40,6 +40,7 @@
 #define MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 
 #include <QtCore>
+
 #include "color_structures.hpp"
 
 // custom includes

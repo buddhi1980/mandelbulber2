@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 
-#include "system.hpp"
-#include "fractal_enums.h"
 #include <QtCore>
+
 #include "algebra.hpp"
+#include "fractal_enums.h"
+#include "system.hpp"
 
 namespace fractal
 {
@@ -249,6 +250,10 @@ enum enumFractalFormula
 	transfSphericalFoldParab = 1073,
 	// 2.12
 	transfScaleVaryMulti = 1074,
+
+	// hybrid color trial
+
+	transfHybridColor = 2000,
 
 };
 }

@@ -36,20 +36,22 @@
  * spread over render_window_*.cpp
  */
 
-#include "../src/material_item_model.h"
-#include "render_window.hpp"
+#include "ui_render_window.h"
+
 #include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "file_image.hpp"
 #include "files.h"
 #include "global_data.hpp"
-#include "image_save_dialog.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "material_item_model.h"
 #include "old_settings.hpp"
-#include "preview_file_dialog.h"
+#include "render_window.hpp"
 #include "settings.hpp"
-#include "ui_render_window.h"
+
+#include "qt/image_save_dialog.h"
+#include "qt/preview_file_dialog.h"
 
 void RenderWindow::slotImportOldSettings()
 {
@@ -359,7 +361,8 @@ void RenderWindow::slotMenuSaveDocksPositions()
 
 void RenderWindow::slotMenuSaveImageJPEG()
 {
-	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_JPG, tr("JPEG images (*.jpg *.jpeg)"), "JPEG", "jpeg");
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_JPG, tr("JPEG images (*.jpg *.jpeg)"), "JPEG", "jpeg");
 }
 
 void RenderWindow::slotMenuSaveImagePNG()
@@ -377,12 +380,13 @@ void RenderWindow::slotMenuSaveImageEXR()
 #ifdef USE_TIFF
 void RenderWindow::slotMenuSaveImageTIFF()
 {
-	slotMenuSaveImage(ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
+	slotMenuSaveImage(
+		ImageFileSave::IMAGE_FILE_TYPE_TIFF, tr("TIFF images (*.tiff)"), "TIFF", "tiff");
 }
 #endif // USE_TIFF
 
-void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType, QString nameFilter,
-																		 QString titleType, QString defaultSuffix)
+void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileType,
+	QString nameFilter, QString titleType, QString defaultSuffix)
 {
 	cImageSaveDialog dialog(this);
 	dialog.setFileMode(QFileDialog::AnyFile);
@@ -398,8 +402,7 @@ void RenderWindow::slotMenuSaveImage(ImageFileSave::enumImageFileType imageFileT
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 		gApplication->processEvents();
-		SaveImage(filename, imageFileType, gMainInterface->mainImage,
-			gMainInterface->mainWindow);
+		SaveImage(filename, imageFileType, gMainInterface->mainImage, gMainInterface->mainWindow);
 		gApplication->processEvents();
 		systemData.lastImageFile = filename;
 	}
@@ -427,7 +430,8 @@ void RenderWindow::slotMenuSaveImagePNG16()
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
 		ImageFileSave::ImageConfig imageConfig;
 		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
-		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		ImageFileSavePNG imageSaver(
+					ImageFileSave::ImageNameWithoutExtension(filename), gMainInterface->mainImage, imageConfig);
 		imageSaver.SetAppendAlphaCustom(false);
 		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG"),
@@ -459,7 +463,8 @@ void RenderWindow::slotMenuSaveImagePNG16Alpha()
 			ImageFileSave::IMAGE_CONTENT_COLOR, ImageFileSave::IMAGE_CHANNEL_QUALITY_16, "");
 		ImageFileSave::ImageConfig imageConfig;
 		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
-		ImageFileSavePNG imageSaver(filename, gMainInterface->mainImage, imageConfig);
+		ImageFileSavePNG imageSaver(
+					ImageFileSave::ImageNameWithoutExtension(filename), gMainInterface->mainImage, imageConfig);
 		imageSaver.SetAppendAlphaCustom(true);
 		imageSaver.SaveImage();
 		cProgressText::ProgressStatusText(tr("Saving %1 image").arg("16-bit PNG + alpha channel"),

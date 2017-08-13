@@ -35,10 +35,12 @@
 #ifndef MANDELBULBER2_SRC_FILES_H_
 #define MANDELBULBER2_SRC_FILES_H_
 
+#include <string>
+
+#include <QtCore>
+
 #include "file_image.hpp"
 #include "system.hpp"
-#include <QtCore>
-#include <string>
 
 // forward declarations
 class cImage;

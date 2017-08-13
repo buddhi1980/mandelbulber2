@@ -33,8 +33,10 @@
  */
 
 #include "cimage.hpp"
-#include <QtCore>
+
 #include <qpainter.h>
+
+#include <QtCore>
 
 cImage::cImage(int w, int h, bool _allocLater)
 {

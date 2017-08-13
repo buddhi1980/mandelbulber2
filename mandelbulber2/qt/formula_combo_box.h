@@ -41,9 +41,10 @@
 #define MANDELBULBER2_QT_FORMULA_COMBO_BOX_H_
 
 #include <QComboBox>
-#include <QSortFilterProxyModel>
 #include <QCompleter>
-#include "../src/fractal_list.hpp"
+#include <QSortFilterProxyModel>
+
+#include "src/fractal_list.hpp"
 
 class cFormulaComboBox : public QComboBox
 {

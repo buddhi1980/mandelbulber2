@@ -33,9 +33,11 @@
  */
 
 #include "my_spin_box.h"
+
 #include <QMenu>
 #include <QtWidgets/QtWidgets>
-#include "../src/parameters.hpp"
+
+#include "src/parameters.hpp"
 
 void MySpinBox::resetToDefault()
 {

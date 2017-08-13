@@ -34,15 +34,17 @@
 
 #include "mesh_export_dialog.h"
 
-#include "../qt/player_widget.hpp"
-#include "../src/automated_widgets.hpp"
-#include "../src/error_message.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/system.hpp"
-#include "../src/mesh_export.hpp"
-#include "../src/file_mesh.hpp"
 #include "ui_mesh_export_dialog.h"
+
+#include "player_widget.hpp"
+
+#include "src/automated_widgets.hpp"
+#include "src/error_message.hpp"
+#include "src/file_mesh.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/mesh_export.hpp"
+#include "src/system.hpp"
 
 cMeshExportDialog::cMeshExportDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cMeshExportDialog)

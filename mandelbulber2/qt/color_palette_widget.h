@@ -35,12 +35,14 @@
 #ifndef MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_
 #define MANDELBULBER2_QT_COLOR_PALETTE_WIDGET_H_
 
-#include "../qt/common_my_widget_wrapper.h"
-#include "../src/color_palette.hpp"
 #include <QColorDialog>
 #include <QMouseEvent>
 #include <QWidget>
 #include <QtCore>
+
+#include "common_my_widget_wrapper.h"
+
+#include "src/color_palette.hpp"
 
 class ColorPaletteWidget : public QWidget, public CommonMyWidgetWrapper
 {

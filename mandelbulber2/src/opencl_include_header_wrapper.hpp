@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -27,41 +27,40 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * MyDoubleSpinBox class - promoted QDoubleSpinBox widget with context menu
+ * This header contains the include dependencies for opencl specific code
+ * see usage in other src/opencl_* files
  */
 
-#ifndef MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_
-#define MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_
+#ifndef MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
+#define MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
 
-#include <QDoubleSpinBox>
-#include <QtCore>
-#include <QtGui>
+#if defined(_MSC_VER)
+#pragma warning(push)
+#pragma warning(disable : 4005) // macro redefinition
+#pragma warning(disable : 4996) // declared deprecated
+#endif // _MSC_VER
 
-#include "common_my_widget_wrapper.h"
+// custom includes
+#ifdef USE_OPENCL
+#ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
+#include "clew.h"
+#include "clew-cl.hpp"
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.hpp>
+#else
+#include <CL/cl.hpp>
+#endif
+#endif // USE_OPENCL
 
-class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
-{
-	Q_OBJECT
+#if defined(_MSC_VER)
+#pragma warning(pop)
+#endif // _MSC_VER
 
-public:
-	MyDoubleSpinBox(QWidget *parent = nullptr) : QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
-	{
-		defaultValue = 0;
-	};
-
-	void resetToDefault() override;
-	QString getDefaultAsString() override;
-	QString getFullParameterName() override;
-
-private:
-	double GetDefault();
-	double defaultValue;
-
-protected:
-	void contextMenuEvent(QContextMenuEvent *event) override;
-	void paintEvent(QPaintEvent *event) override;
-};
-
-#endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */
+#endif /* MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_ */

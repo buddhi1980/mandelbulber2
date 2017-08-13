@@ -33,15 +33,16 @@
  */
 
 #include "lights.hpp"
+
 #include "calculate_distance.hpp"
 #include "common_math.h"
+#include "fractal_container.hpp"
+#include "fractparams.hpp"
 #include "global_data.hpp"
+#include "nine_fractals.hpp"
+#include "parameters.hpp"
 #include "random.hpp"
 #include "system.hpp"
-#include "nine_fractals.hpp"
-#include "fractparams.hpp"
-#include "fractal_container.hpp"
-#include "parameters.hpp"
 
 cLights::cLights() : QObject()
 {

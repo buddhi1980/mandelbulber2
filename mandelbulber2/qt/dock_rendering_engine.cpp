@@ -34,16 +34,18 @@
 
 #include "dock_rendering_engine.h"
 
-#include "../src/automated_widgets.hpp"
-#include "../src/initparameters.hpp"
-#include "../src/interface.hpp"
-#include "../src/netrender.hpp"
-#include "../src/render_window.hpp"
-#include "../src/synchronize_interface.hpp"
+#include "ui_dock_rendering_engine.h"
+
 #include "dock_fractal.h"
 #include "dock_image_adjustments.h"
 #include "dock_navigation.h"
-#include "ui_dock_rendering_engine.h"
+
+#include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/netrender.hpp"
+#include "src/render_window.hpp"
+#include "src/synchronize_interface.hpp"
 
 cDockRenderingEngine::cDockRenderingEngine(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockRenderingEngine)

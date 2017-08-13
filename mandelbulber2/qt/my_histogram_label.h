@@ -35,10 +35,11 @@
 #ifndef MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_
 #define MANDELBULBER2_QT_MY_HISTOGRAM_LABEL_H_
 
-#include "../src/histogram.hpp"
 #include <QLabel>
 #include <QtCore>
 #include <QtGui>
+
+#include "src/histogram.hpp"
 
 class MyHistogramLabel : public QLabel
 {

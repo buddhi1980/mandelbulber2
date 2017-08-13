@@ -35,10 +35,10 @@
 #ifndef MANDELBULBER2_QT_AUDIO_SELECTOR_H_
 #define MANDELBULBER2_QT_AUDIO_SELECTOR_H_
 
-#include <QWidget>
-#include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QBuffer>
+#include <QMediaPlayer>
+#include <QWidget>
 
 // forward declarations
 class cAutomatedWidgets;

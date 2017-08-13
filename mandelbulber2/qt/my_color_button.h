@@ -35,11 +35,13 @@
 #ifndef MANDELBULBER2_QT_MY_COLOR_BUTTON_H_
 #define MANDELBULBER2_QT_MY_COLOR_BUTTON_H_
 
-#include "../qt/common_my_widget_wrapper.h"
-#include "../src/color_structures.hpp"
 #include <QPushButton>
 #include <QtCore>
 #include <QtGui>
+
+#include "common_my_widget_wrapper.h"
+
+#include "src/color_structures.hpp"
 
 class MyColorButton : public QPushButton, public CommonMyWidgetWrapper
 {

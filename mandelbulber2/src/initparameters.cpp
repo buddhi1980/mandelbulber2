@@ -32,7 +32,10 @@
  * InitParams function - initialization of all parameters
  */
 
+#include <QtCore>
+
 #include "color_palette.hpp"
+#include "file_mesh.hpp"
 #include "files.h"
 #include "fractal.h"
 #include "fractal_list.hpp"
@@ -42,9 +45,7 @@
 #include "parameters.hpp"
 #include "stereo.h"
 #include "system.hpp"
-#include <QtCore>
 #include "texture_enums.hpp"
-#include "file_mesh.hpp"
 
 cParameterContainer *gPar = nullptr;
 

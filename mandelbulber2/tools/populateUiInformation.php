@@ -17,29 +17,20 @@
 require_once(dirname(__FILE__) . '/common.inc.php');
 printStart();
 
-echo PHP_EOL . 'READING FORMULA DATA';
+printStartGroup('READING FORMULA DATA');
 $formulas = getFormulasData();
-
-echo PHP_EOL . 'CHECKING EXAMPLE USAGE';
 $formulaExampleUsage = getFormulaExampleUsage();
 
-// update information boxes in the ui
-echo PHP_EOL . PHP_EOL . 'RUNNING INFOBOX UPDATE' . PHP_EOL;
+printStartGroup('RUNNING FORMULA CHECKS');
 foreach ($formulas as $index => $formula) {
-	updateInfoBoxes($index, $formula);
+	$success = true;
+	$status = array();
+	if ($success) $success = updateInfoBoxes($index, $formula, $status);
+	if ($success) $success = generateFormulaOpenCLFiles($formula, $status);
+	if ($success) $success = generateFormulaIcons($formula, $status);
+	printResultLine($formula['name'], $success, $status);
 }
-
-// generate opencl formulas
-echo PHP_EOL . PHP_EOL . 'RUNNING OPENCL FORMULA GENERATION' . PHP_EOL;
-foreach ($formulas as $index => $formula) {
-	generateFormulaOpenCLFiles($formula);
-}
-
-// generate formula icons
-echo PHP_EOL . PHP_EOL . 'RUNNING THUMBNAIL GENERATION' . PHP_EOL;
-foreach ($formulas as $index => $formula) {
-	generateFormulaIcons($formula);
-}
+printEndGroup();
 
 printFinish();
 exit;
@@ -131,7 +122,7 @@ function getFormulasData()
 }
 
 // update information boxes in the ui
-function updateInfoBoxes($index, $formula)
+function updateInfoBoxes($index, $formula, &$status)
 {
 	global $formulaExampleUsage;
 	$formattedEscapedCode = getFormatCode($formula['code']);
@@ -176,7 +167,7 @@ function updateInfoBoxes($index, $formula)
 		$informationText .= implode('<br>', $exampleFilenames);
 	} else {
 		if (isWarning()) {
-			echo warningString('formula ' . $formula['name'] . ' is not used in any examples yet.') . PHP_EOL;
+			$status[] = warningString('formula ' . $formula['name'] . ' is not used in any examples yet.');
 		}
 	}
 
@@ -229,8 +220,8 @@ function updateInfoBoxes($index, $formula)
 	$newUiFileContent = substr_replace($newUiFileContent, '<string notr="true">' . $formula['internalName'] . '</string>',
 		$postitionOfWindowTitleStringStart, $postitionOfWindowTitleStringEnd - $postitionOfWindowTitleStringStart);
 	if ($count == 0) {
-		echo errorString('Warning, could not replace code in ui file for index: ' . $index) . PHP_EOL;
-		return;
+		$status[] = errorString('Warning, could not replace code in ui file for index: ' . $index) . PHP_EOL;
+		return false;
 	}
 
 	$replaceFormulaLookup = array(
@@ -287,25 +278,23 @@ function updateInfoBoxes($index, $formula)
 	}
 
 	if ($newUiFileContent == $uiFileContent) {
-		if (isVerbose()) {
-			echo noticeString('formula ' . $formula['name'] . ' has not changed.') . PHP_EOL;
-		}
-		return;
+		return true;
 	}
 	if (!isDryRun()) {
 		file_put_contents($formula['uiFile'], $newUiFileContent);
 	}
-	echo successString('formula ' . $formula['name'] . ' changed.') . PHP_EOL;
+	$status[] = noticeString('ui file changed'); // . (' . basename($formula['uiFile']) . ')
+	return true;
 }
 
 // generate opencl formulas
-function generateFormulaOpenCLFiles($formula)
+function generateFormulaOpenCLFiles($formula, &$status)
 {
 	// TODO add primitives
 
 	$fileHeader = '/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______    
- * Copyright (C) ' . date('Y') . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ / 
+ * Copyright (C) ' . getModificationInterval($formula['openclFile']) . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/                       
@@ -320,7 +309,7 @@ function generateFormulaOpenCLFiles($formula)
 	// $newOpenCLContent .= '#else' . PHP_EOL . $formula['openclCodeDouble'] . PHP_EOL . '#endif' . PHP_EOL;
 
 	// clang-format
-	$filepathTemp = $formula['openclFile'] . '.tmp.c';
+	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $newOpenCLContent);
 	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
 	$newOpenCLContent = file_get_contents($filepathTemp);
@@ -330,37 +319,40 @@ function generateFormulaOpenCLFiles($formula)
 	$openclContentWithoutDateLine = preg_replace('/Copyright\s\(C\)\s\d+/', '', $openclContent);
 
 	if ($newOpenCLContentWithoutDateLine == $openclContentWithoutDateLine) {
-		if (isVerbose()) {
-			echo noticeString('opencl ' . $formula['name'] . ' has not changed.') . PHP_EOL;
-		}
-		return;
+		return true;
 	} else if (!empty($openclContent) && strpos($openclContent, $autogenLine) === false) {
-		if (isVerbose()) {
-			echo noticeString('opencl ' . $formula['name'] . ' has been manually modified, will not override.') . PHP_EOL;
-		}
-		return;
+		$status[] = warningString('opencl has been manually modified, will not override.');
+		return true;
 	}
 	if (!isDryRun()) {
 		file_put_contents($formula['openclFile'], $newOpenCLContent);
 		// file_put_contents($formula['openclFile'] . '.orig', $formula['code']);
 	}
-	echo successString(basename($formula['openclFile']) . ' changed.') . PHP_EOL;
+	$status[] = noticeString('opencl file changed'); // (' . basename($formula['openclFile']) . ')
+	return true;
 }
 
 // generate formula icons
-function generateFormulaIcons($formula)
+function generateFormulaIcons($formula, &$status)
 {
 	// autogenerate missing formula and transform images
 	$imgPath = PROJECT_PATH . 'formula/img/' . $formula['internalName'] . '.png';
 	if (file_exists($imgPath)) {
-		if (isVerbose()) {
-			echo noticeString('image ' . $imgPath . ' already exists.') . PHP_EOL;
-		}
-		return;
+		return true;
 	}
-	echo noticeString('image ' . $imgPath . ' does not exist, will generate...') . PHP_EOL;
-	generate_formula_icon($formula, $imgPath);
-	echo successString('image ' . $imgPath . ' generated.') . PHP_EOL;
+
+	if (!isDryRun()) {
+		if (generate_formula_icon($formula, $imgPath)) {
+			$status[] = successString('image generated.');
+			return true;
+		} else {
+			$status[] = noticeString('image not generated. Maybe Mandelbulber not found?');
+			return true;
+		}
+	} else {
+		$status[] = noticeString('image does not exist');
+		return true;
+	}
 }
 
 function getFormatCode($code)
@@ -613,12 +605,12 @@ transf_scale_2 1,079812;';
 	if (!file_exists($tempFractPath)) { // allow manual override
 		file_put_contents($tempFractPath, $settings);
 	}
-	// $mandelbulberPath = PROJECT_PATH . "Debug/mandelbulber2";
-	$mandelbulberPath = PROJECT_PATH . "build-mandelbulber-opencl-qt5_7-Release/mandelbulber2";
-	$cmd = $mandelbulberPath . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
-	echo PHP_EOL . $cmd . PHP_EOL;
+	if (!file_exists(MANDELBULBER_EXEC_PATH)) return false;
+	$cmd = MANDELBULBER_EXEC_PATH . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
+	// echo PHP_EOL . $cmd . PHP_EOL;
 	shell_exec($cmd);
 	shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
+	return true;
 }
 
 function upgradeInternalName($internalName, $internalNameNew)

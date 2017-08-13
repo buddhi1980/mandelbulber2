@@ -33,11 +33,13 @@
  */
 
 #include "my_table_widget_anim.hpp"
-#include "../src/animation_flight.hpp"
+
 #include <QContextMenuEvent>
 #include <QHeaderView>
 #include <QMenu>
 #include <QtCore>
+
+#include "src/animation_flight.hpp"
 
 MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 {
