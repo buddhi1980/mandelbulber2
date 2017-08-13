@@ -143,9 +143,9 @@ void cRenderQueue::slotRenderQueue()
 			bool result = false;
 			switch (queueItem.renderType)
 			{
-				case cQueue::queue_STILL: result = RenderStill(queueItem.filename); break;
-				case cQueue::queue_FLIGHT: result = RenderFlight(); break;
-				case cQueue::queue_KEYFRAME: result = RenderKeyframe(); break;
+				case cQueue::queue_STILL: result = RenderStill(queueItem); break;
+				case cQueue::queue_FLIGHT: result = RenderFlight(queueItem); break;
+				case cQueue::queue_KEYFRAME: result = RenderKeyframe(queueItem); break;
 			}
 
 			if (result)
@@ -171,9 +171,16 @@ void cRenderQueue::slotRenderQueue()
 	emit finished();
 }
 
-bool cRenderQueue::RenderFlight() const
+bool cRenderQueue::RenderFlight(const cQueue::structQueueItem &queueItem) const
 {
 	bool result;
+
+	QString fullSaveFilename = gPar->Get<QString>("anim_keyframe_dir") + QDir::separator()
+										 + QFileInfo(queueItem.filename).baseName() + ".fract";
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(queuePar, queueParFractal);
+	parSettings.SaveToFile(fullSaveFilename);
+
 	if (systemData.noGui)
 	{
 		// gMainInterface->headless->RenderFlightAnimation();
@@ -186,9 +193,16 @@ bool cRenderQueue::RenderFlight() const
 	return result;
 }
 
-bool cRenderQueue::RenderKeyframe() const
+bool cRenderQueue::RenderKeyframe(const cQueue::structQueueItem &queueItem) const
 {
 	bool result;
+
+	QString fullSaveFilename = gPar->Get<QString>("anim_keyframe_dir") + QDir::separator()
+										 + QFileInfo(queueItem.filename).baseName() + ".fract";
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.CreateText(queuePar, queueParFractal);
+	parSettings.SaveToFile(fullSaveFilename);
+
 	if (systemData.noGui)
 	{
 		// gMainInterface->headless->RenderKeyframeAnimation();
@@ -201,12 +215,12 @@ bool cRenderQueue::RenderKeyframe() const
 	return result;
 }
 
-bool cRenderQueue::RenderStill(const QString &filename)
+bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 {
 	ImageFileSave::enumImageFileType imageFormat =
 		ImageFileSave::enumImageFileType(gPar->Get<int>("queue_image_format"));
 	QString extension = ImageFileSave::ImageFileExtension(imageFormat);
-	QString saveFilename = QFileInfo(filename).baseName() + extension;
+	QString saveFilename = QFileInfo(queueItem.filename).baseName() + extension;
 
 	// setup of rendering engine
 	cRenderJob *renderJob =
@@ -241,7 +255,7 @@ bool cRenderQueue::RenderStill(const QString &filename)
 	SaveImage(fullSaveFilename, imageFormat, image, this);
 
 	fullSaveFilename = gPar->Get<QString>("default_image_path") + QDir::separator()
-										 + QFileInfo(filename).baseName() + ".fract";
+										 + QFileInfo(queueItem.filename).baseName() + ".fract";
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.CreateText(queuePar, queueParFractal);
 	parSettings.SaveToFile(fullSaveFilename);
