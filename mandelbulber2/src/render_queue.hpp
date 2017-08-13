@@ -39,6 +39,7 @@
 
 #include "progress_text.hpp"
 #include "statistics.h"
+#include "queue.hpp"
 
 // forward declarations
 class RenderedImage;
@@ -56,9 +57,9 @@ class cRenderQueue : public QObject
 public:
 	cRenderQueue(cImage *_image, RenderedImage *widget = nullptr);
 	~cRenderQueue();
-	bool RenderStill(const QString &filename);
-	bool RenderFlight() const;
-	bool RenderKeyframe() const;
+	bool RenderStill(const cQueue::structQueueItem &queueItem);
+	bool RenderFlight(const cQueue::structQueueItem &queueItem) const;
+	bool RenderKeyframe(const cQueue::structQueueItem &queueItem) const;
 
 public slots:
 	void slotRenderQueue();
