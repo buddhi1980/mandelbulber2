@@ -10439,12 +10439,12 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
 
 /**
  * Hybrid Color Trial
- * acting as a global control and hijacking the aux.color parameter.
+ *
  * for folds the aux.color is updated each iteration
  * depending on which slots have formulas that use it
  *
- * hmmm, best is slot#9 with the only bailout check
- * bailout will need to be adjusted with some formulas
+ *
+ * bailout may need to be adjusted with some formulas
  */
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -10453,6 +10453,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double auxColor = 0.0;
 	double distEst = 0.0;
 	double XYZbias = 0.0;
+	double planeBias = 0.0;
 	double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	double lastColorValue = aux.colorHybrid;
@@ -10509,8 +10510,26 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		XYZbias = temp10 + temp11 + temp12;
 	}
 
+	// plane bias
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		double temp16 = 0.0;
+		double temp17 = 0.0;
+		double temp18 = 0.0;
+		CVector4 tempP = fabs(z);
+
+			temp16 = tempP.x * tempP.y * fractal->transformCommon.scale3D000.x;
+
+			temp17 = tempP.y * tempP.z * fractal->transformCommon.scale3D000.y;
+
+			temp18 = tempP.z * tempP.x * fractal->transformCommon.scale3D000.z;
+
+		planeBias = temp16 + temp17 + temp18;
+	}
+
+
 	// build and scale componentMaster
-	componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + factorR)//nnnnnnnnnnnnnnnnnnnnnnn
+	componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
 			 * fractal->foldColor.newScale1;
 
 	// non-linear palette options
