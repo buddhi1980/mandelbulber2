@@ -66,7 +66,6 @@ enum enumGeneralizedFoldBoxType
 	generalizedFoldBoxType_foldBox6 = 6,
 	generalizedFoldBoxType_foldBox5 = 7
 };
-
 struct sExtendedAux
 {
 	int i;
@@ -74,6 +73,7 @@ struct sExtendedAux
 	double r;
 	double DE;
 	double color;
+	double colorHybrid;
 	double actualScale;
 	double actualScaleA;
 	double pseudoKleinianDE;
@@ -82,6 +82,7 @@ struct sExtendedAux
 	double foldFactor;
 	double minRFactor;
 	double scaleFactor;
+	double oldHybridFactor;
 	CVector4 c;
 	CVector4 const_c;
 };
@@ -98,7 +99,28 @@ struct sFoldColor
 	double compFold;
 	double compMinR;
 	double compScale;
+	double oldScale1;
+	double parabScale0;
+	double newScale1;
+	double limitMin0;
+	double limitMax9999;
+	double scaleA0;
+	double scaleB0;
+	double scaleC0;
+	double scaleD0;
+	double scaleE0;
+	double scaleF0;
+	double period250;
+	double trigAdd;
+
+	int intAx0;
+	int intAy0;
+	int intAz0;
+	bool parabEnabledFalse;
+	bool cosEnabledFalse;
+
 };
+
 
 struct sFractalGeneralizedFoldBox
 {
