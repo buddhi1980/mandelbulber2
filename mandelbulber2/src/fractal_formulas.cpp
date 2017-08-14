@@ -10455,6 +10455,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double XYZbias = 0.0;
 	double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
+	double lastColorValue = aux.colorHybrid;
 
 	// used to turn off or mix with old hybrid settings
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
@@ -10515,16 +10516,18 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	// non-linear palette options
 	if (fractal->foldColor.parabEnabledFalse)
 	{ // parabolic
-		componentMaster = componentMaster * componentMaster *  fractal->foldColor.parabScale0 * 0.001;
+		componentMaster += (componentMaster * componentMaster *  fractal->foldColor.parabScale0 * 0.001);
 	}
 	if (fractal->foldColor.cosEnabledFalse)
 	{ // trig
 		double trig = (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period250 )-1.0) * 0.5 * -fractal->foldColor.trigAdd;
-		componentMaster = componentMaster + trig;
+		componentMaster += trig;
 	}
-	//{
-		// TO DO
-	//}
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{ // log
+		double logCurve = log(componentMaster + 1.0) * fractal->foldColor.scaleE0;
+		componentMaster += logCurve;
+	}
 
 
 	componentMaster *= 1.0; // nnnnnnnnnnnnnnnnn
@@ -10532,8 +10535,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if ( componentMaster < fractal->foldColor.limitMin0) componentMaster = fractal->foldColor.limitMin0;
 	if ( componentMaster > fractal->foldColor.limitMax9999) componentMaster = fractal->foldColor.limitMax9999;
 
-	// final component value
-	aux.colorHybrid =  componentMaster + 	(aux.colorHybrid * fractal->transformCommon.scale0);
+	// final component value + cumulative??
+	aux.colorHybrid =  componentMaster + 	(lastColorValue * fractal->transformCommon.scale0);
 
 	// master controls color
 	//aux.foldFactor = fractal->foldColor.compFold; // fold group weight
