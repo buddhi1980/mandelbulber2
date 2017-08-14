@@ -121,6 +121,7 @@ private:
 
 	struct sRayMarchingOut
 	{
+		CVector3 point;
 		double lastDist;
 		double depth;
 		double distThresh;
@@ -149,7 +150,6 @@ private:
 
 	struct sRayRecursionInOut
 	{
-		int rayIndex;
 		sRayMarchingInOut rayMarchingInOut;
 	};
 
@@ -173,10 +173,24 @@ private:
 		sRGBFloat texLuminosity;
 	};
 
+	enum enumRayBranch
+	{
+		rayBranchReflection,
+		rayBranchRefraction,
+		rayBranchDone,
+	};
+
+	struct sRayStack
+	{
+		sRayRecursionIn in;
+		sRayRecursionOut out;
+		enumRayBranch rayBranch;
+	};
+
 	// functions
 	void PrepareMainVectors();
 	void PrepareReflectionBuffer();
-	CVector3 RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const;
+	void RayMarching(sRayMarchingIn &in, sRayMarchingInOut *inOut, sRayMarchingOut *out) const;
 	double CalcDistThresh(CVector3 point) const;
 	double CalcDelta(CVector3 point) const;
 	static double IterOpacity(double step, double iters, double maxN, double trim, double opacitySp);
