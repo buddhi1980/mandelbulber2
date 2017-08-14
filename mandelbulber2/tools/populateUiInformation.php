@@ -227,7 +227,7 @@ function updateInfoBoxes($index, $formula, &$status)
 	$replaceFormulaLookup = array(
 		array('find' => '/\>\s*([^<]+?)\s*<\/string>/', 'replace' => '>$1</string>'), // whitespace fix 1
 		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
-		array('find' => '/<string>(.*?)\s(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3
+		array('find' => '/<string>(.*?)\s+(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3, stop those whitespaces! :)
 		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
 		array('find' => '/<string>abs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>abs($1)</string>'),
 		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
@@ -311,7 +311,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
 	// clang-format
 	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $newOpenCLContent);
-	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
+	shell_exec(CLANG_FORMAT_EXEC_PATH . ' -i --style=file ' . escapeshellarg($filepathTemp));
 	$newOpenCLContent = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 

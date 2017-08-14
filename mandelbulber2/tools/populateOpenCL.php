@@ -175,7 +175,7 @@ function autogenOpenCLFile($copyFile, &$status)
 	// clang-format
 	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $content);
-	shell_exec('clang-format -i --style=file ' . escapeshellarg($filepathTemp));
+	shell_exec(CLANG_FORMAT_EXEC_PATH . ' -i --style=file ' . escapeshellarg($filepathTemp));
 	$content = file_get_contents($filepathTemp);
 	unlink($filepathTemp); // nothing to see here :)
 	patchModificationDate($copyFile['pathTarget'], $content);

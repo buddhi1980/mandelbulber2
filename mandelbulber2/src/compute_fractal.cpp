@@ -79,13 +79,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	sExtendedAux extendedAux;
 
+
 	extendedAux.r_dz = 1.0;
 	extendedAux.r = r;
 	extendedAux.color = 1.0;
+	extendedAux.colorHybrid = 1.0;
 	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
-
 	extendedAux.actualScaleA = 0.0;
-
 	extendedAux.DE = 1.0;
 	extendedAux.c = z;
 	extendedAux.const_c = z;
@@ -93,6 +93,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.foldFactor = 0.0;
 	extendedAux.minRFactor = 0.0;
 	extendedAux.scaleFactor = 0.0;
+	extendedAux.oldHybridFactor = 1.0;
 	extendedAux.pseudoKleinianDE = 1.0;
 
 	// main iteration loop
@@ -443,20 +444,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			double mboxColor;
 			mboxColor = extendedAux.color;
 			if (mboxColor > 1000) mboxColor = 1000;
-			out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-			/*
-						//if (fractals.GetFractal(9)->formula == fractal::transfHybridColor)
-						{
-							out->colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor
-								+ minimumR * 1000.0  * extendedAux.minRFactor
-									//+ mboxColor * 100
-										+ r2 * 5000.0 * extendedAux.scaleFactor;
-						}
-						//else
-						//{
-						//out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-						//}
-			*/
+			//out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+
+		out->colorIndex = ((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
+				+ extendedAux.colorHybrid
+					+ (minimumR * 1000.0 * extendedAux.minRFactor);
+
 		}
 		else
 		{

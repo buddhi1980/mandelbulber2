@@ -121,7 +121,8 @@ cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameter
 	}
 }
 
-void cAudioTrackCollection::AddParameters(cParameterContainer *params, const QString parameterName) const
+void cAudioTrackCollection::AddParameters(
+	cParameterContainer *params, const QString parameterName) const
 {
 	if (!params->IfExists(FullParameterName("enable", parameterName)))
 	{

@@ -244,6 +244,26 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
+	foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
+	foldColor.newScale1 = container->Get<double>("fold_color_new_scale1");
+	foldColor.parabScale0 = container->Get<double>("fold_color_parab_scale0");
+	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
+	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
+	foldColor.scaleC0 = container->Get<double>("fold_color_scaleC0");
+	foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
+	foldColor.scaleE0 = container->Get<double>("fold_color_scaleE0");
+	foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
+	foldColor.period250 = container->Get<double>("fold_color_period250");
+	foldColor.trigAdd = container->Get<double>("fold_color_trig_add");
+
+
+	foldColor.limitMin0 = container->Get<double>("fold_color_limit_min0");
+	foldColor.limitMax9999 = container->Get<double>("fold_color_limit_max9999");
+	foldColor.intAx0 = container->Get<int>("fold_color_int_Ax0");
+	foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
+	foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
+	foldColor.parabEnabledFalse = container->Get<bool>("fold_color_parab_enabled_false");
+	foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
 
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
