@@ -129,12 +129,20 @@ private:
 		bool found;
 	};
 
+	enum enumRayBranch
+	{
+		rayBranchReflection,
+		rayBranchRefraction,
+		rayBranchDone,
+	};
+
 	struct sRayRecursionIn
 	{
 		sRayMarchingIn rayMarchingIn;
 		bool calcInside;
 		sRGBAfloat resultShader;
 		sRGBAfloat objectColour;
+		enumRayBranch rayBranch;
 	};
 
 	struct sRayRecursionOut
@@ -173,18 +181,14 @@ private:
 		sRGBFloat texLuminosity;
 	};
 
-	enum enumRayBranch
-	{
-		rayBranchReflection,
-		rayBranchRefraction,
-		rayBranchDone,
-	};
-
 	struct sRayStack
 	{
 		sRayRecursionIn in;
 		sRayRecursionOut out;
+		sRGBAfloat reflectShader;
+		sRGBAfloat transparentShader;
 		enumRayBranch rayBranch;
+		bool goDeeper;
 	};
 
 	// functions

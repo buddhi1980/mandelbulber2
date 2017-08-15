@@ -714,22 +714,23 @@ void cRenderWorker::RayMarching(
 cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	sRayRecursionIn in, sRayRecursionInOut &inOut)
 {
-	bool goDeeper = true;
+	// qDebug() << "----------- new pixel ------------";
 	int rayIndex = 0; // level of recursion
 
 	sRayStack *rayStack = new sRayStack[reflectionsMax + 1];
 
 	rayStack[rayIndex].in = in;
 	rayStack[rayIndex].rayBranch = rayBranchReflection;
+	rayStack[rayIndex].goDeeper = true;
 
 	for (int i = 0; i < reflectionsMax + 1; i++)
 	{
-		rayStack[rayIndex].rayBranch = rayBranchReflection;
+		rayStack[i].rayBranch = rayBranchReflection;
 	}
 
 	do
 	{
-		if (goDeeper)
+		if (rayStack[rayIndex].goDeeper)
 		{
 			*inOut.rayMarchingInOut.buffCount = 0;
 
@@ -793,8 +794,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 				if (rayIndex < reflectionsMax)
 				{
+					enumRayBranch rayBranch = rayStack[rayIndex].rayBranch;
 					if (rayStack[rayIndex].rayBranch == rayBranchReflection)
 					{
+						// qDebug() << "Reflection" << rayIndex;
 						rayStack[rayIndex].rayBranch = rayBranchRefraction;
 
 						// calculate reflection
@@ -822,6 +825,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							recursionIn.calcInside = false;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
+							recursionIn.rayBranch = rayBranch;
 
 							// setup buffers for ray data
 
@@ -831,17 +835,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 							// recursion for reflection
 							rayStack[rayIndex].in = recursionIn;
-							goDeeper = true;
-						}
-						else
-						{
-							goDeeper = false;
+							rayStack[rayIndex].goDeeper = true;
+							continue;
 						}
 					}
-					else if (rayStack[rayIndex].rayBranch == rayBranchRefraction)
+
+					if (rayStack[rayIndex].rayBranch == rayBranchRefraction)
 					{
 						rayStack[rayIndex].rayBranch = rayBranchDone;
-
+						// qDebug() << "Transparency" << rayIndex;
 						// calculate refraction (transparency)
 						if (transparent > 0.0)
 						{
@@ -854,12 +856,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 							// calculate direction of refracted light
 							CVector3 newDirection =
-								RefractVector(vn, rayStack[rayIndex].in.rayMarchingIn.direction, n1, n2);
+								RefractVector(vn, rayStack[rayIndex - 1].in.rayMarchingIn.direction, n1, n2);
 
 							// move starting point a little
 							CVector3 newPoint =
 								point
-								+ rayStack[rayIndex].in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
+								+ rayStack[rayIndex - 1].in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
 
 							// if is total internal reflection the use reflection instead of refraction
 							bool internalReflection = false;
@@ -885,41 +887,41 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							recursionIn.calcInside = !rayStack[rayIndex - 1].in.calcInside || internalReflection;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
+							recursionIn.rayBranch = rayBranch;
 
 							// setup buffers for ray data
 							rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
 							rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff;
 							inOut.rayMarchingInOut = rayMarchingInOut;
 
-							// recursion for reflection
+							// recursion for refraction
 							rayStack[rayIndex].in = recursionIn;
-							goDeeper = true;
-						}
-						else
-						{
-							goDeeper = false;
+							rayStack[rayIndex].goDeeper = true;
+							continue;
 						}
 					}
 
-					else //rayBranch done
+					if (rayStack[rayIndex].rayBranch == rayBranchDone)
 					{
-						goDeeper = false;
+						// qDebug() << "Done" << rayIndex;
+						rayStack[rayIndex].goDeeper = false;
 					}
 				} // reflectionsMax
 				else
 				{
-					goDeeper = false;
+					rayStack[rayIndex].goDeeper = false;
 				}
 
 			} // found
 			else
 			{
-				goDeeper = false;
+				rayStack[rayIndex].goDeeper = false;
 			}
 		} // goDeeper
 
-		if (!goDeeper)
+		if (!rayStack[rayIndex].goDeeper)
 		{
+			// qDebug() << "Shaders" << rayIndex;
 			sRayRecursionOut recursionOut;
 
 			recursionOut = rayStack[rayIndex].out;
@@ -928,8 +930,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			CVector3 point = rayMarchingOut.point;
 
-			sRGBAfloat reflectShader = rayStack[rayIndex].in.resultShader;
-			sRGBAfloat transparentShader = rayStack[rayIndex].in.resultShader;
+			sRGBAfloat reflectShader = rayStack[rayIndex].reflectShader;
+			sRGBAfloat transparentShader = rayStack[rayIndex].transparentShader;
 
 			// prepare data for shaders
 			CVector3 lightVector = shadowVector;
@@ -989,7 +991,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			if (rayMarchingOut.found)
 			{
-
+				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
 				objectShader = ObjectShader(shaderInputData, &objectColour, &specular);
 
@@ -1021,7 +1023,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectanceN = 1.0 - reflectance;
 				}
 
-				if (rayIndex == reflectionsMax - 1) reflectance = 0.0;
+				if (rayIndex == reflectionsMax) reflectance = 0.0; // FIXME here is something wrong
 
 				// combine all results
 				resultShader.R = (objectShader.R + specular.R);
@@ -1060,11 +1062,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			}
 			else // if object not found then calculate background
 			{
+				// qDebug() << "Background";
 				backgroundShader = BackgroundShader(shaderInputData);
 				resultShader = backgroundShader;
 				shaderInputData.depth = 1e20;
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
-				goDeeper = false;
+				rayStack[rayIndex].goDeeper = false;
 			}
 
 			sRGBAfloat opacityOut;
@@ -1109,6 +1112,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			rayStack[rayIndex].out = recursionOut;
 			if (rayIndex > 0)
 			{
+				if (rayStack[rayIndex].in.rayBranch == rayBranchReflection)
+				{
+					rayStack[rayIndex - 1].reflectShader = resultShader;
+				}
+				else
+				{
+					rayStack[rayIndex - 1].transparentShader = resultShader;
+				}
 				rayStack[rayIndex - 1].in.resultShader = resultShader;
 				rayStack[rayIndex - 1].in.objectColour = objectColour;
 			}
@@ -1119,9 +1130,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 	} while (rayIndex >= 0);
 
+	sRayRecursionOut out = rayStack[0].out;
 	delete[] rayStack;
 
-	return rayStack[0].out;
+	return out;
 }
 
 void cRenderWorker::MonteCarloDOF(
