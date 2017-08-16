@@ -1,81 +1,93 @@
 
-MANDELBULBER 2.11
------------------
+                              MANDELBULBER 2.11
 
-project leader: Krzysztof Marczak
-project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli, Robert Pancoast
-                 knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+1. What is Mandelbulber
+-----------------------
 
-contact: buddhi1980@gmail.com
-www: http://www.mandelbulber.com
-download site: http://sourceforge.net/projects/mandelbulber/
-GIT: https://github.com/buddhi1980/mandelbulber2
-Community: http://www.fractalforums.com/mandelbulber
+In summary, Mandelbulber generates three-dimensional fractals.
+Explore  trigonometric, hyper-complex, Mandelbox, IFS, Kleinian  and many other
+3D fractals.  Render with a great palette  of customizable materials  to create
+stunning images and videos. The possibilities are literally   i n f i n i t e !
 
-LICENCE: GNU GPL v3.0
+2. Project Members and Links
+----------------------------
 
-1. REQUIREMENTS
+PROJECT LEADER:  Krzysztof Marczak
+PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
+                 Robert Pancoast, knighty, makemeunsee, Marius Schilder,
+                 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+
+CONTACT:         buddhi1980@gmail.com
+DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
+DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
+COMMUNITY:       http://www.fractalforums.com/mandelbulber/
+                 https://www.facebook.com/groups/mandelbulber/
+FANSITE:         http://www.mandelbulber.com
+                 http://www.mandelbulber.org
+
+LICENCE:         GNU GPL v3.0
+
+3. REQUIREMENTS
 ---------------
 
 - Linux OS with installed Qt 5 libraries (version >5.3) and libjpeg
 - very fast CPU (recommended 3GHz, 4 cores)
 - 2GB RAM
 
-2. COMPILING
+4. COMPILING
 ------------
 
-packages needed to run: libqt5gui5, libpng16-16, libgsl2, libgomp1 libqt5multimedia5 libqt5multimedia5-plugins liblzo2-2
-packages needed to compile: build-essential, qt5-default, libpng-dev, qttools5-dev, qttools5-dev-tools, libgsl-dev, libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins libsndfile1-dev liblzo2-dev
+packages needed to RUN:
+    libqt5gui5 libpng16-16, libgsl2 liblzo2-2 libgomp1 libqt5multimedia5
+    libqt5multimedia5-plugins
 
+packages needed to COMPILE:
+    build-essential qt5-default libpng-dev qttools5-dev qttools5-dev-tools
+    libgsl-dev libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins
+    libsndfile1-dev liblzo2-dev
 
-On Ubuntu, Debian stable (jessie) or Mint: 
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng12-0 libpng-dev qttools5-dev qttools5-dev-tools \
-	libgomp1 libgsl-dev libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
+Installing packages on Ubuntu, Debian stable (jessie) or Mint: 
+sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 \
+    libpng-dev qttools5-dev qttools5-dev-tools libgomp1 libgsl-dev \
+    libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 \
+    liblzo2-dev
 
-On Debian testing (stretch)
-sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools \
-	libgomp1 libgsl-dev libsndfile1-dev qtmultimedia5-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
-
-
-Then:
-
+Compiling from source:
 cd makefiles
 qmake mandelbulber.pro
 make all
 cd ..
 
-for gamepad support qt is required in version 5.7 and above
-
-2.1. Alternative compilation with cmake
+4.1. Alternative compilation with cmake
 
 note: compilation with cmake is only beta and not feature complete
 
-in order to compile OpenEXR with cmake the ECM should be present
-to install on debian/ubuntu:
+On order to compile OpenEXR with cmake the ECM should be present
+to install on Debian / Ubuntu:
 sudo apt-get install extra-cmake-modules
 
-2.2 Optional packages
+4.2 Optional packages
 
-TIFF: install libtiff5-dev to have TIFF format support
+TIFF:     install libtiff5-dev to have TIFF format support
+EXR:      install libopenexr-dev to have EXR format support
+QGAMEPAD: for gamepad support qt is required in version 5.7 and above
 
-EXR: install libopenexr-dev to have EXR format support
-
-3. INSTALLATION
+5. INSTALLATION
 ---------------
 
-please type:
+Run the install installation:
 ./install
+(This will also run the compilation)
 
-(installation script will do compilation also)
-
-4. TESTED ON:
+6. TESTED ON
 ------------
 
 - Debian Stretch x64
 - Ubuntu 16.10
 - Chakra 2016.02 "Ian"
 - Raspbian
-- Centos 7 Intel MIC K1OM Development (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
+- Centos 7 Intel MIC K1OM Development
+  (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
 
 - gcc 6.2.1
 - clang 3.8.1
@@ -83,16 +95,17 @@ please type:
 
 - Qt 5.7.1
 
-5. USAGE
+7. USAGE
 --------
 
 Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 Actually there is only available documentation for old Mandelbulber (v1)
 
-A lot of useful information you can find in tooltips. Just hover mouse pointer over the edit fields.
+A lot of useful information you can find in tooltips. Just hover with the mouse
+pointer over the edit fields.
 
-6. COMMAND LINE INTERFACE
+8. COMMAND LINE INTERFACE
 -------------------------
 
 Usage: ./mandelbulber2 [options] settings_file
