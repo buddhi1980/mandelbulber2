@@ -71,7 +71,6 @@ typedef enum {
 	generalizedFoldBoxTypeCl_foldBox6 = 6,
 	generalizedFoldBoxTypeCl_foldBox5 = 7
 } enumGeneralizedFoldBoxTypeCl;
-
 typedef struct
 {
 	cl_int i;
@@ -79,6 +78,7 @@ typedef struct
 	cl_float r;
 	cl_float DE;
 	cl_float color;
+	cl_float colorHybrid;
 	cl_float actualScale;
 	cl_float actualScaleA;
 	cl_float pseudoKleinianDE;
@@ -87,6 +87,7 @@ typedef struct
 	cl_float foldFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
+	cl_float oldHybridFactor;
 	cl_float4 c;
 	cl_float4 const_c;
 } sExtendedAuxCl;
@@ -103,6 +104,25 @@ typedef struct
 	cl_float compFold;
 	cl_float compMinR;
 	cl_float compScale;
+	cl_float oldScale1;
+	cl_float parabScale0;
+	cl_float newScale1;
+	cl_float limitMin0;
+	cl_float limitMax9999;
+	cl_float scaleA0;
+	cl_float scaleB0;
+	cl_float scaleC0;
+	cl_float scaleD0;
+	cl_float scaleE0;
+	cl_float scaleF0;
+	cl_float period1;
+	cl_float trigAdd1;
+
+	cl_int intAx0;
+	cl_int intAy0;
+	cl_int intAz0;
+	cl_int parabEnabledFalse;
+	cl_int cosEnabledFalse;
 } sFoldColorCl;
 
 typedef struct
@@ -652,6 +672,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.r = source.r;
 	target.DE = source.DE;
 	target.color = source.color;
+	target.colorHybrid = source.colorHybrid;
 	target.actualScale = source.actualScale;
 	target.actualScaleA = source.actualScaleA;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
@@ -660,6 +681,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.foldFactor = source.foldFactor;
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
+	target.oldHybridFactor = source.oldHybridFactor;
 	target.c = toClFloat4(source.c);
 	target.const_c = toClFloat4(source.const_c);
 	return target;
@@ -678,6 +700,24 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compFold = source.compFold;
 	target.compMinR = source.compMinR;
 	target.compScale = source.compScale;
+	target.oldScale1 = source.oldScale1;
+	target.parabScale0 = source.parabScale0;
+	target.newScale1 = source.newScale1;
+	target.limitMin0 = source.limitMin0;
+	target.limitMax9999 = source.limitMax9999;
+	target.scaleA0 = source.scaleA0;
+	target.scaleB0 = source.scaleB0;
+	target.scaleC0 = source.scaleC0;
+	target.scaleD0 = source.scaleD0;
+	target.scaleE0 = source.scaleE0;
+	target.scaleF0 = source.scaleF0;
+	target.period1 = source.period1;
+	target.trigAdd1 = source.trigAdd1;
+	target.intAx0 = source.intAx0;
+	target.intAy0 = source.intAy0;
+	target.intAz0 = source.intAz0;
+	target.parabEnabledFalse = source.parabEnabledFalse;
+	target.cosEnabledFalse = source.cosEnabledFalse;
 	return target;
 }
 

@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>COLORING . Must be used in HYBRID MODE   beta for testing</string>
+      <string>COLORING . Must be used in HYBRID MODE beta for testing</string>
      </property>
     </widget>
    </item>
@@ -544,7 +544,7 @@
      <item row="11" column="2">
       <widget class="QLabel" name="label_64">
        <property name="text">
-        <string>palette += palette  *  palette * scale function</string>
+        <string>palette += palette * palette * scale function</string>
        </property>
       </widget>
      </item>
@@ -608,7 +608,7 @@
      <item row="18" column="2">
       <widget class="QLabel" name="label_61">
        <property name="text">
-        <string>palette += log (palette  + 1.0) * scale</string>
+        <string>palette += log (palette + 1.0) * scale</string>
        </property>
       </widget>
      </item>

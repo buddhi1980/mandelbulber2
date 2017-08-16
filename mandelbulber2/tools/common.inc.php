@@ -109,7 +109,7 @@ function checkArguments()
 	global $argv;
 	foreach ($argv as $i => $arg) {
 		if ($i == 0) continue;
-		if (!in_array($arg, array('nondry', 'verbose', 'warning')))
+		if (!in_array($arg, array('nondry', 'verbose', 'warning', 'checkCl')))
 			die('Unknown argument: ' . $arg . PHP_EOL);
 	}
 }

@@ -11,6 +11,7 @@
 # it will try to parse all formulas and show which ui files would be modified
 # this should always be run first, to see if any issues occur
 # if you invoke this script with "nondry" as cli argument it will write changes to ui files
+# if you invoke this script with "checkCl" as cli argument it will also check formula cl file compilability (slow)
 #
 
 <?php
@@ -28,7 +29,7 @@ foreach ($formulas as $index => $formula) {
 	if ($success) $success = updateInfoBoxes($index, $formula, $status);
 	if ($success) $success = generateFormulaOpenCLFiles($formula, $status);
 	if ($success) $success = generateFormulaIcons($formula, $status);
-	if ($success) $success = checkOpenCLCompile($formula, $status);
+	if ($success && argumentContains('checkCl')) $success = checkOpenCLCompile($formula, $status);
 	printResultLine($formula['name'], $success, $status);
 }
 printEndGroup();
@@ -360,15 +361,15 @@ function checkOpenCLCompile($formula, &$status)
 {
     $checkOpenCLCompileCmd = 'clang -c -S -emit-llvm -o test.ll -w -include clc/clc.h -Dcl_clang_storage_class_specifiers -x cl';
 	$checkOpenCLCompileCmd .= '  -o /dev/null'; // -S -emit-llvm
-	    $checkOpenCLCompileCmd .= ' -DOPENCL_KERNEL_CODE -I' . PROJECT_PATH . 'opencl/';
-		$checkOpenCLCompileCmd .= ' ' . $formula['openclFile'] . ' 2>&1';
-		exec ($checkOpenCLCompileCmd, $output, $ret);
-		if($ret != 0){
-		$status[] = errorString('formula opencl file broken! ' . (!isVerbose() ? 'see error with verbose mode' : ''));
+	$checkOpenCLCompileCmd .= ' -DOPENCL_KERNEL_CODE -I' . PROJECT_PATH . 'opencl/';
+	$checkOpenCLCompileCmd .= ' ' . $formula['openclFile'] . ' 2>&1';
+	exec ($checkOpenCLCompileCmd, $output, $ret);
+	if($ret != 0){
+	    $status[] = errorString('formula opencl file broken! ' . (!isVerbose() ? 'see error with verbose mode' : ''));
 		if(isVerbose()) $status[] = print_r($output);
 		return false;
-		}
-		return true;
+	}
+	return true;
 }
 
 function getFormatCode($code)
