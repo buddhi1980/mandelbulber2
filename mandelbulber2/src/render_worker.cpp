@@ -280,6 +280,7 @@ void cRenderWorker::doWork()
 					recursionIn.calcInside = false;
 					recursionIn.resultShader = resultShader;
 					recursionIn.objectColour = objectColour;
+					recursionIn.rayBranch = rayBranchReflection;
 
 					sRayRecursionInOut recursionInOut;
 					sRayMarchingInOut rayMarchingInOut;
@@ -459,7 +460,7 @@ void cRenderWorker::PrepareMainVectors()
 void cRenderWorker::PrepareReflectionBuffer()
 {
 
-	reflectionsMax = params->reflectionsMax * 2;
+	reflectionsMax = params->reflectionsMax * 1;
 	if (!params->raytracedReflections) reflectionsMax = 0;
 	rayBuffer = new sRayBuffer[reflectionsMax + 4];
 
@@ -836,6 +837,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							// recursion for reflection
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
+							rayStack[rayIndex].rayBranch = rayBranchReflection;
 							continue;
 						}
 					}
@@ -859,9 +861,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								RefractVector(vn, rayStack[rayIndex - 1].in.rayMarchingIn.direction, n1, n2);
 
 							// move starting point a little
-							CVector3 newPoint =
-								point
-								+ rayStack[rayIndex - 1].in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
+							CVector3 newPoint = point
+																	+ rayStack[rayIndex - 1].in.rayMarchingIn.direction
+																			* shaderInputData.distThresh * 1.0;
 
 							// if is total internal reflection the use reflection instead of refraction
 							bool internalReflection = false;
@@ -897,6 +899,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							// recursion for refraction
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
+							rayStack[rayIndex].rayBranch = rayBranchReflection;
 							continue;
 						}
 					}
@@ -932,6 +935,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			sRGBAfloat reflectShader = rayStack[rayIndex].reflectShader;
 			sRGBAfloat transparentShader = rayStack[rayIndex].transparentShader;
+
+			inOut.rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
+			inOut.rayMarchingInOut.stepBuff = rayBuffer[rayIndex].stepBuff;
 
 			// prepare data for shaders
 			CVector3 lightVector = shadowVector;
@@ -1023,7 +1029,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectanceN = 1.0 - reflectance;
 				}
 
-				if (rayIndex == reflectionsMax) reflectance = 0.0; // FIXME here is something wrong
+				if (rayIndex == reflectionsMax) reflectance = 0.0;
 
 				// combine all results
 				resultShader.R = (objectShader.R + specular.R);
@@ -1067,7 +1073,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader = backgroundShader;
 				shaderInputData.depth = 1e20;
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
-				rayStack[rayIndex].goDeeper = false;
+				// rayStack[rayIndex].goDeeper = false;
 			}
 
 			sRGBAfloat opacityOut;
