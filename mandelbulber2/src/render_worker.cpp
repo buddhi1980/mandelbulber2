@@ -859,9 +859,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 								RefractVector(vn, rayStack[rayIndex - 1].in.rayMarchingIn.direction, n1, n2);
 
 							// move starting point a little
-							CVector3 newPoint =
-								point
-								+ rayStack[rayIndex - 1].in.rayMarchingIn.direction * shaderInputData.distThresh * 1.0;
+							CVector3 newPoint = point
+																	+ rayStack[rayIndex - 1].in.rayMarchingIn.direction
+																			* shaderInputData.distThresh * 1.0;
 
 							// if is total internal reflection the use reflection instead of refraction
 							bool internalReflection = false;

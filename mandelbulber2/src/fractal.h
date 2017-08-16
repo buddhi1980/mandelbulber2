@@ -118,9 +118,7 @@ struct sFoldColor
 	int intAz0;
 	bool parabEnabledFalse;
 	bool cosEnabledFalse;
-
 };
-
 
 struct sFractalGeneralizedFoldBox
 {

@@ -79,7 +79,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	sExtendedAux extendedAux;
 
-
 	extendedAux.r_dz = 1.0;
 	extendedAux.r = r;
 	extendedAux.color = 1.0;
@@ -444,12 +443,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			double mboxColor;
 			mboxColor = extendedAux.color;
 			if (mboxColor > 1000) mboxColor = 1000;
-			//out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
 
-		out->colorIndex = ((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
-				+ extendedAux.colorHybrid
-					+ (minimumR * 1000.0 * extendedAux.minRFactor);
-
+			out->colorIndex =
+				((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
+				+ extendedAux.colorHybrid + (minimumR * 1000.0 * extendedAux.minRFactor);
 		}
 		else
 		{

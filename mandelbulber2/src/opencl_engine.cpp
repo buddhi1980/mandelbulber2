@@ -113,9 +113,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 			if (checkErr(err, "cl::Program()"))
 			{
-
+				QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 				std::string buildParams =
-					"-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE";
+					"-w -cl-single-precision-constant -cl-denorms-are-zero -DOPENCL_KERNEL_CODE -I" + openclPath.toStdString();
 				buildParams += definesCollector.toUtf8().constData();
 				qDebug() << "Build parameters: " << buildParams.c_str();
 				err = program->build(hardware->getClDevices(), buildParams.c_str());

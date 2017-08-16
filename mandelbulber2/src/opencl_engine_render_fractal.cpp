@@ -112,44 +112,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
-		programEngine.append(
-			"#define NUMBER_OF_FRACTALS " + QString::number(NUMBER_OF_FRACTALS) + "\n");
-
-		programEngine.append("#define SQRT_1_3 " + QString::number(SQRT_1_3) + "\n");
-		programEngine.append("#define SQRT_1_2 " + QString::number(SQRT_1_2) + "\n");
-		programEngine.append("#define SQRT_2_3 " + QString::number(SQRT_2_3) + "\n");
-		programEngine.append("#define SQRT_3_2 " + QString::number(SQRT_3_2) + "\n");
-		programEngine.append("#define SQRT_3_4 " + QString::number(SQRT_3_4) + "\n");
-		programEngine.append("#define SQRT_3_4d2 " + QString::number(SQRT_3_4d2) + "\n");
-		programEngine.append("#define SQRT_3 " + QString::number(SQRT_3) + "\n");
-		programEngine.append("#define FRAC_1_3 " + QString::number(FRAC_1_3) + "\n");
-		programEngine.append("#define M_PI_180 " + QString::number(M_PI_180) + "\n");
-		programEngine.append("#define M_PI_8 " + QString::number(M_PI_8) + "\n");
-
-		programEngine.append("#define IFS_VECTOR_COUNT " + QString::number(IFS_VECTOR_COUNT) + "\n");
-		programEngine.append("#define HYBRID_COUNT " + QString::number(HYBRID_COUNT) + "\n");
-		programEngine.append("#define MANDELBOX_FOLDS " + QString::number(MANDELBOX_FOLDS) + "\n");
-		programEngine.append("#define Q_UNUSED(x) (void)x;\n");
-		programEngine.append("#define MAX_RAYMARCHING " + QString::number(10000) + "\n");
 
 		if (params->Get<bool>("gpu_precision"))
 			programEngine.append("#define DOUBLE_PRECISION " + QString::number(1) + "\n");
-
-		QStringList clHeaderFiles;
-		clHeaderFiles.append("opencl_typedefs.h");			 // definitions of common opencl types
-		clHeaderFiles.append("opencl_algebra.h");				 // algebra for kernels
-		clHeaderFiles.append("common_params_cl.hpp");		 // common parameters
-		clHeaderFiles.append("image_adjustments_cl.h");	// image adjustments
-		clHeaderFiles.append("fractal_cl.h");						 // fractal data structures
-		clHeaderFiles.append("fractparams_cl.hpp");			 // rendering data structures
-		clHeaderFiles.append("fractal_sequence_cl.h");	 // sequence of fractal formulas
-		clHeaderFiles.append("material_cl.h");					 // materials
-		clHeaderFiles.append("input_data_structures.h"); // main data structures
-
-		for (int i = 0; i < clHeaderFiles.size(); i++)
-		{
-			programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
-		}
 
 		// fractal formulas - only actually used
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
