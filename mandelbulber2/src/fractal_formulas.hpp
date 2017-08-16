@@ -38,6 +38,7 @@
 
 #include "algebra.hpp"
 
+// formula constants
 #define SQRT_1_3 0.57735026918962576450914878050196
 #define SQRT_1_2 0.70710678118654752440084436210485
 #define SQRT_2_3 0.81649658092772603273242802490196
@@ -55,6 +56,11 @@
 #ifndef M_PI_8
 #define M_PI_8 0.39269908169872415480783042290994
 #endif
+
+#ifndef M_PI_4
+#define M_PI_4 0.78539816339744830961566084581988
+#endif
+// end of formula constants
 
 // forward declarations
 struct sFractal;

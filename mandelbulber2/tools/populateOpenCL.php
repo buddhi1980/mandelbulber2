@@ -33,8 +33,23 @@ foreach ($copyFiles as $type => $copyFile) {
 }
 printEndGroup();
 
+printStartGroup('RUNNING OPENCL DEFINE COLLECT');
+$status = array();
+$targetDefineFile = PROJECT_PATH . 'opencl/defines_cl.h';
+$success = defineCollect($targetDefineFile, $status);
+printResultLine(basename($targetDefineFile), $success, $status);
+printEndGroup();
+
+
 printFinish();
 exit;
+
+function defineCollect($defineFile, &$status)
+{
+    // $oldContent = file_get_contents($defineFile);
+	$status[] = warningString('TODO');
+	return true;
+}
 
 function autogenOpenCLFile($copyFile, &$status)
 {

@@ -10448,7 +10448,7 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
  */
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	//double components = 0.0;
+	// double components = 0.0;
 	double R2 = 0.0;
 	double auxColor = 0.0;
 	double distEst = 0.0;
@@ -10478,19 +10478,21 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBxFalse) distEst = aux.r_dz;
-			else 		distEst = aux.DE;
+			if (fractal->transformCommon.functionEnabledBxFalse)
+				distEst = aux.r_dz;
+			else
+				distEst = aux.DE;
 			double temp5 = 0.0;
 			temp5 = distEst * fractal->foldColor.scaleD0;
-			distEst =  temp5;
+			distEst = temp5;
 		}
 		// aux.color fold component
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			auxColor = aux.color;
 			double temp8 = 0.0;
-			temp8 = auxColor *  fractal->foldColor.scaleF0;
-			auxColor =  temp8;
+			temp8 = auxColor * fractal->foldColor.scaleF0;
+			auxColor = temp8;
 		}
 		// XYZ bias
 		if (fractal->transformCommon.functionEnabledCxFalse)
@@ -10517,19 +10519,20 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build and scale componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
-				 * fractal->foldColor.newScale1;
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias
+												+ planeBias) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
+											* fractal->foldColor.newScale1;
 	}
 
 	// non-linear palette options
 	if (fractal->foldColor.parabEnabledFalse)
 	{ // parabolic
-		componentMaster += (componentMaster * componentMaster *  fractal->foldColor.parabScale0);
+		componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
 	}
 	if (fractal->foldColor.cosEnabledFalse)
 	{ // trig
-		double trig = 128 * -fractal->foldColor.trigAdd1  *
-				(cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1 )-1.0);
+		double trig = 128 * -fractal->foldColor.trigAdd1
+									* (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1) - 1.0);
 
 		componentMaster += trig;
 	}
@@ -10541,22 +10544,19 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	componentMaster *= 1.0;
 	// limit componentMaster
-	if ( componentMaster < fractal->foldColor.limitMin0)
-				componentMaster = fractal->foldColor.limitMin0;
-	if ( componentMaster > fractal->foldColor.limitMax9999)
-				componentMaster = fractal->foldColor.limitMax9999;
+	if (componentMaster < fractal->foldColor.limitMin0)
+		componentMaster = fractal->foldColor.limitMin0;
+	if (componentMaster > fractal->foldColor.limitMax9999)
+		componentMaster = fractal->foldColor.limitMax9999;
 
 	// final component value + cumulative??
-	aux.colorHybrid =  (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
+	aux.colorHybrid = (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
 
 	// master controls color
-	//aux.foldFactor = fractal->foldColor.compFold; // fold group weight
+	// aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 
-	//double scaleColor =
+	// double scaleColor =
 	//	 +  fabs(aux.actualScaleA);
 	// scaleColor += fabs(fractal->mandelbox.scale);
-	//aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
-
-
-
+	// aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
