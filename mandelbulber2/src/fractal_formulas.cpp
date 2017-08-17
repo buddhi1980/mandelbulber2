@@ -723,6 +723,7 @@ void Makin3d2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  *
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * This formula contains aux.color and aux.actualScale
  */
 void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -839,6 +840,7 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  *
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * This formula contains aux.color and aux.actualScale
  */
 void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -1179,6 +1181,7 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  * based on DarkBeam's Mandelbulb3D code
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * This formula contains aux.color and aux.actualScaleA
  */
 void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -1409,6 +1412,7 @@ void AboxModKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 /**
  * ABoxModKaliEiffie, modified formula from Mandelbulb3D
  * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ * This formula contains aux.color
  */
 void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -1526,10 +1530,12 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  * Inspired from a 2D formula proposed by Kali at Fractal Forums
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/kaliset-plus-boxfold-nice-new-2d-fractal/msg33670/#new
+ * This formula contains aux.color and aux.actualScale
  */
 void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.actualScale = fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
+	aux.actualScale =
+		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 c = aux.const_c;
 	z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -1577,8 +1583,8 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 
-	z *= 2.0; // aux.actualScale;
-	aux.DE = aux.DE * fabs(2.0) + 1.0;
+	z *= aux.actualScale; // aux.actualScale;
+	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
 	if (fractal->transformCommon.juliaMode)
 	{
@@ -1784,6 +1790,7 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+	CVector4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse,
@@ -1811,28 +1818,34 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
+					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type3:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type4:
 					// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
 					if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 					{
 						z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
-						// aux.color += fractal->mandelbox.color.factor.x;
+						 aux.color += fractal->mandelbox.color.factor.x;
 					}
 					if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 					{
 						z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
-						// aux.color += fractal->mandelbox.color.factor.y;
+						 aux.color += fractal->mandelbox.color.factor.y;
 					}
 					break;
 				case multi_orderOfFolds_type5:
@@ -1845,6 +1858,8 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 								- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 											 - fractal->transformCommon.offset2)
 								- fractal->transformCommon.additionConstant111.y;
+					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 			}
 		}
