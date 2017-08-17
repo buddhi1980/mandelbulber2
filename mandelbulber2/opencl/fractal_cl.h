@@ -106,7 +106,7 @@ typedef struct
 	cl_float compScale;
 	cl_float oldScale1;
 	cl_float parabScale0;
-	cl_float newScale1;
+	cl_float newScale0;
 	cl_float limitMin0;
 	cl_float limitMax9999;
 	cl_float scaleA0;
@@ -702,7 +702,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compScale = source.compScale;
 	target.oldScale1 = source.oldScale1;
 	target.parabScale0 = source.parabScale0;
-	target.newScale1 = source.newScale1;
+	target.newScale0 = source.newScale0;
 	target.limitMin0 = source.limitMin0;
 	target.limitMax9999 = source.limitMax9999;
 	target.scaleA0 = source.scaleA0;

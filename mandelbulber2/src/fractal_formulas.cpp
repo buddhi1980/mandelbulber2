@@ -66,6 +66,7 @@ void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
  * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * This formula contains aux.color
  */
 void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -303,6 +304,7 @@ void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 /**
  * Smooth Mandelbox created by Buddhi
  * @reference http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/
+ * This formula contains aux.color
  */
 void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
