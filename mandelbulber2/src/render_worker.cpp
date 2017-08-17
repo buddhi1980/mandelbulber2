@@ -60,6 +60,7 @@ cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_
 	threadData = _threadData;
 	cameraTarget = nullptr;
 	rayBuffer = nullptr;
+	rayStack = nullptr;
 	AOVectorsAround = nullptr;
 	AOVectorsCount = 0;
 	baseX = CVector3(1.0, 0.0, 0.0);
@@ -92,6 +93,8 @@ cRenderWorker::~cRenderWorker()
 		delete[] AOVectorsAround;
 		AOVectorsAround = nullptr;
 	}
+
+	if (rayStack) delete[] rayStack;
 }
 
 // main render engine function called as multiple threads
@@ -470,6 +473,8 @@ void cRenderWorker::PrepareReflectionBuffer()
 		rayBuffer[i].stepBuff = new sStep[maxRaymarchingSteps + 2];
 		rayBuffer[i].buffCount = 0;
 	}
+
+	rayStack = new sRayStack[reflectionsMax + 1];
 }
 
 // calculating vectors for AmbientOcclusion
@@ -717,8 +722,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 {
 	// qDebug() << "----------- new pixel ------------";
 	int rayIndex = 0; // level of recursion
-
-	sRayStack *rayStack = new sRayStack[reflectionsMax + 1];
 
 	rayStack[rayIndex].in = in;
 	rayStack[rayIndex].rayBranch = rayBranchReflection;
@@ -1137,8 +1140,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	} while (rayIndex >= 0);
 
 	sRayRecursionOut out = rayStack[0].out;
-	delete[] rayStack;
-
 	return out;
 }
 

@@ -250,6 +250,7 @@ private:
 	// allocated objects
 	cCameraTarget *cameraTarget;
 	sRayBuffer *rayBuffer;
+	sRayStack *rayStack;
 	sVectorsAround *AOVectorsAround;
 
 public slots:
