@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_hybrid_color</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -44,6 +44,20 @@
    </item>
    <item>
     <widget class="Line" name="line_5">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_65">
+     <property name="text">
+      <string>out.color = (oldHybridColor * weight) + ( orbitTrap * weight) + (newComponents * weight)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_12">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -388,10 +402,10 @@
         <number>3</number>
        </property>
        <property name="minimum">
-        <double>-999.999000000000024</double>
+        <double>-9999.998999999999796</double>
        </property>
        <property name="maximum">
-        <double>999.999000000000024</double>
+        <double>9999.998999999999796</double>
        </property>
        <property name="singleStep">
         <double>1.000000000000000</double>
@@ -624,7 +638,7 @@
         <number>0</number>
        </property>
        <property name="maximum">
-        <number>100000</number>
+        <number>10000000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
@@ -635,7 +649,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_new_scale1">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_new_scale0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -871,7 +885,7 @@
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="QSlider" name="slider_fold_color_new_scale1">
+      <widget class="QSlider" name="slider_fold_color_new_scale0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -951,7 +965,7 @@
         </font>
        </property>
        <property name="text">
-        <string>New components weight</string>
+        <string>New components weight:</string>
        </property>
       </widget>
      </item>
@@ -1488,10 +1502,10 @@
         <number>2</number>
        </property>
        <property name="minimum">
-        <double>-100000.000000000000000</double>
+        <double>-999.990000000000009</double>
        </property>
        <property name="maximum">
-        <double>100000.000000000000000</double>
+        <double>999.990000000000009</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -1755,27 +1769,30 @@
        <number>2</number>
       </property>
       <item>
-	   <widget class="QLabel" name="label_information_general">
-	    <property name="text">
-		 <string notr="true">&lt;p&gt;Hybrid Color Trial&lt;br&gt;&lt;br&gt;for folds the aux.color is updated each iteration&lt;br&gt;depending on which slots have formulas that use it&lt;br&gt;&lt;br&gt;&lt;br&gt;bailout may need to be adjusted with some formulas&lt;/p&gt;&lt;table&gt;
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">&lt;p&gt;Hybrid Color Trial&lt;br&gt;&lt;br&gt;for folds the aux.color is updated each iteration&lt;br&gt;depending on which slots have formulas that use it&lt;br&gt;&lt;br&gt;&lt;br&gt;bailout may need to be adjusted with some formulas&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
-		</property>
-		<property name="wordWrap">
-		 <bool>true</bool>
-		</property>
-		<property name="openExternalLinks">
-		 <bool>true</bool>
-		</property>
-		<property name="textInteractionFlags">
-		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		</property>
-		</widget>
-	   </item>
-	   <item>
-	    <widget class="QLabel" name="label_code_content">
-		 <property name="text">
-		  <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfHybridColorIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// double components = 0.0;&lt;/span&gt;
@@ -1892,22 +1909,19 @@
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
-		 </property>
-		 <property name="wordWrap">
-		  <bool>true</bool>
-		 </property>
-		 <property name="openExternalLinks">
-		  <bool>true</bool>
-		 </property>
-		 <property name="textInteractionFlags">
-		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		 </property>
-		 <property name="styleSheet">
-		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-		  </property>
-		 </widget>
-		</item>
-	   </layout>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>

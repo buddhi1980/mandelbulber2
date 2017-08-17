@@ -245,7 +245,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 	foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
-	foldColor.newScale1 = container->Get<double>("fold_color_new_scale1");
+	foldColor.newScale0 = container->Get<double>("fold_color_new_scale0");
 	foldColor.parabScale0 = container->Get<double>("fold_color_parab_scale0");
 	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
 	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");

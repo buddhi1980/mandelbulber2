@@ -686,7 +686,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_comp_minR", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_comp_scale", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_old_scale1", 1.0, morphAkima, paramStandard);
-	par->addParam("fold_color_new_scale1", 1.0, morphAkima, paramStandard);
+	par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB0", 0.0, morphAkima, paramStandard);

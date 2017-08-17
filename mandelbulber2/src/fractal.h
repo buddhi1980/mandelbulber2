@@ -101,7 +101,7 @@ struct sFoldColor
 	double compScale;
 	double oldScale1;
 	double parabScale0;
-	double newScale1;
+	double newScale0;
 	double limitMin0;
 	double limitMax9999;
 	double scaleA0;

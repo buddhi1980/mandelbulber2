@@ -10463,7 +10463,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
 	if (aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT)
+			&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
 	{
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -10521,7 +10521,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// build and scale componentMaster
 		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias
 												+ planeBias) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
-											* fractal->foldColor.newScale1;
+											* fractal->foldColor.newScale0;
 	}
 
 	// non-linear palette options
