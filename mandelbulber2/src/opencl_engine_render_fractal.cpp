@@ -476,6 +476,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 			{
 				size_t pixelsLeftX = width - jobX;
 				size_t pixelsLeftY = height - jobY;
+				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 
 				// assign parameters to kernel
 				if (!AssignParametersToKernel()) return false;
@@ -500,14 +502,14 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
 					if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 				}
+				QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
+				MarkCurrentPendingTile(image, currentCorners);
 
 				if (!ReadBuffersFromQueue()) return false;
 
 				// Collect Pixel information from the rgbBuffer
 				// Populate the data into image->Put
 
-				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 				for (int x = 0; x < jobWidth2; x++)
 				{
 					for (int y = 0; y < jobHeight2; y++)
@@ -618,6 +620,38 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 	{
 		return false;
 	}
+}
+
+void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect corners)
+{
+	int edgeWidth = max(1, min(corners.width(), corners.height()) / 10);
+	int edgeLength = max(1, min(corners.width(), corners.height()) / 4);
+	for(int _xx = 0; _xx < corners.width(); _xx++){
+		int xx = _xx + corners.x();
+		for(int _yy = 0; _yy < corners.height(); _yy++){
+			int yy = _yy + corners.y();
+			bool border = false;
+			if(_xx < edgeWidth || _xx > corners.width() - edgeWidth)
+			{
+				border = _yy < edgeLength || _yy > corners.height() - edgeLength;
+			}
+			if(!border && (_yy < edgeWidth || _yy > corners.height() - edgeWidth))
+			{
+				border = _xx < edgeLength || _xx > corners.width() - edgeLength;
+			}
+			image->PutPixelImage(xx, yy, border ? sRGBFloat(1, 1, 1) : sRGBFloat(0, 0, 0));
+			image->PutPixelColor(xx, yy, sRGB8(255, 255, 255));
+			image->PutPixelOpacity(xx, yy, 65536);
+			image->PutPixelAlpha(xx, yy, 1);
+		}
+	}
+	QList<QRect> currentRenderededLines;
+	currentRenderededLines << corners;
+	image->NullPostEffect(&currentRenderededLines);
+	image->CompileImage(&currentRenderededLines);
+	image->ConvertTo8bit(&currentRenderededLines);
+	image->UpdatePreview(&currentRenderededLines);
+	image->GetImageWidget()->update();
 }
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
