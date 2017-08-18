@@ -1034,8 +1034,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 				if (rayIndex == reflectionsMax)
 				{
-						reflectance = 0.0;
-						reflectanceN = 1.0;
+					reflectance = 0.0;
+					reflectanceN = 1.0;
 				}
 
 				// combine all results
@@ -1078,7 +1078,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// qDebug() << "Background";
 				backgroundShader = BackgroundShader(shaderInputData);
 				resultShader = backgroundShader;
-				shaderInputData.depth = 1e20;
+				rayMarchingOut.depth = 1e20;
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 				// rayStack[rayIndex].goDeeper = false;
 			}
@@ -1118,7 +1118,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			recursionOut.rayMarchingOut = rayMarchingOut;
 			recursionOut.objectColour = objectColour;
 			recursionOut.resultShader = resultShader;
-			recursionOut.found = (shaderInputData.depth == 1e20) ? false : true;
+			recursionOut.found = rayMarchingOut.found;
 			recursionOut.fogOpacity = opacityOut.R;
 			recursionOut.normal = shaderInputData.normal;
 

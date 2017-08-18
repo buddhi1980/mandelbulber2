@@ -506,7 +506,7 @@ sRayRecursionOut RayRecursion(
 			{
 				backgroundShader = BackgroundShader(consts, &shaderInputData);
 				resultShader.xyz = backgroundShader;
-				shaderInputData.depth = 1e20f;
+				rayMarchingOut.depth = 1e20;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 
@@ -546,7 +546,7 @@ sRayRecursionOut RayRecursion(
 			recursionOut.rayMarchingOut = rayMarchingOut;
 			recursionOut.objectColour = objectColour;
 			recursionOut.resultShader = resultShader;
-			recursionOut.found = (shaderInputData.depth == 1e20) ? false : true;
+			recursionOut.found = rayMarchingOut.found;
 			recursionOut.fogOpacity = opacityOut;
 			recursionOut.normal = shaderInputData.normal;
 
