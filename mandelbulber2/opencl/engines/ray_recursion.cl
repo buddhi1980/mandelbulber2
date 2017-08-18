@@ -198,6 +198,8 @@ sRayRecursionOut RayRecursion(
 	for (int i = 0; i < renderData->reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
+		rayStack[i].reflectShader = 0.0f;
+		rayStack[i].transparentShader = 0.0f;
 	}
 
 	do
@@ -478,10 +480,16 @@ sRayRecursionOut RayRecursion(
 					reflectanceN = 1.0f - reflectance;
 				}
 
-				if (rayIndex == renderData->reflectionsMax) reflectance = 0.0;
+				if (rayIndex == renderData->reflectionsMax)
+				{
+					reflectance = 0.0f;
+					reflectanceN = 1.0f;
+				}
 
 				// combine all results
 				resultShader.xyz = (objectShader + specular);
+
+				//printf("transparentShader %v4f", transparentShader);
 
 				if (renderData->reflectionsMax > 0)
 				{

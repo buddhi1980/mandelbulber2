@@ -1032,7 +1032,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectanceN = 1.0 - reflectance;
 				}
 
-				if (rayIndex == reflectionsMax) reflectance = 0.0;
+				if (rayIndex == reflectionsMax)
+				{
+						reflectance = 0.0;
+						reflectanceN = 1.0;
+				}
 
 				// combine all results
 				resultShader.R = (objectShader.R + specular.R);

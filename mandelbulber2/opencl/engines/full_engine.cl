@@ -169,10 +169,10 @@ kernel void fractal3D(
 	renderData.AOVectorsCount = AOVectorsCount;
 	renderData.reflectionsMax = reflectionsMax;
 
-	float4 resultShader;
-	float3 objectColour;
+	float4 resultShader = 0.0f;
+	float3 objectColour = 0.0f;
 	float3 normal;
-	float opacity;
+	float opacity = 0.0f;
 
 #ifdef PERSP_FISH_EYE_CUT
 	if (!hemisphereCut)
