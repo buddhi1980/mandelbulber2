@@ -164,7 +164,7 @@ kernel void fractal3D(
 	renderData.palette = palette;
 	renderData.AOVectors = AOVectors;
 	renderData.lights = lights;
-	renderData.paletteSize = paletteSize;
+	renderData.paletteSize = paletteLength;
 	renderData.numberOfLights = numberOfLights;
 	renderData.AOVectorsCount = AOVectorsCount;
 	renderData.reflectionsMax = reflectionsMax;

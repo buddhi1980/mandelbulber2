@@ -200,6 +200,8 @@ sRayRecursionOut RayRecursion(
 		rayStack[i].rayBranch = rayBranchReflection;
 		rayStack[i].reflectShader = 0.0f;
 		rayStack[i].transparentShader = 0.0f;
+		rayStack[i].in.objectColour = 0.0f;
+		rayStack[i].in.resultShader = 0.0f;
 	}
 
 	do
@@ -487,9 +489,9 @@ sRayRecursionOut RayRecursion(
 				}
 
 				// combine all results
-				resultShader.xyz = (objectShader + specular);
+				resultShader.xyz = (objectShader);
 
-				//printf("transparentShader %v4f", transparentShader);
+				// printf("transparentShader %v4f", transparentShader);
 
 				if (renderData->reflectionsMax > 0)
 				{
@@ -508,7 +510,7 @@ sRayRecursionOut RayRecursion(
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
 
-			float opacityOut;
+			float opacityOut = 0.0f;
 
 			if (rayStack[rayIndex]
 						.in.calcInside) // if the object interior is traced, then the absorption of light has
