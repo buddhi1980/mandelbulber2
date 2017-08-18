@@ -1812,28 +1812,26 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		{
 			switch (foldN[f])
 			{
-				case multi_orderOfFolds_type1:
+				case multi_orderOfFolds_type1: // tglad fold
 				default:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type3:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type4:
 					// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
@@ -1858,8 +1856,8 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 								- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 											 - fractal->transformCommon.offset2)
 								- fractal->transformCommon.additionConstant111.y;
-					if (z.x != -oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != -oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 					break;
 			}
 		}
@@ -10471,7 +10469,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double distEst = 0.0;
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
-	double factorR = fractal->mandelbox.color.factorR;
+	//double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	double lastColorValue = aux.colorHybrid;
 
