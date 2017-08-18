@@ -154,7 +154,7 @@ kernel void fractal3D(
 	float3 point;
 	float depth = 0.0f;
 
-	int reflectionsMax = consts->params.reflectionsMax * 2;
+	int reflectionsMax = consts->params.reflectionsMax;
 	if (!consts->params.raytracedReflections) reflectionsMax = 0;
 
 	sRenderData renderData;
@@ -192,12 +192,9 @@ kernel void fractal3D(
 		recursionIn.calcInside = false;
 		recursionIn.resultShader = resultShader;
 		recursionIn.objectColour = objectColour;
+		recursionIn.rayBranch = rayBranchReflection;
 
-		sRayRecursionInOut recursionInOut;
-		recursionInOut.rayIndex = 0;
-
-		sRayRecursionOut recursionOut =
-			RayRecursion(recursionIn, &recursionInOut, &renderData, consts, &randomSeed);
+		sRayRecursionOut recursionOut = RayRecursion(recursionIn, &renderData, consts, &randomSeed);
 		resultShader = recursionOut.resultShader;
 		objectColour = recursionOut.objectColour;
 		depth = recursionOut.rayMarchingOut.depth;
