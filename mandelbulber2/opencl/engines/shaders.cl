@@ -718,11 +718,14 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 //------------------- glow
 #ifdef GLOW
 		{
-			float glowOpacity = glow / input->stepCount;
-			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+			if (input->stepCount > 0)
+			{
+				float glowOpacity = glow / input->stepCount;
+				if (glowOpacity > 1.0f) glowOpacity = 1.0f;
 
-			output = glowOpacity * glowColor + (1.0f - glowOpacity) * output;
-			out4.s3 += glowOpacity;
+				output = glowOpacity * glowColor + (1.0f - glowOpacity) * output;
+				out4.s3 += glowOpacity;
+			}
 		}
 #endif // GLOW
 
