@@ -10469,6 +10469,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double distEst = 0.0;
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
+	double divideByIter = 0.0;
+	double radius = 0.0;
 	//double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	double lastColorValue = aux.colorHybrid;
@@ -10477,9 +10479,15 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
 	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
-	if (aux.i >= fractal->transformCommon.startIterationsT
-			&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
+//	if (aux.i >= fractal->transformCommon.startIterationsT
+	//		&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
 	{
+		// radius
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			radius = z.Length();
+			radius = fractal->foldColor.scaleG0 * radius;
+		}
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
 		{
@@ -10534,11 +10542,20 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 
+
 		// build and scale componentMaster
 		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias
-												+ planeBias) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
+												+ planeBias + divideByIter + radius)// + factorR)nnnnnnnnnnnnnnnnnnnnnnn
 											* fractal->foldColor.newScale0;
 	}
+	// divide by i
+	if (fractal->transformCommon.functionEnabledCzFalse)
+	{
+		divideByIter = componentMaster * ( 1.0 + fractal->transformCommon.scale / (aux.i + 1.0));
+	}
+	componentMaster += divideByIter;
+
+
 
 	// non-linear palette options
 	if (fractal->foldColor.parabEnabledFalse)
@@ -10557,12 +10574,9 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		double logCurve = log(componentMaster + 1.0) * fractal->foldColor.scaleE0;
 		componentMaster += logCurve;
 	}
-
-	// divide by i
-	if (fractal->transformCommon.functionEnabledCzFalse)
-	{
-		componentMaster *= ( 1.0 + fractal->transformCommon.scale / (aux.i + 1.0));
-	}
+//	if (fractal->transformCommon.functionEnabledCyFalse &&
+	//		aux.i >= fractal->transformCommon.startIterationsT
+	//		&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
 
 	componentMaster *= 1.0;
 	// limit componentMaster
