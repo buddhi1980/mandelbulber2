@@ -1856,7 +1856,7 @@
      <item row="66" column="2">
       <widget class="QLabel" name="label_67">
        <property name="text">
-        <string> value += value * ( 1.0 + scale/(i + 1.0))</string>
+        <string> value += value * ( 1.0 + scale/( iter + 1.0))</string>
        </property>
       </widget>
      </item>
