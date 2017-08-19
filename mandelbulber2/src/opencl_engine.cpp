@@ -114,7 +114,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			if (checkErr(err, "cl::Program()"))
 			{
 				QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
-				std::string buildParams =	"-w -cl-single-precision-constant -cl-denorms-are-zero";
+				std::string buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero";
 				buildParams.append(" -DOPENCL_KERNEL_CODE -I" + openclPath.toStdString());
 				buildParams += definesCollector.toUtf8().constData();
 				qDebug() << "Build parameters: " << buildParams.c_str();
@@ -227,6 +227,9 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 
 	optimalJob.stepSizeX = pow(2, exp);
 	optimalJob.stepSizeY = optimalJob.stepSize / optimalJob.stepSizeX;
+
+	//	optimalJob.stepSizeX = 1;
+	//	optimalJob.stepSizeY = 1;
 
 	optimalJob.workGroupSizeMultiplier = optimalJob.workGroupSizeOptimalMultiplier;
 	optimalJob.lastProcessingTime = 1.0;

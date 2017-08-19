@@ -258,7 +258,7 @@ kernel void fractal3D(
 		shaderInputData.stepCount = count;
 		shaderInputData.randomSeed = randomSeed;
 
-		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
+		float3 normal = NormalVector(consts, point, distance, distThresh, false, &calcParam);
 		shaderInputData.normal = normal;
 
 		float3 specular = 0.0f;

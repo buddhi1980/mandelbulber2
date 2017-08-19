@@ -148,7 +148,7 @@ kernel void fractal3D(
 	{
 		distThresh = CalcDistThresh(point, consts);
 
-		float3 normal = NormalVector(consts, point, distance, distThresh, &calcParam);
+		float3 normal = NormalVector(consts, point, distance, distThresh, false, &calcParam);
 		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
 		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
 		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),

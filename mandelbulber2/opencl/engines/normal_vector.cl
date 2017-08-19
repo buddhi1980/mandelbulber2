@@ -33,7 +33,7 @@
  */
 
 float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
-	float distThresh, sClCalcParams *calcParam)
+	float distThresh, float invertMode, sClCalcParams *calcParam)
 {
 #ifndef SLOW_SHADING
 	float delta = distThresh * consts->params.smoothness;
@@ -55,6 +55,9 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 	float3 normal = (float3){sx1 - sx2, sy1 - sy2, sz1 - sz2};
 	normal = normalize(normal);
 	calcParam->normalCalculationMode = false;
+
+	if (invertMode) normal *= -1.0f;
+
 	return normal;
 #else
 
@@ -85,8 +88,9 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 	}
 	calcParam->normalCalculationMode = false;
 	normal = normalize(normal);
+
+	if (invertMode) normal *= -1.0f;
+
 	return normal;
 #endif
-
-	// TODO add brute force calculation of normal vector
 }
