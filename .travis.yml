@@ -65,6 +65,8 @@ script:
       ;
     else
          qmake -spec macx-xcode ../qmake/mandelbulber.pro
+      && qmake -project
+      && qmake -o makefile ../qmake/mandelbulber.pro
       ;
     fi
   - make -j3
