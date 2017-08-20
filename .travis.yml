@@ -35,7 +35,7 @@ install:
       ;
     else
          brew update > /dev/null
-      && brew install qt5 gsl llvm lzo tree
+      && brew install qt5 gsl llvm lzo openexr libsndfile tree
       && export CC=/usr/local/opt/llvm/bin/clang
       && export CXX=/usr/local/opt/llvm/bin/clang++
       && export LDFLAGS="-L/usr/local/opt/llvm/lib $LDFLAGS"
@@ -60,7 +60,13 @@ script:
     fi
   - mkdir mandelbulber2/build
   - cd mandelbulber2/build
-  - qmake ../qmake/mandelbulber.pro
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         qmake ../qmake/mandelbulber.pro
+      ;
+    else
+         qmake -spec macx-xcode ../qmake/mandelbulber.pro
+      ;
+    fi
   - make -j3
   - tree .
 
