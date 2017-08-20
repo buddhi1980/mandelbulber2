@@ -8651,6 +8651,7 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 /**
  * spherical fold MBox
+ * This formula contains aux.color
  */
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8683,6 +8684,7 @@ void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtende
  * from Fractal Forums and M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * This formula contains aux.color
  */
 void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8706,6 +8708,7 @@ void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExt
 
 /**
  * spherical fold varyV1 MBox type
+ * This formula contains aux.color
  */
 void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8765,6 +8768,7 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
  * spherical fold Parab, coded by mclarekin
  * @reference
  * http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/smooth-spherical-fold/msg101051/#new
+ * This formula contains aux.color and aux.actualScaleA
  */
 void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8857,6 +8861,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
  * spherical fold CHS Cylinder Half Size. Darkbeam s code from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * This formula contains aux.color
  */
 void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8896,6 +8901,7 @@ void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExte
 
 /**
  * spherical fold varyVCL MBox type
+ * This formula contains aux.color
  */
 void TransfSphericalFoldVaryVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9094,6 +9100,7 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 
 /**
  * spherical pwr fold
+ * This formula contains aux.color
  */
 void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9125,6 +9132,7 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
  * allows different fold types for each axis.
  * amazing surface if one axis has no folds enabled.
  * made from various folds found in the posts at fractalforums.com
+ * This formula contains aux.color
  */
 void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9238,6 +9246,7 @@ void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 /**
  * TransfSurfFoldMultiIteration
  * Based on amazing_surf_mod1 from Mandelbulb3D
+ * This formula contains aux.color
  */
 void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
