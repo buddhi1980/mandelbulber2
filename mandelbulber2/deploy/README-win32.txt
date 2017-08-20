@@ -1,30 +1,49 @@
-MANDELBULBER 2.11
 
-project leader: Krzysztof Marczak
-project members: Sebastian Jennen, Graeme McLaren, Bernardo Martelli, Robert Pancoast
-                 knighty, makemeunsee, Marius Schilder, Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
-                 
-contact: buddhi1980@gmail.com
-www: http://www.mandelbulber.com
-download site: http://sourceforge.net/projects/mandelbulber/
-GIT: https://github.com/buddhi1980/mandelbulber2
-Community: http://www.fractalforums.com/mandelbulber
+															MANDELBULBER 2.11
 
-LICENCE: GNU GPL v3.0
+1. What is Mandelbulber
+-----------------------
 
-1. REQUIREMENTS
+In summary, Mandelbulber generates three-dimensional fractals.
+Explore  trigonometric, hyper-complex, Mandelbox, IFS, Kleinian  and many other
+3D fractals.  Render with a great palette  of customizable materials  to create
+stunning images and videos. The possibilities are literally   i n f i n i t e !
+
+2. Project Members and Links
+----------------------------
+
+PROJECT LEADER:  Krzysztof Marczak
+PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
+								 Robert Pancoast, knighty, makemeunsee, Marius Schilder,
+								 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+
+CONTACT:         buddhi1980@gmail.com
+DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
+DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
+COMMUNITY:       http://www.fractalforums.com/mandelbulber/
+								 https://www.facebook.com/groups/mandelbulber/
+FANSITE:         http://www.mandelbulber.com
+								 http://www.mandelbulber.org
+
+LICENCE:         GNU GPL v3.0
+
+3. REQUIREMENTS
+---------------
 
 - Windows XP or newer
 - very fast CPU (recommended 2GHz, 4 cores)
 - 2GB RAM
 
-2. INSTALLATION
+4. INSTALLATION
+---------------
 
-Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
+Copy this folder somewhere and run Mandelbulber2.exe
+or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
 
 3. Mandelbulber v2 is also available for Linux
 
-4. TESTED ON:
+5. TESTED ON
+------------
 
 - Windows XP 32-bit
 - Windows Vista 64-bit
@@ -35,18 +54,27 @@ Copy this folder somewhere and run Mandelbulber2.exe or run Mandelbulber v2-2.xx
 - gcc 5.4.0
 - clang 3.7.0
 - msvc14
+- msvc16
 - Qt 5.6.1
 
-5. USAGE
+6. USAGE
+--------
 
-Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
+The main documentation is the PDF file  Mandelbulber_Manual.pdf,  which you can
+find in this very folder.
+Also you can open it from Mandelbulber under: Menu > Help > User Manual
+A lot of useful information you can find  in the tooltips.  Just hover with the
+mouse pointer over the edit fields.
+More useful material can be found in the wiki documentation for old
+Mandelbulber (v1) here: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
-Actually there is only available documentation for old Mandelbulber (v1)
 
-A lot of useful information you can find in tooltips.
-
-6. COMMAND LINE INTERFACE
+7. COMMAND LINE INTERFACE
 -------------------------
+
+The program can be used "headless" from the console. This way the program can
+be integrated in scripts or toolchains and even be run without a x-server
+completely.
 
 Usage: ./mandelbulber2 [options] settings_file
 

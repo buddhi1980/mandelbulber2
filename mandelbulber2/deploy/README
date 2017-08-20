@@ -75,7 +75,7 @@ QGAMEPAD: for gamepad support qt is required in version 5.7 and above
 5. INSTALLATION
 ---------------
 
-Run the install installation:
+Run the install script:
 ./install
 (This will also run the compilation)
 
@@ -98,15 +98,20 @@ Run the install installation:
 7. USAGE
 --------
 
-Please visit: http://wiki.mandelbulber.com/index.php?title=Main_Page
-
-Actually there is only available documentation for old Mandelbulber (v1)
-
-A lot of useful information you can find in tooltips. Just hover with the mouse
-pointer over the edit fields.
+The main documentation is the PDF file  Mandelbulber_Manual.pdf,  which you can
+find in this very folder.
+Also you can open it from Mandelbulber under: Menu > Help > User Manual
+A lot of useful information you can find  in the tooltips.  Just hover with the
+mouse pointer over the edit fields.
+More useful material can be found in the wiki documentation for old
+Mandelbulber (v1) here: http://wiki.mandelbulber.com/index.php?title=Main_Page
 
 8. COMMAND LINE INTERFACE
 -------------------------
+
+The program can be used "headless" from the console. This way the program can
+be integrated in scripts or toolchains and even be run without a x-server
+completely.
 
 Usage: ./mandelbulber2 [options] settings_file
 
