@@ -1193,6 +1193,7 @@ offset:</string>
 	    <property name="text">
 		 <string notr="true">&lt;p&gt;GeneralizedFoldBoxIteration - Quaternion fractal with extended controls&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/&quot;&gt;http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/&lt;br&gt;
+&lt;a href=&quot;This formula contains aux.color&quot;&gt;This formula contains aux.color&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox01.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox02.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/GeneralizedFoldBox03_2.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/hybrid31.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox56.fract&lt;h3&gt;Code&lt;/h3&gt;</string>

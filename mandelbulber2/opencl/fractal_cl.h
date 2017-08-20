@@ -115,6 +115,7 @@ typedef struct
 	cl_float scaleD0;
 	cl_float scaleE0;
 	cl_float scaleF0;
+	cl_float scaleG0;
 	cl_float period1;
 	cl_float trigAdd1;
 
@@ -711,6 +712,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleD0 = source.scaleD0;
 	target.scaleE0 = source.scaleE0;
 	target.scaleF0 = source.scaleF0;
+	target.scaleG0 = source.scaleG0;
 	target.period1 = source.period1;
 	target.trigAdd1 = source.trigAdd1;
 	target.intAx0 = source.intAx0;

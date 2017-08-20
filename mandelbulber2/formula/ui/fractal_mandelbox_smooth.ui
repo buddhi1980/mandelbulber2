@@ -996,6 +996,7 @@ min radius:</string>
 	    <property name="text">
 		 <string notr="true">&lt;p&gt;Smooth Mandelbox created by Buddhi&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/&quot;&gt;http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/&lt;br&gt;
+&lt;a href=&quot;This formula contains aux.color&quot;&gt;This formula contains aux.color&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;smooth_mandelbox_001.fract&lt;br&gt;Krzysztof Marczak collection - license Creative Commons (CC-BY 4.0)/mandelbox61.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
