@@ -1605,7 +1605,7 @@ reverse offset:</string>
        <item row="1" column="0">
         <widget class="QLabel" name="label_144">
          <property name="text">
-          <string>Scale Vary:</string>
+          <string>Scale VaryA:</string>
          </property>
         </widget>
        </item>

@@ -340,7 +340,7 @@
      <item row="66" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
        <property name="text">
-        <string>divide by iteration count</string>
+        <string>Iteration count function</string>
        </property>
       </widget>
      </item>
