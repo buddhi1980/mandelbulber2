@@ -10183,14 +10183,14 @@ void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z.z = -fractal->mandelbox.foldingValue - z.z;
 		aux.color += fractal->mandelbox.color.factor4D.z;
 	}
-	if (z.z > fractal->mandelbox.foldingLimit)
+	if (z.w > fractal->mandelbox.foldingLimit)
 	{
-		z.z = fractal->mandelbox.foldingValue - z.w;
+		z.w = fractal->mandelbox.foldingValue - z.w;
 		aux.color += fractal->mandelbox.color.factor4D.w;
 	}
-	else if (z.z < -fractal->mandelbox.foldingLimit)
+	else if (z.w < -fractal->mandelbox.foldingLimit)
 	{
-		z.z = -fractal->mandelbox.foldingValue - z.w;
+		z.w = -fractal->mandelbox.foldingValue - z.w;
 		aux.color += fractal->mandelbox.color.factor4D.w;
 	}
 }
