@@ -1,5 +1,5 @@
 
-															MANDELBULBER 2.11
+                              MANDELBULBER 2.11
 
 1. What is Mandelbulber
 -----------------------
@@ -14,16 +14,16 @@ stunning images and videos. The possibilities are literally   i n f i n i t e !
 
 PROJECT LEADER:  Krzysztof Marczak
 PROJECT MEMBERS: Sebastian Jennen, Graeme McLaren, Bernardo Martelli,
-								 Robert Pancoast, knighty, makemeunsee, Marius Schilder,
-								 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
+                 Robert Pancoast, knighty, makemeunsee, Marius Schilder,
+                 Ryan Hitchman, Jeff Epler, Martin Reinecke, Quazgaa
 
 CONTACT:         buddhi1980@gmail.com
 DOWNLOAD:        https://sourceforge.net/projects/mandelbulber/
 DEVELOPMENT:     https://github.com/buddhi1980/mandelbulber2/
 COMMUNITY:       http://www.fractalforums.com/mandelbulber/
-								 https://www.facebook.com/groups/mandelbulber/
+                 https://www.facebook.com/groups/mandelbulber/
 FANSITE:         http://www.mandelbulber.com
-								 http://www.mandelbulber.org
+                 http://www.mandelbulber.org
 
 LICENCE:         GNU GPL v3.0
 
