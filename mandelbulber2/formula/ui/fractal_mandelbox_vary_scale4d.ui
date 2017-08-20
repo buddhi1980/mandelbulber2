@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbox_vary_scale4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>2614</height>
+    <width>936</width>
+    <height>2678</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -534,7 +534,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -930,44 +930,20 @@
         </item>
        </layout>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>Coloring parameters</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_5" rowstretch="0">
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <item row="0" column="0">
+      <item>
        <layout class="QGridLayout" name="gridLayout_4">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_28">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_24">
           <property name="text">
-           <string>Min radius component:</string>
+           <string>Absolute value of z:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_y">
+        <item row="5" column="1">
+         <widget class="QSlider" name="slider3_mandelbox_color_4D_w">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -988,8 +964,15 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_30">
+          <property name="text">
+           <string>W  plane component:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_w">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1016,8 +999,37 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_28">
+          <property name="text">
+           <string>Min radius component:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSlider" name="slider3_mandelbox_color_4D_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>-500</number>
+          </property>
+          <property name="maximum">
+           <number>500</number>
+          </property>
+          <property name="singleStep">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1044,14 +1056,42 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="4" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
          <widget class="QLabel" name="label_26">
           <property name="text">
            <string>Y plane component:</string>
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="6" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_Sp1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1073,7 +1113,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
+        <item row="7" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_Sp2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1095,7 +1135,7 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="6" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1123,7 +1163,7 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
+        <item row="7" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1151,7 +1191,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_R">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1179,8 +1219,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_z">
+        <item row="4" column="1">
+         <widget class="QSlider" name="slider3_mandelbox_color_4D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1201,15 +1241,8 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_24">
-          <property name="text">
-           <string>Absolute value of z:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
+        <item row="3" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1236,15 +1269,15 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0">
+        <item row="7" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
            <string>Fixed radius component:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_x">
+        <item row="2" column="1">
+         <widget class="QSlider" name="slider3_mandelbox_color_4D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1265,21 +1298,21 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <widget class="QLabel" name="label_25">
           <property name="text">
            <string>X plane component:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <widget class="QLabel" name="label_27">
           <property name="text">
            <string>Z plane component:</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="1">
          <widget class="QSlider" name="slider_mandelbox_color_R">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1301,8 +1334,39 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label_31">
+          <property name="text">
+           <string>Coloring parameters</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string/>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5" rowstretch="0">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <property name="spacing">
+       <number>2</number>
+      </property>
      </layout>
     </widget>
    </item>
@@ -1334,27 +1398,30 @@
        <number>2</number>
       </property>
       <item>
-	   <widget class="QLabel" name="label_information_general">
-	    <property name="text">
-		 <string notr="true">&lt;p&gt;Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.&lt;/p&gt;&lt;table&gt;
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">&lt;p&gt;Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;mandelbox_vary_scale_4D_001.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
-		</property>
-		<property name="wordWrap">
-		 <bool>true</bool>
-		</property>
-		<property name="openExternalLinks">
-		 <bool>true</bool>
-		</property>
-		<property name="textInteractionFlags">
-		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		</property>
-		</widget>
-	   </item>
-	   <item>
-	    <widget class="QLabel" name="label_code_content">
-		 <property name="text">
-		  <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;MandelboxVaryScale4dIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;actualScale &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt;
@@ -1463,22 +1530,19 @@
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
-		 </property>
-		 <property name="wordWrap">
-		  <bool>true</bool>
-		 </property>
-		 <property name="openExternalLinks">
-		  <bool>true</bool>
-		 </property>
-		 <property name="textInteractionFlags">
-		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		 </property>
-		 <property name="styleSheet">
-		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-		  </property>
-		 </widget>
-		</item>
-	   </layout>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -1498,11 +1562,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1512,6 +1571,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1549,12 +1613,12 @@
   <tabstop>spinboxd3_transf_rotation44b_z</tabstop>
   <tabstop>slider_mandelbox_color_R</tabstop>
   <tabstop>spinbox_mandelbox_color_R</tabstop>
-  <tabstop>slider3_mandelbox_color_x</tabstop>
-  <tabstop>spinbox3_mandelbox_color_x</tabstop>
-  <tabstop>slider3_mandelbox_color_y</tabstop>
-  <tabstop>spinbox3_mandelbox_color_y</tabstop>
-  <tabstop>slider3_mandelbox_color_z</tabstop>
-  <tabstop>spinbox3_mandelbox_color_z</tabstop>
+  <tabstop>slider3_mandelbox_color_4D_x</tabstop>
+  <tabstop>spinbox3_mandelbox_color_4D_x</tabstop>
+  <tabstop>slider3_mandelbox_color_4D_y</tabstop>
+  <tabstop>spinbox3_mandelbox_color_4D_y</tabstop>
+  <tabstop>slider3_mandelbox_color_4D_z</tabstop>
+  <tabstop>spinbox3_mandelbox_color_4D_z</tabstop>
   <tabstop>slider_mandelbox_color_Sp1</tabstop>
   <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
   <tabstop>slider_mandelbox_color_Sp2</tabstop>

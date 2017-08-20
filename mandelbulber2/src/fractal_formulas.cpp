@@ -6485,6 +6485,7 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 /**
  * GeneralizedFoldBoxIteration - Quaternion fractal with extended controls
  * @reference http://www.fractalforums.com/new-theories-and-research/generalized-box-fold/
+ * This formula contains aux.color
  */
 void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -7353,6 +7354,7 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 
 /**
  * Box Fold
+ * This formula contains aux.color
  */
 void TransfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -7377,6 +7379,7 @@ void TransfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 /**
  * Box Fold VaryV1. Varies folding limit based on iteration conditions
+ * This formula contains aux.color
  */
 void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -7440,6 +7443,7 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 
 /**
  * Box Fold XYZ, set different folding parameters for each axis
+ * This formula contains aux.color
  */
 void TransfBoxFoldXYZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -10136,6 +10140,7 @@ void TransfAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 /**
  * box fold 4D
+ * This formula contains aux.color
  */
 void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -10385,6 +10390,7 @@ void TransfScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 /**
  * spherical fold 4D
+ * This formula contains aux.color
  */
 void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
