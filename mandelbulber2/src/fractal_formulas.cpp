@@ -9371,10 +9371,6 @@ void Abox4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				- fabs(z.z - fractal->transformCommon.offset1111.z) - z.z;
 	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
 				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
-
-
-
-
 		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
 		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
 		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
@@ -10193,6 +10189,28 @@ void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z.w = -fractal->mandelbox.foldingValue - z.w;
 		aux.color += fractal->mandelbox.color.factor4D.w;
 	}
+}
+/**
+ * box fold 4D
+ * This formula contains aux.color
+ */
+void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
+				- fabs(z.x - fractal->transformCommon.offset1111.x) - z.x;
+	z.y = fabs(z.y + fractal->transformCommon.offset1111.y)
+				- fabs(z.y - fractal->transformCommon.offset1111.y) - z.y;
+	z.z = fabs(z.z + fractal->transformCommon.offset1111.z)
+				- fabs(z.z - fractal->transformCommon.offset1111.z) - z.z;
+	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
+				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
+
+	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+	if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
+
 }
 
 /**

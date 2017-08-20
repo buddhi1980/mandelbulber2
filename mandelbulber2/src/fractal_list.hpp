@@ -168,6 +168,7 @@ enum enumFractalFormula
 	josKleinian = 122,
 	aboxMod12 = 123,
 
+
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
 
@@ -250,6 +251,9 @@ enum enumFractalFormula
 	transfSphericalFoldParab = 1073,
 	// 2.12
 	transfScaleVaryMulti = 1074,
+	transfBoxFold4dTglad = 1075,
+
+
 
 	// hybrid color trial
 

@@ -241,6 +241,7 @@ void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 void TransfAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfFabsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfFabsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfFabsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

@@ -601,6 +601,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Box Fold 4D", "transf_box_fold4d", transfBoxFold4d,
 		TransfBoxFold4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>Box Fold 4D Tglad", "transf_box_fold4d_tglad", transfBoxFold4dTglad,
+		TransfBoxFold4dTgladIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionNone, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Fabs Add Conditional 4D",
 		"transf_fabs_add_conditional4d", transfFabsAddConditional4d,
 		TransfFabsAddConditional4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault,
