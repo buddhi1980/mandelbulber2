@@ -49,8 +49,12 @@ typedef struct
 {
 	sRayRecursionIn in;
 	sRayRecursionOut out;
+#ifdef USE_REFLECTANCE
 	float4 reflectShader;
+#endif
+#ifdef USE_REFRACTION
 	float4 transparentShader;
+#endif
 	enumRayBranch rayBranch;
 	bool goDeeper;
 } sRayStack;
@@ -70,11 +74,14 @@ typedef struct
 
 } sRenderData;
 
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 float3 ReflectionVector(const float3 normal, const float3 incident)
 {
 	return incident - normal * dot(incident, normal) * 2.0f;
 }
+#endif
 
+#ifdef USE_REFRACTION
 float3 RefractVector(const float3 normal, const float3 incident, float n1, float n2)
 {
 	const float n = n1 / n2;
@@ -84,7 +91,9 @@ float3 RefractVector(const float3 normal, const float3 incident, float n1, float
 	const float cosT = sqrt(1.0f - sinT2);
 	return incident * n + normal * (n * cosI - cosT);
 }
+#endif
 
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 float Reflectance(const float3 normal, const float3 incident, float n1, float n2)
 {
 	const float n = n1 / n2;
@@ -96,6 +105,7 @@ float Reflectance(const float3 normal, const float3 incident, float n1, float n2
 	const float rPar = (n2 * cosI - n1 * cosT) / (n2 * cosI + n1 * cosT);
 	return (r0rth * r0rth + rPar * rPar) / 2.0f;
 }
+#endif
 
 void RayMarching(
 	sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts, int *randomSeed)
@@ -128,11 +138,13 @@ void RayMarching(
 		outF = CalculateDistance(consts, point, &calcParam);
 		distance = outF.distance;
 
+#ifdef USE_REFRACTION
 		if (in.invertMode)
 		{
 			distance = distThresh * 1.99 - distance;
 			if (distance < 0.0) distance = 0.0;
 		}
+#endif
 
 		if (distance < distThresh)
 		{
@@ -179,11 +191,13 @@ void RayMarching(
 			outF = CalculateDistance(consts, point, &calcParam);
 			distance = outF.distance;
 
+			//#ifdef USE_REFRACTION
 			if (in.invertMode)
 			{
 				distance = distThresh * 1.99 - distance;
 				if (distance < 0.0) distance = 0.0;
 			}
+			//#endif
 
 			step *= 0.5f;
 		}
@@ -202,7 +216,7 @@ sRayRecursionOut RayRecursion(
 {
 	int rayIndex = 0; // level of recursion
 
-	sRayStack rayStack[11];
+	sRayStack rayStack[REFLECTIONS_MAX + 2];
 
 	rayStack[rayIndex].in = in;
 	rayStack[rayIndex].rayBranch = rayBranchReflection;
@@ -211,13 +225,15 @@ sRayRecursionOut RayRecursion(
 	for (int i = 0; i < renderData->reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
+#ifdef USE_REFLECTANCE
 		rayStack[i].reflectShader = 0.0f;
+#endif
+#ifdef USE_REFRACTION
 		rayStack[i].transparentShader = 0.0f;
+#endif
 		rayStack[i].in.objectColour = 0.0f;
 		rayStack[i].in.resultShader = 0.0f;
 	}
-
-	// printf("----- start ----- \n");
 
 	do
 	{
@@ -273,6 +289,9 @@ sRayRecursionOut RayRecursion(
 					shaderInputData.distThresh, shaderInputData.invertMode, &calcParam);
 				shaderInputData.normal = normal;
 
+				rayStack[rayIndex].out.normal = normal;
+
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
 				float n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
@@ -287,8 +306,6 @@ sRayRecursionOut RayRecursion(
 					n2 = shaderInputData.material->transparencyIndexOfRefraction;
 				}
 
-				rayStack[rayIndex].out.normal = normal;
-
 				if (rayIndex < renderData->reflectionsMax)
 				{
 
@@ -298,6 +315,7 @@ sRayRecursionOut RayRecursion(
 						// qDebug() << "Reflection" << rayIndex;
 						rayStack[rayIndex].rayBranch = rayBranchRefraction;
 
+#ifdef USE_REFLECTANCE
 						// calculate reflection
 						if (reflect > 0.0f)
 						{
@@ -330,12 +348,14 @@ sRayRecursionOut RayRecursion(
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
 							continue;
 						}
+#endif
 					}
 
 					if (rayStack[rayIndex].rayBranch == rayBranchRefraction)
 					{
 						rayStack[rayIndex].rayBranch = rayBranchDone;
 
+#ifdef USE_REFRACTION
 						// calculate refraction (transparency)
 						if (transparent > 0.0f)
 						{
@@ -385,6 +405,7 @@ sRayRecursionOut RayRecursion(
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
 							continue;
 						}
+#endif
 					}
 
 					if (rayStack[rayIndex].rayBranch == rayBranchDone)
@@ -392,11 +413,14 @@ sRayRecursionOut RayRecursion(
 						rayStack[rayIndex].goDeeper = false;
 					}
 				} // reflectionsMax
+
 				else
 				{
 					rayStack[rayIndex].goDeeper = false;
 				}
-
+#else // defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
+				rayStack[rayIndex].goDeeper = false;
+#endif
 			} // found
 			else
 			{
@@ -414,8 +438,12 @@ sRayRecursionOut RayRecursion(
 
 			float3 point = rayMarchingOut.point;
 
+#ifdef USE_REFLECTANCE
 			float4 reflectShader = rayStack[rayIndex].reflectShader;
+#endif
+#ifdef USE_REFRACTION
 			float4 transparentShader = rayStack[rayIndex].transparentShader;
+#endif
 
 			float distThresh = CalcDistThresh(point, consts);
 
@@ -445,16 +473,22 @@ sRayRecursionOut RayRecursion(
 			calcParam.detailSize = shaderInputData.delta;
 			calcParam.randomSeed = *randomSeed;
 
+#ifdef USE_REFLECTANCE
 			float reflect = shaderInputData.material->reflectance;
+#endif
+#ifdef USE_REFRACTION
 			float transparent = shaderInputData.material->transparencyOfSurface;
+#endif
 
 			float4 resultShader = rayStack[rayIndex].in.resultShader;
 			float3 objectColour = rayStack[rayIndex].in.objectColour;
 
+#ifdef USE_REFRACTION
 			float4 transparentColor = (float4){shaderInputData.material->transparencyInteriorColor.s0,
 				shaderInputData.material->transparencyInteriorColor.s1,
 				shaderInputData.material->transparencyInteriorColor.s2, 0.0};
 			resultShader = transparentColor;
+#endif
 
 			float3 objectShader;
 			float3 backgroundShader;
@@ -463,25 +497,14 @@ sRayRecursionOut RayRecursion(
 
 			shaderInputData.normal = recursionOut.normal;
 
-			// printf("level %d", rayIndex);
-
-			//			if (rayStack[rayIndex].in.rayBranch == rayBranchReflection)
-			//			{
-			//				//printf(" reflection \n");
-			//			}
-			//			else
-			//			{
-			//				//printf(" refraction \n");
-			//			}
-			//			//printf("found %d\n", rayMarchingOut.found);
-
 			if (rayMarchingOut.found)
 			{
 				specular = 0.0f;
 				objectShader = ObjectShader(consts, &shaderInputData, &calcParam, &objectColour, &specular);
 
-				// calculate reflectance according to Fresnel equations
+// calculate reflectance according to Fresnel equations
 
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
 				float n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
@@ -513,43 +536,30 @@ sRayRecursionOut RayRecursion(
 					reflectance = 0.0f;
 					reflectanceN = 1.0f;
 				}
+#endif
 
 				// combine all results
-
 				resultShader.xyz = (objectShader);
 
-				// printf("direction ");
-				// printf("%v3f\n", rayStack[rayIndex].in.rayMarchingIn.direction);
-				// printf("objectShader ");
-				// printf("%v3f\n", objectShader);
-				// printf("transparentShader ");
-				// printf("%v4f\n", transparentShader);
-				// printf("reflectShader ");
-				// printf("%v4f\n", reflectShader);
-				// printf("transparent %f\n", transparent);
-				// printf("reflectance %f\n", reflectance);
-				// printf("reflectanceN %f\n", reflectanceN);
-
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				if (renderData->reflectionsMax > 0)
 				{
+#ifdef USE_REFRACTION
 					resultShader = transparentShader * transparent * reflectanceN
 												 + (1.0f - transparent * reflectanceN) * resultShader;
-					// printf("resultShader transp ");
-					// printf("%v4f\n", resultShader);
+#endif
 
+#ifdef USE_REFLECTANCE
 					resultShader =
 						reflectShader * reflect * reflectance + (1.0f - reflect * reflectance) * resultShader;
-
-					// printf("resultShader reflect ");
-					// printf("%v4f\n", resultShader);
+#endif
 				}
+#endif
 				resultShader = max(resultShader, 0.0f);
 			}
 			else
 			{
 				backgroundShader = BackgroundShader(consts, &shaderInputData);
-				// printf(" backgroud \n");
-				// printf("backgroundShader %v3f\n", backgroundShader);
 				resultShader.xyz = backgroundShader;
 				rayMarchingOut.depth = 1e20f;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
@@ -557,8 +567,8 @@ sRayRecursionOut RayRecursion(
 
 			float opacityOut = 0.0f;
 
+#ifdef USE_REFRACTION
 			float step = rayMarchingOut.depth / shaderInputData.stepCount;
-
 			if (rayStack[rayIndex]
 						.in.calcInside) // if the object interior is traced, then the absorption of light has
 														// to
@@ -575,13 +585,11 @@ sRayRecursionOut RayRecursion(
 				}
 			}
 			else
+#endif
 			{
 				float4 color4 = (float4){resultShader.s0, resultShader.s1, resultShader.s2, 0.0f};
 				resultShader = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
 			}
-
-			// printf("resultShader final ");
-			// printf("%v4f\n", resultShader);
 
 			recursionOut.point = point;
 			recursionOut.rayMarchingOut = rayMarchingOut;
@@ -592,19 +600,26 @@ sRayRecursionOut RayRecursion(
 			recursionOut.normal = shaderInputData.normal;
 
 			rayStack[rayIndex].out = recursionOut;
+
+#if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 			if (rayIndex > 0)
 			{
 				if (rayStack[rayIndex].in.rayBranch == rayBranchReflection)
 				{
+#ifdef USE_REFLECTANCE
 					rayStack[rayIndex - 1].reflectShader = resultShader;
+#endif
 				}
 				else
 				{
+#ifdef USE_REFRACTION
 					rayStack[rayIndex - 1].transparentShader = resultShader;
+#endif
 				}
 				rayStack[rayIndex - 1].in.resultShader = resultShader;
 				rayStack[rayIndex - 1].in.objectColour = objectColour;
 			}
+#endif
 
 			rayIndex--;
 		}

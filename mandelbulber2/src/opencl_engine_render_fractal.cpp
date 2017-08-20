@@ -350,6 +350,26 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	CreateMaterialsMap(paramContainer, &materials, true);
 	dynamicData->BuildMaterialsData(materials);
 
+	bool anyMaterialIsReflective = false;
+	bool anyMaterialIsRefractive = false;
+	foreach (cMaterial material, materials)
+	{
+		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
+		if (material.transparencyOfSurface > 0.0) anyMaterialIsRefractive = true;
+	}
+	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
+	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
+
+	if ((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
+	{
+		definesCollector += " -DREFLECTIONS_MAX=" + QString::number(paramRender->reflectionsMax + 1);
+	}
+	else
+	{
+		paramRender->reflectionsMax = 0;
+		definesCollector += " -DREFLECTIONS_MAX=1";
+	}
+
 	// AO colored vectors
 	cRenderWorker *tempRenderWorker =
 		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr);
@@ -626,16 +646,18 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 {
 	int edgeWidth = max(1, min(corners.width(), corners.height()) / 10);
 	int edgeLength = max(1, min(corners.width(), corners.height()) / 4);
-	for(int _xx = 0; _xx < corners.width(); _xx++){
+	for (int _xx = 0; _xx < corners.width(); _xx++)
+	{
 		int xx = _xx + corners.x();
-		for(int _yy = 0; _yy < corners.height(); _yy++){
+		for (int _yy = 0; _yy < corners.height(); _yy++)
+		{
 			int yy = _yy + corners.y();
 			bool border = false;
-			if(_xx < edgeWidth || _xx > corners.width() - edgeWidth)
+			if (_xx < edgeWidth || _xx > corners.width() - edgeWidth)
 			{
 				border = _yy < edgeLength || _yy > corners.height() - edgeLength;
 			}
-			if(!border && (_yy < edgeWidth || _yy > corners.height() - edgeWidth))
+			if (!border && (_yy < edgeWidth || _yy > corners.height() - edgeWidth))
 			{
 				border = _xx < edgeLength || _xx > corners.width() - edgeLength;
 			}
