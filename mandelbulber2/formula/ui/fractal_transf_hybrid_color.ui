@@ -51,7 +51,7 @@
       </font>
      </property>
      <property name="text">
-      <string>To use ONLY new components both Old Hybrid and Orbit Trap weights to ZERO.</string>
+      <string>To use ONLY new components set  both Old Hybrid and Orbit Trap weights to ZERO.</string>
      </property>
     </widget>
    </item>
@@ -1382,7 +1382,7 @@
      <item row="55" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
        <property name="text">
-        <string>XYZ bias</string>
+        <string>XYZ bias component</string>
        </property>
       </widget>
      </item>
@@ -1665,7 +1665,7 @@
      <item row="60" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string>Plane bias</string>
+        <string>Plane bias component</string>
        </property>
       </widget>
      </item>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>936</width>
-    <height>2678</height>
+    <height>2736</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -943,7 +943,7 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_4D_w">
+         <widget class="QSlider" name="slider4_mandelbox_color_4D_w">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -972,7 +972,7 @@
          </widget>
         </item>
         <item row="5" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_w">
+         <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_w">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1007,7 +1007,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_4D_y">
+         <widget class="QSlider" name="slider4_mandelbox_color_4D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1029,7 +1029,7 @@
          </widget>
         </item>
         <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_x">
+         <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1057,7 +1057,7 @@
          </widget>
         </item>
         <item row="4" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_z">
+         <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1220,7 +1220,7 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_4D_z">
+         <widget class="QSlider" name="slider4_mandelbox_color_4D_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1242,7 +1242,7 @@
          </widget>
         </item>
         <item row="3" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_y">
+         <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1277,7 +1277,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSlider" name="slider3_mandelbox_color_4D_x">
+         <widget class="QSlider" name="slider4_mandelbox_color_4D_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1613,12 +1613,12 @@
   <tabstop>spinboxd3_transf_rotation44b_z</tabstop>
   <tabstop>slider_mandelbox_color_R</tabstop>
   <tabstop>spinbox_mandelbox_color_R</tabstop>
-  <tabstop>slider3_mandelbox_color_4D_x</tabstop>
-  <tabstop>spinbox3_mandelbox_color_4D_x</tabstop>
-  <tabstop>slider3_mandelbox_color_4D_y</tabstop>
-  <tabstop>spinbox3_mandelbox_color_4D_y</tabstop>
-  <tabstop>slider3_mandelbox_color_4D_z</tabstop>
-  <tabstop>spinbox3_mandelbox_color_4D_z</tabstop>
+  <tabstop>slider4_mandelbox_color_4D_x</tabstop>
+  <tabstop>spinbox4_mandelbox_color_4D_x</tabstop>
+  <tabstop>slider4_mandelbox_color_4D_y</tabstop>
+  <tabstop>spinbox4_mandelbox_color_4D_y</tabstop>
+  <tabstop>slider4_mandelbox_color_4D_z</tabstop>
+  <tabstop>spinbox4_mandelbox_color_4D_z</tabstop>
   <tabstop>slider_mandelbox_color_Sp1</tabstop>
   <tabstop>spinbox_mandelbox_color_Sp1</tabstop>
   <tabstop>slider_mandelbox_color_Sp2</tabstop>

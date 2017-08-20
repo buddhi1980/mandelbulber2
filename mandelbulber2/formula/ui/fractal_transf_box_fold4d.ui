@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>835</width>
-    <height>930</height>
+    <height>1092</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -180,7 +180,7 @@
       <number>2</number>
      </property>
      <item row="3" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_z">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -208,7 +208,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSlider" name="slider3_mandelbox_color_4D_x">
+      <widget class="QSlider" name="slider4_mandelbox_color_4D_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -230,7 +230,7 @@
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSlider" name="slider3_mandelbox_color_4D_y">
+      <widget class="QSlider" name="slider4_mandelbox_color_4D_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -252,7 +252,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_w">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_w">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -280,7 +280,7 @@
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QSlider" name="slider3_mandelbox_color_4D_w">
+      <widget class="QSlider" name="slider4_mandelbox_color_4D_w">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -309,7 +309,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QSlider" name="slider3_mandelbox_color_4D_z">
+      <widget class="QSlider" name="slider4_mandelbox_color_4D_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -331,7 +331,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_y">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -359,7 +359,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_4D_x">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
