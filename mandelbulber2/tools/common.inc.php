@@ -20,6 +20,7 @@ function printStart()
 
 function printFinish()
 {
+    echo "\33[2K\r";
 	$secString = noticeString(number_format(microtime(true) - START_TIME, 2) . ' seconds');
 	echo 'script took ' . $secString . ' to complete.' . PHP_EOL;
 	if (isDryRun()) {
@@ -30,8 +31,9 @@ function printFinish()
 	}
 }
 
-function printResultLine($name, $success, $status)
+function printResultLine($name, $success, $status, $progress = -1)
 {
+    echo "\33[2K\r";
 	$out = str_pad(' ├── ' . $name, 50);
 	if (!($success && !isVerbose() && count($status) == 0)) {
 		if ($success) {
@@ -46,7 +48,20 @@ function printResultLine($name, $success, $status)
 			}
 		}
 	}
-	echo "\33[2Khandled: $name\r";
+	echo printProgress($progress) . " handled: $name";
+}
+
+function printProgress($percent){
+    if($percent < 0) return '';
+	$freeWidth = 20;
+	$intProgress = floor($freeWidth * $percent);
+
+	$text = noticeString('[');
+	$text .= progressString(str_repeat('#', $intProgress));
+	$text .= str_repeat(' ', $freeWidth - $intProgress);
+	$text .= '/ ' . progressString(str_pad(number_format($percent * 100, 1), 4, ' ', STR_PAD_LEFT) . '%');
+	$text .= noticeString(']');
+	return $text;
 }
 
 function printStartGroup($title)
@@ -56,7 +71,7 @@ function printStartGroup($title)
 
 function printEndGroup()
 {
-	echo "\33[2K";
+    echo "\33[2K\r";
 	echo ' ╹' . PHP_EOL;
 }
 
@@ -73,6 +88,11 @@ function successString($s)
 function noticeString($s)
 {
 	return "\033[1;34m" . $s . "\033[0m";
+}
+
+function progressString($s)
+{
+	return "\033[1;35m" . $s . "\033[0m";
 }
 
 function warningString($s)

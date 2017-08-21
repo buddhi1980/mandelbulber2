@@ -24,13 +24,14 @@ $formulaExampleUsage = getFormulaExampleUsage();
 
 printStartGroup('RUNNING FORMULA CHECKS');
 foreach ($formulas as $index => $formula) {
+    @$i++;
 	$success = true;
 	$status = array();
 	if ($success) $success = updateInfoBoxes($index, $formula, $status);
 	if ($success) $success = generateFormulaOpenCLFiles($formula, $status);
 	if ($success) $success = generateFormulaIcons($formula, $status);
 	if ($success && argumentContains('checkCl')) $success = checkOpenCLCompile($formula, $status);
-	printResultLine($formula['name'], $success, $status);
+	printResultLine($formula['name'], $success, $status, $i / count($formulas));
 }
 printEndGroup();
 

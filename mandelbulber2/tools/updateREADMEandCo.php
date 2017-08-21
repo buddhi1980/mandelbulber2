@@ -27,7 +27,7 @@ $readmes['win']['path'] = PROJECT_PATH . 'deploy/README-win32.txt';
 
 printStartGroup('WRITING HELP OUTPUT TO README');
 foreach ($readmes as $type => $readme) {
-	$status = array();
+    $status = array();
 	$success = updateReadme($readme, $status, $cliOptionString);
 	printResultLine(basename($readme['path']), $success, $status);
 }
