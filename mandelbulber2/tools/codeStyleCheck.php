@@ -37,7 +37,7 @@ $sourceFiles = glob("{" . implode(",", $filesToCheckSource) . "}", GLOB_BRACE);
 $headerFiles = glob("{" . implode(",", $filesToCheckHeader) . "}", GLOB_BRACE);
 
 printStartGroup('RUNNING CHECKS ON SOURCE FILES');
-foreach ($sourceFiles as $sourceFilePath) {
+foreach ($sourceFiles as $i => $sourceFilePath) {
 	$sourceFileName = basename($sourceFilePath);
 	if ($sourceFileName == 'clew.cpp') continue;
 	$folderName = basename(str_replace($sourceFileName, '', $sourceFilePath));
@@ -52,11 +52,11 @@ foreach ($sourceFiles as $sourceFilePath) {
 	if ($success && !isDryRun() && count($status) > 0) {
 		file_put_contents($sourceFilePath, $sourceContent);
 	}
-	printResultLine($folderName . '/' . $sourceFileName, $success, $status);
+	printResultLine($folderName . '/' . $sourceFileName, $success, $status, $i / count($sourceFiles));
 }
 printEndGroup();
 printStartGroup('RUNNING CHECKS ON HEADER FILES');
-foreach ($headerFiles as $headerFilePath) {
+foreach ($headerFiles as $i => $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
 	if (substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	if ($headerFileName == 'clew.h') continue;
@@ -75,7 +75,7 @@ foreach ($headerFiles as $headerFilePath) {
 	if ($success && !isDryRun() && count($status) > 0) {
 		file_put_contents($headerFilePath, $headerContent);
 	}
-	printResultLine($folderName . '/' . $headerFileName, $success, $status);
+	printResultLine($folderName . '/' . $headerFileName, $success, $status, $i / count($headerFiles));
 }
 printEndGroup();
 printFinish();
