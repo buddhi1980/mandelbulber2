@@ -102,7 +102,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	programsLoaded = false;
 	readyForRendering = false;
 
-	emit updateProgressAndStatus(tr("OpenCl - initializing"), tr("Compiling sources"), 0.0);
+	emit updateProgressAndStatus(tr("OpenCl - initializing"), tr("Compiling OpenCL programs"), 0.0);
 
 	QByteArray programEngine;
 	try
