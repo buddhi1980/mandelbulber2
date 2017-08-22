@@ -101,6 +101,7 @@ private:
 	cOpenClDynamicData *dynamicData;
 
 	QStringList listOfUsedFormulas;
+	bool autoRefreshMode;
 
 #endif
 

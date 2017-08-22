@@ -74,6 +74,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	dynamicData = new cOpenClDynamicData;
 
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
+	autoRefreshMode = false;
 
 #endif
 }
@@ -383,6 +384,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	inBuffer = dynamicData->GetData();
 
+	//---------------- another parameters -------------
+	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
+
 	delete tempRenderWorker;
 }
 
@@ -522,8 +526,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
 					if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 				}
-				QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
-				MarkCurrentPendingTile(image, currentCorners);
+
+				if (!autoRefreshMode)
+				{
+					QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
+					MarkCurrentPendingTile(image, currentCorners);
+				}
 
 				if (!ReadBuffersFromQueue()) return false;
 
@@ -663,7 +671,7 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 			}
 			image->PutPixelImage(xx, yy, border ? sRGBFloat(1, 1, 1) : sRGBFloat(0, 0, 0));
 			image->PutPixelColor(xx, yy, sRGB8(255, 255, 255));
-			image->PutPixelOpacity(xx, yy, 65536);
+			image->PutPixelOpacity(xx, yy, 65535);
 			image->PutPixelAlpha(xx, yy, 1);
 		}
 	}
