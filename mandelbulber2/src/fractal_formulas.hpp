@@ -252,5 +252,6 @@ void TransfScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

@@ -638,4 +638,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",
 		transfHybridColor, TransfHybridColorIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Hybrid Color2", "transf_hybrid_color_2",
+		transfHybridColor2, TransfHybridColor2Iteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 }

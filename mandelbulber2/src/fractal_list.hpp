@@ -258,7 +258,7 @@ enum enumFractalFormula
 	// hybrid color trial
 
 	transfHybridColor = 2000,
-
+	transfHybridColor2 = 2001,
 };
 }
 
