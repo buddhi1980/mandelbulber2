@@ -8668,7 +8668,6 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double r2 = z.Dot(z);
-
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;													// beta
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; // beta
@@ -8678,7 +8677,10 @@ void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z *= fractal->mandelbox.mboxFactor1;
 		aux.DE *= fractal->mandelbox.mboxFactor1;
 		aux.r_dz *= fractal->mandelbox.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
@@ -8686,7 +8688,10 @@ void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
 		aux.r_dz *= fractal->mandelbox.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 }
@@ -8707,13 +8712,19 @@ void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExt
 	{
 		z *= fractal->transformCommon.mboxFactor1;
 		aux.DE *= fractal->transformCommon.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < 1.0)
 	{
 		z *= 1.0 / r2;
 		aux.DE *= 1.0 / r2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 }
@@ -8763,15 +8774,20 @@ void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sE
 	{
 		z *= tempVCf / tempVCm;
 		aux.DE *= tempVCf / tempVCm;
-		;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < tempVCf)
 	{
 		double tglad_factor2 = tempVCf / r2;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 }
@@ -8801,7 +8817,10 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			z *= m;
 			aux.DE *= m;
 			aux.r_dz *= m;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -8811,7 +8830,10 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			z *= m;
 			aux.DE *= m;
 			aux.r_dz *= m;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
 		}
 	}
 	if (aux.i >= fractal->transformCommon.startIterations
@@ -8899,14 +8921,20 @@ void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExte
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux.DE *= fractal->transformCommon.maxMinR2factor;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 }
@@ -8987,14 +9015,20 @@ void TransfSphericalFoldVaryVCLIteration(CVector4 &z, const sFractal *fractal, s
 	{
 		z *= fractal->transformCommon.maxR2d1 / para;
 		aux.DE *= fractal->transformCommon.maxR2d1 / para;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		double tglad_factor2 = fractal->transformCommon.maxR2d1 / r2;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
@@ -9129,14 +9163,20 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux.DE *= fractal->mandelbox.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 }
 /**
@@ -10444,13 +10484,19 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux.DE *= fractal->transformCommon.maxMinR2factor;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		z *= fractal->transformCommon.maxR2d1 / rr;
 		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		};
 	}
 	z -= fractal->transformCommon.offset0000;
 }
