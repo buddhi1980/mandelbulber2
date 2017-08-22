@@ -8815,7 +8815,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		{
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE *= m;
+			aux.DE = aux.DE * m + 1.0;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -8828,7 +8828,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			double m = fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE *= m;
+			aux.DE = aux.DE * m + 1.0;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -8858,16 +8858,24 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE *= m;
+			aux.DE = aux.DE * m + 1.0;
 			aux.r_dz *= m;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
 		}
 		else if (rr < maxR2)
 		{
 			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE *= m;
+			aux.DE = aux.DE * m + 1.0;
 			aux.r_dz *= m;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
 		}
 	}
 	z -= fractal->mandelbox.offset;
