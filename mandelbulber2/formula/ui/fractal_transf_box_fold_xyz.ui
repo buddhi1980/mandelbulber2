@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold_xyz</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>826</width>
-    <height>912</height>
+    <height>979</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -397,7 +397,7 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="4" column="2">
+     <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -425,14 +425,14 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_25">
        <property name="text">
         <string>X plane component:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="5" column="1">
       <widget class="QSlider" name="slider3_mandelbox_color_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -454,7 +454,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
+     <item row="3" column="1">
       <widget class="QSlider" name="slider3_mandelbox_color_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -476,7 +476,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
+     <item row="3" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -504,14 +504,14 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_26">
        <property name="text">
         <string>Y plane component:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="4" column="1">
       <widget class="QSlider" name="slider3_mandelbox_color_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -533,14 +533,14 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_30">
        <property name="text">
         <string>Z plane component:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="4" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -568,16 +568,10 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QLabel" name="label_70">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
+     <item row="2" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
-        <string>aux.color components</string>
+        <string notr="true">aux.color components</string>
        </property>
       </widget>
      </item>
@@ -618,27 +612,30 @@
        <number>2</number>
       </property>
       <item>
-	   <widget class="QLabel" name="label_information_general">
-	    <property name="text">
-		 <string notr="true">&lt;p&gt;Box Fold XYZ, set different folding parameters for each axis&lt;br&gt;This formula contains aux.color&lt;/p&gt;&lt;table&gt;
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">&lt;p&gt;Box Fold XYZ, set different folding parameters for each axis&lt;br&gt;This formula contains aux.color&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
-		</property>
-		<property name="wordWrap">
-		 <bool>true</bool>
-		</property>
-		<property name="openExternalLinks">
-		 <bool>true</bool>
-		</property>
-		<property name="textInteractionFlags">
-		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		</property>
-		</widget>
-	   </item>
-	   <item>
-	    <widget class="QLabel" name="label_code_content">
-		 <property name="text">
-		  <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfBoxFoldXYZIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstant111&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
@@ -674,22 +671,19 @@
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>
-		 </property>
-		 <property name="wordWrap">
-		  <bool>true</bool>
-		 </property>
-		 <property name="openExternalLinks">
-		  <bool>true</bool>
-		 </property>
-		 <property name="textInteractionFlags">
-		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		 </property>
-		 <property name="styleSheet">
-		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-		  </property>
-		 </widget>
-		</item>
-	   </layout>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
