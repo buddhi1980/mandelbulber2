@@ -10510,25 +10510,72 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// XYZ bias
 		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
-			double temp10 = 0.0;
-			double temp11 = 0.0;
-			double temp12 = 0.0;
-			temp10 = fabs(z.x) * fractal->transformCommon.additionConstantA000.x;
-			temp11 = fabs(z.y) * fractal->transformCommon.additionConstantA000.y;
-			temp12 = fabs(z.z) * fractal->transformCommon.additionConstantA000.z;
-			XYZbias = temp10 + temp11 + temp12;
+			CVector4 temp10 = z;
+			if (fractal->transformCommon.functionEnabledSFalse)
+			{
+				temp10.x *= temp10.x;
+			}
+			else
+			{
+				temp10.x = fabs(temp10.x);
+			}
+			if (fractal->transformCommon.functionEnabledSwFalse)
+			{
+				temp10.y *= temp10.y;
+			}
+			else
+			{
+			temp10.y = fabs(temp10.y);
+			}
+
+			if (fractal->transformCommon.functionEnabledXFalse)
+			{
+				temp10.z *= temp10.z;
+			}
+			else
+			{
+			temp10.z = fabs(temp10.z);
+			}
+			temp10 = temp10 * fractal->transformCommon.additionConstantA000;
+
+			XYZbias = temp10.x + temp10.y + temp10.z;
 		}
 		// plane bias
 		if (fractal->transformCommon.functionEnabledAzFalse)
 		{
-			double temp16 = 0.0;
-			double temp17 = 0.0;
-			double temp18 = 0.0;
-			CVector4 tempP = fabs(z);
-			temp16 = tempP.x * tempP.y * fractal->transformCommon.scale3D000.x;
-			temp17 = tempP.y * tempP.z * fractal->transformCommon.scale3D000.y;
-			temp18 = tempP.z * tempP.x * fractal->transformCommon.scale3D000.z;
-			planeBias = temp16 + temp17 + temp18;
+			CVector4 tempP = z;
+			if (fractal->transformCommon.functionEnabledEFalse)
+			{
+				tempP.x = tempP.x * tempP.y;
+				tempP.x *= tempP.x;
+			}
+			else
+			{
+				tempP.x = fabs(tempP.x * tempP.y);
+			}
+			if (fractal->transformCommon.functionEnabledFFalse)
+			{
+				tempP.y = tempP.y * tempP.z;
+				tempP.y *= tempP.y;
+			}
+			else
+			{
+				tempP.y = fabs(tempP.y * tempP.z);
+			}
+
+			if (fractal->transformCommon.functionEnabledKFalse)
+			{
+				tempP.z = tempP.z * tempP.x;
+				tempP.z *= tempP.z;
+			}
+			else
+			{
+				tempP.z = fabs(tempP.z * tempP.x);
+			}
+
+
+			tempP = tempP * fractal->transformCommon.scale3D000;
+			planeBias = tempP.x + tempP.y + tempP.z;
 		}
 
 
