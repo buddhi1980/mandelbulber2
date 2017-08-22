@@ -5323,11 +5323,12 @@ void MsltoeSym3Mod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 /**
  * MsltoeSym4Mod  Based on the formula from Mandelbulb3D
  * @reference http://www.fractalforums.com/theory/choosing-the-squaring-formula-by-location/15/
+ * This formula contains aux.color
  */
 void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	CVector4 oldZ = z;
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 	CVector4 temp = z;
 	double tempL = temp.Length();
@@ -5341,6 +5342,12 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	if (fabs(z.x) < fabs(z.y)) swap(z.x, z.y);
 	if (fabs(z.y) < fabs(z.z)) swap(z.y, z.z);
 
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	}
 	if (z.x * z.z < 0.0) z.z = -z.z;
 	if (z.x * z.y < 0.0) z.y = -z.y;
 

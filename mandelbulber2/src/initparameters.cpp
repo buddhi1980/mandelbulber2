@@ -705,6 +705,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_parab_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_cos_enabled_false", false, morphLinear, paramStandard);
+	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
 
 	// common parameters for transforming formulas
 	par->addParam("transf_alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
