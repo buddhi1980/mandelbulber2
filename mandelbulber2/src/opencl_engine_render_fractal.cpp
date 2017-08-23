@@ -202,19 +202,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
 	paramRender->resolution = 1.0 / paramRender->imageHeight;
 
-	// temporary code to copy general parameters
-	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
-
-	// TODO
-	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
-
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
-	}
-
-	fractals->CopyToOpenclData(&constantInBuffer->sequence);
-
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
@@ -386,6 +373,18 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
+
+	//copy all cl parameters to constant buffer
+	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
+
+	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);
+
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		constantInBuffer->fractal[i] = clCopySFractalCl(*fractals->GetFractal(i));
+	}
+
+	fractals->CopyToOpenclData(&constantInBuffer->sequence);
 
 	delete tempRenderWorker;
 }
