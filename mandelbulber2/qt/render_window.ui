@@ -1119,6 +1119,9 @@
    <property name="text">
     <string>&amp;Load settings...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
   </action>
   <action name="actionLoad_settings_from_clipboard">
    <property name="icon">
@@ -1127,6 +1130,9 @@
    </property>
    <property name="text">
     <string>Load settings &amp;from clipboard...</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+O</string>
    </property>
   </action>
   <action name="actionSave_settings">
@@ -1137,6 +1143,9 @@
    <property name="text">
     <string>&amp;Save settings</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
   </action>
   <action name="actionSave_settings_to_clipboard">
    <property name="icon">
@@ -1145,6 +1154,9 @@
    </property>
    <property name="text">
     <string>Save settings &amp;to clipboard</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
    </property>
   </action>
   <action name="actionSave_settings_as">
@@ -1158,6 +1170,9 @@
    <property name="statusTip">
     <string>Save settings in selected file</string>
    </property>
+   <property name="shortcut">
+    <string>Shift+Ctrl+S</string>
+   </property>
   </action>
   <action name="actionProgramPreferences">
    <property name="icon">
@@ -1167,6 +1182,9 @@
    <property name="text">
     <string>&amp;Program Preferences</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
+   </property>
   </action>
   <action name="actionQuit">
    <property name="icon">
@@ -1175,6 +1193,9 @@
    </property>
    <property name="text">
     <string>&amp;Quit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
    </property>
   </action>
   <action name="actionSave_docks_positions">
@@ -1212,6 +1233,9 @@
   <action name="actionAbout_Manual">
    <property name="text">
     <string>About &amp;User Manual</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
   <action name="actionAbout_ThirdParty">
@@ -1260,6 +1284,9 @@
    <property name="text">
     <string>&amp;Import settings from old Mandelbulber (v1.21)...</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+I</string>
+   </property>
   </action>
   <action name="actionExportVoxelLayers">
    <property name="icon">
@@ -1277,6 +1304,9 @@
    </property>
    <property name="text">
     <string>Load &amp;example...</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Alt+O</string>
    </property>
   </action>
   <action name="actionShow_animation_dock">
@@ -1402,6 +1432,9 @@
    </property>
    <property name="text">
     <string>Export &amp;Mesh</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionTest">
