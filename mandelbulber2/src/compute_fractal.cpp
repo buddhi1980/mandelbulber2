@@ -88,6 +88,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.DE = 1.0;
 	extendedAux.c = z;
 	extendedAux.const_c = z;
+	extendedAux.old_z = CVector4{0.0, 0.0, 0.0, 0.0};
 	extendedAux.cw = 0;
 	extendedAux.foldFactor = 0.0;
 	extendedAux.minRFactor = 0.0;

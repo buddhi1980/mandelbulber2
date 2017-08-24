@@ -10685,9 +10685,9 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// double components = 0.0;
-	double R2 = 0.0;
 	double auxColor = 0.0;
+	double R2 = 0.0;
+
 	double distEst = 0.0;
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
@@ -10696,13 +10696,20 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	//double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	double lastColorValue = aux.colorHybrid;
+	double lengthIter = 0.0;
 
 	// used to turn off or mix with old hybrid color and orbit traps
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
 	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
-//	if (aux.i >= fractal->transformCommon.startIterationsT
-	//		&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
+
+	/*{
+		CVector4 vecIter =  fabs(z - aux.old_z);
+		lengthIter = vecIter.Length() * aux.i; // (aux.i + 1.0);
+		aux.old_z = z;
+	}*/
+
+
 	{
 		// radius
 		if (fractal->transformCommon.functionEnabledCyFalse)
@@ -10814,9 +10821,12 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 		// build and scale componentMaster
 		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias
-												+ planeBias + divideByIter + radius)// + factorR)nnnnnnnnnnnnnnnnnnnnnnn
+												+ planeBias + divideByIter + radius + lengthIter)
 											* fractal->foldColor.newScale0;
 	}
+	//if (aux.i >= fractal->transformCommon.startIterationsT
+	//		&& aux.i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
+
 	// divide by i
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
@@ -10863,6 +10873,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	// double scaleColor =
 	//	 +  fabs(aux.actualScaleA);
 	// scaleColor += fabs(fractal->mandelbox.scale);
-	// aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+	// aux.scaleFactor = scaleColor * fractal->foldColor.compScale;*/
 }
 

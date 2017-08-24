@@ -85,6 +85,7 @@ struct sExtendedAux
 	double oldHybridFactor;
 	CVector4 c;
 	CVector4 const_c;
+	CVector4 old_z;
 };
 
 struct sFoldColor
