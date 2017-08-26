@@ -452,7 +452,7 @@
           </sizepolicy>
          </property>
          <property name="maximum">
-          <number>250</number>
+          <number>999</number>
          </property>
         </widget>
        </item>
@@ -580,7 +580,7 @@
           <number>0</number>
          </property>
          <property name="maximum">
-          <number>250</number>
+          <number>999</number>
          </property>
          <property name="value">
           <number>0</number>
@@ -973,7 +973,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -993,7 +993,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1375,7 +1375,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1395,7 +1395,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1786,7 +1786,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1799,7 +1799,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2314,7 +2314,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2327,7 +2327,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2822,7 +2822,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2869,7 +2869,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -3712,7 +3712,7 @@
              </sizepolicy>
             </property>
             <property name="maximum">
-             <number>250</number>
+             <number>999</number>
             </property>
            </widget>
           </item>
@@ -3739,7 +3739,7 @@
              </sizepolicy>
             </property>
             <property name="maximum">
-             <number>250</number>
+             <number>999</number>
             </property>
            </widget>
           </item>

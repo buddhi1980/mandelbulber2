@@ -245,6 +245,16 @@ function updateInfoBoxes($index, $formula, &$status)
 		array('find' => '/>DE Tweak<\/string>/', 'replace' => '>DE Tweak:</string>'),
 		array('find' => '/>Post_scale<\/string>/', 'replace' => '>Post Scale:</string>'),
 		array('find' => '/>Pre_scale<\/string>/', 'replace' => '>Pre Scale:</string>'),
+
+        // temporary code to find iteration replacement 250 -> 999
+		// array('find' => '/(<widget class=".*" name=".*stop_iterations">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*start_iterations">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*stop_iterations">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="minimum">\n\s+<number>.*<\/number>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*start_iterations">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="minimum">\n\s+<number>.*<\/number>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*iter.*">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*iter.*">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*iter.*">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="minimum">\n\s+<number>.*<\/number>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
+		// array('find' => '/(<widget class=".*" name=".*iter.*">\n\s+<property name="sizePolicy">\n\s+<sizepolicy hsizetype=".*" vsizetype=".*">\n\s+<horstretch>0<\/horstretch>\n\s+<verstretch>0<\/verstretch>\n\s+<\/sizepolicy>\n\s+<\/property>\n\s+<property name="minimum">\n\s+<number>.*<\/number>\n\s+<\/property>\n\s+<property name="maximum">\n\s+<number)>250/', 'replace' => '$1>999'),
 	);
 	foreach ($replaceFormulaLookup as $item) {
 		$newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);

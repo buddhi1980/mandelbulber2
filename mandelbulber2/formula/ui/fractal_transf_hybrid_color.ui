@@ -1942,7 +1942,7 @@
   &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color fold component&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAxFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    auxColor &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt;  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    auxColor &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; temp8 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     temp8 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; auxColor &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleF0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     auxColor &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; temp8&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -1965,7 +1965,7 @@
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+      temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledXFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
@@ -1974,7 +1974,7 @@
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+      temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp10&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
     temp10 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; temp10 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstantA000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
@@ -2016,14 +2016,14 @@
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// build and scale componentMaster&lt;/span&gt;
-  componentMaster &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorMin &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; auxColor &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; XYZbias
-                      &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; divideByIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; radius&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+  componentMaster &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorMin &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; auxColor &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; XYZbias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias
+                      &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; divideByIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; radius&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
                     &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;newScale0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// divide by i&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCzFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    divideByIter &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster &lt;span style=&quot;color:#676767&quot;&gt;* (&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale &lt;span style=&quot;color:#676767&quot;&gt;/ (&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
+    divideByIter &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster &lt;span style=&quot;color:#676767&quot;&gt;* (&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale &lt;span style=&quot;color:#676767&quot;&gt;/ (&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
   componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; divideByIter&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 

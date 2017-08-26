@@ -105,7 +105,7 @@
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -128,7 +128,7 @@
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -666,7 +666,7 @@ offset:</string>
               </sizepolicy>
              </property>
              <property name="maximum">
-              <number>250</number>
+              <number>999</number>
              </property>
             </widget>
            </item>
@@ -700,7 +700,7 @@ offset:</string>
               </sizepolicy>
              </property>
              <property name="maximum">
-              <number>250</number>
+              <number>999</number>
              </property>
             </widget>
            </item>
@@ -786,7 +786,7 @@ offset:</string>
               </sizepolicy>
              </property>
              <property name="maximum">
-              <number>250</number>
+              <number>999</number>
              </property>
             </widget>
            </item>
@@ -1243,7 +1243,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1266,7 +1266,7 @@ offset:</string>
            <number>0</number>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
           <property name="value">
            <number>0</number>
@@ -1647,7 +1647,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1674,7 +1674,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1931,7 +1931,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1944,7 +1944,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2459,7 +2459,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -2472,7 +2472,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -4198,7 +4198,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -4211,7 +4211,7 @@ offset:</string>
            </sizepolicy>
           </property>
           <property name="maximum">
-           <number>250</number>
+           <number>999</number>
           </property>
          </widget>
         </item>
