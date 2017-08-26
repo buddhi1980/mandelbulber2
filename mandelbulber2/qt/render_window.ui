@@ -1234,9 +1234,6 @@
    <property name="text">
     <string>About &amp;User Manual</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+H</string>
-   </property>
   </action>
   <action name="actionAbout_ThirdParty">
    <property name="text">
@@ -1458,6 +1455,9 @@
    </property>
    <property name="text">
     <string>&amp;User Manual</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+H</string>
    </property>
   </action>
   <action name="actionUser_News">
