@@ -58,15 +58,20 @@ REAL4 TransfSphericalFoldVaryV1Iteration(
 	{
 		z *= native_divide(tempVCf, tempVCm);
 		aux->DE *= native_divide(tempVCf, tempVCm);
-		;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < tempVCf)
 	{
 		REAL tglad_factor2 = native_divide(tempVCf, r2);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	return z;

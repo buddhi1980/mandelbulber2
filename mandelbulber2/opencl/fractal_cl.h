@@ -90,6 +90,7 @@ typedef struct
 	cl_float oldHybridFactor;
 	cl_float4 c;
 	cl_float4 const_c;
+	cl_float4 old_z;
 } sExtendedAuxCl;
 
 typedef struct
@@ -124,6 +125,7 @@ typedef struct
 	cl_int intAz0;
 	cl_int parabEnabledFalse;
 	cl_int cosEnabledFalse;
+	cl_int auxColorEnabledFalse;
 } sFoldColorCl;
 
 typedef struct
@@ -685,6 +687,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.oldHybridFactor = source.oldHybridFactor;
 	target.c = toClFloat4(source.c);
 	target.const_c = toClFloat4(source.const_c);
+	target.old_z = toClFloat4(source.old_z);
 	return target;
 }
 
@@ -720,6 +723,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.intAz0 = source.intAz0;
 	target.parabEnabledFalse = source.parabEnabledFalse;
 	target.cosEnabledFalse = source.cosEnabledFalse;
+	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	return target;
 }
 

@@ -8,10 +8,8 @@
  *
  * Hybrid Color Trial
  *
- * for folds the aux.color is updated each iteration
+ * for folds, the aux.color is updated each iteration
  * depending on which slots have formulas that use it
- *
- *
  * bailout may need to be adjusted with some formulas
  */
 
@@ -21,7 +19,6 @@
 
 REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// REAL components = 0.0f;
 	REAL R2 = 0.0f;
 	REAL auxColor = 0.0f;
 	REAL distEst = 0.0f;
@@ -29,7 +26,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL planeBias = 0.0f;
 	REAL divideByIter = 0.0f;
 	REAL radius = 0.0f;
-	// REAL factorR = fractal->mandelbox.color.factorR;
 	REAL componentMaster = 0.0f;
 	REAL lastColorValue = aux->colorHybrid;
 
@@ -37,73 +33,114 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	aux->oldHybridFactor *= fractal->foldColor.oldScale1;
 	aux->minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
-	//	if (aux->i >= fractal->transformCommon.startIterationsT
-	//		&& aux->i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
+	// radius
+	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
-		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		radius = length(z);
+		radius = fractal->foldColor.scaleG0 * radius;
+	}
+	// radius squared components
+	if (fractal->transformCommon.functionEnabledRFalse)
+	{
+		REAL temp0 = 0.0f;
+		REAL temp1 = 0.0f;
+		REAL4 c = aux->c;
+		temp0 = dot(c, c) * fractal->foldColor.scaleA0; // initial R2
+		temp1 = dot(z, z) * fractal->foldColor.scaleB0;
+		R2 = temp0 + temp1;
+	}
+	// DE component
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		if (fractal->transformCommon.functionEnabledBxFalse)
+			distEst = aux->r_dz;
+		else
+			distEst = aux->DE;
+		REAL temp5 = 0.0f;
+		temp5 = distEst * fractal->foldColor.scaleD0;
+		distEst = temp5;
+	}
+	// aux->color fold component
+	if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		auxColor = aux->color;
+		REAL temp8 = 0.0f;
+		temp8 = auxColor * fractal->foldColor.scaleF0;
+		auxColor = temp8;
+	}
+	// XYZ bias
+	if (fractal->transformCommon.functionEnabledCxFalse)
+	{
+		REAL4 temp10 = z;
+		if (fractal->transformCommon.functionEnabledSFalse)
 		{
-			radius = length(z);
-			radius = fractal->foldColor.scaleG0 * radius;
+			temp10.x *= temp10.x;
 		}
-		// radius squared components
-		if (fractal->transformCommon.functionEnabledRFalse)
+		else
 		{
-			REAL temp0 = 0.0f;
-			REAL temp1 = 0.0f;
-			REAL4 c = aux->c;
-			temp0 = dot(c, c) * fractal->foldColor.scaleA0; // initial R2
-			temp1 = dot(z, z) * fractal->foldColor.scaleB0;
-			R2 = temp0 + temp1;
+			temp10.x = fabs(temp10.x);
 		}
-		// DE component
-		if (fractal->transformCommon.functionEnabledDFalse)
+		if (fractal->transformCommon.functionEnabledSwFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-				distEst = aux->r_dz;
-			else
-				distEst = aux->DE;
-			REAL temp5 = 0.0f;
-			temp5 = distEst * fractal->foldColor.scaleD0;
-			distEst = temp5;
+			temp10.y *= temp10.y;
 		}
-		// aux->color fold component
-		if (fractal->transformCommon.functionEnabledAxFalse)
+		else
 		{
-			auxColor = aux->color;
-			REAL temp8 = 0.0f;
-			temp8 = auxColor * fractal->foldColor.scaleF0;
-			auxColor = temp8;
-		}
-		// XYZ bias
-		if (fractal->transformCommon.functionEnabledCxFalse)
-		{
-			REAL temp10 = 0.0f;
-			REAL temp11 = 0.0f;
-			REAL temp12 = 0.0f;
-			temp10 = fabs(z.x) * fractal->transformCommon.additionConstantA000.x;
-			temp11 = fabs(z.y) * fractal->transformCommon.additionConstantA000.y;
-			temp12 = fabs(z.z) * fractal->transformCommon.additionConstantA000.z;
-			XYZbias = temp10 + temp11 + temp12;
-		}
-		// plane bias
-		if (fractal->transformCommon.functionEnabledAzFalse)
-		{
-			REAL temp16 = 0.0f;
-			REAL temp17 = 0.0f;
-			REAL temp18 = 0.0f;
-			REAL4 tempP = fabs(z);
-			temp16 = tempP.x * tempP.y * fractal->transformCommon.scale3D000.x;
-			temp17 = tempP.y * tempP.z * fractal->transformCommon.scale3D000.y;
-			temp18 = tempP.z * tempP.x * fractal->transformCommon.scale3D000.z;
-			planeBias = temp16 + temp17 + temp18;
+			temp10.y = fabs(temp10.y);
 		}
 
-		// build and scale componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
-												+ divideByIter + radius) // + factorR)nnnnnnnnnnnnnnnnnnnnnnn
-											* fractal->foldColor.newScale0;
+		if (fractal->transformCommon.functionEnabledXFalse)
+		{
+			temp10.z *= temp10.z;
+		}
+		else
+		{
+			temp10.z = fabs(temp10.z);
+		}
+		temp10 = temp10 * fractal->transformCommon.additionConstantA000;
+
+		XYZbias = temp10.x + temp10.y + temp10.z;
 	}
+	// plane bias
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		REAL4 tempP = z;
+		if (fractal->transformCommon.functionEnabledEFalse)
+		{
+			tempP.x = tempP.x * tempP.y;
+			tempP.x *= tempP.x;
+		}
+		else
+		{
+			tempP.x = fabs(tempP.x * tempP.y);
+		}
+		if (fractal->transformCommon.functionEnabledFFalse)
+		{
+			tempP.y = tempP.y * tempP.z;
+			tempP.y *= tempP.y;
+		}
+		else
+		{
+			tempP.y = fabs(tempP.y * tempP.z);
+		}
+		if (fractal->transformCommon.functionEnabledKFalse)
+		{
+			tempP.z = tempP.z * tempP.x;
+			tempP.z *= tempP.z;
+		}
+		else
+		{
+			tempP.z = fabs(tempP.z * tempP.x);
+		}
+		tempP = tempP * fractal->transformCommon.scale3D000;
+		planeBias = tempP.x + tempP.y + tempP.z;
+	}
+
+	// build and scale componentMaster
+	componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
+											+ divideByIter + radius)
+										* fractal->foldColor.newScale0;
+
 	// divide by i
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
@@ -123,7 +160,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			128 * -fractal->foldColor.trigAdd1
 			* (native_cos(componentMaster * 2.0f * native_divide(M_PI_F, fractal->foldColor.period1))
 					- 1.0f);
-
 		componentMaster += trig;
 	}
 	if (fractal->transformCommon.functionEnabledAyFalse)
@@ -131,11 +167,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		REAL logCurve = log(componentMaster + 1.0f) * fractal->foldColor.scaleE0;
 		componentMaster += logCurve;
 	}
-	//	if (fractal->transformCommon.functionEnabledCyFalse &&
-	//		aux->i >= fractal->transformCommon.startIterationsT
-	//		&& aux->i < fractal->transformCommon.stopIterationsT) // hmmmmmmmmmmmmmm
 
-	componentMaster *= 1.0f;
 	// limit componentMaster
 	if (componentMaster < fractal->foldColor.limitMin0)
 		componentMaster = fractal->foldColor.limitMin0;
@@ -145,13 +177,5 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	// final component value + cumulative??
 	aux->colorHybrid =
 		(componentMaster * 256.0f) + (lastColorValue * fractal->transformCommon.scale0);
-
-	// master controls color
-	// aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-
-	// REAL scaleColor =
-	//	 +  fabs(aux->actualScaleA);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	// aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
 	return z;
 }

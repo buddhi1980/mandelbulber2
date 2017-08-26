@@ -16,6 +16,7 @@
 
 REAL4 TransfBoxFoldVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 oldZ = z;
 	REAL limit = fractal->mandelbox.foldingLimit;
 	// REAL value = 2.0f *fractal->mandelbox.foldingLimit;
 	REAL tempVC = limit; // constant to be varied
@@ -25,7 +26,6 @@ REAL4 TransfBoxFoldVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
 					 != 0))
 	{
-
 		int iterationRange =
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
@@ -43,34 +43,35 @@ REAL4 TransfBoxFoldVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (z.x > limit)
 	{
 		z.x = value - z.x;
-		aux->color += fractal->mandelbox.color.factor.x;
 	}
 	else if (z.x < -limit)
 	{
 		z.x = -value - z.x;
-		aux->color += fractal->mandelbox.color.factor.x;
 	}
 	if (z.y > limit)
 	{
 		z.y = value - z.y;
-		aux->color += fractal->mandelbox.color.factor.y;
+		;
 	}
 	else if (z.y < -limit)
 	{
 		z.y = -value - z.y;
-		aux->color += fractal->mandelbox.color.factor.y;
 	}
 	REAL zLimit = limit * fractal->transformCommon.scale1;
 	REAL zValue = value * fractal->transformCommon.scale1;
 	if (z.z > zLimit)
 	{
 		z.z = zValue - z.z;
-		aux->color += fractal->mandelbox.color.factor.z;
 	}
 	else if (z.z < -zLimit)
 	{
 		z.z = -zValue - z.z;
-		aux->color += fractal->mandelbox.color.factor.z;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
 	}
 	aux->DE *= fractal->analyticDE.scale1;
 	return z;

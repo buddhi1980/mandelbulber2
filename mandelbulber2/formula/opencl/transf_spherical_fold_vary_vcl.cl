@@ -87,14 +87,20 @@ REAL4 TransfSphericalFoldVaryVCLIteration(
 	{
 		z *= native_divide(fractal->transformCommon.maxR2d1, para);
 		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, para);
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
 		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, r2);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;

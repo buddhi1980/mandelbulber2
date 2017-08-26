@@ -16,45 +16,45 @@
 
 REAL4 TransfBoxFold4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 oldZ = z;
 	if (z.x > fractal->mandelbox.foldingLimit)
 	{
 		z.x = fractal->mandelbox.foldingValue - z.x;
-		aux->color += fractal->mandelbox.color.factor4D.x;
 	}
 	else if (z.x < -fractal->mandelbox.foldingLimit)
 	{
 		z.x = -fractal->mandelbox.foldingValue - z.x;
-		aux->color += fractal->mandelbox.color.factor4D.x;
 	}
 	if (z.y > fractal->mandelbox.foldingLimit)
 	{
 		z.y = fractal->mandelbox.foldingValue - z.y;
-		aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 	else if (z.y < -fractal->mandelbox.foldingLimit)
 	{
 		z.y = -fractal->mandelbox.foldingValue - z.y;
-		aux->color += fractal->mandelbox.color.factor4D.y;
 	}
 	if (z.z > fractal->mandelbox.foldingLimit)
 	{
 		z.z = fractal->mandelbox.foldingValue - z.z;
-		aux->color += fractal->mandelbox.color.factor4D.z;
 	}
 	else if (z.z < -fractal->mandelbox.foldingLimit)
 	{
 		z.z = -fractal->mandelbox.foldingValue - z.z;
-		aux->color += fractal->mandelbox.color.factor4D.z;
 	}
 	if (z.w > fractal->mandelbox.foldingLimit)
 	{
 		z.w = fractal->mandelbox.foldingValue - z.w;
-		aux->color += fractal->mandelbox.color.factor4D.w;
 	}
 	else if (z.w < -fractal->mandelbox.foldingLimit)
 	{
 		z.w = -fractal->mandelbox.foldingValue - z.w;
-		aux->color += fractal->mandelbox.color.factor4D.w;
+	}
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
+		if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
 	}
 	return z;
 }

@@ -17,7 +17,6 @@
 REAL4 TransfSphericalFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL r2 = dot(z, z);
-
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;																// beta
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f); // beta
@@ -27,7 +26,10 @@ REAL4 TransfSphericalFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z *= fractal->mandelbox.mboxFactor1;
 		aux->DE *= fractal->mandelbox.mboxFactor1;
 		aux->r_dz *= fractal->mandelbox.mboxFactor1;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
@@ -35,7 +37,10 @@ REAL4 TransfSphericalFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		aux->r_dz *= fractal->mandelbox.mboxFactor1;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	return z;

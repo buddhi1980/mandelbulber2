@@ -40,14 +40,20 @@ REAL4 TransfSphericalFoldCHSIteration(REAL4 z, __constant sFractalCl *fractal, s
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux->DE *= fractal->transformCommon.maxMinR2factor;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	return z;

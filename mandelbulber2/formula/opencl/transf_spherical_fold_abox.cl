@@ -26,13 +26,19 @@ REAL4 TransfSphericalFoldAboxIteration(REAL4 z, __constant sFractalCl *fractal, 
 	{
 		z *= fractal->transformCommon.mboxFactor1;
 		aux->DE *= fractal->transformCommon.mboxFactor1;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (r2 < 1.0f)
 	{
 		z *= native_recip(r2);
 		aux->DE *= native_recip(r2);
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		}
 	}
 	z -= fractal->mandelbox.offset;
 	return z;

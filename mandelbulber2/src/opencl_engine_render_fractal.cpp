@@ -374,7 +374,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
 
-	//copy all cl parameters to constant buffer
+	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
 
 	constantInBuffer->params.viewAngle = toClFloat3(paramRender->viewAngle * M_PI / 180.0);

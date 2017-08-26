@@ -26,13 +26,19 @@ REAL4 TransfSphericalFold4dIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux->DE *= fractal->transformCommon.maxMinR2factor;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp1;
+		}
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
 		aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
-		aux->color += fractal->mandelbox.color.factorSp2;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux->color += fractal->mandelbox.color.factorSp2;
+		};
 	}
 	z -= fractal->transformCommon.offset0000;
 	return z;
