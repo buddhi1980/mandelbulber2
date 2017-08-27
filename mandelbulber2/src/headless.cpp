@@ -49,6 +49,9 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
+#include "opencl_global.h"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_engine_render_ssao.h"
 
 cHeadless::cHeadless() : QObject()
 {
@@ -68,6 +71,16 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)), this,
 		SLOT(slotUpdateStatistics(cStatistics)));
+
+#ifdef USE_OPENCL
+	// connect signal for progress bar update
+	connect(gOpenCl->openClEngineRenderFractal,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+	connect(gOpenCl->openClEngineRenderSSAO,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+#endif
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
