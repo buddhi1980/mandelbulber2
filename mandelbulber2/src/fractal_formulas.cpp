@@ -1223,6 +1223,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		double minR2 = fractal->transformCommon.minR2p25;
 		double addR = 0.0;
+		double m = 1.0;
 		// spherical fold with xyz bias option
 		if (fractal->transformCommon.functionEnabledAyFalse)
 		{
@@ -1239,35 +1240,30 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					xyzBias *= fabs(aux.c);
 				}
 				addR = (xyzBias.x + xyzBias.y + xyzBias.z);
+				minR2 += addR;
+				if (fractal->transformCommon.functionEnabledAz
+						&& minR2 > fractal->transformCommon.maxR2d1)
+				{ // stop overlapping potential
+					minR2 = fractal->transformCommon.maxR2d1;
+				}
 			}
-
-			minR2 += addR;
-
-			if (fractal->transformCommon.functionEnabledAz
-					&& minR2 > fractal->transformCommon.maxR2d1)
-			{ // stop overlapping potential
-				minR2 = fractal->transformCommon.maxR2d1;
-			}
-
 			double rr = z.Dot(z);
 			z += fractal->transformCommon.offset000;
-			if (rr < minR2)
+			if ( rr < minR2)
 			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / minR2;
-				z *= tglad_factor1;
-				aux.DE = aux.DE * tglad_factor1 + 1.0;
+				m *= fractal->transformCommon.maxR2d1 / minR2;
 				aux.color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-				z *= tglad_factor2;
-				aux.DE = aux.DE * tglad_factor2 + 1.0;
+				m *= fractal->transformCommon.maxR2d1 / rr;
 				aux.color += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
+				// scale
+			z *= m;
+			aux.DE = aux.DE * fabs(m) + 1.0;
 		}
-
 
 		// cuboid
 		if (fractal->transformCommon.functionEnabledAx
@@ -1278,7 +1274,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			CVector4 R2;
 			double MinR2 = fractal->transformCommon.minR2p25;
 			CVector4 limitMinR2 = fractal->transformCommon.scaleP222;
-			double m = 1.0;
+
 			double rr = z.Dot(z);
 
 			z += fractal->transformCommon.offset000;
@@ -9158,6 +9154,7 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
 	CVector4 xyzBias;
 	double minR2 = fractal->transformCommon.minR2p25;
 	double MaxR2 = fractal->transformCommon.maxR2d1;
+	double m = fractal->transformCommon.scale;
 
 	if ( aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -9185,28 +9182,18 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
 
 	if (rr < minR2)
 	{
-		double tglad_factor1 = MaxR2 / minR2;
-		z *= tglad_factor1;
-		aux.DE = aux.DE * tglad_factor1 + 1.0;
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			aux.color += fractal->mandelbox.color.factorSp1;
-		}
+		m *= fractal->transformCommon.maxR2d1 / minR2;
+		aux.color += fractal->mandelbox.color.factorSp1;
 	}
-	else if (rr < MaxR2)
+	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		double tglad_factor2 = MaxR2 / rr;
-		z *= tglad_factor2;
-		aux.DE = aux.DE * tglad_factor2 + 1.0;
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			aux.color += fractal->mandelbox.color.factorSp2;
-		}
+		m *= fractal->transformCommon.maxR2d1 / rr;
+		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->transformCommon.offset000;
-	// scale
-	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+
+	z *= m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
 }
 
 /**
