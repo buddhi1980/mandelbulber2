@@ -560,6 +560,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Spherical Fold CHS", "transf_spherical_fold_chs",
 		transfSphericalFoldCHS, TransfSphericalFoldCHSIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Spherical Fold Cuboid",
+		"transf_spherical_fold_cuboid", transfSphericalFoldCuboid,
+		TransfSphericalFoldCuboidIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault,
+		100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold Parab", "transf_spherical_fold_parab",
 		transfSphericalFoldParab, TransfSphericalFoldParabIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -570,6 +574,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Spherical Fold VaryVCL",
 		"transf_spherical_fold_vary_vcl", transfSphericalFoldVaryVCL,
 		TransfSphericalFoldVaryVCLIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault,
+		100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Spherical Fold XYZ Bias",
+		"transf_spherical_fold_xyz_bias", transfSphericalFoldXYZBias,
+		TransfSphericalFoldXYZBiasIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault,
 		100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Pwr Fold", "transf_spherical_pwr_fold",
 		transfSphericalPwrFold, TransfSphericalPwrFoldIteration, analyticDEType, linearDEFunction,

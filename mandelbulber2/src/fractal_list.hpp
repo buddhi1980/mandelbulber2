@@ -251,6 +251,8 @@ enum enumFractalFormula
 	// 2.12
 	transfScaleVaryMulti = 1074,
 	transfBoxFold4dTglad = 1075,
+	transfSphericalFoldCuboid = 1076,
+	transfSphericalFoldXYZBias = 1077,
 
 	// hybrid color trial
 

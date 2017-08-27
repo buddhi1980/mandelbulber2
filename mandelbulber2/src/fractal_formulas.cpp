@@ -8901,6 +8901,41 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 }
 
 /**
+ * spherical fold Cuboid
+ * This formula contains aux.color
+ */
+void TransfSphericalFoldCuboidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double r2 = z.Dot(z);
+	z += fractal->mandelbox.offset;
+	z *= fractal->transformCommon.scale;													// beta
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; // beta
+	// if (r2 < 1e-21) r2 = 1e-21;
+	if (r2 < fractal->mandelbox.mR2)
+	{
+		z *= fractal->mandelbox.mboxFactor1;
+		aux.DE *= fractal->mandelbox.mboxFactor1;
+		aux.r_dz *= fractal->mandelbox.mboxFactor1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+	}
+	else if (r2 < fractal->mandelbox.fR2)
+	{
+		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+		aux.r_dz *= fractal->mandelbox.mboxFactor1;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+	}
+	z -= fractal->mandelbox.offset;
+}
+
+/**
  * spherical fold CHS Cylinder Half Size. Darkbeam s code from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -9042,6 +9077,66 @@ void TransfSphericalFoldVaryVCLIteration(CVector4 &z, const sFractal *fractal, s
 	z -= fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
+}
+
+/**
+ * spherical fold XYZ Bias
+ * This formula contains aux.color
+ */
+void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 xyzBias;
+	double minR2 = fractal->transformCommon.minR2p25;
+	double MaxR2 = fractal->transformCommon.maxR2d1;
+
+	if ( aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		xyzBias = fabs(aux.c) * fractal->transformCommon.constantMultiplier000;
+		minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
+	}
+
+	if ( fractal->transformCommon.functionEnabledFalse
+				 && aux.i >= fractal->transformCommon.startIterationsB
+					&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		CVector4 cSquared = aux.c * aux.c;
+		xyzBias = cSquared * fractal->transformCommon.scale3D000;
+		minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
+	}
+
+	if (fractal->transformCommon.functionEnabled && minR2 > MaxR2)
+	{
+			minR2 = MaxR2; // stop overlapping potential
+	}
+
+	double rr = z.Dot(z);
+	z += fractal->mandelbox.offset;
+
+	if (rr < minR2)
+	{
+		double tglad_factor1 = MaxR2 / minR2;
+		z *= tglad_factor1;
+		aux.DE = aux.DE * tglad_factor1 + 1.0;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+	}
+	else if (rr < MaxR2)
+	{
+		double tglad_factor2 = MaxR2 / rr;
+		z *= tglad_factor2;
+		aux.DE = aux.DE * tglad_factor2 + 1.0;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+	}
+	z -= fractal->mandelbox.offset;
+	// scale
+	z *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 }
 
 /**
