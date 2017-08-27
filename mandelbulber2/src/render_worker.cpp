@@ -214,7 +214,8 @@ void cRenderWorker::doWork()
 
 				if (monteCarloDOF)
 				{
-					MonteCarloDOF(imagePoint, &startRay, &viewVector);
+					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+					MonteCarloDOF(&startRay, &viewVector);
 				}
 				else
 				{
@@ -1147,8 +1148,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	return out;
 }
 
-void cRenderWorker::MonteCarloDOF(
-	CVector2<double> imagePoint, CVector3 *startRay, CVector3 *viewVector) const
+void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) const
 {
 	if (params->perspectiveType == params::perspThreePoint)
 	{
@@ -1156,16 +1156,14 @@ void cRenderWorker::MonteCarloDOF(
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
-		CVector3 viewVectorTemp =
-			CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		CVector3 viewVectorTemp = *viewVector;
 		viewVectorTemp -= randVectorRot / params->DOFFocus;
 		*viewVector = viewVectorTemp;
 		*startRay = params->camera + randVectorRot;
 	}
 	else
 	{
-		CVector3 viewVectorTemp =
-			CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+		CVector3 viewVectorTemp = *viewVector;
 		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
 		float randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));

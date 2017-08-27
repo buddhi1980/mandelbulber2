@@ -75,6 +75,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
 	autoRefreshMode = false;
+	monteCarlo = false;
 
 #endif
 }
@@ -150,6 +151,12 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		{
 			// ray recursion
 			programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
+		}
+
+		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
+		{
+			// Monte Carlo DOF
+			programEngine.append("#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
 		}
 
 		// main engine
@@ -325,6 +332,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
+	if (paramRender->DOFMonteCarlo && paramRender->DOFEnabled)
+		definesCollector += " -DMONTE_CARLO_DOF";
+
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
@@ -373,6 +383,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
+	monteCarlo = paramRender->DOFMonteCarlo && paramRender->DOFEnabled;
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -473,155 +484,214 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer progressRefreshTimer;
 		progressRefreshTimer.start();
 
-		QList<QRect> lastRenderedRects;
-
-		// TODO:
-		// insert device for loop here
-		// requires initialization for all opencl devices
-		// requires optimalJob for all opencl devices
-
-		int pixelsRendered = 0;
-		int numberOfPixels = width * height;
-		int gridWidth = width / optimalJob.stepSizeX;
-		int gridHeight = height / optimalJob.stepSizeY;
-		int gridX = (gridWidth - 1) / 2;
-		int gridY = gridHeight / 2;
-		int dir = 0;
-		int gridPass = 0;
-		int gridStep = 1;
-
-		while (pixelsRendered < numberOfPixels)
+		int numberOfSamples = 1;
+		if(monteCarlo)
 		{
-			int jobX = gridX * optimalJob.stepSizeX;
-			int jobY = gridY * optimalJob.stepSizeY;
+			numberOfSamples = constantInBuffer->params.DOFSamples;
+		}
+		for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
+		{
 
-			if (jobX >= 0 && jobX < width && jobY >= 0 && jobY < height)
+			QList<QRect> lastRenderedRects;
+
+			// TODO:
+			// insert device for loop here
+			// requires initialization for all opencl devices
+			// requires optimalJob for all opencl devices
+
+			int pixelsRendered = 0;
+			int numberOfPixels = width * height;
+			int gridWidth = width / optimalJob.stepSizeX;
+			int gridHeight = height / optimalJob.stepSizeY;
+			int gridX = (gridWidth - 1) / 2;
+			int gridY = gridHeight / 2;
+			int dir = 0;
+			int gridPass = 0;
+			int gridStep = 1;
+
+			while (pixelsRendered < numberOfPixels)
 			{
-				size_t pixelsLeftX = width - jobX;
-				size_t pixelsLeftY = height - jobY;
-				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				int jobX = gridX * optimalJob.stepSizeX;
+				int jobY = gridY * optimalJob.stepSizeY;
 
-				// assign parameters to kernel
-				if (!AssignParametersToKernel()) return false;
+				if (jobX >= 0 && jobX < width && jobY >= 0 && jobY < height)
+				{
+					size_t pixelsLeftX = width - jobX;
+					size_t pixelsLeftY = height - jobY;
+					int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+					int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 
-				// writing data to queue
-				if (!WriteBuffersToQueue()) return false;
+					// assign parameters to kernel
+					if (!AssignParametersToKernel()) return false;
 
-				// processing queue
-				if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
+					// writing data to queue
+					if (!WriteBuffersToQueue()) return false;
 
-				// update image when OpenCl kernel is working
+					// processing queue
+					if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
+
+					// update image when OpenCl kernel is working
+					if (lastRenderedRects.size() > 0)
+					{
+						QElapsedTimer timerImageRefresh;
+						timerImageRefresh.start();
+						image->NullPostEffect(&lastRenderedRects);
+						image->CompileImage(&lastRenderedRects);
+						if (image->IsPreview())
+						{
+							image->ConvertTo8bit(&lastRenderedRects);
+							image->UpdatePreview(&lastRenderedRects);
+							image->GetImageWidget()->update();
+						}
+						lastRenderedRects.clear();
+						optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
+						if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
+					}
+
+					if (!autoRefreshMode && !monteCarlo)
+					{
+						QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
+						MarkCurrentPendingTile(image, currentCorners);
+					}
+
+					if (!ReadBuffersFromQueue()) return false;
+
+					// Collect Pixel information from the rgbBuffer
+					// Populate the data into image->Put
+
+					for (int x = 0; x < jobWidth2; x++)
+					{
+						for (int y = 0; y < jobHeight2; y++)
+						{
+							sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
+							sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+							unsigned short opacity = pixelCl.opacity;
+							unsigned short alpha = pixelCl.alpha;
+							int xx = x + jobX;
+							int yy = y + jobY;
+
+							if (monteCarlo)
+							{
+								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
+								sRGBFloat newPixel;
+								newPixel.R =
+									oldPixel.R * (1.0 - 1.0 / monteCarloLoop) + pixel.R * (1.0 / monteCarloLoop);
+								newPixel.G =
+									oldPixel.G * (1.0 - 1.0 / monteCarloLoop) + pixel.G * (1.0 / monteCarloLoop);
+								newPixel.B =
+									oldPixel.B * (1.0 - 1.0 / monteCarloLoop) + pixel.B * (1.0 / monteCarloLoop);
+								image->PutPixelImage(xx, yy, newPixel);
+								image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
+								unsigned short newAlpha =
+									(double)oldAlpha * (1.0 - 1.0 / monteCarloLoop) + alpha * (1.0 / monteCarloLoop);
+								image->PutPixelAlpha(xx, yy, newAlpha);
+								image->PutPixelColor(xx, yy, color);
+								image->PutPixelOpacity(xx, yy, opacity);
+							}
+							else
+							{
+								image->PutPixelImage(xx, yy, pixel);
+								image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+								image->PutPixelColor(xx, yy, color);
+								image->PutPixelOpacity(xx, yy, opacity);
+								image->PutPixelAlpha(xx, yy, alpha);
+							}
+						}
+					}
+
+					lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
+
+					pixelsRendered += jobWidth2 * jobHeight2;
+
+					if (progressRefreshTimer.elapsed() > 100)
+					{
+						double percentDone;
+						if(!monteCarlo)
+						{
+							percentDone = double(pixelsRendered) / numberOfPixels;
+						}
+						else
+						{
+							percentDone = double(monteCarloLoop - 1)/numberOfSamples + double(pixelsRendered) / numberOfPixels / numberOfSamples;
+						}
+						emit updateProgressAndStatus(
+							tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+						gApplication->processEvents();
+						progressRefreshTimer.restart();
+					}
+
+					if (*stopRequest)
+					{
+						return false;
+					}
+				}
+				// selection of next piece
+				switch (dir)
+				{
+					case 0:
+						gridX++;
+						if (gridStep > gridPass)
+						{
+							gridStep = 0;
+							dir = 1;
+						}
+						break;
+
+					case 1:
+						gridY++;
+						if (gridStep > gridPass)
+						{
+							gridStep = 0;
+							gridPass++;
+							dir = 2;
+						}
+						break;
+
+					case 2:
+						gridX--;
+						if (gridStep > gridPass)
+						{
+							gridStep = 0;
+							dir = 3;
+						}
+						break;
+
+					case 3:
+						gridY--;
+						if (gridStep > gridPass)
+						{
+							gridStep = 0;
+							gridPass++;
+							dir = 0;
+						}
+						break;
+				}
+
+				gridStep++;
+			}
+
+			//update last rectangle
+			if(monteCarlo)
+			{
 				if (lastRenderedRects.size() > 0)
 				{
 					QElapsedTimer timerImageRefresh;
 					timerImageRefresh.start();
 					image->NullPostEffect(&lastRenderedRects);
 					image->CompileImage(&lastRenderedRects);
-					if(image->IsPreview())
+					if (image->IsPreview())
 					{
 						image->ConvertTo8bit(&lastRenderedRects);
 						image->UpdatePreview(&lastRenderedRects);
 						image->GetImageWidget()->update();
 					}
 					lastRenderedRects.clear();
-					optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
-					if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 				}
-
-				if (!autoRefreshMode)
-				{
-					QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
-					MarkCurrentPendingTile(image, currentCorners);
-				}
-
-				if (!ReadBuffersFromQueue()) return false;
-
-				// Collect Pixel information from the rgbBuffer
-				// Populate the data into image->Put
-
-				for (int x = 0; x < jobWidth2; x++)
-				{
-					for (int y = 0; y < jobHeight2; y++)
-					{
-						sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
-						sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-						sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-						unsigned short opacity = pixelCl.opacity;
-						unsigned short alpha = pixelCl.alpha;
-						int xx = x + jobX;
-						int yy = y + jobY;
-
-						image->PutPixelImage(xx, yy, pixel);
-						image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
-						image->PutPixelColor(xx, yy, color);
-						image->PutPixelOpacity(xx, yy, opacity);
-						image->PutPixelAlpha(xx, yy, alpha);
-					}
-				}
-
-				lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
-
-				pixelsRendered += jobWidth2 * jobHeight2;
-
-				if (progressRefreshTimer.elapsed() > 100)
-				{
-					double percentDone = double(pixelsRendered) / numberOfPixels;
-					emit updateProgressAndStatus(
-						tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
-					gApplication->processEvents();
-					progressRefreshTimer.restart();
-				}
-
-				if (*stopRequest)
-				{
-					return false;
-				}
+				gApplication->processEvents();
 			}
-			// selection of next piece
-			switch (dir)
-			{
-				case 0:
-					gridX++;
-					if (gridStep > gridPass)
-					{
-						gridStep = 0;
-						dir = 1;
-					}
-					break;
-
-				case 1:
-					gridY++;
-					if (gridStep > gridPass)
-					{
-						gridStep = 0;
-						gridPass++;
-						dir = 2;
-					}
-					break;
-
-				case 2:
-					gridX--;
-					if (gridStep > gridPass)
-					{
-						gridStep = 0;
-						dir = 3;
-					}
-					break;
-
-				case 3:
-					gridY--;
-					if (gridStep > gridPass)
-					{
-						gridStep = 0;
-						gridPass++;
-						dir = 0;
-					}
-					break;
-			}
-
-			gridStep++;
-		}
+		} // monte carlo loop
 
 		qDebug() << "GPU jobs finished";
 		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
@@ -681,7 +751,7 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 	currentRenderededLines << corners;
 	image->NullPostEffect(&currentRenderededLines);
 	image->CompileImage(&currentRenderededLines);
-	if(image->IsPreview())
+	if (image->IsPreview())
 	{
 		image->ConvertTo8bit(&currentRenderededLines);
 		image->UpdatePreview(&currentRenderededLines);
@@ -714,7 +784,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 	if (!checkErr(err, "kernel->setArg(0, *outCL)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("output data")),
+			QObject::tr("Cannot set OpenCL argument for %0").arg(QObject::tr("output data")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -732,7 +802,16 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("constant data")),
+			QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("constant data")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = kernel->setArg(3, Random(1000000)); // random seed
+	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot set OpenCL argument for %3").arg(QObject::tr("random seed")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

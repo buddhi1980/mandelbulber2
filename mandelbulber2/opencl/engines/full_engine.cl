@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * Fast kernel for rendering opencl with missing effects
+ * Full kernel for rendering opencl with missing effects
  */
 
 int GetInteger(int byte, __global char *array)
@@ -39,8 +39,8 @@ int GetInteger(int byte, __global char *array)
 }
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void fractal3D(
-	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts)
+kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
+	__constant sClInConstants *consts, int initRandomSeed)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -50,7 +50,7 @@ kernel void fractal3D(
 	const int buffIndex = (imageX - cl_offsetX) + (imageY - cl_offsetY) * get_global_size(0);
 
 	// randomizing random seed
-	int randomSeed = imageX + imageY * consts->params.imageWidth;
+	int randomSeed = imageX + imageY * consts->params.imageWidth + initRandomSeed;
 	for (int i = 0; i < 3; i++)
 	{
 		randomSeed = RandomInt(&randomSeed);
@@ -134,6 +134,10 @@ kernel void fractal3D(
 
 	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
 	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
+
+#ifdef MONTE_CARLO_DOF
+	MonteCarloDOF(&start, &viewVector, consts, rot, &randomSeed);
+#endif
 
 	// main light vector
 	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;

@@ -39,8 +39,8 @@ int GetInteger(int byte, __global char *array)
 }
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void fractal3D(
-	__global sClPixel *out, __global char *inBuff, __constant sClInConstants *consts)
+kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
+	__constant sClInConstants *consts, int initRandomSeed)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -50,7 +50,7 @@ kernel void fractal3D(
 	const int buffIndex = (imageX - cl_offsetX) + (imageY - cl_offsetY) * get_global_size(0);
 
 	// randomizing random seed
-	int randomSeed = imageX + imageY * consts->params.imageWidth;
+	int randomSeed = imageX + imageY * consts->params.imageWidth + initRandomSeed;
 	for (int i = 0; i < 3; i++)
 	{
 		randomSeed = RandomInt(&randomSeed);

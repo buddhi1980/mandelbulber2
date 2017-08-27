@@ -199,7 +199,7 @@ int RandomInt(int *randomSeed)
 	int const a = 15484817;
 	int const m = 6571759;
 	s = ((long)(s * a)) % m;
-
+	if (s < 0) s = -s;
 	return *randomSeed = s;
 }
 

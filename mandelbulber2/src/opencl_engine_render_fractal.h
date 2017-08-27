@@ -102,6 +102,7 @@ private:
 
 	QStringList listOfUsedFormulas;
 	bool autoRefreshMode;
+	bool monteCarlo;
 
 #endif
 

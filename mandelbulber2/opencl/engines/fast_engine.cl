@@ -33,8 +33,8 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void fractal3D(
-	__global sClPixel *out, __global sClInBuff *inBuff, __constant sClInConstants *consts)
+kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
+	__constant sClInConstants *consts, int initRandomSeed)
 {
 	// get actual pixel
 	// get actual pixel
