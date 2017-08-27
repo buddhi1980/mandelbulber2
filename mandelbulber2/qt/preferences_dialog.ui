@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -1008,39 +1008,13 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="3" column="0">
-                 <widget class="QLabel" name="label_mode">
-                  <property name="text">
-                   <string>Mode</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_opencl_mode">
-                  <item>
-                   <property name="text">
-                    <string>fast</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>limited</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>full</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="4" column="0">
                  <widget class="QLabel" name="label_opencl_memory_limit">
                   <property name="text">
                    <string>Memory Limit:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="3" column="1">
                  <widget class="QSlider" name="sliderInt_opencl_memory_limit">
                   <property name="minimum">
                    <number>1</number>
@@ -1059,7 +1033,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="2">
+                <item row="3" column="2">
                  <widget class="MySpinBox" name="spinboxInt_opencl_memory_limit">
                   <property name="minimum">
                    <number>-10000</number>
@@ -1192,6 +1166,11 @@ and will only be present after enabling and re-render.</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
@@ -1206,11 +1185,6 @@ and will only be present after enabling and re-render.</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1257,7 +1231,6 @@ and will only be present after enabling and re-render.</string>
   <tabstop>scrollArea_OpenCL</tabstop>
   <tabstop>groupCheck_opencl_enabled</tabstop>
   <tabstop>comboBox_opencl_precision</tabstop>
-  <tabstop>comboBox_opencl_mode</tabstop>
   <tabstop>sliderInt_opencl_memory_limit</tabstop>
   <tabstop>spinboxInt_opencl_memory_limit</tabstop>
  </tabstops>

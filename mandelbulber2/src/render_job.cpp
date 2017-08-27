@@ -531,7 +531,10 @@ bool cRenderJob::Execute()
 		if (!*renderData->stopRequest)
 		{
 			if (params->ambientOcclusionEnabled
-					&& params->ambientOcclusionMode == params::AOModeScreenSpace)
+					&& params->ambientOcclusionMode == params::AOModeScreenSpace
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+							 paramsContainer->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
 			{
 				gOpenCl->openClEngineRenderSSAO->Lock();
 				gOpenCl->openClEngineRenderSSAO->SetParameters(params);

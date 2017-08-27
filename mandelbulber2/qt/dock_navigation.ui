@@ -93,6 +93,39 @@
     </layout>
    </item>
    <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="0,1">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="label_mode">
+       <property name="text">
+        <string>OpenCL mode:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox_opencl_mode">
+       <item>
+        <property name="text">
+         <string>fast</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>limited</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>full</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <widget class="MyCheckBox" name="checkBox_auto_refresh">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -119,7 +152,7 @@
         <x>0</x>
         <y>0</y>
         <width>392</width>
-        <height>1024</height>
+        <height>993</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">
