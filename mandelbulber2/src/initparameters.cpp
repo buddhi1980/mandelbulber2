@@ -487,13 +487,13 @@ void InitParams(cParameterContainer *par)
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
 
-	par->addParam("gpu_enabled", false, morphNone, paramApp);
-	par->addParam("gpu_platform", 0, morphNone, paramApp);
-	par->addParam("gpu_device_type", 0, morphNone, paramApp);
-	par->addParam("gpu_device_list", QString(""), morphNone, paramApp);
-	par->addParam("gpu_mode", 0, morphNone, paramApp);
-	par->addParam("gpu_precision", 0, morphNone, paramApp);
-	par->addParam("gpu_memory_limit", 512, 1, 10000, morphNone, paramApp);
+	par->addParam("opencl_enabled", false, morphNone, paramApp);
+	par->addParam("opencl_platform", 0, morphNone, paramApp);
+	par->addParam("opencl_device_type", 0, morphNone, paramApp);
+	par->addParam("opencl_device_list", QString(""), morphNone, paramApp);
+	par->addParam("opencl_mode", 0, morphNone, paramApp);
+	par->addParam("opencl_precision", 0, morphNone, paramApp);
+	par->addParam("opencl_memory_limit", 512, 1, 10000, morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }

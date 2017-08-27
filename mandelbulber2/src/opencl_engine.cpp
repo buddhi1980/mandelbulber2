@@ -217,7 +217,7 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 {
 	size_t width = params->Get<int>("image_width");
 	size_t height = params->Get<int>("image_height");
-	size_t memoryLimitByUser = params->Get<int>("gpu_memory_limit") * 1024 * 1024;
+	size_t memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024 * 1024;
 	size_t pixelCnt = width * height;
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
 

@@ -915,7 +915,7 @@ and will only be present after enabling and re-render.</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabGPU">
+     <widget class="QWidget" name="tabOpenCL">
       <attribute name="icon">
        <iconset resource="icons.qrc">
         <normaloff>:/system/icons/gpu.png</normaloff>:/system/icons/gpu.png</iconset>
@@ -923,13 +923,13 @@ and will only be present after enabling and re-render.</string>
       <attribute name="title">
        <string>OpenCL (GPU)</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_outer_GPU">
+      <layout class="QVBoxLayout" name="verticalLayout_outer_OpenCL">
        <item>
-        <widget class="QScrollArea" name="scrollArea_GPU">
+        <widget class="QScrollArea" name="scrollArea_OpenCL">
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <widget class="QWidget" name="scrollAreaWidgetContents_GPU">
+         <widget class="QWidget" name="scrollAreaWidgetContents_OpenCL">
           <property name="geometry">
            <rect>
             <x>0</x>
@@ -938,7 +938,7 @@ and will only be present after enabling and re-render.</string>
             <height>628</height>
            </rect>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout_GPU">
+          <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -955,7 +955,7 @@ and will only be present after enabling and re-render.</string>
             <number>2</number>
            </property>
            <item>
-            <widget class="MyGroupBox" name="groupCheck_gpu_enabled">
+            <widget class="MyGroupBox" name="groupCheck_opencl_enabled">
              <property name="toolTip">
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering. For more information about setup and workflow see the handbook under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
@@ -965,7 +965,7 @@ and will only be present after enabling and re-render.</string>
              <property name="checkable">
               <bool>true</bool>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_gpu_inner">
+             <layout class="QVBoxLayout" name="verticalLayout_opencl_inner">
               <property name="spacing">
                <number>2</number>
               </property>
@@ -982,19 +982,19 @@ and will only be present after enabling and re-render.</string>
                <number>2</number>
               </property>
               <item>
-               <widget class="QLabel" name="label_explanation_gpu">
+               <widget class="QLabel" name="label_explanation_opencl">
                 <property name="text">
-                 <string>This will offload the rendering to the GPU.</string>
+                 <string>This will offload the rendering to an OpenCL device (GPU, CPU, Accelerator Card).</string>
                 </property>
                </widget>
               </item>
               <item>
-               <layout class="QGridLayout" name="gridLayout_gpu_settings">
+               <layout class="QGridLayout" name="gridLayout_opencl_settings">
                 <property name="spacing">
                  <number>2</number>
                 </property>
                 <item row="2" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_gpu_precision">
+                 <widget class="QComboBox" name="comboBox_opencl_precision">
                   <item>
                    <property name="text">
                     <string>single</string>
@@ -1015,7 +1015,7 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="3" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_gpu_mode">
+                 <widget class="QComboBox" name="comboBox_opencl_mode">
                   <item>
                    <property name="text">
                     <string>fast</string>
@@ -1034,14 +1034,14 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="4" column="0">
-                 <widget class="QLabel" name="label_gpu_memory_limit">
+                 <widget class="QLabel" name="label_opencl_memory_limit">
                   <property name="text">
                    <string>Memory Limit:</string>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QSlider" name="sliderInt_gpu_memory_limit">
+                 <widget class="QSlider" name="sliderInt_opencl_memory_limit">
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -1060,7 +1060,7 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="4" column="2">
-                 <widget class="MySpinBox" name="spinboxInt_gpu_memory_limit">
+                 <widget class="MySpinBox" name="spinboxInt_opencl_memory_limit">
                   <property name="minimum">
                    <number>-10000</number>
                   </property>
@@ -1070,7 +1070,7 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QLabel" name="label_gpu_device">
+                 <widget class="QLabel" name="label_opencl_device">
                   <property name="text">
                    <string>Device</string>
                   </property>
@@ -1084,9 +1084,9 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="1" column="1" colspan="2">
-                 <layout class="QVBoxLayout" name="verticalLayout_gpu_device">
+                 <layout class="QVBoxLayout" name="verticalLayout_opencl_device">
                   <item>
-                   <widget class="QComboBox" name="comboBox_gpu_device_type">
+                   <widget class="QComboBox" name="comboBox_opencl_device_type">
                     <item>
                      <property name="text">
                       <string>All GPU devices</string>
@@ -1115,7 +1115,7 @@ and will only be present after enabling and re-render.</string>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QListWidget" name="listWidget_gpu_device_list">
+                   <widget class="QListWidget" name="listWidget_opencl_device_list">
                     <property name="selectionMode">
                      <enum>QAbstractItemView::ExtendedSelection</enum>
                     </property>
@@ -1130,14 +1130,14 @@ and will only be present after enabling and re-render.</string>
                  </layout>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QLabel" name="label_gpu_device_2">
+                 <widget class="QLabel" name="label_opencl_device_2">
                   <property name="text">
                    <string>Platforms</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1" colspan="2">
-                 <widget class="QListWidget" name="listWidget_gpu_platform_list">
+                 <widget class="QListWidget" name="listWidget_opencl_platform_list">
                   <property name="selectionMode">
                    <enum>QAbstractItemView::SingleSelection</enum>
                   </property>
@@ -1158,7 +1158,7 @@ and will only be present after enabling and re-render.</string>
             </widget>
            </item>
            <item>
-            <spacer name="verticalSpacer_gpu">
+            <spacer name="verticalSpacer_opencl">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
@@ -1254,12 +1254,12 @@ and will only be present after enabling and re-render.</string>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_load_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>
-  <tabstop>scrollArea_GPU</tabstop>
-  <tabstop>groupCheck_gpu_enabled</tabstop>
-  <tabstop>comboBox_gpu_precision</tabstop>
-  <tabstop>comboBox_gpu_mode</tabstop>
-  <tabstop>sliderInt_gpu_memory_limit</tabstop>
-  <tabstop>spinboxInt_gpu_memory_limit</tabstop>
+  <tabstop>scrollArea_OpenCL</tabstop>
+  <tabstop>groupCheck_opencl_enabled</tabstop>
+  <tabstop>comboBox_opencl_precision</tabstop>
+  <tabstop>comboBox_opencl_mode</tabstop>
+  <tabstop>sliderInt_opencl_memory_limit</tabstop>
+  <tabstop>spinboxInt_opencl_memory_limit</tabstop>
  </tabstops>
  <resources>
   <include location="icons.qrc"/>

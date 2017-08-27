@@ -66,9 +66,9 @@ private slots:
 	void on_pushButton_retrieve_toolbar_clicked() const;
 	void on_pushButton_retrieve_materials_clicked() const;
 #ifdef USE_OPENCL
-	void on_listWidget_gpu_platform_list_currentRowChanged(int index);
-	void on_groupCheck_gpu_enabled_toggled(bool state);
-	void on_comboBox_gpu_device_type_currentIndexChanged(int index);
+	void on_listWidget_opencl_platform_list_currentRowChanged(int index);
+	void on_groupCheck_opencl_enabled_toggled(bool state);
+	void on_comboBox_opencl_device_type_currentIndexChanged(int index);
 #endif
 
 private:

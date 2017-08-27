@@ -852,6 +852,11 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			}
 		}
 	}
+
+	if (fileVersion < 2.12)
+	{
+		name.replace("gpu_", "opencl_");
+	}
 }
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)

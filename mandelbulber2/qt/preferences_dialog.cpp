@@ -127,10 +127,10 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 #ifdef USE_OPENCL
-	int selectedPlatform = ui->listWidget_gpu_platform_list->currentIndex().row();
-	gPar->Set("gpu_platform", selectedPlatform);
+	int selectedPlatform = ui->listWidget_opencl_platform_list->currentIndex().row();
+	gPar->Set("opencl_platform", selectedPlatform);
 
-	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_gpu_device_list->selectedItems();
+	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_opencl_device_list->selectedItems();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList activeDevices;
 	for (int i = 0; i < selectedDevicesItems.size(); i++)
@@ -138,7 +138,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 		activeDevices.append(selectedDevicesItems.at(i)->data(1).toString());
 	}
 	QString listString = activeDevices.join("|");
-	gPar->Set("gpu_device_list", listString);
+	gPar->Set("opencl_device_list", listString);
 	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
 #endif
 }
@@ -379,41 +379,41 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 }
 
 #ifdef USE_OPENCL
-void cPreferencesDialog::on_listWidget_gpu_platform_list_currentRowChanged(int index)
+void cPreferencesDialog::on_listWidget_opencl_platform_list_currentRowChanged(int index)
 {
 	if (index >= 0)
 	{
 		gOpenCl->Reset();
 		gOpenCl->openClHardware->CreateContext(
-			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
+			index, cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
 
-		ui->listWidget_gpu_device_list->clear();
+		ui->listWidget_opencl_device_list->clear();
 
 		QList<QPair<QString, QString>> devices = GetOpenCLDevices();
-		QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+		QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
 		for (int i = 0; i < devices.size(); i++)
 		{
 			QPair<QString, QString> device = devices.at(i);
 			QListWidgetItem *item = new QListWidgetItem(device.second);
 			item->setData(1, device.first);
 			bool selected = selectedDevices.contains(device.first);
-			ui->listWidget_gpu_device_list->addItem(item);
+			ui->listWidget_opencl_device_list->addItem(item);
 			item->setSelected(selected);
 		}
 	}
 }
 
-void cPreferencesDialog::on_groupCheck_gpu_enabled_toggled(bool state)
+void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 {
 	if (state)
 	{
 		gOpenCl->Reset();
 		gOpenCl->openClHardware->ListOpenClPlatforms();
-		if (gPar->Get<int>("gpu_platform") >= 0)
+		if (gPar->Get<int>("opencl_platform") >= 0)
 		{
-			gOpenCl->openClHardware->CreateContext(gPar->Get<int>("gpu_platform"),
-				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_gpu_device_type->currentIndex()));
-			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("gpu_device_list"));
+			gOpenCl->openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
+				cOpenClDevice::enumOpenClDeviceType(ui->comboBox_opencl_device_type->currentIndex()));
+			gOpenCl->openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
 		}
 
 		UpdateOpenCLListBoxes();
@@ -426,39 +426,39 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	QList<cOpenClHardware::sPlatformInformation> platformsInformation =
 		gOpenCl->openClHardware->getPlatformsInformation();
 
-	ui->listWidget_gpu_platform_list->clear();
+	ui->listWidget_opencl_platform_list->clear();
 	for (int i = 0; i < platformsInformation.size(); i++)
 	{
 		QListWidgetItem *item =
 			new QListWidgetItem(platformsInformation[i].name + ", " + platformsInformation[i].vendor
 													+ ", " + platformsInformation[i].version);
-		ui->listWidget_gpu_platform_list->addItem(item);
+		ui->listWidget_opencl_platform_list->addItem(item);
 	}
 
-	int selectedPlatformIndex = gPar->Get<int>("gpu_platform");
+	int selectedPlatformIndex = gPar->Get<int>("opencl_platform");
 	if (selectedPlatformIndex < platformsInformation.size() && selectedPlatformIndex >= 0)
 	{
-		ui->listWidget_gpu_platform_list->item(selectedPlatformIndex)->setSelected(true);
-		ui->listWidget_gpu_platform_list->setCurrentRow(selectedPlatformIndex);
+		ui->listWidget_opencl_platform_list->item(selectedPlatformIndex)->setSelected(true);
+		ui->listWidget_opencl_platform_list->setCurrentRow(selectedPlatformIndex);
 	}
 
-	ui->listWidget_gpu_device_list->clear();
+	ui->listWidget_opencl_device_list->clear();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
-	QStringList selectedDevices = gPar->Get<QString>("gpu_device_list").split("|");
+	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
 	for (int i = 0; i < devices.size(); i++)
 	{
 		QPair<QString, QString> device = devices.at(i);
 		QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
 		bool selected = selectedDevices.contains(device.first);
-		ui->listWidget_gpu_device_list->addItem(item);
+		ui->listWidget_opencl_device_list->addItem(item);
 		item->setSelected(selected);
 	}
 }
 
-void cPreferencesDialog::on_comboBox_gpu_device_type_currentIndexChanged(int index)
+void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int index)
 {
 	Q_UNUSED(index);
-	on_listWidget_gpu_platform_list_currentRowChanged(ui->listWidget_gpu_platform_list->currentRow());
+	on_listWidget_opencl_platform_list_currentRowChanged(ui->listWidget_opencl_platform_list->currentRow());
 }
 #endif

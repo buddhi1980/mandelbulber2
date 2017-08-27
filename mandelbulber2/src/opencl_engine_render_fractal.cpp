@@ -114,7 +114,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
 
-		if (params->Get<bool>("gpu_precision"))
+		if (params->Get<bool>("opencl_precision"))
 			programEngine.append("#define DOUBLE_PRECISION " + QString::number(1) + "\n");
 
 		// fractal formulas - only actually used
@@ -140,13 +140,13 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// 3D projections (3point, equirectagular, fisheye)
 		programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
 
-		if (params->Get<int>("gpu_mode") != clRenderEngineTypeFast)
+		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
 		{
 			// shaders
 			programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
 		}
 
-		if (params->Get<int>("gpu_mode") == clRenderEngineTypeFull)
+		if (params->Get<int>("opencl_mode") == clRenderEngineTypeFull)
 		{
 			// ray recursion
 			programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
@@ -154,7 +154,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// main engine
 		QString engineFileName;
-		switch (enumClRenderEngineMode(params->Get<int>("gpu_mode")))
+		switch (enumClRenderEngineMode(params->Get<int>("opencl_mode")))
 		{
 			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
 			case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
