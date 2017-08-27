@@ -518,9 +518,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					timerImageRefresh.start();
 					image->NullPostEffect(&lastRenderedRects);
 					image->CompileImage(&lastRenderedRects);
-					image->ConvertTo8bit(&lastRenderedRects);
-					image->UpdatePreview(&lastRenderedRects);
-					image->GetImageWidget()->update();
+					if(image->IsPreview())
+					{
+						image->ConvertTo8bit(&lastRenderedRects);
+						image->UpdatePreview(&lastRenderedRects);
+						image->GetImageWidget()->update();
+					}
 					lastRenderedRects.clear();
 					optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
 					if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
@@ -678,9 +681,12 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 	currentRenderededLines << corners;
 	image->NullPostEffect(&currentRenderededLines);
 	image->CompileImage(&currentRenderededLines);
-	image->ConvertTo8bit(&currentRenderededLines);
-	image->UpdatePreview(&currentRenderededLines);
-	image->GetImageWidget()->update();
+	if(image->IsPreview())
+	{
+		image->ConvertTo8bit(&currentRenderededLines);
+		image->UpdatePreview(&currentRenderededLines);
+		image->GetImageWidget()->update();
+	}
 }
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
