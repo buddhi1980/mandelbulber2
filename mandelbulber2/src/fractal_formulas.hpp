@@ -218,10 +218,12 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSphericalFoldCuboidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldVaryVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
