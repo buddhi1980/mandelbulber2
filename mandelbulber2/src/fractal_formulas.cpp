@@ -1217,21 +1217,23 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		z = CVector4(z.z, z.y, z.x, z.w);
 	}
-
-	if (fractal->transformCommon.functionEnabledAx)
+	// cuboid
+	if (fractal->transformCommon.functionEnabledAx
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
-		// spherical fold - cuboid minR2
-		if (aux.i >= fractal->transformCommon.startIterationsS
-				&& aux.i < fractal->transformCommon.stopIterationsS)
-		{
-			CVector4 temp3;
-			CVector4 R2;
-			double minR2 = fractal->transformCommon.minR2p25;
-			CVector4 limitMinR2 = fractal->transformCommon.additionConstant0555;
-			double m = 1.0;
-			double rr = z.Dot(z);
+		CVector4 temp3;
+		CVector4 R2;
+		double minR2 = fractal->transformCommon.minR2p25;
+		CVector4 limitMinR2 = fractal->transformCommon.scaleP222;
+		double m = 1.0;
+		double rr = z.Dot(z);
 
-			z += fractal->transformCommon.offset000;
+		z += fractal->transformCommon.offset000;
+
+		if (aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
 			if (fractal->transformCommon.functionEnabledAxFalse)
 				temp3 = z * z;
 			else
@@ -1245,10 +1247,12 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				double First = min(R2.x, min(R2.y, R2.z));
 				minR2 = rr * First;
 
-				if (minR2 > fractal->transformCommon.maxR2d1)
+				if (fractal->transformCommon.functionEnabled
+						&& minR2 > fractal->transformCommon.maxR2d1)
 				{ // stop overlapping potential
 					minR2 = fractal->transformCommon.maxR2d1;
 				}
+
 				m *= fractal->transformCommon.maxR2d1 / minR2;
 				aux.color += fractal->mandelbox.color.factorSp1;
 			}
@@ -1257,48 +1261,90 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				m *= fractal->transformCommon.maxR2d1 / rr;
 				aux.color += fractal->mandelbox.color.factorSp2;
 			}
-			z = z * m;
-			aux.DE = aux.DE * fabs(m) + 1.0;
-			z -= fractal->transformCommon.offset000;
 		}
-	}
-	else
-	{
-		// spherical fold with xyz bias option
-		if (aux.i >= fractal->transformCommon.startIterationsS
-				&& aux.i < fractal->transformCommon.stopIterationsS)
+		else if ( rr < minR2)
 		{
-			double minR2 = fractal->transformCommon.minR2p25;
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				CVector4 xyzBias = fractal->transformCommon.constantMultiplier000;
-				xyzBias *= fabs(c) / 10.0;
-				minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
-			}
-			if (fractal->transformCommon.functionEnabledAzFalse
-					&& minR2 > fractal->transformCommon.maxR2d1)
-			{ // stop overlapping potential
-				minR2 = fractal->transformCommon.maxR2d1;
-			}
-
-			z += fractal->transformCommon.offset000;
-			double rr = z.Dot(z);
-			if (rr < minR2)
-			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / minR2;
-				z *= tglad_factor1;
-				aux.DE *= tglad_factor1;
-				aux.color += fractal->mandelbox.color.factorSp1;
-			}
-			else if (rr < fractal->transformCommon.maxR2d1)
-			{
-				double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-				z *= tglad_factor2;
-				aux.DE *= tglad_factor2;
-				aux.color += fractal->mandelbox.color.factorSp2;
-			}
-			z -= fractal->transformCommon.offset000;
+			m *= fractal->transformCommon.maxR2d1 / minR2;
+			aux.color += fractal->mandelbox.color.factorSp1;
 		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			m *= fractal->transformCommon.maxR2d1 / rr;
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+		z -= fractal->transformCommon.offset000;
+			// scale
+		z *= m;
+		aux.DE = aux.DE * fabs(m) + 1.0;
+	}
+
+	/*CVector4 xyzBias;
+	double minR2 = fractal->transformCommon.minR2p25;
+	double MaxR2 = fractal->transformCommon.maxR2d1;
+
+	if ( aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		xyzBias = fabs(aux.c) * fractal->transformCommon.constantMultiplier000;
+		minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
+	}
+
+	if ( fractal->transformCommon.functionEnabledFalse
+				 && aux.i >= fractal->transformCommon.startIterationsB
+					&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		CVector4 cSquared = aux.c * aux.c;
+		xyzBias = cSquared * fractal->transformCommon.scale3D000;
+		minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
+	}
+
+	if (fractal->transformCommon.functionEnabled && minR2 > MaxR2)
+	{
+			minR2 = MaxR2; // stop overlapping potential
+	}
+
+
+	*/
+
+
+
+		// spherical fold with xyz bias option
+	if (fractal->transformCommon.functionEnabledAyFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector4 xyzBias = fractal->transformCommon.constantMultiplier000;
+		double minR2 = fractal->transformCommon.minR2p25;
+		{
+			if (fractal->transformCommon.functionEnabledAzFalse) xyzBias *= aux.c * aux.c;
+			else xyzBias *= fabs(aux.c);
+
+			minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
+		}
+
+		if (fractal->transformCommon.functionEnabledAz
+				&& minR2 > fractal->transformCommon.maxR2d1)
+		{ // stop overlapping potential
+			minR2 = fractal->transformCommon.maxR2d1;
+		}
+
+		double rr = z.Dot(z);
+		z += fractal->transformCommon.offset000;
+		if (rr < minR2)
+		{
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / minR2;
+			z *= tglad_factor1;
+			aux.DE *= tglad_factor1 + 1.0;
+			aux.color += fractal->mandelbox.color.factorSp1;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+			z *= tglad_factor2;
+			aux.DE *= tglad_factor2 + 1.0;
+			aux.color += fractal->mandelbox.color.factorSp2;
+		}
+		z -= fractal->transformCommon.offset000;
 	}
 
 	// scale
@@ -8912,10 +8958,9 @@ void TransfSphericalFoldCuboidIteration(CVector4 &z, const sFractal *fractal, sE
 	double minR2 = fractal->transformCommon.minR2p25;
 	CVector4 limitMinR2 = fractal->transformCommon.scaleP222;
 	double m = fractal->transformCommon.scale;
+
 	double rr = z.Dot(z);
-
 	z += fractal->transformCommon.offset000;
-
 
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -8969,8 +9014,9 @@ void TransfSphericalFoldCuboidIteration(CVector4 &z, const sFractal *fractal, sE
 		{
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
-		z -= fractal->transformCommon.offset000;
 	}
+	z -= fractal->transformCommon.offset000;
+
 		// scale
 	z *= m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
