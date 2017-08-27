@@ -170,6 +170,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QStringList({"help-input"}), QCoreApplication::translate("main", "Shows help about input."));
 	QCommandLineOption helpExamplesOption(
 		QStringList({"help-examples"}), QCoreApplication::translate("main", "Shows example commands."));
+	QCommandLineOption helpOpenClOption(QStringList({"help-opencl"}),
+		QCoreApplication::translate("main", "Shows commands regarding OpenCL."));
 
 	parser.addPositionalArgument(
 		"settings_file",
@@ -203,6 +205,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	parser.addOption(statsOption);
 	parser.addOption(helpInputOption);
 	parser.addOption(helpExamplesOption);
+	parser.addOption(helpOpenClOption);
 
 	// Process the actual command line arguments given by the user
 	parser.process(*qApplication);
@@ -238,6 +241,8 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliData.touch = parser.isSet(touchOption);
 	cliData.showInputHelp = parser.isSet(helpInputOption);
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
+	cliData.showOpenCLHelp = parser.isSet(helpOpenClOption);
+
 	systemData.statsOnCLI = parser.isSet(statsOption);
 
 #ifdef _WIN32 /* WINDOWS */
@@ -265,6 +270,8 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.showExampleHelp) printExampleHelpAndExit();
 	// show input help only
 	if (cliData.showInputHelp) printInputHelpAndExit();
+	// show input help only
+	if (cliData.showOpenCLHelp) printOpenCLHelpAndExit();
 	// list parameters only
 	if (cliData.listParameters) printParametersAndExit();
 
@@ -477,6 +484,17 @@ void cCommandLineInterface::printInputHelpAndExit()
 		"added to the queue\n"
 		"You can also use \"-\" as a special argument to indicate that the filename, or the whole "
 		"file contents are specified in stdin, example: cat example.fract | mandelbulber2 -\n");
+	out.flush();
+	exit(0);
+}
+
+void cCommandLineInterface::printOpenCLHelpAndExit()
+{
+	QTextStream out(stdout);
+	// TODO
+	out << QObject::tr(
+		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
+		"Under construction ...\n");
 	out.flush();
 	exit(0);
 }

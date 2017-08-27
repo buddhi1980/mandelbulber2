@@ -485,7 +485,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		progressRefreshTimer.start();
 
 		int numberOfSamples = 1;
-		if(monteCarlo)
+		if (monteCarlo)
 		{
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
@@ -608,13 +608,14 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					if (progressRefreshTimer.elapsed() > 100)
 					{
 						double percentDone;
-						if(!monteCarlo)
+						if (!monteCarlo)
 						{
 							percentDone = double(pixelsRendered) / numberOfPixels;
 						}
 						else
 						{
-							percentDone = double(monteCarloLoop - 1)/numberOfSamples + double(pixelsRendered) / numberOfPixels / numberOfSamples;
+							percentDone = double(monteCarloLoop - 1) / numberOfSamples
+														+ double(pixelsRendered) / numberOfPixels / numberOfSamples;
 						}
 						emit updateProgressAndStatus(
 							tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
@@ -672,8 +673,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				gridStep++;
 			}
 
-			//update last rectangle
-			if(monteCarlo)
+			// update last rectangle
+			if (monteCarlo)
 			{
 				if (lastRenderedRects.size() > 0)
 				{
