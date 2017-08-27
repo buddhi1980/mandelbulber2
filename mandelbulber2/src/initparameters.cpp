@@ -871,6 +871,8 @@ void InitFractalParams(cParameterContainer *par)
 		paramStandard); // ......................
 	par->addParam("transf_rotation44b", CVector3(0.0, 0.0, 0.0), morphAkimaAngle,
 		paramStandard); // .........................
+
+	par->addParam("transf_scaleP_222", CVector3(0.2, 0.2, 0.2), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);

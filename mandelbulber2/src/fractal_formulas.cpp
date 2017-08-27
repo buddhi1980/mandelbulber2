@@ -8902,38 +8902,80 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 
 /**
  * spherical fold Cuboid
+ * This has a box shape MinR2 condition
  * This formula contains aux.color
  */
 void TransfSphericalFoldCuboidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double r2 = z.Dot(z);
-	z += fractal->mandelbox.offset;
-	z *= fractal->transformCommon.scale;													// beta
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; // beta
-	// if (r2 < 1e-21) r2 = 1e-21;
-	if (r2 < fractal->mandelbox.mR2)
+	CVector4 temp3;
+	CVector4 R2;
+	double minR2 = fractal->transformCommon.minR2p25;
+	CVector4 limitMinR2 = fractal->transformCommon.scaleP222;
+	double m = fractal->transformCommon.scale;
+	double rr = z.Dot(z);
+
+	z += fractal->transformCommon.offset000;
+
+
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z *= fractal->mandelbox.mboxFactor1;
-		aux.DE *= fractal->mandelbox.mboxFactor1;
-		aux.r_dz *= fractal->mandelbox.mboxFactor1;
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			temp3 = z * z;
+		else
+			temp3 = fabs(z);
+
+		if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
+		{ // if inside cuboid
+			R2.x = limitMinR2.x / temp3.x;
+			R2.y = limitMinR2.y / temp3.y;
+			R2.z = limitMinR2.z / temp3.z;
+			double First = min(R2.x, min(R2.y, R2.z));
+			minR2 = rr * First;
+
+			if (fractal->transformCommon.functionEnabled
+					&& minR2 > fractal->transformCommon.maxR2d1)
+			{ // stop overlapping potential
+				minR2 = fractal->transformCommon.maxR2d1;
+			}
+
+			m *= fractal->transformCommon.maxR2d1 / minR2;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			m *= fractal->transformCommon.maxR2d1 / rr;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
+		}
+	}
+	else if ( rr < minR2)
+	{
+		m *= fractal->transformCommon.maxR2d1 / minR2;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux.color += fractal->mandelbox.color.factorSp1;
 		}
 	}
-	else if (r2 < fractal->mandelbox.fR2)
+	else if (rr < fractal->transformCommon.maxR2d1)
 	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
-		z *= tglad_factor2;
-		aux.DE *= tglad_factor2;
-		aux.r_dz *= fractal->mandelbox.mboxFactor1;
+		m *= fractal->transformCommon.maxR2d1 / rr;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
+		z -= fractal->transformCommon.offset000;
 	}
-	z -= fractal->mandelbox.offset;
+		// scale
+	z *= m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
 }
+
 
 /**
  * spherical fold CHS Cylinder Half Size. Darkbeam s code from M3D
@@ -9081,6 +9123,7 @@ void TransfSphericalFoldVaryVCLIteration(CVector4 &z, const sFractal *fractal, s
 
 /**
  * spherical fold XYZ Bias
+ * deforms the MinR2 condition
  * This formula contains aux.color
  */
 void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -9111,7 +9154,7 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
 	}
 
 	double rr = z.Dot(z);
-	z += fractal->mandelbox.offset;
+	z += fractal->transformCommon.offset000;
 
 	if (rr < minR2)
 	{
@@ -9133,7 +9176,7 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
-	z -= fractal->mandelbox.offset;
+	z -= fractal->transformCommon.offset000;
 	// scale
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;

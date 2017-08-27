@@ -432,6 +432,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.rotation44b =
 		container->Get<CVector3>("transf_rotation44b"); //...........................
 
+	transformCommon.scaleP222 = CVector4(container->Get<CVector3>("transf_scaleP_222"), 1.0);
 	transformCommon.scale3D000 = CVector4(container->Get<CVector3>("transf_scale3D_000"), 1.0);
 	transformCommon.scale3D111 = CVector4(container->Get<CVector3>("transf_scale3D_111"), 1.0);
 	transformCommon.scale3D222 = CVector4(container->Get<CVector3>("transf_scale3D_222"), 1.0);
