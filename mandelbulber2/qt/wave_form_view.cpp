@@ -128,11 +128,11 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 		if (inProgress)
 		{
 			QPainter painter(this);
-			QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, progressText);
+			QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, progressText);
 			textRect.setHeight(textRect.height() + 2);
 			textRect.moveTopLeft(QPoint(5, 5));
 			this->setFixedWidth(textRect.width() + 5);
-			painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, progressText);
+			painter.drawText(textRect, Qt::AlignTop | Qt::AlignLeft, progressText);
 		}
 		else
 		{
@@ -144,14 +144,14 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 	else
 	{
 		QPainter painter(this);
-		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop || Qt::AlignLeft, progressText);
+		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, progressText);
 		textRect.setHeight(textRect.height() + 2);
 		textRect.moveTopLeft(QPoint(5, 5));
 		this->setFixedWidth(textRect.width() + 5);
 
 		QBrush brush(QColor(255, 0, 0));
 		painter.fillRect(textRect, brush);
-		painter.drawText(textRect, Qt::AlignTop || Qt::AlignLeft, progressText);
+		painter.drawText(textRect, Qt::AlignTop | Qt::AlignLeft, progressText);
 	}
 }
 

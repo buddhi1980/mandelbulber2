@@ -289,9 +289,18 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 
 		switch (progressType)
 		{
-			case cProgressText::progress_QUEUE: MoveCursor(0, 1); EraseLine();
-			case cProgressText::progress_ANIMATION: MoveCursor(0, 1); EraseLine();
-			case cProgressText::progress_IMAGE: MoveCursor(0, 1);
+			case cProgressText::progress_QUEUE:
+				MoveCursor(0, 1); EraseLine();
+				MoveCursor(0, 1); EraseLine();
+				MoveCursor(0, 1); EraseLine();
+			break;
+			case cProgressText::progress_ANIMATION:
+				MoveCursor(0, 1); EraseLine();
+				MoveCursor(0, 1); EraseLine();
+			break;
+			case cProgressText::progress_IMAGE:
+				MoveCursor(0, 1);
+			break;
 		}
 		if (systemData.statsOnCLI) MoveCursor(0, 2);
 	}
