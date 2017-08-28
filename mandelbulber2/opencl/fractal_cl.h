@@ -560,6 +560,7 @@ typedef struct
 	cl_float3 rotation44a; //.........................
 	cl_float3 rotation44b; //..........................
 
+	cl_float4 scaleP222;
 	cl_float4 scale3D000;
 	cl_float4 scale3D111;
 	cl_float4 scale3D222;
@@ -1189,6 +1190,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.rotation2 = toClFloat3(source.rotation2);
 	target.rotation44a = toClFloat3(source.rotation44a);
 	target.rotation44b = toClFloat3(source.rotation44b);
+	target.scaleP222 = toClFloat4(source.scaleP222);
 	target.scale3D000 = toClFloat4(source.scale3D000);
 	target.scale3D111 = toClFloat4(source.scale3D111);
 	target.scale3D222 = toClFloat4(source.scale3D222);

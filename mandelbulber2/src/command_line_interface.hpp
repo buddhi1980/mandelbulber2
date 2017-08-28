@@ -88,6 +88,7 @@ private:
 	// arguments to cause print and exit
 	static void printExampleHelpAndExit();
 	static void printInputHelpAndExit();
+	static void printOpenCLHelpAndExit();
 	static void printParametersAndExit();
 	void runTestCasesAndExit() const;
 	void runBenchmarksAndExit();
@@ -114,6 +115,7 @@ private:
 		bool listParameters;
 		bool showInputHelp;
 		bool showExampleHelp;
+		bool showOpenCLHelp;
 		bool keyframe;
 		bool flight;
 		bool silent;

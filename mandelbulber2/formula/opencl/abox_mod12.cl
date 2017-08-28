@@ -65,38 +65,39 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		z = (REAL4){z.z, z.y, z.x, z.w};
 	}
-
-	if (fractal->transformCommon.functionEnabledAx)
+	// spherical folds
+	if (aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-		// spherical fold - cuboid minR2
-		if (aux->i >= fractal->transformCommon.startIterationsS
-				&& aux->i < fractal->transformCommon.stopIterationsS)
+		REAL minR2 = fractal->transformCommon.minR2p25;
+		REAL addR = 0.0f;
+		REAL m = 1.0f;
+		// spherical fold with xyz bias option
+		if (fractal->transformCommon.functionEnabledAyFalse)
 		{
-			REAL4 temp3;
-			REAL4 R2;
-			REAL minR2 = fractal->transformCommon.minR2p25;
-			REAL4 limitMinR2 = fractal->transformCommon.additionConstant0555;
-			REAL m = 1.0f;
-			REAL rr = dot(z, z);
-
-			z += fractal->transformCommon.offset000;
-			if (fractal->transformCommon.functionEnabledAxFalse)
-				temp3 = z * z;
-			else
-				temp3 = fabs(z);
-
-			if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
-			{ // if inside cuboid
-				R2.x = native_divide(limitMinR2.x, temp3.x);
-				R2.y = native_divide(limitMinR2.y, temp3.y);
-				R2.z = native_divide(limitMinR2.z, temp3.z);
-				REAL First = min(R2.x, min(R2.y, R2.z));
-				minR2 = rr * First;
-
-				if (minR2 > fractal->transformCommon.maxR2d1)
+			if (aux->i >= fractal->transformCommon.startIterationsE
+					&& aux->i < fractal->transformCommon.stopIterationsE)
+			{
+				REAL4 xyzBias = fractal->transformCommon.constantMultiplier000;
+				if (fractal->transformCommon.functionEnabledAzFalse)
+				{
+					xyzBias *= aux->c * aux->c;
+				}
+				else
+				{
+					xyzBias *= fabs(aux->c);
+				}
+				addR = (xyzBias.x + xyzBias.y + xyzBias.z);
+				minR2 += addR;
+				if (fractal->transformCommon.functionEnabledAz && minR2 > fractal->transformCommon.maxR2d1)
 				{ // stop overlapping potential
 					minR2 = fractal->transformCommon.maxR2d1;
 				}
+			}
+			REAL rr = dot(z, z);
+			z += fractal->transformCommon.offset000;
+			if (rr < minR2)
+			{
 				m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
 				aux->color += fractal->mandelbox.color.factorSp1;
 			}
@@ -105,50 +106,72 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
 				aux->color += fractal->mandelbox.color.factorSp2;
 			}
-			z = z * m;
-			aux->DE = mad(aux->DE, fabs(m), 1.0f);
 			z -= fractal->transformCommon.offset000;
+			// scale
+			z *= m;
+			aux->DE = mad(aux->DE, fabs(m), 1.0f);
 		}
-	}
-	else
-	{
-		// spherical fold with xyz bias option
-		if (aux->i >= fractal->transformCommon.startIterationsS
-				&& aux->i < fractal->transformCommon.stopIterationsS)
+
+		// cuboid
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux->i >= fractal->transformCommon.startIterationsB
+				&& aux->i < fractal->transformCommon.stopIterationsB)
 		{
-			REAL minR2 = fractal->transformCommon.minR2p25;
-			if (fractal->transformCommon.functionEnabledAyFalse)
-			{
-				REAL4 xyzBias = fractal->transformCommon.constantMultiplier000;
-				xyzBias *= native_divide(fabs(c), 10.0f);
-				minR2 = minR2 + (xyzBias.x + xyzBias.y + xyzBias.z);
-			}
-			if (fractal->transformCommon.functionEnabledAzFalse
-					&& minR2 > fractal->transformCommon.maxR2d1)
-			{ // stop overlapping potential
-				minR2 = fractal->transformCommon.maxR2d1;
-			}
+			REAL4 temp3;
+			REAL4 R2;
+			REAL MinR2 = fractal->transformCommon.minR2p25;
+			REAL4 limitMinR2 = fractal->transformCommon.scaleP222;
+
+			REAL rr = dot(z, z);
 
 			z += fractal->transformCommon.offset000;
-			REAL rr = dot(z, z);
-			if (rr < minR2)
+
+			if (aux->i >= fractal->transformCommon.startIterationsA
+					&& aux->i < fractal->transformCommon.stopIterationsA)
 			{
-				REAL tglad_factor1 = native_divide(fractal->transformCommon.maxR2d1, minR2);
-				z *= tglad_factor1;
-				aux->DE *= tglad_factor1;
+				if (fractal->transformCommon.functionEnabledAxFalse)
+					temp3 = z * z;
+				else
+					temp3 = fabs(z);
+
+				if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
+				{ // if inside cuboid
+					R2.x = native_divide(limitMinR2.x, temp3.x);
+					R2.y = native_divide(limitMinR2.y, temp3.y);
+					R2.z = native_divide(limitMinR2.z, temp3.z);
+					REAL First = min(R2.x, min(R2.y, R2.z));
+					MinR2 = rr * First;
+
+					if (fractal->transformCommon.functionEnabled && MinR2 > fractal->transformCommon.maxR2d1)
+					{ // stop overlapping potential
+						MinR2 = fractal->transformCommon.maxR2d1;
+					}
+
+					m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
+					aux->color += fractal->mandelbox.color.factorSp1;
+				}
+				else if (rr < fractal->transformCommon.maxR2d1)
+				{
+					m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+					aux->color += fractal->mandelbox.color.factorSp2;
+				}
+			}
+			else if (rr < MinR2)
+			{
+				m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
 				aux->color += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
-				REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
-				z *= tglad_factor2;
-				aux->DE *= tglad_factor2;
+				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
 				aux->color += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
+			// scale
+			z *= m;
+			aux->DE = mad(aux->DE, fabs(m), 1.0f);
 		}
 	}
-
 	// scale
 	REAL useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 
@@ -158,8 +181,6 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	if (aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
-		// z *= useScale;
-		// aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
 								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);

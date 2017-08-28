@@ -130,7 +130,8 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	int selectedPlatform = ui->listWidget_opencl_platform_list->currentIndex().row();
 	gPar->Set("opencl_platform", selectedPlatform);
 
-	QList<QListWidgetItem *> selectedDevicesItems = ui->listWidget_opencl_device_list->selectedItems();
+	QList<QListWidgetItem *> selectedDevicesItems =
+		ui->listWidget_opencl_device_list->selectedItems();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList activeDevices;
 	for (int i = 0; i < selectedDevicesItems.size(); i++)
@@ -459,6 +460,7 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int index)
 {
 	Q_UNUSED(index);
-	on_listWidget_opencl_platform_list_currentRowChanged(ui->listWidget_opencl_platform_list->currentRow());
+	on_listWidget_opencl_platform_list_currentRowChanged(
+		ui->listWidget_opencl_platform_list->currentRow());
 }
 #endif

@@ -45,13 +45,13 @@
 #include "initparameters.hpp"
 #include "interface.hpp"
 #include "mesh_export.hpp"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_engine_render_ssao.h"
+#include "opencl_global.h"
 #include "queue.hpp"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
-#include "opencl_global.h"
-#include "opencl_engine_render_fractal.h"
-#include "opencl_engine_render_ssao.h"
 
 cHeadless::cHeadless() : QObject()
 {
@@ -290,17 +290,20 @@ void cHeadless::slotUpdateProgressAndStatus(const QString &text, const QString &
 		switch (progressType)
 		{
 			case cProgressText::progress_QUEUE:
-				MoveCursor(0, 1); EraseLine();
-				MoveCursor(0, 1); EraseLine();
-				MoveCursor(0, 1); EraseLine();
-			break;
-			case cProgressText::progress_ANIMATION:
-				MoveCursor(0, 1); EraseLine();
-				MoveCursor(0, 1); EraseLine();
-			break;
-			case cProgressText::progress_IMAGE:
 				MoveCursor(0, 1);
-			break;
+				EraseLine();
+				MoveCursor(0, 1);
+				EraseLine();
+				MoveCursor(0, 1);
+				EraseLine();
+				break;
+			case cProgressText::progress_ANIMATION:
+				MoveCursor(0, 1);
+				EraseLine();
+				MoveCursor(0, 1);
+				EraseLine();
+				break;
+			case cProgressText::progress_IMAGE: MoveCursor(0, 1); break;
 		}
 		if (systemData.statsOnCLI) MoveCursor(0, 2);
 	}

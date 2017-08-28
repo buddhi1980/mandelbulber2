@@ -175,46 +175,46 @@ function updateInfoBoxes($index, $formula, &$status)
 	}
 
 	$informationText .= "<h3>Code</h3>" . PHP_EOL;
-
+	
 	$uiFileContent = file_get_contents($formula['uiFile']);
 	$regexInformation = '/(<widget class="MyGroupBox" name="groupCheck_info">[\s\S]+?)<item>[\s\S]+?<\/layout>/';
 
 	$replacement = '$1<item>
-	   <widget class="QLabel" name="label_information_general">
-	    <property name="text">
-		 <string notr="true">' . htmlentities($informationText) . '</string>
-		</property>
-		<property name="wordWrap">
-		 <bool>true</bool>
-		</property>
-		<property name="openExternalLinks">
-		 <bool>true</bool>
-		</property>
-		<property name="textInteractionFlags">
-		 <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		</property>
-		</widget>
-	   </item>
-	   <item>
-	    <widget class="QLabel" name="label_code_content">
-		 <property name="text">
-		  <string notr="true">' . htmlentities($formattedEscapedCode) . '</string>
-		 </property>
-		 <property name="wordWrap">
-		  <bool>true</bool>
-		 </property>
-		 <property name="openExternalLinks">
-		  <bool>true</bool>
-		 </property>
-		 <property name="textInteractionFlags">
-		  <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-		 </property>
-		 <property name="styleSheet">
-		  <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-		  </property>
-		 </widget>
-		</item>
-	   </layout>';
+       <widget class="QLabel" name="label_information_general">
+        <property name="text">
+         <string notr="true">' . htmlentities($informationText) . '</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_code_content">
+        <property name="text">
+         <string notr="true">' . htmlentities($formattedEscapedCode) . '</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="openExternalLinks">
+         <bool>true</bool>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>';
 	$newUiFileContent = preg_replace($regexInformation, $replacement, $uiFileContent, -1, $count);
 	$newUiFileContent = preg_replace('/<class>.+<\/class>/', '<class>' . $formula['internalName'] . '</class>', $newUiFileContent, 1);
 	$postitionOfWindowTitle = strpos($newUiFileContent, 'windowTitle ');
