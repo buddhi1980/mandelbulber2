@@ -112,6 +112,7 @@ struct sFoldColor
 	double scaleE0;
 	double scaleF0;
 	double scaleG0;
+	double scaleA1;
 	double period1;
 	double trigAdd1;
 
