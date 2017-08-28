@@ -1225,7 +1225,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		double addR = 0.0;
 		double m = 1.0;
 		// spherical fold with xyz bias option
-		if (fractal->transformCommon.functionEnabledAyFalse)
+		if (fractal->transformCommon.functionEnabledAx)
 		{
 			if (aux.i >= fractal->transformCommon.startIterationsE
 					&& aux.i < fractal->transformCommon.stopIterationsE)
@@ -1265,7 +1265,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 
 		// cuboid
-		if (fractal->transformCommon.functionEnabledAx
+		if (fractal->transformCommon.functionEnabledAyFalse
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 		{
