@@ -197,6 +197,9 @@ function updateInfoBoxes($index, $formula, &$status)
       </item>
       <item>
        <widget class="QLabel" name="label_code_content">
+        <property name="styleSheet">
+         <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
+        </property>
         <property name="text">
          <string notr="true">' . htmlentities($formattedEscapedCode) . '</string>
         </property>
@@ -205,16 +208,13 @@ function updateInfoBoxes($index, $formula, &$status)
         </property>
         <property name="openExternalLinks">
          <bool>true</bool>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>';
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+     </layout>';
 	$newUiFileContent = preg_replace($regexInformation, $replacement, $uiFileContent, -1, $count);
 	$newUiFileContent = preg_replace('/<class>.+<\/class>/', '<class>' . $formula['internalName'] . '</class>', $newUiFileContent, 1);
 	$postitionOfWindowTitle = strpos($newUiFileContent, 'windowTitle ');

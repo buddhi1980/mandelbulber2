@@ -73,7 +73,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		REAL addR = 0.0f;
 		REAL m = 1.0f;
 		// spherical fold with xyz bias option
-		if (fractal->transformCommon.functionEnabledAyFalse)
+		if (fractal->transformCommon.functionEnabledAx)
 		{
 			if (aux->i >= fractal->transformCommon.startIterationsE
 					&& aux->i < fractal->transformCommon.stopIterationsE)
@@ -113,7 +113,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		}
 
 		// cuboid
-		if (fractal->transformCommon.functionEnabledAx
+		if (fractal->transformCommon.functionEnabledAyFalse
 				&& aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
 		{
