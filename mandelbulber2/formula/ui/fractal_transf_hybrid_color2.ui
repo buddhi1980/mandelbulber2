@@ -1348,13 +1348,6 @@
        </property>
       </widget>
      </item>
-     <item row="50" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
-       <property name="text">
-        <string>Max linear offset</string>
-       </property>
-      </widget>
-     </item>
      <item row="61" column="2">
       <widget class="QSlider" name="slider3_transf_addition_constantA_000_z">
        <property name="sizePolicy">
@@ -2037,6 +2030,13 @@
       <widget class="Line" name="line_17">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="50" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+       <property name="text">
+        <string>Max linear offset component</string>
        </property>
       </widget>
      </item>

@@ -150,6 +150,7 @@ void PseudoKleinianMod1Iteration(CVector4 &z, const sFractal *fractal, sExtended
 void PseudoKleinianMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuaternionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

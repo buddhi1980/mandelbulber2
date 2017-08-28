@@ -313,6 +313,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		Quaternion3dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
+
 	// Quick Dudley formulas
 	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley,
 		QuickDudleyIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -349,9 +350,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Bristorbrot 4D", "bristorbrot4d", bristorbrot4d,
 		Bristorbrot4dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
-		Quaternion4dIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbox Vary Scale 4D", "mandelbox_vary_scale4d",
 		mandelboxVaryScale4d, MandelboxVaryScale4dIteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
@@ -369,6 +367,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski4d", sierpinski4d,
 		Sierpinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
+		Quaternion4dIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d", quaternionCubic4d,
+		QuaternionCubic4dIteration,  deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	//-------------------------- transforms -----------------------------------
 
