@@ -51,7 +51,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	// randomizing random seed
 	int randomSeed = imageX + imageY * consts->params.imageWidth + initRandomSeed;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		randomSeed = RandomInt(&randomSeed);
 	}

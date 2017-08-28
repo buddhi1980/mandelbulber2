@@ -307,8 +307,12 @@ float3 AmbientOcclusion(
 	float end_dist = input->delta / consts->params.resolution;
 	float intense;
 
+#ifndef MONTE_CARLO_DOF
 	for (int i = 0; i < input->AOVectorsCount; i++)
 	{
+#else
+	int i = Random(input->AOVectorsCount, &calcParam->randomSeed);
+#endif
 		sVectorsAroundCl v = input->AOVectors[i];
 
 		float dist;
@@ -329,7 +333,7 @@ float3 AmbientOcclusion(
 			opacity = IterOpacity(dist * 2.0, outF.iters, consts->params.N,
 				consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
 #else
-			opacity = 0.0f;
+		opacity = 0.0f;
 #endif
 
 			shadowTemp -= opacity * (end_dist - r) / end_dist;
@@ -353,8 +357,11 @@ float3 AmbientOcclusion(
 		intense = shadowTemp;
 
 		AO += intense * v.color;
+
+#ifndef MONTE_CARLO_DOF
 	}
 	AO /= input->AOVectorsCount;
+#endif
 
 	return AO;
 }
