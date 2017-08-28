@@ -20,9 +20,9 @@ typedef struct
 } sRayMarchingOut;
 
 typedef enum {
-	rayBranchReflection,
-	rayBranchRefraction,
-	rayBranchDone,
+	rayBranchReflection = 0,
+	rayBranchRefraction = 1,
+	rayBranchDone = 2,
 } enumRayBranch;
 
 typedef struct
@@ -225,6 +225,7 @@ sRayRecursionOut RayRecursion(
 	for (int i = 0; i < renderData->reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
+
 #ifdef USE_REFLECTANCE
 		rayStack[i].reflectShader = 0.0f;
 #endif
@@ -312,7 +313,7 @@ sRayRecursionOut RayRecursion(
 					enumRayBranch rayBranch = rayStack[rayIndex].rayBranch;
 					if (rayStack[rayIndex].rayBranch == rayBranchReflection)
 					{
-						// qDebug() << "Reflection" << rayIndex;
+// qDebug() << "Reflection" << rayIndex;
 						rayStack[rayIndex].rayBranch = rayBranchRefraction;
 
 #ifdef USE_REFLECTANCE
@@ -340,12 +341,13 @@ sRayRecursionOut RayRecursion(
 							recursionIn.calcInside = false;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
-							recursionIn.rayBranch = rayBranch;
+							recursionIn.rayBranch = rayBranchReflection;
 
 							// recursion for reflection
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
+
 							continue;
 						}
 #endif
@@ -397,12 +399,13 @@ sRayRecursionOut RayRecursion(
 							recursionIn.calcInside = !rayStack[rayIndex - 1].in.calcInside || internalReflection;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
-							recursionIn.rayBranch = rayBranch;
+							recursionIn.rayBranch = rayBranchRefraction;
 
 							// recursion for refraction
 							rayStack[rayIndex].in = recursionIn;
 							rayStack[rayIndex].goDeeper = true;
 							rayStack[rayIndex].rayBranch = rayBranchReflection;
+							
 							continue;
 						}
 #endif

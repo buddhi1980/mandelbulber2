@@ -731,6 +731,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 	for (int i = 0; i < reflectionsMax + 1; i++)
 	{
 		rayStack[i].rayBranch = rayBranchReflection;
+		rayStack[i].reflectShader = sRGBAfloat();
+		rayStack[i].transparentShader = sRGBAfloat();
 	}
 
 	do
@@ -830,7 +832,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							recursionIn.calcInside = false;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
-							recursionIn.rayBranch = rayBranch;
+							recursionIn.rayBranch = rayBranchReflection;
 
 							// setup buffers for ray data
 
@@ -893,7 +895,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 							recursionIn.calcInside = !rayStack[rayIndex - 1].in.calcInside || internalReflection;
 							recursionIn.resultShader = rayStack[rayIndex - 1].in.resultShader;
 							recursionIn.objectColour = rayStack[rayIndex - 1].in.objectColour;
-							recursionIn.rayBranch = rayBranch;
+							recursionIn.rayBranch = rayBranchRefraction;
 
 							// setup buffers for ray data
 							rayMarchingInOut.buffCount = &rayBuffer[rayIndex].buffCount;
@@ -1130,7 +1132,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				{
 					rayStack[rayIndex - 1].reflectShader = resultShader;
 				}
-				else
+
+				if (rayStack[rayIndex].in.rayBranch == rayBranchRefraction)
 				{
 					rayStack[rayIndex - 1].transparentShader = resultShader;
 				}
