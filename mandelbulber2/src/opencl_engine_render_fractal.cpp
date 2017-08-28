@@ -484,25 +484,32 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer progressRefreshTimer;
 		progressRefreshTimer.start();
 
+		int numberOfPixels = width * height;
+		int gridWidth = width / optimalJob.stepSizeX;
+		int gridHeight = height / optimalJob.stepSizeY;
+
+		int noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
+		double *noiseTable = new double[noiseTableSize];
+		for (int i = 0; i < noiseTableSize; i++)
+		{
+			noiseTable[i] = 100.0;
+		}
+
 		int numberOfSamples = 1;
-		if(monteCarlo)
+		if (monteCarlo)
 		{
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
 		for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
 		{
-
-			QList<QRect> lastRenderedRects;
-
 			// TODO:
 			// insert device for loop here
 			// requires initialization for all opencl devices
 			// requires optimalJob for all opencl devices
 
+			QList<QRect> lastRenderedRects;
+
 			int pixelsRendered = 0;
-			int numberOfPixels = width * height;
-			int gridWidth = width / optimalJob.stepSizeX;
-			int gridHeight = height / optimalJob.stepSizeY;
 			int gridX = (gridWidth - 1) / 2;
 			int gridY = gridHeight / 2;
 			int dir = 0;
@@ -514,6 +521,15 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				int jobX = gridX * optimalJob.stepSizeX;
 				int jobY = gridY * optimalJob.stepSizeY;
 
+				// check if noise is still too high
+				bool bigNoise = true;
+				if (monteCarlo)
+				{
+					if (noiseTable[gridX + gridY * (gridWidth + 1)] < constantInBuffer->params.DOFMaxNoise
+							&& monteCarloLoop > constantInBuffer->params.DOFMinSamples)
+						bigNoise = false;
+				}
+
 				if (jobX >= 0 && jobX < width && jobY >= 0 && jobY < height)
 				{
 					size_t pixelsLeftX = width - jobX;
@@ -521,85 +537,103 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
 					int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 
-					// assign parameters to kernel
-					if (!AssignParametersToKernel()) return false;
-
-					// writing data to queue
-					if (!WriteBuffersToQueue()) return false;
-
-					// processing queue
-					if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
-
-					// update image when OpenCl kernel is working
-					if (lastRenderedRects.size() > 0)
+					if (bigNoise)
 					{
-						QElapsedTimer timerImageRefresh;
-						timerImageRefresh.start();
-						image->NullPostEffect(&lastRenderedRects);
-						image->CompileImage(&lastRenderedRects);
-						if (image->IsPreview())
+						// assign parameters to kernel
+						if (!AssignParametersToKernel()) return false;
+
+						// writing data to queue
+						if (!WriteBuffersToQueue()) return false;
+
+						// processing queue
+						if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
+
+						// update image when OpenCl kernel is working
+						if (lastRenderedRects.size() > 0)
 						{
-							image->ConvertTo8bit(&lastRenderedRects);
-							image->UpdatePreview(&lastRenderedRects);
-							image->GetImageWidget()->update();
+							QElapsedTimer timerImageRefresh;
+							timerImageRefresh.start();
+							image->NullPostEffect(&lastRenderedRects);
+							image->CompileImage(&lastRenderedRects);
+							if (image->IsPreview())
+							{
+								image->ConvertTo8bit(&lastRenderedRects);
+								image->UpdatePreview(&lastRenderedRects);
+								image->GetImageWidget()->update();
+							}
+							lastRenderedRects.clear();
+							optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
+							if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
 						}
-						lastRenderedRects.clear();
-						optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
-						if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
-					}
 
-					if (!autoRefreshMode && !monteCarlo)
-					{
-						QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
-						MarkCurrentPendingTile(image, currentCorners);
-					}
-
-					if (!ReadBuffersFromQueue()) return false;
-
-					// Collect Pixel information from the rgbBuffer
-					// Populate the data into image->Put
-
-					for (int x = 0; x < jobWidth2; x++)
-					{
-						for (int y = 0; y < jobHeight2; y++)
+						if (!autoRefreshMode && !monteCarlo)
 						{
-							sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
-							sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-							unsigned short opacity = pixelCl.opacity;
-							unsigned short alpha = pixelCl.alpha;
-							int xx = x + jobX;
-							int yy = y + jobY;
+							QRect currentCorners(jobX, jobY, jobWidth2, jobHeight2);
+							MarkCurrentPendingTile(image, currentCorners);
+						}
 
-							if (monteCarlo)
+						if (!ReadBuffersFromQueue()) return false;
+
+						// Collect Pixel information from the rgbBuffer
+						// Populate the data into image->Put
+
+						double monteCarloNoiseSum = 0.0;
+						for (int x = 0; x < jobWidth2; x++)
+						{
+							for (int y = 0; y < jobHeight2; y++)
 							{
-								sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
-								sRGBFloat newPixel;
-								newPixel.R =
-									oldPixel.R * (1.0 - 1.0 / monteCarloLoop) + pixel.R * (1.0 / monteCarloLoop);
-								newPixel.G =
-									oldPixel.G * (1.0 - 1.0 / monteCarloLoop) + pixel.G * (1.0 / monteCarloLoop);
-								newPixel.B =
-									oldPixel.B * (1.0 - 1.0 / monteCarloLoop) + pixel.B * (1.0 / monteCarloLoop);
-								image->PutPixelImage(xx, yy, newPixel);
-								image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
-								unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
-								unsigned short newAlpha =
-									(double)oldAlpha * (1.0 - 1.0 / monteCarloLoop) + alpha * (1.0 / monteCarloLoop);
-								image->PutPixelAlpha(xx, yy, newAlpha);
-								image->PutPixelColor(xx, yy, color);
-								image->PutPixelOpacity(xx, yy, opacity);
-							}
-							else
-							{
-								image->PutPixelImage(xx, yy, pixel);
-								image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
-								image->PutPixelColor(xx, yy, color);
-								image->PutPixelOpacity(xx, yy, opacity);
-								image->PutPixelAlpha(xx, yy, alpha);
+								sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
+								sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+								sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+								unsigned short opacity = pixelCl.opacity;
+								unsigned short alpha = pixelCl.alpha;
+								int xx = x + jobX;
+								int yy = y + jobY;
+
+								if (monteCarlo)
+								{
+									sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
+									sRGBFloat newPixel;
+									newPixel.R =
+										oldPixel.R * (1.0 - 1.0 / monteCarloLoop) + pixel.R * (1.0 / monteCarloLoop);
+									newPixel.G =
+										oldPixel.G * (1.0 - 1.0 / monteCarloLoop) + pixel.G * (1.0 / monteCarloLoop);
+									newPixel.B =
+										oldPixel.B * (1.0 - 1.0 / monteCarloLoop) + pixel.B * (1.0 / monteCarloLoop);
+									image->PutPixelImage(xx, yy, newPixel);
+									image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+									unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
+									unsigned short newAlpha = (double)oldAlpha * (1.0 - 1.0 / monteCarloLoop)
+																						+ alpha * (1.0 / monteCarloLoop);
+									image->PutPixelAlpha(xx, yy, newAlpha);
+									image->PutPixelColor(xx, yy, color);
+									image->PutPixelOpacity(xx, yy, opacity);
+
+									// noise estimation
+									double noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
+																 + (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
+																 + (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
+									noise *= 0.3333;
+									monteCarloNoiseSum += noise;
+								}
+								else
+								{
+									image->PutPixelImage(xx, yy, pixel);
+									image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+									image->PutPixelColor(xx, yy, color);
+									image->PutPixelOpacity(xx, yy, opacity);
+									image->PutPixelAlpha(xx, yy, alpha);
+								}
 							}
 						}
-					}
+
+						// total noise in last rectangle
+						if (monteCarlo)
+						{
+							double totalNoise = sqrt(monteCarloNoiseSum / jobWidth2 / jobHeight2) * 100.0;
+							noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoise;
+						}
+					} // bigNoise
 
 					lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
 
@@ -608,13 +642,14 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					if (progressRefreshTimer.elapsed() > 100)
 					{
 						double percentDone;
-						if(!monteCarlo)
+						if (!monteCarlo)
 						{
 							percentDone = double(pixelsRendered) / numberOfPixels;
 						}
 						else
 						{
-							percentDone = double(monteCarloLoop - 1)/numberOfSamples + double(pixelsRendered) / numberOfPixels / numberOfSamples;
+							percentDone = double(monteCarloLoop - 1) / numberOfSamples
+														+ double(pixelsRendered) / numberOfPixels / numberOfSamples;
 						}
 						emit updateProgressAndStatus(
 							tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
@@ -672,8 +707,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				gridStep++;
 			}
 
-			//update last rectangle
-			if(monteCarlo)
+			// update last rectangle
+			if (monteCarlo)
 			{
 				if (lastRenderedRects.size() > 0)
 				{
@@ -692,6 +727,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				gApplication->processEvents();
 			}
 		} // monte carlo loop
+
+		delete[] noiseTable;
 
 		qDebug() << "GPU jobs finished";
 		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
