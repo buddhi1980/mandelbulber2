@@ -161,7 +161,7 @@ function autogenOpenCLFile($copyFile, &$status)
 		$lines = explode(PHP_EOL, $match);
 		foreach ($lines as $line) {
 			$line = trim($line);
-			if (preg_match('/^\s*([a-zA-Z0-9_]+)\s([a-zA-Z0-9_\[\]]+);.*/', $line, $lineMatch)) {
+			if (preg_match('/^\s*([a-zA-Z0-9_]+)\s([a-zA-Z0-9_\[\]\s-+]+);.*/', $line, $lineMatch)) {
 				$prop = array();
 				$prop['name'] = $lineMatch[2];
 				$prop['typeName'] = $lineMatch[1];

@@ -237,6 +237,10 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.perspectiveType = source.perspectiveType;
 	target.ambientOcclusionMode = source.ambientOcclusionMode;
 	target.texturedBackgroundMapType = source.texturedBackgroundMapType;
+	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	{
+		target.booleanOperator[i] = source.booleanOperator[i];
+	}
 	target.delta_DE_method = source.delta_DE_method;
 	target.delta_DE_function = source.delta_DE_function;
 	target.antialiasingEnabled = source.antialiasingEnabled;

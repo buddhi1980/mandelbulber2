@@ -1059,7 +1059,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	int colorType;
 	switch (imageChannel.contentType)
 	{
-		case IMAGE_CONTENT_COLOR: colorType = appendAlpha ? PHOTOMETRIC_RGB : PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_COLOR: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_ALPHA:
 		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
