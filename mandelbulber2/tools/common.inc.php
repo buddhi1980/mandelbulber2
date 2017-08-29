@@ -33,22 +33,23 @@ function printFinish()
 
 function printResultLine($name, $success, $status, $progress = -1)
 {
-    echo "\33[2K\r";
-	$out = str_pad(' ├── ' . $name, 50);
+    $out = "\33[2K\r";
+	$itemLine = str_pad(' ├── ' . $name, 50);
 	if (!($success && !isVerbose() && count($status) == 0)) {
 		if ($success) {
-			echo $out . successString(' [ All OK ]') . PHP_EOL;
+		    $out .= $itemLine . successString(' [ All OK ]') . PHP_EOL;
 		} else {
-			echo $out . errorString(' [ ERROR  ]') . PHP_EOL;
+		    $out .= $itemLine . errorString(' [ ERROR  ]') . PHP_EOL;
 		}
 		if (count($status) > 0) {
 			foreach ($status as $i => $s) {
 				$treeStr = ($i == count($status) - 1) ? ' │   ╰── ' : ' │   ├── ';
-				echo $treeStr . $s . PHP_EOL;
+				$out .= $treeStr . $s . PHP_EOL;
 			}
 		}
 	}
-	echo printProgress($progress) . " handled: $name";
+	$out .= printProgress($progress) . " handled: $name";
+	echo $out;
 }
 
 function printProgress($percent){
