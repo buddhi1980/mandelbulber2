@@ -10255,29 +10255,21 @@ void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	/*z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z - z.w * z.w, z.x * z.y, z.x * z.z, z.w);
-	z *= fractal->transformCommon.constantMultiplier1220;
-	z += fractal->transformCommon.additionConstant0000;*/
-
 		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 		if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 
-
-	CVector4 mul = z * fractal->transformCommon.offset1111;
-
-
+		CVector4 mul = z * fractal->transformCommon.offset1111;
 		CVector4 oldZ = z;
 		CVector4 auxC = aux.c;
-		//z.x = temp01.x * z.x - mul.y * z.y - mul.z * z.z - mul.w * z.w
 		z.x = mul.x * z.x - mul.y * z.y - mul.z * z.z - mul.w * z.w
 				+ (auxC.y * fractal->transformCommon.offsetA0);
 		z.y = oldZ.y * oldZ.x;
 		z.z = oldZ.z * oldZ.x;
-		z.w = oldZ.w * oldZ.x; // +wadd;
+		z.w = oldZ.w * oldZ.x;
+		z *= fractal->transformCommon.constantMultiplier1220;
 
-		z *= fractal->transformCommon.constantMultiplier1220; // mul
 		z.y += auxC.x * fractal->transformCommon.offsetB0;
 
 		z += fractal->transformCommon.additionConstant0000;
