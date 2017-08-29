@@ -747,7 +747,7 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(fabs(z.z + fractal->transformCommon.additionConstant000.z)
 								 - fractal->mandelbox.foldingValue * fractal->transformCommon.scale1)
 					- fabs(fractal->transformCommon.additionConstant000.z);
-		if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 	}
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
@@ -848,7 +848,7 @@ void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 	/*	double rr;
 		if (temp > 0.0)
 			rr = z.x * z.x + z.y * z.y + z.z * z.z; // on top & bottom of cyl. z.z should be tempZ
@@ -961,7 +961,7 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 		/*if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 		{
 			aux.color += fractal->mandelbox.color.factor.x;
@@ -1188,7 +1188,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
