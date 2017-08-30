@@ -40,7 +40,7 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5f
 	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
 	/*	REAL rr;
 		if (temp > 0.0f)
 			rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // on top & bottom of cyl. z.z should be tempZ

@@ -39,19 +39,7 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 
 		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-		if (z.y != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
-		/*if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
-		{
-			aux->color += fractal->mandelbox.color.factor.x;
-		}
-		if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
-		{
-			aux->color += fractal->mandelbox.color.factor.y;
-		}
-		if (fabs(z.z) > fractal->transformCommon.additionConstant111.z)
-		{
-			aux->color += fractal->mandelbox.color.factor.z;
-		}*/
+		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
