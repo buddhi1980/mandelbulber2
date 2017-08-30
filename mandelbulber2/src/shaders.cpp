@@ -1178,6 +1178,7 @@ double cRenderWorker::AuxShadow(
 	double shadowTemp = 1.0;
 
 	double DE_factor = params->DEFactor;
+	double volumetricLightDEFactor = params->volumetricLightDEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
@@ -1186,7 +1187,7 @@ double cRenderWorker::AuxShadow(
 	const bool bSoft = !params->iterFogEnabled && !params->limitsEnabled
 										 && !params->common.iterThreshMode && softRange > 0.0;
 
-	for (double i = input.delta; i < distance; i += dist * DE_factor)
+	for (double i = input.delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
 	{
 		CVector3 point2 = input.point + lightVector * i;
 

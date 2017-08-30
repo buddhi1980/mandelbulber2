@@ -187,6 +187,7 @@ typedef struct
 	cl_float volFogColour2Distance;
 	cl_float volFogDensity;
 	cl_float volFogDistanceFactor;
+	cl_float volumetricLightDEFactor;
 	cl_float volumetricLightIntensity[5];
 
 	sImageAdjustmentsCl imageAdjustments;
@@ -358,6 +359,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.volFogColour2Distance = source.volFogColour2Distance;
 	target.volFogDensity = source.volFogDensity;
 	target.volFogDistanceFactor = source.volFogDistanceFactor;
+	target.volumetricLightDEFactor = source.volumetricLightDEFactor;
 	for (int i = 0; i < 5; i++)
 	{
 		target.volumetricLightIntensity[i] = source.volumetricLightIntensity[i];

@@ -380,6 +380,7 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	float shadowTemp = 1.0f;
 
 	float DE_factor = consts->params.DEFactor;
+	float volumetricLightDEFactor = consts->params.volumetricLightDEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
 
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
@@ -388,7 +389,7 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
 										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
-	for (float i = input->delta; i < distance; i += dist * DE_factor)
+	for (float i = input->delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
 	{
 		float3 point2 = input->point + lightVector * i;
 
