@@ -88,6 +88,7 @@ void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -256,5 +257,8 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

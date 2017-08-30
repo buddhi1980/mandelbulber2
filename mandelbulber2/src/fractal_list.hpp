@@ -168,6 +168,7 @@ enum enumFractalFormula
 	josKleinian = 122,
 	aboxMod12 = 123,
 	quaternionCubic4d = 124,
+	boxFoldBulbPow2V2 = 125,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
@@ -259,6 +260,7 @@ enum enumFractalFormula
 
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
+	testing = 2100,
 };
 }
 

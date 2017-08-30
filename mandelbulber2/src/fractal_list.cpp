@@ -123,6 +123,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
 		boxFoldBulbPow2, BoxFoldBulbPow2Iteration, deltaDEType, linearDEFunction,
 		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2 V2", "box_fold_bulb_pow2_v2",
+		boxFoldBulbPow2V2, BoxFoldBulbPow2V2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -652,4 +658,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Hybrid Color2", "transf_hybrid_color2",
 		transfHybridColor2, TransfHybridColor2Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+
+	fractalList->append(sFractalDescription("Testing", "testing",
+		testing, TestingIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 }
