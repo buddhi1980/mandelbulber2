@@ -135,6 +135,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
 	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
 
+#ifdef MONTE_CARLO_DOF
+	MonteCarloDOF(&start, &viewVector, consts, rot, &randomSeed);
+#endif
+
 #ifdef PERSP_FISH_EYE_CUT
 	bool hemisphereCut = false;
 	if (length(normalizedScreenPoint) > 0.5f / consts->params.fov) hemisphereCut = true;
