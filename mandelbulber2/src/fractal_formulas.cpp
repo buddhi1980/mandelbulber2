@@ -2437,7 +2437,8 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
-* Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
+* BoxBulb power 2 with scaling of z axis
+* This formula contains aux.color and aux.actualScaleA
 */
 void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -2453,10 +2454,12 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		}
 	}
 
 	// spherical fold
@@ -2475,7 +2478,10 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.r_dz *= tglad_factor1;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -2483,7 +2489,10 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
 			aux.r_dz *=tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -11211,7 +11220,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 	/**
- * Hybrid of Mandelbox and Mandelbulb power 2 with scaling of z axis
+ * This formula contains aux.color and aux.actualScale
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11228,10 +11237,12 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		}
 	}
 
 	// spherical fold
@@ -11250,7 +11261,10 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.r_dz *= tglad_factor1;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp1;
+			}
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -11258,7 +11272,10 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
 			aux.r_dz *=tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			if (fractal->foldColor.auxColorEnabledFalse)
+			{
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
 		}
 		z -= fractal->mandelbox.offset;
 	}
