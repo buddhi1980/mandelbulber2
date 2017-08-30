@@ -194,6 +194,7 @@ struct sParamRender
 	double volFogColour2Distance;
 	float volFogDensity;
 	double volFogDistanceFactor;
+	double volumetricLightDEFactor;
 	double volumetricLightIntensity[5];
 
 	sImageAdjustments imageAdjustments;

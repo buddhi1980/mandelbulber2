@@ -171,7 +171,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
 	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
-
+	volumetricLightDEFactor = container->Get<double>("volumetric_light_DE_Factor");
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 
 	for (int i = 0; i < 4; ++i)
