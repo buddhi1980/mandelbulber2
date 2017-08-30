@@ -383,7 +383,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
-	monteCarlo = paramRender->DOFMonteCarlo && paramRender->DOFEnabled;
+	monteCarlo = paramRender->DOFMonteCarlo && paramRender->DOFEnabled
+							 && paramContainer->Get<int>("opencl_mode") != clRenderEngineTypeFast;
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -465,7 +466,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 // TODO:
 // This is the hot spot for heterogeneous execution
 // requires opencl for all compute resources
-bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
+bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRenderData *renderData)
 {
 	if (programsLoaded)
 	{
@@ -492,7 +493,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 		double *noiseTable = new double[noiseTableSize];
 		for (int i = 0; i < noiseTableSize; i++)
 		{
-			noiseTable[i] = 100.0;
+			noiseTable[i] = 1.0;
 		}
 
 		int numberOfSamples = 1;
@@ -525,7 +526,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				bool bigNoise = true;
 				if (monteCarlo)
 				{
-					if (noiseTable[gridX + gridY * (gridWidth + 1)] < constantInBuffer->params.DOFMaxNoise
+					if (noiseTable[gridX + gridY * (gridWidth + 1)]
+								< constantInBuffer->params.DOFMaxNoise / 100.0
 							&& monteCarloLoop > constantInBuffer->params.DOFMinSamples)
 						bigNoise = false;
 				}
@@ -536,6 +538,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 					size_t pixelsLeftY = height - jobY;
 					int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
 					int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+
+					if (monteCarloLoop == 1)
+						renderData->statistics.numberOfRenderedPixels += jobHeight2 * jobWidth2;
 
 					if (bigNoise)
 					{
@@ -578,6 +583,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 						// Populate the data into image->Put
 
 						double monteCarloNoiseSum = 0.0;
+						double maxNoise = 0.0;
 						for (int x = 0; x < jobWidth2; x++)
 						{
 							for (int y = 0; y < jobHeight2; y++)
@@ -615,6 +621,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 																 + (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 									noise *= 0.3333;
 									monteCarloNoiseSum += noise;
+									if (noise > maxNoise) maxNoise = noise;
 								}
 								else
 								{
@@ -627,15 +634,19 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 							}
 						}
 
+						renderData->statistics.totalNumberOfDOFRepeats += jobWidth2 * jobHeight2;
+
 						// total noise in last rectangle
 						if (monteCarlo)
 						{
-							double totalNoise = sqrt(monteCarloNoiseSum / jobWidth2 / jobHeight2) * 100.0;
-							noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoise;
+							double weight = 0.2;
+							double totalNoiseRect = sqrt(
+								(1.0 - weight) * monteCarloNoiseSum / jobWidth2 / jobHeight2 + weight * maxNoise);
+							noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoiseRect;
 						}
-					} // bigNoise
 
-					lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
+						lastRenderedRects.append(QRect(jobX, jobY, jobWidth2, jobHeight2));
+					} // bigNoise
 
 					pixelsRendered += jobWidth2 * jobHeight2;
 
@@ -653,6 +664,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 						}
 						emit updateProgressAndStatus(
 							tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+
+						emit updateStatistics(renderData->statistics);
+
 						gApplication->processEvents();
 						progressRefreshTimer.restart();
 					}
@@ -726,6 +740,17 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest)
 				}
 				gApplication->processEvents();
 			}
+
+			double totalNoise = 0.0;
+			for (int i = 0; i < noiseTableSize; i++)
+			{
+				totalNoise += noiseTable[i];
+			}
+			totalNoise /= noiseTableSize;
+			renderData->statistics.totalNoise = totalNoise * width * height;
+
+			emit updateStatistics(renderData->statistics);
+
 		} // monte carlo loop
 
 		delete[] noiseTable;

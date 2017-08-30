@@ -39,6 +39,7 @@
 #include "fractal_enums.h"
 #include "opencl_engine.h"
 #include "opencl_include_header_wrapper.hpp"
+#include "statistics.h"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -81,7 +82,7 @@ public:
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(int jobX, int jobY, int pixelsLeftX, int pixelsLeftY);
 	bool ReadBuffersFromQueue();
-	bool Render(cImage *image, bool *stopRequest);
+	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 
 private:
@@ -108,6 +109,7 @@ private:
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateStatistics(cStatistics);
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_FRACTAL_H_ */

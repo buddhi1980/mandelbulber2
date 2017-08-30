@@ -514,6 +514,15 @@ bool cRenderJob::Execute()
 
 		image->SetImageParameters(params->imageAdjustments);
 
+		// initialize statistics (limited for OpenCL)
+		renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
+		renderData->statistics.histogramStepCount.Resize(1000);
+		renderData->statistics.Reset();
+		renderData->statistics.usedDEType = fractals->GetDETypeString();
+
+		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
+			SIGNAL(updateStatistics(cStatistics)));
+
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
 			paramsContainer, fractalContainer, params, fractals, renderData);
@@ -522,7 +531,8 @@ bool cRenderJob::Execute()
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-			result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest);
+			result =
+				gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest, renderData);
 		}
 		gOpenCl->openClEngineRenderFractal->Unlock();
 

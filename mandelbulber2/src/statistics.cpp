@@ -41,6 +41,7 @@ cStatistics::cStatistics()
 	numberOfRaymarchings = 0;
 	numberOfRenderedPixels = 0;
 	totalNumberOfDOFRepeats = 0;
+	totalNoise = 0;
 	time = 0.0;
 }
 

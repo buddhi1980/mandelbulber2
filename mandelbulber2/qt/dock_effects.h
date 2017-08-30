@@ -62,6 +62,7 @@ public:
 	double GetAuxLightManualPlacementDistance() const;
 	void SetAuxLightManualPlacementDistance(double dist) const;
 	void UpdateLabelAverageDOFSamples(const QString &avg);
+	void UpdateLabelAverageDOFNoise(const QString &avg);
 
 private slots:
 	static void slotPressedButtonAutoFog();

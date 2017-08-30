@@ -234,3 +234,8 @@ void cDockEffects::UpdateLabelAverageDOFSamples(const QString &avg)
 {
 	ui->label_average_DOF_samples->setText(avg);
 }
+
+void cDockEffects::UpdateLabelAverageDOFNoise(const QString &avg)
+{
+	ui->label_average_DOF_noise->setText(avg);
+}

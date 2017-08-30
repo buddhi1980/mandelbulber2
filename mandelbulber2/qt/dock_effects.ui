@@ -586,6 +586,13 @@
                      </property>
                     </widget>
                    </item>
+                   <item row="4" column="0" colspan="3">
+                    <widget class="QLabel" name="label_average_DOF_noise">
+                     <property name="text">
+                      <string>Average noise:</string>
+                     </property>
+                    </widget>
+                   </item>
                   </layout>
                  </item>
                 </layout>
@@ -2558,7 +2565,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-37</y>
+            <y>0</y>
             <width>507</width>
             <height>1553</height>
            </rect>

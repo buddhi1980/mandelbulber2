@@ -193,6 +193,7 @@ void cRenderWorker::doWork()
 			sRGB finalColourDOF;
 
 			sRGBFloat monteCarloDOFStdDevSum;
+			double monteCarloNoise = 0.0;
 
 			CVector2<double> originalImagePoint = imagePoint;
 
@@ -349,10 +350,10 @@ void cRenderWorker::doWork()
 				// noise estimation
 				if (monteCarloDOF)
 				{
-					double noise =
+					monteCarloNoise =
 						MonteCarloDOFNoiseEstimation(finalPixel, repeat, finalPixelDOF, monteCarloDOFStdDevSum);
 
-					if (repeat > params->DOFMinSamples && noise < params->DOFMaxNoise * 0.01)
+					if (repeat > params->DOFMinSamples && monteCarloNoise < params->DOFMaxNoise * 0.01)
 					{
 						repeats = repeat + 1;
 						break;
@@ -382,6 +383,7 @@ void cRenderWorker::doWork()
 					colour.B = finalColourDOF.B / repeats;
 				}
 				data->statistics.totalNumberOfDOFRepeats += repeats;
+				data->statistics.totalNoise += monteCarloNoise;
 			}
 			else if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 			{

@@ -48,6 +48,7 @@ public:
 	int numberOfRaymarchings;
 	int numberOfRenderedPixels;
 	long long totalNumberOfDOFRepeats;
+	double totalNoise;
 	double time;
 	QString usedDEType;
 
@@ -63,6 +64,7 @@ public:
 	{
 		return double(totalNumberOfDOFRepeats) / numberOfRenderedPixels;
 	}
+	double GetAverageDOFNoise() const { return totalNoise / numberOfRenderedPixels; }
 	void Reset();
 };
 
