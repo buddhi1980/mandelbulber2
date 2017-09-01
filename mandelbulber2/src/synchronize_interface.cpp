@@ -607,7 +607,7 @@ void SynchronizeInterfaceWriteVect4d(
 		case 'x': out = vect.x; break;
 		case 'y': out = vect.y; break;
 		case 'z': out = vect.z; break;
-		case 'w': out = vect.z; break;
+		case 'w': out = vect.w; break;
 		default:
 			qWarning() << "cInterface::SynchronizeInterfaceWriteVect4d(): edit field " << nameVect
 								 << " has wrong axis name (is " << lastChar << ")" << endl;
