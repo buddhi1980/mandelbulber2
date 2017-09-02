@@ -149,7 +149,7 @@ bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer 
 	{
 
 		// output buffer
-		size_t buffSize = numberOfPixels * sizeof(cl_float4);
+		size_t buffSize = optimalJob.stepSize * sizeof(cl_float4);
 		if (outBuffer) delete[] outBuffer;
 		outBuffer = new cl_float4[optimalJob.stepSize];
 
@@ -380,9 +380,9 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
 
-		for (int gridY = 0; gridY < gridWidth; gridY++)
+		for (int gridY = 0; gridY <= gridHeight; gridY++)
 		{
-			for (int gridX = 0; gridX < gridHeight; gridX++)
+			for (int gridX = 0; gridX <= gridWidth; gridX++)
 			{
 				int jobX = gridX * optimalJob.stepSizeX;
 				int jobY = gridY * optimalJob.stepSizeY;
@@ -390,6 +390,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 				size_t pixelsLeftY = height - jobY;
 				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
 				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				if (jobHeight2 <= 0) continue;
+				if (jobWidth2 <= 0) continue;
 
 				// assign parameters to kernel
 				if (!AssignParametersToKernel()) return false;
@@ -406,16 +408,16 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 
 				if (!ReadBuffersFromQueue()) return false;
 
-				for (int y = 0; y < jobWidth2; y++)
+				for (int y = 0; y < jobHeight2; y++)
 				{
-					for (int x = 0; x < jobHeight2; x++)
+					for (int x = 0; x < jobWidth2; x++)
 					{
-						cl_float4 pixelCl = outBuffer[x + y * width];
+						cl_float4 pixelCl = outBuffer[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						float alpha = pixelCl.s[3];
 
-						image->PutPixelPostImage(x, y, pixel);
-						image->PutPixelAlpha(x, y, alpha);
+						image->PutPixelPostImage(x + jobX, y + jobY, pixel);
+						image->PutPixelAlpha(x + jobX, y + jobY, alpha);
 					}
 				}
 
@@ -447,6 +449,13 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
+
+		delete inCLImageBuffer;
+		inCLImageBuffer = nullptr;
+		delete inCLZBuffer;
+		inCLZBuffer = nullptr;
+		delete outCl;
+		outCl = nullptr;
 
 		return true;
 	}

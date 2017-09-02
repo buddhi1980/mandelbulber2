@@ -38,6 +38,7 @@
 class cOpenClHardware;
 class cOpenClEngineRenderFractal;
 class cOpenClEngineRenderSSAO;
+class cOpenClEngineRenderDOF;
 
 class cGlobalOpenCl
 {
@@ -51,6 +52,7 @@ public:
 
 	cOpenClEngineRenderFractal *openClEngineRenderFractal;
 	cOpenClEngineRenderSSAO *openClEngineRenderSSAO;
+	cOpenClEngineRenderDOF *openclEngineRenderDOF;
 	cOpenClHardware *openClHardware;
 };
 

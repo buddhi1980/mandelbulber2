@@ -42,6 +42,7 @@
 #include "image_scale.hpp"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
+#include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
@@ -561,6 +562,16 @@ bool cRenderJob::Execute()
 					tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
 			}
 		}
+
+		if (!*renderData->stopRequest)
+		{
+			if (params->DOFEnabled && !params->DOFMonteCarlo)
+			{
+				gOpenCl->openclEngineRenderDOF->RenderDOF(
+					params, paramsContainer, image, renderData->stopRequest);
+			}
+		}
+
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
 

@@ -776,6 +776,13 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
+		delete outCL;
+		outCL = nullptr;
+		delete inCLBuffer;
+		inCLBuffer = nullptr;
+		delete inCLConstBuffer;
+		inCLConstBuffer = nullptr;
+
 		return true;
 	}
 	else

@@ -35,6 +35,7 @@
 #include "opencl_global.h"
 
 #include "initparameters.hpp"
+#include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_hardware.h"
@@ -65,6 +66,7 @@ cGlobalOpenCl::cGlobalOpenCl()
 
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
+	openclEngineRenderDOF = new cOpenClEngineRenderDOF(openClHardware);
 #endif
 }
 

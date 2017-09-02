@@ -42,7 +42,7 @@ kernel void DOFPhase1(
 	const int scrY = get_global_id(1);
 	const int cl_offsetX = get_global_offset(0);
 	const int cl_offsetY = get_global_offset(1);
-	const int outBuffIndex = (imageX - cl_offsetX) + (imageY - cl_offsetY) * get_global_size(0);
+	const int outBuffIndex = (scrX - cl_offsetX) + (scrY - cl_offsetY) * get_global_size(0);
 	const int inBuffIndex = scrX + scrY * params.width;
 
 	const int2 scr = (int2){scrX, scrY};
@@ -58,11 +58,11 @@ kernel void DOFPhase1(
 	int yStop = min(scr.y + size, params.height - 1);
 
 	float totalWeight = 0.0f;
-	float4 tempPixel;
+	float4 tempPixel = 0.0f;
 	int2 point;
-	for (int point.y = yStart; point.y <= yStop; point.y++)
+	for (point.y = yStart; point.y <= yStop; point.y++)
 	{
-		for (int point.x = xStart; point.x <= xStop; point.x++)
+		for (point.x = xStart; point.x <= xStop; point.x++)
 		{
 			int2 intDelta = scr - point;
 			float2 delta = convert_float2(intDelta);
