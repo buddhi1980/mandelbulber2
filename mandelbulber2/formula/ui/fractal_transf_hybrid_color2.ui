@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_hybrid_color2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -94,7 +94,170 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="71" column="3">
+     <item row="56" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_444_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="71" column="2">
+      <widget class="QLabel" name="label_67">
+       <property name="text">
+        <string>value += value * ( 1.0 + scale/( iter + 1.0))</string>
+       </property>
+      </widget>
+     </item>
+     <item row="63" column="2">
+      <widget class="QSlider" name="slider3_transf_addition_constantA_000_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="4">
+      <widget class="Line" name="line_27">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="50" column="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledM">
+       <property name="text">
+        <string notr="true">fabs(z)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="48" column="0">
+      <widget class="QLabel" name="label_45">
+       <property name="text">
+        <string>aux.color at iteration count</string>
+       </property>
+      </widget>
+     </item>
+     <item row="56" column="2">
+      <widget class="QSlider" name="slider3_transf_scale3D_444_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="54" column="0">
+      <widget class="QLabel" name="label_99">
+       <property name="text">
+        <string>x limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="54" column="2">
+      <widget class="QSlider" name="slider3_transf_scale3D_444_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="55" column="2">
+      <widget class="QSlider" name="slider3_transf_scale3D_444_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="73" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -122,7 +285,7 @@
        </property>
       </widget>
      </item>
-     <item row="61" column="1">
+     <item row="63" column="1">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledX_false">
        <property name="text">
         <string/>
@@ -157,7 +320,7 @@
        </property>
       </widget>
      </item>
-     <item row="63" column="1">
+     <item row="65" column="1">
       <widget class="QLabel" name="label_98">
        <property name="text">
         <string>sqrd</string>
@@ -206,14 +369,14 @@
        </property>
       </widget>
      </item>
-     <item row="66" column="0">
+     <item row="68" column="0">
       <widget class="QLabel" name="label_93">
        <property name="text">
         <string>add z.y * z.z bias</string>
        </property>
       </widget>
      </item>
-     <item row="77" column="0">
+     <item row="79" column="0">
       <widget class="QLabel" name="label_68">
        <property name="font">
         <font>
@@ -248,6 +411,13 @@
        </property>
       </widget>
      </item>
+     <item row="62" column="1">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
      <item row="15" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_period1">
        <property name="sizePolicy">
@@ -279,14 +449,7 @@
      <item row="47" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string>aux.color fold component</string>
-       </property>
-      </widget>
-     </item>
-     <item row="60" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
-       <property name="text">
-        <string/>
+        <string>aux.color fold </string>
        </property>
       </widget>
      </item>
@@ -341,6 +504,34 @@
        </property>
       </widget>
      </item>
+     <item row="55" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_444_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
      <item row="8" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_limit_min0">
        <property name="sizePolicy">
@@ -369,10 +560,17 @@
        </property>
       </widget>
      </item>
-     <item row="58" column="0">
+     <item row="81" column="2" colspan="2">
+      <widget class="Line" name="line_8">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="60" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
        <property name="text">
-        <string>XYZ bias component</string>
+        <string>XYZ bias</string>
        </property>
       </widget>
      </item>
@@ -383,17 +581,10 @@
        </property>
       </widget>
      </item>
-     <item row="79" column="2" colspan="2">
-      <widget class="Line" name="line_8">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="34" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
        <property name="text">
-        <string>Radius component</string>
+        <string>Radius</string>
        </property>
       </widget>
      </item>
@@ -425,7 +616,14 @@
        </property>
       </widget>
      </item>
-     <item row="67" column="2">
+     <item row="46" column="0" colspan="4">
+      <widget class="Line" name="line_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="69" column="2">
       <widget class="QSlider" name="slider3_transf_scale3D_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -450,21 +648,14 @@
        </property>
       </widget>
      </item>
-     <item row="69" column="0">
+     <item row="71" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
        <property name="text">
         <string>Iteration count function</string>
        </property>
       </widget>
      </item>
-     <item row="46" column="0" colspan="4">
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="66" column="2">
+     <item row="68" column="2">
       <widget class="QSlider" name="slider3_transf_scale3D_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -511,14 +702,21 @@
        </property>
       </widget>
      </item>
-     <item row="59" column="0">
+     <item row="37" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
+       <property name="text">
+        <string>Radius squared</string>
+       </property>
+      </widget>
+     </item>
+     <item row="61" column="0">
       <widget class="QLabel" name="label_86">
        <property name="text">
         <string>add z.x bias</string>
        </property>
       </widget>
      </item>
-     <item row="77" column="3">
+     <item row="79" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -546,42 +744,7 @@
        </property>
       </widget>
      </item>
-     <item row="37" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
-       <property name="text">
-        <string>Radius squared component</string>
-       </property>
-      </widget>
-     </item>
-     <item row="35" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleG0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-999.999000000000024</double>
-       </property>
-       <property name="maximum">
-        <double>999.999000000000024</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="60" column="2">
+     <item row="62" column="2">
       <widget class="QSlider" name="slider3_transf_addition_constantA_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -606,15 +769,15 @@
        </property>
       </widget>
      </item>
-     <item row="59" column="1">
+     <item row="61" column="1">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledS_false">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
-     <item row="65" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_x">
+     <item row="35" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleG0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -648,6 +811,48 @@
        </property>
       </widget>
      </item>
+     <item row="67" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="69" column="1">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledK_false">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="69" column="0">
+      <widget class="QLabel" name="label_72">
+       <property name="text">
+        <string>add z.z * z.x bias</string>
+       </property>
+      </widget>
+     </item>
      <item row="32" column="2" colspan="2">
       <widget class="QLabel" name="label_89">
        <property name="text">
@@ -658,22 +863,15 @@
        </property>
       </widget>
      </item>
-     <item row="67" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledK_false">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="67" column="0">
-      <widget class="QLabel" name="label_72">
-       <property name="text">
-        <string>add z.z * z.x bias</string>
-       </property>
-      </widget>
-     </item>
      <item row="33" column="0" colspan="4">
       <widget class="Line" name="line_29">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="78" column="0" colspan="4">
+      <widget class="Line" name="line_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -707,10 +905,10 @@
        </property>
       </widget>
      </item>
-     <item row="76" column="0" colspan="4">
-      <widget class="Line" name="line_6">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="68" column="1">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledF_false">
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </item>
@@ -736,20 +934,6 @@
        </property>
       </widget>
      </item>
-     <item row="69" column="2">
-      <widget class="QLabel" name="label_67">
-       <property name="text">
-        <string>value += value * ( 1.0 + scale/( iter + 1.0))</string>
-       </property>
-      </widget>
-     </item>
-     <item row="66" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledF_false">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="37" column="2" colspan="2">
       <widget class="QLabel" name="label_91">
        <property name="text">
@@ -757,7 +941,7 @@
        </property>
       </widget>
      </item>
-     <item row="62" column="0" colspan="4">
+     <item row="64" column="0" colspan="4">
       <widget class="Line" name="line_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -781,6 +965,13 @@
        <property name="singleStep">
         <number>1</number>
        </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="4">
+      <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -845,41 +1036,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0" colspan="4">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="60" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-999.999000000000024</double>
-       </property>
-       <property name="maximum">
-        <double>999.999000000000024</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
      <item row="14" column="0">
       <widget class="QCheckBox" name="checkBox_fold_color_cos_enabled_false">
        <property name="text">
@@ -887,8 +1043,8 @@
        </property>
       </widget>
      </item>
-     <item row="61" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
+     <item row="62" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -928,8 +1084,8 @@
        </property>
       </widget>
      </item>
-     <item row="38" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleA0">
+     <item row="63" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -963,6 +1119,28 @@
        </property>
       </widget>
      </item>
+     <item row="79" column="2">
+      <widget class="QSlider" name="slider_transf_scale_0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item row="30" column="0" colspan="3">
       <widget class="QLabel" name="label_43">
        <property name="text">
@@ -970,7 +1148,35 @@
        </property>
       </widget>
      </item>
-     <item row="71" column="0">
+     <item row="38" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleA0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="73" column="0">
       <widget class="QLabel" name="label_66">
        <property name="text">
         <string>scale</string>
@@ -997,6 +1203,28 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="2">
+      <widget class="QSlider" name="slider_fold_color_old_scale1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>1000</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item row="8" column="2">
       <widget class="QSlider" name="slider_fold_color_limit_min0">
        <property name="sizePolicy">
@@ -1019,7 +1247,7 @@
        </property>
       </widget>
      </item>
-     <item row="82" column="0" colspan="4">
+     <item row="84" column="0" colspan="4">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="2" column="4">
         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_T">
@@ -1109,25 +1337,16 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="2">
-      <widget class="QSlider" name="slider_fold_color_old_scale1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="28" column="0" colspan="3">
+      <widget class="QLabel" name="label_69">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
        </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+       <property name="text">
+        <string>Coloring components (cumulative)</string>
        </property>
       </widget>
      </item>
@@ -1144,26 +1363,6 @@
        </property>
       </widget>
      </item>
-     <item row="28" column="0" colspan="3">
-      <widget class="QLabel" name="label_69">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Coloring components (cumulative)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="27" column="0" colspan="4">
-      <widget class="Line" name="line_14">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="32" column="0">
       <widget class="QLabel" name="label_88">
        <property name="text">
@@ -1171,6 +1370,13 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="27" column="0" colspan="4">
+      <widget class="Line" name="line_14">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -1202,14 +1408,27 @@
        </property>
       </widget>
      </item>
-     <item row="61" column="0">
+     <item row="63" column="0">
       <widget class="QLabel" name="label_70">
        <property name="text">
         <string>add z.z bias</string>
        </property>
       </widget>
      </item>
-     <item row="59" column="3">
+     <item row="5" column="0" colspan="3">
+      <widget class="QLabel" name="label_73">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>New coloring components palette options ( * 256.0)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="61" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1237,26 +1456,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0" colspan="3">
-      <widget class="QLabel" name="label_73">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>New coloring components palette options ( * 256.0)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="81" column="2" colspan="2">
-      <widget class="Line" name="line_11">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="47" column="2">
       <widget class="QLabel" name="label_92">
        <property name="text">
@@ -1264,10 +1463,31 @@
        </property>
       </widget>
      </item>
+     <item row="83" column="2" colspan="2">
+      <widget class="Line" name="line_11">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item row="18" column="2">
       <widget class="QLabel" name="label_61">
        <property name="text">
         <string>palette += log (palette + 1.0) * scale</string>
+       </property>
+      </widget>
+     </item>
+     <item row="43" column="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <property name="text">
+        <string>change to analytical log DE</string>
+       </property>
+      </widget>
+     </item>
+     <item row="18" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+       <property name="text">
+        <string>Log palette</string>
        </property>
       </widget>
      </item>
@@ -1299,28 +1519,7 @@
        </property>
       </widget>
      </item>
-     <item row="43" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
-       <property name="text">
-        <string>change to analytical log DE</string>
-       </property>
-      </widget>
-     </item>
-     <item row="18" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
-       <property name="text">
-        <string>Log palette</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0" colspan="4">
-      <widget class="Line" name="line_27">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="71" column="2">
+     <item row="73" column="2">
       <widget class="QSlider" name="slider_transf_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1348,42 +1547,10 @@
        </property>
       </widget>
      </item>
-     <item row="61" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constantA_000_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-100000</number>
-       </property>
-       <property name="maximum">
-        <number>100000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="60" column="0">
+     <item row="62" column="0">
       <widget class="QLabel" name="label_85">
        <property name="text">
         <string>add z.y bias</string>
-       </property>
-      </widget>
-     </item>
-     <item row="23" column="0" colspan="4">
-      <widget class="Line" name="line_10">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -1415,6 +1582,20 @@
        </property>
       </widget>
      </item>
+     <item row="23" column="0" colspan="4">
+      <widget class="Line" name="line_10">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="65" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+       <property name="text">
+        <string>Plane bias</string>
+       </property>
+      </widget>
+     </item>
      <item row="36" column="0" colspan="4">
       <widget class="Line" name="line_9">
        <property name="orientation">
@@ -1422,10 +1603,10 @@
        </property>
       </widget>
      </item>
-     <item row="63" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_83">
        <property name="text">
-        <string>Plane bias component</string>
+        <string/>
        </property>
       </widget>
      </item>
@@ -1464,14 +1645,29 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_83">
-       <property name="text">
-        <string/>
+     <item row="19" column="2">
+      <widget class="QSlider" name="slider_fold_color_scaleE0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="66" column="3">
+     <item row="68" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1499,29 +1695,7 @@
        </property>
       </widget>
      </item>
-     <item row="19" column="2">
-      <widget class="QSlider" name="slider_fold_color_scaleE0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-100000</number>
-       </property>
-       <property name="maximum">
-        <number>100000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="67" column="3">
+     <item row="69" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1556,6 +1730,20 @@
        </property>
       </widget>
      </item>
+     <item row="15" column="0">
+      <widget class="QLabel" name="label_62">
+       <property name="text">
+        <string>cosine period</string>
+       </property>
+      </widget>
+     </item>
+     <item row="67" column="1">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledE_false">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
      <item row="39" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleB0">
        <property name="sizePolicy">
@@ -1584,20 +1772,6 @@
        </property>
       </widget>
      </item>
-     <item row="15" column="0">
-      <widget class="QLabel" name="label_62">
-       <property name="text">
-        <string>cosine period</string>
-       </property>
-      </widget>
-     </item>
-     <item row="65" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledE_false">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
       <widget class="QLabel" name="label_53">
        <property name="text">
@@ -1605,7 +1779,7 @@
        </property>
       </widget>
      </item>
-     <item row="59" column="2">
+     <item row="61" column="2">
       <widget class="QSlider" name="slider3_transf_addition_constantA_000_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -1674,14 +1848,14 @@
        </property>
       </widget>
      </item>
-     <item row="58" column="1">
+     <item row="60" column="1">
       <widget class="QLabel" name="label_94">
        <property name="text">
         <string>sqrd</string>
        </property>
       </widget>
      </item>
-     <item row="65" column="0">
+     <item row="67" column="0">
       <widget class="QLabel" name="label_90">
        <property name="text">
         <string>add z.x * z.y bias</string>
@@ -1711,7 +1885,7 @@
      <item row="43" column="0" colspan="2">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledD_false">
        <property name="text">
-        <string>DE component ( default linear DE)</string>
+        <string>DE  ( default linear DE)</string>
        </property>
       </widget>
      </item>
@@ -1744,17 +1918,17 @@
        </property>
       </widget>
      </item>
-     <item row="68" column="0" colspan="4">
-      <widget class="Line" name="line_13">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="14" column="2">
       <widget class="QLabel" name="label_57">
        <property name="text">
         <string>palette += (trig function * addition value)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="70" column="0" colspan="4">
+      <widget class="Line" name="line_13">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -1783,28 +1957,6 @@
        </property>
        <property name="sliderPosition">
         <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="77" column="2">
-      <widget class="QSlider" name="slider_transf_scale_0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-100000</number>
-       </property>
-       <property name="maximum">
-        <number>100000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1868,6 +2020,31 @@
        </property>
       </widget>
      </item>
+     <item row="67" column="2">
+      <widget class="QSlider" name="slider3_transf_scale3D_000_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
      <item row="9" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_fold_color_limit_max9999">
        <property name="sizePolicy">
@@ -1924,49 +2101,10 @@
        </property>
       </widget>
      </item>
-     <item row="65" column="2">
-      <widget class="QSlider" name="slider3_transf_scale3D_000_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-100000</number>
-       </property>
-       <property name="maximum">
-        <number>100000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="48" column="0">
-      <widget class="QLabel" name="label_45">
-       <property name="text">
-        <string>aux.color at iteration count</string>
-       </property>
-      </widget>
-     </item>
      <item row="45" column="2">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
        <property name="text">
         <string>DE /( aux.i ^2 +1.0) mode</string>
-       </property>
-      </widget>
-     </item>
-     <item row="50" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledM">
-       <property name="text">
-        <string notr="true">fabs(z)</string>
        </property>
       </widget>
      </item>
@@ -1995,6 +2133,13 @@
        </property>
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="50" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+       <property name="text">
+        <string>Max linear offset</string>
        </property>
       </widget>
      </item>
@@ -2033,10 +2178,129 @@
        </property>
       </widget>
      </item>
-     <item row="50" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+     <item row="57" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="56" column="0">
+      <widget class="QLabel" name="label_101">
        <property name="text">
-        <string>Max linear offset component</string>
+        <string>z limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="57" column="2">
+      <widget class="QSlider" name="slider_transf_scaleB_1">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimum">
+        <number>-100000</number>
+       </property>
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+       <property name="sliderPosition">
+        <number>0</number>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="54" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_444_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="minimum">
+        <double>-999.999000000000024</double>
+       </property>
+       <property name="maximum">
+        <double>999.999000000000024</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="55" column="0">
+      <widget class="QLabel" name="label_100">
+       <property name="text">
+        <string>y limit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="58" column="0" colspan="4">
+      <widget class="Line" name="line_19">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="53" column="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledCx">
+       <property name="text">
+        <string notr="true">fabs(z)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="57" column="0">
+      <widget class="QLabel" name="label_102">
+       <property name="text">
+        <string>boxtrap scale</string>
+       </property>
+      </widget>
+     </item>
+     <item row="53" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledP_false">
+       <property name="text">
+        <string notr="true">BoxTrap</string>
        </property>
       </widget>
      </item>

@@ -11027,6 +11027,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double componentMaster = 0.0;
 	double lastColorValue = aux.colorHybrid;
 	double lengthIter = 0.0;
+	double boxTrap = 0.0;
 
 	// used to turn off or mix with old hybrid color and orbit traps
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
@@ -11092,6 +11093,18 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			linearOffset = temp30;
 		}
 
+
+		// box trap
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			CVector4 box = fractal->transformCommon.scale3D444;
+			CVector4 temp35 = z;
+			if (fractal->transformCommon.functionEnabledCx)
+				temp35 = fabs(temp35);
+			box = box - temp35;
+			double big = max(max(box.x,box.y),box.z);
+			boxTrap = big * fractal->transformCommon.scaleB1;
+		}
 
 
 		// XYZ bias
@@ -11164,9 +11177,17 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			planeBias = tempP.x + tempP.y + tempP.z;
 		}
 
+
+
+
+
+
+
+
+
 		// build and scale componentMaster
 		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
-												+ divideByIter + radius + lengthIter + linearOffset)
+												+ divideByIter + radius + lengthIter + linearOffset + boxTrap)
 											* fractal->foldColor.newScale0;
 	}
 	// if (aux.i >= fractal->transformCommon.startIterationsT
@@ -11209,7 +11230,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 	// final component value + cumulative??
 	aux.colorHybrid = (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
-
+	//aux.colorHybrid =  max((componentMaster * 256.0),aux.colorHybrid); // + (lastColorValue * fractal->transformCommon.scale0);
 	// master controls color
 	// aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 
@@ -11302,6 +11323,52 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				aux.actualScaleA = aux.actualScaleA - vary;
 		}
 	}
+	// octo
+	if (fractal->transformCommon.functionEnabledDFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+
+	{
+		if (z.x + z.y < 0.0) z = CVector4(-z.y, -z.x, z.z, z.w);
+
+		if (z.x + z.z < 0.0) // z.xz = -z.zx;
+			z = CVector4(-z.z, z.y, -z.x, z.w);
+
+		if (z.x - z.y < 0.0) // z.xy = z.yx;
+			z = CVector4(z.y, z.x, z.z, z.w);
+
+		if (z.x - z.z < 0.0) // z.xz = z.zx;
+			z = CVector4(z.z, z.y, z.x, z.w);
+
+		z.x = fabs(z.x);
+		z = z * fractal->transformCommon.scaleA2
+				- fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0);
+
+		aux.DE *= fractal->transformCommon.scaleA2;
+	}
+
+	if (fractal->transformCommon.functionEnabledFFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{ // fabs() and menger fold
+		z = fabs(z + fractal->transformCommon.additionConstantA000);
+		if (z.x - z.y < 0.0) swap(z.y, z.x);
+		if (z.x - z.z < 0.0) swap(z.z, z.x);
+		if (z.y - z.z < 0.0) swap(z.z, z.y);
+		// menger scales and offsets
+		z *= fractal->transformCommon.scale3;
+		z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+		z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+		}
+		else
+		{
+			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+		}
+		aux.r_dz *= fractal->transformCommon.scale3;
+	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
@@ -11314,9 +11381,9 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux.r_dz = aux.r * aux.r_dz * 16.0 * fractal->analyticDE.scale1
+			aux.r_dz = aux.r * aux.r_dz * 10.0 * fractal->analyticDE.scale1
 					* sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
-						+ 2.0 + fractal->analyticDE.offset2)/SQRT_3
+						+ 2.0 + fractal->analyticDE.offset2)
 					+ fractal->analyticDE.offset1;
 		}
 		else
@@ -11340,6 +11407,10 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z = zTemp;
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
+
+
+
+
 }
 
 
