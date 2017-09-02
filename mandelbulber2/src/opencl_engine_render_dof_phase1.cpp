@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * c++ - opencl connector for the SSAO OpenCL renderer
+ * c++ - opencl connector for the DOF Phase1 OpenCL renderer
  */
 
 #include "opencl_engine_render_dof_phase1.h"
@@ -41,11 +41,10 @@
 #include "opencl_hardware.h"
 #include "progress_text.hpp"
 
-#ifdef USE_OPENCL
-
 cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
+#ifdef USE_OPENCL
 	paramsDOF.height = 0;
 	paramsDOF.width = 0;
 	paramsDOF.height = 0;
@@ -59,10 +58,12 @@ cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_har
 	outCl = nullptr;
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
 	optimalJob.optimalProcessingCycle = 0.5;
+#endif
 }
 
 cOpenClEngineRenderDOFPhase1::~cOpenClEngineRenderDOFPhase1()
 {
+#ifdef USE_OPENCL
 	if (inCLZBuffer) delete inCLZBuffer;
 	if (inCLImageBuffer) delete inCLImageBuffer;
 
@@ -72,8 +73,10 @@ cOpenClEngineRenderDOFPhase1::~cOpenClEngineRenderDOFPhase1()
 	if (inImageBuffer) delete[] inImageBuffer;
 
 	if (outBuffer) delete[] outBuffer;
+#endif
 }
 
+#ifdef USE_OPENCL
 QString cOpenClEngineRenderDOFPhase1::GetKernelName()
 {
 	return QString("DOFPhase1");

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * c++ - opencl connector for the SSAO OpenCL renderer
+ * c++ - opencl connector for the DOF Phase 1 OpenCL renderer
  */
 
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE1_H_

@@ -23,10 +23,12 @@ public:
 	cOpenClEngineRenderDOF(cOpenClHardware *_hardware);
 	~cOpenClEngineRenderDOF();
 
+#ifdef USE_OPENCL
 	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,
 		bool *stopRequest);
 
 	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
+#endif
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

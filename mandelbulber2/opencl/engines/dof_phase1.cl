@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * SSAO shader function optimized for opencl
+ * DOF effect function optimized for opencl
  */
 
 #define MAX_DOF_BLUR_SIZE 500.0f

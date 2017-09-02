@@ -14,14 +14,19 @@
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
 {
+#ifdef USE_OPENCL
 	dofEnginePhase1 = new cOpenClEngineRenderDOFPhase1(hardware);
+#endif
 }
 
 cOpenClEngineRenderDOF::~cOpenClEngineRenderDOF()
 {
+#ifdef USE_OPENCL
 	delete dofEnginePhase1;
+#endif
 }
 
+#ifdef USE_OPENCL
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	const cParameterContainer *params, cImage *image, bool *stopRequest)
 {
@@ -39,3 +44,4 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 	return result;
 }
+#endif
