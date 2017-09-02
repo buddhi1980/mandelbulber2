@@ -11099,11 +11099,27 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		{
 			CVector4 box = fractal->transformCommon.scale3D444;
 			CVector4 temp35 = z;
+			double temp39 = 0.0;
 			if (fractal->transformCommon.functionEnabledCx)
 				temp35 = fabs(temp35);
-			box = box - temp35;
-			double big = max(max(box.x,box.y),box.z);
-			boxTrap = big * fractal->transformCommon.scaleB1;
+			temp35 = box - temp35;
+			double temp36 = max(max(temp35.x, temp35.y), temp35.z);
+			double temp37 = min(min(temp35.x, temp35.y), temp35.z);
+			temp36 = temp36 + temp37 * fractal->transformCommon.scaleB1;
+			temp36 *= fractal->transformCommon.scaleC1;
+
+			if (fractal->transformCommon.functionEnabledCy)
+			{
+				CVector4 temp38 = aux.c;
+				if (fractal->transformCommon.functionEnabledCz)
+					temp38 = fabs(temp38);
+				temp38= box - temp38;
+				temp39 = max(max(temp38.x, temp38.y), temp38.z);
+				double temp40 = min(min(temp38.x, temp38.y), temp38.z);
+				temp39 = temp39 + temp40 * fractal->transformCommon.scaleD1;
+				temp39 *= fractal->transformCommon.scaleE1;
+			}
+			boxTrap =  temp36 + temp39;
 		}
 
 
@@ -11229,8 +11245,15 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		componentMaster = fractal->foldColor.limitMax9999;
 
 	// final component value + cumulative??
-	aux.colorHybrid = (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
-	//aux.colorHybrid =  max((componentMaster * 256.0),aux.colorHybrid); // + (lastColorValue * fractal->transformCommon.scale0);
+	{
+		aux.colorHybrid = (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
+	}
+	//else
+	{
+
+
+
+	}
 	// master controls color
 	// aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 
