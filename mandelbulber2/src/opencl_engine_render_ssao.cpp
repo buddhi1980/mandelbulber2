@@ -412,7 +412,6 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		delete outCl;
 		outCl = nullptr;
 
-
 		return true;
 	}
 	else

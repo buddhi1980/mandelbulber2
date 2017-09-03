@@ -261,7 +261,7 @@ void cOpenClHardware::ListOpenClDevices()
 					hashCrypt.addData(deviceInformation.deviceVersion.toLocal8Bit());
 					char index = char(i);
 					hashCrypt.addData(&index);
-					deviceInformation.hash = hashCrypt.result();
+					deviceInformation.hash = hashCrypt.result().left(3);
 
 					devicesInformation.append(deviceInformation);
 					clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
@@ -337,7 +337,7 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 		for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
 		{
 			QByteArray hashFromDevice = clDeviceWorkers[dev].getDeviceInformation().hash;
-			if (hashFromDevice == hashFromList)
+			if (hashFromDevice.left(3) == hashFromList.left(3))
 			{
 				EnableDevice(dev);
 				qDebug() << "Device" << clDeviceWorkers[dev].getDeviceInformation().deviceName << "enabled";
