@@ -128,7 +128,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		boxFoldBulbPow2V2, BoxFoldBulbPow2V2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
-
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -319,7 +318,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		Quaternion3dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
-
 	// Quick Dudley formulas
 	fractalList->append(sFractalDescription("Quick Dudley", "quick_dudley", quickDudley,
 		QuickDudleyIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -376,9 +374,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
 		Quaternion4dIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d", quaternionCubic4d,
-		QuaternionCubic4dIteration,  deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Quaternion Cubic 4D", "quaternion_cubic4d",
+		quaternionCubic4d, QuaternionCubic4dIteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	//-------------------------- transforms -----------------------------------
 
@@ -659,8 +657,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfHybridColor2, TransfHybridColor2Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-
-	fractalList->append(sFractalDescription("Testing", "testing",
-		testing, TestingIteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Testing", "testing", testing, TestingIteration,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
 }

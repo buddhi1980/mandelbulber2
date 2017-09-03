@@ -380,7 +380,6 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	float shadowTemp = 1.0f;
 
 	float DE_factor = consts->params.DEFactor;
-	float volumetricLightDEFactor = consts->params.volumetricLightDEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
 
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
@@ -389,7 +388,7 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
 										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
-	for (float i = input->delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
+	for (float i = input->delta; i < distance; i += dist * DE_factor)
 	{
 		float3 point2 = input->point + lightVector * i;
 
@@ -698,7 +697,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	for (int i = 0; i < MAX_RAYMARCHING; i++)
 	{
-
 		float3 point = input->point - input->viewVector * scan;
 
 		calcParam->distThresh = input->distThresh;
@@ -710,7 +708,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		input2.distThresh = CalcDistThresh(point, consts);
 		input2.delta = CalcDelta(point, consts);
 
-		float step = distance * consts->params.DEFactor;
+		float step = distance * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
+
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
 
 		step = max(step, input2.delta);
