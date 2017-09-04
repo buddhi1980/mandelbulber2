@@ -63,6 +63,7 @@ public:
 	bool ProcessQueue(int pixelsLeft, int pixelIndex);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
+	void ReleaseMemory();
 
 private:
 	QString GetKernelName() override;

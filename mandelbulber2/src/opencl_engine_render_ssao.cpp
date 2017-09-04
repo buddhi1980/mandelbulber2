@@ -74,6 +74,18 @@ cOpenClEngineRenderSSAO::~cOpenClEngineRenderSSAO()
 
 #ifdef USE_OPENCL
 
+void cOpenClEngineRenderSSAO::ReleaseMemory()
+{
+	if (inCLZBuffer) delete inCLZBuffer;
+	inCLZBuffer = nullptr;
+	if (outCl) delete outCl;
+	outCl = nullptr;
+	if (inZBuffer) delete[] inZBuffer;
+	inZBuffer = nullptr;
+	if (outBuffer) delete[] outBuffer;
+	outBuffer = nullptr;
+}
+
 QString cOpenClEngineRenderSSAO::GetKernelName()
 {
 	return QString("SSAO");

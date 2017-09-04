@@ -535,6 +535,7 @@ bool cRenderJob::Execute()
 			result =
 				gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest, renderData);
 		}
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
 		gOpenCl->openClEngineRenderFractal->Unlock();
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
@@ -556,6 +557,7 @@ bool cRenderJob::Execute()
 					gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
 					result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
 				}
+				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
 				gOpenCl->openClEngineRenderSSAO->Unlock();
 
 				emit updateProgressAndStatus(

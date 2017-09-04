@@ -67,6 +67,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		dofEnginePhase1->CreateCommandQueue();
 		result = dofEnginePhase1->Render(image, stopRequest);
 	}
+	dofEnginePhase1->ReleaseMemory();
 	dofEnginePhase1->Unlock();
 
 	return result;

@@ -77,6 +77,28 @@ cOpenClEngineRenderDOFPhase1::~cOpenClEngineRenderDOFPhase1()
 }
 
 #ifdef USE_OPENCL
+
+void cOpenClEngineRenderDOFPhase1::ReleaseMemory()
+{
+	if (inCLZBuffer) delete inCLZBuffer;
+	inCLZBuffer = nullptr;
+
+	if (inCLImageBuffer) delete inCLImageBuffer;
+	inCLImageBuffer = nullptr;
+
+	if (outCl) delete outCl;
+	outCl = nullptr;
+
+	if (inZBuffer) delete[] inZBuffer;
+	inZBuffer = nullptr;
+
+	if (inImageBuffer) delete[] inImageBuffer;
+	inImageBuffer = nullptr;
+
+	if (outBuffer) delete[] outBuffer;
+	outBuffer = nullptr;
+}
+
 QString cOpenClEngineRenderDOFPhase1::GetKernelName()
 {
 	return QString("DOFPhase1");

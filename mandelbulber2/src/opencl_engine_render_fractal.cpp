@@ -94,6 +94,21 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 
 #ifdef USE_OPENCL
 
+void cOpenClEngineRenderFractal::ReleaseMemory()
+{
+	if (constantInBuffer) delete constantInBuffer;
+	constantInBuffer = nullptr;
+	if (inCLConstBuffer) delete inCLConstBuffer;
+	inCLConstBuffer = nullptr;
+	if (inCLBuffer) delete inCLBuffer;
+	inCLBuffer = nullptr;
+	if (rgbBuffer) delete[] rgbBuffer;
+	rgbBuffer = nullptr;
+	if (outCL) delete outCL;
+	outCL = nullptr;
+	dynamicData->Clear();
+}
+
 QString cOpenClEngineRenderFractal::GetKernelName()
 {
 	return QString("fractal3D");
@@ -775,13 +790,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
-
-		delete outCL;
-		outCL = nullptr;
-		delete inCLBuffer;
-		inCLBuffer = nullptr;
-		delete inCLConstBuffer;
-		inCLConstBuffer = nullptr;
 
 		return true;
 	}
