@@ -95,6 +95,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.scaleFactor = 0.0;
 	extendedAux.oldHybridFactor = 1.0;
 	extendedAux.pseudoKleinianDE = 1.0;
+	extendedAux.temp100 = 100.0;
 
 	// main iteration loop
 	int i;

@@ -86,6 +86,7 @@ struct sExtendedAux
 	CVector4 c;
 	CVector4 const_c;
 	CVector4 old_z;
+	double temp100;
 };
 
 struct sFoldColor
