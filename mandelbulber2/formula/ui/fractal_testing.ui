@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>810</width>
-    <height>2157</height>
+    <height>2323</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -949,16 +949,6 @@ offset:</string>
         <widget class="QLabel" name="label_144">
          <property name="text">
           <string>Scale VaryA:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QFrame" name="frame">
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
          </property>
         </widget>
        </item>
