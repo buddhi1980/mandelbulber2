@@ -11039,140 +11039,238 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
 /**
  * Hybrid Color Trial
  *
- * for folds, the aux.color is updated each iteration
+ * for folds the aux.color is updated each iteration
  * depending on which slots have formulas that use it
+ *
+ *
  * bailout may need to be adjusted with some formulas
  */
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double R2 = 0.0;
 	double auxColor = 0.0;
+	double R2 = 0.0;
+
 	double distEst = 0.0;
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
-	double divideByIter = 0.0;
+	//double divideByIter = 0.0;
 	double radius = 0.0;
+	double linearOffset = 0.0;
+	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
-	double lastColorValue = aux.colorHybrid;
+	double minValue = 0.0;
+	//CVector4 lastPoint = aux.old_z;
+	double lengthIter = 0.0;
+	double boxTrap = 0.0;
+	double sphereTrap = 0.0;
 
 	// used to turn off or mix with old hybrid color and orbit traps
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
 	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
-	// radius
-	if (fractal->transformCommon.functionEnabledCyFalse)
+	/*{ // length of last movement before termination
+		CVector4 vecIter =  fabs(z - aux.old_z);
+		lengthIter = vecIter.Length() * aux.i; // (aux.i + 1.0);
+		aux.old_z = z;
+	}*/
+
 	{
-		radius = z.Length();
-		radius = fractal->foldColor.scaleG0 * radius;
-	}
-	// radius squared components
-	if (fractal->transformCommon.functionEnabledRFalse)
-	{
-		double temp0 = 0.0;
-		double temp1 = 0.0;
-		CVector4 c = aux.c;
-		temp0 = c.Dot(c) * fractal->foldColor.scaleA0; // initial R2
-		temp1 = z.Dot(z) * fractal->foldColor.scaleB0;
-		R2 = temp0 + temp1;
-	}
-	// DE component
-	if (fractal->transformCommon.functionEnabledDFalse)
-	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			distEst = aux.r_dz;
-		else
-			distEst = aux.DE;
-		double temp5 = 0.0;
-		temp5 = distEst * fractal->foldColor.scaleD0;
-		distEst = temp5;
-	}
-	// aux.color fold component
-	if (fractal->transformCommon.functionEnabledAxFalse)
-	{
-		auxColor = aux.color;
-		double temp8 = 0.0;
-		temp8 = auxColor * fractal->foldColor.scaleF0;
-		auxColor = temp8;
-	}
-	// XYZ bias
-	if (fractal->transformCommon.functionEnabledCxFalse)
-	{
-		CVector4 temp10 = z;
-		if (fractal->transformCommon.functionEnabledSFalse)
+		// radius
+		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
-			temp10.x *= temp10.x;
-		}
-		else
-		{
-			temp10.x = fabs(temp10.x);
-		}
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			temp10.y *= temp10.y;
-		}
-		else
-		{
-			temp10.y = fabs(temp10.y);
+			radius = z.Length();
+			radius *= fractal->foldColor.scaleG0;
+
+			if (fractal->transformCommon.functionEnabledxFalse)
+			{
+				radius *= 1.0/fabs(aux.DE);
+				//if (radius > 20) radius = 20;
+			}
 		}
 
-		if (fractal->transformCommon.functionEnabledXFalse)
+		// radius squared components
+		if (fractal->transformCommon.functionEnabledRFalse)
 		{
-			temp10.z *= temp10.z;
+			double temp0 = 0.0;
+			double temp1 = 0.0;
+			CVector4 c = aux.c;
+			temp0 = c.Dot(c) * fractal->foldColor.scaleA0; // initial R2
+			temp1 = z.Dot(z) * fractal->foldColor.scaleB0;
+			R2 = temp0 + temp1;
 		}
-		else
-		{
-			temp10.z = fabs(temp10.z);
-		}
-		temp10 = temp10 * fractal->transformCommon.additionConstantA000;
 
-		XYZbias = temp10.x + temp10.y + temp10.z;
+		// DE component
+		if (fractal->transformCommon.functionEnabledDFalse)
+		{
+			if (fractal->transformCommon.functionEnabledBxFalse)
+				distEst = aux.r_dz;
+			else
+				distEst = aux.DE;
+			double temp5 = 0.0;
+			temp5 = distEst * fractal->foldColor.scaleD0;
+			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= 1.0 / (aux.i + 1.0);
+			if (fractal->transformCommon.functionEnabledBzFalse) temp5 *= 1.0 / (aux.i * aux.i + 1.0);
+			distEst = temp5;
+		}
+
+		// aux.color fold component
+		if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			auxColor = aux.color;
+			double temp8 = 0.0;
+			temp8 = auxColor * fractal->foldColor.scaleF0;
+			auxColor = temp8;
+		}
+
+		// max linear offset
+		if (fractal->transformCommon.functionEnabledMFalse)
+		{
+			double temp30 = 0.0;
+			CVector4 temp31 = z;
+			if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
+
+			temp30 = max(max(temp31.x, temp31.y), temp31.z);
+			temp30 *= fractal->foldColor.scaleA1;
+			linearOffset = temp30;
+		}
+
+		// box trap
+		if (fractal->surfBox.enabledX2False)
+		{
+			CVector4 box = fractal->transformCommon.scale3D444;
+			CVector4 temp35 = z;
+			double temp39 = 0.0;
+			//if (aux.i >= fractal->transformCommon.startIterationsT
+				//	&& aux.i < fractal->transformCommon.stopIterationsT)
+			if (fractal->transformCommon.functionEnabledCx) temp35 = fabs(temp35);
+
+			temp35 = box - temp35;
+			double temp36 = max(max(temp35.x, temp35.y), temp35.z);
+			double temp37 = min(min(temp35.x, temp35.y), temp35.z);
+			temp36 = temp36 + temp37 * fractal->transformCommon.offsetB0;
+			temp36 *= fractal->transformCommon.scaleC1;
+
+			if (fractal->surfBox.enabledY2False)
+			{
+				CVector4 temp38 = aux.c;
+
+				if (fractal->transformCommon.functionEnabledCz) temp38 = fabs(temp38);
+				temp38 = box - temp38;
+
+				temp39 = max(max(temp38.x, temp38.y), temp38.z);
+				double temp40 = min(min(temp38.x, temp38.y), temp38.z);
+				temp39 = temp39 + temp40 * fractal->transformCommon.offsetA0;
+				temp39 *= fractal->transformCommon.scaleE1;
+			}
+			boxTrap = temp36 + temp39;
+		}
+
+		// sphere trap
+		if (fractal->transformCommon.functionEnabledzFalse)
+		{
+			double sphereR2 = fractal->transformCommon.maxR2d1;
+			double temp45 = z.Dot(z);
+			double temp46 = sphereR2 - temp45;
+			double temp47 = temp46;
+			double temp51 = temp46;
+			if (fractal->transformCommon.functionEnabledAx)
+				temp51 = fabs(temp51);
+			temp51 *= fractal->transformCommon.scaleF1;
+
+			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereR2)
+			{
+				temp46 *= temp46 * fractal->transformCommon.scaleG1;
+			}
+			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereR2)
+			{
+				temp47 *= temp47 * fractal->transformCommon.scaleB1;
+			}
+			sphereTrap = temp51 + temp47 + temp46;
+		}
+
+		// XYZ bias
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			CVector4 temp10 = z;
+			if (fractal->transformCommon.functionEnabledSFalse)
+			{
+				temp10.x *= temp10.x;
+			}
+			else
+			{
+				temp10.x = fabs(temp10.x);
+			}
+			if (fractal->transformCommon.functionEnabledSwFalse)
+			{
+				temp10.y *= temp10.y;
+			}
+			else
+			{
+				temp10.y = fabs(temp10.y);
+			}
+
+			if (fractal->transformCommon.functionEnabledXFalse)
+			{
+				temp10.z *= temp10.z;
+			}
+			else
+			{
+				temp10.z = fabs(temp10.z);
+			}
+			temp10 = temp10 * fractal->transformCommon.additionConstantA000;
+
+			XYZbias = temp10.x + temp10.y + temp10.z;
+		}
+
+		// plane bias
+		if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			CVector4 tempP = z;
+			if (fractal->transformCommon.functionEnabledEFalse)
+			{
+				tempP.x = tempP.x * tempP.y;
+				tempP.x *= tempP.x;
+			}
+			else
+			{
+				tempP.x = fabs(tempP.x * tempP.y);
+			}
+			if (fractal->transformCommon.functionEnabledFFalse)
+			{
+				tempP.y = tempP.y * tempP.z;
+				tempP.y *= tempP.y;
+			}
+			else
+			{
+				tempP.y = fabs(tempP.y * tempP.z);
+			}
+
+			if (fractal->transformCommon.functionEnabledKFalse)
+			{
+				tempP.z = tempP.z * tempP.x;
+				tempP.z *= tempP.z;
+			}
+			else
+			{
+				tempP.z = fabs(tempP.z * tempP.x);
+			}
+
+			tempP = tempP * fractal->transformCommon.scale3D000;
+			planeBias = tempP.x + tempP.y + tempP.z;
+		}
+
+		// build  componentMaster
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
+									+ radius + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
-	// plane bias
-	if (fractal->transformCommon.functionEnabledAzFalse)
+
+	// divide by i option
+	if (fractal->transformCommon.functionEnabledCzFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		CVector4 tempP = z;
-		if (fractal->transformCommon.functionEnabledEFalse)
-		{
-			tempP.x = tempP.x * tempP.y;
-			tempP.x *= tempP.x;
-		}
-		else
-		{
-			tempP.x = fabs(tempP.x * tempP.y);
-		}
-		if (fractal->transformCommon.functionEnabledFFalse)
-		{
-			tempP.y = tempP.y * tempP.z;
-			tempP.y *= tempP.y;
-		}
-		else
-		{
-			tempP.y = fabs(tempP.y * tempP.z);
-		}
-		if (fractal->transformCommon.functionEnabledKFalse)
-		{
-			tempP.z = tempP.z * tempP.x;
-			tempP.z *= tempP.z;
-		}
-		else
-		{
-			tempP.z = fabs(tempP.z * tempP.x);
-		}
-		tempP = tempP * fractal->transformCommon.scale3D000;
-		planeBias = tempP.x + tempP.y + tempP.z;
+		componentMaster += componentMaster * (1.0 + fractal->transformCommon.scale / (aux.i + 1.0));
 	}
-
-	// build and scale componentMaster
-	componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
-											+ divideByIter + radius)
-										* fractal->foldColor.newScale0;
-
-	// divide by i
-	if (fractal->transformCommon.functionEnabledCzFalse)
-	{
-		divideByIter = componentMaster * (1.0 + fractal->transformCommon.scale / (aux.i + 1.0));
-	}
-	componentMaster += divideByIter;
 
 	// non-linear palette options
 	if (fractal->foldColor.parabEnabledFalse)
@@ -11198,7 +11296,38 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		componentMaster = fractal->foldColor.limitMax9999;
 
 	// final component value + cumulative??
-	aux.colorHybrid = (componentMaster * 256.0) + (lastColorValue * fractal->transformCommon.scale0);
+	{
+		//aux.colorHybrid =
+		//	(componentMaster * 256.0) ; //+ (lastColorValue );ppppppppppppppppppp
+	}
+	//aux.temp100 *= fractal->transformCommon.scale0;
+
+	aux.colorHybrid = componentMaster;
+
+	if (fractal->surfBox.enabledZ2False)
+	{
+		if (componentMaster < aux.temp100 * fractal->transformCommon.scaleA1)
+		{
+			aux.temp100 = componentMaster;
+		}
+		minValue = aux.temp100;
+	//if (aux.i >= fractal->transformCommon.startIterationsT
+			//	&& aux.i < fractal->transformCommon.stopIterationsT)
+	aux.colorHybrid = aux.colorHybrid * (1.0 - fractal->surfBox.scale1Z1)
+			+ ( minValue * fractal->surfBox.scale1Z1);
+	}
+
+	aux.colorHybrid *= fractal->foldColor.newScale0 * 256.0;
+
+
+
+	// master controls color
+	// aux.foldFactor = fractal->foldColor.compFold; // fold group weight
+
+	// double scaleColor =
+	//	 +  fabs(aux.actualScaleA);
+	// scaleColor += fabs(fractal->mandelbox.scale);
+	// aux.scaleFactor = scaleColor * fractal->foldColor.compScale;*/
 }
 
 /**
