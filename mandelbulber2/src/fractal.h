@@ -573,10 +573,10 @@ struct sFractalTransformCommon
 	CVector4 offset200;
 	CVector4 offsetA200;
 	CVector4 offset222;
+	CVector4 power025;
+	CVector4 power8;
 
-	CVector3 power025; // vec3s
-	CVector3 power8;
-	CVector3 rotation;
+	CVector3 rotation; // vec3s
 	CVector3 rotation2;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................

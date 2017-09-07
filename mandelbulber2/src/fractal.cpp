@@ -427,10 +427,10 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offset200 = CVector4(container->Get<CVector3>("transf_offset_200"), 0.0);
 	transformCommon.offsetA200 = CVector4(container->Get<CVector3>("transf_offsetA_200"), 0.0);
 	transformCommon.offset222 = CVector4(container->Get<CVector3>("transf_offset_222"), 0.0);
+	transformCommon.power025 = CVector4(container->Get<CVector3>("transf_power_025"), 0.0);
+	transformCommon.power8 = CVector4(container->Get<CVector3>("transf_power_8"), 0.0);
 
-	transformCommon.power025 = container->Get<CVector3>("transf_power_025");
-	transformCommon.power8 = container->Get<CVector3>("transf_power_8");
-	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+		transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
 	transformCommon.rotation44a =
 		container->Get<CVector3>("transf_rotation44a"); //...........................
