@@ -342,6 +342,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsE = container->Get<int>("transf_stop_iterations_E");
 	transformCommon.startIterationsF = container->Get<int>("transf_start_iterations_F");
 	transformCommon.stopIterationsF = container->Get<int>("transf_stop_iterations_F");
+	transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
+	transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
 	transformCommon.startIterationsP = container->Get<int>("transf_start_iterations_P");
 	transformCommon.stopIterationsP1 = container->Get<int>("transf_stop_iterations_P1");
 	transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
@@ -350,11 +352,13 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsS = container->Get<int>("transf_stop_iterations_S");
 	transformCommon.startIterationsT = container->Get<int>("transf_start_iterations_T");
 	transformCommon.stopIterationsT = container->Get<int>("transf_stop_iterations_T");
-	transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
-	transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
-	transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
 	transformCommon.stopIterationsT1 = container->Get<int>("transf_stop_iterationsT_1");
+	transformCommon.startIterationsTM = container->Get<int>("transf_start_iterationsTM");
 	transformCommon.stopIterationsTM1 = container->Get<int>("transf_stop_iterationsTM_1");
+
+	transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
+
+
 	transformCommon.startIterationsX = container->Get<int>("transf_start_iterations_X");
 	transformCommon.stopIterationsX = container->Get<int>("transf_stop_iterations_X");
 	transformCommon.startIterationsY = container->Get<int>("transf_start_iterations_Y");

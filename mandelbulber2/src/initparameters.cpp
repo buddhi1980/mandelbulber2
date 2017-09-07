@@ -786,6 +786,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_E", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_F", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_F", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_P", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_P1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
@@ -794,10 +796,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_S", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_T", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_T", 250, morphLinear, paramStandard);
-	par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
-	par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
-	par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsT_1", 1, morphLinear, paramStandard);
+	par->addParam("transf_start_iterationsTM", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsTM_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_X", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_X", 250, morphLinear, paramStandard);
@@ -805,6 +805,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_Y", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_Z", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_Z", 250, morphLinear, paramStandard);
+
+	par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 
 	par->addParam(
 		"transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
