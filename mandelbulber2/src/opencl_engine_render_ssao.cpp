@@ -419,11 +419,6 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
 
-		delete inCLZBuffer;
-		inCLZBuffer = nullptr;
-		delete outCl;
-		outCl = nullptr;
-
 		return true;
 	}
 	else

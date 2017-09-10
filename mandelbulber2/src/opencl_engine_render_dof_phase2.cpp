@@ -32,16 +32,17 @@
  * c++ - opencl connector for the DOF Phase1 OpenCL renderer
  */
 
-#include "opencl_engine_render_dof_phase1.h"
+#include "opencl_engine_render_dof_phase2.h"
 
 #include "cimage.hpp"
+#include "dof.hpp"
 #include "files.h"
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "opencl_hardware.h"
 #include "progress_text.hpp"
 
-cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_hardware)
+cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_hardware)
 		: cOpenClEngine(_hardware)
 {
 #ifdef USE_OPENCL
@@ -49,9 +50,10 @@ cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_har
 	paramsDOF.width = 0;
 	paramsDOF.height = 0;
 	paramsDOF.radius = 0.0;
+	paramsDOF.blurOpacity = 0.0;
 	numberOfPixels = 0;
-	inCLZBuffer = nullptr;
-	inZBuffer = nullptr;
+	inCLZBufferSorted = nullptr;
+	inZBufferSorted = nullptr;
 	inCLImageBuffer = nullptr;
 	inImageBuffer = nullptr;
 	outBuffer = nullptr;
@@ -61,15 +63,15 @@ cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_har
 #endif
 }
 
-cOpenClEngineRenderDOFPhase1::~cOpenClEngineRenderDOFPhase1()
+cOpenClEngineRenderDOFPhase2::~cOpenClEngineRenderDOFPhase2()
 {
 #ifdef USE_OPENCL
-	if (inCLZBuffer) delete inCLZBuffer;
+	if (inCLZBufferSorted) delete inCLZBufferSorted;
 	if (inCLImageBuffer) delete inCLImageBuffer;
 
 	if (outCl) delete outCl;
 
-	if (inZBuffer) delete[] inZBuffer;
+	if (inZBufferSorted) delete[] inZBufferSorted;
 	if (inImageBuffer) delete[] inImageBuffer;
 
 	if (outBuffer) delete[] outBuffer;
@@ -78,10 +80,10 @@ cOpenClEngineRenderDOFPhase1::~cOpenClEngineRenderDOFPhase1()
 
 #ifdef USE_OPENCL
 
-void cOpenClEngineRenderDOFPhase1::ReleaseMemory()
+void cOpenClEngineRenderDOFPhase2::ReleaseMemory()
 {
-	if (inCLZBuffer) delete inCLZBuffer;
-	inCLZBuffer = nullptr;
+	if (inCLZBufferSorted) delete inCLZBufferSorted;
+	inCLZBufferSorted = nullptr;
 
 	if (inCLImageBuffer) delete inCLImageBuffer;
 	inCLImageBuffer = nullptr;
@@ -89,8 +91,8 @@ void cOpenClEngineRenderDOFPhase1::ReleaseMemory()
 	if (outCl) delete outCl;
 	outCl = nullptr;
 
-	if (inZBuffer) delete[] inZBuffer;
-	inZBuffer = nullptr;
+	if (inZBufferSorted) delete[] inZBufferSorted;
+	inZBufferSorted = nullptr;
 
 	if (inImageBuffer) delete[] inImageBuffer;
 	inImageBuffer = nullptr;
@@ -99,28 +101,29 @@ void cOpenClEngineRenderDOFPhase1::ReleaseMemory()
 	outBuffer = nullptr;
 }
 
-QString cOpenClEngineRenderDOFPhase1::GetKernelName()
+QString cOpenClEngineRenderDOFPhase2::GetKernelName()
 {
-	return QString("DOFPhase1");
+	return QString("DOFPhase2");
 }
 
-void cOpenClEngineRenderDOFPhase1::SetParameters(const sParamRender *paramRender)
+void cOpenClEngineRenderDOFPhase2::SetParameters(const sParamRender *paramRender)
 {
 	paramsDOF.width = paramRender->imageWidth;
 	paramsDOF.height = paramRender->imageHeight;
 	paramsDOF.deep =
 		paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
 	paramsDOF.neutral = paramRender->DOFFocus;
+	paramsDOF.blurOpacity = paramRender->DOFBlurOpacity;
 
 	numberOfPixels = paramsDOF.width * paramsDOF.height;
 }
 
-bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContainer *params)
+bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContainer *params)
 {
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
-		tr("OpenCl DOF - initializing"), tr("Compiling sources for DOF phase 1"), 0.0);
+		tr("OpenCl DOF - initializing"), tr("Compiling sources for DOF phase 2"), 0.0);
 
 	QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
@@ -138,7 +141,7 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContain
 		programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
 	}
 
-	QString engineFileName = "dof_phase1.cl";
+	QString engineFileName = "dof_phase2.cl";
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
 
@@ -161,7 +164,7 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContain
 	return programsLoaded;
 }
 
-bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer *params)
+bool cOpenClEngineRenderDOFPhase2::PreAllocateBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
 
@@ -171,15 +174,15 @@ bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer 
 	{
 
 		// output buffer
-		size_t buffSize = optimalJob.stepSize * sizeof(cl_float4);
+		size_t buffSize = numberOfPixels * sizeof(cl_float4);
 		if (outBuffer) delete[] outBuffer;
-		outBuffer = new cl_float4[optimalJob.stepSize];
+		outBuffer = new cl_float4[numberOfPixels];
 
 		if (outCl) delete outCl;
 		outCl = new cl::Buffer(
-			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, outBuffer, &err);
+			*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, buffSize, outBuffer, &err);
 		if (!checkErr(
-					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, outBuffer, &err"))
+					err, "*context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, buffSize, outBuffer, &err"))
 		{
 			emit showErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("output buffer")),
@@ -188,14 +191,15 @@ bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer 
 		}
 
 		// input z-buffer
-		if (inZBuffer) delete[] inZBuffer;
-		inZBuffer = new cl_float[numberOfPixels];
+		if (inZBufferSorted) delete[] inZBufferSorted;
+		inZBufferSorted = new sSortedZBufferCl[numberOfPixels];
 
-		if (inCLZBuffer) delete inCLZBuffer;
-		inCLZBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-			numberOfPixels * sizeof(cl_float), inZBuffer, &err);
+		if (inCLZBufferSorted) delete inCLZBufferSorted;
+		inCLZBufferSorted =
+			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+				numberOfPixels * sizeof(sSortedZBufferCl), inZBufferSorted, &err);
 		if (!checkErr(err,
-					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 					"sizeof(sClInBuff), inZBuffer, &err)"))
 		{
 			emit showErrorMessage(
@@ -210,10 +214,10 @@ bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer 
 
 		if (inCLImageBuffer) delete inCLImageBuffer;
 		inCLImageBuffer =
-			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 				numberOfPixels * sizeof(cl_float4), inImageBuffer, &err);
 		if (!checkErr(err,
-					"Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, numberOfPixels "
+					"Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, numberOfPixels "
 					"* sizeof(cl_float4), inImageBuffer, &err)"))
 		{
 			emit showErrorMessage(
@@ -232,10 +236,10 @@ bool cOpenClEngineRenderDOFPhase1::PreAllocateBuffers(const cParameterContainer 
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernel()
+bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernel()
 {
-	int err = kernel->setArg(0, *inCLZBuffer); // input data in global memory
-	if (!checkErr(err, "kernel->setArg(0, *inCLZBuffer)"))
+	int err = kernel->setArg(0, *inCLZBufferSorted); // input data in global memory
+	if (!checkErr(err, "kernel->setArg(0, *inCLZBufferSorted)"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("Z-Buffer data")),
@@ -265,7 +269,7 @@ bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernel()
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("SSAO params")),
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("DOF params")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -273,12 +277,12 @@ bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernel()
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::WriteBuffersToQueue()
+bool cOpenClEngineRenderDOFPhase2::WriteBuffersToQueue()
 {
 	cl_int err = queue->enqueueWriteBuffer(
-		*inCLZBuffer, CL_TRUE, 0, numberOfPixels * sizeof(cl_float), inZBuffer);
+		*inCLZBufferSorted, CL_TRUE, 0, numberOfPixels * sizeof(sSortedZBufferCl), inZBufferSorted);
 
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inZBuffer)"))
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inZBufferSorted)"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input z buffers")),
@@ -287,7 +291,7 @@ bool cOpenClEngineRenderDOFPhase1::WriteBuffersToQueue()
 	}
 
 	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inZBuffer"))
+	if (!checkErr(err, "CommandQueue::finish() - inZBufferSorted"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input z buffers")),
@@ -315,20 +319,52 @@ bool cOpenClEngineRenderDOFPhase1::WriteBuffersToQueue()
 		return false;
 	}
 
+	err =
+		queue->enqueueWriteBuffer(*outCl, CL_TRUE, 0, numberOfPixels * sizeof(cl_float4), outBuffer);
+
+	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(outBuffer)"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("output image buffers")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
+	err = queue->finish();
+	if (!checkErr(err, "CommandQueue::finish() - outBuffer"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("output image buffers")),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
-	int jobX, int jobY, int pixelsLeftX, int pixelsLeftY)
+bool cOpenClEngineRenderDOFPhase2::ProcessQueue(int pixelsLeft, int pixelIndex)
 {
-	int stepSizeX = optimalJob.stepSizeX;
-	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
-	int stepSizeY = optimalJob.stepSizeY;
-	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
+	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
+	int stepSize = optimalJob.stepSize;
 
-	// optimalJob.stepSize = stepSize;
+	if (optimalJob.stepSize > pixelsLeft)
+	{
+		int mul = pixelsLeft / optimalJob.workGroupSize;
+		if (mul > 0)
+		{
+			stepSize = mul * optimalJob.workGroupSize;
+		}
+		else
+		{
+			// in this case will be limited workGroupSize
+			stepSize = pixelsLeft;
+			limitedWorkgroupSize = pixelsLeft;
+		}
+	}
+	optimalJob.stepSize = stepSize;
+
 	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -336,12 +372,20 @@ bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
 		return false;
 	}
 
+	err = queue->finish();
+	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
+	{
+		emit showErrorMessage(
+			QObject::tr("Cannot finish rendering SSAO"), cErrorMessage::errorMessage, nullptr);
+		return false;
+	}
+
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::ReadBuffersFromQueue()
+bool cOpenClEngineRenderDOFPhase2::ReadBuffersFromQueue()
 {
-	size_t buffSize = optimalJob.stepSize * sizeof(cl_float4);
+	size_t buffSize = numberOfPixels * sizeof(cl_float4);
 
 	cl_int err = queue->enqueueReadBuffer(*outCl, CL_TRUE, 0, buffSize, outBuffer);
 	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
@@ -362,7 +406,8 @@ bool cOpenClEngineRenderDOFPhase1::ReadBuffersFromQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
+bool cOpenClEngineRenderDOFPhase2::Render(
+	cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest)
 {
 	if (programsLoaded)
 	{
@@ -380,18 +425,17 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		timer.start();
 
 		int numberOfPixels = width * height;
-		int gridWidth = width / optimalJob.stepSizeX;
-		int gridHeight = height / optimalJob.stepSizeY;
 		QList<QRect> lastRenderedRects;
-		int pixelsRendered = 0;
 
-		// copy zBuffer and image to input buffers
+		// copy zBuffer and image to input and output buffers
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			inZBuffer[i] = image->GetZBufferPtr()[i];
+			inZBufferSorted[i].i = sortedZBuffer[i].i;
+			inZBufferSorted[i].z = sortedZBuffer[i].z;
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
 			inImageBuffer[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			outBuffer[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
 		// writing data to queue
@@ -402,56 +446,46 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
 
-		for (int gridY = 0; gridY <= gridHeight; gridY++)
+		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
-			for (int gridX = 0; gridX <= gridWidth; gridX++)
+			size_t pixelsLeft = width * height - pixelIndex;
+			UpdateOptimalJobStart(pixelsLeft);
+
+			// assign parameters to kernel
+			if (!AssignParametersToKernel()) return false;
+
+			// processing queue
+			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
+
+			double percentDone = double(pixelIndex) / (width * height);
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering SSAO"), progressText.getText(percentDone), percentDone);
+			gApplication->processEvents();
+
+			UpdateOptimalJobEnd();
+
+			if (*stopRequest)
 			{
-				int jobX = gridX * optimalJob.stepSizeX;
-				int jobY = gridY * optimalJob.stepSizeY;
-				size_t pixelsLeftX = width - jobX;
-				size_t pixelsLeftY = height - jobY;
-				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
-				if (jobHeight2 <= 0) continue;
-				if (jobWidth2 <= 0) continue;
-
-				// assign parameters to kernel
-				if (!AssignParametersToKernel()) return false;
-
-				// processing queue
-				if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
-
-				double percentDone = double(pixelsRendered) / numberOfPixels;
-				emit updateProgressAndStatus(
-					tr("OpenCl - rendering SSAO"), progressText.getText(percentDone), percentDone);
-				gApplication->processEvents();
-
-				pixelsRendered += jobWidth2 * jobHeight2;
-
-				if (!ReadBuffersFromQueue()) return false;
-
-				for (int y = 0; y < jobHeight2; y++)
-				{
-					for (int x = 0; x < jobWidth2; x++)
-					{
-						cl_float4 pixelCl = outBuffer[x + y * jobWidth2];
-						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
-						float alpha = pixelCl.s[3];
-
-						image->PutPixelPostImage(x + jobX, y + jobY, pixel);
-						image->PutPixelAlpha(x + jobX, y + jobY, alpha);
-					}
-				}
-
-				if (*stopRequest)
-				{
-					return false;
-				}
+				return false;
 			}
 		}
 
 		if (!*stopRequest)
 		{
+			if (!ReadBuffersFromQueue()) return false;
+
+			for (int y = 0; y < height; y++)
+			{
+				for (int x = 0; x < width; x++)
+				{
+					cl_float4 imagePixelCl = outBuffer[x + y * width];
+					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
+					unsigned short alpha = imagePixelCl.s[0] * 66535.0;
+					image->PutPixelPostImage(x, y, pixel);
+					image->PutPixelAlpha(x, y, alpha);
+				}
+			}
+
 			qDebug() << "GPU jobs finished";
 			qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 

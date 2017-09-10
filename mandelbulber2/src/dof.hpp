@@ -57,7 +57,7 @@ public:
 	void Render(cRegion<int> screenRegion, float deep, float neutral, int numberOfPasses,
 		float blurOpacity, bool *stopRequest);
 	template <class T>
-	void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
+	static void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
 
 	cImage *image;
 

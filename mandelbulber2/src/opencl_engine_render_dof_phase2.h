@@ -29,26 +29,63 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * DOF struct for opencl
+ * c++ - opencl connector for the DOF Phase 1 OpenCL renderer
  */
 
-#ifndef MANDELBULBER2_OPENCL_DOF_CL_H_
-#define MANDELBULBER2_OPENCL_DOF_CL_H_
+#ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE2_H_
+#define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE2_H_
 
-typedef struct
+#include "dof.hpp"
+#include "opencl_engine.h"
+#include "opencl_include_header_wrapper.hpp"
+
+// custom includes
+#ifdef USE_OPENCL
+#include "opencl/dof_cl.h"
+#endif // USE_OPENCL
+
+struct sParamRender;
+class cImage;
+
+class cOpenClEngineRenderDOFPhase2 : public cOpenClEngine
 {
-	cl_int width;
-	cl_int height;
-	cl_float radius;
-	cl_float neutral;
-	cl_float deep;
-	cl_float blurOpacity;
-} sParamsDOF;
+	Q_OBJECT
 
-typedef struct
-{
-	cl_float z;
-	cl_int i;
-} sSortedZBufferCl;
+public:
+	cOpenClEngineRenderDOFPhase2(cOpenClHardware *_hardware);
+	~cOpenClEngineRenderDOFPhase2();
 
-#endif /* MANDELBULBER2_OPENCL_DOF_CL_H_ */
+#ifdef USE_OPENCL
+	void SetParameters(const sParamRender *paramRender);
+	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
+	bool PreAllocateBuffers(const cParameterContainer *params) override;
+	bool AssignParametersToKernel();
+	bool WriteBuffersToQueue();
+	bool ProcessQueue(int pixelsLeft, int pixelIndex);
+	bool ReadBuffersFromQueue();
+	bool Render(cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest);
+	void ReleaseMemory();
+
+private:
+	QString GetKernelName() override;
+
+	sParamsDOF paramsDOF;
+
+	sSortedZBufferCl *inZBufferSorted;
+	cl::Buffer *inCLZBufferSorted;
+
+	cl_float4 *inImageBuffer;
+	cl::Buffer *inCLImageBuffer;
+
+	int numberOfPixels;
+
+	cl_float4 *outBuffer;
+	cl::Buffer *outCl;
+
+#endif
+
+signals:
+	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+};
+
+#endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE1_H_ */

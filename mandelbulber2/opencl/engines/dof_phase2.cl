@@ -29,26 +29,52 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * DOF struct for opencl
+ * DOF effect function optimized for opencl
  */
 
-#ifndef MANDELBULBER2_OPENCL_DOF_CL_H_
-#define MANDELBULBER2_OPENCL_DOF_CL_H_
+#define MAX_DOF_BLUR_SIZE 500.0f
 
-typedef struct
+//------------------ MAIN RENDER FUNCTION --------------------
+kernel void DOFPhase2(__global sSortedZBufferCl *sortedZBuffer, __global float4 *inImage,
+	__global float4 *out, sParamsDOF params)
 {
-	cl_int width;
-	cl_int height;
-	cl_float radius;
-	cl_float neutral;
-	cl_float deep;
-	cl_float blurOpacity;
-} sParamsDOF;
+	const int index = get_global_id(0);
+	int sortBufferSize = params.width * params.height;
 
-typedef struct
-{
-	cl_float z;
-	cl_int i;
-} sSortedZBufferCl;
+	int ii = sortedZBuffer[sortBufferSize - index - 1].i;
+	int x = ii % params.width;
+	int y = ii / params.width;
+	int2 scr = (int2){x, y};
+	float z = sortedZBuffer[sortBufferSize - index - 1].z;
 
-#endif /* MANDELBULBER2_OPENCL_DOF_CL_H_ */
+	float blur = fabs(z - params.neutral) / z * params.deep + 1.0f;
+	if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
+	int size = (int)blur;
+	float4 center = inImage[x + y * params.width];
+	float factor = (3.14f * (blur * blur - blur) + 1.0f) / params.blurOpacity;
+
+	int2 scr2;
+
+	for (scr2.y = y - size; scr2.y <= y + size; scr2.y++)
+	{
+		for (scr2.x = x - size; scr2.x <= x + size; scr2.x++)
+		{
+			if (scr2.x >= 0 && scr2.x < params.width && scr2.y >= 0 && scr2.y < params.height)
+			{
+				float2 d = convert_float2(scr - scr2);
+				float r = length(d);
+				if (blur > r)
+				{
+					float op = clamp(blur - r, 0.0f, 1.0f);
+					op /= factor;
+					op = min(1.0f, op);
+					float opN = 1.0f - op;
+
+					uint address = scr2.x + scr2.y * params.width;
+					float4 old = out[address];
+					out[address] = opN * old + op * center;
+				}
+			}
+		}
+	}
+}

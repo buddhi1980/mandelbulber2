@@ -35,6 +35,7 @@
 #include <QtCore>
 
 class cOpenClEngineRenderDOFPhase1;
+class cOpenClEngineRenderDOFPhase2;
 class cOpenClHardware;
 struct sParamRender;
 class cParameterContainer;
@@ -55,6 +56,7 @@ public:
 		bool *stopRequest);
 
 	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
+	cOpenClEngineRenderDOFPhase2 *dofEnginePhase2;
 #endif
 
 signals:
