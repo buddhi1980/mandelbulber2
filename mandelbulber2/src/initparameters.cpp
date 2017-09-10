@@ -786,6 +786,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_E", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_F", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_F", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_P", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_P1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
@@ -794,10 +796,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_S", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_T", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_T", 250, morphLinear, paramStandard);
-	par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
-	par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
-	par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsT_1", 1, morphLinear, paramStandard);
+	par->addParam("transf_start_iterationsTM", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterationsTM_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_X", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_X", 250, morphLinear, paramStandard);
@@ -805,6 +805,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_Y", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_Z", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_Z", 250, morphLinear, paramStandard);
+
+	par->addParam("transf_stop_iterations_1", 1, morphLinear, paramStandard);
 
 	par->addParam(
 		"transf_addition_constant_0555", CVector3(0.5, 0.5, 0.5), morphAkima, paramStandard);
@@ -864,9 +866,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offset_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_200", CVector3(2.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
-
 	par->addParam("transf_power_025", CVector3(0.25, 0.25, 0.25), morphAkimaAngle, paramStandard);
 	par->addParam("transf_power_8", CVector3(8.0, 8.0, 8.0), morphAkimaAngle, paramStandard);
+
 	par->addParam("transf_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("transf_rotation2", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("transf_rotation44a", CVector3(0.0, 0.0, 0.0), morphAkimaAngle,

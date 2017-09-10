@@ -86,6 +86,7 @@ struct sExtendedAux
 	CVector4 c;
 	CVector4 const_c;
 	CVector4 old_z;
+	double temp100;
 };
 
 struct sFoldColor
@@ -507,6 +508,8 @@ struct sFractalTransformCommon
 	int stopIterationsE;
 	int startIterationsF;
 	int stopIterationsF;
+	int startIterationsM;
+	int stopIterationsM;
 	int startIterationsP;
 	int stopIterationsP1;
 	int startIterationsR;
@@ -515,10 +518,8 @@ struct sFractalTransformCommon
 	int stopIterationsS;
 	int startIterationsT;
 	int stopIterationsT;
-	int startIterationsM;
-	int stopIterationsM;
-	int stopIterations1;
 	int stopIterationsT1;
+	int startIterationsTM;
 	int stopIterationsTM1;
 	int startIterationsX;
 	int stopIterationsX;
@@ -526,6 +527,9 @@ struct sFractalTransformCommon
 	int stopIterationsY;
 	int startIterationsZ;
 	int stopIterationsZ;
+
+	int stopIterations1;
+
 	int intA;
 	int intB;
 	int int1;
@@ -569,10 +573,10 @@ struct sFractalTransformCommon
 	CVector4 offset200;
 	CVector4 offsetA200;
 	CVector4 offset222;
+	CVector4 power025;
+	CVector4 power8;
 
-	CVector3 power025; // vec3s
-	CVector3 power8;
-	CVector3 rotation;
+	CVector3 rotation; // vec3s
 	CVector3 rotation2;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................

@@ -332,6 +332,13 @@
         </layout>
        </widget>
       </item>
+      <item>
+       <widget class="QLabel" name="label_gamepad_v1_info">
+        <property name="text">
+         <string>(does not work properly with v1 coordinates)</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
