@@ -123,7 +123,7 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
-		tr("OpenCl DOF - initializing"), tr("Compiling sources for DOF phase 2"), 0.0);
+		tr("OpenCL DOF - initializing"), tr("Compiling sources for DOF phase 2"), 0.0);
 
 	QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 	QString openclEnginePath = openclPath + "engines" + QDir::separator();
@@ -419,7 +419,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		progressText.ResetTimer();
 
 		emit updateProgressAndStatus(
-			tr("OpenCl - rendering DOF - phase 1"), progressText.getText(0.0), 0.0);
+			tr("OpenCL - rendering DOF - phase 1"), progressText.getText(0.0), 0.0);
 
 		QElapsedTimer timer;
 		timer.start();
@@ -459,7 +459,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 
 			double percentDone = double(pixelIndex) / (width * height);
 			emit updateProgressAndStatus(
-				tr("OpenCl - rendering SSAO"), progressText.getText(percentDone), percentDone);
+				tr("OpenCL - rendering DOF - phase 2"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
 
 			UpdateOptimalJobEnd();
@@ -487,7 +487,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			}
 
 			qDebug() << "GPU jobs finished";
-			qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+			qDebug() << "OpenCL Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
 
 			WriteLog("image->CompileImage()", 2);
 			image->CompileImage();
@@ -504,7 +504,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		}
 
 		emit updateProgressAndStatus(
-			tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
+			tr("OpenCL - rendering DOF phase 2 finished"), progressText.getText(1.0), 1.0);
 
 		return true;
 	}

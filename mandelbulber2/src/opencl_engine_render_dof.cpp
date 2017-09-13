@@ -43,12 +43,21 @@
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "parameters.hpp"
+#include "progress_text.hpp"
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
 {
 #ifdef USE_OPENCL
 	dofEnginePhase1 = new cOpenClEngineRenderDOFPhase1(hardware);
 	dofEnginePhase2 = new cOpenClEngineRenderDOFPhase2(hardware);
+
+	connect(dofEnginePhase1,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(dofEnginePhase2,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
 #endif
 }
 
@@ -66,6 +75,11 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 {
 	int numberOfPasses = paramRender->DOFNumberOfPasses;
 
+	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Initializing Phase 1"), 0.0);
+
+	cProgressText progressText;
+	progressText.ResetTimer();
+
 	dofEnginePhase1->Lock();
 	dofEnginePhase1->SetParameters(paramRender);
 	bool result = false;
@@ -78,6 +92,8 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	}
 	dofEnginePhase1->ReleaseMemory();
 	dofEnginePhase1->Unlock();
+
+	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
 	quint64 numberOfPixels = quint64(image->GetWidth()) * quint64(image->GetHeight());
 	cPostRenderingDOF::sSortZ<float> *tempSort = new cPostRenderingDOF::sSortZ<float>[numberOfPixels];
@@ -97,6 +113,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		float neutral = paramRender->DOFFocus;
 		float deep =
 			paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
+
+		emit updateProgressAndStatus(
+			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
 		// Randomize Z-buffer
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
@@ -154,6 +173,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			tempSort[ii] = temp;
 		}
 
+		emit updateProgressAndStatus(
+			QObject::tr("OpenCL DOF"), QObject::tr("Initializing Phase 2"), 0.0);
+
 		dofEnginePhase2->Lock();
 		dofEnginePhase2->SetParameters(paramRender);
 		if (dofEnginePhase2->LoadSourcesAndCompile(params))
@@ -167,6 +189,8 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		dofEnginePhase2->Unlock();
 
 	} // next pass
+
+	emit updateProgressAndStatus(tr("OpenCL DOF finished"), progressText.getText(1.0), 1.0);
 
 	delete[] tempSort;
 

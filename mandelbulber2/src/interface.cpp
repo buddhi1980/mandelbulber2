@@ -53,6 +53,7 @@
 #include "material_item_model.h"
 #include "my_ui_loader.h"
 #include "nine_fractals.hpp"
+#include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"
 #include "opencl_global.h"
@@ -423,6 +424,10 @@ void cInterface::ConnectSignals() const
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
 	connect(gOpenCl->openClEngineRenderSSAO,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
+		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+
+	connect(gOpenCl->openclEngineRenderDOF,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
