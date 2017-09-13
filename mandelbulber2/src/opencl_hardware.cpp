@@ -43,6 +43,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	contextReady = false;
 	selectedDeviceIndex = 0;
 	missingOpenClDLL = false;
+	isNVidia = false;
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
@@ -165,6 +166,7 @@ void cOpenClHardware::CreateContext(
 			{
 				contextReady = true;
 				ListOpenClDevices();
+				isNVidia = platformsInformation[platformIndex].name.contains("nvidia", Qt::CaseInsensitive);
 			}
 			else
 			{

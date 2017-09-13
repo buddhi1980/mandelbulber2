@@ -87,6 +87,8 @@ public:
 
 	bool ContextCreated() const { return contextReady; }
 
+	bool IsNVidia() const { return isNVidia; }
+
 protected:
 	static bool checkErr(cl_int err, QString functionName);
 
@@ -102,6 +104,7 @@ protected:
 	// TODO: The System only supports (1) platform
 	// 1 context == 1 platform
 	cl::Context *context;
+	bool isNVidia;
 
 private:
 	std::vector<cl::Platform> clPlatforms;
