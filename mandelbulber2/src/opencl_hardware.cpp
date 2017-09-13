@@ -43,7 +43,6 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	contextReady = false;
 	selectedDeviceIndex = 0;
 	missingOpenClDLL = false;
-	isNVidia = false;
 
 #ifdef USE_OPENCL
 #ifdef _WIN32
@@ -57,7 +56,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	}
 #endif //   _MSC_VER
 #endif
-
+	isNVidia = false;
 	context = nullptr;
 #endif
 }
