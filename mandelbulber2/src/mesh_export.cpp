@@ -149,7 +149,7 @@ void cMeshExport::ProcessVolume()
 	progressText.ResetTimer();
 
 	double lower[] = {limitMin.x, limitMin.y, limitMin.z};
-	double upper[] = {limitMax.x, limitMax.x, limitMax.z};
+	double upper[] = {limitMax.x, limitMax.y, limitMax.z};
 	vector<double> vertices;
 	vector<long long> polygons;
 	vector<double> colorIndices;
