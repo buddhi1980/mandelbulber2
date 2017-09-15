@@ -62,7 +62,7 @@ cd ..
 
 note: compilation with cmake is only beta and not feature complete
 
-On order to compile OpenEXR with cmake the ECM should be present
+In order to compile OpenEXR with cmake the ECM should be present
 to install on Debian / Ubuntu:
 sudo apt-get install extra-cmake-modules
 
@@ -71,6 +71,14 @@ sudo apt-get install extra-cmake-modules
 TIFF:     install libtiff5-dev to have TIFF format support
 EXR:      install libopenexr-dev to have EXR format support
 QGAMEPAD: for gamepad support qt is required in version 5.7 and above
+
+4.2.2 OpenCL
+
+Mandelbulber can utilize OpenCL to accelerate rendering.
+To compile Mandelbulber with OpenCL support, the headers need to be present.
+These can be obtained with the package: opencl-headers
+To use an OpenCL device you need to install a current driver for the CPU/GPU.
+For more information, please study the handbook (see chapter Usage).
 
 5. INSTALLATION
 ---------------
@@ -100,7 +108,7 @@ Run the install script:
 
 The main documentation is the PDF file  Mandelbulber_Manual.pdf,  which you can
 find in this very folder.
-Also you can open it from Mandelbulber under: Menu > Help > User Manual
+Also you can open it from Mandelbulber under: [Menu > Help > User Manual]
 A lot of useful information you can find  in the tooltips.  Just hover with the
 mouse pointer over the edit fields.
 More useful material can be found in the wiki documentation for old

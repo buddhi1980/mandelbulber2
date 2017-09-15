@@ -62,7 +62,7 @@ or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
 
 The main documentation is the PDF file  Mandelbulber_Manual.pdf,  which you can
 find in this very folder.
-Also you can open it from Mandelbulber under: Menu > Help > User Manual
+Also you can open it from Mandelbulber under: [Menu > Help > User Manual]
 A lot of useful information you can find  in the tooltips.  Just hover with the
 mouse pointer over the edit fields.
 More useful material can be found in the wiki documentation for old
