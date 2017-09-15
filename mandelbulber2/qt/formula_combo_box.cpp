@@ -74,6 +74,7 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
 
 cFormulaComboBox::~cFormulaComboBox()
 {
+	iconCache.clear();
 }
 
 void cFormulaComboBox::onCompleterActivated(QString text)
