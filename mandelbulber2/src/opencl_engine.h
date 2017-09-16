@@ -38,7 +38,7 @@
 #include <QtCore>
 
 #include "error_message.hpp"
-#include "opencl_include_header_wrapper.hpp"
+#include "include_header_wrapper.hpp"
 
 class cOpenClHardware;
 class cParameterContainer;

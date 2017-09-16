@@ -38,7 +38,7 @@
 #include <QtCore>
 
 #include "opencl_device.h"
-#include "opencl_include_header_wrapper.hpp"
+#include "include_header_wrapper.hpp"
 
 class cOpenClHardware : public QObject
 {

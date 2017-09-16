@@ -37,7 +37,7 @@
 
 #include <QtCore>
 
-#include "opencl_include_header_wrapper.hpp"
+#include "include_header_wrapper.hpp"
 
 class cOpenClDevice
 {

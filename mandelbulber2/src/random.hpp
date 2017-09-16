@@ -41,7 +41,6 @@
 
 #include "algebra.hpp"
 
-
 class cRandom
 {
 

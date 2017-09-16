@@ -37,7 +37,7 @@
 
 #include "dof.hpp"
 #include "opencl_engine.h"
-#include "opencl_include_header_wrapper.hpp"
+#include "include_header_wrapper.hpp"
 
 // custom includes
 #ifdef USE_OPENCL

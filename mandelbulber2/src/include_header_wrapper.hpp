@@ -27,15 +27,14 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com)
- * Robert Pancoast (RobertPancoast77@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
- * This header contains the include dependencies for opencl specific code
- * see usage in other src/opencl_* files
+ * This header contains the include dependencies for math and opencl specific code
+ * see usage in other src/opencl_*, algebra, and random
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
-#define MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_
+#ifndef MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_
+#define MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_
 
 #if defined(_MSC_VER)
 #pragma warning(push)
@@ -72,4 +71,4 @@
 #pragma warning(pop)
 #endif // _MSC_VER
 
-#endif /* MANDELBULBER2_SRC_OPENCL_HEADER_WRAPPER_HPP_ */
+#endif /* MANDELBULBER2_SRC_HEADER_WRAPPER_HPP_ */

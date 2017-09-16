@@ -38,7 +38,7 @@
 
 #include "fractal_enums.h"
 #include "opencl_engine.h"
-#include "opencl_include_header_wrapper.hpp"
+#include "include_header_wrapper.hpp"
 #include "statistics.h"
 
 // custom includes
