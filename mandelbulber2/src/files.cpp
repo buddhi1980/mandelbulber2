@@ -433,39 +433,24 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 {
 	QString newPath;
 
-	if (!FileExists(path))
+	// original file was found
+	if (FileExists(path)) return path;
+
+	// TODO:Enable qInfo for headless operation.
+	// qInfo() << "File" << path << "not found. Looking for the file in another locations";
+
+	foreach (QString alternatePath, pathList)
 	{
-		// TODO:Enable qInfo for headless operation.
-		// qInfo() << "File" << path << "not found. Looking for the file in another locations";
-		QString pathChecked;
-		bool found = false;
-
-		foreach (QString path, pathList)
+		// qInfo() << "Looking for the file at" << path;
+		if (FileExists((path)))
 		{
-			// qInfo() << "Looking for the file at" << path;
-			if (FileExists((path)))
-			{
-				newPath = path;
-				// qInfo() << "File found at" << path;
-				found = true;
-				break;
-			}
-		}
-
-		if (found)
-		{
-			return newPath;
-		}
-		else
-		{
-			qWarning() << "File not found anywhere";
-			return path;
+			// qInfo() << "File found at" << path;
+			return alternatePath;
 		}
 	}
-	else
-	{
-		return path;
-	}
+
+	qWarning() << "File not found anywhere";
+	return path;
 }
 
 QString FilePathHelperTextures(const QString &path)

@@ -482,11 +482,11 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					// server version matches, send worker count
 					outMsg.command = netRender_WORKER;
-					QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
-					stream << workerCount;
+					QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
+					outStream << workerCount;
 					QString machineName = QHostInfo::localHostName();
-					stream << qint32(machineName.toUtf8().size());
-					stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
+					outStream << qint32(machineName.toUtf8().size());
+					outStream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 					status = netRender_READY;
 					emit NewStatusClient();
 					WriteLog(
