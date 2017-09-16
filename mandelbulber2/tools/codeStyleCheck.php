@@ -61,7 +61,7 @@ foreach ($headerFiles as $i => $headerFilePath) {
 	if (substr($headerFileName, 0, strlen('ui_')) == 'ui_') continue;
 	if ($headerFileName == 'clew.h') continue;
 	if ($headerFileName == 'clew-cl.hpp') continue;
-	if ($headerFileName == 'opencl_include_header_wrapper.hpp') continue;
+	if ($headerFileName == 'include_header_wrapper.hpp') continue;
 	$folderName = basename(str_replace($headerFileName, '', $headerFilePath));
 	$status = array();
 	$success = true;
