@@ -41,17 +41,14 @@
 class cPostRenderingDOF : public QObject
 {
 	Q_OBJECT
-
-private:
+public:
 	template <class TYPE>
-
 	struct sSortZ
 	{
 		TYPE z;
 		quint64 i;
 	};
 
-public:
 	cPostRenderingDOF(cImage *_image);
 
 	void Render(cRegion<int> screenRegion, float deep, float neutral, int numberOfPasses,
