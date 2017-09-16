@@ -50,11 +50,6 @@
 
 #include "opencl_include_header_wrapper.hpp"
 
-// custom includes
-// MSVC defines math constants elsewhere, do not warn about the
-// redefinition in math.h
-#include <math.h>
-
 /************************* vector 3D **********************/
 class CVector3
 {

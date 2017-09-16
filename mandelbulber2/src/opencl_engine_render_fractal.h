@@ -46,10 +46,6 @@
 #include "opencl/input_data_structures.h"
 #endif // USE_OPENCL
 
-#if defined(_MSC_VER)
-#pragma warning(pop)
-#endif // _MSC_VER
-
 class cImage;
 class cFractalContainer;
 class cOpenClDynamicData;

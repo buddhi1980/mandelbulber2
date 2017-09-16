@@ -38,7 +38,9 @@
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_rng.h>
 #include <limits.h>
-#include <math.h>
+
+#include "algebra.hpp"
+
 
 class cRandom
 {

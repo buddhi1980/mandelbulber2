@@ -28,6 +28,7 @@
  * ###########################################################################
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
+ * Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * This header contains the include dependencies for opencl specific code
  * see usage in other src/opencl_* files
@@ -38,7 +39,12 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
+
+ // MSVC defines math constants elsewhere, do not warn about the
+ // redefinition in math.h
 #pragma warning(disable : 4005) // macro redefinition
+
+// MSVC declares 'clEnqueueTask' deprecated in cl.h/hpp
 #pragma warning(disable : 4996) // declared deprecated
 #endif // _MSC_VER
 
@@ -58,6 +64,9 @@
 #include <CL/cl.hpp>
 #endif
 #endif // USE_OPENCL
+
+// include math header here with opencl
+#include <math.h>
 
 #if defined(_MSC_VER)
 #pragma warning(pop)
