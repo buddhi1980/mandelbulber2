@@ -38,7 +38,6 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
-
  // MSVC defines math constants elsewhere, do not warn about the
  // redefinition in math.h
 #pragma warning(disable : 4005) // macro redefinition
