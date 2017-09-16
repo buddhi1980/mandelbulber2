@@ -335,12 +335,12 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DVOLUMETRIC_FOG";
 		anyVolumetricShaderUsed = true;
 	}
-	if (paramRender->iterFogEnabled > 0)
+	if (paramRender->iterFogEnabled == true)
 	{
 		definesCollector += " -DITER_FOG";
 		anyVolumetricShaderUsed = true;
 	}
-	if (paramRender->fakeLightsEnabled > 0)
+	if (paramRender->fakeLightsEnabled == true)
 	{
 		definesCollector += " -DFAKE_LIGHTS";
 		anyVolumetricShaderUsed = true;
