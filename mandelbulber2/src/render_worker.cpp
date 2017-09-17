@@ -803,7 +803,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 				if (rayIndex < reflectionsMax)
 				{
-					enumRayBranch rayBranch = rayStack[rayIndex].rayBranch;
 					if (rayStack[rayIndex].rayBranch == rayBranchReflection)
 					{
 						// qDebug() << "Reflection" << rayIndex;
