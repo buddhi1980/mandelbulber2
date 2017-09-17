@@ -36,8 +36,8 @@
 
 #include <QPainter>
 
-#include "audio_track.h"
-#include "system.hpp"
+#include "src/audio_track.h"
+#include "src/system.hpp"
 
 cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {
