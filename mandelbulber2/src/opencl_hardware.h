@@ -84,7 +84,7 @@ public:
 	{
 		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();
 	}
-
+	int getSelectedPlatformIndex() { return selectedPlatformIndex; }
 	bool ContextCreated() const { return contextReady; }
 
 	bool IsNVidia() const { return isNVidia; }
@@ -114,6 +114,7 @@ private:
 protected:
 	bool openClAvailable;
 	bool contextReady;
+	int selectedPlatformIndex;
 	int selectedDeviceIndex;
 	bool missingOpenClDLL;
 };

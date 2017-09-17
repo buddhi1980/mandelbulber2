@@ -124,6 +124,7 @@ void cOpenClHardware::ListOpenClPlatforms()
 void cOpenClHardware::CreateContext(
 	int platformIndex, cOpenClDevice::enumOpenClDeviceType deviceType)
 {
+	selectedPlatformIndex = platformIndex;
 	if (platformIndex >= 0)
 	{
 		if (openClAvailable)

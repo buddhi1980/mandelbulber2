@@ -43,6 +43,8 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
+#include "opencl_global.h"
+#include "opencl_hardware.h"
 #include "queue.hpp"
 #include "settings.hpp"
 #include "system.hpp"
@@ -491,10 +493,42 @@ void cCommandLineInterface::printInputHelpAndExit()
 void cCommandLineInterface::printOpenCLHelpAndExit()
 {
 	QTextStream out(stdout);
-	// TODO
 	out << QObject::tr(
 		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
-		"Under construction ...\n");
+		"When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
+		"commandline by default.\nThe configuration can also be done directly from this commandline by "
+		"setting the optional settings directly.\nThese can be given by the default --override option, "
+		"available opencl specific options are:\n"
+		" * opencl_enabled      - boolean to enable OpenCL\n"
+		" * opencl_platform     - platform index to use, see available platforms below\n"
+		" * opencl_device_type  - TODO\n"
+		" * opencl_device_list  - right now only one device at a time is supported.\n"
+		" *                       Specify the device hash of the device to use see available devices below\n"
+		" * opencl_mode         - TODO\n"
+		" * opencl_precision    - TODO\n"
+		" * opencl_memory_limit - TODO\n");
+
+	// print available platforms
+	out << "\n" << QObject::tr("Available platforms are:\n");
+	const QList<cOpenClHardware::sPlatformInformation> platforms =
+		gOpenCl->openClHardware->getPlatformsInformation();
+	for (int i = 0; i < platforms.size(); i++)
+	{
+		cOpenClHardware::sPlatformInformation platform = platforms[i];
+		out << "index: " << i << " | name: " << platform.name << "\n";
+	}
+
+	// print available devices
+	out << "\n"
+			<< QObject::tr("Available devices for the selected platform (%1) are:\n")
+					 .arg(gOpenCl->openClHardware->getSelectedPlatformIndex());
+	const QList<cOpenClDevice::sDeviceInformation> devices =
+		gOpenCl->openClHardware->getDevicesInformation();
+	for (int i = 0; i < devices.size(); i++)
+	{
+		cOpenClDevice::sDeviceInformation device = devices[i];
+		out << "index: " << i << " | hash: " << device.hash.toHex() << " | name: " << device.deviceName << "\n";
+	}
 	out.flush();
 	exit(0);
 }
