@@ -39,7 +39,7 @@
 #include <QPaintEvent>
 #include <QPainter>
 
-#include "audio_track.h"
+#include "src/audio_track.h"
 
 cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 {

@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-#include "color_structures.hpp"
+#include "src/color_structures.hpp"
 
 class MyColorButton : public QPushButton, public CommonMyWidgetWrapper
 {

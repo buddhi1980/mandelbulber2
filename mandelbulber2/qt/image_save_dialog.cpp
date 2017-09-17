@@ -38,11 +38,11 @@
 
 #include "ui_image_save_dialog.h"
 
-#include "automated_widgets.hpp"
-#include "initparameters.hpp"
-#include "interface.hpp"
-#include "queue.hpp"
-#include "settings.hpp"
+#include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/queue.hpp"
+#include "src/settings.hpp"
 
 cImageSaveDialog::cImageSaveDialog(QWidget *parent)
 		: QFileDialog(parent), ui(new Ui::cImageSaveDialog)

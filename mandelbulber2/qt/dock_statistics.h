@@ -37,7 +37,7 @@
 
 #include <QWidget>
 
-#include "statistics.h"
+#include "src/statistics.h"
 
 // forward declarations
 class cAutomatedWidgets;

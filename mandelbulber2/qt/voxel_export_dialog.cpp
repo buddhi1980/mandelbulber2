@@ -38,12 +38,12 @@
 
 #include "player_widget.hpp"
 
-#include "automated_widgets.hpp"
-#include "error_message.hpp"
-#include "initparameters.hpp"
-#include "interface.hpp"
-#include "system.hpp"
-#include "voxel_export.hpp"
+#include "src/automated_widgets.hpp"
+#include "src/error_message.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/system.hpp"
+#include "src/voxel_export.hpp"
 
 cVoxelExportDialog::cVoxelExportDialog(QWidget *parent)
 		: QDialog(parent), ui(new Ui::cVoxelExportDialog)

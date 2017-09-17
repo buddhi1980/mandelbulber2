@@ -37,7 +37,7 @@
 
 #include <QPainter>
 
-#include "audio_track.h"
+#include "src/audio_track.h"
 
 cAnimAudioView::cAnimAudioView(QWidget *parent) : QWidget(parent)
 {

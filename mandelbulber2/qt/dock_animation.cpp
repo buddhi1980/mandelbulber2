@@ -38,8 +38,8 @@
 
 #include "audio_selector.h"
 
-#include "automated_widgets.hpp"
-#include "file_image.hpp"
+#include "src/automated_widgets.hpp"
+#include "src/file_image.hpp"
 
 cDockAnimation::cDockAnimation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockAnimation)
 {

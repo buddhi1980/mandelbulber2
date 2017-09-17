@@ -40,7 +40,7 @@
 
 #include <QWidget>
 
-#include "synchronize_interface.hpp"
+#include "src/synchronize_interface.hpp"
 
 // forward declarations
 class cAutomatedWidgets;

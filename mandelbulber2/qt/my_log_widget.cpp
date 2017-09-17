@@ -37,7 +37,7 @@
 
 #include "my_log_widget.h"
 
-#include "system.hpp"
+#include "src/system.hpp"
 
 MyLogWidget::MyLogWidget(QWidget *parent) : QPlainTextEdit(parent)
 {

@@ -40,14 +40,14 @@
 
 #include <QMouseEvent>
 
-#include "fractal_container.hpp"
-#include "fractal_enums.h"
-#include "global_data.hpp"
-#include "initparameters.hpp"
-#include "material.h"
-#include "settings.hpp"
-#include "synchronize_interface.hpp"
-#include "system.hpp"
+#include "src/fractal_container.hpp"
+#include "src/fractal_enums.h"
+#include "src/global_data.hpp"
+#include "src/initparameters.hpp"
+#include "src/material.h"
+#include "src/settings.hpp"
+#include "src/synchronize_interface.hpp"
+#include "src/system.hpp"
 
 cMaterialWidget::cMaterialWidget(QWidget *parent)
 		: cThumbnailWidget(

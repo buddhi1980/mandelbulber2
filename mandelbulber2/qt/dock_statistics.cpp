@@ -39,9 +39,9 @@
 #include "dock_effects.h"
 #include "dock_rendering_engine.h"
 
-#include "initparameters.hpp"
-#include "interface.hpp"
-#include "render_window.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/render_window.hpp"
 
 cDockStatistics::cDockStatistics(QWidget *parent) : QWidget(parent), ui(new Ui::cDockStatistics)
 {

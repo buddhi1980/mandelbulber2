@@ -36,7 +36,7 @@
 
 #include "ui_dock_queue.h"
 
-#include "automated_widgets.hpp"
+#include "src/automated_widgets.hpp"
 
 cDockQueue::cDockQueue(QWidget *parent) : QWidget(parent), ui(new Ui::cDockQueue)
 {

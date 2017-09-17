@@ -39,16 +39,16 @@
 #include "dock_rendering_engine.h"
 #include "my_tab_bar.h"
 
-#include "automated_widgets.hpp"
-#include "error_message.hpp"
-#include "fractal_enums.h"
-#include "fractal_list.hpp"
-#include "global_data.hpp"
-#include "initparameters.hpp"
-#include "interface.hpp"
-#include "render_window.hpp"
-#include "rendered_image_widget.hpp"
-#include "system.hpp"
+#include "src/automated_widgets.hpp"
+#include "src/error_message.hpp"
+#include "src/fractal_enums.h"
+#include "src/fractal_list.hpp"
+#include "src/global_data.hpp"
+#include "src/initparameters.hpp"
+#include "src/interface.hpp"
+#include "src/render_window.hpp"
+#include "src/rendered_image_widget.hpp"
+#include "src/system.hpp"
 
 cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockFractal)
 {

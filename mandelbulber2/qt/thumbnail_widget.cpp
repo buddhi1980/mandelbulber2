@@ -42,14 +42,14 @@
 #include <QImage>
 #include <QPaintEvent>
 
-#include "cimage.hpp"
-#include "common_math.h"
-#include "global_data.hpp"
-#include "render_job.hpp"
-#include "rendering_configuration.hpp"
-#include "settings.hpp"
-#include "stereo.h"
-#include "system.hpp"
+#include "src/cimage.hpp"
+#include "src/common_math.h"
+#include "src/global_data.hpp"
+#include "src/render_job.hpp"
+#include "src/rendering_configuration.hpp"
+#include "src/settings.hpp"
+#include "src/stereo.h"
+#include "src/system.hpp"
 
 cThumbnailWidget::cThumbnailWidget(QWidget *parent) : QWidget(parent)
 {

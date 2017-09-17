@@ -39,11 +39,11 @@
 
 #include "ui_audio_selector.h"
 
-#include "animation_frames.hpp"
-#include "audio_track.h"
-#include "automated_widgets.hpp"
-#include "initparameters.hpp"
-#include "synchronize_interface.hpp"
+#include "src/animation_frames.hpp"
+#include "src/audio_track.h"
+#include "src/automated_widgets.hpp"
+#include "src/initparameters.hpp"
+#include "src/synchronize_interface.hpp"
 
 cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cAudioSelector)
 {

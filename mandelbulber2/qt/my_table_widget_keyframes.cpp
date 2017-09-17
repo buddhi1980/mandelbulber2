@@ -39,7 +39,7 @@
 #include <QMenu>
 #include <QtCore>
 
-#include "animation_keyframes.hpp"
+#include "src/animation_keyframes.hpp"
 
 MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(parent)
 {

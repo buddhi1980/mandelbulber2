@@ -41,7 +41,7 @@
 
 #include "thumbnail_widget.h"
 
-#include "parameters.hpp"
+#include "src/parameters.hpp"
 
 class cMaterialWidget : public cThumbnailWidget
 {
