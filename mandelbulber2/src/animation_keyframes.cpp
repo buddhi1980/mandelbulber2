@@ -181,7 +181,7 @@ void cKeyframeAnimation::NewKeyframe(int index)
 		params->Set("frame_no", keyframes->GetFramesPerKeyframe() * index);
 
 		// add column to table
-		int newColumn = AddColumn(keyframes->GetFrame(index), index);
+		const int newColumn = AddColumn(keyframes->GetFrame(index), index);
 		table->selectColumn(newColumn);
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
@@ -218,7 +218,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 
 void cKeyframeAnimation::slotModifyKeyframe()
 {
-	int index = table->currentColumn() - reservedColumns;
+	const int index = table->currentColumn() - reservedColumns;
 	if (index < 0)
 	{
 		cErrorMessage::showMessage(QObject::tr("No keyframe selected"), cErrorMessage::errorMessage,
@@ -238,7 +238,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 			// add column to table
 			table->removeColumn(index + reservedColumns);
-			int newColumn = AddColumn(keyframes->GetFrame(index), index);
+			const int newColumn = AddColumn(keyframes->GetFrame(index), index);
 			table->selectColumn(newColumn);
 
 			if (ui->checkBox_show_keyframe_thumbnails->isChecked())
@@ -259,7 +259,7 @@ void cKeyframeAnimation::slotModifyKeyframe()
 
 void cKeyframeAnimation::slotDeleteKeyframe() const
 {
-	int index = table->currentColumn() - reservedColumns;
+	const int index = table->currentColumn() - reservedColumns;
 	DeleteKeyframe(index);
 }
 
@@ -333,12 +333,11 @@ int cKeyframeAnimation::AddVariableToTable(
 	const cAnimationFrames::sParameterDescription &parameterDescription, int index)
 {
 	using namespace parameterContainer;
-	enumVarType type = parameterDescription.varType;
-	int row = table->rowCount();
+	const enumVarType type = parameterDescription.varType;
+	const int row = table->rowCount();
 	if (type == typeVector3)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
@@ -349,8 +348,7 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else if (type == typeVector4)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
@@ -364,8 +362,7 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else if (type == typeRgb)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_G";
@@ -376,7 +373,7 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
+		const QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
 		AddRow(row, varName, index);
 	}
 	return row;
@@ -403,13 +400,13 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	table->insertColumn(newColumn);
 	table->setColumnWidth(newColumn, previewSize.width());
 
-	double time = params->Get<double>("frames_per_keyframe")
+	const double time = params->Get<double>("frames_per_keyframe")
 								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColumns);
-	int minutes = int(time / 60);
-	int seconds = int(time) % 60;
-	int milliseconds = int(time * 1000.0) % 1000;
-	int frameNo = (newColumn - reservedColumns) * params->Get<int>("frames_per_keyframe");
-	QString columnHeader = QString("%1 (%2)\n(%3:%4.%5)")
+	const int minutes = int(time / 60);
+	const int seconds = int(time) % 60;
+	const int milliseconds = int(time * 1000.0) % 1000;
+	const int frameNo = (newColumn - reservedColumns) * params->Get<int>("frames_per_keyframe");
+	const QString columnHeader = QString("%1 (%2)\n(%3:%4.%5)")
 													 .arg(newColumn - reservedColumns)
 													 .arg(frameNo)
 													 .arg(minutes)
@@ -422,16 +419,16 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	using namespace parameterContainer;
 	for (int i = 0; i < parList.size(); ++i)
 	{
-		QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
-		enumVarType type = parList[i].varType;
-		int row = parameterRows[i];
+		const QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
+		const enumVarType type = parList[i].varType;
+		const int row = parameterRows[i];
 
 		cOneParameter parameter = frame.parameters.GetAsOneParameter(parameterName);
-		parameterContainer::enumMorphType morphType = parameter.GetMorphType();
+		const parameterContainer::enumMorphType morphType = parameter.GetMorphType();
 
 		if (type == typeVector3)
 		{
-			CVector3 val = parameter.Get<CVector3>(valueActual);
+			const CVector3 val = parameter.Get<CVector3>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
 			table->setItem(
 				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
@@ -446,7 +443,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		}
 		else if (type == typeVector4)
 		{
-			CVector4 val = parameter.Get<CVector4>(valueActual);
+			const CVector4 val = parameter.Get<CVector4>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
 			table->setItem(
 				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
@@ -465,7 +462,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		}
 		else if (type == typeRgb)
 		{
-			sRGB val = parameter.Get<sRGB>(valueActual);
+			const sRGB val = parameter.Get<sRGB>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
@@ -478,7 +475,7 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 		}
 		else
 		{
-			QString val = parameter.Get<QString>(valueActual);
+			const QString val = parameter.Get<QString>(valueActual);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 			table->item(row, newColumn)->setBackgroundColor(MorphType2Color(morphType));
 			table->item(row, newColumn)->setTextColor(Qt::black);
@@ -542,7 +539,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	progressText.ResetTimer();
 
 	// range of keyframes to render
-	int startFrame = params->Get<int>("keyframe_first_to_render");
+	const int startFrame = params->Get<int>("keyframe_first_to_render");
 	int endFrame = params->Get<int>("keyframe_last_to_render");
 
 	int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
@@ -607,21 +604,21 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			frame.alreadyRenderedSubFrames.clear();
 			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
-				QString filename = GetKeyframeFilename(index, subIndex);
-				int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
+				const QString filename = GetKeyframeFilename(index, subIndex);
+				const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
 				frame.alreadyRenderedSubFrames.append(
 					QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
 			}
 			keyframes->ModifyFrame(index, frame);
 		}
-		int unrenderedTotal = keyframes->GetUnrenderedTotal();
+		const int unrenderedTotal = keyframes->GetUnrenderedTotal();
 
 		// message if all frames are already rendered
 		if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0)
 		{
 			bool deletePreviousRender;
-			QString questionTitle = QObject::tr("Truncate Image Folder");
-			QString questionText =
+			const QString questionTitle = QObject::tr("Truncate Image Folder");
+			const QString questionText =
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge the output "
 					"folder?\n")
@@ -666,7 +663,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 
 		// total number of frames
-		int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
+		const int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
 
 		keyframes->ClearMorphCache();
 
@@ -682,7 +679,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					continue;
 				}
 
-				int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+				const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 
 				double percentDoneFrame;
 				if (unrenderedTotal > 0)
@@ -691,7 +688,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				else
 					percentDoneFrame = 1.0;
 
-				QString progressTxt = progressText.getText(percentDoneFrame);
+				const QString progressTxt = progressText.getText(percentDoneFrame);
 
 				emit updateProgressAndStatus(QObject::tr("Rendering animation"),
 					QObject::tr("Frame %1 of %2 (key %3)").arg(frameIndex).arg(totalFrames).arg(index) + " "
@@ -702,8 +699,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 				// recalculation of camera rotation and distance (just for display purposes)
-				CVector3 camera = params->Get<CVector3>("camera");
-				CVector3 target = params->Get<CVector3>("target");
+				const CVector3 camera = params->Get<CVector3>("camera");
+				const CVector3 target = params->Get<CVector3>("target");
 				CVector3 top = params->Get<CVector3>("camera_top");
 				cCameraTarget cameraTarget(camera, target, top);
 				params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);

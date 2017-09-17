@@ -64,8 +64,8 @@ void cAnimationFrames::AddFrame(
 
 		if (container)
 		{
-			QString parameterName = listOfParameters[i].parameterName;
-			QString fullParameterName = container->GetContainerName() + "_" + parameterName;
+			const QString parameterName = listOfParameters[i].parameterName;
+			const QString fullParameterName = container->GetContainerName() + "_" + parameterName;
 			cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
 
 			// getting morph type from existing frame
@@ -126,9 +126,9 @@ void cAnimationFrames::AddAnimatedParameter(
 bool cAnimationFrames::AddAnimatedParameter(
 	const QString &fullParameterName, cParameterContainer *param, const cFractalContainer *fractal)
 {
-	int firstUnderscore = fullParameterName.indexOf('_');
-	QString containerName = fullParameterName.left(firstUnderscore);
-	QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+	const int firstUnderscore = fullParameterName.indexOf('_');
+	const QString containerName = fullParameterName.left(firstUnderscore);
+	const QString parameterName = fullParameterName.mid(firstUnderscore + 1);
 
 	const cParameterContainer *container = ContainerSelector(containerName, param, fractal);
 	if (container)
@@ -238,7 +238,7 @@ const cParameterContainer *cAnimationFrames::ContainerSelector(
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-		int index = containerName.right(1).toInt();
+		const int index = containerName.right(1).toInt();
 		if (index < 4)
 		{
 			container = &fractal->at(index);
@@ -272,7 +272,7 @@ cParameterContainer *cAnimationFrames::ContainerSelector(
 	}
 	else if (containerName.indexOf("fractal") >= 0)
 	{
-		int index = containerName.right(1).toInt();
+		const int index = containerName.right(1).toInt();
 		if (index < 4)
 		{
 			container = &fractal->at(index);
@@ -319,8 +319,8 @@ void cAnimationFrames::GetFrameAndConsolidate(
 		{
 			cParameterContainer *container =
 				ContainerSelector(listOfParameters[i].containerName, params, fractal);
-			QString parameterName = listOfParameters[i].parameterName;
-			cOneParameter oneParameter =
+			const QString parameterName = listOfParameters[i].parameterName;
+			const cOneParameter oneParameter =
 				frame.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
@@ -377,7 +377,7 @@ void cAnimationFrames::AddAudioParameter(const QString &parameterName, enumVarTy
 {
 
 	setAudioParameterPrefix();
-	QString fullParameterName = originalContainerName + "_" + parameterName;
+	const QString fullParameterName = originalContainerName + "_" + parameterName;
 
 	switch (paramType)
 	{
@@ -405,8 +405,8 @@ void cAnimationFrames::RemoveAudioParameter(
 	const sParameterDescription &parameter, cParameterContainer *params)
 {
 	if (!params) params = gPar;
-	QString fullParameterName = parameter.containerName + "_" + parameter.parameterName;
-	enumVarType paramType = parameter.varType;
+	const QString fullParameterName = parameter.containerName + "_" + parameter.parameterName;
+	const enumVarType paramType = parameter.varType;
 
 	switch (paramType)
 	{
@@ -439,8 +439,8 @@ cOneParameter cAnimationFrames::ApplyAudioAnimation(int frame, const cOneParamet
 	const QString &parameterName, const cParameterContainer *params) const
 {
 	cOneParameter newValue = parameter;
-	QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
-	enumVarType paramType = parameter.GetValueType();
+	const QString fullParameterName = parameter.GetOriginalContainerName() + "_" + parameterName;
+	const enumVarType paramType = parameter.GetValueType();
 	QString fullParameterNameWithSuffix;
 
 	switch (paramType)
@@ -524,15 +524,15 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 	const QString &fullParameterNameWithSuffix, const cParameterContainer *params) const
 {
 	T newVal = oldVal;
-	bool isEnabled =
+	const bool isEnabled =
 		params->Get<bool>(QString("animsound_enable_%1").arg(fullParameterNameWithSuffix));
 	if (isEnabled)
 	{
-		double additionFactor =
+		const double additionFactor =
 			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSuffix));
-		double multFactor =
+		const double multFactor =
 			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSuffix));
-		float animSound =
+		const float animSound =
 			audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(frame);
 
 		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSuffix)))

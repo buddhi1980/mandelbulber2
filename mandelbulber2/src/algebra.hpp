@@ -194,7 +194,7 @@ public:
 	}
 	inline double Normalize() // returns normalization factor
 	{
-		double norm = 1.0 / Length();
+		const double norm = 1.0 / Length();
 		x = x * norm;
 		y = y * norm;
 		z = z * norm;
@@ -409,7 +409,7 @@ public:
 
 	inline double Normalize()
 	{
-		double norm = 1.0 / Length();
+		const double norm = 1.0 / Length();
 		x = x * norm;
 		y = y * norm;
 		z = z * norm;
@@ -552,7 +552,7 @@ public:
 	}
 	inline double Normalize() // returns normalization factor
 	{
-		double norm = 1.0 / Length();
+		const double norm = 1.0 / Length();
 		x = x * norm;
 		y = y * norm;
 		return norm;

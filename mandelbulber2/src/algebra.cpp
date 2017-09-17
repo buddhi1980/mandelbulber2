@@ -49,7 +49,7 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 
 CVector4 CVector4::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 {
-	CVector3 oldVector = this->GetXYZ();
+	const CVector3 oldVector = this->GetXYZ();
 	CVector3 vector = oldVector * cos(angle);
 	vector += (axis.Cross(oldVector)) * sin(angle);
 	vector += axis * axis.Dot(oldVector) * (1 - cos(angle));
@@ -177,8 +177,8 @@ void CRotationMatrix::RotateX(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix33 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m11 = 1.0;
 		rot.m22 = c;
 		rot.m33 = c;
@@ -194,8 +194,8 @@ void CRotationMatrix::RotateY(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix33 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m22 = 1.0;
 		rot.m33 = c;
 		rot.m11 = c;
@@ -211,8 +211,8 @@ void CRotationMatrix::RotateZ(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix33 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m33 = 1.0;
 		rot.m11 = c;
 		rot.m22 = c;
@@ -481,8 +481,8 @@ void CRotationMatrix44::RotateXY(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m11 = c;
 		rot.m12 = s;
 		rot.m21 = -s;
@@ -499,8 +499,8 @@ void CRotationMatrix44::RotateYZ(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m22 = c;
 		rot.m23 = s;
 		rot.m11 = -s;
@@ -517,8 +517,8 @@ void CRotationMatrix44::RotateXZ(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m11 = c;
 		rot.m13 = -s;
 		rot.m31 = s;
@@ -535,8 +535,8 @@ void CRotationMatrix44::RotateXW(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m11 = c;
 		rot.m14 = s;
 		rot.m41 = -s;
@@ -553,8 +553,8 @@ void CRotationMatrix44::RotateYW(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m22 = c;
 		rot.m24 = -s;
 		rot.m42 = s;
@@ -571,8 +571,8 @@ void CRotationMatrix44::RotateZW(double angle)
 	if (angle != 0.0)
 	{
 		CMatrix44 rot;
-		double s = sin(angle);
-		double c = cos(angle);
+		const double s = sin(angle);
+		const double c = cos(angle);
 		rot.m33 = c;
 		rot.m34 = -s;
 		rot.m43 = s;

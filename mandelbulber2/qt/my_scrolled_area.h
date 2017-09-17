@@ -57,7 +57,7 @@ private:
 	int visibleAreaHeight;
 
 protected:
-	void resizeEvent(QResizeEvent *event)
+	void resizeEvent(QResizeEvent *event) override
 	{
 		// qDebug() << "resize event";
 		QScrollArea::resizeEvent(event);

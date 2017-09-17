@@ -53,7 +53,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audioTrack)
 {
 	if (audioTrack && audioTrack->isLoaded())
 	{
-		int numberOfFrames = audioTrack->getNumberOfFrames();
+		const int numberOfFrames = audioTrack->getNumberOfFrames();
 		framesPerSecond = audioTrack->getFramesPerSecond();
 		this->setFixedWidth(numberOfFrames);
 
@@ -62,7 +62,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audioTrack)
 
 		QPainter painter(&animAudioImage);
 
-		int maxY = height() - 1;
+		const int maxY = height() - 1;
 		QPoint prevPoint(0, maxY);
 
 		painter.setPen(Qt::green);
@@ -70,7 +70,7 @@ void cAnimAudioView::UpdateChart(const cAudioTrack *audioTrack)
 
 		for (int frame = 0; frame < numberOfFrames; frame++)
 		{
-			QPoint point(frame, maxY - audioTrack->getAnimation(frame) * maxY);
+			const QPoint point(frame, maxY - audioTrack->getAnimation(frame) * maxY);
 			painter.drawLine(prevPoint, point);
 			prevPoint = point;
 		}
@@ -88,7 +88,7 @@ void cAnimAudioView::paintEvent(QPaintEvent *event)
 	Q_UNUSED(event);
 	QPainter painter(this);
 	painter.drawImage(0, 0, animAudioImage);
-	QPen pen(QColor(255, 255, 255, 128));
+	const QPen pen(QColor(255, 255, 255, 128));
 
 	painter.setPen(pen);
 	painter.drawLine(playbackPositionX, 0, playbackPositionX, height() - 1);
@@ -96,7 +96,7 @@ void cAnimAudioView::paintEvent(QPaintEvent *event)
 
 void cAnimAudioView::positionChanged(qint64 position)
 {
-	double time = position * 0.001;
+	const double time = position * 0.001;
 	playbackPositionX = time * framesPerSecond;
 	update();
 }

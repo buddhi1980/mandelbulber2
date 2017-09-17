@@ -51,7 +51,7 @@ public:
 	void UpdateChart(const cAudioTrack *audioTrack);
 
 private:
-	void paintEvent(QPaintEvent *event);
+	void paintEvent(QPaintEvent *event) override;
 
 	QImage animAudioImage;
 	int playbackPositionX;

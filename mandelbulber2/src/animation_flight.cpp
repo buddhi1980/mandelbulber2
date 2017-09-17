@@ -220,12 +220,10 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	if (!continueRecording)
 	{
-		// confirmation dialog before start
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-			QObject::tr("Are you sure to start recording of new animation?"),
-			QObject::tr("This will delete all images in the image folder.\nProceed?"),
-			QMessageBox::Yes | QMessageBox::No);
+		QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+		                                                          QObject::tr("Are you sure to start recording of new animation?"),
+		                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		                                                          QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
 		{
