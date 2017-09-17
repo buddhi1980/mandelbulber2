@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE1_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_PHASE1_H_
 
-#include "opencl_engine.h"
 #include "include_header_wrapper.hpp"
+#include "opencl_engine.h"
 
 // custom includes
 #ifdef USE_OPENCL

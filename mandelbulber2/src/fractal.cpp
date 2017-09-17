@@ -358,7 +358,6 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	transformCommon.stopIterations1 = container->Get<int>("transf_stop_iterations_1");
 
-
 	transformCommon.startIterationsX = container->Get<int>("transf_start_iterations_X");
 	transformCommon.stopIterationsX = container->Get<int>("transf_stop_iterations_X");
 	transformCommon.startIterationsY = container->Get<int>("transf_start_iterations_Y");
@@ -430,7 +429,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.power025 = CVector4(container->Get<CVector3>("transf_power_025"), 0.0);
 	transformCommon.power8 = CVector4(container->Get<CVector3>("transf_power_8"), 0.0);
 
-		transformCommon.rotation = container->Get<CVector3>("transf_rotation");
+	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
 	transformCommon.rotation44a =
 		container->Get<CVector3>("transf_rotation44a"); //...........................

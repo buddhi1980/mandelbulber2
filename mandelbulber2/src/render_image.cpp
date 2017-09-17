@@ -481,7 +481,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 			if (image->GetImageOptional()->optionalNormal)
 				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 		}
-		lineData->append(reinterpret_cast<char *>(lineOfImage), CastSizeToInt(dataSize));
+		lineData->append(reinterpret_cast<char *>(lineOfImage), dataSize);
 		delete[] lineOfImage;
 	}
 	else

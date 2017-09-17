@@ -76,7 +76,7 @@ bool InitSystem()
 	systemData.homeDir = QDir::toNativeSeparators(QDir::homePath() + QDir::separator());
 #ifdef _WIN32 /* WINDOWS */
 	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
-#elif SHARED_DIR_IS_APP_DIR		
+#elif SHARED_DIR_IS_APP_DIR
 	/* used for AppImage, which requires fixed data bundled at same location, as the application */
 	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
 #else

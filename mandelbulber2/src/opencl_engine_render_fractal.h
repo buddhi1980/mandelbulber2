@@ -37,8 +37,8 @@
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_FRACTAL_H_
 
 #include "fractal_enums.h"
-#include "opencl_engine.h"
 #include "include_header_wrapper.hpp"
+#include "opencl_engine.h"
 #include "statistics.h"
 
 // custom includes
