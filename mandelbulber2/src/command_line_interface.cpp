@@ -539,7 +539,7 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 			 "mandelbulber2 -n path/to/fractal.fract"
 			 " -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
 			 cHeadless::ansiYellow) << "\n";
-#elif
+#else
 	out << "not supported, this version is not compiled with OpenCL support.";
 #endif
 
