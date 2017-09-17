@@ -34,12 +34,10 @@
 
 #include "wave_form_view.h"
 
-#include <algorithm>
-
 #include <QPainter>
 
-#include "src/audio_track.h"
-#include "src/system.hpp"
+#include "audio_track.h"
+#include "system.hpp"
 
 cWaveFormView::cWaveFormView(QWidget *parent) : QWidget(parent)
 {
@@ -62,8 +60,8 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 		inProgress = false;
 		failed = false;
 
-		int numberOfSamples = audiotrack->getLength();
-		int sampleRate = audiotrack->getSampleRate();
+		const int numberOfSamples = audiotrack->getLength();
+		const int sampleRate = audiotrack->getSampleRate();
 		numberOfFrames = audiotrack->getNumberOfFrames();
 		framesPerSecond = audiotrack->getFramesPerSecond();
 		audioFrame *audioBuffer = new audioFrame[numberOfFrames + 1];
@@ -72,7 +70,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 		for (int i = 0; i < numberOfSamples; i++)
 		{
-			int frameNo = i * framesPerSecond / sampleRate;
+			const int frameNo = i * framesPerSecond / sampleRate;
 			float sample = audiotrack->getSample(i) / audiotrack->getMaxVolume();
 			audioBuffer[frameNo].min = qMin(sample, audioBuffer[frameNo].min);
 			audioBuffer[frameNo].max = qMax(sample, audioBuffer[frameNo].max);
@@ -80,13 +78,13 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 
 		WriteLog("audioBuffer created", 2);
 
-		int height = this->height();
+		const int height = this->height();
 
 		waveImage = QImage(QSize(numberOfFrames, height), QImage::Format_RGB32);
 		waveImage.fill(Qt::black);
 		QPainter painter(&waveImage);
-		double hScale = 0.5 * height;
-		int center = height / 2;
+		const double hScale = 0.5 * height;
+		const int center = height / 2;
 
 		painter.setPen(Qt::green);
 		for (int x = 0; x < numberOfFrames; x++)
@@ -97,7 +95,7 @@ void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
 			if (yStart < 0) yStart = 0;
 			int yStop = center + hScale * audioBuffer[x].max;
 			if (yStop > height - 1) yStop = height - 1;
-			QRgb pixel = qRgba(0, 255, 0, 255);
+			const QRgb pixel = qRgba(0, 255, 0, 255);
 			for (int y = yStart; y < yStop; y++)
 			{
 				QRgb *line = reinterpret_cast<QRgb *>(waveImage.scanLine(y));
@@ -149,7 +147,7 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 		textRect.moveTopLeft(QPoint(5, 5));
 		this->setFixedWidth(textRect.width() + 5);
 
-		QBrush brush(QColor(255, 0, 0));
+		const QBrush brush(QColor(255, 0, 0));
 		painter.fillRect(textRect, brush);
 		painter.drawText(textRect, Qt::AlignTop | Qt::AlignLeft, progressText);
 	}
