@@ -128,6 +128,7 @@ void MyColorButton::mousePressEvent(QMouseEvent *event)
 	if (button == Qt::LeftButton)
 	{
 		QColorDialog colorDialog(this);
+		colorDialog.setOption(QColorDialog::DontUseNativeDialog);
 		sRGB colorRGB = GetColor();
 		QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
 		colorDialog.setCurrentColor(color);

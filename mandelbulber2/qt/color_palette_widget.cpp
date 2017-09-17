@@ -112,6 +112,7 @@ void ColorPaletteWidget::mousePressEvent(QMouseEvent *event)
 		int x = point.x() + 8 + paletteOffset * 16;
 		int index = (x / 16) % palette.GetSize();
 		QColorDialog colorDialog(this);
+		colorDialog.setOption(QColorDialog::DontUseNativeDialog);
 		sRGB colorRGB = palette.GetColor(index);
 		QColor color(colorRGB.R, colorRGB.G, colorRGB.B);
 		colorDialog.setCurrentColor(color);
