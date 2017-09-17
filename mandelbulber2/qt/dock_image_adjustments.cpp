@@ -38,13 +38,13 @@
 
 #include "dock_rendering_engine.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/fractal_container.hpp"
-#include "src/fractparams.hpp"
-#include "src/initparameters.hpp"
-#include "src/interface.hpp"
-#include "src/projection_3d.hpp"
-#include "src/render_window.hpp"
+#include "automated_widgets.hpp"
+#include "fractal_container.hpp"
+#include "fractparams.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "projection_3d.hpp"
+#include "render_window.hpp"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)

@@ -44,7 +44,7 @@
 #include <QCompleter>
 #include <QSortFilterProxyModel>
 
-#include "src/fractal_list.hpp"
+#include "fractal_list.hpp"
 
 class cFormulaComboBox : public QComboBox
 {

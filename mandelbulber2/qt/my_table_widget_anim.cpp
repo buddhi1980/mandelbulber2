@@ -39,7 +39,7 @@
 #include <QMenu>
 #include <QtCore>
 
-#include "src/animation_flight.hpp"
+#include "animation_flight.hpp"
 
 MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 {

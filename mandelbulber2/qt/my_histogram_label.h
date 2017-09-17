@@ -39,7 +39,7 @@
 #include <QtCore>
 #include <QtGui>
 
-#include "src/histogram.hpp"
+#include "histogram.hpp"
 
 class MyHistogramLabel : public QLabel
 {

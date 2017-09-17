@@ -37,9 +37,9 @@
 
 #include "audio_selector.h"
 
-#include "src/animation_frames.hpp"
-#include "src/audio_track.h"
-#include "src/initparameters.hpp"
+#include "animation_frames.hpp"
+#include "audio_track.h"
+#include "initparameters.hpp"
 
 cPushButtonAnimSound::cPushButtonAnimSound(QWidget *parent) : QPushButton(parent)
 {

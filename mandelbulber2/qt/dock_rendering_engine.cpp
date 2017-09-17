@@ -40,12 +40,12 @@
 #include "dock_image_adjustments.h"
 #include "dock_navigation.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/initparameters.hpp"
-#include "src/interface.hpp"
-#include "src/netrender.hpp"
-#include "src/render_window.hpp"
-#include "src/synchronize_interface.hpp"
+#include "automated_widgets.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "netrender.hpp"
+#include "render_window.hpp"
+#include "synchronize_interface.hpp"
 
 cDockRenderingEngine::cDockRenderingEngine(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockRenderingEngine)

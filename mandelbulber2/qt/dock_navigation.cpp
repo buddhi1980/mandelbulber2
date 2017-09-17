@@ -36,9 +36,9 @@
 
 #include "ui_dock_navigation.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/interface.hpp"
-#include "src/system.hpp"
+#include "automated_widgets.hpp"
+#include "interface.hpp"
+#include "system.hpp"
 
 cDockNavigation::cDockNavigation(QWidget *parent) : QWidget(parent), ui(new Ui::cDockNavigation)
 {

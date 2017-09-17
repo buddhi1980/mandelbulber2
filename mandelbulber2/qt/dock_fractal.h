@@ -40,9 +40,9 @@
 
 #include "tab_fractal.h"
 
-#include "src/fractal_container.hpp"
-#include "src/parameters.hpp"
-#include "src/synchronize_interface.hpp"
+#include "fractal_container.hpp"
+#include "parameters.hpp"
+#include "synchronize_interface.hpp"
 
 // forward declarations
 class cAutomatedWidgets;

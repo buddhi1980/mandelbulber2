@@ -40,12 +40,12 @@
 
 #include "preview_file_dialog.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/common_math.h"
-#include "src/fractal_coloring.hpp"
-#include "src/material.h"
-#include "src/synchronize_interface.hpp"
-#include "src/system.hpp"
+#include "automated_widgets.hpp"
+#include "common_math.h"
+#include "fractal_coloring.hpp"
+#include "material.h"
+#include "synchronize_interface.hpp"
+#include "system.hpp"
 
 cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::cMaterialEditor)
 {

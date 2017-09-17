@@ -42,7 +42,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-#include "src/color_palette.hpp"
+#include "color_palette.hpp"
 
 class ColorPaletteWidget : public QWidget, public CommonMyWidgetWrapper
 {

@@ -37,7 +37,7 @@
 
 #include <QWidget>
 
-#include "src/parameters.hpp"
+#include "parameters.hpp"
 
 // forward declarations
 class cAutomatedWidgets;

@@ -36,10 +36,10 @@
 
 #include "ui_dock_gamepad.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/interface.hpp"
-#include "src/rendered_image_widget.hpp"
-#include "src/system.hpp"
+#include "automated_widgets.hpp"
+#include "interface.hpp"
+#include "rendered_image_widget.hpp"
+#include "system.hpp"
 
 cDockGamepad::cDockGamepad(QWidget *parent) : QWidget(parent), ui(new Ui::cDockGamepad)
 {

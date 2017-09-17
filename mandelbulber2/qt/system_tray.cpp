@@ -38,9 +38,9 @@
 
 #include <QMenu>
 
-#include "src/cimage.hpp"
-#include "src/initparameters.hpp"
-#include "src/interface.hpp"
+#include "cimage.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
 
 cSystemTray::cSystemTray(cImage *image, QObject *parent)
 {

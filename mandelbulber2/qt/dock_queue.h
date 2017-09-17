@@ -39,7 +39,7 @@
 
 #include "my_progress_bar.h"
 
-#include "src/rendered_image_widget.hpp"
+#include "rendered_image_widget.hpp"
 
 // forward declarations
 class cAutomatedWidgets;

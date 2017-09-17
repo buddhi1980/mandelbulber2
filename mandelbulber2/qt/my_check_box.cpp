@@ -34,7 +34,7 @@
 
 #include "my_check_box.h"
 
-#include "src/parameters.hpp"
+#include "parameters.hpp"
 
 void MyCheckBox::resetToDefault()
 {

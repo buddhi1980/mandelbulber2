@@ -37,13 +37,13 @@
 #include "my_progress_bar.h"
 #include "thumbnail_widget.h"
 
-#include "src/fractal_container.hpp"
-#include "src/initparameters.hpp"
-#include "src/interface.hpp"
-#include "src/queue.hpp"
-#include "src/render_window.hpp"
-#include "src/settings.hpp"
-#include "src/system.hpp"
+#include "fractal_container.hpp"
+#include "initparameters.hpp"
+#include "interface.hpp"
+#include "queue.hpp"
+#include "render_window.hpp"
+#include "settings.hpp"
+#include "system.hpp"
 
 PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 {

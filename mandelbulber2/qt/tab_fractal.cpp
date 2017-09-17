@@ -41,13 +41,13 @@
 
 #include "dock_fractal.h"
 
-#include "src/automated_widgets.hpp"
-#include "src/error_message.hpp"
-#include "src/fractal_container.hpp"
-#include "src/fractal_list.hpp"
-#include "src/interface.hpp"
-#include "src/my_ui_loader.h"
-#include "src/render_window.hpp"
+#include "automated_widgets.hpp"
+#include "error_message.hpp"
+#include "fractal_container.hpp"
+#include "fractal_list.hpp"
+#include "interface.hpp"
+#include "my_ui_loader.h"
+#include "render_window.hpp"
 
 cTabFractal::cTabFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cTabFractal)
 {

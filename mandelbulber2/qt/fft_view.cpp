@@ -37,9 +37,9 @@
 #include <QPainter>
 #include <QtGui>
 
-#include "src/audio_fft_data.h"
-#include "src/audio_track.h"
-#include "src/system.hpp"
+#include "audio_fft_data.h"
+#include "audio_track.h"
+#include "system.hpp"
 
 cFFTView::cFFTView(QWidget *parent) : QWidget(parent)
 {
