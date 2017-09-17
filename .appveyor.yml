@@ -57,7 +57,7 @@ before_build:
 build_script:
 - ECHO BUILD %CONFIGURATION% %PLATFORM%
 - ps: If ($env:PLATFORM -ne "k1om") { msbuild $env:APPVEYOR_BUILD_FOLDER\mandelbulber2\msvc\mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" }
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
+# - if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
 
 # scripts to run after build
 after_build:
