@@ -85,6 +85,7 @@ public:
 		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();
 	}
 	int getSelectedPlatformIndex() { return selectedPlatformIndex; }
+	int getSelectedDeviceIndex() { return selectedDeviceIndex; }
 	bool ContextCreated() const { return contextReady; }
 
 	bool IsNVidia() const { return isNVidia; }

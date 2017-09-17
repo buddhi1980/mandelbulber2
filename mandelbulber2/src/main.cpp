@@ -152,10 +152,6 @@ int main(int argc, char *argv[])
 
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
-#ifdef USE_OPENCL
-	gOpenCl = new cGlobalOpenCl();
-#endif
-
 	UpdateDefaultPaths();
 	if (!commandLineInterface.isNoGUI())
 	{
@@ -165,6 +161,10 @@ int main(int argc, char *argv[])
 	UpdateLanguage(gApplication);
 
 	commandLineInterface.ReadCLI();
+
+#ifdef USE_OPENCL
+	gOpenCl = new cGlobalOpenCl();
+#endif
 
 	if (!commandLineInterface.isNoGUI())
 	{

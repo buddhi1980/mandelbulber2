@@ -272,8 +272,6 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.showExampleHelp) printExampleHelpAndExit();
 	// show input help only
 	if (cliData.showInputHelp) printInputHelpAndExit();
-	// show input help only
-	if (cliData.showOpenCLHelp) printOpenCLHelpAndExit();
 	// list parameters only
 	if (cliData.listParameters) printParametersAndExit();
 
@@ -338,6 +336,9 @@ void cCommandLineInterface::ReadCLI()
 	{
 		gPar->Set("anim_keyframe_dir", cliData.outputText);
 	}
+
+	// show opencl help only (requires previous handling of override parameters)
+	if (cliData.showOpenCLHelp) printOpenCLHelpAndExit();
 
 	if (!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
 	{
@@ -493,6 +494,8 @@ void cCommandLineInterface::printInputHelpAndExit()
 void cCommandLineInterface::printOpenCLHelpAndExit()
 {
 	QTextStream out(stdout);
+#ifdef USE_OPENCL
+	gOpenCl = new cGlobalOpenCl();
 	out << QObject::tr(
 		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
 		"When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
@@ -503,32 +506,43 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 		" * opencl_platform     - platform index to use, see available platforms below\n"
 		" * opencl_device_type  - TODO\n"
 		" * opencl_device_list  - right now only one device at a time is supported.\n"
-		" *                       Specify the device hash of the device to use see available devices below\n"
+		"                         Specify the device hash of the device to use, see available devices below\n"
 		" * opencl_mode         - TODO\n"
 		" * opencl_precision    - TODO\n"
 		" * opencl_memory_limit - TODO\n");
 
 	// print available platforms
-	out << "\n" << QObject::tr("Available platforms are:\n");
+	out << "\n" << cHeadless::colorize(QObject::tr("Available platforms are:"), cHeadless::ansiBlue) << "\n";
 	const QList<cOpenClHardware::sPlatformInformation> platforms =
 		gOpenCl->openClHardware->getPlatformsInformation();
 	for (int i = 0; i < platforms.size(); i++)
 	{
 		cOpenClHardware::sPlatformInformation platform = platforms[i];
+		out << (gOpenCl->openClHardware->getSelectedPlatformIndex() == i ? "> " : "  ");
 		out << "index: " << i << " | name: " << platform.name << "\n";
 	}
 
 	// print available devices
-	out << "\n"
-			<< QObject::tr("Available devices for the selected platform (%1) are:\n")
-					 .arg(gOpenCl->openClHardware->getSelectedPlatformIndex());
+	out << "\n" << cHeadless::colorize(QObject::tr("Available devices for the selected platform (%1) are:")
+					 .arg(gOpenCl->openClHardware->getSelectedPlatformIndex()), cHeadless::ansiBlue) << "\n";
 	const QList<cOpenClDevice::sDeviceInformation> devices =
 		gOpenCl->openClHardware->getDevicesInformation();
 	for (int i = 0; i < devices.size(); i++)
 	{
 		cOpenClDevice::sDeviceInformation device = devices[i];
+		out << (gOpenCl->openClHardware->getSelectedDeviceIndex() == i ? "> " : "  ");
 		out << "index: " << i << " | hash: " << device.hash.toHex() << " | name: " << device.deviceName << "\n";
 	}
+
+	out << "\n" << cHeadless::colorize(QObject::tr("Example invocation:"), cHeadless::ansiBlue) << "\n";
+	out << cHeadless::colorize(
+			 "mandelbulber2 -n path/to/fractal.fract"
+			 " -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
+			 cHeadless::ansiYellow) << "\n";
+#elif
+	out << "not supported, this version is not compiled with OpenCL support.";
+#endif
+
 	out.flush();
 	exit(0);
 }
