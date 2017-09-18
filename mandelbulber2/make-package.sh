@@ -71,6 +71,21 @@ then
 	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin/"
 	cp -vurL "$sourceDir/deploy/share/mandelbulber2/"* "$destNameWin64/"
 	
+	#copying fomula files
+	cp -vurL "$sourceDir/formula" "$destNameLinux/usr/share/mandelbulber2/"
+	cp -vurL "$sourceDir/formula"* "$destNameWin/"
+	cp -vurL "$sourceDir/formula"* "$destNameWin64/"
+	
+	#copying language files
+	cp -vurL "$sourceDir/language" "$destNameLinux/usr/share/mandelbulber2/"
+	cp -vurL "$sourceDir/language"* "$destNameWin/"
+	cp -vurL "$sourceDir/language"* "$destNameWin64/"
+	
+	#copying opencl files
+	cp -vurL "$sourceDir/opencl" "$destNameLinux/usr/share/mandelbulber2/"
+	cp -vurL "$sourceDir/opencl"* "$destNameWin/"
+	cp -vurL "$sourceDir/opencl"* "$destNameWin64/"
+	
 	#copying source files
 	mkdir -vp "$destNameWin/source"
 	
@@ -110,6 +125,9 @@ then
 	echo $DOCFILE
 	
 	#copying documentation files
+	mkdir -vp "$destNameLinux/usr/share/doc/mandelbulber2"
+	mkdir -vp "$destNameWin/doc"
+	mkdir -vp "$destNameWin64/doc"
 	wget -O "$destNameLinux/usr/share/doc/mandelbulber2/Mandelbulber_Manual.pdf" $DOCFILE
 	cp -v "$destNameLinux/usr/share/doc/mandelbulber2/Mandelbulber_Manual.pdf" "$destNameWin/doc/"
 	cp -v "$destNameLinux/usr/share/doc/mandelbulber2/Mandelbulber_Manual.pdf" "$destNameWin64/doc/"
