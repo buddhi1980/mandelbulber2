@@ -57,6 +57,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 #endif //   _MSC_VER
 #endif
 	isNVidia = false;
+	isAMD = false;
 	context = nullptr;
 #endif
 }
@@ -167,6 +168,7 @@ void cOpenClHardware::CreateContext(
 				contextReady = true;
 				ListOpenClDevices();
 				isNVidia = platformsInformation[platformIndex].name.contains("nvidia", Qt::CaseInsensitive);
+				isAMD = platformsInformation[platformIndex].name.contains("amd", Qt::CaseInsensitive);
 			}
 			else
 			{

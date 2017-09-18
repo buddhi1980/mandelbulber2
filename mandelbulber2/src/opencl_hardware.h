@@ -89,6 +89,7 @@ public:
 	bool ContextCreated() const { return contextReady; }
 
 	bool IsNVidia() const { return isNVidia; }
+	bool IsAMD() const { return isAMD; }
 
 protected:
 	static bool checkErr(cl_int err, QString functionName);
@@ -106,6 +107,7 @@ protected:
 	// 1 context == 1 platform
 	cl::Context *context;
 	bool isNVidia;
+	bool isAMD;
 
 private:
 	std::vector<cl::Platform> clPlatforms;
