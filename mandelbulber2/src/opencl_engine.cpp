@@ -120,10 +120,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				{
 					buildParams.append(" -I\"" + openclPath.toStdString() + "\"");
 				}
-				else
-				{
-					buildParams.append(" -I" + openclPath.toStdString());
-				}
+
 				buildParams += definesCollector.toUtf8().constData();
 
 				QString previousPath = QDir::currentPath();
