@@ -93,31 +93,35 @@ if [ ! -d libpng-* ]; then
 fi
 
 ### openexr
-sudo apt-get install cmake
-if [ ! -d openexr ]; then
-	git clone https://github.com/openexr/openexr
-	cd openexr
-	
-	cd IlmBase
-	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
-		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
-		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
-		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
-	sudo make install
-	cd ..
-
-	cd OpenEXR
-	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
-		-DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX \
-		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
-		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
-		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
-	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
-	sudo make install
-	cd ..
-	cd ..
-fi
+#sudo apt-get install cmake
+#if [ ! -d openexr ]; then
+#	git clone https://github.com/openexr/openexr
+#	cd openexr
+#	
+#	cd IlmBase
+#	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
+#		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
+#		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
+#		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+#	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
+#	sudo make install
+#	cd ..
+#
+#	cp -r IlmBase/Iex Iex
+#	#export LD_LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
+#	sudo ldconfig
+#	
+#	cd OpenEXR
+#	cmake -DCMAKE_SYSTEM=$MANDELBULBER_MINGW_HOST \
+#		-DILMBASE_PACKAGE_PREFIX=$MANDELBULBER_PREFIX \
+#		-DZLIB_INCLUDE_DIR=$MANDELBULBER_PREFIX/include \
+#		-DZLIB_ROOT=$MANDELBULBER_PREFIX/lib \
+#		-DCMAKE_INSTALL_PREFIX=$MANDELBULBER_PREFIX CMakeLists.txt
+#	make LIBRARY_PATH=$MANDELBULBER_PREFIX/lib
+#	sudo make install
+#	cd ..
+#	cd ..
+#fi
 
 # qtgamepad
 if [ ! -d qtgamepad ]; then
