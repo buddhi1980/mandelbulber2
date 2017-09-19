@@ -120,7 +120,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		// Randomize Z-buffer
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{
-			if (*stopRequest) throw tr("DOF terminated");
+			if (*stopRequest) break;
 			cPostRenderingDOF::sSortZ<float> temp;
 			temp = tempSort[i];
 			float z1 = temp.z;
@@ -176,18 +176,20 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Initializing Phase 2"), 0.0);
 
-		dofEnginePhase2->Lock();
-		dofEnginePhase2->SetParameters(paramRender);
-		if (dofEnginePhase2->LoadSourcesAndCompile(params))
+		if(!*stopRequest)
 		{
-			dofEnginePhase2->CreateKernel4Program(params);
-			dofEnginePhase2->PreAllocateBuffers(params);
-			dofEnginePhase2->CreateCommandQueue();
-			result = dofEnginePhase2->Render(image, tempSort, stopRequest);
+			dofEnginePhase2->Lock();
+			dofEnginePhase2->SetParameters(paramRender);
+			if (dofEnginePhase2->LoadSourcesAndCompile(params))
+			{
+				dofEnginePhase2->CreateKernel4Program(params);
+				dofEnginePhase2->PreAllocateBuffers(params);
+				dofEnginePhase2->CreateCommandQueue();
+				result = dofEnginePhase2->Render(image, tempSort, stopRequest);
+			}
+			dofEnginePhase2->ReleaseMemory();
+			dofEnginePhase2->Unlock();
 		}
-		dofEnginePhase2->ReleaseMemory();
-		dofEnginePhase2->Unlock();
-
 	} // next pass
 
 	emit updateProgressAndStatus(tr("OpenCL DOF finished"), progressText.getText(1.0), 1.0);
