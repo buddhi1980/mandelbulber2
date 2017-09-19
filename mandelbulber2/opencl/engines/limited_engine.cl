@@ -122,6 +122,18 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	rot = RotateX(rot, consts->params.viewAngle.y);
 	rot = RotateY(rot, consts->params.viewAngle.z);
 
+	// main light vector
+	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
+
+	if (consts->params.mainLightPositionAsRelative) lightVector = Matrix33MulFloat3(rot, lightVector);
+
+	// sweet spot rotation
+	rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
+	rot = RotateX(rot, consts->params.sweetSpotVAngle);
+
 	// starting point for ray-marching
 	float3 start = consts->params.camera;
 
@@ -231,14 +243,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 		// shaders
 		float3 color = 0.0f;
-
-		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
-		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
-		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
-			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
-
-		if (consts->params.mainLightPositionAsRelative)
-			lightVector = Matrix33MulFloat3(rot, lightVector);
 
 		distThresh = CalcDistThresh(point, consts);
 
