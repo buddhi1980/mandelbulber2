@@ -43,6 +43,7 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	contextReady = false;
 	selectedDeviceIndex = 0;
 	missingOpenClDLL = false;
+	selectedPlatformIndex = 0;
 
 #ifdef USE_OPENCL
 #ifdef _WIN32

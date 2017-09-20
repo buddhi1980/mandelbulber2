@@ -480,4 +480,9 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 	}
 }
 
+size_t cOpenClEngineRenderDOFPhase1::CalcNeededMemory()
+{
+	return numberOfPixels * sizeof(cl_float4);
+}
+
 #endif // USE_OPEMCL

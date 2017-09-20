@@ -65,6 +65,7 @@ public:
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest);
 	void ReleaseMemory();
+	size_t CalcNeededMemory() override;
 
 private:
 	QString GetKernelName() override;

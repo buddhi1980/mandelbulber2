@@ -49,6 +49,7 @@
 #include "progress_text.hpp"
 #include "render_data.hpp"
 #include "render_image.hpp"
+#include "render_ssao.h"
 #include "rendering_configuration.hpp"
 #include "stereo.h"
 #include "system.hpp"
@@ -530,6 +531,8 @@ bool cRenderJob::Execute()
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+			qDebug() << "OpenCl render fractal - needed mem:"
+							 << gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576;
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 			result =
@@ -553,9 +556,43 @@ bool cRenderJob::Execute()
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
-					gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
-					gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
-					result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
+					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					qDebug() << "OpenCl render SSAO - needed mem:" << neededMem / 1048576;
+					if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+					{
+						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
+						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+						result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
+					}
+					else
+					{
+						qCritical() << "Not enough GPU mem!";
+						result = false;
+					}
+
+					if (!result)
+					{
+						cRenderSSAO rendererSSAO(params, renderData, image);
+						connect(&rendererSSAO,
+							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+						rendererSSAO.RenderSSAO();
+
+						// refresh image at end
+						WriteLog("image->CompileImage()", 2);
+						image->CompileImage();
+
+						if (image->IsPreview())
+						{
+							WriteLog("image->ConvertTo8bit()", 2);
+							image->ConvertTo8bit();
+							WriteLog("image->UpdatePreview()", 2);
+							image->UpdatePreview();
+							WriteLog("image->GetImageWidget()->update()", 2);
+							image->GetImageWidget()->update();
+						}
+						result = true;
+					}
 				}
 				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
 				gOpenCl->openClEngineRenderSSAO->Unlock();
@@ -570,7 +607,7 @@ bool cRenderJob::Execute()
 			if (params->DOFEnabled && !params->DOFMonteCarlo)
 			{
 				gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest);
+					params, paramsContainer, image, renderData->stopRequest, renderData);
 			}
 		}
 

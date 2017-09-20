@@ -81,6 +81,7 @@ public:
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
+	size_t CalcNeededMemory() override;
 
 private:
 	QString GetKernelName() override;

@@ -40,6 +40,7 @@ class cOpenClHardware;
 struct sParamRender;
 class cParameterContainer;
 class cImage;
+struct sRenderData;
 
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_DOF_H_
@@ -53,7 +54,7 @@ public:
 
 #ifdef USE_OPENCL
 	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,
-		bool *stopRequest);
+		bool *stopRequest, sRenderData *renderData);
 
 	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
 	cOpenClEngineRenderDOFPhase2 *dofEnginePhase2;

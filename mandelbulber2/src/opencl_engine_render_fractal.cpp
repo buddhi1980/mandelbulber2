@@ -1000,4 +1000,11 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 	return true;
 }
 
+size_t cOpenClEngineRenderFractal::CalcNeededMemory()
+{
+	size_t mem1 = optimalJob.sizeOfPixel * optimalJob.stepSize;
+	size_t mem2 = dynamicData->GetData().size();
+	return max(mem1, mem2);
+}
+
 #endif

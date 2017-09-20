@@ -427,4 +427,9 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 	}
 }
 
+size_t cOpenClEngineRenderSSAO::CalcNeededMemory()
+{
+	return numberOfPixels * sizeof(cl_float);
+}
+
 #endif // USE_OPEMCL

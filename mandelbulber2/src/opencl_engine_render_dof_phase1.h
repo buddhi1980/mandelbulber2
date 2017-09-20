@@ -64,6 +64,7 @@ public:
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
 	void ReleaseMemory();
+	size_t CalcNeededMemory() override;
 
 private:
 	QString GetKernelName() override;

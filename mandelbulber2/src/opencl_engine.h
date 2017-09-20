@@ -97,6 +97,7 @@ protected:
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(int pixelsLeft);
 	void UpdateOptimalJobEnd();
+	virtual size_t CalcNeededMemory() = 0;
 
 	cl::Program *program;
 	cl::Kernel *kernel;

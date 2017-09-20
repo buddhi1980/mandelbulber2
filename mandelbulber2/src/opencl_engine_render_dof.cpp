@@ -44,6 +44,8 @@
 #include "opencl_hardware.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
+#include "render_data.hpp"
+#include "system.hpp"
 
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
 {
@@ -71,7 +73,7 @@ cOpenClEngineRenderDOF::~cOpenClEngineRenderDOF()
 
 #ifdef USE_OPENCL
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
-	const cParameterContainer *params, cImage *image, bool *stopRequest)
+	const cParameterContainer *params, cImage *image, bool *stopRequest, sRenderData *renderData)
 {
 	int numberOfPasses = paramRender->DOFNumberOfPasses;
 
@@ -86,12 +88,50 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	if (dofEnginePhase1->LoadSourcesAndCompile(params))
 	{
 		dofEnginePhase1->CreateKernel4Program(params);
-		dofEnginePhase1->PreAllocateBuffers(params);
-		dofEnginePhase1->CreateCommandQueue();
-		result = dofEnginePhase1->Render(image, stopRequest);
+		size_t neededMem = dofEnginePhase1->CalcNeededMemory();
+		qDebug() << "OpenCl render DOF Phase 1 - needed mem:" << neededMem / 1048576;
+		if (neededMem / 1048576 < params->Get<int>("opencl_memory_limit"))
+		{
+			dofEnginePhase1->PreAllocateBuffers(params);
+			dofEnginePhase1->CreateCommandQueue();
+			result = dofEnginePhase1->Render(image, stopRequest);
+		}
+		else
+		{
+			qCritical() << "Not enough GPU mem!";
+			result = false;
+		}
 	}
 	dofEnginePhase1->ReleaseMemory();
 	dofEnginePhase1->Unlock();
+
+	if (!result)
+	{
+		cPostRenderingDOF dof(image);
+		connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+		dof.Render(renderData->screenRegion,
+			paramRender->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+			paramRender->DOFFocus, paramRender->DOFNumberOfPasses, paramRender->DOFBlurOpacity,
+			renderData->stopRequest);
+
+		// refresh image at end
+		WriteLog("image->CompileImage()", 2);
+		image->CompileImage();
+
+		if (image->IsPreview())
+		{
+			WriteLog("image->ConvertTo8bit()", 2);
+			image->ConvertTo8bit();
+			WriteLog("image->UpdatePreview()", 2);
+			image->UpdatePreview();
+			WriteLog("image->GetImageWidget()->update()", 2);
+			image->GetImageWidget()->update();
+		}
+		result = true;
+		return result;
+	}
 
 	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
@@ -176,16 +216,25 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Initializing Phase 2"), 0.0);
 
-		if(!*stopRequest)
+		if (!*stopRequest)
 		{
 			dofEnginePhase2->Lock();
 			dofEnginePhase2->SetParameters(paramRender);
 			if (dofEnginePhase2->LoadSourcesAndCompile(params))
 			{
 				dofEnginePhase2->CreateKernel4Program(params);
-				dofEnginePhase2->PreAllocateBuffers(params);
-				dofEnginePhase2->CreateCommandQueue();
-				result = dofEnginePhase2->Render(image, tempSort, stopRequest);
+				size_t neededMem = dofEnginePhase2->CalcNeededMemory();
+				qDebug() << "OpenCl render DOF Phase 2 - needed mem:" << neededMem / 1048576;
+				if (neededMem / 1048576 < params->Get<int>("opencl_memory_limit"))
+				{
+					dofEnginePhase2->PreAllocateBuffers(params);
+					dofEnginePhase2->CreateCommandQueue();
+					result = dofEnginePhase2->Render(image, tempSort, stopRequest);
+				}
+				else
+				{
+					qCritical() << "Not enough GPU mem!";
+				}
 			}
 			dofEnginePhase2->ReleaseMemory();
 			dofEnginePhase2->Unlock();
