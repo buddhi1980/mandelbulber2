@@ -116,7 +116,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 				std::string buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero";
 				buildParams.append(" -DOPENCL_KERNEL_CODE");
-				if(hardware->IsAMD())
+				if (hardware->IsAMD())
 				{
 					buildParams.append(" -I\"" + openclPath.toStdString() + "\"");
 				}

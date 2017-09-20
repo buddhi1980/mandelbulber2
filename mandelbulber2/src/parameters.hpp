@@ -55,13 +55,14 @@ public:
 	~cParameterContainer();
 
 	template <class T>
-	void addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType);
+	void addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType,
+		QStringList enumLookup = {});
 	template <class T>
 	void addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType,
 		enumParameterType parType);
 	template <class T>
-	void addParam(
-		QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType);
+	void addParam(QString name, int index, T defaultVal, enumMorphType morphType,
+		enumParameterType parType, QStringList enumLookup = {});
 	template <class T>
 	void addParam(QString name, int index, T defaultVal, T minVal, T maxVal, enumMorphType morphType,
 		enumParameterType parType);
