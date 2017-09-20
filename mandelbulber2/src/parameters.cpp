@@ -61,8 +61,8 @@ cParameterContainer &cParameterContainer::operator=(const cParameterContainer &p
 
 // defining of params without limits
 template <class T>
-void cParameterContainer::addParam(
-	QString name, T defaultVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, T defaultVal, enumMorphType morphType,
+	enumParameterType parType, QStringList enumLookup)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -72,6 +72,7 @@ void cParameterContainer::addParam(
 	newRecord.SetMorphType(morphType);
 	newRecord.SetParameterType(parType);
 	newRecord.SetOriginalContainerName(containerName);
+	newRecord.SetEnumLookup(enumLookup);
 
 	if (myMap.find(name) != myMap.end())
 	{
@@ -82,22 +83,22 @@ void cParameterContainer::addParam(
 		myMap.insert(name, newRecord);
 	}
 }
-template void cParameterContainer::addParam<double>(
-	QString name, double defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(
-	QString name, int defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(
-	QString name, QString defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(
-	QString name, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(
-	QString name, CVector4 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(
-	QString name, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(
-	QString name, bool defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<cColorPalette>(
-	QString name, cColorPalette defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, double defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<int>(QString name, int defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<QString>(QString name, QString defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 
 // defining of params with limits
 template <class T>
@@ -137,8 +138,8 @@ template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
 
 // defining of params without limits and with index
 template <class T>
-void cParameterContainer::addParam(
-	QString name, int index, T defaultVal, enumMorphType morphType, enumParameterType parType)
+void cParameterContainer::addParam(QString name, int index, T defaultVal, enumMorphType morphType,
+	enumParameterType parType, QStringList enumLookup)
 {
 	QMutexLocker lock(&m_lock);
 
@@ -150,6 +151,7 @@ void cParameterContainer::addParam(
 		newRecord.SetMorphType(morphType);
 		newRecord.SetParameterType(parType);
 		newRecord.SetOriginalContainerName(containerName);
+		newRecord.SetEnumLookup(enumLookup);
 
 		QString indexName = nameWithIndex(&name, index);
 		if (myMap.find(indexName) != myMap.end())
@@ -167,20 +169,20 @@ void cParameterContainer::addParam(
 							 << endl;
 	}
 }
-template void cParameterContainer::addParam<double>(
-	QString name, int index, double defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<int>(
-	QString name, int index, int defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<QString>(
-	QString name, int index, QString defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector3>(
-	QString name, int index, CVector3 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<CVector4>(
-	QString name, int index, CVector4 defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<sRGB>(
-	QString name, int index, sRGB defaultVal, enumMorphType morphType, enumParameterType parType);
-template void cParameterContainer::addParam<bool>(
-	QString name, int index, bool defaultVal, enumMorphType morphType, enumParameterType parType);
+template void cParameterContainer::addParam<double>(QString name, int index, double defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<QString>(QString name, int index, QString defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector3>(QString name, int index, CVector3 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<CVector4>(QString name, int index, CVector4 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 
 // defining of params with limits and index
 template <class T>

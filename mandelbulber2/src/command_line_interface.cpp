@@ -497,22 +497,37 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl();
 	out << QObject::tr(
-		"Mandelbulber can utilize OpenCL to accelerate rendering.\n"
-		"When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
-		"commandline by default.\nThe configuration can also be done directly from this commandline by "
-		"setting the optional settings directly.\nThese can be given by the default --override option, "
-		"available opencl specific options are:\n"
-		" * opencl_enabled      - boolean to enable OpenCL\n"
-		" * opencl_platform     - platform index to use, see available platforms below\n"
-		" * opencl_device_type  - TODO\n"
-		" * opencl_device_list  - right now only one device at a time is supported.\n"
-		"                         Specify the device hash of the device to use, see available devices below\n"
-		" * opencl_mode         - TODO\n"
-		" * opencl_precision    - TODO\n"
-		" * opencl_memory_limit - TODO\n");
+					 "Mandelbulber can utilize OpenCL to accelerate rendering.\n"
+					 "When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
+					 "commandline by default.\nThe configuration can also be done directly from this "
+					 "commandline by "
+					 "setting the optional settings directly.\nThese can be given by the default --override "
+					 "option, "
+					 "available opencl specific options are:")
+			<< "\n";
+	out << QObject::tr(
+					 " * opencl_enabled      - boolean to enable OpenCL\n"
+					 " * opencl_platform     - platform index to use, see available platforms below\n"
+					 " * opencl_device_type  - Possible device types of the platform to use \n"
+					 "                           possible values: [%1]\n"
+					 " * opencl_device_list  - right now only one device at a time is supported.\n"
+					 "                         Specify the device hash of the device to use, see available "
+					 "devices below\n"
+					 " * opencl_mode         - Mode of the render engine, fast has no effects, limited has "
+					 "basic effects, full contains all shaders.\n"
+					 "                           possible values: [%2]\n"
+					 " * opencl_precision    - Floating point precision of Render (single is faster, but "
+					 "less accurate)\n"
+					 "                           possible values: [%3]\n"
+					 " * opencl_memory_limit - Memory limit in MB\n")
+					 .arg(gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup().join(", "))
+					 .arg(gPar->GetAsOneParameter("opencl_mode").GetEnumLookup().join(", "))
+					 .arg(gPar->GetAsOneParameter("opencl_precision").GetEnumLookup().join(", "));
+	qDebug() << gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup();
 
 	// print available platforms
-	out << "\n" << cHeadless::colorize(QObject::tr("Available platforms are:"), cHeadless::ansiBlue) << "\n";
+	out << "\n"
+			<< cHeadless::colorize(QObject::tr("Available platforms are:"), cHeadless::ansiBlue) << "\n";
 	const QList<cOpenClHardware::sPlatformInformation> platforms =
 		gOpenCl->openClHardware->getPlatformsInformation();
 	for (int i = 0; i < platforms.size(); i++)
@@ -523,22 +538,28 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	}
 
 	// print available devices
-	out << "\n" << cHeadless::colorize(QObject::tr("Available devices for the selected platform (%1) are:")
-					 .arg(gOpenCl->openClHardware->getSelectedPlatformIndex()), cHeadless::ansiBlue) << "\n";
+	out << "\n"
+			<< cHeadless::colorize(QObject::tr("Available devices for the selected platform (%1) are:")
+															 .arg(gOpenCl->openClHardware->getSelectedPlatformIndex()),
+					 cHeadless::ansiBlue)
+			<< "\n";
 	const QList<cOpenClDevice::sDeviceInformation> devices =
 		gOpenCl->openClHardware->getDevicesInformation();
 	for (int i = 0; i < devices.size(); i++)
 	{
 		cOpenClDevice::sDeviceInformation device = devices[i];
 		out << (gOpenCl->openClHardware->getSelectedDeviceIndex() == i ? "> " : "  ");
-		out << "index: " << i << " | hash: " << device.hash.toHex() << " | name: " << device.deviceName << "\n";
+		out << "index: " << i << " | hash: " << device.hash.toHex() << " | name: " << device.deviceName
+				<< "\n";
 	}
 
-	out << "\n" << cHeadless::colorize(QObject::tr("Example invocation:"), cHeadless::ansiBlue) << "\n";
+	out << "\n"
+			<< cHeadless::colorize(QObject::tr("Example invocation:"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-			 "mandelbulber2 -n path/to/fractal.fract"
-			 " -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
-			 cHeadless::ansiYellow) << "\n";
+					 "mandelbulber2	 -n path/to/fractal.fract"
+					 " -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d'",
+					 cHeadless::ansiYellow)
+			<< "\n";
 #else
 	out << "not supported, this version is not compiled with OpenCL support.";
 #endif

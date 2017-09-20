@@ -62,6 +62,7 @@ void cOneParameter::copyNotMovable(const cOneParameter &other)
 	defaultVal = other.defaultVal;
 	minVal = other.minVal;
 	maxVal = other.maxVal;
+	enumLookup = other.enumLookup;
 	originalContainer = other.originalContainer;
 }
 
