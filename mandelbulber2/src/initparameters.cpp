@@ -412,9 +412,9 @@ void InitParams(cParameterContainer *par)
 	par->addParam("camera_movement_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);
 	par->addParam("camera_straight_rotation", 0, morphNone, paramApp);
-	par->addParam("camera_absolute_distance_mode", 0, morphNone, paramApp);
-	par->addParam("camera_movement_mode", 0, morphNone, paramApp);
-	par->addParam("camera_rotation_mode", 0, morphNone, paramApp);
+	par->addParam("camera_absolute_distance_mode", 0, morphNone, paramApp, QStringList({"relative", "absolute"}));
+	par->addParam("camera_movement_mode", 0, morphNone, paramApp, QStringList({"fixed_distance", "move_camera", "move_target"}));
+	par->addParam("camera_rotation_mode", 0, morphNone, paramApp, QStringList({"rotate_camera", "rotate_around_target"}));
 	par->addParam("mouse_click_function", 1, morphNone, paramNoSave);
 	par->addParam("show_cursor", true, morphNone, paramApp);
 
@@ -505,6 +505,9 @@ void InitFractalParams(cParameterContainer *par)
 {
 	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 3);
 
+	QStringList qslAcosAsin({"acos", "asin"});
+	QStringList qslAtanAtan2({"atan", "atan2"});
+
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
 	par->addParam("beta_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -583,11 +586,11 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("aboxMod1_foldM", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 	// mandelbulbMulti
-	par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard);
-	par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard);
+	par->addParam("mandelbulbMulti_acos_or_asin", 0, morphNone, paramStandard, qslAcosAsin);
+	par->addParam("mandelbulbMulti_atan_or_atan2", 0, morphNone, paramStandard, qslAtanAtan2);
 
-	par->addParam("mandelbulbMulti_acos_or_asin_A", 0, morphNone, paramStandard);
-	par->addParam("mandelbulbMulti_atan_or_atan2_A", 0, morphNone, paramStandard);
+	par->addParam("mandelbulbMulti_acos_or_asin_A", 0, morphNone, paramStandard, qslAcosAsin);
+	par->addParam("mandelbulbMulti_atan_or_atan2_A", 0, morphNone, paramStandard, qslAtanAtan2);
 
 	par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
 	par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard);
