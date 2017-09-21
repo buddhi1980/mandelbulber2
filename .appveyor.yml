@@ -20,12 +20,12 @@ init:
 
 # scripts that run after cloning repository
 install:
-- ps: If ($env:PLATFORM -eq "k1om") { If ($env:CONFIGURATION -eq "Release") {iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/mancoast/ci/master/scripts/enable-icc.ps1')) } }
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/compilers_and_libraries" "%PROGRAMFILES(X86)%/IntelSWTools/compilers_and_libraries"
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/MPSS" "%PROGRAMFILES%/Intel/MPSS"
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/msvc" "%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
-- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
+#- ps: If ($env:PLATFORM -eq "k1om") { If ($env:CONFIGURATION -eq "Release") {iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/mancoast/ci/master/scripts/enable-icc.ps1')) } }
+#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/compilers_and_libraries" "%PROGRAMFILES(X86)%/IntelSWTools/compilers_and_libraries"
+#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/MPSS" "%PROGRAMFILES%/Intel/MPSS"
+#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/msvc" "%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"
+#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
+#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
 
 #---------------------------------#
 #       build configuration       #
