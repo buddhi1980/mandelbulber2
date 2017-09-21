@@ -112,6 +112,8 @@ void Test::renderExamples()
 
 	while (it.hasNext())
 	{
+		QElapsedTimer timer;
+		timer.start();
 		QString filename = it.next();
 		if (!IsBenchmarking()) qDebug() << "trying file: " << filename;
 		cSettings parSettings(cSettings::formatFullText);
@@ -135,6 +137,12 @@ void Test::renderExamples()
 			SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
 		}
 		delete renderJob;
+
+		WriteLog(
+			QString("example: %1 rendered in %2 Milliseconds")
+			.arg(filename)
+			.arg(timer.elapsed()),
+			1);
 	}
 
 	delete image;

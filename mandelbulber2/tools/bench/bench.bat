@@ -42,7 +42,7 @@ mkdir %IntDir%
 REM # Bench #
 cd %OutDir%
 %bulb% --nogui --version
-%bulb% --benchmark 1 -o %IntDir% 
+%bulb% --benchmark 1 -o %IntDir%
 
 REM --- exit ----
 cd %_SCRIPT_FOLDER%
