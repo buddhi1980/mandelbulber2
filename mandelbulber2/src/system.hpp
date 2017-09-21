@@ -147,6 +147,10 @@ public:
 	{
 		this->preferredFontPointSize = preferredFontPointSize;
 	}
+	void SetLogfileName(QString logfileName)
+	{
+		this->logfileName = logfileName;
+	}
 
 	QString homeDir;
 	QString sharedDir;

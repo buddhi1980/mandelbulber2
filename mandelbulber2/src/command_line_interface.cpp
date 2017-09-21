@@ -140,6 +140,10 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
+	QCommandLineOption logFilepathOption(QStringList({ "logfilepath" }),
+		QCoreApplication::translate("main", "Specify the full path and filename of the System Log File."),
+		QCoreApplication::translate("main", "N"));
+
 	QCommandLineOption queueOption(QStringList({"q", "queue"}),
 		QCoreApplication::translate("main", "Renders all images from common queue."));
 
@@ -185,6 +189,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 
 	parser.addOption(noguiOption);
 	parser.addOption(outputOption);
+	parser.addOption(logFilepathOption);
 	parser.addOption(keyframeOption);
 	parser.addOption(flightOption);
 	parser.addOption(silentOption);
@@ -234,6 +239,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliData.host = parser.value(hostOption);
 	cliData.portText = parser.value(portOption);
 	cliData.outputText = parser.value(outputOption);
+	cliData.logFilepathText = parser.value(logFilepathOption);
 	cliData.listParameters = parser.isSet(listOption);
 	cliData.queue = parser.isSet(queueOption);
 	cliData.voxel = parser.isSet(voxelOption);
@@ -654,6 +660,13 @@ void cCommandLineInterface::runBenchmarksAndExit()
 				arguments.removeAt(index);
 			}
 		}
+	}
+
+	//TODO: fix this
+	// log filepath if it is specified
+	if (cliData.logFilepathText != "")
+	{
+		systemData.SetLogfileName(cliData.logFilepathText);
 	}
 
 	int status = 0;

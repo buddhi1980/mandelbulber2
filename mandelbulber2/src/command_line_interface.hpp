@@ -134,6 +134,7 @@ private:
 		QString portText;
 		QString outputText;
 		QString voxelFormat;
+		QString logFilepathText;
 	} cliData;
 
 	QCommandLineParser parser;
