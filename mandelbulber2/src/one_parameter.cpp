@@ -229,3 +229,29 @@ void cOneParameter::LimitValue(cMultiVal &multi) const
 		default: break;
 	}
 }
+
+QString cOneParameter::GetValueByEnumeration() const
+{
+	int index = Get<int>(valueActual);
+	if (index >= 0 && index < enumLookup.size())
+		return enumLookup.at(index);
+	else
+	{
+		qWarning() << "Enumeration not found, cannot find index: " << index << " in QStringList "
+							 << enumLookup;
+		return this->Get<QString>(valueActual);
+	}
+}
+
+int cOneParameter::GetIndexByEnumeration(QString value) const
+{
+	int index = enumLookup.indexOf(value);
+	if (index != -1)
+		return index;
+	else
+	{
+		qWarning() << "Enumeration not found, cannot find value: '" << value << "' in QStringList "
+							 << enumLookup << ", this may happen, when upgrading to newer program version.";
+		return value.toInt();
+	}
+}

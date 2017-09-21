@@ -270,7 +270,14 @@ QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) c
 			}
 			else
 			{
-				value = par->Get<QString>(name);
+				if (par->GetAsOneParameter(name).IsEnumeration())
+				{
+					value = par->GetAsOneParameter(name).GetValueByEnumeration();
+				}
+				else
+				{
+					value = par->Get<QString>(name);
+				}
 			}
 			text = name + " " + value + ";\n";
 		}
@@ -730,7 +737,14 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			value = everyLocaleDouble(value);
 		}
 
-		par->Set(parameterName, value);
+		if (par->GetAsOneParameter(parameterName).IsEnumeration())
+		{
+			par->Set(parameterName, par->GetAsOneParameter(parameterName).GetIndexByEnumeration(value));
+		}
+		else
+		{
+			par->Set(parameterName, value);
+		}
 		return true;
 	}
 }

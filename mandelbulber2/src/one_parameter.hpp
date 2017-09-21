@@ -97,6 +97,9 @@ public:
 	void LimitValue(cMultiVal &multi) const;
 	QStringList GetEnumLookup() const { return enumLookup; }
 	void SetEnumLookup(QStringList _enumLookup) { enumLookup = _enumLookup; }
+	bool IsEnumeration() { return !enumLookup.empty(); }
+	QString GetValueByEnumeration() const;
+	int GetIndexByEnumeration(QString value) const;
 
 private:
 	void copy(const cOneParameter &other);
