@@ -85,7 +85,7 @@ void Test::renderExamples()
 	// and benchmarks the runtime
 	QString examplePath =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
-	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files);
+	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
 
 	cParameterContainer *testPar = new cParameterContainer;
 	cFractalContainer *testParFractal = new cFractalContainer;
