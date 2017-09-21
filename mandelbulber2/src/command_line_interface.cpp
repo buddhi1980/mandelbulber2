@@ -263,7 +263,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	if (cliData.queue) cliData.nogui = true;
 	if (cliData.test) cliData.nogui = true;
 	if (cliData.benchmark) cliData.nogui = true;
-	cliTODO = modeBootOnly;
+	cliOperationalMode = modeBootOnly;
 }
 
 cCommandLineInterface::~cCommandLineInterface()
@@ -334,11 +334,11 @@ void cCommandLineInterface::ReadCLI()
 	if (cliData.voxel) handleVoxel();
 
 	// folder for animation frames
-	if (cliData.outputText != "" && cliTODO == modeFlight)
+	if (cliData.outputText != "" && cliOperationalMode == modeFlight)
 	{
 		gPar->Set("anim_flight_dir", cliData.outputText);
 	}
-	if (cliData.outputText != "" && cliTODO == modeKeyframe)
+	if (cliData.outputText != "" && cliOperationalMode == modeKeyframe)
 	{
 		gPar->Set("anim_keyframe_dir", cliData.outputText);
 	}
@@ -346,7 +346,7 @@ void cCommandLineInterface::ReadCLI()
 	// show opencl help only (requires previous handling of override parameters)
 	if (cliData.showOpenCLHelp) printOpenCLHelpAndExit();
 
-	if (!settingsSpecified && cliData.nogui && cliTODO != modeNetrender)
+	if (!settingsSpecified && cliData.nogui && cliOperationalMode != modeNetrender)
 	{
 		cErrorMessage::showMessage(
 			QObject::tr("You have to specify a settings file, for this configuration!"),
@@ -354,8 +354,8 @@ void cCommandLineInterface::ReadCLI()
 		parser.showHelp(cliErrorSettingsFileNotSpecified);
 	}
 
-	if (cliData.nogui && cliTODO != modeKeyframe && cliTODO != modeFlight && cliTODO != modeQueue
-			&& cliTODO != modeVoxel)
+	if (cliData.nogui && cliOperationalMode != modeKeyframe && cliOperationalMode != modeFlight && cliOperationalMode != modeQueue
+			&& cliOperationalMode != modeVoxel)
 	{
 		// creating output filename if it's not specified
 		if (cliData.outputText == "")
@@ -363,14 +363,14 @@ void cCommandLineInterface::ReadCLI()
 			cliData.outputText = gPar->Get<QString>("default_image_path") + QDir::separator();
 			cliData.outputText += QFileInfo(systemData.lastSettingsFile).completeBaseName();
 		}
-		cliTODO = modeStill;
+		cliOperationalMode = modeStill;
 		return;
 	}
 }
 
 void cCommandLineInterface::ProcessCLI() const
 {
-	switch (cliTODO)
+	switch (cliOperationalMode)
 	{
 		case modeNetrender:
 		{
@@ -731,12 +731,12 @@ void cCommandLineInterface::handleClient()
 	}
 	cliData.nogui = true;
 	systemData.noGui = true;
-	cliTODO = modeNetrender;
+	cliOperationalMode = modeNetrender;
 }
 
 void cCommandLineInterface::handleQueue()
 {
-	cliTODO = modeQueue;
+	cliOperationalMode = modeQueue;
 	settingsSpecified = true;
 	cliData.nogui = true;
 	systemData.noGui = true;
@@ -801,7 +801,7 @@ void cCommandLineInterface::handleArgs()
 		else
 		{
 			// queue render
-			cliTODO = modeQueue;
+			cliOperationalMode = modeQueue;
 			cliData.nogui = true;
 			systemData.noGui = true;
 			try
@@ -929,7 +929,7 @@ void cCommandLineInterface::handleFlight()
 {
 	if (gAnimFrames->GetNumberOfFrames() > 0)
 	{
-		cliTODO = modeFlight;
+		cliOperationalMode = modeFlight;
 		cliData.nogui = true;
 		systemData.noGui = true;
 	}
@@ -944,7 +944,7 @@ void cCommandLineInterface::handleFlight()
 
 void cCommandLineInterface::handleKeyframe()
 {
-	if (cliTODO == modeFlight)
+	if (cliOperationalMode == modeFlight)
 	{
 		cErrorMessage::showMessage(
 			QObject::tr("You cannot render keyframe animation at the same time as flight animation"),
@@ -954,7 +954,7 @@ void cCommandLineInterface::handleKeyframe()
 	{
 		if (gKeyframes->GetNumberOfFrames() > 0)
 		{
-			cliTODO = modeKeyframe;
+			cliOperationalMode = modeKeyframe;
 			cliData.nogui = true;
 			systemData.noGui = true;
 		}
@@ -971,7 +971,7 @@ void cCommandLineInterface::handleStartFrame()
 {
 	bool checkParse = true;
 	int startFrame = cliData.startFrameText.toInt(&checkParse);
-	if (cliTODO == modeFlight)
+	if (cliOperationalMode == modeFlight)
 	{
 		if (startFrame <= gAnimFrames->GetNumberOfFrames())
 		{
@@ -986,7 +986,7 @@ void cCommandLineInterface::handleStartFrame()
 		}
 	}
 
-	if (cliTODO == modeKeyframe)
+	if (cliOperationalMode == modeKeyframe)
 	{
 		int numberOfFrames =
 			(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
@@ -1009,7 +1009,7 @@ void cCommandLineInterface::handleEndFrame()
 {
 	bool checkParse = true;
 	int endFrame = cliData.endFrameText.toInt(&checkParse);
-	if (cliTODO == modeFlight)
+	if (cliOperationalMode == modeFlight)
 	{
 		if (endFrame <= gAnimFrames->GetNumberOfFrames())
 		{
@@ -1035,7 +1035,7 @@ void cCommandLineInterface::handleEndFrame()
 		}
 	}
 
-	if (cliTODO == modeKeyframe)
+	if (cliOperationalMode == modeKeyframe)
 	{
 		int numberOfFrames =
 			(gKeyframes->GetNumberOfFrames() - 1) * gPar->Get<int>("frames_per_keyframe");
@@ -1088,7 +1088,7 @@ void cCommandLineInterface::handleVoxel()
 			cErrorMessage::errorMessage);
 		parser.showHelp(cliErrorVoxelOutputFolderDoesNotExists);
 	}
-	cliTODO = modeVoxel;
+	cliOperationalMode = modeVoxel;
 	cliData.nogui = true;
 	systemData.noGui = true;
 }
