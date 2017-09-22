@@ -542,7 +542,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	const int startFrame = params->Get<int>("keyframe_first_to_render");
 	int endFrame = params->Get<int>("keyframe_last_to_render");
 
-	int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
+	const int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
 
 	if (endFrame == 0) endFrame = keyframes->GetNumberOfFrames() * frames_per_keyframe;
 
@@ -701,7 +701,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				// recalculation of camera rotation and distance (just for display purposes)
 				const CVector3 camera = params->Get<CVector3>("camera");
 				const CVector3 target = params->Get<CVector3>("target");
-				CVector3 top = params->Get<CVector3>("camera_top");
+				const CVector3 top = params->Get<CVector3>("camera_top");
 				cCameraTarget cameraTarget(camera, target, top);
 				params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 				params->Set("camera_distance_to_target", cameraTarget.GetDistance());
@@ -711,7 +711,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 					// show distance in statistics table
-					double distance = mainInterface->GetDistanceForPoint(
+					const double distance = mainInterface->GetDistanceForPoint(
 						params->Get<CVector3>("camera"), params, fractalParams);
 					mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 				}
@@ -723,10 +723,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				params->Set("frame_no", frameIndex);
 				renderJob->UpdateParameters(params, fractalParams);
-				int result = renderJob->Execute();
+				const int result = renderJob->Execute();
 				if (!result) throw false;
-				QString filename = GetKeyframeFilename(index, subIndex);
-				ImageFileSave::enumImageFileType fileType =
+				const QString filename = GetKeyframeFilename(index, subIndex);
+				const ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 			}
@@ -768,7 +768,7 @@ void cKeyframeAnimation::RefreshTable()
 	PrepareTable();
 	gApplication->processEvents();
 
-	int noOfFrames = keyframes->GetNumberOfFrames();
+	const int noOfFrames = keyframes->GetNumberOfFrames();
 
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
@@ -779,7 +779,7 @@ void cKeyframeAnimation::RefreshTable()
 
 	for (int i = 0; i < noOfFrames; i++)
 	{
-		int newColumn = AddColumn(keyframes->GetFrame(i));
+		const int newColumn = AddColumn(keyframes->GetFrame(i));
 
 		if (ui->checkBox_show_keyframe_thumbnails->isChecked())
 		{
@@ -807,7 +807,7 @@ void cKeyframeAnimation::RefreshTable()
 
 QString cKeyframeAnimation::GetParameterName(int rowNumber)
 {
-	int parameterNumber = rowParameter[rowNumber];
+	const int parameterNumber = rowParameter[rowNumber];
 
 	QString fullParameterName;
 	QList<cAnimationFrames::sParameterDescription> list = keyframes->GetListOfUsedParameters();
@@ -829,9 +829,9 @@ void cKeyframeAnimation::RenderFrame(int index) const
 	keyframes->GetFrameAndConsolidate(index, params, fractalParams);
 
 	// recalculation of camera rotation and distance (just for display purposes)
-	CVector3 camera = params->Get<CVector3>("camera");
-	CVector3 target = params->Get<CVector3>("target");
-	CVector3 top = params->Get<CVector3>("camera_top");
+	const CVector3 camera = params->Get<CVector3>("camera");
+	const CVector3 target = params->Get<CVector3>("target");
+	const CVector3 top = params->Get<CVector3>("camera_top");
 	cCameraTarget cameraTarget(camera, target, top);
 	params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 	params->Set("camera_distance_to_target", cameraTarget.GetDistance());
@@ -870,12 +870,11 @@ void cKeyframeAnimation::slotSelectKeyframeAnimImageDir() const
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
-	QStringList fileNames;
 
 	if (dialog->exec())
 	{
-		fileNames = dialog->selectedFiles();
-		QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
+		QStringList fileNames = dialog->selectedFiles();
+		const QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
 		ui->text_anim_keyframe_dir->setText(filename);
 		params->Set("anim_keyframe_dir", filename);
 	}
@@ -889,15 +888,15 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		QTableWidgetItem *cell = table->item(row, column);
 		QString cellText = cell->text();
 
-		int index = column - reservedColumns;
+		const int index = column - reservedColumns;
 		cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
-		QString parameterName = GetParameterName(row);
-		int parameterFirstRow = parameterRows[rowParameter[row]];
-		int vectIndex = row - parameterFirstRow;
+		const QString parameterName = GetParameterName(row);
+		const int parameterFirstRow = parameterRows[rowParameter[row]];
+		const int vectIndex = row - parameterFirstRow;
 
 		using namespace parameterContainer;
-		enumVarType type = frame.parameters.GetVarType(parameterName);
+		const enumVarType type = frame.parameters.GetVarType(parameterName);
 
 		if (type == typeVector3)
 		{
@@ -961,11 +960,10 @@ void cKeyframeAnimation::slotDeleteAllImages() const
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-		QObject::tr("Truncate Image Folder"),
-		QObject::tr("This will delete all images in the image folder.\nProceed?"),
-		QMessageBox::Yes | QMessageBox::No);
+	const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+	                                                          QObject::tr("Truncate Image Folder"),
+	                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
+	                                                          QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -998,13 +996,13 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	QTableWidgetItem *cell = table->item(row, column);
 	QString cellText = cell->text();
 
-	QString parameterName = GetParameterName(row);
+	const QString parameterName = GetParameterName(row);
 
-	int index = column - reservedColumns;
+	const int index = column - reservedColumns;
 	cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
 
 	using namespace parameterContainer;
-	enumVarType type = frame.parameters.GetVarType(parameterName);
+	const enumVarType type = frame.parameters.GetVarType(parameterName);
 
 	bool valueIsInteger = false;
 	bool valueIsDouble = false;
@@ -1014,11 +1012,11 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 	QString valueText;
 
 	bool ok;
-	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+	const int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
 		"Enter last keyframe number", index, index + 1, keyframes->GetNumberOfFrames() - 1, 1, &ok);
 	if (!ok) return;
 
-	int numberOfFrames = (lastFrame - index);
+	const int numberOfFrames = (lastFrame - index);
 
 	switch (type)
 	{
@@ -1048,22 +1046,20 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		}
 	}
 
-	double finalDouble;
-	int finalInteger;
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
 	if (valueIsInteger)
 	{
-		finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
-			"Enter value for last keyframe", valueInteger, 0, 2147483647, 1, &ok);
+		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+		                                        "Enter value for last keyframe", valueInteger, 0, 2147483647, 1, &ok);
 		integerStep = double(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if (valueIsDouble)
 	{
-		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
-			"Parameter interpolation", "Enter value for last keyframe", QLineEdit::Normal,
-			QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
+		                                                                      "Parameter interpolation", "Enter value for last keyframe", QLineEdit::Normal,
+		                                                                      QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1074,12 +1070,12 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = int(integerStep * (i - index) + valueInteger);
+			const int newValue = int(integerStep * (i - index) + valueInteger);
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
 		{
-			double newValue = doubleStep * (i - index) + valueDouble;
+			const double newValue = doubleStep * (i - index) + valueDouble;
 			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
 		else if (valueIsText)
@@ -1099,7 +1095,7 @@ void cKeyframeAnimation::slotRefreshTable()
 
 QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 {
-	int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 										 + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
 	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
@@ -1109,16 +1105,15 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 
 parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row) const
 {
-	parameterContainer::enumMorphType morphType;
-	int parameterIndex = rowParameter.at(row);
-	morphType = keyframes->GetListOfParameters().at(parameterIndex).morphType;
+	const int parameterIndex = rowParameter.at(row);
+	const parameterContainer::enumMorphType morphType = keyframes->GetListOfParameters().at(parameterIndex).morphType;
 	return morphType;
 }
 
 void cKeyframeAnimation::ChangeMorphType(int row, parameterContainer::enumMorphType morphType)
 {
 	gUndo.Store(params, fractalParams, nullptr, keyframes);
-	int parameterIndex = rowParameter.at(row);
+	const int parameterIndex = rowParameter.at(row);
 	keyframes->ChangeMorphType(parameterIndex, morphType);
 	RefreshTable();
 }
@@ -1131,12 +1126,11 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 	if (gAnimFrames->GetFrames().size() > 0)
 	{
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
-			QObject::tr(
-				"There are already captured flight frames present.\nDiscard current flight frames ?"),
-			QMessageBox::Yes | QMessageBox::No);
+		const QMessageBox::StandardButton reply = QMessageBox::question(
+		                                                          mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
+		                                                          QObject::tr(
+		                                                                      "There are already captured flight frames present.\nDiscard current flight frames ?"),
+		                                                          QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}
@@ -1152,7 +1146,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	{
 		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
-			int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
+			const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 			gAnimFrames->AddFrame(keyframes->GetInterpolatedFrame(frameIndex, params, fractalParams));
 		}
 		if (index % 10 == 0)
@@ -1169,7 +1163,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 
 void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 {
-	int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
+	const int framesPerKey = ui->spinboxInt_frames_per_keyframe->value();
 
 	int noOfFrames = (keyframes->GetNumberOfFrames() - 1) * framesPerKey;
 	if (noOfFrames < 0) noOfFrames = 0;
@@ -1221,8 +1215,8 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
 			tempPar.Set("frame_no", frameIndex);
-			CVector3 point = tempPar.Get<CVector3>("camera");
-			double dist = mainInterface->GetDistanceForPoint(point, &tempPar, &tempFractPar);
+			const CVector3 point = tempPar.Get<CVector3>("camera");
+			const double dist = mainInterface->GetDistanceForPoint(point, &tempPar, &tempFractPar);
 			if (dist < minDist)
 			{
 				listOfCollisions.append(frameIndex);
@@ -1279,7 +1273,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 	gUndo.Store(params, fractalParams, nullptr, keyframes);
 
-	double constDist = params->Get<double>("keyframe_constant_target_distance");
+	const double constDist = params->Get<double>("keyframe_constant_target_distance");
 
 	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
@@ -1288,14 +1282,14 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 		if (keyframe.parameters.IfExists("main_camera") && keyframe.parameters.IfExists("main_target")
 				&& keyframe.parameters.IfExists("main_camera_top"))
 		{
-			CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
-			CVector3 target = keyframe.parameters.Get<CVector3>("main_target");
-			CVector3 top = keyframe.parameters.Get<CVector3>("main_camera_top");
+			const CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
+			const CVector3 target = keyframe.parameters.Get<CVector3>("main_target");
+			const CVector3 top = keyframe.parameters.Get<CVector3>("main_camera_top");
 
 			cCameraTarget cameraTarget(camera, target, top);
-			CVector3 forwardVector = cameraTarget.GetForwardVector();
+			const CVector3 forwardVector = cameraTarget.GetForwardVector();
 
-			CVector3 newTarget = camera + forwardVector * constDist;
+			const CVector3 newTarget = camera + forwardVector * constDist;
 
 			keyframe.parameters.Set("main_target", newTarget);
 			if (keyframe.parameters.IfExists("camera_distance_to_target"))
@@ -1318,7 +1312,7 @@ void cKeyframeAnimation::slotSetConstantTargetDistance()
 
 void cKeyframeAnimation::AddAnimSoundColumn() const
 {
-	int newColumn = table->columnCount();
+	const int newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
 }
