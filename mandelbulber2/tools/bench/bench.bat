@@ -38,11 +38,13 @@ set bulb=%OutDir%\mandelbulber2.exe
 REM # Clean IntDir #
 rd /s /q %IntDir%
 mkdir %IntDir%
+mkdir %IntDir%\ocl
 
 REM # Bench #
 cd %OutDir%
 %bulb% --nogui --version
-%bulb% --benchmark 1 -o %IntDir%
+%bulb% -O 'opencl_enabled=0' --benchmark 1 -o %IntDir%
+%bulb% -O 'opencl_enabled=1' --benchmark 1 -o %IntDir%\ocl
 
 REM --- exit ----
 cd %_SCRIPT_FOLDER%
