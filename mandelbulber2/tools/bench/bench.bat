@@ -43,8 +43,8 @@ mkdir %IntDir%\ocl
 REM # Bench #
 cd %OutDir%
 %bulb% --nogui --version
-%bulb% -O 'opencl_enabled=0' --benchmark 1 -o %IntDir%
-%bulb% -O 'opencl_enabled=1' --benchmark 1 -o %IntDir%\ocl
+%bulb% --benchmark 1 -o %IntDir%
+REM %bulb% -O 'opencl_enabled=1' --benchmark 1 -o %IntDir%\ocl
 
 REM --- exit ----
 cd %_SCRIPT_FOLDER%
