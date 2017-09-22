@@ -62,27 +62,27 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	parser.addHelpOption();
 	parser.addVersionOption();
 
-	QCommandLineOption noguiOption(QStringList({"n", "nogui"}),
+	const QCommandLineOption noguiOption(QStringList({"n", "nogui"}),
 		QCoreApplication::translate("main", "Starts the program without a GUI."));
 
-	QCommandLineOption keyframeOption(QStringList({"K", "keyframe"}),
+	const QCommandLineOption keyframeOption(QStringList({"K", "keyframe"}),
 		QCoreApplication::translate("main", "Renders keyframe animation."));
 
-	QCommandLineOption flightOption(
+	const QCommandLineOption flightOption(
 		QStringList({"F", "flight"}), QCoreApplication::translate("main", "Renders flight animation."));
 
-	QCommandLineOption silentOption(QStringList({"X", "never-delete"}),
+	const QCommandLineOption silentOption(QStringList({"X", "never-delete"}),
 		QCoreApplication::translate("main", "Never delete data, instead Exit CLI application."));
 
-	QCommandLineOption startOption(QStringList({"s", "start"}),
+	const QCommandLineOption startOption(QStringList({"s", "start"}),
 		QCoreApplication::translate("main", "Starts rendering from frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption endOption(QStringList({"e", "end"}),
+	const QCommandLineOption endOption(QStringList({"e", "end"}),
 		QCoreApplication::translate("main", "Stops rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption overrideOption(
+	const QCommandLineOption overrideOption(
 		QStringList({"O", "override"}),
 		QCoreApplication::translate("main",
 			"<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
@@ -92,12 +92,12 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"fractal"),
 		QCoreApplication::translate("main", "..."));
 
-	QCommandLineOption listOption(
+	const QCommandLineOption listOption(
 		QStringList({"L", "list"}),
 		QCoreApplication::translate(
 			"main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
-	QCommandLineOption formatOption(QStringList({"f", "format"}),
+	const QCommandLineOption formatOption(QStringList({"f", "format"}),
 		QCoreApplication::translate("main",
 																		"Image output format:\n"
 																		"  jpg - JPEG format (default)\n"
@@ -108,75 +108,75 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 																		"  tiff - TIFF format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
-	QCommandLineOption resOption(
+	const QCommandLineOption resOption(
 		QStringList({"r", "res"}),
 		QCoreApplication::translate(
 			"main", "Overrides image resolution. Specify as width and height separated by 'x'"),
 		QCoreApplication::translate("main", "WxH"));
 
-	QCommandLineOption fpkOption("fpk",
+	const QCommandLineOption fpkOption("fpk",
 		QCoreApplication::translate("main", "Overrides frames per key parameter."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption serverOption(QStringList({"S", "server"}),
+	const QCommandLineOption serverOption(QStringList({"S", "server"}),
 		QCoreApplication::translate("main", "Sets application as a server listening for clients."));
 
-	QCommandLineOption hostOption(
+	const QCommandLineOption hostOption(
 		QStringList({"H", "host"}),
 		QCoreApplication::translate("main",
 			"Sets application as a client connected to server of given host address"
 			" (Host can be of type IPv4, IPv6 and Domain name address)."),
 		QCoreApplication::translate("main", "N.N.N.N"));
 
-	QCommandLineOption portOption(QStringList({"p", "port"}),
+	const QCommandLineOption portOption(QStringList({"p", "port"}),
 		QCoreApplication::translate("main", "Sets network port number for netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption noColorOption(QStringList({"C", "no-cli-color"}),
+	const QCommandLineOption noColorOption(QStringList({"C", "no-cli-color"}),
 		QCoreApplication::translate("main",
 																		 "Starts program without ANSI colors, when execution on CLI."));
 
-	QCommandLineOption outputOption(QStringList({"o", "output"}),
+	const QCommandLineOption outputOption(QStringList({"o", "output"}),
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption logFilepathOption(QStringList({ "logfilepath" }),
+	const QCommandLineOption logFilepathOption(QStringList({ "logfilepath" }),
 		QCoreApplication::translate("main", "Specify the full path and filename of the System Log File."),
 		QCoreApplication::translate("main", "N"));
 
-	QCommandLineOption queueOption(QStringList({"q", "queue"}),
+	const QCommandLineOption queueOption(QStringList({"q", "queue"}),
 		QCoreApplication::translate("main", "Renders all images from common queue."));
 
-	QCommandLineOption testOption(QStringList({"t", "test"}),
+	const QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
-	QCommandLineOption benchmarkOption(
+	const QCommandLineOption benchmarkOption(
 		QStringList({"b", "benchmark"}),
 		QCoreApplication::translate("main",
 			"Runs benchmarks on the mandelbulber instance, specify optional"
 			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
 			" When [output] option is set to a folder, the example-test images will be stored there."));
 
-	QCommandLineOption touchOption(
+	const QCommandLineOption touchOption(
 		QStringList({"T", "touch"}),
 		QCoreApplication::translate(
 			"main", "Resaves a settings file (can be used to update a settings file)"));
 
-	QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
+	const QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
 		QCoreApplication::translate("main",
 																	 "Renders the voxel volume. Output formats are:\n"
 																	 "  slice - stack of PNG images into one folder (default)\n"
 																	 "  ply - Polygon File Format (single 3d file)\n"),
 		QCoreApplication::translate("main", "FORMAT"));
 
-	QCommandLineOption statsOption(QStringList({"stats"}),
+	const QCommandLineOption statsOption(QStringList({"stats"}),
 		QCoreApplication::translate("main", "Shows statistics while rendering in CLI mode."));
 
-	QCommandLineOption helpInputOption(
+	const QCommandLineOption helpInputOption(
 		QStringList({"help-input"}), QCoreApplication::translate("main", "Shows help about input."));
-	QCommandLineOption helpExamplesOption(
+	const QCommandLineOption helpExamplesOption(
 		QStringList({"help-examples"}), QCoreApplication::translate("main", "Shows example commands."));
-	QCommandLineOption helpOpenClOption(QStringList({"help-opencl"}),
+	const QCommandLineOption helpOpenClOption(QStringList({"help-opencl"}),
 		QCoreApplication::translate("main", "Shows commands regarding OpenCL."));
 
 	parser.addPositionalArgument(
@@ -538,7 +538,7 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 		gOpenCl->openClHardware->getPlatformsInformation();
 	for (int i = 0; i < platforms.size(); i++)
 	{
-		cOpenClHardware::sPlatformInformation platform = platforms[i];
+		const cOpenClHardware::sPlatformInformation platform = platforms[i];
 		out << (gOpenCl->openClHardware->getSelectedPlatformIndex() == i ? "> " : "  ");
 		out << "index: " << i << " | name: " << platform.name << "\n";
 	}
@@ -584,8 +584,8 @@ void cCommandLineInterface::printParametersAndExit()
 	out << "KEY=VALUE\n";
 	for (int i = 0; i < listOfParameters.size(); i++)
 	{
-		QString parameterName = listOfParameters.at(i);
-		QString defaultValue = gPar->GetDefault<QString>(parameterName);
+		const QString parameterName = listOfParameters.at(i);
+		const QString defaultValue = gPar->GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 
@@ -595,8 +595,8 @@ void cCommandLineInterface::printParametersAndExit()
 
 	for (int i = 0; i < listOfFractalParameters.size(); i++)
 	{
-		QString parameterName = listOfFractalParameters.at(i);
-		QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
+		const QString parameterName = listOfFractalParameters.at(i);
+		const QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 
@@ -631,7 +631,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		if (args[0] != "")
 		{
 			bool checkParse = false;
-			int difficultyTemp = args[0].toInt(&checkParse);
+			const int difficultyTemp = args[0].toInt(&checkParse);
 			if (checkParse && difficultyTemp > 0)
 			{
 				difficulty = difficultyTemp;
@@ -653,7 +653,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		QStringList outputStrings({"-o", "-output"});
 		for (int i = 0; i < outputStrings.size(); i++)
 		{
-			int index = arguments.indexOf(outputStrings[i]);
+			const int index = arguments.indexOf(outputStrings[i]);
 			if (index >= 0)
 			{
 				arguments.removeAt(index);
@@ -687,7 +687,7 @@ void cCommandLineInterface::handleServer()
 	bool checkParse = true;
 	if (cliData.portText != "")
 	{
-		int port = cliData.portText.toInt(&checkParse);
+		const int port = cliData.portText.toInt(&checkParse);
 		if (!checkParse || port <= 0)
 		{
 			cErrorMessage::showMessage(
@@ -720,7 +720,7 @@ void cCommandLineInterface::handleClient()
 	gPar->Set("netrender_client_remote_address", cliData.host);
 	if (cliData.portText != "")
 	{
-		int port = cliData.portText.toInt(&checkParse);
+		const int port = cliData.portText.toInt(&checkParse);
 		if (!checkParse || port <= 0)
 		{
 			cErrorMessage::showMessage(
@@ -817,7 +817,7 @@ void cCommandLineInterface::handleArgs()
 			}
 			for (int i = 0; i < args.size(); i++)
 			{
-				QString filename = args[i];
+				const QString filename = args[i];
 				if (QDir(args[i]).exists())
 				{
 					// specified input is a folder, load all fractal files contained in this folder
@@ -877,8 +877,8 @@ void cCommandLineInterface::handleResolution()
 	QStringList resolutionParameters = cliData.resolution.split(QRegExp("x"));
 	if (resolutionParameters.size() == 2)
 	{
-		int xRes = resolutionParameters[0].toInt(&checkParse);
-		int yRes = resolutionParameters[1].toInt(&checkParse);
+		const int xRes = resolutionParameters[0].toInt(&checkParse);
+		const int yRes = resolutionParameters[1].toInt(&checkParse);
 		if (!checkParse || xRes <= 0 || yRes <= 0)
 		{
 			cErrorMessage::showMessage(QObject::tr("Specified resolution not valid\n"
@@ -901,7 +901,7 @@ void cCommandLineInterface::handleResolution()
 void cCommandLineInterface::handleFpk()
 {
 	bool checkParse = true;
-	int fpk = cliData.fpkText.toInt(&checkParse);
+	const int fpk = cliData.fpkText.toInt(&checkParse);
 	if (!checkParse || fpk <= 0)
 	{
 		cErrorMessage::showMessage(QObject::tr("Specified frames per key not valid\n"
@@ -970,7 +970,7 @@ void cCommandLineInterface::handleKeyframe()
 void cCommandLineInterface::handleStartFrame()
 {
 	bool checkParse = true;
-	int startFrame = cliData.startFrameText.toInt(&checkParse);
+	const int startFrame = cliData.startFrameText.toInt(&checkParse);
 	if (cliOperationalMode == modeFlight)
 	{
 		if (startFrame <= gAnimFrames->GetNumberOfFrames())
@@ -1008,7 +1008,7 @@ void cCommandLineInterface::handleStartFrame()
 void cCommandLineInterface::handleEndFrame()
 {
 	bool checkParse = true;
-	int endFrame = cliData.endFrameText.toInt(&checkParse);
+	const int endFrame = cliData.endFrameText.toInt(&checkParse);
 	if (cliOperationalMode == modeFlight)
 	{
 		if (endFrame <= gAnimFrames->GetNumberOfFrames())
@@ -1078,7 +1078,7 @@ void cCommandLineInterface::handleVoxel()
 		parser.showHelp(cliErrorVoxelOutputFormatInvalid);
 	}
 
-	QString folderString = gPar->Get<QString>("voxel_image_path");
+	const QString folderString = gPar->Get<QString>("voxel_image_path");
 	QDir folder(folderString);
 	if (!folder.exists())
 	{
