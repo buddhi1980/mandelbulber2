@@ -145,6 +145,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	}
 
 	// sorting z-buffer
+	emit updateProgressAndStatus(
+		QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
+
 	cPostRenderingDOF::QuickSortZBuffer(tempSort, 1, numberOfPixels - 1);
 
 	for (int pass = 0; pass < numberOfPasses; pass++)
@@ -158,9 +161,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
 		// Randomize Z-buffer
+#pragma omp parallel for schedule(dynamic, 1)
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{
-			if (*stopRequest) break;
 			cPostRenderingDOF::sSortZ<float> temp;
 			temp = tempSort[i];
 			float z1 = temp.z;
