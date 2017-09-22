@@ -54,6 +54,8 @@ cParameterContainer::~cParameterContainer()
 
 cParameterContainer &cParameterContainer::operator=(const cParameterContainer &par)
 {
+	QMutexLocker lock(&m_lock);
+
 	myMap = par.myMap;
 	containerName = par.containerName;
 	return *this;

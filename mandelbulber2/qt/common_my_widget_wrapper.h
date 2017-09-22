@@ -65,7 +65,12 @@ public:
 		widget = referenceWidget;
 	};
 
-	void AssignParameterContainer(cParameterContainer *container) { parameterContainer = container; }
+	void AssignParameterContainer(cParameterContainer *container) {
+		if(!parameterContainer)
+		{
+			parameterContainer = container;
+		}
+	}
 	void AssignParameterName(QString name) { parameterName = name; }
 
 private:
