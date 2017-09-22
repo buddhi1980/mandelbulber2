@@ -220,7 +220,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	if (!continueRecording)
 	{
-		QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+		const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
 		                                                          QObject::tr("Are you sure to start recording of new animation?"),
 		                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
 		                                                          QMessageBox::Yes | QMessageBox::No);
@@ -272,7 +272,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	{
 		frames->Clear();
 
-		bool addSpeeds = params->Get<bool>("flight_add_speeds");
+		const bool addSpeeds = params->Get<bool>("flight_add_speeds");
 
 		// add default parameters for animation
 		if (frames->GetListOfUsedParameters().size() == 0)
@@ -337,7 +337,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	cCameraTarget cameraTarget(cameraPosition, target, top);
 
 	linearSpeedSp = params->Get<double>("flight_speed");
-	enumSpeedMode speedMode = enumSpeedMode(params->Get<int>("flight_speed_control"));
+	const enumSpeedMode speedMode = enumSpeedMode(params->Get<int>("flight_speed_control"));
 	double rotationSpeedSp = params->Get<double>("flight_rotation_speed") / 100.0;
 	double rollSpeedSp = params->Get<double>("flight_roll_speed") / 100.0;
 	double inertia = params->Get<double>("flight_inertia");
@@ -379,7 +379,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			if (mainInterface->stopRequest) break;
 		}
 
-		double distanceToSurface =
+		const double distanceToSurface =
 			gMainInterface->GetDistanceForPoint(cameraPosition, params, fractalParams);
 
 		// speed
@@ -456,7 +456,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		frames->AddFrame(*params, *fractalParams);
 
 		// add column to table
-		int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
+		const int newColumn = AddColumn(frames->GetFrame(frames->GetNumberOfFrames() - 1));
 
 		// update HUD
 		RenderedImage::sFlightData flightData;
@@ -473,7 +473,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		mainInterface->renderedImage->SetFlightData(flightData);
 
 		// render frame
-		bool result = renderJob->Execute();
+		const bool result = renderJob->Execute();
 		if (!result) break;
 
 		// create thumbnail
@@ -482,8 +482,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			UpdateThumbnailFromImage(newColumn);
 		}
 
-		QString filename = GetFlightFilename(index);
-		ImageFileSave::enumImageFileType fileType =
+		const QString filename = GetFlightFilename(index);
+		const ImageFileSave::enumImageFileType fileType =
 			ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 
@@ -496,7 +496,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 
 	// retrieve original click mode
-	QList<QVariant> item =
+	const QList<QVariant> item =
 		mainInterface->mainWindow->GetComboBoxMouseClickFunction()
 			->itemData(mainInterface->mainWindow->GetComboBoxMouseClickFunction()->currentIndex())
 			.toList();
@@ -511,11 +511,11 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
-	QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
+	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
 		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
-	QIcon icon(pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+	const QIcon icon(pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 	table->blockSignals(false);
 }
@@ -555,12 +555,11 @@ int cFlightAnimation::AddVariableToTable(
 	const cAnimationFrames::sParameterDescription &parameterDescription, int index)
 {
 	using namespace parameterContainer;
-	enumVarType type = parameterDescription.varType;
-	int row = table->rowCount();
+	const enumVarType type = parameterDescription.varType;
+	const int row = table->rowCount();
 	if (type == typeVector3)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -580,8 +579,7 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else if (type == typeVector4)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -607,8 +605,7 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else if (type == typeRgb)
 	{
-		QString varName;
-		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
+		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -628,7 +625,7 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
+		const QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
 		tableRowNames.append(varName);
 		table->insertRow(table->rowCount());
 		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
@@ -660,13 +657,13 @@ int cFlightAnimation::AddColumn(
 	using namespace parameterContainer;
 	for (int i = 0; i < parList.size(); ++i)
 	{
-		QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
-		enumVarType type = parList[i].varType;
-		int row = parameterRows[i];
+		const QString parameterName = parList[i].containerName + "_" + parList[i].parameterName;
+		const enumVarType type = parList[i].varType;
+		const int row = parameterRows[i];
 
 		if (type == typeVector3)
 		{
-			CVector3 val = frame.parameters.Get<CVector3>(parameterName);
+			const CVector3 val = frame.parameters.Get<CVector3>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
 			table->setItem(
 				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
@@ -675,7 +672,7 @@ int cFlightAnimation::AddColumn(
 		}
 		else if (type == typeVector4)
 		{
-			CVector4 val = frame.parameters.Get<CVector4>(parameterName);
+			const CVector4 val = frame.parameters.Get<CVector4>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString("%L1").arg(val.x, 0, 'g', 16)));
 			table->setItem(
 				row + 1, newColumn, new QTableWidgetItem(QString("%L1").arg(val.y, 0, 'g', 16)));
@@ -686,14 +683,14 @@ int cFlightAnimation::AddColumn(
 		}
 		else if (type == typeRgb)
 		{
-			sRGB val = frame.parameters.Get<sRGB>(parameterName);
+			const sRGB val = frame.parameters.Get<sRGB>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(QString::number(val.R)));
 			table->setItem(row + 1, newColumn, new QTableWidgetItem(QString::number(val.G)));
 			table->setItem(row + 2, newColumn, new QTableWidgetItem(QString::number(val.B)));
 		}
 		else
 		{
-			QString val = frame.parameters.Get<QString>(parameterName);
+			const QString val = frame.parameters.Get<QString>(parameterName);
 			table->setItem(row, newColumn, new QTableWidgetItem(val));
 		}
 	}
@@ -747,27 +744,26 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 	try
 	{
-
-		int startFrame = params->Get<int>("flight_first_to_render");
+		const int startFrame = params->Get<int>("flight_first_to_render");
 		int endFrame = params->Get<int>("flight_last_to_render");
 		if (endFrame == 0) endFrame = frames->GetNumberOfFrames();
 
 		// Check if frames have already been rendered
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
-			QString filename = GetFlightFilename(index);
+			const QString filename = GetFlightFilename(index);
 			cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
 			frame.alreadyRendered = QFile(filename).exists() || index < startFrame || index >= endFrame;
 			frames->ModifyFrame(index, frame);
 		}
 
-		int unrenderedTotal = frames->GetUnrenderedTotal();
+		const int unrenderedTotal = frames->GetUnrenderedTotal();
 
 		if (frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0)
 		{
 			bool deletePreviousRender;
-			QString questionTitle = QObject::tr("Truncate Image Folder");
-			QString questionText =
+			const QString questionTitle = QObject::tr("Truncate Image Folder");
+			const QString questionText =
 				QObject::tr(
 					"The animation has already been rendered completely.\n Do you want to purge "
 					"the output "
@@ -820,7 +816,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			else
 				percentDoneFrame = 1.0;
 
-			QString progressTxt = progressText.getText(percentDoneFrame);
+			const QString progressTxt = progressText.getText(percentDoneFrame);
 
 			// Skip already rendered frames
 			if (frames->GetFrame(index).alreadyRendered)
@@ -850,7 +846,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 				mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 				// show distance in statistics table
-				double distance = mainInterface->GetDistanceForPoint(
+				const double distance = mainInterface->GetDistanceForPoint(
 					params->Get<CVector3>("camera"), params, fractalParams);
 				mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 			}
@@ -863,11 +859,11 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			params->Set("frame_no", index);
 
 			renderJob->UpdateParameters(params, fractalParams);
-			int result = renderJob->Execute();
+			const int result = renderJob->Execute();
 			if (!result) throw false;
 
-			QString filename = GetFlightFilename(index);
-			ImageFileSave::enumImageFileType fileType =
+			const QString filename = GetFlightFilename(index);
+			const ImageFileSave::enumImageFileType fileType =
 				ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 			SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 		}
@@ -905,7 +901,7 @@ void cFlightAnimation::RefreshTable()
 	PrepareTable();
 	gApplication->processEvents();
 
-	int noOfFrames = frames->GetNumberOfFrames();
+	const int noOfFrames = frames->GetNumberOfFrames();
 
 	// it is needed to do it also here, because limits must be set just after loading of settings
 	UpdateLimitsForFrameRange();
@@ -918,7 +914,7 @@ void cFlightAnimation::RefreshTable()
 
 	for (int i = 0; i < noOfFrames; i++)
 	{
-		int newColumn = AddColumn(frames->GetFrame(i), i);
+		const int newColumn = AddColumn(frames->GetFrame(i), i);
 
 		if (ui->checkBox_flight_show_thumbnails->isChecked())
 		{
@@ -943,7 +939,7 @@ void cFlightAnimation::RefreshTable()
 
 QString cFlightAnimation::GetParameterName(int rowNumber)
 {
-	int parameterNumber = rowParameter[rowNumber];
+	const int parameterNumber = rowParameter[rowNumber];
 
 	QString fullParameterName;
 	QList<cAnimationFrames::sParameterDescription> list = frames->GetListOfUsedParameters();
@@ -1036,12 +1032,11 @@ void cFlightAnimation::slotSelectAnimFlightImageDir() const
 	dialog->setAcceptMode(QFileDialog::AcceptOpen);
 	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
 	dialog->setOption(QFileDialog::ShowDirsOnly);
-	QStringList fileNames;
 
 	if (dialog->exec())
 	{
-		fileNames = dialog->selectedFiles();
-		QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
+		QStringList fileNames = dialog->selectedFiles();
+		const QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
 		ui->text_anim_flight_dir->setText(filename);
 		params->Set("anim_flight_dir", filename);
 	}
@@ -1057,12 +1052,12 @@ void cFlightAnimation::slotTableCellChanged(int row, int column)
 
 		cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
-		QString parameterName = GetParameterName(row);
-		int parameterFirstRow = parameterRows[rowParameter[row]];
-		int vectIndex = row - parameterFirstRow;
+		const QString parameterName = GetParameterName(row);
+		const int parameterFirstRow = parameterRows[rowParameter[row]];
+		const int vectIndex = row - parameterFirstRow;
 
 		using namespace parameterContainer;
-		enumVarType type = frame.parameters.GetVarType(parameterName);
+		const enumVarType type = frame.parameters.GetVarType(parameterName);
 
 		if (type == typeVector3)
 		{
@@ -1126,11 +1121,10 @@ void cFlightAnimation::slotDeleteAllImages() const
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-		QObject::tr("Truncate Image Folder"),
-		QObject::tr("This will delete all images in the image folder.\nProceed?"),
-		QMessageBox::Yes | QMessageBox::No);
+	const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+	                                                          QObject::tr("Truncate Image Folder"),
+	                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
+	                                                          QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -1169,12 +1163,12 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	QTableWidgetItem *cell = ui->tableWidget_flightAnimation->item(row, column);
 	QString cellText = cell->text();
 
-	QString parameterName = GetParameterName(row);
+	const QString parameterName = GetParameterName(row);
 
 	cAnimationFrames::sAnimationFrame frame = frames->GetFrame(column);
 
 	using namespace parameterContainer;
-	enumVarType type = frame.parameters.GetVarType(parameterName);
+	const enumVarType type = frame.parameters.GetVarType(parameterName);
 
 	bool valueIsInteger = false;
 	bool valueIsDouble = false;
@@ -1184,11 +1178,11 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 	QString valueText;
 
 	bool ok;
-	int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+	const int lastFrame = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
 		"Enter last frame number", column + 1, column + 2, frames->GetNumberOfFrames(), 1, &ok);
 	if (!ok) return;
 
-	int numberOfFrames = (lastFrame - column - 1);
+	const int numberOfFrames = (lastFrame - column - 1);
 
 	switch (type)
 	{
@@ -1218,23 +1212,20 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		}
 	}
 
-	int finalInteger;
-	double finalDouble;
-
 	double integerStep = 0.0;
 	double doubleStep = 0.0;
 
 	if (valueIsInteger)
 	{
-		finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
-			"Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
+		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+		                                        "Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
 		integerStep = double(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if (valueIsDouble)
 	{
-		finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
-			"Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
-			QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
+		                                                                      "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
+		                                                                      QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1245,12 +1236,12 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 		QString newCellText;
 		if (valueIsInteger)
 		{
-			int newValue = int(integerStep * (i - column) + valueInteger);
+			const int newValue = int(integerStep * (i - column) + valueInteger);
 			newCellText = QString::number(newValue);
 		}
 		else if (valueIsDouble)
 		{
-			double newValue = doubleStep * (i - column) + valueDouble;
+			const double newValue = doubleStep * (i - column) + valueDouble;
 			newCellText = QString("%L1").arg(newValue, 0, 'g', 16);
 		}
 		else if (valueIsText)
@@ -1283,11 +1274,10 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 
 	if (gKeyframes->GetFrames().size() > 0)
 	{
-		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-			QObject::tr("Export flight to keyframes"),
-			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
-			QMessageBox::Yes | QMessageBox::No);
+		const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+		                                                          QObject::tr("Export flight to keyframes"),
+		                                                          QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
+		                                                          QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}
@@ -1296,7 +1286,7 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 	gKeyframes->ClearMorphCache();
 	gKeyframes->SetListOfParametersAndClear(gAnimFrames->GetListOfParameters(), params);
 
-	int step = params->Get<int>("frames_per_keyframe");
+	const int step = params->Get<int>("frames_per_keyframe");
 
 	for (int i = 0; i < frames->GetNumberOfFrames(); i += step)
 	{
@@ -1309,7 +1299,7 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 
 void cFlightAnimation::UpdateLimitsForFrameRange() const
 {
-	int noOfFrames = frames->GetNumberOfFrames();
+	const int noOfFrames = frames->GetNumberOfFrames();
 
 	ui->spinboxInt_flight_first_to_render->setMaximum(noOfFrames);
 	ui->sliderInt_flight_first_to_render->setMaximum(noOfFrames);
