@@ -20,17 +20,6 @@ set _SCRIPT_DRIVE=%~d0
 set _SCRIPT_FOLDER=%~dp0
 set timestamp=%yy%%mm%%dd%%hh%%min%%ss%_%dow%
 set SRC=%_SCRIPT_FOLDER%\..\..\..\
-
-REM # eval relative path #
-@echo off
-set REL_PATH=%SRC%
-set ABS_PATH=
-pushd %REL_PATH%
-set ABS_PATH=%CD%
-popd
-set SRC=%ABS_PATH%
-@echo on
-
 set OutDir=%SRC%\build-win\Release\x64
 set IntDir=%SRC%\build-win\Bench\%timestamp%
 set bulb=%OutDir%\mandelbulber2.exe
@@ -41,6 +30,7 @@ mkdir %IntDir%
 mkdir %IntDir%\ocl
 
 REM # Bench #
+%_SCRIPT_DRIVE%
 cd %OutDir%
 %bulb% --nogui --version
 %bulb% --benchmark 1 -o %IntDir%
