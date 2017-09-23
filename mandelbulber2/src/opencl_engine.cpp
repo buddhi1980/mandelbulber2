@@ -331,16 +331,15 @@ void cOpenClEngine::UpdateOptimalJobEnd()
 
 void cOpenClEngine::Lock()
 {
-	lock.lock();
 	locked = true;
+	lock.lock();
 }
 
 void cOpenClEngine::Unlock()
 {
-	if (locked)
-	{
-		lock.unlock();
-	}
+
+	lock.unlock();
+
 	locked = false;
 }
 
