@@ -46,7 +46,7 @@ REM # Bench #
 %_SCRIPT_DRIVE%
 cd %OutDir%
 %bulb% --nogui --version
-%bulb% --benchmark 1 -o %IntDir%
+%bulb% --benchmark 1 -o %IntDir% --logfilepath %IntDir%\bulb_bench.txt
 REM %bulb% -O 'opencl_enabled=1' --benchmark 1 -o %IntDir%\ocl
 
 REM --- exit ----
