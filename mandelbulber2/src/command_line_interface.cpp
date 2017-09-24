@@ -98,14 +98,13 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
 	const QCommandLineOption formatOption(QStringList({"f", "format"}),
-		QCoreApplication::translate("main",
-																		"Image output format:\n"
-																		"  jpg - JPEG format (default)\n"
-																		"  png - PNG format\n"
-																		"  png16 - 16-bit PNG format\n"
-																		"  png16alpha - 16-bit PNG with alpha channel format\n"
-																		"  exr - EXR format\n"
-																		"  tiff - TIFF format"),
+		QCoreApplication::translate("main", "Image output format:\n"
+																				"  jpg - JPEG format (default)\n"
+																				"  png - PNG format\n"
+																				"  png16 - 16-bit PNG format\n"
+																				"  png16alpha - 16-bit PNG with alpha channel format\n"
+																				"  exr - EXR format\n"
+																				"  tiff - TIFF format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption resOption(
@@ -132,16 +131,18 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Sets network port number for netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 
-	const QCommandLineOption noColorOption(QStringList({"C", "no-cli-color"}),
-		QCoreApplication::translate("main",
-																		 "Starts program without ANSI colors, when execution on CLI."));
+	const QCommandLineOption noColorOption(
+		QStringList({"C", "no-cli-color"}),
+		QCoreApplication::translate(
+			"main", "Starts program without ANSI colors, when execution on CLI."));
 
 	const QCommandLineOption outputOption(QStringList({"o", "output"}),
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
-	const QCommandLineOption logFilepathOption(QStringList({ "logfilepath" }),
-		QCoreApplication::translate("main", "Specify the full path and filename of the System Log File."),
+	const QCommandLineOption logFilepathOption(
+		QStringList({"logfilepath"}), QCoreApplication::translate("main",
+																		"Specify the full path and filename of the System Log File."),
 		QCoreApplication::translate("main", "N"));
 
 	const QCommandLineOption queueOption(QStringList({"q", "queue"}),
@@ -163,10 +164,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"main", "Resaves a settings file (can be used to update a settings file)"));
 
 	const QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
-		QCoreApplication::translate("main",
-																	 "Renders the voxel volume. Output formats are:\n"
-																	 "  slice - stack of PNG images into one folder (default)\n"
-																	 "  ply - Polygon File Format (single 3d file)\n"),
+		QCoreApplication::translate("main", "Renders the voxel volume. Output formats are:\n"
+																				"  slice - stack of PNG images into one folder (default)\n"
+																				"  ply - Polygon File Format (single 3d file)\n"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption statsOption(QStringList({"stats"}),
@@ -281,6 +281,12 @@ void cCommandLineInterface::ReadCLI()
 	// list parameters only
 	if (cliData.listParameters) printParametersAndExit();
 
+	// log filepath if it is specified
+	if (cliData.logFilepathText != "")
+	{
+		systemData.SetLogfileName(cliData.logFilepathText);
+	}
+
 	// run test cases
 	if (cliData.test) runTestCasesAndExit();
 	// run benchmarks
@@ -354,8 +360,8 @@ void cCommandLineInterface::ReadCLI()
 		parser.showHelp(cliErrorSettingsFileNotSpecified);
 	}
 
-	if (cliData.nogui && cliOperationalMode != modeKeyframe && cliOperationalMode != modeFlight && cliOperationalMode != modeQueue
-			&& cliOperationalMode != modeVoxel)
+	if (cliData.nogui && cliOperationalMode != modeKeyframe && cliOperationalMode != modeFlight
+			&& cliOperationalMode != modeQueue && cliOperationalMode != modeVoxel)
 	{
 		// creating output filename if it's not specified
 		if (cliData.outputText == "")
@@ -611,6 +617,17 @@ void cCommandLineInterface::runTestCasesAndExit() const
 	arguments.removeOne(QString("--test"));
 	arguments.removeOne(QString("-t"));
 
+	QStringList outputStrings({"-o", "--output", "--logfilepath"});
+	for (int i = 0; i < outputStrings.size(); i++)
+	{
+		const int index = arguments.indexOf(outputStrings[i]);
+		if (index >= 0)
+		{
+			arguments.removeAt(index);
+			arguments.removeAt(index);
+		}
+	}
+
 	int status = 0;
 	Test test(Test::simpleTestMode);
 	status |= QTest::qExec(&test, arguments);
@@ -649,24 +666,17 @@ void cCommandLineInterface::runBenchmarksAndExit()
 				QObject::tr("Example output path does not exist\n"), cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorBenchmarkOutputFolderInvalid);
 		}
-
-		QStringList outputStrings({"-o", "-output"});
-		for (int i = 0; i < outputStrings.size(); i++)
-		{
-			const int index = arguments.indexOf(outputStrings[i]);
-			if (index >= 0)
-			{
-				arguments.removeAt(index);
-				arguments.removeAt(index);
-			}
-		}
 	}
 
-	//TODO: fix this
-	// log filepath if it is specified
-	if (cliData.logFilepathText != "")
+	QStringList outputStrings({"-o", "--output", "--logfilepath"});
+	for (int i = 0; i < outputStrings.size(); i++)
 	{
-		systemData.SetLogfileName(cliData.logFilepathText);
+		const int index = arguments.indexOf(outputStrings[i]);
+		if (index >= 0)
+		{
+			arguments.removeAt(index);
+			arguments.removeAt(index);
+		}
 	}
 
 	int status = 0;
