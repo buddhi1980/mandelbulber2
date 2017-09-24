@@ -32,7 +32,7 @@
  * DOF effect function optimized for opencl
  */
 
-#define MAX_DOF_BLUR_SIZE 500.0f
+#define MAX_DOF_BLUR_SIZE 250.0f
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void DOFPhase1(
