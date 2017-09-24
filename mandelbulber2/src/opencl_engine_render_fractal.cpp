@@ -127,11 +127,34 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		QString openclPath = systemData.sharedDir + "opencl" + QDir::separator();
 		QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
+		QStringList clHeaderFiles;
+		clHeaderFiles.append("defines_cl.h");
+		clHeaderFiles.append("opencl_typedefs.h");
+		clHeaderFiles.append("opencl_algebra.h");
+		clHeaderFiles.append("common_params_cl.hpp");
+		clHeaderFiles.append("image_adjustments_cl.h");
+		clHeaderFiles.append("fractal_cl.h");
+		clHeaderFiles.append("fractparams_cl.hpp");
+		clHeaderFiles.append("fractal_sequence_cl.h");
+		clHeaderFiles.append("material_cl.h");
+		clHeaderFiles.append("input_data_structures.h");
+
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
 
 		if (params->Get<bool>("opencl_precision"))
 			programEngine.append("#define DOUBLE_PRECISION " + QString::number(1) + "\n");
+
+#ifdef _WIN32
+		QString openclPathSlash = openclPath.replace("/", "\\"); // replace single slash with backslash
+#else
+		QString openclPathSlash = openclPath;
+#endif
+
+		for (int i = 0; i < clHeaderFiles.size(); i++)
+		{
+			programEngine.append("#include \"" + openclPathSlash + clHeaderFiles.at(i) + "\"\n");
+		}
 
 		// fractal formulas - only actually used
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
