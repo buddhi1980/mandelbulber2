@@ -1422,7 +1422,7 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
@@ -1533,7 +1533,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 
 	if (fractal->transformCommon.juliaMode)
 	{
