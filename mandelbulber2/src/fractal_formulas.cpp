@@ -8709,14 +8709,14 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 
 		z *= temp;
-		aux.DE = aux.DE * fabs(temp) + 1.0;
+        aux.DE = aux.DE * fabs(temp) + 1.0;
 		aux.r_dz *= fabs(temp);
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
+        aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + 1.0);
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
 
@@ -8727,7 +8727,7 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 			aux.actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux.actualScaleA;
-		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
+        aux.DE = aux.DE * fabs(aux.actualScaleA + 1.0);
 		aux.r_dz *= fabs(aux.actualScaleA);
     }
 }
@@ -9197,23 +9197,29 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	}
 	z -= fractal->mandelbox.offset;
 
-	// post scale
-	if (aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-	{
-		double useScale = aux.actualScaleA + fractal->transformCommon.scaleA1;
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-		aux.r_dz *= fabs(useScale);
-		// update actualScale for next iteration
 
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux.actualScaleA = -vary;
-		else
-			aux.actualScaleA = aux.actualScaleA - vary;
-	}
+    double useScale = fractal->transformCommon.scaleA1;
+    if (fractal->transformCommon.functionEnabledXFalse
+            && aux.i >= fractal->transformCommon.startIterationsA
+            && aux.i < fractal->transformCommon.stopIterationsA)
+    {
+        useScale += aux.actualScaleA;
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
+
+        // update actualScale for next iteration
+        double vary = fractal->transformCommon.scaleVary0
+                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+        if (fractal->transformCommon.functionEnabledMFalse)
+            aux.actualScaleA = -vary;
+        else
+            aux.actualScaleA = aux.actualScaleA - vary;
+    }
+    else
+    {
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
+    }
 }
 
 /**
