@@ -2867,12 +2867,12 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
-	double useScale = aux.actualScaleA + fractal->mandelbox.scale;
+
 
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
-
+        double useScale = aux.actualScaleA + fractal->mandelbox.scale;
 		z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + 1.0;
 		// update actualScale for next iteration
@@ -2886,7 +2886,8 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	}
 	else
 	{
-		z *= useScale;
+        double useScale = aux.actualScaleA + fractal->mandelbox.scale;
+        z *= useScale;
 		aux.DE = aux.DE * fabs(useScale) + 1.0;
 	}
 
@@ -8724,7 +8725,7 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
 
-	else
+    else
 	{
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
@@ -8733,7 +8734,7 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		z *= aux.actualScaleA;
 		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
 		aux.r_dz *= fabs(aux.actualScaleA);
-	}
+    }
 }
 
 /**

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fold_box_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>918</width>
-    <height>2709</height>
+    <height>2918</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1187,7 +1187,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="8">
+     <item row="2" column="0" colspan="9">
       <layout class="QGridLayout" name="gridLayout_31">
        <property name="spacing">
         <number>2</number>
@@ -1371,7 +1371,7 @@
        </item>
       </layout>
      </item>
-     <item row="1" column="2">
+     <item row="1" column="3">
       <spacer name="horizontalSpacer_6">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1384,7 +1384,7 @@
        </property>
       </spacer>
      </item>
-     <item row="1" column="4">
+     <item row="1" column="5">
       <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1403,14 +1403,14 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
+     <item row="1" column="4">
       <widget class="QLabel" name="label_69">
        <property name="text">
         <string>Start scale vary iter. count =</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="6">
+     <item row="1" column="7">
       <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -1423,19 +1423,32 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="5">
+     <item row="1" column="6">
       <widget class="QLabel" name="label_57">
        <property name="text">
         <string>Stop scale vary at iter. count =</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="1" column="2">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
        <property name="text">
         <string>mode 1</string>
        </property>
       </widget>
+     </item>
+     <item row="1" column="1">
+      <spacer name="horizontalSpacer_8">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>2</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
