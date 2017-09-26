@@ -990,7 +990,8 @@ void cInterface::RefreshPostEffects()
 			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 			dof.Render(screenRegion,
 				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetHeight()) / 2000.0,
-				params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, &stopRequest);
+				params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius,
+				&stopRequest);
 		}
 
 		if (gPar->Get<bool>("hdr_blur_enabled"))

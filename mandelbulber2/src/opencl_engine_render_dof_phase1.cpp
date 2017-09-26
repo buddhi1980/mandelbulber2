@@ -49,6 +49,7 @@ cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_har
 	paramsDOF.width = 0;
 	paramsDOF.height = 0;
 	paramsDOF.radius = 0.0;
+	paramsDOF.maxRadius = 0.0;
 	numberOfPixels = 0;
 	inCLZBuffer = nullptr;
 	inZBuffer = nullptr;
@@ -111,6 +112,7 @@ void cOpenClEngineRenderDOFPhase1::SetParameters(const sParamRender *paramRender
 	paramsDOF.deep =
 		paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
 	paramsDOF.neutral = paramRender->DOFFocus;
+	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
 	numberOfPixels = paramsDOF.width * paramsDOF.height;
 }

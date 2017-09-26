@@ -289,6 +289,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
 	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
+	par->addParam("DOF_max_radius", 250.0, 2.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("DOF_HDR", false, morphLinear, paramStandard);
 	par->addParam("DOF_number_of_passes", 1, 1, 10, morphLinear, paramStandard);
 	par->addParam("DOF_blur_opacity", 4.0, 0.01, 10.0, morphLinear, paramStandard);
@@ -412,9 +413,12 @@ void InitParams(cParameterContainer *par)
 	par->addParam("camera_movement_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);
 	par->addParam("camera_straight_rotation", 0, morphNone, paramApp);
-	par->addParam("camera_absolute_distance_mode", 0, morphNone, paramApp, QStringList({"relative", "absolute"}));
-	par->addParam("camera_movement_mode", 0, morphNone, paramApp, QStringList({"fixed_distance", "move_camera", "move_target"}));
-	par->addParam("camera_rotation_mode", 0, morphNone, paramApp, QStringList({"rotate_camera", "rotate_around_target"}));
+	par->addParam(
+		"camera_absolute_distance_mode", 0, morphNone, paramApp, QStringList({"relative", "absolute"}));
+	par->addParam("camera_movement_mode", 0, morphNone, paramApp,
+		QStringList({"fixed_distance", "move_camera", "move_target"}));
+	par->addParam("camera_rotation_mode", 0, morphNone, paramApp,
+		QStringList({"rotate_camera", "rotate_around_target"}));
 	par->addParam("mouse_click_function", 1, morphNone, paramNoSave);
 	par->addParam("show_cursor", true, morphNone, paramApp);
 

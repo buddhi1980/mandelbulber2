@@ -32,8 +32,6 @@
  * DOF effect function optimized for opencl
  */
 
-#define MAX_DOF_BLUR_SIZE 250.0f
-
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void DOFPhase1(
 	__global float *zBuffer, __global float4 *inImage, __global float4 *out, sParamsDOF params)
@@ -50,7 +48,7 @@ kernel void DOFPhase1(
 	float z = zBuffer[inBuffIndex];
 	float blur1 = (z - params.neutral) / z * params.deep;
 	float blur = fabs(blur1);
-	if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
+	if (blur > params.maxRadius) blur = params.maxRadius;
 	int size = (int)blur;
 	int xStart = max(scr.x - size, 0);
 	int xStop = min(scr.x + size, params.width - 1);

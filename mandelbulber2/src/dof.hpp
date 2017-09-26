@@ -52,7 +52,7 @@ public:
 	cPostRenderingDOF(cImage *_image);
 
 	void Render(cRegion<int> screenRegion, float deep, float neutral, int numberOfPasses,
-		float blurOpacity, bool *stopRequest);
+		float blurOpacity, float maxRadius, bool *stopRequest);
 	template <class T>
 	static void QuickSortZBuffer(sSortZ<T> *buffer, quint64 l, quint64 p);
 

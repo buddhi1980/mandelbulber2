@@ -114,6 +114,7 @@ void cOpenClEngineRenderDOFPhase2::SetParameters(const sParamRender *paramRender
 		paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
 	paramsDOF.neutral = paramRender->DOFFocus;
 	paramsDOF.blurOpacity = paramRender->DOFBlurOpacity;
+	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
 	numberOfPixels = paramsDOF.width * paramsDOF.height;
 }

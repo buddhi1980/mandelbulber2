@@ -114,7 +114,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		dof.Render(renderData->screenRegion,
 			paramRender->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 			paramRender->DOFFocus, paramRender->DOFNumberOfPasses, paramRender->DOFBlurOpacity,
-			renderData->stopRequest);
+			paramRender->DOFMaxRadius, renderData->stopRequest);
 
 		// refresh image at end
 		WriteLog("image->CompileImage()", 2);
@@ -145,8 +145,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	}
 
 	// sorting z-buffer
-	emit updateProgressAndStatus(
-		QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
+	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
 	cPostRenderingDOF::QuickSortZBuffer(tempSort, 1, numberOfPixels - 1);
 
@@ -160,7 +159,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
 
-		// Randomize Z-buffer
+// Randomize Z-buffer
 #pragma omp parallel for schedule(dynamic, 1)
 		for (qint64 i = numberOfPixels - 1; i >= 0; i--)
 		{

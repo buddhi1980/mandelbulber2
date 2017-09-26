@@ -43,14 +43,12 @@
 using std::max;
 using std::min;
 
-#define MAX_DOF_BLUR_SIZE 500.0f
-
 cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
 {
 }
 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
-	int numberOfPasses, float blurOpacity, bool *stopRequest)
+	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest)
 {
 	int imageWidth = image->GetWidth();
 	int imageHeight = image->GetHeight();
@@ -107,7 +105,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 				float z = image->GetPixelZBuffer(x, y);
 				float blur1 = (z - neutral) / z * deep;
 				float blur = fabs(blur1);
-				if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
+				if (blur > maxRadius) blur = maxRadius;
 				int size = int(blur);
 				int xStart = max(x - size, 0);
 				int xStop = min(x + size, screenRegion.x2 - 1);
@@ -291,7 +289,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					int y = int(ii / quint64(imageWidth));
 					float z = image->GetPixelZBuffer(x, y);
 					float blur = fabs(z - neutral) / z * deep + 1.0f;
-					if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
+					if (blur > maxRadius) blur = maxRadius;
 					int size = int(blur);
 					sRGBFloat center = temp_image[x + y * imageWidth];
 					unsigned short center_alpha = temp_alpha[x + y * imageWidth];

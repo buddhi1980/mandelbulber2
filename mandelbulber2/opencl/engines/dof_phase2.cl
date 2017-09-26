@@ -32,8 +32,6 @@
  * DOF effect function optimized for opencl
  */
 
-#define MAX_DOF_BLUR_SIZE 250.0f
-
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void DOFPhase2(__global sSortedZBufferCl *sortedZBuffer, __global float4 *inImage,
 	__global float4 *out, sParamsDOF params)
@@ -48,7 +46,7 @@ kernel void DOFPhase2(__global sSortedZBufferCl *sortedZBuffer, __global float4 
 	float z = sortedZBuffer[sortBufferSize - index - 1].z;
 
 	float blur = fabs(z - params.neutral) / z * params.deep + 1.0f;
-	if (blur > MAX_DOF_BLUR_SIZE) blur = MAX_DOF_BLUR_SIZE;
+	if (blur > params.maxRadius) blur = params.maxRadius;
 	int size = (int)blur;
 	float4 center = inImage[x + y * params.width];
 	float factor = (3.14f * (blur * blur - blur) + 1.0f) / params.blurOpacity;

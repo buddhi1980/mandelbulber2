@@ -161,6 +161,7 @@ struct sParamRender
 	double DEThresh;
 	double DOFFocus;
 	double DOFRadius;
+	double DOFMaxRadius;
 	double DOFBlurOpacity;
 	double DOFMaxNoise;
 	double fakeLightsIntensity;

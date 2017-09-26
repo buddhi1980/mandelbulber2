@@ -40,6 +40,7 @@ typedef struct
 	cl_int width;
 	cl_int height;
 	cl_float radius;
+	cl_float maxRadius;
 	cl_float neutral;
 	cl_float deep;
 	cl_float blurOpacity;

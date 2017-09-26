@@ -312,14 +312,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_349">
                   <property name="text">
                    <string>Number of passes:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="3" column="1">
                  <widget class="QSlider" name="sliderInt_DOF_number_of_passes">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -344,7 +344,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="3" column="2">
                  <widget class="MySpinBox" name="spinboxInt_DOF_number_of_passes">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -360,14 +360,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_350">
                   <property name="text">
                    <string>Blur opacity:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="QSlider" name="slider_DOF_blur_opacity">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -389,7 +389,7 @@
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="4" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_DOF_blur_opacity">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -420,6 +420,69 @@
                   </property>
                   <property name="value">
                    <double>0.100000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_138">
+                  <property name="text">
+                   <string>Maximum blur radius:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QSlider" name="slider_DOF_max_radius">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="MyDoubleSpinBox" name="spinbox_DOF_max_radius">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum radius of generated blur. Lower value can speed up rendering but effect will be less realistic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.010000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>5000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>1.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -5283,6 +5346,8 @@ for volumetric effects:</string>
   <tabstop>vect3_fake_lights_orbit_trap_z</tabstop>
   <tabstop>scrollArea_8</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
