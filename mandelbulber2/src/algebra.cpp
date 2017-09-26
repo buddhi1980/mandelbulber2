@@ -669,7 +669,7 @@ void CRotationMatrix44::Null()
 	matrix.m21 = 0.0;
 	matrix.m22 = 1.0;
 	matrix.m23 = 0.0;
-	matrix.m23 = 0.0;
+	matrix.m24 = 0.0;
 	matrix.m31 = 0.0;
 	matrix.m32 = 0.0;
 	matrix.m33 = 1.0;

@@ -71,7 +71,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		REAL tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			m = mad(-factor, (rr * rr), maxScale);
+			// m = mad(-factor, (rr * rr), maxScale);
 			m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;

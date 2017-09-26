@@ -1312,28 +1312,29 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE = aux.DE * fabs(m) + 1.0;
 		}
 	}
-	// scale
-	double useScale = aux.actualScaleA + fractal->transformCommon.scale2;
 
-	z *= useScale;
-	aux.DE = aux.DE * fabs(useScale) + 1.0;
+    double useScale = fractal->mandelbox.scale;
+    if (fractal->transformCommon.functionEnabledXFalse
+            && aux.i >= fractal->transformCommon.startIterationsX
+            && aux.i < fractal->transformCommon.stopIterationsX)
+    {
+        useScale += aux.actualScaleA;
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
 
-	if (aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
-	{
-		// update actualScale for next iteration
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux.actualScaleA = -vary;
-		else
-			aux.actualScaleA = aux.actualScaleA - vary;
-	}
-	/*else
-	{
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-	}*/
+        // update actualScale for next iteration
+        double vary = fractal->transformCommon.scaleVary0
+                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+        if (fractal->transformCommon.functionEnabledMFalse)
+            aux.actualScaleA = -vary;
+        else
+            aux.actualScaleA = aux.actualScaleA - vary;
+    }
+    else
+    {
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
+    }
 
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -1422,7 +1423,7 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
@@ -1533,7 +1534,7 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 
 	if (fractal->transformCommon.juliaMode)
 	{
@@ -2867,34 +2868,29 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
 	}
-	double useScale = aux.actualScaleA + fractal->mandelbox.scale;
 
-	if (aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD)
-	{
+     // scale
+    if (fractal->transformCommon.functionEnabledXFalse
+            && aux.i >= fractal->transformCommon.startIterationsD
+            && aux.i < fractal->transformCommon.stopIterationsD)
+    {
+        double useScale = aux.actualScaleA + fractal->mandelbox.scale;
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
 
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-		// update actualScale for next iteration
-
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux.actualScaleA = -vary;
-		else
-			aux.actualScaleA = aux.actualScaleA - vary;
-	}
-	else
-	{
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-	}
-
-	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
-			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{
-		z = fractal->mandelbox.mainRot.RotateVector(z);
-	}
+        // update actualScale for next iteration
+        double vary = fractal->transformCommon.scaleVary0
+                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+        if (fractal->transformCommon.functionEnabledMFalse)
+            aux.actualScaleA = -vary;
+        else
+            aux.actualScaleA = aux.actualScaleA - vary;
+    }
+    else
+    {
+        z *= fractal->mandelbox.scale;
+        aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+    }
 }
 
 /**
@@ -8713,27 +8709,27 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 
 		z *= temp;
-		aux.DE = aux.DE * fabs(temp) + 1.0;
+        aux.DE = aux.DE * fabs(temp) + 1.0;
 		aux.r_dz *= fabs(temp);
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2) + 1.0;
+        aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + 1.0);
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
 
-	else
+    else
 	{
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
 			aux.actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux.actualScaleA;
-		aux.DE = aux.DE * fabs(aux.actualScaleA) + 1.0;
+        aux.DE = aux.DE * fabs(aux.actualScaleA + 1.0);
 		aux.r_dz *= fabs(aux.actualScaleA);
-	}
+    }
 }
 
 /**
@@ -9147,7 +9143,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 
-			double m = fractal->transformCommon.maxR2d1 / rr;
+            m = fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m + 1.0;
@@ -9171,13 +9167,12 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		double maxR2 = fractal->transformCommon.scale1;
 		double halfMax = maxR2 * 0.5;
 		double factor = midPoint / (halfMax * halfMax);
-		// double m = 1.0;
 
 		double tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			m = maxScale - (rr * rr) * factor;
-			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
+            m = maxScale - (rr * rr) * factor;
+            //m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m + 1.0;
@@ -9202,23 +9197,29 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	}
 	z -= fractal->mandelbox.offset;
 
-	// post scale
-	if (aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-	{
-		double useScale = aux.actualScaleA + fractal->transformCommon.scaleA1;
-		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-		aux.r_dz *= fabs(useScale);
-		// update actualScale for next iteration
 
-		double vary = fractal->transformCommon.scaleVary0
-									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-		if (fractal->transformCommon.functionEnabledMFalse)
-			aux.actualScaleA = -vary;
-		else
-			aux.actualScaleA = aux.actualScaleA - vary;
-	}
+    double useScale = fractal->transformCommon.scaleA1;
+    if (fractal->transformCommon.functionEnabledXFalse
+            && aux.i >= fractal->transformCommon.startIterationsA
+            && aux.i < fractal->transformCommon.stopIterationsA)
+    {
+        useScale += aux.actualScaleA;
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
+
+        // update actualScale for next iteration
+        double vary = fractal->transformCommon.scaleVary0
+                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+        if (fractal->transformCommon.functionEnabledMFalse)
+            aux.actualScaleA = -vary;
+        else
+            aux.actualScaleA = aux.actualScaleA - vary;
+    }
+    else
+    {
+        z *= useScale;
+        aux.DE = aux.DE * fabs(useScale) + 1.0;
+    }
 }
 
 /**

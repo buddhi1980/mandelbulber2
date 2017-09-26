@@ -512,30 +512,34 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 					 "Mandelbulber can utilize OpenCL to accelerate rendering.\n"
 					 "When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from "
 					 "commandline by default.\nThe configuration can also be done directly from this "
-					 "commandline by "
-					 "setting the optional settings directly.\nThese can be given by the default --override "
-					 "option, "
-					 "available opencl specific options are:")
+					 "commandline by setting the optional settings directly.\nThese can be given by the "
+					 "default --override option, available opencl specific options are:")
 			<< "\n";
-	out << QObject::tr(
-					 " * opencl_enabled      - boolean to enable OpenCL\n"
-					 " * opencl_platform     - platform index to use, see available platforms below\n"
-					 " * opencl_device_type  - Possible device types of the platform to use \n"
-					 "                           possible values: [%1]\n"
-					 " * opencl_device_list  - right now only one device at a time is supported.\n"
-					 "                         Specify the device hash of the device to use, see available "
-					 "devices below\n"
-					 " * opencl_mode         - Mode of the render engine, fast has no effects, limited has "
-					 "basic effects, full contains all shaders.\n"
-					 "                           possible values: [%2]\n"
-					 " * opencl_precision    - Floating point precision of Render (single is faster, but "
-					 "less accurate)\n"
-					 "                           possible values: [%3]\n"
-					 " * opencl_memory_limit - Memory limit in MB\n")
-					 .arg(gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup().join(", "))
-					 .arg(gPar->GetAsOneParameter("opencl_mode").GetEnumLookup().join(", "))
-					 .arg(gPar->GetAsOneParameter("opencl_precision").GetEnumLookup().join(", "));
-	qDebug() << gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup();
+	out << " * opencl_enabled      - " << QObject::tr("boolean to enable OpenCL") << "\n";
+	out << " * opencl_platform     - "
+			<< QObject::tr("platform index to use, see available platforms below") << "\n";
+	out << " * opencl_device_type  - " << QObject::tr("Possible device types of the platform to use")
+			<< QString("\n  `- %1\n")
+					 .arg(QObject::tr("possible values: [%1]")
+									.arg(gPar->GetAsOneParameter("opencl_device_type").GetEnumLookup().join(", ")));
+	out << " * opencl_device_list  - "
+			<< QObject::tr("right now only one device at a time is supported.") << "\n"
+			<< " Specify the device hash of the device to use, see available devices below\n";
+	out << " * opencl_mode         - "
+			<< QObject::tr(
+					 "Mode of the render engine, fast has no effects, limited has "
+					 "basic effects, full contains all shaders.")
+			<< QString("\n  `- %1\n")
+					 .arg(QObject::tr("possible values: [%1]")
+									.arg(gPar->GetAsOneParameter("opencl_mode").GetEnumLookup().join(", ")));
+	out << " * opencl_precision    - "
+			<< QObject::tr(
+					 "Floating point precision of Render (single is faster, but "
+					 "less accurate)")
+			<< QString("\n  `- %1\n")
+					 .arg(QObject::tr("possible values: [%1]")
+									.arg(gPar->GetAsOneParameter("opencl_precision").GetEnumLookup().join(", ")));
+	out << " * opencl_memory_limit - " << QObject::tr("Memory limit in MB") << "\n";
 
 	// print available platforms
 	out << "\n"

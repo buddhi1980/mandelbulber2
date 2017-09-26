@@ -26,7 +26,7 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-	if (z.y != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
 
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA

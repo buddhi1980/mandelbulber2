@@ -711,6 +711,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 					if (*stopRequest)
 					{
+						delete[] noiseTable;
 						return false;
 					}
 				}
