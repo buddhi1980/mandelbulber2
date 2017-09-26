@@ -34,6 +34,8 @@
 
 #include <QtCore>
 
+#include "region.hpp"
+
 class cOpenClEngineRenderDOFPhase1;
 class cOpenClEngineRenderDOFPhase2;
 class cOpenClHardware;
@@ -54,7 +56,7 @@ public:
 
 #ifdef USE_OPENCL
 	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,
-		bool *stopRequest, sRenderData *renderData);
+		bool *stopRequest, cRegion<int> screenRegion);
 
 	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
 	cOpenClEngineRenderDOFPhase2 *dofEnginePhase2;

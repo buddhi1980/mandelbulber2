@@ -73,7 +73,7 @@ cOpenClEngineRenderDOF::~cOpenClEngineRenderDOF()
 
 #ifdef USE_OPENCL
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
-	const cParameterContainer *params, cImage *image, bool *stopRequest, sRenderData *renderData)
+	const cParameterContainer *params, cImage *image, bool *stopRequest, cRegion<int> screenRegion)
 {
 	int numberOfPasses = paramRender->DOFNumberOfPasses;
 
@@ -111,10 +111,10 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
-		dof.Render(renderData->screenRegion,
+		dof.Render(screenRegion,
 			paramRender->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
 			paramRender->DOFFocus, paramRender->DOFNumberOfPasses, paramRender->DOFBlurOpacity,
-			paramRender->DOFMaxRadius, renderData->stopRequest);
+			paramRender->DOFMaxRadius, stopRequest);
 
 		// refresh image at end
 		WriteLog("image->CompileImage()", 2);

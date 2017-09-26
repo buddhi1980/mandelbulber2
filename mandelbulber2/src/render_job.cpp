@@ -607,7 +607,7 @@ bool cRenderJob::Execute()
 			if (params->DOFEnabled && !params->DOFMonteCarlo)
 			{
 				gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest, renderData);
+					params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
 			}
 		}
 

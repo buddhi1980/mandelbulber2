@@ -960,38 +960,81 @@ void cInterface::RefreshPostEffects()
 		if (gPar->Get<bool>("ambient_occlusion_enabled")
 				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 		{
-			sParamRender params(gPar);
-			sRenderData data;
-			data.stopRequest = &stopRequest;
-			data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-			cRenderSSAO rendererSSAO(&params, &data, mainImage);
-			QObject::connect(&rendererSSAO,
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-				gMainInterface->mainWindow,
-				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+			if (gPar->Get<bool>("opencl_enabled"))
+			{
+#ifdef USE_OPENCL
+				sParamRender params(gPar);
+				gOpenCl->openClEngineRenderSSAO->Lock();
+				gOpenCl->openClEngineRenderSSAO->SetParameters(&params);
+				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(gPar))
+				{
+					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(gPar);
+					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					qDebug() << "OpenCl render SSAO - needed mem:" << neededMem / 1048576;
+					if (neededMem / 1048576 < gPar->Get<int>("opencl_memory_limit"))
+					{
+						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(gPar);
+						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+						gOpenCl->openClEngineRenderSSAO->Render(mainImage, &stopRequest);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Not enough free memory in graphics card to render SSAO effect!"),
+							cErrorMessage::errorMessage, mainWindow);
+					}
+				}
+				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
+				gOpenCl->openClEngineRenderSSAO->Unlock();
+#endif
+			}
+			else
+			{
+				sParamRender params(gPar);
+				sRenderData data;
+				data.stopRequest = &stopRequest;
+				data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				cRenderSSAO rendererSSAO(&params, &data, mainImage);
+				QObject::connect(&rendererSSAO,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+					gMainInterface->mainWindow,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 
-			rendererSSAO.RenderSSAO();
+				rendererSSAO.RenderSSAO();
 
-			mainImage->CompileImage();
-			mainImage->ConvertTo8bit();
-			mainImage->UpdatePreview();
-			mainImage->GetImageWidget()->update();
+				mainImage->CompileImage();
+				mainImage->ConvertTo8bit();
+				mainImage->UpdatePreview();
+				mainImage->GetImageWidget()->update();
+			}
 		}
 
 		if (gPar->Get<bool>("DOF_enabled"))
 		{
-			sParamRender params(gPar);
-			// cRenderingConfiguration config;
-			cPostRenderingDOF dof(mainImage);
-			QObject::connect(&dof,
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-				gMainInterface->mainWindow,
-				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-			cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
-			dof.Render(screenRegion,
-				params.DOFRadius * (mainImage->GetWidth() + mainImage->GetHeight()) / 2000.0,
-				params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius,
-				&stopRequest);
+			if (gPar->Get<bool>("opencl_enabled"))
+			{
+#ifdef USE_OPENCL
+				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				sParamRender params(gPar);
+				gOpenCl->openclEngineRenderDOF->RenderDOF(
+					&params, gPar, mainImage, &stopRequest, screenRegion);
+#endif
+			}
+			else
+			{
+				sParamRender params(gPar);
+				// cRenderingConfiguration config;
+				cPostRenderingDOF dof(mainImage);
+				QObject::connect(&dof,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+					gMainInterface->mainWindow,
+					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				dof.Render(screenRegion,
+					params.DOFRadius * (mainImage->GetWidth() + mainImage->GetHeight()) / 2000.0,
+					params.DOFFocus, params.DOFNumberOfPasses, params.DOFBlurOpacity, params.DOFMaxRadius,
+					&stopRequest);
+			}
 		}
 
 		if (gPar->Get<bool>("hdr_blur_enabled"))
