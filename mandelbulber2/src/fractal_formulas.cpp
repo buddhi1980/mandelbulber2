@@ -2869,28 +2869,31 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		}
 	}
 
-     // scale
-    if (fractal->transformCommon.functionEnabledXFalse
-            && aux.i >= fractal->transformCommon.startIterationsD
-            && aux.i < fractal->transformCommon.stopIterationsD)
-    {
-        double useScale = aux.actualScaleA + fractal->mandelbox.scale;
-        z *= useScale;
-        aux.DE = aux.DE * fabs(useScale) + 1.0;
+			// scale
+		if (fractal->transformCommon.functionEnabledXFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+		{
+			double useScale = aux.actualScaleA + fractal->mandelbox.scale;
+			z *= useScale;
+			aux.DE = aux.DE * fabs(useScale) + 1.0;
 
-        // update actualScale for next iteration
-        double vary = fractal->transformCommon.scaleVary0
-                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-        if (fractal->transformCommon.functionEnabledMFalse)
-            aux.actualScaleA = -vary;
-        else
-            aux.actualScaleA = aux.actualScaleA - vary;
-    }
-    else
-    {
-        z *= fractal->mandelbox.scale;
-        aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-    }
+			// update actualScale for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+			* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse)
+			aux.actualScaleA = -vary;
+		else
+			aux.actualScaleA = aux.actualScaleA - vary;
+		}
+		else
+		{
+			z *= fractal->mandelbox.scale;
+			aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+		}
+		if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+			z = fractal->mandelbox.mainRot.RotateVector(z);
 }
 
 /**
@@ -8709,27 +8712,26 @@ void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 
 		z *= temp;
-        aux.DE = aux.DE * fabs(temp) + 1.0;
+		aux.DE = aux.DE * fabs(temp) + 1.0;
 		aux.r_dz *= fabs(temp);
 	}
 
 	else if (aux.i < fractal->transformCommon.startIterations)
 	{
 		z *= fractal->transformCommon.scaleMain2;
-        aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + 1.0);
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleMain2 + 1.0);
 		aux.r_dz *= fabs(fractal->transformCommon.scaleMain2);
 	}
-
-    else
+	else
 	{
 		if (fractal->transformCommon.functionEnabledBzFalse)
 		{
 			aux.actualScaleA = fractal->transformCommon.scaleMain2;
 		}
 		z *= aux.actualScaleA;
-        aux.DE = aux.DE * fabs(aux.actualScaleA + 1.0);
+		aux.DE = aux.DE * fabs(aux.actualScaleA + 1.0);
 		aux.r_dz *= fabs(aux.actualScaleA);
-    }
+	}
 }
 
 /**
@@ -9142,8 +9144,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-
-            m = fractal->transformCommon.maxR2d1 / rr;
+			m = fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m + 1.0;
@@ -9171,8 +9172,8 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		double tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-            m = maxScale - (rr * rr) * factor;
-            //m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
+			m = maxScale - (rr * rr) * factor;
+			//m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m + 1.0;
@@ -9198,28 +9199,29 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	z -= fractal->mandelbox.offset;
 
 
-    double useScale = fractal->transformCommon.scaleA1;
-    if (fractal->transformCommon.functionEnabledXFalse
-            && aux.i >= fractal->transformCommon.startIterationsA
-            && aux.i < fractal->transformCommon.stopIterationsA)
-    {
-        useScale += aux.actualScaleA;
-        z *= useScale;
-        aux.DE = aux.DE * fabs(useScale) + 1.0;
+	double useScale = fractal->transformCommon.scaleA1;
+	if (fractal->transformCommon.functionEnabledXFalse
+		&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		useScale += aux.actualScaleA;
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
 
-        // update actualScale for next iteration
-        double vary = fractal->transformCommon.scaleVary0
-                                    * (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
-        if (fractal->transformCommon.functionEnabledMFalse)
-            aux.actualScaleA = -vary;
-        else
-            aux.actualScaleA = aux.actualScaleA - vary;
-    }
-    else
-    {
-        z *= useScale;
-        aux.DE = aux.DE * fabs(useScale) + 1.0;
-    }
+		// update actualScale for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+				* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+		if (fractal->transformCommon.functionEnabledMFalse)
+			aux.actualScaleA = -vary;
+		else
+			aux.actualScaleA = aux.actualScaleA - vary;
+	}
+	else
+	{
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+	}
 }
 
 /**
