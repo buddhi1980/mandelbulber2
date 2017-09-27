@@ -49,7 +49,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 	isBusy = false;
 	systemTrayIcon = new QSystemTrayIcon(parent);
 	systemTrayIcon->setIcon(QIcon(":system/icons/mandelbulber.png"));
-	QMenu *menu = new QMenu;
+	menu = new QMenu;
 
 	QIcon renderIcon =
 		QIcon::fromTheme("applications-graphics", QIcon(":system/icons/applications-graphics.svg"));
@@ -98,6 +98,7 @@ cSystemTray::cSystemTray(cImage *image, QObject *parent)
 
 cSystemTray::~cSystemTray()
 {
+	delete menu;
 	delete checkBusyTimer;
 }
 

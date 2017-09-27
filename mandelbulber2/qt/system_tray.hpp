@@ -60,6 +60,7 @@ private:
 	QSystemTrayIcon *systemTrayIcon;
 	cImage *image;
 	bool isBusy;
+	QMenu *menu;
 	QTimer *checkBusyTimer;
 
 public slots:

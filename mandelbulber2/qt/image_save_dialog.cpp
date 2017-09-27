@@ -65,6 +65,7 @@ cImageSaveDialog::cImageSaveDialog(QWidget *parent)
 
 cImageSaveDialog::~cImageSaveDialog()
 {
+	delete ui;
 }
 
 void cImageSaveDialog::accept()
