@@ -56,6 +56,8 @@ void InitParams(cParameterContainer *par)
 
 	WriteLog("Parameters initialization started: " + par->GetContainerName(), 3);
 
+	QStringList qslImageType({"png", "jpg", "exr", "tiff"});
+
 	// image
 	par->addParam("image_width", 800, 5, 65535, morphNone, paramStandard);
 	par->addParam("image_height", 600, 5, 65535, morphNone, paramStandard);
@@ -72,7 +74,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("frame_no", 0, 0, 99999, morphNone, paramOnlyForNet);
 	par->addParam("flight_speed", 0.01, -1000.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("flight_inertia", 5.0, 0.01, 1000.0, morphLinear, paramStandard);
-	par->addParam("flight_speed_control", 0, morphNone, paramStandard);
+	par->addParam(
+		"flight_speed_control", 0, morphNone, paramStandard, QStringList({"relative", "constant"}));
 	par->addParam("flight_roll_speed", 10.0, morphNone, paramStandard);
 	par->addParam("flight_rotation_speed", 10.0, morphNone, paramStandard);
 	par->addParam("flight_show_thumbnails", false, morphNone, paramApp);
@@ -80,7 +83,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("flight_movement_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_rotation_speed_vector", CVector3(0.0, 0.0, 0.0), morphNone, paramStandard);
 	par->addParam("flight_sec_per_frame", 1.0, morphNone, paramApp);
-	par->addParam("flight_animation_image_type", 0, morphNone, paramApp);
+	par->addParam("flight_animation_image_type", 0, morphNone, paramApp, qslImageType);
 	par->addParam("anim_flight_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
 		paramStandard);
 
@@ -90,7 +93,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("keyframe_first_to_render", 0, 0, 99999, morphNone, paramStandard);
 	par->addParam("keyframe_last_to_render", 1000, 0, 99999, morphNone, paramStandard);
 	par->addParam("show_keyframe_thumbnails", false, morphNone, paramApp);
-	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp);
+	par->addParam("keyframe_animation_image_type", 0, morphNone, paramApp, qslImageType);
 	par->addParam("anim_keyframe_dir", systemData.GetAnimationFolder() + QDir::separator(), morphNone,
 		paramStandard);
 	par->addParam("keyframe_collision_thresh", 1.0e-6, 1e-15, 1.0e2, morphNone, paramStandard);
@@ -106,7 +109,8 @@ void InitParams(cParameterContainer *par)
 		"camera_rotation", CVector3(26.5650, -16.60154, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("camera_distance_to_target", 7.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam("fov", 1.0, 0.0, 100.0, morphAkima, paramStandard);
-	par->addParam("perspective_type", 0, morphLinear, paramStandard);
+	par->addParam("perspective_type", 0, morphLinear, paramStandard,
+		QStringList({"three_point", "fish_eye", "equirectangular", "fish_eye_cut"}));
 	par->addParam("legacy_coordinate_system", false, morphNone, paramStandard);
 	par->addParam("sweet_spot_horizontal_angle", 0.0, -180.0, 180.0, morphAkima, paramStandard);
 	par->addParam("sweet_spot_vertical_angle", 0.0, -90.0, 90.0, morphAkima, paramStandard);
@@ -412,7 +416,8 @@ void InitParams(cParameterContainer *par)
 
 	par->addParam("camera_movement_step", 0.5, 1e-15, 1e5, morphNone, paramApp);
 	par->addParam("camera_rotation_step", 15.0, 1e-15, 360.0, morphNone, paramApp);
-	par->addParam("camera_straight_rotation", 0, morphNone, paramApp);
+	par->addParam("camera_straight_rotation", 0, morphNone, paramApp,
+		QStringList({"constant_roll", "constant_top"}));
 	par->addParam(
 		"camera_absolute_distance_mode", 0, morphNone, paramApp, QStringList({"relative", "absolute"}));
 	par->addParam("camera_movement_mode", 0, morphNone, paramApp,
@@ -435,7 +440,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("default_settings_path", systemData.GetSettingsFolder(), morphNone, paramApp);
 
 	par->addParam("show_queue_thumbnails", false, morphNone, paramApp);
-	par->addParam("queue_image_format", 0, morphNone, paramApp);
+	par->addParam("queue_image_format", 0, morphNone, paramApp, qslImageType);
 
 	par->addParam("quit_do_not_ask_again", false, morphNone, paramApp);
 	par->addParam("upgrade_do_not_ask_again", false, morphNone, paramApp);
@@ -510,7 +515,13 @@ void InitFractalParams(cParameterContainer *par)
 	WriteLog("Fractal parameters initialization started: " + par->GetContainerName(), 3);
 
 	QStringList qslAcosAsin({"acos", "asin"});
+	QStringList qslAsinAcos({"asin", "acos"});
 	QStringList qslAtanAtan2({"atan", "atan2"});
+	QStringList qslAtan2Atan({"atan2", "atan"});
+	QStringList qslOrderOfXyz({"xyz", "xzy", "yxz", "yzx", "zxy", "zyx"});
+	QStringList qslOrderOfZyx({"zyx", "zxy", "yzx", "yxz", "xzy", "xyz"});
+	QStringList qslOrderOfFolds({"type1", "type2", "type3", "type4", "type5"});
+	QStringList qslOrderOfTransf({"typeT1", "typeT1Mod", "typeT2", "typeT3", "typeT4", "typeT5b"});
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -573,7 +584,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbox_vary_rpower", 1.0, morphLinear, paramStandard);
 	par->addParam("mandelbox_vary_wadd", 0.0, morphLinear, paramStandard);
 
-	par->addParam("mandelbox_generalized_fold_type", 0, morphNone, paramStandard);
+	par->addParam("mandelbox_generalized_fold_type", 0, morphNone, paramStandard,
+		QStringList({"fold_tet", "fold_cube", "fold_oct", "fold_dodeca", "fold_oct_cube", "fold_icosa",
+			"fold_box6", "fold_box5"}));
 
 	// FoldingIntPow
 	par->addParam("boxfold_bulbpow2_folding_factor", 2.0, morphLinear, paramStandard);
@@ -596,14 +609,14 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("mandelbulbMulti_acos_or_asin_A", 0, morphNone, paramStandard, qslAcosAsin);
 	par->addParam("mandelbulbMulti_atan_or_atan2_A", 0, morphNone, paramStandard, qslAtanAtan2);
 
-	par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard);
-	par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard);
-	par->addParam("mandelbulbMulti_order_of_xyz_C", 0, morphNone, paramStandard);
+	par->addParam("mandelbulbMulti_order_of_xyz", 0, morphNone, paramStandard, qslOrderOfXyz);
+	par->addParam("mandelbulbMulti_order_of_xyz_2", 0, morphNone, paramStandard, qslOrderOfXyz);
+	par->addParam("mandelbulbMulti_order_of_xyz_C", 0, morphNone, paramStandard, qslOrderOfXyz);
 
 	// sinTan2Trig
-	par->addParam("sinTan2Trig_asin_or_acos", 0, morphNone, paramStandard);
-	par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard);
-	par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard);
+	par->addParam("sinTan2Trig_asin_or_acos", 0, morphNone, paramStandard, qslAsinAcos);
+	par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard, qslAtan2Atan);
+	par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard, qslOrderOfZyx);
 
 	// surfBox
 	par->addParam("surfBox_enabledX1", true, morphLinear, paramStandard);
@@ -632,21 +645,23 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("surfBox_scale1Z1", 1.0, morphAkima, paramStandard);
 
 	// SurfFold
-	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard);
-	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard);
-	par->addParam("surfFolds_order_of_folds_3", 0, morphNone, paramStandard);
-	par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard);
-	par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard);
+	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_3", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard, qslOrderOfFolds);
 
 	// Benesi Mag Transforms
-	par->addParam("magTransf_order_of_transf_1", 0, morphNone, paramStandard);
-	par->addParam("magTransf_order_of_transf_2", 0, morphNone, paramStandard);
-	par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard);
-	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard);
-	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard);
+	par->addParam("magTransf_order_of_transf_1", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_2", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard, qslOrderOfTransf);
 
 	// Basic comboBox
-	par->addParam("combo_mode_A", 0, morphNone, paramStandard);
+	par->addParam("combo_mode_A", 0, morphNone, paramStandard,
+		QStringList({"combo_mode0", "combo_mode1", "combo_mode2", "combo_mode3", "combo_mode4",
+			"combo_mode5", "combo_mode6", "combo_mode7"}));
 
 	// donut
 	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
