@@ -250,8 +250,13 @@ int cOneParameter::GetIndexByEnumeration(QString value) const
 		return index;
 	else
 	{
-		qWarning() << "Enumeration not found, cannot find value: '" << value << "' in QStringList "
-							 << enumLookup << ", this may happen, when upgrading to newer program version.";
-		return value.toInt();
+		bool checkParse;
+		const int index = value.toInt(&checkParse);
+		if (!checkParse)
+		{
+			qInfo() << "Enumeration not found, cannot find value: '" << value << "' in QStringList "
+							<< enumLookup;
+		}
+		return index;
 	}
 }
