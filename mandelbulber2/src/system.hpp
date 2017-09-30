@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_SRC_SYSTEM_HPP_
 #define MANDELBULBER2_SRC_SYSTEM_HPP_
 
-#define MANDELBULBER_VERSION 2.11
-#define MANDELBULBER_VERSION_STRING "2.11"
+#define MANDELBULBER_VERSION 2.12
+#define MANDELBULBER_VERSION_STRING "2.12-alpha7"
 #define TO_STRING(a) #a
 
 #ifdef _WIN32 /* WINDOWS */
@@ -147,10 +147,7 @@ public:
 	{
 		this->preferredFontPointSize = preferredFontPointSize;
 	}
-	void SetLogfileName(QString logfileName)
-	{
-		this->logfileName = logfileName;
-	}
+	void SetLogfileName(QString logfileName) { this->logfileName = logfileName; }
 
 	QString homeDir;
 	QString sharedDir;
