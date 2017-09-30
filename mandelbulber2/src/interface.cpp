@@ -979,7 +979,7 @@ void cInterface::RefreshPostEffects()
 					else
 					{
 						cErrorMessage::showMessage(
-							QObject::tr("Not enough free memory in graphics card to render SSAO effect!"),
+							QObject::tr("Not enough free memory in OpenCL device to render SSAO effect!"),
 							cErrorMessage::errorMessage, mainWindow);
 					}
 				}
