@@ -48,6 +48,7 @@
 #ifdef _WIN32
 #elif __APPLE__
 #define SHARED_DIR QDir::homePath() + "/share/mandelbulber2"
+#define SHARED_DOC_DIR QDir::homePath() + "/share/doc/mandelbulber2"
 #else
 #define SHARED_DIR "/usr/share/mandelbulber2"
 #define SHARED_DOC_DIR "/usr/share/doc/mandelbulber2"
