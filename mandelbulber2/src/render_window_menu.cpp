@@ -111,13 +111,13 @@ void RenderWindow::slotMenuAboutQt()
 
 void RenderWindow::slotMenuAboutManual()
 {
-	QString filename = systemData.sharedDir + "doc" + QDir::separator() + "Mandelbulber_Manual.pdf";
+	QString filename = systemData.docDir + "Mandelbulber_Manual.pdf";
 	QDesktopServices::openUrl(QUrl::fromLocalFile(filename));
 }
 
 void RenderWindow::slotMenuAboutNews()
 {
-	QString filename = systemData.sharedDir + "doc" + QDir::separator() + "NEWS";
+	QString filename = systemData.docDir + "NEWS";
 
 	QFile f(filename);
 	QString text = "";

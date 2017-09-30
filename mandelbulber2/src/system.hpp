@@ -50,6 +50,7 @@
 #define SHARED_DIR QDir::homePath() + "/share/mandelbulber2"
 #else
 #define SHARED_DIR "/usr/share/mandelbulber2"
+#define SHARED_DOC_DIR "/usr/share/doc/mandelbulber2"
 #endif
 #endif
 
@@ -151,6 +152,7 @@ public:
 
 	QString homeDir;
 	QString sharedDir;
+	QString docDir;
 	QString logfileName;
 	QString lastSettingsFile;
 	QString lastImageFile;
