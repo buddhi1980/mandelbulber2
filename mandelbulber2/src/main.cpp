@@ -200,6 +200,7 @@ int main(int argc, char *argv[])
 		dataFoldersUpdated = gMainInterface->DataFolderUpgrade();
 		gMainInterface->AutoRecovery();
 		gMainInterface->InitPeriodicRefresh();
+		gMainInterface->mainWindow->slotPopulateToolbar();
 	}
 
 	gInterfaceReadyForSynchronization = true;
