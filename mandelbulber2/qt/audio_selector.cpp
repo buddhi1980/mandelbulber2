@@ -72,6 +72,7 @@ cAudioSelector::~cAudioSelector()
 	}
 
 	if (playStream) delete playStream;
+	delete ui;
 }
 
 void cAudioSelector::slotLoadAudioFile()
