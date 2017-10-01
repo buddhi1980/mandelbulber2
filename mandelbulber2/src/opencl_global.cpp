@@ -84,5 +84,6 @@ void cGlobalOpenCl::Reset()
 {
 	openClEngineRenderFractal->Reset();
 	openClEngineRenderSSAO->Reset();
+	openclEngineRenderDOF->Reset();
 }
 #endif

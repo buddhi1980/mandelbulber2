@@ -72,6 +72,12 @@ cOpenClEngineRenderDOF::~cOpenClEngineRenderDOF()
 }
 
 #ifdef USE_OPENCL
+void cOpenClEngineRenderDOF::Reset()
+{
+	dofEnginePhase1->Reset();
+	dofEnginePhase2->Reset();
+}
+
 bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	const cParameterContainer *params, cImage *image, bool *stopRequest, cRegion<int> screenRegion)
 {

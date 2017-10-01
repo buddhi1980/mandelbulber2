@@ -57,6 +57,7 @@ public:
 #ifdef USE_OPENCL
 	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,
 		bool *stopRequest, cRegion<int> screenRegion);
+	void Reset();
 
 	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
 	cOpenClEngineRenderDOFPhase2 *dofEnginePhase2;
