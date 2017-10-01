@@ -85,7 +85,8 @@ void Test::renderExamples()
 	// and benchmarks the runtime
 	QString examplePath =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
-	QDirIterator it(examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+	QDirIterator it(
+		examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
 
 	cParameterContainer *testPar = new cParameterContainer;
 	cFractalContainer *testParFractal = new cFractalContainer;
@@ -139,10 +140,7 @@ void Test::renderExamples()
 		delete renderJob;
 
 		WriteLog(
-			QString("example: %1 rendered in %2 Milliseconds")
-			.arg(filename)
-			.arg(timer.elapsed()),
-			1);
+			QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(timer.elapsed()), 1);
 	}
 
 	delete image;

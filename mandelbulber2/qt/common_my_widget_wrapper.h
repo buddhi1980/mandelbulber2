@@ -65,8 +65,9 @@ public:
 		widget = referenceWidget;
 	};
 
-	void AssignParameterContainer(cParameterContainer *container) {
-		if(!parameterContainer)
+	void AssignParameterContainer(cParameterContainer *container)
+	{
+		if (!parameterContainer)
 		{
 			parameterContainer = container;
 		}

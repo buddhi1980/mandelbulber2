@@ -152,6 +152,7 @@ function getModificationIntervals()
 		// and should not be counted for the modification invertal
 		if (strpos($title, 'source code') !== false) continue;
 		if (strpos($title, 'nullptr') !== false) continue;
+		if (strpos($title, 'remove src dir') !== false) continue;
 
 		foreach ($commitLines as $commitLine) {
 			if (!empty($commitLine) && strpos($commitLine, 'COMMIT_SEPARATOR_2____________') === false) {
