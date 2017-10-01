@@ -337,7 +337,8 @@ int cKeyframeAnimation::AddVariableToTable(
 	const int row = table->rowCount();
 	if (type == typeVector3)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
@@ -348,7 +349,8 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else if (type == typeVector4)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_y";
@@ -362,7 +364,8 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else if (type == typeRgb)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
 		AddRow(row, varName, index);
 
 		varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_G";
@@ -373,7 +376,8 @@ int cKeyframeAnimation::AddVariableToTable(
 	}
 	else
 	{
-		const QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
+		const QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName;
 		AddRow(row, varName, index);
 	}
 	return row;
@@ -401,17 +405,18 @@ int cKeyframeAnimation::AddColumn(const cAnimationFrames::sAnimationFrame &frame
 	table->setColumnWidth(newColumn, previewSize.width());
 
 	const double time = params->Get<double>("frames_per_keyframe")
-								/ params->Get<double>("keyframe_frames_per_second") * (newColumn - reservedColumns);
+											/ params->Get<double>("keyframe_frames_per_second")
+											* (newColumn - reservedColumns);
 	const int minutes = int(time / 60);
 	const int seconds = int(time) % 60;
 	const int milliseconds = int(time * 1000.0) % 1000;
 	const int frameNo = (newColumn - reservedColumns) * params->Get<int>("frames_per_keyframe");
 	const QString columnHeader = QString("%1 (%2)\n(%3:%4.%5)")
-													 .arg(newColumn - reservedColumns)
-													 .arg(frameNo)
-													 .arg(minutes)
-													 .arg(seconds, 2, 10, QChar('0'))
-													 .arg(milliseconds, 3, 10, QChar('0'));
+																 .arg(newColumn - reservedColumns)
+																 .arg(frameNo)
+																 .arg(minutes)
+																 .arg(seconds, 2, 10, QChar('0'))
+																 .arg(milliseconds, 3, 10, QChar('0'));
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(columnHeader));
 
 	QList<cAnimationFrames::sParameterDescription> parList = keyframes->GetListOfUsedParameters();
@@ -663,7 +668,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 
 		// total number of frames
-		const int totalFrames = (keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
+		const int totalFrames =
+			(keyframes->GetNumberOfFrames() - 1) * keyframes->GetFramesPerKeyframe();
 
 		keyframes->ClearMorphCache();
 
@@ -960,10 +966,10 @@ void cKeyframeAnimation::slotDeleteAllImages() const
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_keyframeAnimationParameters, params, qInterface::read);
 
-	const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-	                                                          QObject::tr("Truncate Image Folder"),
-	                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
-	                                                          QMessageBox::Yes | QMessageBox::No);
+	const QMessageBox::StandardButton reply = QMessageBox::question(
+		mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Truncate Image Folder"),
+		QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -1051,15 +1057,16 @@ void cKeyframeAnimation::InterpolateForward(int row, int column)
 
 	if (valueIsInteger)
 	{
-		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
-		                                        "Enter value for last keyframe", valueInteger, 0, 2147483647, 1, &ok);
+		const int finalInteger =
+			QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
+				"Enter value for last keyframe", valueInteger, 0, 2147483647, 1, &ok);
 		integerStep = double(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if (valueIsDouble)
 	{
-		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
-		                                                                      "Parameter interpolation", "Enter value for last keyframe", QLineEdit::Normal,
-		                                                                      QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(
+			mainInterface->mainWindow, "Parameter interpolation", "Enter value for last keyframe",
+			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1097,7 +1104,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 {
 	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
-										 + QString("%1").arg(frameIndex, 5, 10, QChar('0'));
+										 + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
 											params->Get<int>("keyframe_animation_image_type")));
 	return filename;
@@ -1106,7 +1113,8 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 parameterContainer::enumMorphType cKeyframeAnimation::GetMorphType(int row) const
 {
 	const int parameterIndex = rowParameter.at(row);
-	const parameterContainer::enumMorphType morphType = keyframes->GetListOfParameters().at(parameterIndex).morphType;
+	const parameterContainer::enumMorphType morphType =
+		keyframes->GetListOfParameters().at(parameterIndex).morphType;
 	return morphType;
 }
 
@@ -1127,10 +1135,10 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 	if (gAnimFrames->GetFrames().size() > 0)
 	{
 		const QMessageBox::StandardButton reply = QMessageBox::question(
-		                                                          mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
-		                                                          QObject::tr(
-		                                                                      "There are already captured flight frames present.\nDiscard current flight frames ?"),
-		                                                          QMessageBox::Yes | QMessageBox::No);
+			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export keyframes to flight"),
+			QObject::tr(
+				"There are already captured flight frames present.\nDiscard current flight frames ?"),
+			QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}

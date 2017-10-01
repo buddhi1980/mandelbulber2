@@ -75,6 +75,7 @@ cMaterialManagerView::cMaterialManagerView(QWidget *parent)
 
 cMaterialManagerView::~cMaterialManagerView()
 {
+	delete ui;
 }
 
 void cMaterialManagerView::SetModel(cMaterialItemModel *_model)

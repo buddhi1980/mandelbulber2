@@ -220,10 +220,11 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	if (!continueRecording)
 	{
-		const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-		                                                          QObject::tr("Are you sure to start recording of new animation?"),
-		                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
-		                                                          QMessageBox::Yes | QMessageBox::No);
+		const QMessageBox::StandardButton reply =
+			QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
+				QObject::tr("Are you sure to start recording of new animation?"),
+				QObject::tr("This will delete all images in the image folder.\nProceed?"),
+				QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::Yes)
 		{
@@ -515,7 +516,8 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
-	const QIcon icon(pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
+	const QIcon icon(
+		pixmap.scaled(previewSize, Qt::KeepAspectRatioByExpanding, Qt::SmoothTransformation));
 	table->setItem(0, index, new QTableWidgetItem(icon, QString()));
 	table->blockSignals(false);
 }
@@ -559,7 +561,8 @@ int cFlightAnimation::AddVariableToTable(
 	const int row = table->rowCount();
 	if (type == typeVector3)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -579,7 +582,8 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else if (type == typeVector4)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_x";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -605,7 +609,8 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else if (type == typeRgb)
 	{
-		QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
+		QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName + "_R";
 		tableRowNames.append(varName);
 		table->insertRow(row);
 		table->setVerticalHeaderItem(row, new QTableWidgetItem(varName));
@@ -625,7 +630,8 @@ int cFlightAnimation::AddVariableToTable(
 	}
 	else
 	{
-		const QString varName = parameterDescription.containerName + "_" + parameterDescription.parameterName;
+		const QString varName =
+			parameterDescription.containerName + "_" + parameterDescription.parameterName;
 		tableRowNames.append(varName);
 		table->insertRow(table->rowCount());
 		table->setVerticalHeaderItem(table->rowCount() - 1, new QTableWidgetItem(varName));
@@ -1121,10 +1127,10 @@ void cFlightAnimation::slotDeleteAllImages() const
 	SynchronizeInterfaceWindow(
 		ui->scrollAreaWidgetContents_flightAnimationParameters, params, qInterface::read);
 
-	const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-	                                                          QObject::tr("Truncate Image Folder"),
-	                                                          QObject::tr("This will delete all images in the image folder.\nProceed?"),
-	                                                          QMessageBox::Yes | QMessageBox::No);
+	const QMessageBox::StandardButton reply = QMessageBox::question(
+		mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Truncate Image Folder"),
+		QObject::tr("This will delete all images in the image folder.\nProceed?"),
+		QMessageBox::Yes | QMessageBox::No);
 
 	if (reply == QMessageBox::Yes)
 	{
@@ -1217,15 +1223,15 @@ void cFlightAnimation::InterpolateForward(int row, int column)
 
 	if (valueIsInteger)
 	{
-		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow, "Parameter interpolation",
-		                                        "Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
+		const int finalInteger = QInputDialog::getInt(mainInterface->mainWindow,
+			"Parameter interpolation", "Enter value for last frame", valueInteger, 0, 2147483647, 1, &ok);
 		integerStep = double(finalInteger - valueInteger) / numberOfFrames;
 	}
 	else if (valueIsDouble)
 	{
-		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(mainInterface->mainWindow,
-		                                                                      "Parameter interpolation", "Enter value for last frame", QLineEdit::Normal,
-		                                                                      QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
+		const double finalDouble = systemData.locale.toDouble(QInputDialog::getText(
+			mainInterface->mainWindow, "Parameter interpolation", "Enter value for last frame",
+			QLineEdit::Normal, QString("%L1").arg(valueDouble, 0, 'g', 16), &ok));
 		doubleStep = (finalDouble - valueDouble) / numberOfFrames;
 	}
 
@@ -1261,7 +1267,7 @@ void cFlightAnimation::slotRefreshTable()
 QString cFlightAnimation::GetFlightFilename(int index) const
 {
 	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
-										 + QString("%1").arg(index, 5, 10, QChar('0'));
+										 + QString("%1").arg(index, 7, 10, QChar('0'));
 	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
 											params->Get<int>("flight_animation_image_type")));
 	return filename;
@@ -1274,10 +1280,10 @@ void cFlightAnimation::slotExportFlightToKeyframes() const
 
 	if (gKeyframes->GetFrames().size() > 0)
 	{
-		const QMessageBox::StandardButton reply = QMessageBox::question(mainInterface->mainWindow->GetCentralWidget(),
-		                                                          QObject::tr("Export flight to keyframes"),
-		                                                          QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
-		                                                          QMessageBox::Yes | QMessageBox::No);
+		const QMessageBox::StandardButton reply = QMessageBox::question(
+			mainInterface->mainWindow->GetCentralWidget(), QObject::tr("Export flight to keyframes"),
+			QObject::tr("There are already captured keyframes present.\nDiscard current keyframes?"),
+			QMessageBox::Yes | QMessageBox::No);
 
 		if (reply == QMessageBox::No) return;
 	}

@@ -41,8 +41,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
-
-			REAL m = native_divide(fractal->transformCommon.maxR2d1, rr);
+			m = native_divide(fractal->transformCommon.maxR2d1, rr);
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = mad(aux->DE, m, 1.0f);
@@ -66,13 +65,12 @@ REAL4 TransfSphericalFoldParabIteration(
 		REAL maxR2 = fractal->transformCommon.scale1;
 		REAL halfMax = maxR2 * 0.5f;
 		REAL factor = native_divide(midPoint, (halfMax * halfMax));
-		// REAL m = 1.0f;
 
 		REAL tempM = rr + fractal->transformCommon.offsetA0;
 		if (rr < halfMax)
 		{
-			// m = mad(-factor, (rr * rr), maxScale);
-			m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
+			m = mad(-factor, (rr * rr), maxScale);
+			// m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = mad(aux->DE, m, 1.0f);
@@ -97,22 +95,28 @@ REAL4 TransfSphericalFoldParabIteration(
 	}
 	z -= fractal->mandelbox.offset;
 
-	// post scale
-	if (aux->i >= fractal->transformCommon.startIterationsA
+	REAL useScale = fractal->transformCommon.scaleA1;
+	if (fractal->transformCommon.functionEnabledXFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		REAL useScale = aux->actualScaleA + fractal->transformCommon.scaleA1;
+		useScale += aux->actualScaleA;
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-		aux->r_dz *= fabs(useScale);
-		// update actualScale for next iteration
+		aux->DE = mad(aux->DE, fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
 
+		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
 								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
 		if (fractal->transformCommon.functionEnabledMFalse)
 			aux->actualScaleA = -vary;
 		else
 			aux->actualScaleA = aux->actualScaleA - vary;
+	}
+	else
+	{
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
 	}
 	return z;
 }

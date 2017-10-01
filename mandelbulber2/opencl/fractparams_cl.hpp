@@ -154,6 +154,7 @@ typedef struct
 	cl_float DEThresh;
 	cl_float DOFFocus;
 	cl_float DOFRadius;
+	cl_float DOFMaxRadius;
 	cl_float DOFBlurOpacity;
 	cl_float DOFMaxNoise;
 	cl_float fakeLightsIntensity;
@@ -323,6 +324,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.DEThresh = source.DEThresh;
 	target.DOFFocus = source.DOFFocus;
 	target.DOFRadius = source.DOFRadius;
+	target.DOFMaxRadius = source.DOFMaxRadius;
 	target.DOFBlurOpacity = source.DOFBlurOpacity;
 	target.DOFMaxNoise = source.DOFMaxNoise;
 	target.fakeLightsIntensity = source.fakeLightsIntensity;
