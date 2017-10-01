@@ -170,15 +170,16 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			aux->DE = mad(aux->DE, fabs(m), 1.0f);
 		}
 	}
-	// scale
-	REAL useScale = aux->actualScaleA + fractal->transformCommon.scale2;
 
-	z *= useScale;
-	aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-
-	if (aux->i >= fractal->transformCommon.startIterationsX
+	REAL useScale = fractal->mandelbox.scale;
+	if (fractal->transformCommon.functionEnabledXFalse
+			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
+		useScale += aux->actualScaleA;
+		z *= useScale;
+		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
 								* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleB1);
@@ -187,11 +188,11 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		else
 			aux->actualScaleA = aux->actualScaleA - vary;
 	}
-	/*else
+	else
 	{
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-	}*/
+	}
 
 	// offset
 	z += fractal->transformCommon.additionConstant000;

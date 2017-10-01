@@ -371,6 +371,7 @@ function generateFormulaIcons($formula, &$status)
 function checkOpenCLCompile($formula, &$status)
 {
     $checkOpenCLCompileCmd = 'clang -c -S -emit-llvm -o test.ll -w -include clc/clc.h -Dcl_clang_storage_class_specifiers -x cl';
+	$checkOpenCLCompileCmd .= '  -include ' . PROJECT_PATH . 'opencl/cl_kernel_include_headers.h';
 	$checkOpenCLCompileCmd .= '  -o /dev/null'; // -S -emit-llvm
 	$checkOpenCLCompileCmd .= ' -DOPENCL_KERNEL_CODE -I' . PROJECT_PATH . 'opencl/';
 	$checkOpenCLCompileCmd .= ' ' . $formula['openclFile'] . ' 2>&1';
