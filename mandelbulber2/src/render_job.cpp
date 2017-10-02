@@ -531,8 +531,8 @@ bool cRenderJob::Execute()
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-			qDebug() << "OpenCl render fractal - needed mem:"
-							 << gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576;
+			WriteLogDouble("OpenCl render fractal - needed mem:",
+				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 			result =
@@ -557,7 +557,7 @@ bool cRenderJob::Execute()
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
 					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
-					qDebug() << "OpenCl render SSAO - needed mem:" << neededMem / 1048576;
+					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
 					if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
 					{
 						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);

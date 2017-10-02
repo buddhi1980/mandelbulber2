@@ -118,12 +118,12 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 				buildParams += definesCollector.toUtf8().constData();
 
-				qDebug() << "Build parameters: " << buildParams.c_str();
+				WriteLogString("Build parameters", buildParams.c_str(), 3);
 				err = program->build(hardware->getClDevices(), buildParams.c_str());
 
 				if (checkErr(err, "program->build()"))
 				{
-					qDebug() << "OpenCl kernel program successfully compiled";
+					WriteLog("OpenCl kernel program successfully compiled", 2);
 					return true;
 				}
 				else
@@ -159,7 +159,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		}
 		else
 		{
-			qDebug() << "Re-compile is not needed";
+			WriteLog("Re-compile is not needed", 2);
 			return true;
 		}
 	}
@@ -192,16 +192,16 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 		size_t workGroupSize = 0;
 		kernel->getWorkGroupInfo(
 			hardware->getEnabledDevices(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
-		qDebug() << "CL_KERNEL_WORK_GROUP_SIZE" << workGroupSize;
+		WriteLogInt("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
 
 		size_t workGroupSizeOptimalMultiplier = 0;
 		kernel->getWorkGroupInfo(hardware->getEnabledDevices(),
 			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
-		qDebug() << "CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE" << workGroupSizeOptimalMultiplier;
+		WriteLogInt("CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
 
 		optimalJob.workGroupSize = workGroupSize;
 		optimalJob.workGroupSizeOptimalMultiplier = workGroupSizeOptimalMultiplier;
-		qDebug() << workGroupSizeOptimalMultiplier;
+
 		kernelCreated = true;
 		return true;
 	}
@@ -250,9 +250,9 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 		optimalJob.jobSizeLimit = pixelCnt;
 	}
 
-	qDebug() << "stepSize:" << optimalJob.stepSize;
-	qDebug() << "stepSizeX:" << optimalJob.stepSizeX;
-	qDebug() << "stepSizeY:" << optimalJob.stepSizeY;
+	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSize", optimalJob.stepSize, 2);
+	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSizeX", optimalJob.stepSizeX, 2);
+	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSizeY", optimalJob.stepSizeY, 2);
 }
 
 bool cOpenClEngine::CreateCommandQueue()

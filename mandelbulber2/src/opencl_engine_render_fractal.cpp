@@ -228,7 +228,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
-	qDebug() << "Opencl build time [s]" << timer.nsecsElapsed() / 1.0e9;
+	WriteLogDouble(
+		"cOpenClEngineRenderFractal: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }
@@ -375,7 +376,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
-	qDebug() << "Constant buffer size" << sizeof(sClInConstants);
+	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
 
 	//----------- create dynamic data -----------
 	dynamicData->Clear();
@@ -794,8 +795,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 		delete[] noiseTable;
 
-		qDebug() << "GPU jobs finished";
-		qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+		WriteLogDouble(
+			"cOpenClEngineRenderFractal: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 		// refresh image at end
 		image->NullPostEffect();

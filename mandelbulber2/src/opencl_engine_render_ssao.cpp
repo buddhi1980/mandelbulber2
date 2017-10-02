@@ -143,7 +143,8 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
-	qDebug() << "Opencl SSAO build time [s]" << timer.nsecsElapsed() / 1.0e9;
+	WriteLogDouble(
+		"cOpenClEngineRenderSSAO: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }
@@ -399,8 +400,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 				}
 			}
 
-			qDebug() << "GPU jobs finished";
-			qDebug() << "OpenCl Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+			WriteLogDouble(
+				"cOpenClEngineRenderSSAO: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 			WriteLog("image->CompileImage()", 2);
 			image->CompileImage();

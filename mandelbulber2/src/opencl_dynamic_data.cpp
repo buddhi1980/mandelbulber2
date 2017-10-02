@@ -314,7 +314,6 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 	lightsOffset = totalDataOffset;
 
 	cl_int numberOfLights = lights->GetNumberOfLights();
-	qDebug() << numberOfLights;
 	data.append(reinterpret_cast<char *>(&numberOfLights), sizeof(numberOfLights));
 	totalDataOffset += sizeof(numberOfLights);
 

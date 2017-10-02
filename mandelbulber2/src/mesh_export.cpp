@@ -157,12 +157,12 @@ void cMeshExport::ProcessVolume()
 	ProgressFtor progressFtor(this);
 	FormulaFtor formulaFtor(dist_thresh, params.data(), fractals.data());
 
-	qDebug() << "Starting marching cubes...";
+	WriteLog("Starting marching cubes...", 2);
 
 	mc::marching_cubes<double, double[3], FormulaFtor, ProgressFtor>(lower, upper, w, h, l,
 		formulaFtor, dist_thresh, vertices, polygons, &stop, progressFtor, colorIndices);
 
-	qDebug() << "Marching cubes done.";
+	WriteLog("Marching cubes done.", 2);
 
 	cColorPalette palette = gPar->Get<cColorPalette>("mat1_surface_color_palette");
 	std::vector<sRGB8> colorsRGB;

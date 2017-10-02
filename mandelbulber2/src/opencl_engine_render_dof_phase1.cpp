@@ -158,7 +158,8 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContain
 		programsLoaded = false;
 		WriteLog(errorString, 0);
 	}
-	qDebug() << "Opencl DOF build time [s]" << timer.nsecsElapsed() / 1.0e9;
+	WriteLogDouble(
+		"cOpenClEngineRenderDOFPhase1: Opencl DOF build time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 	return programsLoaded;
 }
@@ -454,8 +455,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 
 		if (!*stopRequest)
 		{
-			qDebug() << "GPU jobs finished";
-			qDebug() << "OpenCL Rendering time [s]" << timer.nsecsElapsed() / 1.0e9;
+			WriteLogDouble(
+				"cOpenClEngineRenderDOFPhase1: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 			WriteLog("image->CompileImage()", 2);
 			image->CompileImage();

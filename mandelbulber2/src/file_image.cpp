@@ -736,8 +736,11 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 {
 	if (!image)
 	{
-		qDebug() << "the image is a null pointer, this might be the case for optional channel(s). "
-								"If this is the case, just rerender the image with enabled channel(s).";
+		WriteLog(
+			"ImageFileSaveJPG::SaveJPEGQt(): "
+			"the image is a null pointer, this might be the case for optional channel(s). "
+			"If this is the case, just rerender the image with enabled channel(s).",
+			1);
 		return false;
 	}
 
@@ -770,8 +773,11 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
 
 	if (!image)
 	{
-		qDebug() << "the image is a null pointer, this might be the case for optional channel(s). "
-								"If this is the case, just rerender the image with enabled channel(s).";
+		WriteLog(
+			"ImageFileSaveJPG::SaveJPEGQtGreyscale(): "
+			"the image is a null pointer, this might be the case for optional channel(s). "
+			"If this is the case, just rerender the image with enabled channel(s).",
+			1);
 		return false;
 	}
 	QImage *qImage = new QImage(width, height, QImage::Format_Indexed8);

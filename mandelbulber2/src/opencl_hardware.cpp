@@ -36,6 +36,7 @@
 
 #include "error_message.hpp"
 #include "opencl_device.h"
+#include "system.hpp"
 
 cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
@@ -101,9 +102,10 @@ void cOpenClHardware::ListOpenClPlatforms()
 				platformInformation.version = platformVersion.c_str();
 				platformInformation.profile = platformProfile.c_str();
 
-				qDebug() << "platform #" << i << ": " << platformInformation.name
-								 << platformInformation.vendor << platformInformation.version
-								 << platformInformation.profile;
+				WriteLog(QString("OpenCL platform #") + i + ": " + platformInformation.name + " "
+									 + platformInformation.vendor + " " + platformInformation.version + " "
+									 + platformInformation.profile,
+					2);
 
 				platformsInformation.append(platformInformation);
 			}
@@ -240,25 +242,25 @@ void cOpenClHardware::ListOpenClDevices()
 					clDevices[i].getInfo(CL_DRIVER_VERSION, &driverVersion);
 					deviceInformation.driverVersion = QString(driverVersion.c_str());
 
-					qDebug() << "Device # " << i;
-					qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.deviceAvailable;
-					qDebug() << "CL_DEVICE_COMPILER_AVAILABLE" << deviceInformation.compilerAvailable;
-					qDebug() << "CL_DEVICE_DOUBLE_FP_CONFIG" << deviceInformation.doubleFpConfig;
-					qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE" << deviceInformation.globalMemCacheSize;
-					qDebug() << "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"
-									 << deviceInformation.globalMemCachelineSize;
-					qDebug() << "CL_DEVICE_GLOBAL_MEM_SIZE" << deviceInformation.globalMemSize;
-					qDebug() << "CL_DEVICE_LOCAL_MEM_SIZE" << deviceInformation.localMemSize;
-					qDebug() << "CL_DEVICE_MAX_CLOCK_FREQUENCY" << deviceInformation.maxClockFrequency;
-					qDebug() << "CL_DEVICE_MAX_COMPUTE_UNITS" << deviceInformation.maxComputeUnits;
-					qDebug() << "CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE"
-									 << deviceInformation.maxConstantBufferSize;
-					qDebug() << "CL_DEVICE_MAX_MEM_ALLOC_SIZE" << deviceInformation.maxMemAllocSize;
-					qDebug() << "CL_DEVICE_MAX_PARAMETER_SIZE" << deviceInformation.maxParameterSize;
-					qDebug() << "CL_DEVICE_MAX_WORK_GROUP_SIZE" << deviceInformation.maxWorkGroupSize;
-					qDebug() << "CL_DEVICE_NAME" << deviceInformation.deviceName;
-					qDebug() << "CL_DEVICE_VERSION" << deviceInformation.deviceVersion;
-					qDebug() << "CL_DRIVER_VERSION" << deviceInformation.driverVersion;
+					WriteLogInt("OpenCL Device # ", i, 2);
+					WriteLogInt("CL_DEVICE_MAX_COMPUTE_UNITS", deviceInformation.deviceAvailable, 2);
+					WriteLogInt("CL_DEVICE_COMPILER_AVAILABLE", deviceInformation.compilerAvailable, 2);
+					WriteLogInt("CL_DEVICE_DOUBLE_FP_CONFIG", deviceInformation.doubleFpConfig, 2);
+					WriteLogInt("CL_DEVICE_GLOBAL_MEM_CACHE_SIZE", deviceInformation.globalMemCacheSize, 2);
+					WriteLogInt(
+						"CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE", deviceInformation.globalMemCachelineSize, 2);
+					WriteLogInt("CL_DEVICE_GLOBAL_MEM_SIZE", deviceInformation.globalMemSize, 2);
+					WriteLogInt("CL_DEVICE_LOCAL_MEM_SIZE", deviceInformation.localMemSize, 2);
+					WriteLogInt("CL_DEVICE_MAX_CLOCK_FREQUENCY", deviceInformation.maxClockFrequency, 2);
+					WriteLogInt("CL_DEVICE_MAX_COMPUTE_UNITS", deviceInformation.maxComputeUnits, 2);
+					WriteLogInt(
+						"CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE", deviceInformation.maxConstantBufferSize, 2);
+					WriteLogInt("CL_DEVICE_MAX_MEM_ALLOC_SIZE", deviceInformation.maxMemAllocSize, 2);
+					WriteLogInt("CL_DEVICE_MAX_PARAMETER_SIZE", deviceInformation.maxParameterSize, 2);
+					WriteLogInt("CL_DEVICE_MAX_WORK_GROUP_SIZE", deviceInformation.maxWorkGroupSize, 2);
+					WriteLogString("CL_DEVICE_NAME", deviceInformation.deviceName, 2);
+					WriteLogString("CL_DEVICE_VERSION", deviceInformation.deviceVersion, 2);
+					WriteLogString("CL_DRIVER_VERSION", deviceInformation.driverVersion, 2);
 
 					// calculate hash code
 					QCryptographicHash hashCrypt(QCryptographicHash::Md4);
@@ -345,7 +347,9 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 			if (hashFromDevice.left(3) == hashFromList.left(3))
 			{
 				EnableDevice(dev);
-				qDebug() << "Device" << clDeviceWorkers[dev].getDeviceInformation().deviceName << "enabled";
+				WriteLog(
+					QString("Device ") + clDeviceWorkers[dev].getDeviceInformation().deviceName + " enabled",
+					3);
 			}
 		}
 	}

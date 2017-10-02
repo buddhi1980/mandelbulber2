@@ -399,7 +399,7 @@ double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals
 		// qDebug() << "pointNextBest" << pointNextBest.Debug();
 		if (point.Length() > 1000000)
 		{
-			qDebug() << "surface not found!";
+			WriteLog("CalculateDistanceMinPlane(): surface not found!", 1);
 			return 0;
 		}
 		gApplication->processEvents();

@@ -79,7 +79,7 @@ cFormulaComboBox::~cFormulaComboBox()
 
 void cFormulaComboBox::onCompleterActivated(QString text)
 {
-	qDebug() << "onCompleterActivated: text -> " << text;
+	WriteLogString("onCompleterActivated: text -> ", text, 3);
 	// on selection of an item from the completer, select the corresponding item from combobox
 	if (!text.isEmpty())
 	{

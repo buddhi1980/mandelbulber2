@@ -184,6 +184,11 @@ int get_cpu_count()
 
 void WriteLog(QString text, int verbosityLevel)
 {
+	// verbosity level:
+	// 1 - only errors
+	// 2 - main events / actions
+	// 3 - detailed events / actions
+
 	if (verbosityLevel <= systemData.loggingVerbosity)
 	{
 		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
@@ -217,6 +222,11 @@ void WriteLogString(QString text, QString value, int verbosityLevel)
 }
 
 void WriteLogDouble(QString text, double value, int verbosityLevel)
+{
+	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
+}
+
+void WriteLogInt(QString text, int value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }

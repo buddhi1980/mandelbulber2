@@ -793,7 +793,7 @@ void cCommandLineInterface::handleArgs()
 				{
 					parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 					parSettings.SaveToFile(filename);
-					qDebug() << "touched file: " << filename;
+					WriteLogString("cCommandLineInterface::handleArgs(): touched file", filename, 3);
 					exit(0);
 				}
 			}
@@ -1082,7 +1082,8 @@ void cCommandLineInterface::handleEndFrame()
 void cCommandLineInterface::handleVoxel()
 {
 	QStringList allowedVoxelFormat({"ply", "slice"});
-	qDebug() << "cliData.voxelFormat. " << cliData.voxelFormat;
+	WriteLogString(
+		"CommandLineInterface::handleVoxel(): cliData.voxelFormat", cliData.voxelFormat, 3);
 	if (!allowedVoxelFormat.contains(cliData.voxelFormat))
 	{
 		cErrorMessage::showMessage(QObject::tr("Specified voxel format is not valid\n"
