@@ -83,11 +83,10 @@ void cAudioSelector::slotLoadAudioFile()
 	dialog.setNameFilter(tr("Audio files (*.wav *.mp3 *.flac *.ogg)"));
 	dialog.setAcceptMode(QFileDialog::AcceptOpen);
 	dialog.setWindowTitle(tr("Select audio file..."));
-	QStringList filenames;
 	if (dialog.exec())
 	{
-		filenames = dialog.selectedFiles();
-		QString filename = QDir::toNativeSeparators(filenames.first());
+		QStringList filenames = dialog.selectedFiles();
+		const QString filename = QDir::toNativeSeparators(filenames.first());
 
 		if (animationFrames)
 		{
@@ -138,7 +137,7 @@ void cAudioSelector::AssignParameter(const QString &_parameterName)
 	SynchronizeInterfaceWindow(this, gPar, qInterface::write);
 }
 
-void cAudioSelector::ConnectSignals()
+void cAudioSelector::ConnectSignals() const
 {
 	connect(ui->pushButton_loadAudioFile, SIGNAL(clicked()), this, SLOT(slotLoadAudioFile()));
 	connect(ui->pushButton_delete_audiotrack, SIGNAL(clicked()), this, SLOT(slotDeleteAudioTrack()));
@@ -174,10 +173,10 @@ void cAudioSelector::ConnectSignals()
 		SLOT(slotChangedFrequencyBand(double, double)));
 }
 
-void cAudioSelector::RenameWidget(QWidget *widget)
+void cAudioSelector::RenameWidget(QWidget *widget) const
 {
-	QString oldName = widget->objectName();
-	QString newName = oldName + "_" + parameterName;
+	const QString oldName = widget->objectName();
+	const QString newName = oldName + "_" + parameterName;
 	widget->setObjectName(newName);
 }
 
@@ -186,9 +185,9 @@ void cAudioSelector::slotFreqChanged()
 	if (audio)
 	{
 		SynchronizeInterfaceWindow(this, gPar, qInterface::read);
-		double midFreq = gPar->Get<double>(FullParameterName("midfreq"));
-		double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
-		bool pitchMode = gPar->Get<bool>(FullParameterName("pitchmode"));
+		const double midFreq = gPar->Get<double>(FullParameterName("midfreq"));
+		const double bandwidth = gPar->Get<double>(FullParameterName("bandwidth"));
+		const bool pitchMode = gPar->Get<bool>(FullParameterName("pitchmode"));
 		audio->calculateAnimation(midFreq, bandwidth, pitchMode);
 		if (gPar->Get<bool>(FullParameterName("binaryfilter")))
 		{
@@ -209,7 +208,7 @@ void cAudioSelector::slotFreqChanged()
 	}
 }
 
-void cAudioSelector::slotPlaybackStart()
+void cAudioSelector::slotPlaybackStart() const
 {
 	if (audio->isLoaded() && audioOutput)
 	{
@@ -278,14 +277,14 @@ void cAudioSelector::slotSeekTo(int position)
 	if (playStream != nullptr)
 	{
 		qint64 targetPos = position * playStream->size() / ui->audio_position_slider->maximum();
-		qint64 chunkSize = 1024; // seek can only be a multiple of chunkSize
+		const qint64 chunkSize = 1024; // seek can only be a multiple of chunkSize
 		targetPos = (targetPos / chunkSize) * chunkSize;
 		playStream->seek(targetPos);
 		slotPlayPositionChanged(false);
 	}
 }
 
-QString cAudioSelector::FullParameterName(const QString &name)
+QString cAudioSelector::FullParameterName(const QString &name) const
 {
 	return QString("animsound_") + name + "_" + parameterName;
 }
@@ -328,19 +327,19 @@ void cAudioSelector::slotDeleteAudioTrack()
 void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 {
 	// set scroll indicator to current position
-	int viewOuterWidth = ui->scrollArea->width();
-	int viewInnerWidth = ui->scrollAreaWidgetContents->width();
-	double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
-	int width = ui->scrollArea->horizontalScrollBar()->maximum();
-	double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
-	double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
-	double percentRuntime = processedSecs / totalLengthSecs;
-	int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
+	const int viewOuterWidth = ui->scrollArea->width();
+	const int viewInnerWidth = ui->scrollAreaWidgetContents->width();
+	const double overScrollPercent = (1.0 * viewOuterWidth / viewInnerWidth) / 2.0;
+	const int width = ui->scrollArea->horizontalScrollBar()->maximum();
+	const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
+	const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
+	const double percentRuntime = processedSecs / totalLengthSecs;
+	const int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
 	ui->scrollArea->horizontalScrollBar()->setValue(x);
 
 	// set text of current position and slider progress
-	QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
-	QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
+	const QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
+	const QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
 	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
 	if (updateSlider)
 		ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());
@@ -348,7 +347,7 @@ void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 	emit playPositionChanged(processedSecs * 1000);
 }
 
-void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
+void cAudioSelector::slotPlaybackStateChanged(QAudio::State state) const
 {
 	if (state == QAudio::StoppedState || state == QAudio::IdleState)
 	{
@@ -356,7 +355,7 @@ void cAudioSelector::slotPlaybackStateChanged(QAudio::State state)
 	}
 }
 
-void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state)
+void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state) const
 {
 	if (state == QAudio::ActiveState)
 	{
@@ -374,7 +373,7 @@ void cAudioSelector::SetStartStopButtonsPlayingStatus(QAudio::State state)
 		state == QAudio::ActiveState || state == QAudio::SuspendedState);
 }
 
-void cAudioSelector::slotChangedFrequencyBand(double midFreq, double bandWidth)
+void cAudioSelector::slotChangedFrequencyBand(double midFreq, double bandWidth) const
 {
 	ui->spinbox_animsound_midfreq->setValue(midFreq);
 	ui->spinbox_animsound_bandwidth->setValue(bandWidth);

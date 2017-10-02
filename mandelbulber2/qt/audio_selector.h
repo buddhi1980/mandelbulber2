@@ -64,19 +64,19 @@ private slots:
 	void slotAudioLoaded();
 	void slotFreqChanged();
 	void slotDeleteAudioTrack();
-	void slotPlaybackStart();
+	void slotPlaybackStart() const;
 	void slotPlaybackStop();
 	void slotSeekTo(int position);
 	void slotPlayPositionChanged(bool updateSlider = true);
-	void slotPlaybackStateChanged(QAudio::State state);
-	void slotChangedFrequencyBand(double midFreq, double bandWidth);
+	void slotPlaybackStateChanged(QAudio::State state) const;
+	void slotChangedFrequencyBand(double midFreq, double bandWidth) const;
 
 private:
 	void audioSetup();
-	void ConnectSignals();
-	void RenameWidget(QWidget *widget);
-	void SetStartStopButtonsPlayingStatus(QAudio::State state);
-	QString FullParameterName(const QString &parameterName);
+	void ConnectSignals() const;
+	void RenameWidget(QWidget *widget) const;
+	void SetStartStopButtonsPlayingStatus(QAudio::State state) const;
+	QString FullParameterName(const QString &parameterName) const;
 
 	Ui::cAudioSelector *ui;
 

@@ -214,16 +214,16 @@ void cAudioTrackCollection::RefreshAllAudioTracks(cParameterContainer *params)
 
 	for (int i = 0; i < listOfAllParameters.length(); i++)
 	{
-		QString parameterName = listOfAllParameters[i];
+		const QString parameterName = listOfAllParameters[i];
 		if (audioTracks[parameterName]->isLoaded())
 		{
 			audioTracks[parameterName]->setFramesPerSecond(
 				params->Get<double>("keyframe_frames_per_second"));
 			audioTracks[parameterName]->calculateFFT();
 
-			double midFreq = params->Get<double>(FullParameterName("midfreq", parameterName));
-			double bandwidth = params->Get<double>(FullParameterName("bandwidth", parameterName));
-			bool pitchmode = params->Get<bool>(FullParameterName("pitchmode", parameterName));
+			const double midFreq = params->Get<double>(FullParameterName("midfreq", parameterName));
+			const double bandwidth = params->Get<double>(FullParameterName("bandwidth", parameterName));
+			const bool pitchmode = params->Get<bool>(FullParameterName("pitchmode", parameterName));
 			audioTracks[parameterName]->calculateAnimation(midFreq, bandwidth, pitchmode);
 
 			if (params->Get<bool>(FullParameterName("binaryfilter", parameterName)))
