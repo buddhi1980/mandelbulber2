@@ -50,16 +50,16 @@ cAutomatedWidgets::cAutomatedWidgets(QObject *parent) : QObject(parent)
 void cAutomatedWidgets::slotSliderMoved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinbox_") + parameterName;
+	const QString spinBoxName = QString("spinbox_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 	if (spinBox)
 	{
-		double decimals = spinBox->decimals();
-		double divider = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double divider = pow(10.0, decimals);
 		spinBox->setValue(value / divider);
 	}
 	else
@@ -71,16 +71,16 @@ void cAutomatedWidgets::slotSliderMoved(int value) const
 void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString sliderName = QString("slider_") + parameterName;
+	const QString sliderName = QString("slider_") + parameterName;
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 	if (slider)
 	{
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
-		double decimals = spinBox->decimals();
-		double multiplier = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double multiplier = pow(10.0, decimals);
 		slider->setValue(int(value * multiplier));
 	}
 	else
@@ -93,10 +93,10 @@ void cAutomatedWidgets::slotDoubleSpinBoxChanged(double value) const
 void cAutomatedWidgets::slotIntSliderMoved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinboxName = QString("spinboxInt_") + parameterName;
+	const QString spinboxName = QString("spinboxInt_") + parameterName;
 
 	QSpinBox *spinbox = this->sender()->parent()->findChild<QSpinBox *>(spinboxName);
 	if (spinbox)
@@ -113,10 +113,10 @@ void cAutomatedWidgets::slotIntSliderMoved(int value) const
 void cAutomatedWidgets::slotIntSpinBoxChanged(int value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString sliderName = QString("sliderInt_") + parameterName;
+	const QString sliderName = QString("sliderInt_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 	if (slider)
@@ -133,17 +133,17 @@ void cAutomatedWidgets::slotIntSpinBoxChanged(int value) const
 void cAutomatedWidgets::slotSlider3Moved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinbox3_") + parameterName;
+	const QString spinBoxName = QString("spinbox3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 
 	if (spinBox)
 	{
-		double decimals = spinBox->decimals();
-		double divider = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double divider = pow(10.0, decimals);
 		spinBox->setValue(value / divider);
 	}
 	else
@@ -155,17 +155,17 @@ void cAutomatedWidgets::slotSlider3Moved(int value) const
 void cAutomatedWidgets::slotSlider4Moved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinbox4_") + parameterName;
+	const QString spinBoxName = QString("spinbox4_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 
 	if (spinBox)
 	{
-		double decimals = spinBox->decimals();
-		double divider = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double divider = pow(10.0, decimals);
 		spinBox->setValue(value / divider);
 	}
 	else
@@ -177,18 +177,18 @@ void cAutomatedWidgets::slotSlider4Moved(int value) const
 void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString sliderName = QString("slider3_") + parameterName;
+	const QString sliderName = QString("slider3_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 
 	if (slider)
 	{
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
-		double decimals = spinBox->decimals();
-		double multiplier = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double multiplier = pow(10.0, decimals);
 		slider->setValue(int(value * multiplier));
 	}
 	else
@@ -200,18 +200,18 @@ void cAutomatedWidgets::slotSpinBox3Changed(double value) const
 void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString sliderName = QString("slider4_") + parameterName;
+	const QString sliderName = QString("slider4_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 
 	if (slider)
 	{
 		QDoubleSpinBox *spinBox = static_cast<QDoubleSpinBox *>(this->sender());
-		double decimals = spinBox->decimals();
-		double multiplier = pow(10.0, decimals);
+		const double decimals = spinBox->decimals();
+		const double multiplier = pow(10.0, decimals);
 		slider->setValue(int(value * multiplier));
 	}
 	else
@@ -223,10 +223,10 @@ void cAutomatedWidgets::slotSpinBox4Changed(double value) const
 void cAutomatedWidgets::slotDial3Moved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinboxd3_") + parameterName;
+	const QString spinBoxName = QString("spinboxd3_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 	if (spinBox)
@@ -242,10 +242,10 @@ void cAutomatedWidgets::slotDial3Moved(int value) const
 void cAutomatedWidgets::slotDial4Moved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinboxd4_") + parameterName;
+	const QString spinBoxName = QString("spinboxd4_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 	if (spinBox)
@@ -261,10 +261,10 @@ void cAutomatedWidgets::slotDial4Moved(int value) const
 void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString dialName = QString("dial3_") + parameterName;
+	const QString dialName = QString("dial3_") + parameterName;
 
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
@@ -280,10 +280,10 @@ void cAutomatedWidgets::slotSpinBoxD3Changed(double value) const
 void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString dialName = QString("dial4_") + parameterName;
+	const QString dialName = QString("dial4_") + parameterName;
 
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
@@ -299,10 +299,10 @@ void cAutomatedWidgets::slotSpinBoxD4Changed(double value) const
 void cAutomatedWidgets::slotDialMoved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString spinBoxName = QString("spinboxd_") + parameterName;
+	const QString spinBoxName = QString("spinboxd_") + parameterName;
 
 	QDoubleSpinBox *spinBox = this->sender()->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 	if (spinBox)
@@ -318,10 +318,10 @@ void cAutomatedWidgets::slotDialMoved(int value) const
 void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 {
 	using namespace std;
-	QString spinBoxName = this->sender()->objectName();
+	const QString spinBoxName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(spinBoxName, &parameterName, &type);
-	QString dialName = QString("dial_") + parameterName;
+	const QString dialName = QString("dial_") + parameterName;
 
 	QDial *dial = this->sender()->parent()->findChild<QDial *>(dialName);
 	if (dial)
@@ -337,16 +337,16 @@ void cAutomatedWidgets::slotSpinBoxDChanged(double value) const
 void cAutomatedWidgets::slotLogSliderMoved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString lineEditName = QString("logedit_") + parameterName;
+	const QString lineEditName = QString("logedit_") + parameterName;
 
 	QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit *>(lineEditName);
 	if (lineEdit)
 	{
-		double dValue = pow(10.0, value / 100.0);
-		QString text = QString("%L1").arg(dValue);
+		const double dValue = pow(10.0, value / 100.0);
+		const QString text = QString("%L1").arg(dValue);
 		lineEdit->setText(text);
 	}
 	else
@@ -359,16 +359,16 @@ void cAutomatedWidgets::slotLogSliderMoved(int value) const
 void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 {
 	using namespace std;
-	QString sliderName = this->sender()->objectName();
+	const QString sliderName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(sliderName, &parameterName, &type);
-	QString lineEditName = QString("logvect3_") + parameterName;
+	const QString lineEditName = QString("logvect3_") + parameterName;
 
 	QLineEdit *lineEdit = this->sender()->parent()->findChild<QLineEdit *>(lineEditName);
 	if (lineEdit)
 	{
-		double dValue = pow(10.0, value / 100.0);
-		QString text = QString("%L1").arg(dValue);
+		const double dValue = pow(10.0, value / 100.0);
+		const QString text = QString("%L1").arg(dValue);
 		lineEdit->setText(text);
 	}
 	else
@@ -381,18 +381,18 @@ void cAutomatedWidgets::slotLogSliderVect3Moved(int value) const
 void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 {
 	using namespace std;
-	QString lineEditName = this->sender()->objectName();
+	const QString lineEditName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(lineEditName, &parameterName, &type);
-	QString sliderName = QString("logslider_") + parameterName;
+	const QString sliderName = QString("logslider_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 	if (slider)
 	{
-		double value = systemData.locale.toDouble(text);
+		const double value = systemData.locale.toDouble(text);
 		if (value > 0.0)
 		{
-			int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
+			const int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
 			slider->setValue(sliderPosition);
 		}
 		else
@@ -411,18 +411,18 @@ void cAutomatedWidgets::slotLogLineEditChanged(const QString &text) const
 void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 {
 	using namespace std;
-	QString lineEditName = this->sender()->objectName();
+	const QString lineEditName = this->sender()->objectName();
 	QString type, parameterName;
 	GetNameAndType(lineEditName, &parameterName, &type);
-	QString sliderName = QString("logslidervect3_") + parameterName;
+	const QString sliderName = QString("logslidervect3_") + parameterName;
 
 	QSlider *slider = this->sender()->parent()->findChild<QSlider *>(sliderName);
 	if (slider)
 	{
-		double value = systemData.locale.toDouble(text);
+		const double value = systemData.locale.toDouble(text);
 		if (value > 0.0)
 		{
-			int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
+			const int sliderPosition = int(log10(systemData.locale.toDouble(text)) * 100.0);
 			slider->setValue(sliderPosition);
 		}
 		else
@@ -444,8 +444,7 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 {
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
-	QList<QSlider *>::iterator it;
-	for (it = widgetList.begin(); it != widgetList.end(); ++it)
+	for (QList<QSlider *>::iterator it = widgetList.begin(); it != widgetList.end(); ++it)
 	{
 		QString name = (*it)->objectName();
 		if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSlider"))
@@ -459,7 +458,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSliderMoved(int)));
 
-				QString spinBoxName = QString("spinbox_") + parameterName;
+				const QString spinBoxName = QString("spinbox_") + parameterName;
 				QDoubleSpinBox *spinBox = slider->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 				if (spinBox)
 				{
@@ -477,7 +476,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				QApplication::connect(
 					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotLogSliderMoved(int)));
 
-				QString editFieldName = QString("logedit_") + parameterName;
+				const QString editFieldName = QString("logedit_") + parameterName;
 				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit *>(editFieldName);
 				if (lineEdit)
 				{
@@ -495,7 +494,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				QApplication::connect(
 					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotLogSliderVect3Moved(int)));
 
-				QString editFieldName = QString("logvect3_") + parameterName;
+				const QString editFieldName = QString("logvect3_") + parameterName;
 				QLineEdit *lineEdit = slider->parent()->findChild<QLineEdit *>(editFieldName);
 				if (lineEdit)
 				{
@@ -513,7 +512,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 				QApplication::connect(
 					slider, SIGNAL(sliderMoved(int)), this, SLOT(slotIntSliderMoved(int)));
 
-				QString spinboxName = QString("spinboxInt_") + parameterName;
+				const QString spinboxName = QString("spinboxInt_") + parameterName;
 				QSpinBox *spinbox = slider->parent()->findChild<QSpinBox *>(spinboxName);
 				if (spinbox)
 				{
@@ -529,7 +528,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			if (type == QString("slider3"))
 			{
 				QApplication::connect(slider, SIGNAL(sliderMoved(int)), this, SLOT(slotSlider3Moved(int)));
-				QString spinboxName = QString("spinbox3_") + parameterName;
+				const QString spinboxName = QString("spinbox3_") + parameterName;
 				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox *>(spinboxName);
 				if (spinbox)
 				{
@@ -545,7 +544,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			if (type == QString("slider4"))
 			{
 				QApplication::connect(slider, SIGNAL(valueChanged(int)), this, SLOT(slotSlider4Moved(int)));
-				QString spinboxName = QString("spinbox4_") + parameterName;
+				const QString spinboxName = QString("spinbox4_") + parameterName;
 				QDoubleSpinBox *spinbox = slider->parent()->findChild<QDoubleSpinBox *>(spinboxName);
 				if (spinbox)
 				{
@@ -562,8 +561,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 	}
 
 	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
-	QList<QDial *>::iterator it2;
-	for (it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
+	for (QList<QDial *>::iterator it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
 	{
 		QString name = (*it2)->objectName();
 		if (name.length() > 1 && (*it2)->metaObject()->className() == QString("QDial"))
@@ -576,7 +574,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			{
 				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDial3Moved(int)));
 
-				QString spinBoxName = QString("spinboxd3_") + parameterName;
+				const QString spinBoxName = QString("spinboxd3_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 				if (spinBox)
 				{
@@ -593,7 +591,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			{
 				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDial4Moved(int)));
 
-				QString spinBoxName = QString("spinboxd4_") + parameterName;
+				const QString spinBoxName = QString("spinboxd4_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 				if (spinBox)
 				{
@@ -610,7 +608,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 			{
 				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDialMoved(int)));
 
-				QString spinBoxName = QString("spinboxd_") + parameterName;
+				const QString spinBoxName = QString("spinboxd_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
 				if (spinBox)
 				{

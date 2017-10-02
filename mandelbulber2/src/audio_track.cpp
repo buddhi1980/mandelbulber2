@@ -104,7 +104,7 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 
 	emit loadingProgress(tr("Loading sound file"));
 	QApplication::processEvents();
-	SNDFILE *infile = nullptr;
+	SNDFILE *infile;
 	SF_INFO sfInfo;
 	memset(&sfInfo, 0, sizeof(sfInfo));
 
@@ -124,7 +124,7 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 			rawAudio.resize(sfInfo.frames);
 
 			float *tempBuff = new float[sfInfo.frames * sfInfo.channels];
-			sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfInfo.frames);
+			const sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfInfo.frames);
 
 			for (int64_t i = 0; i < readSamples; i++)
 			{
@@ -193,8 +193,8 @@ void cAudioTrack::slotReadBuffer()
 {
 	QAudioBuffer audioBuffer = decoder->read();
 
-	qint64 duration = decoder->duration();
-	qint64 totalSamplesApprox = (duration + 1000) * sampleRate / 1000;
+	const qint64 duration = decoder->duration();
+	const qint64 totalSamplesApprox = (duration + 1000) * sampleRate / 1000;
 
 	// reservation of memory if length is already known
 	if (duration > 0 && !memoryReserved)
@@ -203,7 +203,7 @@ void cAudioTrack::slotReadBuffer()
 		memoryReserved = true;
 	}
 
-	int frameCount = audioBuffer.frameCount();
+	const int frameCount = audioBuffer.frameCount();
 	if (frameCount > 0)
 	{
 		qint16 *frames = audioBuffer.data<qint16>();
@@ -278,7 +278,7 @@ void cAudioTrack::calculateFFT()
 		if (fftAudio) delete[] fftAudio;
 		fftAudio = new cAudioFFTData[numberOfFrames];
 
-		int overSample = sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2;
+		const int overSample = sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2;
 
 #pragma omp parallel for
 		for (int frame = 0; frame < numberOfFrames; ++frame)
@@ -287,7 +287,7 @@ void cAudioTrack::calculateFFT()
 
 			for (int ov = 0; ov < overSample; ov++)
 			{
-				int sampleOffset =
+				const int sampleOffset =
 					int(qint64(frame * overSample + ov) * sampleRate / framesPerSecond / overSample);
 
 				// prepare complex data for fft transform
@@ -302,14 +302,14 @@ void cAudioTrack::calculateFFT()
 				}
 
 				// do FFT
-				gsl_complex_packed_array data = fftData;
+				const gsl_complex_packed_array data = fftData;
 				gsl_fft_complex_radix2_forward(data, 1, cAudioFFTData::fftSize);
 
 				// write ready FFT data to storage buffer
 				for (int i = 0; i < cAudioFFTData::fftSize; i++)
 				{
-					float re = fftData[2 * i];
-					float im = fftData[2 * i + 1];
+					const float re = fftData[2 * i];
+					const float im = fftData[2 * i + 1];
 					float absVal = sqrt(re * re + im * im);
 					fftFrame.data[i] += absVal / overSample;
 					maxFft = qMax(absVal, maxFft);
@@ -339,7 +339,7 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 {
 	if (isLoaded() && frame < numberOfFrames)
 	{
-		cAudioFFTData fft = fftAudio[frame];
+		const cAudioFFTData fft = fftAudio[frame];
 
 		int first = freq2FftPos(midFreq - 0.5 * bandwidth);
 		if (first < 0) first = 0;
@@ -355,8 +355,8 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 
 			for (int i = first; i <= last; i++)
 			{
-				double val = i - first;
-				double weight = pow(double(fft.data[i]), 5.0);
+				const double val = i - first;
+				const double weight = pow(double(fft.data[i]), 5.0);
 				nominator += val * weight;
 				denominator += weight;
 			}
@@ -371,7 +371,7 @@ float cAudioTrack::getBand(int frame, double midFreq, double bandwidth, bool pit
 				sum += fft.data[i];
 				maxVal += maxFftArray.data[i];
 			}
-			int count = last - first + 1;
+			const int count = last - first + 1;
 			maxVal /= count;
 			value = sum / count / maxVal;
 		}
