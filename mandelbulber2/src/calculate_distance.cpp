@@ -60,9 +60,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	double limitBoxDist = 0.0;
 	if (params.limitsEnabled)
 	{
-		double distance_a = max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
-		double distance_b = max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
-		double distance_c = max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
+		const double distance_a = max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
+		const double distance_b = max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
+		const double distance_c = max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
 		limitBoxDist = max(max(distance_a, distance_b), distance_c);
 
 		if (limitBoxDist > in.detailSize)
@@ -106,7 +106,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 				distTemp = DisplacementMap(distTemp, in.point, i + 1, data);
 
-				params::enumBooleanOperator boolOperator = params.booleanOperator[i];
+				const params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
 				switch (boolOperator)
 				{
@@ -128,7 +128,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 						break;
 					case params::booleanOperatorSUB:
 					{
-						double limit = 1.5;
+						const double limit = 1.5;
 						if (distance < in.detailSize) // if inside 1st
 						{
 							if (distTemp < in.detailSize * limit) // if inside 2nd
@@ -189,8 +189,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		distance = 0.0;
 	}
 
-	double distFromCamera = (in.point - params.camera).Length();
-	double distanceLimitMin = params.viewDistanceMin - distFromCamera;
+	const double distFromCamera = (in.point - params.camera).Length();
+	const double distanceLimitMin = params.viewDistanceMin - distFromCamera;
 	if (distanceLimitMin > in.detailSize)
 	{
 		out->maxiter = false;
@@ -211,7 +211,7 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 {
 	double distance = 0;
 
-	int N = in.normalCalculationMode ? params.N * 5 : params.N;
+	const int N = in.normalCalculationMode ? params.N * 5 : params.N;
 
 	sFractalIn fractIn(in.point, params.minN, N, params.common, forcedFormulaIndex);
 	sFractalOut fractOut;
@@ -260,10 +260,10 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 	}
 	else
 	{
-		double deltaDE = 1e-10;
+		const double deltaDE = 1e-10;
 
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
-		double r = fractOut.z.Length();
+		const double r = fractOut.z.Length();
 		out->maxiter = fractOut.maxiter;
 		bool maxiter = fractOut.maxiter;
 		out->iters = fractOut.iters;
@@ -275,22 +275,22 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 		fractIn.point = in.point + CVector3(deltaDE, 0.0, 0.0);
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		double r2 = fractOut.z.Length();
-		double dr1 = fabs(r2 - r) / deltaDE;
+		const double dr1 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
 		fractIn.point = in.point + CVector3(0.0, deltaDE, 0.0);
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
-		double dr2 = fabs(r2 - r) / deltaDE;
+		const double dr2 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
 		fractIn.point = in.point + CVector3(0.0, 0.0, deltaDE);
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		r2 = fractOut.z.Length();
-		double dr3 = fabs(r2 - r) / deltaDE;
+		const double dr3 = fabs(r2 - r) / deltaDE;
 		out->totalIters += fractOut.iters;
 
-		double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
+		const double dr = sqrt(dr1 * dr1 + dr2 * dr2 + dr3 * dr3);
 
 		if (dr > 0)
 		{
@@ -301,14 +301,14 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 				distance = 0.5 * r * log(r) / dr;
 			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::pseudoKleinianDEFunction)
 			{
-				CVector3 z = fractOut.z;
-				double rxy = sqrt(z.x * z.x + z.y * z.y);
+				const CVector3 z = fractOut.z;
+				const double rxy = sqrt(z.x * z.x + z.y * z.y);
 				distance = max(rxy - 0.92784, fabs(rxy * z.z) / r) / (dr);
 			}
 			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::josKleinianDEFunction)
 			{
-				CVector3 z = fractOut.z;
-				double rxy = sqrt(z.x * z.x + z.z * z.z);
+				const CVector3 z = fractOut.z;
+				const double rxy = sqrt(z.x * z.x + z.z * z.z);
 				distance = (fabs(rxy * z.y) / r) / (dr);
 				maxiter = false;
 			}
@@ -376,16 +376,16 @@ double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals
 		double newDistStepMin = 0;
 		for (int i = 0; i <= transVectorAngles; i++)
 		{
-			double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
+			const double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
 			CVector3 transversalVect = orthDirection;
 			transversalVect = transversalVect.RotateAroundVectorByAngle(rotationAxis, angle);
 			transversalVect.Normalize();
 			CVector3 pointNext = point + direction * distStep;
 			if (i > 0) pointNext += transversalVect * distStep / 2.0;
-			sDistanceIn in(pointNext, 0, false);
+			const sDistanceIn in(pointNext, 0, false);
 			sDistanceOut out;
-			double dist = CalculateDistance(params, fractals, in, &out);
-			double newDistStep = dist * detail * 0.5;
+			const double dist = CalculateDistance(params, fractals, in, &out);
+			const double newDistStep = dist * detail * 0.5;
 			if (newDistStep < newDistStepMin || newDistStepMin == 0)
 			{
 				pointNextBest = pointNext;
