@@ -39,6 +39,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 #include <ctime>
 
@@ -180,6 +181,14 @@ void handle_winch(int sig)
 int get_cpu_count()
 {
 	return QThread::idealThreadCount();
+}
+
+void WriteLogCout(QString text, int verbosityLevel)
+{
+	//output to console
+	cout << text.toStdString();
+	cout.flush();
+	WriteLog(text, verbosityLevel);
 }
 
 void WriteLog(QString text, int verbosityLevel)
