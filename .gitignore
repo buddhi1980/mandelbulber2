@@ -1,7 +1,6 @@
 ############# IGNORES #############
 # Render Folders
-render/
-render2/
+render*/
 
 # Build Directories
 mandelbulber2/deploy/share/mandelbulber2/mandelbulber2
