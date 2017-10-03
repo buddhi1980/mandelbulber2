@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.11
+# version 2.12
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -9,7 +9,7 @@ animsound_enable_main_mat1_coloring_palette_offset true;
 animsound_midfreq_main_mat1_coloring_palette_offset 5157;
 animsound_soundfile_main_mat1_coloring_palette_offset D:\dIOTV_ZtIwg.ogg;
 background_color_1 0000 0000 0000;
-background_color_2 ff00 0000 0000;
+background_color_2 0000 0000 0000;
 background_color_3 0000 0000 0000;
 basic_fog_color e800 ef00 ff00;
 basic_fog_visibility 0.005232270807027817;
@@ -33,7 +33,7 @@ mat1_fractal_coloring_algorithm 4;
 mat1_fractal_coloring_line_direction 1 1 1;
 mat1_is_defined true;
 mat1_surface_color_palette 90c0fc 767dab 38efe4 90cde7 1e32c9 4d7438 9b756f;
-perspective_type 2;
+perspective_type equirectangular;
 view_distance_max 4.275590123648028;
 [fractal_1]
 transf_scale_3 4.142012;
