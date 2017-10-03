@@ -446,7 +446,7 @@ void RenderWindow::slotCustomWindowStateAddToMenu()
 		tr("Enter a name for the new window settings"), QLineEdit::Normal, "", &ok);
 	if (!ok || text.isEmpty())
 	{
-		// qInfo() << "Cancelled window saving";
+		WriteLog("Cancelled window saving", 2);
 		return;
 	}
 	QString textEncoded = QByteArray().append(text).toBase64();
@@ -493,7 +493,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 	QStringList itemsEscaped;
 	if (customWindowStateFiles.size() == 0)
 	{
-		// qInfo() << "Nothing to remove";
+		WriteLog("Nothing to remove",2);
 		return;
 	}
 	for (int i = 0; i < customWindowStateFiles.size(); i++)
@@ -507,7 +507,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 		tr("Select window setting to remove"), itemsEscaped, 0, false, &ok);
 	if (!ok || itemEscaped.isEmpty())
 	{
-		// qInfo() << "Cancelled window removing";
+		WriteLog("Cancelled window removing",2);
 		return;
 	}
 	int index = itemsEscaped.indexOf(itemEscaped);
