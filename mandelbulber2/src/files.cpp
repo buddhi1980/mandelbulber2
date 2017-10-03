@@ -436,14 +436,14 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 	// original file was found
 	if (FileExists(path)) return path;
 
-	WriteLog("File " + path + " not found. Looking for the file in another locations", 2);
+	WriteLogCout("File " + path + " not found. Looking for the file in another locations", 2);
 
 	foreach (QString alternatePath, pathList)
 	{
-		WriteLog("Looking for the file at " + path, 2);
+		WriteLogCout("Looking for the file at " + path, 2);
 		if (FileExists((path)))
 		{
-			WriteLog("File found at" + path, 2);
+			WriteLogCout("File found at" + path, 2);
 			return alternatePath;
 		}
 	}

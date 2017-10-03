@@ -255,7 +255,7 @@ int cOneParameter::GetIndexByEnumeration(QString value) const
 		const int index = value.toInt(&checkParse);
 		if (!checkParse)
 		{
-			WriteLog("Enumeration not found, cannot find value: '" + value + "' in QStringList " + enumLookup.join(","), 1);
+			WriteLogCout("Enumeration not found, cannot find value: '" + value + "' in QStringList " + enumLookup.join(","), 1);
 		}
 		return index;
 	}
