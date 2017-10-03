@@ -973,7 +973,7 @@ void cKeyframeAnimation::slotDeleteAllImages() const
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+		DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_???????.*");
 	}
 }
 
