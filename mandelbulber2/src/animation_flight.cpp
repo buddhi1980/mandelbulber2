@@ -228,7 +228,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 		if (reply == QMessageBox::Yes)
 		{
-			DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
+			cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
 		}
 		else
 		{
@@ -800,8 +800,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			if (deletePreviousRender)
 			{
-				DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
-
+				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
 				if (!systemData.noGui && image->IsMainImage())
 					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 
@@ -1134,7 +1133,7 @@ void cFlightAnimation::slotDeleteAllImages() const
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(params->Get<QString>("anim_flight_dir"), "frame_?????.*");
+		cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
 	}
 }
 

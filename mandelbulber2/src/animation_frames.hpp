@@ -135,7 +135,7 @@ public:
 	void RefreshAllAudioTracks(cParameterContainer *param);
 
 	virtual void setAudioParameterPrefix();
-
+	static void WipeFramesFromFolder(QString folder);
 protected:
 	QList<sAnimationFrame> frames;
 	QList<sParameterDescription> listOfParameters;

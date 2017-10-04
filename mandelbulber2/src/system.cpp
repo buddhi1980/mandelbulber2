@@ -320,10 +320,10 @@ bool CreateFolder(QString qName)
 	}
 }
 
-void DeleteAllFilesFromDirectory(QString folder, QString filterExpression)
+void DeleteAllFilesFromDirectory(QString folder, QString filterExpression, QRegExp::PatternSyntax pattern)
 {
 	QRegExp rx(filterExpression);
-	rx.setPatternSyntax(QRegExp::Wildcard);
+	rx.setPatternSyntax(pattern);
 
 	if (QDir(folder).exists())
 	{
