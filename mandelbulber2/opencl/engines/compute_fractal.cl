@@ -133,6 +133,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.minRFactor = 0.0f;
 	aux.scaleFactor = 0.0f;
 	aux.pseudoKleinianDE = 1.0f;
+	aux.oldHybridFactor = 1.0f;
+	aux.colorHybrid = 1.0f;
+	aux.temp100 = 100.0f;
 
 	int formulaIndex = 0;
 	__constant sFractalCl *fractal;
@@ -293,7 +296,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			colorMin = min(colorMin, 100.0f);
 			float mBoxColor = aux.color;
 			mBoxColor = min(mBoxColor, 1000.0f);
-			out.colorIndex = colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f;
+			out.colorIndex =
+				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
+				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
 		}
 		else
 		{
