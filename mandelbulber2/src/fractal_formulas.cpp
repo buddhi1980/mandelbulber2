@@ -9128,7 +9128,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		rr = z.Dot(z);
-		double tempM = rr + fractal->transformCommon.offsetB0;
+		double tempM = rr;
 		m = fractal->transformCommon.maxMinR2factor;
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr < fractal->transformCommon.minR2p25)
@@ -9173,7 +9173,6 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		if (rr < halfMax)
 		{
 			m = maxScale - (rr * rr) * factor;
-			// m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux.DE = aux.DE * m + 1.0;
@@ -9194,9 +9193,9 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			{
 				aux.color += fractal->mandelbox.color.factorSp2;
 			}
+		z -= fractal->mandelbox.offset;
 		}
 	}
-	z -= fractal->mandelbox.offset;
 
 	double useScale = fractal->transformCommon.scaleA1;
 	if (fractal->transformCommon.functionEnabledXFalse

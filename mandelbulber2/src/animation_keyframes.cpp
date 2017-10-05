@@ -653,7 +653,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 			if (deletePreviousRender)
 			{
-				DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_keyframe_dir"));
 				delete renderJob;
 
 				if (!systemData.noGui && image->IsMainImage())
@@ -973,7 +973,7 @@ void cKeyframeAnimation::slotDeleteAllImages() const
 
 	if (reply == QMessageBox::Yes)
 	{
-		DeleteAllFilesFromDirectory(params->Get<QString>("anim_keyframe_dir"), "frame_?????.*");
+		cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_keyframe_dir"));
 	}
 }
 
