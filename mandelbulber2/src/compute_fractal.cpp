@@ -82,7 +82,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.r_dz = 1.0;
 	extendedAux.r = r;
 	extendedAux.color = 1.0;
-	extendedAux.colorHybrid = 1.0;
+	extendedAux.colorHybrid = 0.0;
 	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
 	extendedAux.actualScaleA = 0.0;
 	extendedAux.DE = 1.0;
