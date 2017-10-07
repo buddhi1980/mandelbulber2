@@ -60,9 +60,12 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	double limitBoxDist = 0.0;
 	if (params.limitsEnabled)
 	{
-		const double distance_a = max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
-		const double distance_b = max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
-		const double distance_c = max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
+		const double distance_a =
+			max(in.point.x - params.limitMax.x, -(in.point.x - params.limitMin.x));
+		const double distance_b =
+			max(in.point.y - params.limitMax.y, -(in.point.y - params.limitMin.y));
+		const double distance_c =
+			max(in.point.z - params.limitMax.z, -(in.point.z - params.limitMin.z));
 		limitBoxDist = max(max(distance_a, distance_b), distance_c);
 
 		if (limitBoxDist > in.detailSize)

@@ -9193,7 +9193,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			{
 				aux.color += fractal->mandelbox.color.factorSp2;
 			}
-		z -= fractal->mandelbox.offset;
+			z -= fractal->mandelbox.offset;
 		}
 	}
 
@@ -11296,7 +11296,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 		minValue = aux.temp100;
 
-		aux.colorHybrid += (minValue -aux.colorHybrid) * fractal->surfBox.scale1Z1;
+		aux.colorHybrid += (minValue - aux.colorHybrid) * fractal->surfBox.scale1Z1;
 	}
 	aux.colorHybrid *= fractal->foldColor.newScale0 * 256.0;
 }
@@ -11340,8 +11340,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		aux.old_z = z;
 	}*/
 
-
-
 	{
 		// radius
 		if (fractal->transformCommon.functionEnabledCyFalse)
@@ -11377,25 +11375,19 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			aux.addDist += subVs.Dot(subVs) * fractal->foldColor.scaleB1;
 			sumDist = aux.addDist;*/
 
-
 			/*aux.sum_z +=(z); // fabs
 			CVector4 sumZ = aux.sum_z;
 			sumDist = sumZ.Dot(sumZ) * fractal->foldColor.scaleB1;*/
 
-
-
 			CVector4 subV = z - aux.old_z;
-			//sumDist = subV.Dot(subV) * fractal->foldColor.scaleB1 / 1000.0;
+			// sumDist = subV.Dot(subV) * fractal->foldColor.scaleB1 / 1000.0;
 			subV = fabs(subV);
-			//sumDist = max(max(subV.x, subV.y), subV.z)  * fractal->foldColor.scaleB1 / 1000.0;
-			sumDist = min(min(subV.x, subV.y), subV.z)  * fractal->foldColor.scaleB1 / 1000.0;
-
+			// sumDist = max(max(subV.x, subV.y), subV.z)  * fractal->foldColor.scaleB1 / 1000.0;
+			sumDist = min(min(subV.x, subV.y), subV.z) * fractal->foldColor.scaleB1 / 1000.0;
 
 			// update
 			aux.old_z = z;
-
 		}
-
 
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
@@ -11608,8 +11600,9 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 		minValue = aux.temp100;
 
-		aux.colorHybrid += (minValue -aux.colorHybrid) * fractal->surfBox.scale1Z1;
-		//	aux.colorHybrid * (1.0 - fractal->surfBox.scale1Z1) + (minValue * fractal->surfBox.scale1Z1);
+		aux.colorHybrid += (minValue - aux.colorHybrid) * fractal->surfBox.scale1Z1;
+		//	aux.colorHybrid * (1.0 - fractal->surfBox.scale1Z1) + (minValue *
+		// fractal->surfBox.scale1Z1);
 	}
 
 	aux.colorHybrid *= fractal->foldColor.newScale0 * 256.0;

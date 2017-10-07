@@ -493,7 +493,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 	QStringList itemsEscaped;
 	if (customWindowStateFiles.size() == 0)
 	{
-		WriteLogCout("Nothing to remove",2);
+		WriteLogCout("Nothing to remove", 2);
 		return;
 	}
 	for (int i = 0; i < customWindowStateFiles.size(); i++)
@@ -507,7 +507,7 @@ void RenderWindow::slotCustomWindowRemovePopup()
 		tr("Select window setting to remove"), itemsEscaped, 0, false, &ok);
 	if (!ok || itemEscaped.isEmpty())
 	{
-		WriteLogCout("Cancelled window removing",2);
+		WriteLogCout("Cancelled window removing", 2);
 		return;
 	}
 	int index = itemsEscaped.indexOf(itemEscaped);

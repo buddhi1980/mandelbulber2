@@ -39,9 +39,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <iostream>
 
 #include <ctime>
+#include <iostream>
 
 #include <QTextStream>
 #include <QtGui>
@@ -185,7 +185,7 @@ int get_cpu_count()
 
 void WriteLogCout(QString text, int verbosityLevel)
 {
-	//output to console
+	// output to console
 	cout << text.toStdString();
 	cout.flush();
 	WriteLog(text, verbosityLevel);
@@ -320,7 +320,8 @@ bool CreateFolder(QString qName)
 	}
 }
 
-void DeleteAllFilesFromDirectory(QString folder, QString filterExpression, QRegExp::PatternSyntax pattern)
+void DeleteAllFilesFromDirectory(
+	QString folder, QString filterExpression, QRegExp::PatternSyntax pattern)
 {
 	QRegExp rx(filterExpression);
 	rx.setPatternSyntax(pattern);

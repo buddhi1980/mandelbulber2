@@ -339,7 +339,8 @@ void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 
 	// set text of current position and slider progress
 	const QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
-	const QString totalLengthString = QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
+	const QString totalLengthString =
+		QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
 	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
 	if (updateSlider)
 		ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());

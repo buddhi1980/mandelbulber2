@@ -74,24 +74,30 @@ typedef enum {
 typedef struct
 {
 	cl_int i;
+
+	cl_float4 c;
+	cl_float4 const_c;
+	cl_float4 old_z;
+	cl_float4 sum_z;
+	cl_float cw;
+
 	cl_float r_dz;
 	cl_float r;
 	cl_float DE;
-	cl_float color;
-	cl_float colorHybrid;
-	cl_float actualScale;
-	cl_float actualScaleA;
 	cl_float pseudoKleinianDE;
 	cl_float linearDE;
-	cl_float cw;
+
+	cl_float actualScale;
+	cl_float actualScaleA;
+
+	cl_float color;
+	cl_float colorHybrid;
 	cl_float foldFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
 	cl_float oldHybridFactor;
-	cl_float4 c;
-	cl_float4 const_c;
-	cl_float4 old_z;
 	cl_float temp100;
+	cl_float addDist;
 } sExtendedAuxCl;
 
 typedef struct
@@ -119,6 +125,8 @@ typedef struct
 	cl_float scaleF0;
 	cl_float scaleG0;
 	cl_float scaleA1;
+	cl_float scaleB1;
+	cl_float scaleC1;
 	cl_float period1;
 	cl_float trigAdd1;
 
@@ -128,6 +136,7 @@ typedef struct
 	cl_int parabEnabledFalse;
 	cl_int cosEnabledFalse;
 	cl_int auxColorEnabledFalse;
+	cl_int distanceEnabledFalse;
 } sFoldColorCl;
 
 typedef struct
@@ -677,24 +686,26 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 {
 	sExtendedAuxCl target;
 	target.i = source.i;
+	target.c = toClFloat4(source.c);
+	target.const_c = toClFloat4(source.const_c);
+	target.old_z = toClFloat4(source.old_z);
+	target.sum_z = toClFloat4(source.sum_z);
+	target.cw = source.cw;
 	target.r_dz = source.r_dz;
 	target.r = source.r;
 	target.DE = source.DE;
-	target.color = source.color;
-	target.colorHybrid = source.colorHybrid;
-	target.actualScale = source.actualScale;
-	target.actualScaleA = source.actualScaleA;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
 	target.linearDE = source.linearDE;
-	target.cw = source.cw;
+	target.actualScale = source.actualScale;
+	target.actualScaleA = source.actualScaleA;
+	target.color = source.color;
+	target.colorHybrid = source.colorHybrid;
 	target.foldFactor = source.foldFactor;
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
 	target.oldHybridFactor = source.oldHybridFactor;
-	target.c = toClFloat4(source.c);
-	target.const_c = toClFloat4(source.const_c);
-	target.old_z = toClFloat4(source.old_z);
 	target.temp100 = source.temp100;
+	target.addDist = source.addDist;
 	return target;
 }
 
@@ -724,6 +735,8 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleF0 = source.scaleF0;
 	target.scaleG0 = source.scaleG0;
 	target.scaleA1 = source.scaleA1;
+	target.scaleB1 = source.scaleB1;
+	target.scaleC1 = source.scaleC1;
 	target.period1 = source.period1;
 	target.trigAdd1 = source.trigAdd1;
 	target.intAx0 = source.intAx0;
@@ -732,6 +745,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.parabEnabledFalse = source.parabEnabledFalse;
 	target.cosEnabledFalse = source.cosEnabledFalse;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
+	target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;
 }
 

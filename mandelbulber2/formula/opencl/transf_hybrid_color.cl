@@ -40,12 +40,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	aux->oldHybridFactor *= fractal->foldColor.oldScale1;
 	aux->minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
-	/*{ // length of last movement before termination
-		REAL4 vecIter =  fabs(z - aux->old_z);
-		lengthIter = length(vecIter) * aux->i; // (aux->i + 1.0f);
-		aux->old_z = z;
-	}*/
-
 	{
 		// radius
 		if (fractal->transformCommon.functionEnabledCyFalse)
@@ -113,8 +107,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			REAL4 box = fractal->transformCommon.scale3D444;
 			REAL4 temp35 = z;
 			REAL temp39 = 0.0f;
-			// if (aux->i >= fractal->transformCommon.startIterationsT
-			//	&& aux->i < fractal->transformCommon.stopIterationsT)
 			if (fractal->transformCommon.functionEnabledCx) temp35 = fabs(temp35);
 
 			temp35 = box - temp35;
@@ -270,13 +262,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (componentMaster > fractal->foldColor.limitMax9999)
 		componentMaster = fractal->foldColor.limitMax9999;
 
-	// final component value + cumulative??
-	{
-		// aux->colorHybrid =
-		//	(componentMaster * 256.0f) ; //+ (lastColorValue );ppppppppppppppppppp
-	}
-	// aux->temp100 *= fractal->transformCommon.scale0;
-
 	aux->colorHybrid = componentMaster;
 
 	if (fractal->surfBox.enabledZ2False)
@@ -286,20 +271,9 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->temp100 = componentMaster;
 		}
 		minValue = aux->temp100;
-		// if (aux->i >= fractal->transformCommon.startIterationsT
-		//	&& aux->i < fractal->transformCommon.stopIterationsT)
-		aux->colorHybrid = mad(
-			aux->colorHybrid, (1.0f - fractal->surfBox.scale1Z1), (minValue * fractal->surfBox.scale1Z1));
+
+		aux->colorHybrid += (minValue - aux->colorHybrid) * fractal->surfBox.scale1Z1;
 	}
-
 	aux->colorHybrid *= fractal->foldColor.newScale0 * 256.0f;
-
-	// master controls color
-	// aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-
-	// REAL scaleColor =
-	//	 +  fabs(aux->actualScaleA);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	// aux->scaleFactor = scaleColor * fractal->foldColor.compScale;*/
 	return z;
 }

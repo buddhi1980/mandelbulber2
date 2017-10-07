@@ -581,8 +581,8 @@ void cAnimationFrames::SetListOfParametersAndClear(
 
 void cAnimationFrames::WipeFramesFromFolder(QString folder)
 {
-		// frames start with the string "frame_" followed by a number sequence
-		// then an optional suffix (e.g. "_alpha") followed by the image file extension
-		QString regex = "^frame_[0-9]+(?:_[a-z]+)?\\..+$";
-		DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
+	// frames start with the string "frame_" followed by a number sequence
+	// then an optional suffix (e.g. "_alpha") followed by the image file extension
+	QString regex = "^frame_[0-9]+(?:_[a-z]+)?\\..+$";
+	DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
 }

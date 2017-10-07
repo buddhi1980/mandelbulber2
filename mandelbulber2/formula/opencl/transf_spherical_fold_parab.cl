@@ -25,7 +25,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
 		rr = dot(z, z);
-		REAL tempM = rr + fractal->transformCommon.offsetB0;
+		REAL tempM = rr;
 		m = fractal->transformCommon.maxMinR2factor;
 		// if (r2 < 1e-21f) r2 = 1e-21f;
 		if (rr < fractal->transformCommon.minR2p25)
@@ -70,7 +70,6 @@ REAL4 TransfSphericalFoldParabIteration(
 		if (rr < halfMax)
 		{
 			m = mad(-factor, (rr * rr), maxScale);
-			// m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = mad(aux->DE, m, 1.0f);
@@ -91,9 +90,9 @@ REAL4 TransfSphericalFoldParabIteration(
 			{
 				aux->color += fractal->mandelbox.color.factorSp2;
 			}
+			z -= fractal->mandelbox.offset;
 		}
 	}
-	z -= fractal->mandelbox.offset;
 
 	REAL useScale = fractal->transformCommon.scaleA1;
 	if (fractal->transformCommon.functionEnabledXFalse
