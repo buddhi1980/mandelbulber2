@@ -119,23 +119,30 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// formula init
 	sExtendedAuxCl aux;
 	// TODO copy aux
+
+        aux.c = c;
+        aux.const_c = c;
+        aux.old_z = z;
+        aux.sum_z = z;
+        aux.cw = 0.0f;
+
 	aux.r_dz = 1.0f;
 	aux.r = length(z);
-	aux.color = 1.0f;
+        aux.DE = 1.0f;
+        aux.pseudoKleinianDE = 1.0f;
+
 	aux.actualScale =
 		consts->fractal[0].mandelbox.scale; // TODO: forcedFormulaIndex has to be added here
 	aux.actualScaleA = 0.0f;
-	aux.DE = 1.0f;
-	aux.c = c;
-	aux.const_c = c;
-	aux.cw = 0.0f;
+
+        aux.color = 1.0f;
+        aux.colorHybrid = 0.0f;
 	aux.foldFactor = 0.0f;
 	aux.minRFactor = 0.0f;
 	aux.scaleFactor = 0.0f;
-	aux.pseudoKleinianDE = 1.0f;
 	aux.oldHybridFactor = 1.0f;
-	aux.colorHybrid = 1.0f;
 	aux.temp100 = 100.0f;
+        aux.addDist = 0.0;
 
 	int formulaIndex = 0;
 	__constant sFractalCl *fractal;

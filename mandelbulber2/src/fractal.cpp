@@ -255,6 +255,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
 	foldColor.scaleG0 = container->Get<double>("fold_color_scaleG0");
 	foldColor.scaleA1 = container->Get<double>("fold_color_scaleA1");
+	foldColor.scaleB1 = container->Get<double>("fold_color_scaleB1");
 	foldColor.period1 = container->Get<double>("fold_color_period1");
 	foldColor.trigAdd1 = container->Get<double>("fold_color_trig_add1");
 
@@ -266,6 +267,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.parabEnabledFalse = container->Get<bool>("fold_color_parab_enabled_false");
 	foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
+	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");

@@ -69,24 +69,30 @@ enum enumGeneralizedFoldBoxType
 struct sExtendedAux
 {
 	int i;
+
+	CVector4 c;
+	CVector4 const_c;
+	CVector4 old_z;
+	CVector4 sum_z;
+	double cw;
+
 	double r_dz;
 	double r;
 	double DE;
-	double color;
-	double colorHybrid;
-	double actualScale;
-	double actualScaleA;
 	double pseudoKleinianDE;
 	double linearDE;
-	double cw;
+
+	double actualScale;
+	double actualScaleA;
+
+	double color;
+	double colorHybrid;
 	double foldFactor;
 	double minRFactor;
 	double scaleFactor;
 	double oldHybridFactor;
-	CVector4 c;
-	CVector4 const_c;
-	CVector4 old_z;
 	double temp100;
+	double addDist;
 };
 
 struct sFoldColor
@@ -114,6 +120,8 @@ struct sFoldColor
 	double scaleF0;
 	double scaleG0;
 	double scaleA1;
+	double scaleB1;
+	double scaleC1;
 	double period1;
 	double trigAdd1;
 
@@ -123,6 +131,7 @@ struct sFoldColor
 	bool parabEnabledFalse;
 	bool cosEnabledFalse;
 	bool auxColorEnabledFalse;
+	bool distanceEnabledFalse;
 };
 
 struct sFractalGeneralizedFoldBox

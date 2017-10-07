@@ -79,23 +79,28 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	sExtendedAux extendedAux;
 
-	extendedAux.r_dz = 1.0;
-	extendedAux.r = r;
-	extendedAux.color = 1.0;
-	extendedAux.colorHybrid = 0.0;
-	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
-	extendedAux.actualScaleA = 0.0;
-	extendedAux.DE = 1.0;
 	extendedAux.c = z;
 	extendedAux.const_c = z;
-	extendedAux.old_z = CVector4{0.0, 0.0, 0.0, 0.0};
+	extendedAux.old_z = z;
+	extendedAux.sum_z = z;
 	extendedAux.cw = 0;
+
+	extendedAux.r_dz = 1.0;
+	extendedAux.r = r;
+	extendedAux.DE = 1.0;
+	extendedAux.pseudoKleinianDE = 1.0;
+
+	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
+	extendedAux.actualScaleA = 0.0;
+
+	extendedAux.color = 1.0;
+	extendedAux.colorHybrid = 0.0;
 	extendedAux.foldFactor = 0.0;
 	extendedAux.minRFactor = 0.0;
 	extendedAux.scaleFactor = 0.0;
 	extendedAux.oldHybridFactor = 1.0;
-	extendedAux.pseudoKleinianDE = 1.0;
 	extendedAux.temp100 = 100.0;
+	extendedAux.addDist = 0.0;
 
 	// main iteration loop
 	int i;
