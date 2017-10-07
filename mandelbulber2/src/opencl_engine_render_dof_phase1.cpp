@@ -439,7 +439,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 					{
 						cl_float4 pixelCl = outBuffer[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
-						float alpha = pixelCl.s[3];
+						quint16 alpha = pixelCl.s[3] * 65535;
 
 						image->PutPixelPostImage(x + jobX, y + jobY, pixel);
 						image->PutPixelAlpha(x + jobX, y + jobY, alpha);

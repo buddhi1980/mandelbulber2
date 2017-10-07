@@ -152,6 +152,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	}
 
 	float3 colour = 0.7f;
+	float alpha = 0.0f;
 	float3 surfaceColour = 1.0f;
 	if (found)
 	{
@@ -170,10 +171,12 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 		if (specular > 15.0f) specular = 15.0f;
 
 		colour = colour * (shade + specular);
+		alpha = 1.0f;
 	}
 	else
 	{
 		colour = (float3){0.0f, 0.0f, screenPoint.y / height};
+		alpha = 0.0f;
 	}
 
 	sClPixel pixel;
@@ -188,7 +191,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 	pixel.colG = 128;
 	pixel.colB = 128;
 	pixel.opacity = 0;
-	pixel.alpha = 65535;
+	pixel.alpha = alpha * 65535;
 
 	out[buffIndex] = pixel;
 }

@@ -243,6 +243,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 		// shaders
 		float3 color = 0.0f;
+		float alpha = 0.0f;
 
 		distThresh = CalcDistThresh(point, consts);
 
@@ -274,14 +275,16 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		if (found)
 		{
 			color = ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
+			alpha = 1.0f;
 		}
 		else
 		{
 			color = BackgroundShader(consts, &shaderInputData);
 			scan = 1e20f;
+			alpha = 0.0f;
 		}
 
-		color4 = (float4){color.s0, color.s1, color.s2, 0.0f};
+		color4 = (float4){color.s0, color.s1, color.s2, alpha};
 		color4 = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
 
 #ifdef PERSP_FISH_EYE_CUT
@@ -298,7 +301,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.colG = surfaceColor.s1 * 256.0f;
 	pixel.colB = surfaceColor.s2 * 256.0f;
 	pixel.opacity = opacityOut * 65535;
-	pixel.alpha = color4.s3;
+	pixel.alpha = color4.s3 * 65535;
 
 	out[buffIndex] = pixel;
 }

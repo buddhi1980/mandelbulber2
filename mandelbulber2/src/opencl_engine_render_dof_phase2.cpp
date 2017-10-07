@@ -479,7 +479,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 				{
 					cl_float4 imagePixelCl = outBuffer[x + y * width];
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
-					unsigned short alpha = imagePixelCl.s[0] * 66535.0;
+					unsigned short alpha = imagePixelCl.s[3] * 65535.0;
 					image->PutPixelPostImage(x, y, pixel);
 					image->PutPixelAlpha(x, y, alpha);
 				}

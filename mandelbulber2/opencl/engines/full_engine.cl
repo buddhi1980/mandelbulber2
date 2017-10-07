@@ -224,7 +224,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.colG = objectColour.s1 * 256.0f;
 	pixel.colB = objectColour.s2 * 256.0f;
 	pixel.opacity = opacity * 65535;
-	pixel.alpha = 0.0f;
+	pixel.alpha = resultShader.s3 * 65535;
 
 	out[buffIndex] = pixel;
 }

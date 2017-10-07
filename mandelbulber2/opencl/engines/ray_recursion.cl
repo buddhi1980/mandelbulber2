@@ -594,11 +594,13 @@ sRayRecursionOut RayRecursion(
 				}
 #endif
 				resultShader = max(resultShader, 0.0f);
+				resultShader.w = 1.0f;
 			}
 			else
 			{
 				backgroundShader = BackgroundShader(consts, &shaderInputData);
 				resultShader.xyz = backgroundShader;
+				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;
 				// vn = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 			}
@@ -625,8 +627,8 @@ sRayRecursionOut RayRecursion(
 			else
 #endif
 			{
-				float4 color4 = (float4){resultShader.s0, resultShader.s1, resultShader.s2, 0.0f};
-				resultShader = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
+				resultShader =
+					VolumetricShader(consts, &shaderInputData, &calcParam, resultShader, &opacityOut);
 			}
 
 			recursionOut.point = point;
