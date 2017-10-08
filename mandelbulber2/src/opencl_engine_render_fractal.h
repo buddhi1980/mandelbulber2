@@ -60,6 +60,7 @@ class cOpenClEngineRenderFractal : public cOpenClEngine
 public:
 	enum enumClRenderEngineMode
 	{
+		clRenderEngineNone,
 		clRenderEngineTypeFast,
 		clRenderEngineTypeLimited,
 		clRenderEngineTypeFull

@@ -108,6 +108,11 @@
       <widget class="QComboBox" name="comboBox_opencl_mode">
        <item>
         <property name="text">
+         <string>no OpenCL</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>fast</string>
         </property>
        </item>

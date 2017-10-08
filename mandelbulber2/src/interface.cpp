@@ -959,7 +959,9 @@ void cInterface::RefreshPostEffects()
 		if (gPar->Get<bool>("ambient_occlusion_enabled")
 				&& gPar->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
 		{
-			if (gPar->Get<bool>("opencl_enabled"))
+			if (gPar->Get<bool>("opencl_enabled")
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineNone)
 			{
 #ifdef USE_OPENCL
 				sParamRender params(gPar);
@@ -1010,7 +1012,9 @@ void cInterface::RefreshPostEffects()
 
 		if (gPar->Get<bool>("DOF_enabled"))
 		{
-			if (gPar->Get<bool>("opencl_enabled"))
+			if (gPar->Get<bool>("opencl_enabled")
+					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
+							 != cOpenClEngineRenderFractal::clRenderEngineNone)
 			{
 #ifdef USE_OPENCL
 				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());

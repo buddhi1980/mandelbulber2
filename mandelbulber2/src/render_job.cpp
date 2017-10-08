@@ -338,7 +338,8 @@ bool cRenderJob::Execute()
 		twoPassStereo = true;
 	}
 
-	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl)
+	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl || cOpenClEngineRenderFractal::enumClRenderEngineMode(
+			 paramsContainer->Get<int>("opencl_mode")) == cOpenClEngineRenderFractal::clRenderEngineNone)
 	{
 		for (int repeat = 0; repeat < noOfRepeats; repeat++)
 		{
@@ -503,7 +504,9 @@ bool cRenderJob::Execute()
 	}
 
 #ifdef USE_OPENCL
-	if (paramsContainer->Get<bool>("opencl_enabled"))
+	if (paramsContainer->Get<bool>("opencl_enabled")
+			&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+					 paramsContainer->Get<int>("opencl_mode")) != cOpenClEngineRenderFractal::clRenderEngineNone)
 	{
 		cProgressText progressText;
 		progressText.ResetTimer();

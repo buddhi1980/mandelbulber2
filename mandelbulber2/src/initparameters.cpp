@@ -502,7 +502,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("opencl_device_type", 0, morphNone, paramApp,
 		QStringList({"gpu", "default", "all", "cpu", "accelerator"}));
 	par->addParam("opencl_device_list", QString(""), morphNone, paramApp);
-	par->addParam("opencl_mode", 0, morphNone, paramApp, QStringList({"fast", "limited", "full"}));
+	par->addParam(
+		"opencl_mode", 1, morphNone, paramApp, QStringList({"none", "fast", "limited", "full"}));
 	par->addParam("opencl_precision", 0, morphNone, paramApp, QStringList({"single", "double"}));
 	par->addParam("opencl_memory_limit", 512, 1, 10000, morphNone, paramApp);
 
