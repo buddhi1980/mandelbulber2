@@ -85,6 +85,7 @@ test: off
 artifacts:
   - path: mandelbulber-%CONFIGURATION%-%PLATFORM%-%APPVEYOR_REPO_COMMIT%.zip
     name: Mandelbulber-%CONFIGURATION%-%PLATFORM%
+  - path: build-win\Setup\%CONFIGURATION%\%PLATFORM%\*
 
 #---------------------------------#
 #     deployment configuration    #

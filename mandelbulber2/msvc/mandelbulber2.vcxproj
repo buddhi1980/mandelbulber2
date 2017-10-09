@@ -995,4 +995,8 @@
     <Exec Command="del /F /Q &quot;$(GenDir)\*.h&quot;" />
     <Exec Command="del /F /Q &quot;$(GenDir)\*.cpp&quot;" />
   </Target>
+  <Target Name="BuildPackage" AfterTargets="Build">
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\Setup.iss&quot; &quot;$(OutDir)Setup.iss&quot;" />
+	<Exec Command="&quot;c:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot; &quot;/DPlatform=$(Platform)&quot; &quot;/DConfiguration=$(Configuration)&quot; &quot;$(OutDir)Setup.iss&quot;" Condition="Exists('c:\Program Files (x86)\Inno Setup 5\ISCC.exe')" />
+  </Target>
 </Project>
