@@ -540,6 +540,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		{
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
+
+		double doneMC = 0.0f;
+
 		for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
 		{
 			// TODO:
@@ -550,6 +553,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 			QList<QRect> lastRenderedRects;
 
 			int pixelsRendered = 0;
+			int pixelsRenderedMC = 0;
 			int gridX = (gridWidth - 1) / 2;
 			int gridY = gridHeight / 2;
 			int dir = 0;
@@ -620,6 +624,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 						// Collect Pixel information from the rgbBuffer
 						// Populate the data into image->Put
+
+						pixelsRenderedMC += jobWidth2 * jobHeight2;
 
 						double monteCarloNoiseSum = 0.0;
 						double maxNoise = 0.0;
@@ -700,6 +706,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						{
 							percentDone = double(monteCarloLoop - 1) / numberOfSamples
 														+ double(pixelsRendered) / numberOfPixels / numberOfSamples;
+
+							percentDone = percentDone * (1.0 - doneMC) + doneMC;
 						}
 						emit updateProgressAndStatus(
 							tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
@@ -778,6 +786,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 					}
 					lastRenderedRects.clear();
 				}
+
+				doneMC = 1.0 - double(pixelsRenderedMC) / pixelsRendered;
+
 				gApplication->processEvents();
 			}
 
