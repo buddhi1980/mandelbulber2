@@ -79,12 +79,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Mandelbulber Team"
             VALUE "FileDescription", "Mandelbulber generates three-dimensional fractals."
-            VALUE "FileVersion", "2.12.0.0"
+            VALUE "FileVersion", "2.12.0.0-alpha"
             VALUE "InternalName", "mandelbulber2.exe"
             VALUE "LegalCopyright", "Copyright (C) 2017 Mandelbulber Team"
             VALUE "OriginalFilename", "mandelbulber2.exe"
             VALUE "ProductName", "Mandelbulber"
-            VALUE "ProductVersion", "2.12.0.0"
+            VALUE "ProductVersion", "2.12.0.0-alpha"
         END
     END
     BLOCK "VarFileInfo"
