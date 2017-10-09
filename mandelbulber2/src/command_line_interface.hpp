@@ -90,7 +90,7 @@ private:
 	static void printInputHelpAndExit();
 	static void printOpenCLHelpAndExit();
 	static void printParametersAndExit();
-	void runTestCasesAndExit() const;
+	static void runTestCasesAndExit();
 	void runBenchmarksAndExit();
 
 	// argument handling methods

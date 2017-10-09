@@ -417,7 +417,7 @@ template CVector4 cParameterContainer::GetDefault<CVector4>(QString name, int in
 template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
 template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
 
-QString cParameterContainer::nameWithIndex(QString *str, int index) const
+QString cParameterContainer::nameWithIndex(QString *str, int index)
 {
 	QString name = *str + "_" + QString::number(index);
 	return name;

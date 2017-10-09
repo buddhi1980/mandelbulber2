@@ -55,7 +55,7 @@ public:
 
 private:
 	QElapsedTimer timer;
-	QString TimeString(qint64 time) const;
+	static QString TimeString(qint64 time);
 	qint64 lastTimeForETA;
 	double lastProgressForETA;
 	double renderingSpeed;

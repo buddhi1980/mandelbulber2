@@ -437,8 +437,7 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 	return interpolated;
 }
 
-double cMorph::LinearInterpolate(
-	const double factor, double v1, double v2, bool const angular) const
+double cMorph::LinearInterpolate(const double factor, double v1, double v2, bool const angular)
 {
 	if (angular)
 	{
@@ -458,7 +457,7 @@ double cMorph::LinearInterpolate(
 }
 
 double cMorph::CatmullRomInterpolate(
-	const double factor, double v1, double v2, double v3, double v4, const bool angular) const
+	const double factor, double v1, double v2, double v3, double v4, const bool angular)
 {
 	if (angular)
 	{
@@ -538,7 +537,7 @@ double cMorph::AkimaInterpolate(const double factor, double v1, double v2, doubl
 	}
 }
 
-void cMorph::NearestNeighbourAngle(QList<double *> vals) const
+void cMorph::NearestNeighbourAngle(QList<double *> vals)
 {
 	// modify angles, so that each successive value is not more than 180deg (absolute)
 	// away from last value

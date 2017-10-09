@@ -299,9 +299,9 @@ private:
 	sRGB8 Interpolation(float x, float y) const;
 	bool AllocMem(void);
 	void FreeImage(void);
-	inline sRGB16 Black16(void) const { return sRGB16(0, 0, 0); }
-	inline sRGB8 Black8(void) const { return sRGB8(0, 0, 0); }
-	inline sRGBFloat BlackFloat(void) const { return sRGBFloat(0, 0, 0); }
+	static inline sRGB16 Black16(void) { return sRGB16(0, 0, 0); }
+	static inline sRGB8 Black8(void) { return sRGB8(0, 0, 0); }
+	static inline sRGBFloat BlackFloat(void) { return sRGBFloat(0, 0, 0); }
 
 	sRGB8 *image8;
 	sRGB16 *image16;

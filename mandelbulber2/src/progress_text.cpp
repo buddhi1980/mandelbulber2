@@ -99,7 +99,7 @@ QString cProgressText::getText(double progress)
 	return text;
 }
 
-QString cProgressText::TimeString(qint64 time) const
+QString cProgressText::TimeString(qint64 time)
 {
 	QString timeString;
 	double time_s = time / 1000.0;

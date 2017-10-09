@@ -97,7 +97,7 @@ public:
 	void DeleteParameter(const QString &name);
 
 private:
-	QString nameWithIndex(QString *str, int index) const;
+	static QString nameWithIndex(QString *str, int index);
 
 	static bool compareStrings(const QString &p1, const QString &p2)
 	{
