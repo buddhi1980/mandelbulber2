@@ -19,7 +19,7 @@ AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppPublisherURL}
 AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
-AppCopyright=Copyright © 2017 {#MyAppPublisher}
+AppCopyright=Copyright (C) 2017 {#MyAppPublisher}
 BackColor=clWhite
 BackSolid=yes
 DefaultDirName={pf}\{#MyAppName}
@@ -45,7 +45,6 @@ Name: "full"; Description: "Full installation"
 [Components]
 
 [Files]
-; GitHooks Files
 DestDir: "{app}"; Flags: ignoreversion recursesubdirs; Source:"*"
 
 [UninstallDelete]
