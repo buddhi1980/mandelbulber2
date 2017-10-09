@@ -72,10 +72,10 @@ typedef struct
 	cl_uint deltaDEMaxN;
 	cl_int randomSeed;
 	cl_int iterThreshMode;
+	cl_int normalCalculationMode;
 	cl_float3 orbitTrap;
 	cl_float distThresh;
 	cl_float detailSize;
-	cl_float normalCalculationMode;
 } sClCalcParams;
 
 // ambient occlusion data
