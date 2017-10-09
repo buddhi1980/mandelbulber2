@@ -35,6 +35,12 @@ WizardImageStretch=no
 WindowResizable=no
 CloseApplications=yes
 ChangesEnvironment=yes
+ArchitecturesInstallIn64BitMode=x64
+LicenseFile=COPYING.txt
+
+[Icons]
+Name: "{group}\Mandelbulber"; Filename: "{app}\mandelbulber2.exe"; WorkingDir: "{app}"
+Name: "{group}\Uninstall Mandelbulber"; Filename: "{uninstallexe}"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl";
