@@ -538,9 +538,9 @@ public:
 
 	bool empty(void) const { return empty_; }
 
-	unsigned int max_size(void) const { return N; }
+	static unsigned int max_size(void) { return N; }
 
-	unsigned int capacity() const { return sizeof(T) * N; }
+	static unsigned int capacity(void) { return sizeof(T) * N; }
 
 	T &operator[](int index) { return data_[index]; }
 

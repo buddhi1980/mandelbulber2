@@ -614,7 +614,7 @@ void cCommandLineInterface::printParametersAndExit()
 	exit(0);
 }
 
-void cCommandLineInterface::runTestCasesAndExit() const
+void cCommandLineInterface::runTestCasesAndExit()
 {
 	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();

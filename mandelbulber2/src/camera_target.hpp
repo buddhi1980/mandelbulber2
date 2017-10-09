@@ -60,7 +60,7 @@ public:
 	double GetDistance() const { return distance; }
 
 private:
-	double CorrectAngle(double angle) const { return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI; }
+	static double CorrectAngle(double angle) { return fmod(angle + 3 * M_PI, 2 * M_PI) - M_PI; }
 
 	CVector3 camera;
 	CVector3 target;

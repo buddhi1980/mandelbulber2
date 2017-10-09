@@ -71,12 +71,12 @@ public:
 	cOneParameter CatmullRom(const int key, const double factor, bool const angular);
 	cOneParameter Akima(const int key, const double factor, bool const angular);
 
-	double LinearInterpolate(const double factor, double v1, double v2, bool const angular) const;
-	double CatmullRomInterpolate(
-		const double factor, double v1, double v2, double v3, double v4, bool const angular) const;
+	static double LinearInterpolate(const double factor, double v1, double v2, bool const angular);
+	static double CatmullRomInterpolate(
+		const double factor, double v1, double v2, double v3, double v4, bool const angular);
 	double AkimaInterpolate(const double factor, double v1, double v2, double v3, double v4,
 		double v5, double v6, const bool angular) const;
-	void NearestNeighbourAngle(QList<double *> vals) const;
+	static void NearestNeighbourAngle(QList<double *> vals);
 
 private:
 	int listSize;
