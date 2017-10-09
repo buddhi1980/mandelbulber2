@@ -532,7 +532,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		double *noiseTable = new double[noiseTableSize];
 		for (int i = 0; i < noiseTableSize; i++)
 		{
-			noiseTable[i] = 1.0;
+			noiseTable[i] = 0.0;
 		}
 
 		int numberOfSamples = 1;
