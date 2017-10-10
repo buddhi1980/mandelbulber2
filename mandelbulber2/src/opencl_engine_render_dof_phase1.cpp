@@ -382,14 +382,14 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		size_t numberOfPixels = width * height;
-		size_t gridWidth = width / optimalJob.stepSizeX;
-		size_t gridHeight = height / optimalJob.stepSizeY;
+		qint64 numberOfPixels = width * height;
+		qint64 gridWidth = width / optimalJob.stepSizeX;
+		qint64 gridHeight = height / optimalJob.stepSizeY;
 		QList<QRect> lastRenderedRects;
-		size_t pixelsRendered = 0;
+		qint64 pixelsRendered = 0;
 
 		// copy zBuffer and image to input buffers
-		for (int i = 0; i < numberOfPixels; i++)
+		for (qint64 i = 0; i < numberOfPixels; i++)
 		{
 			inZBuffer[i] = image->GetZBufferPtr()[i];
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
@@ -409,12 +409,12 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		{
 			for (int gridX = 0; gridX <= gridWidth; gridX++)
 			{
-				size_t jobX = gridX * optimalJob.stepSizeX;
-				size_t jobY = gridY * optimalJob.stepSizeY;
-				size_t pixelsLeftX = width - jobX;
-				size_t pixelsLeftY = height - jobY;
-				size_t jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				size_t jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				qint64 jobX = gridX * optimalJob.stepSizeX;
+				qint64 jobY = gridY * optimalJob.stepSizeY;
+				qint64 pixelsLeftX = width - jobX;
+				qint64 pixelsLeftY = height - jobY;
+				qint64 jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+				qint64 jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 				if (jobHeight2 <= 0) continue;
 				if (jobWidth2 <= 0) continue;
 

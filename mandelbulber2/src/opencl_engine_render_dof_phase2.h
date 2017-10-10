@@ -61,7 +61,7 @@ public:
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
-	bool ProcessQueue(size_t pixelsLeft, size_t pixelIndex);
+	bool ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest);
 	void ReleaseMemory();

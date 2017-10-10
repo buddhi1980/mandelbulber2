@@ -291,7 +291,7 @@ void cOpenClEngine::UpdateOptimalJobStart(size_t pixelsLeft)
 
 	optimalJob.workGroupSizeMultiplier *= processingCycleTime / optimalJob.lastProcessingTime;
 
-	size_t maxWorkGroupSizeMultiplier = pixelsLeft / optimalJob.workGroupSize;
+	qint64 maxWorkGroupSizeMultiplier = pixelsLeft / optimalJob.workGroupSize;
 
 	if (optimalJob.workGroupSizeMultiplier > maxWorkGroupSizeMultiplier)
 		optimalJob.workGroupSizeMultiplier = maxWorkGroupSizeMultiplier;

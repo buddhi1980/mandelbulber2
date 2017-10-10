@@ -338,8 +338,10 @@ bool cRenderJob::Execute()
 		twoPassStereo = true;
 	}
 
-	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl || cOpenClEngineRenderFractal::enumClRenderEngineMode(
-			 paramsContainer->Get<int>("opencl_mode")) == cOpenClEngineRenderFractal::clRenderEngineNone)
+	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl
+			|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
+					 paramsContainer->Get<int>("opencl_mode"))
+					 == cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 	{
 		for (int repeat = 0; repeat < noOfRepeats; repeat++)
 		{
@@ -506,7 +508,8 @@ bool cRenderJob::Execute()
 #ifdef USE_OPENCL
 	if (paramsContainer->Get<bool>("opencl_enabled")
 			&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
-					 paramsContainer->Get<int>("opencl_mode")) != cOpenClEngineRenderFractal::clRenderEngineNone)
+					 paramsContainer->Get<int>("opencl_mode"))
+					 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 	{
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -559,7 +562,7 @@ bool cRenderJob::Execute()
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
-					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					qint64 neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
 					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
 					if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
 					{

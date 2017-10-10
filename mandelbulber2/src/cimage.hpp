@@ -91,121 +91,121 @@ public:
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			postImageFloat[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelImage16(size_t x, size_t y, sRGB16 pixel)
+	inline void PutPixelImage16(qint64 x, qint64 y, sRGB16 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			image16[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelColor(size_t x, size_t y, sRGB8 pixel)
+	inline void PutPixelColor(qint64 x, qint64 y, sRGB8 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			colourBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelZBuffer(size_t x, size_t y, float pixel)
+	inline void PutPixelZBuffer(qint64 x, qint64 y, float pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			zBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelAlpha(size_t x, size_t y, quint16 pixel)
+	inline void PutPixelAlpha(qint64 x, qint64 y, quint16 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelOpacity(size_t x, size_t y, quint16 pixel)
+	inline void PutPixelOpacity(qint64 x, qint64 y, quint16 pixel)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			opacityBuffer[qint64(x) + qint64(y) * qint64(width)] = pixel;
 	}
-	inline void PutPixelNormal(size_t x, size_t y, sRGBFloat normal)
+	inline void PutPixelNormal(qint64 x, qint64 y, sRGBFloat normal)
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			normalFloat[qint64(x) + qint64(y) * qint64(width)] = normal;
 	}
-	inline sRGBFloat GetPixelImage(size_t x, size_t y) const
+	inline sRGBFloat GetPixelImage(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return imageFloat[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return BlackFloat();
 	}
-	inline sRGBFloat GetPixelPostImage(size_t x, size_t y) const
+	inline sRGBFloat GetPixelPostImage(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return postImageFloat[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return BlackFloat();
 	}
-	inline sRGB16 GetPixelImage16(size_t x, size_t y) const
+	inline sRGB16 GetPixelImage16(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return image16[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black16();
 	}
-	inline sRGB8 GetPixelImage8(size_t x, size_t y) const
+	inline sRGB8 GetPixelImage8(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return image8[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black8();
 	}
-	inline quint16 GetPixelAlpha(size_t x, size_t y) const
+	inline quint16 GetPixelAlpha(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return alphaBuffer16[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
-	inline quint8 GetPixelAlpha8(size_t x, size_t y) const
+	inline quint8 GetPixelAlpha8(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return alphaBuffer8[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
-	inline quint16 GetPixelOpacity(size_t x, size_t y) const
+	inline quint16 GetPixelOpacity(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return opacityBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return 0;
 	}
-	inline sRGB8 GetPixelColor(size_t x, size_t y) const
+	inline sRGB8 GetPixelColor(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return colourBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return Black8();
 	}
-	inline float GetPixelZBuffer(size_t x, size_t y) const
+	inline float GetPixelZBuffer(qint64 x, qint64 y) const
 	{
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return zBuffer[qint64(x) + qint64(y) * qint64(width)];
 		else
 			return float(1e20);
 	}
-	inline sRGBFloat GetPixelNormal(size_t x, size_t y) const
+	inline sRGBFloat GetPixelNormal(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return BlackFloat();
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return normalFloat[qint64(x) + qint64(y) * qint64(width)];
 		return BlackFloat();
 	}
-	inline sRGB16 GetPixelNormal16(size_t x, size_t y) const
+	inline sRGB16 GetPixelNormal16(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black16();
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return normal16[qint64(x) + qint64(y) * qint64(width)];
 		return Black16();
 	}
-	inline sRGB8 GetPixelNormal8(size_t x, size_t y) const
+	inline sRGB8 GetPixelNormal8(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black8();
 		if (x >= 0 && x < width && y >= 0 && y < height)
 			return normal8[qint64(x) + qint64(y) * qint64(width)];
 		return Black8();
 	}
-	inline void BlendPixelImage16(size_t x, size_t y, float factor, sRGB16 other)
+	inline void BlendPixelImage16(qint64 x, qint64 y, float factor, sRGB16 other)
 	{
 		float factorN = 1.0f - factor;
 		image16[qint64(x) + qint64(y) * qint64(width)].R =
@@ -216,7 +216,7 @@ public:
 			quint16(image16[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor);
 	}
 
-	inline void BlendPixelPostImage(size_t x, size_t y, float factor, sRGBFloat other)
+	inline void BlendPixelPostImage(qint64 x, qint64 y, float factor, sRGBFloat other)
 	{
 		float factorN = 1.0f - factor;
 		postImageFloat[qint64(x) + qint64(y) * qint64(width)].R =
@@ -227,7 +227,7 @@ public:
 			postImageFloat[qint64(x) + qint64(y) * qint64(width)].B * factorN + other.B * factor;
 	}
 
-	inline void BlendPixelAlpha(size_t x, size_t y, float factor, quint16 other)
+	inline void BlendPixelAlpha(qint64 x, qint64 y, float factor, quint16 other)
 	{
 		float factorN = 1.0f - factor;
 		alphaBuffer16[qint64(x) + qint64(y) * qint64(width)] =
@@ -280,7 +280,7 @@ public:
 	void CalculateGammaTable(void);
 	sRGB16 CalculatePixel(sRGBFloat pixel);
 
-	void PutPixelAlfa(size_t x, size_t y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
+	void PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
 	void AntiAliasedPoint(
 		double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
 	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
@@ -325,8 +325,8 @@ private:
 
 	sImageAdjustments adj;
 	sImageOptional opt;
-	int width;
-	int height;
+	qint64 width;
+	qint64 height;
 	int *gammaTable;
 	bool previewAllocated;
 	int previewWidth;

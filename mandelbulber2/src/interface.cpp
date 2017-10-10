@@ -961,7 +961,7 @@ void cInterface::RefreshPostEffects()
 		{
 			if (gPar->Get<bool>("opencl_enabled")
 					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineNone)
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 			{
 #ifdef USE_OPENCL
 				sParamRender params(gPar);
@@ -970,7 +970,7 @@ void cInterface::RefreshPostEffects()
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(gPar))
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(gPar);
-					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					qint64 neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
 					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
 					if (neededMem / 1048576 < gPar->Get<int>("opencl_memory_limit"))
 					{
@@ -1014,7 +1014,7 @@ void cInterface::RefreshPostEffects()
 		{
 			if (gPar->Get<bool>("opencl_enabled")
 					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineNone)
+							 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
 			{
 #ifdef USE_OPENCL
 				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());

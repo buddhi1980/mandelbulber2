@@ -94,7 +94,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	if (dofEnginePhase1->LoadSourcesAndCompile(params))
 	{
 		dofEnginePhase1->CreateKernel4Program(params);
-		size_t neededMem = dofEnginePhase1->CalcNeededMemory();
+		qint64 neededMem = dofEnginePhase1->CalcNeededMemory();
 		WriteLogDouble("OpenCl render DOF Phase 1 - needed mem:", neededMem / 1048576.0, 2);
 		if (neededMem / 1048576 < params->Get<int>("opencl_memory_limit"))
 		{
@@ -231,7 +231,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 			if (dofEnginePhase2->LoadSourcesAndCompile(params))
 			{
 				dofEnginePhase2->CreateKernel4Program(params);
-				size_t neededMem = dofEnginePhase2->CalcNeededMemory();
+				qint64 neededMem = dofEnginePhase2->CalcNeededMemory();
 				WriteLogDouble("OpenCl render DOF Phase 2 - needed mem:", neededMem / 1048576.0, 2);
 				if (neededMem / 1048576 < params->Get<int>("opencl_memory_limit"))
 				{
