@@ -37,6 +37,7 @@
 #include <algorithm>
 
 #include <QtAlgorithms>
+#include "nine_fractals.hpp"
 
 //#define _PARAM_DEBUG
 
@@ -455,6 +456,21 @@ QList<QString> cParameterContainer::GetListOfParameters() const
 	QList<QString> list = myMap.keys();
 	std::sort(list.begin(), list.end(), compareStrings);
 	return list;
+}
+
+void cParameterContainer::PrintListOfParameters() const
+{
+	QString parametersOutput = "Non-Default Parameters for Rendered Example Settings\n";
+	QList<QString> listOfParameters = this->GetListOfParameters();
+	for (int i = 0; i < listOfParameters.size(); i++)
+	{
+		const QString parameterName = listOfParameters.at(i);
+		const QString parameterValue = this->Get<QString>(parameterName);
+		const QString defaultValue = this->GetDefault<QString>(parameterName);
+		if(parameterValue != defaultValue)
+			parametersOutput += parameterName + "=" + parameterValue + "\n";
+	}
+	WriteLog(parametersOutput, 1);
 }
 
 enumVarType cParameterContainer::GetVarType(QString name) const

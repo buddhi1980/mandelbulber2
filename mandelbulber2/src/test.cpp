@@ -141,6 +141,7 @@ void Test::renderExamples()
 
 		WriteLog(
 			QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(timer.elapsed()), 1);
+		testPar->PrintListOfParameters();
 	}
 
 	delete image;
