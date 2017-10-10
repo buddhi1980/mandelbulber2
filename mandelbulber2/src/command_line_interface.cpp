@@ -49,6 +49,7 @@
 #include "settings.hpp"
 #include "system.hpp"
 #include "test.hpp"
+#include <ctime>
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		: settingsSpecified(false)
@@ -663,12 +664,34 @@ void cCommandLineInterface::runBenchmarksAndExit()
 
 	if (cliData.outputText != "")
 	{
+		// Invalid output path specified on CLI
 		exampleOutputPath = cliData.outputText;
 		if (!QDir(exampleOutputPath).exists())
 		{
 			cErrorMessage::showMessage(
-				QObject::tr("Example output path does not exist\n"), cErrorMessage::errorMessage);
+				QObject::tr("Example output path invalid\n"), cErrorMessage::errorMessage);
 			parser.showHelp(cliErrorBenchmarkOutputFolderInvalid);
+		}
+
+		// Add Timestamp to exampleOutputPath directory path
+		time_t rawtime;
+		char timebuffer[80];
+		time(&rawtime);
+		struct tm * timeinfo = localtime(&rawtime);
+		strftime(timebuffer, sizeof(timebuffer), "%Y-%m-%d-%H-%M-%S", timeinfo);
+		QString timestamp(timebuffer);
+		exampleOutputPath += "/" + timestamp;
+
+		// Create the timestamped folder for rendering the examples
+		if (!QDir(exampleOutputPath).exists())
+		{
+			CreateFolder(exampleOutputPath);
+		}
+
+		// Create the text log in exampleOutputPath
+		if (cliData.logFilepathText == "")
+		{
+			systemData.SetLogfileName(exampleOutputPath + "/" + "_bulb_log_" + timestamp + ".txt");
 		}
 	}
 
@@ -684,12 +707,9 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	}
 
 	int status = 0;
-	QTextStream out(stdout);
-	out << QObject::tr("Starting benchmark with difficulty [%1] and example output path [%2]")
-					 .arg(difficulty)
-					 .arg(exampleOutputPath)
-			<< "\n";
-	out.flush();
+	WriteLogCout(QString("Starting benchmark with difficulty [%1] and example output path [%2]")
+		.arg(difficulty)
+		.arg(exampleOutputPath) + "\n",1);
 	Test test(Test::benchmarkTestMode, difficulty, exampleOutputPath);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);
