@@ -60,7 +60,7 @@ public:
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernel();
 	bool WriteBuffersToQueue();
-	bool ProcessQueue(int jobX, int jobY, int pixelsLeftX, int pixelsLeftY);
+	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
 	void ReleaseMemory();

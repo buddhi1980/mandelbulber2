@@ -259,14 +259,14 @@ bool cOpenClEngineRenderSSAO::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderSSAO::ProcessQueue(int pixelsLeft, int pixelIndex)
+bool cOpenClEngineRenderSSAO::ProcessQueue(size_t pixelsLeft, size_t pixelIndex)
 {
 	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
-	int stepSize = optimalJob.stepSize;
+	size_t stepSize = optimalJob.stepSize;
 
 	if (optimalJob.stepSize > pixelsLeft)
 	{
-		int mul = pixelsLeft / optimalJob.workGroupSize;
+		size_t mul = pixelsLeft / optimalJob.workGroupSize;
 		if (mul > 0)
 		{
 			stepSize = mul * optimalJob.workGroupSize;
@@ -354,7 +354,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// insert device for loop here
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
-		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+		for (size_t pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
 			size_t pixelsLeft = width * height - pixelIndex;
 			UpdateOptimalJobStart(pixelsLeft);

@@ -322,11 +322,11 @@ bool cOpenClEngineRenderDOFPhase1::WriteBuffersToQueue()
 }
 
 bool cOpenClEngineRenderDOFPhase1::ProcessQueue(
-	int jobX, int jobY, int pixelsLeftX, int pixelsLeftY)
+	size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY)
 {
-	int stepSizeX = optimalJob.stepSizeX;
+	size_t stepSizeX = optimalJob.stepSizeX;
 	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
-	int stepSizeY = optimalJob.stepSizeY;
+	size_t stepSizeY = optimalJob.stepSizeY;
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
 	// optimalJob.stepSize = stepSize;
@@ -382,11 +382,11 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		int numberOfPixels = width * height;
-		int gridWidth = width / optimalJob.stepSizeX;
-		int gridHeight = height / optimalJob.stepSizeY;
+		size_t numberOfPixels = width * height;
+		size_t gridWidth = width / optimalJob.stepSizeX;
+		size_t gridHeight = height / optimalJob.stepSizeY;
 		QList<QRect> lastRenderedRects;
-		int pixelsRendered = 0;
+		size_t pixelsRendered = 0;
 
 		// copy zBuffer and image to input buffers
 		for (int i = 0; i < numberOfPixels; i++)
@@ -409,12 +409,12 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		{
 			for (int gridX = 0; gridX <= gridWidth; gridX++)
 			{
-				int jobX = gridX * optimalJob.stepSizeX;
-				int jobY = gridY * optimalJob.stepSizeY;
+				size_t jobX = gridX * optimalJob.stepSizeX;
+				size_t jobY = gridY * optimalJob.stepSizeY;
 				size_t pixelsLeftX = width - jobX;
 				size_t pixelsLeftY = height - jobY;
-				int jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				int jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				size_t jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+				size_t jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 				if (jobHeight2 <= 0) continue;
 				if (jobWidth2 <= 0) continue;
 

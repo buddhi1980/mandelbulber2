@@ -344,14 +344,14 @@ bool cOpenClEngineRenderDOFPhase2::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase2::ProcessQueue(int pixelsLeft, int pixelIndex)
+bool cOpenClEngineRenderDOFPhase2::ProcessQueue(size_t pixelsLeft, size_t pixelIndex)
 {
 	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
-	int stepSize = optimalJob.stepSize;
+	size_t stepSize = optimalJob.stepSize;
 
 	if (optimalJob.stepSize > pixelsLeft)
 	{
-		int mul = pixelsLeft / optimalJob.workGroupSize;
+		size_t mul = pixelsLeft / optimalJob.workGroupSize;
 		if (mul > 0)
 		{
 			stepSize = mul * optimalJob.workGroupSize;
@@ -448,7 +448,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// requires initialization for all opencl devices
 		// requires optimalJob for all opencl devices
 
-		for (int pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
+		for (size_t pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
 			size_t pixelsLeft = width * height - pixelIndex;
 

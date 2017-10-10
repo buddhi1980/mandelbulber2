@@ -51,6 +51,7 @@
 #include "scheduler.hpp"
 #include "stereo.h"
 #include "system.hpp"
+#include "cast.hpp"
 
 cRenderer::cRenderer(const sParamRender *_params, const cNineFractals *_fractal,
 	sRenderData *_renderData, cImage *_image)
@@ -484,7 +485,7 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 			if (image->GetImageOptional()->optionalNormal)
 				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 		}
-		lineData->append(reinterpret_cast<char *>(lineOfImage), dataSize);
+		lineData->append(reinterpret_cast<char *>(lineOfImage), CastSizeToInt(dataSize));
 		delete[] lineOfImage;
 	}
 	else

@@ -95,7 +95,7 @@ protected:
 	bool Build(const QByteArray &programString, QString *errorText);
 	bool CreateKernel(cl::Program *program);
 	void InitOptimalJob(const cParameterContainer *params);
-	void UpdateOptimalJobStart(int pixelsLeft);
+	void UpdateOptimalJobStart(size_t pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 

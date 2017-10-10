@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -27,45 +27,20 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Robert Pancoast (RobertPancoast77@gmail.com)
  *
- * statistics - class to hold statistics of rendering stats
+ * Functions to Help safely create rectangle objects.
  */
 
-#ifndef MANDELBULBER2_SRC_STATISTICS_H_
-#define MANDELBULBER2_SRC_STATISTICS_H_
+#ifndef MANDELBULBER2_SRC_RECTANGLE_HPP_
+#define MANDELBULBER2_SRC_RECTANGLE_HPP_
 
-#include "histogram.hpp"
-class cStatistics
+#include "cast.hpp"
+
+// Safe Cast Helper for rectangle generator
+inline QRect SizedRectangle(size_t x1, size_t y1, size_t x2, size_t y2)
 {
-public:
-	cStatistics();
-	~cStatistics();
-	cHistogram histogramIterations;
-	cHistogram histogramStepCount;
-	long long totalNumberOfIterations;
-	int missedDE;
-	int numberOfRaymarchings;
-	size_t numberOfRenderedPixels;
-	long long totalNumberOfDOFRepeats;
-	double totalNoise;
-	double time;
-	QString usedDEType;
+	return QRect(CastSizeToInt(x1), CastSizeToInt(y1), CastSizeToInt(x2), CastSizeToInt(y2));
+}
 
-	double GetTotalNumberOfIterations() const { return totalNumberOfIterations; }
-	double GetNumberOfIterationsPerPixel() const
-	{
-		return double(totalNumberOfIterations) / numberOfRenderedPixels;
-	}
-	double GetNumberOfIterationsPerSecond() const { return double(totalNumberOfIterations) / time; }
-	double GetMissedDEPercentage() const { return double(missedDE) / numberOfRaymarchings * 100.0; }
-	QString GetDETypeString() const { return usedDEType; }
-	double GetAverageDOFSamples() const
-	{
-		return double(totalNumberOfDOFRepeats) / numberOfRenderedPixels;
-	}
-	double GetAverageDOFNoise() const { return totalNoise / numberOfRenderedPixels; }
-	void Reset();
-};
-
-#endif /* MANDELBULBER2_SRC_STATISTICS_H_ */
+#endif /* MANDELBULBER2_SRC_RECTANGLE_HPP_ */

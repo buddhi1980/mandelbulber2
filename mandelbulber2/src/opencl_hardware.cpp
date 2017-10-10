@@ -256,8 +256,8 @@ void cOpenClHardware::ListOpenClDevices()
 					WriteLogInt(
 						"CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE", deviceInformation.maxConstantBufferSize, 2);
 					WriteLogInt("CL_DEVICE_MAX_MEM_ALLOC_SIZE", deviceInformation.maxMemAllocSize, 2);
-					WriteLogInt("CL_DEVICE_MAX_PARAMETER_SIZE", deviceInformation.maxParameterSize, 2);
-					WriteLogInt("CL_DEVICE_MAX_WORK_GROUP_SIZE", deviceInformation.maxWorkGroupSize, 2);
+					WriteLogSizeT("CL_DEVICE_MAX_PARAMETER_SIZE", deviceInformation.maxParameterSize, 2);
+					WriteLogSizeT("CL_DEVICE_MAX_WORK_GROUP_SIZE", deviceInformation.maxWorkGroupSize, 2);
 					WriteLogString("CL_DEVICE_NAME", deviceInformation.deviceName, 2);
 					WriteLogString("CL_DEVICE_VERSION", deviceInformation.deviceVersion, 2);
 					WriteLogString("CL_DRIVER_VERSION", deviceInformation.driverVersion, 2);

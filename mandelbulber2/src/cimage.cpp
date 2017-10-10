@@ -734,7 +734,7 @@ void cImage::Squares(int y, int pFactor)
 	}
 }
 
-void cImage::PutPixelAlfa(int x, int y, float z, sRGB8 color, sRGBFloat opacity, int layer) const
+void cImage::PutPixelAlfa(size_t x, size_t y, float z, sRGB8 color, sRGBFloat opacity, int layer) const
 {
 	if (x >= 0 && x < previewWidth && y >= 0 && y < previewHeight)
 	{

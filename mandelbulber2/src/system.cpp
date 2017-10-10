@@ -240,6 +240,11 @@ void WriteLogInt(QString text, int value, int verbosityLevel)
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
+void WriteLogSizeT(QString text, size_t value, int verbosityLevel)
+{
+	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
+}
+
 bool CreateDefaultFolders()
 {
 	// create data directory if not exists

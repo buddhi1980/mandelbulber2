@@ -46,6 +46,7 @@
 #include <QElapsedTimer>
 
 #include "system.hpp"
+#include "cast.hpp"
 
 QByteArray lzoCompress(QByteArray data)
 {
@@ -71,7 +72,7 @@ QByteArray lzoCompress(QByteArray data)
 		3);
 
 	QByteArray arr;
-	arr.append((char *)out, len);
+	arr.append((char *)out, CastSizeToInt(len));
 	free(wrkmem);
 	free(out);
 	return arr;

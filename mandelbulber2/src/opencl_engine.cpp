@@ -192,12 +192,12 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 		size_t workGroupSize = 0;
 		kernel->getWorkGroupInfo(
 			hardware->getEnabledDevices(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
-		WriteLogInt("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
+		WriteLogSizeT("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
 
 		size_t workGroupSizeOptimalMultiplier = 0;
 		kernel->getWorkGroupInfo(hardware->getEnabledDevices(),
 			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
-		WriteLogInt("CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
+		WriteLogSizeT("CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
 
 		optimalJob.workGroupSize = workGroupSize;
 		optimalJob.workGroupSizeOptimalMultiplier = workGroupSizeOptimalMultiplier;
@@ -250,9 +250,9 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 		optimalJob.jobSizeLimit = pixelCnt;
 	}
 
-	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSize", optimalJob.stepSize, 2);
-	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSizeX", optimalJob.stepSizeX, 2);
-	WriteLogInt("cOpenClEngine::InitOptimalJob(): stepSizeY", optimalJob.stepSizeY, 2);
+	WriteLogSizeT("cOpenClEngine::InitOptimalJob(): stepSize", optimalJob.stepSize, 2);
+	WriteLogSizeT("cOpenClEngine::InitOptimalJob(): stepSizeX", optimalJob.stepSizeX, 2);
+	WriteLogSizeT("cOpenClEngine::InitOptimalJob(): stepSizeY", optimalJob.stepSizeY, 2);
 }
 
 bool cOpenClEngine::CreateCommandQueue()
@@ -283,7 +283,7 @@ bool cOpenClEngine::CreateCommandQueue()
 	return false;
 }
 
-void cOpenClEngine::UpdateOptimalJobStart(int pixelsLeft)
+void cOpenClEngine::UpdateOptimalJobStart(size_t pixelsLeft)
 {
 	optimalJob.timer.restart();
 	optimalJob.timer.start();
