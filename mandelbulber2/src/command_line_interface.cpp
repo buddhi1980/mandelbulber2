@@ -710,6 +710,19 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	WriteLogCout(QString("Starting benchmark with difficulty [%1] and example output path [%2]")
 		.arg(difficulty)
 		.arg(exampleOutputPath) + "\n",1);
+
+#ifdef USE_OPENCL
+	if (gPar->Get<bool>("opencl_enabled"))
+	{
+		WriteLogCout(QString("opencl enabled: GPU Benchmark\n"), 1);
+	}
+	else
+	{
+		WriteLogCout(QString("opencl disabled: CPU benchmar\nk"), 1);
+	}
+#else
+	WriteLogCout(QString("this version is not compiled with OpenCL support.\n"), 1);
+#endif
 	Test test(Test::benchmarkTestMode, difficulty, exampleOutputPath);
 	status |= QTest::qExec(&test, arguments);
 	exit(status);

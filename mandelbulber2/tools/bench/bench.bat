@@ -27,8 +27,8 @@ REM # Bench #
 %_SCRIPT_DRIVE%
 cd %OutDir%
 %bulb% --nogui --version
-%bulb% --benchmark 1 -o %IntDir%
-REM %bulb% -O 'opencl_enabled=1' --benchmark 1 -o %IntDir%\ocl
+%bulb% -O 'opencl_enabled=0#opencl_platform=1#opencl_device_list=14be3d' --benchmark 1 -o %IntDir%
+%bulb% -O 'opencl_enabled=1#opencl_platform=1#opencl_device_list=14be3d' --benchmark 1 -o %IntDir%\ocl
 
 REM --- exit ----
 cd %_SCRIPT_FOLDER%
