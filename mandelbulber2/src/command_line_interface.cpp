@@ -718,7 +718,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 	}
 	else
 	{
-		WriteLogCout(QString("opencl disabled: CPU benchmar\nk"), 1);
+		WriteLogCout(QString("opencl disabled: CPU benchmark\n"), 1);
 	}
 #else
 	WriteLogCout(QString("this version is not compiled with OpenCL support.\n"), 1);
