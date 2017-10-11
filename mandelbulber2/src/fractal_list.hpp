@@ -211,11 +211,11 @@ enum enumFractalFormula
 	transfAddCpixelCxCyAxisSwap = 1035, // fixed V2.09
 	transfRotationVaryV1 = 1036,
 	transfLinCombineCXYZ = 1037,
-	transfSphericalInvC = 1038,
+	transfSphericalInvC = 1038, // updated V2.12
 	transfAddConstant4d = 1039,
 	transfBoxFold4d = 1040,
 	transfIterationWeight4d = 1041, // fixed V2.10
-	transfSphericalFold4d = 1042,		// updated V2.11
+	transfSphericalFold4d = 1042,// updated V2.11
 	transfScale4d = 1043,
 	transfFabsAddConstant4d = 1044,
 	transfFabsAddTgladFold4d = 1045,

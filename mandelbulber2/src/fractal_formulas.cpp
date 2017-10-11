@@ -8964,6 +8964,7 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
  * inverted sphere z & c- A transform from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * updated v2.12
  */
 void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8979,6 +8980,8 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 	// if (rSqrL < 1e-21) rSqrL = 1e-21;
 	rSqrL = 1.0 / rSqrL;
 	z *= rSqrL;
+	aux.DE *= rSqrL;
+	z += c;
 }
 
 /**
