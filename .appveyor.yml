@@ -63,7 +63,7 @@ build_script:
 after_build:
   #- if "%PLATFORM%"=="Win32" copy "C:\\Program Files (x86)\\Microsoft Visual Studio 15.0\\VC\\redist\\x86\\Microsoft.VC150.CRT\\vcruntime150.dll" build-win\%CONFIGURATION%\%PLATFORM%
   #- if "%PLATFORM%"=="x64" copy "C:\\Program Files (x86)\\Microsoft Visual Studio 15.0\\VC\\redist\\x64\\Microsoft.VC150.CRT\\vcruntime150.dll" build-win\%CONFIGURATION%\%PLATFORM%
-  - %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\bench\bench.bat
+  - cmd /c %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\bench\bench.bat
   # zip the bench archive
   - tree /F build-win\Bench
   - 7z a mandelbulber-bench-%CONFIGURATION%-%PLATFORM%-%APPVEYOR_REPO_COMMIT%.zip build-win\Bench
