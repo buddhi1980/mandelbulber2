@@ -8968,20 +8968,39 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
+	double rSqrL;
+	CVector4 tempC;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		tempC = aux.c;
+		//tempC *= fractal->transformCommon.constantMultiplier111;
+		rSqrL = tempC.Dot(tempC);
+		// if (rSqrL < 1e-21) rSqrL = 1e-21;
+		rSqrL = 1.0 / rSqrL;
+		tempC *= rSqrL;
+		aux.c = tempC;
+		tempC *= fractal->transformCommon.constantMultiplier111;
+	}
+	else
+	{
+		tempC = aux.const_c;
+		tempC *= fractal->transformCommon.constantMultiplier111;
+		rSqrL = tempC.Dot(tempC);
+		// if (rSqrL < 1e-21) rSqrL = 1e-21;
+		rSqrL = 1.0 / rSqrL;
+		tempC *= rSqrL;
+	}
 
-	c *= fractal->transformCommon.constantMultiplier111;
-	double rSqrL = c.x * c.x + c.y * c.y + c.z * c.z;
-	// if (rSqrL < 1e-21) rSqrL = 1e-21;
-	rSqrL = 1.0 / rSqrL;
-	c *= rSqrL;
-
-	rSqrL = z.x * z.x + z.y * z.y + z.z * z.z;
-	// if (rSqrL < 1e-21) rSqrL = 1e-21;
-	rSqrL = 1.0 / rSqrL;
-	z *= rSqrL;
-	aux.DE *= rSqrL;
-	z += c;
+	if (fractal->transformCommon.functionEnabledAwFalse)
+	{
+		rSqrL = z.Dot(z);
+		// if (rSqrL < 1e-21) rSqrL = 1e-21;
+		rSqrL = 1.0 / rSqrL;
+		z *= rSqrL;
+		aux.DE *= rSqrL;
+		z += tempC;
+	}
+	z += tempC ; //* fractal->transformCommon.constantMultiplier111;
 }
 
 /**
