@@ -1,6 +1,9 @@
 # Mandelbulber settings file
-# version 2.11
+# version 2.12
 # only modified parameters
+[description]
+https://www.youtube.com/watch?v=21LGv8Cf0us
+Louis Armstrong - What A Wonderful World
 [main_parameters]
 animsound_additionfactor_fractal0_mandelbox_folding_min_radius 0.1;
 animsound_additionfactor_main_flight_rotation_speed_vector_y 1.1749;
@@ -50,7 +53,7 @@ flight_last_to_render 0;
 flight_movement_speed_vector -0.2235628031150949 0.2573784138487121 -0.1877526257919941;
 flight_rotation_speed_vector -0.04188381009198638 -0.006179056580417263 0;
 flight_speed 0.06642055856169213;
-flight_speed_control 1;
+flight_speed_control constant;
 fog_color_1 0000 0000 0000;
 formula_1 8;
 frames_per_keyframe 30;
@@ -72,7 +75,7 @@ mat1_coloring_random_seed 809956;
 mat1_coloring_speed 2;
 mat1_is_defined true;
 mat1_surface_color_palette ffb1ff b1ff39 c697d4 a68ee5 8d4515;
-perspective_type 2;
+perspective_type equirectangular;
 target 7.930480344570718 -2.096584238732925 -2.136384829923611;
 view_distance_max 45.91574939149561;
 volumetric_fog_density 0;

@@ -1,6 +1,9 @@
 # Mandelbulber settings file
 # version 2.12
 # only modified parameters
+[description]
+https://www.youtube.com/watch?v=dIOTV_ZtIwg
+Fatback - Backstrokin
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_mode 0;
