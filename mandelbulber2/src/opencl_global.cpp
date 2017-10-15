@@ -35,6 +35,7 @@
 #include "opencl_global.h"
 
 #include "initparameters.hpp"
+#include "interface.hpp"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
 #include "opencl_engine_render_ssao.h"

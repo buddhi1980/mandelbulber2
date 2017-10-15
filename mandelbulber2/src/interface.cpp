@@ -254,6 +254,13 @@ void cInterface::ShowUi()
 	}
 #endif
 
+#ifndef USE_OPENCL
+	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(false);
+#else
+	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
+		gPar->Get<bool>("opencl_enabled"));
+#endif
+
 	renderedImage->show();
 
 	mainWindow->setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea);

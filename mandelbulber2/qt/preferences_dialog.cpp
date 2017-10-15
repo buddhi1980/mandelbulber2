@@ -41,6 +41,7 @@
 
 #include "ui_preferences_dialog.h"
 
+#include "dock_navigation.h"
 #include "thumbnail_widget.h"
 
 #include "src/automated_widgets.hpp"
@@ -419,6 +420,8 @@ void cPreferencesDialog::on_groupCheck_opencl_enabled_toggled(bool state)
 
 		UpdateOpenCLListBoxes();
 	}
+
+	gMainInterface->mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(state);
 }
 
 void cPreferencesDialog::UpdateOpenCLListBoxes()

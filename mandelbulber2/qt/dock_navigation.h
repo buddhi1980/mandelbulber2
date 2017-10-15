@@ -57,6 +57,7 @@ public:
 	bool AutoRefreshIsChecked() const;
 	void LockAllFunctions() const;
 	void UnlockAllFunctions() const;
+	void EnableOpenCLModeComboBox(bool enabled) const;
 
 private slots:
 	static void slotStartRender();

@@ -213,3 +213,9 @@ void cDockNavigation::slotCameraMovementModeChanged(int index)
 {
 	gMainInterface->CameraMovementModeChanged(index);
 }
+
+void cDockNavigation::EnableOpenCLModeComboBox(bool enabled) const
+{
+	ui->comboBox_opencl_mode->setVisible(enabled);
+	ui->label_opencl_mode->setVisible(enabled);
+}
