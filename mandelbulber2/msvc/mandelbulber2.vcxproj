@@ -997,6 +997,8 @@
   </Target>
   <Target Name="BuildPackage" AfterTargets="Build">
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\Setup.iss&quot; &quot;$(OutDir)Setup.iss&quot;" />
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\setup_inno.bmp&quot; &quot;$(OutDir)setup_inno.bmp&quot;" />
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\setup_inno_small.bmp&quot; &quot;$(OutDir)setup_inno_small.bmp&quot;" />
 	<Exec Command="&quot;c:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot; &quot;/DPlatform=$(Platform)&quot; &quot;/DConfiguration=$(Configuration)&quot; &quot;$(OutDir)Setup.iss&quot;" Condition="Exists('c:\Program Files (x86)\Inno Setup 5\ISCC.exe')" />
   </Target>
 </Project>

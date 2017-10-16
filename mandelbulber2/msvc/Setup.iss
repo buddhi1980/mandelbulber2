@@ -17,6 +17,7 @@
 #define MyAppPublisherURL "http://www.mandelbulber.com"
 #define MyAppURL "https://github.com/buddhi1980/mandelbulber2"
 #define MyAppExeName "mandelbulber2.exe"
+#define MyAppIcoName "mandelbulber2.ico"
 
 [Setup]
 AppId={{82DA50F1-72DF-47FE-9FE8-023FFC5695B1}
@@ -38,17 +39,25 @@ InternalCompressLevel=ultra64
 SolidCompression=yes
 DisableDirPage=yes
 DisableReadyPage=yes
-SetupIconFile=mandelbulber2.ico
+SetupIconFile={#MyAppIcoName}
 WizardImageStretch=no
 WindowResizable=no
 CloseApplications=yes
 ChangesEnvironment=yes
 ArchitecturesInstallIn64BitMode=x64
 LicenseFile=COPYING.txt
+WizardImageFile=setup_inno.bmp
+WizardSmallImageFile=setup_inno_small.bmp
+
+[Tasks]
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
+    GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Icons]
 Name: "{group}\Mandelbulber"; Filename: "{app}\mandelbulber2.exe"; WorkingDir: "{app}"
 Name: "{group}\Uninstall Mandelbulber"; Filename: "{uninstallexe}"
+Name: "{userdesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; \
+    IconFilename: "{app}\{#MyAppIcoName}"; Tasks: desktopicon
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl";
@@ -64,4 +73,8 @@ DestDir: "{app}"; Flags: ignoreversion recursesubdirs; Source:"*"
 [UninstallDelete]
 ; Deletes the entire installation directory, including files and subdirectories
 Type: filesandordirs; Name: "{app}";
+
+[Run]
+Filename: "{app}\mandelbulber2.exe"; Description: "Launch Mandelbulber2 application"; \
+    Flags: postinstall nowait skipifsilent unchecked
 
