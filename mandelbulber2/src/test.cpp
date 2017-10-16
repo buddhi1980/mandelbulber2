@@ -48,6 +48,8 @@
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
 #include "system.hpp"
+#include "opencl_global.h"
+#include "opencl_hardware.h"
 
 QString Test::testFolder()
 {
@@ -110,6 +112,43 @@ void Test::renderExamples()
 	cRenderingConfiguration config;
 	config.DisableRefresh();
 	config.DisableProgressiveRender();
+
+#ifdef USE_OPENCL
+	if (gPar->Get<bool>("opencl_enabled"))
+	{
+		// enable full engine if opencl_mode is set to none
+		if (gPar->Get<int>("opencl_mode") == 0)
+		{
+			gPar->Set<int>("opencl_mode", 3);
+		}
+
+		// propagate openCL pars
+		testPar->Set<bool>("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+		testPar->Set<int>("opencl_mode", gPar->Get<int>("opencl_mode"));
+		testPar->Set<int>("opencl_platform", gPar->Get<int>("opencl_platform"));
+		testPar->Set<int>("opencl_device_type", gPar->Get<int>("opencl_device_type"));
+		testPar->Set<QString>("opencl_device_list", gPar->Get<QString>("opencl_device_list"));
+
+		// log the opencl params
+		WriteLogCout(QString("opencl_platform  [%1] ")
+			.arg(testPar->Get<int>("opencl_platform")) + "\n", 1);
+
+		WriteLogCout(QString("opencl_device_list  [%1] ")
+			.arg(testPar->Get<QString>("opencl_device_list")) + "\n", 1);
+
+		WriteLogCout(QString("opencl_mode  [%1] ")
+			.arg(testPar->Get<int>("opencl_mode")) + "\n", 1);
+
+		// rev the engine
+		gOpenCl->Reset();
+		gOpenCl->openClHardware->ListOpenClPlatforms();
+		if (testPar->Get<int>("opencl_platform") >= 0)
+		{
+			gOpenCl->openClHardware->CreateContext(testPar->Get<int>("opencl_platform"), cOpenClDevice::enumOpenClDeviceType(testPar->Get<int>("opencl_device_type")));
+			gOpenCl->openClHardware->EnableDevicesByHashList(testPar->Get<QString>("opencl_device_list"));
+		}
+	}
+#endif
 
 	while (it.hasNext())
 	{

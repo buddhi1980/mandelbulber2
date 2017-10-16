@@ -160,11 +160,11 @@ int main(int argc, char *argv[])
 	}
 	UpdateLanguage(gApplication);
 
-	commandLineInterface.ReadCLI();
-
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl();
 #endif
+
+	commandLineInterface.ReadCLI();
 
 	if (!commandLineInterface.isNoGUI())
 	{
