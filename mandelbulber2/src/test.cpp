@@ -140,6 +140,7 @@ void Test::renderExamples()
 			.arg(testPar->Get<int>("opencl_mode")) + "\n", 1);
 
 		// rev the engine
+		qInstallMessageHandler(myMessageOutput);
 		gOpenCl->Reset();
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (testPar->Get<int>("opencl_platform") >= 0)
