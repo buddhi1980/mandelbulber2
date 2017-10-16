@@ -32,6 +32,7 @@ AppCopyright=Copyright (C) 2017 {#MyAppPublisher}
 BackColor=clWhite
 BackSolid=yes
 DefaultDirName={pf}\{#MyAppName}
+DefaultGroupName={#MyAppName}
 OutputBaseFilename=Mandelbulber2-v{#MyAppInstallerVersion}-Setup
 OutputDir=..\..\Setup\{#Configuration}\{#Platform}
 Compression=lzma2
