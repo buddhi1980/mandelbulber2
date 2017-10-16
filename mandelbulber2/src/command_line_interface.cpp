@@ -641,6 +641,9 @@ void cCommandLineInterface::runTestCasesAndExit()
 
 void cCommandLineInterface::runBenchmarksAndExit()
 {
+	// Set 15 minute test timeout
+	qputenv("QTEST_FUNCTION_TIMEOUT", QByteArray("900000"));
+
 	systemData.noGui = true;
 	QStringList arguments = gApplication->arguments();
 	arguments.removeOne(QString("--benchmark"));
