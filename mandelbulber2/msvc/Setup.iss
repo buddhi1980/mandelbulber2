@@ -3,6 +3,14 @@
 
 ; General documentation on how to use InnoSetup scripts: http://www.jrsoftware.org/ishelp/index.php
 
+#ifndef Platform
+  #error Platform undefined. Pass /DPlatform
+#endif
+
+#ifndef Configuration
+  #error Configuration undefined. Pass /DConfiguration
+#endif
+
 #define MyAppName "Mandelbulber2"
 #define MyAppInstallerVersion GetFileVersion("mandelbulber2.exe")
 #define MyAppPublisher "Mandelbulber Team"
@@ -56,3 +64,4 @@ DestDir: "{app}"; Flags: ignoreversion recursesubdirs; Source:"*"
 [UninstallDelete]
 ; Deletes the entire installation directory, including files and subdirectories
 Type: filesandordirs; Name: "{app}";
+

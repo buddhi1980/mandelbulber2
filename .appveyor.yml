@@ -61,8 +61,9 @@ build_script:
 
 # scripts to run after build
 after_build:
-  #- if "%PLATFORM%"=="Win32" copy "C:\\Program Files (x86)\\Microsoft Visual Studio 15.0\\VC\\redist\\x86\\Microsoft.VC150.CRT\\vcruntime150.dll" build-win\%CONFIGURATION%\%PLATFORM%
-  #- if "%PLATFORM%"=="x64" copy "C:\\Program Files (x86)\\Microsoft Visual Studio 15.0\\VC\\redist\\x64\\Microsoft.VC150.CRT\\vcruntime150.dll" build-win\%CONFIGURATION%\%PLATFORM%
+  # include msvc redist
+  - if "%PLATFORM%"=="Win32" xcopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\*.dll" build-win\%CONFIGURATION%\%PLATFORM%
+  - if "%PLATFORM%"=="x64" xcopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x64\Microsoft.VC140.CRT\*.dll" build-win\%CONFIGURATION%\%PLATFORM%
   - cmd /c %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\bench\bench.bat
   # zip the bench archive
   - tree /F build-win\Bench
