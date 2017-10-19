@@ -378,7 +378,7 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot finish rendering SSAO"), cErrorMessage::errorMessage, nullptr);
+			QObject::tr("Cannot finish rendering DOF"), cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 

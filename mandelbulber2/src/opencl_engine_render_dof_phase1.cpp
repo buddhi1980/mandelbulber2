@@ -268,7 +268,7 @@ bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernel()
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("SSAO params")),
+			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("DOF params")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
