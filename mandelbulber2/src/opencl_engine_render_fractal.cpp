@@ -53,6 +53,7 @@
 #include "rectangle.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
+#include <QtAlgorithms>
 
 // custom includes
 #ifdef USE_OPENCL
@@ -544,6 +545,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		}
 
 		double doneMC = 0.0f;
+		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
 
 		for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
 		{
@@ -556,14 +558,13 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 			qint64 pixelsRendered = 0;
 			qint64 pixelsRenderedMC = 0;
-			qint64 gridX = (gridWidth - 1) / 2;
-			qint64 gridY = gridHeight / 2;
-			int dir = 0;
-			int gridPass = 0;
-			int gridStep = 1;
+			int gridStep = 0;
 
 			while (pixelsRendered < numberOfPixels)
 			{
+				int gridX = tileSequence.at(gridStep).x();
+				int gridY = tileSequence.at(gridStep).y();
+				gridStep++;
 				const qint64 jobX = gridX * optimalJob.stepSizeX;
 				const qint64 jobY = gridY * optimalJob.stepSizeY;
 
@@ -726,49 +727,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						return false;
 					}
 				}
-				// selection of next piece
-				switch (dir)
-				{
-					case 0:
-						gridX++;
-						if (gridStep > gridPass)
-						{
-							gridStep = 0;
-							dir = 1;
-						}
-						break;
-
-					case 1:
-						gridY++;
-						if (gridStep > gridPass)
-						{
-							gridStep = 0;
-							gridPass++;
-							dir = 2;
-						}
-						break;
-
-					case 2:
-						gridX--;
-						if (gridStep > gridPass)
-						{
-							gridStep = 0;
-							dir = 3;
-						}
-						break;
-
-					case 3:
-						gridY--;
-						if (gridStep > gridPass)
-						{
-							gridStep = 0;
-							gridPass++;
-							dir = 0;
-						}
-						break;
-				}
-
-				gridStep++;
 			}
 
 			// update last rectangle
@@ -835,6 +793,34 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 	{
 		return false;
 	}
+}
+
+QPoint cOpenClEngineRenderFractal::gridTileSize;
+
+QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(int gridWidth, int gridHeight)
+{
+	QList<QPoint> tiles;
+	for(int i = 0; i < gridWidth * gridHeight; i++)
+	{
+		tiles.append(QPoint(i % gridWidth, i / gridWidth));
+	}
+	gridTileSize = QPoint(gridWidth, gridHeight);
+	qSort(tiles.begin(), tiles.end(), cOpenClEngineRenderFractal::sortByCenterDistanceAsc);
+	return tiles;
+}
+
+bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2)
+{
+	// choose the tile with the lower distance to the center
+	QPoint center;
+	center.setX((gridTileSize.x() - 1) / 2);
+	center.setY(gridTileSize.y() / 2);
+
+	double dist2V1 = (v1.x() - center.x()) * (v1.x() - center.x()) + (v1.y() - center.y()) * (v1.y() - center.y());
+	double dist2V2 = (v2.x() - center.x()) * (v2.x() - center.x()) + (v2.y() - center.y()) * (v2.y() - center.y());
+	if(dist2V1 != dist2V2) return dist2V1 < dist2V2;
+	if(v1.x() != v2.x()) return v1.x() < v2.x();
+	return v1.y() < v2.y();
 }
 
 void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect corners)

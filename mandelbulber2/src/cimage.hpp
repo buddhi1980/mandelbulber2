@@ -95,64 +95,52 @@ public:
 	}
 	inline void PutPixelPostImage(qint64 x, qint64 y, sRGBFloat pixel)
 	{
-
 		postImageFloat[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelImage16(qint64 x, qint64 y, sRGB16 pixel)
 	{
-
 		image16[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelColor(qint64 x, qint64 y, sRGB8 pixel)
 	{
-
 		colourBuffer[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelZBuffer(qint64 x, qint64 y, float pixel)
 	{
-
 		zBuffer[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelAlpha(qint64 x, qint64 y, quint16 pixel)
 	{
-
 		alphaBuffer16[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelOpacity(qint64 x, qint64 y, quint16 pixel)
 	{
-
 		opacityBuffer[getImageIndex(x, y)] = pixel;
 	}
 	inline void PutPixelNormal(qint64 x, qint64 y, sRGBFloat normal)
 	{
-
 		normalFloat[getImageIndex(x, y)] = normal;
 	}
 	inline sRGBFloat GetPixelImage(qint64 x, qint64 y) const
 	{
-
 		return imageFloat[getImageIndex(x, y)];
 	}
 	inline sRGBFloat GetPixelPostImage(qint64 x, qint64 y) const
 	{
-
 		return postImageFloat[getImageIndex(x, y)];
 	}
 	inline sRGB16 GetPixelImage16(qint64 x, qint64 y) const { return image16[getImageIndex(x, y)]; }
 	inline sRGB8 GetPixelImage8(qint64 x, qint64 y) const { return image8[getImageIndex(x, y)]; }
 	inline quint16 GetPixelAlpha(qint64 x, qint64 y) const
 	{
-
 		return alphaBuffer16[getImageIndex(x, y)];
 	}
 	inline quint8 GetPixelAlpha8(qint64 x, qint64 y) const
 	{
-
 		return alphaBuffer8[getImageIndex(x, y)];
 	}
 	inline quint16 GetPixelOpacity(qint64 x, qint64 y) const
 	{
-
 		return opacityBuffer[getImageIndex(x, y)];
 	}
 	inline sRGB8 GetPixelColor(qint64 x, qint64 y) const { return colourBuffer[getImageIndex(x, y)]; }
@@ -160,21 +148,18 @@ public:
 	inline sRGBFloat GetPixelNormal(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return BlackFloat();
-
 		return normalFloat[getImageIndex(x, y)];
 		return BlackFloat();
 	}
 	inline sRGB16 GetPixelNormal16(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black16();
-
 		return normal16[getImageIndex(x, y)];
 		return Black16();
 	}
 	inline sRGB8 GetPixelNormal8(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black8();
-
 		return normal8[getImageIndex(x, y)];
 		return Black8();
 	}
