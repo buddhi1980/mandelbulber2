@@ -44,12 +44,12 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
+#include "opencl_global.h"
+#include "opencl_hardware.h"
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "settings.hpp"
 #include "system.hpp"
-#include "opencl_global.h"
-#include "opencl_hardware.h"
 
 QString Test::testFolder()
 {
@@ -130,14 +130,14 @@ void Test::renderExamples()
 		testPar->Set<QString>("opencl_device_list", gPar->Get<QString>("opencl_device_list"));
 
 		// log the opencl params
-		WriteLogCout(QString("opencl_platform  [%1] ")
-			.arg(testPar->Get<int>("opencl_platform")) + "\n", 1);
+		WriteLogCout(
+			QString("opencl_platform  [%1] ").arg(testPar->Get<int>("opencl_platform")) + "\n", 1);
 
-		WriteLogCout(QString("opencl_device_list  [%1] ")
-			.arg(testPar->Get<QString>("opencl_device_list")) + "\n", 1);
+		WriteLogCout(
+			QString("opencl_device_list  [%1] ").arg(testPar->Get<QString>("opencl_device_list")) + "\n",
+			1);
 
-		WriteLogCout(QString("opencl_mode  [%1] ")
-			.arg(testPar->Get<int>("opencl_mode")) + "\n", 1);
+		WriteLogCout(QString("opencl_mode  [%1] ").arg(testPar->Get<int>("opencl_mode")) + "\n", 1);
 
 		// rev the engine
 		qInstallMessageHandler(myMessageOutput);
@@ -145,7 +145,8 @@ void Test::renderExamples()
 		gOpenCl->openClHardware->ListOpenClPlatforms();
 		if (testPar->Get<int>("opencl_platform") >= 0)
 		{
-			gOpenCl->openClHardware->CreateContext(testPar->Get<int>("opencl_platform"), cOpenClDevice::enumOpenClDeviceType(testPar->Get<int>("opencl_device_type")));
+			gOpenCl->openClHardware->CreateContext(testPar->Get<int>("opencl_platform"),
+				cOpenClDevice::enumOpenClDeviceType(testPar->Get<int>("opencl_device_type")));
 			gOpenCl->openClHardware->EnableDevicesByHashList(testPar->Get<QString>("opencl_device_list"));
 		}
 	}

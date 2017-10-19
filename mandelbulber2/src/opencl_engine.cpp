@@ -197,7 +197,8 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 		size_t workGroupSizeOptimalMultiplier = 0;
 		kernel->getWorkGroupInfo(hardware->getEnabledDevices(),
 			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
-		WriteLogSizeT("CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
+		WriteLogSizeT(
+			"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
 
 		optimalJob.workGroupSize = workGroupSize;
 		optimalJob.workGroupSizeOptimalMultiplier = workGroupSizeOptimalMultiplier;

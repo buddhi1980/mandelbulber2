@@ -93,7 +93,11 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 	if (image)
 	{
 		CVector2<int> point = lastMousePosition / image->GetPreviewScale();
-		double z = image->GetPixelZBuffer(point.x, point.y);
+		double z;
+		if (point.x >= 0 && point.y >= 0 && point.x < image->GetWidth() && point.y < image->GetHeight())
+			z = image->GetPixelZBuffer(point.x, point.y);
+		else
+			z = float(1e20);
 
 		if (params)
 		{

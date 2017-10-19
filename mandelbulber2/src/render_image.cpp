@@ -39,6 +39,7 @@
 #include <QtCore>
 
 #include "ao_modes.h"
+#include "cast.hpp"
 #include "dof.hpp"
 #include "fractparams.hpp"
 #include "global_data.hpp"
@@ -51,7 +52,6 @@
 #include "scheduler.hpp"
 #include "stereo.h"
 #include "system.hpp"
-#include "cast.hpp"
 
 cRenderer::cRenderer(const sParamRender *_params, const cNineFractals *_fractal,
 	sRenderData *_renderData, cImage *_image)

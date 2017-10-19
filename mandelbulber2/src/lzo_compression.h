@@ -45,8 +45,8 @@
 #include <QByteArray>
 #include <QElapsedTimer>
 
-#include "system.hpp"
 #include "cast.hpp"
+#include "system.hpp"
 
 QByteArray lzoCompress(QByteArray data)
 {

@@ -37,6 +37,7 @@
 #include <algorithm>
 
 #include <QtAlgorithms>
+
 #include "nine_fractals.hpp"
 
 //#define _PARAM_DEBUG
@@ -467,7 +468,7 @@ void cParameterContainer::PrintListOfParameters() const
 		const QString parameterName = listOfParameters.at(i);
 		const QString parameterValue = this->Get<QString>(parameterName);
 		const QString defaultValue = this->GetDefault<QString>(parameterName);
-		if(parameterValue != defaultValue)
+		if (parameterValue != defaultValue)
 			parametersOutput += parameterName + "=" + parameterValue + "\n";
 	}
 	WriteLog(parametersOutput, 1);

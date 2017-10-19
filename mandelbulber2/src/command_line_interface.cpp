@@ -34,6 +34,8 @@
 
 #include "command_line_interface.hpp"
 
+#include <ctime>
+
 #include "animation_frames.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
@@ -49,7 +51,6 @@
 #include "settings.hpp"
 #include "system.hpp"
 #include "test.hpp"
-#include <ctime>
 
 cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		: settingsSpecified(false)
@@ -680,7 +681,7 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		time_t rawtime;
 		char timebuffer[80];
 		time(&rawtime);
-		struct tm * timeinfo = localtime(&rawtime);
+		struct tm *timeinfo = localtime(&rawtime);
 		strftime(timebuffer, sizeof(timebuffer), "%Y-%m-%d-%H-%M-%S", timeinfo);
 		QString timestamp(timebuffer);
 		exampleOutputPath += "/" + timestamp;
@@ -711,8 +712,10 @@ void cCommandLineInterface::runBenchmarksAndExit()
 
 	int status = 0;
 	WriteLogCout(QString("Starting benchmark with difficulty [%1] and example output path [%2]")
-		.arg(difficulty)
-		.arg(exampleOutputPath) + "\n",1);
+									 .arg(difficulty)
+									 .arg(exampleOutputPath)
+								 + "\n",
+		1);
 
 #ifdef USE_OPENCL
 	if (gPar->Get<bool>("opencl_enabled"))

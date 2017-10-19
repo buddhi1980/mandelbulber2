@@ -8973,7 +8973,7 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		tempC = aux.c;
-		//tempC *= fractal->transformCommon.constantMultiplier111;
+		// tempC *= fractal->transformCommon.constantMultiplier111;
 		rSqrL = tempC.Dot(tempC);
 		// if (rSqrL < 1e-21) rSqrL = 1e-21;
 		rSqrL = 1.0 / rSqrL;
@@ -9000,7 +9000,7 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 		aux.DE *= rSqrL;
 		z += tempC;
 	}
-	z += tempC ; //* fractal->transformCommon.constantMultiplier111;
+	z += tempC; //* fractal->transformCommon.constantMultiplier111;
 }
 
 /**
