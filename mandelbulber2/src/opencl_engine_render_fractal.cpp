@@ -596,6 +596,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						// writing data to queue
 						if (!WriteBuffersToQueue()) return false;
 
+						if (!autoRefreshMode && !monteCarlo)
+						{
+							const QRect currentCorners = SizedRectangle(jobX, jobY, jobWidth2, jobHeight2);
+							MarkCurrentPendingTile(image, currentCorners);
+						}
+
 						// processing queue
 						if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) return false;
 
@@ -615,12 +621,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 							lastRenderedRects.clear();
 							optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
 							if (optimalJob.optimalProcessingCycle < 0.1) optimalJob.optimalProcessingCycle = 0.1;
-						}
-
-						if (!autoRefreshMode && !monteCarlo)
-						{
-							const QRect currentCorners = SizedRectangle(jobX, jobY, jobWidth2, jobHeight2);
-							MarkCurrentPendingTile(image, currentCorners);
 						}
 
 						if (!ReadBuffersFromQueue()) return false;
@@ -819,10 +819,12 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(const QPoint &v1, const
 	double dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
 	double dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
 	if(dist2V1 != dist2V2) return dist2V1 < dist2V2;
+
+	// order tiles with same distsance clockwise
 	int quartV1 = cV1.x() > 0 ? (cV1.y() > 0 ? 1 : 0) : (cV1.y() > 0 ? 2 : 3);
 	int quartV2 = cV2.x() > 0 ? (cV2.y() > 0 ? 1 : 0) : (cV2.y() > 0 ? 2 : 3);
 	if(quartV1 != quartV2) return quartV1 < quartV2;
-	return quartV1 < 2 ? v1.y() < v2.y() : v1.y() >= v2.y();
+	return quartV1 < 2 ? v1.y() >= v2.y() : v1.y() < v2.y();
 }
 
 void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect corners)
