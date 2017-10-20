@@ -81,7 +81,7 @@ public:
 	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
 	QList<QPoint> calculateOptimalTileSequence(int gridWidth, int gridHeight);
-	static bool sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2);
+	static bool sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight);
 
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
@@ -91,7 +91,6 @@ private:
 	QString GetKernelName() override;
 
 	static QString toCamelCase(const QString &s);
-	static QPoint gridTileSize;
 
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;

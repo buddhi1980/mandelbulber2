@@ -795,8 +795,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 	}
 }
 
-QPoint cOpenClEngineRenderFractal::gridTileSize;
-
 QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(int gridWidth, int gridHeight)
 {
 	QList<QPoint> tiles;
@@ -804,23 +802,27 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(int gridW
 	{
 		tiles.append(QPoint(i % gridWidth, i / gridWidth));
 	}
-	gridTileSize = QPoint(gridWidth, gridHeight);
-	qSort(tiles.begin(), tiles.end(), cOpenClEngineRenderFractal::sortByCenterDistanceAsc);
+	using namespace std::placeholders;
+	qSort(tiles.begin(), tiles.end(),
+				std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, _1, _2, gridWidth, gridHeight));
 	return tiles;
 }
 
-bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2)
+bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight)
 {
 	// choose the tile with the lower distance to the center
 	QPoint center;
-	center.setX((gridTileSize.x() - 1) / 2);
-	center.setY(gridTileSize.y() / 2);
-
-	double dist2V1 = (v1.x() - center.x()) * (v1.x() - center.x()) + (v1.y() - center.y()) * (v1.y() - center.y());
-	double dist2V2 = (v2.x() - center.x()) * (v2.x() - center.x()) + (v2.y() - center.y()) * (v2.y() - center.y());
+	center.setX((gridWidth - 1) / 2);
+	center.setY((gridHeight - 1) / 2);
+	QPoint cV1 = center - v1;
+	QPoint cV2 = center - v2;
+	double dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
+	double dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
 	if(dist2V1 != dist2V2) return dist2V1 < dist2V2;
-	if(v1.x() != v2.x()) return v1.x() < v2.x();
-	return v1.y() < v2.y();
+	int quartV1 = cV1.x() > 0 ? (cV1.y() > 0 ? 1 : 0) : (cV1.y() > 0 ? 2 : 3);
+	int quartV2 = cV2.x() > 0 ? (cV2.y() > 0 ? 1 : 0) : (cV2.y() > 0 ? 2 : 3);
+	if(quartV1 != quartV2) return quartV1 < quartV2;
+	return quartV1 < 2 ? v1.y() < v2.y() : v1.y() >= v2.y();
 }
 
 void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect corners)
