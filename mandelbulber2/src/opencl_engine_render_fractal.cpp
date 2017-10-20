@@ -35,6 +35,8 @@
 
 #include "opencl_engine_render_fractal.h"
 
+#include <QtAlgorithms>
+
 #include "camera_target.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
@@ -53,7 +55,6 @@
 #include "rectangle.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
-#include <QtAlgorithms>
 
 // custom includes
 #ifdef USE_OPENCL
