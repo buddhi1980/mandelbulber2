@@ -74,6 +74,7 @@ struct sExtendedAux
 	CVector4 const_c;
 	CVector4 old_z;
 	CVector4 sum_z;
+	double pos_neg;
 	double cw;
 
 	double r_dz;

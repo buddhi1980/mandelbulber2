@@ -74,6 +74,7 @@ void AboxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxModKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

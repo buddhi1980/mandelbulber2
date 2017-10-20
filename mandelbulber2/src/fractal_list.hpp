@@ -170,6 +170,7 @@ enum enumFractalFormula
 	quaternionCubic4d = 124,
 	boxFoldBulbPow2V2 = 125,
 	boxFoldBulbPow2V3 = 126,
+	aboxMod13 = 127,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

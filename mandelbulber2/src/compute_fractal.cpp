@@ -83,6 +83,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.const_c = z;
 	extendedAux.old_z = z;
 	extendedAux.sum_z = z;
+	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
 	extendedAux.r_dz = 1.0;

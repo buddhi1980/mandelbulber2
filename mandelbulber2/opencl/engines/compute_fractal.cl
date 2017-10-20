@@ -124,6 +124,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.const_c = c;
 	aux.old_z = z;
 	aux.sum_z = z;
+        aux.pos_neg = 1.0;
 	aux.cw = 0.0f;
 
 	aux.r_dz = 1.0f;
