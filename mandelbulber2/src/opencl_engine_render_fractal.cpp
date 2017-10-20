@@ -795,35 +795,39 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 	}
 }
 
-QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(int gridWidth, int gridHeight)
+QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
+	int gridWidth, int gridHeight)
 {
 	QList<QPoint> tiles;
-	for(int i = 0; i < gridWidth * gridHeight; i++)
+	for (int i = 0; i < gridWidth * gridHeight; i++)
 	{
 		tiles.append(QPoint(i % gridWidth, i / gridWidth));
 	}
 	using namespace std::placeholders;
 	qSort(tiles.begin(), tiles.end(),
-				std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, _1, _2, gridWidth, gridHeight));
+		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, _1, _2, gridWidth, gridHeight));
 	return tiles;
 }
 
-bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight)
+bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
+	const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight)
 {
 	// choose the tile with the lower distance to the center
 	QPoint center;
 	center.setX((gridWidth - 1) / 2);
 	center.setY((gridHeight - 1) / 2);
 	QPoint cV1 = center - v1;
+	cV1.setX(cV1.x() * gridHeight / gridWidth);
 	QPoint cV2 = center - v2;
+	cV2.setX(cV2.x() * gridHeight / gridWidth);
 	double dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
 	double dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
-	if(dist2V1 != dist2V2) return dist2V1 < dist2V2;
+	if (dist2V1 != dist2V2) return dist2V1 < dist2V2;
 
 	// order tiles with same distsance clockwise
 	int quartV1 = cV1.x() > 0 ? (cV1.y() > 0 ? 1 : 0) : (cV1.y() > 0 ? 2 : 3);
 	int quartV2 = cV2.x() > 0 ? (cV2.y() > 0 ? 1 : 0) : (cV2.y() > 0 ? 2 : 3);
-	if(quartV1 != quartV2) return quartV1 < quartV2;
+	if (quartV1 != quartV2) return quartV1 < quartV2;
 	return quartV1 < 2 ? v1.y() >= v2.y() : v1.y() < v2.y();
 }
 
