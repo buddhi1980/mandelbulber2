@@ -1397,7 +1397,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  * based on DarkBeam's Mandelbulb3D code
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
- * This formula contains aux.color and aux.actualScaleA
+ * This formula contains aux.color, aux.pos_neg and aux.actualScaleA
  */
 void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -1520,7 +1520,7 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		{
 			CVector4 offsetAlt = aux.pos_neg * fractal->transformCommon.additionConstant000;
 			z += offsetAlt;
-			aux.pos_neg *= -1.0;
+			aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
 		}
 		else
 		{
