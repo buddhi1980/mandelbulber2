@@ -816,9 +816,9 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	QPoint center;
 	center.setX((gridWidth - 1) / 2);
 	center.setY((gridHeight - 1) / 2);
-	QPoint cV1 = center - v1;
+	QPointF cV1 = center - v1;
 	cV1.setX(cV1.x() * gridHeight / gridWidth);
-	QPoint cV2 = center - v2;
+	QPointF cV2 = center - v2;
 	cV2.setX(cV2.x() * gridHeight / gridWidth);
 	double dist2V1 = cV1.x() * cV1.x() + cV1.y() * cV1.y();
 	double dist2V2 = cV2.x() * cV2.x() + cV2.y() * cV2.y();
