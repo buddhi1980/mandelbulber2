@@ -1390,7 +1390,6 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
 
-
 /**
  * ABoxMod13,
  * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
@@ -1490,7 +1489,6 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	z -= fractal->mandelbox.offset;
 
-
 	double useScale = fractal->mandelbox.scale;
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
@@ -1515,7 +1513,7 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 
 	// offset
-	if ( aux.i >= fractal->transformCommon.startIterationsB
+	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse)
@@ -1526,10 +1524,9 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 		else
 		{
-		z += fractal->transformCommon.additionConstant000;
+			z += fractal->transformCommon.additionConstant000;
 		}
 	}
-
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -1583,17 +1580,6 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * ABoxModKali, a formula from Mandelbulb3D
@@ -11607,16 +11593,13 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			CVector4 subV = z - aux.old_z;
 			// sumDist = subV.Dot(subV) * fractal->foldColor.scaleB1 / 1000.0;
 			subV = fabs(subV);
-			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC ab4actal->foldColor.scaleB1 / 1000.0;
+			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC ab4actal->foldColor.scaleB1
+			// / 1000.0;
 			sumDist = min(min(subV.x, subV.y), subV.z) * fractal->foldColor.scaleB1 / 10.0;
 
 			// update
 			aux.old_z = z;
 		}
-
-
-
-
 
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
@@ -11821,10 +11804,10 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 	aux.colorHybrid = componentMaster;
 
-	//if (aux.i >= fractal->transformCommon.startIterationsD
+	// if (aux.i >= fractal->transformCommon.startIterationsD
 	//		&& aux.i < fractal->transformCommon.stopIterationsD)
 	//{
-		addI = aux.i * fractal->foldColor.scaleC1;
+	addI = aux.i * fractal->foldColor.scaleC1;
 	//}
 
 	aux.colorHybrid += addI;
