@@ -2827,7 +2827,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledxFalse
+	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsTM
 			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
@@ -12114,7 +12114,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledxFalse
+	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsTM
 			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
