@@ -229,7 +229,7 @@ void cSSAOWorker::doWork()
 
 			for (int xx = 0; xx < step; xx++)
 			{
-				if (xx >= endX - 1) break;
+				if (x + xx >= endX - 1) break;
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGBFloat pixel = image->GetPixelPostImage(x + xx, y);
 				float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
