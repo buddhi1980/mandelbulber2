@@ -3027,7 +3027,7 @@ void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		}
 	}
 
-	if (fractal->transformCommon.functionEnabledxFalse
+	if (fractal->transformCommon.functionEnabledFFalse
 			&& aux.i >= fractal->transformCommon.startIterationsTM
 			&& aux.i < fractal->transformCommon.stopIterationsTM1)
 	{
