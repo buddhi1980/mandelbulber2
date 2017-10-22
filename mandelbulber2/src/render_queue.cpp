@@ -132,6 +132,7 @@ void cRenderQueue::slotRenderQueue()
 
 		if (QFile::exists(queueItem.filename))
 		{
+			*queuePar = *gPar;
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.LoadFromFile(queueItem.filename);
 			parSettings.Decode(queuePar, queueParFractal, queueAnimFrames, queueKeyframes);
