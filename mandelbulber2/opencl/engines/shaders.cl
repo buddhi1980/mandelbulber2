@@ -72,8 +72,6 @@ float IterOpacity(const float step, float iters, float maxN, float trim, float o
 
 float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
 {
-	float3 pixel2;
-
 	float3 vector = (float3){0.0f, 0.0f, 1.0f};
 	vector = normalize(vector);
 	float3 viewVectorNorm = input->viewVector;
@@ -91,6 +89,13 @@ float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		float gradN = 1.0f - grad;
 		pixel = consts->params.background_color2 * gradN + consts->params.background_color1 * grad;
 	}
+
+	float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
+								/ consts->params.mainLightVisibilitySize;
+	light = 1.0f / (1.0f + pow(light, 6.0)) * consts->params.mainLightVisibility
+					* consts->params.mainLightIntensity;
+
+	pixel += light * consts->params.mainLightColour;
 	return pixel;
 }
 
