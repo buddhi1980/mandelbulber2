@@ -91,6 +91,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 void BoxFoldBulbPow2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

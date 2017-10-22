@@ -136,6 +136,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		boxFoldBulbPow2V3, BoxFoldBulbPow2V3Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Box Fold Quat", "box_fold_quat",
+		boxFoldQuat, BoxFoldQuatIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
