@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>5179</height>
+    <height>5379</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1033,7 +1033,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledX_false">
      <property name="toolTip">
       <string/>
      </property>
