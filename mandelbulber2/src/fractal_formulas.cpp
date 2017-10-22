@@ -3109,33 +3109,26 @@ void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			aux.r_dz =  aux.r_dz  * fractal->analyticDE.scale1
 								 + fractal->analyticDE.offset1;
 		}
+		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
+		double tempL = z.Length();
+		z *= fractal->transformCommon.constantMultiplier122;
+		// if (tempL < 1e-21) tempL = 1e-21;
+		CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
+		double avgScale = tempAvgScale.Length() / tempL;
+		double tempAux = aux.r_dz * avgScale;
+		aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
-
-
-
-
-			z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
-
-			double tempL = z.Length();
-			z *= fractal->transformCommon.constantMultiplier122;
-			// if (tempL < 1e-21) tempL = 1e-21;
-			CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
-			double avgScale = tempAvgScale.Length() / tempL;
-			double tempAux = aux.r_dz * avgScale;
-			aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
-
-			//z += fractal->transformCommon.additionConstant000;
-			if (fractal->transformCommon.functionEnabledAxFalse)
-			{
-				CVector4 offsetAlt = aux.pos_neg * fractal->transformCommon.additionConstant000;
-				z += offsetAlt;
-				aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
-			}
-			else
-			{
-				z += fractal->transformCommon.additionConstant000;
-			}
+		if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			CVector4 offsetAlt = aux.pos_neg * fractal->transformCommon.additionConstant000;
+			z += offsetAlt;
+			aux.pos_neg *= -fractal->transformCommon.scale1;
+		}
+		else
+		{
+			z += fractal->transformCommon.additionConstant000;
+		}
 	}
 }
 
@@ -9547,7 +9540,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		{
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE = aux.DE * m + 1.0;
+			aux.DE = aux.DE * m;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -9559,7 +9552,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			m = fractal->transformCommon.maxR2d1 / rr;
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE = aux.DE * m + 1.0;
+			aux.DE = aux.DE * m;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -9587,7 +9580,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			m = maxScale - (rr * rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE = aux.DE * m + 1.0;
+			aux.DE = aux.DE * m;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -9599,7 +9592,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 			m = 1.0 + (maxR2 - rr) * (maxR2 - rr) * factor;
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux.DE = aux.DE * m + 1.0;
+			aux.DE = aux.DE * m;
 			aux.r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -9616,8 +9609,8 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	{
 		useScale += aux.actualScaleA;
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
-		aux.DE = aux.DE * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
+
+		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
 
 		// update actualScale for next iteration
 		double vary = fractal->transformCommon.scaleVary0
@@ -9630,7 +9623,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	else
 	{
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
 	}
 }
 
