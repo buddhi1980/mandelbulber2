@@ -95,6 +95,7 @@ kernel void fractal3D(__global sClPixel *out, __global sClInBuff *inBuff,
 
 	sClCalcParams calcParam;
 	calcParam.N = consts->params.N;
+	calcParam.normalCalculationMode = false;
 	distThresh = 1e-6f;
 
 	formulaOut outF;

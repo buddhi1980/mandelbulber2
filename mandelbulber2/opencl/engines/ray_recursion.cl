@@ -155,6 +155,7 @@ void RayMarching(
 
 	sClCalcParams calcParam;
 	calcParam.N = consts->params.N;
+	calcParam.normalCalculationMode = false;
 	float distThresh = 1e-6f;
 
 	formulaOut outF;
@@ -287,6 +288,7 @@ sRayRecursionOut RayRecursion(
 
 			sClCalcParams calcParam;
 			calcParam.N = consts->params.N;
+			calcParam.normalCalculationMode = false;
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
@@ -318,6 +320,7 @@ sRayRecursionOut RayRecursion(
 			{
 				sClCalcParams calcParam;
 				calcParam.N = consts->params.N;
+				calcParam.normalCalculationMode = false;
 				calcParam.distThresh = shaderInputData.distThresh;
 				calcParam.detailSize = shaderInputData.delta;
 
@@ -507,6 +510,7 @@ sRayRecursionOut RayRecursion(
 
 			sClCalcParams calcParam;
 			calcParam.N = consts->params.N;
+			calcParam.normalCalculationMode = false;
 			calcParam.distThresh = shaderInputData.distThresh;
 			calcParam.detailSize = shaderInputData.delta;
 			calcParam.randomSeed = *randomSeed;

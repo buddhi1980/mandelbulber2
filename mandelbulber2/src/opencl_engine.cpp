@@ -118,7 +118,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 				buildParams += definesCollector.toUtf8().constData();
 
-				WriteLogString("Build parameters", buildParams.c_str(), 3);
+				WriteLogString("Build parameters", buildParams.c_str(), 2);
 				err = program->build(hardware->getClDevices(), buildParams.c_str());
 
 				if (checkErr(err, "program->build()"))
