@@ -1023,7 +1023,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledF_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledX_false">
      <property name="toolTip">
       <string/>
      </property>
