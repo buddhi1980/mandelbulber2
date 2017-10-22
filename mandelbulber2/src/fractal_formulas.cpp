@@ -3101,7 +3101,20 @@ void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 
-			aux.r_dz = aux.r_dz * 2.0 * aux.r;
+		aux.r = z.Length();
+		aux.r_dz = aux.r_dz * 2.0 * aux.r;
+
+		if (fractal->analyticDE.enabledFalse)
+		{
+			aux.r_dz =  aux.r_dz  * fractal->analyticDE.scale1
+								 + fractal->analyticDE.offset1;
+		}
+
+
+
+
+
+
 			z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
 			double tempL = z.Length();
@@ -3112,7 +3125,17 @@ void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			double tempAux = aux.r_dz * avgScale;
 			aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
-			z += fractal->transformCommon.additionConstant000;
+			//z += fractal->transformCommon.additionConstant000;
+			if (fractal->transformCommon.functionEnabledAxFalse)
+			{
+				CVector4 offsetAlt = aux.pos_neg * fractal->transformCommon.additionConstant000;
+				z += offsetAlt;
+				aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
+			}
+			else
+			{
+				z += fractal->transformCommon.additionConstant000;
+			}
 	}
 }
 
