@@ -563,6 +563,20 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='x64'">
+    <vcredist Include="$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x64/Microsoft.VC141.CRT/*.dll;$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x64/Microsoft.VC141.CXXAMP/*.dll;$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x64/Microsoft.VC141.OPENMP/*.dll;" />
+    <None Include="@(vcredist)">
+      <Link>%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup Condition="'$(Platform)'=='Win32'">
+    <vcredist Include="$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x86/Microsoft.VC141.CRT/*.dll;$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x86/Microsoft.VC141.CXXAMP/*.dll;$(MSBuildProgramFiles32)/Microsoft Visual Studio/**/x86/Microsoft.VC141.OPENMP/*.dll;" />
+    <None Include="@(vcredist)">
+      <Link>%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <None Include="$(ProjectDir)packages.config" />
     <None Include="$(SourceDir)build-win\qrc_icons.cpp" />
