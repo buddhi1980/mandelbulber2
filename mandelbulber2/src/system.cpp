@@ -535,6 +535,14 @@ void UpdateUISkin()
 			colorText1 = Qt::white;
 			colorText2 = Qt::black;
 			break;
+		case 5: // Nasa Font dark green
+			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
+			gApplication->setFont(QFont("nasalization"));
+			colorBackground1 = QColor(20,40,10);
+			colorBackground2 = QColor(30,40,0);
+			colorText1 = Qt::green;
+			colorText2 = Qt::black;
+			break;
 		default: // normal skin
 			palette = defaultPalette;
 			break;
