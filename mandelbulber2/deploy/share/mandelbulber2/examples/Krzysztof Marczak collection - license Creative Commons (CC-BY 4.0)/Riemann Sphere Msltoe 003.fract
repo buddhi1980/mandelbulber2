@@ -1,0 +1,51 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+ambient_occlusion 4;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+ambient_occlusion_quality 5;
+brightness 1,36;
+camera -0,7422524325089682 -0,1351215376638603 -2,657381508562268;
+camera_distance_to_target 0,008751815858844318;
+camera_rotation 32,15768834627503 -63,10534905390455 154,1645599714771;
+camera_top 0,7961701150849472 -0,4476061553692965 -0,4071386465580739;
+DE_factor 0,891251;
+detail_level 0,537032;
+DOF_enabled true;
+DOF_focus 0,01176344603300095;
+DOF_monte_carlo true;
+DOF_radius 22,69;
+DOF_samples 500;
+flight_last_to_render 0;
+fog_color_1 7800 2700 0f00;
+fog_color_2 ff00 0e00 5a00;
+fog_color_3 ff00 a500 5c00;
+formula_1 71;
+gamma 0,77;
+image_height 1080;
+image_width 1920;
+keyframe_last_to_render 0;
+main_light_alpha -86,98999999999999;
+main_light_beta 15,52;
+main_light_enable false;
+main_light_intensity 0,11;
+mat1_is_defined true;
+mat1_specular 0;
+mat1_use_colors_from_palette false;
+raytraced_reflections true;
+target -0,7443595601162483 -0,1317699894375531 -2,665186725955813;
+view_distance_max 20,4522222189149;
+volumetric_fog_colour_1_distance 0,0003565784419671881;
+volumetric_fog_colour_2_distance 0,0007131568839343763;
+volumetric_fog_distance_factor 0,0007131568839343763;
+volumetric_fog_enabled true;
+[fractal_1]
+IFS_rotation_enabled true;
+[fractal_2]
+IFS_rotation_enabled true;
+[fractal_3]
+IFS_rotation_enabled true;
+[fractal_4]
+IFS_rotation_enabled true;

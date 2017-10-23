@@ -1,0 +1,40 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+aux_light_colour_1 e800 cd00 3200;
+aux_light_enabled_1 true;
+aux_light_position_1 0 0 0;
+background_color_1 c600 0900 6e00;
+background_color_2 3400 0200 6700;
+background_color_3 7d00 3800 b500;
+camera 1,889076825348719 -2,989977489136862 2,761305867598508;
+camera_distance_to_target 4,487024262476047;
+camera_rotation 32,28482119320076 -37,98084716195262 0,3313308947130813;
+camera_top -0,3238072845026907 0,5233396099670169 0,7882033336281725;
+delta_DE_function 2;
+detail_level 0,0416869;
+flight_last_to_render 0;
+formula_1 7;
+image_height 4800;
+image_width 4800;
+keyframe_last_to_render 0;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_specular 10;
+mat1_specular_width 0,398;
+mat1_transparency_interior_color 3200 4300 0c00;
+mat1_transparency_of_interior 0,933254;
+mat1_transparency_of_surface 1;
+N 28;
+raytraced_reflections true;
+view_distance_max 12,14685380829747;
+[fractal_1]
+IFS_rotation_enabled true;
+[fractal_2]
+IFS_rotation_enabled true;
+[fractal_3]
+IFS_rotation_enabled true;
+[fractal_4]
+IFS_rotation_enabled true;

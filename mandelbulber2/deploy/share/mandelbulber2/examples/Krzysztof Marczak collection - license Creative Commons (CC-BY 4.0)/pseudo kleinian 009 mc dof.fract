@@ -1,0 +1,51 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+ambient_occlusion 1,55;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+brightness 1,29;
+camera -12,3609685475899 -21,31714481622115 -11,85688395498057;
+camera_distance_to_target 0,2124708405433885;
+camera_rotation 176,0890220254012 -24,33790560228963 39,79679405846355;
+camera_top -0,6601728693209092 -0,272243586629531 0,700039436140341;
+DE_factor 0,7;
+delta_DE_function 2;
+DOF_enabled true;
+DOF_focus 0,2106416523456573;
+DOF_monte_carlo true;
+DOF_radius 7,15;
+DOF_samples 500;
+flight_last_to_render 0;
+formula_1 103;
+gamma 0,82;
+image_height 1080;
+image_width 1920;
+keyframe_last_to_render 0;
+main_light_intensity 1,01;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_specular_width 0,124;
+mat1_transparency_index_of_refraction 2,84;
+mat1_use_colors_from_palette false;
+raytraced_reflections true;
+reflections_max 1;
+shadows_cone_angle 3,67;
+target -12,37417254734685 -21,51028272531371 -11,94444684976476;
+view_distance_max 765,685424949238;
+[fractal_1]
+alpha_angle_offset 90;
+analyticDE_tweak_005 0;
+beta_angle_offset 90;
+IFS_rotation_enabled true;
+power 2;
+transf_addition_constant_0777 1,548223 1,345178 1,497462;
+transf_minimum_radius_05 0,659898;
+[fractal_2]
+IFS_rotation_enabled true;
+[fractal_3]
+IFS_rotation_enabled true;
+[fractal_4]
+IFS_rotation_enabled true;
