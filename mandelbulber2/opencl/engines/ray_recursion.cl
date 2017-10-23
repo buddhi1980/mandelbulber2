@@ -292,7 +292,7 @@ sRayRecursionOut RayRecursion(
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
-			shaderInputData.delta = CalcDelta(point, consts);
+			shaderInputData.delta = distThresh;
 			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
@@ -490,7 +490,7 @@ sRayRecursionOut RayRecursion(
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
-			shaderInputData.delta = CalcDelta(point, consts);
+			shaderInputData.delta = distThresh;
 			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
@@ -512,7 +512,7 @@ sRayRecursionOut RayRecursion(
 			calcParam.N = consts->params.N;
 			calcParam.normalCalculationMode = false;
 			calcParam.distThresh = shaderInputData.distThresh;
-			calcParam.detailSize = shaderInputData.delta;
+			calcParam.detailSize = shaderInputData.distThresh;
 			calcParam.randomSeed = *randomSeed;
 
 #ifdef USE_REFLECTANCE
