@@ -14,18 +14,9 @@ version: 1.0.1.0.0.7.{build}-{branch}
 
 # Build worker image (VM template)
 image: Visual Studio 2017
-# Enable Global[Internet] Windows RDP Client Access to Build Worker
+# Enable Windows RDP Client Access to Build Worker
 init:
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
-
-# scripts that run after cloning repository
-install:
-#- ps: If ($env:PLATFORM -eq "k1om") { If ($env:CONFIGURATION -eq "Release") {iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/mancoast/ci/master/scripts/enable-icc.ps1')) } }
-#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/compilers_and_libraries" "%PROGRAMFILES(X86)%/IntelSWTools/compilers_and_libraries"
-#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/MPSS" "%PROGRAMFILES%/Intel/MPSS"
-#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" mklink "C:/msvc" "%PROGRAMFILES%/Microsoft Visual Studio 14.0/VC/bin"
-#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/msys64/mingw32/bin;%PATH%"
-#- if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" SET "PATH=C:/compilers_and_libraries/windows/bin/intel64_mic;%PATH%"
 
 #---------------------------------#
 #       build configuration       #
@@ -33,7 +24,6 @@ install:
 
 # add several platforms to build matrix:
 platform:
-  - k1om
   - Win32
   - x64
   - ARM
@@ -44,7 +34,6 @@ configuration:
   - AnalysisRelease
 matrix:
   allow_failures:
-    - platform: k1om
     - platform: ARM
     - configuration: AnalysisRelease
 
@@ -56,8 +45,7 @@ before_build:
 # use custom build_script
 build_script:
 - ECHO BUILD %CONFIGURATION% %PLATFORM%
-- ps: If ($env:PLATFORM -ne "k1om") { msbuild $env:APPVEYOR_BUILD_FOLDER\mandelbulber2\msvc\mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll" }
-# - if "%PLATFORM%"=="k1om" if "%CONFIGURATION%"=="Release" %APPVEYOR_BUILD_FOLDER%\mandelbulber2\tools\DOE\build.batch.bat
+- ps: msbuild $env:APPVEYOR_BUILD_FOLDER\mandelbulber2\msvc\mandelbulber2.sln /m /p:Configuration=$env:CONFIGURATION /p:Platform=$env:PLATFORM /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 # scripts to run after build
 after_build:
