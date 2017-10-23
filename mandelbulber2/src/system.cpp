@@ -530,24 +530,32 @@ void UpdateUISkin()
 		case 4: // Nasa Font dark
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
 			gApplication->setFont(QFont("nasalization"));
-			colorBackground1 = QColor(52,61,70);
-			colorBackground2 = QColor(79,91,102);
+			colorBackground1 = QColor(52, 61, 70);
+			colorBackground2 = QColor(79, 91, 102);
 			colorText1 = Qt::white;
 			colorText2 = Qt::black;
 			break;
 		case 5: // Nasa Font dark green
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
 			gApplication->setFont(QFont("nasalization"));
-			colorBackground1 = QColor(20,40,10);
-			colorBackground2 = QColor(30,40,0);
+			colorBackground1 = QColor(20, 40, 10);
+			colorBackground2 = QColor(30, 50, 0);
 			colorText1 = Qt::green;
+			colorText2 = Qt::black;
+			break;
+		case 6: // Nasa Font dark blue
+			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
+			gApplication->setFont(QFont("nasalization"));
+			colorBackground1 = QColor(10, 10, 40);
+			colorBackground2 = QColor(20, 20, 60);
+			colorText1 = QColor(50, 150, 255);
 			colorText2 = Qt::black;
 			break;
 		default: // normal skin
 			palette = defaultPalette;
 			break;
 	}
-	if(gPar->Get<int>("ui_skin") != 0)
+	if (gPar->Get<int>("ui_skin") != 0)
 	{
 		palette.setColor(QPalette::Window, colorBackground1);
 		palette.setColor(QPalette::WindowText, colorText1);
