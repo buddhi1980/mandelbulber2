@@ -43,21 +43,9 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 	openClAvailable = false;
 	contextReady = false;
 	selectedDeviceIndex = 0;
-	missingOpenClDLL = false;
 	selectedPlatformIndex = 0;
 
 #ifdef USE_OPENCL
-#ifdef _WIN32
-#ifndef _MSC_VER
-	const std::wstring openclDll(L"OpenCL.dll");
-	int err = clewInit(openclDll.c_str());
-	if (err)
-	{
-		qCritical() << clewErrorString(err);
-		missingOpenClDLL = true;
-	}
-#endif //   _MSC_VER
-#endif
 	isNVidia = false;
 	isAMD = false;
 	context = nullptr;
@@ -77,51 +65,42 @@ void cOpenClHardware::ListOpenClPlatforms()
 	clPlatforms.clear();
 	platformsInformation.clear();
 
-	if (!missingOpenClDLL)
+	cl::Platform::get(&clPlatforms);
+	if (checkErr(clPlatforms.size() != 0 ? CL_SUCCESS : -1, "cl::Platform::get"))
 	{
-		cl::Platform::get(&clPlatforms);
-		if (checkErr(clPlatforms.size() != 0 ? CL_SUCCESS : -1, "cl::Platform::get"))
+		openClAvailable = true;
+
+		std::string platformName;
+		std::string platformVendor;
+		std::string platformVersion;
+		std::string platformProfile;
+
+		for (unsigned int i = 0; i < clPlatforms.size(); i++)
 		{
-			openClAvailable = true;
+			clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_NAME), &platformName);
+			clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VENDOR), &platformVendor);
+			clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VERSION), &platformVersion);
+			clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_PROFILE), &platformProfile);
 
-			std::string platformName;
-			std::string platformVendor;
-			std::string platformVersion;
-			std::string platformProfile;
+			sPlatformInformation platformInformation;
+			platformInformation.name = platformName.c_str();
+			platformInformation.vendor = platformVendor.c_str();
+			platformInformation.version = platformVersion.c_str();
+			platformInformation.profile = platformProfile.c_str();
 
-			for (unsigned int i = 0; i < clPlatforms.size(); i++)
-			{
-				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_NAME), &platformName);
-				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VENDOR), &platformVendor);
-				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_VERSION), &platformVersion);
-				clPlatforms[i].getInfo(cl_platform_info(CL_PLATFORM_PROFILE), &platformProfile);
+			WriteLog(QString("OpenCL platform #") + i + ": " + platformInformation.name + " "
+									+ platformInformation.vendor + " " + platformInformation.version + " "
+									+ platformInformation.profile,
+				2);
 
-				sPlatformInformation platformInformation;
-				platformInformation.name = platformName.c_str();
-				platformInformation.vendor = platformVendor.c_str();
-				platformInformation.version = platformVersion.c_str();
-				platformInformation.profile = platformProfile.c_str();
-
-				WriteLog(QString("OpenCL platform #") + i + ": " + platformInformation.name + " "
-									 + platformInformation.vendor + " " + platformInformation.version + " "
-									 + platformInformation.profile,
-					2);
-
-				platformsInformation.append(platformInformation);
-			}
-		}
-		else
-		{
-			openClAvailable = false;
-			cErrorMessage::showMessage(QObject::tr("There are no valid OpenCl platforms in the system"),
-				cErrorMessage::errorMessage);
+			platformsInformation.append(platformInformation);
 		}
 	}
 	else
 	{
 		openClAvailable = false;
-		cErrorMessage::showMessage(
-			QObject::tr("Missing OpenCL.dll in the system"), cErrorMessage::errorMessage);
+		cErrorMessage::showMessage(QObject::tr("There are no valid OpenCl platforms in the system"),
+			cErrorMessage::errorMessage);
 	}
 }
 

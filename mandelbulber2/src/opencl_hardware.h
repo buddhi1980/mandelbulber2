@@ -119,7 +119,6 @@ protected:
 	bool contextReady;
 	int selectedPlatformIndex;
 	int selectedDeviceIndex;
-	bool missingOpenClDLL;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_HARDWARE_H_ */
