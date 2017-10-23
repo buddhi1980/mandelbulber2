@@ -545,7 +545,7 @@ void UpdateUISkin()
 		palette.setColor(QPalette::WindowText, colorText1);
 		palette.setColor(QPalette::Base, colorBackground2);
 		palette.setColor(QPalette::AlternateBase, colorBackground1);
-		palette.setColor(QPalette::ToolTipBase, colorText1);
+		palette.setColor(QPalette::ToolTipBase, colorBackground2);
 		palette.setColor(QPalette::ToolTipText, colorText1);
 		palette.setColor(QPalette::Text, colorText1);
 		palette.setColor(QPalette::Button, colorBackground1);
@@ -555,8 +555,6 @@ void UpdateUISkin()
 
 		palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
 		palette.setColor(QPalette::HighlightedText, colorText2);
-		palette.setColor(QPalette::ToolTipBase, colorText2);
-		palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
 	}
 	// set ui skin
 	gApplication->setPalette(palette);
