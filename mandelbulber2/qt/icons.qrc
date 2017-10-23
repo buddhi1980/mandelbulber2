@@ -145,4 +145,7 @@
     <file>icons/object-rotate-left.png</file>
     <file>icons/object-rotate-right.png</file>
   </qresource>
+  <qresource prefix="/fonts">
+    <file>fonts/nasalization-rg.ttf</file>
+  </qresource>
 </RCC>

@@ -152,23 +152,27 @@ void RenderWindow::slotMenuAboutThirdParty()
 	text +=
 		"		<a "
 		"href=\"https://gist.github.com/QuantumCD/6245215\">gist.github.com/QuantumCD/6245215</"
-		"a><br>thanks to QuantumCD</li><br>";
+		"a><br>thanks to QuantumCD</li>";
 	text += " <li><b>Code highlighting in ui files</b><br>generated with<br>";
 	text +=
 		"		<a "
 		"href=\"http://www.andre-simon.de/doku/highlight/highlight.php\">highlight</a><br>thanks to "
-		"André Simon</li><br>";
+		"André Simon</li>";
 	text += " <li><b>Export Mesh </b><br>generated with<br>";
 	text +=
 		"		<a "
 		"href=\"https://github.com/pmneila/PyMCubes/\">PyMCubes</a><br>thanks to "
-		"P. M. Neila</li><br>";
+		"P. M. Neila</li>";
 	text += " <li><b>Export Mesh </b><br>Designed with<br>";
 	text +=
 		"		<a "
 		"href=\"http://algoholic.eu/export-meshes-from-mandelbulber/\">Stanford (PLY) mesh format "
 		"Support</a><br>thanks to "
 		"Stanislaw Adaszewski</li>";
+	text += " <li><b>Fonts</b><br>";
+	text +=	"		<a href=\"http://typodermicfonts.com/\">Nasalization</a><br>"
+					"thanks to Typodermic Fonts Inc.<br>";
+	text += " For more information about font licenses, see README in fonts folder.</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);
 }

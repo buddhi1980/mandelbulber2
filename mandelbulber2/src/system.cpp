@@ -500,47 +500,63 @@ void UpdateUISkin()
 	static QPalette defaultPalette; // cache "normal" skin on first call
 	QPalette palette;
 
+	QColor colorBackground1 = palette.color(QPalette::Window);
+	QColor colorBackground2 = palette.color(QPalette::Base);
+	QColor colorText1 = palette.color(QPalette::WindowText);
+	QColor colorText2 = palette.color(QPalette::HighlightedText);
+
 	switch (gPar->Get<int>("ui_skin"))
 	{
 		case 1: // dark skin
-			palette.setColor(QPalette::Window, QColor(53, 53, 53));
-			palette.setColor(QPalette::WindowText, Qt::white);
-			palette.setColor(QPalette::Base, QColor(25, 25, 25));
-			palette.setColor(QPalette::AlternateBase, QColor(53, 53, 53));
-			palette.setColor(QPalette::ToolTipBase, Qt::white);
-			palette.setColor(QPalette::ToolTipText, Qt::white);
-			palette.setColor(QPalette::Text, Qt::white);
-			palette.setColor(QPalette::Button, QColor(53, 53, 53));
-			palette.setColor(QPalette::ButtonText, Qt::white);
-			palette.setColor(QPalette::BrightText, Qt::red);
-			palette.setColor(QPalette::Link, QColor(42, 130, 218));
-
-			palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-			palette.setColor(QPalette::HighlightedText, Qt::black);
-			palette.setColor(QPalette::ToolTipBase, Qt::black);
-			palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
+			colorBackground1 = QColor(53, 53, 53);
+			colorBackground2 = QColor(25, 25, 25);
+			colorText1 = Qt::white;
+			colorText2 = Qt::black;
 			break;
 		case 2: // light skin (only roughly inverted dark skin)
-			palette.setColor(QPalette::Window, QColor(240, 240, 240));
-			palette.setColor(QPalette::WindowText, Qt::black);
-			palette.setColor(QPalette::Base, QColor(250, 250, 250));
-			palette.setColor(QPalette::AlternateBase, QColor(240, 240, 240));
-			palette.setColor(QPalette::ToolTipBase, Qt::black);
-			palette.setColor(QPalette::ToolTipText, Qt::black);
-			palette.setColor(QPalette::Text, Qt::black);
-			palette.setColor(QPalette::Button, QColor(240, 240, 240));
-			palette.setColor(QPalette::ButtonText, Qt::black);
-			palette.setColor(QPalette::BrightText, Qt::red);
-			palette.setColor(QPalette::Link, QColor(42, 130, 218));
-
-			palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
-			palette.setColor(QPalette::HighlightedText, Qt::white);
-			palette.setColor(QPalette::ToolTipBase, Qt::white);
-			palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
+			colorBackground1 = QColor(240, 240, 240);
+			colorBackground2 = QColor(250, 250, 250);
+			colorText1 = Qt::black;
+			colorText2 = Qt::white;
+			break;
+		case 3: // Nasa Font light
+			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
+			gApplication->setFont(QFont("nasalization"));
+			colorBackground1 = QColor(167, 173, 187);
+			colorBackground2 = QColor(192, 196, 207);
+			colorText1 = Qt::black;
+			colorText2 = Qt::white;
+			break;
+		case 4: // Nasa Font dark
+			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
+			gApplication->setFont(QFont("nasalization"));
+			colorBackground1 = QColor(52,61,70);
+			colorBackground2 = QColor(79,91,102);
+			colorText1 = Qt::white;
+			colorText2 = Qt::black;
 			break;
 		default: // normal skin
 			palette = defaultPalette;
 			break;
+	}
+	if(gPar->Get<int>("ui_skin") != 0)
+	{
+		palette.setColor(QPalette::Window, colorBackground1);
+		palette.setColor(QPalette::WindowText, colorText1);
+		palette.setColor(QPalette::Base, colorBackground2);
+		palette.setColor(QPalette::AlternateBase, colorBackground1);
+		palette.setColor(QPalette::ToolTipBase, colorText1);
+		palette.setColor(QPalette::ToolTipText, colorText1);
+		palette.setColor(QPalette::Text, colorText1);
+		palette.setColor(QPalette::Button, colorBackground1);
+		palette.setColor(QPalette::ButtonText, colorText1);
+		palette.setColor(QPalette::BrightText, Qt::red);
+		palette.setColor(QPalette::Link, QColor(42, 130, 218));
+
+		palette.setColor(QPalette::Highlight, QColor(42, 130, 218));
+		palette.setColor(QPalette::HighlightedText, colorText2);
+		palette.setColor(QPalette::ToolTipBase, colorText2);
+		palette.setColor(QPalette::ToolTipText, QColor(42, 130, 218));
 	}
 	// set ui skin
 	gApplication->setPalette(palette);
