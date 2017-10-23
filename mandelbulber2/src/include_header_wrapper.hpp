@@ -46,11 +46,18 @@
 #pragma warning(disable : 4996) // declared deprecated
 #endif // _MSC_VER
 
+// custom includes
 #ifdef USE_OPENCL
-// OpenCL SDK for APPLE
+#ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
+#include "clew.h"
+#include "clew-cl.hpp"
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
 #if defined(__APPLE__) || defined(__MACOSX)
 #include <OpenCL/cl.hpp>
-// OpenCL SDK for Linux and Windows
 #else
 #include <CL/cl.hpp>
 #endif
