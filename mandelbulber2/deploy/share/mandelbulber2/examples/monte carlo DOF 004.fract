@@ -1,6 +1,10 @@
 # Mandelbulber settings file
 # version 2.12
 # only modified parameters
+[description]
+This settings file uses Monte Carlo Depth Of Field effect.
+To render this image it's hardly recommended to use fast graphics card by enabling OpenCL. 
+Rendering using CPU can be enormous long.
 [main_parameters]
 ambient_occlusion_mode 0;
 aux_light_colour_1 e800 c000 3000;
