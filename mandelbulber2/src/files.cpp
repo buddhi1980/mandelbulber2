@@ -461,7 +461,10 @@ QString FilePathHelperTextures(const QString &path)
 	QString fileName = fi.fileName();
 
 	QStringList pathList = {fileName,
+		systemData.homeDir + "textures" + QDir::separator() + fileName,
 		systemData.sharedDir + "textures" + QDir::separator() + fileName,
+		systemData.homeDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator() + fileName,
+		systemData.sharedDir + "mandelbulber2" + QDir::separator() + "textures" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + "textures" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + fileName,
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};
@@ -477,7 +480,11 @@ QString FilePathHelperSounds(const QString &path)
 	QFileInfo fi(nativePath);
 	QString fileName = fi.fileName();
 
-	QStringList pathList = {fileName, systemData.sharedDir + "sounds" + QDir::separator() + fileName,
+	QStringList pathList = {fileName,
+		systemData.homeDir + "sounds" + QDir::separator() + fileName,
+		systemData.sharedDir + "sounds" + QDir::separator() + fileName,
+		systemData.homeDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator() + fileName,
+		systemData.sharedDir + "mandelbulber2" + QDir::separator() + "sounds" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + "sounds" + QDir::separator() + fileName,
 		systemData.GetDataDirectoryUsed() + fileName,
 		QFileInfo(systemData.lastSettingsFile).path() + QDir::separator() + fileName};

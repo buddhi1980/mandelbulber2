@@ -13,11 +13,11 @@ import time
 RP = "Robert Pancoast collection - license Creative Commons (CC-BY 4.0)"
 settings_file = \
 RP + os.sep \
-+ "box-deuce-deuce.fract"
++ "menger-fatbackstrokin.fract"
 
 # Options for Render #
 start = 0
-total_frames = 4300
+total_frames = 11600
 RenderSets = 100
 totalIterations = total_frames/RenderSets
 
@@ -26,6 +26,7 @@ WorkersCount = 8
 spacer = "\'"
 perspective = " --override perspective_type=3#sweet_spot_vertical_angle=60"
 perspective = " --override perspective_type=2"
+perspective = ""
 
 # Script Directory #
 DOE=os.path.dirname(os.path.realpath(sys.argv[0]))
