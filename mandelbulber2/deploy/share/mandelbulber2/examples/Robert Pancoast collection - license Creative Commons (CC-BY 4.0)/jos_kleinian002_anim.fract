@@ -1,0 +1,63 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0.32;
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+animsound_bandwidth_main_mat1_coloring_palette_offset 5;
+animsound_midfreq_main_mat1_coloring_palette_offset 86;
+animsound_soundfile_main_mat1_coloring_palette_offset D:\GIT\mandelbulber2\mandelbulber2\deploy\share\mandelbulber2\sounds\Musopen_-_2456_fur-elise-95ec55da-4332-40cf-a320-e002d45be2db.ogg;
+bailout 645.654;
+brightness 5;
+camera 0.1006377911271722 0.2131957860616149 0.4730281875606601;
+camera_distance_to_target 0.0002560146552223791;
+camera_rotation 111.6806507287725 -67.31639653127293 113.7796515531188;
+camera_top 0.007643020640068307 0.9878065287366149 -0.1554987010261328;
+DE_factor 0.239883;
+flight_last_to_render 1;
+flight_movement_speed_vector -9.210018012970831e-05 -3.606375254505832e-05 -0.000236136541562475;
+flight_rotation_speed_vector 0.001497005988023951 0.001527224435590968 0;
+formula_1 122;
+gamma 0.12;
+glow_enabled false;
+hdr true;
+image_height 240;
+image_width 320;
+keyframe_last_to_render 0;
+limit_max 1 2 1;
+limit_min -1 -1 -1;
+mat1_coloring_palette_size 5;
+mat1_coloring_random_seed 267788;
+mat1_coloring_speed 1.1872;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 0.97;
+mat1_specular 4.48;
+mat1_specular_color ff00 f000 1900;
+mat1_specular_width 0.124;
+mat1_surface_color 5300 4500 0c00;
+mat1_surface_color_palette 3e6c11 d578a8 1d3ebd fff2ff efa9ab;
+mat1_transparency_index_of_refraction 3.41;
+raytraced_reflections true;
+reflections_max 4;
+target 0.1005460455372211 0.2131593119421457 0.4727919760261786;
+use_default_bailout false;
+view_distance_max 14.48069583446274;
+volumetric_fog_colour_1_distance 0.07680439656671888;
+volumetric_fog_colour_2_distance 0.1536087931334378;
+volumetric_fog_distance_factor 0.1536087931334378;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_tweak_005 0.281385;
+transf_addition_constant_0777 1 0.056 1;
+transf_folding_value 1.9;
+transf_minimum_radius_05 1.9;
+transf_offset 0.073043;
+[frames]
+frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;main_flight_movement_speed_vector_x;main_flight_movement_speed_vector_y;main_flight_movement_speed_vector_z;main_flight_rotation_speed_vector_x;main_flight_rotation_speed_vector_y;main_flight_rotation_speed_vector_z;main_mat1_coloring_palette_offset
+0;0.1006377911271722;0.2131957860616149;0.4730281875606601;0.1005460455372211;0.2131593119421457;0.4727919760261786;0.007643020640068307;0.9878065287366149;-0.1554987010261328;-9.210018012970831e-05;-3.606375254505832e-05;-0.000236136541562475;0.001497005988023951;0.001527224435590968;0;0
+[keyframes]
+frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;main_flight_movement_speed_vector_x;main_flight_movement_speed_vector_y;main_flight_movement_speed_vector_z;main_flight_rotation_speed_vector_x;main_flight_rotation_speed_vector_y;main_flight_rotation_speed_vector_z;main_mat1_coloring_palette_offset
+0;0.1006377911271722;0.2131957860616149;0.4730281875606601;0.1005460455372211;0.2131593119421457;0.4727919760261786;0.007643020640068307;0.9878065287366149;-0.1554987010261328;-9.210018012970831e-05;-3.606375254505832e-05;-0.000236136541562475;0.001497005988023951;0.001527224435590968;0;0
+interpolation;morphAkima;morphAkima;morphAkima;morphNone;morphNone;morphLinear
