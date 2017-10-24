@@ -3,7 +3,7 @@
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-ambient_occlusion_mode 1;
+ambient_occlusion_mode 0;
 animsound_bandwidth_main_mat1_coloring_palette_offset 4888;
 animsound_decayfilter_main_mat1_coloring_palette_offset true;
 animsound_decaystrength_main_mat1_coloring_palette_offset 1.6;
@@ -33,7 +33,7 @@ flight_rotation_speed_vector 0.0008780427847264201 0.01146532800695502 6.0465238
 formula_1 61;
 hdr true;
 image_height 240;
-image_width 320;
+image_width 480;
 keyframe_last_to_render 0;
 main_light_volumetric_enabled true;
 main_light_volumetric_intensity 0.77;
