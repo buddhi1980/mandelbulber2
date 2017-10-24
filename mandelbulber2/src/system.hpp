@@ -122,6 +122,7 @@ public:
 
 	QString GetQueueFolder() const { return dataDirectoryHidden + "queue"; }
 	QString GetToolbarFolder() const { return dataDirectoryHidden + "toolbar"; }
+	QString GetHttpCacheFolder() const { return dataDirectoryHidden + "httpCache"; }
 	QString GetCustomWindowStateFolder() const { return dataDirectoryHidden + "customWindowState"; }
 	QString GetQueueFractlistFile() const { return dataDirectoryHidden + "queue.fractlist"; }
 	QString GetThumbnailsFolder() const { return dataDirectoryHidden + "thumbnails"; }
