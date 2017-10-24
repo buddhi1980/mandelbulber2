@@ -3,7 +3,6 @@
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-ambient_occlusion_mode 0;
 animsound_bandwidth_main_mat1_coloring_palette_offset 4888;
 animsound_decayfilter_main_mat1_coloring_palette_offset true;
 animsound_decaystrength_main_mat1_coloring_palette_offset 1.6;
@@ -11,7 +10,6 @@ animsound_enable_main_mat1_coloring_palette_offset true;
 animsound_midfreq_main_mat1_coloring_palette_offset 3801;
 animsound_smoothstrength_main_mat1_coloring_palette_offset 1;
 animsound_soundfile_main_mat1_coloring_palette_offset D:\dIOTV_ZtIwg.ogg;
-antialiasing_enabled true;
 antialiasing_size 5;
 background_color_1 0000 0000 0000;
 background_color_2 0000 0000 0000;
@@ -22,7 +20,6 @@ camera -0.5754759193446564 -0.11529218805248 -0.5561310629468809;
 camera_distance_to_target 0.0008183642600192876;
 camera_rotation -134.523316894336 -10.01885015093016 132.0309562413252;
 camera_top -0.6038059672300389 -0.4478791526273007 -0.6592626953208306;
-DE_factor 0.2;
 DOF_focus 0.001140967360697687;
 DOF_monte_carlo true;
 DOF_radius 5.82;
