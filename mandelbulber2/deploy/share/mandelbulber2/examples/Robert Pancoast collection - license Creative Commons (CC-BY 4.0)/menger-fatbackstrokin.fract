@@ -45,7 +45,6 @@ mat1_fractal_coloring_line_direction 1 1 1;
 mat1_is_defined true;
 mat1_surface_color_palette 90c0fc 767dab 38efe4 90cde7 1e32c9 4d7438 9b756f;
 perspective_type equirectangular;
-raytraced_reflections true;
 target -0.5749013516585958 -0.1158572739555647 -0.5562734355508003;
 view_distance_max 4.357281545185902;
 [fractal_1]
