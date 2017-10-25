@@ -23,6 +23,7 @@ REAL4 AexionOctopusModIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	tempN.x = z.x * z.z * fractal->transformCommon.scale3D111.x;
 	tempN.y = (mad(z.x, z.x, -z.z * z.z)) * fractal->transformCommon.scale3D111.y;
 	tempN.z = z.y;
+	tempN.w = z.w;
 
 	if (fractal->transformCommon.functionEnabledAx) tempN.x = fabs(tempN.x);
 	if (fractal->transformCommon.functionEnabledAy) tempN.y = fabs(tempN.y);
