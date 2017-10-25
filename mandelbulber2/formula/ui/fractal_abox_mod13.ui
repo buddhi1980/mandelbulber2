@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>abox_mod13</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -3152,7 +3152,7 @@ reverse offset:</string>
         <property name="text">
          <string notr="true">&lt;p&gt;ABoxMod13,&lt;br&gt;The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010&lt;br&gt;Variations from DarkBeam, Buddhi, Eiffie and mclarekin&lt;br&gt;based on DarkBeam's Mandelbulb3D code&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&quot;&gt;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&lt;br&gt;
-&lt;a href=&quot;This formula contains aux.color and aux.actualScaleA&quot;&gt;This formula contains aux.color and aux.actualScaleA&lt;br&gt;
+&lt;a href=&quot;This formula contains aux.color, aux.pos_neg and aux.actualScaleA&quot;&gt;This formula contains aux.color, aux.pos_neg and aux.actualScaleA&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
@@ -3296,7 +3296,7 @@ reverse offset:</string>
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
       CVector4 offsetAlt &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;pos_neg &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstant000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; offsetAlt&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;pos_neg &lt;span style=&quot;color:#676767&quot;&gt;*= -&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;pos_neg &lt;span style=&quot;color:#676767&quot;&gt;*= -&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;

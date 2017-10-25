@@ -34,13 +34,13 @@
 
 #include "audio_track_collection.h"
 
+#include "QNetworkReply"
+#include "QNetworkRequest"
 #include "audio_track.h"
+#include "global_data.hpp"
 #include "one_parameter.hpp"
 #include "parameters.hpp"
 #include "system.hpp"
-#include "QNetworkReply"
-#include "QNetworkRequest"
-#include "global_data.hpp"
 
 cAudioTrackCollection::cAudioTrackCollection()
 {
@@ -203,13 +203,14 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 			params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
 
 		// TEMPORARY CODE TO LOAD AUDIO OVER HTTP AND CACHE
-		if(filename.startsWith("http://") || filename.startsWith("https://"))
+		if (filename.startsWith("http://") || filename.startsWith("https://"))
 		{
 			QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 			hashCrypt.addData(filename.toLocal8Bit());
 			QByteArray hash = hashCrypt.result();
-			QString cachedFileName = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "." + QFileInfo(filename).suffix();
-			if(!QFile(cachedFileName).exists())
+			QString cachedFileName = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex()
+															 + "." + QFileInfo(filename).suffix();
+			if (!QFile(cachedFileName).exists())
 			{
 				QFile *tempFile = new QFile(cachedFileName);
 				QNetworkAccessManager network;

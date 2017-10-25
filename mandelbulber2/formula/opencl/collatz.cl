@@ -20,9 +20,9 @@ REAL4 CollatzIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	Q_UNUSED(fractal);
 
 	REAL4 xV = (REAL4){1.0f, 1.0f, 1.0f, 0.0f};
-	REAL4 temp = (REAL4){xV + 2.0f * z};
+	REAL4 temp = mad(2.0f, z, xV);
 	temp *= RotateAroundVectorByAngle4(z, xV.xyz, M_PI_F);
-	z = xV + mad(4.0f, z, -temp);
+	z = xV + mad(z, 4.0f, -temp);
 	z /= 4.0f;
 	aux->DE = mad(aux->DE, 4.0f, 1.0f);
 	aux->r_dz *= 4.0f;

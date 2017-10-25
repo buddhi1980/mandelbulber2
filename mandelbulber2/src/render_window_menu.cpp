@@ -170,8 +170,9 @@ void RenderWindow::slotMenuAboutThirdParty()
 		"Support</a><br>thanks to "
 		"Stanislaw Adaszewski</li>";
 	text += " <li><b>Fonts</b><br>";
-	text +=	"		<a href=\"http://typodermicfonts.com/\">Nasalization</a><br>"
-					"thanks to Typodermic Fonts Inc.<br>";
+	text +=
+		"		<a href=\"http://typodermicfonts.com/\">Nasalization</a><br>"
+		"thanks to Typodermic Fonts Inc.<br>";
 	text += " For more information about font licenses, see README in fonts folder.</li>";
 	text += "</ul>";
 	QMessageBox::about(this, "About Third Party", text);

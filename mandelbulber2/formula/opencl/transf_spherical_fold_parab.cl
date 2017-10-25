@@ -35,7 +35,7 @@ REAL4 TransfSphericalFoldParabIteration(
 		{
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux->DE = mad(aux->DE, m, 1.0f);
+			aux->DE = aux->DE * m;
 			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -47,7 +47,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			m = native_divide(fractal->transformCommon.maxR2d1, rr);
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux->DE = mad(aux->DE, m, 1.0f);
+			aux->DE = aux->DE * m;
 			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -75,7 +75,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			m = mad(-factor, (rr * rr), maxScale);
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux->DE = mad(aux->DE, m, 1.0f);
+			aux->DE = aux->DE * m;
 			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -87,7 +87,7 @@ REAL4 TransfSphericalFoldParabIteration(
 			m = mad(factor, (maxR2 - rr) * (maxR2 - rr), 1.0f);
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
-			aux->DE = mad(aux->DE, m, 1.0f);
+			aux->DE = aux->DE * m;
 			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
@@ -104,8 +104,9 @@ REAL4 TransfSphericalFoldParabIteration(
 	{
 		useScale += aux->actualScaleA;
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-		aux->DE = mad(aux->DE, fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
+
+		aux->DE =
+			mad(aux->DE * fabs(useScale), fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
 
 		// update actualScale for next iteration
 		REAL vary = fractal->transformCommon.scaleVary0
@@ -118,7 +119,8 @@ REAL4 TransfSphericalFoldParabIteration(
 	else
 	{
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE =
+			mad(aux->DE * fabs(useScale), fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
 	}
 	return z;
 }
