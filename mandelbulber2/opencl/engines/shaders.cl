@@ -655,9 +655,9 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 #endif
 
 	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
-					+ specular * shadow + auxSpecular + fakeLightsSpecular;
+					+ mainLight * specular * shadow + fakeLightsSpecular + auxSpecular;
 	*outSurfaceColor = surfaceColor;
-	*outSpecular = specular + fakeLightsSpecular; // TODO correct calculation of specular
+	*outSpecular = mainLight * shadow * specular + fakeLightsSpecular + auxSpecular;
 
 	return color;
 }
