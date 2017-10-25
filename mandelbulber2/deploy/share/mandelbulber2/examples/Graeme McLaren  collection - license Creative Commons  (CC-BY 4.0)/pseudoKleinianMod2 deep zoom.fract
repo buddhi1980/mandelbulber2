@@ -1,6 +1,9 @@
 # Mandelbulber settings file
 # version 2.10
 # only modified parameters
+[description]
+This settings file is an example of zooming to the maximum limit.
+To view this image DO NOT have OpenCL enabled.
 [main_parameters]
 ambient_occlusion 0.7;
 ambient_occlusion_enabled true;
