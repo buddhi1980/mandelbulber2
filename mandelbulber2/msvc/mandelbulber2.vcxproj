@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(SourceDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props" Condition="Exists('$(SourceDir)packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="AnalysisRelease|ARM">
       <Configuration>AnalysisRelease</Configuration>
@@ -101,6 +100,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='AnalysisRelease|x64'">
     <EnableExperimentalCppCoreCheck>true</EnableExperimentalCppCoreCheck>
+    <EnableCppCoreCheck>true</EnableCppCoreCheck>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -963,7 +963,6 @@
     <Import Project="..\..\packages\libtiff-msvc-x86.4.0.7.8807\build\native\libtiff-msvc-x86.targets" Condition="Exists('..\..\packages\libtiff-msvc-x86.4.0.7.8807\build\native\libtiff-msvc-x86.targets')" />
     <Import Project="..\..\packages\lzo-msvc-x64.2.10.0.8807\build\native\lzo-msvc-x64.targets" Condition="Exists('..\..\packages\lzo-msvc-x64.2.10.0.8807\build\native\lzo-msvc-x64.targets')" />
     <Import Project="..\..\packages\lzo-msvc-x86.2.10.0.8807\build\native\lzo-msvc-x86.targets" Condition="Exists('..\..\packages\lzo-msvc-x86.2.10.0.8807\build\native\lzo-msvc-x86.targets')" />
-    <Import Project="..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets" Condition="Exists('..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets')" />
     <Import Project="..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets" Condition="Exists('..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" />
     <Import Project="..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets" Condition="Exists('..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" />
     <Import Project="..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets" Condition="Exists('..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" />
@@ -996,8 +995,6 @@
     <Error Condition="!Exists('..\..\packages\libtiff-msvc-x86.4.0.7.8807\build\native\libtiff-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\libtiff-msvc-x86.4.0.7.8807\build\native\libtiff-msvc-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc-x64.2.10.0.8807\build\native\lzo-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc-x64.2.10.0.8807\build\native\lzo-msvc-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\lzo-msvc-x86.2.10.0.8807\build\native\lzo-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\lzo-msvc-x86.2.10.0.8807\build\native\lzo-msvc-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CppCoreCheck.14.0.24210.1\build\native\Microsoft.CppCoreCheck.targets'))" />
     <Error Condition="!Exists('..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets'))" />
@@ -1018,6 +1015,6 @@
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\Setup.iss&quot; &quot;$(OutDir)Setup.iss&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\setup_inno.bmp&quot; &quot;$(OutDir)setup_inno.bmp&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\msvc\setup_inno_small.bmp&quot; &quot;$(OutDir)setup_inno_small.bmp&quot;" />
-	<Exec Command="&quot;c:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot; &quot;/DPlatform=$(Platform)&quot; &quot;/DConfiguration=$(Configuration)&quot; &quot;$(OutDir)Setup.iss&quot;" Condition="Exists('c:\Program Files (x86)\Inno Setup 5\ISCC.exe')" />
+    <Exec Command="&quot;c:\Program Files (x86)\Inno Setup 5\ISCC.exe&quot; &quot;/DPlatform=$(Platform)&quot; &quot;/DConfiguration=$(Configuration)&quot; &quot;$(OutDir)Setup.iss&quot;" Condition="Exists('c:\Program Files (x86)\Inno Setup 5\ISCC.exe')" />
   </Target>
 </Project>
