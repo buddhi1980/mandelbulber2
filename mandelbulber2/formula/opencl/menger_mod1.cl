@@ -69,8 +69,8 @@ REAL4 MengerMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		REAL4 zA = (aux->i == fractal->transformCommon.intA) ? z : (REAL4){};
-		REAL4 zB = (aux->i == fractal->transformCommon.intB) ? z : (REAL4){};
+		REAL4 zA = (aux->i == fractal->transformCommon.intA) ? z : (REAL4){0, 0, 0, 0};
+		REAL4 zB = (aux->i == fractal->transformCommon.intB) ? z : (REAL4){0, 0, 0, 0};
 
 		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offset)
 				+ (zB * fractal->transformCommon.offset0);

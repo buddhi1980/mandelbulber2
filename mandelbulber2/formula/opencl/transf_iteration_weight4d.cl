@@ -15,8 +15,8 @@
 
 REAL4 TransfIterationWeight4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 zA4 = (aux->i == fractal->transformCommon.intA) ? z : (REAL4){};
-	REAL4 zB4 = (aux->i == fractal->transformCommon.intB) ? z : (REAL4){};
+	REAL4 zA4 = (aux->i == fractal->transformCommon.intA) ? z : (REAL4){0, 0, 0, 0};
+	REAL4 zB4 = (aux->i == fractal->transformCommon.intB) ? z : (REAL4){0, 0, 0, 0};
 
 	z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
 			+ (zB4 * fractal->transformCommon.offset0);
