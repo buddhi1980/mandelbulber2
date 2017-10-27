@@ -99,10 +99,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	if (calcParam->normalCalculationMode) N *= 5;
 
+	// repeat, move and rotate
+	float3 point2 =
+		modRepeat(point, consts->params.common.repeat) - consts->params.common.fractalPosition;
+	point2 = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, point2);
+
 	float4 z;
-	z.x = point.x;
-	z.y = point.y;
-	z.z = point.z;
+	z.x = point2.x;
+	z.y = point2.y;
+	z.z = point2.z;
 	z.w = consts->sequence.initialWAxis[0];
 
 	float w = 0;

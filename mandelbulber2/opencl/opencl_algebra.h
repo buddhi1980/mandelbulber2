@@ -208,6 +208,19 @@ int Random(int max, int *randomSeed)
 	return RandomInt(randomSeed) % (max + 1);
 }
 
+inline float3 vectorMod(float3 vector1, float3 vector2)
+{
+	return (float3){(vector2.x > 0.0f ? fmod(vector1.x, vector2.x) : vector1.x),
+		(vector2.y > 0.0f ? fmod(vector1.y, vector2.y) : vector1.y),
+		(vector2.z > 0.0f ? fmod(vector1.z, vector2.z) : vector1.z)};
+}
+
+inline float3 modRepeat(float3 vector1, float3 repeat)
+{
+	if (length(repeat) == 0.0f) return vector1;
+	return vectorMod((vectorMod((vector1 - repeat * 0.5f), repeat) + repeat), repeat) - repeat * 0.5f;
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_
