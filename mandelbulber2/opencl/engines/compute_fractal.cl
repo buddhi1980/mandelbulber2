@@ -100,8 +100,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	if (calcParam->normalCalculationMode) N *= 5;
 
 	// repeat, move and rotate
-	float3 point2 = point;
-	modRepeat(point, consts->params.common.repeat) - consts->params.common.fractalPosition;
+	float3 point2 =
+		modRepeat(point, consts->params.common.repeat) - consts->params.common.fractalPosition;
 	point2 = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, point2);
 
 	float4 z;
