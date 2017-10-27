@@ -139,7 +139,7 @@ formulaOut CalculateDistance(
 	float3 dr = 0.0;
 
 	out = Fractal(consts, point, calcParam, calcModeDeltaDE1);
-	calcParam->deltaDEMaxN = out.iters;
+	calcParam->deltaDEMaxN = out.iters - 1;
 	bool maxiter = out.maxiter;
 
 	float r = length(out.z);
