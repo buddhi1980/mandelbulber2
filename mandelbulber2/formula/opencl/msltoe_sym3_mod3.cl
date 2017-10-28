@@ -60,7 +60,7 @@ REAL4 MsltoeSym3Mod3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
-	REAL lengthTempZ = length(-z); // spherical offset
+	REAL lengthTempZ = -length(z); // spherical offset
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);

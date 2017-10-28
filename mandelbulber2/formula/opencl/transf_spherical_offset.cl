@@ -18,7 +18,7 @@ REAL4 TransfSphericalOffsetIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	REAL para = fractal->transformCommon.offset;
 	if (fractal->transformCommon.functionEnabled)
 	{
-		REAL lengthTempZ = length(-z);
+		REAL lengthTempZ = -length(z);
 		// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
 		z *= 1.0f + native_divide(para, lengthTempZ);
 		z *= fractal->transformCommon.scale;

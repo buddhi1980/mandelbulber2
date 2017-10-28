@@ -189,7 +189,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
 	// radial offset
-	REAL lengthTempZ = length(-z);
+	REAL lengthTempZ = -length(z);
 	// if (lengthTempZ > -1e-21f)
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);

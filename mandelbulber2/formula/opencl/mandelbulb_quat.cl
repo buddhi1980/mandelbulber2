@@ -112,7 +112,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 		z = temp + fractal->transformCommon.offsetF000;
 		// radial offset
-		REAL lengthTempZ = length(-z);
+		REAL lengthTempZ = -length(z);
 		// if (lengthTempZ > -1e-21f)
 		//	lengthTempZ = -1e-21f;   //  z is neg.)
 		z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);

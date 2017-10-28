@@ -122,7 +122,7 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
 	{
-		REAL lengthTempZ = length(-z);
+		REAL lengthTempZ = -length(z);
 		// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
 		z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 		z *= fractal->transformCommon.scale;

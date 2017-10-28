@@ -462,17 +462,17 @@ function parseToOpenCL($code, $mode = 'single')
 {
 	// $fod = $mode == 'single' ? 'float' : 'double';
 	$fod = 'REAL';
-	$var = '-?[A-Za-z_][A-Za-z0-9\.\-\>_\[\]]*'; // regex for a var name
+	$var = '[A-Za-z_][A-Za-z0-9\.\-\>_\[\]]*'; // regex for a var name
 	$functionName = '[A-Za-z_][A-Za-z0-9\.\-\>_]*'; // regex for a function name
 	$double = '(?:-?\d+\.?\d*(?:[eE][+-]?\d+)?|-?\d*\.?\d+(?:[eE][+-]?\d+)?)'; // regex for a double value
 	$float = $double . 'f'; // regex for a float value
 	$nb = "[^()]*"; // matches everything but braces
-	$br = "(?:$functionName)?\($nb\)"; // regex for a simply braced expression with optional function invocation
+	$br = "-?(?:$functionName)?\($nb\)"; // regex for a simply braced expression with optional function invocation
 	$br1_1 = "\($nb$br$nb\)"; // regex for a double braced expression (one inner brace)
 	$br1_2 = "\($nb$br$nb$br$nb\)"; // regex for a double braced expression (two inner braces)
 	$s = '[\n\r\s]+'; // any whitespace including new lines
 	$all = '[\S\s]+?'; // anything including new lines as few as possible (mark end with next operator)
-	$rval = "$br1_2|$br1_1|$br|$float|$var"; // any of those types can be an "assignable expression"
+	$rval = "$br1_2|$br1_1|$br|$float|-?$var"; // any of those types can be an "assignable expression"
 	$preF = "\s|\(|\{|-"; // these chars can occur befire a function
 	$multChain = "(?:(?:$rval)$s\*$s)*(?:$rval)"; // a chain of multiplicated expressions
 	// see here for all possible: https://www.khronos.org/registry/cl/sdk/1.0/docs/man/xhtml/mathFunctions.html
@@ -560,7 +560,7 @@ function parseToOpenCL($code, $mode = 'single')
 
 function generate_formula_icon($formula, $imgPath)
 {
-	$formulaId = $formula['id'];
+    $formulaId = $formula['id'];
 	if ($formula['type'] == 'transf') {
 		$settings = '# Mandelbulber settings file
 # version 2.09

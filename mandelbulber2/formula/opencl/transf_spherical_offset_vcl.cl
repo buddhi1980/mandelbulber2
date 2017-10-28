@@ -85,7 +85,7 @@ REAL4 TransfSphericalOffsetVCLIteration(
 	}
 
 	// using the parameter
-	// z *= 1.0f + native_divide(para, dot(-z, z));
+	// z *= 1.0f + native_divide(para, -dot(z, z));
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
@@ -93,7 +93,7 @@ REAL4 TransfSphericalOffsetVCLIteration(
 		para += paraDot;
 	}
 
-	z *= 1.0f + native_divide(para, dot(-z, z));
+	z *= 1.0f + native_divide(para, -dot(z, z));
 	// post scale
 	z *= fractal->transformCommon.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
