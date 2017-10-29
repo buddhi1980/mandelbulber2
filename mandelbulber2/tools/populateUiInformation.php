@@ -501,7 +501,7 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/($var)\.RotateZ\(/", 'replace' => '$1 = RotateZ($1, '), // CRotationMatrix33 to custom rotation function
 		array('find' => "/($var)\.RotateAroundVectorByAngle\(/", 'replace' => 'RotateAroundVectorByAngle4($1, '), // CVector3 to custom rotation function
 		array('find' => "/($var)\.GetXYZ\(\)/", 'replace' => '$1.xyz'), // CVector4 getxyz to native accessor of float4
-		array('find' => "/CRotationMatrix /", 'replace' => 'matrix33 '), // CRotationMatrix33 to matrix33
+		array('find' => "/CRotationMatrix$s($var);/", 'replace' => 'matrix33 $1;' . PHP_EOL . '$1.m1 = (float3){1.0f, 0.0f, 0.0f};' . PHP_EOL . '$1.m2 = (float3){0.0f, 1.0f, 0.0f};' . PHP_EOL . '$1.m3 = (float3){0.0f, 0.0f, 1.0f};'), // CRotationMatrix33 to matrix33
 		array('find' => "/swap\(($var),\s($var)\);/", 'replace' => '{ ' . $fod . ' temp = $1; $1 = $2; $2 = temp; }'),// swap vals
 		array('find' => "/($s|\()(-?\d+)f($s|;|\))/", 'replace' => '$1$2$3'),          // int vals should not have a "f" at the end
 		// array('find' => "/sign\(($rval)\)$s\*$s($multChain)/", 'replace' => 'copysign($2, $1)'),// sign(x) * y => copysign(y, x) (this is wrong! probably copysign not usable at all)
