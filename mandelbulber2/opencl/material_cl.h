@@ -41,6 +41,22 @@
 #include "src/material.h"
 #endif /* OPENCL_KERNEL_CODE */
 
+typedef enum {
+	fractalColoringNone = -1,
+	fractalColoringStandard = 0,
+	fractalColoringZDotPoint = 1,
+	fractalColoringSphere = 2,
+	fractalColoringCross = 3,
+	fractalColoringLine = 4
+} enumFractalColoringAlgorithmCl;
+
+typedef struct
+{
+	cl_float3 lineDirection;
+	cl_float sphereRadius;
+	enumFractalColoringAlgorithmCl coloringAlgorithm;
+} sFractalColoringCl;
+
 typedef struct
 {
 	cl_int id;
@@ -90,6 +106,8 @@ typedef struct
 	cl_int useDisplacementTexture;
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
+
+	sFractalColoringCl fractalColoring;
 } sMaterialCl;
 
 #ifndef OPENCL_KERNEL_CODE
@@ -133,6 +151,11 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useDisplacementTexture = source.useDisplacementTexture;
 	target.useNormalMapTexture = source.useNormalMapTexture;
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
+
+	target.fractalColoring.coloringAlgorithm =
+		enumFractalColoringAlgorithmCl(source.fractalColoring.coloringAlgorithm);
+	target.fractalColoring.lineDirection = toClFloat3(source.fractalColoring.lineDirection);
+	target.fractalColoring.sphereRadius = source.fractalColoring.sphereRadius;
 
 	return target;
 }

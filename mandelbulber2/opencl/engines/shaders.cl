@@ -141,7 +141,8 @@ float3 SurfaceColor(
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
 	if (input->material->useColorsFromPalette)
 	{
-		fout = Fractal(consts, input->point, calcParams, calcModeColouring);
+		__global sFractalColoringCl *fractalColoring = &input->material->fractalColoring;
+		fout = Fractal(consts, input->point, calcParams, calcModeColouring, fractalColoring);
 		int nCol = floor(fout.colorIndex);
 		nCol = abs(nCol) % (248 * 256);
 		int color_number =
@@ -557,7 +558,7 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	formulaOut outF;
 
-	outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap);
+	outF = Fractal(consts, input->point, calcParams, calcModeOrbitTrap, NULL);
 	float rr = outF.orbitTrapR;
 	float r = 1.0f / (rr + 1e-20f);
 
@@ -567,13 +568,16 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 	calcParams->distThresh = input->distThresh;
 	calcParams->detailSize = input->delta;
 
-	outF = Fractal(consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap);
+	outF = Fractal(
+		consts, input->point + (float3){delta, 0.0f, 0.0f}, calcParams, calcModeOrbitTrap, NULL);
 	float rx = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-	outF = Fractal(consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap);
+	outF = Fractal(
+		consts, input->point + (float3){0.0f, delta, 0.0f}, calcParams, calcModeOrbitTrap, NULL);
 	float ry = 1.0f / (outF.orbitTrapR + 1e-30f);
 
-	outF = Fractal(consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap);
+	outF = Fractal(
+		consts, input->point + (float3){0.0f, 0.0f, delta}, calcParams, calcModeOrbitTrap, NULL);
 	float rz = 1.0f / (outF.orbitTrapR + 1e-30f);
 
 	float3 fakeLightNormal;
@@ -804,7 +808,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		// fake lights (orbit trap)
 		{
 			formulaOut outF;
-			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap);
+			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL);
 			float r = outF.orbitTrapR;
 			r = sqrt(1.0f / (r + 1.0e-20f));
 			float fakeLight = 1.0f / (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)

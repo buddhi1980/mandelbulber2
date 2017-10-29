@@ -91,7 +91,7 @@ float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 }
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
-	enumCalculationModeCl mode)
+	enumCalculationModeCl mode, __global sFractalColoringCl *fractalColoring)
 {
 	// begin
 	float dist = 0.0f;
@@ -103,6 +103,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float3 point2 =
 		modRepeat(point, consts->params.common.repeat) - consts->params.common.fractalPosition;
 	point2 = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, point2);
+
+	float4 point4D = (float4){point2.x, point2.y, point2.z, 0.0f};
 
 	float4 z;
 	z.x = point2.x;
@@ -296,11 +298,44 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 			else if (mode == calcModeColouring)
 			{
-				// TODO another coloring modes
-				// TODO exception for mandelbox
+				float len = 0.0f;
+				switch (fractalColoring->coloringAlgorithm)
+				{
+					case fractalColoringStandard:
+					{
+						len = aux.r;
+						break;
+					}
+					case fractalColoringZDotPoint:
+					{
+						len = dot(z, point4D);
+						break;
+					}
+					case fractalColoringSphere:
+					{
+						len = fabs(length(z - point4D) - fractalColoring->sphereRadius);
+						break;
+					}
+					case fractalColoringCross:
+					{
+						len = min(min(z.x, z.y), z.z);
+						break;
+					}
+					case fractalColoringLine:
+					{
+						len = fabs(dot(z.xyz, fractalColoring->lineDirection));
+						break;
+					}
+					case fractalColoringNone:
+					{
+						len = aux.r;
+						break;
+					}
+				}
+
 				if (fractal->formula != 8) // not mandelbox
 				{
-					if (aux.r < colorMin) colorMin = aux.r;
+					if (len < colorMin) colorMin = len;
 				}
 				if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
 			}

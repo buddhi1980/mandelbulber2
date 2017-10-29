@@ -94,7 +94,7 @@ formulaOut CalculateDistance(
 #endif
 
 #ifdef ANALYTIC_DE
-	out = Fractal(consts, point, calcParam, calcModeNormal);
+	out = Fractal(consts, point, calcParam, calcModeNormal, NULL);
 	bool maxiter = out.maxiter;
 
 	if (maxiter) out.distance = 0.0f;
@@ -135,28 +135,28 @@ formulaOut CalculateDistance(
 
 #elif DELTA_DE
 	// float delta = length(point)*consts->fractal.deltaDEStep;
-	float delta = 1.0e-5;
-	float3 dr = 0.0;
+	float delta = 1.0e-5f;
+	float3 dr = 0.0f;
 
-	out = Fractal(consts, point, calcParam, calcModeDeltaDE1);
+	out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL);
 	calcParam->deltaDEMaxN = out.iters - 1;
 	bool maxiter = out.maxiter;
 
 	float r = length(out.z);
-	float r11 =
-		length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2).z);
-	float r12 =
-		length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2).z);
+	float r11 = length(
+		Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r12 = length(
+		Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
 	dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
-	float r21 =
-		length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, calcModeDeltaDE2).z);
-	float r22 =
-		length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, calcModeDeltaDE2).z);
+	float r21 = length(
+		Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r22 = length(
+		Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
 	dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
-	float r31 =
-		length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, calcModeDeltaDE2).z);
-	float r32 =
-		length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, calcModeDeltaDE2).z);
+	float r31 = length(
+		Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r32 = length(
+		Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, calcModeDeltaDE2, NULL).z);
 	dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 	float d = length(dr);
 
