@@ -23,6 +23,9 @@ REAL4 Mandelbulb4Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	REAL angX = atan2(z.z, z.y) + fractal->bulb.gammaAngleOffset;
 
 	matrix33 rotM;
+	rotM.m1 = (float3){1.0f, 0.0f, 0.0f};
+	rotM.m2 = (float3){0.0f, 1.0f, 0.0f};
+	rotM.m3 = (float3){0.0f, 0.0f, 1.0f};
 	rotM = RotateX(rotM, angX * (fractal->bulb.power - 1.0f));
 	rotM = RotateY(rotM, angY * (fractal->bulb.power - 1.0f));
 	rotM = RotateZ(rotM, angZ * (fractal->bulb.power - 1.0f));
