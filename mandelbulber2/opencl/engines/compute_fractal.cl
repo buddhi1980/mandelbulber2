@@ -299,6 +299,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			else if (mode == calcModeColouring)
 			{
 				float len = 0.0f;
+#ifdef USE_COLORING_MODES
 				switch (fractalColoring->coloringAlgorithm)
 				{
 					case fractalColoringStandard:
@@ -308,7 +309,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					}
 					case fractalColoringZDotPoint:
 					{
-						len = dot(z, point4D);
+						len = fabs(dot(z, point4D));
 						break;
 					}
 					case fractalColoringSphere:
@@ -318,7 +319,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					}
 					case fractalColoringCross:
 					{
-						len = min(min(z.x, z.y), z.z);
+						len = min(min(fabs(z.x), fabs(z.y)), fabs(z.z));
 						break;
 					}
 					case fractalColoringLine:
@@ -332,6 +333,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 						break;
 					}
 				}
+#else
+				len = aux.r;
+#endif // USE_COLORING_MODES
 
 				if (fractal->formula != 8) // not mandelbox
 				{

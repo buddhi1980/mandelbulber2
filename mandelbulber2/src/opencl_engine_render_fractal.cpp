@@ -411,13 +411,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	bool anyMaterialIsReflective = false;
 	bool anyMaterialIsRefractive = false;
+	bool anyMaterialHasSpecialColoring = false;
 	foreach (cMaterial material, materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
 		if (material.transparencyOfSurface > 0.0) anyMaterialIsRefractive = true;
+		if (material.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+			anyMaterialHasSpecialColoring = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
+	if (anyMaterialHasSpecialColoring) definesCollector += " -DUSE_COLORING_MODES";
 
 	if ((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 	{
