@@ -177,18 +177,30 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		aux.r = length(z);
 #endif
 
-		switch (formulaIndex)
+		// temporary vector for weight function
+		float4 tempZ = z;
+
+#ifdef ITERATION_WEIGHT
+		if (consts->sequence.formulaWeight[formulaIndex] > 0)
 		{
-			case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
-			case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
-			case 2: z = FORMULA_ITER_2(z, fractal, &aux); break;
-			case 3: z = FORMULA_ITER_3(z, fractal, &aux); break;
-			case 4: z = FORMULA_ITER_4(z, fractal, &aux); break;
-			case 5: z = FORMULA_ITER_5(z, fractal, &aux); break;
-			case 6: z = FORMULA_ITER_6(z, fractal, &aux); break;
-			case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
-			case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
+#endif
+
+			switch (formulaIndex)
+			{
+				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
+				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
+				case 2: z = FORMULA_ITER_2(z, fractal, &aux); break;
+				case 3: z = FORMULA_ITER_3(z, fractal, &aux); break;
+				case 4: z = FORMULA_ITER_4(z, fractal, &aux); break;
+				case 5: z = FORMULA_ITER_5(z, fractal, &aux); break;
+				case 6: z = FORMULA_ITER_6(z, fractal, &aux); break;
+				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
+				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
+			}
+
+#ifdef ITERATION_WEIGHT
 		}
+#endif
 
 		if (consts->sequence.addCConstant[formulaIndex])
 		{
@@ -226,8 +238,30 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 		}
 
+#ifdef ITERATION_WEIGHT
+		if (consts->sequence.isHybrid)
+		{
+			z = SmoothCVector(tempZ, z, consts->sequence.formulaWeight[formulaIndex]);
+		}
+#endif
+
 		// calculate r
-		aux.r = length(z);
+
+		switch (fractal->formula)
+		{
+			case 101: // pseudoKleinianStdDE
+				aux.r = length(z.xy);
+				break;
+
+			case 152: // imaginaryScatorPower2
+			{
+				float4 z2 = z * z;
+				aux.r = sqrt(z2.x + z2.y + z2.z) + (z2.y * z2.z) / (z2.x);
+				break;
+			}
+
+			default: aux.r = length(z); break;
+		}
 
 		// escape conditions
 		if (consts->sequence.checkForBailout[formulaIndex])

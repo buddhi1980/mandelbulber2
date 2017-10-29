@@ -316,6 +316,16 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
 	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
 
+	bool weightUsed = false;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		if (fractals->GetWeight(i) != 1.0)
+		{
+			weightUsed = true;
+		}
+	}
+	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
+
 	// ---- perspective projections ------
 	switch (paramRender->perspectiveType)
 	{

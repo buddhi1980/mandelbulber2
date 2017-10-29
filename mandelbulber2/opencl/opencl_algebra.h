@@ -221,6 +221,40 @@ inline float3 modRepeat(float3 vector1, float3 repeat)
 	return vectorMod((vectorMod((vector1 - repeat * 0.5f), repeat) + repeat), repeat) - repeat * 0.5f;
 }
 
+#ifdef ITERATION_WEIGHT
+float4 SmoothCVector(const float4 v1, const float4 v2, float k)
+{
+	float4 result;
+	float nk = 1.0f - k;
+
+	if (k <= 0.0f)
+	{
+		result = v1;
+	}
+	else if (k >= 1.0f)
+	{
+		result = v2;
+	}
+	else
+	{
+		float length1 = length(v1);
+		float length2 = length(v2);
+		float lenInterp = length1 * nk + length2 * k;
+		float4 vTemp = v1 * nk + v2 * k;
+		float lengthTemp = length(vTemp);
+		if (lengthTemp > 0.0f)
+		{
+			result = (vTemp / lengthTemp) * lenInterp;
+		}
+		else
+		{
+			result = v1;
+		}
+	}
+	return result;
+}
+#endif
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_
