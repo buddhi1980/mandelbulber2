@@ -136,8 +136,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	// starting point for ray-marching
 	float3 start = consts->params.camera;
 
-	// view vector
+// view vector
+#ifdef PERSP_EQUIRECTANGULAR
+	float aspectRatio = 2.0f;
+#else
 	float aspectRatio = width / height;
+#endif
 	float2 normalizedScreenPoint;
 	normalizedScreenPoint.x = (screenPoint.x / width - 0.5f) * aspectRatio;
 	normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
