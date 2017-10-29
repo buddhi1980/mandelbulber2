@@ -159,6 +159,11 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			programEngine.append("#include \"" + openclPathSlash + clHeaderFiles.at(i) + "\"\n");
 		}
 
+		if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
+		{
+			programEngine.append("#include \"" + openclEnginePath + "basic_foldings.cl\"\n");
+		}
+
 		// fractal formulas - only actually used
 		for (int i = 0; i < listOfUsedFormulas.size(); i++)
 		{
@@ -307,6 +312,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			definesCollector += " -DFORMULA_ITER_" + QString::number(i) + "=" + functionName;
 		}
 	}
+
+	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
+	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
 
 	// ---- perspective projections ------
 	switch (paramRender->perspectiveType)

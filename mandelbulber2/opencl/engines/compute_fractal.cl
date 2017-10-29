@@ -167,6 +167,16 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		lastLastZ = lastZ;
 		lastZ = z;
 
+#ifdef BOX_FOLDING
+		z = BoxFolding(z, &consts->params.common.foldings, &aux);
+		aux.r = length(z);
+#endif
+
+#ifdef SPHERICAL_FOLDING
+		z = SphericalFolding(z, &consts->params.common.foldings, &aux);
+		aux.r = length(z);
+#endif
+
 		switch (formulaIndex)
 		{
 			case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
