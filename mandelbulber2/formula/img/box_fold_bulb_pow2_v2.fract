@@ -1,0 +1,59 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_color_1 3400 0000 0000;
+camera 6,476408113375903 -9,208584181478948 4,154288786496972;
+camera_distance_to_target 12;
+camera_rotation 35,11876545997266 -20,25449943953771 0,1930986442294664;
+camera_top -0,1963964187206869 0,2851078160439145 0,9381588244771555;
+check_for_bailout_4 false;
+DE_factor 0,7;
+DE_thresh 1e-05;
+detail_level 4;
+dont_add_c_constant_4 true;
+dont_add_c_constant_5 true;
+file_background /home/graeme/mandelbulber/my textures/background.jpg;
+file_envmap /home/graeme/mandelbulber/my textures/envmap.jpg;
+file_lightmap /home/graeme/mandelbulber/my textures/lightmap.jpg;
+flight_last_to_render 0;
+formula_1 125;
+formula_4 1003;
+formula_5 70;
+fractal_enable_4 false;
+fractal_enable_5 false;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+julia_c 2 2 -0,440437589554615;
+keyframe_last_to_render 0;
+limit_min -10 0 -10;
+main_light_alpha -23;
+mat1_coloring_palette_offset 29,56;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 788238;
+mat1_coloring_speed 0,4;
+mat1_is_defined true;
+mat1_specular 0,8;
+mat1_specular_width 0,7;
+mat1_surface_color ba00 c300 5000;
+mat1_surface_color_palette 34eb40 543131 006855 7b4022 984396 42065d 00a700 ffbc6b 4dc43a 0c620a 4d5e5f 3b851f 506e72 925ec7 00003e 79d7c3 7ff111 14bc9f 59fffb f794aa 962ef4 398fba c2ffb7 c3b406 c234cb 8e2145 6095b5 73daee 00005f 8d42b5 c6bc32 780000;
+view_distance_max 50,40632994484839;
+volumetric_fog_colour_1_distance 0,1412726696295308;
+volumetric_fog_colour_2_distance 0,2825453392590616;
+volumetric_fog_density 0,1;
+volumetric_fog_distance_factor 0,2825453392590616;
+[fractal_1]
+mandelbox_offset 0,09138400000000001 0,065274 0,35248;
+transf_addition_constant_111 1,049107 0,758929 0,892857;
+transf_function_enabledAz_false true;
+transf_function_enabledM_false true;
+transf_function_enabledy_false true;
+transf_function_enabledz_false true;
+transf_maxR2_1 1,750118;
+transf_minR2_p25 1,264775;
+transf_scale 0,6;
+transf_scale3D_111 -0,1 -0,030942 -0,022422;
+transf_scale_vary_0 0,6281409999999999;
+transf_scaleB_1 0,1;
