@@ -285,17 +285,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	else if (deType == fractal::deltaDEType)
 	{
 		definesCollector += " -DDELTA_DE";
-		if (fractals->IsHybrid())
+		switch (deFunctionType)
 		{
-			switch (deFunctionType)
-			{
-				case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
-				case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
-				case fractal::pseudoKleinianDEFunction:
-					definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
-					break;
-				default: break;
-			}
+			case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
+			case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
+			case fractal::pseudoKleinianDEFunction:
+				definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
+				break;
+			default: break;
 		}
 	}
 
