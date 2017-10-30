@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.12
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -34,9 +34,7 @@ mat1_coloring_random_seed 484424;
 mat1_coloring_speed 1,1778;
 mat1_fractal_coloring_algorithm 2;
 mat1_fractal_coloring_sphere_radius 1,8667;
-mat1_fresnel_reflectance true;
 mat1_is_defined true;
-mat1_reflectance 1,05;
 mat1_surface_color_palette d480ff aa2e24 af704f;
 mat1_transparency_index_of_refraction 3,25;
 raytraced_reflections true;
@@ -50,16 +48,16 @@ volumetric_fog_distance_factor 0,009745337912515833;
 volumetric_fog_enabled true;
 [fractal_1]
 IFS_rotation_enabled true;
-magTransf_order_of_transf_2 1;
-magTransf_order_of_transf_3 2;
-magTransf_order_of_transf_4 3;
-magTransf_order_of_transf_5 4;
+magTransf_order_of_transf_2 typeT1Mod;
+magTransf_order_of_transf_3 typeT2;
+magTransf_order_of_transf_4 typeT3;
+magTransf_order_of_transf_5 typeT4;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 2,79 -4,45 1,19;
 mandelbox_scale -1,178862;
-surfFolds_order_of_folds_2 1;
-surfFolds_order_of_folds_3 2;
-surfFolds_order_of_folds_4 4;
+surfFolds_order_of_folds_2 type2;
+surfFolds_order_of_folds_3 type3;
+surfFolds_order_of_folds_4 type5;
 transf_function_enabledAx_false true;
 transf_function_enabledAy_false true;
 transf_function_enabledAz_false true;
