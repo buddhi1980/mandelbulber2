@@ -365,6 +365,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 // calculate estimated distance
 
+#ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
 	dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
 #elif ANALYTIC_LINEAR_DE
@@ -373,14 +374,68 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float rxy = length(z.xy);
 	dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
 #elif ANALYTIC_JOS_KLEINIAN_DE
-	if (fractal->transformCommon.functionEnabled)
-		z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
-
-	dist =
-		min(z.y, fractal->analyticDE.tweak005) / max(aux.pseudoKleinianDE, fractal->analyticDE.offset1);
+	if (consts->fractal[0].transformCommon.functionEnabled)
+		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
+	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
+				 / max(aux.pseudoKleinianDE, consts->fractal[0].analyticDE.offset1);
 #else
 	dist = length(z);
 #endif
+
+#else	// not IS_HYBRID
+	switch (consts->sequence.DEAnalyticFunction[formulaIndex])
+	{
+		case clAnalyticFunctionLogarithmic:
+		{
+			if (aux.r_dz > 0.0f)
+			{
+				dist = 0.5f * aux.r * native_log(aux.r) / aux.r_dz;
+			}
+			else
+				dist = aux.r;
+			break;
+		}
+		case clAnalyticFunctionLinear:
+		{
+			if (aux.DE > 0.0f)
+				dist = aux.r / fabs(aux.DE);
+			else
+				dist = aux.r;
+			break;
+		}
+		case clAnalyticFunctionIFS:
+		{
+			if (aux.DE > 0.0f)
+				dist = (aux.r - 2.0) / (aux.DE);
+			else
+				dist = aux.r;
+			break;
+		}
+		case clAnalyticFunctionPseudoKleinian:
+		{
+			if (aux.DE > 0.0f)
+			{
+				double rxy = length(z.xy);
+				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
+			}
+			else
+				dist = aux.r;
+
+			break;
+		}
+		case clAnalyticFunctionJosKleinian:
+		{
+			if (fractal->transformCommon.functionEnabled)
+				z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
+
+			dist = min(z.y, fractal->analyticDE.tweak005)
+						 / max(aux.pseudoKleinianDE, fractal->analyticDE.offset1);
+			break;
+		}
+
+		case clAnalyticFunctionNone: dist = -1.0; break;
+	}
+#endif // IS_HYBRID
 
 	if (mode == calcModeColouring)
 	{

@@ -261,31 +261,41 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
 
+	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
+
 	if (deType == fractal::analyticDEType)
 	{
 		definesCollector += " -DANALYTIC_DE";
-		switch (deFunctionType)
+		if (fractals->IsHybrid())
 		{
-			case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
-			case fractal::logarithmicDEFunction: definesCollector += " -DANALYTIC_LOG_DE"; break;
-			case fractal::pseudoKleinianDEFunction:
-				definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
-				break;
-			case fractal::josKleinianDEFunction: definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE"; break;
-			default: break;
+			switch (deFunctionType)
+			{
+				case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
+				case fractal::logarithmicDEFunction: definesCollector += " -DANALYTIC_LOG_DE"; break;
+				case fractal::pseudoKleinianDEFunction:
+					definesCollector += " -DANALYTIC_PSEUDO_KLEINIAN_DE";
+					break;
+				case fractal::josKleinianDEFunction:
+					definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
+					break;
+				default: break;
+			}
 		}
 	}
 	else if (deType == fractal::deltaDEType)
 	{
 		definesCollector += " -DDELTA_DE";
-		switch (deFunctionType)
+		if (fractals->IsHybrid())
 		{
-			case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
-			case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
-			case fractal::pseudoKleinianDEFunction:
-				definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
-				break;
-			default: break;
+			switch (deFunctionType)
+			{
+				case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
+				case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
+				case fractal::pseudoKleinianDEFunction:
+					definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
+					break;
+				default: break;
+			}
 		}
 	}
 
