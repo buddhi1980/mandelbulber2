@@ -56,4 +56,8 @@ typedef unsigned char cl_uchar;
 #define REAL4 double4
 #endif /*DOUBLE_PRECISION*/
 
+#ifndef NULL
+#define NULL 0
+#endif
+
 #endif /* MANDELBULBER2_OPENCL_OPENCL_TYPEDEFS_H_ */
