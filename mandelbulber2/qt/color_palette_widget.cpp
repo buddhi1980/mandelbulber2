@@ -36,6 +36,7 @@
 
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
+#include <QColorDialog>
 
 ColorPaletteWidget::ColorPaletteWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)
@@ -67,7 +68,7 @@ void ColorPaletteWidget::paintEvent(QPaintEvent *event)
 		for (int x = 0; x < this->width(); x++)
 		{
 			sRGB color = palette.IndexToColour(x * 16 + paletteOffset * 256);
-			int offset = paletteOffset * 16;
+			const int offset = paletteOffset * 16;
 			if ((x + offset) % 16 == 8)
 			{
 				color.R += 32;
@@ -104,12 +105,12 @@ void ColorPaletteWidget::mousePressEvent(QMouseEvent *event)
 {
 	QWidget::mousePressEvent(event);
 
-	QPoint point = event->pos();
-	Qt::MouseButton button = event->button();
+	const QPoint point = event->pos();
+	const Qt::MouseButton button = event->button();
 
 	if (button == Qt::LeftButton)
 	{
-		int x = point.x() + 8 + paletteOffset * 16;
+		const int x = point.x() + 8 + paletteOffset * 16;
 		int index = (x / 16) % palette.GetSize();
 		QColorDialog colorDialog(this);
 		colorDialog.setOption(QColorDialog::DontUseNativeDialog);

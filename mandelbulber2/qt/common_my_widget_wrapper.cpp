@@ -95,7 +95,7 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 			actionRemoveFromKeyframeAnimation->setIcon(iconDelete);
 		}
 
-		QAction *selectedItem = menu->exec(event->globalPos());
+		const QAction *selectedItem = menu->exec(event->globalPos());
 		if (selectedItem)
 		{
 			if (selectedItem == actionResetToDefault)

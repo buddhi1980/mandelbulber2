@@ -59,18 +59,18 @@ public:
 private slots:
 #ifdef USE_GAMEPAD
 	void slotChangeGamepadIndex(int index);
-	void slotGamePadDeviceChanged();
+	void slotGamePadDeviceChanged() const;
 
-	void slotGamepadLook();
-	void slotGamepadMove();
-	void slotGamepadPause(bool value);
-	void slotGamepadRoll();
-	void slotGamepadSpeed();
+	void slotGamepadLook() const;
+	void slotGamepadMove() const;
+	static void slotGamepadPause(bool value);
+	void slotGamepadRoll() const;
+	void slotGamepadSpeed() const;
 #endif // USE_GAMEPAD
 
 private:
-	void populateGamepadList();
-	void ConnectSignals();
+	void populateGamepadList() const;
+	void ConnectSignals() const;
 
 	Ui::cDockGamepad *ui;
 

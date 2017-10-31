@@ -121,7 +121,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 {
 	bool enableSlider = false;
 	double ratio = 1.0;
-	enumImageProportion proportionSelection = enumImageProportion(index);
+	const enumImageProportion proportionSelection = enumImageProportion(index);
 
 	switch (proportionSelection)
 	{
@@ -138,7 +138,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 	ui->sliderInt_image_width->setEnabled(enableSlider);
 	ui->spinboxInt_image_width->setEnabled(enableSlider);
 
-	int height = ui->spinboxInt_image_height->value();
+	const int height = ui->spinboxInt_image_height->value();
 	int width = height * ratio;
 
 	if (!enableSlider)
@@ -148,7 +148,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
-		double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
+		const double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
@@ -159,7 +159,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 {
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
-	QString buttonName = this->sender()->objectName();
+	const QString buttonName = this->sender()->objectName();
 	if (buttonName == QString("pushButton_resolution_preset_480"))
 	{
 		width = 720;
@@ -221,7 +221,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
-		double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
+		const double sizeRatio = double(height) / gMainInterface->lockedImageResolution.y;
 		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->SynchronizeInterfaceDistanceEstimation(gPar);
@@ -230,7 +230,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 
 void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 {
-	params::enumPerspectiveType perspType = params::enumPerspectiveType(index);
+	const params::enumPerspectiveType perspType = params::enumPerspectiveType(index);
 	if (perspType == params::perspFishEyeCut)
 	{
 		ui->comboBox_image_proportion->setCurrentIndex(proportion1_1);
@@ -246,7 +246,7 @@ void cDockImageAdjustments::slotChangedComboPerspectiveType(int index) const
 void cDockImageAdjustments::slotImageHeightChanged(int value) const
 {
 	(void)value;
-	int index = ui->comboBox_image_proportion->currentIndex();
+	const int index = ui->comboBox_image_proportion->currentIndex();
 	slotChangedComboImageProportion(index);
 }
 

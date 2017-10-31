@@ -69,7 +69,7 @@ void Test::cleanup()
 }
 
 // start of test cases
-void Test::renderExamplesWrapper()
+void Test::renderExamplesWrapper() const
 {
 	if (IsBenchmarking())
 	{
@@ -81,11 +81,11 @@ void Test::renderExamplesWrapper()
 	}
 }
 
-void Test::renderExamples()
+void Test::renderExamples() const
 {
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
-	QString examplePath =
+	const QString examplePath =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
 	QDirIterator it(
 		examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
@@ -156,7 +156,7 @@ void Test::renderExamples()
 	{
 		QElapsedTimer timer;
 		timer.start();
-		QString filename = it.next();
+		const QString filename = it.next();
 		if (!IsBenchmarking()) WriteLogCout("trying file: " + filename + "\n", 2);
 		cSettings parSettings(cSettings::formatFullText);
 		parSettings.BeQuiet(true);
@@ -174,7 +174,7 @@ void Test::renderExamples()
 
 		if (exampleOutputPath != "")
 		{
-			QString imgFileName =
+			const QString imgFileName =
 				QDir(exampleOutputPath).absolutePath() + QDir::separator() + QFileInfo(filename).baseName();
 			SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
 		}
@@ -192,7 +192,7 @@ void Test::renderExamples()
 	delete testPar;
 }
 
-void Test::netrender()
+void Test::netrender() const
 {
 	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
@@ -217,7 +217,7 @@ void Test::netrender()
 	delete netRenderServer;
 }
 
-void Test::testFlightWrapper()
+void Test::testFlightWrapper() const
 {
 	if (IsBenchmarking())
 	{
@@ -229,9 +229,9 @@ void Test::testFlightWrapper()
 	}
 }
 
-void Test::testFlight()
+void Test::testFlight() const
 {
-	QString exampleFlightFile =
+	const QString exampleFlightFile =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "flight_anim_menger sponge_3.fract");
 
@@ -282,7 +282,7 @@ void Test::testFlight()
 	delete flightAnimation;
 }
 
-void Test::testKeyframeWrapper()
+void Test::testKeyframeWrapper() const
 {
 	if (IsBenchmarking())
 	{
@@ -294,9 +294,9 @@ void Test::testKeyframeWrapper()
 	}
 }
 
-void Test::testKeyframe()
+void Test::testKeyframe() const
 {
-	QString exampleKeyframeFile =
+	const QString exampleKeyframeFile =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "keyframe_anim_mandelbulb.fract");
 
@@ -347,7 +347,7 @@ void Test::testKeyframe()
 	delete testKeyframeAnimation;
 }
 
-void Test::renderSimpleWrapper()
+void Test::renderSimpleWrapper() const
 {
 	if (IsBenchmarking())
 	{
@@ -359,11 +359,11 @@ void Test::renderSimpleWrapper()
 	}
 }
 
-void Test::renderSimple()
+void Test::renderSimple() const
 {
 	// this renders an example file in an "usual" resolution of 100x100 px
 	// and benchmarks the runtime
-	QString simpleExampleFileName =
+	const QString simpleExampleFileName =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
 														 + QDir::separator() + "mandelbox001.fract");
 

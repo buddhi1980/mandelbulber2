@@ -125,7 +125,7 @@ void cDockEffects::slotPressedButtonSetLight1ByMouse() const
 	int index = gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->findData(item);
 	gMainInterface->mainWindow->GetComboBoxMouseClickFunction()->setCurrentIndex(index);
 	gMainInterface->renderedImage->setClickMode(item);
-	double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	const double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
 	ui->logedit_aux_light_manual_placement_dist->setText(QString("%L1").arg(distance * 0.1));
 }
 

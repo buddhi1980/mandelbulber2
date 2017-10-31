@@ -63,19 +63,19 @@ private:
 
 	QString exampleOutputPath;
 
-	void renderExamples();
-	void testFlight();
-	void testKeyframe();
-	void renderSimple();
+	void renderExamples() const;
+	void testFlight() const;
+	void testKeyframe() const;
+	void renderSimple() const;
 
 private slots:
 	static void init();
 	static void cleanup();
-	void renderExamplesWrapper();
-	void netrender();
-	void testFlightWrapper();
-	void testKeyframeWrapper();
-	void renderSimpleWrapper();
+	void renderExamplesWrapper() const;
+	void netrender() const;
+	void testFlightWrapper() const;
+	void testKeyframeWrapper() const;
+	void renderSimpleWrapper() const;
 };
 
 #endif /* MANDELBULBER2_SRC_TEST_HPP_ */

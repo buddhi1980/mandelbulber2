@@ -362,12 +362,9 @@ int fcopy(QString source, QString dest)
 {
 	// ------ file reading
 
-	FILE *pFile;
-	long int lSize;
 	char *buffer;
-	size_t result;
 
-	pFile = fopen(source.toLocal8Bit().constData(), "rb");
+	FILE *pFile = fopen(source.toLocal8Bit().constData(), "rb");
 	if (pFile == nullptr)
 	{
 		qCritical() << "Can't open source file for copying: " << source << endl;
@@ -377,7 +374,7 @@ int fcopy(QString source, QString dest)
 
 	// obtain file size:
 	fseek(pFile, 0, SEEK_END);
-	lSize = ftell(pFile);
+	const long int lSize = ftell(pFile);
 	rewind(pFile);
 
 	// allocate memory to contain the whole file:
@@ -386,7 +383,7 @@ int fcopy(QString source, QString dest)
 		buffer = new char[lSize];
 
 		// copy the file into the buffer:
-		result = fread(buffer, 1, lSize, pFile);
+		const size_t result = fread(buffer, 1, lSize, pFile);
 		if (result != size_t(lSize))
 		{
 			qCritical() << "Can't read source file for copying: " << source << endl;
@@ -677,13 +674,13 @@ void CalcPreferredFontSize(bool noGui)
 {
 	if (!noGui)
 	{
-		int fontSize = gApplication->font().pointSizeF();
+		const int fontSize = gApplication->font().pointSizeF();
 		systemData.SetPreferredFontPointSize(fontSize);
 
 		QFontMetrics fm(gApplication->font());
-		int pixelFontSize = fm.height();
+		const int pixelFontSize = fm.height();
 
-		int thumbnailSize = (pixelFontSize * 8);
+		const int thumbnailSize = (pixelFontSize * 8);
 		systemData.SetPreferredThumbnailSize(thumbnailSize);
 	}
 	else

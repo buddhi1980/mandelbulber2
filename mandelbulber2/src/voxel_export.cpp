@@ -75,19 +75,19 @@ void cVoxelExport::ProcessVolume()
 
 	params->N = maxIter;
 
-	double stepX = (limitMax.x - limitMin.x) * (1.0 / w);
-	double stepY = (limitMax.y - limitMin.y) * (1.0 / h);
-	double stepZ = (limitMax.z - limitMin.z) * (1.0 / l);
-	double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
+	const double stepX = (limitMax.x - limitMin.x) * (1.0 / w);
+	const double stepY = (limitMax.y - limitMin.y) * (1.0 / h);
+	const double stepZ = (limitMax.z - limitMin.z) * (1.0 / l);
+	const double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
 
 	cProgressText progressText;
 	progressText.ResetTimer();
 
 	for (int z = 0; z < l; z++)
 	{
-		QString statusText =
+		const QString statusText =
 			" - " + tr("Processing layer %1 of %2").arg(QString::number(z + 1), QString::number(l));
-		double percentDone = double(z) / l;
+		const double percentDone = double(z) / l;
 		emit updateProgressAndStatus(
 			tr("Voxel Export") + statusText, progressText.getText(percentDone), percentDone);
 
@@ -103,9 +103,9 @@ void cVoxelExport::ProcessVolume()
 				point.z = limitMin.z + z * stepZ;
 
 				sDistanceOut distanceOut;
-				sDistanceIn distanceIn(point, dist_thresh, false);
+				const sDistanceIn distanceIn(point, dist_thresh, false);
 
-				double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+				const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
 
 				voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
 			}
@@ -130,7 +130,7 @@ void cVoxelExport::ProcessVolume()
 
 bool cVoxelExport::StoreLayer(int z) const
 {
-	QString filename =
+	const QString filename =
 		folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
 	if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer, w, h))
 	{

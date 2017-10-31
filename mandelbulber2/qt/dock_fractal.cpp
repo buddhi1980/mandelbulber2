@@ -291,7 +291,7 @@ void cDockFractal::slotChangedCheckBoxBooleanOperators(bool state) const
 
 		fractalTabs[i]->FormulaTransformSetVisible(state);
 
-		fractal::enumCPixelAddition cPixelAddition =
+		const fractal::enumCPixelAddition cPixelAddition =
 			fractalList[fractalTabs[i]->GetCurrentFractalIndexOnList()].cpixelAddition;
 
 		if (cPixelAddition == fractal::cpixelAlreadyHas)
@@ -363,7 +363,7 @@ void cDockFractal::slotChangedJuliaPoint() const
 		SynchronizeInterfaceWindow(ui->groupCheck_julia_mode, &params, qInterface::read);
 		params.SetContainerName("juliaPreview");
 
-		double cameraDistance = params.Get<double>("julia_preview_distance");
+		const double cameraDistance = params.Get<double>("julia_preview_distance");
 		CVector3 target(0.0, 0.0, 0.0);
 		CVector3 direction = gPar->Get<CVector3>("camera") - gPar->Get<CVector3>("target");
 		direction.Normalize();
@@ -411,14 +411,14 @@ void cDockFractal::slotChangedFractalTab(int index)
 				message->addButton(tr("Enable hybrid fractals"), QMessageBox::AcceptRole);
 			QPushButton *buttonBoolean =
 				message->addButton(tr("Enable boolean mode"), QMessageBox::AcceptRole);
-			QPushButton *buttonCancel = message->addButton(QMessageBox::Cancel);
+			const QPushButton *buttonCancel = message->addButton(QMessageBox::Cancel);
 
 			message->setText(tr(
 				"You have selected next fractal formula.\nDo you want to enable hybrid fractals or boolean "
 				"mode?"));
 			message->setWindowTitle(tr("More fractals..."));
 			message->setIcon(QMessageBox::Question);
-			int result = message->exec();
+			const int result = message->exec();
 			Q_UNUSED(result);
 
 			if (message->clickedButton() != buttonCancel)

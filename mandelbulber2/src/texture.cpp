@@ -71,7 +71,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
 				sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 				for (int x = 0; x < width; x++)
 				{
-					sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
+					const sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
 						static_cast<unsigned short>(line[x].G) * 256,
 						static_cast<unsigned short>(line[x].B) * 256, 65535);
 					bitmap[x + y * width] = pixel;
@@ -182,7 +182,7 @@ void cTexture::FromQByteArray(QByteArray *buffer, enumUseMipmaps mode)
 			sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 			for (int x = 0; x < width; x++)
 			{
-				sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
+				const sRGBA16 pixel(static_cast<unsigned short>(line[x].R) * 256,
 					static_cast<unsigned short>(line[x].G) * 256,
 					static_cast<unsigned short>(line[x].B) * 256, 65535);
 				bitmap[x + y * width] = pixel;
@@ -261,14 +261,14 @@ sRGBFloat cTexture::Pixel(CVector2<double> point, double pixelSize) const
 sRGBA16 cTexture::LinearInterpolation(double x, double y) const
 {
 	sRGBA16 color;
-	int ix = int(x);
-	int iy = int(y);
-	double rx = x - int(x);
-	double ry = y - int(y);
-	sRGBA16 k1 = bitmap[iy * width + ix];
-	sRGBA16 k2 = bitmap[iy * width + ix + 1];
-	sRGBA16 k3 = bitmap[(iy + 1) * width + ix];
-	sRGBA16 k4 = bitmap[(iy + 1) * width + ix + 1];
+	const int ix = int(x);
+	const int iy = int(y);
+	const double rx = x - int(x);
+	const double ry = y - int(y);
+	const sRGBA16 k1 = bitmap[iy * width + ix];
+	const sRGBA16 k2 = bitmap[iy * width + ix + 1];
+	const sRGBA16 k3 = bitmap[(iy + 1) * width + ix];
+	const sRGBA16 k4 = bitmap[(iy + 1) * width + ix + 1];
 	color.R = static_cast<unsigned short>(k1.R * (1.0 - rx) * (1.0 - ry) + k2.R * rx * (1.0 - ry)
 																				+ k3.R * (1.0 - rx) * ry + k4.R * (rx * ry));
 	color.G = static_cast<unsigned short>(k1.G * (1.0 - rx) * (1.0 - ry) + k2.G * rx * (1.0 - ry)
@@ -280,10 +280,10 @@ sRGBA16 cTexture::LinearInterpolation(double x, double y) const
 
 sRGBFloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitmap, int w, int h)
 {
-	int ix = int(x);
-	int iy = int(y);
-	double rx = x - ix;
-	double ry = y - iy;
+	const int ix = int(x);
+	const int iy = int(y);
+	const double rx = x - ix;
+	const double ry = y - iy;
 
 	double R[4][4], G[4][4], B[4][4];
 
@@ -295,8 +295,8 @@ sRGBFloat cTexture::BicubicInterpolation(double x, double y, const sRGBA16 *bitm
 			int iyy = iy + yy - 1;
 			ixx = (ixx + w) % w;
 			iyy = (iyy + h) % h;
-			int address2 = ixx + iyy * w;
-			sRGBA16 pixel = bitmap[address2];
+			const int address2 = ixx + iyy * w;
+			const sRGBA16 pixel = bitmap[address2];
 			R[xx][yy] = pixel.R;
 			G[xx][yy] = pixel.G;
 			B[xx][yy] = pixel.B;
@@ -323,8 +323,8 @@ sRGBA16 cTexture::FastPixel(int x, int y) const
 
 CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize) const
 {
-	int intX = int(point.x);
-	int intY = int(point.y);
+	const int intX = int(point.x);
+	const int intY = int(point.y);
 	point.x = point.x - intX;
 	point.y = point.y - intY;
 	if (point.x < 0.0) point.x += 1.0;
@@ -348,13 +348,13 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, dou
 
 CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSize) const
 {
-	int intX = int(point.x);
-	int intY = int(point.y);
+	const int intX = int(point.x);
+	const int intY = int(point.y);
 	point.x = point.x - intX;
 	point.y = point.y - intY;
 	if (point.x < 0.0) point.x += 1.0;
 	if (point.y < 0.0) point.y += 1.0;
-	sRGBFloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
+	const sRGBFloat normalPixel = MipMap(point.x * width, point.y * height, pixelSize);
 	CVector3 normal(normalPixel.R * 2.0 - 1.0, normalPixel.G * 2.0 - 1.0, normalPixel.B);
 	normal.x *= -bump;
 	normal.y *= -bump;
@@ -374,12 +374,12 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 		if (dMipLayer < 0) dMipLayer = 0;
 		if (dMipLayer + 1 >= mipmaps.size() - 1) dMipLayer = mipmaps.size() - 1;
 
-		int layerBig = int(dMipLayer);
-		int layerSmall = int(dMipLayer + 1);
-		double sizeMultipleBig = pow(2.0, double(layerBig));
-		double sizeMultipleSmall = pow(2.0, double(layerSmall));
-		double trans = dMipLayer - layerBig;
-		double transN = 1.0 - trans;
+		const int layerBig = int(dMipLayer);
+		const int layerSmall = int(dMipLayer + 1);
+		const double sizeMultipleBig = pow(2.0, double(layerBig));
+		const double sizeMultipleSmall = pow(2.0, double(layerSmall));
+		const double trans = dMipLayer - layerBig;
+		const double transN = 1.0 - trans;
 
 		const sRGBA16 *bigBitmap, *smallBitmap;
 		CVector2<int> bigBitmapSize, smallBitmapSize;
@@ -401,9 +401,9 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 				bigBitmapSize = mipmapSizes[layerBig - 1];
 				smallBitmapSize = mipmapSizes[layerSmall - 1];
 			}
-			sRGBFloat pixelFromBig = BicubicInterpolation(
+			const sRGBFloat pixelFromBig = BicubicInterpolation(
 				x / sizeMultipleBig, y / sizeMultipleBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
-			sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipleSmall, y / sizeMultipleSmall,
+			const sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipleSmall, y / sizeMultipleSmall,
 				smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
 
 			sRGBFloat pixel;
@@ -440,10 +440,10 @@ void cTexture::CreateMipMaps()
 			for (int x = 0; x < w; x++)
 			{
 				sRGBA16 newPixel;
-				sRGBA16 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
-				sRGBA16 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
-				sRGBA16 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
-				sRGBA16 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				const sRGBA16 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
+				const sRGBA16 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
+				const sRGBA16 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				const sRGBA16 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
 				newPixel.R = static_cast<unsigned short>((int(p1.R) + p2.R + p3.R + p4.R) / 4);
 				newPixel.G = static_cast<unsigned short>((int(p1.G) + p2.G + p3.G + p4.G) / 4);
 				newPixel.B = static_cast<unsigned short>((int(p1.B) + p2.B + p3.B + p4.B) / 4);

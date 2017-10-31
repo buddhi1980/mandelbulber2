@@ -63,9 +63,9 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 				|| paramRender->perspectiveType == params::perspFishEyeCut)
 			distThresh *= M_PI;
 
-		sDistanceIn in(point, 0, false);
+		const sDistanceIn in(point, 0, false);
 		sDistanceOut out;
-		double distance = CalculateDistance(*paramRender, *nineFractals, in, &out);
+		const double distance = CalculateDistance(*paramRender, *nineFractals, in, &out);
 
 		double step = distance;
 		if (step < distThresh)

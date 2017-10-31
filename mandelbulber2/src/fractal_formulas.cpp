@@ -49,12 +49,12 @@ using std::swap;
 void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// if (aux.r < 1e-21) aux.r = 1e-21;
-	double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
-	double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	double th = th0 * fractal->bulb.power;
-	double ph = ph0 * fractal->bulb.power;
-	double cth = cos(th);
+	const double th = th0 * fractal->bulb.power;
+	const double ph = ph0 * fractal->bulb.power;
+	const double cth = cos(th);
 	aux.r_dz = (rp * aux.r_dz) * fractal->bulb.power + 1.0;
 	rp *= aux.r;
 	z.x = cth * cos(ph) * rp;
@@ -74,8 +74,8 @@ void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		CVector4 zRot;
 		// cast vector to array pointer for address taking of components in opencl
-		double *zRotP = (double *)&zRot;
-		const double *colP = (const double *)&fractal->mandelbox.color.factor;
+		double *zRotP = reinterpret_cast <double *>(&zRot);
+		const double *colP = reinterpret_cast <const double *>(&fractal->mandelbox.color.factor);
 		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
@@ -120,7 +120,7 @@ void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-	double r2 = z.Dot(z);
+	const double r2 = z.Dot(z);
 
 	z += fractal->mandelbox.offset;
 
@@ -132,7 +132,7 @@ void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	else if (r2 < fractal->mandelbox.fR2)
 	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		const double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
 		aux.color += fractal->mandelbox.color.factorSp2;
@@ -155,10 +155,9 @@ void Mandelbulb2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	aux.r_dz = aux.r_dz * 2.0 * aux.r;
 
-	double temp, tempR;
-	tempR = sqrt(z.x * z.x + z.y * z.y); //+ 1e-061
+	double tempR = sqrt(z.x * z.x + z.y * z.y); //+ 1e-061
 	z *= 1.0 / tempR;
-	temp = z.x * z.x - z.y * z.y;
+	double temp = z.x * z.x - z.y * z.y;
 	z.y = 2.0 * z.x * z.y;
 	z.x = temp;
 	z *= tempR;
@@ -12222,7 +12221,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			// if (tempL < 1e-21) tempL = 1e-21;
 			CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
 			double avgScale = tempAvgScale.Length() / tempL;
-			double tempAux = aux.r_dz * avgScale;
+			double  tempAux = aux.r_dz * avgScale;
 			aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
 			// if (fractal->transformCommon.rotationEnabled)
