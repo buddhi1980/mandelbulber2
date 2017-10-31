@@ -398,12 +398,12 @@ public:
 		c.w = fabs(w);
 		return c;
 	}
-	inline void GetXYZWInto(CVector3 &v, double &w) const
+	inline void GetXYZWInto(CVector3 &v, double &wOutput) const
 	{
 		v.x = x;
 		v.y = y;
 		v.z = z;
-		w = this->w;
+		wOutput = this->w;
 	}
 	inline CVector3 GetXYZ() const { return CVector3(x, y, z); }
 

@@ -96,17 +96,17 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		}
 	}
 
-	double qualityFactor;
+	double qualityFactorCalculated;
 	if (progressive > 0)
 	{
-		qualityFactor = sqrt(1.0 / (progressive * 2.0));
+		qualityFactorCalculated = sqrt(1.0 / (progressive * 2.0));
 	}
 	else
 	{
-		qualityFactor = 1.0;
+		qualityFactorCalculated = 1.0;
 	}
 	int quality =
-		int(params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactor);
+		int(params->ambientOcclusionQuality * params->ambientOcclusionQuality * qualityFactorCalculated);
 	if (quality < 3) quality = 3;
 
 	for (int i = 0; i < numberOfThreads; i++)

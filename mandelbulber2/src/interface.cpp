@@ -227,9 +227,9 @@ void cInterface::ShowUi()
 	progressBar->setAlignment(Qt::AlignCenter);
 	progressBarLayout->addWidget(progressBar);
 
-	QFrame *progressBarFrame = new QFrame;
-	progressBarFrame->setLayout(progressBarLayout);
-	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrame);
+	QFrame *progressBarFrameInternal = new QFrame;
+	progressBarFrameInternal->setLayout(progressBarLayout);
+	mainWindow->ui->statusbar->addPermanentWidget(progressBarFrameInternal);
 
 	mainWindow->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 

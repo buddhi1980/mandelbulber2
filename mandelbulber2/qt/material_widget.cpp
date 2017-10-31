@@ -109,8 +109,8 @@ void cMaterialWidget::InitializeData()
 {
 	if (dataAssigned && !initialized)
 	{
-		QElapsedTimer timer;
-		timer.start();
+		QElapsedTimer timerAssignData;
+		timerAssignData.start();
 
 		cParameterContainer params;
 		cFractalContainer fractal;
@@ -152,7 +152,7 @@ void cMaterialWidget::InitializeData()
 		// maybe disable preview saving, to not pollute hard drive?
 		AssignParameters(params, fractal);
 		update();
-		timeAssignData = timer.nsecsElapsed() / 1e9;
+		timeAssignData = timerAssignData.nsecsElapsed() / 1e9;
 
 		if (materialEditorWidget)
 		{
@@ -168,15 +168,15 @@ void cMaterialWidget::slotPeriodicRender()
 {
 	if (!visibleRegion().isEmpty())
 	{
-		QElapsedTimer timer;
-		timer.start();
+		QElapsedTimer elapsedTimer;
+		elapsedTimer.start();
 		if (paramsHandle && materialEditorWidget)
 		{
 			SynchronizeInterfaceWindow(materialEditorWidget, paramsHandle, qInterface::read);
 			AssignMaterial(paramsHandle, actualMaterialIndex, materialEditorWidget);
 		}
 		update();
-		timeUpdateData = timer.nsecsElapsed() / 1e9;
+		timeUpdateData = elapsedTimer.nsecsElapsed() / 1e9;
 	}
 	if (!timerPeriodicRefresh->isActive())
 	{

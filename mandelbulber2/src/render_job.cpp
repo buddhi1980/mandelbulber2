@@ -380,7 +380,7 @@ bool cRenderJob::Execute()
 				if (gNetRender->IsServer())
 				{
 					// new id
-					qint32 id = rand();
+					qint32 identification = rand();
 
 					// calculation of starting positions list and sending id to clients
 					renderData->netRenderStartingPositions.clear();
@@ -407,7 +407,7 @@ bool cRenderJob::Execute()
 
 							if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
 							{
-								emit SendNetRenderSetup(clientIndex, id, startingPositionsToSend);
+								emit SendNetRenderSetup(clientIndex, identification, startingPositionsToSend);
 								clientIndex++;
 								clientWorkerIndex = 0;
 								startingPositionsToSend.clear();

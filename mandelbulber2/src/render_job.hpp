@@ -74,7 +74,7 @@ public:
 	bool Execute();
 	cImage *GetImagePtr() const { return image; }
 	int GetNumberOfCPUs() const { return totalNumberOfCPUs; }
-	void UseSizeFromImage(bool mode) { useSizeFromImage = mode; }
+	void UseSizeFromImage(bool modeInput) { useSizeFromImage = modeInput; }
 	void ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const;
 
 	void UpdateParameters(const cParameterContainer *_params, const cFractalContainer *_fractal);

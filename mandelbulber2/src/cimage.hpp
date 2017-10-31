@@ -214,7 +214,7 @@ public:
 	int GetUsedMB(void) const;
 	void SetImageParameters(sImageAdjustments adjustments);
 	sImageAdjustments *GetImageAdjustments(void) { return &adj; }
-	void SetImageOptional(sImageOptional opt) { this->opt = opt; }
+	void SetImageOptional(sImageOptional optInput) { this->opt = optInput; }
 	sImageOptional *GetImageOptional(void) { return &opt; }
 
 	quint8 *ConvertTo8bit(void) const;
@@ -243,7 +243,7 @@ public:
 		sRGBFloat opacity, int layer) const;
 
 	bool IsStereoLeftRight() const { return isStereoLeftRight; }
-	void SetStereoLeftRight(bool isStereoLeftRight) { this->isStereoLeftRight = isStereoLeftRight; }
+	void SetStereoLeftRight(bool isStereoLeftRightInput) { this->isStereoLeftRight = isStereoLeftRightInput; }
 	void GetStereoLeftRightImages(cImage *left, cImage *right);
 
 	int progressiveFactor;

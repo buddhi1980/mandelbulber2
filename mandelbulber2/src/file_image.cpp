@@ -271,13 +271,13 @@ void ImageFileSaveEXR::SaveImage()
 #endif /* USE_EXR */
 
 void ImageFileSavePNG::SavePNG(
-	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
+	QString filenameInput, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
 	uint64_t width = image->GetWidth();
 	uint64_t height = image->GetHeight();
 
 	/* create file */
-	FILE *fp = fopen(filename.toLocal8Bit().constData(), "wb");
+	FILE *fp = fopen(filenameInput.toLocal8Bit().constData(), "wb");
 	png_bytep *row_pointers = nullptr;
 	png_structp png_ptr = nullptr;
 	png_info *info_ptr = nullptr;
@@ -532,7 +532,7 @@ void ImageFileSavePNG::SavePNG(
 		if (row_pointers) delete[] row_pointers;
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
-			QObject::tr("Can't save image to PNG file!\n") + filename + "\n" + status,
+			QObject::tr("Can't save image to PNG file!\n") + filenameInput + "\n" + status,
 			cErrorMessage::errorMessage);
 	}
 }
@@ -1032,12 +1032,12 @@ void ImageFileSaveEXR::SaveEXR(
 
 #ifdef USE_TIFF
 bool ImageFileSaveTIFF::SaveTIFF(
-	QString filename, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
+	QString filenameInput, cImage *image, structSaveImageChannel imageChannel, bool appendAlpha)
 {
 	uint64_t width = image->GetWidth();
 	uint64_t height = image->GetHeight();
 
-	TIFF *tiff = TIFFOpen(filename.toLocal8Bit().constData(), "w");
+	TIFF *tiff = TIFFOpen(filenameInput.toLocal8Bit().constData(), "w");
 	if (!tiff)
 	{
 		qCritical() << "SaveTiff() cannot open file";

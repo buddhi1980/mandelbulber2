@@ -441,7 +441,7 @@ void cAudioTrack::smoothFilter(double strength)
 	}
 }
 
-void cAudioTrack::binaryFilter(double thresh, int length)
+void cAudioTrack::binaryFilter(double thresh, int lengthInput)
 {
 	float value = 0.0f;
 	int count = 0;
@@ -458,7 +458,7 @@ void cAudioTrack::binaryFilter(double thresh, int length)
 			}
 			value = 1.0f;
 		}
-		else if (count > length)
+		else if (count > lengthInput)
 		{
 			value = 0.0f;
 			count = 0;
