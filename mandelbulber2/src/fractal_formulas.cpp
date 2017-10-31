@@ -5810,11 +5810,11 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
+		aux.r = z.Length();
+		aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
-			aux.r = z.Length();
-			aux.r_dz = aux.r_dz * 2.0 * aux.r;
 			CVector4 temp2 = z;
 			double tempL = temp2.Length();
 			z *= CVector4(1.0, 2.0, 2.0, 1.0);
