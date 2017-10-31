@@ -124,7 +124,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -172,7 +172,7 @@
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -220,7 +220,7 @@
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -272,7 +272,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsO);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -324,7 +324,7 @@
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnablePREfast>true</EnablePREfast>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcs);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -372,7 +372,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -419,7 +419,7 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
@@ -468,7 +468,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>$(PreProcsE);%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -515,7 +515,7 @@
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
-      <DisableSpecificWarnings>4127;26499</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4127;26499;26412</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <ResourceCompile>
