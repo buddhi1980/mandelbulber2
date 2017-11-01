@@ -23,8 +23,15 @@ set _SCRIPT_FOLDER=%~dp0
 set SRC=%_SCRIPT_FOLDER%\..\..\
 
 :setTDR
+Echo Modify registry to Enable TDR
 echo [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\GraphicsDrivers]
+echo "TdrLevel"=dword:00000003
 reg add "HKLM\System\CurrentControlSet\Control\GraphicsDrivers" /v TdrLevel /t REG_DWORD /d 3
+
+Echo Modify registry to reset delay to 2 seconds
+echo [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TdrDelay]
+echo "TdrDelay"=dword:00000002
+reg add "HKLM\System\CurrentControlSet\Control\GraphicsDrivers" /v TdrDelay /t REG_DWORD /d 2
 
 REM --- exit ----
 cd %_SCRIPT_FOLDER%
