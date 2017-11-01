@@ -251,7 +251,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
 		mengerPwr2Poly, MengerPwr2PolyIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionIFS));
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
 	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
 		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionIFS));
