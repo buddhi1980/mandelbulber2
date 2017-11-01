@@ -403,8 +403,8 @@ sRGBFloat cTexture::MipMap(double x, double y, double pixelSize) const
 			}
 			const sRGBFloat pixelFromBig = BicubicInterpolation(
 				x / sizeMultipleBig, y / sizeMultipleBig, bigBitmap, bigBitmapSize.x, bigBitmapSize.y);
-			const sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipleSmall, y / sizeMultipleSmall,
-				smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
+			const sRGBFloat pixelFromSmall = BicubicInterpolation(x / sizeMultipleSmall,
+				y / sizeMultipleSmall, smallBitmap, smallBitmapSize.x, smallBitmapSize.y);
 
 			sRGBFloat pixel;
 			pixel.R = float(pixelFromSmall.R * trans + pixelFromBig.R * transN);
@@ -443,7 +443,8 @@ void cTexture::CreateMipMaps()
 				const sRGBA16 p1 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2, prevH) * prevW];
 				const sRGBA16 p2 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2, prevH) * prevW];
 				const sRGBA16 p3 = prevBitmap[WrapInt(x * 2, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
-				const sRGBA16 p4 = prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
+				const sRGBA16 p4 =
+					prevBitmap[WrapInt(x * 2 + 1, prevW) + WrapInt(y * 2 + 1, prevH) * prevW];
 				newPixel.R = static_cast<unsigned short>((int(p1.R) + p2.R + p3.R + p4.R) / 4);
 				newPixel.G = static_cast<unsigned short>((int(p1.G) + p2.G + p3.G + p4.G) / 4);
 				newPixel.B = static_cast<unsigned short>((int(p1.B) + p2.B + p3.B + p4.B) / 4);

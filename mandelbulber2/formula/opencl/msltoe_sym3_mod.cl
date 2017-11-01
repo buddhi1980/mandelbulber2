@@ -64,11 +64,11 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
+		aux->r = length(z);
+		aux->r_dz = aux->r_dz * 2.0f * aux->r;
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
-			aux->r = length(z);
-			aux->r_dz = aux->r_dz * 2.0f * aux->r;
 			REAL4 temp2 = z;
 			REAL tempL = length(temp2);
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};

@@ -532,7 +532,8 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/sExtendedAux &aux/", 'replace' => 'sExtendedAuxCl *aux'), // no passing by reference
 		array('find' => "/const sFractal \*fractal/", 'replace' => '__constant sFractalCl *fractal'), // no passing by reference
 		array('find' => "/aux\./", 'replace' => 'aux->'),
-		array('find' => "/const(\s)/", 'replace' => '__constant$1'), // constant function parameter
+		array('find' => "/const(\s\w+\s\*)/", 'replace' => '__constant$1'), // const modifier allowed for pointers (vars from outside)
+		array('find' => "/const(\s)/", 'replace' => '$1'), // const modifier not allowed for local vars
 		//array('find' => "/(\s)z\s=/", 'replace' => '$1*z ='), // z to pointer
 		//array('find' => "/(\s)z\s(.)=/", 'replace' => '$1*z $2='), // z to pointer
 		//array('find' => "/([\s\(-])z([,\);\s}])/", 'replace' => '$1*z$2'), // z to pointer
@@ -547,6 +548,7 @@ function parseToOpenCL($code, $mode = 'single')
 		array('find' => "/($s)(enum[a-zA-Z0-9_]+?[^l])($s)/", 'replace' => '$1$2Cl$3'), // replace enum definitions with cl version
 		array('find' => "/M_PI([\s\)\};,])/", 'replace' => ($mode == 'single' ? 'M_PI_F$1' : 'M_PI$1')), // replace Math constant
 		array('find' => "/1e-061f/", 'replace' => ($mode == 'single' ? '1e-030f' : '1e-061')), // replace minimal double constant
+		array('find' => "/reinterpret_cast<(.*?)>\((.*?)\)/", 'replace' => '($1)$2'), // replace reinterpret_cast with simple cast
 		// TODO more replacements
 	);
 

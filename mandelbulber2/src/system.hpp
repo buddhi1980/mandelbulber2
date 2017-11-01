@@ -146,7 +146,10 @@ public:
 	}
 
 	int GetPreferredFontSize() const { return preferredFontSize; }
-	void SetPreferredFontSize(int preferredFontSizeInput) { this->preferredFontSize = preferredFontSizeInput; }
+	void SetPreferredFontSize(int preferredFontSizeInput)
+	{
+		this->preferredFontSize = preferredFontSizeInput;
+	}
 	int GetPreferredThumbnailSize() const { return preferredThumbnailSize; }
 	void SetPreferredThumbnailSize(int preferredThumbnailSizeInput)
 	{

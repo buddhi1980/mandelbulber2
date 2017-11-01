@@ -74,8 +74,8 @@ void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		CVector4 zRot;
 		// cast vector to array pointer for address taking of components in opencl
-		double *zRotP = reinterpret_cast <double *>(&zRot);
-		const double *colP = reinterpret_cast <const double *>(&fractal->mandelbox.color.factor);
+		double *zRotP = reinterpret_cast<double *>(&zRot);
+		const double *colP = reinterpret_cast<const double *>(&fractal->mandelbox.color.factor);
 		for (int dim = 0; dim < 3; dim++)
 		{
 			// handle each dimension x, y and z sequentially in pointer var dim
@@ -12221,7 +12221,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			// if (tempL < 1e-21) tempL = 1e-21;
 			CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
 			double avgScale = tempAvgScale.Length() / tempL;
-			double  tempAux = aux.r_dz * avgScale;
+			double tempAux = aux.r_dz * avgScale;
 			aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
 
 			// if (fractal->transformCommon.rotationEnabled)

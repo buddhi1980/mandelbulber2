@@ -243,7 +243,10 @@ public:
 		sRGBFloat opacity, int layer) const;
 
 	bool IsStereoLeftRight() const { return isStereoLeftRight; }
-	void SetStereoLeftRight(bool isStereoLeftRightInput) { this->isStereoLeftRight = isStereoLeftRightInput; }
+	void SetStereoLeftRight(bool isStereoLeftRightInput)
+	{
+		this->isStereoLeftRight = isStereoLeftRightInput;
+	}
 	void GetStereoLeftRightImages(cImage *left, cImage *right);
 
 	int progressiveFactor;

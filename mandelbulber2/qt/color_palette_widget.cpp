@@ -34,9 +34,10 @@
 
 #include "color_palette_widget.h"
 
+#include <QColorDialog>
+
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
-#include <QColorDialog>
 
 ColorPaletteWidget::ColorPaletteWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)
