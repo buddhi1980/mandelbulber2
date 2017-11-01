@@ -1,0 +1,66 @@
+# Mandelbulber settings file
+# version 2.12
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 4,17112219003327 -11,44739980067884 4,966690953296199;
+camera_distance_to_target 19,10035272602704;
+camera_rotation 24,72424992561141 -25,310047100738 -0,07096941161322473;
+camera_top -0,1799343624727107 0,3878081286394388 0,9040069029397484;
+flight_last_to_render 0;
+formula_1 2100;
+formula_2 7;
+fractal_enable_2 false;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+target -3,050770498846688 4,236632109562857 -3,199022933895241;
+view_distance_max 51,70669438768276;
+[fractal_1]
+mandelbox_offset -1,734694 0 1,400742;
+transf_function_enabledD_false true;
+transf_maxR2_1 1,804836;
+transf_minR2_p25 4,188256;
+transf_offset_100 0,183946 0 0;
+transf_scale 0,96463;
+transf_scaleA_2 1,170569;
+[fractal_2]
+fold_color_color_min 12,473;
+fold_color_cos_enabled_false true;
+fold_color_limit_min0 3435,449;
+fold_color_old_scale1 0,8120000000000001;
+fold_color_parab_enabled_false true;
+fold_color_parab_scale0 -77,24288799999999;
+fold_color_period1 7,877;
+fold_color_scaleA1 35,23;
+fold_color_scaleC0 0,654;
+mandelbox_folding_limit -0,5;
+mandelbox_folding_value 0;
+surfBox_enabledX2_false true;
+transf_addition_constant_0000 0,1 -0,5 0,1 -0,2;
+transf_addition_constant_111 0,135135 1 1;
+transf_constant_multiplier_000 0,621521 -1,215213 2,16141;
+transf_function_enabledAx_false true;
+transf_function_enabledAy_false true;
+transf_function_enabledAz_false true;
+transf_function_enabledCz_false true;
+transf_function_enabledM false;
+transf_function_enabledM_false true;
+transf_function_enabledx_false true;
+transf_function_enabledy_false true;
+transf_function_enabledz_false true;
+transf_int_A 5;
+transf_int_B 5;
+transf_maxR2_1 1,883;
+transf_minR2_p25 1,141002;
+transf_offset 0,7;
+transf_offset_0 0,8;
+transf_offset_000 0,528757 0,306122 1,159555;
+transf_offsetA_0 -4,158;
+transf_scale -59,737;
+transf_scale3D_444 -26,915 35,23 4;
+transf_scaleE_1 29,103;
+transf_scaleG_1 -29,103;
