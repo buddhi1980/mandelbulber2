@@ -73,7 +73,7 @@
         <translation type="vanished">Zur Keyframeanimation hinzufügen</translation>
     </message>
     <message>
-        <location filename="../qt/color_palette_widget.cpp" line="120"/>
+        <location filename="../qt/color_palette_widget.cpp" line="122"/>
         <source>Edit color #%1 of %2</source>
         <translation>Bearbeite Farbe Nr %1 von %2</translation>
     </message>
@@ -1259,22 +1259,22 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation>News</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="183"/>
+        <location filename="../src/render_window_menu.cpp" line="188"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="187"/>
+        <location filename="../src/render_window_menu.cpp" line="192"/>
         <source>Ok, don&apos;t show again</source>
         <translation>Ok, nicht erneut zeigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="518"/>
+        <location filename="../src/render_window_menu.cpp" line="523"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="309"/>
+        <location filename="../src/render_window_menu.cpp" line="314"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
@@ -1702,12 +1702,12 @@ Erlaubte Formate sind: </translation>
         <translation>Queue Element %1 von %2</translation>
     </message>
     <message>
-        <location filename="../src/render_queue.cpp" line="169"/>
+        <location filename="../src/render_queue.cpp" line="170"/>
         <source>Queue Render</source>
         <translation>Queue Render</translation>
     </message>
     <message>
-        <location filename="../src/render_queue.cpp" line="169"/>
+        <location filename="../src/render_queue.cpp" line="170"/>
         <source>Queue Done</source>
         <translation>Queue fertig</translation>
     </message>
@@ -1794,9 +1794,9 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="190"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="208"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="226"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="464"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="478"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="494"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="493"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="507"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="523"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="173"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="190"/>
         <location filename="../src/opencl_hardware.cpp" line="180"/>
@@ -1819,39 +1819,39 @@ Erlaubte Formate sind: </translation>
         <translation>Befehlsqueue</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="464"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="493"/>
         <source>buffer for constants</source>
         <translation>Buffer für Konstanten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="478"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="507"/>
         <source>buffer for variable data</source>
         <translation>Buffer für variable Daten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="897"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="926"/>
         <source>Cannot set OpenCL argument for %0</source>
         <translation>Argument %0 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="915"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="944"/>
         <source>Cannot set OpenCL argument for %2</source>
         <translation>Argument %2 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="924"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="953"/>
         <source>Cannot set OpenCL argument for %3</source>
         <translation>Argument %3 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="924"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="953"/>
         <source>random seed</source>
         <translation>Zufallsstartwert</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="188"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="190"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="494"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="523"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="173"/>
         <source>output buffer</source>
         <translation>Ausgabebuffer</translation>
@@ -1865,7 +1865,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="231"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="234"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="502"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="531"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="198"/>
         <source>OpenCL context is not ready</source>
         <translation>OpenCL Kontext ist nicht bereit</translation>
@@ -1879,7 +1879,7 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="256"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="265"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="274"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="906"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="935"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="211"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="220"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="229"/>
@@ -1895,7 +1895,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="262"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="265"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="897"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="926"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="220"/>
         <source>output data</source>
         <translation>Ausgabedaten</translation>
@@ -1917,12 +1917,12 @@ Erlaubte Formate sind: </translation>
         <translation>Eingabe Bild-Buffer</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="906"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="935"/>
         <source>input data</source>
         <translation>Eingabedaten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="915"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="944"/>
         <source>constant data</source>
         <translation>Konstante Daten</translation>
     </message>
@@ -1936,15 +1936,15 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="290"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="310"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="330"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="939"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="958"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="968"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="987"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="245"/>
         <source>Cannot enqueue writing OpenCL %1</source>
         <translation>OpenCL %1 kann nicht an die Queue angehanden werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="939"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="948"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="968"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="977"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="245"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="254"/>
         <source>input buffers</source>
@@ -1956,22 +1956,22 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="299"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="319"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="339"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="948"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="967"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="977"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="996"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="254"/>
         <source>Cannot finish writing OpenCL %1</source>
         <translation>OpenCL %1 kann nicht zu Ende geschrieben werden</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="958"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="967"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="987"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="996"/>
         <source>constant buffers</source>
         <translation>Konstanter Buffer</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="338"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="373"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1007"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1036"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="288"/>
         <source>Cannot enqueue OpenCL rendering jobs</source>
         <translation>OpenCL Render Job kann nicht in der Queue gestartet werden</translation>
@@ -1979,7 +1979,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="352"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="395"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1021"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1050"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="310"/>
         <source>Cannot enqueue reading OpenCL output buffers</source>
         <translation>OpenCL Ausgabebuffer können nicht ausgelesen werden</translation>
@@ -1987,7 +1987,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="360"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="403"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1029"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1058"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="318"/>
         <source>Cannot finish reading OpenCL output buffers</source>
         <translation>Auslesen der OpenCL Ausgabebuffer kann nicht abgeschlossen werden</translation>
@@ -5526,7 +5526,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG 16 bit mit Alpha speichern</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="255"/>
+        <location filename="../src/render_window_menu.cpp" line="260"/>
         <source>Load settings...</source>
         <translation>Einstellungen laden...</translation>
     </message>
@@ -5572,63 +5572,63 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="61"/>
-        <location filename="../src/render_window_menu.cpp" line="227"/>
-        <location filename="../src/render_window_menu.cpp" line="250"/>
-        <location filename="../src/render_window_menu.cpp" line="486"/>
+        <location filename="../src/render_window_menu.cpp" line="232"/>
+        <location filename="../src/render_window_menu.cpp" line="255"/>
+        <location filename="../src/render_window_menu.cpp" line="491"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="492"/>
+        <location filename="../src/render_window_menu.cpp" line="497"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="232"/>
+        <location filename="../src/render_window_menu.cpp" line="237"/>
         <source>Load example settings...</source>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="365"/>
+        <location filename="../src/render_window_menu.cpp" line="370"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="397"/>
-        <location filename="../src/render_window_menu.cpp" line="419"/>
-        <location filename="../src/render_window_menu.cpp" line="452"/>
+        <location filename="../src/render_window_menu.cpp" line="402"/>
+        <location filename="../src/render_window_menu.cpp" line="424"/>
+        <location filename="../src/render_window_menu.cpp" line="457"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="426"/>
-        <location filename="../src/render_window_menu.cpp" line="437"/>
-        <location filename="../src/render_window_menu.cpp" line="459"/>
-        <location filename="../src/render_window_menu.cpp" line="470"/>
+        <location filename="../src/render_window_menu.cpp" line="431"/>
+        <location filename="../src/render_window_menu.cpp" line="442"/>
+        <location filename="../src/render_window_menu.cpp" line="464"/>
+        <location filename="../src/render_window_menu.cpp" line="475"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="427"/>
-        <location filename="../src/render_window_menu.cpp" line="460"/>
+        <location filename="../src/render_window_menu.cpp" line="432"/>
+        <location filename="../src/render_window_menu.cpp" line="465"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="438"/>
-        <location filename="../src/render_window_menu.cpp" line="471"/>
+        <location filename="../src/render_window_menu.cpp" line="443"/>
+        <location filename="../src/render_window_menu.cpp" line="476"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="370"/>
-        <location filename="../src/render_window_menu.cpp" line="415"/>
-        <location filename="../src/render_window_menu.cpp" line="448"/>
+        <location filename="../src/render_window_menu.cpp" line="375"/>
+        <location filename="../src/render_window_menu.cpp" line="420"/>
+        <location filename="../src/render_window_menu.cpp" line="453"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="384"/>
+        <location filename="../src/render_window_menu.cpp" line="389"/>
         <source>TIFF images (*.tiff)</source>
         <translation>TIFF Bilder (*.tiff)</translation>
     </message>
@@ -5649,7 +5649,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="376"/>
+        <location filename="../src/render_window_menu.cpp" line="381"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
@@ -12115,13 +12115,13 @@ Objektgröße)</translation>
         <translation>Kompiliere OpenCL Programme</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="523"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="717"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="552"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="746"/>
         <source>OpenCl - rendering image</source>
         <translation>OpenCl - Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="789"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="818"/>
         <source>OpenCl - rendering finished</source>
         <translation>OpenCl - Rendern abgeschlossen</translation>
     </message>
@@ -12207,8 +12207,8 @@ Objektgröße)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="553"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="915"/>
+        <location filename="../qt/preferences_dialog.ui" line="578"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="920"/>
         <source>Image Settings</source>
         <translation>Bildeinstellungen</translation>
     </message>
@@ -12220,26 +12220,26 @@ Objektgröße)</translation>
 und das Speichern der Animationsframes.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="270"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="888"/>
+        <location filename="../qt/preferences_dialog.ui" line="295"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="893"/>
         <source>Toolbar icon size (pixels)</source>
         <translation>Toolbar Icongröße (Pixel)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="514"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="964"/>
+        <location filename="../qt/preferences_dialog.ui" line="539"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="969"/>
         <source>Image</source>
         <translation>Bild</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="550"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="912"/>
+        <location filename="../qt/preferences_dialog.ui" line="575"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="917"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value will be ignored, since JPG only supports 8 bit precision.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file with appended postfix.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit or 16 bit (32 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 8 bit, 16 bit or 32 bit.&lt;/p&gt;&lt;p&gt;Every image channel will be saved as a separate file. &lt;/p&gt;&lt;p&gt;Only exception can be alpha channel:&lt;/p&gt;&lt;p&gt;If both Color and Alpha channel are selected and &amp;quot;Append alpha to image (only PNG and TIFF)&amp;quot;, then color + alpha will be saved to a RGBA image with quality and postfix of color row.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;The quality value can be 16 bit or 32 bit (8 bit will result in 16 bit precision).&lt;/p&gt;&lt;p&gt;The postfix will be ignored since all image channels will be saved to one file.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot;font-weight:600;&quot;&gt;JPG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert wird ignoriert, da JPG nur 8-Bit-Genauigkeit unterstützt.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;PNG&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit oder 16-Bit einnehmen (32-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;TIFF&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 8-Bit, 16-Bit, oder 32 bit einnehmen.&lt;/p&gt;&lt;p&gt;Jeder Bildkanal wird in einer separaten Datei mit angehängten Postfix gespeichert.&lt;/p&gt;&lt;p&gt;Einzige Ausnahme kann der Alphakanal sein:&lt;/p&gt;&lt;p&gt;Wenn sowohl Farb- als auch Alpha-Kanal ausgewählt sind und &amp;quot;Alpha an das Bild anhängen (nur bei PNG und TIFF)&amp;quot; angewählt ist, dann wird Farbe + Alpha zu einem RGBA-Bild mit Qualität und Postfix vom Farbkanal gespeichert.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;EXR&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Der Qualitätswert kann 16-Bit oder 32-Bit einnehmen (8-Bit wird auch mit 16-Bit-Genauigkeit abgespeichert).&lt;/p&gt;&lt;p&gt;Der Postfix wird ignoriert, da alle Bildkanäle in einer Datei gespeichert werden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="574"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="916"/>
+        <location filename="../qt/preferences_dialog.ui" line="599"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="921"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
         <translation>Diese Einstellungen beeinflussen 
@@ -12247,68 +12247,68 @@ und das Speichern der Animationsframes.</translation>
 und das Speichern der Animationsframes.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="677"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="937"/>
+        <location filename="../qt/preferences_dialog.ui" line="702"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="942"/>
         <source>Z Buffer</source>
         <translation>Z Buffer</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="619"/>
-        <location filename="../qt/preferences_dialog.ui" line="652"/>
-        <location filename="../qt/preferences_dialog.ui" line="685"/>
-        <location filename="../qt/preferences_dialog.ui" line="726"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="924"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="932"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="940"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="950"/>
+        <location filename="../qt/preferences_dialog.ui" line="644"/>
+        <location filename="../qt/preferences_dialog.ui" line="677"/>
+        <location filename="../qt/preferences_dialog.ui" line="710"/>
+        <location filename="../qt/preferences_dialog.ui" line="751"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="929"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="937"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="945"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="955"/>
         <source>8 bit</source>
         <translation>8 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="624"/>
-        <location filename="../qt/preferences_dialog.ui" line="657"/>
-        <location filename="../qt/preferences_dialog.ui" line="690"/>
-        <location filename="../qt/preferences_dialog.ui" line="731"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="925"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="933"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="941"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="951"/>
+        <location filename="../qt/preferences_dialog.ui" line="649"/>
+        <location filename="../qt/preferences_dialog.ui" line="682"/>
+        <location filename="../qt/preferences_dialog.ui" line="715"/>
+        <location filename="../qt/preferences_dialog.ui" line="756"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="930"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="938"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="946"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="956"/>
         <source>16 bit</source>
         <translation>16 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="629"/>
-        <location filename="../qt/preferences_dialog.ui" line="662"/>
-        <location filename="../qt/preferences_dialog.ui" line="695"/>
-        <location filename="../qt/preferences_dialog.ui" line="736"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="926"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="934"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="942"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="952"/>
+        <location filename="../qt/preferences_dialog.ui" line="654"/>
+        <location filename="../qt/preferences_dialog.ui" line="687"/>
+        <location filename="../qt/preferences_dialog.ui" line="720"/>
+        <location filename="../qt/preferences_dialog.ui" line="761"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="931"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="939"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="947"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="957"/>
         <source>32 bit</source>
         <translation>32 bit</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="644"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="929"/>
+        <location filename="../qt/preferences_dialog.ui" line="669"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="934"/>
         <source>Alpha</source>
         <translation>Alpha</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="594"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="919"/>
+        <location filename="../qt/preferences_dialog.ui" line="619"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="924"/>
         <source>Quality</source>
         <translation>Qualität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="601"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="920"/>
+        <location filename="../qt/preferences_dialog.ui" line="626"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="925"/>
         <source>Postfix</source>
         <translation>Postfix</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="587"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="918"/>
+        <location filename="../qt/preferences_dialog.ui" line="612"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="923"/>
         <source>Image Channel</source>
         <translation>Bildkanal</translation>
     </message>
@@ -12319,192 +12319,222 @@ und das Speichern der Animationsframes.</translation>
         <translation>Programm Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="253"/>
+        <location filename="../qt/preferences_dialog.ui" line="250"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="886"/>
+        <source>space light</source>
+        <translation>Space Hell</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="255"/>
         <location filename="../qt/ui_preferences_dialog.h" line="887"/>
+        <source>space dark</source>
+        <translation>Space Dunkel</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="260"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="888"/>
+        <source>space dark green</source>
+        <translation>Space Dunkel Grün</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="265"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="889"/>
+        <source>space dark blue</source>
+        <translation>Space Dunkel Blau</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="270"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="890"/>
+        <source>space dark red</source>
+        <translation>Space Dunkel Rot</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="278"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="892"/>
         <source>UI font size (points)</source>
         <translation>UI Schriftgröße (Punkte)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="295"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="889"/>
+        <location filename="../qt/preferences_dialog.ui" line="320"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="894"/>
         <source>Advanced</source>
         <translation>Erweitert</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="324"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="890"/>
+        <location filename="../qt/preferences_dialog.ui" line="349"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="895"/>
         <source>Max. number of CPU cores to use</source>
         <translation>Max. Anzahl zu nutzender CPU Kerne</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="367"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="891"/>
+        <location filename="../qt/preferences_dialog.ui" line="392"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="896"/>
         <source>Logging verbosity level</source>
         <translation>Logging Level</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="391"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="894"/>
+        <location filename="../qt/preferences_dialog.ui" line="416"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="899"/>
         <source>Lowest priority</source>
         <translation>Geringste Priorität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="396"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="895"/>
+        <location filename="../qt/preferences_dialog.ui" line="421"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="900"/>
         <source>Low prioriry</source>
         <translation>Geringe Priorität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="401"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="896"/>
+        <location filename="../qt/preferences_dialog.ui" line="426"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="901"/>
         <source>Normal priority</source>
         <translation>Normale Priorität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="406"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="897"/>
+        <location filename="../qt/preferences_dialog.ui" line="431"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="902"/>
         <source>High priority</source>
         <translation>Hohe Priorität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="414"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="899"/>
+        <location filename="../qt/preferences_dialog.ui" line="439"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="904"/>
         <source>Rendering threads priority</source>
         <translation>Renderthreads Priorität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="421"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="900"/>
+        <location filename="../qt/preferences_dialog.ui" line="446"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="905"/>
         <source>Image auto-refresh period [seconds]</source>
         <translation>Bild Autorefresh Frequenz [Sekunden]</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="434"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="902"/>
+        <location filename="../qt/preferences_dialog.ui" line="459"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="907"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplies fractal c constant by this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multipliziert die fraktale c Konstante mit diesem Wert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="471"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="907"/>
+        <location filename="../qt/preferences_dialog.ui" line="496"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="912"/>
         <source>Do not show description on settings load</source>
         <translation>Beschreibung beim Laden nicht zeigen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="478"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="908"/>
+        <location filename="../qt/preferences_dialog.ui" line="503"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="913"/>
         <source>Retrieve default toolbar presets</source>
         <translation>Hole Standard Toolbar Einstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="485"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="909"/>
+        <location filename="../qt/preferences_dialog.ui" line="510"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="914"/>
         <source>Retrieve default materials in material folder</source>
         <translation>Hole Standard Materialien in Materialordner</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="608"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="921"/>
+        <location filename="../qt/preferences_dialog.ui" line="633"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="926"/>
         <source>Color</source>
         <translation>Farbe</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="710"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="945"/>
+        <location filename="../qt/preferences_dialog.ui" line="735"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="950"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
         <translation>Die folgenden Bildkanäle werden nur auf Abruf gerendert
 und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="718"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="947"/>
+        <location filename="../qt/preferences_dialog.ui" line="743"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="952"/>
         <source>Surface Normal</source>
         <translation>Oberflächennormale</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="756"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="955"/>
+        <location filename="../qt/preferences_dialog.ui" line="781"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="960"/>
         <source>Misc Image Settings</source>
         <translation>Diverse Bildeinstellungen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="818"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="957"/>
+        <location filename="../qt/preferences_dialog.ui" line="843"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="962"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
         <translation>Alpha an das Bild anhängen (nur bei PNG und TIFF)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="825"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="958"/>
+        <location filename="../qt/preferences_dialog.ui" line="850"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="963"/>
         <source>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</source>
         <translation>Speichere stereoskopische links und rechts Bilder in separaten Dateien
 (Stereoskoper Modus muss dafür auf &quot;links-rechts&quot; stehen)</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="838"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="960"/>
+        <location filename="../qt/preferences_dialog.ui" line="863"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="965"/>
         <source>Thumbnail options</source>
         <translation>Thumbnail Optionen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="864"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="961"/>
+        <location filename="../qt/preferences_dialog.ui" line="889"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="966"/>
         <source>Clear</source>
         <translation>Leeren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="875"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="962"/>
+        <location filename="../qt/preferences_dialog.ui" line="900"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="967"/>
         <source>Load</source>
         <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="886"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="963"/>
+        <location filename="../qt/preferences_dialog.ui" line="911"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="968"/>
         <source>Generate</source>
         <translation>Generieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="984"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="966"/>
+        <location filename="../qt/preferences_dialog.ui" line="1009"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="971"/>
         <source>This will offload the rendering to an OpenCL device (GPU, CPU, Accelerator Card).</source>
         <translation>Dadurch wird das Rendering auf ein OpenCL-Gerät (GPU, CPU, Accelerator Card) ausgelagert.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1069"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="977"/>
+        <location filename="../qt/preferences_dialog.ui" line="1094"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="982"/>
         <source>All GPU devices</source>
         <translation>Alle GPU Geräte</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1074"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="978"/>
+        <location filename="../qt/preferences_dialog.ui" line="1099"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="983"/>
         <source>Default device</source>
         <translation>Standardgerät</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1084"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="980"/>
+        <location filename="../qt/preferences_dialog.ui" line="1109"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="985"/>
         <source>All CPU devices</source>
         <translation>Alle CPU Geräte</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1089"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="981"/>
+        <location filename="../qt/preferences_dialog.ui" line="1114"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="986"/>
         <source>All accelerators</source>
         <translation>Alle Accelerator</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1112"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="983"/>
+        <location filename="../qt/preferences_dialog.ui" line="1137"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="988"/>
         <source>Platforms</source>
         <translation>Platformen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1137"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="984"/>
+        <location filename="../qt/preferences_dialog.ui" line="1162"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="989"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the handbook&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;ul&gt;&lt;li&gt;only material #1 is used&lt;/li&gt;&lt;li&gt;texture mapping (including background)&lt;/li&gt;&lt;li&gt;primitive objects&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;stereoscopic images&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolean operators&lt;/li&gt;&lt;li&gt;support for multiple GPUs&lt;/li&gt;&lt;li&gt;voxel / mesh export&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber kann OpenCL verwenden, um das Rendering zu beschleunigen.&lt;br/&gt;Weitere Informationen zu Setup und Workflow finden Sie im Handbuch&lt;br/&gt;unter Menu &amp;gt; Hilfe &amp;gt; Handbuch.&lt;/p&gt;&lt;p&gt;Die OpenCL-Unterstützung ist immer noch alpha und es fehlen folgende Funktionen im nicht-OpenCL-Modus:&lt;ul&gt;&lt;li&gt;Es wird nur Material #1 verwendet&lt;/li&gt;&lt;li&gt;Texture Mapping (auch Hintergrund)&lt;/li&gt;&lt;li&gt;Primitive Objekte&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;Stereoskope Bilder&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolsche Operatoren&lt;/li&gt;&lt;li&gt;Unterstützunf mehrerer GPUs&lt;/li&gt;&lt;li&gt;Voxel / Mesh export&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -12521,8 +12551,8 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">GPU aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1052"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="973"/>
+        <location filename="../qt/preferences_dialog.ui" line="1077"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="978"/>
         <source>Device</source>
         <translation>Gerät</translation>
     </message>
@@ -12531,8 +12561,8 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Alle nicht CPU Geräte</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1079"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="979"/>
+        <location filename="../qt/preferences_dialog.ui" line="1104"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="984"/>
         <source>All devices</source>
         <translation>Alle Geräte</translation>
     </message>
@@ -12549,20 +12579,20 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Dies lagert das Rendering auf die GPU aus.</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1059"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="974"/>
+        <location filename="../qt/preferences_dialog.ui" line="1084"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="979"/>
         <source>Precision</source>
         <translation>Genauigkeit</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1003"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="969"/>
+        <location filename="../qt/preferences_dialog.ui" line="1028"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="974"/>
         <source>single</source>
         <translation>einfach</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="924"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="985"/>
+        <location filename="../qt/preferences_dialog.ui" line="949"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="990"/>
         <source>OpenCL (GPU)</source>
         <translation>Opencl (GPU)</translation>
     </message>
@@ -12571,14 +12601,14 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber kann unter Verwending von OpenCL das Rendering beschleunigen. Für weitere Informationen zum Setup und dem Workflow sehen sie das Handbuch unter Menu &amp;gt; Hilfe &amp;gt; Handbuch.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="960"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="965"/>
+        <location filename="../qt/preferences_dialog.ui" line="985"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="970"/>
         <source>OpenCL ena&amp;ble</source>
         <translation>OpenCL aktivieren</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1008"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="970"/>
+        <location filename="../qt/preferences_dialog.ui" line="1033"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="975"/>
         <source>double</source>
         <translation>doppelt</translation>
     </message>
@@ -12599,8 +12629,8 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">schnell</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1016"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="972"/>
+        <location filename="../qt/preferences_dialog.ui" line="1041"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="977"/>
         <source>Memory Limit:</source>
         <translation>Memory Limit:</translation>
     </message>
@@ -12617,8 +12647,8 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Thumbnail Cache löschen</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="464"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="906"/>
+        <location filename="../qt/preferences_dialog.ui" line="489"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="911"/>
         <source>Do not ask for quit confirmation</source>
         <translation>Bei Beenden keine Bestätigung erfragen</translation>
     </message>
@@ -12627,8 +12657,8 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation type="vanished">Bildqualität</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="782"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="956"/>
+        <location filename="../qt/preferences_dialog.ui" line="807"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="961"/>
         <source>JPEG quality:</source>
         <translation>JPEG Qualität:</translation>
     </message>
@@ -12644,7 +12674,7 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="47"/>
-        <location filename="../qt/ui_preferences_dialog.h" line="910"/>
+        <location filename="../qt/ui_preferences_dialog.h" line="915"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
@@ -13489,8 +13519,12 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="146"/>
+        <source>Specify custom system log filepath (default is: ~/.mandelbulber_log.txt).</source>
+        <translation>Eigenen Log Dateipfad angeben (Standard ist ~/.mandelbulber_log.txt).</translation>
+    </message>
+    <message>
         <source>Specify the full path and filename of the System Log File.</source>
-        <translation>Specify the full path and filename of the System Log File.</translation>
+        <translation type="vanished">Specify the full path and filename of the System Log File.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="151"/>

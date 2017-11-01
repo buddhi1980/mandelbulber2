@@ -83,6 +83,8 @@ Options:
   -v, --version          Displays version information.
   -n, --nogui            Starts the program without a GUI.
   -o, --output <N>       Saves rendered image(s) to this file / folder.
+  --logfilepath <N>      Specify custom system log filepath (default is:
+                         ~/.mandelbulber_log.txt).
   -K, --keyframe         Renders keyframe animation.
   -F, --flight           Renders flight animation.
   -X, --never-delete     Never delete data, instead Exit CLI application.
@@ -130,6 +132,7 @@ Options:
   --stats                Shows statistics while rendering in CLI mode.
   --help-input           Shows help about input.
   --help-examples        Shows example commands.
+  --help-opencl          Shows commands regarding OpenCL.
 
 Arguments:
   settings_file          file with fractal settings (program also tries
