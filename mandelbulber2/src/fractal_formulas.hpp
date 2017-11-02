@@ -63,10 +63,7 @@
 
 #ifndef M_PI_2x
 #define M_PI_2x 6.283185307179586476925286766559
-
 #endif
-
-
 
 // end of formula constants
 
