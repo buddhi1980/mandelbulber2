@@ -369,8 +369,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef ANALYTIC_LOG_DE
 	dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
 #elif ANALYTIC_LINEAR_DE
-        dist = (aux.r - 2.0f) / fabs(aux.DE);
-
+        dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
 	float rxy = length(z.xy);
 	dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
