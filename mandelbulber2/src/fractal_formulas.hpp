@@ -60,6 +60,14 @@
 #ifndef M_PI_4
 #define M_PI_4 0.78539816339744830961566084581988
 #endif
+
+#ifndef M_PI_2x
+#define M_PI_2x 6.283185307179586476925286766559
+
+#endif
+
+
+
 // end of formula constants
 
 // forward declarations

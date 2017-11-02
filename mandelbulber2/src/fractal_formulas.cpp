@@ -5670,7 +5670,7 @@ void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void MsltoeDonutIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double radius2 = fractal->donut.ringThickness;
-	double nSect = 2.0 * M_PI / fractal->donut.number;
+	double nSect = M_PI_2x / fractal->donut.number;
 	double fact = fractal->donut.factor;
 
 	double R = sqrt(z.x * z.x + z.y * z.y);
