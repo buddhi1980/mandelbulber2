@@ -68,6 +68,11 @@
 
 #include <QtCore>
 
+// compatibility with qt version < 5.5
+#ifndef qInfo
+#define qInfo qDebug
+#endif
+
 enum enumRenderingThreadPriority
 {
 	renderingPriorityLowest = 0,
