@@ -1361,6 +1361,7 @@ void cInterface::Undo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
+	gMainInterface->DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
@@ -1373,12 +1374,14 @@ void cInterface::Undo()
 		StartRender(true);
 	}
 	gInterfaceReadyForSynchronization = true;
+	gMainInterface->ReEnablePeriodicRefresh();
 }
 
 void cInterface::Redo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
+	gMainInterface->DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
@@ -1391,6 +1394,7 @@ void cInterface::Redo()
 		StartRender(true);
 	}
 	gInterfaceReadyForSynchronization = true;
+	gMainInterface->ReEnablePeriodicRefresh();
 }
 
 void cInterface::ResetView()

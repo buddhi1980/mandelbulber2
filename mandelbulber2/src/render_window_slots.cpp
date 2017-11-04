@@ -335,6 +335,7 @@ void RenderWindow::slotPresetAddToToolbar()
 void RenderWindow::slotMenuLoadPreset(QString filename)
 {
 	cSettings parSettings(cSettings::formatFullText);
+	gMainInterface->DisablePeriodicRefresh();
 	parSettings.LoadFromFile(filename);
 	gInterfaceReadyForSynchronization = false;
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
@@ -348,6 +349,7 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
+	gMainInterface->ReEnablePeriodicRefresh();
 	showDescriptionPopup();
 	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }

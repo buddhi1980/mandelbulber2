@@ -270,6 +270,7 @@ void RenderWindow::slotMenuLoadSettings()
 void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 {
 	cSettings parSettings(cSettings::formatFullText);
+	gMainInterface->DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
 	parSettings.LoadFromFile(fileName);
 	parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
@@ -284,6 +285,7 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	this->setWindowTitle(QString("Mandelbulber (") + fileName + ")");
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
+	gMainInterface->ReEnablePeriodicRefresh();
 	showDescriptionPopup();
 }
 
@@ -296,6 +298,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 
 	if (parSettings.LoadFromClipboard())
 	{
+		gMainInterface->DisablePeriodicRefresh();
 		gInterfaceReadyForSynchronization = false;
 		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 		gMainInterface->RebuildPrimitives(gPar);
@@ -307,6 +310,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
+		gMainInterface->ReEnablePeriodicRefresh();
 		showDescriptionPopup();
 	}
 	else
