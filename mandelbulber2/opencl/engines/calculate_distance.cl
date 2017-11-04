@@ -171,7 +171,8 @@ formulaOut CalculateDistance(
 #elif DELTA_LOG_DE
 		out.distance = 0.5f * r * native_log(r) / d;
 #elif DELTA_PSEUDO_KLEINIAN_DE
-		out.distance = .... // TODO to be written later
+		float rxy = native_sqrt(out.z.x * out.z.x + out.z.y * out.z.y);
+		out.distance = max(rxy - 0.92784f, fabs(rxy * out.z.z) / r) / d;
 #endif
 	}
 
