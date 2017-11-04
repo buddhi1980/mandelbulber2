@@ -19,11 +19,11 @@ REAL4 CollatzModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	REAL4 c = aux->const_c;
 
-	REAL4 constant = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
+	REAL4 constantMult = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
 		fractal->transformCommon.constantMultiplierB111.y,
 		fractal->transformCommon.constantMultiplierB111.z, 0.0f};
 
-	z = constant
+	z = constantMult
 			+ mad(fractal->transformCommon.scale4, z,
 					-(mad(fractal->transformCommon.scale2, z, fractal->transformCommon.constantMultiplier111))
 						* RotateAroundVectorByAngle4(z, fractal->transformCommon.constantMultiplier111.xyz,

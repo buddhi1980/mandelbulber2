@@ -3158,11 +3158,11 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 {
 	CVector4 c = aux.const_c;
 
-	CVector4 constant = CVector4(fractal->transformCommon.constantMultiplierB111.x,
+	CVector4 constantMult = CVector4(fractal->transformCommon.constantMultiplierB111.x,
 		fractal->transformCommon.constantMultiplierB111.y,
 		fractal->transformCommon.constantMultiplierB111.z, 0.0);
 
-	z = constant + fractal->transformCommon.scale4 * z
+	z = constantMult + fractal->transformCommon.scale4 * z
 			- (fractal->transformCommon.constantMultiplier111 + fractal->transformCommon.scale2 * z)
 					* z.RotateAroundVectorByAngle(fractal->transformCommon.constantMultiplier111.GetXYZ(),
 							M_PI * fractal->transformCommon.scale1); // * cPI ;
@@ -5012,10 +5012,10 @@ void MengerPwr2PolyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		CVector4 partB = z;
 		if (fractal->transformCommon.functionEnabledAzFalse) partB = fabs(z);
 		partB *= fractal->transformCommon.scale4;
-		CVector4 constant = CVector4(fractal->transformCommon.constantMultiplierB111.x,
+		CVector4 constantMult = CVector4(fractal->transformCommon.constantMultiplierB111.x,
 			fractal->transformCommon.constantMultiplierB111.y,
 			fractal->transformCommon.constantMultiplierB111.z, 0.0);
-		z = constant + partB - partA * fnZ1;
+		z = constantMult + partB - partA * fnZ1;
 		z *= fractal->transformCommon.scale025;
 		aux.DE = aux.DE * 4.0 * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
 	}
@@ -8737,11 +8737,11 @@ void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledAzFalse) partB = fabs(z);
 	partB *= fractal->transformCommon.scale4;
 
-	CVector4 constant = CVector4(fractal->transformCommon.constantMultiplierB111.x,
+	CVector4 constantMult = CVector4(fractal->transformCommon.constantMultiplierB111.x,
 		fractal->transformCommon.constantMultiplierB111.y,
 		fractal->transformCommon.constantMultiplierB111.z, 0.0);
 
-	z = constant + partB - partA * fnZ1;
+	z = constantMult + partB - partA * fnZ1;
 	z *= fractal->transformCommon.scale025;
 
 	aux.DE = aux.DE * 4.0 * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;

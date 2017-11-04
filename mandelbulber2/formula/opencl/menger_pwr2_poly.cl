@@ -54,10 +54,10 @@ REAL4 MengerPwr2PolyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL4 partB = z;
 		if (fractal->transformCommon.functionEnabledAzFalse) partB = fabs(z);
 		partB *= fractal->transformCommon.scale4;
-		REAL4 constant = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
+		REAL4 constantMult = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
 			fractal->transformCommon.constantMultiplierB111.y,
 			fractal->transformCommon.constantMultiplierB111.z, 0.0f};
-		z = constant + mad(-fnZ1, partA, partB);
+		z = constantMult + mad(-fnZ1, partA, partB);
 		z *= fractal->transformCommon.scale025;
 		aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
 	}
