@@ -415,7 +415,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			if (aux.DE > 0.0f)
 			{
-				double rxy = length(z.xy);
+				float rxy = length(z.xy);
 				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
 			}
 			else
