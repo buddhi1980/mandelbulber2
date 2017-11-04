@@ -47,7 +47,12 @@ REAL4 TransfPwr2PolynomialIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 partB = z;
 	if (fractal->transformCommon.functionEnabledAzFalse) partB = fabs(z);
 	partB *= fractal->transformCommon.scale4;
-	z = fractal->transformCommon.constantMultiplierB111 + mad(-fnZ1, partA, partB);
+
+	REAL4 constant = (REAL4){fractal->transformCommon.constantMultiplierB111.x,
+		fractal->transformCommon.constantMultiplierB111.y,
+		fractal->transformCommon.constantMultiplierB111.z, 0.0f};
+
+	z = constant + mad(-fnZ1, partA, partB);
 	z *= fractal->transformCommon.scale025;
 
 	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
