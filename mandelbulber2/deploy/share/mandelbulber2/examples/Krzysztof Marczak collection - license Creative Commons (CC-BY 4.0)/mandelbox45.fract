@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.12
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -20,12 +20,8 @@ camera -2,015358739588275 1,471752217776228 -4,002254680126195;
 camera_distance_to_target 8,887734387081112e-13;
 camera_rotation -19,99091443656877 19,98481198028389 0;
 camera_top -0,116841650227502 -0,3211782531525808 0,9397832507945494;
-coloring_palette_size 5;
-coloring_random_seed 783848;
-coloring_speed 0,1;
 DE_factor 0,5;
 DE_thresh 1;
-delta_DE_function 1;
 DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
 fog_color_1 0000 0000 0000;
@@ -34,7 +30,6 @@ formula_2 7;
 formula_iterations_1 40;
 formula_iterations_2 3;
 fov 1,2;
-fresnel_reflectance true;
 gamma 0,5;
 glow_intensity 0,015625;
 hybrid_fractal_enable true;
@@ -52,16 +47,20 @@ limit_min -10 0 -10;
 main_light_beta -45;
 main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
+mat1_coloring_palette_size 5;
+mat1_coloring_random_seed 783848;
+mat1_coloring_speed 0,1;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_specular 0;
+mat1_surface_color_palette ec073a ff5a33 ffff00 7800b4 981400;
+mat1_transparency_index_of_refraction 5;
 N 500;
 raytraced_reflections true;
-reflect 1;
 reflections_max 3;
 shadows_enabled false;
-specular 0;
-stereo_eye_distance 0,1;
-surface_color_palette ec073a ff5a33 ffff00 7800b4 981400;
 target -2,015358739587989 1,471752217777013 -4,002254680125891;
-transparency_index_of_refraction 5;
 use_default_bailout false;
 view_distance_max 520;
 volumetric_fog_density 0;
@@ -107,8 +106,3 @@ mandelbox_rotation_neg_3 6,410329913817894e-315 0 0;
 mandelbox_rotation_pos_1 6,707875133873133e-315 0 0;
 mandelbox_rotation_pos_2 5,969189029558899e-315 0 0;
 mandelbox_rotation_pos_3 6,696896204717507e-315 0 0;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

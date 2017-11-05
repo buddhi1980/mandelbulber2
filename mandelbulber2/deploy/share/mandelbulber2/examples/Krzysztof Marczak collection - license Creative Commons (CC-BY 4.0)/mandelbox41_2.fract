@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.05
+# version 2.12
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
@@ -13,8 +13,8 @@ aux_light_volumetric_intensity_1 100;
 aux_light_volumetric_intensity_2 100;
 aux_light_volumetric_intensity_3 100;
 aux_light_volumetric_intensity_4 100;
-background_color_1 0 0 0;
-background_color_2 0 0 0;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
 basic_fog_color b38e b9cd 8ecd;
 basic_fog_enabled true;
 basic_fog_visibility 1,071519305237609;
@@ -22,67 +22,70 @@ camera 7,920936794630726 -0,340360415770092 1,562055447777587;
 camera_distance_to_target 3,200000948652914e-10;
 camera_rotation 20,00006580524755 29,99999293041121 0;
 camera_top 0,1710105747424829 -0,4698460135719533 0,8660254654782327;
-coloring_palette_offset 189;
-coloring_palette_size 255;
-coloring_random_seed 993560;
 DE_thresh 1;
 DOF_focus 1,479108388168207e-14;
 flight_last_to_render 0;
-fog_color_1 0 0 0;
+fog_color_1 0000 0000 0000;
 formula_1 8;
 formula_2 7;
 formula_iterations_1 10;
 fov 0,5;
-fractal_color false;
 gamma 0,6;
-glow_color_1 ffff 0 1f2c;
+glow_color_1 ffff 0000 1f2c;
 glow_color_2 ffff f2aa 80e3;
 hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
-iteration_fog_color_1 0 0 0;
+iteration_fog_color_1 0000 0000 0000;
 iteration_fog_color_1_maxiter 82;
-iteration_fog_color_2 0 7530 ffff;
+iteration_fog_color_2 0000 7530 ffff;
 iteration_fog_color_2_maxiter 165;
 julia_c 8 0 0;
 julia_mode true;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 limit_min -10 -10 0;
-linear_DE_mode true;
 main_light_alpha 90;
 main_light_beta -70;
 main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
+mat1_coloring_palette_offset 189;
+mat1_coloring_palette_size 255;
+mat1_coloring_random_seed 993560;
+mat1_is_defined true;
+mat1_reflectance 0,4;
+mat1_surface_color_palette 97da3d ff2ea6 42eab8 6dbe6d 9d5234 dd6185 86fff8 ddbcd7 0b89b7 a04500 5ec7ff adc242 00487f ff6dfa 0f7000 62ea3e 65e696 347f00 40165a d09322 f6bcc5 f085ff c2b2b8 78d269 b80011 bf41b6 3a00a5 68aaa3 787925 d40245 3a8347 60bbd0 ba0062 7b70e8 a4ceff 4e8c56 007513 a28300 ff4fa7 b11f6a 511d74 6c3b7a ff86ff 076944 219973 195794 a83d8b 902936 52b68b c6d96e 3764f7 bc2987 b60000 a4c584 303e04 8457a6 d5f82b c78e25 ff446e 70f8e5 00b36c d24a5e 9c76d4 a4528c 0069b6 3bfff6 ff39e7 c35e7c 764ccc 86ffff 399a9c b9f5f2 8ed8c0 a7666b 7c30ff 736f01 d8e9ff d3ede2 504872 436ad4 f042fb b6744e 4e0620 9440ba 2ebe65 9c39ac 54f1a0 0018bb 349063 04b000 3ba2ed fff390 5a9ed1 ffbde2 290039 583771 3440ff db00dd 6c9900 9a6ad5 008a00 81ee57 ee931f a26800 c8ff38 251bc2 f5cf6d 050f6c b85d10 021d8e 9b9819 62696e 96b1d1 7b4322 ed6ab3 5e040e b9758e ff8a3a 2e5f3c ae9070 000043 57abed 0b954a ffc348 36d4ad 48d0ba c88e88 5730ba 1111c3 cdc1cb a866e2 c2c300 d2d5ff 4a7bf3 005e95 9f60a5 c2ba7e 46144c 6f233c ab0000 aef312 98ff45 84d1df 1a6c00 4e886b 779332 bf78ff 6901dd 00d000 e914d5 f2c0ab 309200 0f49e9 ed2c62 7748f3 82ff40 bd08a0 65be6a 35cc43 c18f41 e2346b 4ebb3c ff34b2 d28671 e86cb3 a59800 a682ce 131127 5daab6 16a40e 947c1a 77ffa1 000000 af2513 195339 211dc8 ca82e9 683aff f58df9 000700 41425a 8e94c7 ff24e8 3daca9 1d8200 b30e7a 552c72 7cb4f6 ff7d24 29ff7c b9000b e5005f a46ba9 903ad9 b096c0 3daae6 93767c ce4cff 5938f0 24427a ff98b1 974e6c 75bec3 85c7d7 3c5200 d0ffd0 5da95d cbb75f 37f74f 46bcdf c5eebc 300e00 e87ef1 41471f d865f1 3a6e7b 1378d4 2aaa29 a4f2ff 4948ea 97ac56 ff8268 de507b c2fa5c 7e3c40 e26678 0c2b23 32cd00 935ca6 85b500 005839 377959 93782c be84a7 ffff5e b70dc4 5d5d8f 087438 009ab4 0c06b3 b1ff36 7bc242 b1697a c189ff be6c05 1c7944 4a2f8c 697240 a5979d 62e888 5effc2 80afff 00104b c5cbb0 00358d ffffff;
+mat1_use_colors_from_palette false;
 raytraced_reflections true;
-reflect 0,4;
 reflections_max 3;
-stereo_eye_distance 0,1;
-surface_color_palette 97da3d ff2ea6 42eab8 6dbe6d 9d5234 dd6185 86fff8 ddbcd7 b89b7 a04500 5ec7ff adc242 487f ff6dfa f7000 62ea3e 65e696 347f00 40165a d09322 f6bcc5 f085ff c2b2b8 78d269 b80011 bf41b6 3a00a5 68aaa3 787925 d40245 3a8347 60bbd0 ba0062 7b70e8 a4ceff 4e8c56 7513 a28300 ff4fa7 b11f6a 511d74 6c3b7a ff86ff 76944 219973 195794 a83d8b 902936 52b68b c6d96e 3764f7 bc2987 b60000 a4c584 303e04 8457a6 d5f82b c78e25 ff446e 70f8e5 b36c d24a5e 9c76d4 a4528c 69b6 3bfff6 ff39e7 c35e7c 764ccc 86ffff 399a9c b9f5f2 8ed8c0 a7666b 7c30ff 736f01 d8e9ff d3ede2 504872 436ad4 f042fb b6744e 4e0620 9440ba 2ebe65 9c39ac 54f1a0 18bb 349063 4b000 3ba2ed fff390 5a9ed1 ffbde2 290039 583771 3440ff db00dd 6c9900 9a6ad5 8a00 81ee57 ee931f a26800 c8ff38 251bc2 f5cf6d 50f6c b85d10 21d8e 9b9819 62696e 96b1d1 7b4322 ed6ab3 5e040e b9758e ff8a3a 2e5f3c ae9070 43 57abed b954a ffc348 36d4ad 48d0ba c88e88 5730ba 1111c3 cdc1cb a866e2 c2c300 d2d5ff 4a7bf3 5e95 9f60a5 c2ba7e 46144c 6f233c ab0000 aef312 98ff45 84d1df 1a6c00 4e886b 779332 bf78ff 6901dd d000 e914d5 f2c0ab 309200 f49e9 ed2c62 7748f3 82ff40 bd08a0 65be6a 35cc43 c18f41 e2346b 4ebb3c ff34b2 d28671 e86cb3 a59800 a682ce 131127 5daab6 16a40e 947c1a 77ffa1 0 af2513 195339 211dc8 ca82e9 683aff f58df9 700 41425a 8e94c7 ff24e8 3daca9 1d8200 b30e7a 552c72 7cb4f6 ff7d24 29ff7c b9000b e5005f a46ba9 903ad9 b096c0 3daae6 93767c ce4cff 5938f0 24427a ff98b1 974e6c 75bec3 85c7d7 3c5200 d0ffd0 5da95d cbb75f 37f74f 46bcdf c5eebc 300e00 e87ef1 41471f d865f1 3a6e7b 1378d4 2aaa29 a4f2ff 4948ea 97ac56 ff8268 de507b c2fa5c 7e3c40 e26678 c2b23 32cd00 935ca6 85b500 5839 377959 93782c be84a7 ffff5e b70dc4 5d5d8f 87438 9ab4 c06b3 b1ff36 7bc242 b1697a c189ff be6c05 1c7944 4a2f8c 697240 a5979d 62e888 5effc2 80afff 104b c5cbb0 358d ffffff ;
 target 7,920936794535942 -0,3403604155096767 1,562055447937587;
 view_distance_max 302,5066215876696;
 volumetric_fog_density 0;
 [fractal_1]
+IFS_rotation_enabled true;
 mandelbox_color 0 0 0;
 mandelbox_color_R 0,1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_scale 1,05;
 [fractal_2]
+IFS_rotation_enabled true;
 mandelbox_color 0 0 0;
 mandelbox_color_R 0,1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_scale 1,2;
 [fractal_3]
+IFS_rotation_enabled true;
 mandelbox_color 0 0 0;
 mandelbox_color_R 0,1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_scale 1,2;
 [fractal_4]
+IFS_rotation_enabled true;
 mandelbox_color 0 0 0;
 mandelbox_color_R 0,1;
 mandelbox_folding_min_radius 0;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 mandelbox_scale 1,2;

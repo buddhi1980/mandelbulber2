@@ -745,7 +745,17 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 	double end_dist = input.delta / params->resolution;
 	double intense;
 
-	for (int i = 0; i < AOVectorsCount; i++)
+	int start = 0;
+	int end = AOVectorsCount - 1;
+
+	if (params->DOFEnabled && params->DOFMonteCarlo)
+	{
+		int randomSample = Random(AOVectorsCount - 1);
+		start = randomSample;
+		end = randomSample;
+	}
+
+	for (int i = start; i <= end; i++)
 	{
 		sVectorsAround v = AOVectorsAround[i];
 
@@ -796,9 +806,19 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 		AO.G += intense * v.G;
 		AO.B += intense * v.B;
 	}
-	AO.R /= AOVectorsCount * 65536.0;
-	AO.G /= AOVectorsCount * 65536.0;
-	AO.B /= AOVectorsCount * 65536.0;
+
+	if (params->DOFEnabled && params->DOFMonteCarlo)
+	{
+		AO.R /= 65536.0;
+		AO.G /= 65536.0;
+		AO.B /= 65536.0;
+	}
+	else
+	{
+		AO.R /= AOVectorsCount * 65536.0;
+		AO.G /= AOVectorsCount * 65536.0;
+		AO.B /= AOVectorsCount * 65536.0;
+	}
 
 	return AO;
 }
