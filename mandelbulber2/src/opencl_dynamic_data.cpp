@@ -68,6 +68,7 @@ int cOpenClDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByte
 		char *dummyData = new char[missingBytes];
 		memset(dummyData, 0, missingBytes);
 		array->append(dummyData, missingBytes);
+		delete[] dummyData;
 		return missingBytes;
 	}
 	else
