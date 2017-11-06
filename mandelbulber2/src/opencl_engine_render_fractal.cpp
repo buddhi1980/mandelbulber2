@@ -35,6 +35,8 @@
 
 #include "opencl_engine_render_fractal.h"
 
+#include <functional>
+
 #include <QtAlgorithms>
 
 #include "camera_target.hpp"
@@ -833,9 +835,9 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	{
 		tiles.append(QPoint(i % gridWidth, i / gridWidth));
 	}
-	using namespace std::placeholders;
 	qSort(tiles.begin(), tiles.end(),
-		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, _1, _2, gridWidth, gridHeight));
+		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
+					std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 
