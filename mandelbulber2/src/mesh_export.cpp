@@ -141,10 +141,23 @@ void cMeshExport::ProcessVolume()
 
 	params->N = maxIter;
 
-	double stepX = (limitMax.x - limitMin.x) * (1.0 / w);
-	double stepY = (limitMax.y - limitMin.y) * (1.0 / h);
-	double stepZ = (limitMax.z - limitMin.z) * (1.0 / l);
-	double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
+	double sizeX = (limitMax.x - limitMin.x);
+	double sizeY = (limitMax.y - limitMin.y);
+	double sizeZ = (limitMax.z - limitMin.z);
+	double maxSize = dMax(sizeX, sizeY, sizeZ);
+	double step = maxSize / w;
+
+	double dist_thresh = 0.5 * step / params->detailLevel;
+	w = sizeX / step;
+	h = sizeY / step;
+	l = sizeZ / step;
+	limitMax.x = limitMin.x + w * step;
+	limitMax.y = limitMin.y + h * step;
+	limitMax.z = limitMin.z + l * step;
+
+	w++;
+	h++;
+	l++;
 
 	progressText.ResetTimer();
 

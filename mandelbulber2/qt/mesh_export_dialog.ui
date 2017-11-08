@@ -42,9 +42,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-63</y>
-        <width>637</width>
-        <height>735</height>
+        <y>0</y>
+        <width>535</width>
+        <height>527</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -247,14 +247,14 @@
            <number>2</number>
           </property>
           <item>
-           <layout class="QGridLayout" name="gridLayout_3">
+           <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0" columnminimumwidth="0,0">
             <property name="spacing">
              <number>2</number>
             </property>
             <item row="0" column="0">
              <widget class="QLabel" name="label_6">
               <property name="text">
-               <string>Samples X</string>
+               <string>Resolution</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -271,46 +271,6 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_7">
-              <property name="text">
-               <string>Samples Y</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="3">
-             <widget class="MySpinBox" name="spinboxInt_voxel_samples_y">
-              <property name="minimum">
-               <number>2</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="4">
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>Samples Z</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="5">
-             <widget class="MySpinBox" name="spinboxInt_voxel_samples_z">
-              <property name="minimum">
-               <number>2</number>
-              </property>
-              <property name="maximum">
-               <number>65535</number>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
          </layout>
@@ -319,7 +279,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_voxel_custom_limit_enabled">
          <property name="title">
-          <string>Custom Limits (leave untoggled to use global limits)</string>
+          <string>Custom &amp;Limits (leave untoggled to use global limits)</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -628,8 +588,6 @@
   <tabstop>sliderInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_samples_x</tabstop>
-  <tabstop>spinboxInt_voxel_samples_y</tabstop>
-  <tabstop>spinboxInt_voxel_samples_z</tabstop>
   <tabstop>vect3_voxel_limit_min_x</tabstop>
   <tabstop>vect3_voxel_limit_min_y</tabstop>
   <tabstop>vect3_voxel_limit_min_z</tabstop>
