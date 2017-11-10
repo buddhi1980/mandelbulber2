@@ -1,5 +1,78 @@
 Version history
 
+v2.12
+updated up to Aug 22, 2017
+
+- OpenCL: Added listing of available OpenCL platforms and devices
+- OpenCL: Added querying of OpenCL platforms and devices properties
+- OpenCL: Added selection of OpenCL platform and device in Preferences dialog
+
+- OpenCL: Added populateOpenCL.php to autogenerate opencl header files
+- OpenCL: PopulateUiInformation.php autogenerate OpenCL fractal formula code based on C++ code
+- OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stoped in formula/opencl folder
+- OpenCL: Added loading of actually used fractal formulas
+- OpenCL: Applied hybrid sequence to ComputeFractal()
+- OpenCL: Added distance estimation functions (analityc, linear, pseudoKleinian)
+- OpenCL: Added deltaDE distance estimation algorithm
+- OpenCL: Added macros to call all fractal formulas in iteration loop according to hybrid sequence
+- OpenCL: Added Julia mode
+- OpenCL: Implemented detailLevel, iterThreshMode, interiorMode, smoothness
+- OpenCL: Added rendering engines:
+  * fast - very simple and fast shader. No effects.
+  * limited - most of effects, except reflections and refractions
+  * full - with branched ray marching - all effects
+- OpenCL: Implemented usage of material #1
+- OpenCL: Added shader for angle of incidence of lights 
+- OpenCL: Added soft shadows for main light source
+- OpenCL: Added specular reflections
+- OpenCL: Added all coloring functions
+- OpenCL: Added background shader (excluding textured background)
+- OpenCL: Added "Fast Ambient Occlusion" shader
+- OpenCL: Added ambient occlusion with "multiple rays with light map"
+- OpenCL: Added "slow" calculation of normal vectors
+- OpenCL: Added Screen Space Ambient Occulsion (SSAO)
+- OpenCL: Added shaders for auxiliary light sources and random lights
+- OpenCL: Added "glow" effect
+- OpenCL: Added "visible lights" effect
+- OpenCL: Added "volumetric lights" effect
+- OpenCL: Added "iteration fog" effectColours
+- OpenCL: Added all prespective typed to opencl code (three point, equirectangular, fish-eye, fulldome)
+
+- OpenCL: Kernels are recompiled only when dynamic code is changed
+- OpenCL: Added handing of most of OpenCL errors
+- OpenCL: Added low limit for distance threshold (1.0e-6) to avoid significant numeric errors
+- OpenCL: Added mutex mechanism to protect against concurent rendering using OpenCL by many rendering threads (image, previews, thumbnails)
+- Added new fractal formulas:
+  * Jos-Kleinian
+  ========= mclarekin, please add here more info about new formulas
+- Updated fractal formulas:  
+  * 
+  ========= mclarekin, please add here more info about formula updates
+  
+- Fractals: All fractal formuals converted to use all of 4 dimmenstions with keeping backward compatibility
+- Fractals: Standardized interface for all fractal formula functions
+- Fractals: Used function pointers to call functions for fractal formulas. This reduced complexity of ComputeFractal(). Assigment of fractal functions is made in fractal_lisp.cpp
+- Shaders: Corrected calculation of shaders when "minimum view distance" is reached.
+- Shaders: Added soft shadows for auxiliary lights
+- Shaders: Added parameter to define color of "fake light sources" (lights based on orbit traps)
+- Shaders: Corrected algorithm for orbit trap lights (surface shader)
+- Shaders: RayRecursion algorithm partially converted from recursive to iterative - compatible with OpenCL
+- Animation: updated code to use OpenCL rendering
+- UI: Added auto-refresh period parameter in preferences dialog
+- UI: png, tiff and exr save with progress bar on each channel
+- UI: fix png16 and png16alpha save with double .png extension
+- Queue: Fixed problem with ingnored settings of maximum number of threads and thread priority when queue was rendered
+- Gamepad: corrected gamepad selection when many devices are connected
+- NetRender: display server name in client on connection
+- CLI: Added example output path to benchmark. Now the benchmark can optionally put the renders of the example renders into a folder, when this folder has been specified with the -o/--output cli option.
+- Compilation: UI files for fractal formulas moved to formula folder
+- Compilation: *.pro files moved to qmake folder
+- Compilation: Added mandelbulber-opencl.pro file
+- Compilation: MSVC solution updated for OpenCL
+- Compilation: Implemented CLEW for mingw builds
+- Compilation: added SHARED_DIR_IS_APP_DIR for AppImage. Allows shared data at the same location as the apllication, when defined at compile time, this can be used for AppImage packaging
+- Documentation: Added chapter about OpenCL
+
 v2.11-1 (May 2017)
 - Queue: fixed bug: program crashed when mouse cursor was over preview widget in queue dock
 
