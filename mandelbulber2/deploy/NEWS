@@ -32,7 +32,7 @@ v2.12 (November 2017)
 - OpenCL: Added "glow" effect
 - OpenCL: Added "visible lights" effect
 - OpenCL: Added "volumetric lights" effect
-- OpenCL: Added "iteration fog" effect colors
+- OpenCL: Added "iteration fog" effect
 - OpenCL: Added all perspective types to opencl code (three point, equirectangular, fish-eye, fulldome)
 - OpenCL: Added Monte Carlo DOF effect with statistical noise control
 - OpenCL: Added custom DE step multiplier for volumetric effects
