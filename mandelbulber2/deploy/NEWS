@@ -8,7 +8,7 @@ v2.12
 - OpenCL: Added populateOpenCL.php to autogenerate opencl header files
 - OpenCL: PopulateUiInformation.php autogenerate OpenCL fractal formula code based on C++ code
 - OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stored in formula/opencl folder
-- OpenCL: Added loading of actually used fractal formulas
+- OpenCL: Fractal formulas chosen are loaded as separate files
 - OpenCL: Applied hybrid sequence to ComputeFractal()
 - OpenCL: Added distance estimation functions (logarithmic, linear, pseudoKleinian)
 - OpenCL: Added deltaDE distance estimation algorithm
