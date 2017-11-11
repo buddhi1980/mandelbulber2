@@ -7,10 +7,10 @@ v2.12
 
 - OpenCL: Added populateOpenCL.php to autogenerate opencl header files
 - OpenCL: PopulateUiInformation.php autogenerate OpenCL fractal formula code based on C++ code
-- OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stoped in formula/opencl folder
+- OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stored in formula/opencl folder
 - OpenCL: Added loading of actually used fractal formulas
 - OpenCL: Applied hybrid sequence to ComputeFractal()
-- OpenCL: Added distance estimation functions (analytic, linear, pseudoKleinian)
+- OpenCL: Added distance estimation functions (logarithmic, linear, pseudoKleinian)
 - OpenCL: Added deltaDE distance estimation algorithm
 - OpenCL: Added macros to call all fractal formulas in iteration loop according to hybrid sequence
 - OpenCL: Added Julia mode
@@ -34,7 +34,7 @@ v2.12
 - OpenCL: Added "visible lights" effect
 - OpenCL: Added "volumetric lights" effect
 - OpenCL: Added "iteration fog" effectColours
-- OpenCL: Added all perspective typed to opencl code (three point, equirectangular, fish-eye, fulldome)
+- OpenCL: Added all perspective types to opencl code (three point, equirectangular, fish-eye, fulldome)
 - OpenCL: Added Monte Carlo DOF effect with statistical noise control
 - OpenCL: Added custom DE step multiplier for volumetric effects
 - OpenCL: Added DOF post effect based on Z-Buffer
@@ -43,12 +43,12 @@ v2.12
 - OpenCL: Added Box and Spherical folding to OpenCL code (compatibility with Mandelbulber 1.21)
 - OpenCL: Rendered tile selection based on center distance ascending. Now the gpu tiles to render will be ordered by the distance to the center, which makes the rendering reveal the image from the inside out as smoothly as possible
 - OpenCL: Kernels are recompiled only when dynamic code is changed
-- OpenCL: Added handing of most of OpenCL errors
+- OpenCL: Added handling of most of OpenCL errors
 - OpenCL: Added low limit for distance threshold (1.0e-6) to avoid significant numeric errors
 - OpenCL: Added mutex mechanism to protect against concurent rendering using OpenCL by many rendering threads (image, previews, thumbnails)
 - OpenCL: Added marker for current pending tile
 - OpenCL: CLI mode prepared for rendering with OpenCL
-- OpenCL: designed way to load OpenCL header files on different OpenCL platforms (nVidia, AMD, Intel...)
+- OpenCL: designed a way to load OpenCL header files on different OpenCL platforms (nVidia, AMD, Intel...)
 - OpenCL: Added checking of GPU memory resources and compare with mem limit setting in preferences dialog. If there is not enough memory, effects are rendered using CPU.
 - OpenCL: Added BAT script to disable TDR in graphics driver (timeout protection)
 
@@ -61,7 +61,7 @@ v2.12
   
 - Fractals: All fractal formulas converted to use all of 4 dimensions with keeping backward compatibility
 - Fractals: Standardized interface for all fractal formula functions
-- Fractals: Used function pointers to call functions for fractal formulas. This reduced complexity of ComputeFractal(). Assignment of fractal functions is made in fractal_lisp.cpp
+- Fractals: Used function pointers to call functions for fractal formulas. This reduced the complexity of ComputeFractal(). Assignment of fractal functions are made in fractal_lisp.cpp
 - Shaders: Corrected calculation of shaders when "minimum view distance" is reached.
 - Shaders: Added soft shadows for auxiliary lights
 - Shaders: Added parameter to define color of "fake light sources" (lights based on orbit traps)
@@ -71,7 +71,7 @@ v2.12
 - Shaders: Added "DOF_max_radius" parameter to limit maximum blur radius.
 - Animation: updated code to use OpenCL rendering
 - Animation: increased animation frame range. The old limit was 99999, which is less than an hour of 30 fps frames. The new limit is 9999999, which is just more than 24 hours of an 100 fps video.
-- Animation: fix images deletion of keyframes / flight
+- Animation: fixed images deletion of keyframes / flight
 - AnimBySound: sound files can be loaded directly from Internet (if specified path starts from http://)
 - UI: Added auto-refresh period parameter in preferences dialog
 - UI: png, tiff and exr save with progress bar on each channel
@@ -79,16 +79,16 @@ v2.12
 - UI: formula ui changed most of iteration max from 250 to 999
 - UI: standardized color picker for all OS
 - UI: Fixed bug: pasting Julia values crashed mandelbulber
-- UI: Changed sequence of startup. Now toolbar icons are refreshed after all initializations of then program.
+- UI: Changed sequence of startup. Now toolbar icons are refreshed after all initializations of the program.
 - UI: Added new color themes for main window
 - Queue: Fixed problem with ignored settings of maximum number of threads and thread priority when queue was rendered
 - Gamepad: corrected gamepad selection when many devices are connected
 - NetRender: display server name in client on connection
 - Voxel export: corrected limits (bounding box) for Mesh Export (there was swapped x and y)
-- Voxel export: Corrected Mesh Export. Voxel size in each axis have to unified to calculate correct faces and normal vectors. Now there is only "resolution" parameter which specifies resolution in the longest axis (depends on limits)
+- Voxel export: Corrected Mesh Export. Voxel size in each axis has to be unified to calculate correct faces and normal vectors. Now there is only "resolution" parameter which specifies resolution in the longest axis (depends on limits)
 - CLI: Added example output path to benchmark. Now the benchmark can optionally put the renders of the example renders into a folder, when this folder has been specified with the -o/--output cli option.
 - CLI: Added options for OpenCL configuration
-- Settings: enumerative fields are save as a names
+- Settings: enumerative fields are saved as names
 - Compilation: UI files for fractal formulas moved to formula folder
 - Compilation: *.pro files moved to qmake folder
 - Compilation: Added mandelbulber-opencl.pro file
