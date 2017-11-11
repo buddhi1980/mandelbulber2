@@ -1,8 +1,6 @@
 Version history
 
 v2.12
-updated up to Aug 22, 2017
-
 - OpenCL: Added listing of available OpenCL platforms and devices
 - OpenCL: Added querying of OpenCL platforms and devices properties
 - OpenCL: Added selection of OpenCL platform and device in Preferences dialog
@@ -12,7 +10,7 @@ updated up to Aug 22, 2017
 - OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stoped in formula/opencl folder
 - OpenCL: Added loading of actually used fractal formulas
 - OpenCL: Applied hybrid sequence to ComputeFractal()
-- OpenCL: Added distance estimation functions (analityc, linear, pseudoKleinian)
+- OpenCL: Added distance estimation functions (analytic, linear, pseudoKleinian)
 - OpenCL: Added deltaDE distance estimation algorithm
 - OpenCL: Added macros to call all fractal formulas in iteration loop according to hybrid sequence
 - OpenCL: Added Julia mode
@@ -36,7 +34,7 @@ updated up to Aug 22, 2017
 - OpenCL: Added "visible lights" effect
 - OpenCL: Added "volumetric lights" effect
 - OpenCL: Added "iteration fog" effectColours
-- OpenCL: Added all prespective typed to opencl code (three point, equirectangular, fish-eye, fulldome)
+- OpenCL: Added all perspective typed to opencl code (three point, equirectangular, fish-eye, fulldome)
 - OpenCL: Added Monte Carlo DOF effect with statistical noise control
 - OpenCL: Added custom DE step multiplier for volumetric effects
 - OpenCL: Added DOF post effect based on Z-Buffer
@@ -61,9 +59,9 @@ updated up to Aug 22, 2017
   * 
   ========= mclarekin, please add here more info about formula updates
   
-- Fractals: All fractal formuals converted to use all of 4 dimmenstions with keeping backward compatibility
+- Fractals: All fractal formulas converted to use all of 4 dimensions with keeping backward compatibility
 - Fractals: Standardized interface for all fractal formula functions
-- Fractals: Used function pointers to call functions for fractal formulas. This reduced complexity of ComputeFractal(). Assigment of fractal functions is made in fractal_lisp.cpp
+- Fractals: Used function pointers to call functions for fractal formulas. This reduced complexity of ComputeFractal(). Assignment of fractal functions is made in fractal_lisp.cpp
 - Shaders: Corrected calculation of shaders when "minimum view distance" is reached.
 - Shaders: Added soft shadows for auxiliary lights
 - Shaders: Added parameter to define color of "fake light sources" (lights based on orbit traps)
@@ -80,10 +78,10 @@ updated up to Aug 22, 2017
 - UI: fix png16 and png16alpha save with double .png extension
 - UI: formula ui changed most of iteration max from 250 to 999
 - UI: standardized color picker for all OS
-- UI: Fixed bug: pasting julia values crashed mandelbulber
-- UI: Changed sequence of staryup. Now toolbar icons are refreshed after all initializations of then program.
+- UI: Fixed bug: pasting Julia values crashed mandelbulber
+- UI: Changed sequence of startup. Now toolbar icons are refreshed after all initializations of then program.
 - UI: Added new color themes for main window
-- Queue: Fixed problem with ingnored settings of maximum number of threads and thread priority when queue was rendered
+- Queue: Fixed problem with ignored settings of maximum number of threads and thread priority when queue was rendered
 - Gamepad: corrected gamepad selection when many devices are connected
 - NetRender: display server name in client on connection
 - Voxel export: corrected limits (bounding box) for Mesh Export (there was swapped x and y)
@@ -99,7 +97,7 @@ updated up to Aug 22, 2017
 - Compilation: MSVC build is now default for Windows version
 - Compilation: new windows installer (Install Jammer was no longer supported)
 - Compilation: Implemented CLEW for mingw builds
-- Compilation: added SHARED_DIR_IS_APP_DIR for AppImage. Allows shared data at the same location as the apllication, when defined at compile time, this can be used for AppImage packaging
+- Compilation: added SHARED_DIR_IS_APP_DIR for AppImage. Allows shared data at the same location as the application, when defined at compile time, this can be used for AppImage packaging
 - Compilation: updated prepare_for_*.sh scripts
 - Compilation: documentation files moved to /usr/share/doc/mandelbulber
 - Performance: fixed many issues showed by CoverityScan
