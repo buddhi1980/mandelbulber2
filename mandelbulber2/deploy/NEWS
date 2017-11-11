@@ -68,13 +68,13 @@ v2.12
   * transfSphericalFoldXYZBias
 
 - Updated fractal formulas
-    a record of updates and changes to formulas can be seen in fractal_list.cpp
+    a record of updates and changes to formulas can be seen in fractal_list.hpp
     a brief summary :
   * with some formulas the vary_scale function has been added, modified or changed,
   * aboxMod2 had major corrections,
   * aux.color has been implemented in more transforms
 
-- Fractals: All fractal formulas converted to be used with 4D fractals. Backward compatibility has been maintained
+- Fractals: All fractal formulas converted to 4 dimensional vectors. Backward compatibility has been maintained
 - Fractals: Standardized interface for all fractal formula functions
 - Fractals: Used function pointers to call functions for fractal formulas. This reduced the complexity of ComputeFractal(). Assignment of fractal functions are made in fractal_lisp.cpp
 - Shaders: Corrected calculation of shaders when "minimum view distance" is reached.
