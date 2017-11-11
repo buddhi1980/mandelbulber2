@@ -1,12 +1,11 @@
 Version history
 
-v2.12
+v2.12 (November 2017)
 - OpenCL: Added listing of available OpenCL platforms and devices
 - OpenCL: Added querying of OpenCL platforms and devices properties
 - OpenCL: Added selection of OpenCL platform and device in Preferences dialog
-
-- OpenCL: Added populateOpenCL.php to autogenerate opencl header files
-- OpenCL: PopulateUiInformation.php autogenerate OpenCL fractal formula code based on C++ code
+- OpenCL: Added populateOpenCL.php to autogenerate some opencl header files
+- OpenCL: populateUiInformation.php autogenerate OpenCL fractal formula code based on C++ code
 - OpenCL: Converted all fractal formulas to OpenCL code. Formulas are stored in formula/opencl folder
 - OpenCL: Fractal formulas chosen are loaded as separate files
 - OpenCL: Applied hybrid sequence to ComputeFractal()
@@ -69,7 +68,7 @@ v2.12
 
 - Updated fractal formulas
     a record of updates and changes to formulas can be seen in fractal_list.hpp
-    a brief summary :
+    a brief summary:
   * with some formulas the vary_scale function has been added, modified or changed,
   * aboxMod2 had major corrections,
   * aux.color has been implemented in more transforms
@@ -94,7 +93,7 @@ v2.12
 - UI: formula ui changed most of iteration max from 250 to 999
 - UI: standardized color picker for all OS
 - UI: Fixed bug: pasting Julia values crashed mandelbulber
-- UI: Changed sequence of startup. Now toolbar icons are refreshed after all initializations of the program.
+- UI: Changed sequence of startup. Now toolbar icons are refreshed after all other initializations of the program.
 - UI: Added new color themes for main window
 - Queue: Fixed problem with ignored settings of maximum number of threads and thread priority when queue was rendered
 - Gamepad: corrected gamepad selection when many devices are connected
