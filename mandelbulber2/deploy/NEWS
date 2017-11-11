@@ -33,7 +33,7 @@ v2.12
 - OpenCL: Added "glow" effect
 - OpenCL: Added "visible lights" effect
 - OpenCL: Added "volumetric lights" effect
-- OpenCL: Added "iteration fog" effectColours
+- OpenCL: Added "iteration fog" effect colors
 - OpenCL: Added all perspective types to opencl code (three point, equirectangular, fish-eye, fulldome)
 - OpenCL: Added Monte Carlo DOF effect with statistical noise control
 - OpenCL: Added custom DE step multiplier for volumetric effects
@@ -41,7 +41,7 @@ v2.12
 - OpenCL: Added sweet spot rotation (e.g. needed for full dome)
 - OpenCL: Added processing of alpha channel
 - OpenCL: Added Box and Spherical folding to OpenCL code (compatibility with Mandelbulber 1.21)
-- OpenCL: Rendered tile selection based on center distance ascending. Now the gpu tiles to render will be ordered by the distance to the center, which makes the rendering reveal the image from the inside out as smoothly as possible
+- OpenCL: Rendered tile selection based on center distance ascending. This makes the rendering reveal the image from the center outwards as smoothly as possible
 - OpenCL: Kernels are recompiled only when dynamic code is changed
 - OpenCL: Added handling of most of OpenCL errors
 - OpenCL: Added low limit for distance threshold (1.0e-6) to avoid significant numeric errors
@@ -76,7 +76,7 @@ v2.12
 
 - Fractals: All fractal formulas converted to 4 dimensional vectors. Backward compatibility has been maintained
 - Fractals: Standardized interface for all fractal formula functions
-- Fractals: Used function pointers to call functions for fractal formulas. This reduced the complexity of ComputeFractal(). Assignment of fractal functions are made in fractal_lisp.cpp
+- Fractals: Used function pointers to call functions for fractal formulas. This reduced the complexity of ComputeFractal(). Assignment of fractal functions are made in fractal_list.cpp
 - Shaders: Corrected calculation of shaders when "minimum view distance" is reached.
 - Shaders: Added soft shadows for auxiliary lights
 - Shaders: Added parameter to define color of "fake light sources" (lights based on orbit traps)
