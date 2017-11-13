@@ -209,7 +209,9 @@ float3 MainShadow(
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
 										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
-	for (float i = start; i < factor; i += dist * DEFactor)
+	int count = 0;
+	float step = 0.0f;
+	for (float i = start; i < factor; i += step)
 	{
 		point2 = input->point + input->lightVect * i;
 
@@ -254,6 +256,12 @@ float3 MainShadow(
 			if (shadowTemp < 0.0f) shadowTemp = 0.0f;
 			break;
 		}
+
+		step = dist * DEFactor;
+		step = max(step, 1e-6f);
+
+		count++;
+		if (count > MAX_RAYMARCHING) break;
 	}
 	if (!bSoft)
 	{
@@ -394,7 +402,9 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
 										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
-	for (float i = input->delta; i < distance; i += dist * DE_factor)
+	int count = 0;
+	float step = 0.0f;
+	for (float i = input->delta; i < distance; i += step)
 	{
 		float3 point2 = input->point + lightVector * i;
 
@@ -445,6 +455,12 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 			}
 			break;
 		}
+
+		step = dist * DE_factor;
+		step = max(step, 1e-6f);
+
+		count++;
+		if (count > MAX_RAYMARCHING) break;
 	}
 
 	if (!bSoft)
