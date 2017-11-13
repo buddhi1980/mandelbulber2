@@ -702,7 +702,7 @@ Notiz: </translation>
         <translation>Globale C Konstante nicht hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1669"/>
+        <location filename="../src/interface.cpp" line="1673"/>
         <source>Can&apos;t open file </source>
         <translation>Kann Datei nicht öffnen </translation>
     </message>
@@ -726,13 +726,13 @@ Notiz: </translation>
         <translation type="vanished">Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1423"/>
+        <location filename="../src/interface.cpp" line="1427"/>
         <source>Fractal size calculation</source>
         <translation>Fraktalgröße berechnen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1447"/>
-        <location filename="../src/interface.cpp" line="1555"/>
+        <location filename="../src/interface.cpp" line="1451"/>
+        <location filename="../src/interface.cpp" line="1559"/>
         <source>Done</source>
         <translation>Fertig</translation>
     </message>
@@ -746,134 +746,134 @@ Notiz: </translation>
         <translation>Nicht genügend freier Arbeitsspeicher im OpenCL Gerät zum Rendern des SSAO Effekts!</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1422"/>
-        <location filename="../src/interface.cpp" line="1447"/>
+        <location filename="../src/interface.cpp" line="1426"/>
+        <location filename="../src/interface.cpp" line="1451"/>
         <source>Resetting view</source>
         <translation>Ansicht wird zurückgesetzt</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1487"/>
-        <location filename="../src/interface.cpp" line="1497"/>
-        <location filename="../src/interface.cpp" line="1507"/>
-        <location filename="../src/interface.cpp" line="1517"/>
-        <location filename="../src/interface.cpp" line="1527"/>
-        <location filename="../src/interface.cpp" line="1537"/>
-        <location filename="../src/interface.cpp" line="1555"/>
+        <location filename="../src/interface.cpp" line="1491"/>
+        <location filename="../src/interface.cpp" line="1501"/>
+        <location filename="../src/interface.cpp" line="1511"/>
+        <location filename="../src/interface.cpp" line="1521"/>
+        <location filename="../src/interface.cpp" line="1531"/>
+        <location filename="../src/interface.cpp" line="1541"/>
+        <location filename="../src/interface.cpp" line="1559"/>
         <source>bounding box as limit</source>
         <translation>Fraktalhülle als Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1487"/>
+        <location filename="../src/interface.cpp" line="1491"/>
         <source>Negative X Limit</source>
         <translation>Negative X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1497"/>
+        <location filename="../src/interface.cpp" line="1501"/>
         <source>Negative Y Limit</source>
         <translation>Negative Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1507"/>
+        <location filename="../src/interface.cpp" line="1511"/>
         <source>Negative Z Limit</source>
         <translation>Negative Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1517"/>
+        <location filename="../src/interface.cpp" line="1521"/>
         <source>Positive X Limit</source>
         <translation>Positive X Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1527"/>
+        <location filename="../src/interface.cpp" line="1531"/>
         <source>Positive Y Limit</source>
         <translation>Positive Y Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1537"/>
+        <location filename="../src/interface.cpp" line="1541"/>
         <source>Positive Z Limit</source>
         <translation>Positive Z Grenze</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1607"/>
+        <location filename="../src/interface.cpp" line="1611"/>
         <source>Set position of %1 # %2 by mouse pointer</source>
         <translation>Setze Position von %1 # %2 per Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1613"/>
+        <location filename="../src/interface.cpp" line="1617"/>
         <source>Delete </source>
         <translation>Lösche </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1670"/>
+        <location filename="../src/interface.cpp" line="1674"/>
         <source> Primitive object ui file can&apos;t be loaded</source>
         <translation>Primitive Objekte UI Dateien konnten nicht geladen werden</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1752"/>
+        <location filename="../src/interface.cpp" line="1756"/>
         <source>No action</source>
         <translation>Keine Aktion</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1756"/>
+        <location filename="../src/interface.cpp" line="1760"/>
         <source>Move the camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1760"/>
+        <location filename="../src/interface.cpp" line="1764"/>
         <source>Set fog visibility</source>
         <translation>Nebelsichtbarkeit setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1764"/>
+        <location filename="../src/interface.cpp" line="1768"/>
         <source>Set DOF focus</source>
         <translation>Tiefenschärfefokus setzen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1768"/>
+        <location filename="../src/interface.cpp" line="1772"/>
         <source>Get Julia constant</source>
         <translation>Julia Konstante holen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1773"/>
+        <location filename="../src/interface.cpp" line="1777"/>
         <source>Place light #1</source>
         <translation>Setze Licht #1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1778"/>
+        <location filename="../src/interface.cpp" line="1782"/>
         <source>Place light #2</source>
         <translation>Setze Licht #2</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1783"/>
+        <location filename="../src/interface.cpp" line="1787"/>
         <source>Place light #3</source>
         <translation>Setze Licht #3</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1788"/>
+        <location filename="../src/interface.cpp" line="1792"/>
         <source>Place light #4</source>
         <translation>Setze Licht #4</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1792"/>
+        <location filename="../src/interface.cpp" line="1796"/>
         <source>Place random light center</source>
         <translation>Setze Zufallslichter</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1796"/>
+        <location filename="../src/interface.cpp" line="1800"/>
         <source>Get point coordinates</source>
         <translation>Hole Punktkoordinaten</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1805"/>
+        <location filename="../src/interface.cpp" line="1809"/>
         <source>Place </source>
         <translation>Setze </translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1842"/>
+        <location filename="../src/interface.cpp" line="1846"/>
         <source>Yes, don&apos;t ask again</source>
         <translation>Ja, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1933"/>
+        <location filename="../src/interface.cpp" line="1937"/>
         <source>In Mandelbulber 2.10 the default data structure changed for linux and MacOS:
 Instead of keeping all working folders/files in ~/.mandelbulber these are now split into&lt;ul&gt;&lt;li&gt;&lt;b&gt;.mandelbulber&lt;/b&gt; for program internal folders/files:&lt;br&gt;undo, toolbar, queue, thumbnails, mandelbulber.ini, miscellaneous meta files&lt;/li&gt;&lt;li&gt;&lt;b&gt;mandelbulber&lt;/b&gt; for user defined folders/files:&lt;br&gt;settings, images, materials, slices, animation, textures&lt;/li&gt;&lt;/ul&gt;
 Do you want to upgrade now to this new structure? Program will restart after upgrade.</source>
@@ -882,28 +882,28 @@ Anstatt alle Arbeitsordner und -Dateien in ~/.mandelbulber zu halten, werden die
 Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet sich nach dem Upgrade neu.</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1943"/>
+        <location filename="../src/interface.cpp" line="1947"/>
         <source>Data folder upgrade</source>
         <translation>Datenstruktur Upgrade</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1948"/>
+        <location filename="../src/interface.cpp" line="1952"/>
         <source>No, don&apos;t ask again</source>
         <translation>Nein, nicht erneut fragen</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2036"/>
-        <location filename="../src/interface.cpp" line="2081"/>
+        <location filename="../src/interface.cpp" line="2040"/>
+        <location filename="../src/interface.cpp" line="2085"/>
         <source>Looking for optimal DE factor</source>
         <translation>Suche nach optimalem DE Faktor</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2082"/>
+        <location filename="../src/interface.cpp" line="2086"/>
         <source>Percentage of wrong distance estimations: %1</source>
         <translation>Prozentsatz falscher Distanzermittlungen: %1</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2092"/>
+        <location filename="../src/interface.cpp" line="2096"/>
         <source>Optimal DE factor is: %1 which gives %2% of bad distance estimations</source>
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
@@ -913,22 +913,22 @@ Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet si
         <translation>Toolbar Einstellungen:</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1835"/>
+        <location filename="../src/interface.cpp" line="1839"/>
         <source>Are you sure to close the application?</source>
         <translation>Anwendung beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1837"/>
+        <location filename="../src/interface.cpp" line="1841"/>
         <source>Quit?</source>
         <translation>Beenden?</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1898"/>
+        <location filename="../src/interface.cpp" line="1902"/>
         <source>Auto recovery</source>
         <translation>Auto Recovery</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="1899"/>
+        <location filename="../src/interface.cpp" line="1903"/>
         <source>Application has not been closed properly
 Do you want to recover your latest work?</source>
         <translation>Das Programm wurde beim letzten Mal nicht richtig geschlossen.
@@ -964,7 +964,7 @@ Den letzten Stand wiederherstellen?</translation>
         <translation>Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/interface.cpp" line="2091"/>
+        <location filename="../src/interface.cpp" line="2095"/>
         <location filename="../src/render_image.cpp" line="436"/>
         <location filename="../src/render_ssao.cpp" line="202"/>
         <source>Idle</source>
@@ -1033,7 +1033,7 @@ Fortsetzen?</translation>
         <location filename="../src/animation_flight.cpp" line="252"/>
         <location filename="../src/animation_flight.cpp" line="714"/>
         <location filename="../src/animation_keyframes.cpp" line="517"/>
-        <location filename="../src/interface.cpp" line="1984"/>
+        <location filename="../src/interface.cpp" line="1988"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
         <translation>Renderingengine ist beschäftigt.\nUnfertige Render Aufträge müssen angehalten werden, bevor neue gestartet werden können</translation>
     </message>
@@ -1269,12 +1269,12 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation>Ok, nicht erneut zeigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="523"/>
+        <location filename="../src/render_window_menu.cpp" line="527"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="314"/>
+        <location filename="../src/render_window_menu.cpp" line="318"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
@@ -1350,22 +1350,22 @@ Fortfahren?</translation>
 Jetzt löschen?</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="431"/>
+        <location filename="../src/command_line_interface.cpp" line="432"/>
         <source>Some useful example commands:</source>
         <translation>Einige hilfreiche Beispielbefehle:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="434"/>
+        <location filename="../src/command_line_interface.cpp" line="435"/>
         <source>Simple render</source>
         <translation>Einfaches Rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="437"/>
+        <location filename="../src/command_line_interface.cpp" line="438"/>
         <source>Renders the file on the cli (no window required).</source>
         <translation>Rendert die Datei in der Befehlszeile (Kein Fenster notwendig).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="439"/>
+        <location filename="../src/command_line_interface.cpp" line="440"/>
         <source>Animation render</source>
         <translation>Animation Rendern</translation>
     </message>
@@ -1374,7 +1374,7 @@ Jetzt löschen?</translation>
         <translation type="vanished">Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="448"/>
+        <location filename="../src/command_line_interface.cpp" line="449"/>
         <source>Network render</source>
         <translation>Netzwerk Rendern</translation>
     </message>
@@ -1389,7 +1389,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="463"/>
+        <location filename="../src/command_line_interface.cpp" line="464"/>
         <source>Voxel volume render</source>
         <translation>Voxelvolumen Rendern</translation>
     </message>
@@ -1400,7 +1400,7 @@ Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden hab
 Dies produziert 10 Scheiben (z) mit einer Auflösung von 10(x) mal 10(y) und speichert sie als schwarz-weiß Bilder in den slices Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="476"/>
+        <location filename="../src/command_line_interface.cpp" line="477"/>
         <source>Queue render</source>
         <translation>Queue Rendern</translation>
     </message>
@@ -1415,12 +1415,12 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="443"/>
+        <location filename="../src/command_line_interface.cpp" line="444"/>
         <source>Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.</source>
         <translation>Rendert die Keyframe Animation der Datei keyframe_fractal.fract innerhalb der Frames 200 bis 300.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="454"/>
+        <location filename="../src/command_line_interface.cpp" line="455"/>
         <source>In a network you can render on multiple machines. One is a server (2) and multiple clients (1) can connect to help rendering.
 On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.
 On the server run (2) with the settings required for the render and additionally &apos;--server&apos;.
@@ -1431,7 +1431,7 @@ Auf dem Server führe (2) aus mit den Einstellungen für das Rendering und zusä
 Der Server startet und wartet eine kurze Zeit bis sich die Clients verbunden haben. Dann startet der Verbund gemeinsam das Rendern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="470"/>
+        <location filename="../src/command_line_interface.cpp" line="471"/>
         <source>Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] with a resolution of 10x10x10.
 This will produce 10 slices (z) with a resolution of 10(x) times 10(y) and save as black and white images to working folder/slices.</source>
         <translation>Rendert das Voxel Volumen in dem Quader mit den Grenzen [x(-1 - 1); y(-1 - 1); z(-1 - 1)] mit einer Auflösung von 10x10x10.
@@ -1448,7 +1448,7 @@ Der Output wird in /tmp/queue.log geschrieben.
 (Dies funktioniert unter Umständen nur auf einem Unix System)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="480"/>
+        <location filename="../src/command_line_interface.cpp" line="481"/>
         <source>Runs the mandelbulber instance in queue mode and daemonizes it.
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
@@ -1473,7 +1473,7 @@ Ordner - Wenn das angegebene Argument ein Ordner ist, so werden alle .fract Date
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="494"/>
+        <location filename="../src/command_line_interface.cpp" line="495"/>
         <source>Mandelbulber also accepts an arbitrary number of input files
 These files can be of type:
   .fract File - An ordinary fractal file
@@ -1490,7 +1490,7 @@ Sie könne auch &quot;-&quot; angeben um zu signalisieren, dass der Dateiname, o
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="513"/>
+        <location filename="../src/command_line_interface.cpp" line="514"/>
         <source>Mandelbulber can utilize OpenCL to accelerate rendering.
 When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from commandline by default.
 The configuration can also be done directly from this commandline by setting the optional settings directly.
@@ -1501,27 +1501,27 @@ Die Konfiguration kann auch direkt auf dieser Kommandozeile erfolgen, indem die 
 Diese können durch die Standard --override Option gegeben werden, verfügbare OpenCL spezifische Optionen sind:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="531"/>
+        <location filename="../src/command_line_interface.cpp" line="532"/>
         <source>Mode of the render engine, &apos;fast&apos; has no effects, &apos;limited&apos; has basic effects, &apos;full&apos; contains all shaders.</source>
         <translation>Modus der Render-Engine, &apos;fast&apos; hat keine Effekte, &apos;limited&apos; hat grundlegende Effekte, &apos;full&apos; enthält alle Shader.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="548"/>
+        <location filename="../src/command_line_interface.cpp" line="549"/>
         <source>Available platforms are:</source>
         <translation>Verfügbare Platformen sind:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="560"/>
+        <location filename="../src/command_line_interface.cpp" line="561"/>
         <source>Available devices for the selected platform (%1) are:</source>
         <translation>Verfügbare Geräte für die ausgewählte Patform (%1) sind:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="575"/>
+        <location filename="../src/command_line_interface.cpp" line="576"/>
         <source>Example invocation:</source>
         <translation>Beispielaufruf:</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="605"/>
+        <location filename="../src/command_line_interface.cpp" line="606"/>
         <source>
 List of fractal parameters:
 </source>
@@ -1534,39 +1534,39 @@ Liste der Fraktalparameter:
         <translation type="vanished">Starte Benchmark mit der Schwierigkeit %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="520"/>
+        <location filename="../src/command_line_interface.cpp" line="521"/>
         <source>boolean to enable OpenCL</source>
         <translation>Parameter um OpenCL zu aktivieren</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="522"/>
+        <location filename="../src/command_line_interface.cpp" line="523"/>
         <source>platform index to use, see available platforms below</source>
         <translation>zu verwendender Plattform-Index, siehe verfügbare Plattformen unten</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="523"/>
+        <location filename="../src/command_line_interface.cpp" line="524"/>
         <source>Possible device types of the platform to use</source>
         <translation>Verfügbare Gerätetypen für die verwendete Plattform</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="525"/>
-        <location filename="../src/command_line_interface.cpp" line="535"/>
-        <location filename="../src/command_line_interface.cpp" line="542"/>
+        <location filename="../src/command_line_interface.cpp" line="526"/>
+        <location filename="../src/command_line_interface.cpp" line="536"/>
+        <location filename="../src/command_line_interface.cpp" line="543"/>
         <source>possible values: [%1]</source>
         <translation>Verfügbare Werte: [%1]</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="528"/>
+        <location filename="../src/command_line_interface.cpp" line="529"/>
         <source>right now only one device at a time is supported.</source>
         <translation>Derzeit wird nur ein Gerät gleichzeitig unterstützt.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="538"/>
+        <location filename="../src/command_line_interface.cpp" line="539"/>
         <source>Floating point precision of Render (single is faster, but less accurate)</source>
         <translation>Gleitkomma-Präzision für das Rendern (single ist schneller, aber weniger genau)</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="544"/>
+        <location filename="../src/command_line_interface.cpp" line="545"/>
         <source>Memory limit in MB</source>
         <translation>Speichergrenze in MB</translation>
     </message>
@@ -1581,113 +1581,113 @@ Liste der Fraktalparameter:
         <translation type="vanished">Starte Benchmark mit der Schwierigkeit [%1] und dem Beispielausgabepfad [%2]</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="676"/>
+        <location filename="../src/command_line_interface.cpp" line="677"/>
         <source>Example output path invalid
 </source>
         <translation>Der Ausgabepfad für die Beispiele ist nicht valide.
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="747"/>
+        <location filename="../src/command_line_interface.cpp" line="748"/>
         <source>Specified server port is invalid
 </source>
         <translation>Der angegebene Serverport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="760"/>
+        <location filename="../src/command_line_interface.cpp" line="761"/>
         <source>NetRender - Waiting for clients
 </source>
         <translation>NetRender - Warte auf Clients
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="780"/>
+        <location filename="../src/command_line_interface.cpp" line="781"/>
         <source>Specified client port is invalid
 </source>
         <translation>Der angegebene Clientport ist ungültig
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="804"/>
-        <location filename="../src/command_line_interface.cpp" line="868"/>
+        <location filename="../src/command_line_interface.cpp" line="805"/>
+        <location filename="../src/command_line_interface.cpp" line="869"/>
         <location filename="../src/main.cpp" line="188"/>
         <source>Cannot init queue: </source>
         <translation>Kann Queue nicht initialisieren: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="849"/>
+        <location filename="../src/command_line_interface.cpp" line="850"/>
         <source>Cannot load file!
 </source>
         <translation>Kann Datei nicht laden!
 </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="937"/>
+        <location filename="../src/command_line_interface.cpp" line="938"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
         <translation>Die angegebene Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="947"/>
+        <location filename="../src/command_line_interface.cpp" line="948"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
         <translation>Die angegebene Auflösung ist ungültig
 Dimensionen müssen in der Form BREITExHOEHE angegeben werden</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="960"/>
+        <location filename="../src/command_line_interface.cpp" line="961"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
         <translation>Die angegebenen Auflösung ist ungültig
 beide Dimensionen müssen&gt; 0 sein</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="973"/>
+        <location filename="../src/command_line_interface.cpp" line="974"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
         <translation>Das angegebene Bilddateiformat ist ungültig
 Erlaubte Formate sind: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="992"/>
+        <location filename="../src/command_line_interface.cpp" line="993"/>
         <source>There are no flight animation frames in specified settings file</source>
         <translation>Es sind keine Fluganimationsframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1003"/>
+        <location filename="../src/command_line_interface.cpp" line="1004"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
         <translation>Sie können die Keyframe-Animation nicht gleichzeitig mit der Flug-Animation rendern</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1016"/>
+        <location filename="../src/command_line_interface.cpp" line="1017"/>
         <source>There are no keyframes in specified settings file</source>
         <translation>Es sind keine Keyframes in der angegebenen Einstellungsdatei</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1036"/>
-        <location filename="../src/command_line_interface.cpp" line="1054"/>
-        <location filename="../src/command_line_interface.cpp" line="1085"/>
-        <location filename="../src/command_line_interface.cpp" line="1114"/>
+        <location filename="../src/command_line_interface.cpp" line="1037"/>
+        <location filename="../src/command_line_interface.cpp" line="1055"/>
+        <location filename="../src/command_line_interface.cpp" line="1086"/>
+        <location filename="../src/command_line_interface.cpp" line="1115"/>
         <source>Animation has only %1 frames</source>
         <translation>Die Animation hat nur %1 Frames</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1076"/>
-        <location filename="../src/command_line_interface.cpp" line="1106"/>
+        <location filename="../src/command_line_interface.cpp" line="1077"/>
+        <location filename="../src/command_line_interface.cpp" line="1107"/>
         <source>End frame has to be greater than start frame which is %1</source>
         <translation>Der Endframe muss größer als der Startframe sein, Startframe ist %1</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="1128"/>
+        <location filename="../src/command_line_interface.cpp" line="1129"/>
         <source>Specified voxel format is not valid
 allowed formats are: </source>
         <translation>Das angegebene Voxelformat ist ungültig
 Erlaubte Formate sind: </translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="360"/>
+        <location filename="../src/command_line_interface.cpp" line="361"/>
         <source>You have to specify a settings file, for this configuration!</source>
         <translation>Du musst eine Einstellungsdatei für diese Konfiguration angeben!</translation>
     </message>
@@ -1742,7 +1742,7 @@ Erlaubte Formate sind: </translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="115"/>
-        <location filename="../src/command_line_interface.cpp" line="1140"/>
+        <location filename="../src/command_line_interface.cpp" line="1141"/>
         <source>Cannot start voxel export. Specified folder (%1) does not exist.</source>
         <translation>Voxel Export kann nicht gestartet werden. Der angegebene Ordner (%1) existiert nicht.</translation>
     </message>
@@ -1794,9 +1794,9 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="190"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="208"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="226"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="493"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="507"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="523"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="495"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="509"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="525"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="173"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="190"/>
         <location filename="../src/opencl_hardware.cpp" line="180"/>
@@ -1819,39 +1819,39 @@ Erlaubte Formate sind: </translation>
         <translation>Befehlsqueue</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="493"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="495"/>
         <source>buffer for constants</source>
         <translation>Buffer für Konstanten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="507"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="509"/>
         <source>buffer for variable data</source>
         <translation>Buffer für variable Daten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="926"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="928"/>
         <source>Cannot set OpenCL argument for %0</source>
         <translation>Argument %0 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="944"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="946"/>
         <source>Cannot set OpenCL argument for %2</source>
         <translation>Argument %2 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="953"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="955"/>
         <source>Cannot set OpenCL argument for %3</source>
         <translation>Argument %3 für OpenCL kann nicht gesetzt werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="953"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="955"/>
         <source>random seed</source>
         <translation>Zufallsstartwert</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="188"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="190"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="523"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="525"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="173"/>
         <source>output buffer</source>
         <translation>Ausgabebuffer</translation>
@@ -1865,7 +1865,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="231"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="234"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="531"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="533"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="198"/>
         <source>OpenCL context is not ready</source>
         <translation>OpenCL Kontext ist nicht bereit</translation>
@@ -1879,7 +1879,7 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="256"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="265"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="274"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="935"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="937"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="211"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="220"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="229"/>
@@ -1895,7 +1895,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="262"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="265"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="926"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="928"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="220"/>
         <source>output data</source>
         <translation>Ausgabedaten</translation>
@@ -1917,12 +1917,12 @@ Erlaubte Formate sind: </translation>
         <translation>Eingabe Bild-Buffer</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="935"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="937"/>
         <source>input data</source>
         <translation>Eingabedaten</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="944"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="946"/>
         <source>constant data</source>
         <translation>Konstante Daten</translation>
     </message>
@@ -1936,15 +1936,15 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="290"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="310"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="330"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="968"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="987"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="970"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="989"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="245"/>
         <source>Cannot enqueue writing OpenCL %1</source>
         <translation>OpenCL %1 kann nicht an die Queue angehanden werden.</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="968"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="977"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="970"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="979"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="245"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="254"/>
         <source>input buffers</source>
@@ -1956,22 +1956,22 @@ Erlaubte Formate sind: </translation>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="299"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="319"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="339"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="977"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="996"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="979"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="998"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="254"/>
         <source>Cannot finish writing OpenCL %1</source>
         <translation>OpenCL %1 kann nicht zu Ende geschrieben werden</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="987"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="996"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="989"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="998"/>
         <source>constant buffers</source>
         <translation>Konstanter Buffer</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="338"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="373"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1036"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1038"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="288"/>
         <source>Cannot enqueue OpenCL rendering jobs</source>
         <translation>OpenCL Render Job kann nicht in der Queue gestartet werden</translation>
@@ -1979,7 +1979,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="352"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="395"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1050"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1052"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="310"/>
         <source>Cannot enqueue reading OpenCL output buffers</source>
         <translation>OpenCL Ausgabebuffer können nicht ausgelesen werden</translation>
@@ -1987,7 +1987,7 @@ Erlaubte Formate sind: </translation>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="360"/>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="403"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="1058"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="1060"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="318"/>
         <source>Cannot finish reading OpenCL output buffers</source>
         <translation>Auslesen der OpenCL Ausgabebuffer kann nicht abgeschlossen werden</translation>
@@ -5574,12 +5574,12 @@ und Wasser):</translation>
         <location filename="../src/render_window_menu.cpp" line="61"/>
         <location filename="../src/render_window_menu.cpp" line="232"/>
         <location filename="../src/render_window_menu.cpp" line="255"/>
-        <location filename="../src/render_window_menu.cpp" line="491"/>
+        <location filename="../src/render_window_menu.cpp" line="495"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="497"/>
+        <location filename="../src/render_window_menu.cpp" line="501"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
@@ -5589,46 +5589,46 @@ und Wasser):</translation>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="370"/>
+        <location filename="../src/render_window_menu.cpp" line="374"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="402"/>
-        <location filename="../src/render_window_menu.cpp" line="424"/>
-        <location filename="../src/render_window_menu.cpp" line="457"/>
+        <location filename="../src/render_window_menu.cpp" line="406"/>
+        <location filename="../src/render_window_menu.cpp" line="428"/>
+        <location filename="../src/render_window_menu.cpp" line="461"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="431"/>
-        <location filename="../src/render_window_menu.cpp" line="442"/>
-        <location filename="../src/render_window_menu.cpp" line="464"/>
-        <location filename="../src/render_window_menu.cpp" line="475"/>
+        <location filename="../src/render_window_menu.cpp" line="435"/>
+        <location filename="../src/render_window_menu.cpp" line="446"/>
+        <location filename="../src/render_window_menu.cpp" line="468"/>
+        <location filename="../src/render_window_menu.cpp" line="479"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="432"/>
-        <location filename="../src/render_window_menu.cpp" line="465"/>
+        <location filename="../src/render_window_menu.cpp" line="436"/>
+        <location filename="../src/render_window_menu.cpp" line="469"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="443"/>
-        <location filename="../src/render_window_menu.cpp" line="476"/>
+        <location filename="../src/render_window_menu.cpp" line="447"/>
+        <location filename="../src/render_window_menu.cpp" line="480"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="375"/>
-        <location filename="../src/render_window_menu.cpp" line="420"/>
-        <location filename="../src/render_window_menu.cpp" line="453"/>
+        <location filename="../src/render_window_menu.cpp" line="379"/>
+        <location filename="../src/render_window_menu.cpp" line="424"/>
+        <location filename="../src/render_window_menu.cpp" line="457"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="389"/>
+        <location filename="../src/render_window_menu.cpp" line="393"/>
         <source>TIFF images (*.tiff)</source>
         <translation>TIFF Bilder (*.tiff)</translation>
     </message>
@@ -5649,7 +5649,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="381"/>
+        <location filename="../src/render_window_menu.cpp" line="385"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
@@ -5741,22 +5741,22 @@ und Wasser):</translation>
         <translation>Info Drittanbieter</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="445"/>
+        <location filename="../src/render_window_slots.cpp" line="447"/>
         <source>Add window settings</source>
         <translation>Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="446"/>
+        <location filename="../src/render_window_slots.cpp" line="448"/>
         <source>Enter a name for the new window settings</source>
         <translation>Geben Sie einen Namen für die neuen Fenstereinstellungen ein</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="506"/>
+        <location filename="../src/render_window_slots.cpp" line="508"/>
         <source>Remove window settings</source>
         <translation>Fenstereinstellungen löschen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="507"/>
+        <location filename="../src/render_window_slots.cpp" line="509"/>
         <source>Select window setting to remove</source>
         <translation>Fenstereinstellungen zum Löschen auswählen</translation>
     </message>
@@ -11846,12 +11846,12 @@ Objektgröße)</translation>
         <translation type="vanished">Mesh Export - Konnte Output Datei nicht öffnen!</translation>
     </message>
     <message>
-        <location filename="../src/mesh_export.cpp" line="187"/>
+        <location filename="../src/mesh_export.cpp" line="200"/>
         <source>Mesh Export finished - Cancelled export</source>
         <translation>Mesh Export abgeschlossen - Abgebrochen</translation>
     </message>
     <message>
-        <location filename="../src/mesh_export.cpp" line="189"/>
+        <location filename="../src/mesh_export.cpp" line="202"/>
         <source>Mesh Export finished - Processed %1 layers</source>
         <translation>Voxel Export abgeschlossen - %1 Schichten bearbeitet</translation>
     </message>
@@ -11926,90 +11926,96 @@ Objektgröße)</translation>
     </message>
     <message>
         <location filename="../qt/mesh_export_dialog.ui" line="257"/>
+        <source>Resolution</source>
+        <translation>Auflösung</translation>
+    </message>
+    <message>
+        <location filename="../qt/mesh_export_dialog.ui" line="282"/>
+        <source>Custom &amp;Limits (leave untoggled to use global limits)</source>
+        <translation>individuelle Grenzen (unmarkiert lassen, für globale Grenzen)</translation>
+    </message>
+    <message>
         <location filename="../qt/ui_mesh_export_dialog.h" line="494"/>
         <source>Samples X</source>
         <translation>Abtastung X</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="277"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="495"/>
         <source>Samples Y</source>
         <translation>Abtastung Y</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="297"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="496"/>
         <source>Samples Z</source>
         <translation>Abtastung Z</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="322"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="497"/>
         <source>Custom Limits (leave untoggled to use global limits)</source>
         <translation>individuelle Grenzen (unmarkiert lassen, für globale Grenzen)</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="361"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="321"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="498"/>
         <source>top right back corner:</source>
         <translation>Ecke - oben recht hinten:</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="384"/>
-        <location filename="../qt/mesh_export_dialog.ui" line="479"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="344"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="439"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="499"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="503"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="430"/>
-        <location filename="../qt/mesh_export_dialog.ui" line="495"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="390"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="455"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="500"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="504"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="456"/>
-        <location filename="../qt/mesh_export_dialog.ui" line="511"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="416"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="471"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="501"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="505"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="466"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="426"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="502"/>
         <source>bottom left front corner:</source>
         <translation>Ecke - unten links vorne:</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="528"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="488"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="507"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of layers based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starte Rendern der Schichten nach aktuellen Einstellungen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="531"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="491"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="509"/>
         <source>&amp;Export</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="542"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="502"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="511"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering of layers&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Beendet das Rendern der Schichten.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="545"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="505"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="513"/>
         <source>&amp;Stop</source>
         <translation>Stop</translation>
     </message>
     <message>
-        <location filename="../qt/mesh_export_dialog.ui" line="588"/>
+        <location filename="../qt/mesh_export_dialog.ui" line="548"/>
         <location filename="../qt/ui_mesh_export_dialog.h" line="515"/>
         <source>Computer Aided Manufacturing of Mandelbrot Fractals.</source>
         <translation>Computergestützte Fabrikation von Mandelbrot-Fraktalen.</translation>
@@ -12101,7 +12107,7 @@ Objektgröße)</translation>
 <context>
     <name>cOpenClEngineRenderFractal</name>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="125"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="127"/>
         <source>OpenCl - initializing</source>
         <translation>OpenCL - Initialisierung</translation>
     </message>
@@ -12110,18 +12116,18 @@ Objektgröße)</translation>
         <translation type="vanished">Kompiliere Quelldateien</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="125"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="127"/>
         <source>Compiling OpenCL programs</source>
         <translation>Kompiliere OpenCL Programme</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="552"/>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="746"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="554"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="748"/>
         <source>OpenCl - rendering image</source>
         <translation>OpenCl - Rendere Bild</translation>
     </message>
     <message>
-        <location filename="../src/opencl_engine_render_fractal.cpp" line="818"/>
+        <location filename="../src/opencl_engine_render_fractal.cpp" line="820"/>
         <source>OpenCl - rendering finished</source>
         <translation>OpenCl - Rendern abgeschlossen</translation>
     </message>
@@ -12534,6 +12540,21 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1162"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the handbook&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;only material #1 is used&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;texture mapping (including background)&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;primitive objects&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;boolean operators&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;support for multiple GPUs&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;voxel / mesh export&lt;/li&gt;
+&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;
+&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber kann OpenCL verwenden, um das Rendering zu beschleunigen.&lt;br/&gt;Weitere Informationen zu Setup und Workflow finden Sie im Handbuch&lt;br/&gt;unter Menu &amp;gt; Hilfe &amp;gt; Handbuch.&lt;/p&gt;&lt;p&gt;Die OpenCL-Unterstützung ist immer noch alpha und es fehlen folgende Funktionen im nicht-OpenCL-Modus:&lt;ul&gt;&lt;li&gt;Es wird nur Material #1 verwendet&lt;/li&gt;&lt;li&gt;Texture Mapping (auch Hintergrund)&lt;/li&gt;&lt;li&gt;Primitive Objekte&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;Stereoskope Bilder&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolsche Operatoren&lt;/li&gt;&lt;li&gt;Unterstützung mehrerer GPUs&lt;/li&gt;&lt;li&gt;Voxel / Mesh export&lt;/li&gt;&lt;li&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <location filename="../qt/ui_preferences_dialog.h" line="989"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the handbook&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;ul&gt;&lt;li&gt;only material #1 is used&lt;/li&gt;&lt;li&gt;texture mapping (including background)&lt;/li&gt;&lt;li&gt;primitive objects&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;stereoscopic images&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolean operators&lt;/li&gt;&lt;li&gt;support for multiple GPUs&lt;/li&gt;&lt;li&gt;voxel / mesh export&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber kann OpenCL verwenden, um das Rendering zu beschleunigen.&lt;br/&gt;Weitere Informationen zu Setup und Workflow finden Sie im Handbuch&lt;br/&gt;unter Menu &amp;gt; Hilfe &amp;gt; Handbuch.&lt;/p&gt;&lt;p&gt;Die OpenCL-Unterstützung ist immer noch alpha und es fehlen folgende Funktionen im nicht-OpenCL-Modus:&lt;ul&gt;&lt;li&gt;Es wird nur Material #1 verwendet&lt;/li&gt;&lt;li&gt;Texture Mapping (auch Hintergrund)&lt;/li&gt;&lt;li&gt;Primitive Objekte&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;Stereoskope Bilder&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolsche Operatoren&lt;/li&gt;&lt;li&gt;Unterstützunf mehrerer GPUs&lt;/li&gt;&lt;li&gt;Voxel / Mesh export&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -13276,7 +13297,7 @@ für 4D Fraktale</translation>
         <location filename="../src/command_line_interface.cpp" line="120"/>
         <location filename="../src/command_line_interface.cpp" line="134"/>
         <location filename="../src/command_line_interface.cpp" line="143"/>
-        <location filename="../src/command_line_interface.cpp" line="148"/>
+        <location filename="../src/command_line_interface.cpp" line="149"/>
         <source>N</source>
         <translation>N</translation>
     </message>
@@ -13438,7 +13459,7 @@ tiff - TIFF Format</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="110"/>
-        <location filename="../src/command_line_interface.cpp" line="172"/>
+        <location filename="../src/command_line_interface.cpp" line="173"/>
         <source>FORMAT</source>
         <translation>FORMAT</translation>
     </message>
@@ -13518,7 +13539,7 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
         <translation>Speichert gerenderte(s) Bild(er) in diese(n) Datei / Ordner.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="146"/>
+        <location filename="../src/command_line_interface.cpp" line="147"/>
         <source>Specify custom system log filepath (default is: ~/.mandelbulber_log.txt).</source>
         <translation>Eigenen Log Dateipfad angeben (Standard ist ~/.mandelbulber_log.txt).</translation>
     </message>
@@ -13527,22 +13548,22 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
         <translation type="vanished">Specify the full path and filename of the System Log File.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="151"/>
+        <location filename="../src/command_line_interface.cpp" line="152"/>
         <source>Renders all images from common queue.</source>
         <translation>Rendert alle Bilder aus der allgemeinen Queue.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="154"/>
+        <location filename="../src/command_line_interface.cpp" line="155"/>
         <source>Runs testcases on the mandelbulber instance</source>
         <translation>Führt Testfälle mit der Mandelbulber Instanz durch.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="158"/>
+        <location filename="../src/command_line_interface.cpp" line="159"/>
         <source>Runs benchmarks on the mandelbulber instance, specify optional parameter difficulty (1 -&gt; very easy, &gt; 20 -&gt; very hard, 10 -&gt; default). When [output] option is set to a folder, the example-test images will be stored there.</source>
         <translation>Führt einen Benchmark mit der Mandelbulber Instanz durch, es kann eine optionale &apos;Schwierigkeit&apos; angegeben werden (1 -&gt; sehr leicht, &gt; 20 sehr schwer, 10 -&gt; Standardwert). Wenn die [output] Option auf einen Ordner gesetzt ist, so werden die Beispieltest-Bilder in diesen gespeichert.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="182"/>
+        <location filename="../src/command_line_interface.cpp" line="183"/>
         <source>Shows commands regarding OpenCL.</source>
         <translation>Zeigt Befehle bezüglich OpenCL an.</translation>
     </message>
@@ -13559,12 +13580,12 @@ Fraktale Parameter können in der Form &apos;fractal&lt;N&gt;_SCHLÜSSEL=WERT&ap
         <translation type="vanished">Führt einen Benchmark mit der Mandelbulber Instanz durch.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="165"/>
+        <location filename="../src/command_line_interface.cpp" line="166"/>
         <source>Resaves a settings file (can be used to update a settings file)</source>
         <translation>Überschreibt die Einstellungsdatei (kann genutzt werden, um Einstellungsdatei upzudaten).</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="169"/>
+        <location filename="../src/command_line_interface.cpp" line="170"/>
         <source>Renders the voxel volume. Output formats are:
   slice - stack of PNG images into one folder (default)
   ply - Polygon File Format (single 3d file)
@@ -13592,17 +13613,17 @@ Fortsetzen?</translation>
         <translation type="vanished">Rendert das Voxel Volumen in einem Stapel aus Bildern.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="175"/>
+        <location filename="../src/command_line_interface.cpp" line="176"/>
         <source>Shows statistics while rendering in CLI mode.</source>
         <translation>Zeigt Statistiken während des Renderns in Konsolenmodus an.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="178"/>
+        <location filename="../src/command_line_interface.cpp" line="179"/>
         <source>Shows help about input.</source>
         <translation>Zeigt Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="180"/>
+        <location filename="../src/command_line_interface.cpp" line="181"/>
         <source>Shows example commands.</source>
         <translation>Zeigt Beispielbefehle.</translation>
     </message>
@@ -13651,7 +13672,7 @@ Fortsetzen?</translation>
         <translation type="vanished">Zeige Hilfe über Input.</translation>
     </message>
     <message>
-        <location filename="../src/command_line_interface.cpp" line="186"/>
+        <location filename="../src/command_line_interface.cpp" line="187"/>
         <source>file with fractal settings (program also tries
 to find file in ./mandelbulber/settings directory)
 When settings_file is put as a command line argument then program will start in noGUI mode&lt;settings_file&gt; can also be specified as a list, see all options with --help-input</source>
