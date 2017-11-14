@@ -50,6 +50,7 @@ v2.12 (November 2017)
 - OpenCL: designed a way to load OpenCL header files on different OpenCL platforms (nVidia, AMD, Intel...)
 - OpenCL: Added checking of GPU memory resources and compare with mem limit setting in preferences dialog. If there is not enough memory, effects are rendered using CPU.
 - OpenCL: Added BAT script to disable TDR in graphics driver (timeout protection)
+- OpenCL: CL_DEVICE_TYPE_ACCELERATOR supported for k1om (x100 Xeon PHI Co-processor)
 
 - Added new fractal formulas:
   * Jos-Kleinian
@@ -102,18 +103,24 @@ v2.12 (November 2017)
 - Voxel export: Corrected Mesh Export. Voxel size in each axis has to be unified to calculate correct faces and normal vectors. Now there is only "resolution" parameter which specifies resolution in the longest axis (depends on limits)
 - CLI: Added example output path to benchmark. Now the benchmark can optionally put the renders of the example renders into a folder, when this folder has been specified with the -o/--output cli option.
 - CLI: Added options for OpenCL configuration
+- CLI: Benchmark renders all 300+ examples
+- CLI: Benchmark enabled with for OpenCL with 24 hour test timeout.
+- CLI: Benchmark generates detailed log output for each rendered example.
 - Settings: enumerative fields are saved as names
 - Compilation: UI files for fractal formulas moved to formula folder
 - Compilation: *.pro files moved to qmake folder
 - Compilation: Added mandelbulber-opencl.pro file
 - Compilation: MSVC solution updated for OpenCL
+- Compilation: MSVC solution includes OpenCL ICD Loader binaries for system compatibility
 - Compilation: MSVC solution is fully functional and compatible with Visual Studio 2017
 - Compilation: MSVC build is now default for Windows version
+- Compilation: Included MSVC redistributable in Build Package
 - Compilation: new windows installer (Install Jammer was no longer supported)
 - Compilation: Implemented CLEW for mingw builds
 - Compilation: added SHARED_DIR_IS_APP_DIR for AppImage. Allows shared data at the same location as the application, when defined at compile time, this can be used for AppImage packaging
 - Compilation: updated prepare_for_*.sh scripts
 - Compilation: documentation files moved to /usr/share/doc/mandelbulber
+- Compilation: CMAKE build refactored and updated.
 - Performance: fixed many issues showed by CoverityScan
 - Documentation: Added chapter about OpenCL
 
