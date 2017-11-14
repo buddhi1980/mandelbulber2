@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.11
+                              MANDELBULBER 2.12
 
 1. What is Mandelbulber
 -----------------------
@@ -37,11 +37,11 @@ LICENCE:         GNU GPL v3.0
 4. COMPILING
 ------------
 
-packages needed to RUN:
+packages needed to RUN
     libqt5gui5 libpng16-16, libgsl2 liblzo2-2 libgomp1 libqt5multimedia5
-    libqt5multimedia5-plugins
+    libqt5multimedia5-plugins libsndfile1 liblzo2-2
 
-packages needed to COMPILE:
+packages needed to COMPILE
     build-essential qt5-default libpng-dev qttools5-dev qttools5-dev-tools
     libgsl-dev libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins
     libsndfile1-dev liblzo2-dev
@@ -78,6 +78,13 @@ Mandelbulber can utilize OpenCL to accelerate rendering.
 To compile Mandelbulber with OpenCL support, the headers need to be present.
 These can be obtained with the package: opencl-headers
 To use an OpenCL device you need to install a current driver for the CPU/GPU.
+
+Compiling from source:
+cd makefiles
+qmake mandelbulber-opencl.pro
+make all
+cd ..
+
 For more information, please study the handbook (see chapter Usage).
 
 5. INSTALLATION
@@ -97,11 +104,11 @@ Run the install script:
 - Centos 7 Intel MIC K1OM Development
   (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
 
-- gcc 6.2.1
+- gcc 7.2
 - clang 3.8.1
 - msvc14
 
-- Qt 5.7.1
+- Qt 5.7.1 and Qt 5.9.1
 
 7. USAGE
 --------

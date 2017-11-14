@@ -106,10 +106,13 @@ then
 	mkdir -vp "$destNameWin64/source/makefiles"
 	
 	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameLinux/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber-opencl.pro" "$destNameLinux/makefiles/"
 	cp -vu "$sourceDir/qmake/common.pri" "$destNameLinux/makefiles/"
 	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameWin/source/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber-opencl.pro" "$destNameWin/source/makefiles/"
 	cp -vu "$sourceDir/qmake/common.pri" "$destNameWin/source/makefiles/"
 	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameWin64/source/makefiles/"
+	cp -vu "$sourceDir/qmake/mandelbulber-opencl.pro" "$destNameWin64/source/makefiles/"
 	cp -vu "$sourceDir/qmake/common.pri" "$destNameWin64/source/makefiles/"
 
 	#copying DLL files
