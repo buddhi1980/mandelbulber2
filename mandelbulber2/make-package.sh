@@ -97,6 +97,10 @@ then
 	cp -vurL "$sourceDir/qt/" "$destNameWin/source"
 	cp -vurL "$sourceDir/qt/" "$destNameWin64/source"
 	
+  cp -vurL "$sourceDir/opencl/" "$destNameLinux/"
+	cp -vurL "$sourceDir/opencl/" "$destNameWin/source"
+	cp -vurL "$sourceDir/opencl/" "$destNameWin64/source"
+	
 	#create bin folder
 	mkdir -vp "$destNameLinux/usr/bin"
 	
