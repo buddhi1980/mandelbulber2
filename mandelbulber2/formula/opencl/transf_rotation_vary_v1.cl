@@ -15,7 +15,7 @@
 
 REAL4 TransfRotationVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 tempVC = (REAL4){fractal->transformCommon.rotation.xyz, 0.0f}; // constant to be varied
+        REAL4 tempVC = (REAL4){fractal->transformCommon.rotation.x, fractal->transformCommon.rotation.y, fractal->transformCommon.rotation.z, 0.0f}; // constant to be varied
 
 	if (aux->i >= fractal->transformCommon.startIterations250
 			&& aux->i < fractal->transformCommon.stopIterations
