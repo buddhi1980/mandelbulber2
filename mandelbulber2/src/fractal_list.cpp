@@ -669,6 +669,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing", "testing", testing, TestingIteration,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
+		coloringFunctionABox2));
 }
