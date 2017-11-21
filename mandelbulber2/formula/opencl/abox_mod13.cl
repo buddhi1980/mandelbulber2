@@ -71,6 +71,8 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+                Add.w =  0.0;
+
 		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
 			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
 		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
