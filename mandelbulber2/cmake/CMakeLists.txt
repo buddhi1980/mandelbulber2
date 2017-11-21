@@ -26,7 +26,7 @@ message(STATUS "${PROJECT_SOURCE_DIR}/modules/")
 # Qt intermediate build config and setup.
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-#set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOUIC ON)
 
 # Find necessary qt libraries.
 find_package(Qt5Widgets REQUIRED)
@@ -68,10 +68,11 @@ file(GLOB srcDef "../src/*.c" "../src/*.cpp")
 file(GLOB qtHeader "../qt/*.h" "../qt/*.hpp")
 file(GLOB qtDef "../qt/*.c" "../qt/*.cpp")
 set(SOURCE_FILES ${srcHeader} ${srcDef} ${qtHeader} ${qtDef} ../qt/icons.qrc)
+set(CMAKE_AUTOUIC_SEARCH_PATHS ../qt/)
 
 # Find all ui files in qt/*.ui and add for header generation and linking.
 file(GLOB qt_UI "../qt/*.ui")
-QT5_WRAP_UI(qt_UI_H ${qt_UI})
+#QT5_WRAP_UI(qt_UI_H ${qt_UI})
 
 include_directories(..)
 include_directories(../qt)
