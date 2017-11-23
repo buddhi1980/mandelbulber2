@@ -2715,12 +2715,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
-
 		aux.r = z.Length();
-
 		aux.r_dz = aux.r * aux.r_dz * 16.0 * fractal->analyticDE.scale1
 								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
 												+ fractal->analyticDE.offset2)
@@ -12041,9 +12036,13 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 /**
 * asurf trial  beta
-*
-*
-*/
+ * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+ *
+ * Note for the origional version apply a c.x c.y SWAP
+ *
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
@@ -12089,13 +12088,13 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			case multi_orderOfFolds_type3:
 				// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
 				z.x = fractal->transformCommon.offset2
-							- fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
+							- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
 										 - fractal->transformCommon.offset2)
-							- fractal->transformCommon.additionConstant111.x;
+							- fractal->transformCommon.offsetA111.x;
 				z.y = fractal->transformCommon.offset2
-							- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
+							- fabs(fabs(z.y + fractal->transformCommon.offsetA111.y)
 										 - fractal->transformCommon.offset2)
-							- fractal->transformCommon.additionConstant111.y;
+							- fractal->transformCommon.offsetA111.y;
 				if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 				if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 				break;
