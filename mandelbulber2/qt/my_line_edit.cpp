@@ -35,9 +35,13 @@
 #include "my_line_edit.h"
 
 #include <qapplication.h>
+#include <QByteArray>
+#include <QLocale>
 
 #include <QMenu>
+#include <QSlider>
 
+#include "../src/system.hpp"
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 
@@ -46,6 +50,14 @@ MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapp
 	actionResetVectorToDefault = nullptr;
 	actionCopyVectorToClipboard = nullptr;
 	actionPasteVectorFromClipboard = nullptr;
+	slider = nullptr;
+	sliderTimer = nullptr;
+}
+
+MyLineEdit::~MyLineEdit()
+{
+	if (slider) delete slider;
+	if (sliderTimer) delete sliderTimer;
 }
 
 void MyLineEdit::paintEvent(QPaintEvent *event)
@@ -268,4 +280,68 @@ void MyLineEdit::slotPasteVector()
 void MyLineEdit::slotResetVector()
 {
 	ResetVectorToDefault();
+}
+
+void MyLineEdit::focusInEvent(QFocusEvent *event)
+{
+	qDebug() << "focus in";
+	QLineEdit::focusInEvent(event);
+
+	if (!slider)
+	{
+		QWidget *topWidget = this->window();
+		slider = new QSlider(Qt::Horizontal, topWidget);
+		slider->setMaximum(1000);
+		slider->setValue(500);
+		slider->setFocusPolicy(Qt::NoFocus);
+		slider->hide();
+		sliderTimer = new QTimer();
+		sliderTimer->setSingleShot(true);
+	}
+
+	QWidget *topWidget = this->window();
+	QPoint windowPoint = this->mapTo(topWidget, QPoint());
+	qDebug() << windowPoint;
+	qDebug() << topWidget->objectName();
+	int width = this->width();
+	int hOffset = this->height();
+	slider->setGeometry(windowPoint.x(), windowPoint.y(), width, 20);
+	slider->move(windowPoint.x(), windowPoint.y() + hOffset);
+	slider->show();
+
+	connect(sliderTimer, SIGNAL(timeout()), this, SLOT(slotSliderTimerUpdateValue()));
+	connect(slider, SIGNAL(sliderReleased()), this, SLOT(sliderReleased()));
+	sliderTimer->start(100);
+}
+
+void MyLineEdit::focusOutEvent(QFocusEvent *event)
+{
+	qDebug() << "focus out";
+	QLineEdit::focusOutEvent(event);
+
+	slider->disconnect();
+	sliderTimer->stop();
+	slider->hide();
+}
+
+void MyLineEdit::slotSliderTimerUpdateValue()
+{
+	const double value = systemData.locale.toDouble(text());
+	int iDiff = slider->value() - 500;
+	if(iDiff != 0)
+	{
+		double sign = (iDiff > 0) ? 1.0 : -1.0;
+		double dDiff = abs(iDiff) / 35.0 - 15.0;
+		double change = pow(10.0, dDiff) * sign;
+		qDebug() << change;
+		const QString text = QString("%L1").arg(value + change, 0, 'g', 16);
+		setText(text);
+		emit editingFinished();
+	}
+	sliderTimer->start(100);
+}
+
+void MyLineEdit::sliderReleased()
+{
+	slider->setValue(500);
 }

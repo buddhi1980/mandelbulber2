@@ -41,12 +41,15 @@
 
 #include "common_my_widget_wrapper.h"
 
+class QSlider;
+
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
 	MyLineEdit(QWidget *parent = nullptr);
+	~MyLineEdit();
 
 private:
 	QAction *actionResetVectorToDefault;
@@ -63,14 +66,21 @@ private:
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
 
+	QSlider *slider;
+	QTimer *sliderTimer;
+
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
 	void paintEvent(QPaintEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
+	void focusOutEvent(QFocusEvent *event) override;
 
 private slots:
 	void slotCopyVector() const;
 	void slotPasteVector();
 	void slotResetVector();
+	void slotSliderTimerUpdateValue();
+	void sliderReleased();
 };
 
 #endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */
