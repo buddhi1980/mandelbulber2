@@ -728,6 +728,11 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("fold_color_limit_min0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_limit_max9999", 9999.0, morphAkima, paramStandard);
+	par->addParam(
+		"fold_color_factor_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fold_color_factorMinR0", 0.0, morphAkima, paramStandard);
+	par->addParam("fold_color_factorMaxR0", 0.0, morphAkima, paramStandard);
+
 	par->addParam("fold_color_int_Ax0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Ay0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);

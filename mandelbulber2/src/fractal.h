@@ -99,6 +99,7 @@ struct sExtendedAux
 struct sFoldColor
 {
 	CVector3 factor;
+
 	CVector4 factor4D;
 	double factorR;
 	double factorSp1;
@@ -125,6 +126,10 @@ struct sFoldColor
 	double scaleC1;
 	double period1;
 	double trigAdd1;
+
+	CVector4 factor000;
+	double factorMinR0;
+	double factorMaxR0;
 
 	int intAx0;
 	int intAy0;
