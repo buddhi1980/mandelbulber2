@@ -404,7 +404,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case analyticFunctionIFS:
 				{
 					if (extendedAux.DE > 0)
-						out->distance = (r - 2.0) / (extendedAux.DE);
+						out->distance = (r - 2.0) / fabs(extendedAux.DE);
 					else
 						out->distance = r;
 					break;
@@ -440,22 +440,34 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// color calculation
 	else if (Mode == calcModeColouring)
 	{
-		double mboxDE;
-		mboxDE = extendedAux.DE;
-		double r2 = r / fabs(mboxDE);
-		if (r2 > 20) r2 = 20;
+		double colorDE;
+		colorDE = extendedAux.DE;
+		double rDE = r / fabs(colorDE);
+		if (rDE > 20) rDE = 20;
 
 		if (fractals.IsHybrid())
 		{
 			if (minimumR > 100) minimumR = 100;
-			double mboxColor;
-			mboxColor = extendedAux.color;
-			if (mboxColor > 1000) mboxColor = 1000;
-			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
+			double iterColor;
+			iterColor = extendedAux.color; // aux.color cumulative from iteration loop
+			if (iterColor > 1000) iterColor = 1000;
+			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0; // old code
 
+
+				double minR1000 = minimumR * 1000.0;
+				double iterColor100 = iterColor * 100;
+				double rDE5000 = rDE * 5000;
 			out->colorIndex =
-				((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
-				+ extendedAux.colorHybrid + (minimumR * 1000.0 * extendedAux.minRFactor);
+
+				((minR1000 + iterColor100 + rDE5000) //old code
+				 * extendedAux.oldHybridFactor) // turn off old code or mix with
+
+				+	iterColor100 * extendedAux.foldFactor	 // folds part
+				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+				+ rDE5000 * extendedAux.scaleFactor  // r/DE  for backwards compatibility
+				+ (minR1000 * extendedAux.minRFactor) // orbit trap only
+
+				+ extendedAux.colorHybrid; //for transf hybrid color inputs
 		}
 		else
 		{
@@ -463,7 +475,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case coloringFunctionABox:
 					out->colorIndex =
-						extendedAux.color * 100.0														 // folds part
+						extendedAux.color * 100.0														 // folds part (iter color)
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * 1000.0
@@ -475,11 +487,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-						+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatibility
+						+ rDE * 5000.0 * extendedAux.scaleFactor 							 // r/DE  for backwards compatibility
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);*/
-						+ minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
+						+ minimumR * 1000.0 * extendedAux.minRFactor; // orbit trap
 
 					break;
 				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;

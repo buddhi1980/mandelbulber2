@@ -2698,7 +2698,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		useScale = aux.actualScaleA + fractal->transformCommon.scale;
 
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.DE = aux.DE * fabs(useScale);
 		aux.r_dz *= fabs(useScale);
 
 		if (aux.i >= fractal->transformCommon.startIterationsX
@@ -2741,10 +2741,10 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		aux.color += colorAdd;
-		aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
+		aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 	}
 	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
-
+	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
 
 	double scaleColor = fractal->foldColor.colorMin + fabs(useScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
