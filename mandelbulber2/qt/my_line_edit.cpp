@@ -35,16 +35,17 @@
 #include "my_line_edit.h"
 
 #include <qapplication.h>
+
 #include <QByteArray>
 #include <QLocale>
-
 #include <QMenu>
 #include <QSlider>
 
-#include "../src/system.hpp"
 #include "frame_slider_popup.h"
+
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
+#include "src/system.hpp"
 
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {

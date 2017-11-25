@@ -104,6 +104,7 @@ typedef struct
 typedef struct
 {
 	cl_float3 factor;
+
 	cl_float4 factor4D;
 	cl_float factorR;
 	cl_float factorSp1;
@@ -112,6 +113,7 @@ typedef struct
 	cl_float compFold0;
 	cl_float compFold;
 	cl_float compMinR;
+	cl_float compMinR0;
 	cl_float compScale;
 	cl_float oldScale1;
 	cl_float parabScale0;
@@ -131,11 +133,16 @@ typedef struct
 	cl_float period1;
 	cl_float trigAdd1;
 
+	cl_float4 factor000;
+	cl_float factorMinR0;
+	cl_float factorMaxR0;
+
 	cl_int intAx0;
 	cl_int intAy0;
 	cl_int intAz0;
 	cl_int parabEnabledFalse;
 	cl_int cosEnabledFalse;
+	cl_int auxColorEnabled;
 	cl_int auxColorEnabledFalse;
 	cl_int distanceEnabledFalse;
 } sFoldColorCl;
@@ -723,6 +730,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compFold0 = source.compFold0;
 	target.compFold = source.compFold;
 	target.compMinR = source.compMinR;
+	target.compMinR0 = source.compMinR0;
 	target.compScale = source.compScale;
 	target.oldScale1 = source.oldScale1;
 	target.parabScale0 = source.parabScale0;
@@ -741,11 +749,15 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleC1 = source.scaleC1;
 	target.period1 = source.period1;
 	target.trigAdd1 = source.trigAdd1;
+	target.factor000 = toClFloat4(source.factor000);
+	target.factorMinR0 = source.factorMinR0;
+	target.factorMaxR0 = source.factorMaxR0;
 	target.intAx0 = source.intAx0;
 	target.intAy0 = source.intAy0;
 	target.intAz0 = source.intAz0;
 	target.parabEnabledFalse = source.parabEnabledFalse;
 	target.cosEnabledFalse = source.cosEnabledFalse;
+	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;

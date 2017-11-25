@@ -203,7 +203,7 @@ REAL4 GeneralizedFoldBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	REAL r2 = dot(zXYZ, zXYZ);
 
-	z = (REAL4){zXYZ.xyz, z.w};
+	z = (REAL4){zXYZ.x, zXYZ.y, zXYZ.z, z.w};
 
 	z += fractal->mandelbox.offset;
 

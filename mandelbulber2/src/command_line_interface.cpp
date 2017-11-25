@@ -143,8 +143,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "N"));
 
 	const QCommandLineOption logFilepathOption(
-		QStringList({"logfilepath"}), QCoreApplication::translate("main",
-																		"Specify custom system log filepath (default is: ~/.mandelbulber_log.txt)."),
+		QStringList({"logfilepath"}),
+		QCoreApplication::translate(
+			"main", "Specify custom system log filepath (default is: ~/.mandelbulber_log.txt)."),
 		QCoreApplication::translate("main", "N"));
 
 	const QCommandLineOption queueOption(QStringList({"q", "queue"}),

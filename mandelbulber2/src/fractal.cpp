@@ -263,8 +263,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.limitMin0 = container->Get<double>("fold_color_limit_min0");
 	foldColor.limitMax9999 = container->Get<double>("fold_color_limit_max9999");
 
-	foldColor.factor000 =
-			CVector4(container->Get<CVector3>("fold_color_factor_000"), 0.0);
+	foldColor.factor000 = CVector4(container->Get<CVector3>("fold_color_factor_000"), 0.0);
 	foldColor.factorMinR0 = container->Get<double>("fold_color_factorMinR0");
 	foldColor.factorMaxR0 = container->Get<double>("fold_color_factorMaxR0");
 
