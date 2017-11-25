@@ -41,15 +41,15 @@
 
 #include "common_my_widget_wrapper.h"
 
+class cFrameSiderPopup;
+
 class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
-	MyDoubleSpinBox(QWidget *parent = nullptr) : QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
-	{
-		defaultValue = 0;
-	};
+	MyDoubleSpinBox(QWidget *parent = nullptr);
+	~MyDoubleSpinBox();
 
 	void resetToDefault() override;
 	QString getDefaultAsString() override;
@@ -58,10 +58,21 @@ public:
 private:
 	double GetDefault();
 	double defaultValue;
+	cFrameSiderPopup *slider;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
 	void paintEvent(QPaintEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
+	void focusOutEvent(QFocusEvent *event) override;
+
+private slots:
+	void slotSliderTimerUpdateValue();
+	void slotResetToDefault();
+	void slotZerovalue();
+	void slotDoublevalue();
+	void slotHalfValue();
+	void slotRoundValue();
 };
 
 #endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */

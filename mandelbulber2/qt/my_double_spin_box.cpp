@@ -36,8 +36,22 @@
 
 #include <QLineEdit>
 
+#include "../src/system.hpp"
+#include "frame_slider_popup.h"
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
+
+MyDoubleSpinBox::MyDoubleSpinBox(QWidget *parent)
+		: QDoubleSpinBox(parent), CommonMyWidgetWrapper(this)
+{
+	defaultValue = 0;
+	slider = nullptr;
+};
+
+MyDoubleSpinBox::~MyDoubleSpinBox()
+{
+	if (slider) delete slider;
+}
 
 void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
@@ -104,4 +118,91 @@ QString MyDoubleSpinBox::getFullParameterName()
 void MyDoubleSpinBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	CommonMyWidgetWrapper::contextMenuEvent(event, lineEdit()->createStandardContextMenu());
+}
+
+void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
+{
+	QDoubleSpinBox::focusInEvent(event);
+
+	QString type = GetType(objectName());
+	if (type != "text")
+	{
+		if (!slider)
+		{
+			QWidget *topWidget = this->window();
+			slider = new cFrameSiderPopup(topWidget);
+			slider->setFocusPolicy(Qt::NoFocus);
+			slider->hide();
+		}
+
+		QWidget *topWidget = this->window();
+		QPoint windowPoint = this->mapTo(topWidget, QPoint());
+		int width = this->width();
+		int hOffset = this->height();
+		slider->adjustSize();
+		slider->setFixedWidth(width);
+		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
+		slider->show();
+
+		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
+		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
+		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
+		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
+	}
+}
+
+void MyDoubleSpinBox::focusOutEvent(QFocusEvent *event)
+{
+	QDoubleSpinBox::focusOutEvent(event);
+
+	if (slider)
+	{
+		slider->disconnect();
+		slider->hide();
+	}
+}
+
+void MyDoubleSpinBox::slotSliderTimerUpdateValue()
+{
+	const double val = value();
+	int iDiff = slider->value() - 500;
+	if (iDiff != 0)
+	{
+		double sign = (iDiff > 0) ? 1.0 : -1.0;
+		double digits = decimals();
+		double dDiff = abs(iDiff) / (600.0 / digits) - digits;
+		double change = pow(10.0, dDiff) * sign;
+		setValue(val + change);
+		emit editingFinished();
+	}
+}
+
+void MyDoubleSpinBox::slotResetToDefault()
+{
+	resetToDefault();
+}
+
+void MyDoubleSpinBox::slotZerovalue()
+{
+	setValue(0.0);
+}
+
+void MyDoubleSpinBox::slotDoublevalue()
+{
+	const double val = value();
+	setValue(val * 2.0);
+}
+
+void MyDoubleSpinBox::slotHalfValue()
+{
+	const double val = value();
+	setValue(val * 0.5);
+}
+
+void MyDoubleSpinBox::slotRoundValue()
+{
+	const double val = value();
+	setValue(round(val));
 }

@@ -285,37 +285,44 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 {
 	QLineEdit::focusInEvent(event);
 
-	if (!slider)
+	QString type = GetType(objectName());
+	if (type != "text")
 	{
+		if (!slider)
+		{
+			QWidget *topWidget = this->window();
+			slider = new cFrameSiderPopup(topWidget);
+			slider->setFocusPolicy(Qt::NoFocus);
+			slider->hide();
+		}
+
 		QWidget *topWidget = this->window();
-		slider = new cFrameSiderPopup(topWidget);
-		slider->setFocusPolicy(Qt::NoFocus);
-		slider->hide();
+		QPoint windowPoint = this->mapTo(topWidget, QPoint());
+		int width = this->width();
+		int hOffset = this->height();
+		slider->adjustSize();
+		slider->setFixedWidth(width);
+		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
+		slider->show();
+
+		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
+		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
+		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
+		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
 	}
-
-	QWidget *topWidget = this->window();
-	QPoint windowPoint = this->mapTo(topWidget, QPoint());
-	int width = this->width() - 15;
-	int hOffset = this->height();
-	slider->adjustSize();
-	slider->setFixedWidth(width);
-	slider->move(windowPoint.x() + 15, windowPoint.y() + hOffset);
-	slider->show();
-
-	connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
-	connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
-	connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
-	connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-	connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
-	connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
 }
 
 void MyLineEdit::focusOutEvent(QFocusEvent *event)
 {
 	QLineEdit::focusOutEvent(event);
 
-	slider->disconnect();
-	slider->hide();
+	if (slider)
+	{
+		slider->disconnect();
+		slider->hide();
+	}
 }
 
 void MyLineEdit::slotSliderTimerUpdateValue()
@@ -329,7 +336,7 @@ void MyLineEdit::slotSliderTimerUpdateValue()
 		if (objectName().left(3) == QString("log"))
 		{
 			double dDiff = iDiff / 1000.0;
-			double change = pow(10.0, dDiff*dDiff * sign);
+			double change = pow(10.0, dDiff * dDiff * sign);
 			const QString text = QString("%L1").arg(value * change, 0, 'g', 16);
 			setText(text);
 		}
