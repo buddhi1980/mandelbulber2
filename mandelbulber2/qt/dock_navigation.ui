@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>1120</height>
+    <width>255</width>
+    <height>931</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -156,8 +156,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>392</width>
-        <height>993</height>
+        <width>229</width>
+        <height>812</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -520,31 +520,6 @@ to target:</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="0" colspan="2">
-               <widget class="QSlider" name="logslider_camera_distance_to_target">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="sizeIncrement">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="minimum">
-                 <number>-1500</number>
-                </property>
-                <property name="maximum">
-                 <number>300</number>
-                </property>
-                <property name="orientation">
-                 <enum>Qt::Horizontal</enum>
-                </property>
-               </widget>
-              </item>
              </layout>
             </item>
             <item>
@@ -724,31 +699,6 @@ to target:</string>
                   </widget>
                  </item>
                 </layout>
-               </item>
-               <item>
-                <widget class="QSlider" name="logslider_camera_movement_step">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="sizeIncrement">
-                  <size>
-                   <width>0</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="minimum">
-                  <number>-200</number>
-                 </property>
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
                </item>
               </layout>
              </widget>
@@ -1383,7 +1333,6 @@ to target:</string>
   <tabstop>pushButton_reset_view</tabstop>
   <tabstop>comboBox_camera_movement_mode</tabstop>
   <tabstop>logedit_camera_distance_to_target</tabstop>
-  <tabstop>logslider_camera_distance_to_target</tabstop>
   <tabstop>bu_move_forward</tabstop>
   <tabstop>bu_move_backward</tabstop>
   <tabstop>bu_move_up</tabstop>
@@ -1391,7 +1340,6 @@ to target:</string>
   <tabstop>bu_move_down</tabstop>
   <tabstop>bu_move_right</tabstop>
   <tabstop>logedit_camera_movement_step</tabstop>
-  <tabstop>logslider_camera_movement_step</tabstop>
   <tabstop>comboBox_camera_absolute_distance_mode</tabstop>
   <tabstop>bu_rotate_roll_left</tabstop>
   <tabstop>bu_rotate_up</tabstop>

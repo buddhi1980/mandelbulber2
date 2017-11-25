@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>613</width>
+    <width>323</width>
     <height>1532</height>
    </rect>
   </property>
@@ -76,7 +76,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
+            <width>286</width>
             <height>1516</height>
            </rect>
           </property>
@@ -128,7 +128,7 @@
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="2">
+                <item row="0" column="1">
                  <widget class="MySpinBox" name="spinboxInt_reflections_max">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -148,28 +148,6 @@
                  <widget class="QLabel" name="label_62">
                   <property name="text">
                    <string>Reflections depth:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="sliderInt_reflections_max">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>9</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -206,7 +184,7 @@
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -225,31 +203,6 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QSlider" name="logslider_DOF_focus">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="sizeIncrement">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>400</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
                  <widget class="MyLineEdit" name="logedit_DOF_focus">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It's the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -257,28 +210,6 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QSlider" name="slider_DOF_radius">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_DOF_radius">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -320,31 +251,6 @@
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QSlider" name="sliderInt_DOF_number_of_passes">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
                  <widget class="MySpinBox" name="spinboxInt_DOF_number_of_passes">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -368,28 +274,6 @@
                  </widget>
                 </item>
                 <item row="4" column="1">
-                 <widget class="QSlider" name="slider_DOF_blur_opacity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_DOF_blur_opacity">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -431,28 +315,6 @@
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QSlider" name="slider_DOF_max_radius">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_DOF_max_radius">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -520,7 +382,20 @@
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="2">
+                   <item row="1" column="1">
+                    <widget class="MySpinBox" name="spinboxInt_DOF_min_samples">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="maximum">
+                      <number>10000</number>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
                     <widget class="MySpinBox" name="spinboxInt_DOF_samples">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -539,117 +414,38 @@
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_358">
                      <property name="text">
-                      <string>Max number of samples per pixel:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QSlider" name="sliderInt_DOF_samples">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>500</number>
-                     </property>
-                     <property name="singleStep">
-                      <number>1</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="MySpinBox" name="spinboxInt_DOF_min_samples">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>10000</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSlider" name="sliderInt_DOF_min_samples">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>1</number>
-                     </property>
-                     <property name="maximum">
-                      <number>500</number>
-                     </property>
-                     <property name="singleStep">
-                      <number>1</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <string>Max number of samples
+per pixel:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="0">
                     <widget class="QLabel" name="label_359">
                      <property name="text">
-                      <string>Min number of samples per pixel:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_360">
-                     <property name="text">
-                      <string>Max noise level (percentage)</string>
+                      <string>Min number of samples
+per pixel:</string>
                      </property>
                     </widget>
                    </item>
                    <item row="2" column="1">
-                    <widget class="QSlider" name="logslider_DOF_max_noise">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="sizeIncrement">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="minimum">
-                      <number>-500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>200</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                    <widget class="MyLineEdit" name="logedit_DOF_max_noise"/>
+                   </item>
+                   <item row="2" column="0">
+                    <widget class="QLabel" name="label_360">
+                     <property name="text">
+                      <string>Max noise level
+(percentage)</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="2">
-                    <widget class="MyLineEdit" name="logedit_DOF_max_noise"/>
-                   </item>
-                   <item row="3" column="0" colspan="3">
+                   <item row="3" column="0" colspan="2">
                     <widget class="QLabel" name="label_average_DOF_samples">
                      <property name="text">
                       <string>Average number of DOF samples:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="4" column="0" colspan="3">
+                   <item row="4" column="0" colspan="2">
                     <widget class="QLabel" name="label_average_DOF_noise">
                      <property name="text">
                       <string>Average noise:</string>
@@ -735,28 +531,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="slider_ambient_occlusion_fast_tune">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>5</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_127">
                   <property name="text">
@@ -811,56 +585,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="sliderInt_ambient_occlusion_quality">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>30</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Fast</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Multiple rays with light map</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Screen space</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_132">
                   <property name="text">
@@ -872,25 +596,6 @@
                  <widget class="QLabel" name="label_68">
                   <property name="text">
                    <string>Intensity:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="slider_ambient_occlusion">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>200</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -920,6 +625,34 @@
                   <property name="singleStep">
                    <double>0.100000000000000</double>
                   </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QComboBox" name="comboBox_ambient_occlusion_mode">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of method to calculate ambient occlusion effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Fast</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Multiple rays with light map</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Screen space</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>
@@ -968,17 +701,17 @@
                   <number>2</number>
                  </property>
                  <item>
+                  <widget class="QLabel" name="label_171">
+                   <property name="text">
+                    <string>Light map texture:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
                   <layout class="QGridLayout" name="gridLayout_74">
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_171">
-                     <property name="text">
-                      <string>Light map texture:</string>
-                     </property>
-                    </widget>
-                   </item>
                    <item row="0" column="1" colspan="2">
                     <widget class="FileSelectWidget" name="text_file_lightmap" native="true">
                      <property name="sizePolicy">
@@ -1106,8 +839,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
-            <height>1516</height>
+            <width>205</width>
+            <height>779</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1127,26 +860,14 @@
             <number>2</number>
            </property>
            <item>
-            <layout class="QGridLayout" name="gridLayout_2" columnminimumwidth="0,0,0">
+            <layout class="QGridLayout" name="gridLayout_2">
              <property name="topMargin">
               <number>0</number>
              </property>
              <item row="0" column="1">
-              <widget class="QSlider" name="logslider_volumetric_light_DE_Factor">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>-300</number>
-               </property>
-               <property name="maximum">
-                <number>300</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="MyLineEdit" name="logedit_volumetric_light_DE_Factor">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This value controls the quality of the volumetric light effect. It will be multiplied to the step, so the step for volumetric light is calculated in each iteration as: &lt;/p&gt;&lt;p&gt;step = DE * DE_FACTOR[global] * DE_FACTOR[volumetric].&lt;/p&gt;&lt;p&gt;A higher value gives poorer quality and a faster render.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -1155,13 +876,6 @@
                <property name="text">
                 <string>Custom DE Step multiplier
 for volumetric effects:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2">
-              <widget class="MyLineEdit" name="logedit_volumetric_light_DE_Factor">
-               <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This value controls the quality of the volumetric light effect. It will be multiplied to the step, so the step for volumetric light is calculated in each iteration as: &lt;/p&gt;&lt;p&gt;step = DE * DE_FACTOR[global] * DE_FACTOR[volumetric].&lt;/p&gt;&lt;p&gt;A higher value gives poorer quality and a faster render.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
@@ -1195,30 +909,11 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,2,1">
+               <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
                 <item row="0" column="1">
-                 <widget class="QSlider" name="logslider_basic_fog_visibility">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
                  <widget class="MyLineEdit" name="logedit_basic_fog_visibility">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Visibility distance of fog. Visibility can be set by using '&lt;span style=&quot; font-style:italic;&quot;&gt;Set visibility distance by mouse'&lt;/span&gt; button&lt;/p&gt;&lt;p&gt;Lower value gives denser fog,&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1235,6 +930,13 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_63">
+                  <property name="text">
+                   <string>Visibility distance:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="1">
                  <widget class="MyColorButton" name="colorButton_basic_fog_color" native="true">
                   <property name="toolTip">
@@ -1242,13 +944,6 @@ for volumetric effects:</string>
                   </property>
                   <property name="text" stdset="0">
                    <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_63">
-                  <property name="text">
-                   <string>Visibility distance:</string>
                   </property>
                  </widget>
                 </item>
@@ -1301,7 +996,7 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,2,1">
+               <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -1319,32 +1014,17 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="MyColorButton" name="colorButton_glow_color_2" native="true">
+                <item row="0" column="1">
+                 <widget class="MyLineEdit" name="logedit_glow_intensity">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of bright areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="logslider_glow_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_87">
+                  <property name="text">
+                   <string>Intensity:</string>
                   </property>
                  </widget>
                 </item>
@@ -1358,17 +1038,13 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_87">
-                  <property name="text">
-                   <string>Intensity:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="MyLineEdit" name="logedit_glow_intensity">
+                <item row="2" column="1">
+                 <widget class="MyColorButton" name="colorButton_glow_color_2" native="true">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of bright areas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
@@ -1405,11 +1081,18 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,2,1">
+               <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="1" column="2">
+                <item row="4" column="1">
+                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts density of fog to distance from fractal surface. Higher value givers fog which reaches further from fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_density">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Density of fog. Higher value gives denser fog. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1438,83 +1121,16 @@ for volumetric effects:</string>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QSlider" name="logslider_volumetric_fog_colour_2_distance">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_2_distance">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #2 is used and minimum where color #3  is used.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="MyColorButton" name="colorButton_fog_color_1" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1">
-                 <widget class="QSlider" name="logslider_volumetric_fog_distance_factor">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
+                <item row="2" column="1">
                  <widget class="MyLineEdit" name="logedit_volumetric_fog_colour_1_distance">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum distance from fractal surface where color #1 is used&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="logslider_volumetric_fog_colour_1_distance">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -1532,16 +1148,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
-                 <widget class="MyColorButton" name="colorButton_fog_color_2" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="7" column="0">
                  <widget class="QLabel" name="label_79">
                   <property name="text">
@@ -1549,43 +1155,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="MyColorButton" name="colorButton_fog_color_3" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="2">
-                 <widget class="MyLineEdit" name="logedit_volumetric_fog_distance_factor">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts density of fog to distance from fractal surface. Higher value givers fog which reaches further from fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_volumetric_fog_density">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0" colspan="3">
+                <item row="0" column="0" colspan="2">
                  <widget class="QPushButton" name="button_calculateFog">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1601,10 +1171,40 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="5" column="1">
+                 <widget class="MyColorButton" name="colorButton_fog_color_1" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used from fractal surface to distance #1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_66">
                   <property name="text">
                    <string>Color #1:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="MyColorButton" name="colorButton_fog_color_3" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used farther than distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="MyColorButton" name="colorButton_fog_color_2" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of fog which is used between distance #1  and distance #2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
@@ -1641,21 +1241,11 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,2,1">
+               <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="4" column="1">
-                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_1" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
+                <item row="1" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1690,7 +1280,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="2" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_1_maxiter">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1718,87 +1308,10 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
+                <item row="0" column="1">
                  <widget class="MyLineEdit" name="logedit_iteration_fog_opacity">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of fog. Higher value gives denser fog.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;opacity = 1000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 4000&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;opacity = 16000&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 1000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 4000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_3" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #3 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSlider" name="slider_iteration_fog_color_2_maxiter">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>5000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="slider_iteration_fog_opacity_trim">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>5000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="slider_iteration_fog_color_1_maxiter">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>5000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_2" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
@@ -1809,26 +1322,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="logslider_iteration_fog_opacity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
+                <item row="3" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_2_maxiter">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1891,6 +1385,36 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="6" column="1">
+                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_3" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #3 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_1" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="MyColorButton" name="colorButton_iteration_fog_color_2" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -1921,11 +1445,18 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0" colspan="3">
+                <item row="1" column="1">
+                 <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_main_light_volumetric_enabled">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1948,33 +1479,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="logslider_main_light_volumetric_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="MyLineEdit" name="logedit_main_light_volumetric_intensity">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0" colspan="3">
+                <item row="2" column="0" colspan="2">
                  <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_1">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1987,7 +1492,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="3" column="1">
                  <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_1">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2001,26 +1506,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_1">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                <item row="5" column="1">
+                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_2">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0" colspan="3">
+                <item row="4" column="0" colspan="2">
                  <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_2">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2033,13 +1526,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="2">
-                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_2">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_40">
                   <property name="text">
@@ -2047,26 +1533,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                <item row="7" column="1">
+                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_3">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0" colspan="3">
+                <item row="6" column="0" colspan="2">
                  <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_3">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2079,13 +1553,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="2">
-                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_3">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="7" column="0">
                  <widget class="QLabel" name="label_43">
                   <property name="text">
@@ -2093,26 +1560,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_3">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                <item row="9" column="1">
+                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_4">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="0" colspan="3">
+                <item row="8" column="0" colspan="2">
                  <widget class="QCheckBox" name="checkBox_aux_light_volumetric_enabled_4">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2125,36 +1580,10 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
-                 <widget class="MyLineEdit" name="logedit_aux_light_volumetric_intensity_4">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of effect. When effect is not visible try to increase intensity. If whole image is white, then decrease intensity.&lt;/p&gt;&lt;p&gt;Intensity of effect doesn't depend on light source brightness&lt;/p&gt;&lt;p&gt;To control quality of this effect change &lt;span style=&quot; font-style:italic;&quot;&gt;Rendering Engine / Raymarching step&lt;/span&gt; multiplier parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="9" column="0">
                  <widget class="QLabel" name="label_44">
                   <property name="text">
                    <string>Visibility of light #4:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="1">
-                 <widget class="QSlider" name="logslider_aux_light_volumetric_intensity_4">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -2212,8 +1641,8 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
-            <height>1516</height>
+            <width>296</width>
+            <height>407</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2346,25 +1775,6 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="6" column="2">
-                 <widget class="QSlider" name="slider_background_texture_offset_y">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-10000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="8" column="1">
                  <widget class="QLabel" name="label_228">
                   <property name="text">
@@ -2426,41 +1836,6 @@ for volumetric effects:</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1" colspan="2">
-                 <widget class="QSlider" name="slider_background_h_scale">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>2000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1" colspan="2">
-                 <widget class="QSlider" name="slider_background_brightness">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>500</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -2556,22 +1931,6 @@ for volumetric effects:</string>
                   </property>
                   <property name="text">
                    <string>Map type:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="1" colspan="2">
-                 <widget class="QSlider" name="slider_background_v_scale">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>2000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -2711,6 +2070,19 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="9" column="2">
+                 <widget class="QDial" name="dial3_background_rotation_z">
+                  <property name="minimum">
+                   <number>-18000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>18000</number>
+                  </property>
+                  <property name="wrapping">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="1" colspan="3">
                  <widget class="QComboBox" name="comboBox_textured_background_map_type">
                   <property name="sizePolicy">
@@ -2770,29 +2142,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
-                 <widget class="QDial" name="dial3_background_rotation_z">
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="1">
-                 <widget class="QLabel" name="label_233">
-                  <property name="text">
-                   <string>y:</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="3">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_v_scale">
                   <property name="sizePolicy">
@@ -2818,35 +2167,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="QLabel" name="label_231">
-                  <property name="text">
-                   <string>x:</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="2">
-                 <widget class="QSlider" name="slider_background_texture_offset_x">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-10000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="2" colspan="2">
                  <widget class="FileSelectWidget" name="text_file_background" native="true">
                   <property name="sizePolicy">
@@ -2860,16 +2180,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="QLabel" name="label_232">
-                  <property name="text">
-                   <string>Alpha:</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="5" column="0" rowspan="2">
                  <widget class="QLabel" name="label_230">
                   <property name="sizePolicy">
@@ -2880,6 +2190,36 @@ for volumetric effects:</string>
                   </property>
                   <property name="text">
                    <string>Texture offset:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="QLabel" name="label_233">
+                  <property name="text">
+                   <string>y:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="QLabel" name="label_231">
+                  <property name="text">
+                   <string>x:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="1">
+                 <widget class="QLabel" name="label_232">
+                  <property name="text">
+                   <string>Alpha:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -2937,8 +2277,8 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
-            <height>1516</height>
+            <width>259</width>
+            <height>1543</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3015,22 +2355,6 @@ for volumetric effects:</string>
                 <property name="topMargin">
                  <number>0</number>
                 </property>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="slider_shadows_cone_angle">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>4500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_30">
                   <property name="text">
@@ -3038,7 +2362,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
+                <item row="0" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_shadows_cone_angle">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -3105,7 +2429,7 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayoutMainLightSource">
+               <layout class="QGridLayout" name="gridLayoutMainLightSource" columnstretch="0,0,1">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -3255,22 +2579,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="slider_main_light_visibility_size">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>5000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="5" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd_main_light_beta">
                   <property name="sizePolicy">
@@ -3308,22 +2616,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="slider_main_light_visibility">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>2000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_6">
                   <property name="text">
@@ -3340,6 +2632,12 @@ for volumetric effects:</string>
                 </item>
                 <item row="4" column="1">
                  <widget class="QDial" name="dial_main_light_alpha">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimum">
                    <number>-18000</number>
                   </property>
@@ -3348,30 +2646,17 @@ for volumetric effects:</string>
                   </property>
                   <property name="wrapping">
                    <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="slider_main_light_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>200</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
                 <item row="5" column="1">
                  <widget class="QDial" name="dial_main_light_beta">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimum">
                    <number>-18000</number>
                   </property>
@@ -3383,7 +2668,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="3" column="2">
                  <widget class="MyColorButton" name="colorButton_main_light_colour" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of main light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3443,6 +2728,173 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="1" column="0">
+                 <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_2">
+                  <property name="title">
+                   <string>Light #&amp;2</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_11">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>2</number>
+                   </property>
+                   <item>
+                    <layout class="QFormLayout" name="formLayout_coordinates_6">
+                     <property name="fieldGrowthPolicy">
+                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+                     </property>
+                     <property name="horizontalSpacing">
+                      <number>2</number>
+                     </property>
+                     <property name="verticalSpacing">
+                      <number>1</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_24">
+                       <property name="text">
+                        <string>x:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_x">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_25">
+                       <property name="text">
+                        <string>y:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="1">
+                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_y">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="0">
+                      <widget class="QLabel" name="label_26">
+                       <property name="text">
+                        <string>z:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_z">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_5">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_13">
+                       <property name="text">
+                        <string>Intensity:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="MyLineEdit" name="logedit_aux_light_intensity_2">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <layout class="QHBoxLayout" name="horizontalLayout_6">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item>
+                      <widget class="QLabel" name="label_14">
+                       <property name="text">
+                        <string>Color:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item>
+                      <widget class="MyColorButton" name="colorButton_aux_light_colour_2" native="true">
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="text" stdset="0">
+                        <string>PushButton</string>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="pushButton_place_light_by_mouse_2">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables placing of the light source by mouse pointer. Light source is placed in front of fractal surface by distance defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Placement distance &lt;/span&gt;parameter. &lt;/p&gt;&lt;p&gt;Placement distance can be changed using mouse scroll. &lt;/p&gt;&lt;p&gt;When the light is already placed, don't forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to e.g. &amp;quot;Move the camera&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text">
+                      <string>Place by mouse</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
                 <item row="0" column="0">
                  <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_1">
                   <property name="title">
@@ -3568,25 +3020,6 @@ for volumetric effects:</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QSlider" name="logslider_aux_light_intensity_1">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_4">
                      <property name="spacing">
                       <number>2</number>
@@ -3629,193 +3062,7 @@ for volumetric effects:</string>
                   </layout>
                  </widget>
                 </item>
-                <item row="0" column="1">
-                 <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_2">
-                  <property name="title">
-                   <string>Light #&amp;2</string>
-                  </property>
-                  <property name="checkable">
-                   <bool>true</bool>
-                  </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_11">
-                   <property name="spacing">
-                    <number>2</number>
-                   </property>
-                   <property name="leftMargin">
-                    <number>2</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>2</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>2</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>2</number>
-                   </property>
-                   <item>
-                    <layout class="QFormLayout" name="formLayout_coordinates_6">
-                     <property name="fieldGrowthPolicy">
-                      <enum>QFormLayout::ExpandingFieldsGrow</enum>
-                     </property>
-                     <property name="horizontalSpacing">
-                      <number>2</number>
-                     </property>
-                     <property name="verticalSpacing">
-                      <number>1</number>
-                     </property>
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_24">
-                       <property name="text">
-                        <string>x:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_x">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_25">
-                       <property name="text">
-                        <string>y:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="1">
-                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_y">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QLabel" name="label_26">
-                       <property name="text">
-                        <string>z:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="1">
-                      <widget class="MyLineEdit" name="vect3_aux_light_position_2_z">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;coordinates of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_5">
-                     <property name="spacing">
-                      <number>2</number>
-                     </property>
-                     <item>
-                      <widget class="QLabel" name="label_13">
-                       <property name="text">
-                        <string>Intensity:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="MyLineEdit" name="logedit_aux_light_intensity_2">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;brightness of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <widget class="QSlider" name="logslider_aux_light_intensity_2">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_6">
-                     <property name="spacing">
-                      <number>2</number>
-                     </property>
-                     <item>
-                      <widget class="QLabel" name="label_14">
-                       <property name="text">
-                        <string>Color:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="MyColorButton" name="colorButton_aux_light_colour_2" native="true">
-                       <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                       <property name="text" stdset="0">
-                        <string>PushButton</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_place_light_by_mouse_2">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables placing of the light source by mouse pointer. Light source is placed in front of fractal surface by distance defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Placement distance &lt;/span&gt;parameter. &lt;/p&gt;&lt;p&gt;Placement distance can be changed using mouse scroll. &lt;/p&gt;&lt;p&gt;When the light is already placed, don't forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to e.g. &amp;quot;Move the camera&amp;quot;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="text">
-                      <string>Place by mouse</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_3">
                   <property name="title">
                    <string>Light #&amp;3</string>
@@ -3940,25 +3187,6 @@ for volumetric effects:</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QSlider" name="logslider_aux_light_intensity_3">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_8">
                      <property name="spacing">
                       <number>2</number>
@@ -4001,7 +3229,7 @@ for volumetric effects:</string>
                   </layout>
                  </widget>
                 </item>
-                <item row="1" column="1">
+                <item row="3" column="0">
                  <widget class="MyGroupBox" name="groupCheck_aux_light_enabled_4">
                   <property name="title">
                    <string>Light #&amp;4</string>
@@ -4126,28 +3354,6 @@ for volumetric effects:</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QSlider" name="logslider_aux_light_intensity_4">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="value">
-                      <number>0</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <layout class="QHBoxLayout" name="horizontalLayout_10">
                      <property name="spacing">
                       <number>2</number>
@@ -4214,33 +3420,21 @@ for volumetric effects:</string>
                   <number>2</number>
                  </property>
                  <item>
-                  <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,2,1">
+                  <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
-                   <item row="2" column="2">
-                    <widget class="MyLineEdit" name="logedit_aux_light_visibility_size">
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="logedit_aux_light_visibility">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it's higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility of additional light sources. Higher value gives brighter appearance of light sources. It doesn't control luminosity of light sources.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="1">
-                    <widget class="QSlider" name="logslider_aux_light_manual_placement_dist">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>300</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                   <item row="2" column="1">
+                    <widget class="MyLineEdit" name="logedit_aux_light_visibility_size">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines size of visible light sources. When it's higher then lights appear bigger.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -4251,48 +3445,10 @@ for volumetric effects:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="2" column="1">
-                    <widget class="QSlider" name="logslider_aux_light_visibility_size">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>300</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QSlider" name="logslider_aux_light_visibility">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="2">
-                    <widget class="MyLineEdit" name="logedit_aux_light_visibility">
+                   <item row="3" column="1">
+                    <widget class="MyLineEdit" name="logedit_aux_light_manual_placement_dist">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility of additional light sources. Higher value gives brighter appearance of light sources. It doesn't control luminosity of light sources.&lt;/p&gt;&lt;p&gt;This parameter also affects random lights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it's zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -4311,14 +3467,7 @@ for volumetric effects:</string>
                      </property>
                     </widget>
                    </item>
-                   <item row="3" column="2">
-                    <widget class="MyLineEdit" name="logedit_aux_light_manual_placement_dist">
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance from fractal surface where light will be placed with mouse pointer. When it's zero, the light will be set on fractal surface. Higher value moves the light towards the camera.&lt;/p&gt;&lt;p&gt;This parameter can be controlled with mouse scroll.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0" colspan="3">
+                   <item row="4" column="0" colspan="2">
                     <widget class="MyCheckBox" name="checkBox_aux_light_place_behind">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -4371,7 +3520,8 @@ for volumetric effects:</string>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_random_lights_number">
                      <property name="text">
-                      <string>Number of random lights:</string>
+                      <string>Number of random
+lights:</string>
                      </property>
                     </widget>
                    </item>
@@ -4411,26 +3561,8 @@ for volumetric effects:</string>
                    <item row="2" column="0">
                     <widget class="QLabel" name="label_random_lights_max_distance_from_fractal">
                      <property name="text">
-                      <string>Maximum distance from fractal:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="QSlider" name="logslider_random_lights_max_distance_from_fractal">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <string>Maximum distance
+from fractal:</string>
                      </property>
                     </widget>
                    </item>
@@ -4440,26 +3572,8 @@ for volumetric effects:</string>
                    <item row="3" column="0">
                     <widget class="QLabel" name="label_random_lights_distribution_radius">
                      <property name="text">
-                      <string>Distribution radius of lights:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="1">
-                    <widget class="QSlider" name="logslider_random_lights_distribution_radius">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <string>Distribution radius
+of lights:</string>
                      </property>
                     </widget>
                    </item>
@@ -4475,6 +3589,12 @@ for volumetric effects:</string>
                    </item>
                    <item row="4" column="1">
                     <widget class="QLabel" name="label_distribution_x">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>x:</string>
                      </property>
@@ -4492,6 +3612,12 @@ for volumetric effects:</string>
                    </item>
                    <item row="5" column="1">
                     <widget class="QLabel" name="label_distribution_y">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>y:</string>
                      </property>
@@ -4509,6 +3635,12 @@ for volumetric effects:</string>
                    </item>
                    <item row="6" column="1">
                     <widget class="QLabel" name="label_distribution_z">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
                      <property name="text">
                       <string>z:</string>
                      </property>
@@ -4541,25 +3673,6 @@ for volumetric effects:</string>
                     <widget class="QLabel" name="label_random_lights_intensity">
                      <property name="text">
                       <string>Intensity:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="8" column="1">
-                    <widget class="QSlider" name="logslider_random_lights_intensity">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimum">
-                      <number>-1500</number>
-                     </property>
-                     <property name="maximum">
-                      <number>1500</number>
-                     </property>
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -4652,70 +3765,10 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="sliderInt_fake_lights_max_iter">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>50</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QSlider" name="logslider_fake_lights_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_60">
                   <property name="text">
                    <string>Minimum iteration:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QSlider" name="logslider_fake_lights_visibility">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-1500</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1500</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -4767,7 +3820,7 @@ for volumetric effects:</string>
                 <item row="6" column="1">
                  <widget class="QLabel" name="label_97">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -4787,51 +3840,10 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QSlider" name="slider_fake_lights_visibility_size">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>10</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1000</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_93">
                   <property name="text">
                    <string>Visibility:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QSlider" name="sliderInt_fake_lights_min_iter">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximum">
-                   <number>50</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -4852,7 +3864,7 @@ for volumetric effects:</string>
                 <item row="5" column="1">
                  <widget class="QLabel" name="label_96">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -4875,7 +3887,7 @@ for volumetric effects:</string>
                 <item row="7" column="1">
                  <widget class="QLabel" name="label_98">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -4960,7 +3972,7 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>576</width>
+            <width>286</width>
             <height>1512</height>
            </rect>
           </property>
@@ -5002,33 +4014,11 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,0,0">
+               <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
                 <item row="0" column="1">
-                 <widget class="QSlider" name="slider_hdr_blur_radius">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>10000</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_hdr_blur_radius">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5066,28 +4056,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QSlider" name="slider_hdr_blur_intensity">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>100</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_352">
                   <property name="text">
@@ -5095,7 +4063,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
+                <item row="1" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_hdr_blur_intensity">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5126,7 +4094,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0" colspan="3">
+                <item row="2" column="0" colspan="2">
                  <widget class="QPushButton" name="pushButton_hdr_blur_update">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -5211,72 +4179,48 @@ for volumetric effects:</string>
  <tabstops>
   <tabstop>scrollArea_7</tabstop>
   <tabstop>groupCheck_raytraced_reflections</tabstop>
-  <tabstop>sliderInt_reflections_max</tabstop>
   <tabstop>spinboxInt_reflections_max</tabstop>
   <tabstop>groupCheck_DOF_enabled</tabstop>
-  <tabstop>logslider_DOF_focus</tabstop>
   <tabstop>logedit_DOF_focus</tabstop>
-  <tabstop>slider_DOF_radius</tabstop>
   <tabstop>spinbox_DOF_radius</tabstop>
-  <tabstop>sliderInt_DOF_number_of_passes</tabstop>
   <tabstop>spinboxInt_DOF_number_of_passes</tabstop>
-  <tabstop>slider_DOF_blur_opacity</tabstop>
   <tabstop>spinbox_DOF_blur_opacity</tabstop>
   <tabstop>groupCheck_DOF_monte_carlo</tabstop>
-  <tabstop>sliderInt_DOF_samples</tabstop>
   <tabstop>spinboxInt_DOF_samples</tabstop>
   <tabstop>pushButton_DOF_update</tabstop>
   <tabstop>pushButton_DOF_set_focus</tabstop>
   <tabstop>groupCheck_ambient_occlusion_enabled</tabstop>
-  <tabstop>slider_ambient_occlusion</tabstop>
   <tabstop>spinbox_ambient_occlusion</tabstop>
-  <tabstop>sliderInt_ambient_occlusion_quality</tabstop>
   <tabstop>spinboxInt_ambient_occlusion_quality</tabstop>
-  <tabstop>slider_ambient_occlusion_fast_tune</tabstop>
   <tabstop>spinbox_ambient_occlusion_fast_tune</tabstop>
-  <tabstop>comboBox_ambient_occlusion_mode</tabstop>
   <tabstop>checkBox_SSAO_random_mode</tabstop>
   <tabstop>groupCheck_env_mapping_enable</tabstop>
   <tabstop>groupCheck_basic_fog_enabled</tabstop>
-  <tabstop>logslider_basic_fog_visibility</tabstop>
   <tabstop>logedit_basic_fog_visibility</tabstop>
   <tabstop>pushButton_set_fog_by_mouse</tabstop>
   <tabstop>groupCheck_glow_enabled</tabstop>
-  <tabstop>logslider_glow_intensity</tabstop>
   <tabstop>logedit_glow_intensity</tabstop>
   <tabstop>groupCheck_volumetric_fog_enabled</tabstop>
   <tabstop>button_calculateFog</tabstop>
-  <tabstop>logslider_volumetric_fog_density</tabstop>
   <tabstop>logedit_volumetric_fog_density</tabstop>
-  <tabstop>logslider_volumetric_fog_colour_1_distance</tabstop>
   <tabstop>logedit_volumetric_fog_colour_1_distance</tabstop>
-  <tabstop>logslider_volumetric_fog_colour_2_distance</tabstop>
   <tabstop>logedit_volumetric_fog_colour_2_distance</tabstop>
-  <tabstop>logslider_volumetric_fog_distance_factor</tabstop>
   <tabstop>logedit_volumetric_fog_distance_factor</tabstop>
   <tabstop>groupCheck_iteration_fog_enable</tabstop>
-  <tabstop>logslider_iteration_fog_opacity</tabstop>
   <tabstop>logedit_iteration_fog_opacity</tabstop>
-  <tabstop>slider_iteration_fog_opacity_trim</tabstop>
   <tabstop>spinbox_iteration_fog_opacity_trim</tabstop>
-  <tabstop>slider_iteration_fog_color_1_maxiter</tabstop>
   <tabstop>spinbox_iteration_fog_color_1_maxiter</tabstop>
-  <tabstop>slider_iteration_fog_color_2_maxiter</tabstop>
   <tabstop>spinbox_iteration_fog_color_2_maxiter</tabstop>
   <tabstop>scrollArea_9</tabstop>
   <tabstop>groupCheck_textured_background</tabstop>
   <tabstop>comboBox_textured_background_map_type</tabstop>
-  <tabstop>slider_background_brightness</tabstop>
   <tabstop>spinbox_background_brightness</tabstop>
   <tabstop>scrollArea_10</tabstop>
   <tabstop>checkBox_shadows_enabled</tabstop>
   <tabstop>checkBox_penetrating_lights</tabstop>
   <tabstop>groupCheck_main_light_enable</tabstop>
-  <tabstop>slider_main_light_intensity</tabstop>
   <tabstop>spinbox_main_light_intensity</tabstop>
-  <tabstop>slider_main_light_visibility</tabstop>
   <tabstop>spinbox_main_light_visibility</tabstop>
-  <tabstop>slider_main_light_visibility_size</tabstop>
   <tabstop>spinbox_main_light_visibility_size</tabstop>
   <tabstop>dial_main_light_alpha</tabstop>
   <tabstop>spinboxd_main_light_alpha</tabstop>
@@ -5288,58 +4232,41 @@ for volumetric effects:</string>
   <tabstop>vect3_aux_light_position_1_y</tabstop>
   <tabstop>vect3_aux_light_position_1_z</tabstop>
   <tabstop>logedit_aux_light_intensity_1</tabstop>
-  <tabstop>logslider_aux_light_intensity_1</tabstop>
-  <tabstop>groupCheck_aux_light_enabled_2</tabstop>
   <tabstop>vect3_aux_light_position_2_x</tabstop>
   <tabstop>vect3_aux_light_position_2_y</tabstop>
   <tabstop>vect3_aux_light_position_2_z</tabstop>
   <tabstop>logedit_aux_light_intensity_2</tabstop>
-  <tabstop>logslider_aux_light_intensity_2</tabstop>
   <tabstop>pushButton_place_light_by_mouse_1</tabstop>
   <tabstop>groupCheck_aux_light_enabled_3</tabstop>
   <tabstop>vect3_aux_light_position_3_x</tabstop>
   <tabstop>vect3_aux_light_position_3_y</tabstop>
   <tabstop>vect3_aux_light_position_3_z</tabstop>
   <tabstop>logedit_aux_light_intensity_3</tabstop>
-  <tabstop>logslider_aux_light_intensity_3</tabstop>
   <tabstop>pushButton_place_light_by_mouse_2</tabstop>
-  <tabstop>groupCheck_aux_light_enabled_4</tabstop>
   <tabstop>vect3_aux_light_position_4_x</tabstop>
   <tabstop>vect3_aux_light_position_4_y</tabstop>
   <tabstop>vect3_aux_light_position_4_z</tabstop>
   <tabstop>logedit_aux_light_intensity_4</tabstop>
-  <tabstop>logslider_aux_light_intensity_4</tabstop>
   <tabstop>pushButton_place_light_by_mouse_3</tabstop>
   <tabstop>pushButton_place_light_by_mouse_4</tabstop>
-  <tabstop>logslider_aux_light_visibility</tabstop>
   <tabstop>logedit_aux_light_visibility</tabstop>
-  <tabstop>logslider_aux_light_visibility_size</tabstop>
   <tabstop>logedit_aux_light_visibility_size</tabstop>
-  <tabstop>logslider_aux_light_manual_placement_dist</tabstop>
   <tabstop>logedit_aux_light_manual_placement_dist</tabstop>
   <tabstop>groupCheck_random_lights_group</tabstop>
   <tabstop>spinboxInt_random_lights_number</tabstop>
   <tabstop>spinboxInt_random_lights_random_seed</tabstop>
-  <tabstop>logslider_random_lights_max_distance_from_fractal</tabstop>
   <tabstop>logedit_random_lights_max_distance_from_fractal</tabstop>
-  <tabstop>logslider_random_lights_distribution_radius</tabstop>
   <tabstop>logedit_random_lights_distribution_radius</tabstop>
   <tabstop>vect3_random_lights_distribution_center_x</tabstop>
   <tabstop>vect3_random_lights_distribution_center_y</tabstop>
   <tabstop>vect3_random_lights_distribution_center_z</tabstop>
   <tabstop>pushButton_place_random_lights_by_mouse</tabstop>
-  <tabstop>logslider_random_lights_intensity</tabstop>
   <tabstop>logedit_random_lights_intensity</tabstop>
   <tabstop>groupCheck_fake_lights_enabled</tabstop>
-  <tabstop>sliderInt_fake_lights_min_iter</tabstop>
   <tabstop>spinboxInt_fake_lights_min_iter</tabstop>
-  <tabstop>sliderInt_fake_lights_max_iter</tabstop>
   <tabstop>spinboxInt_fake_lights_max_iter</tabstop>
-  <tabstop>logslider_fake_lights_intensity</tabstop>
   <tabstop>logedit_fake_lights_intensity</tabstop>
-  <tabstop>logslider_fake_lights_visibility</tabstop>
   <tabstop>logedit_fake_lights_visibility</tabstop>
-  <tabstop>slider_fake_lights_visibility_size</tabstop>
   <tabstop>spinbox_fake_lights_visibility_size</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_x</tabstop>
   <tabstop>vect3_fake_lights_orbit_trap_y</tabstop>

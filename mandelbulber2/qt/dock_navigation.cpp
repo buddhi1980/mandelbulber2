@@ -126,8 +126,6 @@ void cDockNavigation::ConnectSignals() const
 	connect(ui->vect3_camera_rotation_z, SIGNAL(editingFinished()), this, SLOT(slotRotationEdited()));
 	connect(ui->logedit_camera_distance_to_target, SIGNAL(editingFinished()), this,
 		SLOT(slotCameraDistanceEdited()));
-	connect(ui->logslider_camera_distance_to_target, SIGNAL(sliderMoved(int)), this,
-		SLOT(slotCameraDistanceSlider(int)));
 	connect(ui->comboBox_camera_absolute_distance_mode, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotMovementStepModeChanged(int)));
 	connect(ui->comboBox_camera_movement_mode, SIGNAL(currentIndexChanged(int)), this,

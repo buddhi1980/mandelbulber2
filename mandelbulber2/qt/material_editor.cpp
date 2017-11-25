@@ -176,8 +176,6 @@ void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 {
 	sFractalColoring::enumFractalColoringAlgorithm selection =
 		sFractalColoring::enumFractalColoringAlgorithm(index);
-	ui->slider_fractal_coloring_sphere_radius->setEnabled(
-		selection == sFractalColoring::fractalColoringSphere);
 	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(
 		selection == sFractalColoring::fractalColoringSphere);
 	ui->vect3_fractal_coloring_line_direction_x->setEnabled(

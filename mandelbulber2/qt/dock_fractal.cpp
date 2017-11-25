@@ -65,7 +65,6 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
 	ui->label_repeat_from->setEnabled(false);
-	ui->sliderInt_repeat_from->setEnabled(false);
 	ui->spinboxInt_repeat_from->setEnabled(false);
 	ui->label_fractals_remark_julia->setVisible(false);
 
@@ -331,7 +330,6 @@ void cDockFractal::slotChangedCheckBoxHybridFractal(int state) const
 
 	ui->label_fractals_remark_hybrid->setVisible(!state);
 	ui->label_repeat_from->setEnabled(state);
-	ui->sliderInt_repeat_from->setEnabled(state);
 	ui->spinboxInt_repeat_from->setEnabled(state);
 }
 

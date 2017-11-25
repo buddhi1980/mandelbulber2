@@ -70,8 +70,6 @@ void cDockEffects::ConnectSignals() const
 	connect(ui->logedit_aux_light_manual_placement_dist, SIGNAL(textChanged(const QString &)), this,
 		SLOT(slotEditedLineEditManualLightPlacementDistance(const QString &)));
 
-	connect(ui->logslider_aux_light_manual_placement_dist, SIGNAL(sliderMoved(int)), this,
-		SLOT(slotSliderMovedEditManualLightPlacementDistance(int)));
 	connect(
 		ui->pushButton_DOF_set_focus, SIGNAL(clicked()), this, SLOT(slotPressedButtonSetDOFByMouse()));
 	connect(
@@ -174,11 +172,6 @@ void cDockEffects::slotEditedLineEditManualLightPlacementDistance(const QString 
 	gMainInterface->renderedImage->SetFrontDist(systemData.locale.toDouble(text));
 }
 
-void cDockEffects::slotSliderMovedEditManualLightPlacementDistance(int value) const
-{
-	gMainInterface->renderedImage->SetFrontDist(pow(10.0, value / 100.0));
-}
-
 void cDockEffects::slotChangedPlaceLightBehindObjects(int state)
 {
 	gMainInterface->renderedImage->SetPlaceBehindObjects(state);
@@ -189,7 +182,6 @@ void cDockEffects::slotChangedComboAmbientOcclusionMode(int index) const
 	bool enabled = index == params::AOModeMultipleRays ? true : false;
 	ui->frame_lightmap_texture->setEnabled(enabled);
 	enabled = index == params::AOModeFast ? true : false;
-	ui->slider_ambient_occlusion_fast_tune->setEnabled(enabled);
 	ui->spinbox_ambient_occlusion_fast_tune->setEnabled(enabled);
 }
 

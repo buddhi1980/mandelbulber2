@@ -283,7 +283,6 @@ void cDockRenderingEngine::UpdateLabelUsedDistanceEstimation(const QString &text
 
 void cDockRenderingEngine::slotChangedCheckBoxUseDefaultBailout(int state) const
 {
-	ui->logslider_bailout->setEnabled(!state);
 	ui->logedit_bailout->setEnabled(!state);
 }
 

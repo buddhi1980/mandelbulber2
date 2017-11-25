@@ -68,7 +68,6 @@ private slots:
 	static void slotPressedButtonAutoFog();
 	void slotChangedComboAmbientOcclusionMode(int index) const;
 	static void slotEditedLineEditManualLightPlacementDistance(const QString &text);
-	void slotSliderMovedEditManualLightPlacementDistance(int value) const;
 	static void slotPressedButtonSetDOFByMouse();
 	static void slotPressedButtonSetFogByMouse();
 	void slotPressedButtonSetLight1ByMouse() const;
