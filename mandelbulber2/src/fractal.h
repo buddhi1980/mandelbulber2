@@ -108,6 +108,7 @@ struct sFoldColor
 	double compFold0;
 	double compFold;
 	double compMinR;
+	double compMinR0;
 	double compScale;
 	double oldScale1;
 	double parabScale0;
@@ -136,6 +137,7 @@ struct sFoldColor
 	int intAz0;
 	bool parabEnabledFalse;
 	bool cosEnabledFalse;
+	bool auxColorEnabled;
 	bool auxColorEnabledFalse;
 	bool distanceEnabledFalse;
 };

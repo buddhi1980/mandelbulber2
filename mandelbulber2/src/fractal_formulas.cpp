@@ -2647,7 +2647,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 
-		if (fractal->foldColor.auxColorEnabledFalse)
+		if (fractal->foldColor.auxColorEnabled)
 		{
 			if (z.z != oldZ.z) colorAdd += fractal->foldColor.factor000.z;
 			if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
@@ -2738,15 +2738,16 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled)
 	{
 		aux.color += colorAdd;
+		aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001));
 		aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 	}
-	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
+	aux.minRFactor = fractal->foldColor.compMinR0;	// orbit trap weight
 	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
 
-	double scaleColor = fractal->foldColor.colorMin + fabs(useScale);
+	double scaleColor = fabs(useScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 

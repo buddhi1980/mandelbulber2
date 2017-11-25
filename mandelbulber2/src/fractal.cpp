@@ -243,6 +243,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.compFold = container->Get<double>("fold_color_comp_fold");
 	foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
 	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
+	foldColor.compMinR0 = container->Get<double>("fold_color_comp_minR0");
 	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
 	foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
 	foldColor.newScale0 = container->Get<double>("fold_color_new_scale0");
@@ -272,6 +273,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
 	foldColor.parabEnabledFalse = container->Get<bool>("fold_color_parab_enabled_false");
 	foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
+	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
 	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
