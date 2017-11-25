@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-class QSlider;
+class cFrameSiderPopup;
 
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
@@ -66,7 +66,7 @@ private:
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
 
-	QSlider *slider;
+	cFrameSiderPopup *slider;
 	QTimer *sliderTimer;
 
 protected:
@@ -80,7 +80,6 @@ private slots:
 	void slotPasteVector();
 	void slotResetVector();
 	void slotSliderTimerUpdateValue();
-	void sliderReleased();
 };
 
 #endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */
