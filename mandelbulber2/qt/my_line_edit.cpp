@@ -35,16 +35,17 @@
 #include "my_line_edit.h"
 
 #include <qapplication.h>
+
 #include <QByteArray>
 #include <QLocale>
-
 #include <QMenu>
 #include <QSlider>
 
-#include "../src/system.hpp"
 #include "frame_slider_popup.h"
+
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
+#include "src/system.hpp"
 
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)
 {
@@ -329,7 +330,7 @@ void MyLineEdit::slotSliderTimerUpdateValue()
 		if (objectName().left(3) == QString("log"))
 		{
 			double dDiff = iDiff / 1000.0;
-			double change = pow(10.0, dDiff*dDiff * sign);
+			double change = pow(10.0, dDiff * dDiff * sign);
 			const QString text = QString("%L1").arg(value * change, 0, 'g', 16);
 			setText(text);
 		}

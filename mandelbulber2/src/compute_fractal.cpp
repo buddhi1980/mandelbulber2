@@ -453,21 +453,20 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (iterColor > 1000) iterColor = 1000;
 			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0; // old code
 
-
-				double minR1000 = minimumR * 1000.0;
-				double iterColor100 = iterColor * 100;
-				double rDE5000 = rDE * 5000;
+			double minR1000 = minimumR * 1000.0;
+			double iterColor100 = iterColor * 100;
+			double rDE5000 = rDE * 5000;
 			out->colorIndex =
 
-				((minR1000 + iterColor100 + rDE5000) //old code
-				 * extendedAux.oldHybridFactor) // turn off old code or mix with
+				((minR1000 + iterColor100 + rDE5000) // old code
+					* extendedAux.oldHybridFactor)		 // turn off old code or mix with
 
-				+	iterColor100 * extendedAux.foldFactor	 // folds part
+				+ iterColor100 * extendedAux.foldFactor							 // folds part
 				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-				+ rDE5000 * extendedAux.scaleFactor  // r/DE  for backwards compatibility
-				+ (minR1000 * extendedAux.minRFactor) // orbit trap only
+				+ rDE5000 * extendedAux.scaleFactor									 // r/DE  for backwards compatibility
+				+ (minR1000 * extendedAux.minRFactor)								 // orbit trap only
 
-				+ extendedAux.colorHybrid; //for transf hybrid color inputs
+				+ extendedAux.colorHybrid; // for transf hybrid color inputs
 		}
 		else
 		{
@@ -487,7 +486,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-						+ rDE * 5000.0 * extendedAux.scaleFactor 							 // r/DE  for backwards compatibility
+						+ rDE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);*/

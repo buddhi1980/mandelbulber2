@@ -134,6 +134,5 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL scaleColor = fabs(useScale);
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
-
 	return z;
 }
