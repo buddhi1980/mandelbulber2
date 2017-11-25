@@ -22,13 +22,24 @@ public:
 	explicit cFrameSiderPopup(QWidget *parent = nullptr);
 	~cFrameSiderPopup();
 
+private:
 	Ui::cFrameSiderPopup *ui;
+	QTimer *sliderTimer;
 
 public:
 	int value() const;
 
 private slots:
 	void sliderReleased();
+	void slotSliderTimerTrigger();
+
+signals:
+	void resetPressed();
+	void zeroPressed();
+	void halfPressed();
+	void doublePressed();
+	void intPressed();
+	void timerTrigger();
 };
 
 #endif /* MANDELBULBER2_QT_FRAME_SLIDER_POPUP_H_ */

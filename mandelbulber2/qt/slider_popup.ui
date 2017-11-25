@@ -80,6 +80,9 @@
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
+       <property name="toolTip">
+        <string>Hide slider</string>
+       </property>
        <property name="text">
         <string>X</string>
        </property>
@@ -89,6 +92,9 @@
       <widget class="QToolButton" name="buReset">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Reser value to default</string>
        </property>
        <property name="text">
         <string>R</string>
@@ -100,6 +106,9 @@
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
+       <property name="toolTip">
+        <string>Zero</string>
+       </property>
        <property name="text">
         <string>0</string>
        </property>
@@ -109,6 +118,9 @@
       <widget class="QToolButton" name="buHalf">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Half</string>
        </property>
        <property name="text">
         <string>÷2</string>
@@ -120,6 +132,9 @@
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
        </property>
+       <property name="toolTip">
+        <string>Double</string>
+       </property>
        <property name="text">
         <string>x2</string>
        </property>
@@ -129,6 +144,9 @@
       <widget class="QToolButton" name="buInteger">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Round to integer</string>
        </property>
        <property name="text">
         <string>Int</string>

@@ -67,7 +67,6 @@ private:
 	QString getFullParameterName() override;
 
 	cFrameSiderPopup *slider;
-	QTimer *sliderTimer;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
@@ -80,6 +79,11 @@ private slots:
 	void slotPasteVector();
 	void slotResetVector();
 	void slotSliderTimerUpdateValue();
+	void slotResetToDefault();
+	void slotZerovalue();
+	void slotDoublevalue();
+	void slotHalfValue();
+	void slotRoundValue();
 };
 
 #endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */
