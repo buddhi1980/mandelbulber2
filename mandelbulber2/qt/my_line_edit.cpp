@@ -41,6 +41,7 @@
 #include <QMenu>
 #include <QSlider>
 
+#include "../src/common_math.h"
 #include "frame_slider_popup.h"
 
 #include "src/animation_flight.hpp"
@@ -379,6 +380,6 @@ void MyLineEdit::slotHalfValue()
 void MyLineEdit::slotRoundValue()
 {
 	const double value = systemData.locale.toDouble(text());
-	const QString text = QString("%L1").arg(round(value), 0, 'g', 16);
+	const QString text = QString("%L1").arg(MagicRound(value, 0.05), 0, 'g', 16);
 	setText(text);
 }

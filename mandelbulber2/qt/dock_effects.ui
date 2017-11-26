@@ -839,8 +839,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>205</width>
-            <height>779</height>
+            <width>286</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1642,7 +1642,7 @@ for volumetric effects:</string>
             <x>0</x>
             <y>0</y>
             <width>296</width>
-            <height>407</height>
+            <height>1498</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2277,7 +2277,7 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>259</width>
+            <width>268</width>
             <height>1543</height>
            </rect>
           </property>

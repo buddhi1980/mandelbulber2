@@ -53,6 +53,7 @@ private:
 	Ui::cFrameSiderPopup *ui;
 	QTimer *sliderTimer;
 	bool integerMode;
+	bool dialMode;
 	int integerMax;
 	int integerMin;
 

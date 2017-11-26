@@ -58,6 +58,12 @@ cFrameSiderPopup::cFrameSiderPopup(QWidget *parent) : QFrame(parent), ui(new Ui:
 	integerMax = 0;
 	integerMin = 0;
 	integerMode = false;
+	dialMode = false;
+	ui->dial->hide();
+	ui->buUp->hide();
+	ui->buRight->hide();
+	ui->buDown->hide();
+	ui->buLeft->hide();
 }
 
 cFrameSiderPopup::~cFrameSiderPopup()

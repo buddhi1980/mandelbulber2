@@ -77,8 +77,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>810</width>
-            <height>735</height>
+            <width>801</width>
+            <height>756</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="scrollAreaLayoutRenderedImage">
@@ -293,7 +293,7 @@
      <x>0</x>
      <y>0</y>
      <width>1030</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuImage">
@@ -313,7 +313,7 @@
     </property>
     <widget class="QMenu" name="menuRecent_Settings_list">
      <property name="title">
-      <string>Recent settings...</string>
+      <string>&amp;Recent settings...</string>
      </property>
      <property name="icon">
       <iconset theme="document-open" resource="icons.qrc">
@@ -451,8 +451,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>66</width>
-          <height>114</height>
+          <width>84</width>
+          <height>125</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_19">
@@ -566,8 +566,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>66</width>
-          <height>114</height>
+          <width>84</width>
+          <height>127</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_26">
@@ -601,7 +601,7 @@
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Objects</string>
+    <string>Ob&amp;jects</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -633,8 +633,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>66</width>
-          <height>112</height>
+          <width>84</width>
+          <height>125</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_59">
@@ -700,8 +700,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>66</width>
-          <height>114</height>
+          <width>84</width>
+          <height>127</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_46">
@@ -869,8 +869,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>197</width>
-          <height>70</height>
+          <width>226</width>
+          <height>84</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_93">
@@ -937,7 +937,7 @@
     <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
    </property>
    <property name="windowTitle">
-    <string>Material editor</string>
+    <string>Ma&amp;terial editor</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -966,8 +966,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>66</width>
-          <height>114</height>
+          <width>84</width>
+          <height>125</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_materials">
@@ -1045,8 +1045,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>78</width>
-          <height>374</height>
+          <width>84</width>
+          <height>449</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_94">
@@ -1171,7 +1171,7 @@
     <string>Save settings in selected file</string>
    </property>
    <property name="shortcut">
-    <string notr="true">Shift+Ctrl+S</string>
+    <string notr="true">Ctrl+Shift+S</string>
    </property>
   </action>
   <action name="actionProgramPreferences">
@@ -1466,7 +1466,7 @@
      <normaloff>:/system/icons/dialog-information.svg</normaloff>:/system/icons/dialog-information.svg</iconset>
    </property>
    <property name="text">
-    <string>News</string>
+    <string>&amp;News</string>
    </property>
   </action>
   <action name="actionDetach_image_from_main_window">

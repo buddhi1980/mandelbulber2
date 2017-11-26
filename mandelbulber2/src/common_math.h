@@ -117,4 +117,6 @@ double bicubicInterpolate(double p[4][4], double x, double y);
 
 CVector3 wrap(CVector3 x, CVector3 a, CVector3 s);
 
+double MagicRound(double val, double maxError);
+
 #endif /* MANDELBULBER2_SRC_COMMON_MATH_H_ */

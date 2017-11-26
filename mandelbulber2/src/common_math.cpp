@@ -192,3 +192,57 @@ CVector3 wrap(CVector3 x, CVector3 a, CVector3 s)
 		x.z - a.z * floor(x.z / a.z) + s.z);
 	return out;
 }
+
+double MagicRound(double val, double maxError)
+{
+	if (val != 0)
+	{
+		double multiplier = pow(10.0, -int(log10(fabs(val))));
+		double rounded = val * multiplier;
+		for (int i = 0; i < 10; i++)
+		{
+			rounded = round(val * multiplier);
+			double error = abs(rounded / multiplier - val) / abs(val);
+			if (error < maxError) break;
+
+			double rounded5 = rounded + 0.5;
+			error = abs(rounded5 / multiplier - val) / abs(val);
+			if (error < maxError)
+			{
+				rounded = rounded5;
+				break;
+			}
+
+			rounded5 = rounded - 0.5;
+			error = abs(rounded5 / multiplier - val) / abs(val);
+			if (error < maxError)
+			{
+				rounded = rounded5;
+				break;
+			}
+
+			rounded5 = rounded + 0.25;
+			error = abs(rounded5 / multiplier - val) / abs(val);
+			if (error < maxError)
+			{
+				rounded = rounded5;
+				break;
+			}
+
+			rounded5 = rounded - 0.25;
+			error = abs(rounded5 / multiplier - val) / abs(val);
+			if (error < maxError)
+			{
+				rounded = rounded5;
+				break;
+			}
+
+			multiplier *= 10.0;
+		}
+		return rounded / multiplier;
+	}
+	else
+	{
+		return val;
+	}
+}

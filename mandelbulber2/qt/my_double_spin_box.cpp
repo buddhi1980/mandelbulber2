@@ -36,6 +36,7 @@
 
 #include <QLineEdit>
 
+#include "../src/common_math.h"
 #include "../src/system.hpp"
 #include "frame_slider_popup.h"
 #include "src/animation_flight.hpp"
@@ -204,5 +205,5 @@ void MyDoubleSpinBox::slotHalfValue()
 void MyDoubleSpinBox::slotRoundValue()
 {
 	const double val = value();
-	setValue(round(val));
+	setValue(MagicRound(val, 0.05));
 }
