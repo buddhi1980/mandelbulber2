@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>519</width>
+    <width>386</width>
     <height>1149</height>
    </rect>
   </property>
@@ -43,8 +43,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>513</width>
-        <height>1143</height>
+        <width>378</width>
+        <height>1141</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -148,32 +148,13 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="2">
+            <item row="0" column="1">
              <widget class="MySpinBox" name="spinboxInt_voxel_max_iter">
               <property name="minimum">
                <number>1</number>
               </property>
               <property name="maximum">
                <number>10000</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QSlider" name="sliderInt_voxel_max_iter">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>10000</number>
-              </property>
-              <property name="singleStep">
-               <number>8</number>
-              </property>
-              <property name="pageStep">
-               <number>64</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
@@ -598,10 +579,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -609,9 +589,10 @@
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyProgressBar</class>
@@ -623,7 +604,6 @@
   <tabstop>scrollArea</tabstop>
   <tabstop>text_voxel_image_path</tabstop>
   <tabstop>pushButton_select_image_path</tabstop>
-  <tabstop>sliderInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_samples_x</tabstop>
   <tabstop>spinboxInt_voxel_samples_y</tabstop>

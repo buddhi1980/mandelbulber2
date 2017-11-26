@@ -184,14 +184,7 @@
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>MaxIter</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
+            <item row="0" column="1">
              <widget class="MySpinBox" name="spinboxInt_voxel_max_iter">
               <property name="minimum">
                <number>1</number>
@@ -201,22 +194,10 @@
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <widget class="QSlider" name="sliderInt_voxel_max_iter">
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>10000</number>
-              </property>
-              <property name="singleStep">
-               <number>8</number>
-              </property>
-              <property name="pageStep">
-               <number>64</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>MaxIter</string>
               </property>
              </widget>
             </item>
@@ -560,10 +541,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -571,9 +551,10 @@
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyProgressBar</class>
@@ -585,7 +566,6 @@
   <tabstop>scrollArea</tabstop>
   <tabstop>text_mesh_output_filename</tabstop>
   <tabstop>pushButton_select_image_path</tabstop>
-  <tabstop>sliderInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_max_iter</tabstop>
   <tabstop>spinboxInt_voxel_samples_x</tabstop>
   <tabstop>vect3_voxel_limit_min_x</tabstop>

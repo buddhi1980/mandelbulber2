@@ -48,29 +48,30 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_69" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_69" columnstretch="0,0">
         <property name="topMargin">
          <number>0</number>
         </property>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_284">
+          <property name="text">
+           <string>Maximum number
+of fractal iterations
+(maxiter):</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
          <widget class="MyLineEdit" name="logedit_bailout">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical 'escape' condition or 'bailout'. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_222">
-          <property name="text">
-           <string>Bailout
-(escape condition):</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="3">
+        <item row="2" column="0" colspan="2">
          <widget class="MyCheckBox" name="checkBox_use_default_bailout">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -87,16 +88,7 @@ each fractal formula</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_284">
-          <property name="text">
-           <string>Maximum number
-of fractal iterations
-(maxiter):</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
+        <item row="0" column="1">
          <widget class="MySpinBox" name="spinboxInt_N">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -115,28 +107,11 @@ of fractal iterations
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QSlider" name="sliderInt_N">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>1</number>
-          </property>
-          <property name="maximum">
-           <number>250</number>
-          </property>
-          <property name="singleStep">
-           <number>8</number>
-          </property>
-          <property name="pageStep">
-           <number>64</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_222">
+          <property name="text">
+           <string>Bailout
+(escape condition):</string>
           </property>
          </widget>
         </item>
@@ -1204,11 +1179,6 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
@@ -1219,6 +1189,11 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1226,7 +1201,6 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>sliderInt_N</tabstop>
   <tabstop>spinboxInt_N</tabstop>
   <tabstop>logedit_bailout</tabstop>
   <tabstop>checkBox_use_default_bailout</tabstop>

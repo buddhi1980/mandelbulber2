@@ -52,13 +52,18 @@ public:
 private:
 	Ui::cFrameSiderPopup *ui;
 	QTimer *sliderTimer;
+	bool integerMode;
+	int integerMax;
+	int integerMin;
 
 public:
 	int value() const;
+	void SetIntegerMode(int min, int max, int val);
 
 private slots:
 	void sliderReleased();
 	void slotSliderTimerTrigger();
+	void slotUpdateValue(int val);
 
 signals:
 	void resetPressed();
@@ -67,6 +72,7 @@ signals:
 	void doublePressed();
 	void intPressed();
 	void timerTrigger();
+	void valueChanged(int);
 };
 
 #endif /* MANDELBULBER2_QT_FRAME_SLIDER_POPUP_H_ */

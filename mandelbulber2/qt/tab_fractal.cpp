@@ -265,10 +265,8 @@ void cTabFractal::FrameIterationFormulaSetWidgetsVisibility(bool visible) const
 {
 	ui->label_formula_iterations->setVisible(visible);
 	ui->spinboxInt_formula_iterations->setVisible(visible);
-	ui->sliderInt_formula_iterations->setVisible(visible);
 	ui->label_formula_weight->setVisible(visible);
 	ui->spinbox_formula_weight->setVisible(visible);
-	ui->slider_formula_weight->setVisible(visible);
 	ui->label_formula_start_iteration->setVisible(visible);
 	ui->label_formula_stop_iteration->setVisible(visible);
 	ui->spinboxInt_formula_start_iteration->setVisible(visible);

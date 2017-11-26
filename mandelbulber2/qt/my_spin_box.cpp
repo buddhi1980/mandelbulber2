@@ -37,7 +37,19 @@
 #include <QMenu>
 #include <QtWidgets/QtWidgets>
 
+#include "frame_slider_popup.h"
 #include "src/parameters.hpp"
+
+MySpinBox::MySpinBox(QWidget *parent) : QSpinBox(parent), CommonMyWidgetWrapper(this)
+{
+	defaultValue = 0;
+	slider = nullptr;
+}
+
+MySpinBox::~MySpinBox()
+{
+	if (slider) delete slider;
+}
 
 void MySpinBox::resetToDefault()
 {
@@ -78,4 +90,63 @@ int MySpinBox::GetDefault()
 		setToolTipText();
 	}
 	return defaultValue;
+}
+
+void MySpinBox::focusInEvent(QFocusEvent *event)
+{
+	QSpinBox::focusInEvent(event);
+
+	QString type = GetType(objectName());
+	if (type != "text")
+	{
+		if (!slider)
+		{
+			QWidget *topWidget = this->window();
+			slider = new cFrameSiderPopup(topWidget);
+			slider->setFocusPolicy(Qt::NoFocus);
+			slider->SetIntegerMode(minimum(), maximum(), value());
+			slider->hide();
+		}
+
+		QWidget *topWidget = this->window();
+		QPoint windowPoint = this->mapTo(topWidget, QPoint());
+		int width = this->width();
+		int hOffset = this->height();
+		slider->adjustSize();
+		slider->setFixedWidth(width);
+		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
+		slider->show();
+
+		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
+		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(this, SIGNAL(valueChanged(int)), slider, SLOT(slotUpdateValue(int)));
+		connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setValue(int)));
+	}
+}
+
+void MySpinBox::focusOutEvent(QFocusEvent *event)
+{
+	QSpinBox::focusOutEvent(event);
+
+	if (slider)
+	{
+		slider->disconnect();
+		slider->hide();
+	}
+}
+
+void MySpinBox::slotResetToDefault()
+{
+	resetToDefault();
+}
+
+void MySpinBox::slotDoublevalue()
+{
+	setValue(value() * 2);
+}
+
+void MySpinBox::slotHalfValue()
+{
+	setValue(value() / 2);
 }

@@ -1177,10 +1177,8 @@ void cKeyframeAnimation::UpdateLimitsForFrameRange() const
 	if (noOfFrames < 0) noOfFrames = 0;
 
 	ui->spinboxInt_keyframe_first_to_render->setMaximum(noOfFrames);
-	ui->sliderInt_keyframe_first_to_render->setMaximum(noOfFrames);
 
 	ui->spinboxInt_keyframe_last_to_render->setMaximum(noOfFrames);
-	ui->sliderInt_keyframe_last_to_render->setMaximum(noOfFrames);
 
 	if (lastToRenderMax)
 	{

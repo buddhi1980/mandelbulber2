@@ -54,6 +54,10 @@ cFrameSiderPopup::cFrameSiderPopup(QWidget *parent) : QFrame(parent), ui(new Ui:
 	sliderTimer->setSingleShot(true);
 	connect(sliderTimer, SIGNAL(timeout()), this, SLOT(slotSliderTimerTrigger()));
 	sliderTimer->start(100);
+
+	integerMax = 0;
+	integerMin = 0;
+	integerMode = false;
 }
 
 cFrameSiderPopup::~cFrameSiderPopup()
@@ -70,11 +74,31 @@ int cFrameSiderPopup::value() const
 
 void cFrameSiderPopup::sliderReleased()
 {
-	ui->slider->setValue(500);
+	if (!integerMode)
+	{
+		ui->slider->setValue(500);
+	}
 }
 
 void cFrameSiderPopup::slotSliderTimerTrigger()
 {
 	sliderTimer->start(100);
 	emit timerTrigger();
+}
+
+void cFrameSiderPopup::SetIntegerMode(int min, int max, int val)
+{
+	ui->slider->setMaximum(max);
+	ui->slider->setMinimum(min);
+	ui->slider->setValue(val);
+	integerMode = true;
+	ui->buInteger->hide();
+	ui->buZero->hide();
+	sliderTimer->stop();
+	connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
+}
+
+void cFrameSiderPopup::slotUpdateValue(int val)
+{
+	ui->slider->setValue(val);
 }

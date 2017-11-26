@@ -41,19 +41,20 @@
 
 #include "common_my_widget_wrapper.h"
 
+class cFrameSiderPopup;
+
 class MySpinBox : public QSpinBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
 public:
-	MySpinBox(QWidget *parent = nullptr) : QSpinBox(parent), CommonMyWidgetWrapper(this)
-	{
-		defaultValue = 0;
-	}
+	MySpinBox(QWidget *parent = nullptr);
+	~MySpinBox();
 
 private:
 	int GetDefault();
 	int defaultValue;
+	cFrameSiderPopup *slider;
 
 	// methods to define from CommonMyWidgetWrapper
 	void resetToDefault() override;
@@ -63,6 +64,13 @@ private:
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
 	void paintEvent(QPaintEvent *event) override;
+	void focusInEvent(QFocusEvent *event) override;
+	void focusOutEvent(QFocusEvent *event) override;
+
+private slots:
+	void slotResetToDefault();
+	void slotDoublevalue();
+	void slotHalfValue();
 };
 
 #endif /* MANDELBULBER2_QT_MY_SPIN_BOX_H_ */

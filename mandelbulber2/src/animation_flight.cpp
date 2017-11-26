@@ -1307,10 +1307,8 @@ void cFlightAnimation::UpdateLimitsForFrameRange() const
 	const int noOfFrames = frames->GetNumberOfFrames();
 
 	ui->spinboxInt_flight_first_to_render->setMaximum(noOfFrames);
-	ui->sliderInt_flight_first_to_render->setMaximum(noOfFrames);
 
 	ui->spinboxInt_flight_last_to_render->setMaximum(noOfFrames);
-	ui->sliderInt_flight_last_to_render->setMaximum(noOfFrames);
 
 	SynchronizeInterfaceWindow(ui->tab_flight_animation, gPar, qInterface::write);
 }

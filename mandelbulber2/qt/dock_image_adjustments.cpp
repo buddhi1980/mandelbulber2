@@ -135,7 +135,6 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 		default: ratio = 1.0; break;
 	}
 
-	ui->sliderInt_image_width->setEnabled(enableSlider);
 	ui->spinboxInt_image_width->setEnabled(enableSlider);
 
 	const int height = ui->spinboxInt_image_height->value();
