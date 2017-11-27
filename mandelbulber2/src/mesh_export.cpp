@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Stanislaw Adaszewski
+ * Authors: Stanislaw Adaszewski, Sebastian Jennen (jenzebas@gmail.com)
  *
  * cMeshExport - exports the fractal volume in ply format.
  */
@@ -41,6 +41,7 @@
 #include "file_mesh.hpp"
 #include "fractal_container.hpp"
 #include "fractparams.hpp"
+#include "global_data.hpp"
 #include "initparameters.hpp"
 #include "marchingcubes.h"
 #include "nine_fractals.hpp"
@@ -63,65 +64,6 @@ cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitM
 cMeshExport::~cMeshExport()
 {
 }
-
-struct ProgressFtor
-{
-	cMeshExport *meshExport;
-
-	ProgressFtor(cMeshExport *meshExport) { this->meshExport = meshExport; }
-
-	void operator()(int i) const { meshExport->updateProgressAndStatus(i); }
-};
-
-struct FormulaFtor
-{
-	double dist_thresh;
-	sParamRender *params;
-	const cNineFractals *fractals;
-	FormulaFtor(double dist_thresh, sParamRender *params, const cNineFractals *fractals)
-	{
-
-		this->dist_thresh = dist_thresh;
-		this->params = params;
-		this->fractals = fractals;
-	}
-
-#ifdef USE_OFFLOAD
-	__declspec(target(mic))
-#endif // USE_OFFLOAD
-
-		double
-		operator()(double x, double y, double z, double *colorIndex) const
-	{
-		CVector3 point;
-		point.x = x;
-		point.y = y;
-		point.z = z;
-
-		sDistanceOut distanceOut;
-		sDistanceIn distanceIn(point, dist_thresh, false);
-
-		double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
-
-		// if (dist <= dist_thresh) {
-
-		sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
-		sFractalOut fractOut;
-
-		Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
-
-		*colorIndex = fractOut.colorIndex;
-		//    return 1;
-		// } else {
-		//    *colorIndex = 0;
-		//    return 0;
-		// }
-
-		return dist;
-
-		// return (double)(dist <= dist_thresh);
-	}
-};
 
 void cMeshExport::updateProgressAndStatus(int i)
 {
@@ -155,25 +97,30 @@ void cMeshExport::ProcessVolume()
 	limitMax.y = limitMin.y + h * step;
 	limitMax.z = limitMin.z + l * step;
 
-	w++;
-	h++;
-	l++;
-
 	progressText.ResetTimer();
 
-	double lower[] = {limitMin.x, limitMin.y, limitMin.z};
-	double upper[] = {limitMax.x, limitMax.y, limitMax.z};
 	vector<double> vertices;
 	vector<long long> polygons;
 	vector<double> colorIndices;
 
-	ProgressFtor progressFtor(this);
-	FormulaFtor formulaFtor(dist_thresh, params.data(), fractals.data());
-
 	WriteLog("Starting marching cubes...", 2);
 
-	mc::marching_cubes<double, double[3], FormulaFtor, ProgressFtor>(lower, upper, w, h, l,
-		formulaFtor, dist_thresh, vertices, polygons, &stop, progressFtor, colorIndices);
+	MarchingCubes *marchingCube = new MarchingCubes(params.data(), fractals.data(), w, h, l, limitMin,
+		limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
+	QThread *thread = new QThread();
+	marchingCube->moveToThread(thread);
+	QObject::connect(
+		marchingCube, SIGNAL(updateProgressAndStatus(int)), this, SLOT(updateProgressAndStatus(int)));
+	connect(thread, SIGNAL(started()), marchingCube, SLOT(RunMarchingCube()));
+	connect(marchingCube, SIGNAL(finished()), thread, SLOT(quit()));
+	connect(thread, SIGNAL(finished()), marchingCube, SLOT(deleteLater()));
+	connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+	thread->start();
+	while (!thread->isFinished())
+	{
+		gApplication->processEvents();
+		Wait(100); // wait till finished
+	}
 
 	WriteLog("Marching cubes done.", 2);
 
