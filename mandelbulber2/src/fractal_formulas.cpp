@@ -8233,7 +8233,7 @@ void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
- * fabs add  constant,  z = fabs( z + constant)
+ * fabs add  constant,  z = fabs( z + pre-offset) + 0ffset
  */
 void TransfFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
