@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>3121</height>
+    <height>3304</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -386,7 +386,7 @@
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>-5000000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>5000000</number>
@@ -446,7 +446,7 @@
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>-5000000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>5000000</number>
@@ -803,7 +803,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>-5000000</number>
+        <number>0</number>
        </property>
        <property name="maximum">
         <number>5000000</number>
@@ -1441,13 +1441,13 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100.000000000000000</double>
+        <double>-9999.999900000000707</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>9999.999900000000707</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -1566,7 +1566,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>-10000</number>
        </property>
        <property name="maximum">
         <number>10000</number>
@@ -1715,7 +1715,7 @@ offset:</string>
         </sizepolicy>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>-10000</number>
        </property>
        <property name="maximum">
         <number>10000</number>
@@ -1838,13 +1838,13 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100.000000000000000</double>
+        <double>-9999.989999999999782</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>9999.989999999999782</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -1894,16 +1894,19 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
-        <double>-100.000000000000000</double>
+        <double>-9999.989999999999782</double>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <double>9999.989999999999782</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.000000000000000</double>
        </property>
       </widget>
      </item>
