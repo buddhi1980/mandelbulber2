@@ -1,8 +1,26 @@
 ![Banner](https://raw.githubusercontent.com/buddhi1980/mandelbulber2/wiki/assets/images/mandelbulberBanner.png)
+<table>
+<tr>
+    <th>Coverity Scan</th>
+    <th>Build Status</th>
+    <th>Gitter Chat</th>
+</tr>
+<tr>
+    <td><a href="https://scan.coverity.com/projects/mandelbulber-v2">
+        <img alt="Coverity Scan" src="https://scan.coverity.com/projects/4723/badge.svg?flat=1"></a></td>
+    <td>
+        Linux: <a href="https://travis-ci.org/buddhi1980/mandelbulber2">
+                <img alt="Build Status Linux" src="https://travis-ci.org/buddhi1980/mandelbulber2.svg"></a></br>
+        Windows: <a href="https://ci.appveyor.com/project/buddhi1980/mandelbulber2">
+                <img alt="Build Status Windows" src="https://ci.appveyor.com/api/projects/status/urd2h30tu7reg4mp?svg=true"></a></br>
+        OSX: <a href="https://circleci.com/gh/mancoast/mandelbulber2">
+                <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/mancoast/mandelbulber2.svg?style=shield"></a></td>
+    </td>
+    <td><a href="https://gitter.im/buddhi1980/mandelbulber2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+        <img alt="Join the chat" src="https://badges.gitter.im/Join%20Chat.svg"></a></td>
+</tr>
+</table>
 
-|Coverity Scan|Build Status|Gitter Chat|
-|:-:|:-:|:-:|
-|[![Coverity Scan](https://scan.coverity.com/projects/4723/badge.svg?flat=1)](https://scan.coverity.com/projects/mandelbulber-v2)|Linux / OSX: [![Build Status Linux / OSX](https://travis-ci.org/buddhi1980/mandelbulber2.svg)](https://travis-ci.org/buddhi1980/mandelbulber2), Windows: [![Build Status Windows](https://ci.appveyor.com/api/projects/status/urd2h30tu7reg4mp?svg=true)](https://ci.appveyor.com/project/buddhi1980/mandelbulber2)|[![Join the chat at https://gitter.im/buddhi1980/mandelbulber2](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/buddhi1980/mandelbulber2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)|
 
 
 

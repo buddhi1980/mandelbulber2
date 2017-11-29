@@ -235,6 +235,7 @@ Martelli
 github
 André
 Gamepad
+Gamepads
 retranslate
 fulldome
 shaders
@@ -322,3 +323,7 @@ CLSUPPORT
 qocl
 lformulas
 devs
+Cout
+QTEST
+logfilepath
+CONTIG
