@@ -18,6 +18,10 @@ compile:
 #    - macdeployqt mandelbulber2.app -dmg
     - tree .
 
+test:
+  override:
+    - "true"
+
 general:
   artifacts:
     - circle.yml
