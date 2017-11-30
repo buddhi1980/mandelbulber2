@@ -239,17 +239,40 @@ sFractal::sFractal(const cParameterContainer *container)
 	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
 	analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
 
-	foldColor.colorMin = container->Get<double>("fold_color_color_min");
+	foldColor.factor000 = CVector4(container->Get<CVector3>("fold_color_factor_000"), 0.0);
+	foldColor.factorMinR0 = container->Get<double>("fold_color_factorMinR0");
+	foldColor.factorMaxR0 = container->Get<double>("fold_color_factorMaxR0");
+	foldColor.compMinR0 = container->Get<double>("fold_color_comp_minR0");
+	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
+	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
+	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
+
+	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0"); // temp todo
+
 	foldColor.compFold = container->Get<double>("fold_color_comp_fold");
 	foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
-	foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
-	foldColor.compMinR0 = container->Get<double>("fold_color_comp_minR0");
-	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
+
+	foldColor.radiusColorEnabledFalse = container->Get<bool>("fold_color_radius_color_enabled_false");
+	foldColor.compRadius0 = container->Get<double>("fold_color_comp_radius0");
+
+	foldColor.deColorEnabledFalse = container->Get<bool>("fold_color_de_color_enabled_false");
+	foldColor.deScale0 = container->Get<double>("fold_color_de_scale0");
+
+	foldColor.oldHybridEnabledFalse = container->Get<bool>("fold_color_old_hybrid_enabled_false");
+	foldColor.oldScale0 = container->Get<double>("fold_color_old_scale0");
 	foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
+	foldColor.xyzColorEnabledFalse = container->Get<bool>("fold_color_xyz_color_enabled_false");
+	foldColor.xyz000 = CVector4(container->Get<CVector3>("fold_color_xyz_000"), 0.0);
+	foldColor.temp1EnabledFalse = container->Get<bool>("fold_color_temp1_enabled_false");
+	foldColor.extraModeEnabledFalse = container->Get<bool>("fold_color_extra_mode_enabled_false");
+	foldColor.compScale = container->Get<double>("fold_color_comp_scale");
+	foldColor.colorMin = container->Get<double>("fold_color_color_min");
+
+
 	foldColor.newScale0 = container->Get<double>("fold_color_new_scale0");
 	foldColor.parabScale0 = container->Get<double>("fold_color_parab_scale0");
 	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
-	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
+//	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
 	foldColor.scaleC0 = container->Get<double>("fold_color_scaleC0");
 	foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
 	foldColor.scaleE0 = container->Get<double>("fold_color_scaleE0");
@@ -263,17 +286,11 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.limitMin0 = container->Get<double>("fold_color_limit_min0");
 	foldColor.limitMax9999 = container->Get<double>("fold_color_limit_max9999");
 
-	foldColor.factor000 = CVector4(container->Get<CVector3>("fold_color_factor_000"), 0.0);
-	foldColor.factorMinR0 = container->Get<double>("fold_color_factorMinR0");
-	foldColor.factorMaxR0 = container->Get<double>("fold_color_factorMaxR0");
-
 	foldColor.intAx0 = container->Get<int>("fold_color_int_Ax0");
 	foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
 	foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
 	foldColor.parabEnabledFalse = container->Get<bool>("fold_color_parab_enabled_false");
 	foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
-	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
-	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
 	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas

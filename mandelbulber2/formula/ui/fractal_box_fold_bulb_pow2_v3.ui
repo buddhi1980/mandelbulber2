@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>5162</height>
+    <height>5370</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2802,29 +2802,7 @@ offset:</string>
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
-       <property name="text">
-        <string>Enable abs(y)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
-       <property name="text">
-        <string>Enable abs(x)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
-       <property name="text">
-        <string>Enable abs(z)</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QGridLayout" name="gridLayout_3"/>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout">
