@@ -88,12 +88,14 @@ struct sExtendedAux
 
 	double color;
 	double colorHybrid;
+
+	// temp for trial
 	double foldFactor;
 	double radiusFactor;
 	double minRFactor;
 	double scaleFactor;
 	double oldHybridFactor;
-	double tempFactor;
+	double temp1Factor;
 	double temp100;
 	double addDist;
 };

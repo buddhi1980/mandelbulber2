@@ -2740,7 +2740,8 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->foldColor.extraModeEnabledFalse)
 	{
-		aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight default
+		aux.minRFactor = fractal->foldColor.compMinR; //  Default = orbit trap weight 1.0
+
 		if (fractal->foldColor.auxColorEnabled)
 		{
 			aux.color += colorAdd;
@@ -2751,9 +2752,12 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		if (fractal->foldColor.xyzColorEnabledFalse)
 		{
 			CVector4 xyzAxis = z * fractal->foldColor.xyz000;
-			if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
-			else aux.tempFactor = xyzAxis.x + xyzAxis.y + xyzAxis.z;
-			aux.tempFactor *=  1.0 * fractal->foldColor.scaleA1 / (aux.i + 1.0);
+			//if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
+			if (fractal->foldColor.temp1EnabledFalse) aux.temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z + fractal->foldColor.scaleA1 / (aux.i + 1.0);
+
+			else
+			aux.temp1Factor = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractal->foldColor.scaleA1 / (aux.i + 1.0);
+			//aux.tempFactor *=  fractal->foldColor.scaleA1 / (aux.i + 1.0);
 		}
 
 		if (fractal->foldColor.oldHybridEnabledFalse) aux.oldHybridFactor = fractal->foldColor.oldScale0;
@@ -12304,11 +12308,17 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (fractal->foldColor.xyzColorEnabledFalse)
 		{
 			CVector4 xyzAxis = z * fractal->foldColor.xyz000;
-			if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
-			else aux.tempFactor = xyzAxis.x + xyzAxis.y + xyzAxis.z;
-			aux.tempFactor *=  1.0 * fractal->foldColor.scaleA1 / (aux.i + 1.0);
+			if (fractal->foldColor.temp1EnabledFalse) aux.temp1Factor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
+			else aux.temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z;
+			aux.temp1Factor *=  1.0 * fractal->foldColor.scaleA1 / (aux.i + 1.0);
 		}
+		/*CVector4 xyzAxis = z * fractal->foldColor.xyz000;
+		//if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
+		if (fractal->foldColor.temp1EnabledFalse) aux.temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z + fractal->foldColor.scaleA1 / (aux.i + 1.0);
 
+		else
+		aux.temp1Factor = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractal->foldColor.scaleA1 / (aux.i + 1.0);
+		//aux.tempFactor *=  fractal->foldColor.scaleA1 / (aux.i + 1.0);*/
 
 
 		if (fractal->foldColor.oldHybridEnabledFalse) aux.oldHybridFactor = fractal->foldColor.oldScale0;

@@ -53,7 +53,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	CVector4 z = CVector4(point2, 0.0);
 	double r = z.Length();
 	double minimumR = 100.0;
-	double len = 0.0;
+	double len = 0.0; // Temp: declared here for access outside orbit traps code
 
 	if (in.forcedFormulaIndex >= 0)
 	{
@@ -98,12 +98,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.color = 1.0;
 	extendedAux.colorHybrid = 0.0;
 
+	//these are temp, and most might be removed later
+	// once some decisions have been made
 	extendedAux.minRFactor = 0.0; // orbit trap weight
 	extendedAux.foldFactor = 0.0; // aux color weight
 	extendedAux.radiusFactor = 0.0; // radius weight
 	extendedAux.scaleFactor = 0.0; // DE weight
 	extendedAux.oldHybridFactor = 0.0; // old hybid weight
-	extendedAux.tempFactor = 0.0;
+	extendedAux.temp1Factor = 0.0;
 
 	extendedAux.temp100 = 100.0;
 	extendedAux.addDist = 0.0;
@@ -461,7 +463,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			double minR1000 = minimumR * 1000.0;
 			double iterColor100 = iterColor * 100; // data from iteration loop
 			double rDE5000 = rDE * 5000;
-			double radIe13 = r / 1e13;
+			// double radIe13 = r / 1e13;
 
 			out->colorIndex =
 
@@ -470,9 +472,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				+ (minR1000 * extendedAux.minRFactor) // orbit trap only
 				+ iterColor100 * extendedAux.foldFactor// aux.color
-				+ r * extendedAux.radiusFactor / 1e13//  radius
-				+ extendedAux.DE * extendedAux.scaleFactor / 1e15
-				+ extendedAux.tempFactor
+				+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
+				+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
+				+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
 
 				+ extendedAux.colorHybrid; // for transf hybrid color inputs
 		}
@@ -495,12 +497,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->colorIndex =
 						 minimumR * 1000.0 * extendedAux.minRFactor // orbit trap DEFAULT
 						+ extendedAux.color * 100.0 * extendedAux.foldFactor	 // aux.color
-						+ r * extendedAux.radiusFactor  / 1e13 // radius
+						+ r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
 						+ extendedAux.DE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
+
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
-									: 0.0);*/
-						+ extendedAux.tempFactor; // extra input
+									: 0.0);*/ // temp removed
+
+						+ extendedAux.temp1Factor; // inputs for "fractal specific" color modes
 
 					break;
 				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;

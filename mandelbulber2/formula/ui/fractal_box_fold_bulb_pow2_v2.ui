@@ -1346,19 +1346,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="18" column="0">
-         <widget class="QLabel" name="label_64">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>xyz bias</string>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="0">
          <widget class="QLabel" name="label_27">
           <property name="text">
@@ -1461,13 +1448,6 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="7" column="0">
-         <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled">
-          <property name="text">
-           <string notr="true">aux.color components:</string>
           </property>
          </widget>
         </item>
@@ -1625,7 +1605,7 @@ offset:</string>
         <item row="19" column="1">
          <widget class="QCheckBox" name="checkBox_fold_color_temp1_enabled_false">
           <property name="text">
-           <string notr="true">add mode:</string>
+           <string notr="true">add mode TEMP:</string>
           </property>
          </widget>
         </item>
@@ -1723,7 +1703,7 @@ offset:</string>
         <item row="19" column="0">
          <widget class="QCheckBox" name="checkBox_fold_color_xyz_color_enabled_false">
           <property name="text">
-           <string notr="true">xyz weight:</string>
+           <string notr="true">xyz bias</string>
           </property>
          </widget>
         </item>
@@ -1809,7 +1789,7 @@ offset:</string>
         <item row="27" column="0">
          <widget class="QCheckBox" name="checkBox_fold_color_old_hybrid_enabled_false">
           <property name="text">
-           <string notr="true">old hybrid weight</string>
+           <string notr="true">old hybrid weight:</string>
           </property>
          </widget>
         </item>
@@ -1902,19 +1882,6 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="26" column="0">
-         <widget class="QLabel" name="label_63">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>old hybrid mode</string>
           </property>
          </widget>
         </item>
@@ -2170,6 +2137,39 @@ offset:</string>
          <widget class="QLabel" name="label_37">
           <property name="text">
            <string>z.y * scale:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="18" column="0" colspan="3">
+         <widget class="QLabel" name="label_64">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xyz bias&lt;span style=&quot; font-weight:400;&quot;&gt; (colorValue influenced by scaling coordinates)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="3">
+         <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled">
+          <property name="text">
+           <string notr="true">aux.color components</string>
+          </property>
+         </widget>
+        </item>
+        <item row="26" column="0" colspan="3">
+         <widget class="QLabel" name="label_63">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;old hybrid mode &lt;span style=&quot; font-weight:400;&quot;&gt;(orbit trap weight = 1.0, aux.color defaults 0.03, 0.05, 0.07, 0.20, 0.20)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>

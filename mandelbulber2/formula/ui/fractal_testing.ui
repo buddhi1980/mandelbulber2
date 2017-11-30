@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>5605</height>
+    <height>5935</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2515,13 +2515,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="8" column="0">
-         <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled">
-          <property name="text">
-           <string notr="true">aux.color components:</string>
-          </property>
-         </widget>
-        </item>
         <item row="20" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_fold_color_comp_radius0">
           <property name="sizePolicy">
@@ -2735,7 +2728,7 @@ offset:</string>
         <item row="25" column="1">
          <widget class="QCheckBox" name="checkBox_fold_color_temp1_enabled_false">
           <property name="text">
-           <string notr="true">add mode:</string>
+           <string notr="true">add modeTEMP</string>
           </property>
          </widget>
         </item>
@@ -2837,23 +2830,10 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_60">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>orbit trap component</string>
-          </property>
-         </widget>
-        </item>
         <item row="25" column="0">
          <widget class="QCheckBox" name="checkBox_fold_color_xyz_color_enabled_false">
           <property name="text">
-           <string notr="true">xyz weight:</string>
+           <string notr="true">xyz bias</string>
           </property>
          </widget>
         </item>
@@ -2932,14 +2912,14 @@ offset:</string>
         <item row="30" column="0">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>aux.i scale</string>
+           <string>aux.i scale:</string>
           </property>
          </widget>
         </item>
         <item row="33" column="0">
          <widget class="QCheckBox" name="checkBox_fold_color_old_hybrid_enabled_false">
           <property name="text">
-           <string notr="true">old hybrid weight</string>
+           <string notr="true">old hybrid weight:</string>
           </property>
          </widget>
         </item>
@@ -3032,19 +3012,6 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="32" column="0">
-         <widget class="QLabel" name="label_63">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>old hybrid mode</string>
           </property>
          </widget>
         </item>
@@ -3338,19 +3305,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="24" column="0">
-         <widget class="QLabel" name="label_64">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>xyz bias</string>
-          </property>
-         </widget>
-        </item>
         <item row="27" column="0">
          <widget class="QLabel" name="label_36">
           <property name="text">
@@ -3369,6 +3323,52 @@ offset:</string>
          <widget class="QLabel" name="label_38">
           <property name="text">
            <string>z.z * scale:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="24" column="0" colspan="3">
+         <widget class="QLabel" name="label_64">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xyz bias &lt;span style=&quot; font-weight:400;&quot;&gt;(colorValue influenced by scaling coordinates)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QLabel" name="label_60">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;orbit trap component &lt;span style=&quot; font-weight:400;&quot;&gt;( coloring algorithm in material_editor)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="3">
+         <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled">
+          <property name="text">
+           <string notr="true">aux.color components</string>
+          </property>
+         </widget>
+        </item>
+        <item row="32" column="0" colspan="3">
+         <widget class="QLabel" name="label_63">
+          <property name="font">
+           <font>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;old hybrid mode&lt;span style=&quot; font-weight:400;&quot;&gt; (orbit trap weight = 1.0, aux.color defaults 0.03, 0.05, 0.07, 0.20, 0.20)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
          </widget>
         </item>
