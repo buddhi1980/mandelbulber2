@@ -1169,6 +1169,36 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),
 		CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
+	//trial
+
+	par->addParam(
+		cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("fractal_coloring_old_hybrid_enabled_false", materialId), false, morphLinear, paramStandard);
+
+
+
+
+	par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
+		 morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, 0.0, 1e20,
+		 morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 0.0, 0.0, 1e20,
+		 morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_scaleI", materialId), 1.0, 0.0, 1e20,
+		 morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_weight", materialId), 0.0, 0.0, 1e20,
+		 morphNone, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId),
+		CVector3(0.0, 0.0, 0.0), morphNone, paramStandard); // vec4??
+
+
+
+
+
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
 									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),

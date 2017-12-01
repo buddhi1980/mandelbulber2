@@ -58,6 +58,19 @@ struct sFractalColoring
 	CVector3 lineDirection;
 	double sphereRadius;
 	enumFractalColoringAlgorithm coloringAlgorithm;
+
+	// trial
+	bool extraColorEnabledFalse;
+	bool xyzBiasEnabledFalse;
+	bool oldHybridEnabledFalse;
+	double initialMiniumuR;
+	CVector3 xyz000;
+	double orbitTrapWeight;
+	double auxColorWeight;
+	double xyzBiasScaleI;
+	double oldHybridWeight;
+
+
 };
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_ */

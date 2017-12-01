@@ -148,6 +148,28 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.lineDirection =
 		materialParam->Get<CVector3>(Name("fractal_coloring_line_direction", id));
 
+	//trial
+	fractalColoring.extraColorEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
+	fractalColoring.xyzBiasEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
+
+
+	fractalColoring.oldHybridEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_old_hybrid_enabled_false", id));
+	fractalColoring.initialMiniumuR =
+		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+	fractalColoring.orbitTrapWeight =
+		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
+	fractalColoring.auxColorWeight =
+		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
+	fractalColoring.xyzBiasScaleI =
+		materialParam->Get<double>(Name("fractal_coloring_xyz_bias_scaleI", id));
+	fractalColoring.oldHybridWeight =
+		materialParam->Get<double>(Name("fractal_coloring_old_hybrid_weight", id));
+	fractalColoring.xyz000 =
+		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id));  // cvect4
+
 	if (gNetRender->IsClient())
 	{
 		if (useColorTexture)

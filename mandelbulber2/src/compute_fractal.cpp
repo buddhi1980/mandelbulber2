@@ -52,7 +52,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	CVector4 z = CVector4(point2, 0.0);
 	double r = z.Length();
-	double minimumR = 100.0;
+
+	// trial
+	double minimumR = in.fractalColoring.initialMiniumuR;
+
 	double len = 0.0; // Temp: declared here for access outside orbit traps code
 
 	if (in.forcedFormulaIndex >= 0)
@@ -447,36 +450,88 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// color calculation
 	else if (Mode == calcModeColouring)
 	{
-		double colorDE;
-		colorDE = extendedAux.DE;
-		double rDE = r / fabs(colorDE);
-		if (rDE > 20) rDE = 20;
+		/*double mboxDE;
+		mboxDE = extendedAux.DE;
+		double r2 = r / fabs(mboxDE);
+		if (r2 > 20) r2 = 20;
 
 		if (fractals.IsHybrid())
 		{
 			if (minimumR > 100) minimumR = 100;
-			double iterColor;
-			iterColor = extendedAux.color; // aux.color cumulative from iteration loop
-			if (iterColor > 1000) iterColor = 1000;
-			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0; // old code
-
-			double minR1000 = minimumR * 1000.0;
-			double iterColor100 = iterColor * 100; // data from iteration loop
-			double rDE5000 = rDE * 5000;
-			// double radIe13 = r / 1e13;
+			double mboxColor;
+			mboxColor = extendedAux.color;
+			if (mboxColor > 1000) mboxColor = 1000;
+			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
 
 			out->colorIndex =
+				((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
+				+ extendedAux.colorHybrid + (minimumR * 1000.0 * extendedAux.minRFactor);
+		}*/
 
-				((minR1000 + iterColor100 + rDE5000) // old code
-					* extendedAux.oldHybridFactor) // turn off old code or mix
+		// historic function, it includes a limit, possibly remove as it did not work well
+		double colorDE;
+		colorDE = extendedAux.DE;
+		double radDE = r / fabs(colorDE); // was named r2
+		if (radDE > 20) radDE = 20;
 
-				+ (minR1000 * extendedAux.minRFactor) // orbit trap only
-				+ iterColor100 * extendedAux.foldFactor// aux.color
-				+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
-				+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
-				+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
 
-				+ extendedAux.colorHybrid; // for transf hybrid color inputs
+		double addValue = 0.0;
+
+		// example of a basic input
+		double xyzValue = 0.0;
+		if (in.fractalColoring.xyzBiasEnabledFalse)
+		{
+			CVector3 xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
+
+			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z);
+			xyzValue *= in.fractalColoring.xyzBiasScaleI / (extendedAux.i); // now = i + 1
+		}
+		addValue += xyzValue; // addValue accumulates outputs
+
+
+
+		if (fractals.IsHybrid())
+		{
+			if (minimumR > 100) minimumR = 100; // limit
+			double auxColorValue;
+			auxColorValue = extendedAux.color; // aux.color cumulative from iteration loop
+			if (auxColorValue > 1000) auxColorValue = 1000; // limit is only in hybrid mode?
+
+			double minR1000 = minimumR * 1000.0; // limited at 100,000
+			double auxColorValue100 = auxColorValue * 100; // limited at 100,000
+			double radDE5000 = radDE * 5000; // limited at 100,000
+			// double radIe13 = r / 1e13;
+
+
+
+			// old hybrid
+			double oldHybridValue = 0.0;
+			oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
+
+			out->colorIndex = oldHybridValue;
+
+			if (in.fractalColoring.extraColorEnabledFalse)
+			{
+				out->colorIndex =
+
+					// minimumR  orbit trap
+					(minR1000 * in.fractalColoring.orbitTrapWeight) // orbit trap only
+							// (minimumR * 1000 * extendedAux.minRFactor) // orbit trap only
+
+					//  aux.color
+					+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+							// + iterColor100 * extendedAux.foldFactor// aux.color
+
+					+ addValue // all extra inputs
+
+					+ extendedAux.colorHybrid // transf_hybrid_color inputs
+
+					+ oldHybridValue * in.fractalColoring.oldHybridWeight; // weight
+
+						//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
+						//+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
+						//+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
+			}
 		}
 		else
 		{
@@ -496,16 +551,17 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case coloringFunctionABox2:
 					out->colorIndex =
 						 minimumR * 1000.0 * extendedAux.minRFactor // orbit trap DEFAULT
-						+ extendedAux.color * 100.0 * extendedAux.foldFactor	 // aux.color
-						+ r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
-						+ extendedAux.DE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
 
+						+ extendedAux.color * 100.0 * extendedAux.foldFactor	 // aux.color
+
+						+ r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
+
+						+ radDE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
+
+						+ addValue; // all extra inputs
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);*/ // temp removed
-
-						+ extendedAux.temp1Factor; // inputs for "fractal specific" color modes
-
 					break;
 				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
 				case coloringFunctionDefault: out->colorIndex = minimumR * 5000.0; break;
