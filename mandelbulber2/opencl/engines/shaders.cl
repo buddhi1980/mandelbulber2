@@ -531,7 +531,7 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 	shading = shade * light->colour;
 
 	float3 specular;
-	specular = shade2 * light->colour.s0;
+	specular = shade2 * light->colour;
 
 	*outSpecular = specular;
 
