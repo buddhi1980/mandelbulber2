@@ -13,8 +13,9 @@
                 <img alt="Build Status Linux" src="https://travis-ci.org/buddhi1980/mandelbulber2.svg"></a></br>
         Windows: <a href="https://ci.appveyor.com/project/buddhi1980/mandelbulber2">
                 <img alt="Build Status Windows" src="https://ci.appveyor.com/api/projects/status/urd2h30tu7reg4mp?svg=true"></a></br>
-        OSX: <a href="https://circleci.com/gh/mancoast/mandelbulber2">
-                <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/mancoast/mandelbulber2.svg?style=shield"></a></td>
+        OSX: <a href="https://circleci.com/gh/buddhi1980/mandelbulber2">
+                <img alt="Build Status OSX Circle CI" src="https://circleci.com/gh/buddhi1980/mandelbulber2.svg?style=shield">
+</a></td>
     </td>
     <td><a href="https://gitter.im/buddhi1980/mandelbulber2?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
         <img alt="Join the chat" src="https://badges.gitter.im/Join%20Chat.svg"></a></td>
