@@ -15,13 +15,9 @@ dependencies:
 
 compile:
   override:
-    - qmake -spec macx-xcode mandelbulber2/qmake/mandelbulber.pro
-#    - qmake -project
-    - qmake -o makefile mandelbulber2/qmake/mandelbulber.pro
-#    - cmake --verbose=1 -DUSE_GAMEPAD=1 -G "Xcode" mandelbulber2/cmake/
-#    - xcodebuild -project mandelbulber2.xcodeproj
-#    - macdeployqt mandelbulber2.app -dmg
+    - qmake mandelbulber2/qmake/mandelbulber.pro
     - make -j3
+    - macdeployqt mandelbulber2.app -dmg
     - tree .
 
 test:
