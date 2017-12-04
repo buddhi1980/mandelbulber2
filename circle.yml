@@ -7,7 +7,7 @@ machine:
 dependencies:
   pre:
     - brew update
-    - brew install qt5 gsl lzo jpeg libpng libsndfile tree
+    - brew install qt5 gsl lzo jpeg libpng libtiff libsndfile tree p7zip
     - echo 'export QTDIR="/usr/local/opt/qt5"' >> ~/.bash_profile
     - echo 'export PATH="$QTDIR/bin:$PATH"' >> ~/.bash_profile
     - echo 'export LDFLAGS="-L$QTDIR/lib $LDFLAGS"' >> ~/.bash_profile
@@ -15,10 +15,12 @@ dependencies:
 
 compile:
   override:
-    - qmake mandelbulber2/qmake/mandelbulber.pro
-    - make -j3
-    - macdeployqt mandelbulber2.app -dmg
-    - tree .
+    - mkdir ~/build/
+    - cd ~/build/ && qmake ~/mandelbulber2/mandelbulber2/qmake/mandelbulber.pro
+    - cd ~/build/ && make -j3
+    - cd ~/build/ && macdeployqt mandelbulber2.app -dmg
+    - cd ~/build/ && 7z a mandelbulber-OSX-$CIRCLE_SHA1.zip mandelbulber2.app
+    - cd ~/build/ && tree .
 
 test:
   override:
@@ -26,4 +28,8 @@ test:
 
 general:
   artifacts:
-    - circle.yml
+    - ~/mandelbulber2/circle.yml
+    - ~/build/mandelbulber-OSX-$CIRCLE_SHA1.zip
+    - ~/build/mandelbulber2.dmg
+
+
