@@ -143,6 +143,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Buffalo", "buffalo", buffalo, BuffaloIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot, CoastalBrotIteration,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
 
 	// Collatz formulas
 	fractalList->append(

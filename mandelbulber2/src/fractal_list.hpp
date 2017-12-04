@@ -172,6 +172,8 @@ enum enumFractalFormula
 	boxFoldBulbPow2V3 = 126,
 	aboxMod13 = 127,
 	boxFoldQuat = 128,
+	// 2.13
+	coastalbrot = 129,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

@@ -626,6 +626,24 @@ void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 }
 
 /**
+* Fractal formula created by Robert Pancoast
+*/
+void CoastalBrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double temp = aux.r;
+	temp = pow(temp, 7.7);
+	aux.r_dz = temp * aux.r_dz * 7.7;
+	temp *= aux.r;
+
+	z.x = sin(sin(sin(M_PI / 3 + z.x * M_PI)));
+	z.y = sin(sin(sin(M_PI / 3 + z.y * M_PI)));
+	z.z = sin(sin(sin(M_PI / 3 + z.z * M_PI)));
+
+	z *= temp;
+}
+
+
+/**
  * From M3D
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
@@ -12333,3 +12351,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 
 }
+
+
+
