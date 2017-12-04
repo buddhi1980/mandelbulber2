@@ -1,6 +1,8 @@
+## https://circleci.com/docs/1.0/build-image-macos/
+## Customize the test machine
 machine:
   xcode:
-    xcode: 9.0
+    xcode: 9.1.0
 
 dependencies:
   pre:
@@ -13,9 +15,13 @@ dependencies:
 
 compile:
   override:
-    - cmake --verbose=1 -DUSE_GAMEPAD=1 -G "Xcode" mandelbulber2/cmake/
+    - qmake -spec macx-xcode mandelbulber2/qmake/mandelbulber.pro
+#    - qmake -project
+    - qmake -o makefile mandelbulber2/qmake/mandelbulber.pro
+#    - cmake --verbose=1 -DUSE_GAMEPAD=1 -G "Xcode" mandelbulber2/cmake/
 #    - xcodebuild -project mandelbulber2.xcodeproj
 #    - macdeployqt mandelbulber2.app -dmg
+    - make -j3
     - tree .
 
 test:
