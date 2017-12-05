@@ -53,6 +53,14 @@ struct sFractalColoring
 	{
 		sphereRadius = 0.0;
 		coloringAlgorithm = fractalColoringNone;
+		extraColorEnabledFalse = false;
+		xyzBiasEnabledFalse = false;
+		oldHybridEnabledFalse = false;
+		initialMiniumuR = 0.0;
+		orbitTrapWeight = 0.0;
+		auxColorWeight = 0.0;
+		iiAddScale = 0.0;
+		oldHybridWeight = 0.0;
 	}
 
 	CVector3 lineDirection;
