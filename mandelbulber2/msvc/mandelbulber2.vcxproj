@@ -547,10 +547,15 @@
     <ClInclude Include="$(SourceDir)build-win\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\src\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\src\*.hpp" />
+    <ClCompile Include="$(SourceDir)mandelbulber2\src\*.cpp" />
     <ClInclude Include="$(SourceDir)mandelbulber2\qt\*.h" />
     <ClInclude Include="$(SourceDir)mandelbulber2\qt\*.hpp" />
-    <ClCompile Include="$(SourceDir)mandelbulber2\src\*.cpp" />
     <ClCompile Include="$(SourceDir)mandelbulber2\qt\*.cpp" />
+    <ClInclude Include="$(SourceDir)mandelbulber2\opencl\*.h" />
+    <ClInclude Include="$(SourceDir)mandelbulber2\opencl\*.hpp" />
+    <ClCompile Include="$(SourceDir)mandelbulber2\opencl\*.cpp" />
+    <None Include="$(SourceDir)mandelbulber2\opencl\engines\*.cl" />
+    <None Include="$(SourceDir)mandelbulber2\formula\opencl\*.cl" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
