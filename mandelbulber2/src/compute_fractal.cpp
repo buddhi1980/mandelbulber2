@@ -483,8 +483,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		{
 			CVector3 xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
 
-			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z);
-			xyzValue *= in.fractalColoring.xyzBiasScaleI / (extendedAux.i); // now = i + 1
+			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
+			//xyzValue += in.fractalColoring.xyzBiasScaleI * (extendedAux.i * extendedAux.i); // now = i + 1
 		}
 		addValue += xyzValue; // addValue accumulates outputs
 
@@ -501,37 +501,31 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			double auxColorValue100 = auxColorValue * 100; // limited at 100,000
 			double radDE5000 = radDE * 5000; // limited at 100,000
 			// double radIe13 = r / 1e13;
-
+			//
 
 
 			// old hybrid
 			double oldHybridValue = 0.0;
 			oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
 
-			out->colorIndex = oldHybridValue;
-
+			double inputAbox2 = 0.0;
 			if (in.fractalColoring.extraColorEnabledFalse)
 			{
-				out->colorIndex =
+				inputAbox2 =
+				minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
+				+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+				+ addValue // all extra inputs
+				+ extendedAux.colorHybrid // transf_hybrid_color inputs
+				+ oldHybridValue * in.fractalColoring.oldHybridWeight; // old hybrid
+				inputAbox2 += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i); // now = i + 1
 
-					// minimumR  orbit trap
-					(minR1000 * in.fractalColoring.orbitTrapWeight) // orbit trap only
-							// (minimumR * 1000 * extendedAux.minRFactor) // orbit trap only
-
-					//  aux.color
-					+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
-							// + iterColor100 * extendedAux.foldFactor// aux.color
-
-					+ addValue // all extra inputs
-
-					+ extendedAux.colorHybrid // transf_hybrid_color inputs
-
-					+ oldHybridValue * in.fractalColoring.oldHybridWeight; // weight
-
-						//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
-						//+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
-						//+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
-			}
+					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
+					//+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
+					//+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
+				}
+			out->colorIndex = oldHybridValue;
+			if (in.fractalColoring.extraColorEnabledFalse)
+						out->colorIndex = inputAbox2;
 		}
 		else
 		{

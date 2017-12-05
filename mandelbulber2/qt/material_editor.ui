@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-409</y>
+        <y>0</y>
         <width>756</width>
-        <height>2071</height>
+        <height>2076</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1329,10 +1329,38 @@ direction vector:</string>
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <item row="16" column="0">
+                 <item row="21" column="2">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ii_add_scale">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>99999.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="21" column="0">
                   <widget class="QLabel" name="label_34">
                    <property name="text">
-                    <string>aux.i scale</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;add i * i * scale&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
@@ -1429,13 +1457,13 @@ direction vector:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>3</number>
+                    <number>2</number>
                    </property>
                    <property name="minimum">
-                    <double>-999.999000000000024</double>
+                    <double>-10000.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>999.999000000000024</double>
+                    <double>10000.000000000000000</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1615,34 +1643,6 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="16" column="2">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_xyz_bias_scaleI">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>6</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-9999.999900000000707</double>
-                   </property>
-                   <property name="maximum">
-                    <double>9999.999900000000707</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
                  <item row="19" column="1">
                   <widget class="QSlider" name="slider_fractal_coloring_old_hybrid_weight">
                    <property name="sizePolicy">
@@ -1655,29 +1655,7 @@ direction vector:</string>
                     <number>0</number>
                    </property>
                    <property name="maximum">
-                    <number>1000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="16" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_xyz_bias_scaleI">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>-100000000</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100000000</number>
+                    <number>10000000</number>
                    </property>
                    <property name="singleStep">
                     <number>1</number>
@@ -1741,6 +1719,35 @@ direction vector:</string>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="21" column="1">
+                  <widget class="QSlider" name="slider_fractal_coloring_ii_add_scale">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimum">
+                    <number>0</number>
+                   </property>
+                   <property name="maximum">
+                    <number>10000000</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="20" column="0" colspan="3">
+                  <widget class="Line" name="line">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>

@@ -65,9 +65,10 @@ struct sFractalColoring
 	bool oldHybridEnabledFalse;
 	double initialMiniumuR;
 	CVector3 xyz000;
+
 	double orbitTrapWeight;
 	double auxColorWeight;
-	double xyzBiasScaleI;
+	double iiAddScale;
 	double oldHybridWeight;
 
 

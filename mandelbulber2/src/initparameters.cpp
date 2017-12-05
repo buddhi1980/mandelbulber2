@@ -1187,7 +1187,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		 morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 0.0, 0.0, 1e20,
 		 morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_scaleI", materialId), 1.0, 0.0, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
 		 morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_weight", materialId), 0.0, 0.0, 1e20,
 		 morphNone, paramStandard);
