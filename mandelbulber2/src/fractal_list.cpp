@@ -132,7 +132,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionABox2));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2 V3", "box_fold_bulb_pow2_v3",
 		boxFoldBulbPow2V3, BoxFoldBulbPow2V3Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionABox2));
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionGeneral));
 	fractalList->append(sFractalDescription("Box Fold Quat", "box_fold_quat", boxFoldQuat,
 		BoxFoldQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLogarithmic, coloringFunctionABox2));
