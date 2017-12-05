@@ -56,15 +56,19 @@ private:
 	bool dialMode;
 	int integerMax;
 	int integerMin;
+	int dialScale;
 
 public:
 	int value() const;
 	void SetIntegerMode(int min, int max, int val);
+	void SetDialMode(int scale, double val);
 
 private slots:
 	void sliderReleased();
 	void slotSliderTimerTrigger();
 	void slotUpdateValue(int val);
+	void slotUpdateValue(double val);
+	void slotDialValueChanged(int val);
 
 signals:
 	void resetPressed();
@@ -72,8 +76,13 @@ signals:
 	void halfPressed();
 	void doublePressed();
 	void intPressed();
+	void upPressed();
+	void downPressed();
+	void leftPressed();
+	void rightPressed();
 	void timerTrigger();
 	void valueChanged(int);
+	void valueChanged(double);
 };
 
 #endif /* MANDELBULBER2_QT_FRAME_SLIDER_POPUP_H_ */

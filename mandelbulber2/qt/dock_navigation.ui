@@ -156,8 +156,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>229</width>
-        <height>812</height>
+        <width>247</width>
+        <height>804</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -1172,33 +1172,7 @@ to target:</string>
               <property name="spacing">
                <number>2</number>
               </property>
-              <item row="1" column="1">
-               <widget class="QDial" name="dial_sweet_spot_vertical_angle">
-                <property name="minimum">
-                 <number>-9000</number>
-                </property>
-                <property name="maximum">
-                 <number>9000</number>
-                </property>
-                <property name="wrapping">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0">
-               <widget class="QDial" name="dial_sweet_spot_horizontal_angle">
-                <property name="minimum">
-                 <number>-18000</number>
-                </property>
-                <property name="maximum">
-                 <number>18000</number>
-                </property>
-                <property name="wrapping">
-                 <bool>true</bool>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
                <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_horizontal_angle">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1226,7 +1200,7 @@ to target:</string>
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
+              <item row="1" column="1">
                <widget class="MyDoubleSpinBox" name="spinboxd_sweet_spot_vertical_angle">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1353,9 +1327,7 @@ to target:</string>
   <tabstop>vect3_camera_rotation_y</tabstop>
   <tabstop>vect3_camera_rotation_x</tabstop>
   <tabstop>vect3_camera_rotation_z</tabstop>
-  <tabstop>dial_sweet_spot_horizontal_angle</tabstop>
   <tabstop>spinboxd_sweet_spot_horizontal_angle</tabstop>
-  <tabstop>dial_sweet_spot_vertical_angle</tabstop>
   <tabstop>spinboxd_sweet_spot_vertical_angle</tabstop>
  </tabstops>
  <resources>

@@ -1641,8 +1641,8 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>296</width>
-            <height>1498</height>
+            <width>286</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -1771,7 +1771,7 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout_16">
+               <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,0,1">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -1785,7 +1785,35 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="3">
+                <item row="1" column="1" colspan="2">
+                 <widget class="QComboBox" name="comboBox_textured_background_map_type">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It determines, how texture will be mapped on background sphere&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Equirectangular: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Texture has to be created used equirectangular projection. It's the most popular format for textures dedicated for sphere mapping.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Double hemisphere:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Texture has to be created as a pair of images of hemispheres. Mapping has to be the same as &lt;span style=&quot; font-style:italic;&quot;&gt;Full dome projection&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;Fish eye&lt;/span&gt;)&lt;br/&gt;Example texture with indicated axes and directions:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Equirectangular</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Double hemisphere</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Flat</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="9" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_z">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1816,29 +1844,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="8" column="2">
-                 <widget class="QDial" name="dial3_background_rotation_y">
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="1">
-                 <widget class="QLabel" name="label_229">
-                  <property name="text">
-                   <string>Gamma:</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label_224">
                   <property name="sizePolicy">
@@ -1852,7 +1857,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="3">
+                <item row="3" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_h_scale">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1877,20 +1882,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="2">
-                 <widget class="QDial" name="dial3_background_rotation_x">
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="8" column="3">
+                <item row="8" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1934,7 +1926,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="3">
+                <item row="5" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_x">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1962,7 +1954,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="3">
+                <item row="2" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_brightness">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
@@ -2016,7 +2008,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="3">
+                <item row="6" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_texture_offset_y">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2070,48 +2062,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
-                 <widget class="QDial" name="dial3_background_rotation_z">
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1" colspan="3">
-                 <widget class="QComboBox" name="comboBox_textured_background_map_type">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It determines, how texture will be mapped on background sphere&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Equirectangular: &lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;Texture has to be created used equirectangular projection. It's the most popular format for textures dedicated for sphere mapping.&lt;br/&gt;Example:&lt;br/&gt;&lt;/span&gt;&lt;img src=&quot;:/tooltips/tooltips_images/equirectangular_bkg.jpg&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Double hemisphere:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Texture has to be created as a pair of images of hemispheres. Mapping has to be the same as &lt;span style=&quot; font-style:italic;&quot;&gt;Full dome projection&lt;/span&gt; (or &lt;span style=&quot; font-style:italic;&quot;&gt;Fish eye&lt;/span&gt;)&lt;br/&gt;Example texture with indicated axes and directions:&lt;br/&gt;&lt;img src=&quot;:/tooltips/tooltips_images/full_dome_bkg_axes.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <item>
-                   <property name="text">
-                    <string>Equirectangular</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Double hemisphere</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Flat</string>
-                   </property>
-                  </item>
-                 </widget>
-                </item>
-                <item row="7" column="3">
+                <item row="7" column="2">
                  <widget class="MyDoubleSpinBox" name="spinboxd3_background_rotation_x">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2142,7 +2093,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="3">
+                <item row="4" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_v_scale">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2167,7 +2118,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2" colspan="2">
+                <item row="0" column="1" colspan="2">
                  <widget class="FileSelectWidget" name="text_file_background" native="true">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -2193,7 +2144,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="2">
+                <item row="6" column="1">
                  <widget class="QLabel" name="label_233">
                   <property name="text">
                    <string>y:</string>
@@ -2203,7 +2154,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="2">
+                <item row="5" column="1">
                  <widget class="QLabel" name="label_231">
                   <property name="text">
                    <string>x:</string>
@@ -2217,6 +2168,16 @@ for volumetric effects:</string>
                  <widget class="QLabel" name="label_232">
                   <property name="text">
                    <string>Alpha:</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="1">
+                 <widget class="QLabel" name="label_229">
+                  <property name="text">
+                   <string>Gamma:</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2277,8 +2238,8 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>268</width>
-            <height>1543</height>
+            <width>286</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -2429,7 +2390,7 @@ for volumetric effects:</string>
                <number>2</number>
               </property>
               <item>
-               <layout class="QGridLayout" name="gridLayoutMainLightSource" columnstretch="0,0,1">
+               <layout class="QGridLayout" name="gridLayoutMainLightSource" columnstretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -2447,7 +2408,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="2">
+                <item row="4" column="1">
                  <widget class="MyDoubleSpinBox" name="spinboxd_main_light_alpha">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2481,7 +2442,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="2" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_main_light_visibility_size">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2509,7 +2470,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
+                <item row="0" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_main_light_intensity">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2537,7 +2498,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
+                <item row="1" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_main_light_visibility">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2579,7 +2540,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="2">
+                <item row="5" column="1">
                  <widget class="MyDoubleSpinBox" name="spinboxd_main_light_beta">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2630,45 +2591,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QDial" name="dial_main_light_alpha">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QDial" name="dial_main_light_beta">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimum">
-                   <number>-18000</number>
-                  </property>
-                  <property name="maximum">
-                   <number>18000</number>
-                  </property>
-                  <property name="wrapping">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
+                <item row="3" column="1">
                  <widget class="MyColorButton" name="colorButton_main_light_colour" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of main light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -4222,9 +4145,7 @@ of lights:</string>
   <tabstop>spinbox_main_light_intensity</tabstop>
   <tabstop>spinbox_main_light_visibility</tabstop>
   <tabstop>spinbox_main_light_visibility_size</tabstop>
-  <tabstop>dial_main_light_alpha</tabstop>
   <tabstop>spinboxd_main_light_alpha</tabstop>
-  <tabstop>dial_main_light_beta</tabstop>
   <tabstop>spinboxd_main_light_beta</tabstop>
   <tabstop>checkBox_main_light_position_relative</tabstop>
   <tabstop>groupCheck_aux_light_enabled_1</tabstop>

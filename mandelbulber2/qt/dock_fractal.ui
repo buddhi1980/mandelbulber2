@@ -177,8 +177,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -236,8 +236,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -295,8 +295,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -354,8 +354,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -413,8 +413,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -472,8 +472,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -531,8 +531,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -590,8 +590,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -1179,44 +1179,6 @@ for 4D fractals</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="1">
-              <widget class="QDial" name="dial3_fractal_rotation_y">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QDial" name="dial3_fractal_rotation_x">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
              <item row="3" column="2">
               <widget class="MyDoubleSpinBox" name="spinboxd3_fractal_rotation_x">
                <property name="sizePolicy">
@@ -1270,25 +1232,6 @@ for 4D fractals</string>
                </property>
                <property name="singleStep">
                 <double>0.100000000000000</double>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QDial" name="dial3_fractal_rotation_z">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -2371,19 +2314,6 @@ distance estimation)</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="1">
-              <widget class="QDial" name="dial3_all_primitives_rotation_z">
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
              <item row="2" column="1">
               <widget class="QLabel" name="label_141">
                <property name="sizePolicy">
@@ -2456,32 +2386,6 @@ distance estimation)</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QDial" name="dial3_all_primitives_rotation_y">
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QDial" name="dial3_all_primitives_rotation_x">
-               <property name="minimum">
-                <number>-18000</number>
-               </property>
-               <property name="maximum">
-                <number>18000</number>
-               </property>
-               <property name="wrapping">
-                <bool>true</bool>
                </property>
               </widget>
              </item>
@@ -2703,11 +2607,8 @@ and water):</string>
   <tabstop>vect3_fractal_position_x</tabstop>
   <tabstop>vect3_fractal_position_y</tabstop>
   <tabstop>vect3_fractal_position_z</tabstop>
-  <tabstop>dial3_fractal_rotation_x</tabstop>
   <tabstop>spinboxd3_fractal_rotation_x</tabstop>
-  <tabstop>dial3_fractal_rotation_y</tabstop>
   <tabstop>spinboxd3_fractal_rotation_y</tabstop>
-  <tabstop>dial3_fractal_rotation_z</tabstop>
   <tabstop>spinboxd3_fractal_rotation_z</tabstop>
   <tabstop>vect3_repeat_x</tabstop>
   <tabstop>vect3_repeat_y</tabstop>
@@ -2742,11 +2643,8 @@ and water):</string>
   <tabstop>vect3_all_primitives_position_x</tabstop>
   <tabstop>vect3_all_primitives_position_y</tabstop>
   <tabstop>vect3_all_primitives_position_z</tabstop>
-  <tabstop>dial3_all_primitives_rotation_x</tabstop>
   <tabstop>spinboxd3_all_primitives_rotation_x</tabstop>
-  <tabstop>dial3_all_primitives_rotation_y</tabstop>
   <tabstop>spinboxd3_all_primitives_rotation_y</tabstop>
-  <tabstop>dial3_all_primitives_rotation_z</tabstop>
   <tabstop>spinboxd3_all_primitives_rotation_z</tabstop>
   <tabstop>text_description</tabstop>
   <tabstop>scrollArea_fractal_8</tabstop>

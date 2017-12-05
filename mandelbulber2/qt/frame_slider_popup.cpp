@@ -59,6 +59,7 @@ cFrameSiderPopup::cFrameSiderPopup(QWidget *parent) : QFrame(parent), ui(new Ui:
 	integerMin = 0;
 	integerMode = false;
 	dialMode = false;
+	dialScale = 1;
 	ui->dial->hide();
 	ui->buUp->hide();
 	ui->buRight->hide();
@@ -75,7 +76,14 @@ cFrameSiderPopup::~cFrameSiderPopup()
 
 int cFrameSiderPopup::value() const
 {
-	return ui->slider->value();
+	if (dialMode)
+	{
+		return ui->dial->value();
+	}
+	else
+	{
+		return ui->slider->value();
+	}
 }
 
 void cFrameSiderPopup::sliderReleased()
@@ -104,7 +112,40 @@ void cFrameSiderPopup::SetIntegerMode(int min, int max, int val)
 	connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
 }
 
+void cFrameSiderPopup::SetDialMode(int scale, double val)
+{
+	ui->dial->show();
+	ui->buUp->show();
+	ui->buRight->show();
+	ui->buDown->show();
+	ui->buLeft->show();
+	ui->buZero->hide();
+	ui->buDouble->hide();
+	ui->buHalf->hide();
+	ui->slider->hide();
+	ui->dial->setMaximum(scale * 180);
+	ui->dial->setMinimum(-scale * 180);
+	ui->dial->setValue(val * scale);
+	dialScale = scale;
+	dialMode = true;
+	connect(ui->dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged(int)));
+	connect(ui->buUp, SIGNAL(pressed()), this, SIGNAL(upPressed()));
+	connect(ui->buDown, SIGNAL(pressed()), this, SIGNAL(downPressed()));
+	connect(ui->buLeft, SIGNAL(pressed()), this, SIGNAL(leftPressed()));
+	connect(ui->buRight, SIGNAL(pressed()), this, SIGNAL(rightPressed()));
+}
+
 void cFrameSiderPopup::slotUpdateValue(int val)
 {
 	ui->slider->setValue(val);
+}
+
+void cFrameSiderPopup::slotUpdateValue(double val)
+{
+	ui->dial->setValue(val * dialScale);
+}
+
+void cFrameSiderPopup::slotDialValueChanged(int val)
+{
+	emit valueChanged(double(val) / dialScale);
 }

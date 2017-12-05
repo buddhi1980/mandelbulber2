@@ -423,32 +423,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="0">
-         <widget class="QDial" name="dial3_IFS_rotation_x">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDial" name="dial3_IFS_rotation_y">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_14">
           <property name="text">
@@ -459,7 +433,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -497,19 +471,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QDial" name="dial3_IFS_rotation_z">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_15">
           <property name="text">
@@ -520,7 +481,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -548,7 +509,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotation_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -584,7 +545,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_IFS_edge_enabled">
      <property name="title">
-      <string>&amp;Box folding</string>
+      <string>Bo&amp;x folding</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -924,79 +885,10 @@
           </property>
          </widget>
         </item>
-        <item row="25" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_6_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="13" column="0" rowspan="3">
          <widget class="MyCheckBox" name="checkBox_IFS_enabled_3">
           <property name="text">
            <string>#4</string>
-          </property>
-         </widget>
-        </item>
-        <item row="18" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_4_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_0_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1079,25 +971,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_2_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1191,25 +1064,6 @@
          <widget class="Line" name="line_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_3_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -1656,31 +1510,6 @@
           </property>
          </widget>
         </item>
-        <item row="29" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_7_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="21" column="1">
          <widget class="QLabel" name="label_133">
           <property name="sizePolicy">
@@ -1876,25 +1705,6 @@
           </property>
          </widget>
         </item>
-        <item row="34" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_8_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
          <widget class="QLabel" name="label_126">
           <property name="sizePolicy">
@@ -2069,31 +1879,6 @@
           </property>
          </widget>
         </item>
-        <item row="33" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_8_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="10" column="6">
          <widget class="QLabel" name="label_29">
           <property name="text">
@@ -2111,25 +1896,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_0_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -2158,31 +1924,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="17" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_4_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -2255,31 +1996,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="13" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_3_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
           </property>
          </widget>
         </item>
@@ -2580,25 +2296,6 @@
           </property>
          </widget>
         </item>
-        <item row="11" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_2_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="23" column="7">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_5_z">
           <property name="sizePolicy">
@@ -2624,25 +2321,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="27" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_6_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -2833,31 +2511,6 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_1_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="18" column="1">
          <widget class="QLabel" name="label_139">
           <property name="sizePolicy">
@@ -2919,31 +2572,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_0_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -3118,25 +2746,6 @@
           </property>
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item row="31" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_7_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -3360,25 +2969,6 @@
           </property>
          </widget>
         </item>
-        <item row="7" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_1_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="5">
          <widget class="MyDoubleSpinBox" name="spinbox_IFS_intensity_1">
           <property name="sizePolicy">
@@ -3458,25 +3048,6 @@
           </property>
          </widget>
         </item>
-        <item row="30" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_7_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="35" column="7">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_8_z">
           <property name="sizePolicy">
@@ -3521,48 +3092,10 @@
           </property>
          </widget>
         </item>
-        <item row="19" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_4_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="0" rowspan="3">
          <widget class="MyCheckBox" name="checkBox_IFS_enabled_1">
           <property name="text">
            <string>#2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_1_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -3717,25 +3250,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="26" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_6_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -3977,31 +3491,6 @@
           </property>
          </widget>
         </item>
-        <item row="21" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_5_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="17" column="0" rowspan="3">
          <widget class="MyCheckBox" name="checkBox_IFS_enabled_4">
           <property name="text">
@@ -4115,31 +3604,6 @@
           </property>
          </widget>
         </item>
-        <item row="9" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_2_x">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="invertedAppearance">
-           <bool>false</bool>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-          <property name="notchesVisible">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item row="29" column="4">
          <widget class="QLabel" name="label_59">
           <property name="text">
@@ -4206,25 +3670,6 @@
           </property>
          </widget>
         </item>
-        <item row="15" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_3_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="25" column="7">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_6_x">
           <property name="sizePolicy">
@@ -4253,25 +3698,6 @@
           </property>
          </widget>
         </item>
-        <item row="22" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_5_y">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="7">
          <widget class="MyDoubleSpinBox" name="spinboxd3_IFS_rotations_1_x">
           <property name="sizePolicy">
@@ -4297,25 +3723,6 @@
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="35" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_8_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -4364,25 +3771,6 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="23" column="8">
-         <widget class="QDial" name="dial3_IFS_rotations_5_z">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -4539,12 +3927,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
@@ -4553,6 +3935,12 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -4570,11 +3958,8 @@
   <tabstop>checkBox_IFS_abs_z</tabstop>
   <tabstop>checkBox_IFS_menger_sponge_mode</tabstop>
   <tabstop>groupCheck_IFS_rotation_enabled</tabstop>
-  <tabstop>dial3_IFS_rotation_x</tabstop>
   <tabstop>spinboxd3_IFS_rotation_x</tabstop>
-  <tabstop>dial3_IFS_rotation_y</tabstop>
   <tabstop>spinboxd3_IFS_rotation_y</tabstop>
-  <tabstop>dial3_IFS_rotation_z</tabstop>
   <tabstop>spinboxd3_IFS_rotation_z</tabstop>
   <tabstop>groupCheck_IFS_edge_enabled</tabstop>
   <tabstop>spinbox3_IFS_edge_x</tabstop>
@@ -4661,33 +4046,6 @@
   <tabstop>spinboxd3_IFS_rotations_8_x</tabstop>
   <tabstop>spinboxd3_IFS_rotations_8_y</tabstop>
   <tabstop>spinboxd3_IFS_rotations_8_z</tabstop>
-  <tabstop>dial3_IFS_rotations_0_x</tabstop>
-  <tabstop>dial3_IFS_rotations_0_y</tabstop>
-  <tabstop>dial3_IFS_rotations_0_z</tabstop>
-  <tabstop>dial3_IFS_rotations_1_x</tabstop>
-  <tabstop>dial3_IFS_rotations_1_y</tabstop>
-  <tabstop>dial3_IFS_rotations_1_z</tabstop>
-  <tabstop>dial3_IFS_rotations_2_x</tabstop>
-  <tabstop>dial3_IFS_rotations_2_y</tabstop>
-  <tabstop>dial3_IFS_rotations_2_z</tabstop>
-  <tabstop>dial3_IFS_rotations_3_x</tabstop>
-  <tabstop>dial3_IFS_rotations_3_y</tabstop>
-  <tabstop>dial3_IFS_rotations_3_z</tabstop>
-  <tabstop>dial3_IFS_rotations_4_x</tabstop>
-  <tabstop>dial3_IFS_rotations_4_y</tabstop>
-  <tabstop>dial3_IFS_rotations_4_z</tabstop>
-  <tabstop>dial3_IFS_rotations_5_x</tabstop>
-  <tabstop>dial3_IFS_rotations_5_y</tabstop>
-  <tabstop>dial3_IFS_rotations_5_z</tabstop>
-  <tabstop>dial3_IFS_rotations_6_x</tabstop>
-  <tabstop>dial3_IFS_rotations_6_y</tabstop>
-  <tabstop>dial3_IFS_rotations_6_z</tabstop>
-  <tabstop>dial3_IFS_rotations_7_x</tabstop>
-  <tabstop>dial3_IFS_rotations_7_y</tabstop>
-  <tabstop>dial3_IFS_rotations_7_z</tabstop>
-  <tabstop>dial3_IFS_rotations_8_x</tabstop>
-  <tabstop>dial3_IFS_rotations_8_y</tabstop>
-  <tabstop>dial3_IFS_rotations_8_z</tabstop>
  </tabstops>
  <resources/>
  <connections/>

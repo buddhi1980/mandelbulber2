@@ -35,8 +35,8 @@ if [ ! -d mandelbulber2 ]; then
 else
 	cd mandelbulber2
 	git pull
-	#git checkout 2.09-bugfixes
-	git checkout master
+	git checkout 2.12-bugfixes
+	#git checkout master
 	git pull
 	cd mandelbulber2
 fi
@@ -92,10 +92,11 @@ else
 fi
 
 mkdir -p $MANDELBULBER_BUILD_FOLDER
-cd $MANDELBULBER_BUILD_FOLDER
-$MANDELBULBER_PREFIX/bin/qmake ../qmake/mandelbulber-opencl.pro -r -spec win32-g++
-make -j8
-cd ..
+
+#cd $MANDELBULBER_BUILD_FOLDER
+#$MANDELBULBER_PREFIX/bin/qmake ../qmake/mandelbulber-opencl.pro -r -spec win32-g++
+#make -j8
+#cd ..
 ./make-package.sh $MANDELBULBER_VERSION $MANDELBULBER_BINARY_TARGET
 tar cf $MANDELBULBER_BINARY_TARGET.tar.gz $MANDELBULBER_BINARY_TARGET
 

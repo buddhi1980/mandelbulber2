@@ -47,6 +47,7 @@ MyDoubleSpinBox::MyDoubleSpinBox(QWidget *parent)
 {
 	defaultValue = 0;
 	slider = nullptr;
+	hasDial = false;
 };
 
 MyDoubleSpinBox::~MyDoubleSpinBox()
@@ -133,6 +134,15 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 			QWidget *topWidget = this->window();
 			slider = new cFrameSiderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
+
+			if (type == QString("spinboxd") || type == QString("spinboxd3")
+					|| type == QString("spinboxd4"))
+			{
+				int dialScale = pow(10.0, double(decimals()));
+				slider->SetDialMode(dialScale, defaultValue);
+				hasDial = true;
+			}
+
 			slider->hide();
 		}
 
@@ -145,12 +155,25 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
-		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
-		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
-		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
+
+		if (hasDial)
+		{
+			connect(this, SIGNAL(valueChanged(double)), slider, SLOT(slotUpdateValue(double)));
+			connect(slider, SIGNAL(valueChanged(double)), this, SLOT(setValue(double)));
+			connect(slider, SIGNAL(upPressed()), this, SLOT(slotZeroValue()));
+			connect(slider, SIGNAL(downPressed()), this, SLOT(slot180Value()));
+			connect(slider, SIGNAL(rightPressed()), this, SLOT(slot90Value()));
+			connect(slider, SIGNAL(leftPressed()), this, SLOT(slotMinus90Value()));
+		}
+		else
+		{
+			connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
+			connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
+			connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
+			connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
+		}
 	}
 }
 
@@ -185,12 +208,12 @@ void MyDoubleSpinBox::slotResetToDefault()
 	resetToDefault();
 }
 
-void MyDoubleSpinBox::slotZerovalue()
+void MyDoubleSpinBox::slotZeroValue()
 {
 	setValue(0.0);
 }
 
-void MyDoubleSpinBox::slotDoublevalue()
+void MyDoubleSpinBox::slotDoubleValue()
 {
 	const double val = value();
 	setValue(val * 2.0);
@@ -200,6 +223,21 @@ void MyDoubleSpinBox::slotHalfValue()
 {
 	const double val = value();
 	setValue(val * 0.5);
+}
+
+void MyDoubleSpinBox::slot180Value()
+{
+	setValue(180.0);
+}
+
+void MyDoubleSpinBox::slot90Value()
+{
+	setValue(90.0);
+}
+
+void MyDoubleSpinBox::slotMinus90Value()
+{
+	setValue(-90.0);
 }
 
 void MyDoubleSpinBox::slotRoundValue()

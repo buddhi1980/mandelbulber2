@@ -59,6 +59,7 @@ private:
 	double GetDefault();
 	double defaultValue;
 	cFrameSiderPopup *slider;
+	bool hasDial;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
@@ -69,8 +70,11 @@ protected:
 private slots:
 	void slotSliderTimerUpdateValue();
 	void slotResetToDefault();
-	void slotZerovalue();
-	void slotDoublevalue();
+	void slotZeroValue();
+	void slot180Value();
+	void slot90Value();
+	void slotMinus90Value();
+	void slotDoubleValue();
 	void slotHalfValue();
 	void slotRoundValue();
 };

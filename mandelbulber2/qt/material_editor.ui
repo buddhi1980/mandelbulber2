@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>776</width>
+    <width>375</width>
     <height>1437</height>
    </rect>
   </property>
@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>756</width>
-        <height>2076</height>
+        <y>-312</y>
+        <width>349</width>
+        <height>1713</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1160,7 +1160,7 @@ direction vector:</string>
                <string/>
               </property>
               <property name="title">
-               <string>Extra coloring co&amp;ntrols  trial (BETA, for hybrid and ..)</string>
+               <string>Extra colorin&amp;g controls  trial (BETA, for hybrid and ..)</string>
               </property>
               <property name="checkable">
                <bool>true</bool>
@@ -1182,7 +1182,7 @@ direction vector:</string>
                 <number>2</number>
                </property>
                <item>
-                <layout class="QGridLayout" name="gridLayout">
+                <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
                  <item row="0" column="0">
                   <widget class="QLabel" name="label_61">
                    <property name="font">
@@ -1209,7 +1209,7 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="2">
+                 <item row="0" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_initial_minimumR">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1237,29 +1237,7 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="0" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_initial_minimumR">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>10000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0" colspan="3">
+                 <item row="1" column="0" colspan="2">
                   <widget class="QLabel" name="label_60">
                    <property name="font">
                     <font>
@@ -1268,33 +1246,11 @@ direction vector:</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;orbit trap component &lt;span style=&quot; font-weight:400;&quot;&gt;( coloring algorithm in material_editor&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;orbit trap component &lt;br/&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(coloring algorithm in material_editor)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
                  <item row="2" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_orbit_trap_weight">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>10000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="2">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_orbit_trap_weight">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1325,11 +1281,11 @@ direction vector:</string>
                 </layout>
                </item>
                <item>
-                <layout class="QGridLayout" name="gridLayout_14">
+                <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,1">
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <item row="21" column="2">
+                 <item row="20" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ii_add_scale">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1357,14 +1313,14 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="21" column="0">
+                 <item row="20" column="0">
                   <widget class="QLabel" name="label_34">
                    <property name="text">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;add i * i * scale&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="0" colspan="3">
+                 <item row="5" column="0" colspan="2">
                   <widget class="QLabel" name="label_75">
                    <property name="font">
                     <font>
@@ -1373,76 +1329,32 @@ direction vector:</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;aux.color components &lt;span style=&quot; font-weight:400;&quot;&gt;( may result in localized cuts in the color)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;aux.color components &lt;br/&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(may result in localized cuts in the color)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="19" column="0">
+                 <item row="18" column="0">
                   <widget class="QCheckBox" name="checkBox_fractal_coloring_old_hybrid_enabled_false">
                    <property name="text">
                     <string notr="true">old hybrid weight:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="0" colspan="3">
+                 <item row="4" column="0" colspan="2">
                   <widget class="Line" name="line_15">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
-                 <item row="15" column="1">
-                  <widget class="QSlider" name="slider3_fractal_coloring_xyz_000_z">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>-100000000</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="13" column="1">
-                  <widget class="QSlider" name="slider3_fractal_coloring_xyz_000_x">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>-100000000</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="14" column="0">
+                 <item row="13" column="0">
                   <widget class="QLabel" name="label_37">
                    <property name="text">
                     <string>z.y * scale:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="19" column="2">
+                 <item row="18" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_old_hybrid_weight">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1470,14 +1382,14 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="17" column="0" colspan="3">
+                 <item row="16" column="0" colspan="2">
                   <widget class="Line" name="line_8">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
-                 <item row="15" column="2">
+                 <item row="14" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_z">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1505,7 +1417,7 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="13" column="2">
+                 <item row="12" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_x">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1533,14 +1445,14 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="11" column="0">
+                 <item row="10" column="0">
                   <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_bias_enabled_false">
                    <property name="text">
                     <string notr="true">xyz bias</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="18" column="0" colspan="3">
+                 <item row="17" column="0" colspan="2">
                   <widget class="QLabel" name="label_65">
                    <property name="font">
                     <font>
@@ -1549,47 +1461,25 @@ direction vector:</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;old hybrid mode &lt;span style=&quot; font-weight:400;&quot;&gt;(orbit trap weight = 1.0, aux.color defaults 0.03, 0.05, 0.07, 0.20, 0.20)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;old hybrid mode &lt;br/&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(orbit trap weight = 1.0, &lt;br/&gt;aux.color defaults 0.03, 0.05, 0.07, 0.20, 0.20)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="13" column="0">
+                 <item row="12" column="0">
                   <widget class="QLabel" name="label_36">
                    <property name="text">
                     <string>z.x * scale:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="14" column="1">
-                  <widget class="QSlider" name="slider3_fractal_coloring_xyz_000_y">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>-100000000</number>
-                   </property>
-                   <property name="maximum">
-                    <number>100000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="15" column="0">
+                 <item row="14" column="0">
                   <widget class="QLabel" name="label_38">
                    <property name="text">
                     <string>z.z * scale:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="10" column="0" colspan="3">
+                 <item row="9" column="0" colspan="2">
                   <widget class="QLabel" name="label_64">
                    <property name="font">
                     <font>
@@ -1598,11 +1488,11 @@ direction vector:</string>
                     </font>
                    </property>
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xyz bias&lt;span style=&quot; font-weight:400;&quot;&gt; (colorValue influenced by scaling coordinates)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;xyz bias&lt;br/&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;(colorValue influenced by scaling coordinates)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="8" column="0">
+                 <item row="7" column="0">
                   <widget class="QLabel" name="label_58">
                    <property name="font">
                     <font>
@@ -1615,7 +1505,14 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="14" column="2">
+                 <item row="8" column="0" colspan="2">
+                  <widget class="Line" name="line_9">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="13" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_y">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1643,58 +1540,14 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="19" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_old_hybrid_weight">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>10000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
+                 <item row="19" column="0" colspan="2">
+                  <widget class="Line" name="line">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="0" colspan="3">
-                  <widget class="Line" name="line_9">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_aux_color_weight">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>1000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="2">
+                 <item row="7" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_aux_color_weight">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1719,35 +1572,6 @@ direction vector:</string>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="21" column="1">
-                  <widget class="QSlider" name="slider_fractal_coloring_ii_add_scale">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="minimum">
-                    <number>0</number>
-                   </property>
-                   <property name="maximum">
-                    <number>10000000</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="20" column="0" colspan="3">
-                  <widget class="Line" name="line">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2107,50 +1931,6 @@ color:</string>
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="8" column="2">
-             <widget class="QDial" name="dial3_texture_rotation_y">
-              <property name="minimum">
-               <number>-18000</number>
-              </property>
-              <property name="maximum">
-               <number>18000</number>
-              </property>
-              <property name="wrapping">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="3">
-             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_y">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="minimum">
-               <double>-180.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>180.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>1.000000000000000</double>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="1">
              <widget class="QLabel" name="label_374">
               <property name="sizePolicy">
@@ -2180,37 +1960,6 @@ color:</string>
                <string>Texture center:
 (relative to
 object size)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="3">
-             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_x">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="minimum">
-               <double>-180.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>180.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -2268,19 +2017,6 @@ object size)</string>
                <string>Texture scale:
 (relative to
 object size)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="2">
-             <widget class="QDial" name="dial3_texture_rotation_x">
-              <property name="minimum">
-               <number>-18000</number>
-              </property>
-              <property name="maximum">
-               <number>18000</number>
-              </property>
-              <property name="wrapping">
-               <bool>true</bool>
               </property>
              </widget>
             </item>
@@ -2362,50 +2098,6 @@ object size)</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="2">
-             <widget class="QDial" name="dial3_texture_rotation_z">
-              <property name="minimum">
-               <number>-18000</number>
-              </property>
-              <property name="maximum">
-               <number>18000</number>
-              </property>
-              <property name="wrapping">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="3">
-             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_z">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="minimum">
-               <double>-180.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>180.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>1.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -2563,6 +2255,99 @@ rotation:</string>
               </property>
              </widget>
             </item>
+            <item row="7" column="2" colspan="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_x">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>2</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="2" colspan="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_y">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>2</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="2" colspan="2">
+             <widget class="MyDoubleSpinBox" name="spinboxd3_texture_rotation_z">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of the texture relative to the object orientation.&lt;/p&gt;&lt;p&gt;Example of rotated texture&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - planar mapping - rotated.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>2</number>
+              </property>
+              <property name="minimum">
+               <double>-180.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>180.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
          </layout>
@@ -2576,12 +2361,6 @@ rotation:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
@@ -2592,14 +2371,20 @@ rotation:</string>
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
@@ -2662,16 +2447,13 @@ rotation:</string>
   <tabstop>groupCheck_use_displacement_texture</tabstop>
   <tabstop>logedit_displacement_texture_height</tabstop>
   <tabstop>comboBox_texture_mapping_type</tabstop>
-  <tabstop>dial3_texture_rotation_x</tabstop>
   <tabstop>spinbox3_texture_center_x</tabstop>
   <tabstop>spinbox3_texture_center_y</tabstop>
   <tabstop>spinbox3_texture_center_z</tabstop>
   <tabstop>logvect3_texture_scale_x</tabstop>
   <tabstop>logvect3_texture_scale_y</tabstop>
   <tabstop>logvect3_texture_scale_z</tabstop>
-  <tabstop>dial3_texture_rotation_y</tabstop>
   <tabstop>spinboxd3_texture_rotation_x</tabstop>
-  <tabstop>dial3_texture_rotation_z</tabstop>
   <tabstop>spinboxd3_texture_rotation_y</tabstop>
   <tabstop>spinboxd3_texture_rotation_z</tabstop>
  </tabstops>

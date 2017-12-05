@@ -47,7 +47,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QDial" name="dial"/>
+      <widget class="QDial" name="dial">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+       <property name="notchesVisible">
+        <bool>false</bool>
+       </property>
+      </widget>
      </item>
      <item>
       <widget class="QSlider" name="slider">

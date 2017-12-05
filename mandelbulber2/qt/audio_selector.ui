@@ -117,36 +117,21 @@
           </property>
           <item>
            <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_131">
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_133">
               <property name="text">
-               <string>Frequency of interest:</string>
+               <string>Addition factor</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="MyLineEdit" name="logedit_animsound_additionfactor">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value + sound * addition factor &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ parameter_value * &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - effect of average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound has been applied.&lt;/p&gt;&lt;p&gt;To get subtraction of the sound value from parameter value, use &lt;span style=&quot; font-style:italic;&quot;&gt;Negative influence&lt;/span&gt; option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="QSlider" name="slider_animsound_midfreq">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>20000</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
              <widget class="MyDoubleSpinBox" name="spinbox_animsound_midfreq">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -180,14 +165,53 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_132">
+            <item row="4" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_animsound_negative">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value / (1 + multiplication_factor * sound) - (addition_factor * sound);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Note: multiplication_factor  scales the denominator in this function.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
               <property name="text">
-               <string>Bandwidth:</string>
+               <string>Negative influence</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_131">
+              <property name="text">
+               <string>Frequency of interest:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_animsound_pitchmode">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound is calculated from the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound  is calculated from the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Sound pitch mode</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_134">
+              <property name="text">
+               <string>Multiplication factor</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
              <widget class="MyDoubleSpinBox" name="spinbox_animsound_bandwidth">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -221,129 +245,17 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
-             <widget class="QSlider" name="slider_animsound_bandwidth">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>20000</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_133">
-              <property name="text">
-               <string>Addition factor</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_134">
-              <property name="text">
-               <string>Multiplication factor</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
-             <widget class="QSlider" name="logslider_animsound_additionfactor">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>-1500</number>
-              </property>
-              <property name="maximum">
-               <number>500</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
             <item row="3" column="1">
-             <widget class="QSlider" name="logslider_animsound_multfactor">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>-500</number>
-              </property>
-              <property name="maximum">
-               <number>500</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="2">
-             <widget class="MyLineEdit" name="logedit_animsound_additionfactor">
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value + sound * addition factor &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;+ parameter_value * &lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-weight:400; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - effect of average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound has been applied.&lt;/p&gt;&lt;p&gt;To get subtraction of the sound value from parameter value, use &lt;span style=&quot; font-style:italic;&quot;&gt;Negative influence&lt;/span&gt; option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2">
              <widget class="MyLineEdit" name="logedit_animsound_multfactor">
               <property name="toolTip">
                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The value of animation of a parameter, is the sum of the &lt;span style=&quot; text-decoration: underline;&quot;&gt;sound value&lt;/span&gt; added to the &lt;span style=&quot; text-decoration: underline;&quot;&gt;parameter value&lt;/span&gt; (from the keyframe animation table): &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value + parameter_value * multiplication_factor * sound&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + &lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound * addition factor&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;;&lt;/span&gt;&lt;/p&gt;&lt;p&gt;where:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; - average amplitude or pitch of the selected range of sound frequencies. It is calculated as a value from 0 to 1, ( 0 = silent , 1 = maximum.) &lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;parameter value &lt;/span&gt;- from keyframe animation calculations.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;animation&lt;/span&gt; - value of the parameter value after the sound_value has been added.&lt;/p&gt;&lt;p&gt;Note: when only multiplication factor is used (i.e. addition_factor is close to zero), it is guaranteed that &lt;span style=&quot; font-style:italic;&quot;&gt;sound&lt;/span&gt; will not modify the sign of animated parameter value. &lt;/p&gt;&lt;p&gt;Note: multiplication_factor operates differently in Negative Influence mode function. There it is used as division instead of multiplication.      Negative Influence mode function:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation =&lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; parameter_value / (1.0 + multiplication_factor * sound)&lt;/span&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; + sound * addition factor;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0" colspan="3">
-             <widget class="MyCheckBox" name="checkBox_animsound_negative">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes direction of influence of the sound value.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;animation = parameter_value / (1 + multiplication_factor * sound) - (addition_factor * sound);&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Note: multiplication_factor  scales the denominator in this function.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_132">
               <property name="text">
-               <string>Negative influence</string>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="0" colspan="3">
-             <widget class="MyCheckBox" name="checkBox_animsound_pitchmode">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Changes the way the sound is calculated.&lt;/p&gt;&lt;p&gt;If the mode is disabled, then the sound is calculated from the average amplitude of the selected sound frequencies.&lt;/p&gt;&lt;p&gt;When it is enabled, then the sound  is calculated from the average pitch of the selected sound frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Sound pitch mode</string>
+               <string>Bandwidth:</string>
               </property>
              </widget>
             </item>
@@ -378,36 +290,41 @@
              </property>
              <item>
               <layout class="QGridLayout" name="gridLayout_5">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_141">
-                 <property name="text">
-                  <string>Threshold:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QSlider" name="slider_animsound_binarythresh">
+               <item row="1" column="1">
+                <widget class="MyDoubleSpinBox" name="spinbox_animsound_binarylength">
                  <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum duration for which the sound value will be calculated and added to the parameter value, from the frame where the sound first exceeded the threshold, ( measured in frames.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="prefix">
+                  <string/>
+                 </property>
+                 <property name="suffix">
+                  <string/>
+                 </property>
+                 <property name="decimals">
+                  <number>0</number>
+                 </property>
                  <property name="minimum">
-                  <number>1</number>
+                  <double>0.000000000000000</double>
                  </property>
                  <property name="maximum">
-                  <number>1000</number>
+                  <double>1000.000000000000000</double>
                  </property>
                  <property name="singleStep">
-                  <number>1</number>
+                  <double>1.000000000000000</double>
                  </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
+                 <property name="value">
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="2">
+               <item row="0" column="1">
                 <widget class="MyDoubleSpinBox" name="spinbox_animsound_binarythresh">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -448,59 +365,10 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QSlider" name="slider_animsound_binarylength">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>100</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>1</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="MyDoubleSpinBox" name="spinbox_animsound_binarylength">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum duration for which the sound value will be calculated and added to the parameter value, from the frame where the sound first exceeded the threshold, ( measured in frames.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="prefix">
-                  <string/>
-                 </property>
-                 <property name="suffix">
-                  <string/>
-                 </property>
-                 <property name="decimals">
-                  <number>0</number>
-                 </property>
-                 <property name="minimum">
-                  <double>0.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>1000.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>1.000000000000000</double>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_141">
+                 <property name="text">
+                  <string>Threshold:</string>
                  </property>
                 </widget>
                </item>
@@ -546,28 +414,6 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSlider" name="slider_animsound_decaystrength">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10000</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>1</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
                 <widget class="MyDoubleSpinBox" name="spinbox_animsound_decaystrength">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -612,7 +458,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option enables the smooth filter.&lt;/p&gt;&lt;p&gt;The sound value will change in a smooth way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
-             <string>S&amp;mooth filter</string>
+             <string>Smooth fi&amp;lter</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -643,28 +489,6 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QSlider" name="slider_animsound_smoothstrength">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10000</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>1</number>
-                 </property>
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
                 <widget class="MyDoubleSpinBox" name="spinbox_animsound_smoothstrength">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -742,8 +566,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>835</width>
-            <height>631</height>
+            <width>1012</width>
+            <height>639</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -932,6 +756,11 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
@@ -960,11 +789,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>cAnimAudioView</class>
    <extends>QWidget</extends>
    <header>anim_audio_view.h</header>
@@ -984,26 +808,18 @@
   <tabstop>pushButton_playback_stop</tabstop>
   <tabstop>pushButton_delete_audiotrack</tabstop>
   <tabstop>groupCheck_animsound_enable</tabstop>
-  <tabstop>slider_animsound_midfreq</tabstop>
   <tabstop>spinbox_animsound_midfreq</tabstop>
-  <tabstop>slider_animsound_bandwidth</tabstop>
   <tabstop>spinbox_animsound_bandwidth</tabstop>
-  <tabstop>logslider_animsound_additionfactor</tabstop>
   <tabstop>logedit_animsound_additionfactor</tabstop>
-  <tabstop>logslider_animsound_multfactor</tabstop>
   <tabstop>logedit_animsound_multfactor</tabstop>
   <tabstop>checkBox_animsound_negative</tabstop>
   <tabstop>checkBox_animsound_pitchmode</tabstop>
   <tabstop>groupCheck_animsound_binaryfilter</tabstop>
-  <tabstop>slider_animsound_binarythresh</tabstop>
   <tabstop>spinbox_animsound_binarythresh</tabstop>
-  <tabstop>slider_animsound_binarylength</tabstop>
   <tabstop>spinbox_animsound_binarylength</tabstop>
   <tabstop>groupCheck_animsound_decayfilter</tabstop>
-  <tabstop>slider_animsound_decaystrength</tabstop>
   <tabstop>spinbox_animsound_decaystrength</tabstop>
   <tabstop>groupCheck_animsound_smoothfilter</tabstop>
-  <tabstop>slider_animsound_smoothstrength</tabstop>
   <tabstop>spinbox_animsound_smoothstrength</tabstop>
   <tabstop>audio_position_slider</tabstop>
   <tabstop>scrollArea</tabstop>

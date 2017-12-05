@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
+    <width>756</width>
     <height>3220</height>
    </rect>
   </property>
@@ -406,32 +406,6 @@ fixed radius:</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="0">
-         <widget class="QDial" name="dial3_mandelbox_rotation_main_x">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QDial" name="dial3_mandelbox_rotation_main_y">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_14">
           <property name="text">
@@ -442,7 +416,7 @@ fixed radius:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -480,19 +454,6 @@ fixed radius:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QDial" name="dial3_mandelbox_rotation_main_z">
-          <property name="minimum">
-           <number>-18000</number>
-          </property>
-          <property name="maximum">
-           <number>18000</number>
-          </property>
-          <property name="wrapping">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_15">
           <property name="text">
@@ -503,7 +464,7 @@ fixed radius:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -531,7 +492,7 @@ fixed radius:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -614,91 +575,17 @@ fixed radius:</string>
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="3" column="5">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+           <item row="3" column="0" colspan="3">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string>Positive plane</string>
              </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="3" column="6">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
+           <item row="2" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -726,7 +613,7 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2">
+           <item row="2" column="2">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -754,26 +641,6 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="4">
-            <widget class="QLabel" name="label_19">
-             <property name="text">
-              <string notr="true">alpha</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="5">
-            <widget class="QLabel" name="label_20">
-             <property name="text">
-              <string notr="true">beta</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="2">
             <widget class="QLabel" name="label_18">
              <property name="text">
@@ -781,19 +648,6 @@ fixed radius:</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_1_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
              </property>
             </widget>
            </item>
@@ -807,33 +661,7 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="4">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_1_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="5">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_1_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
+           <item row="2" column="0">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_1_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -861,75 +689,10 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_1_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-             <property name="notchesVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label_17">
              <property name="text">
               <string notr="true">alpha</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_1_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="6">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_1_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="6">
-            <widget class="QLabel" name="label_21">
-             <property name="text">
-              <string notr="true">gamma</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4" colspan="3">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
-              <string>Positive plane</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
@@ -946,10 +709,117 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="3" rowspan="4">
-            <widget class="Line" name="line">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_19">
+             <property name="text">
+              <string notr="true">alpha</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_21">
+             <property name="text">
+              <string notr="true">gamma</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_1_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string notr="true">beta</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -980,11 +850,97 @@ fixed radius:</string>
           <number>2</number>
          </property>
          <item>
-          <layout class="QGridLayout" name="gridLayout_6">
+          <layout class="QGridLayout" name="gridLayout_8">
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="3" column="0">
+           <item row="3" column="0" colspan="3">
+            <widget class="QLabel" name="label_46">
+             <property name="text">
+              <string>Positive plane</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_47">
+             <property name="text">
+              <string notr="true">gamma</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_48">
+             <property name="text">
+              <string notr="true">beta</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1013,7 +969,7 @@ fixed radius:</string>
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="QLabel" name="label_33">
+            <widget class="QLabel" name="label_49">
              <property name="text">
               <string notr="true">alpha</string>
              </property>
@@ -1022,54 +978,8 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_2_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="6">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_2_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="6">
-            <widget class="QLabel" name="label_34">
-             <property name="text">
-              <string notr="true">gamma</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4" colspan="3">
-            <widget class="QLabel" name="label_35">
-             <property name="text">
-              <string>Positive plane</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0" colspan="3">
-            <widget class="QLabel" name="label_36">
+            <widget class="QLabel" name="label_50">
              <property name="text">
               <string>Negative plane</string>
              </property>
@@ -1078,141 +988,17 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_30">
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_51">
              <property name="text">
-              <string notr="true">gamma</string>
+              <string notr="true">alpha</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_2_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-             <property name="notchesVisible">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_2_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_37">
-             <property name="text">
-              <string notr="true">beta</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_2_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="5">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_2_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="5">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="6">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
+           <item row="5" column="0">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1240,86 +1026,79 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="2">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_2_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QLabel" name="label_31">
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_52">
              <property name="text">
-              <string notr="true">alpha</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="5">
-            <widget class="QLabel" name="label_32">
+           <item row="5" column="2">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_2_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_53">
              <property name="text">
               <string notr="true">beta</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="3" rowspan="4">
-            <widget class="Line" name="line_2">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
              </property>
             </widget>
            </item>
@@ -1350,96 +1129,12 @@ fixed radius:</string>
           <number>2</number>
          </property>
          <item>
-          <layout class="QGridLayout" name="gridLayout_7">
+          <layout class="QGridLayout" name="gridLayout_9">
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_38">
-             <property name="text">
-              <string notr="true">gamma</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="5">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_41">
-             <property name="text">
-              <string notr="true">alpha</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_3_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="6">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_3_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="6">
-            <widget class="QLabel" name="label_42">
-             <property name="text">
-              <string notr="true">gamma</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="4" colspan="3">
-            <widget class="QLabel" name="label_43">
+           <item row="3" column="0" colspan="3">
+            <widget class="QLabel" name="label_54">
              <property name="text">
               <string>Positive plane</string>
              </property>
@@ -1448,122 +1143,7 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="0" colspan="3">
-            <widget class="QLabel" name="label_44">
-             <property name="text">
-              <string>Negative plane</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
            <item row="2" column="1">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_3_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLabel" name="label_45">
-             <property name="text">
-              <string notr="true">beta</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="4">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_3_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="5">
-            <widget class="QDial" name="dial3_mandelbox_rotation_pos_3_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="6">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_z">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="4">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_x">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-180.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>180.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1591,7 +1171,7 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="2">
+           <item row="2" column="2">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1619,18 +1199,18 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="4">
-            <widget class="QLabel" name="label_39">
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_55">
              <property name="text">
-              <string notr="true">alpha</string>
+              <string notr="true">gamma</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="1" column="5">
-            <widget class="QLabel" name="label_40">
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_56">
              <property name="text">
               <string notr="true">beta</string>
              </property>
@@ -1639,7 +1219,7 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="2" column="0">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_neg_3_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1667,29 +1247,137 @@ fixed radius:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QDial" name="dial3_mandelbox_rotation_neg_3_x">
-             <property name="minimum">
-              <number>-18000</number>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_57">
+             <property name="text">
+              <string notr="true">alpha</string>
              </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="invertedAppearance">
-              <bool>false</bool>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-             <property name="notchesVisible">
-              <bool>false</bool>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
-           <item row="0" column="3" rowspan="4">
-            <widget class="Line" name="line_3">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="label_58">
+             <property name="text">
+              <string>Negative plane</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_59">
+             <property name="text">
+              <string notr="true">alpha</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_x">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLabel" name="label_60">
+             <property name="text">
+              <string notr="true">gamma</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="2">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_z">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_pos_3_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-180.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>180.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QLabel" name="label_61">
+             <property name="text">
+              <string notr="true">beta</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
              </property>
             </widget>
            </item>
@@ -2108,15 +1796,15 @@ fixed radius:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -2129,49 +1817,13 @@ fixed radius:</string>
   <tabstop>spinbox3_mandelbox_offset_y</tabstop>
   <tabstop>spinbox3_mandelbox_offset_z</tabstop>
   <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>
   <tabstop>groupCheck_mandelbox_rotations_enabled</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_1_x</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_neg_1_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_1_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_neg_1_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_1_z</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_neg_1_z</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_1_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_1_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_1_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_1_z</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_2_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_2_z</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_2_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_2_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_2_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_2_z</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_neg_3_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_neg_3_z</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_3_x</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_3_y</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_pos_3_z</tabstop>
-  <tabstop>spinboxd3_mandelbox_rotation_pos_3_z</tabstop>
   <tabstop>spinbox_mandelbox_color_R</tabstop>
   <tabstop>spinbox3_mandelbox_color_x</tabstop>
   <tabstop>spinbox3_mandelbox_color_y</tabstop>
