@@ -90,7 +90,11 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"luminosity_texture_intensity", "diffusion_texture_intensity", "displacement_texture_height",
 	"fractal_coloring_algorithm", "fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture"};
+	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false",
+	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_old_hybrid_enabled_false",
+	"fractal_coloring_initial_minimumR", "fractal_coloring_orbit_trap_weight",
+	"fractal_coloring_aux_color_weight", "fractal_coloring_ii_add_scale",
+	"fractal_coloring_old_hybrid_weight", "fractal_coloring_xyz_000"};
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
@@ -148,12 +152,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.lineDirection =
 		materialParam->Get<CVector3>(Name("fractal_coloring_line_direction", id));
 
-	//trial
+	// trial
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
 	fractalColoring.xyzBiasEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
-
 
 	fractalColoring.oldHybridEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_old_hybrid_enabled_false", id));
@@ -168,7 +171,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.oldHybridWeight =
 		materialParam->Get<double>(Name("fractal_coloring_old_hybrid_weight", id));
 	fractalColoring.xyz000 =
-		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id));  // cvect4
+		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvect4
 
 	if (gNetRender->IsClient())
 	{

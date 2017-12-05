@@ -154,19 +154,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="buInteger">
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="toolTip">
-        <string>Round to integer</string>
-       </property>
-       <property name="text">
-        <string>∅</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QToolButton" name="buUp">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>
@@ -185,7 +172,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
-        <string>Zero</string>
+        <string>90 degrees</string>
        </property>
        <property name="text">
         <string>→</string>
@@ -198,7 +185,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
-        <string>Zero</string>
+        <string>180 degrees</string>
        </property>
        <property name="text">
         <string>↓</string>
@@ -211,10 +198,23 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
-        <string>Zero</string>
+        <string>-90 degrees</string>
        </property>
        <property name="text">
         <string>←</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="buInteger">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>&quot;Magic Round&quot;</string>
+       </property>
+       <property name="text">
+        <string>∅</string>
        </property>
       </widget>
      </item>
