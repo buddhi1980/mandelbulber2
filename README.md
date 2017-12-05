@@ -49,9 +49,11 @@ The possibilities are literally **infinite**!
 - Program compiled for x86 and x64 CPUs (Linux, Windows, OSX)
 - Simple 3D navigator
 - Distributed Network Rendering
+- Rendering using OpenCL
 - Key-frame animation for all parameters with different interpolations
 - Material management
 - Texture mapping (color, luminosity, diffusion, normal maps, displacement)
+- Exporting of 3D objects
 - Rendering queue
 - Command line interface for headless systems
 
