@@ -57,7 +57,7 @@ struct sFractalColoring
 		xyzBiasEnabledFalse = false;
 		oldHybridEnabledFalse = false;
 		initialMiniumuR = 0.0;
-		orbitTrapWeight = 0.0;
+		orbitTrapWeight = 1.0;
 		auxColorWeight = 0.0;
 		iiAddScale = 0.0;
 		oldHybridWeight = 0.0;

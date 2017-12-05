@@ -554,7 +554,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
 				case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0; break;
 
-				case coloringFunctionGeneral: out->colorIndex = minR1000 * 5.0;
+				case coloringFunctionGeneral: out->colorIndex = minR1000;
 					double inputGeneral = 0.0;
 					if (in.fractalColoring.extraColorEnabledFalse)
 					{
