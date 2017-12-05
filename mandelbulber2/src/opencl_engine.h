@@ -83,6 +83,7 @@ public:
 
 	void Lock();
 	void Unlock();
+	static void DeleteKernelCache();
 	void Reset();
 	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
