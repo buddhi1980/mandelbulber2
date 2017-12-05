@@ -225,6 +225,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		return false;
 	}
 
+	SetUseBuildCache(!params->Get<bool>("opencl_disable_build_cache"));
+
 	// building OpenCl kernel
 	QString errorString;
 

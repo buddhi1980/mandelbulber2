@@ -89,6 +89,7 @@ public:
 	bool CreateKernel4Program(const cParameterContainer *params);
 	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
 	bool CreateCommandQueue();
+	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
 
 protected:
 	virtual QString GetKernelName() = 0;
@@ -118,6 +119,7 @@ protected:
 private:
 	QMutex lock;
 	bool locked;
+	bool useBuildCache;
 	QByteArray lastProgramHash;
 	QByteArray lastBuildParametersHash;
 

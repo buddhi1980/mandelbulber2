@@ -53,6 +53,7 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	readyForRendering = false;
 	kernelCreated = false;
 	locked = false;
+	useBuildCache = true;
 #endif
 
 	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
@@ -95,12 +96,11 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
 		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
-		// TODO : Add GUI CheckBox for cacheEnabled
-		bool cacheEnabled = true;
-		if (!cacheEnabled) DeleteKernelCache();
+		if (!useBuildCache) DeleteKernelCache();
 
 		// if program is different than in previous run
-		if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuildParametersHash && cacheEnabled))
+		if (!(hashProgram == lastProgramHash && hashBuildParams == lastBuildParametersHash
+					&& useBuildCache))
 		{
 			lastBuildParametersHash = hashBuildParams;
 			lastProgramHash = hashProgram;
@@ -340,7 +340,7 @@ void cOpenClEngine::Unlock()
 
 void cOpenClEngine::DeleteKernelCache()
 {
-	// Delete NVIDIA driver build cache
+// Delete NVIDIA driver build cache
 #ifdef _WIN32
 	QDir dir(QDir::homePath() + "/AppData/Roaming/NVIDIA/ComputeCache/");
 #else
@@ -349,6 +349,5 @@ void cOpenClEngine::DeleteKernelCache()
 	if (dir.exists()) dir.removeRecursively();
 	if (!dir.exists()) QDir().mkdir(dir.absolutePath());
 }
-
 
 #endif

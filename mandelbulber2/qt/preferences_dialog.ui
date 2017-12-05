@@ -530,8 +530,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
-            <height>628</height>
+            <width>323</width>
+            <height>352</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1113,6 +1113,13 @@ and will only be present after enabling and re-render.</string>
                   </property>
                   <property name="viewMode">
                    <enum>QListView::ListMode</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="3">
+                 <widget class="QCheckBox" name="checkBox_opencl_disable_build_cache">
+                  <property name="text">
+                   <string>Disable cache for OpenCL programs</string>
                   </property>
                  </widget>
                 </item>

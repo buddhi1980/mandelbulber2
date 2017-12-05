@@ -506,6 +506,7 @@ void InitParams(cParameterContainer *par)
 		"opencl_mode", 1, morphNone, paramApp, QStringList({"none", "fast", "limited", "full"}));
 	par->addParam("opencl_precision", 0, morphNone, paramApp, QStringList({"single", "double"}));
 	par->addParam("opencl_memory_limit", 512, 1, 10000, morphNone, paramApp);
+	par->addParam("opencl_disable_build_cache", false, morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }
@@ -713,7 +714,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_factorMaxR0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_comp_fold", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_comp_fold0", 0.0, morphAkima, paramStandard);
-
 
 	par->addParam("fold_color_extra_mode_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
@@ -1169,56 +1169,49 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),
 		CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
-	//trial
+	// trial
 
-	par->addParam(
-		cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("fractal_coloring_old_hybrid_enabled_false", materialId), false, morphLinear, paramStandard);
-
-
-
+	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_enabled_false", materialId), false,
+		morphLinear, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
-		 morphNone, paramStandard);
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, 0.0, 1e20,
-		 morphNone, paramStandard);
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 0.0, 0.0, 1e20,
-		 morphNone, paramStandard);
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
-		 morphNone, paramStandard);
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_weight", materialId), 0.0, 0.0, 1e20,
-		 morphNone, paramStandard);
+		morphNone, paramStandard);
 
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId),
-		CVector3(0.0, 0.0, 0.0), morphNone, paramStandard); // vec4??
-
-
-
-
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId), CVector3(0.0, 0.0, 0.0),
+		morphNone, paramStandard); // vec4??
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
