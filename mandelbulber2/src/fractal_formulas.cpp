@@ -324,8 +324,7 @@ void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	z.x -= 2.0;
 	z.y -= 2.0;
 
-	// TODO: This works great in OpenCL, but is broken with CPU
-	if (fmod(z.z, 1.0) > 1.0) z.z -= 2.0;
+	if (fmod(z.z, M_PI) > 2.0) z.z -= 2.0;
 
 	aux.DE *= 3.0;
 }

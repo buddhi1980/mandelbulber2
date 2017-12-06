@@ -150,9 +150,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		coloringFunctionDefault));
 
 	// Modulus formulas
-	fractalList->append(sFractalDescription("Modulus Menger Sponge", "modulus_menger_sponge", modulusMengerSponge, ModulusMengerSpongeIteration,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Modulus Menger Sponge", "modulus_menger_sponge", modulusMengerSponge,
+		ModulusMengerSpongeIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
 	fractalList->append(sFractalDescription("Modulus Mandelbulb", "modulus_mandelbulb", modulusMandelbulb, ModulusMandelbulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
