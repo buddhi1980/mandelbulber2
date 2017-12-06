@@ -300,6 +300,58 @@ void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	aux.DE *= 3.0;
 }
 
+
+/**
+* Menger Sponge formula created by Knighty, 
+* Modulus Operation applied by mancoast
+* @reference
+* http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
+*/
+void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+
+	z.x = fabs(z.x);
+	z.y = fabs(z.y);
+	z.z = fabs(z.z);
+
+	if (z.x - z.y < 0.0) swap(z.x, z.y);
+	if (z.x - z.z < 0.0) swap(z.x, z.z);
+	if (z.y - z.z < 0.0) swap(z.y, z.z);
+
+	z *= 3.0;
+
+	z.x -= 2.0;
+	z.y -= 2.0;
+
+	// TODO: This works great in OpenCL, but is broken with CPU
+	if (fmod(z.z, 1.0) > 1.0) z.z -= 2.0;
+
+	aux.DE *= 3.0;
+}
+
+
+/**
+* Classic Mandelbulb fractal with a Modulus Operation applied by mancoast
+* @reference
+* http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
+*/
+void ModulusMandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// if (aux.r < 1e-21) aux.r = 1e-21;
+	const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;
+	const double ph0 = atan2(z.y, z.x) + fractal->bulb.alphaAngleOffset;
+	double rp = pow(aux.r, fractal->bulb.power - 1.0);
+	const double th = th0 * fractal->bulb.power;
+	const double ph = ph0 * fractal->bulb.power;
+	const double cth = cos(th);
+	aux.r_dz = (rp * aux.r_dz) * fractal->bulb.power + 1.0;
+	rp *= aux.r;
+	z.x = cth * cos(ph) * rp;
+	z.y = fmod(cth * sin(ph) * rp, 2.0);
+	z.z = sin(th) * rp;
+}
+
 /**
  * Smooth Mandelbox created by Buddhi
  * @reference http://www.fractalforums.com/3d-fractal-generation/mandelbox-with-'smooth'-conditions/

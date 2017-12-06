@@ -174,6 +174,8 @@ enum enumFractalFormula
 	boxFoldQuat = 128,
 	// 2.13
 	coastalbrot = 129,
+	modulusMengerSponge = 130,
+	modulusMandelbulb = 131,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
