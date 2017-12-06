@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_fabs_add_constant</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -495,7 +495,9 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;fabs add constant, z = fabs( z + pre-offset) + offset)&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Code&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string notr="true">&lt;p&gt;fabs add  constant,  z = fabs( z + pre-offset) + 0ffset&lt;/p&gt;&lt;table&gt;
+&lt;/table&gt;
+&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

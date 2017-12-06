@@ -302,11 +302,11 @@ void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 
 /**
-* Menger Sponge formula created by Knighty, 
-* Modulus Operation applied by mancoast
-* @reference
-* http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
-*/
+ * Menger Sponge formula created by Knighty,
+ * Modulus Operation applied by mancoast
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
+ */
 void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(fractal);
@@ -331,10 +331,10 @@ void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 
 /**
-* Classic Mandelbulb fractal with a Modulus Operation applied by mancoast
-* @reference
-* http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
-*/
+ * Classic Mandelbulb fractal with a Modulus Operation applied by mancoast
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/escape-time-algorithm-defined-using-the-quotient-and-remainder-functions/
+ */
 void ModulusMandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// if (aux.r < 1e-21) aux.r = 1e-21;
@@ -677,9 +677,9 @@ void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 }
 
 /**
-* Fractal formula created by Robert Pancoast
-*/
-void CoastalBrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+ * Fractal formula created by Robert Pancoast
+ */
+void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double temp = aux.r;
 	temp = pow(temp, 7.7);
@@ -2698,9 +2698,9 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
-* BoxBulb power 2 V2 with scaling of z axis
-* This formula contains aux.color and aux.actualScaleA
-*/
+ * BoxBulb power 2 V2 with scaling of z axis
+ * This formula contains aux.color and aux.actualScaleA
+ */
 void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
@@ -2838,9 +2838,9 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 }
 
 /**
-* BoxBulb power 2 V3  with scaling of z axis
-* This formula contains aux.color and aux.actualScaleA
-*/
+ * BoxBulb power 2 V3  with scaling of z axis
+ * This formula contains aux.color and aux.actualScaleA
+ */
 void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// CVector4 c = aux.const_c;
@@ -3033,10 +3033,10 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 }
 
 /**
-* BoxFold Quaternion  beta
-* This formula contains aux.color and aux.actualScale
-* Sometimes Delta DE Linear works best.
-*/
+ * BoxFold Quaternion  beta
+ * This formula contains aux.color and aux.actualScale
+ * Sometimes Delta DE Linear works best.
+ */
 void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// CVector4 c = aux.const_c;
@@ -8363,8 +8363,8 @@ void TransfFabsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 }
 
 /**
-* fabs add conditional
-*/
+ * fabs add conditional
+ */
 void TransfFabsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
@@ -11332,8 +11332,8 @@ void TransfFabsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sEx
 }
 
 /**
-* fabs add conditional4D
-*/
+ * fabs add conditional4D
+ */
 void TransfFabsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
@@ -12128,7 +12128,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
-* asurf trial  beta
+ * asurf trial  beta
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
  *
  * Note for the origional version apply a c.x c.y SWAP

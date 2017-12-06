@@ -66,6 +66,9 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
+         <string notr="true">&lt;p&gt;Fractal formula created by Robert Pancoast&lt;/p&gt;&lt;table&gt;
+&lt;/table&gt;
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/coastalbrot_smilin.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -84,6 +87,22 @@
          <string notr="true">border-style: outset; border-width: 2px; border-radius: 3px; border-color: black; background-color: #fff5ee; padding: 4px;</string>
         </property>
         <property name="text">
+         <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;CoastalbrotIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; temp &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  temp &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;pow&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;7.7&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; temp &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;r_dz &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;7.7&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  temp &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;r&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;3&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; M_PI&lt;span style=&quot;color:#676767&quot;&gt;)));&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;3&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; M_PI&lt;span style=&quot;color:#676767&quot;&gt;)));&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;3&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; M_PI&lt;span style=&quot;color:#676767&quot;&gt;)));&lt;/span&gt;
+
+  z &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; temp&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+&lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/body&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

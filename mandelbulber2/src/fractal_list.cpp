@@ -145,7 +145,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		coloringFunctionDefault));
 
 	// Nested sin() formulas
-	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot, CoastalBrotIteration,
+	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot, CoastalbrotIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 

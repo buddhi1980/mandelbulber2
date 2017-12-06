@@ -93,10 +93,14 @@ typedef struct
 
 	cl_float color;
 	cl_float colorHybrid;
+
+	// temp for trial
 	cl_float foldFactor;
+	cl_float radiusFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
 	cl_float oldHybridFactor;
+	cl_float temp1Factor;
 	cl_float temp100;
 	cl_float addDist;
 } sExtendedAuxCl;
@@ -112,9 +116,12 @@ typedef struct
 	cl_float colorMin;
 	cl_float compFold0;
 	cl_float compFold;
+	cl_float compRadius0;
 	cl_float compMinR;
 	cl_float compMinR0;
 	cl_float compScale;
+	cl_float deScale0;
+	cl_float oldScale0;
 	cl_float oldScale1;
 	cl_float parabScale0;
 	cl_float newScale0;
@@ -132,7 +139,7 @@ typedef struct
 	cl_float scaleC1;
 	cl_float period1;
 	cl_float trigAdd1;
-
+	cl_float4 xyz000;
 	cl_float4 factor000;
 	cl_float factorMinR0;
 	cl_float factorMaxR0;
@@ -140,10 +147,19 @@ typedef struct
 	cl_int intAx0;
 	cl_int intAy0;
 	cl_int intAz0;
+
 	cl_int parabEnabledFalse;
 	cl_int cosEnabledFalse;
+
 	cl_int auxColorEnabled;
 	cl_int auxColorEnabledFalse;
+	cl_int deColorEnabledFalse;
+	cl_int radiusColorEnabledFalse;
+	cl_int xyzColorEnabledFalse;
+	cl_int oldHybridEnabledFalse;
+	cl_int temp1EnabledFalse;
+	cl_int extraModeEnabledFalse;
+
 	cl_int distanceEnabledFalse;
 } sFoldColorCl;
 
@@ -710,9 +726,11 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.color = source.color;
 	target.colorHybrid = source.colorHybrid;
 	target.foldFactor = source.foldFactor;
+	target.radiusFactor = source.radiusFactor;
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
 	target.oldHybridFactor = source.oldHybridFactor;
+	target.temp1Factor = source.temp1Factor;
 	target.temp100 = source.temp100;
 	target.addDist = source.addDist;
 	return target;
@@ -729,9 +747,12 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.colorMin = source.colorMin;
 	target.compFold0 = source.compFold0;
 	target.compFold = source.compFold;
+	target.compRadius0 = source.compRadius0;
 	target.compMinR = source.compMinR;
 	target.compMinR0 = source.compMinR0;
 	target.compScale = source.compScale;
+	target.deScale0 = source.deScale0;
+	target.oldScale0 = source.oldScale0;
 	target.oldScale1 = source.oldScale1;
 	target.parabScale0 = source.parabScale0;
 	target.newScale0 = source.newScale0;
@@ -749,6 +770,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleC1 = source.scaleC1;
 	target.period1 = source.period1;
 	target.trigAdd1 = source.trigAdd1;
+	target.xyz000 = toClFloat4(source.xyz000);
 	target.factor000 = toClFloat4(source.factor000);
 	target.factorMinR0 = source.factorMinR0;
 	target.factorMaxR0 = source.factorMaxR0;
@@ -759,6 +781,12 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.cosEnabledFalse = source.cosEnabledFalse;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
+	target.deColorEnabledFalse = source.deColorEnabledFalse;
+	target.radiusColorEnabledFalse = source.radiusColorEnabledFalse;
+	target.xyzColorEnabledFalse = source.xyzColorEnabledFalse;
+	target.oldHybridEnabledFalse = source.oldHybridEnabledFalse;
+	target.temp1EnabledFalse = source.temp1EnabledFalse;
+	target.extraModeEnabledFalse = source.extraModeEnabledFalse;
 	target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;
 }
