@@ -124,6 +124,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		benesiPwr2Mandelbulb, BenesiPwr2MandelbulbIteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
+	// boxBulb formulas
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2", "box_fold_bulb_pow2",
 		boxFoldBulbPow2, BoxFoldBulbPow2Iteration, deltaDEType, linearDEFunction,
 		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
@@ -683,5 +684,5 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Testing", "testing", testing, TestingIteration,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionABox2));
+		coloringFunctionGeneral));
 }

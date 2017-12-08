@@ -437,8 +437,67 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	}
 #endif // IS_HYBRID
 
-	if (mode == calcModeColouring)
-	{
+        if (mode == calcModeColouring)
+         {
+            // historic function, it includes a limit, possibly remove as it did not work well
+            float colorDE;
+            colorDE = extendedAux.DE;
+            float radDE = r / fabs(colorDE); // was named r2
+            if (radDE > 20) radDE = 20;
+
+
+            float addValue = 0.0;
+
+            // example of a basic input
+            float xyzValue = 0.0;
+            if (in.fractalColoring.xyzBiasEnabledFalse)
+            {
+                    CVector3 xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
+                    xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
+            }
+            addValue += xyzValue; // addValue accumulates outputs
+
+            float minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
+            float auxColorValue100 = extendedAux.color * 100; // limited at 100,000
+
+
+            // HYBRID MODE
+           // if (fractals.IsHybrid())
+            if (consts->sequence.isHybrid)
+            {
+                   // if (minR1000 > 100000) minR1000 = 100000; // limit
+                    minR1000 = min(minR1000, 100000.0f);
+                    if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit is only in hybrid mode?
+                    auxColorValue100 = min(auxColorValue100, 100000.0f);
+                    float radDE5000 = radDE * 5000; // limited at 100,000
+                    // double radIe13 = r / 1e13;
+
+                    // old hybrid
+                    float oldHybridValue = 0.0;
+                    oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
+
+                    double inputGeneral = 0.0;
+                    if (in.fractalColoring.extraColorEnabledFalse)
+                    {
+                            inputGeneral =
+                            minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
+                            + auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+                            + addValue // all extra inputs
+                            + extendedAux.colorHybrid // transf_hybrid_color inputs
+                            + oldHybridValue * in.fractalColoring.oldHybridWeight; // old hybrid
+
+                            // this allows the input to be influenced by iteation number
+                            inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+
+                                    //+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
+                                    //+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
+                                    //+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
+                    }
+                    out->colorIndex = oldHybridValue;
+                    if (in.fractalColoring.extraColorEnabledFalse)
+                                            out->colorIndex = inputGeneral;
+            }
+        /*{
 		float r2 = aux.r / fabs(aux.DE);
 		r2 = min(r2, 20.0f);
 
@@ -450,9 +509,58 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			out.colorIndex =
 				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
 				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
-		}
+                }*/
+
+
 		else
-		{
+            {
+                    switch (fractals.GetColoringFunction(sequence))
+                    {
+                            case coloringFunctionABox:
+                                    out->colorIndex =
+                                             auxColorValue100  // folds part (iter color)
+                                            + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+                                            + ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+                                                                    ? minR1000
+                                                                    : 0.0);
+                                    break;
+                            case coloringFunctionIFS: out->colorIndex = minR1000; break;
+                            case coloringFunctionAmazingSurf: out->colorIndex = minR1000 * 0.2; break;
+
+                            case coloringFunctionABox2:
+                                    out->colorIndex =
+                                             minR1000 * extendedAux.minRFactor // orbit trap DEFAULT
+                                            +  auxColorValue100 * extendedAux.foldFactor	 // folds part // aux.color
+
+                                            + r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
+                                            + radDE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
+
+                                            + addValue; // all extra inputs
+                                            /*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+                                                                    ? minimumR * extendedAux.minRFactor * 1000.0
+                                                                    : 0.0);*/ // temp removed
+                                    break;
+                            case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
+                            case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0; break;
+
+                            case coloringFunctionGeneral: out->colorIndex = minR1000;
+                                    float inputGeneral = 0.0;
+                                    if (in.fractalColoring.extraColorEnabledFalse)
+                                    {
+                                            if (minR1000 > 100000) minR1000 = 100000; // limit TODO
+                                            if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit is only in hybrid mode? TODO
+                                            inputGeneral =
+                                            minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
+                                            + auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+                                            + addValue; // all extra inputs
+                                            // this allows the input to be influenced by iteration number
+                                            inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+                                            //inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i + 1.0) * (extendedAux.i + 1.0);
+                                    }
+                                    if (in.fractalColoring.extraColorEnabledFalse)
+                                    out->colorIndex = inputGeneral;
+                                    break;
+                /*{
 			switch (consts->sequence.coloringFunction[formulaIndex])
 			{
 				case clColoringFunctionABox:
@@ -469,7 +577,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case clColoringFunctionDonut: out.colorIndex = aux.color * 2000.0f / i; break;
 				case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
 			}
-		}
+                }*/
 	}
 
 	// end

@@ -2809,16 +2809,16 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->foldColor.extraModeEnabledFalse)
 	{
-		aux.minRFactor = fractal->foldColor.compMinR; //  Default = orbit trap weight 1.0
+		// aux.minRFactor = fractal->foldColor.compMinR; //  Default = orbit trap weight 1.0
 
 		if (fractal->foldColor.auxColorEnabled)
 		{
 			aux.color += colorAdd;
 			aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001)); // temp to do
-			aux.foldFactor = fractal->foldColor.compFold; // fold group weight
+			//aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 		}
 
-		if (fractal->foldColor.xyzColorEnabledFalse)
+		/*if (fractal->foldColor.xyzColorEnabledFalse)
 		{
 			CVector4 xyzAxis = z * fractal->foldColor.xyz000;
 			//if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
@@ -2833,7 +2833,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	else
 	{
-		aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight default
+		aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight default*/
 	}
 }
 

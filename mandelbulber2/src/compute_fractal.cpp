@@ -482,6 +482,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		if (in.fractalColoring.xyzBiasEnabledFalse)
 		{
 			CVector3 xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
+
+			//CVector3 xyzAxis = fabs(CVector3( extendedAux.c.x, extendedAux.c.y, extendedAux.c.z))
+			// * 1000.0 * in.fractalColoring.xyz000;
+
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
 		}
 		addValue += xyzValue; // addValue accumulates outputs
@@ -513,7 +517,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				+ oldHybridValue * in.fractalColoring.oldHybridWeight; // old hybrid
 
 				// this allows the input to be influenced by iteation number
-				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i); // now = i + 1
+				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
 
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
 					//+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
@@ -564,8 +568,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
 						+ addValue; // all extra inputs
-						// this allows the input to be influenced by iteation number
-						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i); // now = i + 1
+						// this allows the input to be influenced by iteration number
+						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+						//inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i + 1.0) * (extendedAux.i + 1.0);
 					}
 					if (in.fractalColoring.extraColorEnabledFalse)
 					out->colorIndex = inputGeneral;
