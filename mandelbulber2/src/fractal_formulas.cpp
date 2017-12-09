@@ -2814,7 +2814,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		if (fractal->foldColor.auxColorEnabled)
 		{
 			aux.color += colorAdd;
-			aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001)); // temp to do
+			//aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001)); // temp to do
 			//aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 		}
 

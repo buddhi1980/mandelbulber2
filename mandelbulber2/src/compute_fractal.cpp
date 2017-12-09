@@ -472,9 +472,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		double colorDE;
 		colorDE = extendedAux.DE;
 		double radDE = r / fabs(colorDE); // was named r2
-		if (radDE > 20) radDE = 20;
+		if (radDE > 20.0) radDE = 20.0;
 
-
+		double oldHybridValue = 0.0;
 		double addValue = 0.0;
 
 		// example of a basic input
@@ -485,41 +485,49 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (in.fractalColoring.cModeEnabledFalse)
 			{
 				xyzAxis = fabs(CVector3( extendedAux.c.x, extendedAux.c.y, extendedAux.c.z))
-				 * in.fractalColoring.xyz000;
+				* in.fractalColoring.xyz000;
 			}
 			else
 			{
 				xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
 			}
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
+			xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale * 0.001));
 		}
 		addValue += xyzValue; // addValue accumulates outputs
 
 		double minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
-		double auxColorValue100 = extendedAux.color * 100; // limited at 100,000
+		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000
 
 
 		// HYBRID MODE
 		if (fractals.IsHybrid())
 		{
-			if (minR1000 > 100000) minR1000 = 100000; // limit
-			if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit is only in hybrid mode?
-			double radDE5000 = radDE * 5000; // limited at 100,000
+			if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in hybrid mode?
+			minR1000 = min( minR1000, 100000.0);
+			if (auxColorValue100 > 100000.0) auxColorValue100 = 100000.0; // limit
+			double radDE5000 = radDE * 5000.0; // limited at 100,000
 			// double radIe13 = r / 1e13;
 
 			// old hybrid
-			double oldHybridValue = 0.0;
 			oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
-
 			double inputGeneral = 0.0;
 			if (in.fractalColoring.extraColorEnabledFalse)
 			{
+				if (in.fractalColoring.oldHybridEnabledFalse)
+				{
+					oldHybridValue *= in.fractalColoring.oldHybridWeight;
+				}
+				else
+				{
+					oldHybridValue = 0.0;
+				}
 				inputGeneral =
 				minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 				+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
 				+ addValue // all extra inputs
 				+ extendedAux.colorHybrid // transf_hybrid_color inputs
-				+ oldHybridValue * in.fractalColoring.oldHybridWeight; // old hybrid
+				+ oldHybridValue; // old hybrid
 
 				// this allows the input to be influenced by iteation number
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
@@ -563,19 +571,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
 				case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0; break;
 
-				case coloringFunctionGeneral: out->colorIndex = minR1000;
+				case coloringFunctionGeneral: out->colorIndex = minR1000; //default =  * 5
 					double inputGeneral = 0.0;
 					if (in.fractalColoring.extraColorEnabledFalse)
 					{
-						if (minR1000 > 100000) minR1000 = 100000; // limit
-						if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit is only in hybrid mode?
+						if (minR1000 > 100000) minR1000 = 100000; // limit is only in hybrid mode?
+						if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit ??
 						inputGeneral =
 						minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
 						+ addValue; // all extra inputs
 						// this allows the input to be influenced by iteration number
 						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
-						//inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i + 1.0) * (extendedAux.i + 1.0);
 					}
 					if (in.fractalColoring.extraColorEnabledFalse)
 					out->colorIndex = inputGeneral;

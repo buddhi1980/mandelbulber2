@@ -62,6 +62,7 @@ struct sFractalColoring
 		auxColorWeight = 0.0;
 		iiAddScale = 0.0;
 		oldHybridWeight = 0.0;
+		xyzIterScale = 0.0;
 	}
 
 	CVector3 lineDirection;
@@ -80,6 +81,7 @@ struct sFractalColoring
 	double auxColorWeight;
 	double iiAddScale;
 	double oldHybridWeight;
+	double xyzIterScale;
 
 
 };

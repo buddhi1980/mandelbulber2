@@ -94,7 +94,8 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_old_hybrid_enabled_false",
 	"fractal_coloring_initial_minimumR", "fractal_coloring_orbit_trap_weight",
 	"fractal_coloring_aux_color_weight", "fractal_coloring_ii_add_scale",
-	"fractal_coloring_old_hybrid_weight", "fractal_coloring_xyz_000", "fractal_coloring_c_mode_enabled_false"};
+	"fractal_coloring_old_hybrid_weight", "fractal_coloring_xyz_000", "fractal_coloring_c_mode_enabled_false",
+	"fractal_coloring_xyz_iter_scale"};
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
@@ -167,6 +168,10 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
+
+	fractalColoring.xyzIterScale =
+		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
+
 	fractalColoring.iiAddScale =
 		materialParam->Get<double>(Name("fractal_coloring_ii_add_scale", id));
 	fractalColoring.oldHybridWeight =
