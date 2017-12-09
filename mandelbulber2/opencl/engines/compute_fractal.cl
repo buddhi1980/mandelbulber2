@@ -438,7 +438,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif // IS_HYBRID
 
         if (mode == calcModeColouring)
-         {
+        /* {
             // historic function, it includes a limit, possibly remove as it did not work well
             float colorDE;
             colorDE = extendedAux.DE;
@@ -496,8 +496,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
                     out->colorIndex = oldHybridValue;
                     if (in.fractalColoring.extraColorEnabledFalse)
                                             out->colorIndex = inputGeneral;
-            }
-        /*{
+            }*/
+        {
 		float r2 = aux.r / fabs(aux.DE);
 		r2 = min(r2, 20.0f);
 
@@ -509,11 +509,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			out.colorIndex =
 				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
 				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
-                }*/
+                }
+         }
 
 
 		else
-            {
+            /*{
                     switch (fractals.GetColoringFunction(sequence))
                     {
                             case coloringFunctionABox:
@@ -538,7 +539,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
                                             + addValue; // all extra inputs
                                             /*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
                                                                     ? minimumR * extendedAux.minRFactor * 1000.0
-                                                                    : 0.0);*/ // temp removed
+                                                                    : 0.0); // temp removed
                                     break;
                             case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
                             case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0; break;
@@ -559,8 +560,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
                                     }
                                     if (in.fractalColoring.extraColorEnabledFalse)
                                     out->colorIndex = inputGeneral;
-                                    break;
-                /*{
+                                    break;*/
+                {
 			switch (consts->sequence.coloringFunction[formulaIndex])
 			{
 				case clColoringFunctionABox:
@@ -571,13 +572,13 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
 				case clColoringFunctionABox2:
 					out.colorIndex = aux.color * 100.0f * aux.foldFactor
-													 + aux.r * fractal->mandelbox.color.factorR / 1e13f
-													 + aux.scaleFactor * r2 * 5000.0f + colorMin * aux.minRFactor * 1000.0f;
+                                                 + aux.r * fractal->mandelbox.color.factorR / 1e13f
+                                                 + aux.scaleFactor * r2 * 5000.0f + colorMin * aux.minRFactor * 1000.0f;
 					break;
 				case clColoringFunctionDonut: out.colorIndex = aux.color * 2000.0f / i; break;
 				case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
 			}
-                }*/
+                }
 	}
 
 	// end

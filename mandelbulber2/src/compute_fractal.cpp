@@ -481,11 +481,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		double xyzValue = 0.0;
 		if (in.fractalColoring.xyzBiasEnabledFalse)
 		{
-			CVector3 xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
-
-			//CVector3 xyzAxis = fabs(CVector3( extendedAux.c.x, extendedAux.c.y, extendedAux.c.z))
-			// * 1000.0 * in.fractalColoring.xyz000;
-
+			CVector3 xyzAxis = 0;
+			if (in.fractalColoring.cModeEnabledFalse)
+			{
+				xyzAxis = fabs(CVector3( extendedAux.c.x, extendedAux.c.y, extendedAux.c.z))
+				 * in.fractalColoring.xyz000;
+			}
+			else
+			{
+				xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
+			}
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
 		}
 		addValue += xyzValue; // addValue accumulates outputs

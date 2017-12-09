@@ -2807,7 +2807,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
-	if (fractal->foldColor.extraModeEnabledFalse)
+	//if (fractal->foldColor.extraModeEnabledFalse)
 	{
 		// aux.minRFactor = fractal->foldColor.compMinR; //  Default = orbit trap weight 1.0
 

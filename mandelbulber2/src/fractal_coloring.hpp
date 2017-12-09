@@ -55,6 +55,7 @@ struct sFractalColoring
 		coloringAlgorithm = fractalColoringNone;
 		extraColorEnabledFalse = false;
 		xyzBiasEnabledFalse = false;
+		cModeEnabledFalse = false; // basic test
 		oldHybridEnabledFalse = false;
 		initialMiniumuR = 0.0;
 		orbitTrapWeight = 1.0;
@@ -70,6 +71,7 @@ struct sFractalColoring
 	// trial
 	bool extraColorEnabledFalse;
 	bool xyzBiasEnabledFalse;
+	bool cModeEnabledFalse;
 	bool oldHybridEnabledFalse;
 	double initialMiniumuR;
 	CVector3 xyz000;
