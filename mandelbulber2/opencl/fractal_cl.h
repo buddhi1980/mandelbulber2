@@ -730,7 +730,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
 	target.oldHybridFactor = source.oldHybridFactor;
-	target.temp1Factor = source.temp1Factor;
+        //target.temp1Factor = source.temp1Factor;
 	target.temp100 = source.temp100;
 	target.addDist = source.addDist;
 	return target;

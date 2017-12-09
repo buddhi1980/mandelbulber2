@@ -95,7 +95,7 @@ struct sExtendedAux
 	double minRFactor;
 	double scaleFactor;
 	double oldHybridFactor;
-	double temp1Factor;
+	//double temp1Factor;
 	double temp100;
 	double addDist;
 };

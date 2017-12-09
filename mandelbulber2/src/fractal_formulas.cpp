@@ -12367,27 +12367,21 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (fractal->foldColor.auxColorEnabled)
 		{
 			aux.color += colorAdd;
-			aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001)); // temp to do
+			//aux.color *= (1.0 + (aux.i * fractal->foldColor.scaleB0 * 0.001)); // temp to do
 			aux.foldFactor = fractal->foldColor.compFold; // fold group weight
 		}
-		if (fractal->foldColor.radiusColorEnabledFalse) aux.radiusFactor = fractal->foldColor.compRadius0 / 1000000000000000; // radius
+		if (fractal->foldColor.radiusColorEnabledFalse)
+			aux.radiusFactor = fractal->foldColor.compRadius0 / 1000000000000000; // radius
 
 		if (fractal->foldColor.deColorEnabledFalse) aux.scaleFactor = fractal->foldColor.deScale0; // de
 
-		if (fractal->foldColor.xyzColorEnabledFalse)
+		/*if (fractal->foldColor.xyzColorEnabledFalse)
 		{
 			CVector4 xyzAxis = z * fractal->foldColor.xyz000;
 			if (fractal->foldColor.temp1EnabledFalse) aux.temp1Factor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
 			else aux.temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z;
 			aux.temp1Factor *=  1.0 * fractal->foldColor.scaleA1 / (aux.i + 1.0);
-		}
-		/*CVector4 xyzAxis = z * fractal->foldColor.xyz000;
-		//if (fractal->foldColor.temp1EnabledFalse) aux.tempFactor += xyzAxis.x + xyzAxis.y + xyzAxis.z;
-		if (fractal->foldColor.temp1EnabledFalse) aux.temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z + fractal->foldColor.scaleA1 / (aux.i + 1.0);
-
-		else
-		aux.temp1Factor = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractal->foldColor.scaleA1 / (aux.i + 1.0);
-		//aux.tempFactor *=  fractal->foldColor.scaleA1 / (aux.i + 1.0);*/
+		}*/
 
 
 		if (fractal->foldColor.oldHybridEnabledFalse) aux.oldHybridFactor = fractal->foldColor.oldScale0;
