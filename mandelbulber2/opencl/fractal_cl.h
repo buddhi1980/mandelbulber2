@@ -770,10 +770,10 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleC1 = source.scaleC1;
 	target.period1 = source.period1;
 	target.trigAdd1 = source.trigAdd1;
-	target.xyz000 = toClFloat4(source.xyz000);
-	target.factor000 = toClFloat4(source.factor000);
-	target.factorMinR0 = source.factorMinR0;
-	target.factorMaxR0 = source.factorMaxR0;
+        //target.xyz000 = toClFloat4(source.xyz000);
+        //target.factor000 = toClFloat4(source.factor000);
+        //target.factorMinR0 = source.factorMinR0;
+        //target.factorMaxR0 = source.factorMaxR0;
 	target.intAx0 = source.intAx0;
 	target.intAy0 = source.intAy0;
 	target.intAz0 = source.intAz0;
@@ -783,10 +783,10 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	target.deColorEnabledFalse = source.deColorEnabledFalse;
 	target.radiusColorEnabledFalse = source.radiusColorEnabledFalse;
-	target.xyzColorEnabledFalse = source.xyzColorEnabledFalse;
-	target.oldHybridEnabledFalse = source.oldHybridEnabledFalse;
-	target.temp1EnabledFalse = source.temp1EnabledFalse;
-	target.extraModeEnabledFalse = source.extraModeEnabledFalse;
+        //target.xyzColorEnabledFalse = source.xyzColorEnabledFalse;
+        //target.oldHybridEnabledFalse = source.oldHybridEnabledFalse;
+        //target.temp1EnabledFalse = source.temp1EnabledFalse;
+        //target.extraModeEnabledFalse = source.extraModeEnabledFalse;
 	target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;
 }

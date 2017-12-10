@@ -134,10 +134,10 @@ struct sFoldColor
 	double scaleC1;
 	double period1;
 	double trigAdd1;
-	CVector4 xyz000;
-	CVector4 factor000;
-	double factorMinR0;
-	double factorMaxR0;
+	//CVector4 xyz000;
+	//CVector4 factor000;
+	//double factorMinR0;
+	//double factorMaxR0;
 
 	int intAx0;
 	int intAy0;
@@ -150,10 +150,10 @@ struct sFoldColor
 	bool auxColorEnabledFalse;
 	bool deColorEnabledFalse;
 	bool radiusColorEnabledFalse;
-	bool xyzColorEnabledFalse;
-	bool oldHybridEnabledFalse;
-	bool temp1EnabledFalse;
-	bool extraModeEnabledFalse;
+	//bool xyzColorEnabledFalse;
+	//bool oldHybridEnabledFalse;
+	//bool temp1EnabledFalse;
+	//bool extraModeEnabledFalse;
 
 	bool distanceEnabledFalse;
 };
