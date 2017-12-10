@@ -447,32 +447,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 		}
 	}
+
 	// color calculation
 	else if (Mode == calcModeColouring)
 	{
-		/*double mboxDE;
-		mboxDE = extendedAux.DE;
-		double r2 = r / fabs(mboxDE);
-		if (r2 > 20) r2 = 20;
+		double minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
+		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000
 
-		if (fractals.IsHybrid())
-		{
-			if (minimumR > 100) minimumR = 100;
-			double mboxColor;
-			mboxColor = extendedAux.color;
-			if (mboxColor > 1000) mboxColor = 1000;
-			// out->colorIndex = minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0;
-
-			out->colorIndex =
-				((minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0) * extendedAux.oldHybridFactor)
-				+ extendedAux.colorHybrid + (minimumR * 1000.0 * extendedAux.minRFactor);
-		}*/
-
-		// historic function, it includes a limit, possibly remove as it did not work well
-		double colorDE;
-		colorDE = extendedAux.DE;
-		double radDE = r / fabs(colorDE); // was named r2
-		if (radDE > 20.0) radDE = 20.0;
+		// historic hybrid function,
+		double radDE5000 = 0.0;
+			//	if (in.fractalColoring.radDivDeWeightFalse)
+		radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
+		if (radDE5000 > 100000.0) radDE5000 = 100000.0;
 
 		double oldHybridValue = 0.0;
 		double addValue = 0.0;
@@ -489,16 +475,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else
 			{
-				xyzAxis = fabs(CVector3( z.x, z.y, z.z))  * in.fractalColoring.xyz000;
+				xyzAxis = fabs(CVector3( z.x, z.y, z.z)) * in.fractalColoring.xyz000 / 1e13;
 			}
-			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * 1000.0;
-			xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale * 0.001));
+			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z );
+			xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale));
 		}
 		addValue += xyzValue; // addValue accumulates outputs
-
-		double minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
-		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000
-
 
 		// HYBRID MODE
 		if (fractals.IsHybrid())
@@ -506,12 +488,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in hybrid mode?
 			minR1000 = min( minR1000, 100000.0);
 			if (auxColorValue100 > 100000.0) auxColorValue100 = 100000.0; // limit
-			double radDE5000 = radDE * 5000.0; // limited at 100,000
-			// double radIe13 = r / 1e13;
+
+			// double radIe13 = r / 1e15;
+			//extendedAux.DE * extendedAux.scaleFactor / 1e15
 
 			// old hybrid
 			oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
+
+			// new hybrid
 			double inputGeneral = 0.0;
+
 			if (in.fractalColoring.extraColorEnabledFalse)
 			{
 				if (in.fractalColoring.oldHybridEnabledFalse)
@@ -525,6 +511,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				inputGeneral =
 				minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 				+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+				+ radDE5000 * in.fractalColoring.radDivDeWeight// r /DE
 				+ addValue // all extra inputs
 				+ extendedAux.colorHybrid // transf_hybrid_color inputs
 				+ oldHybridValue; // old hybrid
@@ -533,13 +520,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
 
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
-					//+ extendedAux.DE * extendedAux.scaleFactor / 1e15 // this may be replaced
-					//+ extendedAux.temp1Factor // inputs for "fractal specific" color modes
 				}
 			out->colorIndex = oldHybridValue;
 			if (in.fractalColoring.extraColorEnabledFalse)
 						out->colorIndex = inputGeneral;
 		}
+				// NORMAL MODE
 		else
 		{
 			switch (fractals.GetColoringFunction(sequence))
@@ -561,7 +547,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						+  auxColorValue100 * extendedAux.foldFactor	 // folds part // aux.color
 
 						+ r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
-						+ radDE * 5000.0 * extendedAux.scaleFactor // r/DE  for backwards compatibility
+						+ radDE5000 * extendedAux.scaleFactor // r/DE  for backwards compatibility
 
 						+ addValue; // all extra inputs
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
@@ -580,6 +566,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						inputGeneral =
 						minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+						+ radDE5000 * in.fractalColoring.radDivDeWeight// r /DE
 						+ addValue; // all extra inputs
 						// this allows the input to be influenced by iteration number
 						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);

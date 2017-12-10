@@ -90,12 +90,17 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"luminosity_texture_intensity", "diffusion_texture_intensity", "displacement_texture_height",
 	"fractal_coloring_algorithm", "fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false",
-	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_old_hybrid_enabled_false",
-	"fractal_coloring_initial_minimumR", "fractal_coloring_orbit_trap_weight",
-	"fractal_coloring_aux_color_weight", "fractal_coloring_ii_add_scale",
-	"fractal_coloring_old_hybrid_weight", "fractal_coloring_xyz_000", "fractal_coloring_c_mode_enabled_false",
-	"fractal_coloring_xyz_iter_scale"};
+	"file_normal_map_texture",
+	"fractal_coloring_extra_color_enabled_false",
+	"fractal_coloring_orbit_trap_weight", "fractal_coloring_initial_minimumR",
+	"fractal_coloring_aux_color_weight",
+	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_de_weight",
+	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
+	"fractal_coloring_xyz_iter_scale", "fractal_coloring_c_mode_enabled_false",
+	"fractal_coloring_old_hybrid_enabled_false", "fractal_coloring_old_hybrid_weight",
+ "fractal_coloring_ii_add_scale"};
+
+
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
@@ -156,28 +161,40 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	// trial
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
-	fractalColoring.xyzBiasEnabledFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
-	fractalColoring.cModeEnabledFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_c_mode_enabled_false", id));
-	fractalColoring.oldHybridEnabledFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_old_hybrid_enabled_false", id));
-	fractalColoring.initialMiniumuR =
-		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
+	fractalColoring.initialMiniumuR =
+		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
 
+	fractalColoring.radDivDeWeightFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
+	fractalColoring.radDivDeWeight =
+		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
+
+	fractalColoring.xyzBiasEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
+	fractalColoring.xyz000 =
+		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvec3
+	fractalColoring.cModeEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_c_mode_enabled_false", id));
 	fractalColoring.xyzIterScale =
 		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
 
-	fractalColoring.iiAddScale =
-		materialParam->Get<double>(Name("fractal_coloring_ii_add_scale", id));
+	fractalColoring.oldHybridEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_old_hybrid_enabled_false", id));
+
 	fractalColoring.oldHybridWeight =
 		materialParam->Get<double>(Name("fractal_coloring_old_hybrid_weight", id));
-	fractalColoring.xyz000 =
-		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvect4
+
+
+	fractalColoring.iiAddScale =
+		materialParam->Get<double>(Name("fractal_coloring_ii_add_scale", id));
+
+
 
 	if (gNetRender->IsClient())
 	{

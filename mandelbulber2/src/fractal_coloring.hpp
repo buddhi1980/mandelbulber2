@@ -53,16 +53,28 @@ struct sFractalColoring
 	{
 		sphereRadius = 0.0;
 		coloringAlgorithm = fractalColoringNone;
+
 		extraColorEnabledFalse = false;
-		xyzBiasEnabledFalse = false;
-		cModeEnabledFalse = false; // basic test
-		oldHybridEnabledFalse = false;
-		initialMiniumuR = 0.0;
 		orbitTrapWeight = 1.0;
+		initialMiniumuR = 0.0;
+
 		auxColorWeight = 0.0;
-		iiAddScale = 0.0;
-		oldHybridWeight = 0.0;
+
+
+		radDivDeWeightFalse = false;
+		radDivDeWeight = 0.0;
+
+
+		xyzBiasEnabledFalse = false;
 		xyzIterScale = 0.0;
+		cModeEnabledFalse = false; // basic test
+
+		oldHybridEnabledFalse = false;
+		oldHybridWeight = 0.0;
+
+		iiAddScale = 0.0;
+
+
 	}
 
 	CVector3 lineDirection;
@@ -71,18 +83,24 @@ struct sFractalColoring
 
 	// trial
 	bool extraColorEnabledFalse;
-	bool xyzBiasEnabledFalse;
-	bool cModeEnabledFalse;
-	bool oldHybridEnabledFalse;
+	double orbitTrapWeight;
 	double initialMiniumuR;
+
+	double auxColorWeight;
+
+	bool radDivDeWeightFalse;
+	double radDivDeWeight;
+
+	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;
 
-	double orbitTrapWeight;
-	double auxColorWeight;
-	double iiAddScale;
-	double oldHybridWeight;
+	bool cModeEnabledFalse;
 	double xyzIterScale;
 
+	bool oldHybridEnabledFalse;
+	double oldHybridWeight;
+
+	double iiAddScale;
 
 };
 
