@@ -452,6 +452,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	else if (Mode == calcModeColouring)
 	{
 		double minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
+		double minR5000 = minimumR * 5000.0; // DEFAULT
 		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 		double radDE5000 = 0.0;
 		if (in.fractalColoring.radDivDeWeightFalse)
@@ -554,12 +555,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case coloringFunctionDonut: out->colorIndex = auxColorValue100 * 20.0 / extendedAux.i;
 					break;
 
-				case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0;
+				case coloringFunctionDefault: out->colorIndex = minR5000;
 					break;
 
 				case coloringFunctionGeneral:
 					double inputGeneral = 0.0;
-					if (minR1000 > 1e5) minR1000 = 1e5; // limit is only in hybrid mode?
+					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
 					if (in.fractalColoring.extraColorEnabledFalse)
 					{
 						if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit ??
@@ -575,7 +576,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					else
 					{
-						out->colorIndex = minR1000; //default =  * 5
+						out->colorIndex = minR5000 ; //default =  * 5
 					}
 					break;
 			}

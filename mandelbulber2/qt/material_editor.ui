@@ -1301,7 +1301,7 @@ direction vector:</string>
                  <item row="13" column="0" colspan="2">
                   <widget class="MyGroupBox" name="groupCheck_fractal_coloring_xyz_bias_enabled_false">
                    <property name="toolTip">
-                    <string/>
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="title">
                     <string>xyz bias</string>

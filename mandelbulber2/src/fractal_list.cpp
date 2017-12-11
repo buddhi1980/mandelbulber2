@@ -71,11 +71,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox - Mod 12", "abox_mod12", aboxMod12,
 		AboxMod12Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox2));
+		analyticFunctionLinear, coloringFunctionGeneral));
 
 	fractalList->append(sFractalDescription("Abox - Mod 13", "abox_mod13", aboxMod13,
 		AboxMod13Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox2));
+		analyticFunctionLinear, coloringFunctionGeneral));
 
 	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
 		AboxModKaliIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
@@ -333,7 +333,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 2", "pseudo_kleinian_mod2",
 		pseudoKleinianMod2, PseudoKleinianMod2Iteration, analyticDEType, pseudoKleinianDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionGeneral));
 
 	// Quaternion formulas
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion,
