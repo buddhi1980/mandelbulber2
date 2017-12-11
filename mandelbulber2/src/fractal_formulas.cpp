@@ -11557,7 +11557,7 @@ void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExten
  */
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double auxColor = 0.0;
+	//double auxColor = 0.0;
 	double R2 = 0.0;
 
 	double distEst = 0.0;
@@ -11575,8 +11575,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double sphereTrap = 0.0;
 
 	// used to turn off or mix with old hybrid color and orbit traps
-	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
-	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
+	//aux.oldHybridFactor *= fractal->foldColor.oldScale1;
+	//aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
 	{
 		// radius
@@ -11618,13 +11618,13 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// aux.color fold component
-		if (fractal->transformCommon.functionEnabledAxFalse)
+		/*if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			auxColor = aux.color;
 			double temp8 = 0.0;
 			temp8 = auxColor * fractal->foldColor.scaleF0;
 			auxColor = temp8;
-		}
+		}*/
 
 		// max linear offset
 		if (fractal->transformCommon.functionEnabledMFalse)
@@ -11761,7 +11761,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
 											 + radius + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
@@ -11822,7 +11822,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double auxColor = 0.0;
+	//double auxColor = 0.0;
 	double R2 = 0.0;
 
 	double distEst = 0.0;
@@ -11842,8 +11842,8 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	float addI = 0.0;
 
 	// used to turn off or mix with old hybrid color and orbit traps
-	aux.oldHybridFactor *= fractal->foldColor.oldScale1;
-	aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
+	//aux.oldHybridFactor *= fractal->foldColor.oldScale1;
+	//aux.minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
 
 	/*{ // length of last movement before termination
 		CVector4 vecIter =  fabs(z - aux.old_z);
@@ -11913,13 +11913,13 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// aux.color fold component
-		if (fractal->transformCommon.functionEnabledAxFalse)
+		/*if (fractal->transformCommon.functionEnabledAxFalse)
 		{
 			auxColor = aux.color;
 			double temp8 = 0.0;
 			temp8 = auxColor * fractal->foldColor.scaleF0;
 			auxColor = temp8;
-		}
+		}*/
 
 		// max linear offset
 		if (fractal->transformCommon.functionEnabledMFalse)
@@ -12057,7 +12057,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + auxColor + XYZbias + planeBias
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
 											 + radius + lengthIter + linearOffset + boxTrap + sphereTrap + sumDist);
 	}
 
@@ -12364,8 +12364,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		aux.color += colorAdd;
 	}
-
-
 }
 
 

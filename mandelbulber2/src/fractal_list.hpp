@@ -163,7 +163,7 @@ enum enumFractalFormula
 	mandelbulbMulti2 = 118, // mbulb default changed V2.12
 	aboxMod11 = 119,   // fixed varyscale v2.12
 	// V2.12
-	mandelbulbQuat = 120,
+	mandelbulbQuat = 120,// color general V2.13
 	mandelbulbJuliabulb = 121,
 	josKleinian = 122,
 	aboxMod12 = 123, // color general V2.13

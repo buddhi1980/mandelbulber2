@@ -1497,6 +1497,9 @@ direction vector:</string>
                      <verstretch>0</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="toolTip">
+                    <string>Use with fractals that have aux.color components. aux.color must be enabled on the formula UI</string>
+                   </property>
                    <property name="prefix">
                     <string/>
                    </property>
