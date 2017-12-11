@@ -448,19 +448,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 	}
 
-	// color calculation
+	// color calculation    TODO review limits
 	else if (Mode == calcModeColouring)
 	{
 		double minR1000 = minimumR * 1000.0; // limited at 100,000 hybrid mode
-		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000
-
-		// historic hybrid function,
+		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 		double radDE5000 = 0.0;
-			//	if (in.fractalColoring.radDivDeWeightFalse)
-		radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
-		if (radDE5000 > 100000.0) radDE5000 = 100000.0;
+		if (in.fractalColoring.radDivDeWeightFalse)
+		{
+			radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
+			if (radDE5000 > 1e5) radDE5000 = 1e5;
+			 radDE5000 *= in.fractalColoring.radDivDeWeight; // r /DE
+		}
 
-		double oldHybridValue = 0.0;
 		double addValue = 0.0;
 
 		// example of a basic input
@@ -475,55 +475,47 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else
 			{
-				xyzAxis = fabs(CVector3( z.x, z.y, z.z)) * in.fractalColoring.xyz000 / 1e13;
+				xyzAxis = fabs(CVector3( z.x, z.y, z.z)) * in.fractalColoring.xyz000;
 			}
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z );
-			xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale));
+			//xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale));
+			xyzValue *= (extendedAux.i + 1.0) * in.fractalColoring.xyzIterScale;
 		}
 		addValue += xyzValue; // addValue accumulates outputs
 
 		// HYBRID MODE
 		if (fractals.IsHybrid())
 		{
-			if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in hybrid mode?
-			minR1000 = min( minR1000, 100000.0);
-			if (auxColorValue100 > 100000.0) auxColorValue100 = 100000.0; // limit
+			//if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in hybrid mode?
+			minR1000 = min( minR1000, 1e5); // which code best for min?
+			if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit
 
 			// double radIe13 = r / 1e15;
-			//extendedAux.DE * extendedAux.scaleFactor / 1e15
-
-			// old hybrid
-			oldHybridValue  = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
 
 			// new hybrid
 			double inputGeneral = 0.0;
-
 			if (in.fractalColoring.extraColorEnabledFalse)
 			{
-				if (in.fractalColoring.oldHybridEnabledFalse)
-				{
-					oldHybridValue *= in.fractalColoring.oldHybridWeight;
-				}
-				else
-				{
-					oldHybridValue = 0.0;
-				}
 				inputGeneral =
 				minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 				+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
-				+ radDE5000 * in.fractalColoring.radDivDeWeight// r /DE
+				+ radDE5000
 				+ addValue // all extra inputs
-				+ extendedAux.colorHybrid // transf_hybrid_color inputs
-				+ oldHybridValue; // old hybrid
+				+ extendedAux.colorHybrid;// transf_hybrid_color inputs
 
-				// this allows the input to be influenced by iteation number
+				// ADD, this allows the input to be influenced by iteation number TODO evaluate functions
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
-
+				out->colorIndex = inputGeneral;
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
-				}
-			out->colorIndex = oldHybridValue;
-			if (in.fractalColoring.extraColorEnabledFalse)
-						out->colorIndex = inputGeneral;
+			}
+			else
+			{
+				// old hybrid
+				radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
+				if (radDE5000 > 1e5) radDE5000 = 1e5;
+				double oldHybridValue = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
+				out->colorIndex = oldHybridValue;
+			}
 		}
 				// NORMAL MODE
 		else
@@ -532,47 +524,59 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				case coloringFunctionABox:
 					out->colorIndex =
-						 auxColorValue100														 // folds part (iter color)
+						 auxColorValue100 // aux.color
 						+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 						+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minR1000
 									: 0.0);
 					break;
-				case coloringFunctionIFS: out->colorIndex = minR1000; break;
-				case coloringFunctionAmazingSurf: out->colorIndex = minR1000 * 0.2; break;
+
+				case coloringFunctionIFS: out->colorIndex = minR1000;
+					break;
+
+				case coloringFunctionAmazingSurf: out->colorIndex = minR1000 * 0.2;
+					break;
 
 				case coloringFunctionABox2:
+					radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
 					out->colorIndex =
 						 minR1000 * extendedAux.minRFactor // orbit trap DEFAULT
-						+  auxColorValue100 * extendedAux.foldFactor	 // folds part // aux.color
-
+						+  auxColorValue100 * extendedAux.foldFactor // aux.color
 						+ r * extendedAux.radiusFactor  / 1e13 // radius// this may be replaced
 						+ radDE5000 * extendedAux.scaleFactor // r/DE  for backwards compatibility
-
 						+ addValue; // all extra inputs
+
 						/*+ ((in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 									? minimumR * extendedAux.minRFactor * 1000.0
 									: 0.0);*/ // temp removed
 					break;
-				case coloringFunctionDonut: out->colorIndex = extendedAux.color * 2000.0 / i; break;
-				case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0; break;
 
-				case coloringFunctionGeneral: out->colorIndex = minR1000; //default =  * 5
+				case coloringFunctionDonut: out->colorIndex = auxColorValue100 * 20.0 / extendedAux.i;
+					break;
+
+				case coloringFunctionDefault: out->colorIndex = minR1000 * 5.0;
+					break;
+
+				case coloringFunctionGeneral:
 					double inputGeneral = 0.0;
+					if (minR1000 > 1e5) minR1000 = 1e5; // limit is only in hybrid mode?
 					if (in.fractalColoring.extraColorEnabledFalse)
 					{
-						if (minR1000 > 100000) minR1000 = 100000; // limit is only in hybrid mode?
-						if (auxColorValue100 > 100000) auxColorValue100 = 100000; // limit ??
+						if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit ??
 						inputGeneral =
 						minR1000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
-						+ radDE5000 * in.fractalColoring.radDivDeWeight// r /DE
+						+ radDE5000 // r /DE
 						+ addValue; // all extra inputs
-						// this allows the input to be influenced by iteration number
+
+						// ADD,  this allows the input to be influenced by iteration number
 						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+						out->colorIndex = inputGeneral;
 					}
-					if (in.fractalColoring.extraColorEnabledFalse)
-					out->colorIndex = inputGeneral;
+					else
+					{
+						out->colorIndex = minR1000; //default =  * 5
+					}
 					break;
 			}
 		}

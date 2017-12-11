@@ -1181,7 +1181,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_enabled_false", materialId), false,
 		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_weight", materialId), 0.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_weight", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false,
@@ -1190,12 +1190,9 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphNone, paramStandard); // vec4??
 	par->addParam(cMaterial::Name("fractal_coloring_c_mode_enabled_false", materialId), false,
 		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 0.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_enabled_false", materialId), false,
-		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_old_hybrid_weight", materialId), 0.0, 0.0, 1e20,
-		morphNone, paramStandard);
+
 	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 

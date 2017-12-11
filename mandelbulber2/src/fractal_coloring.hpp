@@ -60,17 +60,12 @@ struct sFractalColoring
 
 		auxColorWeight = 0.0;
 
-
 		radDivDeWeightFalse = false;
-		radDivDeWeight = 0.0;
-
+		radDivDeWeight = 1.0;
 
 		xyzBiasEnabledFalse = false;
-		xyzIterScale = 0.0;
+		xyzIterScale = 1.0;
 		cModeEnabledFalse = false; // basic test
-
-		oldHybridEnabledFalse = false;
-		oldHybridWeight = 0.0;
 
 		iiAddScale = 0.0;
 
@@ -96,9 +91,6 @@ struct sFractalColoring
 
 	bool cModeEnabledFalse;
 	double xyzIterScale;
-
-	bool oldHybridEnabledFalse;
-	double oldHybridWeight;
 
 	double iiAddScale;
 
