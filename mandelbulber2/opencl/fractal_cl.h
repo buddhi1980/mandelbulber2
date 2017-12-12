@@ -729,7 +729,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(sExtendedAux &source)
 	target.radiusFactor = source.radiusFactor;
 	target.minRFactor = source.minRFactor;
 	target.scaleFactor = source.scaleFactor;
-	target.oldHybridFactor = source.oldHybridFactor;
+        //target.oldHybridFactor = source.oldHybridFactor;
         //target.temp1Factor = source.temp1Factor;
 	target.temp100 = source.temp100;
 	target.addDist = source.addDist;
@@ -753,14 +753,14 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compScale = source.compScale;
 	target.deScale0 = source.deScale0;
 	target.oldScale0 = source.oldScale0;
-	target.oldScale1 = source.oldScale1;
+        //target.oldScale1 = source.oldScale1;
 	target.parabScale0 = source.parabScale0;
 	target.newScale0 = source.newScale0;
 	target.limitMin0 = source.limitMin0;
 	target.limitMax9999 = source.limitMax9999;
 	target.scaleA0 = source.scaleA0;
 	target.scaleB0 = source.scaleB0;
-	target.scaleC0 = source.scaleC0;
+        //target.scaleC0 = source.scaleC0;
 	target.scaleD0 = source.scaleD0;
 	target.scaleE0 = source.scaleE0;
 	target.scaleF0 = source.scaleF0;

@@ -107,7 +107,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.foldFactor = 0.0; // aux color weight
 	extendedAux.radiusFactor = 0.0; // radius weight
 	extendedAux.scaleFactor = 0.0; // DE weight
-	extendedAux.oldHybridFactor = 0.0; // old hybid weight
+	//extendedAux.oldHybridFactor = 0.0; // old hybid weight
 	//extendedAux.temp1Factor = 0.0;
 
 	extendedAux.temp100 = 100.0;

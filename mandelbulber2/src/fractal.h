@@ -94,7 +94,7 @@ struct sExtendedAux
 	double radiusFactor;
 	double minRFactor;
 	double scaleFactor;
-	double oldHybridFactor;
+	//double oldHybridFactor;
 	//double temp1Factor;
 	double temp100;
 	double addDist;
@@ -117,14 +117,14 @@ struct sFoldColor
 	double compScale;
 	double deScale0;
 	double oldScale0;
-	double oldScale1;
+	//double oldScale1;
 	double parabScale0;
 	double newScale0;
 	double limitMin0;
 	double limitMax9999;
 	double scaleA0;
 	double scaleB0;
-	double scaleC0;
+	//double scaleC0;
 	double scaleD0;
 	double scaleE0;
 	double scaleF0;

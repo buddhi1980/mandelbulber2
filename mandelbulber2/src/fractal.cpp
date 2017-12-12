@@ -259,7 +259,7 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	//foldColor.oldHybridEnabledFalse = container->Get<bool>("fold_color_old_hybrid_enabled_false");
 	foldColor.oldScale0 = container->Get<double>("fold_color_old_scale0");
-	foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
+	//foldColor.oldScale1 = container->Get<double>("fold_color_old_scale1");
 	//foldColor.xyzColorEnabledFalse = container->Get<bool>("fold_color_xyz_color_enabled_false");
 	//foldColor.xyz000 = CVector4(container->Get<CVector3>("fold_color_xyz_000"), 0.0);
 	//foldColor.temp1EnabledFalse = container->Get<bool>("fold_color_temp1_enabled_false");
@@ -272,7 +272,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.parabScale0 = container->Get<double>("fold_color_parab_scale0");
 	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
 	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
-	foldColor.scaleC0 = container->Get<double>("fold_color_scaleC0");
+	//foldColor.scaleC0 = container->Get<double>("fold_color_scaleC0");
 	foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
 	foldColor.scaleE0 = container->Get<double>("fold_color_scaleE0");
 	foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
