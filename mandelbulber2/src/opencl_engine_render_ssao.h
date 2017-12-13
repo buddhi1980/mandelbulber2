@@ -74,6 +74,8 @@ private:
 
 	cl_float *inZBuffer;
 	cl::Buffer *inCLZBuffer;
+	cl_float *inSineCosineBuffer;
+	cl::Buffer *inCLSineCosineBuffer;
 	int numberOfPixels;
 
 	cl_float *outBuffer;

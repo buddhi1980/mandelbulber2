@@ -33,7 +33,8 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void SSAO(__global float *zBuffer, __global float *out, sParamsSSAO p)
+kernel void SSAO(__global float *zBuffer, __global float *sineCosineBuffer,
+	__global float *out, sParamsSSAO p)
 {
 	const unsigned int i = get_global_id(0);
 	const int2 scr = (int2){i % p.width, i / p.width};
@@ -58,7 +59,8 @@ kernel void SSAO(__global float *zBuffer, __global float *out, sParamsSSAO p)
 		float ambient = 0.0f;
 		for (float angle = 0.0f; angle < quality; angle += 1.0f)
 		{
-			float2 dir = (float2){cos(angle), sin(angle)};
+			// float2 dir = (float2){cos(angle), sin(angle)};
+			float2 dir = (float2){sineCosineBuffer[(int)angle + p.quality], sineCosineBuffer[(int)angle]};
 			float maxDiff = -1e10f;
 
 			for (float r = 1.0f; r < quality; r += 1.0f)
