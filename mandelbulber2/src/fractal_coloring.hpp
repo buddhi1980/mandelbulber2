@@ -66,9 +66,13 @@ struct sFractalColoring
 		xyzBiasEnabledFalse = false;
 		xyzIterScale = 1.0;
 		cModeEnabledFalse = false; // basic test
+		iSquaredEnabledFalse = false;
+		iInvertEnabledFalse = false;
 
 		iiAddScale = 0.0;
 
+		maxColorValue = 100000.0;
+		minColorValue = 0.0;
 
 	}
 
@@ -88,11 +92,15 @@ struct sFractalColoring
 
 	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;
-
 	bool cModeEnabledFalse;
 	double xyzIterScale;
+	bool iSquaredEnabledFalse;
+	bool iInvertEnabledFalse;
 
 	double iiAddScale;
+
+	double maxColorValue;
+	double minColorValue;
 
 };
 

@@ -1192,8 +1192,17 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_i_squared_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_i_invert_enabled_false", materialId), false,
+		morphLinear, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
+		morphNone, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e5, 1e-20, 1e20,
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 
 

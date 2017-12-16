@@ -455,6 +455,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		double minR5000 = minimumR * 5000.0; // DEFAULT
 		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 		double radDE5000 = 0.0;
+
+
 		if (in.fractalColoring.radDivDeWeightFalse)
 		{
 			radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
@@ -479,16 +481,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				xyzAxis = fabs(CVector3( z.x, z.y, z.z)) * in.fractalColoring.xyz000;
 			}
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z );
-			//xyzValue *= (1.0 + (extendedAux.i * in.fractalColoring.xyzIterScale));
-			xyzValue *= (extendedAux.i + 1.0) * in.fractalColoring.xyzIterScale;
+
+			int iUse = extendedAux.i;
+			if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+
+			if (in.fractalColoring.iInvertEnabledFalse)
+				xyzValue *= 1.0/(iUse + 1.0)/((in.fractalColoring.xyzIterScale * in.fractalColoring.xyzIterScale) + 1.0);
+			else
+				xyzValue *= (1.0 + (iUse * in.fractalColoring.xyzIterScale));
+
+
 		}
 		addValue += xyzValue; // addValue accumulates outputs
 
 		// HYBRID MODE
 		if (fractals.IsHybrid())
 		{
-
-
 			if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit
 
 			// double radIe13 = r / 1e15;
@@ -508,8 +516,15 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				// ADD, this allows the input to be influenced by iteation number TODO evaluate functions
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
-				out->colorIndex = inputGeneral;
+
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
+				double minCV = in.fractalColoring.minColorValue;
+				double maxCV = in.fractalColoring.maxColorValue;
+
+				if (inputGeneral < minCV) inputGeneral = minCV;
+				if (inputGeneral > maxCV) inputGeneral = maxCV;
+
+				out->colorIndex = inputGeneral;
 			}
 			else
 			{
@@ -563,10 +578,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				case coloringFunctionGeneral:
 					double inputGeneral = 0.0;
-					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
+//					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
 					if (in.fractalColoring.extraColorEnabledFalse)
 					{
-						if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit ??
+//						if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit ??
 						inputGeneral =
 						minR5000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color

@@ -9486,6 +9486,7 @@ void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtende
 		rSqrL = 1.0 / rSqrL;
 		z *= rSqrL;
 		aux.DE *= rSqrL;
+		aux.r_dz *= rSqrL;
 		z += tempC;
 	}
 	z += tempC; //* fractal->transformCommon.constantMultiplier111;
