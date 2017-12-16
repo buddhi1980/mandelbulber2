@@ -98,6 +98,7 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_iter_scale", "fractal_coloring_i_squared_enabled_false",
 	"fractal_coloring_i_invert_enabled_false","fractal_coloring_c_mode_enabled_false",
+	"fractal_coloring_i_start_value", "fractal_coloring_iter_scale",
 	"fractal_coloring_ii_add_scale",
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
 	};
@@ -181,6 +182,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
 	fractalColoring.xyz000 =
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvec3
+	fractalColoring.xyzIterScale =
+		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
+	fractalColoring.iterScale =
+		materialParam->Get<double>(Name("fractal_coloring_iter_scale", id));
+	fractalColoring.iStartValue =
+		materialParam->Get<int>(Name("fractal_coloring_i_start_value", id));
 	fractalColoring.iSquaredEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_i_squared_enabled_false", id));
 	fractalColoring.iInvertEnabledFalse =
