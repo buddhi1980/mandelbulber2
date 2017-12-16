@@ -486,9 +486,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 
 			if (in.fractalColoring.iInvertEnabledFalse)
-				xyzValue *= 1.0/(iUse + 1.0)/((in.fractalColoring.xyzIterScale * in.fractalColoring.xyzIterScale) + 1.0);
+			{
+				if (in.fractalColoring.iSquaredEnabledFalse)
+					xyzValue *= (1.0 + 1.0/(iUse + 1.0)/in.fractalColoring.xyzIterScale);
+				else
+					xyzValue *= (1.0 + 1.0/(extendedAux.i + 1.0)/in.fractalColoring.xyzIterScale);
+			}
 			else
-				xyzValue *= (1.0 + (iUse * in.fractalColoring.xyzIterScale));
+			{
+				xyzValue *= (iUse * in.fractalColoring.xyzIterScale) + 1.0;
+			}
 
 
 		}
