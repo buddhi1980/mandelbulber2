@@ -60,7 +60,11 @@ struct sFractalColoring
 
 		auxColorWeight = 0.0;
 
-		radDivDeWeightFalse = false;
+		radFalse = false;
+		radWeight = 1.0;
+		radSquaredFalse = false;
+
+		radDivDeFalse = false;
 		radDivDeWeight = 1.0;
 
 		xyzBiasEnabledFalse = false;
@@ -95,7 +99,11 @@ struct sFractalColoring
 
 	double auxColorWeight;
 
-	bool radDivDeWeightFalse;
+	bool radFalse;
+	double radWeight;
+	bool radSquaredFalse;
+
+	bool radDivDeFalse;
 	double radDivDeWeight;
 
 	bool xyzBiasEnabledFalse;
@@ -114,7 +122,6 @@ struct sFractalColoring
 	double cosAdd;
 	double maxColorValue;
 	double minColorValue;
-
 };
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_ */

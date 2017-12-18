@@ -455,9 +455,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		double minR5000 = minimumR * 5000.0; // DEFAULT
 		double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 		double radDE5000 = 0.0;
+		double rad1000 = 0.0;
 
+		if (in.fractalColoring.radFalse)
+		{
+			rad1000 = r;
+		if (in.fractalColoring.radSquaredFalse) rad1000 = r * r;
+			rad1000 *= 1000.0 * in.fractalColoring.radWeight;
+		}
 
-		if (in.fractalColoring.radDivDeWeightFalse)
+		if (in.fractalColoring.radDivDeFalse)
 		{
 			radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
 			//if (radDE5000 > 1e5) radDE5000 = 1e5; // is limit needed??
@@ -496,10 +503,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				inputGeneral =
 				minR5000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 				+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+				+ rad1000
 				+ radDE5000
 				+ addValue // all extra inputs
 				+ extendedAux.colorHybrid;// transf_hybrid_color inputs
-			// double radIe13 = r / 1e15;
+
 
 				// global palette controls
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
@@ -595,6 +603,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						inputGeneral =
 						minR5000 * in.fractalColoring.orbitTrapWeight // orbit trap only
 						+ auxColorValue100 * in.fractalColoring.auxColorWeight// aux.color
+						+ rad1000 // radius
 						+ radDE5000 // r /DE
 						+ addValue; // all extra inputs
 

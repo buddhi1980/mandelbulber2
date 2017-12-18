@@ -83,7 +83,7 @@
         <x>0</x>
         <y>0</y>
         <width>619</width>
-        <height>2335</height>
+        <height>2393</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1291,7 +1291,21 @@ direction vector:</string>
                  <property name="spacing">
                   <number>2</number>
                  </property>
-                 <item row="33" column="0">
+                 <item row="13" column="0" colspan="2">
+                  <widget class="Line" name="line_9">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="29" column="0">
+                  <widget class="QLabel" name="label_39">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; i * i * scale added to colorValue&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="39" column="0">
                   <widget class="QLabel" name="label_46">
                    <property name="text">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;cos add&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1305,41 +1319,105 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="23" column="0">
-                  <widget class="QLabel" name="label_39">
+                 <item row="11" column="0">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_enabled_false">
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt; i * i * scale added to colorValue&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string notr="true">radius weight:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="9" column="0" colspan="2">
-                  <widget class="QLabel" name="label_76">
-                   <property name="font">
-                    <font>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
+                 <item row="32" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_iter_scale">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
                    </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius / DE component &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>6</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-9999.999900000000707</double>
+                   </property>
+                   <property name="maximum">
+                    <double>9999.999900000000707</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
                    </property>
                   </widget>
                  </item>
-                 <item row="37" column="0">
-                  <widget class="QLabel" name="label_41">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;max color value&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="8" column="0" colspan="2">
-                  <widget class="Line" name="line_9">
+                 <item row="17" column="0" colspan="2">
+                  <widget class="Line" name="line_2">
                    <property name="orientation">
                     <enum>Qt::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
-                 <item row="13" column="0" colspan="2">
+                 <item row="41" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_min_color_value">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>99999.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="43" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_max_color_value">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>99999999.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="19" column="0" colspan="2">
                   <widget class="MyGroupBox" name="groupCheck_fractal_coloring_xyz_bias_enabled_false">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1530,148 +1608,17 @@ direction vector:</string>
                    </layout>
                   </widget>
                  </item>
-                 <item row="37" column="1">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_max_color_value">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>2</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>99999999.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="0">
-                  <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_enabled_false">
-                   <property name="text">
-                    <string notr="true">Radius / DE weight:</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="28" column="1">
-                  <widget class="QCheckBox" name="checkBox_fractal_coloring_i_invert_enabled_false">
-                   <property name="text">
-                    <string notr="true">i invert</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="7" column="0">
-                  <widget class="QLabel" name="label_58">
-                   <property name="font">
-                    <font>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;aux.color weight:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="5" column="0" colspan="2">
-                  <widget class="QLabel" name="label_75">
-                   <property name="font">
-                    <font>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;aux.color components  &lt;span style=&quot; font-weight:400;&quot;&gt;(may result in localized cuts in the color)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="21" column="0" colspan="2">
-                  <widget class="Line" name="line">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="34" column="0" colspan="2">
-                  <widget class="Line" name="line_16">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="24" column="0" colspan="2">
-                  <widget class="Line" name="line_8">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="11" column="0" colspan="2">
-                  <widget class="Line" name="line_2">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="25" column="0">
-                  <widget class="QLabel" name="label_44">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;colorValue scaled by iteration count&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="28" column="0">
-                  <widget class="QCheckBox" name="checkBox_fractal_coloring_i_squared_enabled_false">
-                   <property name="text">
-                    <string notr="true">i squared</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="35" column="0">
+                 <item row="41" column="0">
                   <widget class="QLabel" name="label_34">
                    <property name="text">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;min color value&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="35" column="1">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_min_color_value">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>2</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>99999.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
+                 <item row="34" column="1">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_i_invert_enabled_false">
+                   <property name="text">
+                    <string notr="true">i invert</string>
                    </property>
                   </widget>
                  </item>
@@ -1706,162 +1653,7 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="22" column="0">
-                  <widget class="QLabel" name="label_77">
-                   <property name="font">
-                    <font>
-                     <weight>75</weight>
-                     <bold>true</bold>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Final ColorValue &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="10" column="1">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_weight">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>2</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-10000.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>10000.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="22" column="1">
-                  <widget class="QFrame" name="frame">
-                   <property name="frameShape">
-                    <enum>QFrame::StyledPanel</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="27" column="0">
-                  <widget class="QLabel" name="label_42">
-                   <property name="text">
-                    <string>start scale at iteration</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="26" column="0">
-                  <widget class="QLabel" name="label_43">
-                   <property name="text">
-                    <string>iteration count scale</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="23" column="1">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ii_add_scale">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>2</number>
-                   </property>
-                   <property name="minimum">
-                    <double>0.000000000000000</double>
-                   </property>
-                   <property name="maximum">
-                    <double>99999.000000000000000</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="26" column="1">
-                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_iter_scale">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="prefix">
-                    <string/>
-                   </property>
-                   <property name="suffix">
-                    <string/>
-                   </property>
-                   <property name="decimals">
-                    <number>6</number>
-                   </property>
-                   <property name="minimum">
-                    <double>-9999.999900000000707</double>
-                   </property>
-                   <property name="maximum">
-                    <double>9999.999900000000707</double>
-                   </property>
-                   <property name="singleStep">
-                    <double>0.100000000000000</double>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="27" column="1">
-                  <widget class="MySpinBox" name="spinboxInt_fractal_coloring_i_start_value">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="maximum">
-                    <number>999</number>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="29" column="0" colspan="2">
-                  <widget class="Line" name="line_17">
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="32" column="0">
-                  <widget class="QLabel" name="label_45">
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;cos period&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="31" column="0">
-                  <widget class="QCheckBox" name="checkBox_fractal_coloring_cos_enabled_false">
-                   <property name="text">
-                    <string notr="true">cos </string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="33" column="1">
+                 <item row="39" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_add">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1889,7 +1681,27 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="32" column="1">
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="label_58">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;aux.color weight:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="36" column="0">
+                  <widget class="QLabel" name="label_47">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;trig function added to colorValue&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="38" column="1">
                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_period">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1917,10 +1729,250 @@ direction vector:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="30" column="0">
-                  <widget class="QLabel" name="label_47">
+                 <item row="37" column="0">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_cos_enabled_false">
                    <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;trig function added to colorValue&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    <string notr="true">cos </string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="34" column="0">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_i_squared_enabled_false">
+                   <property name="text">
+                    <string notr="true">i squared</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="30" column="0" colspan="2">
+                  <widget class="Line" name="line_8">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0" colspan="2">
+                  <widget class="QLabel" name="label_75">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;aux.color components  &lt;span style=&quot; font-weight:400;&quot;&gt;(may result in localized cuts in the color)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="33" column="0">
+                  <widget class="QLabel" name="label_42">
+                   <property name="text">
+                    <string>start scale at iteration</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="31" column="0">
+                  <widget class="QLabel" name="label_44">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;colorValue scaled by iteration count&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="29" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ii_add_scale">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>0.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>99999.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="38" column="0">
+                  <widget class="QLabel" name="label_45">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;cos period&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="43" column="0">
+                  <widget class="QLabel" name="label_41">
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;max color value&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="40" column="0" colspan="2">
+                  <widget class="Line" name="line_16">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="27" column="0" colspan="2">
+                  <widget class="Line" name="line">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="32" column="0">
+                  <widget class="QLabel" name="label_43">
+                   <property name="text">
+                    <string>iteration count scale</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="35" column="0" colspan="2">
+                  <widget class="Line" name="line_17">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="33" column="1">
+                  <widget class="MySpinBox" name="spinboxInt_fractal_coloring_i_start_value">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="maximum">
+                    <number>999</number>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="16" column="0">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_enabled_false">
+                   <property name="text">
+                    <string notr="true">radius / DE weight:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="28" column="0" colspan="2">
+                  <widget class="QLabel" name="label_77">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Final ColorValue Controls &lt;span style=&quot; font-weight:400;&quot;&gt;( functions that change the palette)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="16" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_weight">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0" colspan="2">
+                  <widget class="Line" name="line_18">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="14" column="0" colspan="2">
+                  <widget class="QLabel" name="label_76">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;radius / DE component &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="1">
+                  <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
+                   <property name="text">
+                    <string notr="true">radius squared</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="0">
+                  <widget class="QLabel" name="label_79">
+                   <property name="font">
+                    <font>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;radius component &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_weight">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="prefix">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string/>
+                   </property>
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-10000.000000000000000</double>
+                   </property>
+                   <property name="maximum">
+                    <double>10000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
                    </property>
                   </widget>
                  </item>

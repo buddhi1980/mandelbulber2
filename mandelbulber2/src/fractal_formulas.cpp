@@ -11792,10 +11792,10 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 
 	// limit componentMaster
-	if (componentMaster < fractal->foldColor.limitMin0)
-		componentMaster = fractal->foldColor.limitMin0;
-	if (componentMaster > fractal->foldColor.limitMax9999)
-		componentMaster = fractal->foldColor.limitMax9999;
+	//if (componentMaster < fractal->foldColor.limitMin0)
+	//componentMaster = fractal->foldColor.limitMin0;
+	//if (componentMaster > fractal->foldColor.limitMax9999)
+	//componentMaster = fractal->foldColor.limitMax9999;
 
 	aux.colorHybrid = componentMaster;
 
@@ -12088,10 +12088,10 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	}
 
 	// limit componentMaster
-	if (componentMaster < fractal->foldColor.limitMin0)
-		componentMaster = fractal->foldColor.limitMin0;
-	if (componentMaster > fractal->foldColor.limitMax9999)
-		componentMaster = fractal->foldColor.limitMax9999;
+	//if (componentMaster < fractal->foldColor.limitMin0)
+	//	componentMaster = fractal->foldColor.limitMin0;
+	//if (componentMaster > fractal->foldColor.limitMax9999)
+		//componentMaster = fractal->foldColor.limitMax9999;
 
 	// final component value + cumulative??
 	{
