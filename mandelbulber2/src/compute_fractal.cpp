@@ -497,7 +497,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		if (fractals.IsHybrid())
 		{
 
-			// new hybrid
+			//*new hybrid*
 			double inputGeneral = 0.0;
 			if (in.fractalColoring.extraColorEnabledFalse)
 			{
@@ -511,7 +511,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 
 				// global palette controls
-				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+				inputGeneral += in.fractalColoring.iterAddScale * (extendedAux.i * extendedAux.i);
 
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
 				if (extendedAux.i >= in.fractalColoring.iStartValue)
@@ -531,8 +531,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						inputGeneral *= (iUse * in.fractalColoring.iterScale) + 1.0;
 					}
 				}
+				// "pseudo" palette controls
 				if (in.fractalColoring.cosEnabledFalse)
-				{ // trig
+				{ // trig palette
 					double trig = 128 * -in.fractalColoring.cosAdd
 												* (cos(inputGeneral * 2.0 * M_PI / in.fractalColoring.cosPeriod) - 1.0);
 					inputGeneral += trig;
@@ -546,9 +547,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else
 			{
-				// old hybrid
-				//if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in old hybrid mode?
+				//*old hybrid*
 				minR1000 = min( minR1000, 1e5);
+				//if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in old hybrid mode?
 				if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit
 				radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
 				if (radDE5000 > 1e5) radDE5000 = 1e5;
@@ -608,12 +609,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						+ radDE5000 // r /DE
 						+ addValue; // all extra inputs
 
-						// ADD,  this allows the input to be influenced by iteration number
-						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
-
-						if (extendedAux.i >= in.fractalColoring.iStartValue)
+						//Iter ADD,  this allows the input to be influenced by iteration number
+						if (in.fractalColoring.iterAddScaleFalse && extendedAux.i > in.fractalColoring.iStartValue)
 						{
-							int iUse = in.fractalColoring.iStartValue - extendedAux.i;
+							int iUse = extendedAux.i - in.fractalColoring.iStartValue;
+							if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+							if (in.fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+							inputGeneral += in.fractalColoring.iterAddScale * iUse;
+						}
+
+						//Iter SCALE,
+						if (in.fractalColoring.iterScaleFalse && extendedAux.i >= in.fractalColoring.iStartValue)
+						{
+							int iUse = extendedAux.i - in.fractalColoring.iStartValue;
 							if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 
 							if (in.fractalColoring.iInvertEnabledFalse)

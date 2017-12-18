@@ -69,10 +69,11 @@ struct sFractalColoring
 
 		xyzBiasEnabledFalse = false;
 		xyzIterScale = 1.0;
-
 		cModeEnabledFalse = false; // basic test
 
-		iiAddScale = 0.0;
+		iterAddScaleFalse = false;
+		iterScaleFalse = false;
+		iterAddScale = 0.0;
 		iterScale = 1.0;
 		iStartValue = 0;
 		iSquaredEnabledFalse = false;
@@ -109,9 +110,11 @@ struct sFractalColoring
 	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;
 	bool cModeEnabledFalse;
-
 	double xyzIterScale;
-	double iiAddScale;
+
+	bool iterAddScaleFalse;
+	bool iterScaleFalse;
+	double iterAddScale;
 	double iterScale;
 	int iStartValue; // or start colorV??
 	bool iSquaredEnabledFalse;
