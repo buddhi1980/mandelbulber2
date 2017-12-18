@@ -466,9 +466,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 		if (in.fractalColoring.radDivDeFalse)
 		{
-			radDE5000 = 5000.0 * r / fabs(extendedAux.DE); // was named r2
-			//if (radDE5000 > 1e5) radDE5000 = 1e5; // is limit needed??
-			radDE5000 *= in.fractalColoring.radDivDeWeight; // r /DE
+			radDE5000 = r;
+		if (in.fractalColoring.radSquaredFalse)  radDE5000 = r * r;
+			radDE5000 *= 5000.0 * in.fractalColoring.radDivDeWeight
+				/ fabs(extendedAux.DE); ; // r /DE // was named r2
 		}
 
 		double addValue = 0.0;

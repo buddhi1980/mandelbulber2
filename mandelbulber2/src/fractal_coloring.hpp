@@ -72,13 +72,13 @@ struct sFractalColoring
 
 		cModeEnabledFalse = false; // basic test
 
-
-		// global palette controls
 		iiAddScale = 0.0;
 		iterScale = 1.0;
 		iStartValue = 0;
 		iSquaredEnabledFalse = false;
 		iInvertEnabledFalse = false;
+
+		// global palette controls
 		cosEnabledFalse = false;
 		cosPeriod = 1.0; //TODO calibrate
 		cosAdd = 1.0; //TODO calibrate
@@ -109,14 +109,15 @@ struct sFractalColoring
 	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;
 	bool cModeEnabledFalse;
-	double xyzIterScale;
 
-	// global palette controls
+	double xyzIterScale;
 	double iiAddScale;
 	double iterScale;
 	int iStartValue; // or start colorV??
 	bool iSquaredEnabledFalse;
 	bool iInvertEnabledFalse;
+
+	// global palette controls
 	bool cosEnabledFalse;
 	double cosPeriod;
 	double cosAdd;

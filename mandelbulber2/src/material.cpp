@@ -195,8 +195,6 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.xyzIterScale =
 		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
 
-
-	// global palette controls
 	fractalColoring.iiAddScale =
 		materialParam->Get<double>(Name("fractal_coloring_ii_add_scale", id));
 
@@ -209,6 +207,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.iInvertEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_i_invert_enabled_false", id));
 
+	// global palette controls
 	fractalColoring.cosEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_cos_enabled_false", id));
 	fractalColoring.cosPeriod =

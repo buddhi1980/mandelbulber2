@@ -1200,7 +1200,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 
-	//global palette controls
 	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 
@@ -1213,6 +1212,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_i_invert_enabled_false", materialId), false,
 		morphLinear, paramStandard);
 
+	//global palette controls
 	par->addParam(cMaterial::Name("fractal_coloring_cos_enabled_false", materialId), false,
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_cos_period", materialId), 1.0, 1e-20, 1e20,
