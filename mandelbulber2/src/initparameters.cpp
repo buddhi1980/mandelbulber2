@@ -748,14 +748,14 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_scaleA1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleC1", 1.0, morphAkima, paramStandard);
-	par->addParam("fold_color_period1", 1.0, morphAkima, paramStandard);
-	par->addParam("fold_color_trig_add1", 1.0, morphAkima, paramStandard);
+	//par->addParam("fold_color_period1", 1.0, morphAkima, paramStandard);
+	//par->addParam("fold_color_trig_add1", 1.0, morphAkima, paramStandard);
 
 	par->addParam("fold_color_int_Ax0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Ay0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_parab_enabled_false", false, morphLinear, paramStandard);
-	par->addParam("fold_color_cos_enabled_false", false, morphLinear, paramStandard);
+	//par->addParam("fold_color_cos_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_distance_enabled_false", false, morphLinear, paramStandard);
 
 	// common parameters for transforming formulas
@@ -1192,6 +1192,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
+
+	//global palette controls
+	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
+		morphNone, paramStandard);
+
 	par->addParam(cMaterial::Name("fractal_coloring_i_start_value", materialId), 0, 0, 4000,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_iter_scale", materialId), 0.0, 1e-20, 1e20,
@@ -1201,7 +1206,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_i_invert_enabled_false", materialId), false,
 		morphLinear, paramStandard);
 
-	par->addParam(cMaterial::Name("fractal_coloring_ii_add_scale", materialId), 0.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_cos_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_period", materialId), 1.0, 1e-20, 1e20,
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_add", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e5, 1e-20, 1e20,

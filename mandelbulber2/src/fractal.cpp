@@ -279,8 +279,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.scaleG0 = container->Get<double>("fold_color_scaleG0");
 	foldColor.scaleA1 = container->Get<double>("fold_color_scaleA1");
 	foldColor.scaleB1 = container->Get<double>("fold_color_scaleB1");
-	foldColor.period1 = container->Get<double>("fold_color_period1");
-	foldColor.trigAdd1 = container->Get<double>("fold_color_trig_add1");
+	//foldColor.period1 = container->Get<double>("fold_color_period1");
+	//foldColor.trigAdd1 = container->Get<double>("fold_color_trig_add1");
 
 	foldColor.limitMin0 = container->Get<double>("fold_color_limit_min0");
 	foldColor.limitMax9999 = container->Get<double>("fold_color_limit_max9999");
@@ -289,7 +289,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
 	foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
 	foldColor.parabEnabledFalse = container->Get<bool>("fold_color_parab_enabled_false");
-	foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
+	//foldColor.cosEnabledFalse = container->Get<bool>("fold_color_cos_enabled_false");
 	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas

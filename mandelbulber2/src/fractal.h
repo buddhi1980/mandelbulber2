@@ -132,8 +132,8 @@ struct sFoldColor
 	double scaleA1;
 	double scaleB1;
 	double scaleC1;
-	double period1;
-	double trigAdd1;
+	//double period1;
+	//double trigAdd1;
 	//CVector4 xyz000;
 	//CVector4 factor000;
 	//double factorMinR0;
@@ -144,7 +144,7 @@ struct sFoldColor
 	int intAz0;
 
 	bool parabEnabledFalse;
-	bool cosEnabledFalse;
+	//bool cosEnabledFalse;
 
 	bool auxColorEnabled;
 	bool auxColorEnabledFalse;

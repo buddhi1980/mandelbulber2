@@ -768,8 +768,8 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleA1 = source.scaleA1;
 	target.scaleB1 = source.scaleB1;
 	target.scaleC1 = source.scaleC1;
-	target.period1 = source.period1;
-	target.trigAdd1 = source.trigAdd1;
+        //target.period1 = source.period1;
+        //target.trigAdd1 = source.trigAdd1;
         //target.xyz000 = toClFloat4(source.xyz000);
         //target.factor000 = toClFloat4(source.factor000);
         //target.factorMinR0 = source.factorMinR0;
@@ -778,7 +778,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.intAy0 = source.intAy0;
 	target.intAz0 = source.intAz0;
 	target.parabEnabledFalse = source.parabEnabledFalse;
-	target.cosEnabledFalse = source.cosEnabledFalse;
+        //target.cosEnabledFalse = source.cosEnabledFalse;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
 	target.deColorEnabledFalse = source.deColorEnabledFalse;

@@ -11779,12 +11779,12 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{ // parabolic
 		componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
 	}
-	if (fractal->foldColor.cosEnabledFalse)
-	{ // trig
-		double trig = 128 * -fractal->foldColor.trigAdd1
-									* (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1) - 1.0);
-		componentMaster += trig;
-	}
+	//if (fractal->foldColor.cosEnabledFalse)
+	//{ // trig
+	//	double trig = 128 * -fractal->foldColor.trigAdd1
+	//								* (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1) - 1.0);
+	//	componentMaster += trig;
+	//}
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{ // log
 		double logCurve = log(componentMaster + 1.0) * fractal->foldColor.scaleE0;
@@ -12075,12 +12075,12 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	{ // parabolic
 		componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
 	}
-	if (fractal->foldColor.cosEnabledFalse)
-	{ // trig
-		double trig = 128 * -fractal->foldColor.trigAdd1
-									* (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1) - 1.0);
-		componentMaster += trig;
-	}
+	//if (fractal->foldColor.cosEnabledFalse)
+	//{ // trig
+	//	double trig = 128 * -fractal->foldColor.trigAdd1
+	//								* (cos(componentMaster * 2.0 * M_PI / fractal->foldColor.period1) - 1.0);
+	//	componentMaster += trig;
+	//}
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{ // log
 		double logCurve = log(componentMaster + 1.0) * fractal->foldColor.scaleE0;

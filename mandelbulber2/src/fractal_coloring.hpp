@@ -65,13 +65,19 @@ struct sFractalColoring
 
 		xyzBiasEnabledFalse = false;
 		xyzIterScale = 1.0;
-		iterScale = 1.0;
+
 		cModeEnabledFalse = false; // basic test
+
+
+		// global palette controls
+		iiAddScale = 0.0;
+		iterScale = 1.0;
 		iStartValue = 0;
 		iSquaredEnabledFalse = false;
 		iInvertEnabledFalse = false;
-
-		iiAddScale = 0.0;
+		cosEnabledFalse = false;
+		cosPeriod = 1.0; //TODO calibrate
+		cosAdd = 1.0; //TODO calibrate
 
 		maxColorValue = 100000.0;
 		minColorValue = 0.0;
@@ -96,13 +102,16 @@ struct sFractalColoring
 	CVector3 xyz000;
 	bool cModeEnabledFalse;
 	double xyzIterScale;
+
+	// global palette controls
+	double iiAddScale;
 	double iterScale;
 	int iStartValue; // or start colorV??
 	bool iSquaredEnabledFalse;
 	bool iInvertEnabledFalse;
-
-	double iiAddScale;
-
+	bool cosEnabledFalse;
+	double cosPeriod;
+	double cosAdd;
 	double maxColorValue;
 	double minColorValue;
 

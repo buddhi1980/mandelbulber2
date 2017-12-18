@@ -501,13 +501,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				+ extendedAux.colorHybrid;// transf_hybrid_color inputs
 			// double radIe13 = r / 1e15;
 
-				// ADD, this allows the input to be influenced by iteation number TODO evaluate functions
+				// global palette controls
 				inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
 
 					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
 				if (extendedAux.i >= in.fractalColoring.iStartValue)
 				{
-
 					int iUse = in.fractalColoring.iStartValue - extendedAux.i;
 					if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 
@@ -523,10 +522,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						inputGeneral *= (iUse * in.fractalColoring.iterScale) + 1.0;
 					}
 				}
-
+				if (in.fractalColoring.cosEnabledFalse)
+				{ // trig
+					double trig = 128 * -in.fractalColoring.cosAdd
+												* (cos(inputGeneral * 2.0 * M_PI / in.fractalColoring.cosPeriod) - 1.0);
+					inputGeneral += trig;
+				}
 				double minCV = in.fractalColoring.minColorValue;
 				double maxCV = in.fractalColoring.maxColorValue;
-
 				if (inputGeneral < minCV) inputGeneral = minCV;
 				if (inputGeneral > maxCV) inputGeneral = maxCV;
 
@@ -597,11 +600,40 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 						// ADD,  this allows the input to be influenced by iteration number
 						inputGeneral += in.fractalColoring.iiAddScale * (extendedAux.i * extendedAux.i);
+
+						if (extendedAux.i >= in.fractalColoring.iStartValue)
+						{
+							int iUse = in.fractalColoring.iStartValue - extendedAux.i;
+							if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+
+							if (in.fractalColoring.iInvertEnabledFalse)
+							{
+								if (in.fractalColoring.iSquaredEnabledFalse)
+									inputGeneral *= (1.0 + 1.0/(iUse + 1.0)/in.fractalColoring.iterScale);
+								else
+									inputGeneral *= (1.0 + 1.0/(extendedAux.i + 1.0)/in.fractalColoring.iterScale);
+							}
+							else
+							{
+								inputGeneral *= (iUse * in.fractalColoring.iterScale) + 1.0;
+							}
+						}
+						if (in.fractalColoring.cosEnabledFalse)
+						{ // trig
+							double trig = 128 * -in.fractalColoring.cosAdd
+														* (cos(inputGeneral * 2.0 * M_PI / in.fractalColoring.cosPeriod) - 1.0);
+							inputGeneral += trig;
+						}
+						double minCV = in.fractalColoring.minColorValue;
+						double maxCV = in.fractalColoring.maxColorValue;
+						if (inputGeneral < minCV) inputGeneral = minCV;
+						if (inputGeneral > maxCV) inputGeneral = maxCV;
+
 						out->colorIndex = inputGeneral;
 					}
 					else
 					{
-						out->colorIndex = minR5000 ; //default =  * 5
+						out->colorIndex = minR5000 ;
 					}
 					break;
 			}
