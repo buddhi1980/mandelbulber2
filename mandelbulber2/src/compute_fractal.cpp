@@ -101,14 +101,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.color = 1.0;
 	extendedAux.colorHybrid = 0.0;
 
-	//these are temp, and most might be removed later
+	// these are temp, and most might be removed later
 	// once some decisions have been made
-	extendedAux.minRFactor = 0.0; // orbit trap weight
-	extendedAux.foldFactor = 0.0; // aux color weight
+	extendedAux.minRFactor = 0.0;		// orbit trap weight
+	extendedAux.foldFactor = 0.0;		// aux color weight
 	extendedAux.radiusFactor = 0.0; // radius weight
-	extendedAux.scaleFactor = 0.0; // DE weight
-	//extendedAux.oldHybridFactor = 0.0; // old hybid weight
-	//extendedAux.temp1Factor = 0.0;
+	extendedAux.scaleFactor = 0.0;	// DE weight
+	// extendedAux.oldHybridFactor = 0.0; // old hybid weight
+	// extendedAux.temp1Factor = 0.0;
 
 	extendedAux.temp100 = 100.0;
 	extendedAux.addDist = 0.0;
@@ -293,7 +293,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				//double len = 0.0;
+				// double len = 0.0;
 				switch (in.fractalColoring.coloringAlgorithm)
 				{
 					case sFractalColoring::fractalColoringStandard:
@@ -452,7 +452,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	else if (Mode == calcModeColouring)
 	{
 		enumColoringFunction coloringFunction = fractals.GetColoringFunction(sequence);
-		out->colorIndex = CalculateColorIndex(fractals.IsHybrid(), r, z, minimumR, extendedAux, in.fractalColoring, coloringFunction, defaultFractal);
+		out->colorIndex = CalculateColorIndex(fractals.IsHybrid(), r, z, minimumR, extendedAux,
+			in.fractalColoring, coloringFunction, defaultFractal);
 	}
 	else
 	{
