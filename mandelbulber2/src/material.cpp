@@ -100,6 +100,8 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_iter_scale", "fractal_coloring_c_mode_enabled_false",
+	"fractal_coloring_xyz_x_sqrd_enabled_false", "fractal_coloring_xyz_y_sqrd_enabled_false",
+	"fractal_coloring_xyz_z_sqrd_enabled_false",
 
 	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_false",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
@@ -197,6 +199,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvec3
 	fractalColoring.xyzIterScale =
 		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
+	fractalColoring.xyzXsqrdFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_x_sqrd_enabled_false", id));
+	fractalColoring.xyzYsqrdFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_y_sqrd_enabled_false", id));
+	fractalColoring.xyzZsqrdFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_z_sqrd_enabled_false", id));
 
 	fractalColoring.iterScaleFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_iter_scale_enabled_false", id));
