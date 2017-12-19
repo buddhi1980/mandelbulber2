@@ -36,6 +36,10 @@
 #define MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_
 
 #include "algebra.hpp"
+#include "fractal_enums.h"
+
+struct sExtendedAux;
+struct sFractal;
 
 struct sFractalColoring
 {
@@ -84,12 +88,11 @@ struct sFractalColoring
 
 		// global palette controls
 		cosEnabledFalse = false;
-		cosPeriod = 1.0; //TODO calibrate
-		cosAdd = 1.0; //TODO calibrate
+		cosPeriod = 1.0; // TODO calibrate
+		cosAdd = 1.0;		 // TODO calibrate
 
 		maxColorValue = 100000.0;
 		minColorValue = 0.0;
-
 	}
 
 	CVector3 lineDirection;
@@ -133,5 +136,9 @@ struct sFractalColoring
 	double maxColorValue;
 	double minColorValue;
 };
+
+double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
+	const sExtendedAux &extendedAux, const sFractalColoring &fractalColoring,
+	fractal::enumColoringFunction coloringFunction, const sFractal *defaultFractal);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_COLORING_HPP_ */
