@@ -510,21 +510,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				+ extendedAux.colorHybrid;// transf_hybrid_color inputs
 
 
-				// global palette controls
-				inputGeneral += in.fractalColoring.iterAddScale * (extendedAux.i * extendedAux.i);
-
-					//+ r * extendedAux.radiusFactor / 1e13//  radius // this may be replaced
-				if (extendedAux.i >= in.fractalColoring.iStartValue)
+				//Iter ADD,  this allows the input to be influenced by iteration number
+				if (in.fractalColoring.iterAddScaleFalse && extendedAux.i > in.fractalColoring.iStartValue)
 				{
-					int iUse = in.fractalColoring.iStartValue - extendedAux.i;
+					int iUse = extendedAux.i - in.fractalColoring.iStartValue;
+					if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+					if (in.fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+					inputGeneral += in.fractalColoring.iterAddScale * iUse;
+				}
+
+				//Iter SCALE,
+				if (in.fractalColoring.iterScaleFalse && extendedAux.i >= in.fractalColoring.iStartValue)
+				{
+					int iUse = extendedAux.i - in.fractalColoring.iStartValue;
 					if (in.fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 
 					if (in.fractalColoring.iInvertEnabledFalse)
 					{
 						if (in.fractalColoring.iSquaredEnabledFalse)
-							inputGeneral *= (1.0 + 1.0/(iUse + 1.0)/in.fractalColoring.iterScale);
+							inputGeneral *= (1.0 + 1.0/(iUse + 1.0) / in.fractalColoring.iterScale);
 						else
-							inputGeneral *= (1.0 + 1.0/(extendedAux.i + 1.0)/in.fractalColoring.iterScale);
+							inputGeneral *= (1.0 + 1.0/(extendedAux.i + 1.0) / in.fractalColoring.iterScale);
 					}
 					else
 					{
@@ -627,9 +633,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							if (in.fractalColoring.iInvertEnabledFalse)
 							{
 								if (in.fractalColoring.iSquaredEnabledFalse)
-									inputGeneral *= (1.0 + 1.0/(iUse + 1.0)/in.fractalColoring.iterScale);
+									inputGeneral *= (1.0 + 1.0/(iUse + 1.0) / in.fractalColoring.iterScale);
 								else
-									inputGeneral *= (1.0 + 1.0/(extendedAux.i + 1.0)/in.fractalColoring.iterScale);
+									inputGeneral *= (1.0 + 1.0/(extendedAux.i + 1.0) / in.fractalColoring.iterScale);
 							}
 							else
 							{

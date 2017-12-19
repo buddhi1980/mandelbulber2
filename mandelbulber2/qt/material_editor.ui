@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-300</y>
+        <y>-692</y>
         <width>619</width>
         <height>2335</height>
        </rect>
@@ -1543,13 +1543,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
                     <double>0.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>99999.000000000000000</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1591,13 +1591,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
-                    <double>-10000.000000000000000</double>
+                    <double>-9999.999900000000707</double>
                    </property>
                    <property name="maximum">
-                    <double>10000.000000000000000</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1633,13 +1633,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
                     <double>0.000000000000000</double>
                    </property>
                    <property name="maximum">
-                    <double>99999999.000000000000000</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1668,13 +1668,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
-                    <double>-10000.000000000000000</double>
+                    <double>-9999.999900000000707</double>
                    </property>
                    <property name="maximum">
-                    <double>10000.000000000000000</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1720,13 +1720,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>3</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
-                    <double>-999.999000000000024</double>
+                    <double>-9999.999900000000707</double>
                    </property>
                    <property name="maximum">
-                    <double>999.999000000000024</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1808,13 +1808,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>3</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
-                    <double>-9999.989999999999782</double>
+                    <double>-9999.999900000000707</double>
                    </property>
                    <property name="maximum">
-                    <double>9999.989999999999782</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
@@ -1892,13 +1892,13 @@ sphere radius:</string>
                     <string/>
                    </property>
                    <property name="decimals">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="minimum">
-                    <double>0.000000000000000</double>
+                    <double>-9999.999900000000707</double>
                    </property>
                    <property name="maximum">
-                    <double>99999.000000000000000</double>
+                    <double>9999.999900000000707</double>
                    </property>
                    <property name="singleStep">
                     <double>0.100000000000000</double>
