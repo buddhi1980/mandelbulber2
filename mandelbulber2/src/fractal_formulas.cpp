@@ -3006,11 +3006,10 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		zTemp.w = z.w;
 		z = zTemp;
 		z.z *= fractal->foldingIntPow.zFactor;
-
-		if (fractal->foldColor.auxColorEnabled)
-		{
-			aux.color += colorAdd;
-		}
+	}
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux.color += colorAdd;
 	}
 }
 
