@@ -203,9 +203,14 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					}
 					if (fractalColoring.cosEnabledFalse)
 					{ // trig
-						double trig = 128 * -fractalColoring.cosAdd
-													* (cos(inputGeneral * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
+                                                if (inputGeneral > fractalColoring.cosStartValue)
+                                                {
+                                                    double useValue = inputGeneral;
+                                                    useValue -= fractalColoring.cosStartValue;
+                                                    double trig = 128 * -fractalColoring.cosAdd
+                                                        * (cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
 						inputGeneral += trig;
+                                                }
 					}
 					double minCV = fractalColoring.minColorValue;
 					double maxCV = fractalColoring.maxColorValue;

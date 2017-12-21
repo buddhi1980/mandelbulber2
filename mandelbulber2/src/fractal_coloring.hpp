@@ -90,6 +90,7 @@ struct sFractalColoring
 		cosEnabledFalse = false;
 		cosPeriod = 1.0; // TODO calibrate
 		cosAdd = 1.0;		 // TODO calibrate
+		cosStartValue = 0.0;
 
 		maxColorValue = 100000.0;
 		minColorValue = 0.0;
@@ -133,6 +134,7 @@ struct sFractalColoring
 	bool cosEnabledFalse;
 	double cosPeriod;
 	double cosAdd;
+	double cosStartValue;
 	double maxColorValue;
 	double minColorValue;
 };

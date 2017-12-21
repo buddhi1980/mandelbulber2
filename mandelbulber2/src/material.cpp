@@ -107,7 +107,8 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
  "fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
 	"fractal_coloring_i_start_value",
-	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period", "fractal_coloring_cos_add",
+	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
+	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
 	};
 
@@ -228,7 +229,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_cos_period", id));
 	fractalColoring.cosAdd =
 		materialParam->Get<double>(Name("fractal_coloring_cos_add", id));
-
+	fractalColoring.cosStartValue =
+		materialParam->Get<double>(Name("fractal_coloring_cos_start_value", id));
 	fractalColoring.maxColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_max_color_value", id));
 	fractalColoring.minColorValue =

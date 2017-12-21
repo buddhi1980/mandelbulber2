@@ -1228,6 +1228,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_cos_add", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_start_value", materialId), 0.0, 1e-20, 1e20,
+		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e5, 1e-20, 1e20,
 		morphNone, paramStandard);
