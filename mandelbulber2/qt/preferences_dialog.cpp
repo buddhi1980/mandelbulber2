@@ -101,6 +101,8 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
 
+	cInterface::ColorizeGroupboxes(this);
+
 	initFinished = true;
 }
 

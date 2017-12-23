@@ -36,6 +36,7 @@
 
 #include <QtCore>
 
+#include "../src/interface.hpp"
 #include "ui_material_editor.h"
 
 #include "preview_file_dialog.h"
@@ -59,6 +60,8 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
 	ConnectSignals();
+
+	cInterface::ColorizeGroupboxes(this);
 }
 
 cMaterialEditor::~cMaterialEditor()

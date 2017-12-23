@@ -75,6 +75,7 @@
 #include "qt/my_progress_bar.h"
 #include "qt/player_widget.hpp"
 #include "qt/system_tray.hpp"
+#include "random.hpp"
 
 // custom includes
 #ifdef USE_GAMEPAD
@@ -260,6 +261,8 @@ void cInterface::ShowUi()
 	mainWindow->GetWidgetDockNavigation()->EnableOpenCLModeComboBox(
 		gPar->Get<bool>("opencl_enabled"));
 #endif
+
+	ColorizeGroupboxes(mainWindow);
 
 	renderedImage->show();
 
@@ -1898,8 +1901,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2317,4 +2319,39 @@ void cInterface::AttachMainImageWidget()
 void cInterface::CameraMovementModeChanged(int index)
 {
 	renderedImage->SetCameraMovementMode(index);
+}
+
+void cInterface::ColorizeGroupboxes(QWidget *window)
+{
+	QList<QGroupBox *> widgets;
+	widgets = window->findChildren<QGroupBox *>();
+	QPalette palette = window->palette();
+	QColor globalColor = palette.background().color();
+	int brightness = globalColor.value();
+
+	cRandom random;
+	random.Initialize(1234);
+
+	foreach (QGroupBox *groupbox, widgets)
+	{
+		QColor buttonColor;
+		if (brightness > 20)
+		{
+			int r = random.Random(40) + brightness - 20;
+			int g = random.Random(40) + brightness - 20;
+			int b = random.Random(40) + brightness - 20;
+			buttonColor = QColor(r, g, b);
+		}
+		else
+		{
+			int r = random.Random(40) + brightness;
+			int g = random.Random(40) + brightness;
+			int b = random.Random(40) + brightness;
+			buttonColor = QColor(r, g, b);
+		}
+
+		QPalette newPalette(buttonColor);
+		groupbox->setPalette(newPalette);
+		groupbox->setAutoFillBackground(true);
+	}
 }

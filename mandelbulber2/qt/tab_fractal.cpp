@@ -154,6 +154,9 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			QVBoxLayout *layout = ui->verticalLayout_fractal;
 			layout->addWidget(fractalWidget);
 			uiFile.close();
+
+			cInterface::ColorizeGroupboxes(fractalWidget);
+
 			fractalWidget->show();
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget);
 			SynchronizeInterfaceWindow(fractalWidget, &gParFractal->at(tabIndex), qInterface::write);
