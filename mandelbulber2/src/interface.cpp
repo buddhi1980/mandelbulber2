@@ -2329,6 +2329,10 @@ void cInterface::ColorizeGroupboxes(QWidget *window)
 	QColor globalColor = palette.background().color();
 	int brightness = globalColor.value();
 
+	int rBase = globalColor.red();
+	int gBase = globalColor.green();
+	int bBase = globalColor.blue();
+
 	cRandom random;
 	random.Initialize(1234);
 
@@ -2337,16 +2341,22 @@ void cInterface::ColorizeGroupboxes(QWidget *window)
 		QColor buttonColor;
 		if (brightness > 20)
 		{
-			int r = random.Random(40) + brightness - 20;
-			int g = random.Random(40) + brightness - 20;
-			int b = random.Random(40) + brightness - 20;
+			int r = random.Random(40) + rBase - 20;
+			r = clamp(r, 0, 255);
+			int g = random.Random(40) + gBase - 20;
+			g = clamp(g, 0, 255);
+			int b = random.Random(40) + bBase - 20;
+			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
 		else
 		{
-			int r = random.Random(40) + brightness;
-			int g = random.Random(40) + brightness;
-			int b = random.Random(40) + brightness;
+			int r = random.Random(40) + rBase;
+			r = clamp(r, 0, 255);
+			int g = random.Random(40) + gBase;
+			g = clamp(g, 0, 255);
+			int b = random.Random(40) + bBase;
+			b = clamp(b, 0, 255);
 			buttonColor = QColor(r, g, b);
 		}
 

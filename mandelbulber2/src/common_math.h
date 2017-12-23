@@ -64,7 +64,7 @@ inline double dmix(double a, double b, double x)
 template <typename T>
 inline T clamp(T x, T min, T max)
 {
-	return (((x >= min) ? x : min) <= max) ? x : max;
+	return qBound(min, x, max);
 }
 
 // polynomial smooth min;
