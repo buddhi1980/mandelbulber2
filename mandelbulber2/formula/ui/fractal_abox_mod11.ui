@@ -399,6 +399,19 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+     <property name="font">
+      <font>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Enable Swap z.x z.z </string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
       <string>Spherical Fold</string>
@@ -972,7 +985,7 @@ offset:</string>
          <item>
           <widget class="MyGroupBox" name="groupCheck_Cpara_enabledParab_false">
            <property name="title">
-            <string>Para&amp;bolic</string>
+            <string>Parabo&amp;lic</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
