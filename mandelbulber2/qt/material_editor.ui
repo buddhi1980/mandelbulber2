@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-486</y>
+        <y>-258</y>
         <width>619</width>
-        <height>2351</height>
+        <height>2495</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1471,7 +1471,7 @@ sphere radius:</string>
               <property name="checkable">
                <bool>true</bool>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0">
+              <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0">
                <property name="spacing">
                 <number>2</number>
                </property>
@@ -1487,6 +1487,183 @@ sphere radius:</string>
                <property name="bottomMargin">
                 <number>2</number>
                </property>
+               <item>
+                <widget class="MyGroupBox" name="groupCheck_fractal_coloring_init_cond_enabled_false">
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="title">
+                  <string>colorValue Initial Condi&amp;tions</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>2</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>2</number>
+                  </property>
+                  <item>
+                   <layout class="QGridLayout" name="gridLayout_17">
+                    <property name="spacing">
+                     <number>2</number>
+                    </property>
+                    <item row="7" column="0">
+                     <widget class="QLabel" name="label_45">
+                      <property name="text">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;c radius * scale&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="0">
+                     <widget class="QLabel" name="label_43">
+                      <property name="text">
+                       <string>c.x * scale:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="0">
+                     <widget class="QLabel" name="label_46">
+                      <property name="text">
+                       <string>c.z * scale:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="0">
+                     <widget class="QLabel" name="label_44">
+                      <property name="text">
+                       <string>c.y * scale:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="1" colspan="2">
+                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_y">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="prefix">
+                       <string/>
+                      </property>
+                      <property name="suffix">
+                       <string/>
+                      </property>
+                      <property name="decimals">
+                       <number>6</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-9999.999900000000707</double>
+                      </property>
+                      <property name="maximum">
+                       <double>9999.999900000000707</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="1" colspan="2">
+                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_z">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="prefix">
+                       <string/>
+                      </property>
+                      <property name="suffix">
+                       <string/>
+                      </property>
+                      <property name="decimals">
+                       <number>6</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-9999.999900000000707</double>
+                      </property>
+                      <property name="maximum">
+                       <double>9999.999900000000707</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="1" colspan="2">
+                     <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_x">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="prefix">
+                       <string/>
+                      </property>
+                      <property name="suffix">
+                       <string/>
+                      </property>
+                      <property name="decimals">
+                       <number>6</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-9999.999900000000707</double>
+                      </property>
+                      <property name="maximum">
+                       <double>9999.999900000000707</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="7" column="1" colspan="2">
+                     <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ic_rad_weight">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="prefix">
+                       <string/>
+                      </property>
+                      <property name="suffix">
+                       <string/>
+                      </property>
+                      <property name="decimals">
+                       <number>6</number>
+                      </property>
+                      <property name="minimum">
+                       <double>0.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>9999.999900000000707</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.100000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
                <item>
                 <layout class="QGridLayout" name="gridLayout_15">
                  <property name="spacing">
@@ -2039,13 +2216,6 @@ sphere radius:</string>
                         </property>
                        </widget>
                       </item>
-                      <item row="9" column="4">
-                       <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
-                        <property name="text">
-                         <string notr="true"/>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="8" column="0">
                        <widget class="QLabel" name="label_35">
                         <property name="text">
@@ -2097,6 +2267,13 @@ sphere radius:</string>
                       </item>
                       <item row="11" column="4">
                        <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_z_sqrd_enabled_false">
+                        <property name="text">
+                         <string notr="true"/>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="9" column="4">
+                       <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
                         <property name="text">
                          <string notr="true"/>
                         </property>
@@ -2198,18 +2375,18 @@ sphere radius:</string>
                    </property>
                   </widget>
                  </item>
-                 <item row="31" column="0" colspan="3">
+                 <item row="32" column="0" colspan="3">
                   <widget class="MyGroupBox" name="groupCheck_fractal_coloring_cos_enabled_false">
                    <property name="toolTip">
                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                    </property>
                    <property name="title">
-                    <string>trig func$tion</string>
+                    <string>trig func&amp;tion</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
                    </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0">
+                   <layout class="QVBoxLayout" name="verticalLayout_34" stretch="0">
                     <property name="spacing">
                      <number>2</number>
                     </property>
@@ -2226,54 +2403,26 @@ sphere radius:</string>
                      <number>2</number>
                     </property>
                     <item>
-                     <layout class="QGridLayout" name="gridLayout_17">
+                     <layout class="QGridLayout" name="gridLayout_18">
                       <property name="spacing">
                        <number>2</number>
                       </property>
-                      <item row="8" column="0">
-                       <widget class="QLabel" name="label_46">
-                        <property name="text">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;cosine add&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="8" column="1" colspan="2">
-                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_add">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="prefix">
-                         <string/>
-                        </property>
-                        <property name="suffix">
-                         <string/>
-                        </property>
-                        <property name="decimals">
-                         <number>6</number>
-                        </property>
-                        <property name="minimum">
-                         <double>0.000000000000000</double>
-                        </property>
-                        <property name="maximum">
-                         <double>9999.999900000000707</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.100000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
                       <item row="9" column="0">
-                       <widget class="QLabel" name="label_47">
+                       <widget class="QLabel" name="label_48">
                         <property name="text">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;start at colorValue:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>cosine add</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="10" column="0">
+                       <widget class="QLabel" name="label_51">
+                        <property name="text">
+                         <string>start at colorValue</string>
                         </property>
                        </widget>
                       </item>
                       <item row="7" column="0">
-                       <widget class="QLabel" name="label_45">
+                       <widget class="QLabel" name="label_47">
                         <property name="text">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;cosine period&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
@@ -2308,6 +2457,34 @@ sphere radius:</string>
                        </widget>
                       </item>
                       <item row="9" column="1" colspan="2">
+                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_add">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="prefix">
+                         <string/>
+                        </property>
+                        <property name="suffix">
+                         <string/>
+                        </property>
+                        <property name="decimals">
+                         <number>6</number>
+                        </property>
+                        <property name="minimum">
+                         <double>0.000000000000000</double>
+                        </property>
+                        <property name="maximum">
+                         <double>9999.999900000000707</double>
+                        </property>
+                        <property name="singleStep">
+                         <double>0.100000000000000</double>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="10" column="1" colspan="2">
                        <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_cos_start_value">
                         <property name="sizePolicy">
                          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">

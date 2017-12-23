@@ -59,6 +59,10 @@ struct sFractalColoring
 		coloringAlgorithm = fractalColoringNone;
 
 		extraColorEnabledFalse = false;
+
+		initCondFalse = false;
+		icRadWeight = 1.0;
+
 		orbitTrapWeight = 1.0;
 		initialMiniumuR = 0.0;
 
@@ -102,6 +106,11 @@ struct sFractalColoring
 
 	// trial
 	bool extraColorEnabledFalse;
+
+	bool 	initCondFalse;
+	double icRadWeight;
+	CVector3 xyzC111;
+
 	double orbitTrapWeight;
 	double initialMiniumuR;
 

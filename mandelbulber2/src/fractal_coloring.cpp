@@ -20,6 +20,21 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 	double radDE5000 = 0.0;
 	double rad1000 = 0.0;
+	double colorValue = 0.0;
+
+	if (fractalColoring.initCondFalse)
+	{
+	CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
+
+	double initColorValue = 0.0;
+
+	initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+
+	 xyzC = fabs(xyzC) * fractalColoring.xyzC111;
+	initColorValue += xyzC.x + xyzC.y + xyzC.z;
+
+	colorValue = initColorValue *1000.0;
+	}
 
 	if (fractalColoring.radFalse)
 	{
@@ -67,10 +82,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	{
 
 		//*new hybrid*
-		double inputGeneral = 0.0;
 		if (fractalColoring.extraColorEnabledFalse)
 		{
-			inputGeneral = minR5000 * fractalColoring.orbitTrapWeight					 // orbit trap only
+			colorValue += minR5000 * fractalColoring.orbitTrapWeight					 // orbit trap only
 										 + auxColorValue100 * fractalColoring.auxColorWeight // aux.color
 										 + rad1000 + radDE5000 + addValue										 // all extra inputs
 										 + extendedAux.colorHybrid; // transf_hybrid_color inputs
@@ -81,7 +95,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				int iUse = extendedAux.i - fractalColoring.iStartValue;
 				if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 				if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-				inputGeneral += fractalColoring.iterAddScale * iUse;
+				colorValue += fractalColoring.iterAddScale * iUse;
 			}
 
 			// Iter SCALE,
@@ -93,28 +107,28 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.iInvertEnabledFalse)
 				{
 					if (fractalColoring.iSquaredEnabledFalse)
-						inputGeneral *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
+						colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
 					else
-						inputGeneral *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+						colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
 				}
 				else
 				{
-					inputGeneral *= (iUse * fractalColoring.iterScale) + 1.0;
+					colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 				}
 			}
 			// "pseudo" palette controls
 			if (fractalColoring.cosEnabledFalse)
 			{ // trig palette
 				double trig = 128 * -fractalColoring.cosAdd
-											* (cos(inputGeneral * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
-				inputGeneral += trig;
+											* (cos(colorValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
+				colorValue += trig;
 			}
 			double minCV = fractalColoring.minColorValue;
 			double maxCV = fractalColoring.maxColorValue;
-			if (inputGeneral < minCV) inputGeneral = minCV;
-			if (inputGeneral > maxCV) inputGeneral = maxCV;
+			if (colorValue < minCV) colorValue = minCV;
+			if (colorValue > maxCV) colorValue = maxCV;
 
-			colorIndex = inputGeneral;
+			colorIndex = colorValue;
 		}
 		else
 		{
@@ -164,11 +178,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			case coloringFunctionDefault: colorIndex = minR5000; break;
 
 			case coloringFunctionGeneral:
-				double inputGeneral = 0.0;
 				//					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
 				if (fractalColoring.extraColorEnabledFalse)
 				{
-					inputGeneral = minR5000 * fractalColoring.orbitTrapWeight					 // orbit trap only
+					colorValue += minR5000 * fractalColoring.orbitTrapWeight					 // orbit trap only
 												 + auxColorValue100 * fractalColoring.auxColorWeight // aux.color
 												 + rad1000																					 // radius
 												 + radDE5000																				 // r /DE
@@ -180,7 +193,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						int iUse = extendedAux.i - fractalColoring.iStartValue;
 						if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 						if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-						inputGeneral += fractalColoring.iterAddScale * iUse;
+						colorValue += fractalColoring.iterAddScale * iUse;
 					}
 
 					// Iter SCALE,
@@ -192,32 +205,32 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.iInvertEnabledFalse)
 						{
 							if (fractalColoring.iSquaredEnabledFalse)
-								inputGeneral *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
+								colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
 							else
-								inputGeneral *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+								colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
 						}
 						else
 						{
-							inputGeneral *= (iUse * fractalColoring.iterScale) + 1.0;
+							colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 						}
 					}
 					if (fractalColoring.cosEnabledFalse)
 					{ // trig
-                                                if (inputGeneral > fractalColoring.cosStartValue)
+																								if (colorValue > fractalColoring.cosStartValue)
                                                 {
-                                                    double useValue = inputGeneral;
+																										double useValue = colorValue;
                                                     useValue -= fractalColoring.cosStartValue;
                                                     double trig = 128 * -fractalColoring.cosAdd
                                                         * (cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
-						inputGeneral += trig;
+						colorValue += trig;
                                                 }
 					}
 					double minCV = fractalColoring.minColorValue;
 					double maxCV = fractalColoring.maxColorValue;
-					if (inputGeneral < minCV) inputGeneral = minCV;
-					if (inputGeneral > maxCV) inputGeneral = maxCV;
+					if (colorValue < minCV) colorValue = minCV;
+					if (colorValue > maxCV) colorValue = maxCV;
 
-					colorIndex = inputGeneral;
+					colorIndex = colorValue;
 				}
 				else
 				{

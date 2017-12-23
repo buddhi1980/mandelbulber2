@@ -1283,6 +1283,8 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		double minR2 = fractal->transformCommon.minR2p25;
 		double addR = 0.0;
 		double m = 1.0;
+		oldZ = z;
+
 		// spherical fold with xyz bias option
 		if (fractal->transformCommon.functionEnabledAx)
 		{
@@ -1334,40 +1336,52 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			CVector4 limitMinR2 = fractal->transformCommon.scaleP222;
 
 			double rr = z.Dot(z);
-
 			z += fractal->transformCommon.offset000;
 
-			if (aux.i >= fractal->transformCommon.startIterationsA
-					&& aux.i < fractal->transformCommon.stopIterationsA)
-			{
-				if (fractal->transformCommon.functionEnabledAxFalse)
-					temp3 = z * z;
-				else
-					temp3 = fabs(z);
+			//if (aux.i >= fractal->transformCommon.startIterationsD
+			//		&& aux.i < fractal->transformCommon.stopIterationsD)
+			//{
+			if (fractal->transformCommon.functionEnabledAxFalse)
+				temp3 = z * z;
+			else
+				temp3 = fabs(z);
 
-				if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
-				{ // if inside cuboid
-					R2.x = limitMinR2.x / temp3.x;
-					R2.y = limitMinR2.y / temp3.y;
-					R2.z = limitMinR2.z / temp3.z;
-					double First = min(R2.x, min(R2.y, R2.z));
-					MinR2 = rr * First;
+			if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
+			{ // if inside cuboid
+				R2.x = limitMinR2.x / temp3.x;
+				R2.y = limitMinR2.y / temp3.y;
+				R2.z = limitMinR2.z / temp3.z;
+				double First = min(R2.x, min(R2.y, R2.z));
+				MinR2 = rr * First;
 
-					if (fractal->transformCommon.functionEnabled && MinR2 > fractal->transformCommon.maxR2d1)
-					{ // stop overlapping potential
-						MinR2 = fractal->transformCommon.maxR2d1;
-					}
+			//if (fractal->transformCommon.functionEnabled && MinR2 > fractal->transformCommon.maxR2d1)
 
-					m *= fractal->transformCommon.maxR2d1 / MinR2;
-					aux.color += fractal->mandelbox.color.factorSp1;
+				if (MinR2 > fractal->transformCommon.maxR2d1)
+				{ // stop overlapping potential
+					MinR2 = fractal->transformCommon.maxR2d1;
 				}
-				else if (rr < fractal->transformCommon.maxR2d1)
-				{
-					m *= fractal->transformCommon.maxR2d1 / rr;
-					aux.color += fractal->mandelbox.color.factorSp2;
-				}
+
+				m *= fractal->transformCommon.maxR2d1 / MinR2;
+				aux.color += fractal->mandelbox.color.factorSp1;
 			}
-			else if (rr < MinR2)
+			else if (rr < fractal->transformCommon.maxR2d1)
+			{
+				m *= fractal->transformCommon.maxR2d1 / rr;
+				aux.color += fractal->mandelbox.color.factorSp2;
+			}
+			z -= fractal->transformCommon.offset000;
+			// scale
+			z *= m;
+			aux.DE *= fabs(m);
+		}
+			// if not use standard Mbox sphere fold
+
+		if (z == oldZ)
+		{
+			double MinR2 = fractal->transformCommon.minR2p25;
+			double rr = z.Dot(z);
+			z += fractal->transformCommon.offset000;
+			if (rr < MinR2)
 			{
 				m *= fractal->transformCommon.maxR2d1 / MinR2;
 				aux.color += fractal->mandelbox.color.factorSp1;

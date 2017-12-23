@@ -92,6 +92,9 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
 	"file_normal_map_texture",
 	"fractal_coloring_extra_color_enabled_false",
+
+	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_weight",
+	"fractal_coloring_xyzC_111",
 	"fractal_coloring_orbit_trap_weight", "fractal_coloring_initial_minimumR",
 	"fractal_coloring_aux_color_weight",
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
@@ -173,6 +176,14 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	// trial
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
+
+	fractalColoring.initCondFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_init_cond_enabled_false", id));
+	fractalColoring.icRadWeight =
+		materialParam->Get<double>(Name("fractal_coloring_ic_rad_weight", id));
+	fractalColoring.xyzC111 =
+		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
+
 
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));

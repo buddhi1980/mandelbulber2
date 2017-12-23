@@ -1173,6 +1173,14 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,
 		morphLinear, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_init_cond_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_weight", materialId), 1.0, 0.0, 1e20,
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyzC_111", materialId), CVector3(1.0, 1.0, 1.0),
+		morphNone, paramStandard); // vec4??
+
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, 0.0, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
