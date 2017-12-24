@@ -15,8 +15,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 {
 	double colorIndex = 0.0;
 
-	double minR1000 = minimumR * 1000.0;								 // limited at 100,000 hybrid mode
-	double minR5000 = minimumR * 5000.0;								 // DEFAULT
+	double minR1000 = minimumR * 1000.0;		// limited at 100,000 hybrid mode
+	double minR5000 = minimumR * 5000.0;		// DEFAULT
 	double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
 	double radDE5000 = 0.0;
 	double rad1000 = 0.0;
@@ -33,7 +33,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	 xyzC = fabs(xyzC) * fractalColoring.xyzC111;
 	initColorValue += xyzC.x + xyzC.y + xyzC.z;
 
-	colorValue = initColorValue *1000.0;
+	colorValue = initColorValue * 1000.0;
 	}
 
 	if (fractalColoring.radFalse)
@@ -45,10 +45,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	if (fractalColoring.radDivDeFalse)
 	{
-		radDE5000 = r;
-		if (fractalColoring.radSquaredFalse) radDE5000 = r * r;
+		radDE5000 = r; // r /DE // was named r2
+		if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
 		radDE5000 *= 5000.0 * fractalColoring.radDivDeWeight / fabs(extendedAux.DE);
-		; // r /DE // was named r2
 	}
 
 	double addValue = 0.0;

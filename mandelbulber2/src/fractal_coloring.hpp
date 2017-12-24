@@ -71,9 +71,9 @@ struct sFractalColoring
 		radFalse = false;
 		radWeight = 1.0;
 		radSquaredFalse = false;
-
 		radDivDeFalse = false;
 		radDivDeWeight = 1.0;
+		radDivDeSquaredFalse = false;
 
 		xyzBiasEnabledFalse = false;
 		xyzIterScale = 1.0;
@@ -122,6 +122,7 @@ struct sFractalColoring
 
 	bool radDivDeFalse;
 	double radDivDeWeight;
+	bool radDivDeSquaredFalse;
 
 	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;

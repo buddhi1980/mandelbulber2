@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-162</y>
-        <width>613</width>
-        <height>2364</height>
+        <y>0</y>
+        <width>619</width>
+        <height>2997</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1021,16 +1021,25 @@ sphere radius:</string>
                  </layout>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_3">
-                  <property name="title">
-                   <string>Radius components</string>
+                 <widget class="MyGroupBox" name="groupCheck_fractal_coloring_rad_enabled_false">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_5">
+                  <property name="title">
+                   <string>rad&amp;ius components</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_35" stretch="0,0">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <property name="leftMargin">
                     <number>2</number>
                    </property>
                    <property name="topMargin">
-                    <number>2</number>
+                    <number>6</number>
                    </property>
                    <property name="rightMargin">
                     <number>2</number>
@@ -1046,15 +1055,11 @@ sphere radius:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_3">
-                     <item row="0" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_enabled_false">
-                       <property name="text">
-                        <string notr="true">radius weight:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
+                    <layout class="QGridLayout" name="gridLayout_18" columnstretch="0,0">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
+                     <item row="1" column="1">
                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_weight">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1083,12 +1088,56 @@ sphere radius:</string>
                       </widget>
                      </item>
                      <item row="1" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_enabled_false">
+                      <widget class="QLabel" name="label_52">
                        <property name="text">
-                        <string notr="true">radius / DE weight:</string>
+                        <string>radius  * scale</string>
                        </property>
                       </widget>
                      </item>
+                    </layout>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyGroupBox" name="groupCheck_fractal_coloring_rad_div_de_enabled_false">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="title">
+                   <string>rad&amp;ius / DE components</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>6</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>2</number>
+                   </property>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
+                     <property name="text">
+                      <string notr="true">radius squared</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
                      <item row="1" column="1">
                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_weight">
                        <property name="sizePolicy">
@@ -1114,6 +1163,13 @@ sphere radius:</string>
                        </property>
                        <property name="singleStep">
                         <double>0.100000000000000</double>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_53">
+                       <property name="text">
+                        <string>radius  / DE  * scale</string>
                        </property>
                       </widget>
                      </item>
@@ -3129,14 +3185,14 @@ rotation:</string>
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
@@ -3195,38 +3251,6 @@ rotation:</string>
  </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>checkBox_fractal_coloring_rad_enabled_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_fractal_coloring_rad_weight</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>81</x>
-     <y>-235</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>393</x>
-     <y>-232</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_fractal_coloring_rad_div_de_enabled_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_fractal_coloring_rad_div_de_weight</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>105</x>
-     <y>-211</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>406</x>
-     <y>-209</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>checkBox_fractal_coloring_iter_add_scale_enabled_false</sender>
    <signal>toggled(bool)</signal>

@@ -97,9 +97,11 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_xyzC_111",
 	"fractal_coloring_orbit_trap_weight", "fractal_coloring_initial_minimumR",
 	"fractal_coloring_aux_color_weight",
+
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
 	"fractal_coloring_rad_squared_enabled_false",
 	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_de_weight",
+	"fractal_coloring_rad_div_de_squared_false",
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_iter_scale", "fractal_coloring_c_mode_enabled_false",
@@ -176,7 +178,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	// trial
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
-
+		// Initial Conditions
 	fractalColoring.initCondFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_init_cond_enabled_false", id));
 	fractalColoring.icRadWeight =
@@ -184,26 +186,28 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.xyzC111 =
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
 
-
+		// orbitTrap weight control
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	fractalColoring.initialMiniumuR =
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
-
+		// aux.color
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
 
-	fractalColoring.radFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_rad_enabled_false", id));
-	fractalColoring.radWeight =
-		materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
-	fractalColoring.radSquaredFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
-
-	fractalColoring.radDivDeFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
-	fractalColoring.radDivDeWeight =
-		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
+	// radius functions
+fractalColoring.radFalse =
+	materialParam->Get<bool>(Name("fractal_coloring_rad_enabled_false", id));
+fractalColoring.radWeight =
+	materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
+fractalColoring.radSquaredFalse =
+	materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
+fractalColoring.radDivDeFalse =
+	materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
+fractalColoring.radDivDeWeight =
+	materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
+fractalColoring.radDivDeSquaredFalse =
+	materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_squared_false", id));
 
 	fractalColoring.xyzBiasEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
