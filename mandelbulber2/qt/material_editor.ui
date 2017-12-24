@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-647</y>
         <width>619</width>
-        <height>2997</height>
+        <height>2979</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1189,7 +1189,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1209,13 +1209,6 @@ sphere radius:</string>
                     <widget class="QLabel" name="label_49">
                      <property name="text">
                       <string>(colorValue influenced by scaling coordinates)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_c_mode_enabled_false">
-                     <property name="text">
-                      <string notr="true">c mode test, z replaced by c</string>
                      </property>
                     </widget>
                    </item>
@@ -1398,11 +1391,20 @@ sphere radius:</string>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_4">
-                  <property name="title">
-                   <string>colorValue iteration component</string>
+                 <widget class="MyGroupBox" name="groupCheck_fractal_coloring_iter_group_enabled_false">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <property name="title">
+                   <string>colorValue iteratio&amp;n components</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_37" stretch="0,0,0">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
                    <property name="leftMargin">
                     <number>2</number>
                    </property>
@@ -1430,38 +1432,14 @@ sphere radius:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="label_42">
-                       <property name="text">
-                        <string>start function at iteration:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="0" column="1">
-                      <widget class="MySpinBox" name="spinboxInt_fractal_coloring_i_start_value">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="maximum">
-                        <number>999</number>
-                       </property>
-                      </widget>
-                     </item>
+                    <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,0">
+                     <property name="spacing">
+                      <number>2</number>
+                     </property>
                      <item row="1" column="0">
                       <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_false">
                        <property name="text">
                         <string notr="true">addition weight:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="2" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
-                       <property name="text">
-                        <string notr="true"> scale weight:</string>
                        </property>
                       </widget>
                      </item>
@@ -1493,6 +1471,26 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
+                     <item row="2" column="0">
+                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
+                       <property name="text">
+                        <string notr="true"> scale weight:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="MySpinBox" name="spinboxInt_fractal_coloring_i_start_value">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="maximum">
+                        <number>999</number>
+                       </property>
+                      </widget>
+                     </item>
                      <item row="2" column="1">
                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_iter_scale">
                        <property name="sizePolicy">
@@ -1521,9 +1519,44 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_42">
+                       <property name="text">
+                        <string>start function at iteration:</string>
+                       </property>
+                      </widget>
+                     </item>
                     </layout>
                    </item>
                   </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_5">
+               <property name="title">
+                <string>Final ColorValue Controls</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>(functions that globaly change the palette)</string>
+                  </property>
                  </widget>
                 </item>
                 <item>
@@ -1668,31 +1701,10 @@ sphere radius:</string>
                   </layout>
                  </widget>
                 </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_5">
-               <property name="title">
-                <string>Final ColorValue Controls</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_7">
-                <property name="leftMargin">
-                 <number>2</number>
-                </property>
-                <property name="topMargin">
-                 <number>2</number>
-                </property>
-                <property name="rightMargin">
-                 <number>2</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>2</number>
-                </property>
                 <item>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="label_3">
                   <property name="text">
-                   <string>(functions that change the palette)</string>
+                   <string>TO DO other global palette functions</string>
                   </property>
                  </widget>
                 </item>

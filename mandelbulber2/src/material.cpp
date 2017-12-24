@@ -104,14 +104,15 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_rad_div_de_squared_false",
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
-	"fractal_coloring_xyz_iter_scale", "fractal_coloring_c_mode_enabled_false",
+	"fractal_coloring_xyz_iter_scale",
 	"fractal_coloring_xyz_x_sqrd_enabled_false", "fractal_coloring_xyz_y_sqrd_enabled_false",
 	"fractal_coloring_xyz_z_sqrd_enabled_false",
 
 	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_false",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
  "fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
-	"fractal_coloring_i_start_value",
+	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
+
 	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
 	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
@@ -222,6 +223,9 @@ fractalColoring.radDivDeSquaredFalse =
 	fractalColoring.xyzZsqrdFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_z_sqrd_enabled_false", id));
 
+
+	fractalColoring.iterGroupFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_iter_group_enabled_false", id));
 	fractalColoring.iterScaleFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_iter_scale_enabled_false", id));
 	fractalColoring.iterAddScaleFalse =

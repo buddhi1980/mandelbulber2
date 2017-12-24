@@ -57,15 +57,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	if (fractalColoring.xyzBiasEnabledFalse)
 	{
 		CVector3 xyzAxis = 0;
-		if (fractalColoring.cModeEnabledFalse)
-		{
-			xyzAxis =
-				fabs(CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z)) * fractalColoring.xyz000;
-		}
-		else
-		{
-			xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
-		}
+		xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
+
 		if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
 		if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
 		if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
@@ -87,32 +80,34 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 										 + auxColorValue100 * fractalColoring.auxColorWeight // aux.color
 										 + rad1000 + radDE5000 + addValue										 // all extra inputs
 										 + extendedAux.colorHybrid; // transf_hybrid_color inputs
-
-			// Iter ADD,  this allows the input to be influenced by iteration number
-			if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
+			if (fractalColoring.iterGroupFalse)
 			{
-				int iUse = extendedAux.i - fractalColoring.iStartValue;
-				if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-				if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-				colorValue += fractalColoring.iterAddScale * iUse;
-			}
-
-			// Iter SCALE,
-			if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
-			{
-				int iUse = extendedAux.i - fractalColoring.iStartValue;
-				if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-
-				if (fractalColoring.iInvertEnabledFalse)
+				// Iter ADD,  this allows the input to be influenced by iteration number
+				if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
 				{
-					if (fractalColoring.iSquaredEnabledFalse)
-						colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
-					else
-						colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+					int iUse = extendedAux.i - fractalColoring.iStartValue;
+					if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+					if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+					colorValue += fractalColoring.iterAddScale * iUse;
 				}
-				else
+
+				// Iter SCALE,
+				if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 				{
-					colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
+					int iUse = extendedAux.i - fractalColoring.iStartValue;
+					if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+
+					if (fractalColoring.iInvertEnabledFalse)
+					{
+						if (fractalColoring.iSquaredEnabledFalse)
+							colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
+						else
+							colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+					}
+					else
+					{
+						colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
+					}
 				}
 			}
 			// "pseudo" palette controls
@@ -186,31 +181,34 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 												 + radDE5000																				 // r /DE
 												 + addValue;																				 // all extra inputs
 
-					// Iter ADD,  this allows the input to be influenced by iteration number
-					if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
+					if (fractalColoring.iterGroupFalse)
 					{
-						int iUse = extendedAux.i - fractalColoring.iStartValue;
-						if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-						if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-						colorValue += fractalColoring.iterAddScale * iUse;
-					}
-
-					// Iter SCALE,
-					if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
-					{
-						int iUse = extendedAux.i - fractalColoring.iStartValue;
-						if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-
-						if (fractalColoring.iInvertEnabledFalse)
+						// Iter ADD,  this allows the input to be influenced by iteration number
+						if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
 						{
-							if (fractalColoring.iSquaredEnabledFalse)
-								colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
-							else
-								colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+							int iUse = extendedAux.i - fractalColoring.iStartValue;
+							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+							if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+							colorValue += fractalColoring.iterAddScale * iUse;
 						}
-						else
+
+						// Iter SCALE,
+						if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 						{
-							colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
+							int iUse = extendedAux.i - fractalColoring.iStartValue;
+							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+
+							if (fractalColoring.iInvertEnabledFalse)
+							{
+								if (fractalColoring.iSquaredEnabledFalse)
+									colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
+								else
+									colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+							}
+							else
+							{
+								colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
+							}
 						}
 					}
 					if (fractalColoring.cosEnabledFalse)
