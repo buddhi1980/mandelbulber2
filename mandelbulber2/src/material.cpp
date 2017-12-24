@@ -113,6 +113,9 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
  "fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
 	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
 
+	"fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
+	"fractal_coloring_add_spread", "fractal_coloring_add_start_value",
+
 	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
 	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
@@ -242,6 +245,15 @@ fractalColoring.radDivDeSquaredFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_i_invert_enabled_false", id));
 
 	// global palette controls
+	fractalColoring.addEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_add_enabled_false", id));
+	fractalColoring.addMax =
+		materialParam->Get<double>(Name("fractal_coloring_add_max", id));
+	fractalColoring.addSpread =
+		materialParam->Get<double>(Name("fractal_coloring_add_spread", id));
+	fractalColoring.addStartValue =
+		materialParam->Get<double>(Name("fractal_coloring_add_start_value", id));
+
 	fractalColoring.cosEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_cos_enabled_false", id));
 	fractalColoring.cosPeriod =

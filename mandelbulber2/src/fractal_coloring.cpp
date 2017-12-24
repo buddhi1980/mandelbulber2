@@ -111,12 +111,25 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				}
 			}
 			// "pseudo" palette controls
+
+			if (fractalColoring.addEnabledFalse)
+			{
+				if (colorValue > fractalColoring.addStartValue)
+				{
+					colorValue +=  (1.0 - 1.0 / (1.0 + (colorValue - fractalColoring.addStartValue)
+					/ fractalColoring.addSpread)) * fractalColoring.addMax;
+				}
+			}
+			// (1-1/(1+($C73-F$56)/F$54))*F$55
+
+
 			if (fractalColoring.cosEnabledFalse)
 			{ // trig palette
 				double trig = 128 * -fractalColoring.cosAdd
 											* (cos(colorValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
 				colorValue += trig;
 			}
+
 			double minCV = fractalColoring.minColorValue;
 			double maxCV = fractalColoring.maxColorValue;
 			if (colorValue < minCV) colorValue = minCV;
@@ -211,16 +224,27 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 							}
 						}
 					}
+					if (fractalColoring.addEnabledFalse)
+					{
+						if (colorValue > fractalColoring.addStartValue)
+						{
+							colorValue +=  (1.0 - 1.0 / (1.0 + (colorValue - fractalColoring.addStartValue)
+							/ fractalColoring.addSpread)) * fractalColoring.addMax;
+						}
+					}
+
+
+
 					if (fractalColoring.cosEnabledFalse)
 					{ // trig
-																								if (colorValue > fractalColoring.cosStartValue)
-                                                {
-																										double useValue = colorValue;
-                                                    useValue -= fractalColoring.cosStartValue;
-                                                    double trig = 128 * -fractalColoring.cosAdd
-                                                        * (cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
-						colorValue += trig;
-                                                }
+						if (colorValue > fractalColoring.cosStartValue)
+						{
+							double useValue = colorValue;
+							useValue -= fractalColoring.cosStartValue;
+							double trig = 128 * -fractalColoring.cosAdd
+								* (cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
+							colorValue += trig;
+						}
 					}
 					double minCV = fractalColoring.minColorValue;
 					double maxCV = fractalColoring.maxColorValue;

@@ -92,6 +92,11 @@ struct sFractalColoring
 		iInvertEnabledFalse = false;
 
 		// global palette controls
+		addEnabledFalse = false;
+		addMax = 100.0;
+		addSpread = 100.0;
+		addStartValue = 0.0;
+
 		cosEnabledFalse = false;
 		cosPeriod = 1.0; // TODO calibrate
 		cosAdd = 1.0;		 // TODO calibrate
@@ -142,6 +147,11 @@ struct sFractalColoring
 	bool iInvertEnabledFalse;
 
 	// global palette controls
+	bool addEnabledFalse;
+	double addMax;
+	double addSpread;
+	double addStartValue;
+
 	bool cosEnabledFalse;
 	double cosPeriod;
 	double cosAdd;
