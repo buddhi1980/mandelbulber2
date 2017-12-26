@@ -258,7 +258,7 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		CVector3 viewVectorNorm = input.viewVector;
 		viewVectorNorm.Normalize();
 		double grad = viewVectorNorm.Dot(vector) + 1.0;
-		sRGB16 pixel;
+		sRGBFloat pixel;
 		if (grad < 1)
 		{
 			double gradN = 1.0 - grad;
@@ -274,6 +274,10 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 			pixel.G = quint16(params->background_color2.G * gradN + params->background_color1.G * grad);
 			pixel.B = quint16(params->background_color2.B * gradN + params->background_color1.B * grad);
 		}
+
+		pixel.R *= params->background_brightness;
+		pixel.G *= params->background_brightness;
+		pixel.B *= params->background_brightness;
 
 		pixel2.R = pixel.R / 65536.0f;
 		pixel2.G = pixel.G / 65536.0f;
