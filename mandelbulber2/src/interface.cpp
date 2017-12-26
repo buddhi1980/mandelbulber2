@@ -262,7 +262,8 @@ void cInterface::ShowUi()
 		gPar->Get<bool>("opencl_enabled"));
 #endif
 
-	ColorizeGroupboxes(mainWindow);
+	if (gPar->Get<bool>("ui_colorize"))
+		ColorizeGroupboxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
 
 	renderedImage->show();
 
@@ -1670,6 +1671,12 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		mainWindow->automatedWidgets->ConnectSignalsForSlidersInWindow(mainWidget);
 		SynchronizeInterfaceWindow(mainWidget, gPar, qInterface::write);
 
+		if (gPar->Get<bool>("ui_colorize"))
+		{
+			cInterface::ColorizeGroupboxes(
+				groupBox, gPar->Get<int>("ui_colorize_random_seed") + Random(65535));
+		}
+
 		ComboMouseClickUpdate();
 	}
 	else
@@ -2182,6 +2189,10 @@ void cInterface::InitPeriodicRefresh()
 void cInterface::InitMaterialsUi()
 {
 	materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
+
+	if (gPar->Get<bool>("ui_colorize"))
+		materialEditor->Colorize(gPar->Get<int>("ui_colorize_random_seed"));
+
 	mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
 
 	materialListModel = new cMaterialItemModel(mainWindow->ui->scrollArea_material);
@@ -2214,6 +2225,10 @@ void cInterface::MaterialSelected(int matIndex)
 	{
 		delete materialEditor;
 		materialEditor = new cMaterialEditor(mainWindow->ui->scrollArea_material);
+
+		if (gPar->Get<bool>("ui_colorize"))
+			materialEditor->Colorize(gPar->Get<int>("ui_colorize_random_seed"));
+
 		mainWindow->ui->verticalLayout_materials->addWidget(materialEditor);
 		materialEditor->AssignMaterial(gPar, matIndex);
 		connect(materialEditor, SIGNAL(materialChanged(int)), materialListModel,
@@ -2322,10 +2337,11 @@ void cInterface::CameraMovementModeChanged(int index)
 	renderedImage->SetCameraMovementMode(index);
 }
 
-void cInterface::ColorizeGroupboxes(QWidget *window)
+void cInterface::ColorizeGroupboxes(QWidget *window, int randomSeed)
 {
 	QList<QGroupBox *> widgets;
 	widgets = window->findChildren<QGroupBox *>();
+	widgets.append(static_cast<QGroupBox *>(window));
 	QPalette palette = window->palette();
 	QColor globalColor = palette.background().color();
 	int brightness = globalColor.value();
@@ -2335,7 +2351,7 @@ void cInterface::ColorizeGroupboxes(QWidget *window)
 	int bBase = globalColor.blue();
 
 	cRandom random;
-	random.Initialize(1234);
+	random.Initialize(randomSeed);
 
 	foreach (QGroupBox *groupbox, widgets)
 	{

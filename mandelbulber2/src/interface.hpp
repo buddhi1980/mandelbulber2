@@ -109,7 +109,7 @@ public:
 	void DisableJuliaPointMode() const;
 	void DetachMainImageWidget();
 	void AttachMainImageWidget();
-	static void ColorizeGroupboxes(QWidget *window);
+	static void ColorizeGroupboxes(QWidget *window, int randomSeed);
 
 	bool QuitApplicationDialog();
 

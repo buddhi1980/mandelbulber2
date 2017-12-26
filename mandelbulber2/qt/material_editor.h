@@ -56,6 +56,7 @@ public:
 	explicit cMaterialEditor(QWidget *parent = nullptr);
 	~cMaterialEditor();
 	void AssignMaterial(cParameterContainer *params, int index);
+	void Colorize(int randomSeed);
 
 private slots:
 	void slotPressedButtonNewRandomPalette() const;

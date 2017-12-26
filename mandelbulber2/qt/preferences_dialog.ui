@@ -193,24 +193,17 @@
                <number>2</number>
               </property>
               <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>To apply changes of these settings you need to restart the application</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <layout class="QGridLayout" name="gridLayout_system_look_and_feel">
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_11">
-                  <property name="text">
-                   <string>Language</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="comboboxLanguage">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_6">
                   <property name="text">
@@ -220,6 +213,13 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="QComboBox" name="comboBox_ui_style_type"/>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Language</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_4">
@@ -279,6 +279,19 @@
                   </property>
                  </widget>
                 </item>
+                <item row="4" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
+                  <property name="minimum">
+                   <number>20</number>
+                  </property>
+                  <property name="maximum">
+                   <number>400</number>
+                  </property>
+                  <property name="value">
+                   <number>40</number>
+                  </property>
+                 </widget>
+                </item>
                 <item row="3" column="1">
                  <widget class="MySpinBox" name="spinboxInt_ui_font_size">
                   <property name="minimum">
@@ -296,17 +309,59 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="MySpinBox" name="spinboxInt_toolbar_icon_size">
-                  <property name="minimum">
-                   <number>20</number>
+                <item row="0" column="1">
+                 <widget class="QComboBox" name="comboboxLanguage">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                  <property name="maximum">
-                   <number>400</number>
+                 </widget>
+                </item>
+                <item row="5" column="0" colspan="2">
+                 <widget class="MyGroupBox" name="groupCheck_ui_colorize">
+                  <property name="title">
+                   <string>Colorize group&amp;Boxes</string>
                   </property>
-                  <property name="value">
-                   <number>40</number>
+                  <property name="checkable">
+                   <bool>true</bool>
                   </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_2">
+                   <property name="leftMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>2</number>
+                   </property>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_3">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_16">
+                       <property name="text">
+                        <string>Seed for random colors</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="MySpinBox" name="spinboxInt_ui_colorize_random_seed">
+                       <property name="minimum">
+                        <number>0</number>
+                       </property>
+                       <property name="maximum">
+                        <number>65535</number>
+                       </property>
+                       <property name="value">
+                        <number>0</number>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                </layout>
@@ -530,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>323</width>
-            <height>352</height>
+            <width>546</width>
+            <height>628</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1181,9 +1236,10 @@ and will only be present after enabling and re-render.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MyDoubleSpinBox</class>
@@ -1196,10 +1252,9 @@ and will only be present after enabling and re-render.</string>
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -45,6 +45,7 @@
 #include "src/error_message.hpp"
 #include "src/fractal_container.hpp"
 #include "src/fractal_list.hpp"
+#include "src/initparameters.hpp"
 #include "src/interface.hpp"
 #include "src/my_ui_loader.h"
 #include "src/render_window.hpp"
@@ -155,7 +156,8 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			layout->addWidget(fractalWidget);
 			uiFile.close();
 
-			cInterface::ColorizeGroupboxes(fractalWidget);
+			if (gPar->Get<bool>("ui_colorize"))
+				cInterface::ColorizeGroupboxes(fractalWidget, gPar->Get<int>("ui_colorize_random_seed"));
 
 			fractalWidget->show();
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget);

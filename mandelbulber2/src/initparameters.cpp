@@ -471,6 +471,9 @@ void InitParams(cParameterContainer *par)
 	par->addParam("ui_font_size", systemData.GetPreferredFontPointSize(), 5, 50, morphNone, paramApp);
 	par->addParam(
 		"toolbar_icon_size", systemData.GetPreferredThumbnailSize() / 2, 20, 400, morphNone, paramApp);
+	par->addParam("ui_colorize", true, morphNone, paramApp);
+	par->addParam("ui_colorize_random_seed", 12345, morphNone, paramApp);
+
 	par->addParam("limit_CPU_cores", get_cpu_count(), 1, get_cpu_count(), morphNone, paramApp);
 
 	// image file configuration

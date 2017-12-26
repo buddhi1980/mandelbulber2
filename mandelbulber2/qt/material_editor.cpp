@@ -60,8 +60,6 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
 	ConnectSignals();
-
-	cInterface::ColorizeGroupboxes(this);
 }
 
 cMaterialEditor::~cMaterialEditor()
@@ -210,4 +208,9 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 		ui->colorpalette_surface_color_palette->SetPalette(palette);
 		systemData.lastImagePaletteFile = filename;
 	}
+}
+
+void cMaterialEditor::Colorize(int randomSeed)
+{
+	cInterface::ColorizeGroupboxes(this, randomSeed);
 }
