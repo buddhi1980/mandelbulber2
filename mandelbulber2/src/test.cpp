@@ -411,3 +411,88 @@ void Test::renderSimple() const
 	delete testParFractal;
 	delete testPar;
 }
+
+
+void Test::testImageSaveWrapper() const
+{
+	if (IsBenchmarking())
+	{
+		QBENCHMARK_ONCE { renderImageSave(); }
+	}
+	else
+	{
+		renderImageSave();
+	}
+}
+
+
+void Test::renderImageSave() const
+{
+	// this renders an example file in an "usual" resolution of 100x100 px
+	// and benchmarks the runtime, then saves each image type
+	const QString simpleExampleFileName =
+		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
+														 + QDir::separator() + "mandelbox001.fract");
+
+	cParameterContainer *testPar = new cParameterContainer;
+	cFractalContainer *testParFractal = new cFractalContainer;
+	cAnimationFrames *testAnimFrames = new cAnimationFrames;
+	cKeyframes *testKeyframes = new cKeyframes;
+
+	testPar->SetContainerName("main");
+	InitParams(testPar);
+	/****************** TEMPORARY CODE FOR MATERIALS *******************/
+
+	InitMaterialParams(1, testPar);
+
+	/*******************************************************************/
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		testParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
+		InitFractalParams(&testParFractal->at(i));
+	}
+	bool stopRequest = false;
+	cImage *image = new cImage(testPar->Get<int>("image_width"), testPar->Get<int>("image_height"));
+	cRenderingConfiguration config;
+	config.DisableRefresh();
+	config.DisableProgressiveRender();
+
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	parSettings.LoadFromFile(simpleExampleFileName);
+	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
+	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
+	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+	renderJob->Init(cRenderJob::still, config);
+
+	if (IsBenchmarking())
+		renderJob->Execute();
+	else
+		QVERIFY2(renderJob->Execute(), "example render failed.");
+
+	QList<ImageFileSave::enumImageFileType> fileTypes = {ImageFileSave::IMAGE_FILE_TYPE_PNG,
+																											 ImageFileSave::IMAGE_FILE_TYPE_JPG};
+#ifdef USE_TIFF
+		fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_TIFF);
+#endif /* USE_TIFF */
+#ifdef USE_EXR
+		fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_EXR);
+#endif /* USE_EXR */
+
+	// TODO: also add tests for each image channel combined with quality
+	for(int f = 0; f < fileTypes.size(); f++)
+	{
+		ImageFileSave::enumImageFileType fileType = fileTypes.at(f);
+		QString filename = testFolder() + QDir::separator() + "output";
+		SaveImage(filename, fileType, image, nullptr);
+	}
+	delete renderJob;
+	delete image;
+	delete testKeyframes;
+	delete testAnimFrames;
+	delete testParFractal;
+	delete testPar;
+}
+
+
