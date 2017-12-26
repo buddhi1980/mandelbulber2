@@ -27,13 +27,14 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
 
 	double initColorValue = 0.0;
-
-	initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
-
-	 xyzC = fabs(xyzC) * fractalColoring.xyzC111;
-	initColorValue += xyzC.x + xyzC.y + xyzC.z;
-
-	colorValue = initColorValue * 1000.0;
+	if (fractalColoring.icRadFalse)
+		initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+	if (fractalColoring.icXYZFalse)
+	{
+		xyzC = fabs(xyzC) * fractalColoring.xyzC111;
+		initColorValue += xyzC.x + xyzC.y + xyzC.z;
+	}
+	colorValue = initColorValue * 256.0;
 	}
 
 	if (fractalColoring.radFalse)
@@ -113,21 +114,31 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			// "pseudo" palette controls
 
 			if (fractalColoring.addEnabledFalse)
-			{
+			{ // add curve inv
 				if (colorValue > fractalColoring.addStartValue)
 				{
 					colorValue +=  (1.0 - 1.0 / (1.0 + (colorValue - fractalColoring.addStartValue)
 					/ fractalColoring.addSpread)) * fractalColoring.addMax;
 				}
 			}
-			// (1-1/(1+($C73-F$56)/F$54))*F$55
+			// =IF(C62>H$56,(1-(COS((C62-H$56)*PI()/128/H$55)))*H$54*0.5,0)
 
 
 			if (fractalColoring.cosEnabledFalse)
 			{ // trig palette
-				double trig = 128 * -fractalColoring.cosAdd
-											* (cos(colorValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
-				colorValue += trig;
+					if (colorValue > fractalColoring.cosStartValue)
+					{
+						double trig = (1.0 - cos((colorValue - fractalColoring.cosStartValue)
+						 * M_PI / 128.0 / (fractalColoring.cosPeriod)))
+							* 128.0 * fractalColoring.cosAdd;
+						colorValue += trig;
+					}
+			}
+
+			if (fractalColoring.roundEnabledFalse)
+			{
+				colorValue /= fractalColoring.roundScale;
+				colorValue = round(colorValue) * fractalColoring.roundScale;
 			}
 
 			double minCV = fractalColoring.minColorValue;
@@ -224,7 +235,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 							}
 						}
 					}
-					if (fractalColoring.addEnabledFalse)
+
+					if (fractalColoring.addEnabledFalse) // add curve
 					{
 						if (colorValue > fractalColoring.addStartValue)
 						{
@@ -233,16 +245,14 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						}
 					}
 
-
-
-					if (fractalColoring.cosEnabledFalse)
-					{ // trig
+					if (fractalColoring.cosEnabledFalse) // trig
+					{
 						if (colorValue > fractalColoring.cosStartValue)
 						{
 							double useValue = colorValue;
 							useValue -= fractalColoring.cosStartValue;
-							double trig = 128 * -fractalColoring.cosAdd
-								* (cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod) - 1.0);
+							double trig = (1.0 - cos(useValue * 2.0 * M_PI / fractalColoring.cosPeriod))
+								*	128 * fractalColoring.cosAdd;
 							colorValue += trig;
 						}
 					}

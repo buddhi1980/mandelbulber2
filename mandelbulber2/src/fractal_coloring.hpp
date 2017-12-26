@@ -61,6 +61,8 @@ struct sFractalColoring
 		extraColorEnabledFalse = false;
 
 		initCondFalse = false;
+		icRadFalse = false;
+		icXYZFalse = false;
 		icRadWeight = 1.0;
 
 		orbitTrapWeight = 1.0;
@@ -102,6 +104,9 @@ struct sFractalColoring
 		cosAdd = 1.0;		 // TODO calibrate
 		cosStartValue = 0.0;
 
+		roundEnabledFalse = false;
+		roundScale = 1.0;
+
 		maxColorValue = 100000.0;
 		minColorValue = 0.0;
 	}
@@ -114,6 +119,8 @@ struct sFractalColoring
 	bool extraColorEnabledFalse;
 
 	bool 	initCondFalse;
+	bool icRadFalse = false;
+	bool icXYZFalse = false;
 	double icRadWeight;
 	CVector3 xyzC111;
 
@@ -156,6 +163,10 @@ struct sFractalColoring
 	double cosPeriod;
 	double cosAdd;
 	double cosStartValue;
+
+	bool roundEnabledFalse;
+	double roundScale;
+
 	double maxColorValue;
 	double minColorValue;
 };

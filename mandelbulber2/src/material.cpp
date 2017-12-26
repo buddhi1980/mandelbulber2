@@ -93,8 +93,10 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"file_normal_map_texture",
 	"fractal_coloring_extra_color_enabled_false",
 
-	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_weight",
+	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
+	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
 	"fractal_coloring_xyzC_111",
+
 	"fractal_coloring_orbit_trap_weight", "fractal_coloring_initial_minimumR",
 	"fractal_coloring_aux_color_weight",
 
@@ -118,6 +120,9 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 
 	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
 	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
+
+	"fractal_coloring_round_enabled_false", "fractal_coloring_round_scale",
+
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
 	};
 
@@ -185,6 +190,10 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		// Initial Conditions
 	fractalColoring.initCondFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_init_cond_enabled_false", id));
+	fractalColoring.icRadFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_ic_rad_enabled_false", id));
+	fractalColoring.icXYZFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_ic_xyz_enabled_false", id));
 	fractalColoring.icRadWeight =
 		materialParam->Get<double>(Name("fractal_coloring_ic_rad_weight", id));
 	fractalColoring.xyzC111 =
@@ -262,6 +271,12 @@ fractalColoring.radDivDeSquaredFalse =
 		materialParam->Get<double>(Name("fractal_coloring_cos_add", id));
 	fractalColoring.cosStartValue =
 		materialParam->Get<double>(Name("fractal_coloring_cos_start_value", id));
+
+	fractalColoring.roundEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_round_enabled_false", id));
+	fractalColoring.roundScale =
+		materialParam->Get<double>(Name("fractal_coloring_round_scale", id));
+
 	fractalColoring.maxColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_max_color_value", id));
 	fractalColoring.minColorValue =
