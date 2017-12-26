@@ -68,23 +68,16 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="5">
-         <spacer name="horizontalSpacer_35">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="1" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_247">
-          <property name="text">
-           <string>Stop T1 at iteration:</string>
+          <property name="maximum">
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -101,23 +94,17 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_246">
           <property name="text">
            <string>Start T1 at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_247">
+          <property name="text">
+           <string>Stop T1 at iteration:</string>
           </property>
          </widget>
         </item>
@@ -477,19 +464,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="5">
-         <spacer name="horizontalSpacer_36">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
         <item row="1" column="2">
          <widget class="QLabel" name="label_248">
           <property name="text">
@@ -510,7 +484,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="6">
+        <item row="1" column="5">
          <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
            <string>alternate swap</string>
@@ -779,449 +753,458 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_8">
-     <property name="text">
-      <string>Try both Linear and Logarithmic DelatDE distance estimation functions, to find which works best.</string>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Slot, Mag Transform Type and Iteration controls for additional transforms</string>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Try both Linear and Logarithmic DelatDE distance estimation functions,
+to find which works best with selected transforms</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_75">
+        <property name="topMargin">
+         <number>5</number>
+        </property>
+        <item row="4" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">T1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T1mod</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T5b</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_5">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">T1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T1mod</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T5b</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="4">
+         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_4">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">T1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T1mod</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T5b</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_2">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">T1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T1mod</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T5b</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+          <property name="text">
+           <string>Slot 4</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_1">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <item>
+           <property name="text">
+            <string notr="true">T1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T1mod</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">T5b</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="text">
+           <string>Transform:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="6">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+          <property name="text">
+           <string>Slot 3</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
+          <property name="text">
+           <string>Slot 5</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+          <property name="text">
+           <string>Slot 2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="5">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>250</number>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>Start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Enable slot sequence:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+          <property name="text">
+           <string>Slot 1</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_75">
-     <property name="topMargin">
-      <number>5</number>
-     </property>
-     <item row="5" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_3">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">T1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T1mod</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T5b</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="5">
-      <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_5">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">T1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T1mod</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T5b</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="4">
-      <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_4">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">T1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T1mod</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T5b</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_2">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">T1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T1mod</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T5b</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="1" column="4">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
-       <property name="text">
-        <string>Slot 4</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_1">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <item>
-        <property name="text">
-         <string notr="true">T1</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T1mod</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T2</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T3</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T4</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string notr="true">T5b</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_10">
-       <property name="text">
-        <string>Transform:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0" colspan="6">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
-       <property name="text">
-        <string>Slot 3</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
-       <property name="text">
-        <string>Slot 5</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
-       <property name="text">
-        <string>Slot 2</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_14">
-       <property name="text">
-        <string>Stop at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="4">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="5">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="3">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="4">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="5">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>250</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>Start at iteration:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Enable slot sequence:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
-       <property name="text">
-        <string>Slot 1</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="6">
-      <widget class="QLabel" name="label_5">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Slot, Mag Transform Type and Iteration controls for additional transforms</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="Line" name="line_4">
@@ -1244,7 +1227,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_68">
+    <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,1,1,1">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -1385,6 +1368,9 @@
        <property name="text">
         <string notr="true">T1</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="9" column="3">
@@ -1451,6 +1437,9 @@
        <property name="text">
         <string notr="true">T5b</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="15" column="1">
@@ -1460,6 +1449,9 @@
       <widget class="QLabel" name="label_279">
        <property name="text">
         <string notr="true">T5b</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -1580,12 +1572,18 @@
        <property name="text">
         <string notr="true">T1mod</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="11" column="0">
       <widget class="QLabel" name="label_289">
        <property name="text">
         <string notr="true">T3</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -1764,6 +1762,9 @@
        <property name="text">
         <string notr="true">T5b</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="12" column="3">
@@ -1798,6 +1799,9 @@
       <widget class="QLabel" name="label_282">
        <property name="text">
         <string notr="true">T2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -1948,6 +1952,9 @@
        <property name="text">
         <string notr="true">T4</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="13" column="3">
@@ -2021,6 +2028,9 @@
        <property name="text">
         <string notr="true">T2</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="8" column="1">
@@ -2083,6 +2093,9 @@
       <widget class="QLabel" name="label_280">
        <property name="text">
         <string notr="true">T1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -2222,6 +2235,9 @@
       <widget class="QLabel" name="label_274">
        <property name="text">
         <string notr="true">T1mod</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -2411,12 +2427,18 @@
        <property name="text">
         <string notr="true">T3</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
       </widget>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_277">
        <property name="text">
         <string notr="true">T4</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
@@ -2564,6 +2586,9 @@
       <widget class="QLabel" name="label_292">
        <property name="text">
         <string notr="true">T5b</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
