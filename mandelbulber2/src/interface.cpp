@@ -941,6 +941,7 @@ void cInterface::RefreshMainImage()
 		imageAdjustments.brightness = gPar->Get<double>("brightness");
 		imageAdjustments.contrast = gPar->Get<double>("contrast");
 		imageAdjustments.imageGamma = gPar->Get<double>("gamma");
+		imageAdjustments.saturation = gPar->Get<double>("saturation");
 		imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
 
 		mainImage->SetImageParameters(imageAdjustments);

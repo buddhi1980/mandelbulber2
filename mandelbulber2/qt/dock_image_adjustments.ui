@@ -677,24 +677,10 @@ no ambient occlusion)</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0" columnstretch="0,1">
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_45">
-          <property name="text">
-           <string>Contrast:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_4">
-          <property name="text">
-           <string>Gamma:</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_contrast">
           <property name="sizePolicy">
@@ -720,13 +706,6 @@ no ambient occlusion)</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Brightness:</string>
           </property>
          </widget>
         </item>
@@ -768,6 +747,62 @@ no ambient occlusion)</string>
           </property>
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="maximum">
+           <double>1000.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Gamma:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Brightness:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_45">
+          <property name="text">
+           <string>Contrast:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_46">
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_saturation">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <property name="prefix">
            <string/>
@@ -951,16 +986,6 @@ no ambient occlusion)</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
@@ -969,6 +994,16 @@ no ambient occlusion)</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
    <class>MyGroupBox</class>

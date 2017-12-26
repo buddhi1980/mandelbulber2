@@ -232,6 +232,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("contrast", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("gamma", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("hdr", false, morphLinear, paramStandard);
+	par->addParam("saturation", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_quality", 4, 1, 10, morphLinear, paramStandard);
 	par->addParam("ambient_occlusion_fast_tune", 1.0, 1e-5, 1e5, morphLinear, paramStandard);
@@ -709,21 +710,21 @@ void InitFractalParams(cParameterContainer *par)
 
 	par->addParam("fold_color_limit_min0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_limit_max9999", 9999.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_factor_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	//par->addParam("fold_color_factorMinR0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_factorMaxR0", 0.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_factor_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	// par->addParam("fold_color_factorMinR0", 0.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_factorMaxR0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_comp_fold", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_comp_fold0", 0.0, morphAkima, paramStandard);
 
-	//par->addParam("fold_color_extra_mode_enabled_false", false, morphLinear, paramStandard);
+	// par->addParam("fold_color_extra_mode_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_de_color_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_radius_color_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_old_hybrid_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_xyz_color_enabled_false", false, morphLinear, paramStandard);
+	// par->addParam("fold_color_old_hybrid_enabled_false", false, morphLinear, paramStandard);
+	// par->addParam("fold_color_xyz_color_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_color_min", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_temp1_enabled_false", false, morphLinear, paramStandard); // temp
+	// par->addParam("fold_color_temp1_enabled_false", false, morphLinear, paramStandard); // temp
 	par->addParam("fold_color_comp_radius0", 0.0, morphAkima, paramStandard);
 
 	par->addParam("fold_color_comp_minR", 1.0, morphAkima, paramStandard);
@@ -734,7 +735,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_old_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_old_scale1", 1.0, morphAkima, paramStandard);
 
-	//par->addParam("fold_color_xyz_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	// par->addParam("fold_color_xyz_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 	par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
@@ -748,14 +749,14 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_scaleA1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleC1", 1.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_period1", 1.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_trig_add1", 1.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_period1", 1.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_trig_add1", 1.0, morphAkima, paramStandard);
 
 	par->addParam("fold_color_int_Ax0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Ay0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_parab_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_cos_enabled_false", false, morphLinear, paramStandard);
+	// par->addParam("fold_color_cos_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_distance_enabled_false", false, morphLinear, paramStandard);
 
 	// common parameters for transforming formulas
@@ -1262,10 +1263,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, 1e-20, 1e20,
 		morphNone, paramStandard);
-
-
-
-
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(

@@ -112,6 +112,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	imageAdjustments.contrast = container->Get<double>("contrast");
 	imageAdjustments.hdrEnabled = container->Get<bool>("hdr");
 	imageAdjustments.imageGamma = container->Get<double>("gamma");
+	imageAdjustments.saturation = container->Get<double>("saturation");
 	imageHeight = container->Get<int>("image_height");
 	imageWidth = container->Get<int>("image_width");
 	interiorMode = container->Get<bool>("interior_mode");

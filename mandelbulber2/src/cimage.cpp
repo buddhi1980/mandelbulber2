@@ -38,6 +38,7 @@
 
 #include <QtCore>
 
+#include "common_math.h"
 cImage::cImage(int w, int h, bool _allocLater)
 {
 	isAllocated = false;
@@ -238,9 +239,6 @@ sRGB16 cImage::CalculatePixel(sRGBFloat pixel)
 	if (G < 0.0f) G = 0.0f;
 	if (B < 0.0f) B = 0.0f;
 
-	// R = sqrt(tanh(R*R));
-	// G = sqrt(tanh(G*G));
-	// B = sqrt(tanh(B*B));
 	if (adj.hdrEnabled)
 	{
 		R = tanhf(R);
@@ -248,9 +246,18 @@ sRGB16 cImage::CalculatePixel(sRGBFloat pixel)
 		B = tanhf(B);
 	}
 
-	if (R > 1.0f) R = 1.0f;
-	if (G > 1.0f) G = 1.0f;
-	if (B > 1.0f) B = 1.0f;
+	// saturation
+	float const rFactor = 0.299f;
+	float const gFactor = .587f;
+	float const bFactor = .114f;
+	double V = sqrt(R * R * rFactor + G * G * gFactor + B * B * bFactor);
+	R = V + (R - V) * adj.saturation;
+	G = V + (G - V) * adj.saturation;
+	B = V + (B - V) * adj.saturation;
+
+	R = clamp(R, 0.0f, 1.0f);
+	G = clamp(G, 0.0f, 1.0f);
+	B = clamp(B, 0.0f, 1.0f);
 
 	sRGB16 newPixel16;
 
