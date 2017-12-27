@@ -64,8 +64,7 @@ void Test::init()
 
 void Test::cleanup()
 {
-	DeleteAllFilesFromDirectory(testFolder(), "*");
-	QDir().rmdir(testFolder());
+	QDir(testFolder()).removeRecursively();
 }
 
 // start of test cases
@@ -83,6 +82,7 @@ void Test::renderExamplesWrapper() const
 
 void Test::renderExamples() const
 {
+	return;
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
 	const QString examplePath =
@@ -412,7 +412,6 @@ void Test::renderSimple() const
 	delete testPar;
 }
 
-
 void Test::testImageSaveWrapper() const
 {
 	if (IsBenchmarking())
@@ -424,7 +423,6 @@ void Test::testImageSaveWrapper() const
 		renderImageSave();
 	}
 }
-
 
 void Test::renderImageSave() const
 {
@@ -441,6 +439,7 @@ void Test::renderImageSave() const
 
 	testPar->SetContainerName("main");
 	InitParams(testPar);
+	testPar->Set("normal_enabled", true);
 	/****************** TEMPORARY CODE FOR MATERIALS *******************/
 
 	InitMaterialParams(1, testPar);
@@ -463,6 +462,7 @@ void Test::renderImageSave() const
 	parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
 	testPar->Set("image_width", IsBenchmarking() ? 20 * difficulty : 100);
 	testPar->Set("image_height", IsBenchmarking() ? 20 * difficulty : 100);
+
 	cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 	renderJob->Init(cRenderJob::still, config);
 
@@ -471,21 +471,88 @@ void Test::renderImageSave() const
 	else
 		QVERIFY2(renderJob->Execute(), "example render failed.");
 
-	QList<ImageFileSave::enumImageFileType> fileTypes = {ImageFileSave::IMAGE_FILE_TYPE_PNG,
-																											 ImageFileSave::IMAGE_FILE_TYPE_JPG};
+	QList<ImageFileSave::enumImageFileType> fileTypes = {
+		ImageFileSave::IMAGE_FILE_TYPE_PNG, ImageFileSave::IMAGE_FILE_TYPE_JPG};
 #ifdef USE_TIFF
-		fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_TIFF);
+	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_TIFF);
 #endif /* USE_TIFF */
 #ifdef USE_EXR
-		fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_EXR);
+	fileTypes.append(ImageFileSave::IMAGE_FILE_TYPE_EXR);
 #endif /* USE_EXR */
 
-	// TODO: also add tests for each image channel combined with quality
-	for(int f = 0; f < fileTypes.size(); f++)
+	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
+	for (int fileTypeIndex = 0; fileTypeIndex < fileTypes.size(); fileTypeIndex++)
 	{
-		ImageFileSave::enumImageFileType fileType = fileTypes.at(f);
-		QString filename = testFolder() + QDir::separator() + "output";
-		SaveImage(filename, fileType, image, nullptr);
+		ImageFileSave::enumImageFileType fileType = fileTypes.at(fileTypeIndex);
+		for (int appendAlphaIndex = 0; appendAlphaIndex < 2; appendAlphaIndex++)
+		{
+			bool isPngOrTiff = fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG;
+#ifdef USE_EXR
+			isPngOrTiff = isPngOrTiff || fileType == ImageFileSave::IMAGE_FILE_TYPE_TIFF;
+#endif																										 /* USE_EXR */
+			if (appendAlphaIndex == 1 && !isPngOrTiff) continue; // ignore this test
+			gPar->Set("append_alpha_png", appendAlphaIndex == 1 ? true : false);
+
+			int combinationContentTypes = 2 * 2 * 2 * 2; // foreach content type enabled or not flags
+			int combinationQualityTypes = 3 * 3 * 3 * 3; // foreach content type the possible quality types (8, 16, 32bit)
+
+			for (int c = 0; c < combinationContentTypes * combinationQualityTypes; c++)
+			{
+				int contentTypeIndex = c / combinationQualityTypes;
+				int qualityTypeIndex = c % combinationContentTypes;
+				bool skipPermutation = false;
+				bool anyEnabled = false;
+				QString filenameChannels = "";
+				for (int content = 0; content < imageChannelNames.size(); content++)
+				{
+					QString imageChannelName = imageChannelNames[content];
+					bool enabled = (1 << content) & contentTypeIndex;
+					int qualityType = (qualityTypeIndex / (int)pow(3, content)) % 3;
+					ImageFileSave::enumImageChannelQualityType qualityTypeValue =
+						qualityType == 0 ? ImageFileSave::IMAGE_CHANNEL_QUALITY_8
+														 : (qualityType == 1 ? ImageFileSave::IMAGE_CHANNEL_QUALITY_16
+																								 : ImageFileSave::IMAGE_CHANNEL_QUALITY_32);
+					QString qualityString = qualityType == 0 ? "8" : (qualityType == 1 ? "16" : "32");
+
+					if (!enabled && qualityType != 0)
+					{
+						skipPermutation = true;
+						break;
+					}
+					if (enabled)
+					{
+						if ((imageChannelName == "zbuffer" && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG)
+								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_8
+										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_EXR)
+								|| (qualityTypeValue == ImageFileSave::IMAGE_CHANNEL_QUALITY_32
+										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG)
+								|| (qualityTypeValue != ImageFileSave::IMAGE_CHANNEL_QUALITY_8
+										 && fileType == ImageFileSave::IMAGE_FILE_TYPE_JPG))
+						{
+							// jpg cannot save zbuffer, jpg can only save 8bit
+							// exr cannot save 8 bit
+							// png cannot save 32 bit
+							skipPermutation = true;
+							break;
+						}
+					}
+
+					if (enabled) filenameChannels += imageChannelName + "-" + qualityString + " ";
+					anyEnabled = anyEnabled || enabled;
+					gPar->Set(imageChannelName + "_enabled", enabled);
+					gPar->Set(imageChannelName + "_quality", (int)qualityTypeValue);
+				}
+				if (skipPermutation) continue;
+				if (!anyEnabled) continue; // no image channels selected
+
+				QString folderName = testFolder() + QDir::separator();
+				folderName += ImageFileSave::ImageFileExtension(fileType) + " ";
+				folderName += (appendAlphaIndex ? QString("[+alpha] ") : QString(""));
+				folderName += filenameChannels;
+				CreateFolder(folderName);
+				SaveImage(folderName + QDir::separator() + "out", fileType, image, nullptr);
+			}
+		}
 	}
 	delete renderJob;
 	delete image;
@@ -494,5 +561,3 @@ void Test::renderImageSave() const
 	delete testParFractal;
 	delete testPar;
 }
-
-

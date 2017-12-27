@@ -116,6 +116,7 @@ public:
 	typedef QMap<enumImageContentType, structSaveImageChannel> ImageConfig;
 	static QString ImageFileExtension(enumImageFileType imageFileType);
 	static QString ImageChannelName(enumImageContentType imageContentType);
+	static QStringList ImageChannelNames();
 	static QString ImageNameWithoutExtension(QString path);
 	static enumImageFileType ImageFileType(QString imageFileExtension);
 	static ImageFileSave *create(

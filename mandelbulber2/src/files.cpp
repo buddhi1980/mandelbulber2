@@ -191,11 +191,8 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 	QObject *updateReceiver)
 {
 	ImageFileSave::ImageConfig imageConfig;
-	QStringList imageChannelNames;
-	imageChannelNames << "color"
-										<< "alpha"
-										<< "zbuffer"
-										<< "normal";
+	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
+
 	// read image config from preferences
 	for (int i = 0; i < imageChannelNames.size(); i++)
 	{
