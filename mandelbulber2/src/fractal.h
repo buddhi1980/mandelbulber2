@@ -118,7 +118,7 @@ struct sFoldColor
 	double deScale0;
 	double oldScale0;
 	//double oldScale1;
-	double parabScale0;
+	//double parabScale0;
 	double newScale0;
 	double limitMin0;
 	double limitMax9999;
@@ -143,7 +143,7 @@ struct sFoldColor
 	int intAy0;
 	int intAz0;
 
-	bool parabEnabledFalse;
+	//bool parabEnabledFalse;
 	//bool cosEnabledFalse;
 
 	bool auxColorEnabled;

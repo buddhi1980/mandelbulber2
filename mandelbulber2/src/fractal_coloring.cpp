@@ -112,6 +112,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				}
 			}
 			// "pseudo" global palette controls
+			colorValue /= 256.0;
+
+
 			if (fractalColoring.globalPaletteFalse)
 			{
 				if (fractalColoring.addEnabledFalse)
@@ -119,7 +122,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					if (colorValue > fractalColoring.addStartValue)
 					{
 						colorValue +=  (1.0 - 1.0 / (1.0 + (colorValue - fractalColoring.addStartValue)
-						/ fractalColoring.addSpread)) * fractalColoring.addMax * 256.0;
+						/ fractalColoring.addSpread)) * fractalColoring.addMax;
 					}
 				}
 
@@ -128,34 +131,36 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					if (colorValue > fractalColoring.parabStartValue)
 					{
 						double parab = colorValue - fractalColoring.cosStartValue;
-						parab = parab * parab * fractalColoring.parabScale * 1e-3;
+						parab = parab * parab * fractalColoring.parabScale;
 						colorValue += parab;
 					}
 				}
-
+//=(+0.5-0.5*COS((B43)*0.5PI()/e$rr ))*(E$36)
 				if (fractalColoring.cosEnabledFalse)
 				{ // trig palette
-						if (colorValue > fractalColoring.cosStartValue)
+						if (colorValue > fractalColoring.cosStartValue )
 						{
-							double trig = (1.0 - cos((colorValue - fractalColoring.cosStartValue)
-							 * M_PI / 128.0 / (fractalColoring.cosPeriod)))
-								* 128.0 * fractalColoring.cosAdd;
+							double trig = (0.5 - 0.5 * cos((colorValue - fractalColoring.cosStartValue)
+							* M_PI / (fractalColoring.cosPeriod * 2.0)))
+								 * fractalColoring.cosAdd;
 							colorValue += trig;
 						}
 				}
 
 				if (fractalColoring.roundEnabledFalse)
 				{
-					double roundScale = fractalColoring.roundScale * 256.0;
+					double roundScale = fractalColoring.roundScale;
 					colorValue /= roundScale;
 					colorValue = round(colorValue) * roundScale;
 				}
 			}
 
-			double minCV = fractalColoring.minColorValue * 256;
-			double maxCV = fractalColoring.maxColorValue * 256;
+			double minCV = fractalColoring.minColorValue;
+			double maxCV = fractalColoring.maxColorValue;
 			if (colorValue < minCV) colorValue = minCV;
 			if (colorValue > maxCV) colorValue = maxCV;
+
+			colorValue *= 256.0;
 
 			colorIndex = colorValue;
 		}

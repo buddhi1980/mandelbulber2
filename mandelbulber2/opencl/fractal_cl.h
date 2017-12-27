@@ -754,7 +754,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.deScale0 = source.deScale0;
 	target.oldScale0 = source.oldScale0;
         //target.oldScale1 = source.oldScale1;
-	target.parabScale0 = source.parabScale0;
+        //target.parabScale0 = source.parabScale0;
 	target.newScale0 = source.newScale0;
 	target.limitMin0 = source.limitMin0;
 	target.limitMax9999 = source.limitMax9999;
@@ -777,7 +777,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.intAx0 = source.intAx0;
 	target.intAy0 = source.intAy0;
 	target.intAz0 = source.intAz0;
-	target.parabEnabledFalse = source.parabEnabledFalse;
+        //target.parabEnabledFalse = source.parabEnabledFalse;
         //target.cosEnabledFalse = source.cosEnabledFalse;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;

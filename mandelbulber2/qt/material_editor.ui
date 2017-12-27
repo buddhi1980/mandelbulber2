@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-217</y>
+        <y>-540</y>
         <width>619</width>
         <height>3310</height>
        </rect>
@@ -1712,7 +1712,7 @@ sphere radius:</string>
                         <item row="2" column="0">
                          <widget class="QLabel" name="label_77">
                           <property name="text">
-                           <string>start at colorValue</string>
+                           <string>start value * 256:</string>
                           </property>
                          </widget>
                         </item>
@@ -1784,14 +1784,14 @@ sphere radius:</string>
                         <item row="0" column="0">
                          <widget class="QLabel" name="label_79">
                           <property name="text">
-                           <string>parab scale / 1000:</string>
+                           <string>parab scale :</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="0">
                          <widget class="QLabel" name="label_80">
                           <property name="text">
-                           <string>start at colorValue</string>
+                           <string>start value * 256:</string>
                           </property>
                          </widget>
                         </item>
@@ -1961,7 +1961,7 @@ sphere radius:</string>
                         <item row="2" column="0">
                          <widget class="QLabel" name="label_51">
                           <property name="text">
-                           <string>start at colorValue</string>
+                           <string>start value * 256:</string>
                           </property>
                          </widget>
                         </item>

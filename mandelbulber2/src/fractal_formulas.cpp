@@ -11788,10 +11788,10 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 
 	// non-linear palette options
-	if (fractal->foldColor.parabEnabledFalse)
-	{ // parabolic
-		componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
-	}
+	//if (fractal->foldColor.parabEnabledFalse)
+	//{ // parabolic
+		//componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
+	//}
 	//if (fractal->foldColor.cosEnabledFalse)
 	//{ // trig
 	//	double trig = 128 * -fractal->foldColor.trigAdd1
@@ -12084,10 +12084,10 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	}
 
 	// non-linear palette options
-	if (fractal->foldColor.parabEnabledFalse)
-	{ // parabolic
-		componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
-	}
+	//if (fractal->foldColor.parabEnabledFalse)
+	//{ // parabolic
+		//componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
+	//}
 	//if (fractal->foldColor.cosEnabledFalse)
 	//{ // trig
 	//	double trig = 128 * -fractal->foldColor.trigAdd1
