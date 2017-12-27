@@ -494,7 +494,8 @@ void Test::renderImageSave() const
 			gPar->Set("append_alpha_png", appendAlphaIndex == 1 ? true : false);
 
 			int combinationContentTypes = 2 * 2 * 2 * 2; // foreach content type enabled or not flags
-			int combinationQualityTypes = 3 * 3 * 3 * 3; // foreach content type the possible quality types (8, 16, 32bit)
+			int combinationQualityTypes =
+				3 * 3 * 3 * 3; // foreach content type the possible quality types (8, 16, 32bit)
 
 			for (int c = 0; c < combinationContentTypes * combinationQualityTypes; c++)
 			{

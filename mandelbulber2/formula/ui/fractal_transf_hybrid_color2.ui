@@ -2671,7 +2671,7 @@
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfHybridColor2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//double auxColor = 0.0;&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// double auxColor = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
@@ -2691,8 +2691,8 @@
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;float&lt;/span&gt; addI &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// used to turn off or mix with old hybrid color and orbit traps&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//aux.oldHybridFactor *= fractal-&amp;gt;foldColor.oldScale1;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//aux.minRFactor = fractal-&amp;gt;foldColor.scaleC0; // orbit trap weight&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.oldHybridFactor *= fractal-&amp;gt;foldColor.oldScale1;&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.minRFactor = fractal-&amp;gt;foldColor.scaleC0; // orbit trap weight&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;/*{ // length of last movement before termination&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    CVector4 vecIter =  fabs(z - aux.old_z);&lt;/span&gt;
@@ -2906,8 +2906,8 @@
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
     &lt;span style=&quot;color:#2929cc&quot;&gt;// build  componentMaster&lt;/span&gt;
-    componentMaster &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorMin &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; XYZbias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias
-                       &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; radius &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sumDist&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    componentMaster &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorMin &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; XYZbias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; radius
+                       &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sumDist&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// divide by i option&lt;/span&gt;
@@ -2919,11 +2919,11 @@
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// non-linear palette options&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//if (fractal-&amp;gt;foldColor.parabEnabledFalse)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.parabEnabledFalse)&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // parabolic&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//componentMaster += (componentMaster * componentMaster * fractal-&amp;gt;foldColor.parabScale0);&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster += (componentMaster * componentMaster * fractal-&amp;gt;foldColor.parabScale0);&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//}&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//if (fractal-&amp;gt;foldColor.cosEnabledFalse)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.cosEnabledFalse)&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // trig&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//  double trig = 128 * -fractal-&amp;gt;foldColor.trigAdd1&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//                * (cos(componentMaster * 2.0 * M_PI / fractal-&amp;gt;foldColor.period1) - 1.0);&lt;/span&gt;
@@ -2936,10 +2936,10 @@
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// limit componentMaster&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//if (componentMaster &amp;lt; fractal-&amp;gt;foldColor.limitMin0)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;lt; fractal-&amp;gt;foldColor.limitMin0)&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;//  componentMaster = fractal-&amp;gt;foldColor.limitMin0;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//if (componentMaster &amp;gt; fractal-&amp;gt;foldColor.limitMax9999)&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//componentMaster = fractal-&amp;gt;foldColor.limitMax9999;&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;gt; fractal-&amp;gt;foldColor.limitMax9999)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster = fractal-&amp;gt;foldColor.limitMax9999;&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// final component value + cumulative??&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;

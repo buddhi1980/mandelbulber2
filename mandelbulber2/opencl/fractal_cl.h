@@ -99,8 +99,8 @@ typedef struct
 	cl_float radiusFactor;
 	cl_float minRFactor;
 	cl_float scaleFactor;
-	// double oldHybridFactor;
-	// double temp1Factor;
+	// cl_float oldHybridFactor;
+	// cl_float temp1Factor;
 	cl_float temp100;
 	cl_float addDist;
 } sExtendedAuxCl;
@@ -122,14 +122,14 @@ typedef struct
 	cl_float compScale;
 	cl_float deScale0;
 	cl_float oldScale0;
-	// double oldScale1;
-	// double parabScale0;
+	// cl_float oldScale1;
+	// cl_float parabScale0;
 	cl_float newScale0;
 	cl_float limitMin0;
 	cl_float limitMax9999;
 	cl_float scaleA0;
 	cl_float scaleB0;
-	// double scaleC0;
+	// cl_float scaleC0;
 	cl_float scaleD0;
 	cl_float scaleE0;
 	cl_float scaleF0;
@@ -137,28 +137,28 @@ typedef struct
 	cl_float scaleA1;
 	cl_float scaleB1;
 	cl_float scaleC1;
-	// double period1;
-	// double trigAdd1;
-	// CVector4 xyz000;
-	// CVector4 factor000;
-	// double factorMinR0;
-	// double factorMaxR0;
+	// cl_float period1;
+	// cl_float trigAdd1;
+	// cl_float4 xyz000;
+	// cl_float4 factor000;
+	// cl_float factorMinR0;
+	// cl_float factorMaxR0;
 
 	cl_int intAx0;
 	cl_int intAy0;
 	cl_int intAz0;
 
-	// bool parabEnabledFalse;
-	// bool cosEnabledFalse;
+	// cl_int parabEnabledFalse;
+	// cl_int cosEnabledFalse;
 
 	cl_int auxColorEnabled;
 	cl_int auxColorEnabledFalse;
 	cl_int deColorEnabledFalse;
 	cl_int radiusColorEnabledFalse;
-	// bool xyzColorEnabledFalse;
-	// bool oldHybridEnabledFalse;
-	// bool temp1EnabledFalse;
-	// bool extraModeEnabledFalse;
+	// cl_int xyzColorEnabledFalse;
+	// cl_int oldHybridEnabledFalse;
+	// cl_int temp1EnabledFalse;
+	// cl_int extraModeEnabledFalse;
 
 	cl_int distanceEnabledFalse;
 } sFoldColorCl;

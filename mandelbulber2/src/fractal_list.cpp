@@ -146,17 +146,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		coloringFunctionDefault));
 
 	// Nested sin() formulas
-	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot, CoastalbrotIteration,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot,
+		CoastalbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Modulus formulas
-	fractalList->append(sFractalDescription("Modulus Menger Sponge", "modulus_menger_sponge", modulusMengerSponge,
-		ModulusMengerSpongeIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-	fractalList->append(sFractalDescription("Modulus Mandelbulb", "modulus_mandelbulb", modulusMandelbulb, ModulusMandelbulbIteration,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Modulus Menger Sponge", "modulus_menger_sponge",
+		modulusMengerSponge, ModulusMengerSpongeIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Modulus Mandelbulb", "modulus_mandelbulb",
+		modulusMandelbulb, ModulusMandelbulbIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Collatz formulas
 	fractalList->append(

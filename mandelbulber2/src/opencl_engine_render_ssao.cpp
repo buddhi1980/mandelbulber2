@@ -204,8 +204,9 @@ bool cOpenClEngineRenderSSAO::PreAllocateBuffers(const cParameterContainer *para
 		}
 
 		if (inCLSineCosineBuffer) delete inCLSineCosineBuffer;
-		inCLSineCosineBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-			2 * paramsSSAO.quality * sizeof(cl_float), inSineCosineBuffer, &err);
+		inCLSineCosineBuffer =
+			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+				2 * paramsSSAO.quality * sizeof(cl_float), inSineCosineBuffer, &err);
 		if (!checkErr(err,
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inSineCosineBuffer, &err)"))
@@ -278,8 +279,8 @@ bool cOpenClEngineRenderSSAO::WriteBuffersToQueue()
 		return false;
 	}
 
-	err = queue->enqueueWriteBuffer(
-		*inCLSineCosineBuffer, CL_TRUE, 0, paramsSSAO.quality * 2 * sizeof(cl_float), inSineCosineBuffer);
+	err = queue->enqueueWriteBuffer(*inCLSineCosineBuffer, CL_TRUE, 0,
+		paramsSSAO.quality * 2 * sizeof(cl_float), inSineCosineBuffer);
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLSineCosineBuffer)"))
 	{
 		emit showErrorMessage(
@@ -476,8 +477,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 size_t cOpenClEngineRenderSSAO::CalcNeededMemory()
 {
-	return numberOfPixels * sizeof(cl_float)
-			+ paramsSSAO.quality * 2 * sizeof(cl_float);
+	return numberOfPixels * sizeof(cl_float) + paramsSSAO.quality * 2 * sizeof(cl_float);
 }
 
 #endif // USE_OPEMCL

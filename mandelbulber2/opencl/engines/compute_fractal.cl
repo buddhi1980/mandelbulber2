@@ -445,18 +445,17 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		if (consts->sequence.isHybrid)
 		{
-//			colorMin = min(colorMin, 100.0f);
-//			float mBoxColor = aux.color;
-//			mBoxColor = min(mBoxColor, 1000.0f);
-//			out.colorIndex =
-//				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
-//				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
-						colorMin = min(colorMin, 100.0f);
-						float mBoxColor = aux.color;
-						mBoxColor = min(mBoxColor, 1000.0f);
-						out.colorIndex =
-							((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f))
-							+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
+			//			colorMin = min(colorMin, 100.0f);
+			//			float mBoxColor = aux.color;
+			//			mBoxColor = min(mBoxColor, 1000.0f);
+			//			out.colorIndex =
+			//				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
+			//				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
+			colorMin = min(colorMin, 100.0f);
+			float mBoxColor = aux.color;
+			mBoxColor = min(mBoxColor, 1000.0f);
+			out.colorIndex = ((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f)) + aux.colorHybrid
+											 + (colorMin * 1000.0f * aux.minRFactor);
 		}
 		else
 		{

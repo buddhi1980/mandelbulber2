@@ -302,6 +302,5 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	{
 		aux->color += colorAdd;
 	}
-
 	return z;
 }

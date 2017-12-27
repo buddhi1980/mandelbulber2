@@ -36,7 +36,6 @@
 
 #include <QtCore>
 
-#include "../src/interface.hpp"
 #include "ui_material_editor.h"
 
 #include "preview_file_dialog.h"
@@ -44,6 +43,7 @@
 #include "src/automated_widgets.hpp"
 #include "src/common_math.h"
 #include "src/fractal_coloring.hpp"
+#include "src/interface.hpp"
 #include "src/material.h"
 #include "src/synchronize_interface.hpp"
 #include "src/system.hpp"

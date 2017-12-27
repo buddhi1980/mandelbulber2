@@ -77,21 +77,21 @@ cMaterial::~cMaterial()
 }
 
 // this static list will be use to optimize usage of material parameters
-QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular", "specular_width",
-	"specular_color", "reflectance", "luminosity", "transparency_of_surface",
-	"transparency_of_interior", "transparency_index_of_refraction", "surface_color",
-	"transparency_interior_color", "luminosity_color", "fresnel_reflectance", "texture_center",
-	"texture_rotation", "texture_scale", "coloring_random_seed", "coloring_saturation",
-	"coloring_speed", "coloring_palette_size", "coloring_palette_offset", "texture_mapping_type",
-	"use_colors_from_palette", "file_color_texture", "file_diffusion_texture",
-	"file_luminosity_texture", "file_displacement_texture", "surface_color_palette",
-	"use_color_texture", "use_diffusion_texture", "use_luminosity_texture",
-	"use_displacement_texture", "use_normal_map_texture", "color_texture_intensity",
-	"luminosity_texture_intensity", "diffusion_texture_intensity", "displacement_texture_height",
-	"fractal_coloring_algorithm", "fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
+QStringList cMaterial::paramsList = {
+	"is_defined", "name", "shading", "specular", "specular_width", "specular_color", "reflectance",
+	"luminosity", "transparency_of_surface", "transparency_of_interior",
+	"transparency_index_of_refraction", "surface_color", "transparency_interior_color",
+	"luminosity_color", "fresnel_reflectance", "texture_center", "texture_rotation", "texture_scale",
+	"coloring_random_seed", "coloring_saturation", "coloring_speed", "coloring_palette_size",
+	"coloring_palette_offset", "texture_mapping_type", "use_colors_from_palette",
+	"file_color_texture", "file_diffusion_texture", "file_luminosity_texture",
+	"file_displacement_texture", "surface_color_palette", "use_color_texture",
+	"use_diffusion_texture", "use_luminosity_texture", "use_displacement_texture",
+	"use_normal_map_texture", "color_texture_intensity", "luminosity_texture_intensity",
+	"diffusion_texture_intensity", "displacement_texture_height", "fractal_coloring_algorithm",
+	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture",
-	"fractal_coloring_extra_color_enabled_false",
+	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false",
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
@@ -101,37 +101,33 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
 	"fractal_coloring_aux_color_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
-	"fractal_coloring_rad_squared_enabled_false",
-	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_de_weight",
-	"fractal_coloring_rad_div_de_squared_false",
+	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_de_enabled_false",
+	"fractal_coloring_rad_div_de_weight", "fractal_coloring_rad_div_de_squared_false",
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
-	"fractal_coloring_xyz_iter_scale",
-	"fractal_coloring_xyz_x_sqrd_enabled_false", "fractal_coloring_xyz_y_sqrd_enabled_false",
-	"fractal_coloring_xyz_z_sqrd_enabled_false",
+	"fractal_coloring_xyz_iter_scale", "fractal_coloring_xyz_x_sqrd_enabled_false",
+	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
 
 	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_false",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
- "fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
+	"fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
 	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
 
 	"fractal_coloring_global_palette_false",
 
-	"fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
-	"fractal_coloring_add_spread", "fractal_coloring_add_start_value",
+	"fractal_coloring_add_enabled_false", "fractal_coloring_add_max", "fractal_coloring_add_spread",
+	"fractal_coloring_add_start_value",
 
 	"fractal_coloring_parab_enabled_false", "fractal_coloring_parab_scale",
 	"fractal_coloring_parab_start_value",
 
-	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
-	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
+	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period", "fractal_coloring_cos_add",
+	"fractal_coloring_cos_start_value",
 
 	"fractal_coloring_round_enabled_false", "fractal_coloring_round_scale",
 
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
-	};
-
-
+};
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
@@ -192,7 +188,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	// trial
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
-		// Initial Conditions
+	// Initial Conditions
 	fractalColoring.initCondFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_init_cond_enabled_false", id));
 	fractalColoring.icRadFalse =
@@ -204,20 +200,19 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.xyzC111 =
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
 
-		// orbitTrap weight control
+	// orbitTrap weight control
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	fractalColoring.initialMiniumuR =
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
-		// aux.color
+	// aux.color
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
 
 	// radius functions
 	fractalColoring.radFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_rad_enabled_false", id));
-	fractalColoring.radWeight =
-		materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
+	fractalColoring.radWeight = materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
 	fractalColoring.radSquaredFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
 	fractalColoring.radDivDeFalse =
@@ -240,7 +235,6 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.xyzZsqrdFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_z_sqrd_enabled_false", id));
 
-
 	fractalColoring.iterGroupFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_iter_group_enabled_false", id));
 	fractalColoring.iterScaleFalse =
@@ -249,10 +243,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_iter_add_scale_enabled_false", id));
 	fractalColoring.iterAddScale =
 		materialParam->Get<double>(Name("fractal_coloring_iter_add_scale", id));
-	fractalColoring.iterScale =
-		materialParam->Get<double>(Name("fractal_coloring_iter_scale", id));
-	fractalColoring.iStartValue =
-		materialParam->Get<int>(Name("fractal_coloring_i_start_value", id));
+	fractalColoring.iterScale = materialParam->Get<double>(Name("fractal_coloring_iter_scale", id));
+	fractalColoring.iStartValue = materialParam->Get<int>(Name("fractal_coloring_i_start_value", id));
 	fractalColoring.iSquaredEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_i_squared_enabled_false", id));
 	fractalColoring.iInvertEnabledFalse =
@@ -264,40 +256,32 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 
 	fractalColoring.addEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_add_enabled_false", id));
-	fractalColoring.addMax =
-		materialParam->Get<double>(Name("fractal_coloring_add_max", id));
-	fractalColoring.addSpread =
-		materialParam->Get<double>(Name("fractal_coloring_add_spread", id));
+	fractalColoring.addMax = materialParam->Get<double>(Name("fractal_coloring_add_max", id));
+	fractalColoring.addSpread = materialParam->Get<double>(Name("fractal_coloring_add_spread", id));
 	fractalColoring.addStartValue =
 		materialParam->Get<double>(Name("fractal_coloring_add_start_value", id));
 
 	fractalColoring.parabEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_parab_enabled_false", id));
-	fractalColoring.parabScale =
-		materialParam->Get<double>(Name("fractal_coloring_parab_scale", id));
+	fractalColoring.parabScale = materialParam->Get<double>(Name("fractal_coloring_parab_scale", id));
 	fractalColoring.parabStartValue =
 		materialParam->Get<double>(Name("fractal_coloring_parab_start_value", id));
 
 	fractalColoring.cosEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_cos_enabled_false", id));
-	fractalColoring.cosPeriod =
-		materialParam->Get<double>(Name("fractal_coloring_cos_period", id));
-	fractalColoring.cosAdd =
-		materialParam->Get<double>(Name("fractal_coloring_cos_add", id));
+	fractalColoring.cosPeriod = materialParam->Get<double>(Name("fractal_coloring_cos_period", id));
+	fractalColoring.cosAdd = materialParam->Get<double>(Name("fractal_coloring_cos_add", id));
 	fractalColoring.cosStartValue =
 		materialParam->Get<double>(Name("fractal_coloring_cos_start_value", id));
 
 	fractalColoring.roundEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_round_enabled_false", id));
-	fractalColoring.roundScale =
-		materialParam->Get<double>(Name("fractal_coloring_round_scale", id));
+	fractalColoring.roundScale = materialParam->Get<double>(Name("fractal_coloring_round_scale", id));
 
 	fractalColoring.maxColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_max_color_value", id));
 	fractalColoring.minColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_min_color_value", id));
-
-
 
 	if (gNetRender->IsClient())
 	{

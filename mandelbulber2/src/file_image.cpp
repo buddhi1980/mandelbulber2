@@ -115,7 +115,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha",  "zbuffer", "normal"});
+	return QStringList({"color", "alpha", "zbuffer", "normal"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)

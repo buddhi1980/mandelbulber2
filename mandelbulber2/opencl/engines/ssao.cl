@@ -33,8 +33,8 @@
  */
 
 //------------------ MAIN RENDER FUNCTION --------------------
-kernel void SSAO(__global float *zBuffer, __global float *sineCosineBuffer,
-	__global float *out, sParamsSSAO p)
+kernel void SSAO(
+	__global float *zBuffer, __global float *sineCosineBuffer, __global float *out, sParamsSSAO p)
 {
 	const unsigned int i = get_global_id(0);
 	const int2 scr = (int2){i % p.width, i / p.width};

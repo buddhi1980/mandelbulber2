@@ -41,11 +41,11 @@
 #include <QMenu>
 #include <QSlider>
 
-#include "../src/common_math.h"
 #include "frame_slider_popup.h"
 
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
+#include "src/common_math.h"
 #include "src/system.hpp"
 
 MyLineEdit::MyLineEdit(QWidget *parent) : QLineEdit(parent), CommonMyWidgetWrapper(this)

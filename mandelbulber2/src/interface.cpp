@@ -59,6 +59,7 @@
 #include "opencl_global.h"
 #include "post_effect_hdr_blur.h"
 #include "queue.hpp"
+#include "random.hpp"
 #include "render_data.hpp"
 #include "render_job.hpp"
 #include "render_ssao.h"
@@ -75,7 +76,6 @@
 #include "qt/my_progress_bar.h"
 #include "qt/player_widget.hpp"
 #include "qt/system_tray.hpp"
-#include "random.hpp"
 
 // custom includes
 #ifdef USE_GAMEPAD
@@ -1909,7 +1909,8 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2341,7 +2342,7 @@ void cInterface::ColorizeGroupboxes(QWidget *window, int randomSeed)
 {
 	QList<QGroupBox *> widgets;
 	widgets = window->findChildren<QGroupBox *>();
-	if(qobject_cast<QGroupBox *>(window)) //check if groupbox
+	if (qobject_cast<QGroupBox *>(window)) // check if groupbox
 	{
 		widgets.append(static_cast<QGroupBox *>(window));
 	}
