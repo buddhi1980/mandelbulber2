@@ -1239,13 +1239,24 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_i_invert_enabled_false", materialId), false,
 		morphLinear, paramStandard);
 
+
+	par->addParam(cMaterial::Name("fractal_coloring_global_palette_false", materialId), false,
+		morphLinear, paramStandard);
+
 	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false,
 		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_add_max", materialId), 100.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_add_max", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_spread", materialId), 100.0, 1e-20, 1e20,
 		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_add_start_value", materialId), 0.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_add_start_value", materialId), 0.0, 0.0, 1e20,
+		morphNone, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_parab_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_parab_scale", materialId), 1.0, 1e-20, 1e20,
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_parab_start_value", materialId), 0.0, 0.0, 1e20,
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_cos_enabled_false", materialId), false,
@@ -1254,7 +1265,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_cos_add", materialId), 1.0, 1e-20, 1e20,
 		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_cos_start_value", materialId), 0.0, 1e-20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_cos_start_value", materialId), 0.0, 0.0, 1e20,
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_round_enabled_false", materialId), false,

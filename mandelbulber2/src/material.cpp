@@ -115,8 +115,13 @@ QStringList cMaterial::paramsList = {"is_defined", "name", "shading", "specular"
  "fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
 	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
 
+	"fractal_coloring_global_palette_false",
+
 	"fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
 	"fractal_coloring_add_spread", "fractal_coloring_add_start_value",
+
+	"fractal_coloring_parab_enabled_false", "fractal_coloring_parab_scale",
+	"fractal_coloring_parab_start_value",
 
 	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
 	"fractal_coloring_cos_add", "fractal_coloring_cos_start_value",
@@ -209,18 +214,18 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
 
 	// radius functions
-fractalColoring.radFalse =
-	materialParam->Get<bool>(Name("fractal_coloring_rad_enabled_false", id));
-fractalColoring.radWeight =
-	materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
-fractalColoring.radSquaredFalse =
-	materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
-fractalColoring.radDivDeFalse =
-	materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
-fractalColoring.radDivDeWeight =
-	materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
-fractalColoring.radDivDeSquaredFalse =
-	materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_squared_false", id));
+	fractalColoring.radFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_enabled_false", id));
+	fractalColoring.radWeight =
+		materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
+	fractalColoring.radSquaredFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
+	fractalColoring.radDivDeFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
+	fractalColoring.radDivDeWeight =
+		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
+	fractalColoring.radDivDeSquaredFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_squared_false", id));
 
 	fractalColoring.xyzBiasEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
@@ -254,6 +259,9 @@ fractalColoring.radDivDeSquaredFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_i_invert_enabled_false", id));
 
 	// global palette controls
+	fractalColoring.globalPaletteFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_global_palette_false", id));
+
 	fractalColoring.addEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_add_enabled_false", id));
 	fractalColoring.addMax =
@@ -262,6 +270,13 @@ fractalColoring.radDivDeSquaredFalse =
 		materialParam->Get<double>(Name("fractal_coloring_add_spread", id));
 	fractalColoring.addStartValue =
 		materialParam->Get<double>(Name("fractal_coloring_add_start_value", id));
+
+	fractalColoring.parabEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_parab_enabled_false", id));
+	fractalColoring.parabScale =
+		materialParam->Get<double>(Name("fractal_coloring_parab_scale", id));
+	fractalColoring.parabStartValue =
+		materialParam->Get<double>(Name("fractal_coloring_parab_start_value", id));
 
 	fractalColoring.cosEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_cos_enabled_false", id));
