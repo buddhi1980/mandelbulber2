@@ -16,10 +16,10 @@ RP + os.sep \
 + "menger-fatbackstrokin.fract"
 
 # Options for Render #
-start = 0
-total_frames = 11600
-RenderSets = 100
-totalIterations = total_frames/RenderSets
+begin = 5190
+total_frames = 5500
+RenderSets = 2
+totalIterations = (total_frames-begin)/RenderSets
 
 # Tested on CentOS7 #
 WorkersCount = 8
@@ -70,8 +70,8 @@ class Worker(multiprocessing.Process):
 				print("Cleaning up worker " + str(self.prefix))
 				break
 			# Use data #
-			start = str(iteration*RenderSets)
-			end = str((iteration+1)*RenderSets)
+			start = str(begin+iteration*RenderSets)
+			end = str(begin+(iteration+1)*RenderSets)
 			print(str(iteration) + " of " + str(totalIterations - 1))
 			cmd = str(self.prefix) \
 			+ spacer \
@@ -117,7 +117,7 @@ def render(resolution):
 		w.start()
 		workers.insert(0, w)
 	# render iterations #
-	for data in range(start, totalIterations, 1):
+	for data in range(0, totalIterations, 1):
 		request_queue.put( data )
 	# finalize iterations #
 	for data in range(0, WorkersCount, 1):
