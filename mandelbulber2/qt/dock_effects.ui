@@ -1687,23 +1687,6 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_59">
-                  <property name="text">
-                   <string>Color #3:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="MyColorButton" name="colorButton_background_color_3" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at nadir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
                  <widget class="MyColorButton" name="colorButton_background_color_1" native="true">
                   <property name="toolTip">
@@ -1714,23 +1697,6 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="MyColorButton" name="colorButton_background_color_2" native="true">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at horizon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text" stdset="0">
-                   <string>PushButton</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_58">
-                  <property name="text">
-                   <string>Color #2:</string>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_57">
                   <property name="text">
@@ -1738,7 +1704,76 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+               </layout>
+              </item>
+              <item>
+               <widget class="MyGroupBox" name="groupCheck_background_3_colors_enable">
+                <property name="toolTip">
+                 <string>Enables colored gradient on background. When disabled only color #1 is used.</string>
+                </property>
+                <property name="title">
+                 <string>&amp;3-color gradient</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_4">
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_3">
+                   <item row="1" column="1">
+                    <widget class="MyColorButton" name="colorButton_background_color_3" native="true">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at nadir&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text" stdset="0">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_58">
+                     <property name="text">
+                      <string>Color #2:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_59">
+                     <property name="text">
+                      <string>Color #3:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="MyColorButton" name="colorButton_background_color_2" native="true">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of background at horizon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                     <property name="text" stdset="0">
+                      <string>PushButton</string>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_7">
+                <item row="0" column="0">
                  <widget class="QLabel" name="label_223">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
@@ -1751,7 +1786,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="0" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_background_brightness">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Preferred">

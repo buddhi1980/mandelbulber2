@@ -72,31 +72,39 @@ float IterOpacity(const float step, float iters, float maxN, float trim, float o
 
 float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
 {
-	float3 vector = (float3){0.0f, 0.0f, 1.0f};
-	vector = normalize(vector);
-	float3 viewVectorNorm = input->viewVector;
-	viewVectorNorm = normalize(viewVectorNorm);
-	float grad = dot(viewVectorNorm, vector) + 1.0f;
 	float3 pixel;
-	if (grad < 1.0f)
+	if (consts->params.background3ColorsEnable)
 	{
-		float gradN = 1.0f - grad;
-		pixel = consts->params.background_color3 * gradN + consts->params.background_color2 * grad;
+		float3 vector = (float3){0.0f, 0.0f, 1.0f};
+		vector = normalize(vector);
+		float3 viewVectorNorm = input->viewVector;
+		viewVectorNorm = normalize(viewVectorNorm);
+		float grad = dot(viewVectorNorm, vector) + 1.0f;
+
+		if (grad < 1.0f)
+		{
+			float gradN = 1.0f - grad;
+			pixel = consts->params.background_color3 * gradN + consts->params.background_color2 * grad;
+		}
+		else
+		{
+			grad = grad - 1.0f;
+			float gradN = 1.0f - grad;
+			pixel = consts->params.background_color2 * gradN + consts->params.background_color1 * grad;
+		}
+		pixel *= consts->params.background_brightness;
+
+		float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
+									/ consts->params.mainLightVisibilitySize;
+		light = 1.0f / (1.0f + pow(light, 6.0)) * consts->params.mainLightVisibility
+						* consts->params.mainLightIntensity;
+
+		pixel += light * consts->params.mainLightColour;
 	}
 	else
 	{
-		grad = grad - 1.0f;
-		float gradN = 1.0f - grad;
-		pixel = consts->params.background_color2 * gradN + consts->params.background_color1 * grad;
+		pixel = consts->params.background_color1 * consts->params.background_brightness;
 	}
-	pixel *= consts->params.background_brightness;
-
-	float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
-								/ consts->params.mainLightVisibilitySize;
-	light = 1.0f / (1.0f + pow(light, 6.0)) * consts->params.mainLightVisibility
-					* consts->params.mainLightIntensity;
-
-	pixel += light * consts->params.mainLightColour;
 	return pixel;
 }
 

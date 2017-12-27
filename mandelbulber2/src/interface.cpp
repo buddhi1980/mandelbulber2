@@ -2341,7 +2341,10 @@ void cInterface::ColorizeGroupboxes(QWidget *window, int randomSeed)
 {
 	QList<QGroupBox *> widgets;
 	widgets = window->findChildren<QGroupBox *>();
-	widgets.append(static_cast<QGroupBox *>(window));
+	if(qobject_cast<QGroupBox *>(window)) //check if groupbox
+	{
+		widgets.append(static_cast<QGroupBox *>(window));
+	}
 	QPalette palette = window->palette();
 	QColor globalColor = palette.background().color();
 	int brightness = globalColor.value();

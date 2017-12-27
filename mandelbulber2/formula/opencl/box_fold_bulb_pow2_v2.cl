@@ -31,9 +31,9 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->foldColor.auxColorEnabled)
 		{
-			if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
-			if (z.y != oldZ.y) colorAdd += fractal->foldColor.factor000.y;
-			if (z.z != oldZ.z) colorAdd += fractal->foldColor.factor000.z;
+			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
 
@@ -56,7 +56,7 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->r_dz *= tglad_factor1;
 			// if (fractal->foldColor.auxColorEnabledFalse)
 			{
-				colorAdd += fractal->foldColor.factorMinR0;
+				colorAdd += fractal->mandelbox.color.factorSp1;
 			}
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
@@ -67,7 +67,7 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->r_dz *= tglad_factor2;
 			// if (fractal->foldColor.auxColorEnabledFalse)
 			{
-				colorAdd += fractal->foldColor.factorMaxR0;
+				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 		}
 		z -= fractal->mandelbox.offset;
@@ -122,38 +122,9 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
-	if (fractal->foldColor.extraModeEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled)
 	{
-		aux->minRFactor = fractal->foldColor.compMinR; //  Default = orbit trap weight 1.0f
-
-		if (fractal->foldColor.auxColorEnabled)
-		{
-			aux->color += colorAdd;
-			aux->color *= (1.0f + (aux->i * fractal->foldColor.scaleB0 * 0.001f)); // temp to do
-			aux->foldFactor = fractal->foldColor.compFold;												 // fold group weight
-		}
-
-		if (fractal->foldColor.xyzColorEnabledFalse)
-		{
-			REAL4 xyzAxis = z * fractal->foldColor.xyz000;
-			// if (fractal->foldColor.temp1EnabledFalse) aux->tempFactor += xyzAxis.x + xyzAxis.y +
-			// xyzAxis.z;
-			if (fractal->foldColor.temp1EnabledFalse)
-				aux->temp1Factor = xyzAxis.x + xyzAxis.y + xyzAxis.z
-													 + native_divide(fractal->foldColor.scaleA1, (aux->i + 1.0f));
-
-			else
-				aux->temp1Factor = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
-													 * native_divide(fractal->foldColor.scaleA1, (aux->i + 1.0f));
-			// aux->tempFactor *=  native_divide(fractal->foldColor.scaleA1, (aux->i + 1.0f));
-		}
-
-		if (fractal->foldColor.oldHybridEnabledFalse)
-			aux->oldHybridFactor = fractal->foldColor.oldScale0;
-	}
-	else
-	{
-		aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight default
+		aux->color += colorAdd;
 	}
 	return z;
 }

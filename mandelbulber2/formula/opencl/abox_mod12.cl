@@ -22,7 +22,7 @@
 REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-
+	REAL colorAdd = 0.0f;
 	// tglad fold
 	REAL4 oldZ = z;
 	if (aux->i >= fractal->transformCommon.startIterationsA
@@ -34,9 +34,12 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+		}
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -72,6 +75,8 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		REAL minR2 = fractal->transformCommon.minR2p25;
 		REAL addR = 0.0f;
 		REAL m = 1.0f;
+		oldZ = z;
+
 		// spherical fold with xyz bias option
 		if (fractal->transformCommon.functionEnabledAx)
 		{
@@ -99,12 +104,12 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			if (rr < minR2)
 			{
 				m *= native_divide(fractal->transformCommon.maxR2d1, minR2);
-				aux->color += fractal->mandelbox.color.factorSp1;
+				colorAdd += fractal->mandelbox.color.factorSp1;
 			}
 			else if (rr < fractal->transformCommon.maxR2d1)
 			{
 				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
-				aux->color += fractal->mandelbox.color.factorSp2;
+				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->transformCommon.offset000;
 			// scale
@@ -123,40 +128,52 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			REAL4 limitMinR2 = fractal->transformCommon.scaleP222;
 
 			REAL rr = dot(z, z);
-
 			z += fractal->transformCommon.offset000;
 
-			if (aux->i >= fractal->transformCommon.startIterationsA
-					&& aux->i < fractal->transformCommon.stopIterationsA)
-			{
-				if (fractal->transformCommon.functionEnabledAxFalse)
-					temp3 = z * z;
-				else
-					temp3 = fabs(z);
+			// if (aux->i >= fractal->transformCommon.startIterationsD
+			//		&& aux->i < fractal->transformCommon.stopIterationsD)
+			//{
+			if (fractal->transformCommon.functionEnabledAxFalse)
+				temp3 = z * z;
+			else
+				temp3 = fabs(z);
 
-				if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
-				{ // if inside cuboid
-					R2.x = native_divide(limitMinR2.x, temp3.x);
-					R2.y = native_divide(limitMinR2.y, temp3.y);
-					R2.z = native_divide(limitMinR2.z, temp3.z);
-					REAL First = min(R2.x, min(R2.y, R2.z));
-					MinR2 = rr * First;
+			if (temp3.x < limitMinR2.x && temp3.y < limitMinR2.y && temp3.z < limitMinR2.z)
+			{ // if inside cuboid
+				R2.x = native_divide(limitMinR2.x, temp3.x);
+				R2.y = native_divide(limitMinR2.y, temp3.y);
+				R2.z = native_divide(limitMinR2.z, temp3.z);
+				REAL First = min(R2.x, min(R2.y, R2.z));
+				MinR2 = rr * First;
 
-					if (fractal->transformCommon.functionEnabled && MinR2 > fractal->transformCommon.maxR2d1)
-					{ // stop overlapping potential
-						MinR2 = fractal->transformCommon.maxR2d1;
-					}
+				// if (fractal->transformCommon.functionEnabled && MinR2 > fractal->transformCommon.maxR2d1)
 
-					m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
-					aux->color += fractal->mandelbox.color.factorSp1;
+				if (MinR2 > fractal->transformCommon.maxR2d1)
+				{ // stop overlapping potential
+					MinR2 = fractal->transformCommon.maxR2d1;
 				}
-				else if (rr < fractal->transformCommon.maxR2d1)
-				{
-					m *= native_divide(fractal->transformCommon.maxR2d1, rr);
-					aux->color += fractal->mandelbox.color.factorSp2;
-				}
+
+				m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
+				aux->color += fractal->mandelbox.color.factorSp1;
 			}
-			else if (rr < MinR2)
+			else if (rr < fractal->transformCommon.maxR2d1)
+			{
+				m *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				aux->color += fractal->mandelbox.color.factorSp2;
+			}
+			z -= fractal->transformCommon.offset000;
+			// scale
+			z *= m;
+			aux->DE *= fabs(m);
+		}
+		// if not use standard Mbox sphere fold
+
+		if (z == oldZ)
+		{
+			REAL MinR2 = fractal->transformCommon.minR2p25;
+			REAL rr = dot(z, z);
+			z += fractal->transformCommon.offset000;
+			if (rr < MinR2)
 			{
 				m *= native_divide(fractal->transformCommon.maxR2d1, MinR2);
 				aux->color += fractal->mandelbox.color.factorSp1;
@@ -242,12 +259,10 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	// color
-	aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-	aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight
-
-	REAL scaleColor = fractal->foldColor.colorMin + fabs(useScale); // scale, useScale, m, etc
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
+	// color updated v2.13
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux->color += colorAdd;
+	}
 	return z;
 }

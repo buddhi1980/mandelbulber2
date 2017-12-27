@@ -253,31 +253,40 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 	}
 	else
 	{
-		CVector3 vector(0.0, 0.0, 1.0);
-		vector.Normalize();
-		CVector3 viewVectorNorm = input.viewVector;
-		viewVectorNorm.Normalize();
-		double grad = viewVectorNorm.Dot(vector) + 1.0;
 		sRGBFloat pixel;
-		if (grad < 1)
+		if (params->background3ColorsEnable)
 		{
-			double gradN = 1.0 - grad;
-			pixel.R = quint16(params->background_color3.R * gradN + params->background_color2.R * grad);
-			pixel.G = quint16(params->background_color3.G * gradN + params->background_color2.G * grad);
-			pixel.B = quint16(params->background_color3.B * gradN + params->background_color2.B * grad);
+			CVector3 vector(0.0, 0.0, 1.0);
+			vector.Normalize();
+			CVector3 viewVectorNorm = input.viewVector;
+			viewVectorNorm.Normalize();
+			double grad = viewVectorNorm.Dot(vector) + 1.0;
+			if (grad < 1)
+			{
+				double gradN = 1.0 - grad;
+				pixel.R = quint16(params->background_color3.R * gradN + params->background_color2.R * grad);
+				pixel.G = quint16(params->background_color3.G * gradN + params->background_color2.G * grad);
+				pixel.B = quint16(params->background_color3.B * gradN + params->background_color2.B * grad);
+			}
+			else
+			{
+				grad = grad - 1;
+				double gradN = 1.0 - grad;
+				pixel.R = quint16(params->background_color2.R * gradN + params->background_color1.R * grad);
+				pixel.G = quint16(params->background_color2.G * gradN + params->background_color1.G * grad);
+				pixel.B = quint16(params->background_color2.B * gradN + params->background_color1.B * grad);
+			}
+
+			pixel.R *= params->background_brightness;
+			pixel.G *= params->background_brightness;
+			pixel.B *= params->background_brightness;
 		}
 		else
 		{
-			grad = grad - 1;
-			double gradN = 1.0 - grad;
-			pixel.R = quint16(params->background_color2.R * gradN + params->background_color1.R * grad);
-			pixel.G = quint16(params->background_color2.G * gradN + params->background_color1.G * grad);
-			pixel.B = quint16(params->background_color2.B * gradN + params->background_color1.B * grad);
+			pixel.R = params->background_color1.R * params->background_brightness;
+			pixel.G = params->background_color1.G * params->background_brightness;
+			pixel.B = params->background_color1.B * params->background_brightness;
 		}
-
-		pixel.R *= params->background_brightness;
-		pixel.G *= params->background_brightness;
-		pixel.B *= params->background_brightness;
 
 		pixel2.R = pixel.R / 65536.0f;
 		pixel2.G = pixel.G / 65536.0f;

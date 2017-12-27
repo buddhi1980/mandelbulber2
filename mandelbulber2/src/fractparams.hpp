@@ -96,6 +96,7 @@ struct sParamRender
 	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
+	bool background3ColorsEnable;
 	bool booleanOperatorsEnabled;
 	bool constantDEThreshold;
 	bool DOFEnabled;

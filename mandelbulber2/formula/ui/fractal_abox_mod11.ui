@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>abox_mod11</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -407,7 +407,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Enable Swap z.x z.z </string>
+      <string>Enable Swap z.x z.z</string>
      </property>
     </widget>
    </item>
@@ -1296,7 +1296,7 @@ offset:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Offset</string>
+      <string>Offset:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8">
       <property name="leftMargin">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>amazing_surf_multi</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -809,7 +809,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Offset</string>
+      <string>Offset:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8">
       <property name="leftMargin">

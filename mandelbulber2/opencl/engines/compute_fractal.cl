@@ -148,7 +148,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.foldFactor = 0.0f;
 	aux.minRFactor = 0.0f;
 	aux.scaleFactor = 0.0f;
-	aux.oldHybridFactor = 1.0f;
+	// aux.oldHybridFactor = 1.0f;
 	aux.temp100 = 100.0f;
 	aux.addDist = 0.0;
 
@@ -382,7 +382,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = length(z);
 #endif
 
-#else	//  IS_NOT HYBRID
+#else //  IS_NOT HYBRID
 	switch (consts->sequence.DEAnalyticFunction[formulaIndex])
 	{
 		case clAnalyticFunctionLogarithmic:
@@ -438,48 +438,54 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 #endif // IS_HYBRID
 
-        if (mode == calcModeColouring)
-        {
-                float r2 = aux.r / fabs(aux.DE);
-                r2 = min(r2, 20.0f);
+	if (mode == calcModeColouring)
+	{
+		float r2 = aux.r / fabs(aux.DE);
+		r2 = min(r2, 20.0f);
 
-                if (consts->sequence.isHybrid)
-                {
-                        colorMin = min(colorMin, 100.0f);
-                        float mBoxColor = aux.color;
-                        mBoxColor = min(mBoxColor, 1000.0f);
-                        out.colorIndex =
-                                ((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
-                                + aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
-                }
-                else
-                {
-                        switch (consts->sequence.coloringFunction[formulaIndex])
-                        {
-                                case clColoringFunctionABox:
-                                        out.colorIndex = aux.color * 100.0f + aux.r * fractal->mandelbox.color.factorR / 1.0e13f;
-                                        // TODO another coloring modes
-                                        break;
-                                case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
-                                case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
-                                case clColoringFunctionABox2:
-                                        out.colorIndex = aux.color * 100.0f * aux.foldFactor
-                                                                                                         + aux.r * fractal->mandelbox.color.factorR / 1e13f
-                                                                                                         + aux.scaleFactor * r2 * 5000.0f + colorMin * aux.minRFactor * 1000.0f;
-                                        break;
-                                case clColoringFunctionDonut: out.colorIndex = aux.color * 2000.0f / i; break;
-                                case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
-                        }
-                }
-        }
+		if (consts->sequence.isHybrid)
+		{
+//			colorMin = min(colorMin, 100.0f);
+//			float mBoxColor = aux.color;
+//			mBoxColor = min(mBoxColor, 1000.0f);
+//			out.colorIndex =
+//				((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f) * aux.oldHybridFactor)
+//				+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
+						colorMin = min(colorMin, 100.0f);
+						float mBoxColor = aux.color;
+						mBoxColor = min(mBoxColor, 1000.0f);
+						out.colorIndex =
+							((colorMin * 1000.0f + mBoxColor * 100.0f + r2 * 5000.0f))
+							+ aux.colorHybrid + (colorMin * 1000.0f * aux.minRFactor);
+		}
+		else
+		{
+			switch (consts->sequence.coloringFunction[formulaIndex])
+			{
+				case clColoringFunctionABox:
+					out.colorIndex = aux.color * 100.0f + aux.r * fractal->mandelbox.color.factorR / 1.0e13f;
+					// TODO another coloring modes
+					break;
+				case clColoringFunctionIFS: out.colorIndex = colorMin * 1000.0f; break;
+				case clColoringFunctionAmazingSurf: out.colorIndex = colorMin * 200.0f; break;
+				case clColoringFunctionABox2:
+					out.colorIndex = aux.color * 100.0f * aux.foldFactor
+													 + aux.r * fractal->mandelbox.color.factorR / 1e13f
+													 + aux.scaleFactor * r2 * 5000.0f + colorMin * aux.minRFactor * 1000.0f;
+					break;
+				case clColoringFunctionDonut: out.colorIndex = aux.color * 2000.0f / i; break;
+				case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
+			}
+		}
+	}
 
-        // end
-        if (dist < 0.0f) dist = 0.0f;
-        out.distance = dist;
-        out.iters = i + 1;
-        out.z = z;
+	// end
+	if (dist < 0.0f) dist = 0.0f;
+	out.distance = dist;
+	out.iters = i + 1;
+	out.z = z;
 
-        return out;
+	return out;
 }
 
 #endif /* MANDELBULBER2_OPENCL_ENGINES_COMPUTE_FRACTAL_CL_ */

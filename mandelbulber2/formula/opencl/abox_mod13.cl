@@ -22,7 +22,7 @@
 REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-
+	REAL colorAdd = 0.0f;
 	// invert c
 	if (fractal->transformCommon.functionEnabledAzFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE
@@ -56,9 +56,12 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+		}
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsD
@@ -99,14 +102,14 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
 		z *= tglad_factor1;
 		aux->DE *= tglad_factor1;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 	z -= fractal->mandelbox.offset;
 
@@ -193,13 +196,10 @@ REAL4 AboxMod13Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-
-	// color
-	aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-	aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight
-
-	REAL scaleColor = fractal->foldColor.colorMin + fabs(useScale); // scale, useScale, m, etc
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
+	// color updated v2.13
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux->color += colorAdd;
+	}
 	return z;
 }

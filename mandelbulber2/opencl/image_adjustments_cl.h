@@ -62,6 +62,7 @@ typedef struct
 	cl_float brightness;
 	cl_float contrast;
 	cl_float imageGamma;
+	cl_float saturation;
 	cl_int hdrEnabled;
 } sImageAdjustmentsCl;
 
@@ -72,6 +73,7 @@ inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments &source)
 	target.brightness = source.brightness;
 	target.contrast = source.contrast;
 	target.imageGamma = source.imageGamma;
+	target.saturation = source.saturation;
 	target.hdrEnabled = source.hdrEnabled;
 	return target;
 }

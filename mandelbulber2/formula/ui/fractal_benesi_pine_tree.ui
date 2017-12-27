@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>benesi_pine_tree</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>898</width>
+    <width>756</width>
     <height>876</height>
    </rect>
   </property>
@@ -40,12 +40,18 @@
      <property name="text">
       <string>Pine Tree addCpixel ConstantMultiplier ( c.y c.z Swap)</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
       <string>This formula does not use the global addCpixel constant multiplier (on Options tab)</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>

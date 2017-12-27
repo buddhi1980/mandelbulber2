@@ -89,6 +89,7 @@ typedef struct
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
 	cl_int auxLightRandomEnabled;
+	cl_int background3ColorsEnable;
 	cl_int booleanOperatorsEnabled;
 	cl_int constantDEThreshold;
 	cl_int DOFEnabled;
@@ -252,6 +253,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 		target.auxLightPreEnabled[i] = source.auxLightPreEnabled[i];
 	}
 	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
+	target.background3ColorsEnable = source.background3ColorsEnable;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
 	target.constantDEThreshold = source.constantDEThreshold;
 	target.DOFEnabled = source.DOFEnabled;

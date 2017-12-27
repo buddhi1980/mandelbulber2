@@ -58,6 +58,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
+	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");
 	background_color1 = container->Get<sRGB>("background_color", 1);
 	background_color2 = container->Get<sRGB>("background_color", 2);
 	background_color3 = container->Get<sRGB>("background_color", 3);
