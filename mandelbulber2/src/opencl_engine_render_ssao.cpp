@@ -112,6 +112,8 @@ void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 
 bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *params)
 {
+	Q_UNUSED(params);
+
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(

@@ -679,6 +679,8 @@ void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	Q_UNUSED(fractal);
+
 	double temp = aux.r;
 	temp = pow(temp, 7.7);
 	aux.r_dz = temp * aux.r_dz * 7.7;

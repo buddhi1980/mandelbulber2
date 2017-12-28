@@ -286,6 +286,7 @@ void ImageFileSavePNG::SavePNG(
 	png_bytep *row_pointers = nullptr;
 	png_structp png_ptr = nullptr;
 	png_info *info_ptr = nullptr;
+	char *colorPtr = nullptr;
 
 	try
 	{
@@ -339,8 +340,6 @@ void ImageFileSavePNG::SavePNG(
 
 		png_write_info(png_ptr, info_ptr);
 		png_set_swap(png_ptr);
-
-		char *colorPtr = nullptr;
 
 		/* write bytes */
 		if (setjmp(png_jmpbuf(png_ptr))) throw QString("[write_png_file] Error during writing bytes");
@@ -535,6 +534,7 @@ void ImageFileSavePNG::SavePNG(
 			}
 		}
 		if (row_pointers) delete[] row_pointers;
+		if (colorPtr) delete[] colorPtr;
 		if (fp) fclose(fp);
 		cErrorMessage::showMessage(
 			QObject::tr("Can't save image to PNG file!\n") + filenameInput + "\n" + status,
@@ -846,8 +846,8 @@ bool ImageFileSavePNG::SavePNGQtBlackAndWhite(
 void ImageFileSaveEXR::SaveEXR(
 	QString filename, cImage *image, QMap<enumImageContentType, structSaveImageChannel> imageConfig)
 {
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	uint64_t width = image->GetWidth();
+	uint64_t height = image->GetHeight();
 
 	Imf::Header header(width, height);
 	Imf::FrameBuffer frameBuffer;
@@ -871,11 +871,11 @@ void ImageFileSaveEXR::SaveEXR(
 		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
 		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
 
-		for (int y = 0; y < height; y++)
+		for (uint64_t y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (uint64_t x = 0; x < width; x++)
 			{
-				uint64_t ptr = (uint64_t(x) + uint64_t(y) * uint64_t(width));
+				uint64_t ptr = x + y * width;
 				if (imfQuality == Imf::FLOAT)
 				{
 					sRGB16 pixel = image->GetPixelImage16(x, y);
@@ -918,9 +918,9 @@ void ImageFileSaveEXR::SaveEXR(
 		half *halfPointer = reinterpret_cast<half *>(buffer);
 		float *floatPointer = reinterpret_cast<float *>(buffer);
 
-		for (int y = 0; y < height; y++)
+		for (uint64_t y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (uint64_t x = 0; x < width; x++)
 			{
 				uint64_t ptr = x + y * width;
 
@@ -963,9 +963,9 @@ void ImageFileSaveEXR::SaveEXR(
 			char *buffer = new char[uint64_t(width) * height * pixelSize];
 			half *halfPointer = reinterpret_cast<half *>(buffer);
 
-			for (int y = 0; y < height; y++)
+			for (uint64_t y = 0; y < height; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (uint64_t x = 0; x < width; x++)
 				{
 					uint64_t ptr = x + y * width;
 					halfPointer[ptr] = image->GetPixelZBuffer(x, y);
@@ -993,9 +993,9 @@ void ImageFileSaveEXR::SaveEXR(
 		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
 		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
 
-		for (int y = 0; y < height; y++)
+		for (uint64_t y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (uint64_t x = 0; x < width; x++)
 			{
 				uint64_t ptr = (x + y * width);
 				sRGBFloat pixel = image->GetPixelNormal(x, y);

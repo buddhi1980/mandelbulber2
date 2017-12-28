@@ -251,6 +251,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
 	sRenderData *renderData)
 {
+	Q_UNUSED(fractalContainer);
+
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
 

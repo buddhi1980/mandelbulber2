@@ -119,6 +119,8 @@ void cOpenClEngineRenderDOFPhase1::SetParameters(const sParamRender *paramRender
 
 bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContainer *params)
 {
+	Q_UNUSED(params);
+
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
