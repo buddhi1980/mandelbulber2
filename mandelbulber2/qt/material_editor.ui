@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-540</y>
+        <y>-741</y>
         <width>619</width>
         <height>3310</height>
        </rect>
@@ -2085,7 +2085,7 @@ sphere radius:</string>
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_34">
                     <property name="text">
-                     <string>min colorValue * 256</string>
+                     <string>min colorValue</string>
                     </property>
                    </widget>
                   </item>
@@ -2120,7 +2120,7 @@ sphere radius:</string>
                   <item row="1" column="0">
                    <widget class="QLabel" name="label_41">
                     <property name="text">
-                     <string>max colorValue * 256</string>
+                     <string>max colorValue</string>
                     </property>
                    </widget>
                   </item>
