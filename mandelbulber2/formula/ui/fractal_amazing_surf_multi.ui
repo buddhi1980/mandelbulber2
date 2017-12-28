@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>amazing_surf_multi</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -87,21 +87,21 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string notr="true">z = fabs(z + fold) - fabs(z - fold) -z</string>
+           <string notr="true">z = abs(z + fold) - abs(z - fold) -z</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string notr="true">z = fold - fabs( fabs(z) - fold)</string>
+           <string notr="true">z = fold - abs(abs(z) - fold)</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string notr="true">z = fabs(z + fold)</string>
+           <string notr="true">z = abs(z + fold)</string>
           </property>
          </widget>
         </item>
@@ -115,7 +115,7 @@
         <item row="4" column="1">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string notr="true">z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)</string>
+           <string notr="true">z = fold2 - abs(abs(z + fold) - fold2) - abs(fold)</string>
           </property>
          </widget>
         </item>
@@ -685,7 +685,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAx_false">
      <property name="title">
-      <string>z axis transform</string>
+      <string>z ax&amp;is transform</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

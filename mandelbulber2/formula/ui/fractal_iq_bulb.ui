@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>iq_bulb</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -48,35 +48,7 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8a">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.998999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
+     <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -105,40 +77,30 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSlider" name="slider_transf_pwr_8a">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8a">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="maximum">
-        <number>20000000</number>
+       <property name="prefix">
+        <string/>
        </property>
-       <property name="singleStep">
-        <number>1</number>
+       <property name="suffix">
+        <string/>
        </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+       <property name="decimals">
+        <number>6</number>
        </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSlider" name="slider_transf_pwr_8">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+       <property name="minimum">
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>20000000</number>
+        <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -265,9 +227,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider_transf_pwr_8</tabstop>
   <tabstop>spinbox_transf_pwr_8</tabstop>
-  <tabstop>slider_transf_pwr_8a</tabstop>
   <tabstop>spinbox_transf_pwr_8a</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
