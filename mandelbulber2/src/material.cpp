@@ -204,12 +204,13 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
 
 	// orbitTrap weight control
-	fractalColoring.orbitTrapWeight =
-		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
 	fractalColoring.orbitTrapTrue =
+		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
+	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	fractalColoring.initialMiniumuR =
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+
 	// aux.color
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));

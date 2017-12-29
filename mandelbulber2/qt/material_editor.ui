@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-426</y>
+        <y>-915</y>
         <width>619</width>
-        <height>3335</height>
+        <height>3392</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -635,7 +635,7 @@ sphere radius:</string>
             <property name="checkable">
              <bool>true</bool>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0,0,0,0">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -651,6 +651,32 @@ sphere radius:</string>
              <property name="bottomMargin">
               <number>2</number>
              </property>
+             <item>
+              <widget class="QLabel" name="label_81">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>For all of these functions , 1.0 = 256 colorValue units</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_82">
+               <property name="font">
+                <font>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>At the end of the code,  colorValue = colorValue * 256</string>
+               </property>
+              </widget>
+             </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_fractal_coloring_init_cond_enabled_false">
                <property name="toolTip">
@@ -686,7 +712,7 @@ sphere radius:</string>
                   <item row="4" column="1">
                    <widget class="QLabel" name="label_43">
                     <property name="text">
-                     <string>c.x * 256 * scale:</string>
+                     <string>c.x * scale:</string>
                     </property>
                    </widget>
                   </item>
@@ -756,14 +782,14 @@ sphere radius:</string>
                   <item row="2" column="1">
                    <widget class="QLabel" name="label_45">
                     <property name="text">
-                     <string>c radius * 256 * scale:</string>
+                     <string>c radius * scale:</string>
                     </property>
                    </widget>
                   </item>
                   <item row="5" column="1">
                    <widget class="QLabel" name="label_44">
                     <property name="text">
-                     <string>c.y * 256 * scale:</string>
+                     <string>c.y * scale:</string>
                     </property>
                    </widget>
                   </item>
@@ -826,7 +852,7 @@ sphere radius:</string>
                   <item row="6" column="1">
                    <widget class="QLabel" name="label_46">
                     <property name="text">
-                     <string>c.z * 256 * scale:</string>
+                     <string>c.z * scale:</string>
                     </property>
                    </widget>
                   </item>
@@ -840,14 +866,14 @@ sphere radius:</string>
                   <item row="1" column="1" colspan="5">
                    <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
                     <property name="text">
-                     <string notr="true"> c radius</string>
+                     <string notr="true"> c_radius</string>
                     </property>
                    </widget>
                   </item>
                   <item row="3" column="1" colspan="5">
                    <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
                     <property name="text">
-                     <string notr="true"> c radius</string>
+                     <string notr="true"> c_xyz</string>
                     </property>
                    </widget>
                   </item>
@@ -858,6 +884,9 @@ sphere radius:</string>
              </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_fractal_coloring_orbit_trap_true">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="toolTip">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
@@ -867,7 +896,7 @@ sphere radius:</string>
                <property name="checkable">
                 <bool>true</bool>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_42" stretch="0">
+               <layout class="QVBoxLayout" name="verticalLayout_42" stretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -883,6 +912,19 @@ sphere radius:</string>
                 <property name="bottomMargin">
                  <number>2</number>
                 </property>
+                <item>
+                 <widget class="QLabel" name="label_78">
+                  <property name="font">
+                   <font>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>orbit trap weight = 19.5 produces old default (minimumR * 5000)</string>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,0">
                   <property name="spacing">
@@ -925,7 +967,7 @@ sphere radius:</string>
                      </font>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;initial minimumR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;initial minimumR:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -972,7 +1014,7 @@ sphere radius:</string>
                      </font>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;orbit trap weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;orbit trap weight:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                   </item>
@@ -1130,7 +1172,7 @@ sphere radius:</string>
                      <item row="1" column="0">
                       <widget class="QLabel" name="label_52">
                        <property name="text">
-                        <string>radius  * scale</string>
+                        <string>radius  * scale:</string>
                        </property>
                       </widget>
                      </item>
@@ -1689,14 +1731,14 @@ sphere radius:</string>
                         <item row="1" column="0">
                          <widget class="QLabel" name="label_68">
                           <property name="text">
-                           <string>spread factor</string>
+                           <string>spread factor:</string>
                           </property>
                          </widget>
                         </item>
                         <item row="0" column="0">
                          <widget class="QLabel" name="label_76">
                           <property name="text">
-                           <string>maximum add * 256:</string>
+                           <string>maximum add:</string>
                           </property>
                          </widget>
                         </item>
@@ -1731,7 +1773,7 @@ sphere radius:</string>
                         <item row="2" column="0">
                          <widget class="QLabel" name="label_77">
                           <property name="text">
-                           <string>start value * 256:</string>
+                           <string>start value:</string>
                           </property>
                          </widget>
                         </item>
@@ -1803,14 +1845,14 @@ sphere radius:</string>
                         <item row="0" column="0">
                          <widget class="QLabel" name="label_79">
                           <property name="text">
-                           <string>parab scale :</string>
+                           <string>parab scale:</string>
                           </property>
                          </widget>
                         </item>
                         <item row="1" column="0">
                          <widget class="QLabel" name="label_80">
                           <property name="text">
-                           <string>start value * 256:</string>
+                           <string>start value:</string>
                           </property>
                          </widget>
                         </item>
@@ -1938,14 +1980,14 @@ sphere radius:</string>
                         <item row="1" column="0">
                          <widget class="QLabel" name="label_48">
                           <property name="text">
-                           <string>cosine add * 256</string>
+                           <string>cosine add:</string>
                           </property>
                          </widget>
                         </item>
                         <item row="0" column="0">
                          <widget class="QLabel" name="label_47">
                           <property name="text">
-                           <string>cosine period</string>
+                           <string>cosine period:</string>
                           </property>
                          </widget>
                         </item>
@@ -1980,7 +2022,7 @@ sphere radius:</string>
                         <item row="2" column="0">
                          <widget class="QLabel" name="label_51">
                           <property name="text">
-                           <string>start value * 256:</string>
+                           <string>start value:</string>
                           </property>
                          </widget>
                         </item>
@@ -2085,7 +2127,7 @@ sphere radius:</string>
                           <item row="0" column="0">
                            <widget class="QLabel" name="label_57">
                             <property name="text">
-                             <string>round scale * 256</string>
+                             <string>round scale</string>
                             </property>
                            </widget>
                           </item>

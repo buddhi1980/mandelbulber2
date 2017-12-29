@@ -50,55 +50,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	double rad1000 = 0.0;
 	double colorValue = 0.0;
 
-	if (fractalColoring.initCondFalse)
-	{
-		CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
-
-		double initColorValue = 0.0;
-		if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
-		if (fractalColoring.icXYZFalse)
-		{
-			xyzC = fabs(xyzC) * fractalColoring.xyzC111;
-			initColorValue += xyzC.x + xyzC.y + xyzC.z;
-		}
-		colorValue = initColorValue * 256.0;
-	}
-
-	if (fractalColoring.radFalse)
-	{
-		rad1000 = r;
-		if (fractalColoring.radSquaredFalse) rad1000 = r * r;
-		rad1000 *= 1000.0 * fractalColoring.radWeight;
-	}
-
-	if (fractalColoring.radDivDeFalse)
-	{
-		double distEst = fabs(extendedAux.DE);
-		if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
-		radDE5000 = r; // r /DE // was named r2
-		if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
-		radDE5000 *= 5000.0 * fractalColoring.radDivDeWeight / distEst;
-	}
-
-	double addValue = 0.0;
-
-	// example of a basic input
-	double xyzValue = 0.0;
-	if (fractalColoring.xyzBiasEnabledFalse)
-	{
-		CVector3 xyzAxis = 0;
-		xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
-
-		if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
-		if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
-		if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
-
-		// xyzAxis *=  fractalColoring.xyz000;
-		xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
-	}
-
-	addValue += xyzValue; // addValue accumulates outputs
-
 	// HYBRID MODE
 	if (isHybrid)
 	{
@@ -106,10 +57,60 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		//*new hybrid*
 		if (fractalColoring.extraColorEnabledFalse)
 		{
-			if (fractalColoring.orbitTrapTrue) colorValue += minR5000 * fractalColoring.orbitTrapWeight;
-			colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
+			if (fractalColoring.initCondFalse)
+			{
+				CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
+
+				double initColorValue = 0.0;
+				if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+				if (fractalColoring.icXYZFalse)
+				{
+					xyzC = fabs(xyzC) * fractalColoring.xyzC111;
+					initColorValue += xyzC.x + xyzC.y + xyzC.z;
+				}
+				colorValue = initColorValue;
+			}
+
+			if (fractalColoring.orbitTrapTrue) colorValue += minimumR  * fractalColoring.orbitTrapWeight;
+
+			if (fractalColoring.radFalse)
+			{
+				rad1000 = r;
+				if (fractalColoring.radSquaredFalse) rad1000 = r * r;
+				rad1000 *= fractalColoring.radWeight;
+			}
+
+			if (fractalColoring.radDivDeFalse)
+			{
+				double distEst = fabs(extendedAux.DE);
+				if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
+				radDE5000 = r; // r /DE // was named r2
+				if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
+				radDE5000 *= fractalColoring.radDivDeWeight / distEst;
+			}
+			double addValue = 0.0;
+
+			// example of a basic input
+			double xyzValue = 0.0;
+			if (fractalColoring.xyzBiasEnabledFalse)
+			{
+				CVector3 xyzAxis = 0;
+				xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
+
+				if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
+				if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
+				if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
+
+				// xyzAxis *=  fractalColoring.xyz000;
+				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+			}
+
+			addValue += xyzValue; // addValue accumulates outputs
+
+			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
 										+ rad1000 + radDE5000 + addValue										// all extra inputs
 										+ extendedAux.colorHybrid; // transf_hybrid_color inputs
+
 			if (fractalColoring.iterGroupFalse)
 			{
 				// Iter ADD,  this allows the input to be influenced by iteration number
@@ -141,7 +142,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				}
 			}
 			// "pseudo" global palette controls
-			colorValue /= 256.0;
+			//colorValue /= 256.0;
 
 			if (fractalColoring.globalPaletteFalse)
 			{
@@ -187,14 +188,12 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				}
 			}
 
-			colorValue *= 256.0;
-
 			double minCV = fractalColoring.minColorValue;
 			double maxCV = fractalColoring.maxColorValue;
 			if (colorValue < minCV) colorValue = minCV;
 			if (colorValue > maxCV) colorValue = maxCV;
 
-
+			colorValue *= 256.0; // convert to colorValue units
 
 			colorIndex = colorValue;
 		}
@@ -233,8 +232,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorIndex = minR1000 * extendedAux.minRFactor					 // orbit trap DEFAULT
 										 + auxColorValue100 * extendedAux.foldFactor // aux.color
 										 + r * extendedAux.radiusFactor / 1e13			 // radius// this may be replaced
-										 + radDE5000 * extendedAux.scaleFactor // r/DE  for backwards compatibility
-										 + addValue;													 // all extra inputs
+										 + radDE5000 * extendedAux.scaleFactor; // r/DE  for backwards compatibility
+										// + addValue;													 // all extra inputs
 
 				/*+ ((fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 								? minimumR * extendedAux.minRFactor * 1000.0
@@ -248,107 +247,155 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 			case coloringFunctionGeneral:
 				//					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
-				if (fractalColoring.extraColorEnabledFalse)
+			if (fractalColoring.extraColorEnabledFalse)
+			{
+				if (fractalColoring.initCondFalse)
 				{
-					if (fractalColoring.orbitTrapTrue) colorValue = minR5000 * fractalColoring.orbitTrapWeight;
+					CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
 
-					colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
-												+ rad1000																						// radius
-												+ radDE5000																					// r /DE
-												+ addValue;																					// all extra inputs
-
-					if (fractalColoring.iterGroupFalse)
+					double initColorValue = 0.0;
+					if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+					if (fractalColoring.icXYZFalse)
 					{
-						// Iter ADD,  this allows the input to be influenced by iteration number
-						if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
-						{
-							int iUse = extendedAux.i - fractalColoring.iStartValue;
-							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-							if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-							colorValue += fractalColoring.iterAddScale * iUse;
-						}
+						xyzC = fabs(xyzC) * fractalColoring.xyzC111;
+						initColorValue += xyzC.x + xyzC.y + xyzC.z;
+					}
+					colorValue = initColorValue;
+				}
 
-						// Iter SCALE,
-						if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
-						{
-							int iUse = extendedAux.i - fractalColoring.iStartValue;
-							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+				if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
-							if (fractalColoring.iInvertEnabledFalse)
-							{
-								if (fractalColoring.iSquaredEnabledFalse)
-									colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
-								else
-									colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
-							}
+				if (fractalColoring.radFalse)
+				{
+					rad1000 = r;
+					if (fractalColoring.radSquaredFalse) rad1000 = r * r;
+					rad1000 *= fractalColoring.radWeight;
+				}
+
+				if (fractalColoring.radDivDeFalse)
+				{
+					double distEst = fabs(extendedAux.DE);
+					if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
+					radDE5000 = r; // r /DE // was named r2
+					if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
+					radDE5000 *= fractalColoring.radDivDeWeight / distEst;
+				}
+
+				double addValue = 0.0;
+				// example of a basic input
+				double xyzValue = 0.0;
+				if (fractalColoring.xyzBiasEnabledFalse)
+				{
+					CVector3 xyzAxis = 0;
+					xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
+
+					if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
+					if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
+					if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
+
+					// xyzAxis *=  fractalColoring.xyz000;
+					xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+				}
+
+				addValue += xyzValue; // addValue accumulates outputs
+
+
+				colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
+											+ rad1000																						// radius
+											+ radDE5000																					// r /DE
+											+ addValue;																					// all extra inputs
+
+				if (fractalColoring.iterGroupFalse)
+				{
+					// Iter ADD,  this allows the input to be influenced by iteration number
+					if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
+					{
+						int iUse = extendedAux.i - fractalColoring.iStartValue;
+						if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+						if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+						colorValue += fractalColoring.iterAddScale * iUse;
+					}
+
+					// Iter SCALE,
+					if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
+					{
+						int iUse = extendedAux.i - fractalColoring.iStartValue;
+						if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
+
+						if (fractalColoring.iInvertEnabledFalse)
+						{
+							if (fractalColoring.iSquaredEnabledFalse)
+								colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
 							else
-							{
-								colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
-							}
+								colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
+						}
+						else
+						{
+							colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 						}
 					}
+				}
 
 					// "pseudo" global palette controls
-					colorValue /= 256.0;
 
-					if (fractalColoring.globalPaletteFalse)
-					{
-						if (fractalColoring.addEnabledFalse)
-						{ // add curve inv
-							if (colorValue > fractalColoring.addStartValue)
-							{
-								colorValue += (1.0
-																- 1.0 / (1.0
-																					+ (colorValue - fractalColoring.addStartValue)
-																							/ fractalColoring.addSpread))
-															* fractalColoring.addMax;
-							}
-						}
-
-						if (fractalColoring.parabEnabledFalse)
+				if (fractalColoring.globalPaletteFalse)
+				{
+					if (fractalColoring.addEnabledFalse)
+					{ // add curve inv
+						if (colorValue > fractalColoring.addStartValue)
 						{
-							if (colorValue > fractalColoring.parabStartValue)
-							{
-								double parab = colorValue - fractalColoring.cosStartValue;
-								parab = parab * parab * fractalColoring.parabScale;
-								colorValue += parab;
-							}
-						}
-						//=(+0.5-0.5*COS((B43)*0.5PI()/e$rr ))*(E$36)
-						if (fractalColoring.cosEnabledFalse)
-						{ // trig palette
-							if (colorValue > fractalColoring.cosStartValue)
-							{
-								double trig = (0.5
-																- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
-																						/ (fractalColoring.cosPeriod * 2.0)))
-															* fractalColoring.cosAdd;
-								colorValue += trig;
-							}
-						}
-
-						if (fractalColoring.roundEnabledFalse)
-						{
-							double roundScale = fractalColoring.roundScale;
-							colorValue /= roundScale;
-							colorValue = round(colorValue) * roundScale;
+							colorValue += (1.0
+															- 1.0 / (1.0
+																				+ (colorValue - fractalColoring.addStartValue)
+																						/ fractalColoring.addSpread))
+														* fractalColoring.addMax;
 						}
 					}
 
-					colorValue *= 256.0;
+					if (fractalColoring.parabEnabledFalse)
+					{
+						if (colorValue > fractalColoring.parabStartValue)
+						{
+							double parab = colorValue - fractalColoring.cosStartValue;
+							parab = parab * parab * fractalColoring.parabScale;
+							colorValue += parab;
+						}
+					}
 
-					double minCV = fractalColoring.minColorValue;
-					double maxCV = fractalColoring.maxColorValue;
-					if (colorValue < minCV) colorValue = minCV;
-					if (colorValue > maxCV) colorValue = maxCV;
+					if (fractalColoring.cosEnabledFalse)
+					{ // trig palette
+						if (colorValue > fractalColoring.cosStartValue)
+						{
+							double trig = (0.5
+															- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
+																					/ (fractalColoring.cosPeriod * 2.0)))
+														* fractalColoring.cosAdd;
+							colorValue += trig;
+						}
+					}
 
-					colorIndex = colorValue;
+					if (fractalColoring.roundEnabledFalse)
+					{
+						double roundScale = fractalColoring.roundScale;
+						colorValue /= roundScale;
+						colorValue = round(colorValue) * roundScale;
+					}
 				}
-				else
-				{
-					colorIndex = minR5000;
-				}
-				break;
+
+				double minCV = fractalColoring.minColorValue;
+				double maxCV = fractalColoring.maxColorValue;
+				if (colorValue < minCV) colorValue = minCV;
+				if (colorValue > maxCV) colorValue = maxCV;
+
+				colorValue *= 256.0; // convert to colorValue units
+
+				colorIndex = colorValue;
+			}
+			else
+			{
+				colorIndex = minR5000;
+			}
+			break;
 		}
 	}
 

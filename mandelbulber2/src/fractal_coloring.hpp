@@ -68,7 +68,7 @@ struct sFractalColoring
 
 		orbitTrapTrue = true;
 		orbitTrapWeight = 1.0;
-		initialMiniumuR = 0.0;
+		initialMiniumuR = 100.0;
 
 		auxColorWeight = 0.0;
 
@@ -101,7 +101,7 @@ struct sFractalColoring
 
 		addEnabledFalse = false;
 		addMax = 1.0;
-		addSpread = 100.0;
+		addSpread = 1.0;
 		addStartValue = 0.0;
 
 		parabEnabledFalse = false;
