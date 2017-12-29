@@ -917,21 +917,21 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	painter.drawLine(point1, point2);
 
 	QStaticText textX("X");
-	point1 = CalcPointPersp(CVector3(-1.2, 0.0, 0.0), mRotInv, persp) * size + center;
+	point1 = CalcPointPersp(CVector3(1.2, 0.0, 0.0), mRotInv, persp) * size + center;
 	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textX.size().height() * 0.5);
 	painter.drawStaticText(point2, textX);
 
-	point1 = CalcPointPersp(CVector3(-0.9, -0.05, 0.0), mRotInv, persp) * size + center;
-	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
+	point1 = CalcPointPersp(CVector3(0.9, -0.05, 0.0), mRotInv, persp) * size + center;
+	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
-	point1 = CalcPointPersp(CVector3(-0.9, 0.05, 0.0), mRotInv, persp) * size + center;
-	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
+	point1 = CalcPointPersp(CVector3(0.9, 0.05, 0.0), mRotInv, persp) * size + center;
+	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
-	point1 = CalcPointPersp(CVector3(-0.9, 0.0, 0.05), mRotInv, persp) * size + center;
-	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
+	point1 = CalcPointPersp(CVector3(0.9, 0.0, 0.05), mRotInv, persp) * size + center;
+	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
-	point1 = CalcPointPersp(CVector3(-0.9, 0.0, -0.05), mRotInv, persp) * size + center;
-	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
+	point1 = CalcPointPersp(CVector3(0.9, 0.0, -0.05), mRotInv, persp) * size + center;
+	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
 
 	//Z axis
