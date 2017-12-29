@@ -97,11 +97,14 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
 	"fractal_coloring_xyzC_111",
 
-	"fractal_coloring_orbit_trap_weight", "fractal_coloring_initial_minimumR",
+	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
+	"fractal_coloring_initial_minimumR",
+
 	"fractal_coloring_aux_color_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
-	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_de_enabled_false",
+	"fractal_coloring_rad_squared_enabled_false",
+	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_log_de_false",
 	"fractal_coloring_rad_div_de_weight", "fractal_coloring_rad_div_de_squared_false",
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
@@ -201,10 +204,13 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
 
 	// orbitTrap weight control
+	fractalColoring.orbitTrapTrue =
+		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	fractalColoring.initialMiniumuR =
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+
 	// aux.color
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
@@ -217,6 +223,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
 	fractalColoring.radDivDeFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
+	fractalColoring.radDivLogDeFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_div_log_de_false", id));
 	fractalColoring.radDivDeWeight =
 		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_weight", id));
 	fractalColoring.radDivDeSquaredFalse =

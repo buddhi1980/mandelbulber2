@@ -759,7 +759,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleD0 = source.scaleD0;
 	target.scaleE0 = source.scaleE0;
 	target.scaleF0 = source.scaleF0;
-	target.scaleG0 = source.scaleG0;
+        //target.scaleG0 = source.scaleG0;
 	target.scaleA1 = source.scaleA1;
 	target.scaleB1 = source.scaleB1;
 	target.scaleC1 = source.scaleC1;

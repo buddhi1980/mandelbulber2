@@ -11576,7 +11576,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
 	// double divideByIter = 0.0;
-	double radius = 0.0;
+	// double radius = 0.0;
 	double linearOffset = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
@@ -11592,7 +11592,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	{
 		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		/*if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			radius = z.Length();
 			radius *= fractal->foldColor.scaleG0;
@@ -11602,7 +11602,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				radius *= 1.0 / fabs(aux.DE);
 				// if (radius > 20) radius = 20;
 			}
-		}
+		}*/
 
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -11773,7 +11773,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias + radius
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
 											 + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
@@ -11841,7 +11841,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
 	// double divideByIter = 0.0;
-	double radius = 0.0;
+	//double radius = 0.0;
 	double linearOffset = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
@@ -11865,7 +11865,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 	{
 		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		/*if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			radius = z.Length();
 			radius *= fractal->foldColor.scaleG0;
@@ -11875,7 +11875,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				radius *= 1.0 / fabs(aux.DE);
 				// if (radius > 20) radius = 20;
 			}
-		}
+		}*/
 
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -12069,7 +12069,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias + radius
+		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
 											 + lengthIter + linearOffset + boxTrap + sphereTrap + sumDist);
 	}
 
