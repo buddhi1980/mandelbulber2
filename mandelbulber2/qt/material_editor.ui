@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-741</y>
+        <y>-426</y>
         <width>619</width>
-        <height>3310</height>
+        <height>3335</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -837,15 +837,15 @@ sphere radius:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1" colspan="2">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
+                  <item row="1" column="1" colspan="5">
+                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
                     <property name="text">
-                     <string notr="true"> c xyz axis</string>
+                     <string notr="true"> c radius</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" colspan="5">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
+                  <item row="3" column="1" colspan="5">
+                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
                     <property name="text">
                      <string notr="true"> c radius</string>
                     </property>
@@ -857,16 +857,25 @@ sphere radius:</string>
               </widget>
              </item>
              <item>
-              <widget class="QGroupBox" name="groupBox">
-               <property name="title">
-                <string>Orbit trap component</string>
+              <widget class="MyGroupBox" name="groupCheck_fractal_coloring_orbit_trap_true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_3">
+               <property name="title">
+                <string>Orbit trap com&amp;ponent</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_42" stretch="0">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
                 <property name="leftMargin">
                  <number>2</number>
                 </property>
                 <property name="topMargin">
-                 <number>2</number>
+                 <number>6</number>
                 </property>
                 <property name="rightMargin">
                  <number>2</number>
@@ -875,8 +884,52 @@ sphere radius:</string>
                  <number>2</number>
                 </property>
                 <item>
-                 <layout class="QGridLayout" name="gridLayout" columnstretch="0,2">
-                  <item row="0" column="1">
+                 <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,0">
+                  <property name="spacing">
+                   <number>2</number>
+                  </property>
+                  <item row="2" column="1">
+                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_initial_minimumR">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>2</number>
+                    </property>
+                    <property name="minimum">
+                     <double>-9999.989999999999782</double>
+                    </property>
+                    <property name="maximum">
+                     <double>9999.989999999999782</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_61">
+                    <property name="font">
+                     <font>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;initial minimumR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
                    <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_orbit_trap_weight">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -910,7 +963,7 @@ sphere radius:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0">
+                  <item row="1" column="0">
                    <widget class="QLabel" name="label_62">
                     <property name="font">
                      <font>
@@ -920,47 +973,6 @@ sphere radius:</string>
                     </property>
                     <property name="text">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;orbit trap weight&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0">
-                   <widget class="QLabel" name="label_61">
-                    <property name="font">
-                     <font>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;initial minimumR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="1">
-                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_initial_minimumR">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="prefix">
-                     <string/>
-                    </property>
-                    <property name="suffix">
-                     <string/>
-                    </property>
-                    <property name="decimals">
-                     <number>2</number>
-                    </property>
-                    <property name="minimum">
-                     <double>-9999.989999999999782</double>
-                    </property>
-                    <property name="maximum">
-                     <double>9999.989999999999782</double>
-                    </property>
-                    <property name="singleStep">
-                     <double>0.100000000000000</double>
                     </property>
                    </widget>
                   </item>
@@ -1138,7 +1150,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1158,6 +1170,13 @@ sphere radius:</string>
                     <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
                      <property name="text">
                       <string notr="true">radius squared</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_log_de_false">
+                     <property name="text">
+                      <string notr="true">change to analytical log DE</string>
                      </property>
                     </widget>
                    </item>

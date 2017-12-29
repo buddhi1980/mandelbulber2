@@ -73,9 +73,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	if (fractalColoring.radDivDeFalse)
 	{
+		double distEst = fabs(extendedAux.DE);
+		if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
 		radDE5000 = r; // r /DE // was named r2
 		if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
-		radDE5000 *= 5000.0 * fractalColoring.radDivDeWeight / fabs(extendedAux.DE);
+		radDE5000 *= 5000.0 * fractalColoring.radDivDeWeight / distEst;
 	}
 
 	double addValue = 0.0;
@@ -104,8 +106,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		//*new hybrid*
 		if (fractalColoring.extraColorEnabledFalse)
 		{
-			colorValue += minR5000 * fractalColoring.orbitTrapWeight					// orbit trap only
-										+ auxColorValue100 * fractalColoring.auxColorWeight // aux.color
+			if (fractalColoring.orbitTrapTrue) colorValue += minR5000 * fractalColoring.orbitTrapWeight;
+			colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
 										+ rad1000 + radDE5000 + addValue										// all extra inputs
 										+ extendedAux.colorHybrid; // transf_hybrid_color inputs
 			if (fractalColoring.iterGroupFalse)
@@ -164,7 +166,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						colorValue += parab;
 					}
 				}
-				//=(+0.5-0.5*COS((B43)*0.5PI()/e$rr ))*(E$36)
+
 				if (fractalColoring.cosEnabledFalse)
 				{ // trig palette
 					if (colorValue > fractalColoring.cosStartValue)
@@ -248,8 +250,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				//					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
 				if (fractalColoring.extraColorEnabledFalse)
 				{
-					colorValue += minR5000 * fractalColoring.orbitTrapWeight					// orbit trap only
-												+ auxColorValue100 * fractalColoring.auxColorWeight // aux.color
+					if (fractalColoring.orbitTrapTrue) colorValue = minR5000 * fractalColoring.orbitTrapWeight;
+
+					colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
 												+ rad1000																						// radius
 												+ radDE5000																					// r /DE
 												+ addValue;																					// all extra inputs

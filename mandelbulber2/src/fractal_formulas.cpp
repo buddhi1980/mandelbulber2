@@ -11592,7 +11592,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	{
 		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		/*if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			radius = z.Length();
 			radius *= fractal->foldColor.scaleG0;
@@ -11602,7 +11602,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				radius *= 1.0 / fabs(aux.DE);
 				// if (radius > 20) radius = 20;
 			}
-		}
+		}*/
 
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -11865,7 +11865,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 
 	{
 		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		/*if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			radius = z.Length();
 			radius *= fractal->foldColor.scaleG0;
@@ -11875,7 +11875,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				radius *= 1.0 / fabs(aux.DE);
 				// if (radius > 20) radius = 20;
 			}
-		}
+		}*/
 
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)

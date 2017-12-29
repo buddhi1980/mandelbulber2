@@ -128,7 +128,7 @@ struct sFoldColor
 	double scaleD0;
 	double scaleE0;
 	double scaleF0;
-	double scaleG0;
+	//double scaleG0;
 	double scaleA1;
 	double scaleB1;
 	double scaleC1;
