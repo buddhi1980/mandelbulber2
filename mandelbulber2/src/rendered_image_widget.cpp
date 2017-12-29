@@ -41,6 +41,7 @@
 #include <QPainter>
 #include <QVariant>
 #include <QtCore>
+#include <QtGui>
 
 #include "camera_movement_modes.h"
 #include "cimage.hpp"
@@ -906,11 +907,20 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	// Draw arrows
 	QPointF point1, point2;
 	painter.setOpacity(0.5);
-
+	QFont font = painter.font();
+	font.setBold(true);
+	painter.setFont(font);
+	//X axis
 	painter.setPen(penMagenta);
 	point1 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
+
+	QStaticText textX("X");
+	point1 = CalcPointPersp(CVector3(-1.2, 0.0, 0.0), mRotInv, persp) * size + center;
+	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textX.size().height() * 0.5);
+	painter.drawStaticText(point2, textX);
+
 	point1 = CalcPointPersp(CVector3(-0.9, -0.05, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
@@ -924,10 +934,17 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
 
+	//Z axis
 	painter.setPen(penCyan);
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, -1.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
+
+	QStaticText textZ("Z");
+	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.2), mRotInv, persp) * size + center;
+	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textZ.size().height() * 0.5);
+	painter.drawStaticText(point2, textZ);
+
 	point1 = CalcPointPersp(CVector3(0.05, 0.0, 0.9), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
@@ -941,10 +958,17 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
 
+	//Y axis
 	painter.setPen(penYellow);
 	point1 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, -1.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
+
+	QStaticText textY("Y");
+	point1 = CalcPointPersp(CVector3(0.0, 1.2, 0.0), mRotInv, persp) * size + center;
+	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textY.size().height() * 0.5);
+	painter.drawStaticText(point2, textY);
+
 	point1 = CalcPointPersp(CVector3(0.05, 0.9, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
