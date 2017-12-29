@@ -71,13 +71,13 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorValue = initColorValue;
 			}
 
-			if (fractalColoring.orbitTrapTrue) colorValue += minimumR  * fractalColoring.orbitTrapWeight;
+			if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
 			if (fractalColoring.radFalse)
 			{
 				rad1000 = r;
 				if (fractalColoring.radSquaredFalse) rad1000 = r * r;
-				rad1000 *= fractalColoring.radWeight;
+				colorValue += rad1000 * fractalColoring.radWeight;
 			}
 
 			if (fractalColoring.radDivDeFalse)
@@ -86,7 +86,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
 				radDE5000 = r; // r /DE // was named r2
 				if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
-				radDE5000 *= fractalColoring.radDivDeWeight / distEst;
+				colorValue += radDE5000 * fractalColoring.radDivDeWeight / distEst;
 			}
 			double addValue = 0.0;
 
@@ -108,7 +108,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			addValue += xyzValue; // addValue accumulates outputs
 
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ rad1000 + radDE5000 + addValue										// all extra inputs
+										+ addValue // all extra inputs
 										+ extendedAux.colorHybrid; // transf_hybrid_color inputs
 
 			if (fractalColoring.iterGroupFalse)
@@ -193,9 +193,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			if (colorValue < minCV) colorValue = minCV;
 			if (colorValue > maxCV) colorValue = maxCV;
 
-			colorValue *= 256.0; // convert to colorValue units
-
-			colorIndex = colorValue;
+			colorIndex = colorValue * 256.0; // convert to colorValue units
 		}
 		else
 		{
@@ -269,7 +267,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				{
 					rad1000 = r;
 					if (fractalColoring.radSquaredFalse) rad1000 = r * r;
-					rad1000 *= fractalColoring.radWeight;
+					colorValue += rad1000 * fractalColoring.radWeight;
 				}
 
 				if (fractalColoring.radDivDeFalse)
@@ -278,10 +276,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
 					radDE5000 = r; // r /DE // was named r2
 					if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
-					radDE5000 *= fractalColoring.radDivDeWeight / distEst;
+					colorValue += radDE5000 * fractalColoring.radDivDeWeight / distEst;
 				}
-
 				double addValue = 0.0;
+
 				// example of a basic input
 				double xyzValue = 0.0;
 				if (fractalColoring.xyzBiasEnabledFalse)
@@ -299,11 +297,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 				addValue += xyzValue; // addValue accumulates outputs
 
-
-				colorValue += auxColorValue100 * fractalColoring.auxColorWeight // aux.color
-											+ rad1000																						// radius
-											+ radDE5000																					// r /DE
-											+ addValue;																					// all extra inputs
+				colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
+											+ addValue // all extra inputs
+											+ extendedAux.colorHybrid; // transf_hybrid_color inputs
 
 				if (fractalColoring.iterGroupFalse)
 				{
@@ -387,9 +383,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (colorValue < minCV) colorValue = minCV;
 				if (colorValue > maxCV) colorValue = maxCV;
 
-				colorValue *= 256.0; // convert to colorValue units
-
-				colorIndex = colorValue;
+				colorIndex = colorValue * 256.0; // convert to colorValue units
 			}
 			else
 			{
