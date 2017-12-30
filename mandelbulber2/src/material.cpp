@@ -100,7 +100,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
 	"fractal_coloring_initial_minimumR",
 
-	"fractal_coloring_aux_color_weight",
+	"fractal_coloring_aux_color_false",
+	"fractal_coloring_aux_color_weight", "fractal_coloring_aux_color_hybrid_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
 	"fractal_coloring_rad_squared_enabled_false",
@@ -212,8 +213,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
 
 	// aux.color
+	fractalColoring.auxColorFalse =
+		materialParam->Get<double>(Name("fractal_coloring_aux_color_false", id));
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
+	fractalColoring.auxColorHybridWeight =
+		materialParam->Get<double>(Name("fractal_coloring_aux_color_hybrid_weight", id));
 
 	// radius functions
 	fractalColoring.radFalse =

@@ -71,7 +71,13 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorValue = initColorValue;
 			}
 
-			if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
+			if (fractalColoring.orbitTrapTrue)
+				colorValue += minimumR * fractalColoring.orbitTrapWeight;
+
+			if (fractalColoring.auxColorFalse)
+				colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
+											+ extendedAux.colorHybrid // transf_hybrid_color inputs
+												* fractalColoring.auxColorHybridWeight;
 
 			if (fractalColoring.radFalse)
 			{
@@ -107,9 +113,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 			addValue += xyzValue; // addValue accumulates outputs
 
-			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ addValue // all extra inputs
-										+ extendedAux.colorHybrid; // transf_hybrid_color inputs
+			colorValue += addValue; // all extra inputs
+
 
 			if (fractalColoring.iterGroupFalse)
 			{
@@ -263,6 +268,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 				if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
+				if (fractalColoring.auxColorFalse)
+					colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
+												+ extendedAux.colorHybrid // transf_hybrid_color inputs
+													* fractalColoring.auxColorHybridWeight;
+
 				if (fractalColoring.radFalse)
 				{
 					rad1000 = r;
@@ -297,9 +307,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 				addValue += xyzValue; // addValue accumulates outputs
 
-				colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-											+ addValue // all extra inputs
-											+ extendedAux.colorHybrid; // transf_hybrid_color inputs
+				colorValue += addValue; // all extra inputs
 
 				if (fractalColoring.iterGroupFalse)
 				{
