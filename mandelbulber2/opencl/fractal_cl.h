@@ -751,7 +751,7 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compScale = source.compScale;
 	target.deScale0 = source.deScale0;
 	target.oldScale0 = source.oldScale0;
-	target.newScale0 = source.newScale0;
+        //target.newScale0 = source.newScale0;
 	target.limitMin0 = source.limitMin0;
 	target.limitMax9999 = source.limitMax9999;
 	target.scaleA0 = source.scaleA0;

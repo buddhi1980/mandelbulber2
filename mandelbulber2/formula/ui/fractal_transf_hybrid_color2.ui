@@ -107,28 +107,6 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="2">
-      <widget class="QSlider" name="slider_fold_color_new_scale0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="71" column="2">
       <widget class="QSlider" name="slider_transf_scaleG_1">
        <property name="sizePolicy">
@@ -2074,34 +2052,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_new_scale0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-999.999000000000024</double>
-       </property>
-       <property name="maximum">
-        <double>999.999000000000024</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
      <item row="11" column="0" colspan="4">
       <widget class="Line" name="line_7">
        <property name="orientation">
@@ -2479,6 +2429,13 @@
       <widget class="QLabel" name="label_64">
        <property name="text">
         <string>Rad &amp; Rad/DE</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_74">
+       <property name="text">
+        <string>moved to material manager</string>
        </property>
       </widget>
      </item>

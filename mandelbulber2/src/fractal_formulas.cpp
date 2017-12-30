@@ -11820,7 +11820,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 		aux.colorHybrid += (minValue - aux.colorHybrid) * fractal->surfBox.scale1Z1;
 	}
-	aux.colorHybrid *= fractal->foldColor.newScale0 * 256.0;
+	aux.colorHybrid *= 256.0;
 }
 
 /**
@@ -12134,7 +12134,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		// fractal->surfBox.scale1Z1);
 	}
 
-	aux.colorHybrid *= fractal->foldColor.newScale0 * 256.0;
+	aux.colorHybrid *= 256.0;
 
 	// master controls color
 	// aux.foldFactor = fractal->foldColor.compFold; // fold group weight

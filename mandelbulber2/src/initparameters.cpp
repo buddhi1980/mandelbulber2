@@ -742,15 +742,15 @@ void InitFractalParams(cParameterContainer *par)
 
 	// par->addParam("fold_color_xyz_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
-	par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
-	par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
+	//par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
+	//par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB0", 0.0, morphAkima, paramStandard);
-	par->addParam("fold_color_scaleC0", 0.0, morphAkima, paramStandard);
+	//	par->addParam("fold_color_scaleC0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleD0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleE0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleF0", 0.0, morphAkima, paramStandard);
-	par->addParam("fold_color_scaleG0", 0.0, morphAkima, paramStandard);
+	//par->addParam("fold_color_scaleG0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleC1", 1.0, morphAkima, paramStandard);
