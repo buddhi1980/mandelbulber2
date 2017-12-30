@@ -676,6 +676,13 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				break;
 			}
 
+			case netRender_KICK_AND_KILL:
+			{
+				WriteLog("NetRender - ProcessData(), command KICK AND KILL", 2);
+				gApplication->quit();
+				break;
+			}
+
 			default: break;
 		}
 	}
@@ -932,6 +939,23 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 	else
 	{
 		qCritical() << "CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions): "
+									 "Client index out of range:"
+								<< clientIndex;
+	}
+}
+
+void CNetRender::KickAndKillClient(int clientIndex)
+{
+	WriteLog("NetRender - kick and kill client", 2);
+	if (clientIndex < clients.size())
+	{
+		sMessage msg;
+		msg.command = netRender_KICK_AND_KILL;
+		SendData(clients[clientIndex].socket, msg);
+	}
+	else
+	{
+		qCritical() << "CNetRender::KickAndKillClient(int clientIndex): "
 									 "Client index out of range:"
 								<< clientIndex;
 	}

@@ -66,7 +66,8 @@ public:
 		netRender_STOP,
 		netRender_STATUS,
 		netRender_SETUP,
-		netRender_ACK
+		netRender_ACK,
+		netRender_KICK_AND_KILL
 	};
 	// VERSION - ask for server version
 	// WORKER - ask for number of client CPU count
@@ -79,6 +80,7 @@ public:
 	// STATUS - ask for status (to client)
 	// SETUP - setup job id and starting positions
 	// ACK - acknowledge after receive rendered lines
+	// KICK_AND_KILL - command to kill the client
 
 	enum netRenderStatus
 	{
@@ -238,6 +240,8 @@ public slots:
 	void StopAll();
 	// send client id and list of list of lines to render at the beginning to selected client
 	void SendSetup(int clientIndex, int id, QList<int> startingPositions);
+	// kicks and kills a client (can be used if client is hanging)
+	void KickAndKillClient(int clientIndex);
 
 	//------------------- private slots ------------------
 private slots:
