@@ -79,22 +79,37 @@ public:
 
 		this->stop = stop;
 
-		shared_indices = new long long[2 * numy * numz * 3];
-		voxelBuffer = new double[2 * numyzb];
-		colorBuffer = new double[2 * numyzb];
+		shared_indices = nullptr;
+		voxelBuffer = nullptr;
+		colorBuffer = nullptr;
+
+		try
+		{
+			shared_indices = new long long[2 * numy * numz * 3];
+			voxelBuffer = new double[2 * numyzb];
+			colorBuffer = new double[2 * numyzb];
+		}
+		catch (std::bad_alloc &ba)
+		{
+			FreeBuffers();
+			throw ba;
+		}
 	}
 
 	~MarchingCubes()
 	{
-		if (shared_indices) delete[] shared_indices;
-		if (voxelBuffer) delete[] voxelBuffer;
-		if (colorBuffer) delete[] colorBuffer;
+		FreeBuffers();
 	}
 
 public slots:
 	void RunMarchingCube();
 
 private:
+	void FreeBuffers(){
+		if (shared_indices) delete[] shared_indices;
+		if (voxelBuffer) delete[] voxelBuffer;
+		if (colorBuffer) delete[] colorBuffer;
+	}
 	static int edge_table[256];
 	static int triangle_table[256][16];
 
