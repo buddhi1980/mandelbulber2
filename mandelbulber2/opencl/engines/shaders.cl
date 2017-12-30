@@ -413,6 +413,9 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 
 	int count = 0;
 	float step = 0.0f;
+
+	float iterFogSum = 0.0f;
+
 	for (float i = input->delta; i < distance; i += step)
 	{
 		float3 point2 = input->point + lightVector * i;
@@ -445,11 +448,12 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 #ifdef ITER_FOG
 		opacity = IterOpacity(dist * DE_factor, outF.iters, consts->params.N,
 			consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+		iterFogSum += opacity * (distance - i) / distance;
 #else
 		opacity = 0.0f;
 #endif
 
-		shadowTemp -= opacity * (distance - i) / distance;
+		shadowTemp = 1.0f - iterFogSum;
 
 		if (dist < dist_thresh || shadowTemp < 0.0f)
 		{
@@ -977,7 +981,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 							lightVectorTemp = normalize(lightVectorTemp);
 							float lightShadow =
 								AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
-							float intensity = light->intensity * 100.0f;
+							float intensity = light->intensity * 1.0f;
 							newColour += lightShadow * light->colour / distanceLight2 * intensity;
 						}
 					}
