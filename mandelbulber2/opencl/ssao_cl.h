@@ -41,6 +41,7 @@ typedef struct
 	cl_int height;
 	cl_int quality;
 	cl_float fov;
+	cl_int random_mode;
 } sParamsSSAO;
 
 #endif /* MANDELBULBER2_OPENCL_SSAO_CL_H_ */

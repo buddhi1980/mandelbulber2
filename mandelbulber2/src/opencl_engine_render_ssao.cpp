@@ -50,6 +50,7 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 	paramsSSAO.width = 0;
 	paramsSSAO.height = 0;
 	paramsSSAO.quality = 0;
+	paramsSSAO.random_mode = false;
 	intensity = 0.0;
 	numberOfPixels = 0;
 	inCLZBuffer = nullptr;
@@ -106,6 +107,7 @@ void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 	paramsSSAO.fov = paramRender->fov;
 	paramsSSAO.quality = paramRender->ambientOcclusionQuality * paramRender->ambientOcclusionQuality;
 	if (paramsSSAO.quality < 3) paramsSSAO.quality = 3;
+	paramsSSAO.random_mode = paramRender->SSAO_random_mode;
 	numberOfPixels = paramsSSAO.width * paramsSSAO.height;
 	intensity = paramRender->ambientOcclusion;
 }
@@ -129,7 +131,7 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 	QStringList clHeaderFiles;
 	clHeaderFiles.append("opencl_typedefs.h"); // definitions of common opencl types
 	clHeaderFiles.append("ssao_cl.h");				 // main data structures
-
+	clHeaderFiles.append("opencl_algebra.h");	// definitions of common math functions
 	for (int i = 0; i < clHeaderFiles.size(); i++)
 	{
 		programEngine.append("#include \"" + openclPath + clHeaderFiles.at(i) + "\"\n");
