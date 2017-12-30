@@ -572,7 +572,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 
 			if (type == QString("dial3"))
 			{
-				QApplication::connect(dial, SIGNAL(sliderMoved(int)), this, SLOT(slotDial3Moved(int)));
+				QApplication::connect(dial, SIGNAL(valueChanged(int)), this, SLOT(slotDial3Moved(int)));
 
 				const QString spinBoxName = QString("spinboxd3_") + parameterName;
 				QDoubleSpinBox *spinBox = dial->parent()->findChild<QDoubleSpinBox *>(spinBoxName);
