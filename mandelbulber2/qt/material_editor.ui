@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-242</y>
+        <y>-104</y>
         <width>619</width>
-        <height>3434</height>
+        <height>3396</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -627,15 +627,15 @@ sphere radius:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_fractal_coloring_extra_color_enabled_false">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Settings vary widely depending on such factors as fractal type &amp;amp; size, location and number of iterations&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;At Default Color_Speed the distance between two colors is 256. With these functions this distance = 1.0, e.g. a radius of 1.0 is one color step from the color at the origin. Similarly an addition of 1.0 = 256, cos period 1 =256.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;At the end of these functions, the colorValue is then multiplied by * 256&lt;/p&gt;&lt;p&gt;Settings vary widely depending on such factors as fractal type &amp;amp; size, location and number of iterations&lt;/p&gt;&lt;p&gt;Adjusting the color speed may be required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
-             <string>E&amp;xtra color controls  trial (BETA, for hybrid and ..)</string>
+             <string>C&amp;olor by numbers BETA</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0,0,0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0,0">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -652,35 +652,9 @@ sphere radius:</string>
               <number>2</number>
              </property>
              <item>
-              <widget class="QLabel" name="label_81">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>For all of these functions , 1.0 = 256 colorValue units</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_82">
-               <property name="font">
-                <font>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>At the end of the code,  colorValue = colorValue * 256</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="MyGroupBox" name="groupCheck_fractal_coloring_init_cond_enabled_false">
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&amp;quot;c&amp;quot; (aux.c) is the original coordinates of the point being iterated. These &amp;quot;c&amp;quot; functions, color the point domain before the fractal is iterated, e.g. assigning an Initial ColorValue (not all = 0.0.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="title">
                 <string>co&amp;lorValue Initial Conditions</string>
@@ -888,7 +862,7 @@ sphere radius:</string>
                 <bool>true</bool>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;OrbitTrap weight  scales the colorValue input from the chosen Coloring Algorithm above (orbit traps). This allows blending of this input with other functions.&lt;/p&gt;&lt;p&gt;Initial minimumR is a separate limit set in the code  to control the size of this colorValue.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="title">
                 <string>Orbit trap com&amp;ponent</string>
@@ -1091,7 +1065,7 @@ sphere radius:</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Use with fractals that have aux.color components. aux.color must be enabled on the formula UI</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use with fractals that have aux.color components. aux.color must be enabled on the formula UI.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;These functions update a running colorValue total, every iteration (may result in localized cuts in the color)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="prefix">
                      <string/>
@@ -1118,7 +1092,7 @@ sphere radius:</string>
                 <item>
                  <widget class="MyGroupBox" name="groupCheck_fractal_coloring_rad_enabled_false">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius derived changes in colorValue are often inside the fractal. Use with pseudoKleinian type structures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string>rad&amp;ius components</string>
@@ -1197,7 +1171,7 @@ sphere radius:</string>
                 <item>
                  <widget class="MyGroupBox" name="groupCheck_fractal_coloring_rad_div_de_enabled_false">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius derived changes in colorValue are often inside the fractal. Use with pseudoKleinian type structures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string>rad&amp;ius / DE components</string>
