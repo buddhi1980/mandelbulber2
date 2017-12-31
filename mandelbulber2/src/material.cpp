@@ -104,7 +104,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_aux_color_weight", "fractal_coloring_aux_color_hybrid_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
-	"fractal_coloring_rad_squared_enabled_false",
+	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_1e13_false",
 	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_log_de_false",
 	"fractal_coloring_rad_div_de_weight", "fractal_coloring_rad_div_de_squared_false",
 
@@ -226,6 +226,9 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.radWeight = materialParam->Get<double>(Name("fractal_coloring_rad_weight", id));
 	fractalColoring.radSquaredFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_rad_squared_enabled_false", id));
+	fractalColoring.radDiv1e13False =
+		materialParam->Get<bool>(Name("fractal_coloring_rad_div_1e13_false", id));
+
 	fractalColoring.radDivDeFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_rad_div_de_enabled_false", id));
 	fractalColoring.radDivLogDeFalse =

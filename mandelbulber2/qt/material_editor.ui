@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-1020</y>
         <width>619</width>
-        <height>3416</height>
+        <height>3441</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -708,7 +708,7 @@ sphere radius:</string>
                      <number>6</number>
                     </property>
                     <property name="minimum">
-                     <double>0.000000000000000</double>
+                     <double>-9999.999900000000707</double>
                     </property>
                     <property name="maximum">
                      <double>9999.999900000000707</double>
@@ -1164,7 +1164,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_35" stretch="0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_35" stretch="0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1184,6 +1184,13 @@ sphere radius:</string>
                     <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
                      <property name="text">
                       <string notr="true">radius squared</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_1e13_false">
+                     <property name="text">
+                      <string notr="true">radius / 1e13</string>
                      </property>
                     </widget>
                    </item>
@@ -1849,13 +1856,13 @@ sphere radius:</string>
                            <string/>
                           </property>
                           <property name="decimals">
-                           <number>2</number>
+                           <number>6</number>
                           </property>
                           <property name="minimum">
-                           <double>-999999.989999999990687</double>
+                           <double>-9999.999998999999661</double>
                           </property>
                           <property name="maximum">
-                           <double>999999.989999999990687</double>
+                           <double>9999.999998999999661</double>
                           </property>
                           <property name="singleStep">
                            <double>0.100000000000000</double>
@@ -1956,13 +1963,13 @@ sphere radius:</string>
                            <string/>
                           </property>
                           <property name="decimals">
-                           <number>2</number>
+                           <number>6</number>
                           </property>
                           <property name="minimum">
-                           <double>-999999.989999999990687</double>
+                           <double>-999.990000000000009</double>
                           </property>
                           <property name="maximum">
-                           <double>999999.989999999990687</double>
+                           <double>999.990000000000009</double>
                           </property>
                           <property name="singleStep">
                            <double>0.100000000000000</double>
@@ -2024,7 +2031,7 @@ sphere radius:</string>
                            <number>6</number>
                           </property>
                           <property name="minimum">
-                           <double>0.000000000000000</double>
+                           <double>-9999.999900000000707</double>
                           </property>
                           <property name="maximum">
                            <double>9999.999900000000707</double>

@@ -82,7 +82,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			if (fractalColoring.radFalse)
 			{
 				rad1000 = r;
+				if (fractalColoring.radDiv1e13False) rad1000 /= 1e13;
 				if (fractalColoring.radSquaredFalse) rad1000 = r * r;
+
 				colorValue += rad1000 * fractalColoring.radWeight;
 			}
 

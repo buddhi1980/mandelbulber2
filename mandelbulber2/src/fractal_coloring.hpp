@@ -76,6 +76,7 @@ struct sFractalColoring
 		radFalse = false;
 		radWeight = 1.0;
 		radSquaredFalse = false;
+		radDiv1e13False = false;
 		radDivDeFalse = false;
 		radDivLogDeFalse = false;
 		radDivDeWeight = 1.0;
@@ -145,6 +146,7 @@ struct sFractalColoring
 	bool radFalse;
 	double radWeight;
 	bool radSquaredFalse;
+	bool radDiv1e13False;
 
 	bool radDivDeFalse;
 	bool radDivLogDeFalse;
