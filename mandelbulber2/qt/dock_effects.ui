@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>323</width>
+    <width>303</width>
     <height>1532</height>
    </rect>
   </property>
@@ -76,8 +76,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>286</width>
-            <height>1516</height>
+            <width>277</width>
+            <height>1498</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -839,8 +839,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>205</width>
-            <height>779</height>
+            <width>266</width>
+            <height>1516</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1415,6 +1415,45 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
+                <item row="7" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_brightness_boost">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter can be used to increase brithness of fog illuminated by auxiliary light sources.&lt;/p&gt;&lt;p&gt;In Mandelbulber version &amp;lt;= 2.12 this value was hardcoded and default value was 100. &lt;/p&gt;&lt;p&gt;When brighness boost is 1.0 then there is correct proportion of illuminating fractal surface and fog.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="maximum">
+                   <double>1000000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>10.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_99">
+                  <property name="text">
+                   <string>Brightness boost.
+Set 100 to keep compatibility with version &lt;=2.12</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>
@@ -1641,8 +1680,8 @@ for volumetric effects:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>286</width>
-            <height>1516</height>
+            <width>244</width>
+            <height>347</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">

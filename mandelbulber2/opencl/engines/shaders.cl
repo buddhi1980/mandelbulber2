@@ -981,7 +981,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 							lightVectorTemp = normalize(lightVectorTemp);
 							float lightShadow =
 								AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
-							float intensity = light->intensity * 1.0f;
+							float intensity = light->intensity * consts->params.iterFogBrightnessBoost;
 							newColour += lightShadow * light->colour / distanceLight2 * intensity;
 						}
 					}

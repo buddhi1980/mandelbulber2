@@ -178,6 +178,7 @@ struct sParamRender
 	float iterFogColor2Maxiter;
 	double iterFogOpacity;
 	float iterFogOpacityTrim;
+	float iterFogBrightnessBoost;
 	double mainLightAlpha;
 	double mainLightBeta;
 	float mainLightIntensity;

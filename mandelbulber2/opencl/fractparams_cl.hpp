@@ -171,6 +171,7 @@ typedef struct
 	cl_float iterFogColor2Maxiter;
 	cl_float iterFogOpacity;
 	cl_float iterFogOpacityTrim;
+	cl_float iterFogBrightnessBoost;
 	cl_float mainLightAlpha;
 	cl_float mainLightBeta;
 	cl_float mainLightIntensity;
@@ -345,6 +346,7 @@ inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
 	target.iterFogColor2Maxiter = source.iterFogColor2Maxiter;
 	target.iterFogOpacity = source.iterFogOpacity;
 	target.iterFogOpacityTrim = source.iterFogOpacityTrim;
+	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.mainLightAlpha = source.mainLightAlpha;
 	target.mainLightBeta = source.mainLightBeta;
 	target.mainLightIntensity = source.mainLightIntensity;

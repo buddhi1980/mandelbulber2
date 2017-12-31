@@ -284,6 +284,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("iteration_fog_color", 1, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_color", 2, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("iteration_fog_color", 3, sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("iteration_fog_brightness_boost", 1.0, 0.0, 1e6, morphLinear, paramStandard);
 
 	par->addParam("hdr_blur_enabled", false, morphLinear, paramStandard);
 	par->addParam("hdr_blur_radius", 10.0, 0.1, 1000.0, morphLinear, paramStandard);
@@ -742,15 +743,15 @@ void InitFractalParams(cParameterContainer *par)
 
 	// par->addParam("fold_color_xyz_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 
-	//par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_new_scale0", 0.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_parab_scale0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB0", 0.0, morphAkima, paramStandard);
 	//	par->addParam("fold_color_scaleC0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleD0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleE0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleF0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_scaleG0", 0.0, morphAkima, paramStandard);
+	// par->addParam("fold_color_scaleG0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleC1", 1.0, morphAkima, paramStandard);
@@ -1191,19 +1192,19 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_xyzC_111", materialId), CVector3(1.0, 1.0, 1.0),
 		morphNone, paramStandard); // vec4??
 
-	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_true", materialId), true,
-		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_true", materialId), true, morphLinear,
+		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, 0.0, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
 		morphNone, paramStandard);
 
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false,
-		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphLinear,
+		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 0.0, 0.0, 1e20,
 		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, 0.0, 1e20,
-		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, 0.0,
+		1e20, morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_rad_enabled_false", materialId), false,
 		morphLinear, paramStandard);
@@ -1291,24 +1292,24 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),

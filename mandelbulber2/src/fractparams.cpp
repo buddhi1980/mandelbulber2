@@ -117,6 +117,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	imageHeight = container->Get<int>("image_height");
 	imageWidth = container->Get<int>("image_width");
 	interiorMode = container->Get<bool>("interior_mode");
+	iterFogBrightnessBoost = container->Get<double>("iteration_fog_brightness_boost");
 	iterFogColor1Maxiter = container->Get<double>("iteration_fog_color_1_maxiter");
 	iterFogColor2Maxiter = container->Get<double>("iteration_fog_color_2_maxiter");
 	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 1);

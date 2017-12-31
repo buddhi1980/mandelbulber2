@@ -918,6 +918,14 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 			par->Set(listOfLoadedPrimitives[i] + "_material_id", materialId);
 		}
 	}
+
+	if (fileVersion <= 2.12)
+	{
+		if (par->Get<bool>("iteration_fog_enable"))
+		{
+			par->Set("iteration_fog_brightness_boost", 100.0);
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(
