@@ -76,6 +76,24 @@ class cOpenClEngine : public QObject
 	};
 
 public:
+	struct sClInputOutputBuffer
+	{
+		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
+				: itemSize(itemSize),
+					length(length),
+					name(name),
+					ptr(nullptr),
+					clPtr(nullptr)
+		{
+		}
+		qint64 size(){ return itemSize * length; }
+		qint64 itemSize;
+		qint64 length;
+		QString name;
+		char* ptr;
+		cl::Buffer* clPtr;
+	};
+
 	cOpenClEngine(cOpenClHardware *hardware);
 	~cOpenClEngine();
 
@@ -87,11 +105,23 @@ public:
 	void Reset();
 	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
-	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
+	virtual bool PreAllocateBuffers(const cParameterContainer *params);
+	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;
+	bool WriteBuffersToQueue();
+	bool ReadBuffersFromQueue();
 	bool CreateCommandQueue();
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
+	void ReleaseMemory();
+	bool AssignParametersToKernel();
+	virtual bool AssignParametersToKernelAdditional(int argIterator)
+	{
+		Q_UNUSED(argIterator);
+		return true;
+	}
 
 protected:
+	QList<sClInputOutputBuffer> inputBuffers;
+	QList<sClInputOutputBuffer> outputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);

@@ -52,10 +52,9 @@ QByteArray lzoCompress(QByteArray data)
 {
 	QElapsedTimer time;
 	time.start();
-	void *wrkmem = malloc(LZO1X_1_MEM_COMPRESS);
-
+	char *wrkmem = new char[LZO1X_1_MEM_COMPRESS];
 	size_t len = data.size() + data.size() / 16 + 64 + 3;
-	char *out = (char *)malloc(len);
+	char *out = new char[len];
 
 	int ret = lzo1x_1_compress((lzo_bytep)data.data(), (lzo_uint)data.size(), (lzo_bytep)out,
 		(lzo_uintp)&len, (lzo_voidp)wrkmem);
@@ -72,9 +71,9 @@ QByteArray lzoCompress(QByteArray data)
 		3);
 
 	QByteArray arr;
-	arr.append((char *)out, CastSizeToInt(len));
-	free(wrkmem);
-	free(out);
+	arr.append(out, CastSizeToInt(len));
+	delete[] wrkmem;
+	delete[] out;
 	return arr;
 }
 
@@ -83,14 +82,14 @@ QByteArray lzoUncompress(QByteArray data)
 	QElapsedTimer time;
 	time.start();
 	lzo_uint len;
-	void *tmp = nullptr;
+	char *tmp = nullptr;
 	int decompressionFactor = 10;
 
 	while (true)
 	{
 		len = data.size() * decompressionFactor;
-		if (tmp) free(tmp);
-		tmp = malloc(len);
+		if (tmp) delete[] tmp;
+		tmp = new char[len];
 
 		if (lzo1x_decompress_safe((lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp, &len, NULL)
 				== LZO_E_OUTPUT_OVERRUN)
@@ -111,8 +110,8 @@ QByteArray lzoUncompress(QByteArray data)
 		3);
 
 	QByteArray arr;
-	arr.append((char *)tmp, len);
-	free(tmp);
+	arr.append(tmp, len);
+	delete[] tmp;
 	return arr;
 }
 

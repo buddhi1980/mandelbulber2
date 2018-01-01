@@ -63,6 +63,7 @@ struct sFractalColoring
 		initCondFalse = false;
 		icRadFalse = false;
 		icXYZFalse = false;
+		icFabsFalse = false;
 		icRadWeight = 1.0;
 
 		orbitTrapTrue = true;
@@ -88,6 +89,7 @@ struct sFractalColoring
 		xyzXsqrdFalse = false;
 		xyzYsqrdFalse = false;
 		xyzZsqrdFalse = false;
+		xyzFabsFalse = false;
 
 		iterGroupFalse = false;
 		iterAddScaleFalse = false;
@@ -132,6 +134,7 @@ struct sFractalColoring
 	bool initCondFalse;
 	bool icRadFalse;
 	bool icXYZFalse;
+	bool icFabsFalse;
 	double icRadWeight;
 	CVector3 xyzC111;
 
@@ -159,6 +162,7 @@ struct sFractalColoring
 	bool xyzXsqrdFalse;
 	bool xyzYsqrdFalse;
 	bool xyzZsqrdFalse;
+	bool xyzFabsFalse;
 
 	bool iterGroupFalse;
 	bool iterAddScaleFalse;

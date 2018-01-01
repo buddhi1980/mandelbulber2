@@ -57,30 +57,19 @@ public:
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
-	bool PreAllocateBuffers(const cParameterContainer *params) override;
-	bool AssignParametersToKernel();
-	bool WriteBuffersToQueue();
+	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
+	bool AssignParametersToKernelAdditional(int argIterator) override;
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
-	bool ReadBuffersFromQueue();
 	bool Render(cImage *image, bool *stopRequest);
-	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
 
 private:
+	const int zBufferIndex = 0;
+	const int imageIndex = 1;
+	const int outputIndex = 0;
 	QString GetKernelName() override;
-
 	sParamsDOF paramsDOF;
-
-	cl_float *inZBuffer;
-	cl::Buffer *inCLZBuffer;
-
-	cl_float4 *inImageBuffer;
-	cl::Buffer *inCLImageBuffer;
-
 	int numberOfPixels;
-
-	cl_float4 *outBuffer;
-	cl::Buffer *outCl;
 
 #endif
 
