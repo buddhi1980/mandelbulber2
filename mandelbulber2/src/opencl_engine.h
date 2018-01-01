@@ -76,28 +76,23 @@ class cOpenClEngine : public QObject
 	};
 
 public:
-	struct sClInputOutputBuffer
-	{
-		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
-				: itemSize(itemSize),
-					length(length),
-					name(name),
-					ptr(nullptr),
-					clPtr(nullptr)
-		{
-		}
-		qint64 size(){ return itemSize * length; }
-		qint64 itemSize;
-		qint64 length;
-		QString name;
-		char* ptr;
-		cl::Buffer* clPtr;
-	};
-
 	cOpenClEngine(cOpenClHardware *hardware);
 	~cOpenClEngine();
 
 #ifdef USE_OPENCL
+	struct sClInputOutputBuffer
+	{
+		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
+				: itemSize(itemSize), length(length), name(name), ptr(nullptr), clPtr(nullptr)
+		{
+		}
+		qint64 size() { return itemSize * length; }
+		qint64 itemSize;
+		qint64 length;
+		QString name;
+		char *ptr;
+		cl::Buffer *clPtr;
+	};
 
 	void Lock();
 	void Unlock();
