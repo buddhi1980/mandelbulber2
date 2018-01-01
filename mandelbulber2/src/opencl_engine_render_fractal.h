@@ -87,6 +87,10 @@ public:
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
+	void RegisterInputOutputBuffers(const cParameterContainer *params)
+	{
+		Q_UNUSED(params);
+	}
 
 private:
 	QString GetKernelName() override;

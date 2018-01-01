@@ -66,6 +66,10 @@ public:
 	bool Render(cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
+	void RegisterInputOutputBuffers(const cParameterContainer *params)
+	{
+		Q_UNUSED(params);
+	}
 
 private:
 	QString GetKernelName() override;

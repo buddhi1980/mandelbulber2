@@ -105,9 +105,19 @@ public:
 	void Reset();
 	virtual bool LoadSourcesAndCompile(const cParameterContainer *params) = 0;
 	bool CreateKernel4Program(const cParameterContainer *params);
-	virtual bool PreAllocateBuffers(const cParameterContainer *params) = 0;
+	virtual bool PreAllocateBuffers(const cParameterContainer *params);
+	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;
+	bool WriteBuffersToQueue();
+	bool ReadBuffersFromQueue();
 	bool CreateCommandQueue();
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
+	void ReleaseMemory();
+	bool AssignParametersToKernel();
+	virtual bool AssignParametersToKernelAdditional(int argIterator)
+	{
+		Q_UNUSED(argIterator);
+		return true;
+	}
 
 protected:
 	QList<sClInputOutputBuffer> inputBuffers;
