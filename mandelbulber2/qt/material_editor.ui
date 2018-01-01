@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-382</y>
+        <y>-304</y>
         <width>619</width>
-        <height>3471</height>
+        <height>3502</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -718,19 +718,12 @@ sphere radius:</string>
                  <number>2</number>
                 </property>
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,0,0,0,0,0">
+                 <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,0,0,0">
                   <property name="spacing">
                    <number>2</number>
                   </property>
-                  <item row="0" column="2" colspan="2">
-                   <widget class="QLabel" name="label_54">
-                    <property name="text">
-                     <string>sqrd</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="2" colspan="4">
-                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_z">
+                  <item row="1" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ic_rad_weight">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -757,14 +750,35 @@ sphere radius:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1">
+                  <item row="0" column="1" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
+                    <property name="text">
+                     <string notr="true"> c_radius</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1">
                    <widget class="QLabel" name="label_46">
                     <property name="text">
                      <string>c.z * scale:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="2" colspan="4">
+                  <item row="3" column="1">
+                   <widget class="QLabel" name="label_43">
+                    <property name="text">
+                     <string>c.x * scale:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="1" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
+                    <property name="text">
+                     <string notr="true">disable abs(). May need to increase initial colorValue.</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="2" colspan="2">
                    <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_y">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -792,8 +806,15 @@ sphere radius:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="2" colspan="4">
-                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_x">
+                  <item row="2" column="1" colspan="3">
+                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
+                    <property name="text">
+                     <string notr="true"> c_xyz</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_z">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -820,50 +841,22 @@ sphere radius:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1" colspan="5">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
-                    <property name="text">
-                     <string notr="true"> c_radius</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLabel" name="label_44">
-                    <property name="text">
-                     <string>c.y * scale:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1">
-                   <widget class="QLabel" name="label_50">
-                    <property name="text">
-                     <string>disable fabs()</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="1" colspan="5">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
-                    <property name="text">
-                     <string notr="true"> c_xyz</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLabel" name="label_43">
-                    <property name="text">
-                     <string>c.x * scale:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="1">
+                  <item row="1" column="1">
                    <widget class="QLabel" name="label_45">
                     <property name="text">
                      <string>c radius * scale:</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="2" colspan="4">
-                   <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_ic_rad_weight">
+                  <item row="4" column="1">
+                   <widget class="QLabel" name="label_44">
+                    <property name="text">
+                     <string>c.y * scale:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyzC_111_x">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -1409,6 +1402,55 @@ sphere radius:</string>
                      <property name="spacing">
                       <number>2</number>
                      </property>
+                     <item row="1" column="2">
+                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
+                       <property name="text">
+                        <string notr="true"/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="2">
+                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_z_sqrd_enabled_false">
+                       <property name="text">
+                        <string notr="true"/>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="0">
+                      <widget class="QLabel" name="label_40">
+                       <property name="text">
+                        <string>z.z * scale:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="2" column="1">
+                      <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_y">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="prefix">
+                        <string/>
+                       </property>
+                       <property name="suffix">
+                        <string/>
+                       </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
+                       <property name="minimum">
+                        <double>-9999.999900000000707</double>
+                       </property>
+                       <property name="maximum">
+                        <double>9999.999900000000707</double>
+                       </property>
+                       <property name="singleStep">
+                        <double>0.100000000000000</double>
+                       </property>
+                      </widget>
+                     </item>
                      <item row="0" column="1">
                       <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_xyz_iter_scale">
                        <property name="sizePolicy">
@@ -1451,66 +1493,10 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="1" column="0">
-                      <widget class="QLabel" name="label_36">
-                       <property name="text">
-                        <string>z.x * scale:</string>
-                       </property>
-                      </widget>
-                     </item>
                      <item row="2" column="0">
                       <widget class="QLabel" name="label_38">
                        <property name="text">
                         <string>z.y * scale:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="2">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
-                       <property name="text">
-                        <string notr="true"/>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="0">
-                      <widget class="QLabel" name="label_40">
-                       <property name="text">
-                        <string>z.z * scale:</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="1">
-                      <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_z">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="prefix">
-                        <string/>
-                       </property>
-                       <property name="suffix">
-                        <string/>
-                       </property>
-                       <property name="decimals">
-                        <number>6</number>
-                       </property>
-                       <property name="minimum">
-                        <double>-9999.999900000000707</double>
-                       </property>
-                       <property name="maximum">
-                        <double>9999.999900000000707</double>
-                       </property>
-                       <property name="singleStep">
-                        <double>0.100000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="3" column="2">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_z_sqrd_enabled_false">
-                       <property name="text">
-                        <string notr="true"/>
                        </property>
                       </widget>
                      </item>
@@ -1542,8 +1528,15 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="1">
-                      <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_y">
+                     <item row="0" column="2">
+                      <widget class="QLabel" name="label_39">
+                       <property name="text">
+                        <string>sqrd</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="3" column="1">
+                      <widget class="MyDoubleSpinBox" name="spinbox3_fractal_coloring_xyz_000_z">
                        <property name="sizePolicy">
                         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                          <horstretch>0</horstretch>
@@ -1570,10 +1563,17 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="0" column="2">
-                      <widget class="QLabel" name="label_39">
+                     <item row="1" column="0">
+                      <widget class="QLabel" name="label_36">
                        <property name="text">
-                        <string>sqrd</string>
+                        <string>z.x * scale:</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="4" column="0" colspan="3">
+                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
+                       <property name="text">
+                        <string notr="true">disable abs(). May need to increase initial colorValue.</string>
                        </property>
                       </widget>
                      </item>
