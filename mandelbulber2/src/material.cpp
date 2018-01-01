@@ -95,7 +95,7 @@ QStringList cMaterial::paramsList = {
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
-	"fractal_coloring_xyzC_111",
+	"fractal_coloring_xyzC_111", "fractal_coloring_initial_color_value",
 
 	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
 	"fractal_coloring_initial_minimumR",
@@ -193,6 +193,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
 	// Initial Conditions
+	fractalColoring.initialColorValue =
+		materialParam->Get<double>(Name("fractal_coloring_initial_color_value", id));
 	fractalColoring.initCondFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_init_cond_enabled_false", id));
 	fractalColoring.icRadFalse =

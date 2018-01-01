@@ -59,7 +59,7 @@ struct sFractalColoring
 		coloringAlgorithm = fractalColoringNone;
 
 		extraColorEnabledFalse = false;
-
+		initialColorValue = 0.0;
 		initCondFalse = false;
 		icRadFalse = false;
 		icXYZFalse = false;
@@ -128,7 +128,7 @@ struct sFractalColoring
 
 	// trial
 	bool extraColorEnabledFalse;
-
+	double initialColorValue;
 	bool initCondFalse;
 	bool icRadFalse;
 	bool icXYZFalse;

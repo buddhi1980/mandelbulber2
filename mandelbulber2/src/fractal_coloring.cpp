@@ -57,6 +57,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		//*new hybrid*
 		if (fractalColoring.extraColorEnabledFalse)
 		{
+			colorValue = fractalColoring.initialColorValue;
 			if (fractalColoring.initCondFalse)
 			{
 				CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
@@ -68,7 +69,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					xyzC = fabs(xyzC) * fractalColoring.xyzC111;
 					initColorValue += xyzC.x + xyzC.y + xyzC.z;
 				}
-				colorValue = initColorValue;
+				colorValue += initColorValue;
 			}
 
 			if (fractalColoring.orbitTrapTrue)
@@ -254,6 +255,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				//					if (minR5000 > 1e5) minR5000 = 1e5; // limit is only in hybrid mode?
 			if (fractalColoring.extraColorEnabledFalse)
 			{
+				colorValue += fractalColoring.initialColorValue;
 				if (fractalColoring.initCondFalse)
 				{
 					CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
@@ -265,7 +267,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						xyzC = fabs(xyzC) * fractalColoring.xyzC111;
 						initColorValue += xyzC.x + xyzC.y + xyzC.z;
 					}
-					colorValue = initColorValue;
+					colorValue += initColorValue;
 				}
 
 				if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
