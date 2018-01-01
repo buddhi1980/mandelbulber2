@@ -359,6 +359,22 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 	if (hardware->ContextCreated())
 	{
+		for(int i = 0; i < inputAndOutputBuffers.size(); i++)
+		{
+			if(inputAndOutputBuffers[i].ptr) delete[] inputAndOutputBuffers[i].ptr;
+			inputAndOutputBuffers[i].ptr = new char[inputAndOutputBuffers[i].size()];
+			if(inputAndOutputBuffers[i].clPtr) delete[] inputAndOutputBuffers[i].clPtr;
+			inputAndOutputBuffers[i].clPtr = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR,
+				inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr, &err);
+			if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffers[i].name))
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(inputAndOutputBuffers[i].name),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+		}
+
 		for(int i = 0; i < outputBuffers.size(); i++)
 		{
 			if(outputBuffers[i].ptr) delete[] outputBuffers[i].ptr;
@@ -417,8 +433,16 @@ void cOpenClEngine::ReleaseMemory()
 		if(inputBuffers[i].clPtr) delete inputBuffers[i].clPtr;
 		inputBuffers[i].clPtr = nullptr;
 	}
+	for(int i = 0; i < inputAndOutputBuffers.size(); i++)
+	{
+		if(inputAndOutputBuffers[i].ptr) delete inputAndOutputBuffers[i].ptr;
+		inputAndOutputBuffers[i].ptr = nullptr;
+		if(inputAndOutputBuffers[i].clPtr) delete inputAndOutputBuffers[i].clPtr;
+		inputAndOutputBuffers[i].clPtr = nullptr;
+	}
 	inputBuffers.clear();
 	outputBuffers.clear();
+	inputAndOutputBuffers.clear();
 }
 
 bool cOpenClEngine::WriteBuffersToQueue()
@@ -431,6 +455,18 @@ bool cOpenClEngine::WriteBuffersToQueue()
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	for(int i = 0; i < inputAndOutputBuffers.size(); i++)
+	{
+		cl_int err = queue->enqueueWriteBuffer(
+			*inputAndOutputBuffers[i].clPtr, CL_TRUE, 0, inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr);
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputAndOutputBuffers[i].name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputAndOutputBuffers[i].name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -456,6 +492,16 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffers[i].name))
 		{
 			emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(outputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	for(int i = 0; i < inputAndOutputBuffers.size(); i++)
+	{
+		cl_int err = queue->enqueueReadBuffer(*inputAndOutputBuffers[i].clPtr, CL_TRUE, 0, inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr);
+		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffers[i].name))
+		{
+			emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(inputAndOutputBuffers[i].name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -493,6 +539,17 @@ bool cOpenClEngine::AssignParametersToKernel()
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	for(int i = 0; i < inputAndOutputBuffers.size(); i++)
+	{
+		int err = kernel->setArg(argIterator++, *inputAndOutputBuffers[i].clPtr);
+		if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputAndOutputBuffers[i].name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffers[i].name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}

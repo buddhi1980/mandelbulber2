@@ -117,6 +117,7 @@ public:
 protected:
 	QList<sClInputOutputBuffer> inputBuffers;
 	QList<sClInputOutputBuffer> outputBuffers;
+	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);

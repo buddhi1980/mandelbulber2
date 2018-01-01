@@ -52,12 +52,6 @@ cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_har
 	paramsDOF.radius = 0.0;
 	paramsDOF.blurOpacity = 0.0;
 	numberOfPixels = 0;
-	inCLZBufferSorted = nullptr;
-	inZBufferSorted = nullptr;
-	inCLImageBuffer = nullptr;
-	inImageBuffer = nullptr;
-	outBuffer = nullptr;
-	outCl = nullptr;
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
 	optimalJob.optimalProcessingCycle = 0.5;
 #endif
@@ -66,40 +60,11 @@ cOpenClEngineRenderDOFPhase2::cOpenClEngineRenderDOFPhase2(cOpenClHardware *_har
 cOpenClEngineRenderDOFPhase2::~cOpenClEngineRenderDOFPhase2()
 {
 #ifdef USE_OPENCL
-	if (inCLZBufferSorted) delete inCLZBufferSorted;
-	if (inCLImageBuffer) delete inCLImageBuffer;
-
-	if (outCl) delete outCl;
-
-	if (inZBufferSorted) delete[] inZBufferSorted;
-	if (inImageBuffer) delete[] inImageBuffer;
-
-	if (outBuffer) delete[] outBuffer;
+	ReleaseMemory();
 #endif
 }
 
 #ifdef USE_OPENCL
-
-void cOpenClEngineRenderDOFPhase2::ReleaseMemory()
-{
-	if (inCLZBufferSorted) delete inCLZBufferSorted;
-	inCLZBufferSorted = nullptr;
-
-	if (inCLImageBuffer) delete inCLImageBuffer;
-	inCLImageBuffer = nullptr;
-
-	if (outCl) delete outCl;
-	outCl = nullptr;
-
-	if (inZBufferSorted) delete[] inZBufferSorted;
-	inZBufferSorted = nullptr;
-
-	if (inImageBuffer) delete[] inImageBuffer;
-	inImageBuffer = nullptr;
-
-	if (outBuffer) delete[] outBuffer;
-	outBuffer = nullptr;
-}
 
 QString cOpenClEngineRenderDOFPhase2::GetKernelName()
 {
@@ -168,177 +133,21 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 	return programsLoaded;
 }
 
-bool cOpenClEngineRenderDOFPhase2::PreAllocateBuffers(const cParameterContainer *params)
+void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-
-	cl_int err;
-
-	if (hardware->ContextCreated())
-	{
-
-		// output buffer
-		size_t buffSize = numberOfPixels * sizeof(cl_float4);
-		if (outBuffer) delete[] outBuffer;
-		outBuffer = new cl_float4[numberOfPixels];
-
-		if (outCl) delete outCl;
-		outCl = new cl::Buffer(
-			*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, buffSize, outBuffer, &err);
-		if (!checkErr(
-					err, "*context, CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR, buffSize, outBuffer, &err"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("output buffer")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
-
-		// input z-buffer
-		if (inZBufferSorted) delete[] inZBufferSorted;
-		inZBufferSorted = new sSortedZBufferCl[numberOfPixels];
-
-		if (inCLZBufferSorted) delete inCLZBufferSorted;
-		inCLZBufferSorted =
-			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-				numberOfPixels * sizeof(sSortedZBufferCl), inZBufferSorted, &err);
-		if (!checkErr(err,
-					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
-					"sizeof(sClInBuff), inZBuffer, &err)"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for zBuffer")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
-
-		// input image
-		if (inImageBuffer) delete[] inImageBuffer;
-		inImageBuffer = new cl_float4[numberOfPixels];
-
-		if (inCLImageBuffer) delete inCLImageBuffer;
-		inCLImageBuffer =
-			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-				numberOfPixels * sizeof(cl_float4), inImageBuffer, &err);
-		if (!checkErr(err,
-					"Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, numberOfPixels "
-					"* sizeof(cl_float4), inImageBuffer, &err)"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for inImageBuffer")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
-	}
-	else
-	{
-		emit showErrorMessage(
-			QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	return true;
+	inputBuffers << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
+	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputAndOutputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
 }
 
-bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernel()
+bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(int argIterator)
 {
-	int err = kernel->setArg(0, *inCLZBufferSorted); // input data in global memory
-	if (!checkErr(err, "kernel->setArg(0, *inCLZBufferSorted)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("Z-Buffer data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(1, *inCLImageBuffer); // input data in global memory
-	if (!checkErr(err, "kernel->setArg(0, *inCLImageBuffer)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input image data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(2, *outCl); // output buffer
-	if (!checkErr(err, "kernel->setArg(1, *outCl)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("output data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(3, paramsDOF); // pixel offset
+	int err = kernel->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("DOF params")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	return true;
-}
-
-bool cOpenClEngineRenderDOFPhase2::WriteBuffersToQueue()
-{
-	cl_int err = queue->enqueueWriteBuffer(
-		*inCLZBufferSorted, CL_TRUE, 0, numberOfPixels * sizeof(sSortedZBufferCl), inZBufferSorted);
-
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inZBufferSorted)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input z buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inZBufferSorted"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input z buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->enqueueWriteBuffer(
-		*inCLImageBuffer, CL_TRUE, 0, numberOfPixels * sizeof(cl_float4), inImageBuffer);
-
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inImageBuffer)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input image buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inImageBuffer"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input image buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err =
-		queue->enqueueWriteBuffer(*outCl, CL_TRUE, 0, numberOfPixels * sizeof(cl_float4), outBuffer);
-
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(outBuffer)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("output image buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - outBuffer"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("output image buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -387,29 +196,6 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase2::ReadBuffersFromQueue()
-{
-	size_t buffSize = numberOfPixels * sizeof(cl_float4);
-
-	cl_int err = queue->enqueueReadBuffer(*outCl, CL_TRUE, 0, buffSize, outBuffer);
-	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
-	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - ReadBuffer"))
-	{
-		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	return true;
-}
-
 bool cOpenClEngineRenderDOFPhase2::Render(
 	cImage *image, cPostRenderingDOF::sSortZ<float> *sortedZBuffer, bool *stopRequest)
 {
@@ -429,17 +215,16 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		timer.start();
 
 		int numberOfPixels = width * height;
-		QList<QRect> lastRenderedRects;
 
 		// copy zBuffer and image to input and output buffers
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			inZBufferSorted[i].i = sortedZBuffer[i].i;
-			inZBufferSorted[i].z = sortedZBuffer[i].z;
+			((sSortedZBufferCl*) inputBuffers[zBufferIndex].ptr)[i].i = sortedZBuffer[i].i;
+			((sSortedZBufferCl*) inputBuffers[zBufferIndex].ptr)[i].z = sortedZBuffer[i].z;
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			inImageBuffer[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
-			outBuffer[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			((cl_float4*) inputBuffers[imageIndex].ptr)[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			((cl_float4*) inputAndOutputBuffers[outputIndex].ptr)[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
 		// writing data to queue
@@ -479,7 +264,8 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			{
 				for (int x = 0; x < width; x++)
 				{
-					cl_float4 imagePixelCl = outBuffer[x + y * width];
+					cl_float4 imagePixelCl = ((cl_float4*) inputAndOutputBuffers[outputIndex].ptr)[x + y * width];
+
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
 					unsigned short alpha = imagePixelCl.s[3] * 65535.0;
 					image->PutPixelPostImage(x, y, pixel);
