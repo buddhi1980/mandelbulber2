@@ -653,6 +653,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 
 	double opacity;
 	double shadowTemp = 1.0;
+	double iterFogSum = 0.0f;
 
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
@@ -692,12 +693,15 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		{
 			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
 				params->iterFogOpacityTrim, params->iterFogOpacity);
+			opacity *= (factor - i) / factor;
+			opacity = qMin(opacity, 1.0);
+			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
 		else
 		{
 			opacity = 0.0;
 		}
-		shadowTemp -= opacity * (factor - i) / factor;
+		shadowTemp = 1.0 - iterFogSum;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{
@@ -1209,6 +1213,7 @@ double cRenderWorker::AuxShadow(
 
 	double opacity;
 	double shadowTemp = 1.0;
+	double iterFogSum = 0.0f;
 
 	double DE_factor = params->DEFactor;
 	double volumetricLightDEFactor = params->volumetricLightDEFactor;
@@ -1252,12 +1257,17 @@ double cRenderWorker::AuxShadow(
 		{
 			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N,
 				params->iterFogOpacityTrim, params->iterFogOpacity);
+
+			opacity *= (distance - i) / distance;
+			opacity = qMin(opacity, 1.0);
+			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
 		}
 		else
 		{
 			opacity = 0.0;
 		}
-		shadowTemp -= opacity * (distance - i) / distance;
+
+		shadowTemp = 1.0 - iterFogSum;
 
 		if (dist < dist_thresh || shadowTemp < 0.0)
 		{

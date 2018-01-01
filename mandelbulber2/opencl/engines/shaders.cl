@@ -211,6 +211,7 @@ float3 MainShadow(
 
 	float opacity;
 	float shadowTemp = 1.0f;
+	float iterFogSum = 0.0f;
 
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
@@ -252,13 +253,16 @@ float3 MainShadow(
 #ifdef ITER_FOG
 		opacity = IterOpacity(dist * DEFactor, outF.iters, consts->params.N,
 			consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
+		opacity *= (factor - i) / factor;
+		opacity = min(opacity, 1.0f);
+		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
 #else
 		opacity = 0.0f;
 #endif
 
-		shadowTemp -= opacity * (factor - i) / factor;
+		shadowTemp = 1.0f - iterFogSum;
 
-		if (dist < dist_thresh || shadowTemp < 0.0f)
+		if (dist < dist_thresh || shadowTemp <= 0.0f)
 		{
 			shadowTemp -= (factor - i) / factor;
 			if (!consts->params.penetratingLights) shadowTemp = 0.0f;
@@ -448,14 +452,17 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 #ifdef ITER_FOG
 		opacity = IterOpacity(dist * DE_factor, outF.iters, consts->params.N,
 			consts->params.iterFogOpacityTrim, consts->params.iterFogOpacity);
-		iterFogSum += opacity * (distance - i) / distance;
+
+		opacity *= (distance - i) / distance;
+		opacity = min(opacity, 1.0f);
+		iterFogSum = opacity + (1.0f - opacity) * iterFogSum;
 #else
 		opacity = 0.0f;
 #endif
 
 		shadowTemp = 1.0f - iterFogSum;
 
-		if (dist < dist_thresh || shadowTemp < 0.0f)
+		if (dist < dist_thresh || shadowTemp <= 0.0f)
 		{
 			if (consts->params.penetratingLights)
 			{
