@@ -67,20 +67,15 @@ public:
 	size_t CalcNeededMemory() override;
 
 private:
+	const int Z_BUFFER_INDEX = 0;
+	const int SINE_COSINE_INDEX = 1;
+	const int OUTPUT_INDEX = 0;
+
 	QString GetKernelName() override;
 
 	sParamsSSAO paramsSSAO;
 	float intensity;
-
-	cl_float *inZBuffer;
-	cl::Buffer *inCLZBuffer;
-	cl_float *inSineCosineBuffer;
-	cl::Buffer *inCLSineCosineBuffer;
 	int numberOfPixels;
-
-	cl_float *outBuffer;
-	cl::Buffer *outCl;
-
 #endif
 
 signals:

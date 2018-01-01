@@ -76,6 +76,24 @@ class cOpenClEngine : public QObject
 	};
 
 public:
+	struct sClInputOutputBuffer
+	{
+		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
+				: itemSize(itemSize),
+					length(length),
+					name(name),
+					ptr(nullptr),
+					clPtr(nullptr)
+		{
+		}
+		qint64 size(){ return itemSize * length; }
+		qint64 itemSize;
+		qint64 length;
+		QString name;
+		char* ptr;
+		cl::Buffer* clPtr;
+	};
+
 	cOpenClEngine(cOpenClHardware *hardware);
 	~cOpenClEngine();
 
@@ -92,6 +110,8 @@ public:
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
 
 protected:
+	QList<sClInputOutputBuffer> inputBuffers;
+	QList<sClInputOutputBuffer> outputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);

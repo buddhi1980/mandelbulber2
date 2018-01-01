@@ -53,13 +53,6 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 	paramsSSAO.random_mode = false;
 	intensity = 0.0;
 	numberOfPixels = 0;
-	inCLZBuffer = nullptr;
-	inZBuffer = nullptr;
-	inSineCosineBuffer = nullptr;
-	inCLSineCosineBuffer = nullptr;
-	outBuffer = nullptr;
-	outCl = nullptr;
-
 	optimalJob.sizeOfPixel = 0; // memory usage doens't depend on job size
 	optimalJob.optimalProcessingCycle = 0.5;
 #endif
@@ -68,12 +61,7 @@ cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
 cOpenClEngineRenderSSAO::~cOpenClEngineRenderSSAO()
 {
 #ifdef USE_OPENCL
-	if (inCLZBuffer) delete inCLZBuffer;
-	if (inCLSineCosineBuffer) delete inCLSineCosineBuffer;
-	if (outCl) delete outCl;
-	if (inZBuffer) delete[] inZBuffer;
-	if (inSineCosineBuffer) delete[] inSineCosineBuffer;
-	if (outBuffer) delete[] outBuffer;
+	ReleaseMemory();
 #endif
 }
 
@@ -81,18 +69,22 @@ cOpenClEngineRenderSSAO::~cOpenClEngineRenderSSAO()
 
 void cOpenClEngineRenderSSAO::ReleaseMemory()
 {
-	if (inCLZBuffer) delete inCLZBuffer;
-	inCLZBuffer = nullptr;
-	if (inCLSineCosineBuffer) delete inCLSineCosineBuffer;
-	inCLSineCosineBuffer = nullptr;
-	if (outCl) delete outCl;
-	outCl = nullptr;
-	if (inZBuffer) delete[] inZBuffer;
-	inZBuffer = nullptr;
-	if (inSineCosineBuffer) delete[] inSineCosineBuffer;
-	inSineCosineBuffer = nullptr;
-	if (outBuffer) delete[] outBuffer;
-	outBuffer = nullptr;
+	for(int i = 0; i < outputBuffers.size(); i++)
+	{
+		if(outputBuffers[i].ptr) delete outputBuffers[i].ptr;
+		outputBuffers[i].ptr = nullptr;
+		if(outputBuffers[i].clPtr) delete outputBuffers[i].clPtr;
+		outputBuffers[i].clPtr = nullptr;
+	}
+	for(int i = 0; i < inputBuffers.size(); i++)
+	{
+		if(inputBuffers[i].ptr) delete inputBuffers[i].ptr;
+		inputBuffers[i].ptr = nullptr;
+		if(inputBuffers[i].clPtr) delete inputBuffers[i].clPtr;
+		inputBuffers[i].clPtr = nullptr;
+	}
+	inputBuffers.clear();
+	outputBuffers.clear();
 }
 
 QString cOpenClEngineRenderSSAO::GetKernelName()
@@ -165,60 +157,45 @@ bool cOpenClEngineRenderSSAO::PreAllocateBuffers(const cParameterContainer *para
 {
 	Q_UNUSED(params);
 
+	ReleaseMemory();
+
 	cl_int err;
+	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
+	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
+	outputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 
 	if (hardware->ContextCreated())
 	{
-
-		// output buffer
-		size_t buffSize = numberOfPixels * sizeof(cl_float);
-		if (outBuffer) delete[] outBuffer;
-		outBuffer = new cl_float[numberOfPixels];
-
-		if (outCl) delete outCl;
-		outCl = new cl::Buffer(
-			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, outBuffer, &err);
-		if (!checkErr(
-					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, outBuffer, &err"))
+		for(int i = 0; i < outputBuffers.size(); i++)
 		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("output buffer")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
+			if(outputBuffers[i].ptr) delete[] outputBuffers[i].ptr;
+			outputBuffers[i].ptr = new char[outputBuffers[i].size()];
+			if(outputBuffers[i].clPtr) delete[] outputBuffers[i].clPtr;
+			outputBuffers[i].clPtr = new cl::Buffer(*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR,
+				outputBuffers[i].size(), outputBuffers[i].ptr, &err);
+			if (!checkErr(err, "new cl::Buffer(...) for " + outputBuffers[i].name))
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(outputBuffers[i].name),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 		}
 
-		// input z-buffer
-		if (inZBuffer) delete[] inZBuffer;
-		inZBuffer = new cl_float[numberOfPixels];
-		// input sine-cosine-buffer
-		if (inSineCosineBuffer) delete[] inSineCosineBuffer;
-		inSineCosineBuffer = new cl_float[2 * paramsSSAO.quality];
-
-		if (inCLZBuffer) delete inCLZBuffer;
-		inCLZBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-			numberOfPixels * sizeof(cl_float), inZBuffer, &err);
-		if (!checkErr(err,
-					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
-					"sizeof(sClInBuff), inZBuffer, &err)"))
+		for(int i = 0; i < inputBuffers.size(); i++)
 		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for zBuffer")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
-
-		if (inCLSineCosineBuffer) delete inCLSineCosineBuffer;
-		inCLSineCosineBuffer =
-			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
-				2 * paramsSSAO.quality * sizeof(cl_float), inSineCosineBuffer, &err);
-		if (!checkErr(err,
-					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
-					"sizeof(sClInBuff), inSineCosineBuffer, &err)"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for sine / cosine")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
+			if(inputBuffers[i].ptr) delete[] inputBuffers[i].ptr;
+			inputBuffers[i].ptr = new char[inputBuffers[i].size()];
+			if(inputBuffers[i].clPtr) delete[] inputBuffers[i].clPtr;
+			inputBuffers[i].clPtr = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+				inputBuffers[i].size(), inputBuffers[i].ptr, &err);
+			if (!checkErr(err, "new cl::Buffer(...) for " + inputBuffers[i].name))
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(inputBuffers[i].name),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 		}
 	}
 	else
@@ -233,34 +210,32 @@ bool cOpenClEngineRenderSSAO::PreAllocateBuffers(const cParameterContainer *para
 
 bool cOpenClEngineRenderSSAO::AssignParametersToKernel()
 {
-	int err = kernel->setArg(0, *inCLZBuffer); // input data in global memory
-	if (!checkErr(err, "kernel->setArg(0, *inCLZBuffer)"))
+	int argIterator = 0;
+	for(int i = 0; i < inputBuffers.size(); i++)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("Z-Buffer data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+		int err = kernel->setArg(argIterator++, *inputBuffers[i].clPtr);
+		if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputBuffers[i].name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(inputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
-	err = kernel->setArg(1, *inCLSineCosineBuffer); // input data in global memory
-	if (!checkErr(err, "kernel->setArg(0, *inCLSineCosineBuffer)"))
+	for(int i = 0; i < outputBuffers.size(); i++)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("Sine/Cosine-Buffer data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(2, *outCl); // output buffer
-	if (!checkErr(err, "kernel->setArg(1, *outCl)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("output data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+		int err = kernel->setArg(argIterator++, *outputBuffers[i].clPtr);
+		if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for " + outputBuffers[i].name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
-	err = kernel->setArg(3, paramsSSAO); // pixel offset
-	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
+	int err = kernel->setArg(argIterator++, paramsSSAO); // pixel offset
+	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsSSAO)"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("SSAO params")),
@@ -273,31 +248,24 @@ bool cOpenClEngineRenderSSAO::AssignParametersToKernel()
 
 bool cOpenClEngineRenderSSAO::WriteBuffersToQueue()
 {
-	cl_int err = queue->enqueueWriteBuffer(
-		*inCLZBuffer, CL_TRUE, 0, numberOfPixels * sizeof(cl_float), inZBuffer);
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
+	for(int i = 0; i < inputBuffers.size(); i++)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+		cl_int err = queue->enqueueWriteBuffer(
+			*inputBuffers[i].clPtr, CL_TRUE, 0, inputBuffers[i].size(), inputBuffers[i].ptr);
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputBuffers[i].name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue writing OpenCL %1").arg(inputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
-	err = queue->enqueueWriteBuffer(*inCLSineCosineBuffer, CL_TRUE, 0,
-		paramsSSAO.quality * 2 * sizeof(cl_float), inSineCosineBuffer);
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLSineCosineBuffer)"))
+	int err = queue->finish();
+	if (!checkErr(err, "CommandQueue::finish() - write buffers"))
 	{
 		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
+			QObject::tr("Cannot finish writing OpenCL buffers"),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
@@ -348,18 +316,19 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 
 bool cOpenClEngineRenderSSAO::ReadBuffersFromQueue()
 {
-	size_t buffSize = numberOfPixels * sizeof(cl_float);
-
-	cl_int err = queue->enqueueReadBuffer(*outCl, CL_TRUE, 0, buffSize, outBuffer);
-	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
+	for(int i = 0; i < outputBuffers.size(); i++)
 	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+		cl_int err = queue->enqueueReadBuffer(*outputBuffers[i].clPtr, CL_TRUE, 0, outputBuffers[i].size(), outputBuffers[i].ptr);
+		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffers[i].name))
+		{
+			emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(outputBuffers[i].name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - ReadBuffer"))
+	int err = queue->finish();
+	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
 			cErrorMessage::errorMessage, nullptr);
@@ -385,17 +354,15 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		QList<int> lastRenderedLines;
-
 		// copy zBuffer to input buffer
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			inZBuffer[i] = image->GetZBufferPtr()[i];
+			((cl_float*) inputBuffers[Z_BUFFER_INDEX].ptr)[i] = image->GetZBufferPtr()[i];
 		}
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			inSineCosineBuffer[i] = sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			inSineCosineBuffer[i + paramsSSAO.quality] = cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
+			((cl_float*) inputBuffers[SINE_COSINE_INDEX].ptr)[i] = sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
+			((cl_float*) inputBuffers[SINE_COSINE_INDEX].ptr)[i + paramsSSAO.quality] = cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
 		}
 
 		// writing data to queue
@@ -437,7 +404,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					cl_float total_ambient = outBuffer[x + y * width];
+					cl_float total_ambient = ((cl_float*) outputBuffers[OUTPUT_INDEX].ptr)[x + y * width];
 					unsigned short opacity16 = image->GetPixelOpacity(x, y);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(x, y);
