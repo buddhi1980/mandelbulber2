@@ -1243,6 +1243,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_fabs_enabled_false", materialId), false,
 		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_div_1e13_false", materialId), false,
+		morphLinear, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_iter_group_enabled_false", materialId), false,
 		morphLinear, paramStandard);

@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-724</y>
+        <y>-916</y>
         <width>619</width>
-        <height>3521</height>
+        <height>3546</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1325,16 +1325,16 @@ sphere radius:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_log_de_false">
                      <property name="text">
-                      <string notr="true">radius squared</string>
+                      <string notr="true">change to analytical log DE</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_log_de_false">
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
                      <property name="text">
-                      <string notr="true">change to analytical log DE</string>
+                      <string notr="true">radius squared</string>
                      </property>
                     </widget>
                    </item>
@@ -1394,7 +1394,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1410,6 +1410,13 @@ sphere radius:</string>
                    <property name="bottomMargin">
                     <number>2</number>
                    </property>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_div_1e13_false">
+                     <property name="text">
+                      <string notr="true">xyz / 1e13</string>
+                     </property>
+                    </widget>
+                   </item>
                    <item>
                     <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1,0">
                      <property name="spacing">
