@@ -732,28 +732,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="2">
-      <widget class="QSlider" name="slider_fold_color_color_min">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>100000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="86" column="2">
       <widget class="QLabel" name="label_67">
        <property name="text">
@@ -1617,34 +1595,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_fold_color_color_min">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="minimum">
-        <double>-999.999000000000024</double>
-       </property>
-       <property name="maximum">
-        <double>999.999000000000024</double>
-       </property>
-       <property name="singleStep">
-        <double>1.000000000000000</double>
-       </property>
-      </widget>
-     </item>
      <item row="34" column="2">
       <widget class="QSlider" name="slider_fold_color_scaleA0">
        <property name="sizePolicy">
@@ -2434,6 +2384,13 @@
      </item>
      <item row="1" column="2">
       <widget class="QLabel" name="label_74">
+       <property name="text">
+        <string>moved to material manager</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="QLabel" name="label_80">
        <property name="text">
         <string>moved to material manager</string>
        </property>

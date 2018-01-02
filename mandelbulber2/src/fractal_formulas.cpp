@@ -11773,7 +11773,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
+		componentMaster = ( R2 + distEst + XYZbias + planeBias
 											 + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
@@ -12069,7 +12069,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias
+		componentMaster = (R2 + distEst + XYZbias + planeBias
 											 + lengthIter + linearOffset + boxTrap + sphereTrap + sumDist);
 	}
 

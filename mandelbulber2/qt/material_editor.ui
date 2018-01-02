@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-304</y>
+        <y>-724</y>
         <width>619</width>
-        <height>3502</height>
+        <height>3521</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -701,7 +701,7 @@ sphere radius:</string>
                <property name="checkable">
                 <bool>true</bool>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0">
+               <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0,0">
                 <property name="spacing">
                  <number>2</number>
                 </property>
@@ -768,13 +768,6 @@ sphere radius:</string>
                    <widget class="QLabel" name="label_43">
                     <property name="text">
                      <string>c.x * scale:</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="1" colspan="3">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
-                    <property name="text">
-                     <string notr="true">disable abs(). May need to increase initial colorValue.</string>
                     </property>
                    </widget>
                   </item>
@@ -885,6 +878,13 @@ sphere radius:</string>
                   </item>
                  </layout>
                 </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
+                  <property name="text">
+                   <string notr="true">disable abs(). May need to increase initial colorValue.</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
@@ -920,7 +920,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_42" stretch="0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_42" stretch="0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -945,7 +945,20 @@ sphere radius:</string>
                       </font>
                      </property>
                      <property name="text">
-                      <string>orbit trap weight = 19.5, reproduces old default (minimumR * 5000)</string>
+                      <string>weight of 19.5 = old default (minimumR * 5000)</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_81">
+                     <property name="font">
+                      <font>
+                       <weight>50</weight>
+                       <bold>false</bold>
+                      </font>
+                     </property>
+                     <property name="text">
+                      <string>weight of 3.9 = old hybrid default (minimumR * 1000)</string>
                      </property>
                     </widget>
                    </item>
@@ -1050,7 +1063,7 @@ sphere radius:</string>
                 <item>
                  <widget class="MyGroupBox" name="groupCheck_fractal_coloring_aux_color_false">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These components  collect and update data with every iteration. &lt;/p&gt;&lt;p&gt; Aux.color is what collects theXYZplane and radius components,  as in the origional Mandelbox UI:  Coloring Parameters.&lt;/p&gt;&lt;p&gt; Aux.colorHybrid is the input from some experimental color Transforms.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These components collect and update data with every iteration. &lt;/p&gt;&lt;p&gt;aux.color is what collects theXYZplane and radius components, as in the original Mandelbox UI: Coloring Parameters.&lt;/p&gt;&lt;p&gt;aux.colorHybrid is the input from some experimental color Transforms.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string>a&amp;uxillary color components</string>
@@ -1083,7 +1096,7 @@ sphere radius:</string>
                       </font>
                      </property>
                      <property name="text">
-                      <string>aux.color weight = 0.39, reproduces old default (aux.color * 100)</string>
+                      <string>weight of 0.39 =  old hybrid default (aux.color * 100)</string>
                      </property>
                     </widget>
                    </item>
@@ -1213,16 +1226,16 @@ sphere radius:</string>
                     <number>2</number>
                    </property>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_1e13_false">
                      <property name="text">
-                      <string notr="true">radius squared</string>
+                      <string notr="true">radius / 1e13</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_1e13_false">
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
                      <property name="text">
-                      <string notr="true">radius / 1e13</string>
+                      <string notr="true">radius squared</string>
                      </property>
                     </widget>
                    </item>
@@ -1274,7 +1287,7 @@ sphere radius:</string>
                 <item>
                  <widget class="MyGroupBox" name="groupCheck_fractal_coloring_rad_div_de_enabled_false">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ColorValue is derived from the radius of the point, and the DE value,  at termination.&lt;/p&gt;&lt;p&gt;Radius derived changes in colorValue are often inside the fractal. Can use with pseudoKleinian type structures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ColorValue is derived from the radius of the point divided by the DE value, at termination.&lt;/p&gt;&lt;p&gt;Radius derived changes in colorValue are often inside the fractal. Can use with pseudoKleinian type structures.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string>rad&amp;ius / DE components</string>
@@ -1307,7 +1320,7 @@ sphere radius:</string>
                       </font>
                      </property>
                      <property name="text">
-                      <string>scale =19.5, reproduces old default ( r  * 5000) / DE )</string>
+                      <string>scale of 19.5 = old hybrid default ( r  * 5000) / DE )</string>
                      </property>
                     </widget>
                    </item>
@@ -1381,7 +1394,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0">
+                  <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1570,14 +1583,14 @@ sphere radius:</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="4" column="0" colspan="3">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
-                       <property name="text">
-                        <string notr="true">disable abs(). May need to increase initial colorValue.</string>
-                       </property>
-                      </widget>
-                     </item>
                     </layout>
+                   </item>
+                   <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
+                     <property name="text">
+                      <string notr="true">disable abs(). May need to increase initial colorValue.</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
