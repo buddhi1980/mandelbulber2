@@ -54,6 +54,7 @@ class cInterface;
 class cFractalContainer;
 class cParameterContainer;
 class MyTableWidgetKeyframes;
+class RenderedImage;
 
 namespace Ui
 {
@@ -116,12 +117,13 @@ private:
 	QString GetKeyframeFilename(int index, int subIndex) const;
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
+	void UpdateAnimationPath();
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
 	cKeyframes *keyframes;
 	cImage *image;
-	QWidget *imageWidget;
+	RenderedImage *imageWidget;
 	cParameterContainer *params;
 	cFractalContainer *fractalParams;
 	QStringList tableRowNames;

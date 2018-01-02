@@ -40,12 +40,14 @@
 
 #include "QVariant"
 #include "algebra.hpp"
+#include "animation_path_data.hpp"
 #include "stereo.h"
 
 // forward declarations
 class cImage;
 class cParameterContainer;
 class cFractalContainer;
+struct sAnimationPathData;
 
 class RenderedImage : public QWidget
 {
@@ -104,6 +106,7 @@ public:
 	void SetFlightData(const sFlightData &fData) { flightData = fData; }
 	void SetPlaceBehindObjects(bool behind) { placeLightBehind = behind; }
 	void SetCameraMovementMode(int index) { cameraMovementMode = index; }
+	void SetAnimationPath(const sAnimationPathData &_animationPath);
 	// CVector2<double> GetLastMousePositionScaled();
 
 public slots:
@@ -137,6 +140,7 @@ private:
 	void Draw3DBox(
 		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
 	static QPointF CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
+	void DrawAnimationPath();
 
 	bool anaglyphMode;
 	bool cursorVisible;
@@ -160,6 +164,7 @@ private:
 	QList<QVariant> clickModeData;
 	QTimer *timerRefreshImage;
 	sFlightData flightData;
+	sAnimationPathData animationPathData;
 
 signals:
 	void mouseMoved(int x, int y);

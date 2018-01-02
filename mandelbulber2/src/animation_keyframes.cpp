@@ -42,6 +42,7 @@
 
 #include "ui_dock_animation.h"
 
+#include "animation_path_data.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
 #include "files.h"
@@ -63,6 +64,7 @@
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
+#include "rendered_image_widget.hpp"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
@@ -71,7 +73,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		: QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	image = _image;
-	imageWidget = _imageWidget;
+	imageWidget = reinterpret_cast<RenderedImage *>(_imageWidget);
 	params = _params;
 	fractalParams = _fractal;
 
@@ -771,14 +773,17 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 void cKeyframeAnimation::RefreshTable()
 {
 	mainInterface->progressBarAnimation->show();
+
+	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
+															 // after loading of settings
+	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
+
 	PrepareTable();
 	gApplication->processEvents();
 
 	const int noOfFrames = keyframes->GetNumberOfFrames();
 
-	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
-															 // after loading of settings
-	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
+	keyframes->SetFramesPerKeyframe(params->Get<int>("frames_per_keyframe"));
 
 	cParameterContainer tempPar = *params;
 	cFractalContainer tempFract = *fractalParams;
@@ -807,6 +812,8 @@ void cKeyframeAnimation::RefreshTable()
 	}
 
 	UpdateLimitsForFrameRange();
+
+	UpdateAnimationPath();
 
 	mainInterface->progressBarAnimation->hide();
 }
@@ -1246,7 +1253,7 @@ void cKeyframeAnimation::slotValidate()
 
 	// checking for collisions
 	QList<int> listOfCollisions = CheckForCollisions(
-		params->Get<double>("keyframe_collision_thresh"), &gMainInterface->stopRequest);
+		params->Get<double>("keyframe_collision_thresh"), &mainInterface->stopRequest);
 	if (listOfCollisions.size() > 0)
 	{
 		QString collisionText;
@@ -1321,4 +1328,35 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 	const int newColumn = table->columnCount();
 	table->insertColumn(newColumn);
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
+}
+
+void cKeyframeAnimation::UpdateAnimationPath()
+{
+	int numberOfKeyframes = keyframes->GetNumberOfFrames();
+	int framesPerKey = keyframes->GetFramesPerKeyframe();
+
+	cParameterContainer tempPar = *params;
+	cFractalContainer tempFractPar = *fractalParams;
+	sAnimationPathData animationPathData;
+	animationPathData.framesPeyKey = framesPerKey;
+	animationPathData.numberOfKeyframes = numberOfKeyframes;
+
+	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
+	{
+		for (int interFrame = 0; interFrame < framesPerKey; interFrame++)
+		{
+			int frame = keyframe * framesPerKey + interFrame;
+
+			keyframes->GetInterpolatedFrameAndConsolidate(frame, &tempPar, &tempFractPar);
+			sAnimationPathPoint point;
+			point.camera = tempPar.Get<CVector3>("camera");
+			point.target = tempPar.Get<CVector3>("target");
+			for (int l = 0; l < 4; l++)
+			{
+				point.lights[l] = tempPar.Get<CVector3>("aux_light_position", l + 1);
+			}
+			animationPathData.animationPath.append(point);
+		}
+	}
+	imageWidget->SetAnimationPath(animationPathData);
 }

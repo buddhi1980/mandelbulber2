@@ -86,9 +86,8 @@ CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 	return viewVector;
 }
 
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
-	params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth,
-	double imgHeight)
+CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotInv,
+	params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight)
 {
 	CVector3 screenPoint;
 	CVector3 baseZ(0.0, 1.0, 0.0);
@@ -96,16 +95,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
 	double aspectRatio = imgWidth / imgHeight;
 	if (perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
-	CVector3 start;
-	if (perspectiveType == params::perspFishEye || perspectiveType == params::perspEquirectangular)
-	{
-		start = vp;
-	}
-	else
-	{
-		start = vp - baseZ * (1.0 / fov * zoom);
-	}
-	CVector3 viewVector = point - start;
+	CVector3 viewVector = point - camera;
 	viewVector = mRotInv.RotateVector(viewVector);
 
 	double x, y, z;
@@ -129,7 +119,7 @@ CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
 		z = viewVector.y;
 	}
 	screenPoint.x = (x / aspectRatio + 0.5) * imgWidth;
-	screenPoint.y = (y + 0.5) * imgHeight;
+	screenPoint.y = (-y + 0.5) * imgHeight;
 	screenPoint.z = z;
 
 	return screenPoint;

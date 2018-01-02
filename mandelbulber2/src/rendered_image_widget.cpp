@@ -43,6 +43,7 @@
 #include <QtCore>
 #include <QtGui>
 
+#include "animation_path_data.hpp"
 #include "camera_movement_modes.h"
 #include "cimage.hpp"
 #include "common_math.h"
@@ -129,6 +130,11 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 					isOnObject = false;
 				}
 			}
+		}
+
+		if (params && animationPathData.animationPath.length() > 0)
+		{
+			DrawAnimationPath();
 		}
 
 		image->RedrawInWidget();
@@ -910,7 +916,7 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	QFont font = painter.font();
 	font.setBold(true);
 	painter.setFont(font);
-	//X axis
+	// X axis
 	painter.setPen(penMagenta);
 	point1 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(-1.0, 0.0, 0.0), mRotInv, persp) * size + center;
@@ -918,7 +924,8 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 
 	QStaticText textX("X");
 	point1 = CalcPointPersp(CVector3(1.2, 0.0, 0.0), mRotInv, persp) * size + center;
-	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textX.size().height() * 0.5);
+	point2 =
+		QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textX.size().height() * 0.5);
 	painter.drawStaticText(point2, textX);
 
 	point1 = CalcPointPersp(CVector3(0.9, -0.05, 0.0), mRotInv, persp) * size + center;
@@ -934,7 +941,7 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	point2 = CalcPointPersp(CVector3(1.0, 0.0, 0.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
 
-	//Z axis
+	// Z axis
 	painter.setPen(penCyan);
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, -1.0), mRotInv, persp) * size + center;
@@ -942,7 +949,8 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 
 	QStaticText textZ("Z");
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.2), mRotInv, persp) * size + center;
-	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textZ.size().height() * 0.5);
+	point2 =
+		QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textZ.size().height() * 0.5);
 	painter.drawStaticText(point2, textZ);
 
 	point1 = CalcPointPersp(CVector3(0.05, 0.0, 0.9), mRotInv, persp) * size + center;
@@ -958,7 +966,7 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	point2 = CalcPointPersp(CVector3(0.0, 0.0, 1.0), mRotInv, persp) * size + center;
 	painter.drawLine(point1, point2);
 
-	//Y axis
+	// Y axis
 	painter.setPen(penYellow);
 	point1 = CalcPointPersp(CVector3(0.0, 1.0, 0.0), mRotInv, persp) * size + center;
 	point2 = CalcPointPersp(CVector3(0.0, -1.0, 0.0), mRotInv, persp) * size + center;
@@ -966,7 +974,8 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 
 	QStaticText textY("Y");
 	point1 = CalcPointPersp(CVector3(0.0, 1.2, 0.0), mRotInv, persp) * size + center;
-	point2 = QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textY.size().height() * 0.5);
+	point2 =
+		QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textY.size().height() * 0.5);
 	painter.drawStaticText(point2, textY);
 
 	point1 = CalcPointPersp(CVector3(0.05, 0.9, 0.0), mRotInv, persp) * size + center;
@@ -1010,4 +1019,60 @@ void RenderedImage::SetGridType(enumGridType _gridType)
 {
 	gridType = _gridType;
 	update();
+}
+
+void RenderedImage::SetAnimationPath(const sAnimationPathData &_animationPath)
+{
+	animationPathData = _animationPath;
+}
+
+void RenderedImage::DrawAnimationPath()
+{
+	int numberOfKeyframes = animationPathData.numberOfKeyframes;
+	int framesPerKey = animationPathData.framesPeyKey;
+	int numberOfFrames = numberOfKeyframes * framesPerKey;
+
+	CVector3 camera = params->Get<CVector3>("camera");
+	CVector3 rotation = params->Get<CVector3>("camera_rotation");
+	params::enumPerspectiveType perspectiveType =
+		static_cast<params::enumPerspectiveType>(params->Get<int>("perspective_type"));
+	double fov = params->Get<double>("fov");
+	int width = image->GetPreviewWidth();
+	int height = image->GetPreviewHeight();
+
+	CRotationMatrix mRotInv;
+	mRotInv.RotateY(-rotation.z / 180.0 * M_PI);
+	mRotInv.RotateX(-rotation.y / 180.0 * M_PI);
+	mRotInv.RotateZ(-rotation.x / 180.0 * M_PI);
+
+	for (int f = 1; f < numberOfFrames; f++)
+	{
+		CVector3 target1 = animationPathData.animationPath[f - 1].target;
+		CVector3 target2 = animationPathData.animationPath[f].target;
+		CVector3 pointTarget1 =
+			InvProjection3D(target1, camera, mRotInv, perspectiveType, fov, width, height);
+		CVector3 pointTarget2 =
+			InvProjection3D(target2, camera, mRotInv, perspectiveType, fov, width, height);
+		if (f % framesPerKey == 0)
+		{
+			image->CircleBorder(
+				pointTarget1.x, pointTarget1.y, pointTarget1.z, 5.0, sRGB8(255, 0, 0), 2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+		}
+		image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y, pointTarget1.z, pointTarget2.z,
+			sRGB8(255, 0, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+
+		CVector3 camera1 = animationPathData.animationPath[f - 1].camera;
+		CVector3 camera2 = animationPathData.animationPath[f].camera;
+		CVector3 pointCamera1 =
+			InvProjection3D(camera1, camera, mRotInv, perspectiveType, fov, width, height);
+		CVector3 pointCamera2 =
+			InvProjection3D(camera2, camera, mRotInv, perspectiveType, fov, width, height);
+		if (f % framesPerKey == 0)
+		{
+			image->CircleBorder(
+				pointCamera1.x, pointCamera1.y, pointCamera1.z, 5.0, sRGB8(0, 255, 0), 2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+		}
+		image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y, pointCamera1.z, pointCamera2.z,
+			sRGB8(0, 255, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+	}
 }

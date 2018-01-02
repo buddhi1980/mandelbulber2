@@ -50,9 +50,8 @@ enum enumPerspectiveType
 };
 }
 
-CVector3 InvProjection3D(CVector3 point, CVector3 vp, CRotationMatrix mRotInv,
-	params::enumPerspectiveType perspectiveType, double fov, double zoom, double imgWidth,
-	double imgHeight);
+CVector3 InvProjection3D(CVector3 point, CVector3 camera, CRotationMatrix mRotInv,
+	params::enumPerspectiveType perspectiveType, double fov, double imgWidth, double imgHeight);
 CVector3 CalculateViewVector(CVector2<double> normalizedPoint, double fov,
 	params::enumPerspectiveType perspType, const CRotationMatrix &mRot);
 
