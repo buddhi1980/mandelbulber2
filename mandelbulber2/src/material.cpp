@@ -112,7 +112,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_iter_scale", "fractal_coloring_xyz_x_sqrd_enabled_false",
 	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
-	"fractal_coloring_xyz_fabs_enabled_false",
+	"fractal_coloring_xyz_fabs_enabled_false", "fractal_coloring_xyz_div_1e13_false",
 
 	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_false",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
@@ -258,6 +258,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_z_sqrd_enabled_false", id));
 	fractalColoring.xyzFabsFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_fabs_enabled_false", id));
+	fractalColoring.xyzDiv1e13False =
+		materialParam->Get<bool>(Name("fractal_coloring_xyz_div_1e13_false", id));
 
 	fractalColoring.iterGroupFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_iter_group_enabled_false", id));

@@ -90,6 +90,7 @@ struct sFractalColoring
 		xyzYsqrdFalse = false;
 		xyzZsqrdFalse = false;
 		xyzFabsFalse = false;
+		xyzDiv1e13False = false;
 
 		iterGroupFalse = false;
 		iterAddScaleFalse = false;
@@ -163,6 +164,7 @@ struct sFractalColoring
 	bool xyzYsqrdFalse;
 	bool xyzZsqrdFalse;
 	bool xyzFabsFalse;
+	bool xyzDiv1e13False;
 
 	bool iterGroupFalse;
 	bool iterAddScaleFalse;

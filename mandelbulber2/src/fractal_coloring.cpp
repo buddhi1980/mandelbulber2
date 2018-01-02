@@ -109,14 +109,17 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			double xyzValue = 0.0;
 			if (fractalColoring.xyzBiasEnabledFalse)
 			{
-				CVector3 xyzAxis = 0;
+
+				CVector3 xyzAxis = CVector3(z.x, z.y, z.z);
+				if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13;
+
 				if (fractalColoring.xyzFabsFalse)
 				{
-					xyzAxis = CVector3(z.x, z.y, z.z) * fractalColoring.xyz000;
+					xyzAxis = xyzAxis * fractalColoring.xyz000;
 				}
 				else
 				{
-					xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
+					xyzAxis = fabs(xyzAxis) * fractalColoring.xyz000;
 				}
 				if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
 				if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
