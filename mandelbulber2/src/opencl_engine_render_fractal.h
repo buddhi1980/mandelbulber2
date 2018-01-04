@@ -74,8 +74,9 @@ public:
 	void SetParameters(const cParameterContainer *paramContainer,
 		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
 		sRenderData *renderData);
+	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
-	bool AssignParametersToKernel();
+	bool AssignParametersToKernelAdditional(int argIterator) override;
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool ReadBuffersFromQueue();
@@ -87,12 +88,10 @@ public:
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
-	void RegisterInputOutputBuffers(const cParameterContainer *params)
-	{
-		Q_UNUSED(params);
-	}
 
 private:
+	const int outputIndex = 0;
+
 	QString GetKernelName() override;
 
 	static QString toCamelCase(const QString &s);
@@ -102,9 +101,6 @@ private:
 
 	QByteArray inBuffer;
 	cl::Buffer *inCLBuffer;
-
-	sClPixel *rgbBuffer;
-	cl::Buffer *outCL;
 
 	cOpenClDynamicData *dynamicData;
 

@@ -73,9 +73,6 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	inCLBuffer = nullptr;
 
-	rgbBuffer = nullptr;
-	outCL = nullptr;
-
 	dynamicData = new cOpenClDynamicData;
 
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
@@ -88,12 +85,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 {
 #ifdef USE_OPENCL
-	if (constantInBuffer) delete constantInBuffer;
-	if (inCLConstBuffer) delete inCLConstBuffer;
-	if (inCLBuffer) delete inCLBuffer;
-	if (rgbBuffer) delete[] rgbBuffer;
-	if (outCL) delete outCL;
-	if (dynamicData) delete dynamicData;
+	ReleaseMemory();
 #endif
 }
 
@@ -107,10 +99,6 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	inCLConstBuffer = nullptr;
 	if (inCLBuffer) delete inCLBuffer;
 	inCLBuffer = nullptr;
-	if (rgbBuffer) delete[] rgbBuffer;
-	rgbBuffer = nullptr;
-	if (outCL) delete outCL;
-	outCL = nullptr;
 	dynamicData->Clear();
 }
 
@@ -479,8 +467,16 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	delete tempRenderWorker;
 }
 
+void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterContainer *params)
+{
+	Q_UNUSED(params);
+	outputBuffers << sClInputOutputBuffer(sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+}
+
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)
 {
+	cOpenClEngine::PreAllocateBuffers(params);
+
 	Q_UNUSED(params);
 
 	cl_int err;
@@ -511,22 +507,6 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		{
 			emit showErrorMessage(
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
-
-		size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-		if (rgbBuffer) delete[] rgbBuffer;
-		rgbBuffer = new sClPixel[optimalJob.stepSize];
-
-		if (outCL) delete outCL;
-		outCL = new cl::Buffer(
-			*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err);
-		if (!checkErr(
-					err, "*context, CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR, buffSize, rgbBuffer, &err"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("output buffer")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
@@ -672,7 +652,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						{
 							for (int y = 0; y < jobHeight2; y++)
 							{
-								sClPixel pixelCl = rgbBuffer[x + y * jobWidth2];
+								sClPixel pixelCl = ((sClPixel*) outputBuffers[outputIndex].ptr)[x + y * jobWidth2];
 								sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
 								sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
 								unsigned short opacity = pixelCl.opacity;
@@ -691,7 +671,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 									newPixel.B =
 										oldPixel.B * (1.0 - 1.0 / monteCarloLoop) + pixel.B * (1.0 / monteCarloLoop);
 									image->PutPixelImage(xx, yy, newPixel);
-									image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+									image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
 									unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 									unsigned short newAlpha = (double)oldAlpha * (1.0 - 1.0 / monteCarloLoop)
 																						+ alpha * (1.0 / monteCarloLoop);
@@ -710,7 +690,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								else
 								{
 									image->PutPixelImage(xx, yy, pixel);
-									image->PutPixelZBuffer(xx, yy, rgbBuffer[x + y * jobWidth2].zBuffer);
+									image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
 									image->PutPixelColor(xx, yy, color);
 									image->PutPixelOpacity(xx, yy, opacity);
 									image->PutPixelAlpha(xx, yy, alpha);
@@ -922,19 +902,9 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 	return parts.join("");
 }
 
-bool cOpenClEngineRenderFractal::AssignParametersToKernel()
+bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argIterator)
 {
-	cl_int err = kernel->setArg(0, *outCL); // output image
-
-	if (!checkErr(err, "kernel->setArg(0, *outCL)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %0").arg(QObject::tr("output data")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = kernel->setArg(1, *inCLBuffer); // input data in global memory
+	int err = kernel->setArg(argIterator++, *inCLBuffer); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -943,7 +913,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 		return false;
 	}
 
-	err = kernel->setArg(2, *inCLConstBuffer); // input data in constant memory (faster than global)
+	err = kernel->setArg(argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -952,7 +922,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 		return false;
 	}
 
-	err = kernel->setArg(3, Random(1000000)); // random seed
+	err = kernel->setArg(argIterator++, Random(1000000)); // random seed
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -966,6 +936,8 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernel()
 
 bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
+	cOpenClEngine::WriteBuffersToQueue();
+
 	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
@@ -1048,25 +1020,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 
 bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 {
-	size_t buffSize = optimalJob.stepSize * sizeof(sClPixel);
-
-	cl_int err = queue->enqueueReadBuffer(*outCL, CL_TRUE, 0, buffSize, rgbBuffer);
-	if (!checkErr(err, "CommandQueue::enqueueReadBuffer()"))
-	{
-		emit showErrorMessage(QObject::tr("Cannot enqueue reading OpenCL output buffers"),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = queue->finish();
-	if (!checkErr(err, "CommandQueue::finish() - ReadBuffer"))
-	{
-		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	return true;
+	return cOpenClEngine::ReadBuffersFromQueue();
 }
 
 size_t cOpenClEngineRenderFractal::CalcNeededMemory()
