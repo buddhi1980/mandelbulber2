@@ -232,7 +232,7 @@ void cThumbnailWidget::AssignParameters(
 
 void cThumbnailWidget::slotRender()
 {
-	if (image)
+	if (image && params)
 	{
 		stopRequest = true;
 		while (image->IsUsed())
@@ -278,7 +278,7 @@ void cThumbnailWidget::slotRender()
 	}
 	else
 	{
-		qCritical() << "Image not yet allocated!";
+		qCritical() << "Parameters or image not yet allocated!";
 	}
 }
 
