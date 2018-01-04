@@ -49,7 +49,7 @@ inline int CastSizeToInt(size_t sizeValue)
 // Safe Cast Helper for int ==> size_t
 inline size_t CastIntToSize(int intValue)
 {
-	assert(intValue < 0);
+	assert(intValue >= 0);
 	return size_t(unsigned(intValue));
 }
 
