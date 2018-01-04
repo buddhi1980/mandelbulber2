@@ -73,7 +73,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		: QObject(parent), mainInterface(_interface), keyframes(_frames)
 {
 	image = _image;
-	imageWidget = reinterpret_cast<RenderedImage *>(_imageWidget);
+	imageWidget = dynamic_cast<RenderedImage *>(_imageWidget);
 	params = _params;
 	fractalParams = _fractal;
 
@@ -1332,6 +1332,8 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 
 void cKeyframeAnimation::UpdateAnimationPath()
 {
+	keyframes->RefreshAllAudioTracks(params);
+
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
 	int framesPerKey = keyframes->GetFramesPerKeyframe();
 

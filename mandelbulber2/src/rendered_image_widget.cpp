@@ -1049,17 +1049,25 @@ void RenderedImage::DrawAnimationPath()
 	{
 		CVector3 target1 = animationPathData.animationPath[f - 1].target;
 		CVector3 target2 = animationPathData.animationPath[f].target;
+
 		CVector3 pointTarget1 =
 			InvProjection3D(target1, camera, mRotInv, perspectiveType, fov, width, height);
 		CVector3 pointTarget2 =
 			InvProjection3D(target2, camera, mRotInv, perspectiveType, fov, width, height);
-		if (f % framesPerKey == 0)
+
+		if (pointTarget1.z > 0)
 		{
-			image->CircleBorder(
-				pointTarget1.x, pointTarget1.y, pointTarget1.z, 5.0, sRGB8(255, 0, 0), 2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+			if (f % framesPerKey == 0)
+			{
+				image->CircleBorder(pointTarget1.x, pointTarget1.y, pointTarget1.z, 5.0, sRGB8(255, 0, 0),
+					2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+			}
 		}
-		image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y, pointTarget1.z, pointTarget2.z,
-			sRGB8(255, 0, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+		if (pointTarget1.z > 0 && pointTarget2.z > 0)
+		{
+			image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y,
+				pointTarget1.z, pointTarget2.z, sRGB8(255, 0, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+		}
 
 		CVector3 camera1 = animationPathData.animationPath[f - 1].camera;
 		CVector3 camera2 = animationPathData.animationPath[f].camera;
@@ -1067,12 +1075,28 @@ void RenderedImage::DrawAnimationPath()
 			InvProjection3D(camera1, camera, mRotInv, perspectiveType, fov, width, height);
 		CVector3 pointCamera2 =
 			InvProjection3D(camera2, camera, mRotInv, perspectiveType, fov, width, height);
-		if (f % framesPerKey == 0)
+		if (pointCamera1.z > 0)
 		{
-			image->CircleBorder(
-				pointCamera1.x, pointCamera1.y, pointCamera1.z, 5.0, sRGB8(0, 255, 0), 2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+			if (f % framesPerKey == 0)
+			{
+				image->CircleBorder(pointCamera1.x, pointCamera1.y, pointCamera1.z, 5.0, sRGB8(0, 255, 0),
+					2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+			}
 		}
-		image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y, pointCamera1.z, pointCamera2.z,
-			sRGB8(0, 255, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+
+		if (pointCamera1.z > 0 && pointCamera2.z > 0)
+		{
+			image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y,
+				pointCamera1.z, pointCamera2.z, sRGB8(0, 255, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+		}
+
+		if (pointCamera1.z > 0 && pointTarget1.z > 0)
+		{
+			if (f * 4 % framesPerKey == 0)
+			{
+				image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
+					pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2, 0.2, 0.2), 1);
+			}
+		}
 	}
 }
