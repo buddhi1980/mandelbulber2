@@ -448,7 +448,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		}
 	}
 
-	// color calculation    TODO review limits
+	// color calculation
 	else if (Mode == calcModeColouring)
 	{
 		enumColoringFunction coloringFunction = fractals.GetColoringFunction(sequence);

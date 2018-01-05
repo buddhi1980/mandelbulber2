@@ -111,7 +111,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			{
 
 				CVector3 xyzAxis = CVector3(z.x, z.y, z.z);
-				if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13;
+				if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13; // mult rounding error ?
 
 				if (fractalColoring.xyzFabsFalse)
 				{
@@ -140,8 +140,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
 				{
 					int iUse = extendedAux.i - fractalColoring.iStartValue;
+
 					if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
 					if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
+
 					colorValue += fractalColoring.iterAddScale * iUse;
 				}
 
