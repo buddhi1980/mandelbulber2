@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-916</y>
+        <y>-2148</y>
         <width>619</width>
         <height>3546</height>
        </rect>
@@ -677,7 +677,7 @@ sphere radius:</string>
                   <double>9999.999900000000707</double>
                  </property>
                  <property name="singleStep">
-                  <double>0.100000000000000</double>
+                  <double>1.000000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -991,7 +991,7 @@ sphere radius:</string>
                         <double>9999.989999999999782</double>
                        </property>
                        <property name="singleStep">
-                        <double>0.100000000000000</double>
+                        <double>1.000000000000000</double>
                        </property>
                       </widget>
                      </item>
@@ -1651,7 +1651,7 @@ sphere radius:</string>
                      <item row="1" column="0">
                       <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_false">
                        <property name="text">
-                        <string notr="true">addition weight:</string>
+                        <string notr="true">addition value:</string>
                        </property>
                       </widget>
                      </item>
@@ -1686,7 +1686,7 @@ sphere radius:</string>
                      <item row="2" column="0">
                       <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
                        <property name="text">
-                        <string notr="true"> scale weight:</string>
+                        <string notr="true"> scale (needs an input value)::</string>
                        </property>
                       </widget>
                      </item>
@@ -1889,7 +1889,7 @@ sphere radius:</string>
                            <double>999999.989999999990687</double>
                           </property>
                           <property name="singleStep">
-                           <double>0.100000000000000</double>
+                           <double>1.000000000000000</double>
                           </property>
                          </widget>
                         </item>
@@ -2138,7 +2138,7 @@ sphere radius:</string>
                            <double>999999.989999999990687</double>
                           </property>
                           <property name="singleStep">
-                           <double>0.100000000000000</double>
+                           <double>1.000000000000000</double>
                           </property>
                          </widget>
                         </item>
@@ -2300,7 +2300,7 @@ sphere radius:</string>
                      <double>99999999.000000000000000</double>
                     </property>
                     <property name="singleStep">
-                     <double>0.100000000000000</double>
+                     <double>1.000000000000000</double>
                     </property>
                    </widget>
                   </item>
@@ -2338,7 +2338,7 @@ sphere radius:</string>
                      <double>99999999.000000000000000</double>
                     </property>
                     <property name="singleStep">
-                     <double>0.100000000000000</double>
+                     <double>1.000000000000000</double>
                     </property>
                    </widget>
                   </item>

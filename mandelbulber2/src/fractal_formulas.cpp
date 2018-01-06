@@ -12158,6 +12158,31 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	CVector4 c = aux.const_c;
+
+	// invert c
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			aux.c *= fractal->transformCommon.scale3D111;
+			double rSqrL = aux.c.Dot(aux.c);
+			rSqrL = 1.0 / rSqrL;
+			aux.c *= rSqrL;
+			z += aux.c;
+		}
+		else
+		{
+			c *= fractal->transformCommon.scale3D111;
+			double rSqrL = c.Dot(c);
+			rSqrL = 1.0 / rSqrL;
+			z += c * rSqrL;
+		}
+	}
+
+
+
 	CVector4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
