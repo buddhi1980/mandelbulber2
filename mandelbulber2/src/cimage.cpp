@@ -526,9 +526,9 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
-#ifndef _WIN32
-#pragma omp parallel for
-#endif
+//#ifndef _WIN32
+//#pragma omp parallel for
+//#endif
 				for (int x = 0; x < int(w); x++)
 				{
 					int R = 0;
@@ -605,9 +605,9 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				int yEnd = rect.bottom() / scaleY + 1;
 				yEnd = qMin(yEnd, h - 1);
 
-#ifndef _WIN32
-#pragma omp parallel for
-#endif
+//#ifndef _WIN32
+//#pragma omp parallel for
+//#endif
 				for (int y = yStart; y <= yEnd; y++)
 				{
 					for (int x = xStart; x <= xEnd; x++)
