@@ -22,6 +22,10 @@ struct sAnimationPathData
 	QList<sAnimationPathPoint> animationPath;
 	int numberOfKeyframes;
 	int framesPeyKey;
+	int actualSelectedFrameNo;
+	bool cameraPathEnable;
+	bool targetPathEnable;
+	bool lightPathEnable[4];
 };
 
 #endif /* MANDELBULBER2_SRC_ANIMATION_PATH_DATA_HPP_ */

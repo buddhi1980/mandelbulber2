@@ -1047,55 +1047,62 @@ void RenderedImage::DrawAnimationPath()
 
 	for (int f = 1; f < numberOfFrames; f++)
 	{
-		CVector3 target1 = animationPathData.animationPath[f - 1].target;
-		CVector3 target2 = animationPathData.animationPath[f].target;
+		CVector3 pointTarget1, pointTarget2, pointCamera1, pointCamera2;
 
-		CVector3 pointTarget1 =
-			InvProjection3D(target1, camera, mRotInv, perspectiveType, fov, width, height);
-		CVector3 pointTarget2 =
-			InvProjection3D(target2, camera, mRotInv, perspectiveType, fov, width, height);
-
-		if (pointTarget1.z > 0)
+		if (animationPathData.targetPathEnable)
 		{
-			if (f % framesPerKey == 0)
+			CVector3 target1 = animationPathData.animationPath[f - 1].target;
+			CVector3 target2 = animationPathData.animationPath[f].target;
+
+			pointTarget1 = InvProjection3D(target1, camera, mRotInv, perspectiveType, fov, width, height);
+			pointTarget2 = InvProjection3D(target2, camera, mRotInv, perspectiveType, fov, width, height);
+
+			if (pointTarget1.z > 0)
 			{
-				image->CircleBorder(pointTarget1.x, pointTarget1.y, pointTarget1.z, 5.0, sRGB8(255, 0, 0),
-					2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+				if (f % framesPerKey == 0)
+				{
+					image->CircleBorder(pointTarget1.x, pointTarget1.y, pointTarget1.z, 5.0, sRGB8(255, 0, 0),
+						2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+				}
 			}
-		}
-		if (pointTarget1.z > 0 && pointTarget2.z > 0)
-		{
-			image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y,
-				pointTarget1.z, pointTarget2.z, sRGB8(255, 0, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
-		}
-
-		CVector3 camera1 = animationPathData.animationPath[f - 1].camera;
-		CVector3 camera2 = animationPathData.animationPath[f].camera;
-		CVector3 pointCamera1 =
-			InvProjection3D(camera1, camera, mRotInv, perspectiveType, fov, width, height);
-		CVector3 pointCamera2 =
-			InvProjection3D(camera2, camera, mRotInv, perspectiveType, fov, width, height);
-		if (pointCamera1.z > 0)
-		{
-			if (f % framesPerKey == 0)
+			if (pointTarget1.z > 0 && pointTarget2.z > 0)
 			{
-				image->CircleBorder(pointCamera1.x, pointCamera1.y, pointCamera1.z, 5.0, sRGB8(0, 255, 0),
-					2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+				image->AntiAliasedLine(pointTarget1.x, pointTarget1.y, pointTarget2.x, pointTarget2.y,
+					pointTarget1.z, pointTarget2.z, sRGB8(255, 0, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
 			}
 		}
 
-		if (pointCamera1.z > 0 && pointCamera2.z > 0)
+		if (animationPathData.cameraPathEnable)
 		{
-			image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y,
-				pointCamera1.z, pointCamera2.z, sRGB8(0, 255, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+			CVector3 camera1 = animationPathData.animationPath[f - 1].camera;
+			CVector3 camera2 = animationPathData.animationPath[f].camera;
+			pointCamera1 = InvProjection3D(camera1, camera, mRotInv, perspectiveType, fov, width, height);
+			pointCamera2 = InvProjection3D(camera2, camera, mRotInv, perspectiveType, fov, width, height);
+			if (pointCamera1.z > 0)
+			{
+				if (f % framesPerKey == 0)
+				{
+					image->CircleBorder(pointCamera1.x, pointCamera1.y, pointCamera1.z, 5.0, sRGB8(0, 255, 0),
+						2.0, sRGBFloat(1.0, 1.0, 1.0), 1);
+				}
+			}
+
+			if (pointCamera1.z > 0 && pointCamera2.z > 0)
+			{
+				image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointCamera2.x, pointCamera2.y,
+					pointCamera1.z, pointCamera2.z, sRGB8(0, 255, 0), sRGBFloat(1.0, 1.0, 1.0), 1);
+			}
 		}
 
-		if (pointCamera1.z > 0 && pointTarget1.z > 0)
+		if (animationPathData.cameraPathEnable && animationPathData.targetPathEnable)
 		{
-			if (f * 4 % framesPerKey == 0)
+			if (pointCamera1.z > 0 && pointTarget1.z > 0)
 			{
-				image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
-					pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2, 0.2, 0.2), 1);
+				if (f * 4 % framesPerKey == 0)
+				{
+					image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
+						pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2, 0.2, 0.2), 1);
+				}
 			}
 		}
 	}

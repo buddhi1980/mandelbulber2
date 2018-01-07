@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1437</width>
-    <height>498</height>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,7 +29,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidgetFlightKeyframe">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_flight_animation">
       <property name="toolTip">
@@ -225,7 +225,7 @@
               <x>0</x>
               <y>0</y>
               <width>425</width>
-              <height>378</height>
+              <height>411</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_79">
@@ -905,8 +905,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>380</width>
-              <height>349</height>
+              <width>362</width>
+              <height>501</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -923,287 +923,432 @@
               <number>2</number>
              </property>
              <item>
-              <layout class="QGridLayout" name="gridLayout_52">
-               <property name="spacing">
-                <number>2</number>
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
+                <string>Animation parameters</string>
                </property>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_221">
-                 <property name="text">
-                  <string>collision distance:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_219">
-                 <property name="text">
-                  <string>frames per keyframe:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_177">
-                 <property name="text">
-                  <string>path for images:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QLabel" name="label_150">
-                 <property name="text">
-                  <string>image type:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="1" colspan="2">
-                <widget class="QComboBox" name="comboBox_keyframe_animation_image_type">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for animation frames.&lt;/p&gt;&lt;p&gt;For more image format settings go to to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program Preferences&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <item>
-                  <property name="text">
-                   <string>PNG</string>
+               <layout class="QVBoxLayout" name="verticalLayout">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout_52">
+                  <property name="spacing">
+                   <number>2</number>
                   </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>JPG</string>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_219">
+                    <property name="text">
+                     <string>frames per keyframe:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_177">
+                    <property name="text">
+                     <string>path for images:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QLabel" name="label_150">
+                    <property name="text">
+                     <string>image type:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1" colspan="2">
+                   <widget class="QComboBox" name="comboBox_keyframe_animation_image_type">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for animation frames.&lt;/p&gt;&lt;p&gt;For more image format settings go to to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program Preferences&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>PNG</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>JPG</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>EXR</string>
+                     </property>
+                    </item>
+                    <item>
+                     <property name="text">
+                      <string>TIFF</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="MyLineEdit" name="text_anim_keyframe_dir">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QPushButton" name="button_selectAnimKeyframeImageDir">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="text">
+                     <string>Select folder</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_213">
+                    <property name="text">
+                     <string>first frame to render:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="0">
+                   <widget class="QLabel" name="label_217">
+                    <property name="text">
+                     <string>last frame to render:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_222">
+                    <property name="text">
+                     <string>frames per second:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1" colspan="2">
+                   <widget class="MyDoubleSpinBox" name="spinbox_keyframe_frames_per_second">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="prefix">
+                     <string/>
+                    </property>
+                    <property name="suffix">
+                     <string/>
+                    </property>
+                    <property name="decimals">
+                     <number>4</number>
+                    </property>
+                    <property name="maximum">
+                     <double>18000.000000000000000</double>
+                    </property>
+                    <property name="singleStep">
+                     <double>0.100000000000000</double>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="2">
+                   <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="minimum">
+                     <number>1</number>
+                    </property>
+                    <property name="maximum">
+                     <number>10000</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1" colspan="2">
+                   <widget class="MySpinBox" name="spinboxInt_keyframe_first_to_render">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>99999</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                    <property name="value">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="1" colspan="2">
+                   <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
+                    </property>
+                    <property name="maximum">
+                     <number>99999</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>1</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>Validation and cleaning up</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_2">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_keyframe_auto_validate">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
                   </property>
-                 </item>
-                 <item>
-                  <property name="text">
-                   <string>EXR</string>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable checking for collisions before starting rendering of animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
-                 </item>
-                 <item>
                   <property name="text">
-                   <string>TIFF</string>
+                   <string>Validate before render</string>
                   </property>
-                 </item>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="MyLineEdit" name="text_anim_keyframe_dir">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to stored rendered animation frames.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="7" column="0" colspan="3">
-                <widget class="MyCheckBox" name="checkBox_show_keyframe_thumbnails">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of keyframe previews in the animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="text">
-                  <string>Show keyframe preview thumbnails</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
-                <widget class="QPushButton" name="button_selectAnimKeyframeImageDir">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="text">
-                  <string>Select folder</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="0">
-                <widget class="QLabel" name="label_213">
-                 <property name="text">
-                  <string>first frame to render:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="0">
-                <widget class="QLabel" name="label_217">
-                 <property name="text">
-                  <string>last frame to render:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="8" column="0" colspan="3">
-                <widget class="MyCheckBox" name="checkBox_keyframe_auto_validate">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable checking for collisions before starting rendering of animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="text">
-                  <string>Validate before render</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="0">
-                <widget class="QPushButton" name="pushButton_set_constant_target_distance">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="text">
-                  <string>Set the same
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QGridLayout" name="gridLayout">
+                  <item row="0" column="1">
+                   <widget class="MyLineEdit" name="logedit_keyframe_collision_thresh">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum distance between camera and fractal which is allowed during &lt;span style=&quot; font-style:italic;&quot;&gt;Validate&lt;/span&gt; function (collision detection)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_221">
+                    <property name="text">
+                     <string>collision distance:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QPushButton" name="pushButton_set_constant_target_distance">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="text">
+                     <string>Set the same
 camera target
 distance for all
 keyframes</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_222">
-                 <property name="text">
-                  <string>frames per second:</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1" colspan="2">
-                <widget class="MyLineEdit" name="logedit_keyframe_collision_thresh">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum distance between camera and fractal which is allowed during &lt;span style=&quot; font-style:italic;&quot;&gt;Validate&lt;/span&gt; function (collision detection)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1" colspan="2">
-                <widget class="MyDoubleSpinBox" name="spinbox_keyframe_frames_per_second">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="prefix">
-                  <string/>
-                 </property>
-                 <property name="suffix">
-                  <string/>
-                 </property>
-                 <property name="decimals">
-                  <number>4</number>
-                 </property>
-                 <property name="maximum">
-                  <double>18000.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.100000000000000</double>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1" colspan="2">
-                <widget class="MySpinBox" name="spinboxInt_frames_per_keyframe">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It sets how many frames will be interpolated for each keyframe. &lt;/p&gt;&lt;p&gt;Total number of animation frames is 'number of keyframes' multiplied by 'frames per keyframe' &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="minimum">
-                  <number>1</number>
-                 </property>
-                 <property name="maximum">
-                  <number>10000</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="5" column="1" colspan="2">
-                <widget class="MySpinBox" name="spinboxInt_keyframe_first_to_render">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="minimum">
-                  <number>0</number>
-                 </property>
-                 <property name="maximum">
-                  <number>99999</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>1</number>
-                 </property>
-                 <property name="value">
-                  <number>0</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="1" colspan="2">
-                <widget class="MySpinBox" name="spinboxInt_keyframe_last_to_render">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limits range of frames to render&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                 <property name="minimum">
-                  <number>0</number>
-                 </property>
-                 <property name="maximum">
-                  <number>99999</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>1</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="9" column="1" colspan="2">
-                <widget class="MyLineEdit" name="logedit_keyframe_constant_target_distance">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="MyLineEdit" name="logedit_keyframe_constant_target_distance">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets the same distance between camera target and camera for all keyframes. It doesn't modify camera position and rotation, so it doesn't modify camera movement path. It makes camera rotation smooth through entire animation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_3">
+               <property name="title">
+                <string>Display settings</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_keyframe_thumbnails">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of keyframe previews in the animation table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text">
+                   <string>Show keyframe preview thumbnails</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_camera_path">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show camera path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_target_path">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show target path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_light_path_1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show light #1 path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_light_path_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show light #2 path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_light_path_3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show light #3 path</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="MyCheckBox" name="checkBox_show_light_path_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Show light #4 path</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <spacer name="verticalSpacer_13">
@@ -1309,16 +1454,11 @@ keyframes</string>
   <tabstop>pushButton_keyframe_to_flight_export</tabstop>
   <tabstop>scrollArea_keyframe_animation_parameters</tabstop>
   <tabstop>spinboxInt_frames_per_keyframe</tabstop>
-  <tabstop>logedit_keyframe_collision_thresh</tabstop>
   <tabstop>text_anim_keyframe_dir</tabstop>
   <tabstop>button_selectAnimKeyframeImageDir</tabstop>
   <tabstop>comboBox_keyframe_animation_image_type</tabstop>
   <tabstop>spinboxInt_keyframe_first_to_render</tabstop>
   <tabstop>spinboxInt_keyframe_last_to_render</tabstop>
-  <tabstop>checkBox_show_keyframe_thumbnails</tabstop>
-  <tabstop>checkBox_keyframe_auto_validate</tabstop>
-  <tabstop>pushButton_set_constant_target_distance</tabstop>
-  <tabstop>logedit_keyframe_constant_target_distance</tabstop>
   <tabstop>tableWidget_keyframe_animation</tabstop>
  </tabstops>
  <resources>

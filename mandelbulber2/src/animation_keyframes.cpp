@@ -1332,6 +1332,7 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 
 void cKeyframeAnimation::UpdateAnimationPath()
 {
+	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
 	keyframes->RefreshAllAudioTracks(params);
 
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
@@ -1342,6 +1343,12 @@ void cKeyframeAnimation::UpdateAnimationPath()
 	sAnimationPathData animationPathData;
 	animationPathData.framesPeyKey = framesPerKey;
 	animationPathData.numberOfKeyframes = numberOfKeyframes;
+	animationPathData.actualSelectedFrameNo = table->currentColumn() - reservedColumns;
+	if (animationPathData.actualSelectedFrameNo < 0) animationPathData.actualSelectedFrameNo = 0;
+	animationPathData.cameraPathEnable = params->Get<bool>("show_camera_path");
+	animationPathData.targetPathEnable = params->Get<bool>("show_target_path");
+	for (int i = 1; i <= 4; i++)
+		animationPathData.lightPathEnable[i - 1] = params->Get<bool>("show_light_path", i);
 
 	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
 	{
