@@ -147,7 +147,8 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate() const
 	if (table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Lines done") << tr("Actions");
+		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Lines done")
+					 << tr("Actions");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
 	}
@@ -205,18 +206,19 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j) const
 		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
 		case 5:
 		{
-				QFrame *frame = new QFrame;
-				QGridLayout *gridLayout = new QGridLayout;
-				QToolButton *actionKickAndKill = new QToolButton;
-				actionKickAndKill->setIcon(actionKickAndKill->style()->standardIcon(QStyle::SP_TrashIcon));
-				actionKickAndKill->setFixedSize(24, 24);
-				actionKickAndKill->setObjectName(QString::number(i));
-				gridLayout->setContentsMargins(2, 2, 2, 2);
-				QObject::connect(actionKickAndKill, SIGNAL(clicked()), this, SLOT(slotNetRenderKickAndKill()));
-				gridLayout->addWidget(actionKickAndKill, 0, 0);
-				gridLayout->setSpacing(0);
-				frame->setLayout(gridLayout);
-				table->setCellWidget(i, j, frame);
+			QFrame *frame = new QFrame;
+			QGridLayout *gridLayout = new QGridLayout;
+			QToolButton *actionKickAndKill = new QToolButton;
+			actionKickAndKill->setIcon(actionKickAndKill->style()->standardIcon(QStyle::SP_TrashIcon));
+			actionKickAndKill->setFixedSize(24, 24);
+			actionKickAndKill->setObjectName(QString::number(i));
+			gridLayout->setContentsMargins(2, 2, 2, 2);
+			QObject::connect(
+				actionKickAndKill, SIGNAL(clicked()), this, SLOT(slotNetRenderKickAndKill()));
+			gridLayout->addWidget(actionKickAndKill, 0, 0);
+			gridLayout->setSpacing(0);
+			frame->setLayout(gridLayout);
+			table->setCellWidget(i, j, frame);
 			break;
 		}
 		default: break;

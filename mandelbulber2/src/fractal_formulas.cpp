@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -11773,8 +11773,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build  componentMaster
-		componentMaster = ( R2 + distEst + XYZbias + planeBias
-											 + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster =
+			(R2 + distEst + XYZbias + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
 	// divide by i option
@@ -11841,7 +11841,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double XYZbias = 0.0;
 	double planeBias = 0.0;
 	// double divideByIter = 0.0;
-	//double radius = 0.0;
+	// double radius = 0.0;
 	double linearOffset = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
@@ -12069,8 +12069,8 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// build  componentMaster
-		componentMaster = (R2 + distEst + XYZbias + planeBias
-											 + lengthIter + linearOffset + boxTrap + sphereTrap + sumDist);
+		componentMaster = (R2 + distEst + XYZbias + planeBias + lengthIter + linearOffset + boxTrap
+											 + sphereTrap + sumDist);
 	}
 
 	// divide by i option
@@ -12180,8 +12180,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z += c * rSqrL;
 		}
 	}
-
-
 
 	CVector4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,

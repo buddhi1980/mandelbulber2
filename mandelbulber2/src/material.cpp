@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -101,8 +101,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
 	"fractal_coloring_initial_minimumR",
 
-	"fractal_coloring_aux_color_false",
-	"fractal_coloring_aux_color_weight", "fractal_coloring_aux_color_hybrid_weight",
+	"fractal_coloring_aux_color_false", "fractal_coloring_aux_color_weight",
+	"fractal_coloring_aux_color_hybrid_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
 	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_1e13_false",

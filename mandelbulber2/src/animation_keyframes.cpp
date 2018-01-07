@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -52,6 +52,7 @@
 #include "netrender.hpp"
 #include "render_job.hpp"
 #include "render_window.hpp"
+#include "rendered_image_widget.hpp"
 #include "rendering_configuration.hpp"
 #include "undo.h"
 
@@ -64,7 +65,6 @@
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
-#include "rendered_image_widget.hpp"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 

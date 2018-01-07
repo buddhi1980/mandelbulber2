@@ -23,6 +23,29 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 {
 	REAL colorAdd = 0.0f;
 	REAL4 c = aux->const_c;
+
+	// invert c
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		if (fractal->transformCommon.functionEnabledCyFalse)
+		{
+			aux->c *= fractal->transformCommon.scale3D111;
+			REAL rSqrL = dot(aux->c, aux->c);
+			rSqrL = native_recip(rSqrL);
+			aux->c *= rSqrL;
+			z += aux->c;
+		}
+		else
+		{
+			c *= fractal->transformCommon.scale3D111;
+			REAL rSqrL = dot(c, c);
+			rSqrL = native_recip(rSqrL);
+			z += c * rSqrL;
+		}
+	}
+
 	REAL4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -219,12 +219,14 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// copy zBuffer and image to input and output buffers
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((sSortedZBufferCl*) inputBuffers[zBufferIndex].ptr)[i].i = sortedZBuffer[i].i;
-			((sSortedZBufferCl*) inputBuffers[zBufferIndex].ptr)[i].z = sortedZBuffer[i].z;
+			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr)[i].i = sortedZBuffer[i].i;
+			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr)[i].z = sortedZBuffer[i].z;
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4*) inputBuffers[imageIndex].ptr)[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
-			((cl_float4*) inputAndOutputBuffers[outputIndex].ptr)[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			((cl_float4 *)inputBuffers[imageIndex].ptr)[i] =
+				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr)[i] =
+				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
 		// writing data to queue
@@ -264,7 +266,8 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			{
 				for (int x = 0; x < width; x++)
 				{
-					cl_float4 imagePixelCl = ((cl_float4*) inputAndOutputBuffers[outputIndex].ptr)[x + y * width];
+					cl_float4 imagePixelCl =
+						((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr)[x + y * width];
 
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
 					unsigned short alpha = imagePixelCl.s[3] * 65535.0;

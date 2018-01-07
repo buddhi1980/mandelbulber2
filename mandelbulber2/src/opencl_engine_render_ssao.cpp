@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -137,7 +137,8 @@ void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContain
 {
 	Q_UNUSED(params);
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
-	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
+	inputBuffers << sClInputOutputBuffer(
+		sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
 	outputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
 
@@ -214,12 +215,14 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer to input buffer
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float*) inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
 		}
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			((cl_float*) inputBuffers[sineCosineIndex].ptr)[i] = sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			((cl_float*) inputBuffers[sineCosineIndex].ptr)[i + paramsSSAO.quality] = cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
+			((cl_float *)inputBuffers[sineCosineIndex].ptr)[i] =
+				sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
+			((cl_float *)inputBuffers[sineCosineIndex].ptr)[i + paramsSSAO.quality] =
+				cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
 		}
 
 		// writing data to queue
@@ -261,7 +264,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					cl_float total_ambient = ((cl_float*) outputBuffers[outputIndex].ptr)[x + y * width];
+					cl_float total_ambient = ((cl_float *)outputBuffers[outputIndex].ptr)[x + y * width];
 					unsigned short opacity16 = image->GetPixelOpacity(x, y);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(x, y);
