@@ -694,11 +694,22 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	fakeLights = FakeLightsShader(consts, input, calcParam, &fakeLightsSpecular);
 #endif
 
-	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
-					+ mainLight * specular * shadow + fakeLightsSpecular + auxSpecular;
-	*outSurfaceColor = surfaceColor;
-	*outSpecular = mainLight * shadow * specular + fakeLightsSpecular + auxSpecular;
+	float3 totalSpecular = mainLight * shadow * specular + fakeLightsSpecular + auxSpecular;
 
+	if (input->material->metalic)
+	{
+		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
+						+ totalSpecular * surfaceColor;
+		*outSpecular = totalSpecular * surfaceColor;
+	}
+	else
+	{
+		color =
+			surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular;
+		*outSpecular = totalSpecular;
+	}
+
+	*outSurfaceColor = surfaceColor;
 	return color;
 }
 

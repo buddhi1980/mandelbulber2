@@ -161,10 +161,26 @@ sRGBAfloat cRenderWorker::ObjectShader(
 
 	output.A = 1.0;
 
-	specularOut->R = auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R;
-	specularOut->G = auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G;
-	specularOut->B = auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B;
-	specularOut->A = output.A;
+	if (mat->metalic)
+	{
+		specularOut->R =
+			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R) * colour.R;
+		specularOut->G =
+			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G) * colour.G;
+		specularOut->B =
+			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B) * colour.B;
+		specularOut->A = output.A;
+	}
+	else
+	{
+		specularOut->R =
+			auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R;
+		specularOut->G =
+			auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G;
+		specularOut->B =
+			auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B;
+		specularOut->A = output.A;
+	}
 
 	return output;
 }

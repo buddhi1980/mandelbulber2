@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2148</y>
-        <width>619</width>
-        <height>3546</height>
+        <y>-1016</y>
+        <width>613</width>
+        <height>2864</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1608,7 +1608,7 @@ sphere radius:</string>
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
-                   <string>colorValue iteratio&amp;n components</string>
+                   <string>color&amp;Value iteration components</string>
                   </property>
                   <property name="checkable">
                    <bool>true</bool>
@@ -2632,6 +2632,16 @@ width:</string>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_metalic">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, color of specular highlights is the same as surface color. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string notr="true">Metalic surface</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>

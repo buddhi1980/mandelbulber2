@@ -65,6 +65,7 @@ cMaterial::cMaterial()
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
 	normalMapTextureHeight = 0.0;
+	metalic = false;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -91,7 +92,7 @@ QStringList cMaterial::paramsList = {
 	"diffusion_texture_intensity", "displacement_texture_height", "fractal_coloring_algorithm",
 	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false",
+	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false", "metalic",
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
@@ -101,8 +102,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
 	"fractal_coloring_initial_minimumR",
 
-	"fractal_coloring_aux_color_false",
-	"fractal_coloring_aux_color_weight", "fractal_coloring_aux_color_hybrid_weight",
+	"fractal_coloring_aux_color_false", "fractal_coloring_aux_color_weight",
+	"fractal_coloring_aux_color_hybrid_weight",
 
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
 	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_1e13_false",
@@ -142,6 +143,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	specular = materialParam->Get<double>(Name("specular", id));
 	specularWidth = materialParam->Get<double>(Name("specular_width", id));
 	specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
+	metalic = materialParam->Get<bool>(Name("metalic", id));
 	reflectance = materialParam->Get<double>(Name("reflectance", id));
 	luminosity = materialParam->Get<double>(Name("luminosity", id));
 	transparencyIndexOfRefraction =

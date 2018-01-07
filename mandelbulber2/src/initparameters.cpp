@@ -1111,6 +1111,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("metalic", materialId), false, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(
