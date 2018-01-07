@@ -107,13 +107,13 @@ void cMeshExport::ProcessVolume()
 	MarchingCubes *marchingCube;
 	try
 	{
-		marchingCube = new MarchingCubes(params.data(), fractals.data(), w, h, l, limitMin,
-			limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
+		marchingCube = new MarchingCubes(params.data(), fractals.data(), w, h, l, limitMin, limitMax,
+			dist_thresh, &stop, vertices, polygons, colorIndices);
 	}
 	catch (std::bad_alloc &ba)
 	{
 		QString errorMessage = QString("bad_alloc caught in MarchingCubes: ") + ba.what()
-								+ ", maybe required mesh dimension to big?";
+													 + ", maybe required mesh dimension to big?";
 		qCritical() << errorMessage;
 		emit updateProgressAndStatus(errorMessage, "Error occured", 0.0);
 		emit finished();

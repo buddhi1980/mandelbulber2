@@ -96,16 +96,14 @@ public:
 		}
 	}
 
-	~MarchingCubes()
-	{
-		FreeBuffers();
-	}
+	~MarchingCubes() { FreeBuffers(); }
 
 public slots:
 	void RunMarchingCube();
 
 private:
-	void FreeBuffers(){
+	void FreeBuffers()
+	{
 		if (shared_indices) delete[] shared_indices;
 		if (voxelBuffer) delete[] voxelBuffer;
 		if (colorBuffer) delete[] colorBuffer;

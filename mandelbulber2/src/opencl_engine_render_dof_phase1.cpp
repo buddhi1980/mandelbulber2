@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -200,10 +200,11 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer and image to input buffers
 		for (qint64 i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float*) inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4*) inputBuffers[imageIndex].ptr)[i] = cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			((cl_float4 *)inputBuffers[imageIndex].ptr)[i] =
+				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
 		// writing data to queue
@@ -246,7 +247,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 				{
 					for (int x = 0; x < jobWidth2; x++)
 					{
-						cl_float4 pixelCl = ((cl_float4*) outputBuffers[outputIndex].ptr)[x + y * jobWidth2];
+						cl_float4 pixelCl = ((cl_float4 *)outputBuffers[outputIndex].ptr)[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						quint16 alpha = pixelCl.s[3] * 65535;
 

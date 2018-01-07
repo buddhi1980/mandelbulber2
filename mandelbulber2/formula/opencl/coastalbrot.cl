@@ -15,6 +15,8 @@
 
 REAL4 CoastalbrotIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	Q_UNUSED(fractal);
+
 	REAL temp = aux->r;
 	temp = native_powr(temp, 7.7f);
 	aux->r_dz = temp * aux->r_dz * 7.7f;

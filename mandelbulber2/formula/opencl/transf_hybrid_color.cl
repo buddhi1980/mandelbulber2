@@ -28,7 +28,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL XYZbias = 0.0f;
 	REAL planeBias = 0.0f;
 	// REAL divideByIter = 0.0f;
-	REAL radius = 0.0f;
+	// REAL radius = 0.0f;
 	REAL linearOffset = 0.0f;
 	// REAL factorR = fractal->mandelbox.color.factorR;
 	REAL componentMaster = 0.0f;
@@ -44,7 +44,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	{
 		// radius
-		if (fractal->transformCommon.functionEnabledCyFalse)
+		/*if (fractal->transformCommon.functionEnabledCyFalse)
 		{
 			radius = length(z);
 			radius *= fractal->foldColor.scaleG0;
@@ -54,7 +54,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				radius *= native_recip(fabs(aux->DE));
 				// if (radius > 20) radius = 20;
 			}
-		}
+		}*/
 
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -226,8 +226,8 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 
 		// build  componentMaster
-		componentMaster = (fractal->foldColor.colorMin + R2 + distEst + XYZbias + planeBias + radius
-											 + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster =
+			(R2 + distEst + XYZbias + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
 	// divide by i option
@@ -275,6 +275,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		aux->colorHybrid += (minValue - aux->colorHybrid) * fractal->surfBox.scale1Z1;
 	}
-	aux->colorHybrid *= fractal->foldColor.newScale0 * 256.0f;
+	aux->colorHybrid *= 256.0f;
 	return z;
 }

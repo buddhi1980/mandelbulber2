@@ -124,7 +124,7 @@ typedef struct
 	cl_float oldScale0;
 	// cl_float oldScale1;
 	// cl_float parabScale0;
-	cl_float newScale0;
+	// double newScale0;
 	cl_float limitMin0;
 	cl_float limitMax9999;
 	cl_float scaleA0;
@@ -133,7 +133,7 @@ typedef struct
 	cl_float scaleD0;
 	cl_float scaleE0;
 	cl_float scaleF0;
-	cl_float scaleG0;
+	// double scaleG0;
 	cl_float scaleA1;
 	cl_float scaleB1;
 	cl_float scaleC1;
@@ -751,7 +751,6 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.compScale = source.compScale;
 	target.deScale0 = source.deScale0;
 	target.oldScale0 = source.oldScale0;
-        //target.newScale0 = source.newScale0;
 	target.limitMin0 = source.limitMin0;
 	target.limitMax9999 = source.limitMax9999;
 	target.scaleA0 = source.scaleA0;
@@ -759,7 +758,6 @@ inline sFoldColorCl clCopySFoldColorCl(sFoldColor &source)
 	target.scaleD0 = source.scaleD0;
 	target.scaleE0 = source.scaleE0;
 	target.scaleF0 = source.scaleF0;
-        //target.scaleG0 = source.scaleG0;
 	target.scaleA1 = source.scaleA1;
 	target.scaleB1 = source.scaleB1;
 	target.scaleC1 = source.scaleC1;

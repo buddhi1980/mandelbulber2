@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -526,9 +526,9 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
-//#ifndef _WIN32
-//#pragma omp parallel for
-//#endif
+				//#ifndef _WIN32
+				//#pragma omp parallel for
+				//#endif
 				for (int x = 0; x < int(w); x++)
 				{
 					int R = 0;
@@ -605,9 +605,9 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				int yEnd = rect.bottom() / scaleY + 1;
 				yEnd = qMin(yEnd, h - 1);
 
-//#ifndef _WIN32
-//#pragma omp parallel for
-//#endif
+				//#ifndef _WIN32
+				//#pragma omp parallel for
+				//#endif
 				for (int y = yStart; y <= yEnd; y++)
 				{
 					for (int x = xStart; x <= xEnd; x++)

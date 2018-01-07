@@ -82,7 +82,6 @@ void Test::renderExamplesWrapper() const
 
 void Test::renderExamples() const
 {
-	return;
 	// this renders all example files in a resolution of 5x5 px
 	// and benchmarks the runtime
 	const QString examplePath =
