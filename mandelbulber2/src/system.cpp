@@ -461,6 +461,7 @@ void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QS
 				context.line, context.function);
 			text = QString("Fatal: ") + QString(localMsg.constData()) + " (" + context.file + ":"
 						 + QString::number(context.line) + ", " + context.function;
+			abort();
 			break;
 	}
 	WriteLog(text, 1);

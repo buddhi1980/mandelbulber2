@@ -80,9 +80,16 @@ public:
 	}
 	inline CVector3(const double vector[3])
 	{
-		x = vector[0];
-		y = vector[1];
-		z = vector[2];
+		if (vector)
+		{
+			x = vector[0];
+			y = vector[1];
+			z = vector[2];
+		}
+		else
+		{
+			qFatal("Assigned nullptr to CVector3 as initialization!");
+		}
 	}
 	inline CVector3 operator+(const CVector3 &vector) const
 	{

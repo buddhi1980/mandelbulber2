@@ -61,7 +61,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			{
 				double initColorValue = 0.0;
 				CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
-				if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+				if (fractalColoring.icRadFalse)
+					initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
 
 				if (fractalColoring.icXYZFalse)
 				{
@@ -69,7 +70,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					{
 						xyzC = xyzC * fractalColoring.xyzC111;
 					}
-						else
+					else
 					{
 						xyzC = fabs(xyzC) * fractalColoring.xyzC111;
 					}
@@ -78,13 +79,12 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorValue += initColorValue;
 			}
 
-			if (fractalColoring.orbitTrapTrue)
-				colorValue += minimumR * fractalColoring.orbitTrapWeight;
+			if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
 			if (fractalColoring.auxColorFalse)
 				colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
 											+ extendedAux.colorHybrid // transf_hybrid_color inputs
-												* fractalColoring.auxColorHybridWeight;
+													* fractalColoring.auxColorHybridWeight;
 
 			if (fractalColoring.radFalse)
 			{
@@ -133,7 +133,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 			colorValue += addValue; // all extra inputs
 
-
 			if (fractalColoring.iterGroupFalse)
 			{
 				// Iter ADD,  this allows the input to be influenced by iteration number
@@ -167,7 +166,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				}
 			}
 			// "pseudo" global palette controls
-			//colorValue /= 256.0;
+			// colorValue /= 256.0;
 
 			if (fractalColoring.globalPaletteFalse)
 			{
@@ -256,7 +255,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 										 + auxColorValue100 * extendedAux.foldFactor // aux.color
 										 + r * extendedAux.radiusFactor / 1e13			 // radius// this may be replaced
 										 + radDE5000 * extendedAux.scaleFactor; // r/DE  for backwards compatibility
-										// + addValue;													 // all extra inputs
+				// + addValue;													 // all extra inputs
 
 				/*+ ((fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
 								? minimumR * extendedAux.minRFactor * 1000.0
@@ -276,7 +275,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					{
 						double initColorValue = 0.0;
 						CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
-						if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+						if (fractalColoring.icRadFalse)
+							initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
 
 						if (fractalColoring.icXYZFalse)
 						{
@@ -285,7 +285,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 							{
 								xyzC = xyzC * fractalColoring.xyzC111;
 							}
-								else
+							else
 							{
 								xyzC = fabs(xyzC) * fractalColoring.xyzC111;
 							}
@@ -294,12 +294,13 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						colorValue += initColorValue;
 					}
 
-					if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
+					if (fractalColoring.orbitTrapTrue)
+						colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
 					if (fractalColoring.auxColorFalse)
 						colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
 													+ extendedAux.colorHybrid // transf_hybrid_color inputs
-														* fractalColoring.auxColorHybridWeight;
+															* fractalColoring.auxColorHybridWeight;
 
 					if (fractalColoring.radFalse)
 					{
@@ -322,7 +323,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					double xyzValue = 0.0;
 					if (fractalColoring.xyzBiasEnabledFalse)
 					{
-						CVector3 xyzAxis = 0;
+						CVector3 xyzAxis;
 						xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
 
 						if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
@@ -368,7 +369,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						}
 					}
 
-						// "pseudo" global palette controls
+					// "pseudo" global palette controls
 
 					if (fractalColoring.globalPaletteFalse)
 					{
@@ -426,7 +427,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					colorIndex = minR5000;
 				}
 				break;
-			}
+		}
 	}
 
 	return colorIndex;
