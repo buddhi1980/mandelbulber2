@@ -429,7 +429,7 @@ void Test::renderImageSave() const
 	// and benchmarks the runtime, then saves each image type
 	const QString simpleExampleFileName =
 		QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples"
-														 + QDir::separator() + "mandelbox001.fract");
+														 + QDir::separator() + "mandelbulb001.fract");
 
 	cParameterContainer *testPar = new cParameterContainer;
 	cFractalContainer *testParFractal = new cFractalContainer;
