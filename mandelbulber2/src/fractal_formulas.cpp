@@ -12161,8 +12161,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 	// invert c
 	if (fractal->transformCommon.functionEnabledCxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsE
-			&& aux.i < fractal->transformCommon.stopIterationsE)
+			&& aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
@@ -12213,6 +12213,28 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 					//					if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
 					//					if (z.y != oldZ.y) colorAdd += fractal->foldColor.factor000.y;
+					if (fractal->transformCommon.functionEnabledCzFalse
+							&& aux.i >= fractal->transformCommon.startIterationsT
+							&& aux.i < fractal->transformCommon.stopIterationsT1)
+					{
+						CVector4 limit = fractal->transformCommon.additionConstant111;
+						CVector4 length = 2.0 * limit;
+						CVector4 tgladS = 1.0 / length;
+						CVector4 Add;
+						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+						//if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+							Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+						if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+							Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+						//if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+						//	Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+						Add *= fractal->transformCommon.scale3D000;
+						z.x = (z.x - (sign(z.x) * (Add.x)));
+						z.y = (z.y - (sign(z.y) * (Add.y)));
+						//z.z = (z.z - (sign(z.z) * (Add.z)));
+					}
 					break;
 				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
@@ -12271,34 +12293,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-	/*{
-		z = fabs(z + fractal->transformCommon.additionConstant000)
-				- fabs(z - fractal->transformCommon.additionConstant000) - z;
-
-		if (fractal->transformCommon.functionEnabledFalse
-				&& aux.i >= fractal->transformCommon.startIterationsA
-				&& aux.i < fractal->transformCommon.stopIterationsA)
-		{
-			CVector4 limit = fractal->transformCommon.additionConstant000;
-			CVector4 length = 2.0 * limit;
-			CVector4 tgladS = 1.0 / length;
-			CVector4 Add;
-			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-
-			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-			Add *= fractal->transformCommon.offset000;
-			z.x = (z.x - (sign(z.x) * (Add.x)));
-			z.y = (z.y - (sign(z.y) * (Add.y)));
-			z.z = (z.z - (sign(z.z) * (Add.z)));
-		}
-	}*/
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
@@ -12359,7 +12353,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
-		CVector4 tempC = c;
+		CVector4 tempC = aux.const_c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
