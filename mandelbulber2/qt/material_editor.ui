@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1016</y>
-        <width>613</width>
-        <height>2864</height>
+        <y>-1937</y>
+        <width>619</width>
+        <height>3575</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -2639,7 +2639,7 @@ width:</string>
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, color of specular highlights is the same as surface color. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="text">
-             <string notr="true">Metalic surface</string>
+             <string notr="true">Metallic surface</string>
             </property>
            </widget>
           </item>
