@@ -161,7 +161,7 @@ sRGBAfloat cRenderWorker::ObjectShader(
 
 	output.A = 1.0;
 
-	if (mat->metalic)
+	if (mat->metallic)
 	{
 		specularOut->R =
 			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R) * colour.R;

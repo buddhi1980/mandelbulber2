@@ -101,7 +101,7 @@ public:
 	texture::enumTextureMapping textureMappingType;
 	bool fresnelReflectance;
 	bool useColorsFromPalette;
-	bool metalic;
+	bool metallic;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1937</y>
-        <width>619</width>
-        <height>3575</height>
+        <y>-994</y>
+        <width>613</width>
+        <height>2864</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -2634,7 +2634,7 @@ width:</string>
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_metalic">
+           <widget class="QCheckBox" name="checkBox_metallic">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, color of specular highlights is the same as surface color. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>

@@ -592,6 +592,9 @@ sRayRecursionOut RayRecursion(
 #endif
 
 #ifdef USE_REFLECTANCE
+					// diffusion from surface color
+					// reflectShader *= (float4){objectColour.x, objectColour.y, objectColour.z, 1.0};
+
 					resultShader =
 						reflectShader * reflect * reflectance + (1.0f - reflect * reflectance) * resultShader;
 #endif

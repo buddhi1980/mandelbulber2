@@ -65,7 +65,7 @@ cMaterial::cMaterial()
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
 	normalMapTextureHeight = 0.0;
-	metalic = false;
+	metallic = false;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -92,7 +92,7 @@ QStringList cMaterial::paramsList = {
 	"diffusion_texture_intensity", "displacement_texture_height", "fractal_coloring_algorithm",
 	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false", "metalic",
+	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false", "metallic",
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
@@ -143,7 +143,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	specular = materialParam->Get<double>(Name("specular", id));
 	specularWidth = materialParam->Get<double>(Name("specular_width", id));
 	specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
-	metalic = materialParam->Get<bool>(Name("metalic", id));
+	metallic = materialParam->Get<bool>(Name("metallic", id));
 	reflectance = materialParam->Get<double>(Name("reflectance", id));
 	luminosity = materialParam->Get<double>(Name("luminosity", id));
 	transparencyIndexOfRefraction =

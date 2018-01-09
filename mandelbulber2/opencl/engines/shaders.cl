@@ -696,7 +696,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 
 	float3 totalSpecular = mainLight * shadow * specular + fakeLightsSpecular + auxSpecular;
 
-	if (input->material->metalic)
+	if (input->material->metallic)
 	{
 		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
 						+ totalSpecular * surfaceColor;

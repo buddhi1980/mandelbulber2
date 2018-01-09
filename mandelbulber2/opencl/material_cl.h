@@ -99,7 +99,7 @@ typedef struct
 	// texture::enumTextureMapping textureMappingType;
 	cl_int fresnelReflectance;
 	cl_int useColorsFromPalette;
-	cl_int metalic;
+	cl_int metallic;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -145,7 +145,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 
 	target.fresnelReflectance = source.fresnelReflectance;
 	target.useColorsFromPalette = source.useColorsFromPalette;
-	target.metalic = source.metalic;
+	target.metallic = source.metallic;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;
