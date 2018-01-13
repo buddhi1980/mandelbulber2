@@ -1174,6 +1174,14 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone,
 		paramStandard);
+
+	par->addParam(
+		cMaterial::Name("iridescence_enabled", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("iridescence_intensity", materialId), 1.0, 1e-10, 1e15, morphAkima,
+		paramStandard);
+	par->addParam(cMaterial::Name("iridescence_subsurface_thickness", materialId), 1.0, 1e-10, 1e15,
+		morphAkima, paramStandard);
+
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
 		int(sFractalColoring::fractalColoringStandard), 0, 4, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,

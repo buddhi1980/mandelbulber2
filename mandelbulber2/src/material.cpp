@@ -66,6 +66,9 @@ cMaterial::cMaterial()
 	normalMapTextureFromBumpmap = false;
 	normalMapTextureHeight = 0.0;
 	metallic = false;
+	iridescenceEnabled = false;
+	iridescenceIntensity = 0.0;
+	iridescenceSubsurfaceThickness = 0.0;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -93,6 +96,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
 	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false", "metallic",
+	"iridescence_enabled", "iridescence_intensity", "iridescence_subsurface_thickness",
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
@@ -185,6 +189,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	luminosityTextureIntensity = materialParam->Get<double>(Name("luminosity_texture_intensity", id));
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
+
+	iridescenceEnabled = materialParam->Get<bool>(Name("iridescence_enabled", id));
+	iridescenceIntensity = materialParam->Get<double>(Name("iridescence_intensity", id));
+	iridescenceSubsurfaceThickness =
+		materialParam->Get<double>(Name("iridescence_subsurface_thickness", id));
 
 	fractalColoring.coloringAlgorithm = sFractalColoring::enumFractalColoringAlgorithm(
 		materialParam->Get<int>(Name("fractal_coloring_algorithm", id)));

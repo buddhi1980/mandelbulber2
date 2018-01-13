@@ -204,8 +204,8 @@ private:
 		sRGBFloat pixel, int repeat, sRGBFloat pixelSum, sRGBFloat &StdDevSum);
 
 	// shaders
-	sRGBAfloat ObjectShader(
-		const sShaderInputData &input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut) const;
+	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
+		sRGBAfloat *specularOut, sRGBFloat *iridescence) const;
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
 	static sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input) const;
@@ -226,6 +226,7 @@ private:
 	sRGBFloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
+	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
 
 	// data got from main thread
 	const sParamRender *params;

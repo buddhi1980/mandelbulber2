@@ -39,14 +39,15 @@
 #include "common_math.h"
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "hsv2rgb.h"
 #include "render_data.hpp"
 #include "render_worker.hpp"
 #include "texture_mapping.hpp"
 
 using std::max;
 
-sRGBAfloat cRenderWorker::ObjectShader(
-	const sShaderInputData &_input, sRGBAfloat *surfaceColour, sRGBAfloat *specularOut) const
+sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
+	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut) const
 {
 	sRGBAfloat output;
 
@@ -146,6 +147,13 @@ sRGBAfloat cRenderWorker::ObjectShader(
 	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
 								 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
 
+	sRGBFloat iridescence(1.0, 1.0, 1.0);
+	if (input.material->iridescenceEnabled)
+	{
+		iridescence = IridescenceShader(input);
+	}
+	*iridescenceOut = iridescence;
+
 	// total shader
 	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
 	output.G = envMapping.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
@@ -164,21 +172,27 @@ sRGBAfloat cRenderWorker::ObjectShader(
 	if (mat->metallic)
 	{
 		specularOut->R =
-			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R) * colour.R;
+			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R) * colour.R
+			* iridescence.R;
 		specularOut->G =
-			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G) * colour.G;
+			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G) * colour.G
+			* iridescence.G;
 		specularOut->B =
-			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B) * colour.B;
+			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B) * colour.B
+			* iridescence.B;
 		specularOut->A = output.A;
 	}
 	else
 	{
 		specularOut->R =
-			auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R;
+			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R)
+			* iridescence.R;
 		specularOut->G =
-			auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G;
+			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G)
+			* iridescence.G;
 		specularOut->B =
-			auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B;
+			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B)
+			* iridescence.B;
 		specularOut->A = output.A;
 	}
 
@@ -1496,4 +1510,25 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	CVector3 result = tbn * tex;
 	result.Normalize();
 	return result;
+}
+
+sRGBFloat cRenderWorker::IridescenceShader(const sShaderInputData &input) const
+{
+	sRGBFloat rainbowColor(1.0, 1.0, 1.0);
+	if (input.material->iridescenceIntensity > 0.0)
+	{
+		double dist1 = input.lastDist;
+		CVector3 pointTemp = input.point - input.viewVector * input.delta;
+		sDistanceOut distanceOut;
+		sDistanceIn distanceIn(pointTemp, input.distThresh, false);
+		double dist2 = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+		double diff = fabs(dist1 - dist2);
+		double surfaceThickness =
+			(diff > 0) ? input.delta * input.material->iridescenceSubsurfaceThickness / diff : 0.0;
+		double rainbowIndex = fmod(surfaceThickness, 1.0) * 360.0;
+		double sat = input.material->iridescenceIntensity / (0.1 + surfaceThickness);
+		if (sat > 1.0) sat = 1.0;
+		rainbowColor = Hsv2rgb(rainbowIndex, sat, 1.0);
+	}
+	return rainbowColor;
 }

@@ -78,6 +78,8 @@ public:
 	float luminosityTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;
+	double iridescenceIntensity;
+	double iridescenceSubsurfaceThickness;
 
 	sRGB color;
 	sRGB luminosityColor;
@@ -109,6 +111,7 @@ public:
 	bool useDisplacementTexture;
 	bool useNormalMapTexture;
 	bool normalMapTextureFromBumpmap;
+	bool iridescenceEnabled;
 
 	sFractalColoring fractalColoring;
 };
