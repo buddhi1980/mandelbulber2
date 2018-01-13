@@ -12167,7 +12167,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z += aux.c;
 	}*/
 
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse && aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
 		CVector4 tempC = aux.const_c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
