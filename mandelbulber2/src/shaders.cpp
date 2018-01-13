@@ -1524,7 +1524,7 @@ sRGBFloat cRenderWorker::IridescenceShader(const sShaderInputData &input) const
 		double dist2 = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		double diff = fabs(dist1 - dist2);
 		double surfaceThickness =
-			(diff > 0) ? input.delta * input.material->iridescenceSubsurfaceThickness / diff : 0.0;
+			(diff > 0.0) ? input.delta * input.material->iridescenceSubsurfaceThickness / diff : 0.0;
 		double rainbowIndex = fmod(surfaceThickness, 1.0) * 360.0;
 		double sat = input.material->iridescenceIntensity / (0.1 + surfaceThickness);
 		if (sat > 1.0) sat = 1.0;

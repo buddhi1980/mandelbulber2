@@ -1001,13 +1001,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			sRGBAfloat backgroundShader;
 			sRGBAfloat volumetricShader;
 			sRGBAfloat specular;
-			sRGBFloat opalescense;
+			sRGBFloat iridescence;
 
 			if (rayMarchingOut.found)
 			{
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
-				objectShader = ObjectShader(shaderInputData, &objectColour, &specular, &opalescense);
+				objectShader = ObjectShader(shaderInputData, &objectColour, &specular, &iridescence);
 
 				// calculate reflectance according to Fresnel equations
 
@@ -1060,9 +1060,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffusionIntensity
 															+ reflect * diffusionIntensityN;
 
-					reflectDiffused.R *= opalescense.R;
-					reflectDiffused.G *= opalescense.G;
-					reflectDiffused.B *= opalescense.B;
+					reflectDiffused.R *= iridescence.R;
+					reflectDiffused.G *= iridescence.G;
+					reflectDiffused.B *= iridescence.B;
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN
 													 + (1.0 - transparent * reflectanceN) * resultShader.R;

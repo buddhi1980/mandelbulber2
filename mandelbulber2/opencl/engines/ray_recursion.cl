@@ -536,13 +536,15 @@ sRayRecursionOut RayRecursion(
 			float3 backgroundShader;
 			float3 volumetricShader;
 			float3 specular;
+			float3 iridescence;
 
 			shaderInputData.normal = recursionOut.normal;
 
 			if (rayMarchingOut.found)
 			{
 				specular = 0.0f;
-				objectShader = ObjectShader(consts, &shaderInputData, &calcParam, &objectColour, &specular);
+				objectShader = ObjectShader(
+					consts, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
 
 // calculate reflectance according to Fresnel equations
 
@@ -592,11 +594,10 @@ sRayRecursionOut RayRecursion(
 #endif
 
 #ifdef USE_REFLECTANCE
-					// diffusion from surface color
-					// reflectShader *= (float4){objectColour.x, objectColour.y, objectColour.z, 1.0};
-
+					float4 reflectInfluenceTotal =
+						reflect * reflectance * (float4){iridescence.s0, iridescence.s1, iridescence.s2, 1.0};
 					resultShader =
-						reflectShader * reflect * reflectance + (1.0f - reflect * reflectance) * resultShader;
+						reflectShader * reflectInfluenceTotal + (1.0f - reflectInfluenceTotal) * resultShader;
 #endif
 				}
 #endif

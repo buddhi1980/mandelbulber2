@@ -76,6 +76,8 @@ typedef struct
 	cl_float luminosityTextureIntensity;
 	cl_float displacementTextureHeight;
 	cl_float normalMapTextureHeight;
+	cl_float iridescenceIntensity;
+	cl_float iridescenceSubsurfaceThickness;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -107,6 +109,7 @@ typedef struct
 	cl_int useDisplacementTexture;
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
+	cl_int iridescenceEnabled;
 
 	sFractalColoringCl fractalColoring;
 } sMaterialCl;
@@ -133,6 +136,8 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.luminosityTextureIntensity = source.luminosityTextureIntensity;
 	target.displacementTextureHeight = source.displacementTextureHeight;
 	target.normalMapTextureHeight = source.normalMapTextureHeight;
+	target.iridescenceIntensity = source.iridescenceIntensity;
+	target.iridescenceSubsurfaceThickness = source.iridescenceSubsurfaceThickness;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -153,6 +158,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useDisplacementTexture = source.useDisplacementTexture;
 	target.useNormalMapTexture = source.useNormalMapTexture;
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
+	target.iridescenceEnabled = source.iridescenceEnabled;
 
 	target.fractalColoring.coloringAlgorithm =
 		enumFractalColoringAlgorithmCl(source.fractalColoring.coloringAlgorithm);

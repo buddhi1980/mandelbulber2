@@ -163,6 +163,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	float4 color4 = 0.0f;
 	float opacityOut;
 	float3 surfaceColor = 0.0f;
+	float3 iridescence = 0.0f;
 
 	bool found = false;
 	int count;
@@ -279,7 +280,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 		if (found)
 		{
-			color = ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular);
+			color =
+				ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular, &iridescence);
 			alpha = 1.0f;
 		}
 		else

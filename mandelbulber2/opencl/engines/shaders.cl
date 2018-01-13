@@ -68,6 +68,28 @@ float IterOpacity(const float step, float iters, float maxN, float trim, float o
 }
 #endif // ITER_FOG
 
+float3 Hsv2rgb(float hue, float sat, float val)
+{
+	float3 rgb;
+	float h = hue / 60.0f;
+	int i = (int)h;
+	float f = h - i;
+	float p = val * (1.0f - sat);
+	float q = val * (1.0f - (sat * f));
+	float t = val * (1.0f - (sat * (1.0f - f)));
+	switch (i)
+	{
+		case 0: rgb = (float3){val, t, p}; break;
+		case 1: rgb = (float3){q, val, p}; break;
+		case 2: rgb = (float3){p, val, t}; break;
+		case 3: rgb = (float3){p, q, val}; break;
+		case 4: rgb = (float3){t, p, val}; break;
+		case 5: rgb = (float3){val, p, q}; break;
+	}
+
+	return rgb;
+}
+
 //-------------- background shaders ---------------
 
 float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
@@ -641,8 +663,35 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 }
 #endif // FAKE_LIGTS
 
+//------------- Iridescence shader -------------
+float3 IridescenceShader(
+	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+{
+	float3 rainbowColor = 1.0f;
+	if (input->material->iridescenceIntensity > 0.0f)
+	{
+		float dist1 = input->lastDist;
+		float3 pointTemp = input->point - input->viewVector * input->delta;
+
+		calcParam->distThresh = input->distThresh;
+		formulaOut outF;
+		outF = CalculateDistance(consts, pointTemp, calcParam);
+		float dist2 = outF.distance;
+
+		float diff = fabs(dist1 - dist2);
+		float surfaceThickness =
+			(diff > 0.0f) ? input->delta * input->material->iridescenceSubsurfaceThickness / diff : 0.0f;
+		float rainbowIndex = fmod(surfaceThickness, 1.0f) * 360.0f;
+		float sat = input->material->iridescenceIntensity / (0.1f + surfaceThickness);
+		if (sat > 1.0f) sat = 1.0f;
+		rainbowColor = Hsv2rgb(rainbowIndex, sat, 1.0f);
+	}
+	return rainbowColor;
+}
+
+//------------ Object shader ----------------
 float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular)
+	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular, float3 *iridescenceOut)
 {
 	float3 color = 0.7f;
 	float3 mainLight = consts->params.mainLightColour * consts->params.mainLightIntensity;
@@ -694,7 +743,15 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	fakeLights = FakeLightsShader(consts, input, calcParam, &fakeLightsSpecular);
 #endif
 
-	float3 totalSpecular = mainLight * shadow * specular + fakeLightsSpecular + auxSpecular;
+	float3 iridescence = 1.0f;
+	if (input->material->iridescenceEnabled)
+	{
+		iridescence = IridescenceShader(consts, input, calcParam);
+	}
+	*iridescenceOut = iridescence;
+
+	float3 totalSpecular =
+		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
 	if (input->material->metallic)
 	{
@@ -713,6 +770,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	return color;
 }
 
+//------------ Volumetric shader ----------------
 float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
 	sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
 {
