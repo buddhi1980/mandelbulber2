@@ -85,40 +85,35 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		previewSize.setHeight(previewSize.width() * 3 / 4);
 
 		// connect keyframe control buttons
-		QApplication::connect(
-			ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
-		QApplication::connect(
-			ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
-		QApplication::connect(
-			ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
-		QApplication::connect(
-			ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
-		QApplication::connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this,
+		connect(ui->pushButton_add_keyframe, SIGNAL(clicked()), this, SLOT(slotAddKeyframe()));
+		connect(ui->pushButton_insert_keyframe, SIGNAL(clicked()), this, SLOT(slotInsertKeyframe()));
+		connect(ui->pushButton_delete_keyframe, SIGNAL(clicked()), this, SLOT(slotDeleteKeyframe()));
+		connect(ui->pushButton_modify_keyframe, SIGNAL(clicked()), this, SLOT(slotModifyKeyframe()));
+		connect(ui->pushButton_render_keyframe_animation, SIGNAL(clicked()), this,
 			SLOT(slotRenderKeyframes()));
-		QApplication::connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this,
+		connect(ui->pushButton_delete_all_keyframe_images, SIGNAL(clicked()), this,
 			SLOT(slotDeleteAllImages()));
-		QApplication::connect(
+		connect(
 			ui->pushButton_show_keyframe_animation, SIGNAL(clicked()), this, SLOT(slotShowAnimation()));
-		QApplication::connect(
+		connect(
 			ui->pushButton_refresh_keyframe_table, SIGNAL(clicked()), this, SLOT(slotRefreshTable()));
-		QApplication::connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this,
+		connect(ui->pushButton_keyframe_to_flight_export, SIGNAL(clicked()), this,
 			SLOT(slotExportKeyframesToFlight()));
-		QApplication::connect(
-			ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
-		QApplication::connect(ui->pushButton_set_constant_target_distance, SIGNAL(clicked()), this,
+		connect(ui->pushButton_check_for_collisions, SIGNAL(clicked()), this, SLOT(slotValidate()));
+		connect(ui->pushButton_set_constant_target_distance, SIGNAL(clicked()), this,
 			SLOT(slotSetConstantTargetDistance()));
-		QApplication::connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this,
+		connect(ui->button_selectAnimKeyframeImageDir, SIGNAL(clicked()), this,
 			SLOT(slotSelectKeyframeAnimImageDir()));
-		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this,
+		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellChanged(int, int)), this,
 			SLOT(slotTableCellChanged(int, int)));
-		QApplication::connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this,
+		connect(ui->spinboxInt_keyframe_first_to_render, SIGNAL(valueChanged(int)), this,
 			SLOT(slotMovedSliderFirstFrame(int)));
-		QApplication::connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this,
+		connect(ui->spinboxInt_keyframe_last_to_render, SIGNAL(valueChanged(int)), this,
 			SLOT(slotMovedSliderLastFrame(int)));
-		QApplication::connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this,
+		connect(ui->spinboxInt_frames_per_keyframe, SIGNAL(valueChanged(int)), this,
 			SLOT(UpdateLimitsForFrameRange()));
-		QApplication::connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)),
-			this, SLOT(slotCellDoubleClicked(int, int)));
+		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this,
+			SLOT(slotCellDoubleClicked(int, int)));
 
 		// connect system tray
 		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this,
@@ -126,10 +121,23 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		connect(this, SIGNAL(notifyRenderKeyframeRenderStatus(QString, QString)),
 			mainInterface->systemTray, SLOT(showMessage(QString, QString)));
 
-		QApplication::connect(this, SIGNAL(QuestionMessage(const QString, const QString,
-																	QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
+		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
+										QMessageBox::StandardButton *)),
 			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
 																	 QMessageBox::StandardButtons, QMessageBox::StandardButton *)));
+
+		connect(ui->checkBox_show_camera_path, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_target_path, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_light_path_1, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_light_path_2, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_light_path_3, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
+		connect(ui->checkBox_show_light_path_4, SIGNAL(stateChanged(int)), this,
+			SLOT(slotUpdateAnimationPathSelection()));
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -149,9 +157,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		table = nullptr;
 	}
 
-	QApplication::connect(this,
-		SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)), gErrorMessage,
-		SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
+	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
+		gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 }
 
 void cKeyframeAnimation::slotAddKeyframe()
@@ -195,6 +202,8 @@ void cKeyframeAnimation::NewKeyframe(int index)
 			table->setCellWidget(0, newColumn, thumbWidget);
 		}
 		UpdateLimitsForFrameRange();
+
+		UpdateAnimationPath();
 	}
 	else
 	{
@@ -215,6 +224,7 @@ void cKeyframeAnimation::DeleteKeyframe(int index) const
 		keyframes->DeleteFrames(index, index);
 		table->removeColumn(index + reservedColumns);
 		UpdateLimitsForFrameRange();
+		UpdateAnimationPath();
 	}
 }
 
@@ -251,6 +261,8 @@ void cKeyframeAnimation::slotModifyKeyframe()
 				thumbWidget->AssignParameters(*params, *fractalParams);
 				table->setCellWidget(0, newColumn, thumbWidget);
 			}
+
+			UpdateAnimationPath();
 		}
 		else
 		{
@@ -776,7 +788,8 @@ void cKeyframeAnimation::RefreshTable()
 
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
-	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
+	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
+	keyframes->RefreshAllAudioTracks(params);
 
 	PrepareTable();
 	gApplication->processEvents();
@@ -965,6 +978,8 @@ void cKeyframeAnimation::slotTableCellChanged(int row, int column)
 		}
 
 		table->blockSignals(false);
+
+		UpdateAnimationPath();
 	}
 }
 
@@ -1330,11 +1345,8 @@ void cKeyframeAnimation::AddAnimSoundColumn() const
 	table->setHorizontalHeaderItem(newColumn, new QTableWidgetItem(tr("Audio")));
 }
 
-void cKeyframeAnimation::UpdateAnimationPath()
+void cKeyframeAnimation::UpdateAnimationPath() const
 {
-	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
-	keyframes->RefreshAllAudioTracks(params);
-
 	int numberOfKeyframes = keyframes->GetNumberOfFrames();
 	int framesPerKey = keyframes->GetFramesPerKeyframe();
 
@@ -1347,8 +1359,10 @@ void cKeyframeAnimation::UpdateAnimationPath()
 	if (animationPathData.actualSelectedFrameNo < 0) animationPathData.actualSelectedFrameNo = 0;
 	animationPathData.cameraPathEnable = params->Get<bool>("show_camera_path");
 	animationPathData.targetPathEnable = params->Get<bool>("show_target_path");
+
 	for (int i = 1; i <= 4; i++)
-		animationPathData.lightPathEnable[i - 1] = params->Get<bool>("show_light_path", i);
+		animationPathData.lightPathEnable[i - 1] =
+			params->Get<bool>("show_light_path", i) && params->Get<bool>("aux_light_enabled", i);
 
 	for (int keyframe = 0; keyframe < numberOfKeyframes; keyframe++)
 	{
@@ -1363,9 +1377,19 @@ void cKeyframeAnimation::UpdateAnimationPath()
 			for (int l = 0; l < 4; l++)
 			{
 				point.lights[l] = tempPar.Get<CVector3>("aux_light_position", l + 1);
+				sRGB color16 = tempPar.Get<sRGB>("aux_light_colour", l + 1);
+				sRGB8 color8(color16.R / 256, color16.G / 256, color16.B / 256);
+				point.lightColor[l] = color8;
 			}
 			animationPathData.animationPath.append(point);
 		}
 	}
 	imageWidget->SetAnimationPath(animationPathData);
+	imageWidget->update();
+}
+
+void cKeyframeAnimation::slotUpdateAnimationPathSelection()
+{
+	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
+	UpdateAnimationPath();
 }

@@ -105,6 +105,7 @@ private slots:
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
+	void slotUpdateAnimationPathSelection();
 
 private:
 	void PrepareTable();
@@ -117,7 +118,7 @@ private:
 	QString GetKeyframeFilename(int index, int subIndex) const;
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
-	void UpdateAnimationPath();
+	void UpdateAnimationPath() const;
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;

@@ -37,12 +37,14 @@
 #include <QList>
 
 #include "algebra.hpp"
+#include "color_structures.hpp"
 
 struct sAnimationPathPoint
 {
 	CVector3 camera;
 	CVector3 target;
 	CVector3 lights[4];
+	sRGB8 lightColor[4];
 };
 
 struct sAnimationPathData
