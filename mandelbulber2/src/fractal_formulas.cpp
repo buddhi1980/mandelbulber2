@@ -12160,14 +12160,16 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	CVector4 c = aux.const_c;
 
 	// rotate c
-	/*if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsG
+	/*if (fractal->transformCommon.rotationEnabled && aux.i >=
+	fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
 		aux.c = fractal->transformCommon.rotationMatrix.RotateVector(aux.c);
 		z += aux.c;
 	}*/
 
-	if (fractal->transformCommon.addCpixelEnabledFalse && aux.i >= fractal->transformCommon.startIterationsH
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
 		CVector4 tempC = aux.const_c;
@@ -12199,14 +12201,14 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
 			}
 		}
-		if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsG
+		if (fractal->transformCommon.rotationEnabled
+				&& aux.i >= fractal->transformCommon.startIterationsG
 				&& aux.i < fractal->transformCommon.stopIterationsG)
 		{
-				tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
+			tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
 		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
-
 
 	// invert c
 	if (fractal->transformCommon.functionEnabledCxFalse
@@ -12229,7 +12231,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z += c * rSqrL;
 		}
 	}
-
 
 	CVector4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
@@ -12273,17 +12274,17 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 						CVector4 Add;
 						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-						//if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+						// if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
 						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
 							Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
 						if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
 							Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-						//if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+						// if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
 						//	Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
 						Add *= fractal->transformCommon.scale3D000;
 						z.x = (z.x - (sign(z.x) * (Add.x)));
 						z.y = (z.y - (sign(z.y) * (Add.y)));
-						//z.z = (z.z - (sign(z.z) * (Add.z)));
+						// z.z = (z.z - (sign(z.z) * (Add.z)));
 					}
 					break;
 				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)

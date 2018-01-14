@@ -29,7 +29,9 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * sAnimationPathData - struct to hold information about the animation path
+ * These contain positions of camera and lights through the different frames
+ * and are drawn in RenderedImage::DrawAnimationPath()
  */
 
 #ifndef MANDELBULBER2_SRC_ANIMATION_PATH_DATA_HPP_

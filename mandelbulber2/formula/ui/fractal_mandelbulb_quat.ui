@@ -1835,7 +1835,7 @@
          <string/>
         </property>
         <property name="title">
-         <string>fabs() Controls (&amp;Burning Ship mode)</string>
+         <string>abs() Controls (&amp;Burning Ship mode)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>

@@ -29,7 +29,9 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * cFrameSiderPopup - popup slider for quick editing of numerical input fields
+ * This widget popups when the associated input field is clicked and
+ * contains a slider and different buttons to edit the field
  */
 
 #ifndef MANDELBULBER2_QT_FRAME_SLIDER_POPUP_H_

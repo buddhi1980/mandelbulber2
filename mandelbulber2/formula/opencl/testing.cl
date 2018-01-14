@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -24,10 +24,61 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	REAL colorAdd = 0.0f;
 	REAL4 c = aux->const_c;
 
+	// rotate c
+	/*if (fractal->transformCommon.rotationEnabled && aux->i >=
+	fractal->transformCommon.startIterationsG
+			&& aux->i < fractal->transformCommon.stopIterationsG)
+	{
+		aux->c = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, aux->c);
+		z += aux->c;
+	}*/
+
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsH
+			&& aux->i < fractal->transformCommon.stopIterationsH)
+	{
+		REAL4 tempC = aux->const_c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux->c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZCl_xyz:
+				default: tempC = (REAL4){tempC.x, tempC.y, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){tempC.y, tempC.x, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){tempC.y, tempC.z, tempC.x, tempC.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){tempC.z, tempC.x, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){tempC.z, tempC.y, tempC.x, tempC.w}; break;
+			}
+			aux->c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZCl_xyz:
+				default: tempC = (REAL4){c.x, c.y, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){c.x, c.z, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){c.y, c.x, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){c.y, c.z, c.x, c.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){c.z, c.x, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){c.z, c.y, c.x, c.w}; break;
+			}
+		}
+		if (fractal->transformCommon.rotationEnabled
+				&& aux->i >= fractal->transformCommon.startIterationsG
+				&& aux->i < fractal->transformCommon.stopIterationsG)
+		{
+			tempC = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, tempC);
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+
 	// invert c
 	if (fractal->transformCommon.functionEnabledCxFalse
-			&& aux->i >= fractal->transformCommon.startIterationsE
-			&& aux->i < fractal->transformCommon.stopIterationsE)
+			&& aux->i >= fractal->transformCommon.startIterationsF
+			&& aux->i < fractal->transformCommon.stopIterationsF)
 	{
 		if (fractal->transformCommon.functionEnabledCyFalse)
 		{
@@ -78,6 +129,28 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 					if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 					//					if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
 					//					if (z.y != oldZ.y) colorAdd += fractal->foldColor.factor000.y;
+					if (fractal->transformCommon.functionEnabledCzFalse
+							&& aux->i >= fractal->transformCommon.startIterationsT
+							&& aux->i < fractal->transformCommon.stopIterationsT1)
+					{
+						REAL4 limit = fractal->transformCommon.additionConstant111;
+						REAL4 length = 2.0f * limit;
+						REAL4 tgladS = native_recip(length);
+						REAL4 Add;
+						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+						// if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+							Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+						if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+							Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+						// if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+						//	Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+						Add *= fractal->transformCommon.scale3D000;
+						z.x = (z.x - (sign(z.x) * (Add.x)));
+						z.y = (z.y - (sign(z.y) * (Add.y)));
+						// z.z = (z.z - (sign(z.z) * (Add.z)));
+					}
 					break;
 				case multi_orderOfFoldsCl_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
@@ -136,34 +209,6 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		}
 	}
 
-	/*{
-		z = fabs(z + fractal->transformCommon.additionConstant000)
-				- fabs(z - fractal->transformCommon.additionConstant000) - z;
-
-		if (fractal->transformCommon.functionEnabledFalse
-				&& aux->i >= fractal->transformCommon.startIterationsA
-				&& aux->i < fractal->transformCommon.stopIterationsA)
-		{
-			REAL4 limit = fractal->transformCommon.additionConstant000;
-			REAL4 length = 2.0f * limit;
-			REAL4 tgladS = native_recip(length);
-			REAL4 Add;
-			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-
-			if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-				Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-			if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-				Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-			if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-				Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-			Add *= fractal->transformCommon.offset000;
-			z.x = (z.x - (sign(z.x) * (Add.x)));
-			z.y = (z.y - (sign(z.y) * (Add.y)));
-			z.z = (z.z - (sign(z.z) * (Add.z)));
-		}
-	}*/
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
@@ -223,39 +268,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
 		}
 	}
-	if (fractal->transformCommon.addCpixelEnabledFalse)
-	{
-		REAL4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse) // alternate
-		{
-			tempC = aux->c;
-			switch (fractal->mandelbulbMulti.orderOfXYZ)
-			{
-				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (REAL4){tempC.x, tempC.y, tempC.z, tempC.w}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){tempC.y, tempC.x, tempC.z, tempC.w}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){tempC.y, tempC.z, tempC.x, tempC.w}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){tempC.z, tempC.x, tempC.y, tempC.w}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){tempC.z, tempC.y, tempC.x, tempC.w}; break;
-			}
-			aux->c = tempC;
-		}
-		else
-		{
-			switch (fractal->mandelbulbMulti.orderOfXYZ)
-			{
-				case multi_OrderOfXYZCl_xyz:
-				default: tempC = (REAL4){c.x, c.y, c.z, c.w}; break;
-				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){c.x, c.z, c.y, c.w}; break;
-				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){c.y, c.x, c.z, c.w}; break;
-				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){c.y, c.z, c.x, c.w}; break;
-				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){c.z, c.x, c.y, c.w}; break;
-				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){c.z, c.y, c.x, c.w}; break;
-			}
-		}
-		z += tempC * fractal->transformCommon.constantMultiplier111;
-	}
+
 	if (fractal->mandelbox.mainRotationEnabled && aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);

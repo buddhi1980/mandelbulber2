@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -124,7 +124,7 @@ typedef struct
 	cl_float oldScale0;
 	// cl_float oldScale1;
 	// cl_float parabScale0;
-	// double newScale0;
+	// cl_float newScale0;
 	cl_float limitMin0;
 	cl_float limitMax9999;
 	cl_float scaleA0;
@@ -133,7 +133,7 @@ typedef struct
 	cl_float scaleD0;
 	cl_float scaleE0;
 	cl_float scaleF0;
-	// double scaleG0;
+	// cl_float scaleG0;
 	cl_float scaleA1;
 	cl_float scaleB1;
 	cl_float scaleC1;
@@ -525,6 +525,10 @@ typedef struct
 	cl_int stopIterationsE;
 	cl_int startIterationsF;
 	cl_int stopIterationsF;
+	cl_int startIterationsG;
+	cl_int stopIterationsG;
+	cl_int startIterationsH;
+	cl_int stopIterationsH;
 	cl_int startIterationsM;
 	cl_int stopIterationsM;
 	cl_int startIterationsP;
@@ -1167,6 +1171,10 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(sFractalTransfo
 	target.stopIterationsE = source.stopIterationsE;
 	target.startIterationsF = source.startIterationsF;
 	target.stopIterationsF = source.stopIterationsF;
+	target.startIterationsG = source.startIterationsG;
+	target.stopIterationsG = source.stopIterationsG;
+	target.startIterationsH = source.startIterationsH;
+	target.stopIterationsH = source.stopIterationsH;
 	target.startIterationsM = source.startIterationsM;
 	target.stopIterationsM = source.stopIterationsM;
 	target.startIterationsP = source.startIterationsP;

@@ -29,7 +29,8 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * CalculateColorIndex(...) - Calculation of the color index of a point
+ * based on miscellanious criteria
  */
 #include "fractal_coloring.hpp"
 

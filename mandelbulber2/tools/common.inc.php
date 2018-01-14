@@ -165,7 +165,7 @@ function getModificationIntervals()
 	return $modificationFileInfo;
 }
 
-function getModificationInterval($filePath)
+function getModificationInterval($filePath, $onlyEndYear = false)
 {
 	global $modificationIntervals;
 	if (empty($modificationIntervals)) $modificationIntervals = getModificationIntervals();
@@ -179,6 +179,7 @@ function getModificationInterval($filePath)
 	if (empty($yearEnd) || $yearStart == $yearEnd) {
 		return $yearStart;
 	}
+	if($onlyEndYear) return $yearEnd;
 	return $yearStart . '-' . substr($yearEnd, 2, 2);
 }
 

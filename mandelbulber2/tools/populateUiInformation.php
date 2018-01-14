@@ -231,7 +231,7 @@ function updateInfoBoxes($index, $formula, &$status)
 		array('find' => '/\>\s*([^<]+?)\s*<\/string>/', 'replace' => '>$1</string>'), // whitespace fix 1
 		array('find' => '/\>\s*([^<]+?)\s*:\s*<\/string>/', 'replace' => '>$1:</string>'), // whitespace fix 2
 		array('find' => '/<string>(.*?)\s+(\s.*?)<\/string>/', 'replace' => '<string>$1$2</string>'), // whitespace fix 3, stop those whitespaces! :)
-		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>fabs($1)</string>'),
+		array('find' => '/<string>fabs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>abs($1)</string>'),
 		array('find' => '/<string>abs\s*\(\s*(.*?)\s*\)\s*<\/string>/', 'replace' => '<string>abs($1)</string>'),
 		array('find' => '/<string>(.*?)::(.*?)<\/string>/', 'replace' => '<string>$1:$2</string>'),
 		array('find' => '/<string>Menger Scale<\/string>/', 'replace' => '<string>Menger Scale:</string>'),
@@ -307,7 +307,7 @@ function generateFormulaOpenCLFiles($formula, &$status)
 
 	$fileHeader = '/**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______    
- * Copyright (C) ' . getModificationInterval($formula['openclFile']) . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) ' . getModificationInterval($formula['openclFile'], true) . ' Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/                       

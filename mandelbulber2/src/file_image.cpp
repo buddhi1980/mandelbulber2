@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -136,7 +136,8 @@ QString ImageFileSave::ImageNameWithoutExtension(QString path)
 {
 	QFileInfo fi(path);
 	QString fileName = fi.completeBaseName();
-	if (fi.suffix() != "" && !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif"}).contains(fi.suffix()))
+	if (fi.suffix() != ""
+			&& !QStringList({"jpg", "jpeg", "png", "exr", "tiff", "tif"}).contains(fi.suffix()))
 	{
 		fileName += "." + fi.suffix();
 	}

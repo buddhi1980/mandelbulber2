@@ -308,7 +308,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringSphere:
 					{
-						len = fabs((z - CVector4(pointTrasformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
+						len =
+							fabs((z - CVector4(pointTrasformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
 					case sFractalColoring::fractalColoringCross:
