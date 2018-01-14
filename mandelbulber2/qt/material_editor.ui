@@ -82,8 +82,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>619</width>
-        <height>3681</height>
+        <width>613</width>
+        <height>2916</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -2532,6 +2532,9 @@ sphere radius:</string>
           </property>
           <item>
            <layout class="QGridLayout" name="gridLayout_9">
+            <property name="verticalSpacing">
+             <number>2</number>
+            </property>
             <item row="2" column="1">
              <widget class="MyColorButton" name="colorButton_specular_color" native="true">
               <property name="sizePolicy">
@@ -2655,8 +2658,23 @@ width:</string>
           <bool>true</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="leftMargin">
+           <number>2</number>
+          </property>
+          <property name="topMargin">
+           <number>2</number>
+          </property>
+          <property name="rightMargin">
+           <number>2</number>
+          </property>
+          <property name="bottomMargin">
+           <number>2</number>
+          </property>
           <item>
            <layout class="QGridLayout" name="gridLayout_2">
+            <property name="verticalSpacing">
+             <number>2</number>
+            </property>
             <item row="0" column="0">
              <widget class="QLabel" name="label_75">
               <property name="text">
@@ -3051,6 +3069,9 @@ width:</string>
             <layout class="QVBoxLayout" name="verticalLayout_13">
              <item>
               <layout class="QGridLayout" name="gridLayout_14">
+               <property name="verticalSpacing">
+                <number>2</number>
+               </property>
                <item row="1" column="0">
                 <widget class="QLabel" name="label_351">
                  <property name="text">

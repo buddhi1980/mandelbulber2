@@ -68,6 +68,7 @@ float IterOpacity(const float step, float iters, float maxN, float trim, float o
 }
 #endif // ITER_FOG
 
+#ifdef USE_IRIDESCENCE
 float3 Hsv2rgb(float hue, float sat, float val)
 {
 	float3 rgb;
@@ -89,6 +90,7 @@ float3 Hsv2rgb(float hue, float sat, float val)
 
 	return rgb;
 }
+#endif
 
 //-------------- background shaders ---------------
 
@@ -664,6 +666,7 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 #endif // FAKE_LIGTS
 
 //------------- Iridescence shader -------------
+#ifdef USE_IRIDESCENCE
 float3 IridescenceShader(
 	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
@@ -680,7 +683,7 @@ float3 IridescenceShader(
 
 		float diff = fabs(dist1 - dist2);
 		float surfaceThickness =
-			(diff > 0.0f) ? input->delta * input->material->iridescenceSubsurfaceThickness / diff : 0.0f;
+			(diff > 0.0f) ? input->delta * input->material->iridescenceSubsurfaceThickness / diff : 1e6f;
 		float rainbowIndex = fmod(surfaceThickness, 1.0f) * 360.0f;
 		float sat = input->material->iridescenceIntensity / (0.1f + surfaceThickness);
 		if (sat > 1.0f) sat = 1.0f;
@@ -688,6 +691,7 @@ float3 IridescenceShader(
 	}
 	return rainbowColor;
 }
+#endif
 
 //------------ Object shader ----------------
 float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
@@ -744,10 +748,12 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 #endif
 
 	float3 iridescence = 1.0f;
+#ifdef USE_IRIDESCENCE
 	if (input->material->iridescenceEnabled)
 	{
 		iridescence = IridescenceShader(consts, input, calcParam);
 	}
+#endif
 	*iridescenceOut = iridescence;
 
 	float3 totalSpecular =
