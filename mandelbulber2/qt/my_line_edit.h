@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-class cFrameSiderPopup;
+class cFrameSliderPopup;
 
 class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 {
@@ -66,7 +66,7 @@ private:
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
 
-	cFrameSiderPopup *slider;
+	cFrameSliderPopup *slider;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
@@ -80,8 +80,8 @@ private slots:
 	void slotResetVector();
 	void slotSliderTimerUpdateValue();
 	void slotResetToDefault();
-	void slotZerovalue();
-	void slotDoublevalue();
+	void slotZeroValue();
+	void slotDoubleValue();
 	void slotHalfValue();
 	void slotRoundValue();
 };

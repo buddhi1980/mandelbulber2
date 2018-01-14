@@ -89,7 +89,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL4 subV = z - aux->old_z;
 			// sumDist = dot(subV, subV) * native_divide(fractal->foldColor.scaleB1, 1000.0f);
 			subV = fabs(subV);
-			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC ab4actal->foldColor.scaleB1
+			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC abfractal->foldColor.scaleB1
 			// / 1000.0f;
 			sumDist = min(min(subV.x, subV.y), subV.z) * native_divide(fractal->foldColor.scaleB1, 10.0f);
 
@@ -297,7 +297,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	// final component value + cumulative??
 	{
 		// aux->colorHybrid =
-		//	(componentMaster * 256.0f) ; //+ (lastColorValue );ppppppppppppppppppp
+		//	(componentMaster * 256.0f) ; //+ (lastColorValue );
 	}
 	// aux->temp100 *= fractal->transformCommon.scale0;
 

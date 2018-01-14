@@ -514,7 +514,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Add exp2(z)&lt;br&gt;z vector verion  and the xyz axis version can be used togeather&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Add exp2(z)&lt;br&gt;z vector version  and the xyz axis version can be used together&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

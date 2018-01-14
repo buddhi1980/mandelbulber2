@@ -293,7 +293,7 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		if (!slider)
 		{
 			QWidget *topWidget = this->window();
-			slider = new cFrameSiderPopup(topWidget);
+			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 			slider->hide();
 		}
@@ -309,9 +309,9 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 
 		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
-		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
+		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
 	}
 }
@@ -358,12 +358,12 @@ void MyLineEdit::slotResetToDefault()
 	resetToDefault();
 }
 
-void MyLineEdit::slotZerovalue()
+void MyLineEdit::slotZeroValue()
 {
 	setText("0");
 }
 
-void MyLineEdit::slotDoublevalue()
+void MyLineEdit::slotDoubleValue()
 {
 	const double value = systemData.locale.toDouble(text());
 	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 16);

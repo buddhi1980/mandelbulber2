@@ -218,15 +218,14 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_ic_fabs_enabled_false", id));
 	fractalColoring.icRadWeight =
 		materialParam->Get<double>(Name("fractal_coloring_ic_rad_weight", id));
-	fractalColoring.xyzC111 =
-		materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id)); // cvec3
+	fractalColoring.xyzC111 = materialParam->Get<CVector3>(Name("fractal_coloring_xyzC_111", id));
 
 	// orbitTrap weight control
 	fractalColoring.orbitTrapTrue =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
-	fractalColoring.initialMiniumuR =
+	fractalColoring.initialMinimumR =
 		materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
 
 	// aux.color
@@ -257,15 +256,14 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 
 	fractalColoring.xyzBiasEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_bias_enabled_false", id));
-	fractalColoring.xyz000 =
-		materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id)); // cvec3
+	fractalColoring.xyz000 = materialParam->Get<CVector3>(Name("fractal_coloring_xyz_000", id));
 	fractalColoring.xyzIterScale =
 		materialParam->Get<double>(Name("fractal_coloring_xyz_iter_scale", id));
-	fractalColoring.xyzXsqrdFalse =
+	fractalColoring.xyzXSqrdFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_x_sqrd_enabled_false", id));
-	fractalColoring.xyzYsqrdFalse =
+	fractalColoring.xyzYSqrdFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_y_sqrd_enabled_false", id));
-	fractalColoring.xyzZsqrdFalse =
+	fractalColoring.xyzZSqrdFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_z_sqrd_enabled_false", id));
 	fractalColoring.xyzFabsFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_xyz_fabs_enabled_false", id));

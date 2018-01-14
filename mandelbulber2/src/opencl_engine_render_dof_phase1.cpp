@@ -298,4 +298,4 @@ size_t cOpenClEngineRenderDOFPhase1::CalcNeededMemory()
 	return numberOfPixels * sizeof(cl_float4);
 }
 
-#endif // USE_OPEMCL
+#endif // USE_OPENCL

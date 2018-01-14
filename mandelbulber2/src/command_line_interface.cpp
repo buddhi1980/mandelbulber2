@@ -679,12 +679,12 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		}
 
 		// Add Timestamp to exampleOutputPath directory path
-		time_t rawtime;
-		char timebuffer[80];
-		time(&rawtime);
-		struct tm *timeinfo = localtime(&rawtime);
-		strftime(timebuffer, sizeof(timebuffer), "%Y-%m-%d-%H-%M-%S", timeinfo);
-		QString timestamp(timebuffer);
+		time_t rawTime;
+		char timeBuffer[80];
+		time(&rawTime);
+		struct tm *timeInfo = localtime(&rawTime);
+		strftime(timeBuffer, sizeof(timeBuffer), "%Y-%m-%d-%H-%M-%S", timeInfo);
+		QString timestamp(timeBuffer);
 		exampleOutputPath += "/" + timestamp;
 
 		// Create the timestamped folder for rendering the examples

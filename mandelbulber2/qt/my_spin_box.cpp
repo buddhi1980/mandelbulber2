@@ -103,7 +103,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 		if (!slider)
 		{
 			QWidget *topWidget = this->window();
-			slider = new cFrameSiderPopup(topWidget);
+			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 			slider->SetIntegerMode(minimum(), maximum(), value());
 			slider->hide();
@@ -120,7 +120,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(this, SIGNAL(valueChanged(int)), slider, SLOT(slotUpdateValue(int)));
 		connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setValue(int)));
 	}
@@ -142,7 +142,7 @@ void MySpinBox::slotResetToDefault()
 	resetToDefault();
 }
 
-void MySpinBox::slotDoublevalue()
+void MySpinBox::slotDoubleValue()
 {
 	setValue(value() * 2);
 }

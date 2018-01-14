@@ -133,7 +133,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		if (!slider)
 		{
 			QWidget *topWidget = this->window();
-			slider = new cFrameSiderPopup(topWidget);
+			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 
 			if (type == QString("spinboxd") || type == QString("spinboxd3")

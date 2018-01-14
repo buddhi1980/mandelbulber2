@@ -2590,7 +2590,7 @@
       CVector4 subV &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;old_z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       &lt;span style=&quot;color:#2929cc&quot;&gt;// sumDist = subV.Dot(subV) * fractal-&amp;gt;foldColor.scaleB1 / 1000.0;&lt;/span&gt;
       subV &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;subV&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      &lt;span style=&quot;color:#2929cc&quot;&gt;// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC ab4actal-&amp;gt;foldColor.scaleB1&lt;/span&gt;
+      &lt;span style=&quot;color:#2929cc&quot;&gt;// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC abfractal-&amp;gt;foldColor.scaleB1&lt;/span&gt;
       &lt;span style=&quot;color:#2929cc&quot;&gt;// / 1000.0;&lt;/span&gt;
       sumDist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;subV&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; subV&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;),&lt;/span&gt; subV&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleB1 &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;10.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
@@ -2795,7 +2795,7 @@
   &lt;span style=&quot;color:#2929cc&quot;&gt;// final component value + cumulative??&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.colorHybrid =&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//  (componentMaster * 256.0) ; //+ (lastColorValue );ppppppppppppppppppp&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;//  (componentMaster * 256.0) ; //+ (lastColorValue );&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.temp100 *= fractal-&amp;gt;transformCommon.scale0;&lt;/span&gt;
 

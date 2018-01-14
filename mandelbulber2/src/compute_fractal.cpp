@@ -47,14 +47,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	fractalFormulaFcn fractalFormulaFunction;
 
 	// repeat, move and rotate
-	CVector3 pointTrasformed = in.point.mod(in.common.repeat) - in.common.fractalPosition;
-	pointTrasformed = in.common.mRotFractalRotation.RotateVector(pointTrasformed);
+	CVector3 pointTransformed = in.point.mod(in.common.repeat) - in.common.fractalPosition;
+	pointTransformed = in.common.mRotFractalRotation.RotateVector(pointTransformed);
 
-	CVector4 z = CVector4(pointTrasformed, 0.0);
+	CVector4 z = CVector4(pointTransformed, 0.0);
 	double r = z.Length();
 
 	// trial
-	double minimumR = in.fractalColoring.initialMiniumuR;
+	double minimumR = in.fractalColoring.initialMinimumR;
 
 	double len = 0.0; // Temp: declared here for access outside orbit traps code
 
@@ -107,7 +107,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.foldFactor = 0.0;		// aux color weight
 	extendedAux.radiusFactor = 0.0; // radius weight
 	extendedAux.scaleFactor = 0.0;	// DE weight
-	// extendedAux.oldHybridFactor = 0.0; // old hybid weight
+	// extendedAux.oldHybridFactor = 0.0; // old hybrid weight
 	// extendedAux.temp1Factor = 0.0;
 
 	extendedAux.temp100 = 100.0;
@@ -303,13 +303,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringZDotPoint:
 					{
-						len = fabs(z.Dot(CVector4(pointTrasformed, 0.0)));
+						len = fabs(z.Dot(CVector4(pointTransformed, 0.0)));
 						break;
 					}
 					case sFractalColoring::fractalColoringSphere:
 					{
-						len =
-							fabs((z - CVector4(pointTrasformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
+						len = fabs(
+							(z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
 					case sFractalColoring::fractalColoringCross:

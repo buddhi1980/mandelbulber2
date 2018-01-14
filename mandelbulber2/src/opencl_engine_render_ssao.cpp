@@ -311,4 +311,4 @@ size_t cOpenClEngineRenderSSAO::CalcNeededMemory()
 	return numberOfPixels * sizeof(cl_float) + paramsSSAO.quality * 2 * sizeof(cl_float);
 }
 
-#endif // USE_OPEMCL
+#endif // USE_OPENCL

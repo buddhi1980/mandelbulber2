@@ -87,7 +87,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 	SynchronizeInterfaceQComboBox(window->findChildren<QComboBox *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: cMaterialSelector", 3);
-	SynchronizeInterfacecMaterialSelector(window->findChildren<cMaterialSelector *>(), par, mode);
+	SynchronizeInterfaceMaterialSelector(window->findChildren<cMaterialSelector *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: QPlainTextEdit", 3);
 	SynchronizeInterfaceQPlainTextEdit(window->findChildren<QPlainTextEdit *>(), par, mode);
@@ -101,7 +101,7 @@ void SynchronizeInterfaceQLineEdit(
 {
 	for (QList<QLineEdit *>::iterator it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"MyLineEdit", "QLineEdit"});
+		widgetProperties props = parseWidgetProperties((*it), {"MyLineEdit", "QLineEdit"});
 		if (props.allowed)
 		{
 			QLineEdit *lineEdit = *it;
@@ -193,7 +193,7 @@ void SynchronizeInterfaceQDoubleSpinBox(
 	QList<QDoubleSpinBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"MyDoubleSpinBox", "QDoubleSpinBox"});
+		widgetProperties props = parseWidgetProperties((*it), {"MyDoubleSpinBox", "QDoubleSpinBox"});
 		if (props.allowed)
 		{
 			QDoubleSpinBox *spinbox = *it;
@@ -260,7 +260,7 @@ void SynchronizeInterfaceQSpinBox(
 	QList<QSpinBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"QSpinBox", "MySpinBox"});
+		widgetProperties props = parseWidgetProperties((*it), {"QSpinBox", "MySpinBox"});
 		if (props.allowed)
 		{
 			QSpinBox *spinbox = *it;
@@ -294,7 +294,7 @@ void SynchronizeInterfaceQCheckBox(
 	QList<QCheckBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"QCheckBox", "MyCheckBox"});
+		widgetProperties props = parseWidgetProperties((*it), {"QCheckBox", "MyCheckBox"});
 		if (props.allowed)
 		{
 			QCheckBox *checkbox = *it;
@@ -328,7 +328,7 @@ void SynchronizeInterfaceQGroupBox(
 	QList<QGroupBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"QGroupBox", "MyGroupBox"});
+		widgetProperties props = parseWidgetProperties((*it), {"QGroupBox", "MyGroupBox"});
 		if (props.allowed)
 		{
 			QGroupBox *groupBbox = *it;
@@ -362,7 +362,7 @@ void SynchronizeInterfaceFileSelectWidget(
 	QList<FileSelectWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"FileSelectWidget"});
+		widgetProperties props = parseWidgetProperties((*it), {"FileSelectWidget"});
 		if (props.allowed)
 		{
 			FileSelectWidget *fileSelectWidget = *it;
@@ -387,7 +387,7 @@ void SynchronizeInterfaceMyColorButton(
 	QList<MyColorButton *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"MyColorButton"});
+		widgetProperties props = parseWidgetProperties((*it), {"MyColorButton"});
 		if (props.allowed)
 		{
 			MyColorButton *colorButton = *it;
@@ -413,7 +413,7 @@ void SynchronizeInterfaceColorPaletteWidget(
 	QList<ColorPaletteWidget *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"ColorPaletteWidget"});
+		widgetProperties props = parseWidgetProperties((*it), {"ColorPaletteWidget"});
 		if (props.allowed)
 		{
 			ColorPaletteWidget *colorPaletteWidget = *it;
@@ -443,7 +443,7 @@ void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"QComboBox", "cFormulaComboBox"});
+		widgetProperties props = parseWidgetProperties((*it), {"QComboBox", "cFormulaComboBox"});
 		if (props.allowed)
 		{
 			QComboBox *comboBox = *it;
@@ -480,13 +480,13 @@ void SynchronizeInterfaceQComboBox(
 	}
 }
 
-void SynchronizeInterfacecMaterialSelector(
+void SynchronizeInterfaceMaterialSelector(
 	QList<cMaterialSelector *> widgets, cParameterContainer *par, enumReadWrite mode)
 {
 	QList<cMaterialSelector *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"cMaterialSelector"});
+		widgetProperties props = parseWidgetProperties((*it), {"cMaterialSelector"});
 		if (props.allowed)
 		{
 			cMaterialSelector *materialSelector = *it;
@@ -514,7 +514,7 @@ void SynchronizeInterfaceQPlainTextEdit(
 	QList<QPlainTextEdit *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProterties((*it), {"QPlainTextEdit"});
+		widgetProperties props = parseWidgetProperties((*it), {"QPlainTextEdit"});
 		if (props.allowed)
 		{
 			QPlainTextEdit *textEdit = *it;
@@ -615,7 +615,7 @@ void SynchronizeInterfaceWriteVect4d(
 	}
 }
 
-widgetProperties parseWidgetProterties(QWidget *widget, QStringList allowedClassNames)
+widgetProperties parseWidgetProperties(QWidget *widget, QStringList allowedClassNames)
 {
 	widgetProperties props;
 	props.name = widget->objectName();

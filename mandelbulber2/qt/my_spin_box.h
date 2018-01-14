@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-class cFrameSiderPopup;
+class cFrameSliderPopup;
 
 class MySpinBox : public QSpinBox, public CommonMyWidgetWrapper
 {
@@ -54,7 +54,7 @@ public:
 private:
 	int GetDefault();
 	int defaultValue;
-	cFrameSiderPopup *slider;
+	cFrameSliderPopup *slider;
 
 	// methods to define from CommonMyWidgetWrapper
 	void resetToDefault() override;
@@ -69,7 +69,7 @@ protected:
 
 private slots:
 	void slotResetToDefault();
-	void slotDoublevalue();
+	void slotDoubleValue();
 	void slotHalfValue();
 };
 

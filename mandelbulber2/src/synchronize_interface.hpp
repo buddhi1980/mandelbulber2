@@ -94,7 +94,7 @@ void SynchronizeInterfaceColorPaletteWidget(
 	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfacecMaterialSelector(
+void SynchronizeInterfaceMaterialSelector(
 	QList<cMaterialSelector *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQPlainTextEdit(
 	QList<QPlainTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
@@ -109,6 +109,6 @@ void SynchronizeInterfaceReadVect4d(
 	QString &nameVect, char lastChar, double value, cParameterContainer *par);
 void SynchronizeInterfaceWriteVect4d(
 	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
-qInterface::widgetProperties parseWidgetProterties(QWidget *widget, QStringList allowedClassNames);
+qInterface::widgetProperties parseWidgetProperties(QWidget *widget, QStringList allowedClassNames);
 
 #endif /* MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_ */

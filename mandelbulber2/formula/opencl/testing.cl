@@ -9,7 +9,7 @@
  * asurf trial  beta
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
  *
- * Note for the origional version apply a c.x c.y SWAP
+ * Note for the original version apply a c.x c.y SWAP
  *
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/

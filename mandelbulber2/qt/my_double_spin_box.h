@@ -41,7 +41,7 @@
 
 #include "common_my_widget_wrapper.h"
 
-class cFrameSiderPopup;
+class cFrameSliderPopup;
 
 class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 {
@@ -58,7 +58,7 @@ public:
 private:
 	double GetDefault();
 	double defaultValue;
-	cFrameSiderPopup *slider;
+	cFrameSliderPopup *slider;
 	bool hasDial;
 
 protected:

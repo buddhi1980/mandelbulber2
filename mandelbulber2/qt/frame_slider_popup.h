@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cFrameSiderPopup - popup slider for quick editing of numerical input fields
+ * cFrameSliderPopup - popup slider for quick editing of numerical input fields
  * This widget popups when the associated input field is clicked and
  * contains a slider and different buttons to edit the field
  */
@@ -41,18 +41,18 @@
 
 namespace Ui
 {
-class cFrameSiderPopup;
+class cFrameSliderPopup;
 }
 
-class cFrameSiderPopup : public QFrame
+class cFrameSliderPopup : public QFrame
 {
 	Q_OBJECT
 public:
-	explicit cFrameSiderPopup(QWidget *parent = nullptr);
-	~cFrameSiderPopup();
+	explicit cFrameSliderPopup(QWidget *parent = nullptr);
+	~cFrameSliderPopup();
 
 private:
-	Ui::cFrameSiderPopup *ui;
+	Ui::cFrameSliderPopup *ui;
 	QTimer *sliderTimer;
 	bool integerMode;
 	bool dialMode;
