@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
+    <width>282</width>
     <height>554</height>
    </rect>
   </property>
@@ -136,19 +136,6 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="QDial" name="dial3_rotation_z">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLabel" name="label_12">
        <property name="text">
@@ -156,19 +143,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -207,31 +181,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QSlider" name="logslider_rounding">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -309,13 +258,6 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Size:</string>
-       </property>
-      </widget>
-     </item>
      <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
        <property name="sizePolicy">
@@ -368,19 +310,6 @@
       <widget class="QLabel" name="label_15">
        <property name="text">
         <string>Z-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QDial" name="dial3_rotation_y">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -444,13 +373,6 @@
        </property>
       </widget>
      </item>
-     <item row="13" column="0">
-      <widget class="MyCheckBox" name="checkBox_empty">
-       <property name="text">
-        <string>Empty inside</string>
-       </property>
-      </widget>
-     </item>
      <item row="14" column="1" colspan="2">
       <widget class="cMaterialSelector" name="materialselector_material_id" native="true">
        <property name="sizePolicy">
@@ -458,6 +380,20 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" rowspan="3">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Size:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="13" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_empty">
+       <property name="text">
+        <string>Empty inside</string>
        </property>
       </widget>
      </item>
@@ -495,13 +431,9 @@
   <tabstop>vect3_size_x</tabstop>
   <tabstop>vect3_size_y</tabstop>
   <tabstop>vect3_size_z</tabstop>
-  <tabstop>logslider_rounding</tabstop>
   <tabstop>logedit_rounding</tabstop>
-  <tabstop>dial3_rotation_x</tabstop>
   <tabstop>spinboxd3_rotation_x</tabstop>
-  <tabstop>dial3_rotation_y</tabstop>
   <tabstop>spinboxd3_rotation_y</tabstop>
-  <tabstop>dial3_rotation_z</tabstop>
   <tabstop>spinboxd3_rotation_z</tabstop>
   <tabstop>vect3_repeat_x</tabstop>
   <tabstop>vect3_repeat_y</tabstop>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>538</width>
+    <width>359</width>
     <height>470</height>
    </rect>
   </property>
@@ -140,19 +140,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QDial" name="dial3_rotation_y">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_13">
        <property name="text">
@@ -211,32 +198,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QDial" name="dial3_rotation_z">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
        <property name="sizePolicy">
@@ -262,31 +223,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QSlider" name="logslider_radius">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -346,13 +282,9 @@
   <tabstop>vect3_position_x</tabstop>
   <tabstop>vect3_position_y</tabstop>
   <tabstop>vect3_position_z</tabstop>
-  <tabstop>logslider_radius</tabstop>
   <tabstop>logedit_radius</tabstop>
-  <tabstop>dial3_rotation_x</tabstop>
   <tabstop>spinboxd3_rotation_x</tabstop>
-  <tabstop>dial3_rotation_y</tabstop>
   <tabstop>spinboxd3_rotation_y</tabstop>
-  <tabstop>dial3_rotation_z</tabstop>
   <tabstop>spinboxd3_rotation_z</tabstop>
  </tabstops>
  <resources/>

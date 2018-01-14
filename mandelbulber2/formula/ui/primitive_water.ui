@@ -141,19 +141,6 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="QLabel" name="label_13">
        <property name="text">
@@ -174,105 +161,10 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QSlider" name="sliderInt_iterations">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>30</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QSlider" name="logslider_amplitude">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>Y-axis rotation:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QDial" name="dial3_rotation_y">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QSlider" name="slider_anim_speed">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>5</number>
-       </property>
-       <property name="maximum">
-        <number>500</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QDial" name="dial3_rotation_z">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -301,31 +193,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QSlider" name="logslider_length">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -421,19 +288,6 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0" colspan="2">
-      <widget class="MyCheckBox" name="checkBox_empty">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>Empty inside</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
@@ -455,6 +309,19 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_empty">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Empty inside</string>
        </property>
       </widget>
      </item>
@@ -507,19 +374,12 @@
   <tabstop>vect3_position_x</tabstop>
   <tabstop>vect3_position_y</tabstop>
   <tabstop>vect3_position_z</tabstop>
-  <tabstop>logslider_amplitude</tabstop>
   <tabstop>logedit_amplitude</tabstop>
-  <tabstop>logslider_length</tabstop>
   <tabstop>logedit_length</tabstop>
-  <tabstop>slider_anim_speed</tabstop>
   <tabstop>spinbox_anim_speed</tabstop>
-  <tabstop>sliderInt_iterations</tabstop>
   <tabstop>spinboxInt_iterations</tabstop>
-  <tabstop>dial3_rotation_x</tabstop>
   <tabstop>spinboxd3_rotation_x</tabstop>
-  <tabstop>dial3_rotation_y</tabstop>
   <tabstop>spinboxd3_rotation_y</tabstop>
-  <tabstop>dial3_rotation_z</tabstop>
   <tabstop>spinboxd3_rotation_z</tabstop>
   <tabstop>checkBox_empty</tabstop>
  </tabstops>

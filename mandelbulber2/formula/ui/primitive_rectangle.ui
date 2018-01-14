@@ -34,31 +34,6 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="4" column="1">
-      <widget class="QSlider" name="logslider_height">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
@@ -91,19 +66,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QDial" name="dial3_rotation_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -234,44 +196,6 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="1">
-      <widget class="QDial" name="dial3_rotation_z">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QSlider" name="logslider_width">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="sizeIncrement">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="minimum">
-        <number>-1500</number>
-       </property>
-       <property name="maximum">
-        <number>300</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="1" colspan="2">
       <widget class="cMaterialSelector" name="materialselector_material_id" native="true">
        <property name="sizePolicy">
@@ -299,19 +223,6 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QDial" name="dial3_rotation_y">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -391,15 +302,10 @@
   <tabstop>vect3_position_x</tabstop>
   <tabstop>vect3_position_y</tabstop>
   <tabstop>vect3_position_z</tabstop>
-  <tabstop>logslider_width</tabstop>
   <tabstop>logedit_width</tabstop>
-  <tabstop>logslider_height</tabstop>
   <tabstop>logedit_height</tabstop>
-  <tabstop>dial3_rotation_x</tabstop>
   <tabstop>spinboxd3_rotation_x</tabstop>
-  <tabstop>dial3_rotation_y</tabstop>
   <tabstop>spinboxd3_rotation_y</tabstop>
-  <tabstop>dial3_rotation_z</tabstop>
   <tabstop>spinboxd3_rotation_z</tabstop>
  </tabstops>
  <resources/>

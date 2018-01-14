@@ -47,10 +47,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	fractalFormulaFcn fractalFormulaFunction;
 
 	// repeat, move and rotate
-	CVector3 pointTrasformed = in.point.mod(in.common.repeat) - in.common.fractalPosition;
-	pointTrasformed = in.common.mRotFractalRotation.RotateVector(pointTrasformed);
+	CVector3 pointTransformed = in.point.mod(in.common.repeat) - in.common.fractalPosition;
+	pointTransformed = in.common.mRotFractalRotation.RotateVector(pointTransformed);
 
-	CVector4 z = CVector4(pointTrasformed, 0.0);
+	CVector4 z = CVector4(pointTransformed, 0.0);
 	double r = z.Length();
 
 	// trial
@@ -303,13 +303,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringZDotPoint:
 					{
-						len = fabs(z.Dot(CVector4(pointTrasformed, 0.0)));
+						len = fabs(z.Dot(CVector4(pointTransformed, 0.0)));
 						break;
 					}
 					case sFractalColoring::fractalColoringSphere:
 					{
 						len =
-							fabs((z - CVector4(pointTrasformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
+							fabs((z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
 					case sFractalColoring::fractalColoringCross:

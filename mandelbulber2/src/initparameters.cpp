@@ -375,9 +375,9 @@ void InitParams(cParameterContainer *par)
 	par->addParam("fake_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 
 	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("fractal_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("fractal_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 
 // OpenCL Support
@@ -1031,7 +1031,7 @@ void InitPrimitiveParams(
 	par->addParam(
 		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
-		QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+		QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 
 	// left to keep compatibility with older versions
 	par->addParam(
