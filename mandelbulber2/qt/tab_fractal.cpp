@@ -157,7 +157,7 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 			uiFile.close();
 
 			if (gPar->Get<bool>("ui_colorize"))
-				cInterface::ColorizeGroupboxes(fractalWidget, gPar->Get<int>("ui_colorize_random_seed"));
+				cInterface::ColorizeGroupBoxes(fractalWidget, gPar->Get<int>("ui_colorize_random_seed"));
 
 			fractalWidget->show();
 			automatedWidgets->ConnectSignalsForSlidersInWindow(fractalWidget);

@@ -263,7 +263,7 @@ void cInterface::ShowUi()
 #endif
 
 	if (gPar->Get<bool>("ui_colorize"))
-		ColorizeGroupboxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
+		ColorizeGroupBoxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
 
 	renderedImage->show();
 
@@ -399,7 +399,7 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMouseWheelRotatedOnImage(int)));
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
-		gMainInterface->mainWindow->ui->widgetImageAjustments, SLOT(slotCheckedDetailLevelLock(int)));
+		gMainInterface->mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
 	// DockWidgets and Toolbar
 
@@ -1673,7 +1673,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		if (gPar->Get<bool>("ui_colorize"))
 		{
-			cInterface::ColorizeGroupboxes(
+			cInterface::ColorizeGroupBoxes(
 				groupBox, gPar->Get<int>("ui_colorize_random_seed") + Random(65535));
 		}
 
@@ -2338,11 +2338,11 @@ void cInterface::CameraMovementModeChanged(int index)
 	renderedImage->SetCameraMovementMode(index);
 }
 
-void cInterface::ColorizeGroupboxes(QWidget *window, int randomSeed)
+void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 {
 	QList<QGroupBox *> widgets;
 	widgets = window->findChildren<QGroupBox *>();
-	if (qobject_cast<QGroupBox *>(window)) // check if groupbox
+	if (qobject_cast<QGroupBox *>(window)) // check if QGroupBox
 	{
 		widgets.append(static_cast<QGroupBox *>(window));
 	}
