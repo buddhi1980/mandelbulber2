@@ -101,7 +101,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 		ImageFileSave::ImageConfig imageConfig;
 		imageConfig.insert(ImageFileSave::IMAGE_CONTENT_COLOR, saveImageChannel);
 		bool appendAlpha = (imageFileFormat == "png16alpha");
-		ImageFileSavePNG imageSaver(filenameWithoutExtension + ext, image, imageConfig);
+		ImageFileSavePNG imageSaver(filenameWithoutExtension, image, imageConfig);
 		imageSaver.SetAppendAlphaCustom(appendAlpha);
 		imageSaver.SaveImage();
 	}
@@ -113,7 +113,7 @@ void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 	}
 
 	QTextStream out(stdout);
-	out << "Image saved to: " << filenameWithoutExtension << ext << "\n";
+	out << tr("Image saved to: %1\n").arg(filenameWithoutExtension + ext);
 
 	delete renderJob;
 	delete image;
