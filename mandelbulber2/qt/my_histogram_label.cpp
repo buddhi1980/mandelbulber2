@@ -72,6 +72,12 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 	int size = histData.GetSize();
 
 	// calculate statistics
+	long long totalSum = 0;
+	for (int i = 0; i <= size; i++)
+	{
+		totalSum += histData.GetHist(i);
+	}
+
 	long long sum = 0;
 	for (int i = 0; i <= size; i++)
 	{
@@ -81,11 +87,11 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			extremeIndex = i;
 		}
 		sum += histData.GetHist(i);
-		double prob = double(sum) / histData.GetCount();
-		if (prob < 0.0062) minIndex = i + 1;
-		if (prob < 0.9938) maxIndex = i + 1;
+		double prob = double(sum) / totalSum;
+		if (prob < 0.003) minIndex = i + 1;
+		if (prob < 0.997) maxIndex = i + 1;
 	}
-	double average = double(histData.GetSum()) / histData.GetCount();
+	double average = double(histData.GetSum()) / totalSum;
 
 	if (histData.GetCount() > 0)
 	{
@@ -116,10 +122,10 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 		painter.setPen(QPen(maxColor));
 		painter.setBrush(QBrush(maxColor));
 
-		painter.drawText(fmin(legendWidthP1 + (extremeIndex * drawWidth / size) + 20, width() - 100),
-			20, QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
-						+ GetShortNumberDisplay(extremeIndex) + QString(", max: ")
-						+ GetShortNumberDisplay(maxIndex) + QString(", avg: ") + QString::number(average));
+		painter.drawText(10, legendWidthP1 + 5,
+			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
+				+ GetShortNumberDisplay(extremeIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
+				+ QString(", avg: ") + QString::number(average));
 	}
 }
 
