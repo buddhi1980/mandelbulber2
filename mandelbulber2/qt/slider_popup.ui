@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>cFrameSiderPopup</class>
- <widget class="QFrame" name="cFrameSiderPopup">
+ <class>cFrameSliderPopup</class>
+ <widget class="QFrame" name="cFrameSliderPopup">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -107,7 +107,7 @@
         <enum>Qt::NoFocus</enum>
        </property>
        <property name="toolTip">
-        <string>Reser value to default</string>
+        <string>Reset value to default</string>
        </property>
        <property name="text">
         <string>R</string>

@@ -30,7 +30,7 @@
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
  * CalculateColorIndex(...) - Calculation of the color index of a point
- * based on miscellanious criteria
+ * based on miscellaneous criteria
  */
 #include "fractal_coloring.hpp"
 
@@ -122,9 +122,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				{
 					xyzAxis = fabs(xyzAxis) * fractalColoring.xyz000;
 				}
-				if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
-				if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
-				if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
+				if (fractalColoring.xyzXSqrdFalse) xyzAxis.x *= xyzAxis.x;
+				if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
+				if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
 				// xyzAxis *=  fractalColoring.xyz000;
 				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
@@ -327,9 +327,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						CVector3 xyzAxis;
 						xyzAxis = fabs(CVector3(z.x, z.y, z.z)) * fractalColoring.xyz000;
 
-						if (fractalColoring.xyzXsqrdFalse) xyzAxis.x *= xyzAxis.x;
-						if (fractalColoring.xyzYsqrdFalse) xyzAxis.y *= xyzAxis.y;
-						if (fractalColoring.xyzZsqrdFalse) xyzAxis.z *= xyzAxis.z;
+						if (fractalColoring.xyzXSqrdFalse) xyzAxis.x *= xyzAxis.x;
+						if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
+						if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
 						// xyzAxis *=  fractalColoring.xyz000;
 						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;

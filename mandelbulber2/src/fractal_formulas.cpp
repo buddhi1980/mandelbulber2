@@ -3716,7 +3716,7 @@ void MandelbulbBermarteIteration(CVector4 &z, const sFractal *fractal, sExtended
 /**
  * mandelbulb juliabulb hybrid 3D
  * constructed from Mandelbulb, Msltoe - Julia Bulb Eiffie & Msltoe - Sym4 Mod formulas.
- * note: an Offset Radius of 0.1 can sommetimesimprove the DE statistic
+ * note: an Offset Radius of 0.1 can sometimes improve the DE statistic
  */
 void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -7768,7 +7768,7 @@ void TransfAddCpixelVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 /**
  * Add exp2(z)
- * z vector verion  and the xyz axis version can be used togeather
+ * z vector version  and the xyz axis version can be used together
  */
 void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8328,7 +8328,7 @@ void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
- * fabs add  constant,  z = fabs( z + pre-offset) + 0ffset
+ * fabs add  constant,  z = fabs( z + pre-offset) + Offset
  */
 void TransfFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11902,7 +11902,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			CVector4 subV = z - aux.old_z;
 			// sumDist = subV.Dot(subV) * fractal->foldColor.scaleB1 / 1000.0;
 			subV = fabs(subV);
-			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC ab4actal->foldColor.scaleB1
+			// sumDist = max(max(subV.x, subV.y), subV.z)  * fraboxMod11 invC abfractal->foldColor.scaleB1
 			// / 1000.0;
 			sumDist = min(min(subV.x, subV.y), subV.z) * fractal->foldColor.scaleB1 / 10.0;
 
@@ -12107,7 +12107,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	// final component value + cumulative??
 	{
 		// aux.colorHybrid =
-		//	(componentMaster * 256.0) ; //+ (lastColorValue );ppppppppppppppppppp
+		//	(componentMaster * 256.0) ; //+ (lastColorValue );
 	}
 	// aux.temp100 *= fractal->transformCommon.scale0;
 
@@ -12149,7 +12149,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
  * asurf trial  beta
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
  *
- * Note for the origional version apply a c.x c.y SWAP
+ * Note for the original version apply a c.x c.y SWAP
  *
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/

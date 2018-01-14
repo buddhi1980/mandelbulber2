@@ -94,7 +94,7 @@ cDockQueue *RenderWindow::GetWidgetDockQueue() const
 
 cDockImageAdjustments *RenderWindow::GetWidgetDockImageAdjustments() const
 {
-	return ui->widgetImageAjustments;
+	return ui->widgetImageAdjustments;
 }
 
 cDockRenderingEngine *RenderWindow::GetWidgetDockRenderingEngine() const

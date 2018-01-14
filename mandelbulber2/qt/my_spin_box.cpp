@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -103,7 +103,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 		if (!slider)
 		{
 			QWidget *topWidget = this->window();
-			slider = new cFrameSiderPopup(topWidget);
+			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 			slider->SetIntegerMode(minimum(), maximum(), value());
 			slider->hide();
@@ -120,7 +120,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(this, SIGNAL(valueChanged(int)), slider, SLOT(slotUpdateValue(int)));
 		connect(slider, SIGNAL(valueChanged(int)), this, SLOT(setValue(int)));
 	}
@@ -142,7 +142,7 @@ void MySpinBox::slotResetToDefault()
 	resetToDefault();
 }
 
-void MySpinBox::slotDoublevalue()
+void MySpinBox::slotDoubleValue()
 {
 	setValue(value() * 2);
 }

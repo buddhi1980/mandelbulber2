@@ -1320,7 +1320,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;mandelbulb juliabulb hybrid 3D&lt;br&gt;constructed from Mandelbulb, Msltoe - Julia Bulb Eiffie &amp; Msltoe - Sym4 Mod formulas.&lt;br&gt;note: an Offset Radius of 0.1 can sommetimesimprove the DE statistic&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;mandelbulb juliabulb hybrid 3D&lt;br&gt;constructed from Mandelbulb, Msltoe - Julia Bulb Eiffie &amp; Msltoe - Sym4 Mod formulas.&lt;br&gt;note: an Offset Radius of 0.1 can sometimes improve the DE statistic&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

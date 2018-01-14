@@ -2330,7 +2330,7 @@ distance estimation)</string>
            <item>
             <widget class="QGroupBox" name="groupBox_4">
              <property name="title">
-              <string>Global positioning of all promitives</string>
+              <string>Global positioning of all primitives</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <property name="leftMargin">

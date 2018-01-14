@@ -68,7 +68,7 @@ struct sFractalColoring
 
 		orbitTrapTrue = true;
 		orbitTrapWeight = 1.0;
-		initialMiniumuR = 100.0;
+		initialMinimumR = 100.0;
 
 		auxColorFalse = false;
 		auxColorWeight = 0.0;
@@ -86,9 +86,9 @@ struct sFractalColoring
 		xyzBiasEnabledFalse = false;
 		xyzIterScale = 1.0;
 		// cModeEnabledFalse = false; // basic test
-		xyzXsqrdFalse = false;
-		xyzYsqrdFalse = false;
-		xyzZsqrdFalse = false;
+		xyzXSqrdFalse = false;
+		xyzYSqrdFalse = false;
+		xyzZSqrdFalse = false;
 		xyzFabsFalse = false;
 		xyzDiv1e13False = false;
 
@@ -141,7 +141,7 @@ struct sFractalColoring
 
 	bool orbitTrapTrue;
 	double orbitTrapWeight;
-	double initialMiniumuR;
+	double initialMinimumR;
 
 	bool auxColorFalse;
 	double auxColorWeight;
@@ -160,9 +160,9 @@ struct sFractalColoring
 	bool xyzBiasEnabledFalse;
 	CVector3 xyz000;
 	double xyzIterScale;
-	bool xyzXsqrdFalse;
-	bool xyzYsqrdFalse;
-	bool xyzZsqrdFalse;
+	bool xyzXSqrdFalse;
+	bool xyzYSqrdFalse;
+	bool xyzZSqrdFalse;
 	bool xyzFabsFalse;
 	bool xyzDiv1e13False;
 

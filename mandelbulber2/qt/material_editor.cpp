@@ -212,5 +212,5 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 
 void cMaterialEditor::Colorize(int randomSeed)
 {
-	cInterface::ColorizeGroupboxes(this, randomSeed);
+	cInterface::ColorizeGroupBoxes(this, randomSeed);
 }

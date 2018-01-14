@@ -54,7 +54,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double r = z.Length();
 
 	// trial
-	double minimumR = in.fractalColoring.initialMiniumuR;
+	double minimumR = in.fractalColoring.initialMinimumR;
 
 	double len = 0.0; // Temp: declared here for access outside orbit traps code
 
@@ -308,8 +308,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case sFractalColoring::fractalColoringSphere:
 					{
-						len =
-							fabs((z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
+						len = fabs(
+							(z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
 					case sFractalColoring::fractalColoringCross:

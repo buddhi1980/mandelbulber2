@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * cFrameSiderPopup - popup slider for quick editing of numerical input fields
+ * cFrameSliderPopup - popup slider for quick editing of numerical input fields
  * This widget popups when the associated input field is clicked and
  * contains a slider and different buttons to edit the field
  */
@@ -40,7 +40,8 @@
 
 #include "src/system.hpp"
 
-cFrameSiderPopup::cFrameSiderPopup(QWidget *parent) : QFrame(parent), ui(new Ui::cFrameSiderPopup)
+cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
+		: QFrame(parent), ui(new Ui::cFrameSliderPopup)
 {
 	ui->setupUi(this);
 
@@ -69,14 +70,14 @@ cFrameSiderPopup::cFrameSiderPopup(QWidget *parent) : QFrame(parent), ui(new Ui:
 	ui->buLeft->hide();
 }
 
-cFrameSiderPopup::~cFrameSiderPopup()
+cFrameSliderPopup::~cFrameSliderPopup()
 {
 	delete ui;
 	sliderTimer->stop();
 	delete sliderTimer;
 }
 
-int cFrameSiderPopup::value() const
+int cFrameSliderPopup::value() const
 {
 	if (dialMode)
 	{
@@ -88,7 +89,7 @@ int cFrameSiderPopup::value() const
 	}
 }
 
-void cFrameSiderPopup::sliderReleased()
+void cFrameSliderPopup::sliderReleased()
 {
 	if (!integerMode)
 	{
@@ -96,13 +97,13 @@ void cFrameSiderPopup::sliderReleased()
 	}
 }
 
-void cFrameSiderPopup::slotSliderTimerTrigger()
+void cFrameSliderPopup::slotSliderTimerTrigger()
 {
 	sliderTimer->start(100);
 	emit timerTrigger();
 }
 
-void cFrameSiderPopup::SetIntegerMode(int min, int max, int val)
+void cFrameSliderPopup::SetIntegerMode(int min, int max, int val)
 {
 	ui->slider->setMaximum(max);
 	ui->slider->setMinimum(min);
@@ -114,7 +115,7 @@ void cFrameSiderPopup::SetIntegerMode(int min, int max, int val)
 	connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
 }
 
-void cFrameSiderPopup::SetDialMode(int scale, double val)
+void cFrameSliderPopup::SetDialMode(int scale, double val)
 {
 	ui->dial->show();
 	ui->buUp->show();
@@ -137,17 +138,17 @@ void cFrameSiderPopup::SetDialMode(int scale, double val)
 	connect(ui->buRight, SIGNAL(pressed()), this, SIGNAL(rightPressed()));
 }
 
-void cFrameSiderPopup::slotUpdateValue(int val)
+void cFrameSliderPopup::slotUpdateValue(int val)
 {
 	ui->slider->setValue(val);
 }
 
-void cFrameSiderPopup::slotUpdateValue(double val)
+void cFrameSliderPopup::slotUpdateValue(double val)
 {
 	ui->dial->setValue(val * dialScale);
 }
 
-void cFrameSiderPopup::slotDialValueChanged(int val)
+void cFrameSliderPopup::slotDialValueChanged(int val)
 {
 	emit valueChanged(double(val) / dialScale);
 }

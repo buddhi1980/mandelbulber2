@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -679,12 +679,12 @@ void cCommandLineInterface::runBenchmarksAndExit()
 		}
 
 		// Add Timestamp to exampleOutputPath directory path
-		time_t rawtime;
-		char timebuffer[80];
-		time(&rawtime);
-		struct tm *timeinfo = localtime(&rawtime);
-		strftime(timebuffer, sizeof(timebuffer), "%Y-%m-%d-%H-%M-%S", timeinfo);
-		QString timestamp(timebuffer);
+		time_t rawTime;
+		char timeBuffer[80];
+		time(&rawTime);
+		struct tm *timeInfo = localtime(&rawTime);
+		strftime(timeBuffer, sizeof(timeBuffer), "%Y-%m-%d-%H-%M-%S", timeInfo);
+		QString timestamp(timeBuffer);
 		exampleOutputPath += "/" + timestamp;
 
 		// Create the timestamped folder for rendering the examples

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -254,7 +254,7 @@ enum enumFractalFormula
 	transfRotation4d = 1069,
 	// 2.11
 	transfParabFold = 1070,
-	transfScaleVaryV212 = 1071, // upated, renamed V2.12
+	transfScaleVaryV212 = 1071, // updated, renamed V2.12
 	transfSphericalFoldCHS = 1072,
 	transfSphericalFoldParab = 1073,
 	// 2.12

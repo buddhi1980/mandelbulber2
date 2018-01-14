@@ -102,7 +102,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 #endif // USE_OPENCL
 
 	if (gPar->Get<bool>("ui_colorize"))
-		cInterface::ColorizeGroupboxes(this, gPar->Get<int>("ui_colorize_random_seed"));
+		cInterface::ColorizeGroupBoxes(this, gPar->Get<int>("ui_colorize_random_seed"));
 
 	initFinished = true;
 }

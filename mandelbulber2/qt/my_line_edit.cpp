@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -293,7 +293,7 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		if (!slider)
 		{
 			QWidget *topWidget = this->window();
-			slider = new cFrameSiderPopup(topWidget);
+			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 			slider->hide();
 		}
@@ -309,9 +309,9 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 
 		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
-		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZerovalue()));
+		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
-		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoublevalue()));
+		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
 	}
 }
@@ -358,12 +358,12 @@ void MyLineEdit::slotResetToDefault()
 	resetToDefault();
 }
 
-void MyLineEdit::slotZerovalue()
+void MyLineEdit::slotZeroValue()
 {
 	setText("0");
 }
 
-void MyLineEdit::slotDoublevalue()
+void MyLineEdit::slotDoubleValue()
 {
 	const double value = systemData.locale.toDouble(text());
 	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 16);

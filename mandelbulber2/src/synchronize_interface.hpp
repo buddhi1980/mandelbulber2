@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -94,7 +94,7 @@ void SynchronizeInterfaceColorPaletteWidget(
 	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfacecMaterialSelector(
+void SynchronizeInterfaceMaterialSelector(
 	QList<cMaterialSelector *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQPlainTextEdit(
 	QList<QPlainTextEdit *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
@@ -109,6 +109,6 @@ void SynchronizeInterfaceReadVect4d(
 	QString &nameVect, char lastChar, double value, cParameterContainer *par);
 void SynchronizeInterfaceWriteVect4d(
 	QString &nameVect, char lastChar, double &out, cParameterContainer *par);
-qInterface::widgetProperties parseWidgetProterties(QWidget *widget, QStringList allowedClassNames);
+qInterface::widgetProperties parseWidgetProperties(QWidget *widget, QStringList allowedClassNames);
 
 #endif /* MANDELBULBER2_SRC_SYNCHRONIZE_INTERFACE_HPP_ */
