@@ -134,6 +134,7 @@ public:
 	QString GetAutosaveFile() const { return dataDirectoryHidden + ".autosave.fract"; }
 	QString GetIniFile() const { return dataDirectoryHidden + "mandelbulber.ini"; }
 	QString GetRecentFilesListFile() const { return dataDirectoryHidden + "files.recent"; }
+	QString GetResolutionPresetsFile() const { return dataDirectoryHidden + "resolutionPresets.ini"; }
 
 	QString GetImageFileNameSuggestion()
 	{

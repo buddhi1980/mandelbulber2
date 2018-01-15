@@ -34,6 +34,8 @@
 
 #include "dock_image_adjustments.h"
 
+#include "src/parameters.hpp"
+#include "src/settings.hpp"
 #include "ui_dock_image_adjustments.h"
 
 #include "dock_rendering_engine.h"
@@ -53,11 +55,33 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
+	resolutionPresets = new cParameterContainer;
+	InitResolutionPresets();
+
+	ui->pushButton_resolution_preset_1->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 1));
+	ui->pushButton_resolution_preset_2->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 2));
+	ui->pushButton_resolution_preset_3->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 3));
+	ui->pushButton_resolution_preset_4->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 4));
+	ui->pushButton_resolution_preset_5->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 5));
+	ui->pushButton_resolution_preset_6->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 6));
+	ui->pushButton_resolution_preset_7->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 7));
+	ui->pushButton_resolution_preset_8->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 8));
+	ui->pushButton_resolution_preset_9->setText(
+		resolutionPresets->Get<QString>("resolution_preset", 9));
 }
 
 cDockImageAdjustments::~cDockImageAdjustments()
 {
 	delete ui;
+	delete resolutionPresets;
 }
 
 void cDockImageAdjustments::slotDisableAutoRefresh()
@@ -74,23 +98,23 @@ void cDockImageAdjustments::ConnectSignals() const
 	// image resolution
 	connect(ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboImageProportion(int)));
-	connect(ui->pushButton_resolution_preset_1080, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_1, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_1200, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_2, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_1440, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_3, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_2160, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_4, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_240, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_5, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_4320, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_6, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_480, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_7, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_600, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_8, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_720, SIGNAL(clicked()), this,
+	connect(ui->pushButton_resolution_preset_9, SIGNAL(clicked()), this,
 		SLOT(slotPressedResolutionPreset()));
 	connect(ui->pushButton_imagesize_increase, SIGNAL(clicked()), this,
 		SLOT(slotPressedImageSizeIncrease()));
@@ -117,23 +141,35 @@ void cDockImageAdjustments::ConnectSignals() const
 	connect(ui->checkBox_hdr, SIGNAL(stateChanged(int)), this, SLOT(slotDisableAutoRefresh()));
 }
 
-void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
+double cDockImageAdjustments::ProportionEnumToRatio(enumImageProportion proportion) const
 {
-	bool enableSlider = false;
-	double ratio = 1.0;
-	const enumImageProportion proportionSelection = enumImageProportion(index);
-
-	switch (proportionSelection)
+	double ratio;
+	switch (proportion)
 	{
-		case proportionFree: enableSlider = true; break;
+		case proportionFree: ratio = 0.0; break;
 		case proportion1_1: ratio = 1.0; break;
 		case proportion4_3: ratio = 4.0 / 3.0; break;
 		case proportion3_2: ratio = 3.0 / 2.0; break;
 		case proportion16_9: ratio = 16.0 / 9.0; break;
 		case proportion16_10: ratio = 16.0 / 10.0; break;
 		case proportion2_1: ratio = 2.0 / 1.0; break;
-		default: ratio = 1.0; break;
+		default: ratio = 0.0; break;
 	}
+	return ratio;
+}
+
+void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
+{
+	bool enableSlider = false;
+	double ratio = 1.0;
+	const enumImageProportion proportionSelection = enumImageProportion(index);
+
+	if (proportionSelection == proportionFree)
+	{
+		enableSlider = true;
+	}
+
+	ratio = ProportionEnumToRatio(proportionSelection);
 
 	ui->spinboxInt_image_width->setEnabled(enableSlider);
 
@@ -159,64 +195,29 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
 	const QString buttonName = this->sender()->objectName();
-	if (buttonName == QString("pushButton_resolution_preset_480"))
+
+	int lastDash = buttonName.lastIndexOf('_');
+	QString indexText = buttonName.mid(lastDash + 1);
+	int index = indexText.toInt();
+
+	QString resolutionText = resolutionPresets->Get<QString>("resolution_preset", index);
+
+	int xPosition = resolutionText.indexOf('x');
+	width = resolutionText.left(xPosition).toInt();
+	height = resolutionText.mid(xPosition + 1).toInt();
+
+	double calculatedProportion = double(width) / height;
+	for (int i = 0; i < numberOfProportions; i++)
 	{
-		width = 720;
-		height = 480;
-		proportion = proportion3_2;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_720"))
-	{
-		width = 1280;
-		height = 720;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1080"))
-	{
-		width = 1920;
-		height = 1080;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1440"))
-	{
-		width = 2560;
-		height = 1440;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_2160"))
-	{
-		width = 4096;
-		height = 2160;
-		proportion = proportionFree;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_4320"))
-	{
-		width = 7680;
-		height = 4320;
-		proportion = proportion16_9;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_240"))
-	{
-		width = 320;
-		height = 240;
-		proportion = proportion4_3;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_600"))
-	{
-		width = 800;
-		height = 600;
-		proportion = proportion4_3;
-	}
-	else if (buttonName == QString("pushButton_resolution_preset_1200"))
-	{
-		width = 1600;
-		height = 1200;
-		proportion = proportion4_3;
+		if (calculatedProportion == ProportionEnumToRatio(enumImageProportion(i)))
+		{
+			proportion = enumImageProportion(i);
+		}
 	}
 
+	ui->comboBox_image_proportion->setCurrentIndex(proportion);
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
-	ui->comboBox_image_proportion->setCurrentIndex(proportion);
 
 	if (ui->checkBox_connect_detail_level->isChecked())
 	{
@@ -345,4 +346,31 @@ void cDockImageAdjustments::slotPressedImageSizeDecrease() const
 	height /= 2;
 	ui->spinboxInt_image_width->setValue(width);
 	ui->spinboxInt_image_height->setValue(height);
+}
+
+void cDockImageAdjustments::InitResolutionPresets()
+{
+	resolutionPresets->addParam("resolution_preset", 1, QString("720x480"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 2, QString("1280x720"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 3, QString("1920x1080"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 4, QString("2560x1440"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 5, QString("4096x2160"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 6, QString("7680x4320"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 7, QString("320x240"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 8, QString("800x600"), morphNone, paramApp);
+	resolutionPresets->addParam("resolution_preset", 9, QString("1600x1200"), morphNone, paramApp);
+
+	QString presetsFile = systemData.GetResolutionPresetsFile();
+	if (QFileInfo::exists(presetsFile))
+	{
+		cSettings settings(cSettings::formatAppSettings);
+		settings.LoadFromFile(presetsFile);
+		settings.Decode(resolutionPresets, nullptr);
+	}
+	else
+	{
+		cSettings settings(cSettings::formatAppSettings);
+		settings.CreateText(resolutionPresets, nullptr);
+		settings.SaveToFile(presetsFile);
+	}
 }

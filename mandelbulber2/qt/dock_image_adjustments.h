@@ -39,6 +39,7 @@
 
 // forward declarations
 class cAutomatedWidgets;
+class cParameterContainer;
 
 namespace Ui
 {
@@ -62,6 +63,9 @@ public:
 		proportion16_10 = 5,
 		proportion2_1 = 6
 	};
+
+private:
+	const int numberOfProportions = 7;
 
 public:
 	void ApplyImageChangesSetEnabled(bool enable) const;
@@ -89,10 +93,14 @@ private slots:
 
 private:
 	void ConnectSignals() const;
+	void InitResolutionPresets();
+	double ProportionEnumToRatio(enumImageProportion proportion) const;
 
 	Ui::cDockImageAdjustments *ui;
 
 	cAutomatedWidgets *automatedWidgets;
+
+	cParameterContainer *resolutionPresets;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMENTS_H_ */
