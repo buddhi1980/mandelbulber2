@@ -40,6 +40,7 @@
 // forward declarations
 class cAutomatedWidgets;
 class cParameterContainer;
+class QToolButton;
 
 namespace Ui
 {
@@ -83,6 +84,7 @@ private slots:
 	void slotPressedImageSizeIncrease() const;
 	void slotPressedImageSizeDecrease() const;
 	void slotImageHeightChanged(int value) const;
+	void slotChangeResolutionPreset();
 
 	// Quality presets
 	static void slotQualityPresetVeryLow();
@@ -95,12 +97,14 @@ private:
 	void ConnectSignals() const;
 	void InitResolutionPresets();
 	double ProportionEnumToRatio(enumImageProportion proportion) const;
+	int PresetButtonIndex(const QString &name) const;
 
 	Ui::cDockImageAdjustments *ui;
 
 	cAutomatedWidgets *automatedWidgets;
 
 	cParameterContainer *resolutionPresets;
+	QList<QToolButton *> listOfPresetBushbuttons;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMENTS_H_ */

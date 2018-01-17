@@ -52,30 +52,13 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
 {
 	ui->setupUi(this);
+	listOfPresetBushbuttons = ui->groupBox_presets->findChildren<QToolButton *>();
+
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 	ConnectSignals();
 	resolutionPresets = new cParameterContainer;
 	InitResolutionPresets();
-
-	ui->pushButton_resolution_preset_1->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 1));
-	ui->pushButton_resolution_preset_2->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 2));
-	ui->pushButton_resolution_preset_3->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 3));
-	ui->pushButton_resolution_preset_4->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 4));
-	ui->pushButton_resolution_preset_5->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 5));
-	ui->pushButton_resolution_preset_6->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 6));
-	ui->pushButton_resolution_preset_7->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 7));
-	ui->pushButton_resolution_preset_8->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 8));
-	ui->pushButton_resolution_preset_9->setText(
-		resolutionPresets->Get<QString>("resolution_preset", 9));
 }
 
 cDockImageAdjustments::~cDockImageAdjustments()
@@ -98,24 +81,12 @@ void cDockImageAdjustments::ConnectSignals() const
 	// image resolution
 	connect(ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboImageProportion(int)));
-	connect(ui->pushButton_resolution_preset_1, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_2, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_3, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_4, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_5, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_6, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_7, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_8, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
-	connect(ui->pushButton_resolution_preset_9, SIGNAL(clicked()), this,
-		SLOT(slotPressedResolutionPreset()));
+
+	foreach (QToolButton *button, listOfPresetBushbuttons)
+	{
+		connect(button, SIGNAL(clicked()), this, SLOT(slotPressedResolutionPreset()));
+	}
+
 	connect(ui->pushButton_imagesize_increase, SIGNAL(clicked()), this,
 		SLOT(slotPressedImageSizeIncrease()));
 	connect(ui->pushButton_imagesize_decrease, SIGNAL(clicked()), this,
@@ -373,4 +344,51 @@ void cDockImageAdjustments::InitResolutionPresets()
 		settings.CreateText(resolutionPresets, nullptr);
 		settings.SaveToFile(presetsFile);
 	}
+
+	foreach (QToolButton *button, listOfPresetBushbuttons)
+	{
+		button->setPopupMode(QToolButton::MenuButtonPopup);
+		button->setText(resolutionPresets->Get<QString>(
+			"resolution_preset", PresetButtonIndex(button->objectName())));
+		QMenu *menu = new QMenu(button);
+		QAction *action = new QAction(tr("Change preset"));
+		action->setObjectName(QString("preset_%1").arg(PresetButtonIndex(button->objectName())));
+		menu->addAction(action);
+		button->setMenu(menu);
+		connect(action, SIGNAL(triggered()), this, SLOT(slotChangeResolutionPreset()));
+	}
+}
+
+int cDockImageAdjustments::PresetButtonIndex(const QString &name) const
+{
+	int lastDash = name.lastIndexOf('_');
+	QString indexText = name.mid(lastDash + 1);
+	int index = indexText.toInt();
+	return index;
+}
+
+void cDockImageAdjustments::slotChangeResolutionPreset()
+{
+	int index = PresetButtonIndex(this->sender()->objectName());
+	QString oldPreset = resolutionPresets->Get<QString>("resolution_preset", index);
+	QString newPreset = QInputDialog::getText(this, tr("Edit resolution preset"),
+		tr("Type new preset in format WIDTHxHEIGHT"), QLineEdit::Normal, oldPreset);
+
+	int xPosition = newPreset.indexOf('x');
+	int width = newPreset.left(xPosition).toInt();
+	int height = newPreset.mid(xPosition + 1).toInt();
+	width = max(32, width);
+	height = max(32, height);
+	QString newPresetCorrected = QString("%1x%2").arg(width).arg(height);
+
+	QToolButton *button = ui->groupBox_presets->findChild<QToolButton *>(
+		QString("toolButton_resolution_preset_%1").arg(index));
+
+	resolutionPresets->Set("resolution_preset", index, newPresetCorrected);
+	button->setText(newPresetCorrected);
+
+	QString presetsFile = systemData.GetResolutionPresetsFile();
+	cSettings settings(cSettings::formatAppSettings);
+	settings.CreateText(resolutionPresets, nullptr);
+	settings.SaveToFile(presetsFile);
 }

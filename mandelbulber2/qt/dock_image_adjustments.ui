@@ -256,7 +256,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_6">
+       <widget class="QGroupBox" name="groupBox_presets">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -287,8 +287,8 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="1" column="1">
-            <widget class="QPushButton" name="pushButton_resolution_preset_5">
+           <item row="0" column="0">
+            <widget class="QToolButton" name="toolButton_resolution_preset_1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -301,85 +301,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QPushButton" name="pushButton_resolution_preset_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QPushButton" name="pushButton_resolution_preset_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QPushButton" name="pushButton_resolution_preset_6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QPushButton" name="pushButton_resolution_preset_1">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QPushButton" name="pushButton_resolution_preset_4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="pushButton_resolution_preset_7">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="pushButton_resolution_preset_8">
+            <widget class="QToolButton" name="toolButton_resolution_preset_2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -392,7 +314,85 @@
             </widget>
            </item>
            <item row="2" column="2">
-            <widget class="QPushButton" name="pushButton_resolution_preset_9">
+            <widget class="QToolButton" name="toolButton_resolution_preset_9">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QToolButton" name="toolButton_resolution_preset_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QToolButton" name="toolButton_resolution_preset_4">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QToolButton" name="toolButton_resolution_preset_5">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QToolButton" name="toolButton_resolution_preset_6">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QToolButton" name="toolButton_resolution_preset_7">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QToolButton" name="toolButton_resolution_preset_8">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -1019,15 +1019,15 @@ no ambient occlusion)</string>
   <tabstop>pushButton_imagesize_increase</tabstop>
   <tabstop>pushButton_imagesize_decrease</tabstop>
   <tabstop>checkBox_connect_detail_level</tabstop>
-  <tabstop>pushButton_resolution_preset_1</tabstop>
-  <tabstop>pushButton_resolution_preset_2</tabstop>
-  <tabstop>pushButton_resolution_preset_3</tabstop>
-  <tabstop>pushButton_resolution_preset_4</tabstop>
-  <tabstop>pushButton_resolution_preset_5</tabstop>
-  <tabstop>pushButton_resolution_preset_6</tabstop>
-  <tabstop>pushButton_resolution_preset_7</tabstop>
-  <tabstop>pushButton_resolution_preset_8</tabstop>
-  <tabstop>pushButton_resolution_preset_9</tabstop>
+  <tabstop>toolButton_resolution_preset_1</tabstop>
+  <tabstop>toolButton_resolution_preset_2</tabstop>
+  <tabstop>toolButton_resolution_preset_3</tabstop>
+  <tabstop>toolButton_resolution_preset_4</tabstop>
+  <tabstop>toolButton_resolution_preset_5</tabstop>
+  <tabstop>toolButton_resolution_preset_6</tabstop>
+  <tabstop>toolButton_resolution_preset_7</tabstop>
+  <tabstop>toolButton_resolution_preset_8</tabstop>
+  <tabstop>toolButton_resolution_preset_9</tabstop>
   <tabstop>groupCheck_stereo_enabled</tabstop>
   <tabstop>comboBox_stereo_mode</tabstop>
   <tabstop>logedit_stereo_eye_distance</tabstop>
