@@ -68,6 +68,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	double orbitTrapTotal = 0.0;
+	out->orbitTrapR = 0.0;
 
 	enumFractalFormula formula = fractal::none;
 
@@ -341,7 +342,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				double distance = delta.Length();
 				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
-				if (distance > 1000)
+				if (distance > fractals.GetBailout(sequence))
 				{
 					out->orbitTrapR = orbitTrapTotal;
 					break;

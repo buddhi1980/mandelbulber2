@@ -119,6 +119,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	formulaOut out;
 	out.maxiter = consts->params.iterThreshMode;
+	out.orbitTrapR = 0.0f;
 
 	float colorMin = 1e8f;
 	float orbitTrapTotal = 0.0f;
@@ -353,7 +354,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0f / (distance * distance));
-				if (distance > 1000.0f)
+				if (distance > consts->sequence.bailout[formulaIndex])
 				{
 					out.orbitTrapR = orbitTrapTotal;
 					break;
