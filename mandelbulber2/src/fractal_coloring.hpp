@@ -71,7 +71,7 @@ struct sFractalColoring
 		initialMinimumR = 100.0;
 
 		auxColorFalse = false;
-		auxColorWeight = 0.0;
+		auxColorWeight = 1.0;
 		auxColorHybridWeight = 0.0;
 
 		radFalse = false;
