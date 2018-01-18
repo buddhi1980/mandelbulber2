@@ -126,8 +126,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
 				if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
-				// xyzAxis *=  fractalColoring.xyz000;
-				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
+						* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 			}
 
 			addValue += xyzValue; // addValue accumulates outputs
@@ -315,8 +315,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
 						if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
-						// xyzAxis *=  fractalColoring.xyz000;
-						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
+								* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 					}
 
 					addValue += xyzValue; // addValue accumulates outputs

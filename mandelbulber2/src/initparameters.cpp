@@ -1249,7 +1249,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId), CVector3(1.0, 1.0, 1.0),
 		morphNone, paramStandard); // vec4??
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 1.0, -1e20, 1e20,
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 0.0, -1e20, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_xyz_x_sqrd_enabled_false", materialId), false,
 		morphLinear, paramStandard);

@@ -84,7 +84,7 @@ struct sFractalColoring
 		radDivDeSquaredFalse = false;
 
 		xyzBiasEnabledFalse = false;
-		xyzIterScale = 1.0;
+		xyzIterScale = 0.0;
 		xyzXSqrdFalse = false;
 		xyzYSqrdFalse = false;
 		xyzZSqrdFalse = false;
