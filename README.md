@@ -29,8 +29,6 @@
 
 In summary, Mandelbulber generates three-dimensional fractals.
 
-The algorithm computes voxels in Euclidean space available for manufacturing from mesh.
-
 Explore trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals.
 
 Render with a great palette of customizable materials to create stunning images and videos.
