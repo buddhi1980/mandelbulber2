@@ -270,7 +270,7 @@ void cDockRenderingEngine::slotNetRenderKickAndKill()
 
 void cDockRenderingEngine::SynchronizeInterfaceDistanceEstimation(cParameterContainer *par) const
 {
-	SynchronizeInterfaceWindow(ui->groupBox_distanceEstimation, par, qInterface::write);
+	SynchronizeInterfaceWindow(ui->groupBox_detailLevel, par, qInterface::write);
 }
 
 void cDockRenderingEngine::ComboDeltaDEFunctionSetEnabled(bool enabled) const

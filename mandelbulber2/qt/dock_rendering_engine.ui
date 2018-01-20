@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>311</width>
-    <height>1299</height>
+    <height>1365</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -304,7 +304,7 @@ function:</string>
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBox_detailLevel">
      <property name="title">
       <string>Detail level</string>
      </property>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbox_smooth</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -316,7 +316,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>8</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>
@@ -344,7 +344,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>8</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>
@@ -372,7 +372,7 @@ min radius:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>8</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-180.000000000000000</double>

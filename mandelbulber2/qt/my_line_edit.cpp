@@ -356,11 +356,13 @@ void MyLineEdit::slotSliderTimerUpdateValue()
 void MyLineEdit::slotResetToDefault()
 {
 	resetToDefault();
+	emit returnPressed();
 }
 
 void MyLineEdit::slotZeroValue()
 {
 	setText("0");
+	emit returnPressed();
 }
 
 void MyLineEdit::slotDoubleValue()
@@ -368,6 +370,7 @@ void MyLineEdit::slotDoubleValue()
 	const double value = systemData.locale.toDouble(text());
 	const QString text = QString("%L1").arg(value * 2.0, 0, 'g', 16);
 	setText(text);
+	emit returnPressed();
 }
 
 void MyLineEdit::slotHalfValue()
@@ -375,6 +378,7 @@ void MyLineEdit::slotHalfValue()
 	const double value = systemData.locale.toDouble(text());
 	const QString text = QString("%L1").arg(value * 0.5, 0, 'g', 16);
 	setText(text);
+	emit returnPressed();
 }
 
 void MyLineEdit::slotRoundValue()
@@ -382,4 +386,5 @@ void MyLineEdit::slotRoundValue()
 	const double value = systemData.locale.toDouble(text());
 	const QString text = QString("%L1").arg(MagicRound(value, 0.05), 0, 'g', 16);
 	setText(text);
+	emit returnPressed();
 }

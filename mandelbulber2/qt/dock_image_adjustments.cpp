@@ -219,6 +219,16 @@ void cDockImageAdjustments::slotImageHeightChanged(int value) const
 	(void)value;
 	const int index = ui->comboBox_image_proportion->currentIndex();
 	slotChangedComboImageProportion(index);
+
+	if (ui->checkBox_connect_detail_level->isChecked())
+	{
+		SynchronizeInterfaceWindow(ui->groupBox_imageResolution, gPar, qInterface::read);
+		const double sizeRatio =
+			double(gPar->Get<int>("image_height")) / gMainInterface->lockedImageResolution.y;
+		gPar->Set("detail_level", gMainInterface->lockedDetailLevel / sizeRatio);
+		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
+			->SynchronizeInterfaceDistanceEstimation(gPar);
+	}
 }
 
 void cDockImageAdjustments::slotCheckedDetailLevelLock(int state) const
