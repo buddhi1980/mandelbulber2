@@ -119,9 +119,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
 	"fractal_coloring_xyz_fabs_enabled_false", "fractal_coloring_xyz_div_1e13_false",
 
-	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_false",
+	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_true",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
-	"fractal_coloring_i_squared_enabled_false", "fractal_coloring_i_invert_enabled_false",
 	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
 
 	"fractal_coloring_global_palette_false",
@@ -274,16 +273,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<bool>(Name("fractal_coloring_iter_group_enabled_false", id));
 	fractalColoring.iterScaleFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_iter_scale_enabled_false", id));
-	fractalColoring.iterAddScaleFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_iter_add_scale_enabled_false", id));
+	fractalColoring.iterAddScaleTrue =
+		materialParam->Get<bool>(Name("fractal_coloring_iter_add_scale_enabled_true", id));
 	fractalColoring.iterAddScale =
 		materialParam->Get<double>(Name("fractal_coloring_iter_add_scale", id));
 	fractalColoring.iterScale = materialParam->Get<double>(Name("fractal_coloring_iter_scale", id));
 	fractalColoring.iStartValue = materialParam->Get<int>(Name("fractal_coloring_i_start_value", id));
-	fractalColoring.iSquaredEnabledFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_i_squared_enabled_false", id));
-	fractalColoring.iInvertEnabledFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_i_invert_enabled_false", id));
 
 	// global palette controls
 	fractalColoring.globalPaletteFalse =

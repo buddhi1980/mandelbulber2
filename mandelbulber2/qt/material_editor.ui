@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>613</width>
-        <height>2916</height>
+        <y>-422</y>
+        <width>619</width>
+        <height>3597</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1451,6 +1451,9 @@ sphere radius:</string>
                          <verstretch>0</verstretch>
                         </sizepolicy>
                        </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;color_y  = z.y   *  scale_y ;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;colorValue = color_x + color_y + color_z;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
                        <property name="prefix">
                         <string/>
                        </property>
@@ -1478,6 +1481,9 @@ sphere radius:</string>
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;colorValue *= (1.0 + ( i * scale));&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="prefix">
                         <string/>
@@ -1509,7 +1515,7 @@ sphere radius:</string>
                      <item row="0" column="0">
                       <widget class="QLabel" name="label_35">
                        <property name="text">
-                        <string>iter scale TEMP todo</string>
+                        <string>iter scale :</string>
                        </property>
                       </widget>
                      </item>
@@ -1527,6 +1533,9 @@ sphere radius:</string>
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;color_x  = z.x   *  scale_x ;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;colorValue = color_x + color_y + color_z;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="prefix">
                         <string/>
@@ -1562,6 +1571,9 @@ sphere radius:</string>
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;color_z  = z.z   *  scale_z ;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;colorValue = color_x + color_y + color_z;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="prefix">
                         <string/>
@@ -1605,7 +1617,7 @@ sphere radius:</string>
                 <item>
                  <widget class="MyGroupBox" name="groupCheck_fractal_coloring_iter_group_enabled_false">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusting the color speed  may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;As these functions are simply iteration based, they will produce sharp changes in color based on the iteration count at termination.&lt;/p&gt;&lt;p&gt;Adjusting the color speed may be required, depending on the size of the fractal and location.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="title">
                    <string>color&amp;Value iteration components</string>
@@ -1613,7 +1625,7 @@ sphere radius:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_37" stretch="0,0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_37" stretch="0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1630,26 +1642,12 @@ sphere radius:</string>
                     <number>2</number>
                    </property>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_i_squared_enabled_false">
-                     <property name="text">
-                      <string notr="true">i squared</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_i_invert_enabled_false">
-                     <property name="text">
-                      <string notr="true">i inverted</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,0">
                      <property name="spacing">
                       <number>2</number>
                      </property>
                      <item row="1" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_false">
+                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_true">
                        <property name="text">
                         <string notr="true">addition value:</string>
                        </property>
@@ -1662,6 +1660,9 @@ sphere radius:</string>
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;colorValue += addValue * ( i - startIter);&lt;/p&gt;&lt;p&gt;An addValue of 1.0 equals one whole color step along the palette, at default color speed of 1.0.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="prefix">
                         <string/>
@@ -1686,7 +1687,7 @@ sphere radius:</string>
                      <item row="2" column="0">
                       <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
                        <property name="text">
-                        <string notr="true"> scale (needs an input value)::</string>
+                        <string notr="true"> scale (needs an input value):</string>
                        </property>
                       </widget>
                      </item>
@@ -1710,6 +1711,9 @@ sphere radius:</string>
                          <horstretch>0</horstretch>
                          <verstretch>0</verstretch>
                         </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;colorValue *=  1.0 +   ( scale * ( i  -  startIter));&lt;/p&gt;&lt;p&gt;This function will not work on its own, it always needs some other component supplying a range of colorValues.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="prefix">
                         <string/>
@@ -3946,7 +3950,7 @@ rotation:</string>
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_fractal_coloring_iter_add_scale_enabled_false</sender>
+   <sender>checkBox_fractal_coloring_iter_add_scale_enabled_true</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox_fractal_coloring_iter_add_scale</receiver>
    <slot>setEnabled(bool)</slot>

@@ -126,8 +126,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
 				if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
-				// xyzAxis *=  fractalColoring.xyz000;
-				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
+						* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 			}
 
 			addValue += xyzValue; // addValue accumulates outputs
@@ -137,13 +137,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			if (fractalColoring.iterGroupFalse)
 			{
 				// Iter ADD,  this allows the input to be influenced by iteration number
-				if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
+				if (fractalColoring.iterAddScaleTrue && extendedAux.i > fractalColoring.iStartValue)
 				{
 					int iUse = extendedAux.i - fractalColoring.iStartValue;
-
-					if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-					if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
-
 					colorValue += fractalColoring.iterAddScale * iUse;
 				}
 
@@ -151,19 +147,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 				{
 					int iUse = extendedAux.i - fractalColoring.iStartValue;
-					if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-
-					if (fractalColoring.iInvertEnabledFalse)
-					{
-						if (fractalColoring.iSquaredEnabledFalse)
-							colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
-						else
-							colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
-					}
-					else
-					{
-						colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
-					}
+					colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 				}
 			}
 			// "pseudo" global palette controls
@@ -331,8 +315,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.xyzYSqrdFalse) xyzAxis.y *= xyzAxis.y;
 						if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
-						// xyzAxis *=  fractalColoring.xyz000;
-						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z) * fractalColoring.xyzIterScale;
+						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
+								* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 					}
 
 					addValue += xyzValue; // addValue accumulates outputs
@@ -342,11 +326,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					if (fractalColoring.iterGroupFalse)
 					{
 						// Iter ADD,  this allows the input to be influenced by iteration number
-						if (fractalColoring.iterAddScaleFalse && extendedAux.i > fractalColoring.iStartValue)
+						if (fractalColoring.iterAddScaleTrue && extendedAux.i > fractalColoring.iStartValue)
 						{
 							int iUse = extendedAux.i - fractalColoring.iStartValue;
-							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-							if (fractalColoring.iInvertEnabledFalse) iUse = 1.0 / iUse;
 							colorValue += fractalColoring.iterAddScale * iUse;
 						}
 
@@ -354,19 +336,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 						{
 							int iUse = extendedAux.i - fractalColoring.iStartValue;
-							if (fractalColoring.iSquaredEnabledFalse) iUse *= iUse;
-
-							if (fractalColoring.iInvertEnabledFalse)
-							{
-								if (fractalColoring.iSquaredEnabledFalse)
-									colorValue *= (1.0 + 1.0 / (iUse + 1.0) / fractalColoring.iterScale);
-								else
-									colorValue *= (1.0 + 1.0 / (extendedAux.i + 1.0) / fractalColoring.iterScale);
-							}
-							else
-							{
 								colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
-							}
 						}
 					}
 

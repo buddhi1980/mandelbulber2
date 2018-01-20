@@ -71,7 +71,7 @@ struct sFractalColoring
 		initialMinimumR = 100.0;
 
 		auxColorFalse = false;
-		auxColorWeight = 0.0;
+		auxColorWeight = 1.0;
 		auxColorHybridWeight = 0.0;
 
 		radFalse = false;
@@ -84,8 +84,7 @@ struct sFractalColoring
 		radDivDeSquaredFalse = false;
 
 		xyzBiasEnabledFalse = false;
-		xyzIterScale = 1.0;
-		// cModeEnabledFalse = false; // basic test
+		xyzIterScale = 0.0;
 		xyzXSqrdFalse = false;
 		xyzYSqrdFalse = false;
 		xyzZSqrdFalse = false;
@@ -93,13 +92,11 @@ struct sFractalColoring
 		xyzDiv1e13False = false;
 
 		iterGroupFalse = false;
-		iterAddScaleFalse = false;
+		iterAddScaleTrue = true;
 		iterScaleFalse = false;
-		iterAddScale = 0.0;
+		iterAddScale = 1.0;
 		iterScale = 1.0;
 		iStartValue = 0;
-		iSquaredEnabledFalse = false;
-		iInvertEnabledFalse = false;
 
 		// global palette controls
 		globalPaletteFalse = false;
@@ -114,8 +111,8 @@ struct sFractalColoring
 		parabStartValue = 0.0;
 
 		cosEnabledFalse = false;
-		cosPeriod = 1.0; // TODO calibrate
-		cosAdd = 1.0;		 // TODO calibrate
+		cosPeriod = 1.0;
+		cosAdd = 1.0;
 		cosStartValue = 0.0;
 
 		roundEnabledFalse = false;
@@ -167,13 +164,11 @@ struct sFractalColoring
 	bool xyzDiv1e13False;
 
 	bool iterGroupFalse;
-	bool iterAddScaleFalse;
+	bool iterAddScaleTrue;
 	bool iterScaleFalse;
 	double iterAddScale;
 	double iterScale;
-	int iStartValue; // or start colorV??
-	bool iSquaredEnabledFalse;
-	bool iInvertEnabledFalse;
+	int iStartValue;
 
 	// global palette controls
 	bool globalPaletteFalse;
