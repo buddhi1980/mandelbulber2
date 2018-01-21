@@ -297,40 +297,40 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// double len = 0.0;
 				switch (in.fractalColoring.coloringAlgorithm)
 				{
-					case sFractalColoring::fractalColoringStandard:
+					case fractalColoring_Standard:
 					{
 						len = r;
 						break;
 					}
-					case sFractalColoring::fractalColoringZDotPoint:
+					case fractalColoring_ZDotPoint:
 					{
 						len = fabs(z.Dot(CVector4(pointTransformed, 0.0)));
 						break;
 					}
-					case sFractalColoring::fractalColoringSphere:
+					case fractalColoring_Sphere:
 					{
 						len = fabs(
 							(z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
 						break;
 					}
-					case sFractalColoring::fractalColoringCross:
+					case fractalColoring_Cross:
 					{
 						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
 						break;
 					}
-					case sFractalColoring::fractalColoringLine:
+					case fractalColoring_Line:
 					{
 						len = fabs(z.Dot(CVector4(in.fractalColoring.lineDirection, 0.0)));
 						break;
 					}
-					case sFractalColoring::fractalColoringNone:
+					case fractalColoring_None:
 					{
 						len = r;
 						break;
 					}
 				}
 				if (fractal->formula != mandelbox
-						|| in.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+						|| in.fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 				{
 					if (len < minimumR) minimumR = len;
 				}

@@ -37,25 +37,10 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include "opencl_algebra.h"
+#include "fractal_coloring_cl.hpp"
 
 #include "src/material.h"
 #endif /* OPENCL_KERNEL_CODE */
-
-typedef enum {
-	fractalColoringNone = -1,
-	fractalColoringStandard = 0,
-	fractalColoringZDotPoint = 1,
-	fractalColoringSphere = 2,
-	fractalColoringCross = 3,
-	fractalColoringLine = 4
-} enumFractalColoringAlgorithmCl;
-
-typedef struct
-{
-	cl_float3 lineDirection;
-	cl_float sphereRadius;
-	enumFractalColoringAlgorithmCl coloringAlgorithm;
-} sFractalColoringCl;
 
 typedef struct
 {
@@ -161,7 +146,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.iridescenceEnabled = source.iridescenceEnabled;
 
 	target.fractalColoring.coloringAlgorithm =
-		enumFractalColoringAlgorithmCl(source.fractalColoring.coloringAlgorithm);
+		enumFractalColoringCl(source.fractalColoring.coloringAlgorithm);
 	target.fractalColoring.lineDirection = toClFloat3(source.fractalColoring.lineDirection);
 	target.fractalColoring.sphereRadius = source.fractalColoring.sphereRadius;
 

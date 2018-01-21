@@ -48,6 +48,7 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "image_adjustments_cl.h"
 #include "opencl_algebra.h"
+#include "fractal_cl.h"
 
 #include "src/common_params.hpp"
 #include "src/fractal.h"

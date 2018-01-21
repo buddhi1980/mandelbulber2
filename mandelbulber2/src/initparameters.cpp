@@ -1187,7 +1187,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
-		int(sFractalColoring::fractalColoringStandard), 0, 4, morphNone, paramStandard);
+		int(fractalColoring_Standard), 0, 4, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),

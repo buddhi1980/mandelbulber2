@@ -38,6 +38,75 @@
 
 using namespace fractal;
 
+sFractalColoring::sFractalColoring()
+{
+	sphereRadius = 0.0;
+	coloringAlgorithm = fractalColoring_None;
+
+	extraColorEnabledFalse = false;
+	initialColorValue = 0.0;
+	initCondFalse = false;
+	icRadFalse = false;
+	icXYZFalse = false;
+	icFabsFalse = false;
+	icRadWeight = 1.0;
+
+	orbitTrapTrue = true;
+	orbitTrapWeight = 1.0;
+	initialMinimumR = 100.0;
+
+	auxColorFalse = false;
+	auxColorWeight = 1.0;
+	auxColorHybridWeight = 0.0;
+
+	radFalse = false;
+	radWeight = 1.0;
+	radSquaredFalse = false;
+	radDiv1e13False = false;
+	radDivDeFalse = false;
+	radDivLogDeFalse = false;
+	radDivDeWeight = 1.0;
+	radDivDeSquaredFalse = false;
+
+	xyzBiasEnabledFalse = false;
+	xyzIterScale = 0.0;
+	xyzXSqrdFalse = false;
+	xyzYSqrdFalse = false;
+	xyzZSqrdFalse = false;
+	xyzFabsFalse = false;
+	xyzDiv1e13False = false;
+
+	iterGroupFalse = false;
+	iterAddScaleTrue = true;
+	iterScaleFalse = false;
+	iterAddScale = 1.0;
+	iterScale = 1.0;
+	iStartValue = 0;
+
+	// global palette controls
+	globalPaletteFalse = false;
+
+	addEnabledFalse = false;
+	addMax = 1.0;
+	addSpread = 1.0;
+	addStartValue = 0.0;
+
+	parabEnabledFalse = false;
+	parabScale = 1.0;
+	parabStartValue = 0.0;
+
+	cosEnabledFalse = false;
+	cosPeriod = 1.0;
+	cosAdd = 1.0;
+	cosStartValue = 0.0;
+
+	roundEnabledFalse = false;
+	roundScale = 1.0;
+
+	maxColorValue = 100000.0;
+	minColorValue = 0.0;
+}
+
 double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	const sExtendedAux &extendedAux, const sFractalColoring &fractalColoring,
 	fractal::enumColoringFunction coloringFunction, const sFractal *defaultFractal)
@@ -225,7 +294,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorIndex =
 					auxColorValue100																		 // aux.color
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // radius scale
-					+ ((fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 								? minR1000
 								: 0.0);
 				break;
@@ -242,7 +311,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 										 + radDE5000 * extendedAux.scaleFactor; // r/DE  for backwards compatibility
 				// + addValue;													 // all extra inputs
 
-				/*+ ((fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+				/*+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 								? minimumR * extendedAux.minRFactor * 1000.0
 								: 0.0);*/ // temp
 				// removed

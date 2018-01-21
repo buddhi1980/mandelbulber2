@@ -194,7 +194,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	iridescenceSubsurfaceThickness =
 		materialParam->Get<double>(Name("iridescence_subsurface_thickness", id));
 
-	fractalColoring.coloringAlgorithm = sFractalColoring::enumFractalColoringAlgorithm(
+	fractalColoring.coloringAlgorithm = enumFractalColoring(
 		materialParam->Get<int>(Name("fractal_coloring_algorithm", id)));
 	fractalColoring.sphereRadius =
 		materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));

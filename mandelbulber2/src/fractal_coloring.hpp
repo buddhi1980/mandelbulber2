@@ -41,90 +41,21 @@
 struct sExtendedAux;
 struct sFractal;
 
+enum enumFractalColoring
+{
+	fractalColoring_None = -1,
+	fractalColoring_Standard = 0,
+	fractalColoring_ZDotPoint = 1,
+	fractalColoring_Sphere = 2,
+	fractalColoring_Cross = 3,
+	fractalColoring_Line = 4
+};
+
 struct sFractalColoring
 {
-	enum enumFractalColoringAlgorithm
-	{
-		fractalColoringNone = -1,
-		fractalColoringStandard = 0,
-		fractalColoringZDotPoint = 1,
-		fractalColoringSphere = 2,
-		fractalColoringCross = 3,
-		fractalColoringLine = 4
-	};
-
-	sFractalColoring()
-	{
-		sphereRadius = 0.0;
-		coloringAlgorithm = fractalColoringNone;
-
-		extraColorEnabledFalse = false;
-		initialColorValue = 0.0;
-		initCondFalse = false;
-		icRadFalse = false;
-		icXYZFalse = false;
-		icFabsFalse = false;
-		icRadWeight = 1.0;
-
-		orbitTrapTrue = true;
-		orbitTrapWeight = 1.0;
-		initialMinimumR = 100.0;
-
-		auxColorFalse = false;
-		auxColorWeight = 1.0;
-		auxColorHybridWeight = 0.0;
-
-		radFalse = false;
-		radWeight = 1.0;
-		radSquaredFalse = false;
-		radDiv1e13False = false;
-		radDivDeFalse = false;
-		radDivLogDeFalse = false;
-		radDivDeWeight = 1.0;
-		radDivDeSquaredFalse = false;
-
-		xyzBiasEnabledFalse = false;
-		xyzIterScale = 0.0;
-		xyzXSqrdFalse = false;
-		xyzYSqrdFalse = false;
-		xyzZSqrdFalse = false;
-		xyzFabsFalse = false;
-		xyzDiv1e13False = false;
-
-		iterGroupFalse = false;
-		iterAddScaleTrue = true;
-		iterScaleFalse = false;
-		iterAddScale = 1.0;
-		iterScale = 1.0;
-		iStartValue = 0;
-
-		// global palette controls
-		globalPaletteFalse = false;
-
-		addEnabledFalse = false;
-		addMax = 1.0;
-		addSpread = 1.0;
-		addStartValue = 0.0;
-
-		parabEnabledFalse = false;
-		parabScale = 1.0;
-		parabStartValue = 0.0;
-
-		cosEnabledFalse = false;
-		cosPeriod = 1.0;
-		cosAdd = 1.0;
-		cosStartValue = 0.0;
-
-		roundEnabledFalse = false;
-		roundScale = 1.0;
-
-		maxColorValue = 100000.0;
-		minColorValue = 0.0;
-	}
-
 	CVector3 lineDirection;
 	double sphereRadius;
-	enumFractalColoringAlgorithm coloringAlgorithm;
+	enumFractalColoring coloringAlgorithm;
 
 	// trial
 	bool extraColorEnabledFalse;
@@ -192,6 +123,8 @@ struct sFractalColoring
 
 	double maxColorValue;
 	double minColorValue;
+
+	sFractalColoring();
 };
 
 double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,

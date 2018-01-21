@@ -127,6 +127,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("common_params_cl.hpp");
 		clHeaderFiles.append("image_adjustments_cl.h");
 		clHeaderFiles.append("fractal_cl.h");
+		clHeaderFiles.append("fractal_coloring_cl.hpp");
+		// clHeaderFiles.append("fractal_coloring_cl.cpp");
 		clHeaderFiles.append("fractparams_cl.hpp");
 		clHeaderFiles.append("fractal_sequence_cl.h");
 		clHeaderFiles.append("material_cl.h");
@@ -418,7 +420,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
 		if (material.transparencyOfSurface > 0.0) anyMaterialIsRefractive = true;
-		if (material.fractalColoring.coloringAlgorithm != sFractalColoring::fractalColoringStandard)
+		if (material.fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 			anyMaterialHasSpecialColoring = true;
 		if (material.iridescenceEnabled) anyMaterialHasIridescence = true;
 	}
