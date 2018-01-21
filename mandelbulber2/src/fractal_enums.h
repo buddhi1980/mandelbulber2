@@ -47,6 +47,7 @@ enum enumDEMethod
 
 enum enumDEFunctionType
 {
+	undefinedDEFunction = -1,
 	preferredDEFunction = 0,
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
@@ -58,6 +59,7 @@ enum enumDEFunctionType
 
 enum enumCPixelAddition
 {
+	cpixelUndefined = -1,
 	cpixelEnabledByDefault = 0,
 	cpixelDisabledByDefault = 1,
 	cpixelAlreadyHas = 2
@@ -65,12 +67,14 @@ enum enumCPixelAddition
 
 enum enumDEType
 {
-	analyticDEType,
-	deltaDEType
+	undefinedDEType = -1,
+	analyticDEType = 0,
+	deltaDEType = 1
 };
 
 enum enumDEAnalyticFunction
 {
+	analyticFunctionUndefined = -1,
 	analyticFunctionNone = 0,
 	analyticFunctionLinear = 1,
 	analyticFunctionLogarithmic = 2,
@@ -81,6 +85,7 @@ enum enumDEAnalyticFunction
 
 enum enumColoringFunction
 {
+	coloringFunctionUndefined = -1,
 	coloringFunctionDefault = 0,
 	coloringFunctionABox = 1,
 	coloringFunctionIFS = 2,
