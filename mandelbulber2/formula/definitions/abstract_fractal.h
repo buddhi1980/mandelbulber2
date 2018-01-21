@@ -25,8 +25,12 @@ public:
 	virtual ~cAbstractFractal();
 
 public:
-	virtual QString nameInComboBox;
-	virtual QString internalName;
+	bool CheckForErrors(); // this method will be used in NineFractals class
+
+protected:
+	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &);
+	QString nameInComboBox;
+	QString internalName;
 	// fractal::enumFractalFormula internalID; //FIXME there is needed nice solution to provide enums
 	fractalFormulaFcn fractalFormulaFunction;
 	fractal::enumDEType DEType;
@@ -36,8 +40,16 @@ public:
 	fractal::enumDEAnalyticFunction DEAnalyticFunction;
 	fractal::enumColoringFunction coloringFunction;
 
-	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &);
-	bool CheckForErrors(); // this method will be used in NineFractals class
+public:
+	fractal::enumColoringFunction getColoringFunction() const { return coloringFunction; }
+	fractal::enumCPixelAddition getCpixelAddition() const { return cpixelAddition; }
+	fractal::enumDEAnalyticFunction getDeAnalyticFunction() const { return DEAnalyticFunction; }
+	double getDefaultBailout() const { return defaultBailout; }
+	fractal::enumDEFunctionType getDeFunctionType() const { return DEFunctionType; }
+	fractal::enumDEType getDeType() const { return DEType; }
+	fractalFormulaFcn getFractalFormulaFunction() const { return fractalFormulaFunction; }
+	const QString &getInternalName() const { return internalName; }
+	const QString &getNameInComboBox() const { return nameInComboBox; }
 };
 
 } /* namespace fractal */
