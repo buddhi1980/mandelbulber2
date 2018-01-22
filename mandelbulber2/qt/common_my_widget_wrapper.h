@@ -81,6 +81,10 @@ private:
 	QAction *actionAddToKeyframeAnimation;
 	QAction *actionRemoveFromKeyframeAnimation;
 
+public:
+	// these methods have to be implemented by widgets inheriting this class
+	virtual void resetToDefault() = 0;
+
 protected:
 	~CommonMyWidgetWrapper() = default;
 	cParameterContainer *parameterContainer;
@@ -95,7 +99,6 @@ protected:
 	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = nullptr);
 
 	// these methods have to be implemented by widgets inheriting this class
-	virtual void resetToDefault() = 0;
 	virtual QString getDefaultAsString() = 0;
 	virtual QString getFullParameterName() = 0;
 };

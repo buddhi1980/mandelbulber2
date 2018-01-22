@@ -34,15 +34,22 @@
 
 #include "my_group_box.h"
 
-#include <QLineEdit>
+#include <qaction.h>
+#include <qicon.h>
+#include <qlist.h>
+#include <qmenu.h>
+#include <qnamespace.h>
+#include <qobject.h>
+#include <qobjectdefs.h>
+#include <qstring.h>
 
-#include "src/animation_flight.hpp"
-#include "src/animation_keyframes.hpp"
+#include "../src/parameters.hpp"
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
 {
 	defaultValue = false;
 	firstDisplay = true;
+	actionResetAllToDefault = nullptr;
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
 }
 
@@ -113,5 +120,26 @@ void MyGroupBox::slotToggled(bool on) const
 
 void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	CommonMyWidgetWrapper::contextMenuEvent(event);
+	QMenu *menu =  new QMenu;;
+	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
+
+	actionResetAllToDefault = menu->addAction(tr("Reset all to default"));
+	actionResetAllToDefault->setIcon(iconReset);
+
+	connect(actionResetAllToDefault, SIGNAL(triggered()), this, SLOT(slotResetAllToDefault()));
+	CommonMyWidgetWrapper::contextMenuEvent(event, menu);
+}
+
+void MyGroupBox::slotResetAllToDefault()
+{
+	QList<QWidget *> listOfWidgets = this->findChildren<QWidget *>();
+
+	foreach (QWidget *widget, listOfWidgets)
+	{
+		CommonMyWidgetWrapper *mywidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
+		if(mywidget)
+		{
+			mywidget->resetToDefault();
+		}
+	}
 }

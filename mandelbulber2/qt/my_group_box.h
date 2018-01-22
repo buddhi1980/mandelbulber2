@@ -58,8 +58,11 @@ private:
 	QString getDefaultAsString() override;
 	QString getFullParameterName() override;
 
+	QAction *actionResetAllToDefault;
+
 private slots:
 	void slotToggled(bool on) const;
+	void slotResetAllToDefault();
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;
