@@ -906,7 +906,7 @@
               <x>0</x>
               <y>0</y>
               <width>362</width>
-              <height>501</height>
+              <height>583</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_92">
@@ -922,6 +922,37 @@
              <property name="bottomMargin">
               <number>2</number>
              </property>
+             <item>
+              <widget class="QGroupBox" name="groupBox_4">
+               <property name="title">
+                <string>Information</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <property name="leftMargin">
+                 <number>2</number>
+                </property>
+                <property name="topMargin">
+                 <number>2</number>
+                </property>
+                <property name="rightMargin">
+                 <number>2</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>2</number>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_camera_distance_from_keyframe">
+                  <property name="text">
+                   <string>Camera distance from selected keyframe: </string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
              <item>
               <widget class="QGroupBox" name="groupBox">
                <property name="title">
@@ -1390,14 +1421,14 @@ keyframes</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyDoubleSpinBox</class>

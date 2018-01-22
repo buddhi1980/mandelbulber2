@@ -547,6 +547,7 @@ void cInterface::StartRender(bool noUndo)
 	// show distance in statistics table
 	double distance = GetDistanceForPoint(gPar->Get<CVector3>("camera"), gPar, gParFractal);
 	mainWindow->ui->widgetDockStatistics->UpdateDistanceToFractal(distance);
+	gKeyframeAnimation->UpdateActualCameraPosition(gPar->Get<CVector3>("camera"));
 
 	QThread *thread = new QThread; // deleted by deleteLater()
 	renderJob->moveToThread(thread);

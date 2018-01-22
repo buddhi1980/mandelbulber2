@@ -39,7 +39,6 @@
  */
 
 #include "animation_keyframes.hpp"
-
 #include "ui_dock_animation.h"
 
 #include "animation_path_data.hpp"
@@ -114,6 +113,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			SLOT(UpdateLimitsForFrameRange()));
 		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellDoubleClicked(int, int)), this,
 			SLOT(slotCellDoubleClicked(int, int)));
+		connect(ui->tableWidget_keyframe_animation, SIGNAL(cellClicked(int, int)), this,
+			SLOT(slotCellClicked(int, int)));
 
 		// connect system tray
 		connect(mainInterface->systemTray, SIGNAL(notifyRenderKeyframes()), this,
@@ -1295,6 +1296,13 @@ void cKeyframeAnimation::slotCellDoubleClicked(int row, int column) const
 	}
 }
 
+void cKeyframeAnimation::slotCellClicked(int row, int column) const
+{
+	Q_UNUSED(row);
+	Q_UNUSED(column);
+	UpdateCameraDistanceInformation();
+}
+
 void cKeyframeAnimation::slotSetConstantTargetDistance()
 {
 	// updating parameters
@@ -1392,4 +1400,29 @@ void cKeyframeAnimation::slotUpdateAnimationPathSelection()
 {
 	SynchronizeInterfaceWindow(ui->tab_keyframe_animation, params, qInterface::read);
 	UpdateAnimationPath();
+}
+
+void cKeyframeAnimation::UpdateActualCameraPosition(const CVector3 &cameraPosition)
+{
+	actualCameraPosition = cameraPosition;
+	UpdateCameraDistanceInformation();
+}
+
+void cKeyframeAnimation::UpdateCameraDistanceInformation() const
+{
+	if (keyframes->GetNumberOfFrames() > 0)
+	{
+		int selectedKeyframe = table->currentColumn() - reservedColumns;
+		if (selectedKeyframe < 0) selectedKeyframe = 0;
+
+		cKeyframes::sAnimationFrame keyframe = keyframes->GetFrame(selectedKeyframe);
+
+		if (keyframe.parameters.IfExists("main_camera"))
+		{
+			CVector3 camera = keyframe.parameters.Get<CVector3>("main_camera");
+			double distance = (camera - actualCameraPosition).Length();
+			ui->label_camera_distance_from_keyframe->setText(
+				tr("Camera distance from selected keyframe: %1").arg(distance));
+		}
+	}
 }

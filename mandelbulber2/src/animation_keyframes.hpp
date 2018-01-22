@@ -84,6 +84,7 @@ public:
 	parameterContainer::enumMorphType GetMorphType(int row) const;
 	void ChangeMorphType(int row, parameterContainer::enumMorphType morphType);
 	QList<int> CheckForCollisions(double minDist, bool *stopRequest);
+	void UpdateActualCameraPosition(const CVector3 &cameraPosition);
 
 public slots:
 	void UpdateLimitsForFrameRange() const;
@@ -104,6 +105,7 @@ private slots:
 	void slotMovedSliderLastFrame(int value);
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column) const;
+	void slotCellClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
 	void slotUpdateAnimationPathSelection();
 
@@ -119,6 +121,7 @@ private:
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPath() const;
+	void UpdateCameraDistanceInformation() const;
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
@@ -133,6 +136,7 @@ private:
 	MyTableWidgetKeyframes *table;
 	bool lastToRenderMax = false;
 	QSize previewSize;
+	CVector3 actualCameraPosition;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
