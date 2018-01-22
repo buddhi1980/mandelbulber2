@@ -388,3 +388,16 @@ void MyLineEdit::slotRoundValue()
 	setText(text);
 	emit returnPressed();
 }
+
+void MyLineEdit::wheelEvent(QWheelEvent *event)
+{
+	if (slider) //if it's edit field with slider (not text)
+	{
+		double change = event->delta() / 360.0;
+		double multiplier = (1.0 + change / 10.0);
+		const double value = systemData.locale.toDouble(text());
+		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 16);
+		setText(text);
+		emit returnPressed();
+	}
+}

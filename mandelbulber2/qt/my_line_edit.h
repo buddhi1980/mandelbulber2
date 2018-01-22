@@ -73,6 +73,7 @@ protected:
 	void paintEvent(QPaintEvent *event) override;
 	void focusInEvent(QFocusEvent *event) override;
 	void focusOutEvent(QFocusEvent *event) override;
+	void wheelEvent(QWheelEvent *event) override;
 
 private slots:
 	void slotCopyVector() const;
