@@ -119,14 +119,11 @@ void cSSAOWorker::doWork()
 
 			if (z < 1e19)
 			{
-				// printf("SSAO point on object\n");
-
-				// FIXME to correct perspective according to region data
 				double x2, y2;
-				if (perspectiveType == params::perspFishEye)
+				if (perspectiveType == params::perspFishEye || perspectiveType == params::perspFishEyeCut)
 				{
-					x2 = M_PI * (double(x) / width - 0.5) * aspectRatio;
-					y2 = M_PI * (double(y) / height - 0.5);
+					x2 = M_PI * (double(x - startX) / width - 0.5) * aspectRatio;
+					y2 = M_PI * (double(y - startLine) / height - 0.5);
 					double r = sqrt(x2 * x2 + y2 * y2);
 					if (r != 0.0)
 					{
@@ -136,15 +133,15 @@ void cSSAOWorker::doWork()
 				}
 				else if (perspectiveType == params::perspEquirectangular)
 				{
-					x2 = M_PI * (double(x) / width - 0.5) * aspectRatio;
-					y2 = M_PI * (double(y) / height - 0.5);
+					x2 = M_PI * (double(x - startX) / width - 0.5) * aspectRatio;
+					y2 = M_PI * (double(y - startLine) / height - 0.5);
 					x2 = sin(fov * x2) * cos(fov * y2) * z;
 					y2 = sin(fov * y2) * z;
 				}
 				else
 				{
-					x2 = (double(x) / width - 0.5) * aspectRatio;
-					y2 = double(y) / height - 0.5;
+					x2 = (double(x - startX) / width - 0.5) * aspectRatio;
+					y2 = double(y - startLine) / height - 0.5;
 					x2 = x2 * z * fov;
 					y2 = y2 * z * fov;
 				}
@@ -180,10 +177,11 @@ void cSSAOWorker::doWork()
 						double z2 = double(image->GetPixelZBuffer(int(xx), int(yy)));
 
 						double xx2, yy2;
-						if (perspectiveType == params::perspFishEye)
+						if (perspectiveType == params::perspFishEye
+								|| perspectiveType == params::perspFishEyeCut)
 						{
-							xx2 = M_PI * (xx / width - 0.5) * aspectRatio;
-							yy2 = M_PI * (yy / height - 0.5);
+							xx2 = M_PI * ((xx - startX) / width - 0.5) * aspectRatio;
+							yy2 = M_PI * ((yy - startLine) / height - 0.5);
 							double r2 = sqrt(xx2 * xx2 + yy2 * yy2);
 							if (r != 0.0)
 							{
@@ -193,15 +191,15 @@ void cSSAOWorker::doWork()
 						}
 						else if (perspectiveType == params::perspEquirectangular)
 						{
-							xx2 = M_PI * (xx / width - 0.5) * aspectRatio;
-							yy2 = M_PI * (yy / height - 0.5);
+							xx2 = M_PI * ((xx - startX) / width - 0.5) * aspectRatio;
+							yy2 = M_PI * ((yy - startLine) / height - 0.5);
 							xx2 = sin(fov * xx2) * cos(fov * yy2) * z2;
 							yy2 = sin(fov * yy2) * z2;
 						}
 						else
 						{
-							xx2 = (xx / width - 0.5) * aspectRatio;
-							yy2 = yy / height - 0.5;
+							xx2 = ((xx - startX) / width - 0.5) * aspectRatio;
+							yy2 = (yy - startLine) / height - 0.5;
 							xx2 = xx2 * (z2 * fov);
 							yy2 = yy2 * (z2 * fov);
 						}
