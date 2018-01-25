@@ -149,19 +149,16 @@ public:
 	{
 		if (!opt.optionalNormal) return BlackFloat();
 		return normalFloat[getImageIndex(x, y)];
-		return BlackFloat();
 	}
 	inline sRGB16 GetPixelNormal16(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black16();
 		return normal16[getImageIndex(x, y)];
-		return Black16();
 	}
 	inline sRGB8 GetPixelNormal8(qint64 x, qint64 y) const
 	{
 		if (!opt.optionalNormal) return Black8();
 		return normal8[getImageIndex(x, y)];
-		return Black8();
 	}
 	inline void BlendPixelImage16(qint64 x, qint64 y, float factor, sRGB16 other)
 	{
