@@ -39,7 +39,13 @@
 
 // forward declarations
 struct sRenderData;
+class cNineFractals;
+struct sParamRender;
 
-double DisplacementMap(double oldDistance, CVector3 point, int objectId, sRenderData *data);
+double DisplacementMap(
+	double oldDistance, CVector3 point, int objectId, sRenderData *data, double reduce = 1.0);
+
+CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sParamRender &params,
+	const cNineFractals &fractals, int objectId, double *reduceDisplacement);
 
 #endif /* MANDELBULBER2_SRC_DISPLACEMENT_MAP_HPP_ */

@@ -37,6 +37,7 @@
 #include "common_math.h"
 #include "fractal.h"
 #include "fractal_formulas.hpp"
+#include "material.h"
 #include "nine_fractals.hpp"
 
 using namespace fractal;
@@ -54,7 +55,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double r = z.Length();
 
 	// trial
-	double minimumR = in.fractalColoring.initialMinimumR;
+	double minimumR = 0.0;
+	if (Mode == calcModeColouring)
+	{
+		minimumR = in.material->fractalColoring.initialMinimumR;
+	}
 
 	double len = 0.0; // Temp: declared here for access outside orbit traps code
 
@@ -294,8 +299,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
+
 				// double len = 0.0;
-				switch (in.fractalColoring.coloringAlgorithm)
+				switch (in.material->fractalColoring.coloringAlgorithm)
 				{
 					case fractalColoring_Standard:
 					{
@@ -309,8 +315,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case fractalColoring_Sphere:
 					{
-						len = fabs(
-							(z - CVector4(pointTransformed, 0.0)).Length() - in.fractalColoring.sphereRadius);
+						len = fabs((z - CVector4(pointTransformed, 0.0)).Length()
+											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
 					case fractalColoring_Cross:
@@ -320,7 +326,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case fractalColoring_Line:
 					{
-						len = fabs(z.Dot(CVector4(in.fractalColoring.lineDirection, 0.0)));
+						len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0)));
 						break;
 					}
 					case fractalColoring_None:
@@ -330,7 +336,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 				}
 				if (fractal->formula != mandelbox
-						|| in.fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+						|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 				{
 					if (len < minimumR) minimumR = len;
 				}
@@ -346,6 +352,23 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					out->orbitTrapR = orbitTrapTotal;
 					break;
+				}
+			}
+			else if (Mode == calcModeCubeOrbitTrap)
+			{
+				if (i >= in.material->textureFractalizeStartIteration)
+				{
+					double size = in.material->textureFractalizeCubeSize;
+					CVector3 zz = z.GetXYZ() - pointTransformed;
+					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
+							&& zz.z < size)
+					{
+						out->colorIndex = (abs(z.x - size) + abs(z.y - size) + abs(z.z - size)) * 100.0;
+						out->iters = i + 1;
+						out->z = z.GetXYZ();
+						return;
+						break;
+					}
 				}
 			}
 		}
@@ -455,7 +478,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		enumColoringFunction coloringFunction = fractals.GetColoringFunction(sequence);
 		out->colorIndex = CalculateColorIndex(fractals.IsHybrid(), r, z, minimumR, extendedAux,
-			in.fractalColoring, coloringFunction, defaultFractal);
+			in.material->fractalColoring, coloringFunction, defaultFractal);
 	}
 	else
 	{
@@ -482,4 +505,6 @@ template void Compute<calcModeDeltaDE2>(
 template void Compute<calcModeColouring>(
 	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
 template void Compute<calcModeOrbitTrap>(
+	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);
+template void Compute<calcModeCubeOrbitTrap>(
 	const cNineFractals &fractals, const sFractalIn &in, sFractalOut *out);

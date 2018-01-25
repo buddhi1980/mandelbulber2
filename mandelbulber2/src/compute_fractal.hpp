@@ -35,12 +35,13 @@
 #ifndef MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 #define MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 
+#include "algebra.hpp"
 #include "calculation_mode.h"
 #include "common_params.hpp"
-#include "fractal_coloring.hpp"
 
 // forward declarations
 class cNineFractals;
+class cMaterial;
 
 struct sFractalIn
 {
@@ -49,15 +50,16 @@ struct sFractalIn
 	int maxN;
 	sCommonParams common;
 	int forcedFormulaIndex;
-	sFractalColoring fractalColoring;
+	const cMaterial *material;
+
 	sFractalIn(CVector3 _point, int _minN, int _maxN, const sCommonParams &_common,
-		int _forcedFormulaIndex, const sFractalColoring &_fractalColoring = sFractalColoring())
+		int _forcedFormulaIndex, const cMaterial *_material = nullptr)
 			: point(_point),
 				minN(_minN),
 				maxN(_maxN),
 				common(_common),
 				forcedFormulaIndex(_forcedFormulaIndex),
-				fractalColoring(_fractalColoring)
+				material(_material)
 	{
 	}
 };

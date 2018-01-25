@@ -1089,8 +1089,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 					tempPoint *= params->formulaScale[formulaIndex];
 				}
 
-				sFractalIn fractIn(tempPoint, 0, params->N * 10, params->common, formulaIndex,
-					input.material->fractalColoring);
+				sFractalIn fractIn(
+					tempPoint, 0, params->N * 10, params->common, formulaIndex, input.material);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
 				int nrCol = floor(fractOut.colorIndex);
@@ -1410,30 +1410,48 @@ sRGBFloat cRenderWorker::TextureShader(
 	const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
-	double texturePixelSize;
+	double texturePixelSize = 0.0;
 	CVector3 textureVectorX, textureVectorY;
-	CVector2<double> texPoint =
-		TextureMapping(input.point, input.normal, objectData, mat, &textureVectorX, &textureVectorY)
-		+ CVector2<double>(0.5, 0.5);
 
-	// mipmapping - calculation of texture pixel size
-	double delta = CalcDelta(input.point);
-	double deltaTexX =
-		(TextureMapping(input.point + textureVectorX * delta, input.normal, objectData, mat)
-			+ CVector2<double>(0.5, 0.5) - texPoint)
-			.Length();
-	double deltaTexY =
-		(TextureMapping(input.point + textureVectorY * delta, input.normal, objectData, mat)
-			+ CVector2<double>(0.5, 0.5) - texPoint)
-			.Length();
+	CVector3 pointFractalized;
 
-	if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
-	if (deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
+	if (mat->textureFractalize)
+	{
+		sFractalIn fractIn(input.point, 0, params->N, params->common, 0, input.material);
+		sFractalOut fractOut;
+		Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
+		pointFractalized = fractOut.z;
+	}
+	else
+	{
+		pointFractalized = input.point;
+	}
 
-	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
-	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
+	CVector2<double> texPoint = TextureMapping(pointFractalized, input.normal, objectData, mat,
+																&textureVectorX, &textureVectorY)
+															+ CVector2<double>(0.5, 0.5);
 
-	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
+	if (!mat->textureFractalize)
+	{
+		// mipmapping - calculation of texture pixel size
+		double delta = CalcDelta(input.point);
+		double deltaTexX =
+			(TextureMapping(pointFractalized + textureVectorX * delta, input.normal, objectData, mat)
+				+ CVector2<double>(0.5, 0.5) - texPoint)
+				.Length();
+		double deltaTexY =
+			(TextureMapping(pointFractalized + textureVectorY * delta, input.normal, objectData, mat)
+				+ CVector2<double>(0.5, 0.5) - texPoint)
+				.Length();
+
+		if (deltaTexX > 0.5) deltaTexX = 1.0 - deltaTexX;
+		if (deltaTexY > 0.5) deltaTexY = 1.0 - deltaTexY;
+
+		deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
+		deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
+
+		texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
+	}
 
 	sRGBFloat tex;
 	switch (texSelect)

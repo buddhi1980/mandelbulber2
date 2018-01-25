@@ -41,6 +41,7 @@
 #include "camera_target.hpp"
 #include "cimage.hpp"
 #include "common_math.h"
+#include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "material.h"
 #include "projection_3d.hpp"
@@ -49,6 +50,7 @@
 #include "scheduler.hpp"
 #include "stereo.h"
 #include "system.hpp"
+#include "texture.hpp"
 
 cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
 	sThreadData *_threadData, sRenderData *_data, cImage *_image)
@@ -967,8 +969,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			// letting colors from textures (before normal map shader)
 			if (shaderInputData.material->colorTexture.IsLoaded())
+			{
 				shaderInputData.texColor =
 					TextureShader(shaderInputData, texture::texColor, shaderInputData.material);
+			}
 			else
 				shaderInputData.texColor = sRGBFloat(1.0, 1.0, 1.0);
 

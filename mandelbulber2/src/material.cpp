@@ -95,8 +95,11 @@ QStringList cMaterial::paramsList = {
 	"diffusion_texture_intensity", "displacement_texture_height", "fractal_coloring_algorithm",
 	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture", "fractal_coloring_extra_color_enabled_false", "metallic",
-	"iridescence_enabled", "iridescence_intensity", "iridescence_subsurface_thickness",
+	"file_normal_map_texture", "texture_fractalize", "texture_fractalize_cube_size",
+	"texture_fractalize_start_iteration",
+
+	"fractal_coloring_extra_color_enabled_false", "metallic", "iridescence_enabled",
+	"iridescence_intensity", "iridescence_subsurface_thickness",
 
 	"fractal_coloring_init_cond_enabled_false", "fractal_coloring_ic_rad_enabled_false",
 	"fractal_coloring_ic_xyz_enabled_false", "fractal_coloring_ic_rad_weight",
@@ -142,6 +145,7 @@ QStringList cMaterial::paramsList = {
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
 {
 	id = _id;
+
 	shading = materialParam->Get<double>(Name("shading", id));
 	specular = materialParam->Get<double>(Name("specular", id));
 	specularWidth = materialParam->Get<double>(Name("specular_width", id));
@@ -194,8 +198,13 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	iridescenceSubsurfaceThickness =
 		materialParam->Get<double>(Name("iridescence_subsurface_thickness", id));
 
-	fractalColoring.coloringAlgorithm = enumFractalColoring(
-		materialParam->Get<int>(Name("fractal_coloring_algorithm", id)));
+	textureFractalize = materialParam->Get<bool>(Name("texture_fractalize", id));
+	textureFractalizeCubeSize = materialParam->Get<double>(Name("texture_fractalize_cube_size", id));
+	textureFractalizeStartIteration =
+		materialParam->Get<int>(Name("texture_fractalize_start_iteration", id));
+
+	fractalColoring.coloringAlgorithm =
+		enumFractalColoring(materialParam->Get<int>(Name("fractal_coloring_algorithm", id)));
 	fractalColoring.sphereRadius =
 		materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
 	fractalColoring.lineDirection =

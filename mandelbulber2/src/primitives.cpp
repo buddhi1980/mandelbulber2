@@ -427,7 +427,7 @@ double cPrimitives::TotalDistance(
 			if (primitive->enable)
 			{
 				double distTemp = primitive->PrimitiveDistance(point);
-				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
+				// distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = primitive->objectId;

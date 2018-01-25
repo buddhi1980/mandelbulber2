@@ -62,6 +62,7 @@ public:
 	static QStringList paramsList;
 
 	int id;
+	int textureFractalizeStartIteration;
 
 	float shading;
 	float specular;
@@ -80,6 +81,7 @@ public:
 	double normalMapTextureHeight;
 	double iridescenceIntensity;
 	double iridescenceSubsurfaceThickness;
+	double textureFractalizeCubeSize;
 
 	sRGB color;
 	sRGB luminosityColor;
@@ -112,6 +114,7 @@ public:
 	bool useNormalMapTexture;
 	bool normalMapTextureFromBumpmap;
 	bool iridescenceEnabled;
+	bool textureFractalize;
 
 	sFractalColoring fractalColoring;
 };

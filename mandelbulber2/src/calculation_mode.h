@@ -45,7 +45,8 @@ enum enumCalculationMode
 	calcModeFake_AO = 2,
 	calcModeDeltaDE1 = 3,
 	calcModeDeltaDE2 = 4,
-	calcModeOrbitTrap = 5
+	calcModeOrbitTrap = 5,
+	calcModeCubeOrbitTrap = 6
 };
 };
 

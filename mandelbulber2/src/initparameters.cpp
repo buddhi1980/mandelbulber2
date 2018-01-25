@@ -1178,6 +1178,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone,
 		paramStandard);
+	par->addParam(cMaterial::Name("texture_fractalize", materialId), false, morphNone, paramStandard);
+	par->addParam(cMaterial::Name("texture_fractalize_cube_size", materialId), 2.0, 1e-15, 1e5,
+		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("texture_fractalize_start_iteration", materialId), 0, 0, 250,
+		morphAkima, paramStandard);
 
 	par->addParam(
 		cMaterial::Name("iridescence_enabled", materialId), false, morphLinear, paramStandard);
@@ -1315,24 +1320,24 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),

@@ -38,6 +38,7 @@
 
 #include "calculate_distance.hpp"
 
+#include <QVector>
 #include "compute_fractal.hpp"
 #include "displacement_map.hpp"
 #include "fractal.h"
@@ -90,7 +91,11 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
 
-		distance = DisplacementMap(distance, in.point, 0, data);
+		CVector3 pointFractalized = in.point;
+		double reduceDisplacement = 1.0;
+		pointFractalized = FractalizeTexture(in.point, data, params, fractals, 0, &reduceDisplacement);
+
+		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
 
 		for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
 		{
@@ -107,7 +112,12 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				double distTemp = CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1)
 													/ params.formulaScale[i + 1];
 
-				distTemp = DisplacementMap(distTemp, in.point, i + 1, data);
+				CVector3 pointFractalized = in.point;
+				double reduceDisplacement = 1.0;
+				pointFractalized =
+					FractalizeTexture(in.point, data, params, fractals, i + 1, &reduceDisplacement);
+
+				distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, data);
 
 				const params::enumBooleanOperator boolOperator = params.booleanOperator[i];
 
@@ -171,7 +181,13 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	else
 	{
 		distance = CalculateDistanceSimple(params, fractals, in, out, -1);
-		distance = DisplacementMap(distance, in.point, 0, data);
+
+		CVector3 pointFractalized = in.point;
+		double reduceDisplacement = 1.0;
+
+		pointFractalized = FractalizeTexture(in.point, data, params, fractals, -1, &reduceDisplacement);
+
+		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
 	}
 
 	distance =
