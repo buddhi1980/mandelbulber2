@@ -367,8 +367,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->iters = i + 1;
 						out->z = z.GetXYZ();
 						return;
-						break;
 					}
+				}
+				if (r > in.material->textureFractalizeCubeSize * 100.0)
+				{
+					out->colorIndex = 0.0;
+					out->iters = i + 1;
+					out->z = z.GetXYZ() / z.Length();
+					return;
 				}
 			}
 		}
