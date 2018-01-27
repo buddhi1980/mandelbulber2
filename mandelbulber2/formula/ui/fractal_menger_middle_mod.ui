@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>menger_middle_mod</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -559,7 +559,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledBy_false">
      <property name="title">
-      <string>&amp;Middle FabsBoxFold </string>
+      <string>&amp;Middle FabsBoxFold</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

@@ -391,7 +391,7 @@ void MyLineEdit::slotRoundValue()
 
 void MyLineEdit::wheelEvent(QWheelEvent *event)
 {
-	if (slider) //if it's edit field with slider (not text)
+	if (slider) // if it's edit field with slider (not text)
 	{
 		double change = event->delta() / 360.0;
 		double multiplier = (1.0 + change / 10.0);

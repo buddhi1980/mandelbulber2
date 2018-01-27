@@ -196,7 +196,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
 				xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
-						* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
+									 * (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 			}
 
 			addValue += xyzValue; // addValue accumulates outputs
@@ -294,9 +294,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorIndex =
 					auxColorValue100																		 // aux.color
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // radius scale
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard)
-								? minR1000
-								: 0.0);
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minR1000 : 0.0);
 				break;
 
 			case coloringFunctionIFS: colorIndex = minR1000; break;
@@ -385,7 +383,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
 						xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
-								* (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
+											 * (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 					}
 
 					addValue += xyzValue; // addValue accumulates outputs
@@ -405,7 +403,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 						if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 						{
 							int iUse = extendedAux.i - fractalColoring.iStartValue;
-								colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
+							colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 						}
 					}
 

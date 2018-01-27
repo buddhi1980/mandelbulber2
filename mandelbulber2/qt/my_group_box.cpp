@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -43,7 +43,7 @@
 #include <qobjectdefs.h>
 #include <qstring.h>
 
-#include "../src/parameters.hpp"
+#include "src/parameters.hpp"
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
 {
@@ -120,7 +120,7 @@ void MyGroupBox::slotToggled(bool on) const
 
 void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
-	QMenu *menu =  new QMenu;;
+	QMenu *menu = new QMenu;
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
 
 	actionResetAllToDefault = menu->addAction(tr("Reset all to default"));
@@ -137,7 +137,7 @@ void MyGroupBox::slotResetAllToDefault()
 	foreach (QWidget *widget, listOfWidgets)
 	{
 		CommonMyWidgetWrapper *mywidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
-		if(mywidget)
+		if (mywidget)
 		{
 			mywidget->resetToDefault();
 		}

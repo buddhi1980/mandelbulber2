@@ -36,8 +36,8 @@
 #define MANDELBULBER2_OPENCL_MATERIAL_CL_H_
 
 #ifndef OPENCL_KERNEL_CODE
-#include "opencl_algebra.h"
 #include "fractal_coloring_cl.hpp"
+#include "opencl_algebra.h"
 
 #include "src/material.h"
 #endif /* OPENCL_KERNEL_CODE */

@@ -159,9 +159,9 @@ function autogenOpenCLFile($copyFile, &$status)
 	// add c++ side includes
 	$cppIncludes = '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'common_params_cl.hpp') $cppIncludes .= '#include "common_params_cl.hpp"' . PHP_EOL;
+	if (basename($copyFile['pathTarget']) != 'fractal_cl.h') $cppIncludes .= '#include "fractal_cl.h"' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'image_adjustments_cl.h') $cppIncludes .= '#include "image_adjustments_cl.h"' . PHP_EOL;
 	if (basename($copyFile['pathTarget']) != 'opencl_algebra.h') $cppIncludes .= '#include "opencl_algebra.h"' . PHP_EOL;
-	if (basename($copyFile['pathTarget']) != 'fractal_cl.h') $cppIncludes .= '#include "fractal_cl.h"' . PHP_EOL;
 	$cppIncludes .= PHP_EOL;
 	$cppIncludes .= '#include "src/common_params.hpp"' . PHP_EOL;
 	$cppIncludes .= '#include "src/fractal.h"' . PHP_EOL;
