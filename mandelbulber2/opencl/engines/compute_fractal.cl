@@ -303,32 +303,32 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef USE_COLORING_MODES
 				switch (fractalColoring->coloringAlgorithm)
 				{
-					case fractalColoringStandard:
+					case fractalColoringCl_Standard:
 					{
 						len = aux.r;
 						break;
 					}
-					case fractalColoringZDotPoint:
+					case fractalColoringCl_ZDotPoint:
 					{
 						len = fabs(dot(z, point4D));
 						break;
 					}
-					case fractalColoringSphere:
+					case fractalColoringCl_Sphere:
 					{
 						len = fabs(length(z - point4D) - fractalColoring->sphereRadius);
 						break;
 					}
-					case fractalColoringCross:
+					case fractalColoringCl_Cross:
 					{
 						len = min(min(fabs(z.x), fabs(z.y)), fabs(z.z));
 						break;
 					}
-					case fractalColoringLine:
+					case fractalColoringCl_Line:
 					{
 						len = fabs(dot(z.xyz, fractalColoring->lineDirection));
 						break;
 					}
-					case fractalColoringNone:
+					case fractalColoringCl_None:
 					{
 						len = aux.r;
 						break;
