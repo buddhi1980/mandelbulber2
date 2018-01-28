@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -176,14 +176,10 @@ void cMaterialEditor::slotChangedSpinBoxPaletteSize(int value) const
 void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 {
 	enumFractalColoring selection = enumFractalColoring(index);
-	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(
-		selection == fractalColoring_Sphere);
-	ui->vect3_fractal_coloring_line_direction_x->setEnabled(
-		selection == fractalColoring_Line);
-	ui->vect3_fractal_coloring_line_direction_y->setEnabled(
-		selection == fractalColoring_Line);
-	ui->vect3_fractal_coloring_line_direction_z->setEnabled(
-		selection == fractalColoring_Line);
+	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == fractalColoring_Sphere);
+	ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == fractalColoring_Line);
+	ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == fractalColoring_Line);
+	ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == fractalColoring_Line);
 }
 
 void cMaterialEditor::slotPressedButtonGetPaletteFromImage()

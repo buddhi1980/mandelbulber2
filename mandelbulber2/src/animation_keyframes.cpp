@@ -39,6 +39,7 @@
  */
 
 #include "animation_keyframes.hpp"
+
 #include "ui_dock_animation.h"
 
 #include "animation_path_data.hpp"

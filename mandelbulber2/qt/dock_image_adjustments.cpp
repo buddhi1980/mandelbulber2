@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -34,8 +34,6 @@
 
 #include "dock_image_adjustments.h"
 
-#include "src/parameters.hpp"
-#include "src/settings.hpp"
 #include "ui_dock_image_adjustments.h"
 
 #include "dock_rendering_engine.h"
@@ -45,8 +43,10 @@
 #include "src/fractparams.hpp"
 #include "src/initparameters.hpp"
 #include "src/interface.hpp"
+#include "src/parameters.hpp"
 #include "src/projection_3d.hpp"
 #include "src/render_window.hpp"
+#include "src/settings.hpp"
 
 cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
