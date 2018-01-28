@@ -2018,6 +2018,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	tempParam.Set("iteration_fog_enable", false);
 	tempParam.Set("fake_lights_enabled", false);
 	tempParam.Set("main_light_volumetric_enabled", false);
+	tempParam.Set("opencl_mode", 0); //disable OpenCL
 	for (int i = 1; i <= 4; i++)
 	{
 		tempParam.Set("aux_light_enabled", i, false);
