@@ -58,6 +58,7 @@ cMaterial::cMaterial()
 	useLuminosityTexture = false;
 	useDisplacementTexture = false;
 	useNormalMapTexture = false;
+	iridescenceEnabled = false;
 	textureMappingType = texture::mappingPlanar;
 	colorTextureIntensity = 0.0;
 	diffusionTextureIntensity = 0.0;
@@ -69,6 +70,9 @@ cMaterial::cMaterial()
 	iridescenceEnabled = false;
 	iridescenceIntensity = 0.0;
 	iridescenceSubsurfaceThickness = 0.0;
+	textureFractalizeStartIteration = 0;
+	textureFractalize = false;
+	textureFractalizeCubeSize = 0.0;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)

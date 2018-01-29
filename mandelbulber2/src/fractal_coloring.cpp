@@ -315,7 +315,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				// removed
 				break;
 
-			case coloringFunctionDonut: colorIndex = auxColorValue100 * 20.0 / extendedAux.i; break;
+			case coloringFunctionDonut: colorIndex = auxColorValue100 * 20.0 / (extendedAux.i + 1); break;
 
 			case coloringFunctionDefault: colorIndex = minR5000; break;
 

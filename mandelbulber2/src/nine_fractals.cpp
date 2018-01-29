@@ -433,8 +433,8 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
 		sequence->formulaWeight[i] = formulaWeight[i];
-		sequence->DEFunctionType[i] = enumDEFunctionTypeCl(DEFunctionType[i]);
-		sequence->DEType[i] = enumDETypeCl(DEType[i]);
+		sequence->DEFunctionType[i] = static_cast<enumDEFunctionTypeCl>(DEFunctionType[i]);
+		sequence->DEType[i] = static_cast<enumDETypeCl>(DEType[i]);
 		sequence->counts[i] = counts[i];
 		sequence->formulaStartIteration[i] = formulaStartIteration[i];
 		sequence->formulaStopIteration[i] = formulaStopIteration[i];
@@ -446,8 +446,8 @@ void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
 		sequence->juliaConstant[i] = toClFloat4(CVector4(juliaConstant[i], 0.0));
 		sequence->constantMultiplier[i] = toClFloat4(CVector4(constantMultiplier[i], 1.0));
 		sequence->initialWAxis[i] = initialWAxis[i];
-		sequence->DEAnalyticFunction[i] = enumDEAnalyticFunctionCl(DEAnalyticFunction[i]);
-		sequence->coloringFunction[i] = enumColoringFunctionCl(coloringFunction[i]);
+		sequence->DEAnalyticFunction[i] = static_cast<enumDEAnalyticFunctionCl>(DEAnalyticFunction[i]);
+		sequence->coloringFunction[i] = static_cast<enumColoringFunctionCl>(coloringFunction[i]);
 	}
 }
 #endif

@@ -78,55 +78,58 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 		totalSum += histData.GetHist(i);
 	}
 
-	long long sum = 0;
-	for (int i = 0; i <= size; i++)
+	if (totalSum > 0)
 	{
-		if (histData.GetHist(i) > maxH)
+		long long sum = 0;
+		for (int i = 0; i <= size; i++)
 		{
-			maxH = histData.GetHist(i);
-			extremeIndex = i;
+			if (histData.GetHist(i) > maxH)
+			{
+				maxH = histData.GetHist(i);
+				extremeIndex = i;
+			}
+			sum += histData.GetHist(i);
+			double prob = double(sum) / totalSum;
+			if (prob < 0.003) minIndex = i + 1;
+			if (prob < 0.997) maxIndex = i + 1;
 		}
-		sum += histData.GetHist(i);
-		double prob = double(sum) / totalSum;
-		if (prob < 0.003) minIndex = i + 1;
-		if (prob < 0.997) maxIndex = i + 1;
-	}
-	double average = double(histData.GetSum()) / totalSum;
+		double average = double(histData.GetSum()) / totalSum;
 
-	if (histData.GetCount() > 0)
-	{
-		int legendWidthP1 = legendWidth + 1;
-		int legendHeightP1 = legendHeight + 1;
-
-		int drawWidth = width() - legendWidthP1;
-		int drawHeight = height() - legendHeightP1;
-
-		// draw background
-		painter.setPen(QPen(backgroundColor));
-		painter.setBrush(QBrush(backgroundColor));
-		painter.drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
-
-		painter.setPen(QPen(barColor));
-		painter.setBrush(QBrush(barColor));
-
-		// draw each column bar
-		for (int i = 0; i < size; i++)
+		if (histData.GetCount() > 0)
 		{
-			int height = double(drawHeight) * max(0L, histData.GetHist(i)) / maxH;
+			int legendWidthP1 = legendWidth + 1;
+			int legendHeightP1 = legendHeight + 1;
 
-			painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
-				floor(1.0 * drawWidth / size), height));
+			int drawWidth = width() - legendWidthP1;
+			int drawHeight = height() - legendHeightP1;
+
+			// draw background
+			painter.setPen(QPen(backgroundColor));
+			painter.setBrush(QBrush(backgroundColor));
+			painter.drawRect(QRect(legendWidthP1, 0, drawWidth, drawHeight));
+
+			painter.setPen(QPen(barColor));
+			painter.setBrush(QBrush(barColor));
+
+			// draw each column bar
+			for (int i = 0; i < size; i++)
+			{
+				int height = double(drawHeight) * max(0L, histData.GetHist(i)) / maxH;
+
+				painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
+					floor(1.0 * drawWidth / size), height));
+			}
+
+			// draw max description
+			painter.setPen(QPen(maxColor));
+			painter.setBrush(QBrush(maxColor));
+
+			painter.drawText(10, legendWidthP1 + 5,
+				QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
+					+ GetShortNumberDisplay(extremeIndex) + QString(", max: ")
+					+ GetShortNumberDisplay(maxIndex) + QString(", avg: ") + QString::number(average));
 		}
-
-		// draw max description
-		painter.setPen(QPen(maxColor));
-		painter.setBrush(QBrush(maxColor));
-
-		painter.drawText(10, legendWidthP1 + 5,
-			QString("min: ") + GetShortNumberDisplay(minIndex) + QString(", mode: ")
-				+ GetShortNumberDisplay(extremeIndex) + QString(", max: ") + GetShortNumberDisplay(maxIndex)
-				+ QString(", avg: ") + QString::number(average));
-	}
+	} // totalSum > 0
 }
 
 QString MyHistogramLabel::GetShortNumberDisplay(int val) const
