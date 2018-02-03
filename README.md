@@ -98,7 +98,7 @@ In addition, there exists an MSVC Solution located in this git package. The solu
 The system requires the QT5 framework in conjuction with LZO for real-time data compression and GSL for scientific resources.
 
 ## Resources
-[Video tutorials] https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql
+[Video tutorials](https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql)
 
 [Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
 
