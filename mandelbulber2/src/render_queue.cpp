@@ -231,6 +231,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 	connect(
 		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 	cRenderingConfiguration config;
 	if (systemData.noGui)

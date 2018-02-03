@@ -524,13 +524,13 @@ void cInterface::StartRender(bool noUndo)
 	cRenderJob *renderJob = new cRenderJob(
 		gPar, gParFractal, mainImage, &stopRequest, renderedImage); // deleted by deleteLater()
 
-	QObject::connect(renderJob,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
-		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
+	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+		mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+	connect(renderJob, SIGNAL(updateStatistics(cStatistics)), mainWindow->ui->widgetDockStatistics,
+		SLOT(slotUpdateStatistics(cStatistics)));
+	connect(renderJob, SIGNAL(fullyRendered(const QString &, const QString &)), systemTray,
 		SLOT(showMessage(const QString &, const QString &)));
+	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -1013,6 +1013,7 @@ void cInterface::RefreshPostEffects()
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					gMainInterface->mainWindow,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&rendererSSAO, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 
 				rendererSSAO.RenderSSAO();
 
@@ -1041,10 +1042,10 @@ void cInterface::RefreshPostEffects()
 				sParamRender params(gPar);
 				// cRenderingConfiguration config;
 				cPostRenderingDOF dof(mainImage);
-				QObject::connect(&dof,
-					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
+				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					gMainInterface->mainWindow,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&dof, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 				dof.Render(screenRegion,
 					params.DOFRadius * (mainImage->GetWidth() + mainImage->GetHeight()) / 2000.0,
@@ -1910,8 +1911,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2018,7 +2018,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 	tempParam.Set("iteration_fog_enable", false);
 	tempParam.Set("fake_lights_enabled", false);
 	tempParam.Set("main_light_volumetric_enabled", false);
-	tempParam.Set("opencl_mode", 0); //disable OpenCL
+	tempParam.Set("opencl_mode", 0); // disable OpenCL
 	for (int i = 1; i <= 4; i++)
 	{
 		tempParam.Set("aux_light_enabled", i, false);

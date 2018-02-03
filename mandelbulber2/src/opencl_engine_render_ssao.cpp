@@ -292,7 +292,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 				WriteLog("image->UpdatePreview()", 2);
 				image->UpdatePreview();
 				WriteLog("image->GetImageWidget()->update()", 2);
-				image->GetImageWidget()->update();
+				emit updateImage();
 			}
 		}
 

@@ -529,24 +529,25 @@ void cQueue::RenderQueue() const
 	cRenderQueue *renderQueue = new cRenderQueue(image, renderedImageWidget);
 	renderQueue->moveToThread(thread);
 	renderQueue->setObjectName("Queue");
-	QObject::connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
-	QObject::connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
+	connect(thread, SIGNAL(started()), renderQueue, SLOT(slotRenderQueue()));
+	connect(renderQueue, SIGNAL(finished()), renderQueue, SLOT(deleteLater()));
 	if (gMainInterface->mainWindow)
 	{
-		QObject::connect(renderQueue,
+		connect(renderQueue,
 			SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->mainWindow,
 			SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
-		QObject::connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
+		connect(renderQueue, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 			gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		connect(renderQueue, SIGNAL(updateImage()), renderedImageWidget, SLOT(update()));
 	}
 	if (gMainInterface->headless)
 	{
-		QObject::connect(renderQueue,
+		connect(renderQueue,
 			SIGNAL(updateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)),
 			gMainInterface->headless,
 			SLOT(slotUpdateProgressAndStatus(QString, QString, double, cProgressText::enumProgressType)));
-		QObject::connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless,
+		connect(renderQueue, SIGNAL(updateStatistics(cStatistics)), gMainInterface->headless,
 			SLOT(slotUpdateStatistics(cStatistics)));
 	}
 	QObject::connect(renderQueue, SIGNAL(finished()), thread, SLOT(quit()));

@@ -166,7 +166,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		{
 			image->ClearImage();
 			image->UpdatePreview();
-			if (hasQWidget) imageWidget->update();
+			if (hasQWidget) emit updateImage();
 		}
 	}
 
@@ -457,6 +457,7 @@ bool cRenderJob::Execute()
 				this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 			connect(renderer, SIGNAL(updateStatistics(cStatistics)), this,
 				SIGNAL(updateStatistics(cStatistics)));
+			connect(renderer, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 			if (renderData->configuration.UseNetRender())
 			{
@@ -501,7 +502,7 @@ bool cRenderJob::Execute()
 			WriteLog("image->UpdatePreview()", 2);
 			image->UpdatePreview();
 			WriteLog("image->GetImageWidget()->update()", 2);
-			image->GetImageWidget()->update();
+			emit updateImage();
 		}
 	}
 
@@ -530,6 +531,7 @@ bool cRenderJob::Execute()
 
 		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
 			SIGNAL(updateStatistics(cStatistics)));
+		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
@@ -557,6 +559,9 @@ bool cRenderJob::Execute()
 							 paramsContainer->Get<int>("opencl_mode"))
 							 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
 			{
+				connect(
+					gOpenCl->openClEngineRenderSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+
 				gOpenCl->openClEngineRenderSSAO->Lock();
 				gOpenCl->openClEngineRenderSSAO->SetParameters(params);
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
@@ -582,6 +587,7 @@ bool cRenderJob::Execute()
 						connect(&rendererSSAO,
 							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+						connect(&rendererSSAO, SIGNAL(updateImage), this, SIGNAL(updateImage()));
 						rendererSSAO.RenderSSAO();
 
 						// refresh image at end
@@ -595,7 +601,7 @@ bool cRenderJob::Execute()
 							WriteLog("image->UpdatePreview()", 2);
 							image->UpdatePreview();
 							WriteLog("image->GetImageWidget()->update()", 2);
-							image->GetImageWidget()->update();
+							emit updateImage();
 						}
 						result = true;
 					}

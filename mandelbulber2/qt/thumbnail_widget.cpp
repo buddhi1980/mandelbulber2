@@ -249,6 +249,7 @@ void cThumbnailWidget::slotRender()
 			new cRenderJob(params, fractal, image, &stopRequest, static_cast<QWidget *>(this));
 		connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 			this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+		connect(renderJob, SIGNAL(updateImage()), this, SLOT(update()));
 
 		renderingTimeTimer.start();
 		renderJob->UseSizeFromImage(true);

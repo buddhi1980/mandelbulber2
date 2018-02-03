@@ -85,8 +85,17 @@ public:
 
 	inline qint64 getImageIndex(const qint64 x, const qint64 y) const
 	{
-		assert(x >= 0 && x < width && y >= 0 && y < height);
-		return qint64(x) + qint64(y) * qint64(width);
+		// assert(x >= 0 && x < width && y >= 0 && y < height);
+		if (x >= 0 && x < width && y >= 0 && y < height)
+		{
+			return qint64(x) + qint64(y) * qint64(width);
+		}
+		else
+		{
+			qCritical() << "getImageIndex out of range"
+									<< "x" << x << "y" << y;
+			return 0;
+		}
 	}
 
 	inline void PutPixelImage(qint64 x, qint64 y, sRGBFloat pixel)

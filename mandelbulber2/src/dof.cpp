@@ -196,7 +196,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		{
 			image->ConvertTo8bit();
 			image->UpdatePreview();
-			image->GetImageWidget()->update();
+			emit updateImage();
 		}
 
 		// 2-nd phase - reversed blur
@@ -341,7 +341,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					image->CompileImage();
 					image->ConvertTo8bit();
 					image->UpdatePreview();
-					image->GetImageWidget()->update();
+					emit updateImage();
 
 					lastRefreshTime = timerRefresh.elapsed() * 20.0;
 					if (lastRefreshTime < 100) lastRefreshTime = 100;

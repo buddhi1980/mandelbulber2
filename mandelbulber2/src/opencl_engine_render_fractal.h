@@ -112,6 +112,7 @@ private:
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateImage();
 	void updateStatistics(cStatistics);
 };
 

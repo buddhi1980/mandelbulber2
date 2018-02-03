@@ -290,7 +290,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 				WriteLog("image->UpdatePreview()", 2);
 				image->UpdatePreview();
 				WriteLog("image->GetImageWidget()->update()", 2);
-				image->GetImageWidget()->update();
+				emit updateImage();
 			}
 		}
 

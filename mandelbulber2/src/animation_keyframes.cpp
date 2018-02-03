@@ -543,6 +543,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 	connect(
 		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob, SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();

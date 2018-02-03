@@ -69,6 +69,7 @@ private:
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateImage();
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_SSAO_H_ */

@@ -228,7 +228,7 @@ bool cRenderer::RenderImage()
 						if (data->configuration.UseImageRefresh())
 						{
 							image->UpdatePreview(&listToRefresh);
-							image->GetImageWidget()->update();
+							emit updateImage();
 						}
 
 						// sending rendered lines to NetRender server
@@ -355,6 +355,7 @@ bool cRenderer::RenderImage()
 				connect(&rendererSSAO,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
 																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
@@ -379,6 +380,7 @@ bool cRenderer::RenderImage()
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+				connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
 																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
@@ -426,7 +428,7 @@ bool cRenderer::RenderImage()
 			WriteLog("image->UpdatePreview()", 2);
 			image->UpdatePreview();
 			WriteLog("image->GetImageWidget()->update()", 2);
-			image->GetImageWidget()->update();
+			emit updateImage();
 		}
 
 		WriteLog("Rendering finished", 2);

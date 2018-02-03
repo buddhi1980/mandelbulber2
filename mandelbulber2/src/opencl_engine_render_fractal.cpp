@@ -640,7 +640,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								{
 									image->ConvertTo8bit(&lastRenderedRects);
 									image->UpdatePreview(&lastRenderedRects);
-									image->GetImageWidget()->update();
+									emit updateImage();
 								}
 								lastRenderedRects.clear();
 								optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
@@ -768,7 +768,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						{
 							image->ConvertTo8bit(&lastRenderedRects);
 							image->UpdatePreview(&lastRenderedRects);
-							image->GetImageWidget()->update();
+							emit updateImage();
 						}
 						lastRenderedRects.clear();
 					}
@@ -819,7 +819,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 			WriteLog("image->UpdatePreview()", 2);
 			image->UpdatePreview();
 			WriteLog("image->GetImageWidget()->update()", 2);
-			image->GetImageWidget()->update();
+			emit updateImage();
 		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
@@ -901,7 +901,7 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 	{
 		image->ConvertTo8bit(&currentRenderededLines);
 		image->UpdatePreview(&currentRenderededLines);
-		image->GetImageWidget()->update();
+		emit updateImage();
 	}
 }
 

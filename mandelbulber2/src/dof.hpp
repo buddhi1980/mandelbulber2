@@ -60,5 +60,6 @@ public:
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
+	void updateImage();
 };
 #endif /* MANDELBULBER2_SRC_DOF_HPP_ */

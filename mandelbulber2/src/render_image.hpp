@@ -77,6 +77,7 @@ signals:
 	void SendToDoList(int clientIndex, QList<int> done);
 	void StopAllClients();
 	void NotifyClientStatus();
+	void updateImage();
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_IMAGE_HPP_ */
