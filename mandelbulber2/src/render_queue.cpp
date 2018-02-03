@@ -221,7 +221,7 @@ bool cRenderQueue::RenderStill(const cQueue::structQueueItem &queueItem)
 	ImageFileSave::enumImageFileType imageFormat =
 		ImageFileSave::enumImageFileType(gPar->Get<int>("queue_image_format"));
 	QString extension = ImageFileSave::ImageFileExtension(imageFormat);
-	QString saveFilename = QFileInfo(queueItem.filename).baseName() + extension;
+	QString saveFilename = QFileInfo(queueItem.filename).baseName() + "." + extension;
 
 	// setup of rendering engine
 	cRenderJob *renderJob =
