@@ -90,12 +90,15 @@ struct sPrimitiveSphere : sPrimitiveBasic
 struct sPrimitiveWater : sPrimitiveBasic
 {
 	bool empty;
-	double amplitude;
+	bool waveFromObjectsEnable;
+	double relativeAmplitude;
 	double animSpeed;
 	double length;
+	double waveFromObjectsRelativeAmplitude;
 	int iterations;
 	int animFrame;
 	double PrimitiveDistance(CVector3 _point) const override;
+	double PrimitiveDistanceWater(CVector3 _point, double distanceFromAnother) const;
 };
 
 struct sPrimitiveCone : sPrimitiveBasic

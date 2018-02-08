@@ -1084,11 +1084,16 @@ void InitPrimitiveParams(
 				QString(primitiveName) + "_repeat", CVector3(0.0, 0.0, 0.0), morphLinear, paramStandard);
 			break;
 		case fractal::objWater:
-			par->addParam(QString(primitiveName) + "_amplitude", 0.02, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_relative_amplitude", 0.2, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_length", 0.1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_iterations", 5, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
+			par->addParam(
+				QString(primitiveName) + "_wave_from_objects_enable", false, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_wave_from_objects_relative_amplitude", 0.5,
+				morphAkima, paramStandard);
+
 			break;
 		case fractal::objTorus:
 			par->addParam(QString(primitiveName) + "_radius", 1.0, morphAkima, paramStandard);
@@ -1320,24 +1325,24 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
@@ -1398,11 +1403,13 @@ void DeletePrimitiveParams(
 			par->DeleteParameter(QString(primitiveName) + "_repeat");
 			break;
 		case fractal::objWater:
-			par->DeleteParameter(QString(primitiveName) + "_amplitude");
+			par->DeleteParameter(QString(primitiveName) + "_relative_amplitude");
 			par->DeleteParameter(QString(primitiveName) + "_length");
 			par->DeleteParameter(QString(primitiveName) + "_anim_speed");
 			par->DeleteParameter(QString(primitiveName) + "_iterations");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
+			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_enable");
+			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_relative_amplitude");
 			break;
 
 		default: break;

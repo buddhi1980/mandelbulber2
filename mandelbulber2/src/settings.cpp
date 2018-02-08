@@ -872,6 +872,14 @@ void cSettings::Compatibility(QString &name, QString &value) const
 	{
 		name.replace("gpu_", "opencl_");
 	}
+
+	if (fileVersion < 2.13)
+	{
+		if (name.contains("primitive_water"))
+		{
+			name.replace("amplitude", "relative_amplitude");
+		}
+	}
 }
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)
@@ -925,6 +933,16 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 		if (par->Get<bool>("iteration_fog_enable"))
 		{
 			par->Set("iteration_fog_brightness_boost", 100.0);
+		}
+		for (int i = 0; i < listOfLoadedPrimitives.size(); i++)
+		{
+			if (listOfLoadedPrimitives[i].contains("primitive_water"))
+			{
+				double relativeAmplitude =
+					par->Get<double>(listOfLoadedPrimitives[i] + "_relative_amplitude")
+					/ par->Get<double>(listOfLoadedPrimitives[i] + "_length");
+				par->Set(listOfLoadedPrimitives[i] + "_relative_amplitude", relativeAmplitude);
+			}
 		}
 	}
 }
