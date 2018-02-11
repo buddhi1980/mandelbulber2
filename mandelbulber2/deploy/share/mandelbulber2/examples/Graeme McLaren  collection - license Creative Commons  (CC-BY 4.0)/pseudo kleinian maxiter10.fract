@@ -1,31 +1,33 @@
 # Mandelbulber settings file
-# version 2.09
+# version 2.13
 # only modified parameters
 [description]
 The detail and shape of the fractal is sensitive to the maximum number of fractal iterations (maxiter) on the render engine tab. This is set at 10 in this example. Try changing to 6 to see the difference.
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 8;
-camera 2.55108539409358 0.4716725045471585 4.519174686383655;
-camera_distance_to_target 0.4;
-camera_rotation -45.56650547288799 49.53928612214078 -177.4906161957255;
-camera_top 0.5121233934769476 0.563410381721448 -0.6483042276756708;
-DE_factor 0.7;
+camera 2,55108539409358 0,4716725045471585 4,519174686383655;
+camera_distance_to_target 0,4;
+camera_rotation -45,56650547288799 49,53928612214078 -177,4906161957255;
+camera_top 0,5121233934769476 0,563410381721448 -0,6483042276756708;
+DE_factor 0,7;
 flight_last_to_render 0;
 formula_1 103;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
-main_light_alpha 30.47;
-main_light_beta -26.57;
+main_light_alpha 30,47;
+main_light_beta -26,57;
 mat1_is_defined true;
-mat1_specular 0.6;
-mat1_specular_width 0.3;
+mat1_specular 0,6;
+mat1_specular_width 0,3;
 mat1_surface_color_palette aa0000 698403 000000 f5bd22 a8aa35 00007f 00007f 00007f 00007f aba53c;
 N 10;
-target 2.73643529786029 0.6533929241616174 4.823515124493375;
-volumetric_fog_colour_1_distance 0.06259255132932059;
-volumetric_fog_colour_2_distance 0.1251851026586412;
-volumetric_fog_density 0.3;
-volumetric_fog_distance_factor 0.1251851026586412;
+target 2,73643529786029 0,6533929241616174 4,823515124493375;
+volumetric_fog_colour_1_distance 0,06259255132932059;
+volumetric_fog_colour_2_distance 0,1251851026586412;
+volumetric_fog_density 0,3;
+volumetric_fog_distance_factor 0,1251851026586412;
 volumetric_fog_enabled true;
 [fractal_1]
 transf_function_enabledR_false true;

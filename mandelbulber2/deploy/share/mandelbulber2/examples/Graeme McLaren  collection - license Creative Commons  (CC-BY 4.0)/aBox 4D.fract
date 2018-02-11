@@ -1,37 +1,38 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 5;
-camera -2.688454114643644 -0.0809954124279572 0.1348928953166382;
-camera_distance_to_target 0.05192518288427694;
-camera_rotation 39.32610352773934 -16.64497658166281 4.858114304994661;
-camera_top -0.1153638500542965 0.2744504643921969 0.9546560242807653;
-DE_factor 0.9;
+camera -2,688454114643644 -0,0809954124279572 0,1348928953166382;
+camera_distance_to_target 0,05192518288427694;
+camera_rotation 39,32610352773934 -16,64497658166281 4,858114304994661;
+camera_top -0,1153638500542965 0,2744504643921969 0,9546560242807653;
+DE_factor 0,9;
 flight_last_to_render 0;
 formula_1 116;
-fractal_constant_factor 0.9 0.9 0.9;
+fractal_constant_factor 0,9 0,9 0,9;
 hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
-mat1_coloring_palette_offset 3.7;
+mat1_coloring_palette_offset 3,7;
 mat1_is_defined true;
-mat1_specular 0.8;
-mat1_specular_width 0.8;
-target -2.719981978542874 -0.04251167475023735 0.1200194172476151;
-view_distance_max 26.71764755369485;
+mat1_specular 0,8;
+mat1_specular_width 0,8;
+target -2,719981978542874 -0,04251167475023735 0,1200194172476151;
+view_distance_max 26,71764755369485;
 [fractal_1]
 Cpara_enabledParab_false true;
-Cpara_parab_offset0 -2.1;
-mandelbox_color_R 0.8;
-mandelbox_scale -1.2;
-mandelbox_vary_minr 0.25;
-mandelbox_vary_rpower 0.9;
-transf_addition_constant_0000 0.5 -0.099999 0 -0.2;
+Cpara_parab_offset0 -2,1;
+mandelbox_color_R 0,8;
+mandelbox_scale -1,2;
+mandelbox_vary_minr 0,25;
+mandelbox_vary_rpower 0,9;
+transf_addition_constant_0000 0,5 -0,099999 0 -0,2;
 transf_function_enabledR_false true;
-transf_maxR2_1 0.95;
-transf_minR2_p25 0.06;
-transf_offset_1111 1.099999 1 -1e-06 1.8;
+transf_maxR2_1 0,95;
+transf_minR2_p25 0,06;
+transf_offset_1111 1,099999 1 -1e-06 1,8;
 transf_rotation44a -4 6 -8;
 transf_rotation44b 8 3 -4;
-

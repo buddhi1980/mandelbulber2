@@ -1,19 +1,19 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [description]
 Collatz fractals are generally used to deform a "main" fractal to get interesting/different effects. 
 [main_parameters]
-ambient_occlusion 0.7;
+ambient_occlusion 0,7;
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 10;
 background_color_1 0000 aa00 ff00;
 background_color_2 0000 aa00 ff00;
 background_color_3 0000 aa00 ff00;
-camera 0.6792449399758489 3.103125521081735 -4.156057402984407;
+camera 0,6792449399758489 3,103125521081735 -4,156057402984407;
 camera_distance_to_target 1;
-camera_rotation 47.50061655300237 81.20191332147779 136.5701327597058;
-camera_top -0.06468809958800775 0.9917042811595589 -0.111076858532705;
+camera_rotation 47,50061655300237 81,20191332147779 136,5701327597058;
+camera_top -0,06468809958800775 0,9917042811595589 -0,111076858532705;
 dont_add_c_constant_1 true;
 flight_last_to_render 0;
 formula_1 89;
@@ -23,33 +23,34 @@ formula_start_iteration_1 4;
 formula_stop_iteration_1 5;
 fractal_rotation 0 90 0;
 hybrid_fractal_enable true;
-julia_c 1.57147767886135 -1.70968380791561 -1.718926517215805;
+image_height 1200;
+image_width 1600;
+julia_c 1,57147767886135 -1,70968380791561 -1,718926517215805;
 julia_mode true;
 keyframe_last_to_render 0;
-main_light_alpha 3.18;
-main_light_beta -2.52;
-mat1_coloring_palette_offset 34.96;
+main_light_alpha 3,18;
+main_light_beta -2,52;
+mat1_coloring_palette_offset 34,96;
 mat1_coloring_palette_size 255;
 mat1_coloring_random_seed 311517;
 mat1_fractal_coloring_algorithm 3;
 mat1_is_defined true;
-mat1_specular 0.6;
+mat1_specular 0,6;
 mat1_surface_color_palette 25ddd7 5f639d 79ff98 a5adf3 a77d7d e978e0 e9ea6d c69b5d b21031 000007 82f661 0ce1b7 fdef57 827aa0 00c46c be1c00 00b600 ad0031 da7378 bc8f1a a8fff5 01a9db cf8dcf f9359a 7d6d00 68cf40 1f00a2 1f192e 94abac 04a3b5 cfc462 00cc55 4ae436 77550a c8de9e be9baa fff387 33619f e63a63 e32b7c fc4689 8248d8 06cc7b a56dcb a0edff c3aad5 1c3fbb ff5374 468928 45db06 ffff46 007330 ff4297 89259a 469d82 fbff83 8b151a b5ed63 16ced2 5d5fc9 47b737 006f00 002300 3fff3d c40059 2f6f8a b90087 9041c6 bd308c 9bdfa5 59ada0 11535f a42718 7d9a45 e9ff44 48befc 2b82ba 56fda5 62f4ac 4a9fb8 723d34 72131d ff287f e361ff 000c88 ffa5d6 f1ffec 6f5f9a 7c7c00 aa0000 48278a 11adb9 4d6d42 efd9ed b47b11 23be2f a33e89 78a8ff ce6202 477dfd ff868b 000045 ffab3e 2e931e 0960a0 5f0524 ec74b7 1e4d00 229833 f65a9d 9578b6 920003 098200 f83e13 8cdc80 a20000 ffff73 9c98d3 c52de8 366cbe 271321 00137e cb0871 c3342a 0c059e bd4a3d 542f83 a24ccb 6e5869 684ac8 9c6500 bfc878 4c0738 955c56 1650eb 47ae44 06eaa4 945551 59d2ae 1085ad 7b3ff9 b8ff6e d291ff 7365b0 994000 259ac4 ccd342 87973d 9f00af 71b58f ff92d1 36bbc2 00aa45 667fa7 48ac14 ff4a53 937f00 57ff39 000009 b1757f 61a299 c16e48 895200 50ffa0 9f5bff 1f7560 40bc00 7e00c5 6bffa1 8c7194 007b00 dea663 1a2bef ea1acc 8bdfee 00ca4d 11f999 bc72a2 ff518d 899aee b9a45a 6d5e11 c0b148 9b3747 82a239 9a24aa 7800bc 11a27a ad004b 005298 8d736d ad0052 99ff8c c63ef4 8ee7ed 276800 da3e8b 10caa4 45adbb 5a02be c1e212 00645d c6772c d01000 59ffff aea5aa a26c89 daeb19 7fff7f d0ad28 00b946 420018 c80063 eb1645 18817e e48de7 32d82e 858736 28ff3b 4d9f61 2a2380 75cf7b a4c008 16b710 1f0000 64b051 a0548a 0049c2 8e9b1a 303ae4 614cff f1957f 7e265d ab5763 1ec30c ff3262 41b967 6d032f 00976d f4276d 005800 00ad1e 657b5b 29339b 30088e 00c362 69c9ff e1fff2 bf4701 b9ab00 1f358a 79db0c be7fad 2feb7b 160095;
 SSAO_random_mode true;
-target 0.5664751687807198 3.206457745502205 -3.167823913316649;
-view_distance_max 85.9236919022332;
+target 0,5664751687807198 3,206457745502205 -3,167823913316649;
+view_distance_max 85,9236919022332;
 [fractal_1]
-mandelbox_folding_min_radius 0.1;
-transf_constant_multiplier_111 1 1 0.1;
+mandelbox_folding_min_radius 0,1;
+transf_constant_multiplier_111 1 1 0,1;
 transf_scale_1 0;
-transf_scale_2 1.5;
-transf_scale_4 2.7;
+transf_scale_2 1,5;
+transf_scale_4 2,7;
 [fractal_2]
-mandelbox_color 0.03 0.15 0.07000000000000001;
-mandelbox_color_Sp1 0.3;
-mandelbox_color_Sp2 1.2;
-mandelbox_folding_min_radius 0.1;
+mandelbox_color 0,03 0,15 0,07000000000000001;
+mandelbox_color_Sp1 0,3;
+mandelbox_color_Sp2 1,2;
+mandelbox_folding_min_radius 0,1;
 mandelbox_main_rotation_enabled true;
-mandelbox_rotation_main 3.37 -7.64 -3.58;
-mandelbox_scale -1.5;
-
+mandelbox_rotation_main 3,37 -7,64 -3,58;
+mandelbox_scale -1,5;

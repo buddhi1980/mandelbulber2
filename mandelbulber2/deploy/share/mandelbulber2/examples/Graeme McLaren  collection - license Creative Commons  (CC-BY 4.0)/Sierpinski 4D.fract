@@ -1,35 +1,37 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-background_brightness 0.17;
+background_brightness 0,17;
 background_color_1 0000 5500 0000;
 background_color_3 0000 5500 0000;
-camera 0.00074058451191918 -4.577788585513363 0.2626512195314771;
-camera_distance_to_target 3.031371269226074;
-camera_rotation -0.0943139551660403 1.768365317086406 0;
-camera_top -5.079647008810897e-05 -0.03085885557851574 0.9995237508194105;
-DE_factor 0.5;
+camera 0,00074058451191918 -4,577788585513363 0,2626512195314771;
+camera_distance_to_target 3,031371269226074;
+camera_rotation -0,0943139551660403 1,768365317086406 0;
+camera_top -5,079647008810897e-05 -0,03085885557851574 0,9995237508194105;
+DE_factor 0,5;
 detail_level 2;
 flight_last_to_render 0;
 formula_1 109;
 fractal_rotation 0 135 0;
 hybrid_fractal_enable true;
-initial_waxis -0.6;
+image_height 1200;
+image_width 1600;
+initial_waxis -0,6;
 keyframe_last_to_render 0;
-main_light_alpha 26.57;
-main_light_beta 18.43;
-mat1_coloring_palette_offset 3.57;
+main_light_alpha 26,57;
+main_light_beta 18,43;
+mat1_coloring_palette_offset 3,57;
 mat1_is_defined true;
 mat1_surface_color_palette 0000ff 698403 aa0000 aa0000 0b5e87 94aa98 8daa9b 3b9fee baa52b aba53c;
 raytraced_reflections true;
-target 0.005728112867779658 -1.54786510932915 0.3561959944682488;
+target 0,005728112867779658 -1,54786510932915 0,3561959944682488;
 textured_background_map_type 2;
-view_distance_max 23.63321698000266;
+view_distance_max 23,63321698000266;
 [fractal_1]
-analyticDE_scale_1 1.1;
+analyticDE_scale_1 1,1;
 transf_addition_constant_0000 -1 -1 -1 -1;
 transf_addition_constant_111d5 1 1 1 1;
-transf_offset_1111 2.099999 1 1 1;
+transf_offset_1111 2,099999 1 1 1;
 transf_start_iterations_M 250;

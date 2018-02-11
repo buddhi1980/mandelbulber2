@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.09
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -8,49 +8,42 @@ background_color_1 0000 0000 0000;
 background_color_2 ff00 0000 0000;
 background_color_3 0000 0000 0000;
 basic_fog_color e800 ef00 ff00;
-basic_fog_visibility 0.005232270807027817;
-camera -0.7448433575943035 1.191878964613497 1.026138647171325;
-camera_distance_to_target 1.715743469731467;
-camera_rotation -159.5475673835535 -34.24997750065049 22.93002043607331;
-camera_top -0.1839260199157328 -0.6217983114813892 0.7612739842112372;
-DE_factor 1.6875;
-DOF_focus 0.001140967360697687;
-DOF_radius 5.82;
+basic_fog_visibility 0,005232270807027817;
+camera -0,7448433575943035 1,191878964613497 1,026138647171325;
+camera_distance_to_target 1,715743469731467;
+camera_rotation -159,5475673835535 -34,24997750065049 22,93002043607331;
+camera_top -0,1839260199157328 -0,6217983114813892 0,7612739842112372;
+DE_factor 1,6875;
+DOF_focus 0,001140967360697687;
+DOF_radius 5,82;
 file_background ;
 flight_last_to_render 0;
-flight_movement_speed_vector 0.002848833662388403 0.0006115702771928073 0.00071024891818522;
-flight_rotation_speed_vector 0.03826386978886872 -0.02975585039964247 -4.581700805831455e-21;
-flight_speed 0.02357947691;
+flight_movement_speed_vector 0,002848833662388403 0,0006115702771928073 0,00071024891818522;
+flight_rotation_speed_vector 0,03826386978886872 -0,02975585039964247 -4,581700805831455e-21;
+flight_speed 0,02357947691;
 formula_1 79;
 formula_2 61;
 formula_iterations_2 250;
 formula_start_iteration_1 2;
 formula_start_iteration_2 2;
 formula_start_iteration_3 1;
-formula_weight_1 0.7;
+formula_weight_1 0,7;
 frames_per_keyframe 500;
 glow_enabled false;
 hybrid_fractal_enable true;
-image_height 384;
-image_width 768;
+image_height 1080;
+image_width 2160;
 keyframe_last_to_render 0;
 mat1_coloring_palette_size 3;
 mat1_coloring_random_seed 400411;
-mat1_coloring_speed 3.4599;
+mat1_coloring_speed 3,4599;
 mat1_fractal_coloring_algorithm 3;
 mat1_fractal_coloring_line_direction 1 1 1;
+mat1_is_defined true;
 mat1_surface_color_palette 97a74b cc7239 997100;
-perspective_type 2;
+perspective_type equirectangular;
 stereo_mode 1;
-target -0.2492765476987707 -0.1369367237435357 0.06051032466190125;
-view_distance_max 7.242910633426213;
-[fractal_1]
+target -0,2492765476987707 -0,1369367237435357 0,06051032466190125;
+view_distance_max 7,242910633426213;
 [fractal_2]
-transf_scale_3 2.529974;
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
+transf_scale_3 2,529974;

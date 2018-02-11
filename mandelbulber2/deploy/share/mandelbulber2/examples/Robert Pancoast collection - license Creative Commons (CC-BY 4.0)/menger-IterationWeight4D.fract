@@ -1,35 +1,38 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-camera -0.3805012802444331 -1.125299651213798 -0.3949551915628481;
-camera_distance_to_target 0.1572653949260713;
-camera_rotation 4.826974895275915 -38.68486069000166 0;
-camera_top -0.0525949294559719 0.6228196373485755 0.7805955884633926;
+camera -0,3805012802444331 -1,125299651213798 -0,3949551915628481;
+camera_distance_to_target 0,1572653949260713;
+camera_rotation 4,826974895275915 -38,68486069000166 0;
+camera_top -0,0525949294559719 0,6228196373485755 0,7805955884633926;
+flight_last_to_render 0;
 formula_1 7;
 formula_2 1041;
 formula_start_iteration_2 2;
 hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
 mat1_coloring_random_seed 299638;
 mat1_is_defined true;
 mat1_surface_color_palette 5debfe ffcba3 001255 96ffa7 ada569 139c05 991fc0 19d170 a25ca1 664aa9;
 raytraced_reflections true;
-target -0.3908312206257401 -1.002974366463605 -0.4932517911162209;
-view_distance_max 13.57121555822307;
+target -0,3908312206257401 -1,002974366463605 -0,4932517911162209;
+view_distance_max 13,57121555822307;
 [fractal_2]
-analyticDE_scale_1 0.37694;
-mandelbox_folding_fixed_radius 1.261062;
-mandelbox_folding_min_radius 0.044248;
-transf_addition_constant_0000 3e-05 0.06651899999999999 0.554334 2e-05;
+analyticDE_scale_1 0,37694;
+mandelbox_folding_fixed_radius 1,261062;
+mandelbox_folding_min_radius 0,044248;
+transf_addition_constant_0000 3e-05 0,06651899999999999 0,554334 2e-05;
 transf_function_enabledAx_false true;
 transf_int_A 1;
 transf_int_B 3;
-transf_offset -0.123967;
-transf_offset_0 0.206612;
-transf_offset_1111 0.99999 0.9999980000000001 0.99999 1.00001;
-transf_offsetA_1111 1.000038 1.00001 1.00001 1.000029;
-transf_rotation44a 14.04 16.86 20.07;
-transf_rotation44b 26.57 43.15 0;
-transf_scale 1.033333;
+transf_offset -0,123967;
+transf_offset_0 0,206612;
+transf_offset_1111 0,99999 0,9999980000000001 0,99999 1,00001;
+transf_offsetA_1111 1,000038 1,00001 1,00001 1,000029;
+transf_rotation44a 14,04 16,86 20,07;
+transf_rotation44b 26,57 43,15 0;
+transf_scale 1,033333;

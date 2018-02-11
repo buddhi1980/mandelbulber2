@@ -1,53 +1,53 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [description]
 This settings file is an example of zooming to the maximum limit.
 To view this image DO NOT have OpenCL enabled.
 [main_parameters]
-ambient_occlusion 0.7;
+ambient_occlusion 0,7;
 ambient_occlusion_enabled true;
-camera -1.870495521807231 -19.63777089259467 1.081369279299817;
-camera_distance_to_target 2.371096588879242e-09;
-camera_rotation -26.02845637769068 8.059032333254802 -69.1658043800532;
-camera_top -0.8617016293934919 0.3653204107992175 0.3521523808723888;
-DE_factor 0.7;
-detail_level 0.5;
+camera -1,870495521807231 -19,63777089259467 1,081369279299817;
+camera_distance_to_target 2,371096588879242e-09;
+camera_rotation -26,02845637769068 8,059032333254802 -69,1658043800532;
+camera_top -0,8617016293934919 0,3653204107992175 0,3521523808723888;
+DE_factor 0,7;
+detail_level 0,5;
 flight_last_to_render 0;
 formula_1 117;
 hybrid_fractal_enable true;
-image_height 2400;
-image_width 3200;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
-main_light_alpha -47.29;
-main_light_beta 6.71;
+main_light_alpha -47,29;
+main_light_beta 6,71;
 main_light_colour f100 f100 f100;
 main_light_visibility_size 0;
-mat1_coloring_palette_offset 51.24;
+mat1_coloring_palette_offset 51,24;
 mat1_coloring_palette_size 255;
 mat1_coloring_random_seed 93961;
 mat1_coloring_speed 4;
 mat1_is_defined true;
-mat1_specular 0.8;
-mat1_specular_width 0.8;
+mat1_specular 0,8;
+mat1_specular_width 0,8;
 mat1_surface_color_palette 04dc3b 728800 c599ff cce53a a2a684 75a318 57b762 e5d79f 7d9041 d87e81 490d0c 2d2fad 003514 e1be51 a0c1cd 654b9a 0071a7 b97200 34fa85 cbc8b2 d935f7 00058e 597585 6487d1 347a00 e0acc2 9a702a 080f00 f1c3e0 00b58a 538b52 9664c6 bf9c0e ffffbc 9286ff 8fde2d ca8aff a301da 714a85 ab55be 18c400 da4eff ff4eda b941b0 3e794a ffd6bb 572b6f b03700 b86168 c873bb ff31e1 0df688 db72d8 8f9787 18572c f0f953 155cd9 b6703c 0def40 00e061 34c994 00005d ff6be6 1e000b 00802b ffc5ff ffc6de e47f5b f33d6b ffffff 9a0601 81ce57 263cce 8cffff 2200c8 ffff55 0368a0 141500 589c59 6cd636 969608 1cbe29 f0585b f445c5 66ff93 ebb1ff 006601 4354c1 0054c9 bd2bff ab0000 0f00be ad16d4 e9129e 9d8062 00d87f 436719 3a45ff 607440 024253 560028 c419fb de5b00 00753c 3b1e00 2ac61d 610000 b0ffd3 080075 351f56 2e722e 8c7cff 54ef60 39cec2 00e685 85ffd0 8bd9a8 601c1f 38c495 a3105d c5687d c9565b 9eac90 562073 ce5c3d 073925 4446f1 cd65eb 25e210 0dd184 ff3d44 583d8b 93c707 5f3925 947bfd f164c4 225051 78ce44 443fcf a1aba9 0f873e 2386ff 6631b5 402c9c 5d9aaa 0e8d4f d2005d 93b346 2ad85a ff35c8 cf0043 607060 6a4470 57a360 ba24d1 3d5502 11db59 214ec2 583faf ca7e9b adff8b adc1ff 91ff47 90917e 8c7541 4c651e 101640 1e8b77 257820 e4671b 5b57ff f9a53d 830c00 d85a62 ffffc7 d3413c aa43d0 37ffe6 799a00 8a5542 4d142d 8a4898 da4c9c 809b46 54dd6e 1a4adc 94a8a8 eb9675 d33700 ffc757 8762ff ffff6d 663371 460052 2b246e 40351c b24f48 257e30 e2dbf4 c73dc9 f1a40e 6c3098 e40309 a56b6c ffffe2 c3b0ff b5a8bd dce9c3 ffff80 5db825 0289ce 0d0036 541eca 5e462f ff13ad bf0e26 84eaa1 a93d31 0b0057 8673c0 27ab00 9b4ea8 9bc2cf 192657 be91ff f7b6ad 2df8e5 ac339f c71644 86ff61 ff56ff 00bd0f 2b091c 5c62b1 343d71 1a5a00 dc29f3 c34fd3 c4dbdf 5c727e 3c7200 003400 c6c4d2 a49d1e 0d356a 7b6f0d f94cdc 55961d bba272 9af8fe 5ec400 87ff6b 2131be d4109b b6dcde;
 N 14;
-target -1.870495520777028 -19.6377708904851 1.081369279632229;
-view_distance_max 130.8605690676917;
-volumetric_fog_density 0.251189;
+target -1,870495520777028 -19,6377708904851 1,081369279632229;
+view_distance_max 130,8605690676917;
+volumetric_fog_density 0,251189;
 [fractal_1]
-analyticDE_scale_1 0.6;
-mandelbox_folding_fixed_radius 0.163613;
-transf_addition_constant_0777 0.5 0.7 0.3;
+analyticDE_scale_1 0,6;
+mandelbox_folding_fixed_radius 0,163613;
+transf_addition_constant_0777 0,5 0,7 0,3;
 transf_function_enabledAy_false true;
 transf_function_enabledF_false true;
 transf_function_enabledx_false true;
-transf_minimum_radius_05 0.55;
-transf_minimum_radius_neg1 -0.1;
-transf_offsetA_000 0.6 0.6 0.7;
-transf_scale3D_000 2.7 2 2.4;
-transf_scale3D_333 2.6 3 3;
-transf_scale_2 0.9999999999999992;
+transf_minimum_radius_05 0,55;
+transf_minimum_radius_neg1 -0,1;
+transf_offsetA_000 0,6 0,6 0,7;
+transf_scale3D_000 2,7 2 2,4;
+transf_scale3D_333 2,6 3 3;
+transf_scale_2 0,9999999999999992;
 transf_start_iterations_D 3;
 transf_start_iterations_P 1;
 transf_start_iterations_S 1;
@@ -56,4 +56,3 @@ transf_stop_iterations_C 18;
 transf_stop_iterations_P1 3;
 transf_stop_iterationsT_1 3;
 transf_stop_iterationsTM_1 4;
-

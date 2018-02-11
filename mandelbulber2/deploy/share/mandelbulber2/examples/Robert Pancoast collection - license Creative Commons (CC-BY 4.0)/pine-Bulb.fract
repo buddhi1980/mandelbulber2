@@ -1,12 +1,14 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
-camera 0.6965959585244909 -1.580821861761986 0.5198678658524446;
-camera_distance_to_target 0.3059921860694872;
-camera_rotation 35.81646214232724 -10.45168527070513 0;
-camera_top -0.1061572944419564 0.1471016159179678 0.9834082282709895;
+camera 0,6965959585244909 -1,580821861761986 0,5198678658524446;
+camera_distance_to_target 0,3059921860694872;
+camera_rotation 35,81646214232724 -10,45168527070513 0;
+camera_top -0,1061572944419564 0,1471016159179678 0,9834082282709895;
+DE_factor 0,84375;
+flight_last_to_render 0;
 formula_2 1022;
 formula_3 1046;
 formula_4 1058;
@@ -16,18 +18,20 @@ formula_7 1003;
 formula_8 1004;
 formula_9 1001;
 hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
 mat1_coloring_random_seed 209716;
 mat1_is_defined true;
 mat1_surface_color_palette a5994b a0ffff 3a5c08 4fab85 749416 bc8b84 b98da1 629746 223959 f6800b;
 raytraced_reflections true;
-target 0.5205031670021163 -1.336810987892076 0.4643589463648158;
+target 0,5205031670021163 -1,336810987892076 0,4643589463648158;
 [fractal_6]
-transf_offset 0.3;
-transf_scale 1.2;
+transf_offset 0,3;
+transf_scale 1,2;
 [fractal_7]
-transf_scale 1.3;
+transf_scale 1,3;
 [fractal_8]
-transf_scale3D_111 1.4 1.7 2.1;
+transf_scale3D_111 1,4 1,7 2,1;
 [fractal_9]
-transf_addition_constantA_000 0.4 0.7 -0.2;
+transf_addition_constantA_000 0,4 0,7 -0,2;

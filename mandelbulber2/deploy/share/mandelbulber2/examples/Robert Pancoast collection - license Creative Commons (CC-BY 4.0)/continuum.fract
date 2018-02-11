@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.09
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -30,6 +30,7 @@ mat1_coloring_random_seed 400411;
 mat1_coloring_speed 3,4599;
 mat1_fractal_coloring_algorithm 4;
 mat1_fractal_coloring_line_direction 1 1 1;
+mat1_is_defined true;
 mat1_surface_color_palette 97a74b cc7239 997100;
 raytraced_reflections true;
 view_distance_max 22,93524500979311;

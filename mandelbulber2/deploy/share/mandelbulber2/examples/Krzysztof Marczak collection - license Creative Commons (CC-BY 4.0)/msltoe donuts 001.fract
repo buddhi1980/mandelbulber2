@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.13
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 ff00 8200 1c00;
@@ -20,20 +20,21 @@ DE_factor 0,239883;
 detail_level 0,2;
 flight_last_to_render 0;
 formula_1 82;
-fresnel_reflectance true;
 gamma 0,72;
 hdr true;
-image_height 2400;
-image_width 3200;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 2;
+mat1_transparency_interior_color 0000 1500 1500;
+mat1_transparency_of_interior 0,74131;
+mat1_transparency_of_surface 0,85;
 N 100;
 raytraced_reflections true;
-reflect 2;
 reflections_max 2;
 target 0,7320334356414955 0,05693494359072902 -0,6748923482994131;
-transparency_interior_color 0000 1500 1500;
-transparency_of_interior 0,74131;
-transparency_of_surface 0,85;
 view_distance_max 12,42652880693021;
 volumetric_fog_colour_1_distance 0,002876151532092547;
 volumetric_fog_colour_2_distance 0,005752303064185093;
@@ -44,11 +45,3 @@ volumetric_fog_enabled true;
 donut_factor 2;
 donut_number 3;
 donut_ring_thickness 0,101;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

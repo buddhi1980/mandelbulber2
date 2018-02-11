@@ -1,14 +1,14 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
 ambient_occlusion_quality 10;
-camera -4.899154826242444 -7.326315447143848 1.481466079643425;
-camera_distance_to_target 0.8176405544355336;
-camera_rotation -133.5743609678181 0.1964954338992043 0.1232634049296926;
-camera_top -0.003967505381803479 0.0008053119050084915 0.9999918051533128;
-DE_factor 0.5;
+camera -4,899154826242444 -7,326315447143848 1,481466079643425;
+camera_distance_to_target 0,8176405544355336;
+camera_rotation -133,5743609678181 0,1964954338992043 0,1232634049296926;
+camera_top -0,003967505381803479 0,0008053119050084915 0,9999918051533128;
+DE_factor 0,5;
 detail_level 4;
 flight_last_to_render 0;
 formula_1 117;
@@ -18,36 +18,38 @@ formula_stop_iteration_3 4;
 fractal_enable_2 false;
 fractal_enable_3 false;
 hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
 keyframe_last_to_render 0;
-main_light_alpha 8.130000000000001;
-main_light_beta 4.51;
+main_light_alpha 8,130000000000001;
+main_light_beta 4,51;
 mat1_coloring_palette_size 4;
 mat1_coloring_random_seed 298423;
 mat1_is_defined true;
 mat1_surface_color_palette a09e72 65d3e6 747837 88ebd4;
 N 11;
-target -4.30679376716605 -7.889908020770012 1.484270166121456;
-view_distance_max 36.18978001548713;
+target -4,30679376716605 -7,889908020770012 1,484270166121456;
+view_distance_max 36,18978001548713;
 [fractal_1]
-transf_addition_constant -0.2 0 0;
+transf_addition_constant -0,2 0 0;
 transf_function_enabled_false true;
 transf_function_enabledAy_false true;
 transf_function_enabledF_false true;
-transf_offsetA_000 0.7 0 0.6;
-transf_scale3D_000 1.3 0 0.5;
+transf_offsetA_000 0,7 0 0,6;
+transf_scale3D_000 1,3 0 0,5;
 transf_stop_iterations_A 1;
 [fractal_2]
-surfBox_offset1A_111 1 1 0.2;
-transf_addition_constant 0.7 0 0.3;
+surfBox_offset1A_111 1 1 0,2;
+transf_addition_constant 0,7 0 0,3;
 transf_function_enabled_false true;
-transf_offset_000 0 0 1.4;
-transf_rotation -1.62 0 0;
+transf_offset_000 0 0 1,4;
+transf_rotation -1,62 0 0;
 transf_scale_1 0;
 transf_stop_iterations_A 2;
 [fractal_3]
-transf_addition_constant -1.5 -2.775557561562891e-17 0;
+transf_addition_constant -1,5 -2,775557561562891e-17 0;
 transf_function_enabledAz_false true;
 transf_function_enabledx_false true;
-transf_offset_000 0 0 -2.775557561562891e-17;
-transf_rotation -1.62 0 0;
+transf_offset_000 0 0 -2,775557561562891e-17;
+transf_rotation -1,62 0 0;
 transf_scale_1 0;

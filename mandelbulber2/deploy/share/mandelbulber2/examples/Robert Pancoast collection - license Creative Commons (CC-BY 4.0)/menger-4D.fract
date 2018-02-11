@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.08
+# version 2.13
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -9,108 +9,104 @@ background_color_2 ff00 0000 0000;
 background_color_3 0000 0000 0000;
 basic_fog_color 0000 0000 0000;
 basic_fog_enabled true;
-basic_fog_visibility 8.317640000000001;
-camera 1.629727079634308 -0.02855846033736483 -0.01471829698468596;
-camera_distance_to_target 2.200294660747653;
-camera_rotation -23.2054266148166 10.0147716478452 74.36133131819292;
-camera_top 0.04972038249473824 0.1037794993803101 -0.9933567833728973;
-DE_factor 0.90625;
-DOF_focus 0.001140967360697687;
-DOF_radius 5.82;
+basic_fog_visibility 8,317640000000001;
+camera 1,629727079634308 -0,02855846033736483 -0,01471829698468596;
+camera_distance_to_target 2,200294660747653;
+camera_rotation -23,2054266148166 10,0147716478452 74,36133131819292;
+camera_top 0,04972038249473824 0,1037794993803101 -0,9933567833728973;
+DE_factor 0,90625;
+DOF_focus 0,001140967360697687;
+DOF_radius 5,82;
 file_background ;
 flight_last_to_render 0;
-flight_movement_speed_vector -0.0002997813732172252 0.0002865812428865227 0.0001472609912195396;
-flight_rotation_speed_vector 0.008617405592957613 -0.008212408577873524 2.470848773472855e-05;
-flight_speed 0.279380922486225;
+flight_movement_speed_vector -0,0002997813732172252 0,0002865812428865227 0,0001472609912195396;
+flight_rotation_speed_vector 0,008617405592957613 -0,008212408577873524 2,470848773472855e-05;
+flight_speed 0,279380922486225;
 formula_1 10;
 frames_per_keyframe 120;
 glow_color_1 ff00 aa00 0000;
 glow_color_2 ff00 ff00 7f00;
-image_height 2048;
-image_width 4096;
+image_height 1024;
+image_width 2048;
 keyframe_last_to_render 0;
 mat1_coloring_palette_size 3;
 mat1_coloring_random_seed 400411;
-mat1_coloring_speed 3.4599;
+mat1_coloring_speed 3,4599;
 mat1_fractal_coloring_algorithm 4;
 mat1_fractal_coloring_line_direction 1 1 1;
+mat1_is_defined true;
 mat1_surface_color_palette 97a74b cc7239 997100;
-perspective_type 2;
+perspective_type equirectangular;
 raytraced_reflections true;
 stereo_enabled true;
 stereo_mode 1;
-target 1.629361023780392 -0.02831425778519401 -0.01471110634043482;
-view_distance_max 5.917676198633664;
-volumetric_fog_density 4.57088e-07;
+target 1,629361023780392 -0,02831425778519401 -0,01471110634043482;
+view_distance_max 5,917676198633664;
+volumetric_fog_density 4,57088e-07;
 [fractal_1]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_5 0.8070000000000001 -0.607 0;
-IFS_direction_6 0.607 0 -0.607;
-IFS_direction_7 0 0.707 -0.707;
+IFS_direction_5 0,8070000000000001 -0,607 0;
+IFS_direction_6 0,607 0 -0,607;
+IFS_direction_7 0 0,707 -0,707;
 IFS_edge 1 0 0;
 IFS_edge_enabled true;
 IFS_enabled_5 true;
 IFS_enabled_7 true;
 IFS_menger_sponge_mode true;
-IFS_offset 1 0 0.333;
+IFS_offset 1 0 0,333;
 IFS_rotation_enabled true;
 IFS_scale 3;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_2]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_5 0.7071067811865476 -0.7071067811865476 0;
-IFS_direction_6 0.7071067811865476 0 -0.7071067811865476;
-IFS_direction_7 0 0.7071067811865476 -0.7071067811865476;
+IFS_direction_5 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_6 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_7 0 0,7071067811865476 -0,7071067811865476;
 IFS_edge 1 0 0;
 IFS_edge_enabled true;
 IFS_enabled_5 true;
 IFS_enabled_6 true;
 IFS_enabled_7 true;
 IFS_menger_sponge_mode true;
-IFS_offset 1 0 0.3333;
+IFS_offset 1 0 0,3333;
 IFS_rotation_enabled true;
 IFS_scale 3;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_3]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_5 0.7071067811865476 -0.7071067811865476 0;
-IFS_direction_6 0.7071067811865476 0 -0.7071067811865476;
-IFS_direction_7 0 0.7071067811865476 -0.7071067811865476;
+IFS_direction_5 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_6 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_7 0 0,7071067811865476 -0,7071067811865476;
 IFS_edge 1 0 0;
 IFS_edge_enabled true;
 IFS_enabled_5 true;
 IFS_enabled_6 true;
 IFS_enabled_7 true;
 IFS_menger_sponge_mode true;
-IFS_offset 1 0 0.3333;
+IFS_offset 1 0 0,3333;
 IFS_rotation_enabled true;
 IFS_scale 3;
-mandelbox_generalized_fold_type 1;
+mandelbox_generalized_fold_type fold_cube;
 [fractal_4]
 IFS_abs_x true;
 IFS_abs_y true;
 IFS_abs_z true;
-IFS_direction_5 0.7071067811865476 -0.7071067811865476 0;
-IFS_direction_6 0.7071067811865476 0 -0.7071067811865476;
-IFS_direction_7 0 0.7071067811865476 -0.7071067811865476;
+IFS_direction_5 0,7071067811865476 -0,7071067811865476 0;
+IFS_direction_6 0,7071067811865476 0 -0,7071067811865476;
+IFS_direction_7 0 0,7071067811865476 -0,7071067811865476;
 IFS_edge 1 0 0;
 IFS_edge_enabled true;
 IFS_enabled_5 true;
 IFS_enabled_6 true;
 IFS_enabled_7 true;
 IFS_menger_sponge_mode true;
-IFS_offset 1 0 0.3333;
+IFS_offset 1 0 0,3333;
 IFS_rotation_enabled true;
 IFS_scale 3;
-mandelbox_generalized_fold_type 1;
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
+mandelbox_generalized_fold_type fold_cube;
