@@ -91,8 +91,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.c = z;
 	extendedAux.const_c = z;
-	extendedAux.old_z = z;
-	extendedAux.sum_z = z;
+	extendedAux.old_z = CVector4(0.0,0.0,0.0,0.0);
+	extendedAux.sum_z = CVector4(0.0,0.0,0.0,0.0);
 	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
