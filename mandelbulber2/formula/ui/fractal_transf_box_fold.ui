@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -395,6 +395,20 @@
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+     <property name="text">
+      <string notr="true">aux.color components alternative 1</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
+     <property name="text">
+      <string notr="true">aux.color components alternative 2</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="Line" name="line_40">

@@ -8184,6 +8184,7 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 void TransfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
+	double colorAdd =0.0;
 	if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 	{
 		z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
@@ -8203,6 +8204,57 @@ void TransfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	}
+
+		// alternative 1
+	if (fractal->transformCommon.functionEnabledCxFalse)
+	{
+		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
+		{
+			colorAdd += fractal->mandelbox.color.factor.x;
+		}
+		else
+		{ colorAdd += fractal->mandelbox.color.factor.x
+					* (1.0 - (fractal->mandelbox.foldingLimit - fabs(z.x))/fractal->mandelbox.foldingLimit);
+		}
+
+		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
+		{
+			colorAdd += fractal->mandelbox.color.factor.y;
+		}
+		else
+		{ colorAdd += fractal->mandelbox.color.factor.y
+					* (1.0 - (fractal->mandelbox.foldingLimit - fabs(z.y))/fractal->mandelbox.foldingLimit);
+		}
+
+		if (fabs(z.z) > fractal->mandelbox.foldingLimit)
+		{
+			colorAdd += fractal->mandelbox.color.factor.z;
+		}
+		else
+		{ colorAdd += fractal->mandelbox.color.factor.z
+					* (1.0 - (fractal->mandelbox.foldingLimit - fabs(z.z))/fractal->mandelbox.foldingLimit);
+		}
+		aux.color += colorAdd;
+	}
+
+		// alternative 2
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		double valMinusLim = fractal->mandelbox.foldingValue - fractal->mandelbox.foldingLimit;
+		if (z.x != oldZ.x)
+		{
+			colorAdd += fractal->mandelbox.color.factor.x * (fabs(z.x) - fractal->mandelbox.foldingLimit )/valMinusLim;
+		}
+		if (z.y != oldZ.y)
+		{
+			colorAdd += fractal->mandelbox.color.factor.y * (fabs(z.y) - fractal->mandelbox.foldingLimit )/valMinusLim;
+		}
+		if (z.z != oldZ.z)
+		{
+			colorAdd += fractal->mandelbox.color.factor.z * (fabs(z.z) - fractal->mandelbox.foldingLimit )/valMinusLim;
+		}
+		aux.color += colorAdd;
 	}
 }
 
@@ -11578,7 +11630,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double R2 = 0.0;
 
 	double distEst = 0.0;
-	//double XYZbias = 0.0;
+	//double boxFold = 0.0;
 	double planeBias = 0.0;
 	// double divideByIter = 0.0;
 	// double radius = 0.0;
@@ -11642,6 +11694,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			temp8 = auxColor * fractal->foldColor.scaleF0;
 			auxColor = temp8;
 		}*/
+
 
 		// max linear offset
 		if (fractal->transformCommon.functionEnabledMFalse)
@@ -11957,6 +12010,13 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			temp30 *= fractal->foldColor.scaleA1;
 			linearOffset = temp30;
 		}
+
+		// aux.color boxFold alternative
+
+
+
+
+
 
 		// box trap
 		if (fractal->surfBox.enabledX2False)
