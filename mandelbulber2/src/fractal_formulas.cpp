@@ -11892,11 +11892,16 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				//subVs *= fractal->foldColor.scaleB1;
 				lastDist = subVs.Dot(subVs) * fractal->foldColor.scaleB1;
 
-				if (fractal->transformCommon.functionEnabledAxFalse) aux.addDist = lastDist;
+				if (fractal->transformCommon.functionEnabledAxFalse)
+				{
+					subVs = fabs(subVs);
+				lastDist = min(min(subVs.x, subVs.y), subVs.z) * fractal->foldColor.scaleB1;
+				}
 				else aux.addDist += lastDist;
-
 			}
+
 			lastDist = aux.addDist;
+
 			// update
 			aux.old_z = z;
 		}

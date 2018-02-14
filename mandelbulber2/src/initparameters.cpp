@@ -1203,6 +1203,9 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),
 		CVector3(1.0, 0.0, 0.0), morphNone, paramStandard);
 
+	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,
+		morphLinear, paramStandard);
+
 	// trial
 
 	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,

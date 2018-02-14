@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1973</y>
-        <width>613</width>
-        <height>2979</height>
+        <y>0</y>
+        <width>619</width>
+        <height>3751</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -623,6 +623,13 @@ sphere radius:</string>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
+            <property name="text">
+             <string notr="true">4D color</string>
+            </property>
+           </widget>
           </item>
           <item>
            <widget class="MyGroupBox" name="groupCheck_fractal_coloring_extra_color_enabled_false">
@@ -3946,14 +3953,14 @@ object size)</string>
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>

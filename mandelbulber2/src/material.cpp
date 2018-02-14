@@ -102,6 +102,7 @@ QStringList cMaterial::paramsList = {
 	"file_normal_map_texture", "texture_fractalize", "texture_fractalize_cube_size",
 	"texture_fractalize_start_iteration",
 
+	"fractal_coloring_color_4D_enabled_false",
 	"fractal_coloring_extra_color_enabled_false", "metallic", "iridescence_enabled",
 	"iridescence_intensity", "iridescence_subsurface_thickness",
 
@@ -213,6 +214,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_sphere_radius", id));
 	fractalColoring.lineDirection =
 		materialParam->Get<CVector3>(Name("fractal_coloring_line_direction", id));
+
+	fractalColoring.color4dEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_color_4D_enabled_false", id));
+
+
 
 	// trial
 	fractalColoring.extraColorEnabledFalse =

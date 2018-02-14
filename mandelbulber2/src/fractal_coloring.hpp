@@ -56,6 +56,7 @@ struct sFractalColoring
 	CVector3 lineDirection;
 	double sphereRadius;
 	enumFractalColoring coloringAlgorithm;
+	bool color4dEnabledFalse;
 
 	// trial
 	bool extraColorEnabledFalse;

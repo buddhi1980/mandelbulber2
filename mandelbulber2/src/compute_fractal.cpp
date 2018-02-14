@@ -299,39 +299,46 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
+				double colorW = z.w;
+				if (in.material->fractalColoring.color4dEnabledFalse) colorW = 0.0;
 
 				// double len = 0.0;
 				switch (in.material->fractalColoring.coloringAlgorithm)
 				{
 					case fractalColoring_Standard:
 					{
-						len = r;
+						len =  sqrt(z.x * z.x + z.y * z.y + z.z * z.z + colorW * colorW);
 						break;
 					}
 					case fractalColoring_ZDotPoint:
 					{
-						len = fabs(z.Dot(CVector4(pointTransformed, 0.0))); // z.w
+						len = fabs(z.Dot(CVector4(pointTransformed, colorW))); // z.w
 						break;
 					}
 					case fractalColoring_Sphere:
 					{
-						len = fabs((z - CVector4(pointTransformed, 0.0)).Length() // z.w
+						len = fabs((z - CVector4(pointTransformed, colorW)).Length() // z.w
 											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
 					case fractalColoring_Cross:
 					{
-						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z)); // z.w
+						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
+						if (in.material->fractalColoring.color4dEnabledFalse)
+							len = min(len, colorW); // colorW unlikely do do much out at fractal surface, and often will be the minimum
 						break;
 					}
 					case fractalColoring_Line:
 					{
-						len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0))); // z.w hmmmm??
+						if (in.material->fractalColoring.color4dEnabledFalse)
+							len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, colorW))); // z.w hmmmm??
+						else
+							len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0))); // z.w hmmmm??
 						break;
 					}
 					case fractalColoring_None:
 					{
-						len = r;
+						len = r; // this may need 4d option
 						break;
 					}
 				}
