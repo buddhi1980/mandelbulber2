@@ -299,8 +299,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				double colorW = z.w;
-				if (in.material->fractalColoring.color4dEnabledFalse) colorW = 0.0;
+				double colorW = 0.0;
+				if (in.material->fractalColoring.color4dEnabledFalse) colorW = z.w;
 
 				// double len = 0.0;
 				switch (in.material->fractalColoring.coloringAlgorithm)
