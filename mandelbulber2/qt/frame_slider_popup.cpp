@@ -108,11 +108,14 @@ void cFrameSliderPopup::SetIntegerMode(int min, int max, int val)
 	ui->slider->setMaximum(max);
 	ui->slider->setMinimum(min);
 	ui->slider->setValue(val);
-	integerMode = true;
-	ui->buInteger->hide();
-	ui->buZero->hide();
-	sliderTimer->stop();
-	connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
+	if(!integerMode)
+	{
+		integerMode = true;
+		ui->buInteger->hide();
+		ui->buZero->hide();
+		sliderTimer->stop();
+		connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
+	}
 }
 
 void cFrameSliderPopup::SetDialMode(int scale, double val)

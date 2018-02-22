@@ -105,9 +105,10 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 			QWidget *topWidget = this->window();
 			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
-			slider->SetIntegerMode(minimum(), maximum(), value());
 			slider->hide();
 		}
+		//update min and max
+		slider->SetIntegerMode(minimum(), maximum(), value());
 
 		QWidget *topWidget = this->window();
 		QPoint windowPoint = this->mapTo(topWidget, QPoint());
