@@ -11945,6 +11945,8 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				//subVs *= fractal->foldColor.scaleB1;
 				lastDist = subVs.Dot(subVs) * fractal->foldColor.scaleB1;
 
+				//lastDist = (z.z - aux.old_z.z) * fractal->foldColor.scaleB1;
+
 				if (fractal->transformCommon.functionEnabledAxFalse)
 				{
 					subVs = fabs(subVs);
@@ -12011,7 +12013,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			linearOffset = temp30;
 		}
 
-		// aux.color boxFold alternative
 
 
 

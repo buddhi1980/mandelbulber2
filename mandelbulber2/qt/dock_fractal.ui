@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>348</width>
+    <width>419</width>
     <height>896</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -108,8 +108,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>303</width>
-                <height>835</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1" stretch="1,0">
@@ -177,8 +177,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -236,8 +236,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -295,8 +295,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -354,8 +354,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -413,8 +413,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -472,8 +472,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -531,8 +531,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -590,8 +590,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>92</width>
-                <height>22</height>
+                <width>98</width>
+                <height>28</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -653,8 +653,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>311</width>
-            <height>880</height>
+            <width>292</width>
+            <height>912</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -2014,7 +2014,7 @@ distance estimation)</string>
             <item row="0" column="0">
              <widget class="QLabel" name="label_130">
               <property name="text">
-               <string>Other radius:</string>
+               <string>Outer radius:</string>
               </property>
              </widget>
             </item>
@@ -2093,8 +2093,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>311</width>
-            <height>880</height>
+            <width>265</width>
+            <height>327</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -2623,6 +2623,11 @@ and water):</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -2637,11 +2642,6 @@ and water):</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyLineEdit</class>
