@@ -1625,6 +1625,14 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
 	buttonsLayout->addWidget(deleteButton);
 
+	QHBoxLayout *buttonsLayout2 = new QHBoxLayout();
+	layout->addLayout(buttonsLayout2);
+
+	QPushButton *alignButton = new QPushButton(
+		QObject::tr("Align rotation to camera"), mainWidget);
+	alignButton->setObjectName(QString("alignButton_") + primitiveFullName);
+	buttonsLayout2->addWidget(alignButton);
+
 	MyGroupBox *groupBox = new MyGroupBox(mainWidget);
 	groupBox->setObjectName(QString("groupCheck_") + primitiveFullName + "_enabled");
 	groupBox->setCheckable(true);
@@ -1662,6 +1670,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
 		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
 			SLOT(slotPressedButtonSetPositionPrimitive()));
+		connect(alignButton, SIGNAL(clicked()), mainWindow,
+			SLOT(slotPressedButtonAllignPrimitiveAngle()));
+
 
 		// adding parameters
 		if (index == 0) // for only new primitive
