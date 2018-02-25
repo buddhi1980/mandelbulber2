@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.13
 # only modified parameters
 [main_parameters]
 aux_light_colour_1 dd00 5c00 4100;
@@ -29,20 +29,21 @@ flight_last_to_render 0;
 flight_movement_speed_vector -1,234604197403379e-05 -6,072967638776074e-06 -9,405960313096811e-06;
 flight_rotation_speed_vector 0,008932853717026379 0,004267744833782569 0;
 flight_speed 0,0001;
-flight_speed_control 1;
+flight_speed_control constant;
 formula_1 7;
 formula_2 76;
 formula_3 77;
 glow_enabled false;
 hybrid_fractal_enable true;
-image_height 720;
-image_width 1280;
+image_height 1080;
+image_width 1920;
 julia_c -0,001174849409668726 0,02651269258619554 -0,001128853137099797;
 julia_mode true;
 keyframe_last_to_render 2400;
+mat1_is_defined true;
+mat1_reflectance 0,3;
 N 22;
 raytraced_reflections true;
-reflect 0,3;
 reflections_max 1;
 target -0,01181134872341714 0,02787049271602448 -0,0122006007926442;
 volumetric_fog_colour_1_distance 0,0007765456461653979;
@@ -52,14 +53,6 @@ volumetric_fog_distance_factor 0,001553091292330796;
 volumetric_fog_enabled true;
 [fractal_1]
 info true;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]
 [keyframes]
 frame;main_camera_x;main_camera_y;main_camera_z;main_target_x;main_target_y;main_target_z;main_camera_top_x;main_camera_top_y;main_camera_top_z;main_flight_movement_speed_vector_x;main_flight_movement_speed_vector_y;main_flight_movement_speed_vector_z;main_flight_rotation_speed_vector_x;main_flight_rotation_speed_vector_y;main_flight_rotation_speed_vector_z
 0;-0,01179900627974576;0,02787642861192182;-0,0121911030559721;-0,01181134872341714;0,02787049271602448;-0,0122006007926442;-0,6169009630389959;0,0239953995253889;0,7866749154531217;-1,234604197403379e-05;-6,072967638776074e-06;-9,405960313096811e-06;0,008932853717026379;0,004267744833782569;0

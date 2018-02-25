@@ -53,7 +53,6 @@ main_light_position_relative false;
 mat1_coloring_palette_size 4;
 mat1_coloring_random_seed 332610;
 mat1_coloring_saturation 0,72;
-mat1_fractal_coloring_ii_add_scale 9,999999999999999e-21;
 mat1_is_defined true;
 mat1_surface_color_palette a18e44 737c65 3d760f 82d982;
 penetrating_lights false;

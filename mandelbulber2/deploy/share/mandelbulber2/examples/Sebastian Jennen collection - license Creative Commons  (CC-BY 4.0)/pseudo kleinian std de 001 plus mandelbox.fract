@@ -37,7 +37,6 @@ julia_c 1 1 1;
 keyframe_last_to_render 0;
 main_light_alpha 0;
 mat1_coloring_palette_offset 0,77;
-mat1_fractal_coloring_ii_add_scale 9,999999999999999e-21;
 mat1_is_defined true;
 mat1_reflectance 0,59;
 mat1_surface_color_palette aa0000 69698c fff59c aa0000 b5b542 c68876 a51c64 3b9fee d4ffd4 b50000;
