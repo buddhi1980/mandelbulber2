@@ -140,7 +140,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 					|| type == QString("spinboxd4"))
 			{
 				int dialScale = pow(10.0, double(decimals()));
-				slider->SetDialMode(dialScale, defaultValue);
+				slider->SetDialMode(dialScale, value());
 				hasDial = true;
 			}
 
