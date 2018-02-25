@@ -8384,9 +8384,9 @@ void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
- * fabs add  constant,  z = fabs( z + pre-offset) + Offset
+ * abs add  constant,  z = abs( z + pre-offset) + Offset
  */
-void TransfFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -8402,10 +8402,10 @@ void TransfFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 /**
- * fabs. Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ * abs. Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
  * tglad's fold, with a fold tweak option
  */
-void TransfFabsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z = fabs(z + fractal->transformCommon.additionConstant000)
 			- fabs(z - fractal->transformCommon.additionConstant000) - z;
@@ -8437,9 +8437,9 @@ void TransfFabsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 }
 
 /**
- * fabs add conditional
+ * abs add conditional
  */
-void TransfFabsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
@@ -8463,9 +8463,9 @@ void TransfFabsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sEx
 }
 
 /**
- * fabs. Negative fabs constant,  z = - fabs( z + constant)
+ * abs Negative abs constant,  z = - abs( z + constant)
  */
-void TransfNegFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfNegAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -8478,9 +8478,9 @@ void TransfNegFabsAddConstantIteration(CVector4 &z, const sFractal *fractal, sEx
 }
 
 /**
- * fabs Multi - Multiple parameters for fabs functions
+ * abs Multi - Multiple parameters for abs functions
  */
-void TransfFabsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -11381,9 +11381,9 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
- * fabs add  constant,  z = fabs( z + constant)
+ * abs add  constant,  z = abs( z + constant)
  */
-void TransfFabsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -11396,9 +11396,9 @@ void TransfFabsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExt
 }
 
 /**
- * fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:
+ * abs.  Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
  */
-void TransfFabsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
 
@@ -11407,9 +11407,9 @@ void TransfFabsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sEx
 }
 
 /**
- * fabs add conditional4D
+ * abs add conditional4D
  */
-void TransfFabsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{

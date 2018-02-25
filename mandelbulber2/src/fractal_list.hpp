@@ -202,13 +202,13 @@ enum enumFractalFormula
 	transfBoxFold = 1020,
 	transfSphericalFold = 1021,
 	transfZvectorAxisSwap = 1022,
-	transfFabsAddConstant = 1023,
-	transfNegFabsAddConstant = 1024,
-	transfFabsAddTgladFold = 1025,
+	transfAbsAddConstant = 1023,
+	transfNegAbsAddConstant = 1024,
+	transfAbsAddTgladFold = 1025,
 	transfMultipleAngle = 1026,
 	transfRPower = 1027,
 	transfIterationWeight = 1028, // fixed V2.10
-	transfFabsAddMulti = 1029,
+	transfAbsAddMulti = 1029,
 	transfSphericalPwrFold = 1030,
 	transfAddCpixelVaryV1 = 1031,
 	transfScaleVaryV1 = 1032,
@@ -223,8 +223,8 @@ enum enumFractalFormula
 	transfIterationWeight4d = 1041, // fixed V2.10
 	transfSphericalFold4d = 1042,		// updated V2.11
 	transfScale4d = 1043,
-	transfFabsAddConstant4d = 1044,
-	transfFabsAddTgladFold4d = 1045,
+	transfAbsAddConstant4d = 1044,
+	transfAbsAddTgladFold4d = 1045,
 	// v2.08
 	transfSurfFoldMulti = 1046,
 	transfPwr2Polynomial = 1047,
@@ -247,9 +247,9 @@ enum enumFractalFormula
 	transfAddExp2Z = 1062, // updated V2.12
 	transfReciprocal3 = 1063,
 	transfRotationFolding = 1064,
-	transfFabsAddConditional = 1065,
+	transfAbsAddConditional = 1065,
 	transfReciprocal4d = 1066,
-	transfFabsAddConditional4d = 1067,
+	transfAbsAddConditional4d = 1067,
 	transfSphericalOffsetVCL = 1068,
 	transfRotation4d = 1069,
 	// 2.11

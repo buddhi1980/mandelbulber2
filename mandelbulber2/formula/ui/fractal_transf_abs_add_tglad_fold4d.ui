@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_fabs_add_tglad_fold4d</class>
+ <class>transf_abs_add_tglad_fold4d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
+    <width>886</width>
     <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">transf_fabs_add_tglad_fold4d</string>
+   <string notr="true">transf_abs_add_tglad_fold4d</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -32,12 +32,12 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>fABS Add Constant V2 4D z = fabs( z + constant) - fabs( z - constant) - z;</string>
+      <string>ABS Add Constant V2 4D</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -54,164 +54,18 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_4">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>z = abs( z + constant) - abs( z - constant) - z</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="3" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_w">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_x">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_26">
-          <property name="text">
-           <string notr="true">w</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_23">
-          <property name="text">
-           <string>fABS addition constant:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_z">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QSlider" name="slider4_transf_addition_constant_0000_z">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_22">
-          <property name="text">
-           <string notr="true">x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QSlider" name="slider4_transf_addition_constant_0000_x">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string notr="true">y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
+        <item row="1" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_y">
           <property name="enabled">
            <bool>true</bool>
@@ -236,6 +90,70 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_26">
+          <property name="text">
+           <string notr="true">w</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_w">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_z">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_25">
+          <property name="text">
+           <string notr="true">y</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_24">
           <property name="text">
@@ -243,47 +161,45 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="QSlider" name="slider4_transf_addition_constant_0000_y">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string notr="true">x</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QSlider" name="slider4_transf_addition_constant_0000_w">
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_x">
           <property name="enabled">
            <bool>true</bool>
           </property>
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
           <property name="minimum">
-           <number>-5000000</number>
+           <double>-99.989999999999995</double>
           </property>
-          <property name="maximum">
-           <number>5000000</number>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="4">
+         <widget class="QLabel" name="label_23">
+          <property name="text">
+           <string>fABS addition constant:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -329,7 +245,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;fabs.  Add fabs constantV2,  z = fabs( z + constant) - fabs( z - constant) - z:&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;abs.  Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/menger-FabsAddTgladFold4D.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
@@ -351,7 +267,7 @@
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfFabsAddTgladFold4dIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;TransfAbsAddTgladFold4dIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#00008f&quot;&gt;Q_UNUSED&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
 
@@ -404,13 +320,9 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider4_transf_addition_constant_0000_x</tabstop>
   <tabstop>spinbox4_transf_addition_constant_0000_x</tabstop>
-  <tabstop>slider4_transf_addition_constant_0000_y</tabstop>
   <tabstop>spinbox4_transf_addition_constant_0000_y</tabstop>
-  <tabstop>slider4_transf_addition_constant_0000_z</tabstop>
   <tabstop>spinbox4_transf_addition_constant_0000_z</tabstop>
-  <tabstop>slider4_transf_addition_constant_0000_w</tabstop>
   <tabstop>spinbox4_transf_addition_constant_0000_w</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>

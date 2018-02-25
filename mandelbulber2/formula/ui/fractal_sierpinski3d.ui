@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>sierpinski3d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -95,7 +95,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Offset</string>
+      <string>Offset:</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="leftMargin">

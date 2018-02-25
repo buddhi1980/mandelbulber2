@@ -25,7 +25,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL R2 = 0.0f;
 
 	REAL distEst = 0.0f;
-	REAL XYZbias = 0.0f;
+	// REAL boxFold = 0.0f;
 	REAL planeBias = 0.0f;
 	// REAL divideByIter = 0.0f;
 	// REAL radius = 0.0f;
@@ -155,38 +155,38 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 
 		// XYZ bias
-		if (fractal->transformCommon.functionEnabledCxFalse)
-		{
-			REAL4 temp10 = z;
-			if (fractal->transformCommon.functionEnabledSFalse)
+		/*	if (fractal->transformCommon.functionEnabledCxFalse)
 			{
-				temp10.x *= temp10.x;
-			}
-			else
-			{
-				temp10.x = fabs(temp10.x);
-			}
-			if (fractal->transformCommon.functionEnabledSwFalse)
-			{
-				temp10.y *= temp10.y;
-			}
-			else
-			{
-				temp10.y = fabs(temp10.y);
-			}
+				REAL4 temp10 = z;
+				if (fractal->transformCommon.functionEnabledSFalse)
+				{
+					temp10.x *= temp10.x;
+				}
+				else
+				{
+					temp10.x = fabs(temp10.x);
+				}
+				if (fractal->transformCommon.functionEnabledSwFalse)
+				{
+					temp10.y *= temp10.y;
+				}
+				else
+				{
+					temp10.y = fabs(temp10.y);
+				}
 
-			if (fractal->transformCommon.functionEnabledXFalse)
-			{
-				temp10.z *= temp10.z;
-			}
-			else
-			{
-				temp10.z = fabs(temp10.z);
-			}
-			temp10 = temp10 * fractal->transformCommon.additionConstantA000;
+				if (fractal->transformCommon.functionEnabledXFalse)
+				{
+					temp10.z *= temp10.z;
+				}
+				else
+				{
+					temp10.z = fabs(temp10.z);
+				}
+				temp10 = temp10 * fractal->transformCommon.additionConstantA000;
 
-			XYZbias = temp10.x + temp10.y + temp10.z;
-		}
+				XYZbias = temp10.x + temp10.y + temp10.z;
+			}*/
 
 		// plane bias
 		if (fractal->transformCommon.functionEnabledAzFalse)
@@ -226,8 +226,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 
 		// build  componentMaster
-		componentMaster =
-			(R2 + distEst + XYZbias + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster = (R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
 	}
 
 	// divide by i option

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_add_constant4d</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -225,7 +225,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Adds c constant to z vector 4D&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Robert Pancoast collection - license Creative Commons (CC-BY 4.0)/menger-AddConstant4D.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

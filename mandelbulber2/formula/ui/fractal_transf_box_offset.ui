@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,1">
      <property name="spacing">
       <number>2</number>
      </property>
@@ -45,56 +45,6 @@
       <widget class="QLabel" name="label_111">
        <property name="text">
         <string notr="true">z</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -137,31 +87,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="QSlider" name="slider3_transf_addition_constant_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -221,17 +146,17 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Analytic DE calculation</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="text">
+      <string>Analytic DE calculation</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -347,13 +272,9 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider3_transf_addition_constant_x</tabstop>
   <tabstop>spinbox3_transf_addition_constant_x</tabstop>
-  <tabstop>slider3_transf_addition_constant_y</tabstop>
   <tabstop>spinbox3_transf_addition_constant_y</tabstop>
-  <tabstop>slider3_transf_addition_constant_z</tabstop>
   <tabstop>spinbox3_transf_addition_constant_z</tabstop>
-  <tabstop>checkBox_transf_function_enabled_false</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>

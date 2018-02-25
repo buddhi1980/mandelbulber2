@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>pseudo_kleinian_std_de</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1315,7 +1315,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Abs Add Constant Mu&amp;lti </string>
+      <string>Abs Add Constant Mu&amp;lti</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

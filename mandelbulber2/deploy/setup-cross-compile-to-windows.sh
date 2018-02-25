@@ -14,7 +14,7 @@ fi
 
 CXXFLAGS=""
 #MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.6/5.6.1-1/single/qt-everywhere-opensource-src-5.6.1-1.tar.gz"
-MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.7/5.7.1/single/qt-everywhere-opensource-src-5.7.1.tar.gz"
+MANDELBULBER_QT_URL="http://download.qt.io/archive/qt/5.9/5.9.3/single/qt-everywhere-opensource-src-5.9.3.tar.xz"
 MANDELBULBER_WIN_VERSION=$1
 
 if [ $MANDELBULBER_WIN_VERSION -eq "64" ]
@@ -30,21 +30,21 @@ set -e # if any of the commands fail the script will exit immediately
 
 sudo apt-get install git make g++ dh-autoreconf
 sudo apt-get install mingw-w64
-mkdir -p $MANDELBULBER_PREFIX
+sudo mkdir -p $MANDELBULBER_PREFIX
 
 ### qt
-if [ ! -f qt-everywhere-opensource-src-5.7.1.tar.gz ]; then
+if [ ! -f qt-everywhere-opensource-src-5.9.3.tar.xz ]; then
 	wget $MANDELBULBER_QT_URL
 fi
 
-if [ ! -d qt-everywhere-opensource-src-5.7.1 ]; then
-	tar xf qt-everywhere-*.tar.gz
+if [ ! -d qt-everywhere-opensource-src-5.9.3 ]; then
+	tar xf qt-everywhere-*.tar.xz
 	cd qt-everywhere-*
 	yes | ./configure -release -xplatform win32-g++ -opengl desktop -nomake examples -device-option \
 		CROSS_COMPILE=$MANDELBULBER_MINGW_HOST- -prefix $MANDELBULBER_PREFIX -opensource \
 		-skip qtactiveqt -skip qtcanvas3d
-	make -j3
-	sudo make -j3 install
+	make -j1
+	sudo make -j1 install
 	cd ..
 fi
 

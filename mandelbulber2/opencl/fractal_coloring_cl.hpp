@@ -72,6 +72,7 @@ typedef struct
 	cl_float3 lineDirection;
 	cl_float sphereRadius;
 	enumFractalColoringCl coloringAlgorithm;
+	cl_int color4dEnabledFalse;
 
 	// trial
 	cl_int extraColorEnabledFalse;
@@ -153,6 +154,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(sFractalColoring &source)
 	target.lineDirection = toClFloat3(source.lineDirection);
 	target.sphereRadius = source.sphereRadius;
 	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
+	target.color4dEnabledFalse = source.color4dEnabledFalse;
 	target.extraColorEnabledFalse = source.extraColorEnabledFalse;
 	target.initialColorValue = source.initialColorValue;
 	target.initCondFalse = source.initCondFalse;
