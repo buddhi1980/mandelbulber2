@@ -1628,8 +1628,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	QHBoxLayout *buttonsLayout2 = new QHBoxLayout();
 	layout->addLayout(buttonsLayout2);
 
-	QPushButton *alignButton = new QPushButton(
-		QObject::tr("Align rotation to camera"), mainWidget);
+	QPushButton *alignButton = new QPushButton(QObject::tr("Align rotation to camera"), mainWidget);
 	alignButton->setObjectName(QString("alignButton_") + primitiveFullName);
 	buttonsLayout2->addWidget(alignButton);
 
@@ -1670,9 +1669,8 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
 		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
 			SLOT(slotPressedButtonSetPositionPrimitive()));
-		connect(alignButton, SIGNAL(clicked()), mainWindow,
-			SLOT(slotPressedButtonAllignPrimitiveAngle()));
-
+		connect(
+			alignButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAllignPrimitiveAngle()));
 
 		// adding parameters
 		if (index == 0) // for only new primitive
@@ -1922,7 +1920,8 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);

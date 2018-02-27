@@ -391,7 +391,7 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 
 		if (waveFromObjectsEnable)
 		{
-			objectWave = sin(distanceFromAnother  / length * 5.0 - phase * 2.0)
+			objectWave = sin(distanceFromAnother / length * 5.0 - phase * 2.0)
 									 * exp(-distanceFromAnother / length / 5.0) * waveFromObjectsRelativeAmplitude;
 		}
 

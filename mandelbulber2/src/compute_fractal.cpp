@@ -91,8 +91,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.c = z;
 	extendedAux.const_c = z;
-	extendedAux.old_z = CVector4(0.0,0.0,0.0,0.0);
-	extendedAux.sum_z = CVector4(0.0,0.0,0.0,0.0);
+	extendedAux.old_z = CVector4(0.0, 0.0, 0.0, 0.0);
+	extendedAux.sum_z = CVector4(0.0, 0.0, 0.0, 0.0);
 	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
@@ -307,7 +307,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					case fractalColoring_Standard:
 					{
-						len =  sqrt(z.x * z.x + z.y * z.y + z.z * z.z + colorW * colorW);
+						len = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + colorW * colorW);
 						break;
 					}
 					case fractalColoring_ZDotPoint:
@@ -325,15 +325,18 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					{
 						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
 						if (in.material->fractalColoring.color4dEnabledFalse)
-							len = min(len, colorW); // colorW unlikely do do much out at fractal surface, and often will be the minimum
+							len = min(len, colorW); // colorW unlikely do do much out at fractal surface, and
+																			// often will be the minimum
 						break;
 					}
 					case fractalColoring_Line:
 					{
 						if (in.material->fractalColoring.color4dEnabledFalse)
-							len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, colorW))); // z.w hmmmm??
+							len = fabs(
+								z.Dot(CVector4(in.material->fractalColoring.lineDirection, colorW))); // z.w hmmmm??
 						else
-							len = fabs(z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0))); // z.w hmmmm??
+							len = fabs(
+								z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0))); // z.w hmmmm??
 						break;
 					}
 					case fractalColoring_None:

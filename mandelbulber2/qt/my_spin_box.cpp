@@ -107,7 +107,7 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 			slider->setFocusPolicy(Qt::NoFocus);
 			slider->hide();
 		}
-		//update min and max
+		// update min and max
 		slider->SetIntegerMode(minimum(), maximum(), value());
 
 		QWidget *topWidget = this->window();

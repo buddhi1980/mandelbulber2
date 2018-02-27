@@ -108,7 +108,7 @@ void cFrameSliderPopup::SetIntegerMode(int min, int max, int val)
 	ui->slider->setMaximum(max);
 	ui->slider->setMinimum(min);
 	ui->slider->setValue(val);
-	if(!integerMode)
+	if (!integerMode)
 	{
 		integerMode = true;
 		ui->buInteger->hide();

@@ -191,7 +191,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		qint64 numberOfPixels =  qint64(width) * qint64(height);
+		qint64 numberOfPixels = qint64(width) * qint64(height);
 		qint64 gridWidth = width / optimalJob.stepSizeX;
 		qint64 gridHeight = height / optimalJob.stepSizeY;
 		QList<QRect> lastRenderedRects;

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -1000,7 +1000,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("minN", oldData->fractal.minN);
 	par->Set("fractal_constant_factor",
 		CVector3(oldData->fractal.doubles.constantFactor, oldData->fractal.doubles.constantFactor,
-			oldData->fractal.doubles.constantFactor));
+						 oldData->fractal.doubles.constantFactor));
 	par->Set("detail_level", oldData->doubles.quality);
 	par->Set("DE_thresh", oldData->doubles.quality);
 	par->Set("smoothness", oldData->doubles.smoothness);
@@ -1050,11 +1050,10 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("penetrating_lights", oldData->penetratingLights);
 	par->Set("raytraced_reflections", oldData->imageSwitches.raytracedReflections);
 	par->Set("reflections_max", oldData->reflectionsMax);
-	par->Set("env_mapping_enable",
-		(oldData->doubles.imageAdjustments.reflect > 0.0
-			&& !oldData->imageSwitches.raytracedReflections)
-			? true
-			: false);
+	par->Set("env_mapping_enable", (oldData->doubles.imageAdjustments.reflect > 0.0
+																	 && !oldData->imageSwitches.raytracedReflections)
+																	 ? true
+																	 : false);
 
 	par->Set("glow_color", 1, oldData->effectColours.glow_color1);
 	par->Set("glow_color", 2, oldData->effectColours.glow_color2);
@@ -1094,9 +1093,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("DOF_focus", pow(10, oldData->doubles.DOFFocus / 10.0 - 16.0));
 	par->Set("DOF_radius", oldData->doubles.DOFRadius);
 
-	par->Set("main_light_intensity",
-		oldData->doubles.imageAdjustments.directLight
-			* oldData->doubles.imageAdjustments.mainLightIntensity);
+	par->Set("main_light_intensity", oldData->doubles.imageAdjustments.directLight
+																		 * oldData->doubles.imageAdjustments.mainLightIntensity);
 	par->Set("main_light_alpha", oldData->doubles.mainLightAlpha * 180.0 / M_PI);
 	par->Set("main_light_beta", -oldData->doubles.mainLightBeta * 180.0 / M_PI);
 	par->Set("main_light_colour", oldData->effectColours.mainLightColour);
@@ -1207,9 +1205,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 		par->Set("primitive_water_1_color", oldData->primitiveWaterColour);
 		par->Set("primitive_water_1_reflection", oldData->doubles.primitiveWaterReflect);
 		par->Set("primitive_water_1_enabled", oldData->fractal.primitives.waterEnable);
-		par->Set("primitive_water_1_relative_amplitude",
-			oldData->fractal.doubles.primitives.waterAmplitude
-				/ oldData->fractal.doubles.primitives.waterLength);
+		par->Set(
+			"primitive_water_1_relative_amplitude", oldData->fractal.doubles.primitives.waterAmplitude
+																								/ oldData->fractal.doubles.primitives.waterLength);
 		par->Set("primitive_water_1_length", oldData->fractal.doubles.primitives.waterLength);
 		par->Set("primitive_water_1_iterations", oldData->fractal.primitives.waterIterations);
 		par->Set("primitive_water_1_rotation",
