@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_platonic_solid</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>880</width>
+    <width>895</width>
     <height>684</height>
    </rect>
   </property>
@@ -30,37 +30,11 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_frequency">
-       <property name="text">
-        <string>Frequency:</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
-      <widget class="QSlider" name="slider_platonic_solid_frequency">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>2000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_platonic_solid_frequency">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -88,33 +62,14 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_amplitude">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_rhoMul">
        <property name="text">
-        <string>Amplitude:</string>
+        <string>Rho Mul:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QSlider" name="slider_platonic_solid_amplitude">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>2000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_platonic_solid_amplitude">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -142,33 +97,14 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_rhoMul">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_frequency">
        <property name="text">
-        <string>Rho Mul:</string>
+        <string>Frequency:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QSlider" name="slider_platonic_solid_rhoMul">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>2000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_platonic_solid_rhoMul">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -193,6 +129,13 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_amplitude">
+       <property name="text">
+        <string>Amplitude:</string>
        </property>
       </widget>
      </item>
@@ -310,11 +253,8 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider_platonic_solid_frequency</tabstop>
   <tabstop>spinbox_platonic_solid_frequency</tabstop>
-  <tabstop>slider_platonic_solid_amplitude</tabstop>
   <tabstop>spinbox_platonic_solid_amplitude</tabstop>
-  <tabstop>slider_platonic_solid_rhoMul</tabstop>
   <tabstop>spinbox_platonic_solid_rhoMul</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>

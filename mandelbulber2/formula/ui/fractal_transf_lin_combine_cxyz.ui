@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_lin_combine_cxyz</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -30,11 +30,42 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_44">
+    <layout class="QGridLayout" name="gridLayout_44" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="3">
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_118">
+       <property name="text">
+        <string notr="true">c.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_108">
+       <property name="text">
+        <string>CX Cpixel Multiplier:</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_117">
+       <property name="text">
+        <string notr="true">c.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="3">
+      <widget class="Line" name="line_33">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -62,80 +93,31 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_010_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_110">
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_119">
        <property name="text">
-        <string notr="true">c.y</string>
+        <string notr="true">c.x</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_001_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_109">
+       <property name="text">
+        <string>CY Cpixel Multiplier:</string>
        </property>
-       <property name="minimum">
-        <number>-5000000</number>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
+      </widget>
+     </item>
+     <item row="3" column="0" colspan="3">
+      <widget class="Line" name="line_30">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_010_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="3">
+     <item row="4" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_010_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -163,151 +145,31 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_001_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_123">
+       <property name="text">
+        <string notr="true">c.z</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_100_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
+     <item row="9" column="0">
+      <widget class="QLabel" name="label_111">
+       <property name="text">
+        <string>CZ Cpixel Multiplier:</string>
        </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="1" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_116">
+       <property name="text">
+        <string notr="true">c.x</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="0" colspan="4">
-      <widget class="Line" name="line_33">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_010_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="3">
+     <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_010_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -335,64 +197,42 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_108">
+     <item row="6" column="1">
+      <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>CX Cpixel Multiplier:</string>
+        <string notr="true">c.z</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_100_z">
+     <item row="1" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_y">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
        <property name="minimum">
-        <number>-10000000</number>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
-        <number>10000000</number>
+        <double>99.989999999999995</double>
        </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="0" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_100_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-10000000</number>
-       </property>
-       <property name="maximum">
-        <number>10000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="3">
+     <item row="8" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_001_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -420,80 +260,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0" colspan="4">
-      <widget class="Line" name="line_30">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_001_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_010_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="10" column="2">
-      <widget class="QSlider" name="slider3_transf_constant_multiplier_001_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_001_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -521,52 +288,38 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_109">
-       <property name="text">
-        <string>CY Cpixel Multiplier:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_111">
-       <property name="text">
-        <string>CZ Cpixel Multiplier:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_116">
-       <property name="text">
-        <string notr="true">c.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_117">
-       <property name="text">
-        <string notr="true">c.z</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_118">
-       <property name="text">
-        <string notr="true">c.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLabel" name="label_119">
-       <property name="text">
-        <string notr="true">c.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_120">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_110">
        <property name="text">
         <string notr="true">c.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_100_x">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -577,17 +330,66 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_122">
-       <property name="text">
-        <string notr="true">c.z</string>
+     <item row="6" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_010_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
-      <widget class="QLabel" name="label_123">
+     <item row="9" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_001_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_120">
        <property name="text">
-        <string notr="true">c.z</string>
+        <string notr="true">c.y</string>
        </property>
       </widget>
      </item>
@@ -628,61 +430,11 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_25">
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplierC_111_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-10000000</number>
-          </property>
-          <property name="maximum">
-           <number>10000000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplierC_111_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-10000000</number>
-          </property>
-          <property name="maximum">
-           <number>10000000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="3">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -710,67 +462,14 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplierC_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-10000000</number>
-          </property>
-          <property name="maximum">
-           <number>10000000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_112">
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_115">
           <property name="text">
-           <string notr="true">c.x</string>
+           <string notr="true">c.z</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
+        <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -798,7 +497,63 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="3">
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_113">
+          <property name="text">
+           <string notr="true">c.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_112">
+          <property name="text">
+           <string notr="true">c.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplierC_111_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+          <property name="text">
+           <string>alternate swap</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_114">
+          <property name="text">
+           <string>Cpixel Multiplier:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
          <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
           <item>
            <property name="text">
@@ -832,14 +587,7 @@
           </item>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_113">
-          <property name="text">
-           <string notr="true">c.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
+        <item row="1" column="0" colspan="2">
          <widget class="QLabel" name="label_2">
           <property name="text">
            <string>function order of c.x, c.y and c.z:</string>
@@ -847,26 +595,8 @@
           <property name="alignment">
            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_114">
-          <property name="text">
-           <string>Cpixel Multiplier:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_115">
-          <property name="text">
-           <string notr="true">c.z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
-          <property name="text">
-           <string>alternate swap</string>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -884,12 +614,15 @@
       <string>Suggestion:
 You can use it for example as a pre-transform for bulbs or boxes.</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
-      <string>Info&amp;rmation</string>
+      <string>&amp;Information</string>
      </property>
      <property name="flat">
       <bool>false</bool>
@@ -1020,44 +753,31 @@ You can use it for example as a pre-transform for bulbs or boxes.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider3_transf_constant_multiplier_100_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_100_x</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_100_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_100_y</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_100_z</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_100_z</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_010_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_010_x</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_010_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_010_y</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_010_z</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_010_z</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_001_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_001_x</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_001_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_001_y</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_001_z</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_001_z</tabstop>
   <tabstop>groupCheck_transf_addCpixel_enabled_false</tabstop>
   <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
-  <tabstop>comboBox_mandelbulbMulti_order_of_xyz_C</tabstop>
-  <tabstop>slider3_transf_constant_multiplierC_111_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplierC_111_x</tabstop>
-  <tabstop>slider3_transf_constant_multiplierC_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplierC_111_y</tabstop>
-  <tabstop>slider3_transf_constant_multiplierC_111_z</tabstop>
   <tabstop>spinbox3_transf_constant_multiplierC_111_z</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>

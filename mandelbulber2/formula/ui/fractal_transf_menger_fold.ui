@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_menger_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,12 +32,12 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledx">
      <property name="title">
-      <string>&amp;Menger Sponge Start Function Fabs function z = fabs( z + const.A);</string>
+      <string>&amp;Menger Sponge Start Function: abs() function</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -54,12 +54,33 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_12">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string> z = abs( z + const.A)</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
+        <item row="3" column="0" colspan="2">
+         <widget class="Line" name="line_22">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_79">
+          <property name="text">
+           <string>Const.A x:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_x">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -69,22 +90,29 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="prefix">
+           <string/>
+          </property>
           <property name="decimals">
            <number>6</number>
           </property>
           <property name="minimum">
            <double>-99.989999999999995</double>
           </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_80">
+          <property name="text">
+           <string>Const.A z:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_z">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -115,43 +143,8 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QSlider" name="slider3_transf_addition_constantA_000_x">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-5000000</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-          <property name="sliderPosition">
-           <number>0</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="Line" name="line_22">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_x">
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constantA_000_y">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -161,75 +154,17 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
-          <property name="prefix">
-           <string/>
-          </property>
           <property name="decimals">
            <number>6</number>
           </property>
           <property name="minimum">
            <double>-99.989999999999995</double>
           </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_79">
-          <property name="text">
-           <string>Const.A x:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_80">
-          <property name="text">
-           <string>Const.A z:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QSlider" name="slider3_transf_addition_constantA_000_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-3000000</number>
-          </property>
-          <property name="maximum">
-           <number>3000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QSlider" name="slider3_transf_addition_constantA_000_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-3000000</number>
-          </property>
-          <property name="maximum">
-           <number>3000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -248,7 +183,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledy">
      <property name="title">
-      <string>&amp;Menger Sponge End Function Apply Constants</string>
+      <string>Menger Sponge End F&amp;unction Apply Constants</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -270,7 +205,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_13">
+       <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -330,54 +265,13 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_111_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-3000000</number>
-          </property>
-          <property name="maximum">
-           <number>3000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_111_y">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-3000000</number>
-          </property>
-          <property name="maximum">
-           <number>3000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_92">
           <property name="text">
            <string>Menger Sponge scale:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -388,32 +282,13 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QSlider" name="slider3_transf_constant_multiplier_111_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>-2000000</number>
-          </property>
-          <property name="maximum">
-           <number>2000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_91">
           <property name="text">
            <string>Offset Multiplier:</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -473,28 +348,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QSlider" name="slider_transf_scale_3">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>5000000</number>
-          </property>
-          <property name="singleStep">
-           <number>1</number>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="1">
          <widget class="QLabel" name="label_90">
           <property name="text">
@@ -509,7 +362,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="3">
+        <item row="1" column="0" colspan="4">
          <widget class="QCheckBox" name="checkBox_transf_function_enabled">
           <property name="text">
            <string>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</string>
@@ -531,7 +384,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
-      <string>Info&amp;rmation</string>
+      <string>&amp;Information</string>
      </property>
      <property name="flat">
       <bool>false</bool>
@@ -655,21 +508,14 @@
  </customwidgets>
  <tabstops>
   <tabstop>groupCheck_transf_function_enabledx</tabstop>
-  <tabstop>slider3_transf_addition_constantA_000_x</tabstop>
   <tabstop>spinbox3_transf_addition_constantA_000_x</tabstop>
-  <tabstop>slider3_transf_addition_constantA_000_y</tabstop>
   <tabstop>spinbox3_transf_addition_constantA_000_y</tabstop>
-  <tabstop>slider3_transf_addition_constantA_000_z</tabstop>
   <tabstop>spinbox3_transf_addition_constantA_000_z</tabstop>
   <tabstop>groupCheck_transf_function_enabledy</tabstop>
-  <tabstop>slider_transf_scale_3</tabstop>
   <tabstop>spinbox_transf_scale_3</tabstop>
   <tabstop>checkBox_transf_function_enabled</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_111_x</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_x</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_y</tabstop>
-  <tabstop>slider3_transf_constant_multiplier_111_z</tabstop>
   <tabstop>spinbox3_transf_constant_multiplier_111_z</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
