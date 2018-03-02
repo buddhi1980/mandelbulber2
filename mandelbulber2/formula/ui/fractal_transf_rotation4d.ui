@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotation4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>673</width>
-    <height>1153</height>
+    <width>814</width>
+    <height>1209</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,67 +35,6 @@
       <number>2</number>
      </property>
      <item row="2" column="2">
-      <widget class="QLabel" name="label_37">
-       <property name="text">
-        <string notr="true">xz</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_38">
-       <property name="text">
-        <string notr="true">yz</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44a_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-180.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>180.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>1.000000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QDial" name="dial3_transf_rotation44a_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44a_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -123,8 +62,8 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44a_y">
+     <item row="2" column="0">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44a_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -158,39 +97,61 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_40">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_38">
        <property name="text">
-        <string notr="true">xy</string>
+        <string notr="true">yz</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QDial" name="dial3_transf_rotation44a_y">
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44a_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
        <property name="minimum">
-        <number>-18000</number>
+        <double>-180.000000000000000</double>
        </property>
        <property name="maximum">
-        <number>18000</number>
+        <double>180.000000000000000</double>
        </property>
-       <property name="wrapping">
-        <bool>true</bool>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="QDial" name="dial3_transf_rotation44a_z">
-       <property name="minimum">
-        <number>-18000</number>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_37">
+       <property name="text">
+        <string notr="true">xz</string>
        </property>
-       <property name="maximum">
-        <number>18000</number>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
-       <property name="wrapping">
-        <bool>true</bool>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_40">
+       <property name="text">
+        <string notr="true">xy</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -201,63 +162,7 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="2">
-      <widget class="QLabel" name="label_48">
-       <property name="text">
-        <string notr="true">zw</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_49">
-       <property name="text">
-        <string notr="true">yw</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="label_50">
-       <property name="text">
-        <string notr="true">xw</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QDial" name="dial3_transf_rotation44b_y">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QDial" name="dial3_transf_rotation44b_z">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
       <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44b_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -285,20 +190,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QDial" name="dial3_transf_rotation44b_x">
-       <property name="minimum">
-        <number>-18000</number>
-       </property>
-       <property name="maximum">
-        <number>18000</number>
-       </property>
-       <property name="wrapping">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
+     <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44b_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -326,7 +218,7 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
+     <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation44b_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -354,10 +246,33 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" colspan="3">
-      <widget class="Line" name="line_5">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_48">
+       <property name="text">
+        <string notr="true">zw</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_50">
+       <property name="text">
+        <string notr="true">xw</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_49">
+       <property name="text">
+        <string notr="true">yw</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -498,27 +413,21 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>dial3_transf_rotation44a_x</tabstop>
-  <tabstop>dial3_transf_rotation44a_y</tabstop>
-  <tabstop>dial3_transf_rotation44a_z</tabstop>
   <tabstop>spinboxd3_transf_rotation44a_x</tabstop>
   <tabstop>spinboxd3_transf_rotation44a_y</tabstop>
   <tabstop>spinboxd3_transf_rotation44a_z</tabstop>
-  <tabstop>dial3_transf_rotation44b_x</tabstop>
-  <tabstop>dial3_transf_rotation44b_y</tabstop>
-  <tabstop>dial3_transf_rotation44b_z</tabstop>
   <tabstop>spinboxd3_transf_rotation44b_x</tabstop>
   <tabstop>spinboxd3_transf_rotation44b_y</tabstop>
   <tabstop>spinboxd3_transf_rotation44b_z</tabstop>
