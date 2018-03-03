@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>485</width>
+    <width>417</width>
     <height>384</height>
    </rect>
   </property>
@@ -56,6 +56,9 @@
          <property name="text">
           <string>Histogram of fractal iteration count</string>
          </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -94,6 +97,9 @@
          </property>
          <property name="text">
           <string>Histogram of ray-marching step count</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

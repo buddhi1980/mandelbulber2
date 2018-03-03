@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold_vary_vcl</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>909</width>
-    <height>2226</height>
+    <height>2320</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,70 +34,17 @@
      <property name="text">
       <string>Spherical Fold - Iteration based varying minR2 parameter</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_2"/>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="1" column="1">
-      <widget class="QSlider" name="slider_transf_minR2_p25">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
+    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
      <item row="1" column="0">
       <widget class="QLabel" name="label_22">
        <property name="text">
         <string>Initial minR2:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_minR2_p25">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -109,31 +56,6 @@
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSlider" name="slider_transf_maxR2_1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_maxR2_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -161,169 +83,8 @@
        </property>
       </widget>
      </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_16">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="6" column="2">
-      <widget class="QSlider" name="slider_transf_scale">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_117">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string notr="true">z</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" rowspan="3">
-      <widget class="QLabel" name="label_15">
-       <property name="text">
-        <string>Spherical folding
-offset:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QSlider" name="slider3_mandelbox_offset_x">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="QSlider" name="slider3_mandelbox_offset_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QSlider" name="slider3_mandelbox_offset_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_116">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string notr="true">y</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_115">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string notr="true">x</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_18">
-       <property name="text">
-        <string>Post Scale:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_minR2_p25">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -350,7 +111,30 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="3">
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_117">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true">z</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -378,7 +162,38 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_115">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true">x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_18">
+       <property name="text">
+        <string>Post Scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="label_15">
+       <property name="text">
+        <string>Spherical folding
+offset:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -406,7 +221,23 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="3">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_116">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string notr="true">y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_offset_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -434,6 +265,34 @@ offset:</string>
        </property>
       </widget>
      </item>
+     <item row="3" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -454,122 +313,67 @@ offset:</string>
      <property name="text">
       <string>Parameters for varying minR2 in respect to iteration count</string>
      </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_36">
+    <widget class="QLabel" name="label_99">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Note. Curvi Function requires the condition that B &gt; 2 * A</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
+     <property name="text">
+      <string>Curvilinear</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
+     <property name="text">
+      <string>Curvi function ( disable to use linear slopes only)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_36" columnstretch="0,0,0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="5" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraB">
+     <item row="2" column="1">
+      <widget class="MySpinBox" name="spinboxInt_Cpara_iterB">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
        <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+        <number>999</number>
        </property>
       </widget>
      </item>
-     <item row="5" column="3" colspan="2">
-      <widget class="QSlider" name="slider_Cpara_paraB">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QLabel" name="label_173">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_174">
        <property name="text">
-        <string>Iteration B:</string>
+        <string notr="true">0</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraA">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
-       <property name="text">
-        <string>Curvilinear</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="4">
-      <widget class="QLabel" name="label_99">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Note. Curvi Function requires the condition that B &gt; 2 * A</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
+     <item row="1" column="1">
       <widget class="MySpinBox" name="spinboxInt_Cpara_iterA">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -582,93 +386,14 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraC">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QLabel" name="label_92">
+     <item row="2" column="2">
+      <widget class="QLabel" name="label_95">
        <property name="text">
-        <string>A Value:</string>
+        <string>B Value:</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="3">
-      <widget class="QSlider" name="slider_Cpara_paraA">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3" colspan="2">
-      <widget class="QSlider" name="slider_Cpara_para00">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
-       <property name="text">
-        <string>Curvi function ( disable to use linear slopes only)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
+     <item row="3" column="1">
       <widget class="MySpinBox" name="spinboxInt_Cpara_iterC">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -681,7 +406,35 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="5">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_173">
+       <property name="text">
+        <string>Iteration B:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="label_92">
+       <property name="text">
+        <string>A Value:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_172">
+       <property name="text">
+        <string>Iteration A:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QLabel" name="label_96">
+       <property name="text">
+        <string>C Value:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
       <widget class="MyDoubleSpinBox" name="spinbox_Cpara_para00">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -709,90 +462,108 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="3">
-      <widget class="QSlider" name="slider_Cpara_paraC">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="QLabel" name="label_95">
-       <property name="text">
-        <string>B Value:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="MySpinBox" name="spinboxInt_Cpara_iterB">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_174">
-       <property name="text">
-        <string notr="true">0</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="2">
-      <widget class="QLabel" name="label_96">
-       <property name="text">
-        <string>C Value:</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="label_172">
-       <property name="text">
-        <string>Iteration A:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
       <widget class="QLabel" name="label_175">
        <property name="text">
         <string>Iteration C:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_171">
+       <property name="text">
+        <string>Iteration:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraC">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraA">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
       <widget class="QLabel" name="label_94">
        <property name="text">
         <string>Initial add:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_171">
-       <property name="text">
-        <string>Iteration:</string>
+     <item row="2" column="3">
+      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_paraB">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
@@ -806,77 +577,20 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_37">
+    <widget class="QLabel" name="label_97">
+     <property name="text">
+      <string>The Curvilinear and Parabolic functions can be applied together</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="3">
-      <widget class="QLabel" name="label_97">
-       <property name="text">
-        <string>The Curvilinear and Parabolic functions can be applied together</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_parab_slope">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_103">
-       <property name="text">
-        <string>Initial add:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="3" colspan="2">
-      <widget class="QSlider" name="slider_Cpara_parab_scale">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-500000000</number>
-       </property>
-       <property name="maximum">
-        <number>500000000</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-       <property name="sliderPosition">
-        <number>0</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
       <widget class="QCheckBox" name="checkBox_Cpara_enabledParab_false">
        <property name="text">
@@ -884,100 +598,7 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_100">
-       <property name="text">
-        <string>Initial add:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_98">
-       <property name="text">
-        <string>Parabolic scale:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="5">
-      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_parab_offset0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>99.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QSlider" name="slider_Cpara_parab_slope">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_101">
-       <property name="text">
-        <string>Axis Slope:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3" colspan="2">
-      <widget class="QSlider" name="slider_Cpara_parab_offset0">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-5000000</number>
-       </property>
-       <property name="maximum">
-        <number>5000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="5">
+     <item row="3" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_Cpara_parab_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1005,14 +626,105 @@ offset:</string>
        </property>
       </widget>
      </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_98">
+       <property name="text">
+        <string>Parabolic scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_parab_slope">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_100">
+       <property name="text">
+        <string>Initial add:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyDoubleSpinBox" name="spinbox_Cpara_parab_offset0">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>99.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_101">
+       <property name="text">
+        <string>Axis Slope:</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_7">
+    <layout class="QGridLayout" name="gridLayout_7" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="2">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_31">
+       <property name="text">
+        <string>Fixed radius component:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_30">
+       <property name="text">
+        <string>Min radius component:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1040,36 +752,7 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QSlider" name="slider_mandelbox_color_Sp1">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-500</number>
-       </property>
-       <property name="maximum">
-        <number>500</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_30">
-       <property name="text">
-        <string>Min radius component:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
+     <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1097,36 +780,7 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QSlider" name="slider_mandelbox_color_Sp2">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>-500</number>
-       </property>
-       <property name="maximum">
-        <number>500</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_31">
-       <property name="text">
-        <string>Fixed radius component:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
+     <item row="0" column="0" colspan="2">
       <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
         <string notr="true">aux.color components</string>
@@ -1312,15 +966,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -1329,37 +983,22 @@ offset:</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>slider_transf_maxR2_1</tabstop>
   <tabstop>spinbox_transf_maxR2_1</tabstop>
-  <tabstop>slider_transf_minR2_p25</tabstop>
   <tabstop>spinbox_transf_minR2_p25</tabstop>
-  <tabstop>slider3_mandelbox_offset_x</tabstop>
   <tabstop>spinbox3_mandelbox_offset_x</tabstop>
-  <tabstop>slider3_mandelbox_offset_y</tabstop>
   <tabstop>spinbox3_mandelbox_offset_y</tabstop>
-  <tabstop>slider3_mandelbox_offset_z</tabstop>
   <tabstop>spinbox3_mandelbox_offset_z</tabstop>
-  <tabstop>slider_transf_scale</tabstop>
   <tabstop>spinbox_transf_scale</tabstop>
-  <tabstop>checkBox_Cpara_enabledLinear</tabstop>
-  <tabstop>checkBox_Cpara_enabledCurves</tabstop>
-  <tabstop>slider_Cpara_para00</tabstop>
   <tabstop>spinbox_Cpara_para00</tabstop>
   <tabstop>spinboxInt_Cpara_iterA</tabstop>
-  <tabstop>slider_Cpara_paraA</tabstop>
   <tabstop>spinbox_Cpara_paraA</tabstop>
   <tabstop>spinboxInt_Cpara_iterB</tabstop>
-  <tabstop>slider_Cpara_paraB</tabstop>
   <tabstop>spinbox_Cpara_paraB</tabstop>
   <tabstop>spinboxInt_Cpara_iterC</tabstop>
-  <tabstop>slider_Cpara_paraC</tabstop>
   <tabstop>spinbox_Cpara_paraC</tabstop>
   <tabstop>checkBox_Cpara_enabledParab_false</tabstop>
-  <tabstop>slider_Cpara_parab_offset0</tabstop>
   <tabstop>spinbox_Cpara_parab_offset0</tabstop>
-  <tabstop>slider_Cpara_parab_slope</tabstop>
   <tabstop>spinbox_Cpara_parab_slope</tabstop>
-  <tabstop>slider_Cpara_parab_scale</tabstop>
   <tabstop>spinbox_Cpara_parab_scale</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
