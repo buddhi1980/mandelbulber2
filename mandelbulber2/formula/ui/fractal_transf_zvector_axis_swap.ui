@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_zvector_axis_swap</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
-    <height>677</height>
+    <width>887</width>
+    <height>943</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -30,25 +30,16 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_23">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-     <item row="2" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+    <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string notr="true">z.y</string>
+        <string>function order of z.x, z.y and z.z:
+(swaps order each iteration)</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
-       <property name="text">
-        <string notr="true">z.x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
+     <item row="0" column="1">
       <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
@@ -82,57 +73,49 @@
        </item>
       </widget>
      </item>
-     <item row="0" column="3">
-      <widget class="QLabel" name="label_4">
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_23">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
-        <string>swaps order each iteration</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="3" colspan="2">
+     <item row="0" column="3">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
+     <item row="0" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
-        <string>function order of z.x, z.y and z.z:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="0" column="0">
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>reverse axis sign each iteration</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
+        <string>reverse axis sign each iteration:</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="4" colspan="2">
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="2" column="5">
+     <item row="0" column="4">
       <spacer name="horizontalSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -145,14 +128,88 @@
        </property>
       </spacer>
      </item>
-     <item row="1" column="0" colspan="6">
-      <widget class="Line" name="line_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+     <property name="title">
+      <string>&amp;45 degree rotation of XY plane</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>for every iteration from start to stop</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_49">
+          <property name="text">
+           <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_68">
+          <property name="text">
+           <string>Start at iteration:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="Line" name="line">
@@ -160,67 +217,6 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_15">
-     <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
-       <property name="text">
-        <string>enable 45 degree rotation of XY plane, for every iteration from start to stop</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="2">
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_49">
-         <property name="text">
-          <string>Stop at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_68">
-         <property name="text">
-          <string>Start at iteration:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="MySpinBox" name="spinboxInt_transf_start_iterations">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimum">
-          <number>0</number>
-         </property>
-         <property name="maximum">
-          <number>999</number>
-         </property>
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
    </item>
    <item>
     <widget class="Line" name="line_3">
@@ -359,11 +355,9 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
   <tabstop>checkBox_transf_function_enabledx_false</tabstop>
   <tabstop>checkBox_transf_function_enabledy_false</tabstop>
   <tabstop>checkBox_transf_function_enabledz_false</tabstop>
-  <tabstop>checkBox_transf_function_enabled_false</tabstop>
   <tabstop>spinboxInt_transf_start_iterations</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations</tabstop>
   <tabstop>groupCheck_info</tabstop>
