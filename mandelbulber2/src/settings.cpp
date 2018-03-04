@@ -421,7 +421,10 @@ void cSettings::DecodeHeader(QStringList &separatedText)
 		}
 		catch (QString &error)
 		{
-			cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
+			if (!quiet)
+			{
+				cErrorMessage::showMessage(error, cErrorMessage::errorMessage);
+			}
 			textPrepared = false;
 			return;
 		}
@@ -557,14 +560,20 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 
 				if (!result)
 				{
-					QString errorMessage =
-						QObject::tr("Error in settings file. Line: ") + QString::number(l) + " (" + line + ")";
-					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					if (!quiet)
+					{
+						QString errorMessage = QObject::tr("Error in settings file. Line: ")
+																	 + QString::number(l) + " (" + line + ")";
+						cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					}
 					errorCount++;
 					if (errorCount > 3)
 					{
-						cErrorMessage::showMessage(
-							QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						if (!quiet)
+						{
+							cErrorMessage::showMessage(
+								QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						}
 						return false;
 					}
 				}
@@ -600,14 +609,20 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 
 				if (!result)
 				{
-					QString errorMessage =
-						QObject::tr("Error in settings file. Line: ") + linesWithSoundParameters[i];
-					cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					if (!quiet)
+					{
+						QString errorMessage =
+							QObject::tr("Error in settings file. Line: ") + linesWithSoundParameters[i];
+						cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
+					}
 					errorCount++;
 					if (errorCount > 3)
 					{
-						cErrorMessage::showMessage(
-							QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						if (!quiet)
+						{
+							cErrorMessage::showMessage(
+								QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+						}
 						return false;
 					}
 				}
@@ -693,8 +708,11 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			}
 			else
 			{
-				cErrorMessage::showMessage(
-					QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+				if (!quiet)
+				{
+					cErrorMessage::showMessage(
+						QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+				}
 				return false;
 			}
 		}
@@ -714,8 +732,11 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	if (varType == typeNull)
 	{
-		cErrorMessage::showMessage(
-			QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+		if (!quiet)
+		{
+			cErrorMessage::showMessage(
+				QObject::tr("Unknown parameter: ") + parameterName, cErrorMessage::errorMessage);
+		}
 		return false;
 	}
 	else
@@ -724,8 +745,12 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		{
 			if (value.size() == 0)
 			{
-				cErrorMessage::showMessage(QObject::tr("Missing value for parameter %1").arg(parameterName),
-					cErrorMessage::errorMessage);
+				if (!quiet)
+				{
+					cErrorMessage::showMessage(
+						QObject::tr("Missing value for parameter %1").arg(parameterName),
+						cErrorMessage::errorMessage);
+				}
 				return false;
 			}
 		}

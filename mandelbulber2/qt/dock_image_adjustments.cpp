@@ -345,6 +345,7 @@ void cDockImageAdjustments::InitResolutionPresets()
 	if (QFileInfo::exists(presetsFile))
 	{
 		cSettings settings(cSettings::formatAppSettings);
+		settings.BeQuiet(true);
 		settings.LoadFromFile(presetsFile);
 		settings.Decode(resolutionPresets, nullptr);
 	}

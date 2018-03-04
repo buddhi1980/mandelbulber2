@@ -691,3 +691,36 @@ void CalcPreferredFontSize(bool noGui)
 		systemData.SetPreferredThumbnailSize(80);
 	}
 }
+
+QString sSystem::GetIniFile() const
+{
+	double version = MANDELBULBER_VERSION;
+	int versionInt = int(version * 100);
+
+	QString iniFileName = QString("mandelbulber_%1.ini").arg(versionInt);
+	QString fullIniFileName = dataDirectoryHidden + iniFileName;
+
+	// if setting file doesn't exist then look for older files
+	if (!QFile::exists(fullIniFileName))
+	{
+		QString tempFileName;
+		for (int ver = versionInt; ver >= 212; ver--)
+		{
+			if(ver == 212)
+			{
+				tempFileName = QString("mandelbulber.ini");
+			}
+			else
+			{
+				tempFileName = QString("mandelbulber_%1.ini").arg(ver);
+			}
+
+			if (QFile::exists(dataDirectoryHidden + tempFileName))
+			{
+				fcopy(dataDirectoryHidden + tempFileName, fullIniFileName);
+				WriteLogString("Found older settings file", dataDirectoryHidden + tempFileName, 1);
+			}
+		}
+	}
+	return fullIniFileName;
+}

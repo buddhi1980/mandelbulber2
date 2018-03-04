@@ -143,10 +143,13 @@ int main(int argc, char *argv[])
 	gNetRender = new CNetRender(systemData.numberOfThreads);
 
 	// loading AppSettings
-	if (QFile(systemData.GetIniFile()).exists())
+	QString iniFileName = systemData.GetIniFile();
+	if (QFile(iniFileName).exists())
 	{
+		QTextStream out(stdout);
+		out << "Settings file: " << iniFileName << endl;
 		cSettings parSettings(cSettings::formatAppSettings);
-		parSettings.LoadFromFile(systemData.GetIniFile());
+		parSettings.LoadFromFile(iniFileName);
 		parSettings.Decode(gPar, gParFractal);
 	}
 
