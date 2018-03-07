@@ -9143,7 +9143,7 @@ void TransfRpow3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
- * rotation variation v1. Rotation angles vary based on iteration parameters.
+ * rotation variation v1. Rotation angles vary linearly between iteration parameters.
  */
 void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9157,14 +9157,14 @@ void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtend
 		int iterationRange =
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
-		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
+		tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
 		tempVC = (tempVC + fractal->transformCommon.offset000);
 	}
 
-	tempVC *= M_PI / 180.0;
+	tempVC *= M_PI_180;
 
 	z = z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
 	z = z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
