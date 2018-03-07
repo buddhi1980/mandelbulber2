@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -619,7 +619,7 @@ offset:</string>
       <item>
        <widget class="QGroupBox" name="groupBox_4">
         <property name="title">
-         <string>Viariable scale</string>
+         <string>Variable scale</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <property name="leftMargin">
