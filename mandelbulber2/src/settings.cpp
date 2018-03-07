@@ -990,15 +990,47 @@ bool cSettings::DecodeFramesHeader(
 				if (fullParameterName.length() > 2)
 				{
 					QString lastTwo = fullParameterName.right(2);
-					if (lastTwo == "_x" || lastTwo == "_y" || lastTwo == "_z")
+					if (lastTwo == "_x") // check if it's CVector4
 					{
-						fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
-						i += 2;
+						// check if there are at least 2 parameters left and they are *_y and *_z
+						bool isCVector4 = false;
+						if (i + 3 < lineSplit.size())
+						{
+							QString lastTwoY = lineSplit[i + 1].right(2);
+							QString lastTwoZ = lineSplit[i + 2].right(2);
+							QString lastTwoW = lineSplit[i + 3].right(2);
+							if (lastTwoY == "_y" && lastTwoZ == "_z" && lastTwoW == "_w")
+							{
+								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+								i += 3;
+								isCVector4 = true;
+							}
+						}
+
+						if (!isCVector4 && i + 2 < lineSplit.size()) // check if it's CVector3
+						{
+							QString lastTwoY = lineSplit[i + 1].right(2);
+							QString lastTwoZ = lineSplit[i + 2].right(2);
+							if (lastTwoY == "_y" && lastTwoZ == "_z")
+							{
+								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+								i += 2;
+							}
+						}
 					}
-					else if (lastTwo == "_R" || lastTwo == "_G" || lastTwo == "_B")
+					else if (lastTwo == "_R") // check if it's RGB
 					{
-						fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
-						i += 2;
+						// check if there are at least 2 parameters left and they are *_G and *_B
+						if (i + 2 < lineSplit.size())
+						{
+							QString lastTwoG = lineSplit[i + 1].right(2);
+							QString lastTwoB = lineSplit[i + 2].right(2);
+							if (lastTwoG == "_G" && lastTwoB == "_B")
+							{
+								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+								i += 2;
+							}
+						}
 					}
 				}
 
