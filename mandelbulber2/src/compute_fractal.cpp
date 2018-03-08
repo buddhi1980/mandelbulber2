@@ -325,7 +325,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					{
 						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
 						if (in.material->fractalColoring.color4dEnabledFalse)
-							len = min(len, colorW); // colorW unlikely do do much out at fractal surface, and
+							len = min(len, colorW); // colorW unlikely to do much out at fractal surface, and
 																			// often will be the minimum
 						break;
 					}
@@ -341,7 +341,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case fractalColoring_None:
 					{
-						len = r; // this may need 4d option
+						len = r;
 						break;
 					}
 				}

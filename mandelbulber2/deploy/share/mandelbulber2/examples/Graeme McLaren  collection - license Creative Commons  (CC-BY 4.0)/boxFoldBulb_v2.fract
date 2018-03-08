@@ -1,0 +1,51 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[description]
+This fractal is run for 11 iterations, refer maxiter on Global parameters tab.
+[main_parameters]
+ambient_occlusion_enabled true;
+background_brightness 0.64;
+background_color_2 3400 0000 0000;
+camera -2.892733552297105 -14.33415706910011 3.024399778390236;
+camera_distance_to_target 1.472852933876228;
+camera_rotation 31.18479685208131 18.54664507187846 0.2448790073018054;
+camera_top 0.1683549183515756 -0.2698995325021157 0.9480563610998946;
+DE_thresh 6e-05;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+fog_color_2 0000 5500 0000;
+formula_1 125;
+fov 0.4;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+main_light_alpha -7.13;
+mat1_coloring_palette_offset 8.84;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 570872;
+mat1_fractal_coloring_algorithm 3;
+mat1_is_defined true;
+mat1_surface_color_palette 005500 005500 aa0000 000000 d0d024 aa0000 cddb7f 000000 929aa6 ffd597 66677f 405540 000000 70a7b0 cfc44c 6de37b b78155 27581e ee87ff ffaa7f 4f0b00 be4642 102547 796b40 0a1f3e 55aa7f 258a00 00a400 7f7a83 e26f5e 73c97d 01000e;
+N 11;
+target -3.615768973843895 -13.13956843870257 3.492879818670929;
+textured_background_map_type 2;
+use_default_bailout false;
+view_distance_max 305.9216435111341;
+volumetric_fog_density 0.1;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 0.6;
+transf_addition_constant_111 0.5 1 1;
+transf_maxR2_1 0.8;
+transf_minR2_p25 0.15;
+transf_scale 0.9;
+transf_start_iterations_A 8;
+transf_stop_iterations_A 9;
+transf_stop_iterations_B 12;
+transf_stop_iterations_C 12;
+transf_stop_iterations_S 13;
