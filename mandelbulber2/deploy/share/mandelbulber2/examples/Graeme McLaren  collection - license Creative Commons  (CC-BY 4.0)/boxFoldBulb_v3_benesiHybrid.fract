@@ -1,0 +1,50 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_brightness 0.64;
+background_color_2 0000 2700 0100;
+background_color_3 0000 2700 0100;
+camera -0.6304269144073816 -3.176415863497507 -0.009358751097457846;
+camera_distance_to_target 2.207749700546265;
+camera_rotation -11.80171362761973 -0.04315532476199037 0;
+camera_top 0.0001540489753147975 0.0007372806943554186 0.9999997163430052;
+DE_factor 0.5;
+DE_thresh 0.001;
+detail_level 0.5;
+flight_last_to_render 0;
+fog_color_2 0000 ff00 ff00;
+formula_1 126;
+formula_3 1009;
+formula_4 92;
+formula_start_iteration_3 5;
+fractal_constant_factor 0 0 0;
+fractal_enable_4 false;
+fractal_rotation 0 36 0;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+main_light_alpha -7.13;
+main_light_beta 7.35;
+mat1_coloring_palette_offset 4.99;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 690604;
+mat1_coloring_speed 0.1;
+mat1_is_defined true;
+mat1_surface_color_palette 377dba 218491 b70079 ce8ed7 41e0d3 9157b0 41778b bb9d1e 43826e 3effa6 ffa3ff 33ff65 ac002c 67c83e f5dafc 4aa58a ffe39d af67b3 9a0000 989af8 6383af 5f6791 c0e72f c0e72f c0e72f c0e72f c0e72f c0e72f 75dca1 c422b8 006d90 72ffff;
+raytraced_reflections true;
+target -0.1788863105107514 -1.015335796004231 -0.01102163354920848;
+textured_background_map_type 2;
+use_default_bailout false;
+view_distance_max 19.30574752621909;
+volumetric_fog_colour_1_distance 0.005014351257922754;
+volumetric_fog_colour_2_distance 0.01002870251584551;
+volumetric_fog_density 0.3;
+volumetric_fog_distance_factor 0.01002870251584551;
+[fractal_1]
+transf_addition_constant_111 1 1 0;
+transf_function_enabledX_false true;
+transf_start_iterations_B 1;
+transf_stop_iterations_M 1;
