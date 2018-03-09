@@ -71,11 +71,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox - Mod 12", "abox_mod12", aboxMod12,
 		AboxMod12Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionGeneral));
+		analyticFunctionLinear, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Abox - Mod 13", "abox_mod13", aboxMod13,
 		AboxMod13Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionGeneral));
+		analyticFunctionLinear, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
 		AboxModKaliIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
@@ -130,13 +130,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelEnabledByDefault, 10000, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2 V2", "box_fold_bulb_pow2_v2",
 		boxFoldBulbPow2V2, BoxFoldBulbPow2V2Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionGeneral));
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Box Fold Bulb Pow 2 V3", "box_fold_bulb_pow2_v3",
 		boxFoldBulbPow2V3, BoxFoldBulbPow2V3Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionGeneral));
+		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Box Fold Quat", "box_fold_quat", boxFoldQuat,
 		BoxFoldQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLogarithmic, coloringFunctionGeneral));
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -248,7 +248,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Quat", "mandelbulb_quat", mandelbulbQuat,
 		MandelbulbQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionLogarithmic, coloringFunctionGeneral));
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Vary Power V1", "mandelbulb_vary_power_v1",
 		mandelbulbVaryPowerV1, MandelbulbVaryPowerV1Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -270,7 +270,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
 		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionGeneral));
+		analyticFunctionIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod",
 		mengerMiddleMod, MengerMiddleModIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
@@ -333,7 +333,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Pseudo Kleinian - Mod 2", "pseudo_kleinian_mod2",
 		pseudoKleinianMod2, PseudoKleinianMod2Iteration, analyticDEType, pseudoKleinianDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionGeneral));
+		cpixelDisabledByDefault, 100, analyticFunctionPseudoKleinian, coloringFunctionDefault));
 
 	// Quaternion formulas
 	fractalList->append(sFractalDescription("Quaternion", "quaternion", quaternion,
@@ -684,9 +684,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Testing", "testing", testing, TestingIteration,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionGeneral));
+		coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionGeneral));
+		coloringFunctionDefault));
 }
