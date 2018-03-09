@@ -268,6 +268,7 @@ enum enumFractalFormula
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
 	testing = 2100,
+	testing4d = 2101,
 };
 }
 

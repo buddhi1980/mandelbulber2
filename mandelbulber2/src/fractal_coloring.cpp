@@ -114,6 +114,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	double rad1000 = 0.0;
 	double colorValue = 0.0;
 
+	// color by numbers
+
+
+
 	// HYBRID MODE
 	if (isHybrid)
 	{
