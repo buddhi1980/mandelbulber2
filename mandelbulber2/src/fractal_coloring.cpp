@@ -40,71 +40,65 @@ using namespace fractal;
 
 sFractalColoring::sFractalColoring()
 {
-	sphereRadius = 0.0;
-	coloringAlgorithm = fractalColoring_None;
-
+	addEnabledFalse = false;
+	auxColorFalse = false;
+	color4dEnabledFalse = false;
+	cosEnabledFalse = false;
 	extraColorEnabledFalse = false;
-	initialColorValue = 0.0;
-	initCondFalse = false;
+	globalPaletteFalse = false;
+	icFabsFalse = false;
 	icRadFalse = false;
 	icXYZFalse = false;
-	icFabsFalse = false;
-	icRadWeight = 1.0;
-
-	orbitTrapTrue = true;
-	orbitTrapWeight = 1.0;
-	initialMinimumR = 100.0;
-
-	auxColorFalse = false;
-	auxColorWeight = 1.0;
-	auxColorHybridWeight = 0.0;
-
-	radFalse = false;
-	radWeight = 1.0;
-	radSquaredFalse = false;
+	initCondFalse = false;
+	iterAddScaleTrue = false;
+	iterGroupFalse = false;
+	iterScaleFalse = false;
+	orbitTrapTrue = false;
+	parabEnabledFalse = false;
 	radDiv1e13False = false;
 	radDivDeFalse = false;
-	radDivLogDeFalse = false;
-	radDivDeWeight = 1.0;
 	radDivDeSquaredFalse = false;
-
+	radDivLogDeFalse = false;
+	radFalse = false;
+	radSquaredFalse = false;
+	roundEnabledFalse = false;
 	xyzBiasEnabledFalse = false;
-	xyzIterScale = 0.0;
+	xyzDiv1e13False = false;
+	xyzFabsFalse = false;
 	xyzXSqrdFalse = false;
 	xyzYSqrdFalse = false;
 	xyzZSqrdFalse = false;
-	xyzFabsFalse = false;
-	xyzDiv1e13False = false;
 
-	iterGroupFalse = false;
-	iterAddScaleTrue = true;
-	iterScaleFalse = false;
-	iterAddScale = 1.0;
-	iterScale = 1.0;
+	coloringAlgorithm = fractalColoring_None;
 	iStartValue = 0;
 
-	// global palette controls
-	globalPaletteFalse = false;
+	CVector3 lineDirection;
+	CVector3 xyz000;
+	CVector3 xyzC111;
 
-	addEnabledFalse = false;
-	addMax = 1.0;
-	addSpread = 1.0;
+	addMax = 0.0;
+	addSpread = 0.0;
 	addStartValue = 0.0;
-
-	parabEnabledFalse = false;
-	parabScale = 1.0;
-	parabStartValue = 0.0;
-
-	cosEnabledFalse = false;
-	cosPeriod = 1.0;
-	cosAdd = 1.0;
+	auxColorHybridWeight = 0.0;
+	auxColorWeight = 0.0;
+	cosAdd = 0.0;
+	cosPeriod = 0.0;
 	cosStartValue = 0.0;
-
-	roundEnabledFalse = false;
-	roundScale = 1.0;
-
-	maxColorValue = 100000.0;
+	icRadWeight = 0.0;
+	initialColorValue = 0.0;
+	initialMinimumR = 0.0;
+	iterAddScale = 0.0;
+	iterScale = 0.0;
+	maxColorValue = 0.0;
 	minColorValue = 0.0;
+	orbitTrapWeight = 0.0;
+	parabScale = 0.0;
+	parabStartValue = 0.0;
+	radDivDeWeight = 0.0;
+	radWeight = 0.0;
+	roundScale = 0.0;
+	sphereRadius = 0.0;
+	xyzIterScale = 0.0;
 }
 
 double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
@@ -126,7 +120,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		//*new hybrid*
 		if (fractalColoring.extraColorEnabledFalse)
 		{
+
+			// initial color value
 			colorValue = fractalColoring.initialColorValue;
+
+			// initial condition components
 			if (fractalColoring.initCondFalse)
 			{
 				double initColorValue = 0.0;
@@ -149,8 +147,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorValue += initColorValue;
 			}
 
+			// orbit trap component
 			if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
 
+			// auxiliary color components
 			if (fractalColoring.auxColorFalse)
 				colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
 											+ extendedAux.colorHybrid // transf_hybrid_color inputs

@@ -53,77 +53,66 @@ enum enumFractalColoring
 
 struct sFractalColoring
 {
-	CVector3 lineDirection;
-	double sphereRadius;
-	enumFractalColoring coloringAlgorithm;
+	bool addEnabledFalse;
+	bool auxColorFalse;
 	bool color4dEnabledFalse;
-
-	// trial
+	bool cosEnabledFalse;
 	bool extraColorEnabledFalse;
-	double initialColorValue;
-	bool initCondFalse;
+	// global palette controls
+	bool globalPaletteFalse;
+	bool icFabsFalse;
 	bool icRadFalse;
 	bool icXYZFalse;
-	bool icFabsFalse;
-	double icRadWeight;
-	CVector3 xyzC111;
-
+	bool initCondFalse;
+	bool iterAddScaleTrue;
+	bool iterGroupFalse;
+	bool iterScaleFalse;
 	bool orbitTrapTrue;
-	double orbitTrapWeight;
-	double initialMinimumR;
-
-	bool auxColorFalse;
-	double auxColorWeight;
-	double auxColorHybridWeight;
-
-	bool radFalse;
-	double radWeight;
-	bool radSquaredFalse;
+	bool parabEnabledFalse;
 	bool radDiv1e13False;
-
 	bool radDivDeFalse;
-	bool radDivLogDeFalse;
-	double radDivDeWeight;
 	bool radDivDeSquaredFalse;
-
+	bool radDivLogDeFalse;
+	bool radFalse;
+	bool radSquaredFalse;
+	bool roundEnabledFalse;
 	bool xyzBiasEnabledFalse;
-	CVector3 xyz000;
-	double xyzIterScale;
+	bool xyzDiv1e13False;
+	bool xyzFabsFalse;
 	bool xyzXSqrdFalse;
 	bool xyzYSqrdFalse;
 	bool xyzZSqrdFalse;
-	bool xyzFabsFalse;
-	bool xyzDiv1e13False;
 
-	bool iterGroupFalse;
-	bool iterAddScaleTrue;
-	bool iterScaleFalse;
-	double iterAddScale;
-	double iterScale;
+	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
 
-	// global palette controls
-	bool globalPaletteFalse;
+	CVector3 lineDirection;
+	CVector3 xyz000;
+	CVector3 xyzC111;
 
-	bool addEnabledFalse;
 	double addMax;
 	double addSpread;
 	double addStartValue;
-
-	bool parabEnabledFalse;
-	double parabScale;
-	double parabStartValue;
-
-	bool cosEnabledFalse;
-	double cosPeriod;
+	double auxColorHybridWeight;
+	double auxColorWeight;
 	double cosAdd;
+	double cosPeriod;
 	double cosStartValue;
-
-	bool roundEnabledFalse;
-	double roundScale;
-
+	double icRadWeight;
+	double initialColorValue;
+	double initialMinimumR;
+	double iterAddScale;
+	double iterScale;
 	double maxColorValue;
 	double minColorValue;
+	double orbitTrapWeight;
+	double parabScale;
+	double parabStartValue;
+	double radDivDeWeight;
+	double radWeight;
+	double roundScale;
+	double sphereRadius;
+	double xyzIterScale;
 
 	sFractalColoring();
 };
