@@ -69,77 +69,66 @@ typedef enum {
 
 typedef struct
 {
-	cl_float3 lineDirection;
-	cl_float sphereRadius;
-	enumFractalColoringCl coloringAlgorithm;
+	cl_int addEnabledFalse;
+	cl_int auxColorFalse;
 	cl_int color4dEnabledFalse;
-
-	// trial
+	cl_int cosEnabledFalse;
 	cl_int extraColorEnabledFalse;
-	cl_float initialColorValue;
-	cl_int initCondFalse;
+	// global palette controls
+	cl_int globalPaletteFalse;
+	cl_int icFabsFalse;
 	cl_int icRadFalse;
 	cl_int icXYZFalse;
-	cl_int icFabsFalse;
-	cl_float icRadWeight;
-	cl_float3 xyzC111;
-
+	cl_int initCondFalse;
+	cl_int iterAddScaleTrue;
+	cl_int iterGroupFalse;
+	cl_int iterScaleFalse;
 	cl_int orbitTrapTrue;
-	cl_float orbitTrapWeight;
-	cl_float initialMinimumR;
-
-	cl_int auxColorFalse;
-	cl_float auxColorWeight;
-	cl_float auxColorHybridWeight;
-
-	cl_int radFalse;
-	cl_float radWeight;
-	cl_int radSquaredFalse;
+	cl_int parabEnabledFalse;
 	cl_int radDiv1e13False;
-
 	cl_int radDivDeFalse;
-	cl_int radDivLogDeFalse;
-	cl_float radDivDeWeight;
 	cl_int radDivDeSquaredFalse;
-
+	cl_int radDivLogDeFalse;
+	cl_int radFalse;
+	cl_int radSquaredFalse;
+	cl_int roundEnabledFalse;
 	cl_int xyzBiasEnabledFalse;
-	cl_float3 xyz000;
-	cl_float xyzIterScale;
+	cl_int xyzDiv1e13False;
+	cl_int xyzFabsFalse;
 	cl_int xyzXSqrdFalse;
 	cl_int xyzYSqrdFalse;
 	cl_int xyzZSqrdFalse;
-	cl_int xyzFabsFalse;
-	cl_int xyzDiv1e13False;
 
-	cl_int iterGroupFalse;
-	cl_int iterAddScaleTrue;
-	cl_int iterScaleFalse;
-	cl_float iterAddScale;
-	cl_float iterScale;
+	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
 
-	// global palette controls
-	cl_int globalPaletteFalse;
+	cl_float3 lineDirection;
+	cl_float3 xyz000;
+	cl_float3 xyzC111;
 
-	cl_int addEnabledFalse;
 	cl_float addMax;
 	cl_float addSpread;
 	cl_float addStartValue;
-
-	cl_int parabEnabledFalse;
-	cl_float parabScale;
-	cl_float parabStartValue;
-
-	cl_int cosEnabledFalse;
-	cl_float cosPeriod;
+	cl_float auxColorHybridWeight;
+	cl_float auxColorWeight;
 	cl_float cosAdd;
+	cl_float cosPeriod;
 	cl_float cosStartValue;
-
-	cl_int roundEnabledFalse;
-	cl_float roundScale;
-
+	cl_float icRadWeight;
+	cl_float initialColorValue;
+	cl_float initialMinimumR;
+	cl_float iterAddScale;
+	cl_float iterScale;
 	cl_float maxColorValue;
 	cl_float minColorValue;
+	cl_float orbitTrapWeight;
+	cl_float parabScale;
+	cl_float parabStartValue;
+	cl_float radDivDeWeight;
+	cl_float radWeight;
+	cl_float roundScale;
+	cl_float sphereRadius;
+	cl_float xyzIterScale;
 
 } sFractalColoringCl;
 
@@ -151,62 +140,62 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 inline sFractalColoringCl clCopySFractalColoringCl(sFractalColoring &source)
 {
 	sFractalColoringCl target;
-	target.lineDirection = toClFloat3(source.lineDirection);
-	target.sphereRadius = source.sphereRadius;
-	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
+	target.addEnabledFalse = source.addEnabledFalse;
+	target.auxColorFalse = source.auxColorFalse;
 	target.color4dEnabledFalse = source.color4dEnabledFalse;
+	target.cosEnabledFalse = source.cosEnabledFalse;
 	target.extraColorEnabledFalse = source.extraColorEnabledFalse;
-	target.initialColorValue = source.initialColorValue;
-	target.initCondFalse = source.initCondFalse;
+	target.globalPaletteFalse = source.globalPaletteFalse;
+	target.icFabsFalse = source.icFabsFalse;
 	target.icRadFalse = source.icRadFalse;
 	target.icXYZFalse = source.icXYZFalse;
-	target.icFabsFalse = source.icFabsFalse;
-	target.icRadWeight = source.icRadWeight;
-	target.xyzC111 = toClFloat3(source.xyzC111);
+	target.initCondFalse = source.initCondFalse;
+	target.iterAddScaleTrue = source.iterAddScaleTrue;
+	target.iterGroupFalse = source.iterGroupFalse;
+	target.iterScaleFalse = source.iterScaleFalse;
 	target.orbitTrapTrue = source.orbitTrapTrue;
-	target.orbitTrapWeight = source.orbitTrapWeight;
-	target.initialMinimumR = source.initialMinimumR;
-	target.auxColorFalse = source.auxColorFalse;
-	target.auxColorWeight = source.auxColorWeight;
-	target.auxColorHybridWeight = source.auxColorHybridWeight;
-	target.radFalse = source.radFalse;
-	target.radWeight = source.radWeight;
-	target.radSquaredFalse = source.radSquaredFalse;
+	target.parabEnabledFalse = source.parabEnabledFalse;
 	target.radDiv1e13False = source.radDiv1e13False;
 	target.radDivDeFalse = source.radDivDeFalse;
-	target.radDivLogDeFalse = source.radDivLogDeFalse;
-	target.radDivDeWeight = source.radDivDeWeight;
 	target.radDivDeSquaredFalse = source.radDivDeSquaredFalse;
+	target.radDivLogDeFalse = source.radDivLogDeFalse;
+	target.radFalse = source.radFalse;
+	target.radSquaredFalse = source.radSquaredFalse;
+	target.roundEnabledFalse = source.roundEnabledFalse;
 	target.xyzBiasEnabledFalse = source.xyzBiasEnabledFalse;
-	target.xyz000 = toClFloat3(source.xyz000);
-	target.xyzIterScale = source.xyzIterScale;
+	target.xyzDiv1e13False = source.xyzDiv1e13False;
+	target.xyzFabsFalse = source.xyzFabsFalse;
 	target.xyzXSqrdFalse = source.xyzXSqrdFalse;
 	target.xyzYSqrdFalse = source.xyzYSqrdFalse;
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
-	target.xyzFabsFalse = source.xyzFabsFalse;
-	target.xyzDiv1e13False = source.xyzDiv1e13False;
-	target.iterGroupFalse = source.iterGroupFalse;
-	target.iterAddScaleTrue = source.iterAddScaleTrue;
-	target.iterScaleFalse = source.iterScaleFalse;
-	target.iterAddScale = source.iterAddScale;
-	target.iterScale = source.iterScale;
+	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	target.iStartValue = source.iStartValue;
-	target.globalPaletteFalse = source.globalPaletteFalse;
-	target.addEnabledFalse = source.addEnabledFalse;
+	target.lineDirection = toClFloat3(source.lineDirection);
+	target.xyz000 = toClFloat3(source.xyz000);
+	target.xyzC111 = toClFloat3(source.xyzC111);
 	target.addMax = source.addMax;
 	target.addSpread = source.addSpread;
 	target.addStartValue = source.addStartValue;
-	target.parabEnabledFalse = source.parabEnabledFalse;
-	target.parabScale = source.parabScale;
-	target.parabStartValue = source.parabStartValue;
-	target.cosEnabledFalse = source.cosEnabledFalse;
-	target.cosPeriod = source.cosPeriod;
+	target.auxColorHybridWeight = source.auxColorHybridWeight;
+	target.auxColorWeight = source.auxColorWeight;
 	target.cosAdd = source.cosAdd;
+	target.cosPeriod = source.cosPeriod;
 	target.cosStartValue = source.cosStartValue;
-	target.roundEnabledFalse = source.roundEnabledFalse;
-	target.roundScale = source.roundScale;
+	target.icRadWeight = source.icRadWeight;
+	target.initialColorValue = source.initialColorValue;
+	target.initialMinimumR = source.initialMinimumR;
+	target.iterAddScale = source.iterAddScale;
+	target.iterScale = source.iterScale;
 	target.maxColorValue = source.maxColorValue;
 	target.minColorValue = source.minColorValue;
+	target.orbitTrapWeight = source.orbitTrapWeight;
+	target.parabScale = source.parabScale;
+	target.parabStartValue = source.parabStartValue;
+	target.radDivDeWeight = source.radDivDeWeight;
+	target.radWeight = source.radWeight;
+	target.roundScale = source.roundScale;
+	target.sphereRadius = source.sphereRadius;
+	target.xyzIterScale = source.xyzIterScale;
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */
