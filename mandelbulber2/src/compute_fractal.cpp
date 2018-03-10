@@ -470,7 +470,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					else
 						out->distance = r;
-
 					break;
 				}
 				case analyticFunctionJosKleinian:
@@ -483,8 +482,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					break;
 				}
-
 				case analyticFunctionNone: out->distance = -1.0; break;
+				case analyticFunctionUndefined: out->distance = r; break;
 			}
 		}
 	}
