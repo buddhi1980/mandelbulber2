@@ -269,7 +269,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		colorIndex = colorValue * 256.0; // convert to colorValue units
 	}
 
-	// Historic HYBRID MODEcoloring
+	// Historic HYBRID MODE coloring
 	else if (isHybrid)
 	{
 		double mboxDE;
