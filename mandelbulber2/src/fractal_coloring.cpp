@@ -107,16 +107,18 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 {
 	double colorIndex = 0.0;
 
-	double minR1000 = minimumR * 1000.0;								 // limited at 100,000 hybrid mode
-	double minR5000 = minimumR * 5000.0;								 // DEFAULT
-	double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
-	double radDE5000 = 0.0;
-	double rad1000 = 0.0;
-	double colorValue = 0.0;
+//	double minR1000 = minimumR * 1000.0;								 // limited at 100,000 hybrid mode
+//	double minR5000 = minimumR * 5000.0;								 // DEFAULT
+	//double auxColorValue100 = extendedAux.color * 100.0; // limited at 100,000,
+	//double radDE5000 = 0.0;
+	//double rad1000 = 0.0;
+	//double colorValue = 0.0;
 
 	// color by numbers
 	if (fractalColoring.extraColorEnabledFalse)
 	{
+		double colorValue = 0.0;
+
 		// initial color value
 		colorValue = fractalColoring.initialColorValue;
 
@@ -154,28 +156,26 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 		if (fractalColoring.radFalse)
 		{
-			rad1000 = r;
-			if (fractalColoring.radDiv1e13False) rad1000 /= 1e13;
-			if (fractalColoring.radSquaredFalse) rad1000 = r * r;
-
-			colorValue += rad1000 * fractalColoring.radWeight;
+			double rad = r;
+			if (fractalColoring.radDiv1e13False) rad /= 1e13;
+			if (fractalColoring.radSquaredFalse) rad = r * r;
+			colorValue += rad * fractalColoring.radWeight;
 		}
 
 		if (fractalColoring.radDivDeFalse)
 		{
 			double distEst = fabs(extendedAux.DE);
 			if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
-			radDE5000 = r; // r /DE // was named r2
-			if (fractalColoring.radDivDeSquaredFalse) radDE5000 = r * r;
-			colorValue += radDE5000 * fractalColoring.radDivDeWeight / distEst;
+			double radDE = r; // r /DE // was named r2
+			if (fractalColoring.radDivDeSquaredFalse) radDE = r * r;
+			colorValue += radDE * fractalColoring.radDivDeWeight / distEst;
 		}
-		double addValue = 0.0;
 
+		double addValue = 0.0;
 		// example of a basic input
 		double xyzValue = 0.0;
 		if (fractalColoring.xyzBiasEnabledFalse)
 		{
-
 			CVector3 xyzAxis = CVector3(z.x, z.y, z.z);
 			if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13; // mult rounding error ?
 
@@ -207,7 +207,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				int iUse = extendedAux.i - fractalColoring.iStartValue;
 				colorValue += fractalColoring.iterAddScale * iUse;
 			}
-
 			// Iter SCALE,
 			if (fractalColoring.iterScaleFalse && extendedAux.i >= fractalColoring.iStartValue)
 			{
@@ -215,9 +214,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				colorValue *= (iUse * fractalColoring.iterScale) + 1.0;
 			}
 		}
-		// "pseudo" global palette controls
-		// colorValue /= 256.0;
 
+		// "pseudo" global palette controls
 		if (fractalColoring.globalPaletteFalse)
 		{
 			if (fractalColoring.addEnabledFalse)
@@ -233,7 +231,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			}
 
 			if (fractalColoring.parabEnabledFalse)
-			{
+			{ // parab
 				if (colorValue > fractalColoring.parabStartValue)
 				{
 					double parab = colorValue - fractalColoring.cosStartValue;
@@ -273,49 +271,46 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	// Historic HYBRID MODE
 	else if (isHybrid)
 	{
-		//*old hybrid*
-		minR1000 = min(minR1000, 1e5);
-		// if (minR1000 > 100000.0) minR1000 = 100000.0; // limit is only in old hybrid mode?
-		if (auxColorValue100 > 1e5) auxColorValue100 = 1e5; // limit
-		radDE5000 = 5000.0 * r / fabs(extendedAux.DE);			// was named r2
-		if (radDE5000 > 1e5) radDE5000 = 1e5;
-		double oldHybridValue = (minR1000 + auxColorValue100 + radDE5000); // old hybrid code
-		colorIndex = oldHybridValue;
+		double mboxDE;
+		mboxDE = extendedAux.DE;
+		double r2 = r / fabs(mboxDE);
+		if (r2 > 20) r2 = 20;
+		if (minimumR > 100) minimumR = 100;
+		double mboxColor;
+		mboxColor = extendedAux.color;
+		if (mboxColor > 1000) mboxColor = 1000;
+		colorIndex =
+			(minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
 	}
 
 	// NORMAL MODE
 	else
 	{
+		double mboxDE;
+		mboxDE = extendedAux.DE;
+		double r2 = r / fabs(mboxDE);
+		if (r2 > 20) r2 = 20;
+
 		switch (coloringFunction)
 		{
-			case coloringFunctionABox:
-				colorIndex =
-					auxColorValue100																		 // aux.color
-					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // radius scale
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minR1000 : 0.0);
+		case coloringFunctionABox:
+			colorIndex =
+				extendedAux.color * 100.0														 // folds part
+				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
 				break;
-
-			case coloringFunctionIFS: colorIndex = minR1000; break;
-
-			case coloringFunctionAmazingSurf: colorIndex = minR1000 * 0.2; break;
-
-			case coloringFunctionABox2:
-				radDE5000 = 5000.0 * r / fabs(extendedAux.DE);					 // was named r2
-				colorIndex = minR1000 * extendedAux.minRFactor					 // orbit trap DEFAULT
-										 + auxColorValue100 * extendedAux.foldFactor // aux.color
-										 + r * extendedAux.radiusFactor / 1e13			 // radius// this may be replaced
-										 + radDE5000 * extendedAux.scaleFactor; // r/DE  for backwards compatibility
-				// + addValue;													 // all extra inputs
-
-				/*+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard)
-								? minimumR * extendedAux.minRFactor * 1000.0
-								: 0.0);*/ // temp
-				// removed
-				break;
-
-			case coloringFunctionDonut: colorIndex = auxColorValue100 * 20.0 / (extendedAux.i + 1); break;
-
-			case coloringFunctionDefault: colorIndex = minR5000; break;
+		case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
+		case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
+		case coloringFunctionABox2:
+			colorIndex =
+				extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
+				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+				+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatibility
+		//	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
+				+ minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
+			break;
+		case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
+		case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
 		}
 	}
 

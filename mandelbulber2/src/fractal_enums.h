@@ -92,8 +92,6 @@ enum enumColoringFunction
 	coloringFunctionAmazingSurf = 3,
 	coloringFunctionABox2 = 4,
 	coloringFunctionDonut = 5,
-
-	coloringFunctionGeneral = 6,
 };
 };
 
