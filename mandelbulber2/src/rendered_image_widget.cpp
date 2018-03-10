@@ -1106,7 +1106,7 @@ void RenderedImage::DrawAnimationPath()
 				if (f * 4 % framesPerKey == 0)
 				{
 					image->AntiAliasedLine(pointCamera1.x, pointCamera1.y, pointTarget1.x, pointTarget1.y,
-						pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2, 0.2, 0.2), 1);
+						pointCamera1.z, pointTarget1.z, sRGB8(255, 255, 0), sRGBFloat(0.2f, 0.2f, 0.2f), 1);
 				}
 			}
 		}
