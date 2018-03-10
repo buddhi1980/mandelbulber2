@@ -100,9 +100,10 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	REAL4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
-		fractal->transformCommon.functionEnabledAzFalse,
-		fractal->transformCommon.functionEnabledBxFalse,
-		fractal->transformCommon.functionEnabledByFalse};
+		fractal->transformCommon.functionEnabledAzFalse};
+
+	// fractal->transformCommon.functionEnabledBxFalse,
+	// fractal->transformCommon.functionEnabledByFalse};
 	int startIterationN[5] = {fractal->transformCommon.startIterationsA,
 		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC,
 		fractal->transformCommon.startIterationsD, fractal->transformCommon.startIterationsE};
@@ -176,36 +177,6 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 					//					if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
 					//					if (z.y != oldZ.y) colorAdd += fractal->foldColor.factor000.y;
 					break;
-					/*case multi_orderOfFoldsCl_type4:
-						// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
-						if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
-						{
-							z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
-//							colorAdd += fractal->mandelbox.color.factor.x;
-							colorAdd += fractal->foldColor.factor000.x;
-						}
-						if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
-						{
-							z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
-//							colorAdd += fractal->mandelbox.color.factor.y;
-							colorAdd += fractal->foldColor.factor000.x;
-						}
-						break;
-					case multi_orderOfFoldsCl_type5:
-						// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
-						z.x = fractal->transformCommon.offset2
-									- fabs(fabs(z.x + fractal->transformCommon.additionConstant111.x)
-												 - fractal->transformCommon.offset2)
-									- fractal->transformCommon.additionConstant111.x;
-						z.y = fractal->transformCommon.offset2
-									- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
-												 - fractal->transformCommon.offset2)
-									- fractal->transformCommon.additionConstant111.y;
-//						if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-//						if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-						if (z.x != oldZ.x) colorAdd += fractal->foldColor.factor000.x;
-						if (z.y != oldZ.y) colorAdd += fractal->foldColor.factor000.y;
-						break;*/
 			}
 		}
 	}
@@ -224,7 +195,33 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		z = (REAL4){z.y, z.x, z.z, z.w};
 	}
 
-	z += fractal->transformCommon.additionConstant000;
+	// offset
+	if (fractal->transformCommon.functionEnabledBxFalse)
+	{
+		REAL4 temp = fractal->transformCommon.additionConstant000;
+		REAL4 temp2 = temp * temp;
+
+		z.x -= (native_divide((temp.x * temp2.x), ((z.x * z.x) + (temp2.x))) - 2.0f * temp.x)
+					 * fractal->transformCommon.scale1;
+		z.y -= (native_divide((temp.y * temp2.y), ((z.y * z.y) + (temp2.y))) - 2.0f * temp.y)
+					 * fractal->transformCommon.scale1;
+		z.z -= (native_divide((temp.z * temp2.z), ((z.z * z.z) + (temp2.z))) - 2.0f * temp.z)
+					 * fractal->transformCommon.scale1;
+	}
+	else if (fractal->transformCommon.functionEnabledByFalse)
+	{
+		REAL4 temp = fractal->transformCommon.additionConstant000;
+		REAL4 temp2 = temp * temp;
+
+		z.x -= (native_divide((temp2.x), ((z.x * z.x) + (temp2.x))) - 2.0f * temp.x)
+					 * fractal->transformCommon.scale1; // * sign(z.x);
+		z.y -= (native_divide((temp2.y), ((z.y * z.y) + (temp2.y))) - 2.0f * temp.y)
+					 * fractal->transformCommon.scale1; // * sign(z.y);
+		z.z -= (native_divide((temp2.z), ((z.z * z.z) + (temp2.z))) - 2.0f * temp.z)
+					 * fractal->transformCommon.scale1; // * sign(z.z);
+	}
+	else
+		z += fractal->transformCommon.additionConstant000;
 
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)

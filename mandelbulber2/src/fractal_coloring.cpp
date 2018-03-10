@@ -120,8 +120,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			double initColorValue = 0.0;
 			CVector3 xyzC = CVector3(extendedAux.c.x, extendedAux.c.y, extendedAux.c.z);
-			if (fractalColoring.icRadFalse)
-				initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
+			if (fractalColoring.icRadFalse) initColorValue = xyzC.Length() * fractalColoring.icRadWeight;
 
 			if (fractalColoring.icXYZFalse)
 			{
@@ -144,7 +143,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ extendedAux.colorHybrid // transf_hybrid_color inputs
+										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
 
 		// radius components (historic)
@@ -219,11 +218,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			{
 				if (colorValue > fractalColoring.addStartValue)
 				{
-					colorValue += (1.0
-													- 1.0 / (1.0
-																		+ (colorValue - fractalColoring.addStartValue)
-																				/ fractalColoring.addSpread))
-												* fractalColoring.addMax;
+					colorValue +=
+						(1.0
+							- 1.0 / (1.0
+												+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+						* fractalColoring.addMax;
 				}
 			}
 
@@ -280,8 +279,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		double mboxColor;
 		mboxColor = extendedAux.color;
 		if (mboxColor > 1000) mboxColor = 1000;
-		colorIndex =
-			(minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
+		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
 	}
 
 	// NORMAL MODE Coloring
@@ -290,31 +288,32 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 		switch (coloringFunction)
 		{
-		case coloringFunctionABox:
-			colorIndex =
-				extendedAux.color * 100.0														 // folds part
-				+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
+			case coloringFunctionABox:
+				colorIndex =
+					extendedAux.color * 100.0														 // folds part
+					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0
+																																						 : 0.0);
 				break;
-		case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
-		case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
-		case coloringFunctionABox2:
+			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
+			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
+			case coloringFunctionABox2:
 			{
 				double mboxDE;
 				mboxDE = extendedAux.DE;
 				double r2 = r / fabs(mboxDE);
 				if (r2 > 20) r2 = 20;
-				colorIndex =
-					extendedAux.color * 100.0 * extendedAux.foldFactor	 // folds part
-					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-					+ extendedAux.scaleFactor * r2 * 5000.0							 // for backwards compatibility
-			//	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
-					+ minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
+				colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor		// folds part
+										 + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+										 + extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatibility
+										 //	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ?
+										 //minimumR * 1000.0 : 0.0);
+										 + minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
 				break;
 			}
-		case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
-		case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
-		case coloringFunctionUndefined: colorIndex = 0.0; break;
+			case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
+			case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
+			case coloringFunctionUndefined: colorIndex = 0.0; break;
 		}
 	}
 

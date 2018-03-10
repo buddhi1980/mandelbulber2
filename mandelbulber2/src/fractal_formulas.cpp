@@ -12276,8 +12276,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse};
 
-		//fractal->transformCommon.functionEnabledBxFalse,
-		//fractal->transformCommon.functionEnabledByFalse};
+	// fractal->transformCommon.functionEnabledBxFalse,
+	// fractal->transformCommon.functionEnabledByFalse};
 	int startIterationN[5] = {fractal->transformCommon.startIterationsA,
 		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC,
 		fractal->transformCommon.startIterationsD, fractal->transformCommon.startIterationsE};
@@ -12375,21 +12375,27 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		CVector4 temp = fractal->transformCommon.additionConstant000;
 		CVector4 temp2 = temp * temp;
 
-		z.x -= ((temp.x * temp2.x) / ((z.x * z.x) + (temp2.x)) - 2.0 * temp.x) * fractal->transformCommon.scale1;
-		z.y -= ((temp.y * temp2.y) / ((z.y * z.y) + (temp2.y)) - 2.0 * temp.y) * fractal->transformCommon.scale1;
-		z.z -= ((temp.z * temp2.z) / ((z.z * z.z) + (temp2.z)) - 2.0 * temp.z) * fractal->transformCommon.scale1;
+		z.x -= ((temp.x * temp2.x) / ((z.x * z.x) + (temp2.x)) - 2.0 * temp.x)
+					 * fractal->transformCommon.scale1;
+		z.y -= ((temp.y * temp2.y) / ((z.y * z.y) + (temp2.y)) - 2.0 * temp.y)
+					 * fractal->transformCommon.scale1;
+		z.z -= ((temp.z * temp2.z) / ((z.z * z.z) + (temp2.z)) - 2.0 * temp.z)
+					 * fractal->transformCommon.scale1;
 	}
 	else if (fractal->transformCommon.functionEnabledByFalse)
 	{
 		CVector4 temp = fractal->transformCommon.additionConstant000;
 		CVector4 temp2 = temp * temp;
 
-		z.x -= ((temp2.x) / ((z.x * z.x) + (temp2.x)) - 2.0 * temp.x) * fractal->transformCommon.scale1; // * sign(z.x);
-		z.y -= ((temp2.y) / ((z.y * z.y) + (temp2.y)) - 2.0 * temp.y) * fractal->transformCommon.scale1; // * sign(z.y);
-		z.z -= ((temp2.z) / ((z.z * z.z) + (temp2.z)) - 2.0 * temp.z) * fractal->transformCommon.scale1; // * sign(z.z);
+		z.x -= ((temp2.x) / ((z.x * z.x) + (temp2.x)) - 2.0 * temp.x)
+					 * fractal->transformCommon.scale1; // * sign(z.x);
+		z.y -= ((temp2.y) / ((z.y * z.y) + (temp2.y)) - 2.0 * temp.y)
+					 * fractal->transformCommon.scale1; // * sign(z.y);
+		z.z -= ((temp2.z) / ((z.z * z.z) + (temp2.z)) - 2.0 * temp.z)
+					 * fractal->transformCommon.scale1; // * sign(z.z);
 	}
-	else z += fractal->transformCommon.additionConstant000;
-
+	else
+		z += fractal->transformCommon.additionConstant000;
 
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
@@ -12462,13 +12468,17 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux.i * fractal->Cpara.parabSlope) + (parabScale);
 		z.w += paraAddP0;
 	}
-/*	CVector4 temp = fractal->transformCommon.offset0000;
-	CVector4 temp2 = temp * temp;
+	/*	CVector4 temp = fractal->transformCommon.offset0000;
+		CVector4 temp2 = temp * temp;
 
-	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x) * fractal->transformCommon.scale1;
-	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y) * fractal->transformCommon.scale1;
-	z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z) * fractal->transformCommon.scale1;
-	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w) * fractal->transformCommon.scale1*/
+		z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x) *
+		fractal->transformCommon.scale1;
+		z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y) *
+		fractal->transformCommon.scale1;
+		z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z) *
+		fractal->transformCommon.scale1;
+		z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w) *
+		fractal->transformCommon.scale1*/
 	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
 				- fabs(z.x - fractal->transformCommon.offset1111.x) - z.x;
@@ -12486,14 +12496,18 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	/*	CVector4 temp = fractal->transformCommon.offset0000;
 	CVector4 temp2 = temp * temp;
 
-	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x) * fractal->transformCommon.scale1;
-	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y) * fractal->transformCommon.scale1;
-	z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z) * fractal->transformCommon.scale1;
-	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w) * fractal->transformCommon.scale1*/
+	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x) *
+	fractal->transformCommon.scale1;
+	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y) *
+	fractal->transformCommon.scale1;
+	z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z) *
+	fractal->transformCommon.scale1;
+	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w) *
+	fractal->transformCommon.scale1*/
 	double rr = z.Dot(z);
 	if (fractal->mandelboxVary4D.rPower != 1.0) rr = pow(rr, fractal->mandelboxVary4D.rPower);
 
-	//z += fractal->transformCommon.offset0000;
+	// z += fractal->transformCommon.offset0000;
 	if (rr < fractal->transformCommon.minR2p25)
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
@@ -12506,7 +12520,7 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
-	//z -= fractal->transformCommon.offset0000;
+	// z -= fractal->transformCommon.offset0000;
 
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
@@ -12565,10 +12579,14 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	CVector4 temp = fractal->transformCommon.offset0000;
 	CVector4 temp2 = temp * temp;
 
-	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x) * fractal->transformCommon.scale1;
-	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y) * fractal->transformCommon.scale1;
-	z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z) * fractal->transformCommon.scale1;
-	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w) * fractal->transformCommon.scale1;
+	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x)
+				 * fractal->transformCommon.scale1;
+	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y)
+				 * fractal->transformCommon.scale1;
+	z.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z)
+				 * fractal->transformCommon.scale1;
+	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w)
+				 * fractal->transformCommon.scale1;
 
 	aux.foldFactor = fractal->foldColor.compFold;
 	aux.minRFactor = fractal->foldColor.compMinR;
@@ -12576,6 +12594,3 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// scaleColor += fabs(fractal->mandelbox.scale);
 	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
 }
-
-
-

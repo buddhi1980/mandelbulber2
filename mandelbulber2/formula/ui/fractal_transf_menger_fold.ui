@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_menger_fold</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -56,7 +56,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string> z = abs( z + const.A)</string>
+         <string>z = abs( z + const.A)</string>
         </property>
        </widget>
       </item>

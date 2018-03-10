@@ -132,7 +132,7 @@ public:
 	QString GetQueueFractlistFile() const { return dataDirectoryHidden + "queue.fractlist"; }
 	QString GetThumbnailsFolder() const { return dataDirectoryHidden + "thumbnails"; }
 	QString GetAutosaveFile() const { return dataDirectoryHidden + ".autosave.fract"; }
-	QString GetIniFile() const ;
+	QString GetIniFile() const;
 	QString GetRecentFilesListFile() const { return dataDirectoryHidden + "files.recent"; }
 	QString GetResolutionPresetsFile() const { return dataDirectoryHidden + "resolutionPresets.ini"; }
 
