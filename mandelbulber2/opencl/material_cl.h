@@ -145,10 +145,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 
-	target.fractalColoring.coloringAlgorithm =
-		enumFractalColoringCl(source.fractalColoring.coloringAlgorithm);
-	target.fractalColoring.lineDirection = toClFloat3(source.fractalColoring.lineDirection);
-	target.fractalColoring.sphereRadius = source.fractalColoring.sphereRadius;
+	target.fractalColoring = clCopySFractalColoringCl(source.fractalColoring);
 
 	return target;
 }

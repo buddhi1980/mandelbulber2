@@ -128,7 +128,6 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("image_adjustments_cl.h");
 		clHeaderFiles.append("fractal_cl.h");
 		clHeaderFiles.append("fractal_coloring_cl.hpp");
-		// clHeaderFiles.append("fractal_coloring_cl.cpp");
 		clHeaderFiles.append("fractparams_cl.hpp");
 		clHeaderFiles.append("fractal_sequence_cl.h");
 		clHeaderFiles.append("material_cl.h");
@@ -422,6 +421,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool anyMaterialIsRefractive = false;
 	bool anyMaterialHasSpecialColoring = false;
 	bool anyMaterialHasIridescence = false;
+	bool anyMaterialHasColoringEnabled = false;
+	bool anyMaterialHasExtraColoringEnabled = false;
 	foreach (cMaterial material, materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
@@ -429,11 +430,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		if (material.fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 			anyMaterialHasSpecialColoring = true;
 		if (material.iridescenceEnabled) anyMaterialHasIridescence = true;
+		if (material.useColorsFromPalette) anyMaterialHasColoringEnabled = true;
+		if (material.fractalColoring.extraColorEnabledFalse) anyMaterialHasExtraColoringEnabled = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
 	if (anyMaterialHasSpecialColoring) definesCollector += " -DUSE_COLORING_MODES";
 	if (anyMaterialHasIridescence) definesCollector += " -DUSE_IRIDESCENCE";
+	if (paramContainer->Get<int>("opencl_mode") != clRenderEngineTypeFast
+			&& anyMaterialHasColoringEnabled)
+		definesCollector += " -DUSE_FRACTAL_COLORING";
+	if(anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
 
 	if ((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 	{
