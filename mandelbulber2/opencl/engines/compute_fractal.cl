@@ -156,6 +156,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int formulaIndex = 0;
 	__constant sFractalCl *fractal;
 
+	__constant sFractalCl *defaultFractal =
+		&consts->fractal[formulaIndex]; // need to be changed for booleans
+
 	float4 lastZ = 0.0f;
 	float4 lastLastZ = 0.0f;
 
@@ -441,6 +444,16 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	if (mode == calcModeColouring)
 	{
+		enumColoringFunctionCl coloringFunction = consts->sequence.coloringFunction[formulaIndex];
+
+		//		cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float minimumR,
+		//			const sExtendedAuxCl *extendedAux, const sFractalColoringCl *fractalColoring,
+		//			cl_int coloringFunction, const sFractalCl *defaultFractal);
+
+		out.colorIndex = CalculateColorIndex(consts->sequence.isHybrid, aux.r, z, colorMin, &aux,
+			fractalColoring, coloringFunction, defaultFractal);
+
+		/*
 		float r2 = aux.r / fabs(aux.DE);
 		r2 = min(r2, 20.0f);
 
@@ -477,6 +490,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case clColoringFunctionDefault: out.colorIndex = colorMin * 5000.0f; break;
 			}
 		}
+		*/
 	}
 
 	// end

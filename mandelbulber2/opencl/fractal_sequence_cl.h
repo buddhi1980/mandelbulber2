@@ -59,6 +59,7 @@ typedef enum {
 } enumDEAnalyticFunctionCl;
 
 typedef enum {
+	clColoringFunctionUndefined = -1,
 	clColoringFunctionDefault = 0,
 	clColoringFunctionABox = 1,
 	clColoringFunctionIFS = 2,

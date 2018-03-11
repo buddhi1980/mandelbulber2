@@ -132,9 +132,9 @@ typedef struct
 
 } sFractalColoringCl;
 
-cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float minimumR,
-	const sExtendedAuxCl *extendedAux, const sFractalColoringCl *fractalColoring,
-	cl_int coloringFunction, const sFractalCl *defaultFractal);
+// cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float minimumR,
+//	const sExtendedAuxCl *extendedAux, __global sFractalColoringCl *fractalColoring,
+//	cl_int coloringFunction, const sFractalCl *defaultFractal);
 
 #ifndef OPENCL_KERNEL_CODE
 inline sFractalColoringCl clCopySFractalColoringCl(sFractalColoring &source)

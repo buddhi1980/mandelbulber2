@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Graeme McLaren
  *
  * CalculateColorIndex(...) - Calculation of the color index of a point
  * based on miscellaneous criteria
@@ -307,7 +307,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 										 + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 										 + extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatibility
 										 //	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ?
-										 //minimumR * 1000.0 : 0.0);
+										 // minimumR * 1000.0 : 0.0);
 										 + minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
 				break;
 			}

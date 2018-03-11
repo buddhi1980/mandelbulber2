@@ -167,6 +167,12 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			}
 		}
 
+		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
+		{
+			// fractal coloring
+			programEngine.append("#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
+		}
+
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
@@ -842,7 +848,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 
