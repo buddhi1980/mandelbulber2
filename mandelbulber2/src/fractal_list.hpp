@@ -265,8 +265,9 @@ enum enumFractalFormula
 	transfSphericalFoldXYZBias = 1077,
 	// 2.13
 	transfAddCpixelRotated = 1078,
-	// hybrid color trial
+	transfAddConstantMod1 = 1079,
 
+	// hybrid color trial
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
 	testing = 2100,

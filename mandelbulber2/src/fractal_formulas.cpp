@@ -7889,6 +7889,45 @@ void TransfAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 }
 
 /**
+ * Adds c constant to z vector
+ */
+void TransfAddConstantMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+	// std offset
+	z += fractal->transformCommon.additionConstantA000;
+	// polynomial
+	if (fractal->transformCommon.functionEnabledBxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+	{
+		CVector4 temp = fractal->transformCommon.additionConstant000;
+		CVector4 temp2 = temp * temp;
+		CVector4 temp3 = z * z * fractal->transformCommon.scaleA1;
+		z.x -= ((temp.x * temp2.x) / (temp3.x + temp2.x) - 2.0 * temp.x)
+					 * fractal->transformCommon.scale1;
+		z.y -= ((temp.y * temp2.y) / (temp3.y + temp2.y) - 2.0 * temp.y)
+					 * fractal->transformCommon.scale1;
+		z.z -= ((temp.z * temp2.z) / (temp3.z + temp2.z) - 2.0 * temp.z)
+					 * fractal->transformCommon.scale1;
+	}
+	else if (fractal->transformCommon.functionEnabledByFalse
+			&& aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+	{
+		CVector4 temp = fractal->transformCommon.additionConstant000;
+		CVector4 temp2 = temp * temp;
+		CVector4 temp3 = z * z * fractal->transformCommon.scaleA1;
+		z.x -= ((temp2.x) / (temp3.x + temp2.x) - 2.0 * temp.x)
+					 * fractal->transformCommon.scale1; // * sign(z.x);
+		z.y -= ((temp2.y) / (temp3.y + temp2.y) - 2.0 * temp.y)
+					 * fractal->transformCommon.scale1; // * sign(z.y);
+		z.z -= ((temp2.z) / (temp3.z + temp2.z) - 2.0 * temp.z)
+					 * fractal->transformCommon.scale1; // * sign(z.z);
+	}
+}
+
+/**
  * Adds c constant to z vector. C addition constant varies based on iteration parameters.
  */
 void TransfAddConstantVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
