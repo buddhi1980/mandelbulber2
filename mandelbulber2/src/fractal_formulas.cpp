@@ -7988,6 +7988,50 @@ void TransfAddCpixelAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExt
 }
 
 /**
+ * Adds rotated Cpixel constant to z vector. Possible to swap Cpixel vector axes.
+ */
+void TransfAddCpixelRotatedIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 c = aux.const_c;
+
+	CVector4 tempC = c;
+	if (fractal->transformCommon.alternateEnabledFalse) // alternate
+	{
+		tempC = aux.c;
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZ_xyz:
+			default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
+			case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
+			case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
+			case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
+			case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
+			case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
+		}
+		aux.c = tempC;
+	}
+	else
+	{
+		switch (fractal->mandelbulbMulti.orderOfXYZ)
+		{
+			case multi_OrderOfXYZ_xyz:
+			default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
+			case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
+			case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
+			case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
+			case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
+			case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
+		}
+	}
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
+	}
+	z += tempC * fractal->transformCommon.constantMultiplier111;
+}
+
+/**
  * Adds Cpixel constant to z vector, with symmetry
  */
 void TransfAddCpixelSymmetricalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)

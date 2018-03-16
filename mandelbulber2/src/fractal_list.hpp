@@ -263,7 +263,8 @@ enum enumFractalFormula
 	transfBoxFold4dTglad = 1075,
 	transfSphericalFoldCuboid = 1076,
 	transfSphericalFoldXYZBias = 1077,
-
+	// 2.13
+	transfAddCpixelRotated = 1078,
 	// hybrid color trial
 
 	transfHybridColor = 2000,
