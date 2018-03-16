@@ -176,6 +176,7 @@ enum enumFractalFormula
 	coastalbrot = 129,
 	modulusMengerSponge = 130,
 	modulusMandelbulb = 131,
+	amazingSurfMod2 = 132,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

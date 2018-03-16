@@ -103,6 +103,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1",
 		amazingSurfMod1, AmazingSurfMod1Iteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 2", "amazing_surf_mod2",
+		amazingSurfMod2, AmazingSurfMod2Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
 		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
