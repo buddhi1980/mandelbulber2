@@ -399,5 +399,6 @@ void MyLineEdit::wheelEvent(QWheelEvent *event)
 		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 16);
 		setText(text);
 		emit returnPressed();
+		event->accept();
 	}
 }
