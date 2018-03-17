@@ -69,6 +69,7 @@ private slots:
 	static void slotDetailLevelChanged();
 	void slotChangedComboDistanceEstimationMethod(int index) const;
 	static void slotPressedButtonSetBoundingBoxAsLimits();
+	void slotCalculateDistanceThreshold();
 
 	// NetRender
 	void slotNetRenderClientConnect() const;

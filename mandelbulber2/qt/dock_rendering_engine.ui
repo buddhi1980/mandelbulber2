@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>311</width>
-    <height>1365</height>
+    <width>347</width>
+    <height>1475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -400,6 +400,13 @@ with image resolution</string>
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_calculate_dist_thresh">
+           <property name="text">
+            <string>Calculate threshold</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>

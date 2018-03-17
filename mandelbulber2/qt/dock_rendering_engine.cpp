@@ -99,6 +99,9 @@ void cDockRenderingEngine::ConnectSignals() const
 
 	connect(ui->checkBox_connect_detail_level_2, SIGNAL(stateChanged(int)), this,
 		SIGNAL(stateChangedConnectDetailLevel(int)));
+
+	connect(ui->pushButton_calculate_dist_thresh, SIGNAL(clicked()), this,
+		SLOT(slotCalculateDistanceThreshold()));
 }
 
 void cDockRenderingEngine::slotNetRenderServerStart() const
@@ -337,4 +340,16 @@ void cDockRenderingEngine::slotPressedButtonOptimizeForHQ()
 void cDockRenderingEngine::slotPressedButtonSetBoundingBoxAsLimits()
 {
 	gMainInterface->SetBoundingBoxAsLimits();
+}
+
+void cDockRenderingEngine::slotCalculateDistanceThreshold()
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double distance = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	double detailLevel = gPar->Get<double>("detail_level");
+	double imageWidth = gPar->Get<int>("image_width");
+	double fov = gPar->Get<int>("fov");
+	double distThresh = fov / detailLevel / imageWidth * distance * 0.5;
+	gPar->Set("DE_thresh", distThresh);
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
