@@ -1,5 +1,36 @@
 Version history
 
+v2.13 (March 2018)
+- UI: Added pop-up sliders for all edit fields
+- UI: Added buttons (x2, /2, round, R, 0) attached to pup-up sliders
+- UI: Removed existing sliders from UI
+- UI: Cleaned up all UIs to reduce width of widgets and frames
+- UI: GroupBoxes are colored
+- UI: Added 3D compass in image window
+- Image: Added saturation control for rendered image
+- Shaders: Value of background brightness controls also gradient of background
+- Shaders: Added option for 1-color background
+- Shaders: Fixed bug in IterFog shader for auxLights. Intensity of effect was wrongly multiplied by 100
+- Shaders: Added parameter iterFogBrightnessBoost to keep compatibility with version <= 2.12
+- Shaders: Corrected algorithm for calculation of shadows opacity in IterFog mode. Now the algorithm is the same as opacity calculation in volumetric shader.
+- Shaders: Added option for metallic surface in material definition. It makes specular highlight in the same color as surface color.
+- Shaders: Added iridescence effect
+- Animation: Added displaying of camera, target and lights paths in image window
+- Files: fixed double dot in output filename. Filenames with no file extension were expanded to have two dots before the suffix
+- OpenCL: Added option to disable OpenCL compile cache (used by NVidia driver)
+- OpenCL: SSAO uses precomputed (co)sine buffer - faster rendering
+- OpenCL: Implemented option for random SSAO
+- Performance: Disabled OpenMP for updating image preview. It sometimes caused long lags at program startup or during rescaling of main window. It happened mostly when system was already loaded by another computing application.
+- Performance: Added bad_alloc handling to mesh export
+- Examples: Added several example settings
+- Compilation: Generalized code for OpenCL engines
+
+To be continued... NEWS finished at 13.01.2018
+
+v2.12-1 (December 2017)
+- OpenCL: fixed bug in shader for auxiliary light sources. There was wrong color of specular reflections
+- Documentation: Added missing chapter about OpenCL
+
 v2.12 (November 2017)
 - OpenCL: Added listing of available OpenCL platforms and devices
 - OpenCL: Added querying of OpenCL platforms and devices properties
