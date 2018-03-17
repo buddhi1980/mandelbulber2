@@ -176,6 +176,7 @@ enum enumFractalFormula
 	coastalbrot = 129,
 	modulusMengerSponge = 130,
 	modulusMandelbulb = 131,
+	amazingSurfMod2 = 132,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
@@ -262,9 +263,11 @@ enum enumFractalFormula
 	transfBoxFold4dTglad = 1075,
 	transfSphericalFoldCuboid = 1076,
 	transfSphericalFoldXYZBias = 1077,
+	// 2.13
+	transfAddCpixelRotated = 1078,
+	transfAddConstantMod1 = 1079,
 
 	// hybrid color trial
-
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
 	testing = 2100,

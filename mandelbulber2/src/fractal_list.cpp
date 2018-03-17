@@ -103,6 +103,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1",
 		amazingSurfMod1, AmazingSurfMod1Iteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
+	fractalList->append(sFractalDescription("Amazing Surf - Mod 2", "amazing_surf_mod2",
+		amazingSurfMod2, AmazingSurfMod2Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
 		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
@@ -429,11 +432,22 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Constant VaryV1", "transf_add_constant_vary_v1",
 		transfAddConstantVaryV1, TransfAddConstantVaryV1Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Add exp2(z)", "transf_add_exp2_z", transfAddExp2Z,
+		TransfAddExp2ZIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Add Constant Mod1", "transf_add_constant_mod1",
+		transfAddConstantMod1, TransfAddConstantMod1Iteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+	// Add Cpixel Transforms
 	fractalList->append(sFractalDescription("T>Add Cpixel", "transf_add_cpixel", transfAddCpixel,
 		TransfAddCpixelIteration, analyticDEType, withoutDEFunction, cpixelAlreadyHas, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Add Cpixel - Axis Swap", "transf_add_cpixel_axis_swap",
 		transfAddCpixelAxisSwap, TransfAddCpixelAxisSwapIteration, analyticDEType, withoutDEFunction,
+		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Add Cpixel - Rotated", "transf_add_cpixel_rotated",
+		transfAddCpixelRotated, TransfAddCpixelRotatedIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(
 		sFractalDescription("T>Add Cpixel - CxCy Axis Swap", "transf_add_cpixel_cx_cy_axis_swap",
@@ -446,9 +460,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Cpixel - VaryV1", "transf_add_cpixel_vary_v1",
 		transfAddCpixelVaryV1, TransfAddCpixelVaryV1Iteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Add exp2(z)", "transf_add_exp2_z", transfAddExp2Z,
-		TransfAddExp2ZIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+
 
 	// Benesi Transforms
 	fractalList->append(sFractalDescription("T>Benesi T1", "transf_benesi_t1", transfBenesiT1,
