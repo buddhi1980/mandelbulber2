@@ -273,7 +273,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
 		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionDefault));
+		analyticFunctionIFS,  coloringFunctionIFS));
 	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod",
 		mengerMiddleMod, MengerMiddleModIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
