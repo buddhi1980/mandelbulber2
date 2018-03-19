@@ -627,7 +627,7 @@ sphere radius:</string>
           <item>
            <widget class="QCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="text">
-             <string notr="true">4D color</string>
+             <string notr="true">4D color BETA</string>
             </property>
            </widget>
           </item>

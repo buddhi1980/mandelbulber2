@@ -699,6 +699,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,
-		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 }

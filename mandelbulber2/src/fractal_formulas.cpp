@@ -12849,18 +12849,21 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux.DE *= fractal->transformCommon.maxMinR2factor;
+		aux.r_dz *= fractal->transformCommon.maxMinR2factor;
 		aux.color += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		z *= fractal->transformCommon.maxR2d1 / rr;
 		aux.DE *= fractal->transformCommon.maxR2d1 / rr;
+		aux.r_dz *= fractal->transformCommon.maxR2d1 / rr;
 		aux.color += fractal->mandelbox.color.factorSp2;
 	}
 	// z -= fractal->transformCommon.offset0000;
 
 	z *= aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+	aux.r_dz *= aux.DE * fabs(aux.actualScale);
 
 	// 6 plane rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -12925,6 +12928,34 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	z.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w)
 				 * fractal->transformCommon.scale1;
 
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		aux.r = z.Length();
+		aux.r_dz = aux.r * aux.r_dz * 16.0 * fractal->analyticDE.scale1
+								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
+												+ fractal->analyticDE.offset2)
+								 / SQRT_3
+							 + fractal->analyticDE.offset1;
+
+		z = z * 2.0;
+		double x2 = z.x * z.x;
+		double y2 = z.y * z.y;
+		double z2 = z.z * z.z;
+		double temp = 1.0 - z2 / (x2 + y2);
+		CVector4 zTemp;
+		zTemp.x = (x2 - y2) * temp;
+		zTemp.y = 2.0 * z.x * z.y * temp;
+		zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
+		zTemp.w = z.w;
+		z = zTemp;
+		z.z *= fractal->foldingIntPow.zFactor;
+	}
+
+
+
+
+		//fix color todo
 	aux.foldFactor = fractal->foldColor.compFold;
 	aux.minRFactor = fractal->foldColor.compMinR;
 	double scaleColor = fractal->foldColor.colorMin + fabs(aux.actualScale);
