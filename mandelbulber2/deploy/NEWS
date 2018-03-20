@@ -1,8 +1,6 @@
 Version history
 
 v2.13 (March 2018)
-- Added new fractal formulas:
-  * ....
 - Fractals: renamed all fabs() to abs() in all formula UI
 - Fractals: cleaned up all fractal formula UIs
 - Fractals: Added reverse compatibility for mandelbulber.ini. Now older version can be run without damaging application settings.
