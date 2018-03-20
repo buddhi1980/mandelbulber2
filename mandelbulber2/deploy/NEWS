@@ -6,7 +6,10 @@ v2.13 (March 2018)
 - Fractals: renamed all fabs() to abs() in all formula UI
 - Fractals: cleaned up all fractal formula UIs
 - Fractals: Added reverse compatibility for mandelbulber.ini. Now older version can be run without damaging application settings.
-
+- Added new fractal formulas:
+  * Amazing Surf - Mod2
+  * Transf Add Constant Mod1
+  * Transf Add Cpixel Rotated
 
 - UI: Added pop-up sliders for all edit fields
 - UI: Added buttons (x2, /2, round, R, 0) attached to pup-up sliders
@@ -27,6 +30,8 @@ v2.13 (March 2018)
 - Shaders: Added iridescence effect
 - Shaders: Fixed problem with different brightness of left and right image in stereoscopic mode. There was wrong calculation of perspective in SSAO algorithm
 - Shaders: Implemented texture mapping based on orbit traps ('Fractalize texture' option). Not implemented in OpenCL yet.
+- Shaders: Added 4D color (BETA)
+- Shaders: Added Color By Numbers (BETA)
 - Primitives: Added option for water shape depending on another objects
 - Primitives: Added button to align primitive object rotation angle to actual camera rotation angle.
 - Animation: Added displaying of camera, target and lights paths in image window
@@ -44,6 +49,8 @@ v2.13 (March 2018)
 - Examples: Standardize image resolution for all examples (fullHD or 1600x1200)
 - Examples: Added several example settings
 - Compilation: Generalized code for OpenCL engines
+
+
 
 v2.12-1 (December 2017)
 - OpenCL: fixed bug in shader for auxiliary light sources. There was wrong color of specular reflections
