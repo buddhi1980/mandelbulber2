@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.12
+                              MANDELBULBER 2.13
 
 1. What is Mandelbulber
 -----------------------
@@ -99,16 +99,12 @@ Run the install script:
 
 - Debian Stretch x64
 - Ubuntu 16.10
-- Chakra 2016.02 "Ian"
-- Raspbian
-- Centos 7 Intel MIC K1OM Development
-  (more info: https://github.com/buddhi1980/mandelbulber2/issues/106)
 
-- gcc 7.2
-- clang 3.8.1
-- msvc14
+- gcc 7.3
+- clang 4.0.1-10
+- msvc17
 
-- Qt 5.7.1 and Qt 5.9.1
+- Qt 5.9.2
 
 7. USAGE
 --------

@@ -1,5 +1,5 @@
 
-                                                            MANDELBULBER 2.12
+                                 MANDELBULBER 2.13
 
 1. What is Mandelbulber
 -----------------------
@@ -45,17 +45,12 @@ or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
 5. TESTED ON
 ------------
 
-- Windows XP 32-bit
-- Windows Vista 64-bit
 - Windows 7 32-bit
 - Windows 8 64-bit
 - Windows 10 64-bit
 
-- gcc 5.4.0
-- clang 3.7.0
-- msvc14
 - msvc16
-- Qt 5.6.1
+- Qt 5.7.1
 
 6. USAGE
 --------
