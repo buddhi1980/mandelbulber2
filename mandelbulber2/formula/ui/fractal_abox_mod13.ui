@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod13</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
-    <height>4095</height>
+    <width>934</width>
+    <height>5133</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -284,6 +284,13 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+        <property name="text">
+         <string notr="true">disable for aSurf mode</string>
+        </property>
+       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_64" columnstretch="0,0,0,1">
@@ -2335,5 +2342,22 @@ reverse offset:</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_addition_constant_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>299</x>
+     <y>347</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

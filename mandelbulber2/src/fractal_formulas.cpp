@@ -911,8 +911,11 @@ void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z; // default was 1.5
+	if (fractal->transformCommon.functionEnabledM)
+	{
+		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	}
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
 	if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
@@ -1023,8 +1026,11 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
 
 		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
@@ -1240,8 +1246,11 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
@@ -1518,8 +1527,11 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
@@ -1694,8 +1706,11 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 	z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 				- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-	z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-				- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	if (fractal->transformCommon.functionEnabledM)
+	{
+		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+	}
 
 	if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
 	if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
@@ -12686,7 +12701,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 	}
 
-
 	// enable z axis
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
@@ -12787,7 +12801,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 }
 /**
- * Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
+ * 4D boxbulb, Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale parameter.
  * This formula contains aux.color and aux.actualScale
  */
 void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)

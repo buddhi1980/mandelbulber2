@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod_kali_eiffie</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>802</width>
+    <width>925</width>
     <height>3300</height>
    </rect>
   </property>
@@ -47,6 +47,13 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="QCheckBox" name="checkBox_transf_function_enabledM">
+        <property name="text">
+         <string notr="true">disable for aSurf mode (Swap z.x z.z below, must be disabled)</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_64" columnstretch="0,0,0,1">
         <property name="spacing">
@@ -1798,5 +1805,22 @@ group weight:</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledM</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_addition_constant_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>401</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
