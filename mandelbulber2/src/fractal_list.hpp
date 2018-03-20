@@ -159,19 +159,19 @@ enum enumFractalFormula
 	mengerOcto = 115,
 	abox4d = 116, // fixed varyscale v2.12
 	// V2.11
-	pseudoKleinianMod2 = 117, // color general V2.13
+	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118,		// mbulb default changed V2.12
 	aboxMod11 = 119,					// fixed varyscale v2.12
 	// V2.12
-	mandelbulbQuat = 120, // color general V2.13
+	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,
 	josKleinian = 122,
-	aboxMod12 = 123, // color general V2.13
+	aboxMod12 = 123,
 	quaternionCubic4d = 124,
-	boxFoldBulbPow2V2 = 125, // color general V2.13
-	boxFoldBulbPow2V3 = 126, // color general V2.13
-	aboxMod13 = 127,				 // color general V2.13
-	boxFoldQuat = 128,			 // color general V2.13
+	boxFoldBulbPow2V2 = 125,
+	boxFoldBulbPow2V3 = 126,
+	aboxMod13 = 127,
+	boxFoldQuat = 128,
 	// 2.13
 	coastalbrot = 129,
 	modulusMengerSponge = 130,

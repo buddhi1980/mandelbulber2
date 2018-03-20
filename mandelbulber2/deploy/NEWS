@@ -30,7 +30,7 @@ v2.13 (March 2018)
 - Shaders: Added iridescence effect
 - Shaders: Fixed problem with different brightness of left and right image in stereoscopic mode. There was wrong calculation of perspective in SSAO algorithm
 - Shaders: Implemented texture mapping based on orbit traps ('Fractalize texture' option). Not implemented in OpenCL yet.
-- Shaders: Added 4D color (BETA)
+- Shaders: Added 4D orbit trap color (BETA)
 - Shaders: Added Color By Numbers (BETA)
 - Primitives: Added option for water shape depending on another objects
 - Primitives: Added button to align primitive object rotation angle to actual camera rotation angle.
