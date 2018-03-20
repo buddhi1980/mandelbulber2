@@ -820,6 +820,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		float3 point = input->point - input->viewVector * scan;
 
 		calcParam->distThresh = input->distThresh;
+
 		formulaOut outF;
 		outF = CalculateDistance(consts, point, calcParam);
 		float distance = outF.distance;
@@ -1009,7 +1010,6 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 // ---------- iter fog
 #ifdef ITER_FOG
-		if (step > input2.delta)
 		{
 			int L = outF.iters;
 			float opacity = IterOpacity(step, L, consts->params.N, consts->params.iterFogOpacityTrim,

@@ -16,6 +16,7 @@ v2.13 (March 2018)
 - UI: Corrected calculation of 'max' in statistics window
 - UI: Added editable presets for image resolution
 - UI: Optimize DE multiplier now doesn't use OpenCL, so works properly when OpenCL is enabled.
+- UI: Added button to calculate constant distance threshold
 - Image: Added saturation control for rendered image
 - Shaders: Value of background brightness controls also gradient of background
 - Shaders: Added option for 1-color background
@@ -39,6 +40,7 @@ v2.13 (March 2018)
 - OpenCL: Added option to disable OpenCL compile cache (used by NVidia driver)
 - OpenCL: SSAO uses precomputed (co)sine buffer - faster rendering
 - OpenCL: Implemented option for random SSAO
+- OpenCL: Fixed bug in IterFog shader. It didn't work properly with increased detail level or decreased DE factor
 - Performance: Disabled OpenMP for updating image preview. It sometimes caused long lags at program startup or during rescaling of main window. It happened mostly when system was already loaded by another computing application.
 - Performance: Fixed bug causing casual freezes of image refresh and progress bar. There was direct call of cRenderedImage->update() method which is not thread safe.
 - Performance: Added bad_alloc handling to mesh export
