@@ -12806,8 +12806,6 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 
-	aux.actualScale =
-		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 
 	// parabolic = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
@@ -12885,12 +12883,29 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		// z -= fractal->transformCommon.offset0000;
 	}
 
-	if (aux.i >= fractal->transformCommon.startIterationsX
-			&& aux.i < fractal->transformCommon.stopIterationsX)
+	// scale
+	double useScale = 1.0;
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		z *= aux.actualScale;
-		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-		aux.r_dz *= fabs(aux.actualScale);
+
+		useScale = aux.actualScaleA + fractal->transformCommon.scale;
+
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale);
+		aux.r_dz *= fabs(useScale);
+
+		if (aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+		{
+			// update actualScale for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+			if (fractal->transformCommon.functionEnabledMFalse)
+				aux.actualScaleA = -vary;
+			else
+				aux.actualScaleA = aux.actualScaleA - vary;
+		}
 	}
 
 	// 6 plane rotation
