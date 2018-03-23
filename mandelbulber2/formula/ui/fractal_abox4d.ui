@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>795</width>
+    <width>916</width>
     <height>3640</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_Cpara_enabledParab_false">
      <property name="title">
-      <string>Para&amp;bolic</string>
+      <string>Para&amp;bolic w</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

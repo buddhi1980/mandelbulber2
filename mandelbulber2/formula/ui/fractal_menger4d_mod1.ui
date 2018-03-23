@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger4d_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_Cpara_enabledParab_false">
      <property name="title">
-      <string>Parabolic</string>
+      <string>Parabolic w</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
