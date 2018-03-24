@@ -256,7 +256,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			default:
 			{
 				r = z.Length();
-				//r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z);
+				// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z);
 				break;
 			}
 		}

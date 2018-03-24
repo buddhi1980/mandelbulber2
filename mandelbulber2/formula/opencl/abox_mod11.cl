@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -34,8 +34,11 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
-					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		if (fractal->transformCommon.functionEnabled)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
 
 		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
 		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;

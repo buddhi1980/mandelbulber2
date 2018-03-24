@@ -299,15 +299,5 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		//	mad(aux->colorHybrid, (1.0f - fractal->surfBox.scale1Z1), (minValue *
 		// fractal->surfBox.scale1Z1));
 	}
-
-	// aux->colorHybrid *= 256.0f;
-
-	// master controls color
-	// aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-
-	// REAL scaleColor =
-	//	 +  fabs(aux->actualScaleA);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	// aux->scaleFactor = scaleColor * fractal->foldColor.compScale;*/
 	return z;
 }

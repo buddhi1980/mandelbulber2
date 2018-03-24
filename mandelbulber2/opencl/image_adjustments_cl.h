@@ -68,7 +68,7 @@ typedef struct
 } sImageAdjustmentsCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(sImageAdjustments &source)
+inline sImageAdjustmentsCl clCopySImageAdjustmentsCl(const sImageAdjustments &source)
 {
 	sImageAdjustmentsCl target;
 	target.brightness = source.brightness;

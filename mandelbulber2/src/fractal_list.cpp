@@ -273,7 +273,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Menger - Mod 1", "menger_mod1", mengerMod1,
 		MengerMod1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS,  coloringFunctionIFS));
+		analyticFunctionIFS, coloringFunctionIFS));
 	fractalList->append(sFractalDescription("Menger - Middle Mod", "menger_middle_mod",
 		mengerMiddleMod, MengerMiddleModIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
@@ -460,7 +460,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Cpixel - VaryV1", "transf_add_cpixel_vary_v1",
 		transfAddCpixelVaryV1, TransfAddCpixelVaryV1Iteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
-
 
 	// Benesi Transforms
 	fractalList->append(sFractalDescription("T>Benesi T1", "transf_benesi_t1", transfBenesiT1,

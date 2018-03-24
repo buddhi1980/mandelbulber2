@@ -54,6 +54,7 @@ public:
 		exampleOutputPath = _exampleOutputPath;
 	}
 	bool IsBenchmarking() const { return testMode == enumTestMode::benchmarkTestMode; }
+
 private:
 	static QString testFolder();
 	enumTestMode testMode;

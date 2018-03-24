@@ -217,7 +217,7 @@ typedef struct
 } sParamRenderCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sParamRenderCl clCopySParamRenderCl(sParamRender &source)
+inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 {
 	sParamRenderCl target;
 	target.antialiasingSize = source.antialiasingSize;

@@ -86,7 +86,7 @@ typedef struct
 } sCommonParamsCl;
 
 #ifndef OPENCL_KERNEL_CODE
-inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings &source)
+inline sFractalFoldingsCl clCopySFractalFoldingsCl(const sFractalFoldings &source)
 {
 	sFractalFoldingsCl target;
 	target.boxLimit = source.boxLimit;
@@ -98,7 +98,7 @@ inline sFractalFoldingsCl clCopySFractalFoldingsCl(sFractalFoldings &source)
 	return target;
 }
 
-inline sCommonParamsCl clCopySCommonParamsCl(sCommonParams &source)
+inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 {
 	sCommonParamsCl target;
 	target.iterThreshMode = source.iterThreshMode;

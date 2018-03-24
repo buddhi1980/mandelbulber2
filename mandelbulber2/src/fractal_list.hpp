@@ -160,8 +160,8 @@ enum enumFractalFormula
 	abox4d = 116, // fixed varyscale v2.12
 	// V2.11
 	pseudoKleinianMod2 = 117,
-	mandelbulbMulti2 = 118,		// mbulb default changed V2.12
-	aboxMod11 = 119,					// fixed varyscale v2.12
+	mandelbulbMulti2 = 118, // mbulb default changed V2.12
+	aboxMod11 = 119,				// fixed varyscale v2.12
 	// V2.12
 	mandelbulbQuat = 120,
 	mandelbulbJuliabulb = 121,

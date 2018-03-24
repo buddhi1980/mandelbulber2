@@ -237,7 +237,7 @@ function patchModificationDate($filePath, &$content)
 function getCopyStruct($structName, $properties)
 {
 	$structNameSource = substr($structName, 0, -2);
-	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(' . $structNameSource . '& source){' . PHP_EOL;
+	$out = 'inline ' . $structName . ' clCopy' . ucfirst($structName) . '(const ' . $structNameSource . '& source){' . PHP_EOL;
 	$out .= '	' . $structName . ' target;' . PHP_EOL;
 	foreach ($properties as $property) {
 		$copyLine = '';

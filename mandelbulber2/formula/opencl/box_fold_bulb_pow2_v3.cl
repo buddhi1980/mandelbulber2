@@ -18,8 +18,10 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 {
 	// REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
-	// tglad fold
+	REAL rrCol = 0.0f;
+	REAL4 zCol = z;
 	REAL4 oldZ = z;
+	// tglad fold
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
@@ -29,21 +31,15 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		if (fractal->foldColor.auxColorEnabledFalse)
-		{
-			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
-		}
+		zCol = z;
 	}
 
 	// spherical fold
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
-
 		REAL rr = dot(z, z);
-
+		rrCol = rr;
 		z += fractal->mandelbox.offset;
 
 		// if (r2 < 1e-21f) r2 = 1e-21f;
@@ -54,10 +50,6 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 			aux->r_dz *= tglad_factor1;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				colorAdd += fractal->mandelbox.color.factorSp1;
-			}
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
@@ -65,10 +57,6 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
 			aux->r_dz *= tglad_factor2;
-			if (fractal->foldColor.auxColorEnabledFalse)
-			{
-				colorAdd += fractal->mandelbox.color.factorSp2;
-			}
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -194,7 +182,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			aux->r_dz = mad(aux->r * aux->r_dz * 10.0f * fractal->analyticDE.scale1,
 				native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
-												+ fractal->analyticDE.offset2),
+										+ fractal->analyticDE.offset2),
 				fractal->analyticDE.offset1);
 		}
 		else
@@ -220,8 +208,29 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = zTemp;
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
-	if (fractal->foldColor.auxColorEnabled)
+	if (fractal->foldColor.auxColorEnabledFalse)
 	{
+		if (zCol.x != oldZ.x)
+			colorAdd += fractal->mandelbox.color.factor.x
+									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+		if (zCol.y != oldZ.y)
+			colorAdd += fractal->mandelbox.color.factor.y
+									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+		if (zCol.z != oldZ.z)
+			colorAdd += fractal->mandelbox.color.factor.z
+									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+		if (rrCol < fractal->transformCommon.maxR2d1)
+		{
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd +=
+					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
+						fractal->mandelbox.color.factorSp2
+							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+			else
+				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+		}
+
 		aux->color += colorAdd;
 	}
 	return z;

@@ -84,8 +84,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Stops rendering on frame number <N>."),
 		QCoreApplication::translate("main", "N"));
 
-	const QCommandLineOption overrideOption(
-		QStringList({"O", "override"}),
+	const QCommandLineOption overrideOption(QStringList({"O", "override"}),
 		QCoreApplication::translate("main",
 			"<KEY=VALUE> overrides item '<KEY>' from settings file with new value '<VALUE>'.\n"
 			"Specify multiple KEY=VALUE pairs by separating with a '#': <KEY1=VALUE1#KEY2=VALUE2>. Quote "
@@ -94,23 +93,22 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"fractal"),
 		QCoreApplication::translate("main", "..."));
 
-	const QCommandLineOption listOption(
-		QStringList({"L", "list"}),
+	const QCommandLineOption listOption(QStringList({"L", "list"}),
 		QCoreApplication::translate(
 			"main", "Lists all possible parameters '<KEY>' with corresponding default value '<VALUE>'."));
 
 	const QCommandLineOption formatOption(QStringList({"f", "format"}),
-		QCoreApplication::translate("main", "Image output format:\n"
-																				"  jpg - JPEG format (default)\n"
-																				"  png - PNG format\n"
-																				"  png16 - 16-bit PNG format\n"
-																				"  png16alpha - 16-bit PNG with alpha channel format\n"
-																				"  exr - EXR format\n"
-																				"  tiff - TIFF format"),
+		QCoreApplication::translate("main",
+			"Image output format:\n"
+			"  jpg - JPEG format (default)\n"
+			"  png - PNG format\n"
+			"  png16 - 16-bit PNG format\n"
+			"  png16alpha - 16-bit PNG with alpha channel format\n"
+			"  exr - EXR format\n"
+			"  tiff - TIFF format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
-	const QCommandLineOption resOption(
-		QStringList({"r", "res"}),
+	const QCommandLineOption resOption(QStringList({"r", "res"}),
 		QCoreApplication::translate(
 			"main", "Overrides image resolution. Specify as width and height separated by 'x'"),
 		QCoreApplication::translate("main", "WxH"));
@@ -122,8 +120,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	const QCommandLineOption serverOption(QStringList({"S", "server"}),
 		QCoreApplication::translate("main", "Sets application as a server listening for clients."));
 
-	const QCommandLineOption hostOption(
-		QStringList({"H", "host"}),
+	const QCommandLineOption hostOption(QStringList({"H", "host"}),
 		QCoreApplication::translate("main",
 			"Sets application as a client connected to server of given host address"
 			" (Host can be of type IPv4, IPv6 and Domain name address)."),
@@ -133,8 +130,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Sets network port number for netrender (default 5555)."),
 		QCoreApplication::translate("main", "N"));
 
-	const QCommandLineOption noColorOption(
-		QStringList({"C", "no-cli-color"}),
+	const QCommandLineOption noColorOption(QStringList({"C", "no-cli-color"}),
 		QCoreApplication::translate(
 			"main", "Starts program without ANSI colors, when execution on CLI."));
 
@@ -142,8 +138,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main", "Saves rendered image(s) to this file / folder."),
 		QCoreApplication::translate("main", "N"));
 
-	const QCommandLineOption logFilepathOption(
-		QStringList({"logfilepath"}),
+	const QCommandLineOption logFilepathOption(QStringList({"logfilepath"}),
 		QCoreApplication::translate(
 			"main", "Specify custom system log filepath (default is: ~/.mandelbulber_log.txt)."),
 		QCoreApplication::translate("main", "N"));
@@ -154,22 +149,21 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	const QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
-	const QCommandLineOption benchmarkOption(
-		QStringList({"b", "benchmark"}),
+	const QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
 		QCoreApplication::translate("main",
 			"Runs benchmarks on the mandelbulber instance, specify optional"
 			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
 			" When [output] option is set to a folder, the example-test images will be stored there."));
 
-	const QCommandLineOption touchOption(
-		QStringList({"T", "touch"}),
+	const QCommandLineOption touchOption(QStringList({"T", "touch"}),
 		QCoreApplication::translate(
 			"main", "Resaves a settings file (can be used to update a settings file)"));
 
 	const QCommandLineOption voxelOption(QStringList({"V", "voxel"}),
-		QCoreApplication::translate("main", "Renders the voxel volume. Output formats are:\n"
-																				"  slice - stack of PNG images into one folder (default)\n"
-																				"  ply - Polygon File Format (single 3d file)\n"),
+		QCoreApplication::translate("main",
+			"Renders the voxel volume. Output formats are:\n"
+			"  slice - stack of PNG images into one folder (default)\n"
+			"  ply - Polygon File Format (single 3d file)\n"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption statsOption(QStringList({"stats"}),
@@ -182,8 +176,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	const QCommandLineOption helpOpenClOption(QStringList({"help-opencl"}),
 		QCoreApplication::translate("main", "Shows commands regarding OpenCL."));
 
-	parser.addPositionalArgument(
-		"settings_file",
+	parser.addPositionalArgument("settings_file",
 		QCoreApplication::translate("main",
 			"file with fractal settings (program also tries\nto find file in ./mandelbulber/settings "
 			"directory)\n"

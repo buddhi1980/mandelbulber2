@@ -440,7 +440,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramContainer->Get<int>("opencl_mode") != clRenderEngineTypeFast
 			&& anyMaterialHasColoringEnabled)
 		definesCollector += " -DUSE_FRACTAL_COLORING";
-	if(anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
+	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
 
 	if ((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 	{
