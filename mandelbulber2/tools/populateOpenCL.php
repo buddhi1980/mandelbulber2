@@ -133,6 +133,7 @@ function autogenOpenCLFile($copyFile, &$status)
 		array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor
 		array('find' => '/void RecalculateFractalParams\([\s\S]*?\);/', 'replace' => ""), // remove method
+		array('find' => '/cl_float CalculateColorIndex\([\s\S]*?\);/', 'replace' => ""), // remove method
 
 		array('find' => '/.*::.*/', 'replace' => ""), // no namespace scopes allowed?
 		array('find' => '/.*cPrimitives.*/', 'replace' => ""), // need to include file...
