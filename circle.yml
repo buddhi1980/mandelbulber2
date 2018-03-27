@@ -15,6 +15,7 @@ dependencies:
 
 compile:
   override:
+    - source ~/.bash_profile
     - mkdir ~/build/
     - cd ~/build/ && qmake ~/mandelbulber2/mandelbulber2/qmake/mandelbulber.pro
     - cd ~/build/ && make -j3
