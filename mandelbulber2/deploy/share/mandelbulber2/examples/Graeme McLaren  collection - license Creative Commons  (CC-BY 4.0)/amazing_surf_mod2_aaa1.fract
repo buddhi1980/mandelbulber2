@@ -18,7 +18,6 @@ camera_top -0.016722304410142 -0.1559107207147398 -0.9876295923580991;
 DE_factor 0.7;
 DOF_focus 5.204795525060035e-05;
 DOF_radius 5.07;
-file_background /home/graeme/mandelbulber/my skies/IMG_1243 32b.png;
 flight_last_to_render 0;
 fog_color_2 ff00 ff00 0000;
 formula_1 132;
