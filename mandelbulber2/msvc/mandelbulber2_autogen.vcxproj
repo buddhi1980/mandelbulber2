@@ -331,6 +331,9 @@
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\deploy\NEWS&quot; &quot;$(OutDir)doc\NEWS&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\deploy\COPYING&quot; &quot;$(OutDir)COPYING.txt&quot;" />
     <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\deploy\win32\mandelbulber2.ico&quot; &quot;$(OutDir)mandelbulber2.ico&quot;" />
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\tools\TDR__disable.bat&quot; &quot;$(OutDir)TDR__disable.bat&quot;" />
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\tools\TDR_deprovision.bat&quot; &quot;$(OutDir)TDR_deprovision.bat&quot;" />
+    <Exec Command="copy /Y &quot;$(SourceDir)\mandelbulber2\tools\TDR_enable.bat&quot; &quot;$(OutDir)TDR_enable.bat&quot;" />
     <Exec Command="mkdir &quot;$(OutDir)source&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)\mandelbulber2\src&quot; &quot;$(OutDir)source\src&quot;" />
     <Exec Command="xcopy /Y /Q /I &quot;$(SourceDir)\mandelbulber2\qt&quot; &quot;$(OutDir)source\qt&quot;" />
