@@ -2,7 +2,7 @@
 ## Customize the test machine
 machine:
   xcode:
-    xcode: 9.1.0
+    version: 9.1.0
 
 dependencies:
   pre:
