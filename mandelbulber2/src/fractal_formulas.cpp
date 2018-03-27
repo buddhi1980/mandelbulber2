@@ -2275,7 +2275,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		double rr;
+		double rr = 0.0;
 		rrCol = rr;
 		rr = z.Dot(z);
 		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
