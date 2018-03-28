@@ -301,7 +301,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				CVector4 colorZ = CVector4(colorZ.x, colorZ.y, colorZ.z, 0.0);
+				CVector4 colorZ = CVector4(z.x, z.y, z.z, 0.0);
 				if (in.material->fractalColoring.color4dEnabledFalse) colorZ.w = z.w;
 
 				// double len = 0.0;
