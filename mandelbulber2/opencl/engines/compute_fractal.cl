@@ -315,12 +315,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					}
 					case fractalColoringCl_ZDotPoint:
 					{
-                                                len = fabs(z.Dot(CVector4(pointTransformed, colorW)));
+                                                len = fabs(dot(float4(z.xyz, colorW), z));
 						break;
 					}
 					case fractalColoringCl_Sphere:
 					{
-                                                len = fabs((z - float4(pointTransformed, colorW)).Length()
+                                                len = fabs(length(z - float4(z.xyz, colorW))
                                                          - fractalColoring->sphereRadius);
 						break;
 					}
@@ -333,13 +333,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					}
 					case fractalColoringCl_Line:
 					{
-						len = fabs(dot(z.xyz, fractalColoring->lineDirection));
                                                 if (fractalColoring->color4dEnabledFalse)
-                                                        len = fabs(
-                                                                z.Dot(float4(fractalColoring->lineDirection, colorW))); // z.w hmmmm??
+                                                        len = fabs(dot(float4(fractalColoring->lineDirection,
+                                                                fractalColoring->lineDirectionW,), z)); // z.w hmmmm??
                                                 else
                                                         len = fabs(
-                                                                z.Dot(float4(fractalColoring->lineDirection, 0.0))); // z.w hmmmm??
+                                                                dot(float4(fractalColoring->lineDirection, 0.0), z.xyz)); // z.w hmmmm??
                                                 break;
 					}
 					case fractalColoringCl_None:

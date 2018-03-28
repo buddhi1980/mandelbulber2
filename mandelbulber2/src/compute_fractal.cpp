@@ -71,6 +71,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		z.w = fractals.GetInitialWAxis(0);
 	}
+	double initialWAxisColor = z.w;
 
 	double orbitTrapTotal = 0.0;
 	out->orbitTrapR = 0.0;
@@ -300,44 +301,44 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			}
 			else if (Mode == calcModeColouring)
 			{
-				double colorW = 0.0;
-				if (in.material->fractalColoring.color4dEnabledFalse) colorW = z.w;
+				CVector4 colorZ = CVector4(colorZ.x, colorZ.y, colorZ.z, 0.0);
+				if (in.material->fractalColoring.color4dEnabledFalse) colorZ.w = z.w;
 
 				// double len = 0.0;
 				switch (in.material->fractalColoring.coloringAlgorithm)
 				{
 					case fractalColoring_Standard:
 					{
-						len = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + colorW * colorW);
+						len = colorZ.Length();
 						break;
 					}
 					case fractalColoring_ZDotPoint:
 					{
-						len = fabs(z.Dot(CVector4(pointTransformed, colorW)));
+						len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
 						break;
 					}
 					case fractalColoring_Sphere:
 					{
-						len = fabs((z - CVector4(pointTransformed, colorW)).Length()
+						len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
 											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
 					case fractalColoring_Cross:
 					{
-						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
+						len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
 						if (in.material->fractalColoring.color4dEnabledFalse)
-							len = min(len, fabs(colorW));
+							len = min(len, fabs(colorZ.w));
 						break;
 					}
 					case fractalColoring_Line:
 					{
 						if (in.material->fractalColoring.color4dEnabledFalse)
 							len = fabs(
-								z.Dot(CVector4(in.material->fractalColoring.lineDirection,
+								colorZ.Dot(CVector4(in.material->fractalColoring.lineDirection,
 															 in.material->fractalColoring.lineDirectionW)));
 						else
 							len = fabs(
-								z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0)));
+								colorZ.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0)));
 						break;
 					}
 					case fractalColoring_None:
