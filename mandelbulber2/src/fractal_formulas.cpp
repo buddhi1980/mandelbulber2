@@ -2275,9 +2275,8 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		double rr = 0.0;
+		double rr = z.Dot(z);
 		rrCol = rr;
-		rr = z.Dot(z);
 		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 
@@ -2285,7 +2284,6 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		if (aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 		{
-
 			z += fractal->mandelbox.offset;
 
 			// if (r2 < 1e-21) r2 = 1e-21;
@@ -2312,6 +2310,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		}
 	}
 
+
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 		z = fractal->mandelbox.mainRot.RotateVector(z);
@@ -2330,12 +2329,19 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 		if (rrCol < fractal->transformCommon.maxR2d1)
 		{
-			if (rrCol < fractal->transformCommon.minR2p25)
+			/*if (rrCol < fractal->transformCommon.minR2p25)
 				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
 										+ fractal->mandelbox.color.factorSp2
 												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);*/
+			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+
+
 		}
 
 		aux.color += colorAdd;
@@ -12804,8 +12810,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		double rr;
-		rr = z.Dot(z);
+		double rr = z.Dot(z);
 		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 
@@ -12863,7 +12868,7 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	CVector4 zCol = z;
 	CVector4 oldZ = z;
 
-	// parabolic = paraOffset + iter *slope + (iter *iter *scale)
+	// parabolic.w = paraOffset + iter *slope + (iter *iter *scale)
 	double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -12873,6 +12878,17 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux.i * fractal->Cpara.parabSlope) + (parabScale);
 		z.w += paraAddP0;
 	}
+
+	// sinusoidal w
+	double sinAdd = 0.0;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		sinAdd = sin((aux.i + fractal->transformCommon.offset0) / fractal->transformCommon.scaleA1)
+				* fractal->transformCommon.scaleC1;
+		z.w += sinAdd;
+	}
+
+
 	/*	CVector4 temp = fractal->transformCommon.offset0000;
 		CVector4 temp2 = temp * temp;
 
@@ -12901,6 +12917,7 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	CVector4 temp = fractal->transformCommon.offset0000;
 	CVector4 temp2 = temp * temp;
+	if (z.w < 1e-016) z.w = 1e-016;
 
 	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x)
 				 * fractal->transformCommon.scale1;
