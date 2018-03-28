@@ -333,10 +333,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					{
 						if (in.material->fractalColoring.color4dEnabledFalse)
 							len = fabs(
-								z.Dot(CVector4(in.material->fractalColoring.lineDirection, colorW))); // z.w hmmmm??
+								z.Dot(CVector4(in.material->fractalColoring.lineDirection,
+															 in.material->fractalColoring.lineDirectionW)));
 						else
 							len = fabs(
-								z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0))); // z.w hmmmm??
+								z.Dot(CVector4(in.material->fractalColoring.lineDirection, 0.0)));
 						break;
 					}
 					case fractalColoring_None:

@@ -103,6 +103,7 @@ struct sFractalColoring
 	double initialMinimumR;
 	double iterAddScale;
 	double iterScale;
+	double lineDirectionW;
 	double maxColorValue;
 	double minColorValue;
 	double orbitTrapWeight;

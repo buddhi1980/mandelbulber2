@@ -83,7 +83,7 @@
         <x>0</x>
         <y>0</y>
         <width>619</width>
-        <height>3751</height>
+        <height>3779</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -160,7 +160,7 @@
            <number>2</number>
           </property>
           <item>
-           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">
+           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">
             <property name="spacing">
              <number>2</number>
             </property>
@@ -175,6 +175,52 @@
              <widget class="QLabel" name="label_172">
               <property name="text">
                <string>Random seed:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_357">
+              <property name="text">
+               <string>Palette offset:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_355">
+              <property name="text">
+               <string>Palette size:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_356">
+              <property name="text">
+               <string>Palette:
+(click to edit)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" colspan="3">
+             <widget class="QPushButton" name="pushButton_randomize">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Randomize</string>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_fractal_coloring_circle_radius">
+              <property name="text">
+               <string>Orbit trap
+sphere radius:</string>
               </property>
              </widget>
             </item>
@@ -232,52 +278,6 @@
               <property name="text">
                <string>Orbit trap line
 direction vector:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
-             <widget class="QLabel" name="label_357">
-              <property name="text">
-               <string>Palette offset:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_355">
-              <property name="text">
-               <string>Palette size:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_356">
-              <property name="text">
-               <string>Palette:
-(click to edit)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0" colspan="3">
-             <widget class="QPushButton" name="pushButton_randomize">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Randomize</string>
-              </property>
-             </widget>
-            </item>
-            <item row="12" column="0">
-             <widget class="QLabel" name="label_fractal_coloring_circle_radius">
-              <property name="text">
-               <string>Orbit trap
-sphere radius:</string>
               </property>
              </widget>
             </item>
@@ -346,130 +346,6 @@ sphere radius:</string>
              <widget class="QLabel" name="label_173">
               <property name="text">
                <string>Saturation:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1" colspan="2">
-             <widget class="QComboBox" name="comboBox_fractal_coloring_algorithm">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <item>
-               <property name="text">
-                <string>Standard</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>orbit trap: z.Dot(point)</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>orbit trap: Sphere</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>orbit trap: Cross</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>orbit trap: Line</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item row="14" column="1">
-             <widget class="QLabel" name="label_fractal_coloring_line_direction_y">
-              <property name="text">
-               <string>y:</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="0" colspan="3">
-             <widget class="QPushButton" name="pushButton_randomPalette">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a palette from the random seed value.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Generate new random palette</string>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="0">
-             <widget class="QLabel" name="label_354">
-              <property name="text">
-               <string>Coloring algorithm:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="2">
-             <widget class="MyLineEdit" name="vect3_fractal_coloring_line_direction_y">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of line in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1" colspan="2">
-             <widget class="MyDoubleSpinBox" name="spinbox_coloring_palette_offset">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift along the color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="accelerated">
-               <bool>false</bool>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="minimum">
-               <double>0.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>256.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.010000000000000</double>
-              </property>
-              <property name="value">
-               <double>0.000000000000000</double>
               </property>
              </widget>
             </item>
@@ -622,12 +498,174 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
+            <item row="11" column="1" colspan="2">
+             <widget class="QComboBox" name="comboBox_fractal_coloring_algorithm">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <item>
+               <property name="text">
+                <string>Standard</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>orbit trap: z.Dot(point)</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>orbit trap: Sphere</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>orbit trap: Cross</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>orbit trap: Line</string>
+               </property>
+              </item>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QLabel" name="label_fractal_coloring_line_direction_y">
+              <property name="text">
+               <string>y:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0" colspan="3">
+             <widget class="QPushButton" name="pushButton_randomPalette">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a palette from the random seed value.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Generate new random palette</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="label_354">
+              <property name="text">
+               <string>Coloring algorithm:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="2">
+             <widget class="MyLineEdit" name="vect3_fractal_coloring_line_direction_y">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of line in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" colspan="2">
+             <widget class="MyDoubleSpinBox" name="spinbox_coloring_palette_offset">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift along the color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="accelerated">
+               <bool>false</bool>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>2</number>
+              </property>
+              <property name="minimum">
+               <double>0.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>256.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.010000000000000</double>
+              </property>
+              <property name="value">
+               <double>0.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="1">
+             <widget class="QLabel" name="label_fractal_coloring_line_direction_z_2">
+              <property name="text">
+               <string>w:</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="16" column="2">
+             <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_line_directionW">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="minimum">
+               <double>-9999.999900000000707</double>
+              </property>
+              <property name="maximum">
+               <double>9999.999900000000707</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
            <widget class="QCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="text">
-             <string notr="true">4D color BETA</string>
+             <string notr="true">4D orbit trap color BETA</string>
             </property>
            </widget>
           </item>
@@ -4031,12 +4069,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>46</x>
-     <y>48</y>
+     <x>69</x>
+     <y>1644</y>
     </hint>
     <hint type="destinationlabel">
-     <x>351</x>
-     <y>58</y>
+     <x>598</x>
+     <y>1646</y>
     </hint>
    </hints>
   </connection>
@@ -4047,12 +4085,28 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>78</y>
+     <x>93</x>
+     <y>1672</y>
     </hint>
     <hint type="destinationlabel">
-     <x>423</x>
-     <y>84</y>
+     <x>598</x>
+     <y>1674</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fractal_coloring_color_4D_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox_fractal_coloring_line_directionW</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>25</x>
+     <y>547</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>519</y>
     </hint>
    </hints>
   </connection>
