@@ -220,12 +220,14 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 		switch (coloringFunction)
 		{
 			case clColoringFunctionABox:
+			{
 				colorIndex =
 					extendedAux->color * 100.0f													 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 					+ ((fractalColoring->coloringAlgorithm != fractalColoringCl_Standard) ? minimumR * 1000.0f
 																																								: 0.0f);
 				break;
+			}
 			case clColoringFunctionIFS: colorIndex = minimumR * 1000.0f; break;
 			case clColoringFunctionAmazingSurf: colorIndex = minimumR * 200.0f; break;
 			case clColoringFunctionABox2:

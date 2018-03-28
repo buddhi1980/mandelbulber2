@@ -98,6 +98,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int N = calcParam->N;
 
 	if (calcParam->normalCalculationMode) N *= 5;
+	if (mode == calcModeColouring) N *= 10;
 
 	// repeat, move and rotate
 	float3 pointTransformed =
@@ -121,7 +122,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	out.maxiter = consts->params.iterThreshMode;
 	out.orbitTrapR = 0.0f;
 
-	float colorMin = 1e8f;
+	float colorMin = fractalColoring->initialMinimumR;
 	float orbitTrapTotal = 0.0f;
 
 	// formula init
@@ -165,7 +166,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
-		formulaIndex = consts->sequence.hybridSequence[i];
+		formulaIndex = consts->sequence.hybridSequence[min(i, 249)];
 		fractal = &consts->fractal[formulaIndex];
 
 		aux.i = i;
@@ -349,7 +350,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				{
 					if (len < colorMin) colorMin = len;
 				}
-				if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
+				// if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
+				if (aux.r > 1e15f) break;
 			}
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
