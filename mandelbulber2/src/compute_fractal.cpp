@@ -313,12 +313,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 					case fractalColoring_ZDotPoint:
 					{
-						len = fabs(z.Dot(CVector4(pointTransformed, colorW))); // z.w
+						len = fabs(z.Dot(CVector4(pointTransformed, colorW)));
 						break;
 					}
 					case fractalColoring_Sphere:
 					{
-						len = fabs((z - CVector4(pointTransformed, colorW)).Length() // z.w
+						len = fabs((z - CVector4(pointTransformed, colorW)).Length()
 											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
@@ -326,8 +326,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					{
 						len = dMin(fabs(z.x), fabs(z.y), fabs(z.z));
 						if (in.material->fractalColoring.color4dEnabledFalse)
-							len = min(len, colorW); // colorW unlikely to do much out at fractal surface, and
-																			// often will be the minimum
+							len = min(len, fabs(colorW));
 						break;
 					}
 					case fractalColoring_Line:

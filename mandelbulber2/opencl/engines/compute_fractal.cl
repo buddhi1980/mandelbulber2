@@ -304,37 +304,48 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			{
 				float len = 0.0f;
 #ifdef USE_COLORING_MODES
+                        float colorW = 0.0;
+                        if (fractalColoring->color4dEnabledFalse) colorW = z.w; // fix
 				switch (fractalColoring->coloringAlgorithm)
 				{
 					case fractalColoringCl_Standard:
 					{
-						len = aux.r;
+                                                len = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + colorW * colorW);;
 						break;
 					}
 					case fractalColoringCl_ZDotPoint:
 					{
-						len = fabs(dot(z, point4D));
+                                                len = fabs(z.Dot(CVector4(pointTransformed, colorW)));
 						break;
 					}
 					case fractalColoringCl_Sphere:
 					{
-						len = fabs(length(z - point4D) - fractalColoring->sphereRadius);
+                                                len = fabs((z - float4(pointTransformed, colorW)).Length()
+                                                         - fractalColoring->sphereRadius);
 						break;
 					}
 					case fractalColoringCl_Cross:
 					{
 						len = min(min(fabs(z.x), fabs(z.y)), fabs(z.z));
+                                                if (fractalColoring->color4dEnabledFalse)
+                                                        len = min(len, fabs(colorW));
 						break;
 					}
 					case fractalColoringCl_Line:
 					{
 						len = fabs(dot(z.xyz, fractalColoring->lineDirection));
-						break;
+                                                if (fractalColoring->color4dEnabledFalse)
+                                                        len = fabs(
+                                                                z.Dot(float4(fractalColoring->lineDirection, colorW))); // z.w hmmmm??
+                                                else
+                                                        len = fabs(
+                                                                z.Dot(float4(fractalColoring->lineDirection, 0.0))); // z.w hmmmm??
+                                                break;
 					}
 					case fractalColoringCl_None:
 					{
 						len = aux.r;
-						break;
+                                                break;
 					}
 				}
 #else
