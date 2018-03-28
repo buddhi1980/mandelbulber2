@@ -2,7 +2,7 @@
 ## Customize the test machine
 machine:
   xcode:
-    version: 9.1.0
+    xcode: 9.1.0
 
 dependencies:
   pre:
@@ -15,7 +15,6 @@ dependencies:
 
 compile:
   override:
-    - source ~/.bash_profile
     - mkdir ~/build/
     - cd ~/build/ && qmake ~/mandelbulber2/mandelbulber2/qmake/mandelbulber.pro
     - cd ~/build/ && make -j3
