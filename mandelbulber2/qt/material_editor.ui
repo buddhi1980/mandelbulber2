@@ -82,8 +82,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>619</width>
-        <height>3779</height>
+        <width>613</width>
+        <height>3290</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -225,7 +225,7 @@ sphere radius:</string>
              </widget>
             </item>
             <item row="13" column="2">
-             <widget class="MyLineEdit" name="vect3_fractal_coloring_line_direction_x">
+             <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_x">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -248,7 +248,7 @@ sphere radius:</string>
              </widget>
             </item>
             <item row="15" column="2">
-             <widget class="MyLineEdit" name="vect3_fractal_coloring_line_direction_z">
+             <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_z">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -270,14 +270,6 @@ sphere radius:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="13" column="0" rowspan="3">
-             <widget class="QLabel" name="label_fractal_coloring_line_direction">
-              <property name="text">
-               <string>Orbit trap line
-direction vector:</string>
               </property>
              </widget>
             </item>
@@ -570,7 +562,7 @@ direction vector:</string>
              </widget>
             </item>
             <item row="14" column="2">
-             <widget class="MyLineEdit" name="vect3_fractal_coloring_line_direction_y">
+             <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_y">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -633,30 +625,26 @@ direction vector:</string>
              </widget>
             </item>
             <item row="16" column="2">
-             <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_line_directionW">
+             <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_w">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
-              <property name="prefix">
-               <string/>
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of line in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>6</number>
-              </property>
-              <property name="minimum">
-               <double>-9999.999900000000707</double>
-              </property>
-              <property name="maximum">
-               <double>9999.999900000000707</double>
-              </property>
-              <property name="singleStep">
-               <double>1.000000000000000</double>
+             </widget>
+            </item>
+            <item row="13" column="0" rowspan="4">
+             <widget class="QLabel" name="label_fractal_coloring_line_direction">
+              <property name="text">
+               <string>Orbit trap line
+direction vector:</string>
               </property>
              </widget>
             </item>
@@ -665,7 +653,7 @@ direction vector:</string>
           <item>
            <widget class="QCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="text">
-             <string notr="true">4D orbit trap color BETA</string>
+             <string notr="true">4D orbit trap color</string>
             </property>
            </widget>
           </item>
@@ -4039,9 +4027,9 @@ object size)</string>
   <tabstop>pushButton_getPaletteFromImage</tabstop>
   <tabstop>comboBox_fractal_coloring_algorithm</tabstop>
   <tabstop>spinbox_fractal_coloring_sphere_radius</tabstop>
-  <tabstop>vect3_fractal_coloring_line_direction_x</tabstop>
-  <tabstop>vect3_fractal_coloring_line_direction_y</tabstop>
-  <tabstop>vect3_fractal_coloring_line_direction_z</tabstop>
+  <tabstop>vect4_fractal_coloring_line_direction_x</tabstop>
+  <tabstop>vect4_fractal_coloring_line_direction_y</tabstop>
+  <tabstop>vect4_fractal_coloring_line_direction_z</tabstop>
   <tabstop>spinbox_color_texture_intensity</tabstop>
   <tabstop>spinbox_luminosity_texture_intensity</tabstop>
   <tabstop>spinbox_diffusion_texture_intensity</tabstop>
@@ -4091,22 +4079,6 @@ object size)</string>
     <hint type="destinationlabel">
      <x>598</x>
      <y>1674</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_fractal_coloring_color_4D_enabled_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_fractal_coloring_line_directionW</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>25</x>
-     <y>547</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>369</x>
-     <y>519</y>
     </hint>
    </hints>
   </connection>

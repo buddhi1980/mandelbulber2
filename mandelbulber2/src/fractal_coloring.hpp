@@ -86,7 +86,7 @@ struct sFractalColoring
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
 
-	CVector3 lineDirection;
+	CVector4 lineDirection;
 	CVector3 xyz000;
 	CVector3 xyzC111;
 
@@ -103,7 +103,6 @@ struct sFractalColoring
 	double initialMinimumR;
 	double iterAddScale;
 	double iterScale;
-	double lineDirectionW;
 	double maxColorValue;
 	double minColorValue;
 	double orbitTrapWeight;

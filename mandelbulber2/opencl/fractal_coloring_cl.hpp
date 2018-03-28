@@ -102,7 +102,7 @@ typedef struct
 	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
 
-	cl_float3 lineDirection;
+	cl_float4 lineDirection;
 	cl_float3 xyz000;
 	cl_float3 xyzC111;
 
@@ -166,7 +166,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
 	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	target.iStartValue = source.iStartValue;
-	target.lineDirection = toClFloat3(source.lineDirection);
+	target.lineDirection = toClFloat4(source.lineDirection);
 	target.xyz000 = toClFloat3(source.xyz000);
 	target.xyzC111 = toClFloat3(source.xyzC111);
 	target.addMax = source.addMax;

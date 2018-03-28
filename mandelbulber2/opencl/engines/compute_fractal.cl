@@ -112,8 +112,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	z.z = pointTransformed.z;
 	z.w = consts->sequence.initialWAxis[0];
 
-        float initialWAxisColor = z.w;
-        float w = 0;
+	float initialWAxisColor = z.w;
 
 	float4 c = z;
 	int i;
@@ -305,47 +304,41 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			{
 				float len = 0.0f;
 #ifdef USE_COLORING_MODES
-                        float4 colorZ = float4(z.xyz, 0.0);
-                        if (fractalColoring->color4dEnabledFalse) colorZ.w = z.w;
+				float4 colorZ = z;
+				if (!fractalColoring->color4dEnabledFalse) colorZ.w = 0.0f;
 				switch (fractalColoring->coloringAlgorithm)
 				{
 					case fractalColoringCl_Standard:
 					{
-                                                len = length(colorZ);
+						len = length(colorZ);
 						break;
 					}
 					case fractalColoringCl_ZDotPoint:
 					{
-                                                len = fabs(dot(float4(point4D.xyz, initialWAxisColor), colorZ));
+						len = fabs(dot((float4){point4D.x, point4D.y, point4D.z, initialWAxisColor}, colorZ));
 						break;
 					}
 					case fractalColoringCl_Sphere:
 					{
-                                                len = fabs(length(colorZ - float4(point4D.xyz, initialWAxisColor))
-                                                         - fractalColoring->sphereRadius);
+						len = fabs(length(colorZ - (float4){point4D.x, point4D.y, point4D.z, initialWAxisColor})
+											 - fractalColoring->sphereRadius);
 						break;
 					}
 					case fractalColoringCl_Cross:
 					{
-                                                len = min(min(fabs(colorZ.x), fabs(colorZ.y)), fabs(colorZ.z));
-                                                if (fractalColoring->color4dEnabledFalse)
-                                                        len = min(len, fabs(colorZ.w));
+						len = min(min(fabs(colorZ.x), fabs(colorZ.y)), fabs(colorZ.z));
+						if (fractalColoring->color4dEnabledFalse) len = min(len, fabs(colorZ.w));
 						break;
 					}
 					case fractalColoringCl_Line:
 					{
-                                                if (fractalColoring->color4dEnabledFalse)
-                                                        len = fabs(dot(float4(fractalColoring->lineDirection,
-                                                                fractalColoring->lineDirectionW,), colorZ));
-                                                else
-                                                        len = fabs(
-                                                                dot(float4(fractalColoring->lineDirection, 0.0), colorZ));
-                                                break;
+						len = fabs(dot(fractalColoring->lineDirection, colorZ));
+						break;
 					}
 					case fractalColoringCl_None:
 					{
 						len = aux.r;
-                                                break;
+						break;
 					}
 				}
 #else

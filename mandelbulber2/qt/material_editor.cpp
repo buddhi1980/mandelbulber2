@@ -177,9 +177,10 @@ void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 {
 	enumFractalColoring selection = enumFractalColoring(index);
 	ui->spinbox_fractal_coloring_sphere_radius->setEnabled(selection == fractalColoring_Sphere);
-	ui->vect3_fractal_coloring_line_direction_x->setEnabled(selection == fractalColoring_Line);
-	ui->vect3_fractal_coloring_line_direction_y->setEnabled(selection == fractalColoring_Line);
-	ui->vect3_fractal_coloring_line_direction_z->setEnabled(selection == fractalColoring_Line);
+	ui->vect4_fractal_coloring_line_direction_x->setEnabled(selection == fractalColoring_Line);
+	ui->vect4_fractal_coloring_line_direction_y->setEnabled(selection == fractalColoring_Line);
+	ui->vect4_fractal_coloring_line_direction_z->setEnabled(selection == fractalColoring_Line);
+	ui->vect4_fractal_coloring_line_direction_w->setEnabled(selection == fractalColoring_Line);
 }
 
 void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
