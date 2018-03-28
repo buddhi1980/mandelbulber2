@@ -233,8 +233,6 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 				filename = cachedFileName;
 			}
 		}
-		// skip if invalid
-		else break;
 		// TEMPORARY CODE TO LOAD AUDIO OVER HTTP AND CACHE
 
 		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())

@@ -92,6 +92,9 @@ void cAudioTrack::Clear()
 void cAudioTrack::LoadAudio(const QString &_filename)
 {
 	QString filename = FilePathHelperSounds(_filename);
+	// check if file exists
+	QFileInfo file(filename);
+	if (!(file.exists() && file.isFile())) return;
 
 	WriteLogString("Loading audio started", filename, 2);
 
