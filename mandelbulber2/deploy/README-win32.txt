@@ -50,7 +50,7 @@ or run Mandelbulber v2-2.xx-Setup.exe if it is provided.
 - Windows 10 64-bit
 
 - msvc16
-- Qt 5.7.1
+- Qt 5.9.4
 
 6. USAGE
 --------
