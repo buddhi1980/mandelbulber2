@@ -1386,7 +1386,7 @@ void AboxMod12Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 		// if not use standard Mbox sphere fold
 
-		if (z == oldZ)
+		if (z.x == oldZ.x && z.y == oldZ.y && z.z == oldZ.z && z.w == oldZ.w)
 		{
 			double MinR2 = fractal->transformCommon.minR2p25;
 			double rr = z.Dot(z);
@@ -2310,7 +2310,6 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		}
 	}
 
-
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 		z = fractal->mandelbox.mainRot.RotateVector(z);
@@ -2334,14 +2333,13 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 										+ fractal->mandelbox.color.factorSp2
 												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);*/
+				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 -
+			rrCol);*/
 			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
 				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
-						+ fractal->mandelbox.color.factorSp2
-								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
-
-
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
 		}
 
 		aux.color += colorAdd;
@@ -12884,10 +12882,9 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (fractal->transformCommon.functionEnabledDFalse)
 	{
 		sinAdd = sin((aux.i + fractal->transformCommon.offset0) / fractal->transformCommon.scaleA1)
-				* fractal->transformCommon.scaleC1;
+						 * fractal->transformCommon.scaleC1;
 		z.w += sinAdd;
 	}
-
 
 	/*	CVector4 temp = fractal->transformCommon.offset0000;
 		CVector4 temp2 = temp * temp;

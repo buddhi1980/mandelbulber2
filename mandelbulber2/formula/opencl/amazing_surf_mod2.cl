@@ -220,9 +220,8 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		REAL rr;
+		REAL rr = dot(z, z);
 		rrCol = rr;
-		rr = dot(z, z);
 		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 
@@ -230,7 +229,6 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		if (aux->i >= fractal->transformCommon.startIterationsM
 				&& aux->i < fractal->transformCommon.stopIterationsM)
 		{
-
 			z += fractal->mandelbox.offset;
 
 			// if (r2 < 1e-21f) r2 = 1e-21f;
@@ -276,13 +274,19 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 		if (rrCol < fractal->transformCommon.maxR2d1)
 		{
+			/*if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 -
+			rrCol), fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+			else
+				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 -
+			rrCol);*/
+			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
 				colorAdd +=
 					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
 						fractal->mandelbox.color.factorSp2
 							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
-			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 		}
 
 		aux->color += colorAdd;

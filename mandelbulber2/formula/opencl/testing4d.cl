@@ -22,7 +22,7 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	REAL4 zCol = z;
 	REAL4 oldZ = z;
 
-	// parabolic = paraOffset + iter *slope + (iter *iter *scale)
+	// parabolic.w = paraOffset + iter *slope + (iter *iter *scale)
 	REAL paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
 	{
@@ -32,6 +32,17 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux->i * fractal->Cpara.parabSlope) + (parabScale);
 		z.w += paraAddP0;
 	}
+
+	// sinusoidal *w
+	REAL sinAdd = 0.0f;
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		sinAdd = native_sin(native_divide(
+							 (aux->i + fractal->transformCommon.offset0), fractal->transformCommon.scaleA1))
+						 * fractal->transformCommon.scaleC1;
+		z.w += sinAdd;
+	}
+
 	/*	REAL4 temp = fractal->transformCommon.offset0000;
 		REAL4 temp2 = temp * temp;
 
@@ -64,6 +75,7 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 	REAL4 temp = fractal->transformCommon.offset0000;
 	REAL4 temp2 = temp * temp;
+	if (z.w < 1e-016f) z.w = 1e-016f;
 
 	z.x +=
 		(native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f * temp.x)

@@ -239,8 +239,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	// standard functions
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		REAL rr;
-		rr = dot(z, z);
+		REAL rr = dot(z, z);
 		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 

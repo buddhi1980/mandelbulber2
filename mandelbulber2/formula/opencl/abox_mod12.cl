@@ -172,7 +172,7 @@ REAL4 AboxMod12Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		}
 		// if not use standard Mbox sphere fold
 
-		if (z == oldZ)
+		if (z.x == oldZ.x && z.y == oldZ.y && z.z == oldZ.z && z.w == oldZ.w)
 		{
 			REAL MinR2 = fractal->transformCommon.minR2p25;
 			REAL rr = dot(z, z);
