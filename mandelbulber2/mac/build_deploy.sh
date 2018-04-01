@@ -3,10 +3,37 @@
 FILEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SRC=$FILEDIR/../..
 BUILD=$SRC/build/
+
+# Clean build directory
 rm -rf $BUILD
 mkdir -p $BUILD
-cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber.pro
+
+# opencl: download cl.hpp file from Khronos
+mkdir -p $BUILD/OpenCL
+CLFILE="$BUILD/OpenCL/cl.hpp"
+CLSRC="https://www.khronos.org/registry/cl/api/2.1/cl.hpp"
+if [ -f $CLFILE ];
+then
+echo "$CLFILE found"
+else
+echo "Downloading $CLSRC"
+wget -O $CLFILE $CLSRC
+fi
+
+# build operation
+cd $BUILD && qmake $SRC/mandelbulber2/qmake/mandelbulber-opencl.pro
 cd $BUILD && make -j8
+
+# binary requirement
+binary=$BUILD/mandelbulber2.app/Contents/MacOS/mandelbulber2
+if [ -f $binary ];
+then
+echo "$binary found"
+else
+echo "Error Building $binary"
+exit
+fi
+
 #macOS build package
 SUPPORT=$SRC/mandelbulber2
 PACK=$BUILD/mandelbulber2.app
