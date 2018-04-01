@@ -11,7 +11,7 @@ jobs:
           name: Dependencies
           command: |
             brew update
-            brew install qt5 gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
+            brew install llvm qt5 gsl lzo jpeg libpng libtiff libsndfile tree p7zip wget
       - run:
           name: Build
           command: |

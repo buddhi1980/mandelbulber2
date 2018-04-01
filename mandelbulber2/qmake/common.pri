@@ -89,23 +89,24 @@ QMAKE_CXXFLAGS_RELEASE -= -O2
 QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
-# TODO: enable openmp with OSX
 # compiler build flags
 QMAKE_CXXFLAGS += -ffast-math -fopenmp -std=c++11
-macx:QMAKE_CXXFLAGS -= -fopenmp 
-#macx:QMAKE_CXXFLAGS += -openmp
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
 # test hardcoded lib path for gsl in travis container 
 QMAKE_CXXFLAGS += -I/usr/include/gsl
 
-# TODO: enable openmp with OSX
 # library linking
 LIBS += -lpng -lgsl -lgslcblas -fopenmp -llzo2
-macx:LIBS -= -fopenmp 
-#macx:LIBS += -openmp
 macx:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
+
+# TODO: enable openmp with OSX
+macx:QMAKE_CC=/usr/local/opt/llvm/bin/clang
+macx:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
+macx:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
+macx:INCLUDEPATH += /usr/local/opt/llvm/include/
+macx:LIBS += -L/usr/local/opt/llvm/lib/
 
 # gsl png osx absolute path
 macx:INCLUDEPATH += /usr/local/include/
