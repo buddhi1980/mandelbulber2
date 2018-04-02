@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>826</width>
-    <height>1017</height>
+    <height>1042</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -554,22 +554,6 @@
   <connection>
    <sender>checkBox_transf_function_enabled_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_addition_constant_222_y</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>417</x>
-     <y>172</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>417</x>
-     <y>128</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabled_false</sender>
-   <signal>toggled(bool)</signal>
    <receiver>spinbox3_transf_addition_constant_222_z</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
@@ -580,6 +564,22 @@
     <hint type="destinationlabel">
      <x>273</x>
      <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_addition_constant_222_y</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>172</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>417</x>
+     <y>128</y>
     </hint>
    </hints>
   </connection>
