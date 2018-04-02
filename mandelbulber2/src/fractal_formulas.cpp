@@ -3964,6 +3964,136 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
+ * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * Variable paramters over iteration time
+ * @reference
+ * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
+ * This formula contains aux.color
+ */
+void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double colorAdd = 0.0;
+	double rrCol = 0.0;
+	CVector4 zCol = z;
+	CVector4 oldZ = z;
+	CVector4 Value4 = 2.0 * fractal->transformCommon.additionConstant111;
+	if (fractal->transformCommon.functionEnabledFalse)
+		Value4 = fractal->transformCommon.additionConstant222;
+	if (fractal->mandelbox.rotationsEnabled)
+	{
+	/*	CVector4 zRot;
+		// cast vector to array pointer for address taking of components in opencl
+		double *zRotP = reinterpret_cast<double *>(&zRot);
+		const double *colP = reinterpret_cast<const double *>(&fractal->mandelbox.color.factor);
+		for (int dim = 0; dim < 3; dim++)
+		{
+			// handle each dimension x, y and z sequentially in pointer var dim
+			double *rotDim = (dim == 0) ? &zRotP[0] : ((dim == 1) ? &zRotP[1] : &zRotP[2]);
+			const double *colorFactor = (dim == 0) ? &colP[0] : ((dim == 1) ? &colP[1] : &colP[2]);
+
+			zRot = fractal->mandelbox.rot[0][dim].RotateVector(z);
+			if (*rotDim > fractal->mandelbox.foldingLimit)
+			{
+				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
+				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
+				aux.color += *colorFactor;
+			}
+			else
+			{
+				zRot = fractal->mandelbox.rot[1][dim].RotateVector(z);
+				if (*rotDim < -fractal->mandelbox.foldingLimit)
+				{
+					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
+					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
+					aux.color += *colorFactor;
+				}
+			}
+		}*/
+	}
+	else
+	{
+		if (z.x > fractal->transformCommon.additionConstant111.x)
+		{
+			z.x = Value4.x - z.x;
+		}
+		else if (z.x < -fractal->transformCommon.additionConstant111.x)
+		{
+			z.x = -Value4.x - z.x;
+		}
+		if (z.y > fractal->transformCommon.additionConstant111.y)
+		{
+			z.y = Value4.y - z.y;
+		}
+		else if (z.y < -fractal->transformCommon.additionConstant111.y)
+		{
+			z.y = -Value4.y - z.y;
+		}
+		if (z.z > fractal->transformCommon.additionConstant111.z)
+		{
+			z.z = Value4.z - z.z;
+		}
+		else if (z.z < -fractal->transformCommon.additionConstant111.z)
+		{
+			z.z = -Value4.z - z.z;
+		}
+		zCol = z;
+	}
+
+	const double rr = z.Dot(z);
+	rrCol = rr;
+	// Mandelbox Spherical fold
+
+		z += fractal->mandelbox.offset;
+
+	// if (r2 < 1e-21) r2 = 1e-21;
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		z *= tglad_factor1;
+		aux.DE *= tglad_factor1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		z *= tglad_factor2;
+		aux.DE *= tglad_factor2;
+	}
+	z -= fractal->mandelbox.offset;
+
+
+	if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
+
+	z = z * fractal->mandelbox.scale;
+	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (zCol.x != oldZ.x)
+			colorAdd += fractal->mandelbox.color.factor.x
+									* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+		if (zCol.y != oldZ.y)
+			colorAdd += fractal->mandelbox.color.factor.y
+									* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+		if (zCol.z != oldZ.z)
+			colorAdd += fractal->mandelbox.color.factor.z
+									* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+		if (rrCol < fractal->transformCommon.maxR2d1)
+		{
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+										+ fractal->mandelbox.color.factorSp2
+												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+			else
+				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+		}
+
+		aux.color += colorAdd;
+	}
+}
+
+
+/**
  * mandelbulbBermarte
  *
  * abs() version of Mandelbulb Kali modified by visual.bermarte
@@ -8680,7 +8810,6 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 {
 	CVector4 oldZ = z;
 	double limit = fractal->mandelbox.foldingLimit;
-	// double value = 2.0 *fractal->mandelbox.foldingLimit;
 	double tempVC = limit; // constant to be varied
 
 	if (aux.i >= fractal->transformCommon.startIterations250
@@ -8744,29 +8873,33 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfBoxFoldXYZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
+	CVector4 Value4 = fractal->transformCommon.additionConstant222;
+	if (fractal->transformCommon.functionEnabledFalse)
+		Value4 = 2.0 * fractal->transformCommon.additionConstant111;
+
 	if (z.x > fractal->transformCommon.additionConstant111.x)
 	{
-		z.x = fractal->transformCommon.additionConstant222.x - z.x;
+		z.x = Value4.x - z.x;
 	}
 	else if (z.x < -fractal->transformCommon.additionConstant111.x)
 	{
-		z.x = -fractal->transformCommon.additionConstant222.x - z.x;
+		z.x = -Value4.x - z.x;
 	}
 	if (z.y > fractal->transformCommon.additionConstant111.y)
 	{
-		z.y = fractal->transformCommon.additionConstant222.y - z.y;
+		z.y = Value4.y - z.y;
 	}
 	else if (z.y < -fractal->transformCommon.additionConstant111.y)
 	{
-		z.y = -fractal->transformCommon.additionConstant222.y - z.y;
+		z.y = -Value4.y - z.y;
 	}
 	if (z.z > fractal->transformCommon.additionConstant111.z)
 	{
-		z.z = fractal->transformCommon.additionConstant222.z - z.z;
+		z.z = Value4.z - z.z;
 	}
 	else if (z.z < -fractal->transformCommon.additionConstant111.z)
 	{
-		z.z = -fractal->transformCommon.additionConstant222.z - z.z;
+		z.z = -Value4.z - z.z;
 	}
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

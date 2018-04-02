@@ -119,8 +119,8 @@ void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Makin3d2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
 void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Mandelbulb2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Mandelbulb3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

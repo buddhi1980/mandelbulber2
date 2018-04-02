@@ -58,6 +58,11 @@
 #include <unistd.h>
 #endif
 
+#if defined(__APPLE__) || defined(__MACOSX)
+#include "CoreFoundation/CoreFoundation.h"
+#endif
+ 
+ 
 //#define CLSUPPORT
 
 sSystem systemData;
@@ -81,15 +86,26 @@ bool InitSystem()
 		QDir::toNativeSeparators(QDir::currentPath() + QDir::separator() + "doc" + QDir::separator());
 #elif SHARED_DIR_IS_APP_DIR
 	/* used for AppImage, which requires fixed data bundled at same location, as the application */
-	systemData.sharedDir = QDir::toNativeSeparators(QDir::currentPath() + QDir::separator());
-	systemData.docDir =
-		QDir::toNativeSeparators(QDir::currentPath() + QDir::separator() + "doc" + QDir::separator());
+    QString sharePath;
+    #if defined(__APPLE__) || defined(__MACOSX)
+        CFURLRef appUrlRef = CFBundleCopyBundleURL( CFBundleGetMainBundle() );
+        CFStringRef macPath = CFURLCopyFileSystemPath( appUrlRef, kCFURLPOSIXPathStyle );
+        sharePath = QString::fromCFString( macPath );
+        CFRelease(appUrlRef);
+        CFRelease(macPath);
+    #else
+        sharePath = QDir::currentPath();
+    #endif
+    out << "sharePath directory: " << sharePath << endl;
 
+	systemData.sharedDir = QDir::toNativeSeparators(sharePath + QDir::separator());
+	systemData.docDir =
+		QDir::toNativeSeparators(sharePath + QDir::separator() + "doc" + QDir::separator());
 #else
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 	systemData.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
 #endif
-
+ 
 // logfile
 #ifdef _WIN32 /* WINDOWS */
 	systemData.logfileName = systemData.homeDir + "mandelbulber_log.txt";
