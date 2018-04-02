@@ -3965,6 +3965,7 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 /**
  * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
+ * Variable paramters over iteration time
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  * This formula contains aux.color
@@ -3975,9 +3976,12 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double rrCol = 0.0;
 	CVector4 zCol = z;
 	CVector4 oldZ = z;
+	CVector4 Value4 = 2.0 * fractal->transformCommon.additionConstant111;
+	if (fractal->transformCommon.functionEnabledFalse)
+		Value4 = fractal->transformCommon.additionConstant222;
 	if (fractal->mandelbox.rotationsEnabled)
 	{
-		CVector4 zRot;
+	/*	CVector4 zRot;
 		// cast vector to array pointer for address taking of components in opencl
 		double *zRotP = reinterpret_cast<double *>(&zRot);
 		const double *colP = reinterpret_cast<const double *>(&fractal->mandelbox.color.factor);
@@ -4004,14 +4008,10 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					aux.color += *colorFactor;
 				}
 			}
-		}
+		}*/
 	}
 	else
 	{
-		CVector4 Value4 = 2.0 * fractal->transformCommon.additionConstant111;
-		if (fractal->transformCommon.functionEnabledFalse)
-			Value4 = fractal->transformCommon.additionConstant222;
-
 		if (z.x > fractal->transformCommon.additionConstant111.x)
 		{
 			z.x = Value4.x - z.x;
