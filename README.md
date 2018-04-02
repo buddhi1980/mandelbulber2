@@ -102,7 +102,7 @@ The system requires the QT5 framework in conjuction with LZO for real-time data 
 
 [Image Gallery](http://krzysztofmarczak.deviantart.com/gallery/)
 
-[Forum](http://www.fractalforums.com/mandelbulber/)
+[Forum](https://fractalforums.org/mandelbulber/14)
 
 [Forum Gallery](http://www.fractalforums.com/index.php?action=gallery;cat=51)
 
