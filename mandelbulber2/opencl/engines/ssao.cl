@@ -73,7 +73,7 @@ kernel void SSAO(
 			float2 dir = (float2){sineCosineBuffer[(int)angle + p.quality], sineCosineBuffer[(int)angle]};
 			float maxDiff = -1e10f;
 
-			for (double r = 1.0f; r < quality; r += rRandom)
+			for (float r = 1.0f; r < quality; r += rRandom)
 			{
 				float rr = r * r * scaleFactor;
 				float2 v = scr_f + rr * dir;
