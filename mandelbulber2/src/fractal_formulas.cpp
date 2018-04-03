@@ -3965,10 +3965,11 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 /**
  * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
- * Variable paramters over iteration time
+ * Variable parameters over iteration time
+ * Based on work by Tglad, Buddhi, Darkbeam
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
- * This formula contains aux.color
+ * This formula contains aux.color and aux.actualScaleA
  */
 void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -3976,11 +3977,14 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double rrCol = 0.0;
 	CVector4 zCol = z;
 	CVector4 oldZ = z;
-	CVector4 Value4 = 2.0 * fractal->transformCommon.additionConstant111;
+	CVector4 limit4 = fractal->transformCommon.additionConstant111;
+	CVector4 value4 = 2.0 * fractal->transformCommon.additionConstant111;
 	if (fractal->transformCommon.functionEnabledFalse)
-		Value4 = fractal->transformCommon.additionConstant222;
+		value4 = fractal->transformCommon.additionConstant222;
+
+
 	if (fractal->mandelbox.rotationsEnabled)
-	{
+	{ // TODO evaluate implemenation of vec3 limit and value
 	/*	CVector4 zRot;
 		// cast vector to array pointer for address taking of components in opencl
 		double *zRotP = reinterpret_cast<double *>(&zRot);
@@ -4012,32 +4016,64 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	else
 	{
-		if (z.x > fractal->transformCommon.additionConstant111.x)
+
+		if (z.x > limit4.x)
 		{
-			z.x = Value4.x - z.x;
+			z.x = value4.x - z.x;
 		}
-		else if (z.x < -fractal->transformCommon.additionConstant111.x)
+		else if (z.x < -limit4.x)
 		{
-			z.x = -Value4.x - z.x;
+			z.x = -value4.x - z.x;
 		}
-		if (z.y > fractal->transformCommon.additionConstant111.y)
+		if (z.y > limit4.y)
 		{
-			z.y = Value4.y - z.y;
+			z.y = value4.y - z.y;
 		}
-		else if (z.y < -fractal->transformCommon.additionConstant111.y)
+		else if (z.y < -limit4.y)
 		{
-			z.y = -Value4.y - z.y;
+			z.y = -value4.y - z.y;
 		}
-		if (z.z > fractal->transformCommon.additionConstant111.z)
+		if (z.z > limit4.z)
 		{
-			z.z = Value4.z - z.z;
+			z.z = value4.z - z.z;
 		}
-		else if (z.z < -fractal->transformCommon.additionConstant111.z)
+		else if (z.z < -limit4.z)
 		{
-			z.z = -Value4.z - z.z;
+			z.z = -value4.z - z.z;
 		}
 		zCol = z;
 	}
+
+	// spherical folding
+		double maxR2use = fractal->transformCommon.maxR2d1;
+		double minR2use = fractal->transformCommon.minR2p25;
+	// vary maxR2
+	if (fractal->transformCommon.functionEnabledEFalse)
+	{
+		if (aux.i > fractal->transformCommon.startIterationsA)
+		{
+			maxR2use *=
+				(1.0
+					- 1.0 / (1.0
+							+ (aux.i - fractal->transformCommon.startIterationsB)
+									/ fractal->transformCommon.offsetA0))
+											* fractal->transformCommon.scaleA1;
+		}
+	}
+	// vary minR2
+	if (fractal->transformCommon.functionEnabledDFalse)
+	{
+		if (aux.i > fractal->transformCommon.startIterationsA)
+		{
+			minR2use *=
+				(1.0
+					- 1.0 / (1.0
+							+ (aux.i - fractal->transformCommon.startIterationsA)
+									/ fractal->transformCommon.offset0))
+											* fractal->transformCommon.scale1;
+		}
+	}
+
 
 	const double rr = z.Dot(z);
 	rrCol = rr;
@@ -4046,25 +4082,50 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z += fractal->mandelbox.offset;
 
 	// if (r2 < 1e-21) r2 = 1e-21;
-	if (rr < fractal->transformCommon.minR2p25)
+	if (rr < minR2use)
 	{
-		double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		double tglad_factor1 = maxR2use / minR2use;
 		z *= tglad_factor1;
 		aux.DE *= tglad_factor1;
 	}
-	else if (rr < fractal->transformCommon.maxR2d1)
+	else if (rr < maxR2use)
 	{
-		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+		double tglad_factor2 = maxR2use / rr;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
 	}
 	z -= fractal->mandelbox.offset;
 
-
+	// 3D Rotation
 	if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
 
-	z = z * fractal->mandelbox.scale;
-	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
+	// scale
+	double useScale = 1.0;
+	{
+		useScale = aux.actualScaleA + fractal->mandelbox.scale;
+
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		aux.r_dz *= fabs(useScale);
+		if (fractal->transformCommon.functionEnabledFFalse
+				&& aux.i >= fractal->transformCommon.startIterationsX
+						&& aux.i < fractal->transformCommon.stopIterationsX)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleB1);
+			if (fractal->transformCommon.functionEnabledMFalse)
+				aux.actualScaleA = -vary;
+			else
+				aux.actualScaleA = aux.actualScaleA - vary;
+		}
+	}
+
+
+
+
+
+
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -8820,7 +8881,7 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		int iterationRange =
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
-		tempVC += fractal->transformCommon.offset0 * (1.0 * currentIteration) / iterationRange;
+		tempVC += fractal->transformCommon.offset * currentIteration / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
