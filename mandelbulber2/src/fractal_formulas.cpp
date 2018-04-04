@@ -4097,7 +4097,33 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	z -= fractal->mandelbox.offset;
 
 	// 3D Rotation
-	if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
+	if (fractal->mandelbox.mainRotationEnabled) // z = fractal->mandelbox.mainRot.RotateVector(z);
+
+	{
+		CVector4 tempVC = CVector4(fractal->mandelbox.rotationMain, 0.0); // constant to be varied
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterations250
+				&& aux.i < fractal->transformCommon.stopIterations
+				&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
+						 != 0))
+		{
+			int iterationRange =
+				fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+			int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+			tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
+		}
+		if (aux.i >= fractal->transformCommon.stopIterations)
+		{
+			tempVC = (tempVC + fractal->transformCommon.offset000);
+		}
+
+		tempVC *= M_PI_180;
+
+		z = z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
+		z = z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
+		z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
+	}
+
 
 	// scale
 	double useScale = 1.0;

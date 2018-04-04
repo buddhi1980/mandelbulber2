@@ -38,6 +38,10 @@
 #include "algebra.hpp"
 #include "fractal_list.hpp"
 
+#ifndef M_PI_180
+#define M_PI_180 0.01745329251994329576923690768489
+#endif
+
 // forward declarations
 class cParameterContainer;
 
@@ -615,6 +619,7 @@ struct sFractalTransformCommon
 
 	CVector3 rotation; // vec3s
 	CVector3 rotation2;
+	CVector3 rotationVary;
 	CVector3 rotation44a; //.........................
 	CVector3 rotation44b; //..........................
 
@@ -638,8 +643,8 @@ struct sFractalTransformCommon
 
 	CRotationMatrix rotationMatrix;
 	CRotationMatrix rotationMatrix2;
+	CRotationMatrix rotationMatrixVary;
 	CRotationMatrix44 rotationMatrix44; //....................
-	CRotationMatrix tempRotMatrix;
 
 	bool addCpixelEnabled;
 	bool addCpixelEnabledFalse;

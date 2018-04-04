@@ -458,6 +458,8 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	transformCommon.rotation = container->Get<CVector3>("transf_rotation");
 	transformCommon.rotation2 = container->Get<CVector3>("transf_rotation2");
+	transformCommon.rotationVary = container->Get<CVector3>("transf_rotationVary");
+
 	transformCommon.rotation44a =
 		container->Get<CVector3>("transf_rotation44a"); //...........................
 	transformCommon.rotation44b =
@@ -547,7 +549,7 @@ void sFractal::RecalculateFractalParams()
 		IFS.direction[i].Normalize();
 	}
 
-	mandelbox.mainRot.SetRotation2(mandelbox.rotationMain * (M_PI / 180.0));
+	mandelbox.mainRot.SetRotation2(mandelbox.rotationMain * M_PI_180);
 
 	for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
 	{
@@ -572,7 +574,7 @@ void sFractal::RecalculateFractalParams()
 		transformCommon.rotation44b * (M_PI / 180.0)); // ...............................
 	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
 	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI / 180.0));
-	transformCommon.tempRotMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
+	transformCommon.rotationMatrixVary.SetRotation2(transformCommon.rotationVary * M_PI_180);
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??

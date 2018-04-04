@@ -1265,7 +1265,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.constantMultiplier1220 = toClFloat4(source.constantMultiplier1220);
 	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
 	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
-	target.tempRotMatrix = toClMatrix33(source.tempRotMatrix);
 	target.addCpixelEnabled = source.addCpixelEnabled;
 	target.addCpixelEnabledFalse = source.addCpixelEnabledFalse;
 	target.alternateEnabledFalse = source.alternateEnabledFalse;
