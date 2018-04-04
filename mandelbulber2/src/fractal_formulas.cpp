@@ -4102,14 +4102,14 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		CVector4 tempVC = CVector4(fractal->mandelbox.rotationMain, 0.0); // constant to be varied
 	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux.i >= fractal->transformCommon.startIterations250
+			&& aux.i >= fractal->transformCommon.startIterations
 				&& aux.i < fractal->transformCommon.stopIterations
-				&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
+				&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
 						 != 0))
 		{
 			int iterationRange =
-				fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
-			int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+				fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
+			int currentIteration = (aux.i - fractal->transformCommon.startIterations);
 			tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 		}
 		if (aux.i >= fractal->transformCommon.stopIterations)
@@ -4146,14 +4146,50 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				aux.actualScaleA = aux.actualScaleA - vary;
 		}
 	}
+	CVector4 c = aux.const_c;
 
-
-
-
-
-
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+	{
+		CVector4 tempC = aux.const_c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux.c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
+			}
+		}
+		if (fractal->transformCommon.rotationEnabled
+				&& aux.i >= fractal->transformCommon.startIterationsG
+				&& aux.i < fractal->transformCommon.stopIterationsG)
+		{
+			tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (zCol.x != oldZ.x)
 			colorAdd += fractal->mandelbox.color.factor.x
