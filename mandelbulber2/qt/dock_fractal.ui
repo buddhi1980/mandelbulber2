@@ -32,7 +32,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -177,8 +177,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -236,8 +236,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -295,8 +295,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -354,8 +354,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -413,8 +413,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -472,8 +472,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -531,8 +531,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -590,8 +590,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>94</width>
-                <height>24</height>
+                <width>370</width>
+                <height>828</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -2130,7 +2130,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/cylinder.png</normaloff>:/primitives/icons/cylinder.png</iconset>
                </property>
                <property name="iconSize">
@@ -2153,7 +2153,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/cone.png</normaloff>:/primitives/icons/cone.png</iconset>
                </property>
                <property name="iconSize">
@@ -2176,7 +2176,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/rectangle.png</normaloff>:/primitives/icons/rectangle.png</iconset>
                </property>
                <property name="iconSize">
@@ -2199,7 +2199,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/circle.png</normaloff>:/primitives/icons/circle.png</iconset>
                </property>
                <property name="iconSize">
@@ -2222,7 +2222,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/box.png</normaloff>:/primitives/icons/box.png</iconset>
                </property>
                <property name="iconSize">
@@ -2245,7 +2245,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/water.png</normaloff>:/primitives/icons/water.png</iconset>
                </property>
                <property name="iconSize">
@@ -2268,7 +2268,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/plane.png</normaloff>:/primitives/icons/plane.png</iconset>
                </property>
                <property name="iconSize">
@@ -2291,7 +2291,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/torus.png</normaloff>:/primitives/icons/torus.png</iconset>
                </property>
                <property name="iconSize">
@@ -2314,7 +2314,7 @@ distance estimation)</string>
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
+                <iconset resource="icons.qrc">
                  <normaloff>:/primitives/icons/sphere.png</normaloff>:/primitives/icons/sphere.png</iconset>
                </property>
                <property name="iconSize">
@@ -2740,6 +2740,8 @@ and water):</string>
   <tabstop>scrollArea_fractal_9</tabstop>
   <tabstop>scrollArea_fractal_7</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

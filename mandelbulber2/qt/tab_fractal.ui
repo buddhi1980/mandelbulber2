@@ -453,7 +453,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-1000.000000000000000</double>
@@ -481,7 +481,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-1000.000000000000000</double>
@@ -509,7 +509,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-1000.000000000000000</double>
@@ -982,15 +982,15 @@ for 4D fractals</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

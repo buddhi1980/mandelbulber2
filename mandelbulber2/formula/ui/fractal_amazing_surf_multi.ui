@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>4095</height>
+    <height>5469</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1994,7 +1994,7 @@ offset:</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_11">
+       <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2013,7 +2013,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-200000.000000000000000</double>
@@ -2098,7 +2098,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2126,7 +2126,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2174,7 +2174,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2216,7 +2216,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2273,7 +2273,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100000.000000000000000</double>
@@ -2314,7 +2314,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2342,7 +2342,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2370,7 +2370,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2405,7 +2405,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2715,15 +2715,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

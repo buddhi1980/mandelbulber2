@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod13</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>5133</height>
+    <height>5187</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1863,7 +1863,7 @@ reverse offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -1905,7 +1905,7 @@ reverse offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -1933,7 +1933,7 @@ reverse offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -1961,7 +1961,7 @@ reverse offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -1989,7 +1989,7 @@ reverse offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2302,15 +2302,15 @@ reverse offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
