@@ -120,7 +120,7 @@ float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 		float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
 									/ consts->params.mainLightVisibilitySize;
-		light = 1.0f / (1.0f + pow(light, 6.0)) * consts->params.mainLightVisibility
+		light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
 						* consts->params.mainLightIntensity;
 
 		pixel += light * consts->params.mainLightColour;
