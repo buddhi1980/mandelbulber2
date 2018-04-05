@@ -2302,12 +2302,30 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			z -= fractal->mandelbox.offset;
 		}
 
+
+		// scale
+		double useScale = 1.0;
 		if (aux.i >= fractal->transformCommon.startIterationsS
 				&& aux.i < fractal->transformCommon.stopIterationsS)
-		{ // scale
-			z *= fractal->mandelbox.scale;
-			aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
-		}
+			{
+				useScale = aux.actualScaleA + fractal->mandelbox.scale;
+
+				z *= useScale;
+				aux.DE = aux.DE * fabs(useScale) + 1.0;
+				aux.r_dz *= fabs(useScale);
+				if (fractal->transformCommon.functionEnabledFFalse
+						&& aux.i >= fractal->transformCommon.startIterationsY
+								&& aux.i < fractal->transformCommon.stopIterationsY)
+				{
+					// update actualScaleA for next iteration
+					double vary = fractal->transformCommon.scaleVary0
+												* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+					if (fractal->transformCommon.functionEnabledMFalse)
+						aux.actualScaleA = -vary;
+					else
+						aux.actualScaleA = aux.actualScaleA - vary;
+				}
+			}
 	}
 
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
