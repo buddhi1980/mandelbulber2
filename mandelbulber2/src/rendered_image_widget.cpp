@@ -227,6 +227,7 @@ void RenderedImage::DisplayCoordinates()
 			text = tr("Get coordinates");
 			text += tr("\nand distance");
 			break;
+		case clickWrapLimitsAroundObject: text = tr("Wrap limits\naround object"); break;
 	}
 
 	if (clickMode != clickDoNothing)

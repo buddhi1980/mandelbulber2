@@ -1336,6 +1336,18 @@ void cInterface::SetByMouse(
 					ReEnablePeriodicRefresh();
 					break;
 				}
+				case RenderedImage::clickWrapLimitsAroundObject:
+				{
+					double distanceCameraToCenter = CVector3(camera - point).Length();
+					CVector3 distanceV111_100 = CVector3(1.0 * distanceCameraToCenter,
+						1.0 * distanceCameraToCenter, 1.0 * distanceCameraToCenter);
+					CVector3 limitMin = point - distanceV111_100;
+					CVector3 limitMax = point + distanceV111_100;
+					// try to find object close limits in the bounding box defined by point +- 100% distance
+					// to view vector
+					SetBoundingBoxAsLimits(limitMin, limitMax);
+					break;
+				}
 			}
 		}
 	}
@@ -1475,8 +1487,44 @@ void cInterface::ResetView()
 	StartRender();
 }
 
-void cInterface::SetBoundingBoxAsLimits()
+void cInterface::BoundingBoxSizeUp()
 {
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	CVector3 limitMin = gPar->Get<CVector3>("limit_min");
+	CVector3 limitMax = gPar->Get<CVector3>("limit_max");
+	CVector3 limitCenter = (limitMin + limitMax) / 2;
+	limitMin += (limitMin - limitCenter) * 0.1;
+	limitMax += (limitMax - limitCenter) * 0.1;
+	gPar->Set("limit_min", limitMin);
+	gPar->Set("limit_max", limitMax);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cInterface::BoundingBoxSizeDown()
+{
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	CVector3 limitMin = gPar->Get<CVector3>("limit_min");
+	CVector3 limitMax = gPar->Get<CVector3>("limit_max");
+	CVector3 limitCenter = (limitMin + limitMax) / 2;
+	limitMin -= (limitMin - limitCenter) * 0.1;
+	limitMax -= (limitMax - limitCenter) * 0.1;
+	gPar->Set("limit_min", limitMin);
+	gPar->Set("limit_max", limitMax);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
+
+void cInterface::SetBoundingBoxAsLimitsTotal()
+{
+	double outerBounding = gPar->Get<double>("limit_outer_bounding");
+	CVector3 outerBoundingMin(-outerBounding, -outerBounding, -outerBounding);
+	CVector3 outerBoundingMax(outerBounding, outerBounding, outerBounding);
+	SetBoundingBoxAsLimits(outerBoundingMin, outerBoundingMax);
+}
+
+void cInterface::SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax)
+{
+	CVector3 boundingCenter = (outerBoundingMin + outerBoundingMax) / 2;
+
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
 	cParameterContainer parTemp = *gPar;
@@ -1490,7 +1538,7 @@ void cInterface::SetBoundingBoxAsLimits()
 	CVector3 orthDirection;
 	CVector3 point;
 	double dist;
-	double outerBounding = gPar->Get<double>("limit_outer_bounding");
+
 	stopRequest = false;
 
 	// negative x limit
@@ -1498,7 +1546,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative X Limit"), 0.0 / 6.0);
 	direction = CVector3(1, 0, 0);
 	orthDirection = CVector3(0, 1, 0);
-	point = CVector3(-outerBounding, 0, 0);
+	point = CVector3(outerBoundingMin.x, boundingCenter.y, boundingCenter.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minX = point.x + dist;
@@ -1508,7 +1556,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Y Limit"), 1.0 / 6.0);
 	direction = CVector3(0, 1, 0);
 	orthDirection = CVector3(0, 0, 1);
-	point = CVector3(0, -outerBounding, 0);
+	point = CVector3(boundingCenter.x, outerBoundingMin.y, boundingCenter.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minY = point.y + dist;
@@ -1518,7 +1566,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Negative Z Limit"), 2.0 / 6.0);
 	direction = CVector3(0, 0, 1);
 	orthDirection = CVector3(1, 0, 0);
-	point = CVector3(0, 0, -outerBounding);
+	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMin.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double minZ = point.z + dist;
@@ -1528,7 +1576,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive X Limit"), 3.0 / 6.0);
 	direction = CVector3(-1, 0, 0);
 	orthDirection = CVector3(0, -1, 0);
-	point = CVector3(outerBounding, 0, 0);
+	point = CVector3(outerBoundingMax.x, boundingCenter.y, boundingCenter.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxX = point.x - dist;
@@ -1538,7 +1586,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Y Limit"), 4.0 / 6.0);
 	direction = CVector3(0, -1, 0);
 	orthDirection = CVector3(0, 0, -1);
-	point = CVector3(0, outerBounding, 0);
+	point = CVector3(boundingCenter.x, outerBoundingMax.y, boundingCenter.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxY = point.y - dist;
@@ -1548,7 +1596,7 @@ void cInterface::SetBoundingBoxAsLimits()
 		QObject::tr("bounding box as limit"), QObject::tr("Positive Z Limit"), 5.0 / 6.0);
 	direction = CVector3(0, 0, -1);
 	orthDirection = CVector3(-1, 0, 0);
-	point = CVector3(0, 0, outerBounding);
+	point = CVector3(boundingCenter.x, boundingCenter.y, outerBoundingMax.z);
 	dist =
 		CalculateDistanceMinPlane(*params, *fractals, point, direction, orthDirection, &stopRequest);
 	double maxZ = point.z - dist;
@@ -1820,6 +1868,10 @@ void cInterface::ComboMouseClickUpdate() const
 	item.clear();
 	item.append(int(RenderedImage::clickGetPoint));
 	combo->addItem(QObject::tr("Get point coordinates"), item);
+
+	item.clear();
+	item.append(int(RenderedImage::clickWrapLimitsAroundObject));
+	combo->addItem(QObject::tr("Wrap Limits around object"), item);
 
 	if (listOfPrimitives.size() > 0)
 	{

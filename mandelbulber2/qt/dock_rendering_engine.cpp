@@ -78,6 +78,10 @@ void cDockRenderingEngine::ConnectSignals() const
 		SLOT(slotChangedComboDistanceEstimationMethod(int)));
 	connect(ui->bu_bounding_box_to_limit, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetBoundingBoxAsLimits()));
+	connect(ui->bu_bounding_box_size_up, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeUp()));
+	connect(ui->bu_bounding_box_size_down, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeDown()));
 
 	// NetRender
 	connect(ui->bu_netrender_connect, SIGNAL(clicked()), this, SLOT(slotNetRenderClientConnect()));
@@ -339,7 +343,15 @@ void cDockRenderingEngine::slotPressedButtonOptimizeForHQ()
 }
 void cDockRenderingEngine::slotPressedButtonSetBoundingBoxAsLimits()
 {
-	gMainInterface->SetBoundingBoxAsLimits();
+	gMainInterface->SetBoundingBoxAsLimitsTotal();
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeUp()
+{
+	gMainInterface->BoundingBoxSizeUp();
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeDown()
+{
+	gMainInterface->BoundingBoxSizeDown();
 }
 
 void cDockRenderingEngine::slotCalculateDistanceThreshold()

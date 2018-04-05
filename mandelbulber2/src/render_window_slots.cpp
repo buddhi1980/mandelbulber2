@@ -118,6 +118,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 		case RenderedImage::clickPlacePrimitive:
 		case RenderedImage::clickPlaceRandomLightCenter:
 		case RenderedImage::clickGetPoint:
+		case RenderedImage::clickWrapLimitsAroundObject:
 		{
 			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;

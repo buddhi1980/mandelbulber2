@@ -65,7 +65,8 @@ public:
 		clickPlacePrimitive = 6,
 		clickFlightSpeedControl = 7,
 		clickPlaceRandomLightCenter = 8,
-		clickGetPoint = 9
+		clickGetPoint = 9,
+		clickWrapLimitsAroundObject = 10,
 	};
 
 	enum enumGridType
