@@ -63,19 +63,19 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionABox2));
+		coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11,
 		AboxMod11Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox2));
+		analyticFunctionLinear, coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Mod 12", "abox_mod12", aboxMod12,
 		AboxMod12Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
+		analyticFunctionLinear, coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Mod 13", "abox_mod13", aboxMod13,
 		AboxMod13Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
+		analyticFunctionLinear, coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Mod Kali", "abox_mod_kali", aboxModKali,
 		AboxModKaliIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
@@ -381,7 +381,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox 4D", "abox4d", abox4d, Abox4dIteration,
 		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionABox2));
+		coloringFunctionABox));
 	fractalList->append(sFractalDescription("Bristorbrot 4D", "bristorbrot4d", bristorbrot4d,
 		Bristorbrot4dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -402,6 +402,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Sierpinski 4D", "sierpinski4d", sierpinski4d,
 		Sierpinski4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Quaternion 4D", "quaternion4d", quaternion4d,
 		Quaternion4dIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionNone, coloringFunctionDefault));

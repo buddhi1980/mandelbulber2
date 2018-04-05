@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>5608</height>
+    <width>934</width>
+    <height>5820</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -350,7 +350,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1511,7 +1511,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2094,7 +2094,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2143,7 +2143,7 @@ offset:</string>
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,1,0">
+       <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2276,7 +2276,7 @@ offset:</string>
           <number>2</number>
          </property>
          <item>
-          <layout class="QGridLayout" name="gridLayout_16">
+          <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -2302,7 +2302,7 @@ offset:</string>
               <string/>
              </property>
              <property name="decimals">
-              <number>2</number>
+              <number>6</number>
              </property>
              <property name="minimum">
               <double>-100.000000000000000</double>
@@ -2337,7 +2337,7 @@ offset:</string>
               <string/>
              </property>
              <property name="decimals">
-              <number>2</number>
+              <number>6</number>
              </property>
              <property name="minimum">
               <double>-100.000000000000000</double>
@@ -2365,7 +2365,7 @@ offset:</string>
               <string/>
              </property>
              <property name="decimals">
-              <number>2</number>
+              <number>6</number>
              </property>
              <property name="minimum">
               <double>-100.000000000000000</double>
@@ -2407,7 +2407,7 @@ offset:</string>
               <string/>
              </property>
              <property name="decimals">
-              <number>2</number>
+              <number>6</number>
              </property>
              <property name="minimum">
               <double>-100.000000000000000</double>
@@ -2435,7 +2435,7 @@ offset:</string>
               <string/>
              </property>
              <property name="decimals">
-              <number>2</number>
+              <number>6</number>
              </property>
              <property name="minimum">
               <double>-100.000000000000000</double>
@@ -2751,15 +2751,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

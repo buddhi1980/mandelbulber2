@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1222</width>
-    <height>3993</height>
+    <height>6165</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -334,7 +334,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_79">
+       <layout class="QGridLayout" name="gridLayout_79" columnstretch="0,1,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -562,7 +562,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_81">
+       <layout class="QGridLayout" name="gridLayout_81" columnstretch="0,1,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -892,7 +892,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_83">
+       <layout class="QGridLayout" name="gridLayout_83" columnstretch="0,1,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -945,7 +945,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_4">
+       <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
         <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
           <property name="sizePolicy">
@@ -1002,7 +1002,7 @@
           <number>2</number>
          </property>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,1,0,1">
            <property name="topMargin">
             <number>0</number>
            </property>
@@ -1061,7 +1061,7 @@
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_31">
+          <layout class="QGridLayout" name="gridLayout_31" columnstretch="0,1">
            <property name="spacing">
             <number>2</number>
            </property>
@@ -1148,7 +1148,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_5">
+       <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,1">
         <item row="0" column="0">
          <widget class="QLabel" name="label_10">
           <property name="text">
@@ -1217,7 +1217,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_66">
+       <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,1,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1702,7 +1702,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_80">
+       <layout class="QGridLayout" name="gridLayout_80" columnstretch="0,1,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1755,7 +1755,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1975,7 +1975,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2003,7 +2003,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2031,7 +2031,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2066,7 +2066,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2094,7 +2094,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2129,7 +2129,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -2481,15 +2481,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

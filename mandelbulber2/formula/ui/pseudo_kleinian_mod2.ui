@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>940</width>
-    <height>4095</height>
+    <height>7823</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -3517,7 +3517,7 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_38">
           <property name="text">
-           <string>Tglad Z plane component:</string>
+           <string>Z plane:</string>
           </property>
          </widget>
         </item>
@@ -3536,7 +3536,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -3552,7 +3552,7 @@ offset:</string>
         <item row="0" column="0">
          <widget class="QLabel" name="label_31">
           <property name="text">
-           <string>Tglad X plane component:</string>
+           <string>X plane:</string>
           </property>
          </widget>
         </item>
@@ -3571,7 +3571,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -3599,7 +3599,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -3615,21 +3615,21 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_39">
           <property name="text">
-           <string>Tglad Y plane component:</string>
+           <string>Y plane:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_41">
           <property name="text">
-           <string>SphereFold MaxR2 component</string>
+           <string>MaxR2</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_40">
           <property name="text">
-           <string>SphereFold MinR2 component:</string>
+           <string>MinR2:</string>
           </property>
          </widget>
         </item>
@@ -3648,7 +3648,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -3676,7 +3676,7 @@ offset:</string>
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -4062,15 +4062,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
