@@ -327,7 +327,7 @@ struct sFractalDescription
 	QString getUiFilename() const
 	{
 		return systemData.sharedDir + "formula" + QDir::separator() + "ui" + QDir::separator()
-					 + "fractal_" + internalName + ".ui";
+					 + internalName + ".ui";
 	}
 	QString getOpenCLFilename() const
 	{
