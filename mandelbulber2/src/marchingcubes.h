@@ -50,9 +50,9 @@ class MarchingCubes : public QObject
 	Q_OBJECT
 
 public:
-	MarchingCubes(sParamRender *params, const cNineFractals *fractals, int numx, int numy, int numz,
-		const CVector3 &lower, const CVector3 &upper, double dist_thresh, bool *stop,
-		std::vector<double> &vertices, std::vector<long long> &polygons,
+	MarchingCubes(sParamRender *params, const cNineFractals *fractals, sRenderData *renderData,
+		int numx, int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh,
+		bool *stop, std::vector<double> &vertices, std::vector<long long> &polygons,
 		std::vector<double> &colorIndices)
 			: vertices{vertices}, polygons{polygons}, colorIndices{colorIndices}
 	{
@@ -66,6 +66,7 @@ public:
 		this->params = params;
 		this->fractals = fractals;
 		this->dist_thresh = dist_thresh;
+		this->renderData = renderData;
 
 		dx = (upper.x - lower.x) / numx;
 		dy = (upper.y - lower.y) / numy;
@@ -141,6 +142,7 @@ private:
 	int yz3;
 	sParamRender *params;
 	const cNineFractals *fractals;
+	sRenderData *renderData;
 	double dist_thresh;
 
 	bool *stop;
