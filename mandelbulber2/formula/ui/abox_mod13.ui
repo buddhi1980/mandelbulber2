@@ -1825,7 +1825,7 @@ reverse offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
-      <string>Color components</string>
+      <string>aux color c&amp;omponents</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1879,14 +1879,14 @@ reverse offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
-           <string>X plane component:</string>
+           <string>X plane:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_42">
           <property name="text">
-           <string>MinR2 component:</string>
+           <string>MinimumR2:</string>
           </property>
          </widget>
         </item>
@@ -2005,21 +2005,21 @@ reverse offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_40">
           <property name="text">
-           <string>Z plane component:</string>
+           <string>Z plane:</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_43">
           <property name="text">
-           <string>MaxR2 component</string>
+           <string>MaximumR2:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_41">
           <property name="text">
-           <string>Y plane component:</string>
+           <string>Y plane:</string>
           </property>
          </widget>
         </item>

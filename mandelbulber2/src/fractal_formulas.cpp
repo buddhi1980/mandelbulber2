@@ -1013,6 +1013,7 @@ void AboxMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double colorAdd = 0.0;
 	aux.actualScale =
 		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 c = aux.const_c;
@@ -1032,9 +1033,9 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
 
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 	}
 	if (fractal->transformCommon.functionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -1144,14 +1145,14 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			double tglad_factor1 = fractal->transformCommon.maxR2d1 / para;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -1214,14 +1215,12 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleG1);
 	}
 
-	// color
-	aux.foldFactor = fractal->foldColor.compFold; // fold group weight (old use compFold)
-	aux.minRFactor = fractal->foldColor.compMinR; // orbit trap weight
 
-	double scaleColor =
-		fractal->foldColor.colorMin + fabs(aux.actualScale); // scale, useScale, m, etc
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+	// color updated v2.14
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux.color += colorAdd;
+	}
 }
 
 /**
@@ -1965,6 +1964,7 @@ void AmazingSurfIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double colorAdd = 0.0;
 	aux.actualScale =
 		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 oldZ = z;
@@ -1974,8 +1974,8 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 	}
 
 	// z = fold - fabs( fabs(z) - fold)
@@ -1985,16 +1985,16 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 					- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 		z.y = fractal->transformCommon.additionConstant111.y
 					- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
 		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 	}
 
 	// if z > limit) z =  Value -z,   else if z < limit) z = - Value - z,
@@ -2008,8 +2008,8 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		{
 			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
 		}
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 	}
 
 	// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
@@ -2023,8 +2023,8 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 					- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 	}
 
 	z += fractal->transformCommon.additionConstant000;
@@ -2042,13 +2042,13 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	{
 		z *= fractal->transformCommon.mboxFactor1;
 		aux.DE *= fractal->transformCommon.mboxFactor1;
-		aux.color += fractal->mandelbox.color.factorSp1;
+		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else if (r2 < 1.0)
 	{
 		z *= 1.0 / r2;
 		aux.DE *= 1.0 / r2;
-		aux.color += fractal->mandelbox.color.factorSp2;
+		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 
 	z *= aux.actualScale * fractal->transformCommon.scale1
@@ -2057,12 +2057,7 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
-	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
-
-	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+	aux.color += colorAdd;
 }
 
 /**
@@ -2373,6 +2368,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+	double colorAdd = 0.0;
 	CVector4 oldZ = z;
 	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
@@ -2401,16 +2397,16 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.additionConstant111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.additionConstant111.y);
-					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 					break;
 				case multi_orderOfFolds_type3:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
@@ -2421,12 +2417,12 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 					if (fabs(z.x) > fractal->transformCommon.additionConstant111.x)
 					{
 						z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
-						aux.color += fractal->mandelbox.color.factor.x;
+						colorAdd += fractal->mandelbox.color.factor.x;
 					}
 					if (fabs(z.y) > fractal->transformCommon.additionConstant111.y)
 					{
 						z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
-						aux.color += fractal->mandelbox.color.factor.y;
+						colorAdd += fractal->mandelbox.color.factor.y;
 					}
 					break;
 				case multi_orderOfFolds_type5:
@@ -2439,8 +2435,8 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 								- fabs(fabs(z.y + fractal->transformCommon.additionConstant111.y)
 											 - fractal->transformCommon.offset2)
 								- fractal->transformCommon.additionConstant111.y;
-					if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-					if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+					if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+					if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 					break;
 			}
 		}
@@ -2477,13 +2473,13 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			{
 				z *= fractal->transformCommon.mboxFactor1;
 				aux.DE *= fractal->transformCommon.mboxFactor1;
-				aux.color += fractal->mandelbox.color.factorSp1;
+				colorAdd += fractal->mandelbox.color.factorSp1;
 			}
 			else if (r2 < 1.0)
 			{
 				z *= 1.0 / r2;
 				aux.DE *= 1.0 / r2;
-				aux.color += fractal->mandelbox.color.factorSp2;
+				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->mandelbox.offset;
 		}
@@ -2499,14 +2495,14 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			{
 				z *= fractal->mandelbox.mboxFactor1; // fR2/mR2
 				aux.DE *= fractal->mandelbox.mboxFactor1;
-				aux.color += fractal->mandelbox.color.factorSp1;
+				colorAdd += fractal->mandelbox.color.factorSp1;
 			}
 			else if (r2 < fractal->mandelbox.fR2)
 			{
 				double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 				z *= tglad_factor2;
 				aux.DE *= tglad_factor2;
-				aux.color += fractal->mandelbox.color.factorSp2;
+				colorAdd += fractal->mandelbox.color.factorSp2;
 			}
 			z -= fractal->mandelbox.offset;
 		}
@@ -2556,12 +2552,7 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 		z = fractal->mandelbox.mainRot.RotateVector(z);
 
-	aux.foldFactor = fractal->foldColor.compFold0; // fold group weight
-	aux.minRFactor = fractal->foldColor.compMinR;	// orbit trap weight
-
-	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+	aux.color += colorAdd;
 }
 
 /**
@@ -3818,7 +3809,7 @@ void Kalisets1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	double colorAdd = 0.0;
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		CVector4 zRot;
@@ -3836,7 +3827,7 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			{
 				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
 				z = fractal->mandelbox.rotinv[0][dim].RotateVector(zRot);
-				aux.color += *colorFactor;
+				colorAdd += *colorFactor;
 			}
 			else
 			{
@@ -3845,7 +3836,7 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 				{
 					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
 					z = fractal->mandelbox.rotinv[1][dim].RotateVector(zRot);
-					aux.color += *colorFactor;
+					colorAdd += *colorFactor;
 				}
 			}
 		}
@@ -3858,19 +3849,19 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 			{
 				z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
-				aux.color += fractal->mandelbox.color.factor.x;
+				colorAdd += fractal->mandelbox.color.factor.x;
 			}
 			if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 			{
 				z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
-				aux.color += fractal->mandelbox.color.factor.y;
+				colorAdd += fractal->mandelbox.color.factor.y;
 			}
 			double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 			double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 			if (fabs(z.z) > zLimit)
 			{
 				z.z = sign(z.z) * zValue - z.z;
-				aux.color += fractal->mandelbox.color.factor.z;
+				colorAdd += fractal->mandelbox.color.factor.z;
 			}
 		}
 	}
@@ -3884,14 +3875,14 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		{
 			z *= fractal->mandelbox.mboxFactor1;
 			aux.DE *= fractal->mandelbox.mboxFactor1;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (r2 < fractal->mandelbox.fR2)
 		{
 			double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -3974,11 +3965,7 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			}
 		}
 	}
-	aux.foldFactor = fractal->foldColor.compFold;
-	aux.minRFactor = fractal->foldColor.compMinR;
-	double scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux.scaleFactor = scaleColor * fractal->foldColor.compScale;
+	aux.color += colorAdd;
 }
 
 /**

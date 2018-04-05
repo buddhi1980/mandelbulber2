@@ -83,7 +83,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Abox - Mod Kali-Eiffie", "abox_mod_kali_eiffie",
 		aboxModKaliEiffie, AboxModKaliEiffieIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
@@ -102,13 +102,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionLinear, coloringFunctionAmazingSurf));
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 1", "amazing_surf_mod1",
 		amazingSurfMod1, AmazingSurfMod1Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 	fractalList->append(sFractalDescription("Amazing Surf - Mod 2", "amazing_surf_mod2",
 		amazingSurfMod2, AmazingSurfMod2Iteration, analyticDEType, linearDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Amazing Surf - Multi", "amazing_surf_multi",
 		amazingSurfMulti, AmazingSurfMultiIteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox2));
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
 	// Benesi formulas
 	fractalList->append(sFractalDescription("Benesi", "benesi", benesi, BenesiIteration,
@@ -168,6 +168,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Collatz - Mod ", "collatz_mod", collatzMod,
 		CollatzModIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionIFS));
+
 	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
 		FoldBoxMod1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
@@ -210,7 +211,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 	fractalList->append(sFractalDescription("Mandelbox - Menger", "mandelbox_menger", mandelboxMenger,
 		MandelboxMengerIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox2));
+		analyticFunctionLinear, coloringFunctionABox));
 	fractalList->append(sFractalDescription("Mandelbox - Smooth", "mandelbox_smooth", mandelboxSmooth,
 		MandelboxSmoothIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
