@@ -101,12 +101,13 @@ LIBS += -lpng -lgsl -lgslcblas -fopenmp -llzo2
 macx:LIBS += -framework CoreFoundation
 win32:LIBS += -lz
 
-# TODO: enable openmp with OSX
+# mac specific options
 macx:QMAKE_CC=/usr/local/opt/llvm/bin/clang
 macx:QMAKE_CXX=/usr/local/opt/llvm/bin/clang++
 macx:QMAKE_LINK=/usr/local/opt/llvm/bin/clang++
 macx:INCLUDEPATH += /usr/local/opt/llvm/include/
 macx:LIBS += -L/usr/local/opt/llvm/lib/
+macx:ICON = $$ROOT/mac/mandelbulber2.icns
 
 # gsl png osx absolute path
 macx:INCLUDEPATH += /usr/local/include/
