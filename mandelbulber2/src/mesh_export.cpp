@@ -44,7 +44,9 @@
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "marchingcubes.h"
+#include "material.h"
 #include "nine_fractals.hpp"
+#include "render_data.hpp"
 
 cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax,
 	QString outputFileName, int maxIter, MeshFileSave::structSaveMeshConfig meshConfig)
@@ -78,8 +80,13 @@ void cMeshExport::updateProgressAndStatus(int i)
 
 void cMeshExport::ProcessVolume()
 {
+	QScopedPointer<sRenderData> renderData(new sRenderData);
+	renderData->objectData.resize(NUMBER_OF_FRACTALS);
+
 	QScopedPointer<const cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
-	QScopedPointer<sParamRender> params(new sParamRender(gPar));
+	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
+
+	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
 
 	params->N = maxIter;
 
@@ -107,8 +114,8 @@ void cMeshExport::ProcessVolume()
 	MarchingCubes *marchingCube;
 	try
 	{
-		marchingCube = new MarchingCubes(params.data(), fractals.data(), w, h, l, limitMin, limitMax,
-			dist_thresh, &stop, vertices, polygons, colorIndices);
+		marchingCube = new MarchingCubes(params.data(), fractals.data(), renderData.data(), w, h, l,
+			limitMin, limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
 	}
 	catch (std::bad_alloc &ba)
 	{

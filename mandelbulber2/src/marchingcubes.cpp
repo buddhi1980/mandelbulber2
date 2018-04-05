@@ -36,6 +36,7 @@
 
 #include "marchingcubes.h"
 
+#include <QMap>
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "compute_fractal.hpp"
@@ -43,6 +44,7 @@
 #include "fractparams.hpp"
 #include "initparameters.hpp"
 #include "nine_fractals.hpp"
+#include "render_data.hpp"
 
 void MarchingCubes::RunMarchingCube()
 {
@@ -296,9 +298,12 @@ __declspec(target(mic))
 	sDistanceOut distanceOut;
 	sDistanceIn distanceIn(point, dist_thresh, false);
 
-	double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+	double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut, renderData);
 
-	sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
+	cObjectData objectData = renderData->objectData[distanceOut.objectId];
+	cMaterial *material = &renderData->materials[objectData.materialId];
+
+	sFractalIn fractIn(point, params->minN, params->N, params->common, -1, material);
 	sFractalOut fractOut;
 
 	Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);
