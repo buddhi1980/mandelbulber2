@@ -31,7 +31,7 @@ protected:
 	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &);
 	QString nameInComboBox;
 	QString internalName;
-	// fractal::enumFractalFormula internalID; //FIXME there is needed nice solution to provide enums
+	fractal::enumFractalFormula internalID;
 	fractalFormulaFcn fractalFormulaFunction;
 	fractal::enumDEType DEType;
 	fractal::enumDEFunctionType DEFunctionType;

@@ -14,7 +14,7 @@ cAbstractFractal::cAbstractFractal()
 {
 	nameInComboBox = "";
 	internalName = "";
-	// internalID = -1;
+	internalID = -1;
 	fractalFormulaFunction = &FormulaCode;
 	DEType = undefinedDEType;
 	DEFunctionType = undefinedDEFunction;
@@ -42,11 +42,11 @@ bool cAbstractFractal::CheckForErrors()
 		qCritical() << "Undefined internalName in formula " << nameInComboBox;
 		error = true;
 	}
-	//	if (internalID == -1)
-	//	{
-	//		qCritical() << "Undefined internalID in formula " << internalName;
-	//		error = true;
-	//	}
+	if (internalID == -1)
+	{
+		qCritical() << "Undefined internalID in formula " << internalName;
+		error = true;
+	}
 	if (fractalFormulaFunction == nullptr)
 	{
 		qCritical() << "Undefined fractalFormulaFunction in formula " << internalName;

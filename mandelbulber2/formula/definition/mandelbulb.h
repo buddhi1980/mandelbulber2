@@ -26,10 +26,11 @@ public:
 	{
 		nameInComboBox = "Mandelbulb";
 		internalName = "mandelbulb";
+		internalID = 2;
 		DEType = analyticDEType;
 		DEFunctionType = logarithmicDEFunction;
 		cpixelAddition = cpixelEnabledByDefault;
-		defaultBailout = 10;
+		defaultBailout = 10.0;
 		DEAnalyticFunction = analyticFunctionLogarithmic;
 		coloringFunction = coloringFunctionDefault;
 	}

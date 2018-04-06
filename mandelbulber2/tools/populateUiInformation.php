@@ -114,7 +114,7 @@ function getFormulasData()
 		}
 
 		$formulas[$index] = array_merge($f, array(
-			'uiFile' => PROJECT_PATH . 'formula/ui/fractal_' . $f['internalName'] . '.ui',
+			'uiFile' => PROJECT_PATH . 'formula/ui/' . $f['internalName'] . '.ui',
 			'code' => $code,
 			'comment' => $comment,
 			'rawComment' => $rawComment,
@@ -162,12 +162,13 @@ public:
         ~' . $className . '();
         ' . $className . '()
         {
-                nameInComboBox = "' . $formula['nameInComboBox'] . '";
-                internalName = "' . $formula['internalName'] . '";
+								nameInComboBox = "' . $formula['nameInComboBox'] . '";
+								internalName = "' . $formula['internalName'] . '";
+								internalID = ' . $formula['id'] . ';
                 DEType = ' . $formula['deType'] . ';
                 DEFunctionType = ' . $formula['deFunctionType'] . ';
                 cpixelAddition = ' . $formula['pixelAddition'] . ';
-                defaultBailout = ' . $formula['defaultBailout'] . ';
+								defaultBailout = ' . number_format($formula['defaultBailout'], 1) . ';
                 DEAnalyticFunction = ' . $formula['analyticFunction'] . ';
                 coloringFunction = ' . $formula['coloringFunction'] . ';
         }
@@ -715,8 +716,8 @@ transf_scale_2 1,079812;';
 function upgradeInternalName($internalName, $internalNameNew)
 {
 	shell_exec('git mv'
-		. ' \'' . PROJECT_PATH . 'formula/ui/fractal_' . $internalName . '.ui\''
-		. ' \'' . PROJECT_PATH . 'formula/ui/fractal_' . $internalNameNew . '.ui\''
+		. ' \'' . PROJECT_PATH . 'formula/ui/' . $internalName . '.ui\''
+		. ' \'' . PROJECT_PATH . 'formula/ui/' . $internalNameNew . '.ui\''
 	);
 	shell_exec('git mv'
 		. ' \'' . PROJECT_PATH . 'formula/img/' . $internalName . '.png\''
