@@ -587,7 +587,7 @@ bool cRenderJob::Execute()
 						connect(&rendererSSAO,
 							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-						connect(&rendererSSAO, SIGNAL(updateImage), this, SIGNAL(updateImage()));
+						connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 						rendererSSAO.RenderSSAO();
 
 						// refresh image at end
