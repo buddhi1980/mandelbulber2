@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold_cuboid</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>1754</height>
+    <width>898</width>
+    <height>1834</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -252,7 +252,7 @@ reverse offset:</string>
      <item row="5" column="0">
       <widget class="QLabel" name="label_47">
        <property name="text">
-        <string>MinR2:</string>
+        <string>Minimum R2:</string>
        </property>
       </widget>
      </item>
@@ -315,7 +315,7 @@ reverse offset:</string>
      <item row="6" column="0">
       <widget class="QLabel" name="label_16">
        <property name="text">
-        <string>MaxR2:</string>
+        <string>Maximum R2:</string>
        </property>
       </widget>
      </item>
@@ -535,7 +535,7 @@ reverse offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -551,7 +551,7 @@ reverse offset:</string>
      <item row="1" column="0">
       <widget class="QLabel" name="label_28">
        <property name="text">
-        <string>MinR2 component:</string>
+        <string>Minimum R2:</string>
        </property>
       </widget>
      </item>
@@ -570,7 +570,7 @@ reverse offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -586,7 +586,7 @@ reverse offset:</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_29">
        <property name="text">
-        <string>MaxR2 component</string>
+        <string>Maximum R2:</string>
        </property>
       </widget>
      </item>

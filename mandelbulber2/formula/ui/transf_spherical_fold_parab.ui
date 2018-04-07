@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold_parab</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>931</width>
-    <height>2710</height>
+    <width>934</width>
+    <height>2873</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -968,14 +968,14 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_7">
+    <layout class="QGridLayout" name="gridLayout_7" rowstretch="0,0,0" columnstretch="0,1">
      <property name="spacing">
       <number>2</number>
      </property>
      <item row="1" column="0">
       <widget class="QLabel" name="label_28">
        <property name="text">
-        <string>MinR2 component:</string>
+        <string>Minimum R2:</string>
        </property>
       </widget>
      </item>
@@ -1010,7 +1010,7 @@ offset:</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_29">
        <property name="text">
-        <string>MaxR2 component:</string>
+        <string>Maximum R2:</string>
        </property>
       </widget>
      </item>

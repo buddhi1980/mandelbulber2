@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>1321</width>
-    <height>6977</height>
+    <height>7060</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -299,7 +299,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_25">
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -718,7 +718,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,0">
+         <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0,1">
           <property name="spacing">
            <number>2</number>
           </property>
@@ -823,7 +823,7 @@
       </layout>
      </item>
      <item row="11" column="0">
-      <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,0,0,0,0">
+      <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,0,0,0,1">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -1313,7 +1313,7 @@
       </layout>
      </item>
      <item row="14" column="0">
-      <layout class="QGridLayout" name="gridLayout_16">
+      <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1">
        <item row="1" column="0">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
          <property name="text">
@@ -1377,7 +1377,7 @@
       </layout>
      </item>
      <item row="7" column="0">
-      <layout class="QGridLayout" name="gridLayout_9">
+      <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,0">
        <item row="0" column="1">
         <widget class="QLabel" name="label_4">
          <property name="text">
@@ -1408,7 +1408,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,0,0,0,0">
+      <layout class="QGridLayout" name="gridLayout_66" columnstretch="0,0,0,0,1">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -1480,7 +1480,7 @@
       </layout>
      </item>
      <item row="8" column="0">
-      <layout class="QGridLayout" name="gridLayout_67" columnstretch="0,0,0,0,0">
+      <layout class="QGridLayout" name="gridLayout_67" columnstretch="0,0,0,0,1">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -1600,7 +1600,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1820,7 +1820,7 @@
           </layout>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_18">
+          <layout class="QGridLayout" name="gridLayout_18" columnstretch="0,1">
            <item row="2" column="1">
             <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
              <property name="sizePolicy">
@@ -2044,7 +2044,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_2">
+       <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
         <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_minR2_p25">
           <property name="sizePolicy">
@@ -2113,7 +2113,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_15">
+       <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2324,7 +2324,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_30">
+       <layout class="QGridLayout" name="gridLayout_30" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2638,11 +2638,11 @@ offset:</string>
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_20">
+       <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">
         <item row="1" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
-           <string>X plane component:</string>
+           <string>X plane:</string>
           </property>
          </widget>
         </item>
@@ -2727,21 +2727,21 @@ offset:</string>
         <item row="5" column="0">
          <widget class="QLabel" name="label_37">
           <property name="text">
-           <string>MaxR2 component</string>
+           <string>MaxR2:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>MinR2 component:</string>
+           <string>MinR2:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>Y plane component:</string>
+           <string>Y plane:</string>
           </property>
          </widget>
         </item>
@@ -2798,7 +2798,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>Z plane component:</string>
+           <string>Z plane:</string>
           </property>
          </widget>
         </item>
@@ -3161,15 +3161,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
