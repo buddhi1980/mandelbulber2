@@ -4103,23 +4103,25 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	// 3D Rotation
 	if (fractal->mandelbox.mainRotationEnabled) // z = fractal->mandelbox.mainRot.RotateVector(z);
-
 	{
 		CVector4 tempVC = CVector4(fractal->mandelbox.rotationMain, 0.0); // constant to be varied
-	if (fractal->transformCommon.functionEnabledPFalse
-			&& aux.i >= fractal->transformCommon.startIterations
-				&& aux.i < fractal->transformCommon.stopIterations
-				&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
-						 != 0))
+		if (fractal->transformCommon.functionEnabledPFalse)
 		{
-			int iterationRange =
-				fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
-			int currentIteration = (aux.i - fractal->transformCommon.startIterations);
-			tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
-		}
-		if (aux.i >= fractal->transformCommon.stopIterations)
-		{
-			tempVC = (tempVC + fractal->transformCommon.offset000);
+			if ( aux.i >= fractal->transformCommon.startIterations
+					&& aux.i < fractal->transformCommon.stopIterations
+							&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
+								!= 0))
+			{
+				int iterationRange =
+					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
+				int currentIteration = (aux.i - fractal->transformCommon.startIterations);
+				tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
+			}
+
+			if (aux.i >= fractal->transformCommon.stopIterations)
+			{
+					tempVC += tempVC + fractal->transformCommon.offset000;
+			}
 		}
 
 		tempVC *= M_PI_180;
@@ -9079,9 +9081,11 @@ void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtend
 /**
  * abs. Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
  * tglad's fold, with a fold tweak option
+ * This formula contains aux.color
  */
 void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	CVector4 oldZ = z;
 	z = fabs(z + fractal->transformCommon.additionConstant000)
 			- fabs(z - fractal->transformCommon.additionConstant000) - z;
 
@@ -9108,6 +9112,12 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 		z.x = (z.x - (sign(z.x) * (Add.x)));
 		z.y = (z.y - (sign(z.y) * (Add.y)));
 		z.z = (z.z - (sign(z.z) * (Add.z)));
+	}
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
 	}
 }
 
