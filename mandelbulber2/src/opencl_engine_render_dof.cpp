@@ -116,7 +116,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		cPostRenderingDOF dof(image);
 		connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 			SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-		connect(&dof, SIGNAL(updateImage), this, SIGNAL(updateImage()));
+		connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 		dof.Render(screenRegion,
 			paramRender->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
