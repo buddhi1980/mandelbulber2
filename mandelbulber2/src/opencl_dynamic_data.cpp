@@ -117,6 +117,9 @@ void cOpenClDynamicData::FillHeader()
 
 	data.replace(lightsOffsetAddress, sizeof(lightsOffset), reinterpret_cast<char *>(&lightsOffset),
 		sizeof(lightsOffset));
+
+	data.replace(primitivesOffsetAddress, sizeof(primitivesOffset),
+		reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
 }
 
 void cOpenClDynamicData::Clear()

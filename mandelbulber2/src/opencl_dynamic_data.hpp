@@ -42,7 +42,7 @@
 class cMaterial;
 struct sVectorsAround;
 class cLights;
-class sPrimitiveBasic;
+struct sPrimitiveBasic;
 
 #ifdef USE_OPENCL
 class cOpenClDynamicData

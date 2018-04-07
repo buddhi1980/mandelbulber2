@@ -66,6 +66,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int materialsMainOffset = GetInteger(0, inBuff);
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
+	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -105,6 +106,17 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	__global sLightCl *__attribute__((aligned(16))) lights =
 		(__global sLightCl *)&inBuff[lightssOffset];
+
+	//--- Primitives
+
+	// primitives count
+	int numberOfPrimitives = GetInteger(primitivesMainOffset, inBuff);
+	int primitivesOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
+
+	// data for primitives
+	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
+		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
+	float rounding = primitives[0].data.box.rounding;
 
 	//--------- end of data file ----------------------------------
 
