@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1321</width>
-    <height>7201</height>
+    <width>947</width>
+    <height>4095</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -466,7 +466,7 @@
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Invert C co&amp;nstant</string>
+      <string>&amp;Invert C constant</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -659,7 +659,7 @@
         </font>
        </property>
        <property name="title">
-        <string>&amp;Fold Tweak</string>
+        <string>Fo&amp;ld Tweak</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -1731,7 +1731,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAy">
      <property name="title">
-      <string>Standard &amp;Functions Enabled</string>
+      <string>Standard Functions Ena&amp;bled</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2186,7 +2186,7 @@ offset:</string>
          <item>
           <widget class="MyGroupBox" name="groupCheck_transf_function_enabledF_false">
            <property name="title">
-            <string>enable va&amp;riable scale</string>
+            <string>enable &amp;variable scale</string>
            </property>
            <property name="checkable">
             <bool>true</bool>
@@ -2433,19 +2433,6 @@ offset:</string>
          </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_10">
-           <item row="1" column="0">
-            <widget class="QDial" name="dial3_mandelbox_rotation_main_x">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="2">
             <widget class="QLabel" name="label_18">
              <property name="text">
@@ -2457,32 +2444,6 @@ offset:</string>
             </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QDial" name="dial3_mandelbox_rotation_main_y">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QDial" name="dial3_mandelbox_rotation_main_z">
-             <property name="minimum">
-              <number>-18000</number>
-             </property>
-             <property name="maximum">
-              <number>18000</number>
-             </property>
-             <property name="wrapping">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2530,7 +2491,7 @@ offset:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
+           <item row="1" column="2">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2558,7 +2519,7 @@ offset:</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="1" column="0">
             <widget class="MyDoubleSpinBox" name="spinboxd3_mandelbox_rotation_main_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -2603,7 +2564,7 @@ offset:</string>
       </font>
      </property>
      <property name="title">
-      <string>aux.color &amp;components</string>
+      <string>a&amp;ux.color components</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3187,9 +3148,6 @@ offset:</string>
   <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_R</tabstop>
   <tabstop>spinboxInt_transf_stop_iterations_R</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_x</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_y</tabstop>
-  <tabstop>dial3_mandelbox_rotation_main_z</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_x</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_y</tabstop>
   <tabstop>spinboxd3_mandelbox_rotation_main_z</tabstop>

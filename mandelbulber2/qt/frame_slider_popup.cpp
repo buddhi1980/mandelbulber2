@@ -93,7 +93,9 @@ void cFrameSliderPopup::sliderReleased()
 {
 	if (!integerMode)
 	{
+		blockSignals(true);
 		ui->slider->setValue(500);
+		blockSignals(false);
 	}
 }
 
@@ -143,12 +145,16 @@ void cFrameSliderPopup::SetDialMode(int scale, double val)
 
 void cFrameSliderPopup::slotUpdateValue(int val)
 {
+	blockSignals(true);
 	ui->slider->setValue(val);
+	blockSignals(false);
 }
 
 void cFrameSliderPopup::slotUpdateValue(double val)
 {
+	blockSignals(true);
 	ui->dial->setValue(val * dialScale);
+	blockSignals(false);
 }
 
 void cFrameSliderPopup::slotDialValueChanged(int val)

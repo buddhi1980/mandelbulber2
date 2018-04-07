@@ -1,8 +1,11 @@
 Version history
 
+v2.13-2
+- UI: fixed bug: using mouse wheel on spinbox with dial could cause program crash
+
 v2.13-1 (April 2018)
-- Mesh Export: Fixed bug: Mesh Export disn't provide cMaterial data. It caused crash when fractal color was calculated
-- OpenCL: SSAO used double precission constants and variables
+- Mesh Export: Fixed bug: Mesh Export didn't provide cMaterial data. It caused crash when fractal color was calculated
+- OpenCL: SSAO used double precision constants and variables
 
 v2.13 (March 2018)
 - Fractals: renamed all fabs() to abs() in all formula UI
