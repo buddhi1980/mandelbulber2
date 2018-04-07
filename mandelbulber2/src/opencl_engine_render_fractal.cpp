@@ -131,6 +131,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("fractparams_cl.hpp");
 		clHeaderFiles.append("fractal_sequence_cl.h");
 		clHeaderFiles.append("material_cl.h");
+		clHeaderFiles.append("object_type_cl.h");
+		clHeaderFiles.append("primitives_cl.h");
 		clHeaderFiles.append("input_data_structures.h");
 
 		// pass through define constants
@@ -460,6 +462,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 	dynamicData->BuildLightsData(&renderData->lights);
+	dynamicData->BuildPrimitivesData(paramRender->primitives.GetListOfPrimitives());
 
 	dynamicData->FillHeader();
 
@@ -855,7 +858,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 

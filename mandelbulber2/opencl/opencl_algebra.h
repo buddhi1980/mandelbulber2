@@ -59,6 +59,11 @@ inline matrix33 toClMatrix33(CRotationMatrix source)
 	m.m3 = {{cl_float(matrix.m31), cl_float(matrix.m32), cl_float(matrix.m33), cl_float(0.0)}};
 	return m;
 }
+inline cl_float2 toClFloat2(CVector2<double> v)
+{
+	cl_float2 retVal = {{cl_float(v.x), cl_float(v.y)}};
+	return retVal;
+}
 inline cl_float3 toClFloat3(CVector3 v)
 {
 	cl_float3 retVal = {{cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)}};

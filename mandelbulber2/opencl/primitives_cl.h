@@ -37,7 +37,7 @@
 
 #ifndef OPENCL_KERNEL_CODE
 #include "object_type_cl.h"
-#include "cl_kernel_include_headers.h"
+#include "opencl_algebra.h"
 #endif
 
 // object data
@@ -87,17 +87,29 @@ typedef struct
 typedef struct
 {
 	cl_int empty;
+	cl_int caps;
 	cl_float radius;
-	cl_float radius_lpow;
-	cl_float tube_radius;
-	cl_float tube_radius_lpow;
+	cl_float height;
+	cl_float2 wallNormal;
 	cl_float3 repeat;
 } sPrimitiveConeCl;
 
 typedef struct
 {
 	cl_int empty;
+	cl_int caps;
 	cl_float radius;
+	cl_float height;
+	cl_float3 repeat;
+} sPrimitiveCylinderCl;
+
+typedef struct
+{
+	cl_int empty;
+	cl_float radius;
+	cl_float radiusLPow;
+	cl_float tubeRadius;
+	cl_float tubeRadiusLPow;
 	cl_float3 repeat;
 } sPrimitiveTorusCl;
 
@@ -116,8 +128,10 @@ typedef struct
 typedef union {
 	sPrimitivePlaneCl plane;
 	sPrimitiveBoxCl box;
+	sPrimitiveSphereCl sphere;
 	sPrimitiveWaterCl water;
 	sPrimitiveConeCl cone;
+	sPrimitiveCylinderCl cylinder;
 	sPrimitiveTorusCl torus;
 	sPrimitiveCircleCl circle;
 	sPrimitiveRectangleCl rectangle;

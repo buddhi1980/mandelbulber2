@@ -126,9 +126,9 @@ struct sPrimitiveTorus : sPrimitiveBasic
 {
 	bool empty;
 	double radius;
-	double radius_lpow;
-	double tube_radius;
-	double tube_radius_lpow;
+	double radiusLPow;
+	double tubeRadius;
+	double tubeRadiusLPow;
 	CVector3 repeat;
 	double PrimitiveDistance(CVector3 _point) const override;
 };
@@ -160,6 +160,7 @@ public:
 	~cPrimitives();
 	double TotalDistance(
 		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;
+	const QList<sPrimitiveBasic *> *GetListOfPrimitives() { return &allPrimitives; }
 
 private:
 	QList<sPrimitiveBasic *> allPrimitives;

@@ -42,6 +42,7 @@
 class cMaterial;
 struct sVectorsAround;
 class cLights;
+class sPrimitiveBasic;
 
 #ifdef USE_OPENCL
 class cOpenClDynamicData
@@ -55,6 +56,7 @@ public:
 	void BuildMaterialsData(const QMap<int, cMaterial> &materials);
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);
+	void BuildPrimitivesData(const QList<sPrimitiveBasic *> *primitives);
 	void ReserveHeader();
 	void FillHeader();
 	QByteArray &GetData(void);
@@ -71,6 +73,9 @@ private:
 
 	cl_int lightsOffset;
 	int lightsOffsetAddress;
+
+	cl_int primitivesOffset;
+	int primitivesOffsetAddress;
 };
 
 #endif // USE_OPENCL

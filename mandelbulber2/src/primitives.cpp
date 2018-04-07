@@ -210,12 +210,12 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 				sPrimitiveTorus *obj = static_cast<sPrimitiveTorus *>(primitive);
 				obj->empty = par->Get<bool>(item.name + "_empty");
 				obj->radius = par->Get<double>(item.name + "_radius");
-				obj->radius_lpow = par->Get<double>(item.name + "_radius_lpow");
-				obj->tube_radius = par->Get<double>(item.name + "_tube_radius");
-				obj->tube_radius_lpow = par->Get<double>(item.name + "_tube_radius_lpow");
+				obj->radiusLPow = par->Get<double>(item.name + "_radius_lpow");
+				obj->tubeRadius = par->Get<double>(item.name + "_tube_radius");
+				obj->tubeRadiusLPow = par->Get<double>(item.name + "_tube_radius_lpow");
 				obj->repeat = par->Get<CVector3>(item.name + "_repeat");
-				obj->size = CVector3((obj->radius + obj->tube_radius) * 2.0,
-					(obj->radius + obj->tube_radius) * 2.0, obj->tube_radius);
+				obj->size = CVector3((obj->radius + obj->tubeRadius) * 2.0,
+					(obj->radius + obj->tubeRadius) * 2.0, obj->tubeRadius);
 				break;
 			}
 			case objCircle:
@@ -429,8 +429,8 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	point = rotationMatrix.RotateVector(point);
 	point = point.mod(repeat);
 
-	double d1 = CVector2<double>(point.x, point.y).LengthPow(pow(2, radius_lpow)) - radius;
-	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tube_radius_lpow)) - tube_radius;
+	double d1 = CVector2<double>(point.x, point.y).LengthPow(pow(2, radiusLPow)) - radius;
+	double dist = CVector2<double>(d1, point.z).LengthPow(pow(2, tubeRadiusLPow)) - tubeRadius;
 	return empty ? fabs(dist) : dist;
 }
 

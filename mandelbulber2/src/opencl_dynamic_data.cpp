@@ -42,6 +42,7 @@
 #ifdef USE_OPENCL
 #include "opencl/material_cl.h"
 #include "opencl/input_data_structures.h"
+#include "opencl/primitives_cl.h"
 #endif
 
 #ifdef USE_OPENCL
@@ -51,9 +52,11 @@ cOpenClDynamicData::cOpenClDynamicData()
 	materialsOffset = 0;
 	AOVectorsOffset = 0;
 	lightsOffset = 0;
+	primitivesOffset = 0;
 	materialsOffsetAddress = 0;
 	AOVectorsOffsetAddress = 0;
 	lightsOffsetAddress = 0;
+	primitivesOffsetAddress = 0;
 }
 
 cOpenClDynamicData::~cOpenClDynamicData()
@@ -83,6 +86,7 @@ void cOpenClDynamicData::ReserveHeader()
 	 * cl_int materialsOffset
 	 * cl_int AOVectorsOffset
 	 * cl_int lightsOffset
+	 * cl_int primitivesOffset
 	 */
 
 	// reserve bytes for array offset
@@ -97,6 +101,10 @@ void cOpenClDynamicData::ReserveHeader()
 	lightsOffsetAddress = totalDataOffset;
 	data.append(reinterpret_cast<char *>(&lightsOffset), sizeof(lightsOffset));
 	totalDataOffset += sizeof(lightsOffset);
+
+	primitivesOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
+	totalDataOffset += sizeof(primitivesOffset);
 }
 
 void cOpenClDynamicData::FillHeader()
@@ -327,7 +335,7 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 	// copy lights aligned to 16
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		// allign struct to 16
+		// align struct to 16
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 		if (i == 0) arrayOffset = totalDataOffset;
 
@@ -340,6 +348,215 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 
 		data.append(reinterpret_cast<char *>(&lightCl), sizeof(lightCl));
 		totalDataOffset += sizeof(lightCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildPrimitivesData(const QList<sPrimitiveBasic *> *primitives)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int numberOfPrimitives
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	sPrimitiveCl primitive1
+	 * 	sPrimitiveCl primitive2
+	 *  ...
+	 * 	sPrimitiveCl primitiveN
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	primitivesOffset = totalDataOffset;
+
+	cl_int numberOfPrimitives = primitives->size();
+	data.append(reinterpret_cast<char *>(&numberOfPrimitives), sizeof(numberOfPrimitives));
+	totalDataOffset += sizeof(numberOfPrimitives);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy primitives data aligned to 16
+	for (int i = 0; i < numberOfPrimitives; i++)
+	{
+		// align struct to 16
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		sPrimitiveCl primitiveCl;
+		const sPrimitiveBasic *primitive = primitives->at(i);
+
+		primitiveCl.object.enable = primitive->enable;
+		primitiveCl.object.materialId = primitive->materialId;
+		primitiveCl.object.objectId = primitive->objectId;
+		primitiveCl.object.objectType = static_cast<enumObjectTypeCl>(primitive->objectType);
+		primitiveCl.object.position = toClFloat3(primitive->position);
+		primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
+		primitiveCl.object.size = toClFloat3(primitive->size);
+
+		try
+		{
+			switch (primitive->objectType)
+			{
+				case fractal::objPlane:
+				{
+					const sPrimitivePlane *plane = dynamic_cast<const sPrimitivePlane *>(primitive);
+					if (plane)
+					{
+						primitiveCl.data.plane.empty = plane->empty;
+					}
+					else
+						throw QString("sPrimitivePlane");
+					break;
+				}
+
+				case fractal::objBox:
+				{
+					const sPrimitiveBox *box = dynamic_cast<const sPrimitiveBox *>(primitive);
+					if (box)
+					{
+						primitiveCl.data.box.empty = box->empty;
+						primitiveCl.data.box.rounding = box->rounding;
+						primitiveCl.data.box.repeat = toClFloat3(box->repeat);
+					}
+					else
+						throw QString("sPrimitivePlane");
+					break;
+				}
+
+				case fractal::objSphere:
+				{
+					const sPrimitiveSphere *sphere = dynamic_cast<const sPrimitiveSphere *>(primitive);
+					if (sphere)
+					{
+						primitiveCl.data.sphere.empty = sphere->empty;
+						primitiveCl.data.sphere.radius = sphere->radius;
+						primitiveCl.data.sphere.repeat = toClFloat3(sphere->repeat);
+					}
+					else
+						throw QString("sPrimitiveSphere");
+					break;
+				}
+
+				case fractal::objWater:
+				{
+					const sPrimitiveWater *water = dynamic_cast<const sPrimitiveWater *>(primitive);
+					if (water)
+					{
+						primitiveCl.data.water.empty = water->empty;
+						primitiveCl.data.water.waveFromObjectsEnable = water->waveFromObjectsEnable;
+						primitiveCl.data.water.relativeAmplitude = water->relativeAmplitude;
+						primitiveCl.data.water.animSpeed = water->animSpeed;
+						primitiveCl.data.water.length = water->length;
+						primitiveCl.data.water.waveFromObjectsRelativeAmplitude =
+							water->waveFromObjectsRelativeAmplitude;
+						primitiveCl.data.water.iterations = water->iterations;
+						primitiveCl.data.water.animFrame = water->animFrame;
+					}
+					else
+						throw QString("sPrimitiveWater");
+					break;
+				}
+
+				case fractal::objCone:
+				{
+					const sPrimitiveCone *cone = dynamic_cast<const sPrimitiveCone *>(primitive);
+					if (cone)
+					{
+						primitiveCl.data.cone.empty = cone->empty;
+						primitiveCl.data.cone.caps = cone->caps;
+						primitiveCl.data.cone.radius = cone->radius;
+						primitiveCl.data.cone.height = cone->height;
+						primitiveCl.data.cone.wallNormal = toClFloat2(cone->wallNormal);
+						primitiveCl.data.cone.repeat = toClFloat3(cone->repeat);
+					}
+					else
+						throw QString("sPrimitiveCone");
+					break;
+				}
+
+				case fractal::objCylinder:
+				{
+					const sPrimitiveCylinder *cylinder = dynamic_cast<const sPrimitiveCylinder *>(primitive);
+					if (cylinder)
+					{
+						primitiveCl.data.cylinder.empty = cylinder->empty;
+						primitiveCl.data.cylinder.caps = cylinder->caps;
+						primitiveCl.data.cylinder.radius = cylinder->radius;
+						primitiveCl.data.cylinder.height = cylinder->height;
+						primitiveCl.data.cylinder.repeat = toClFloat3(cylinder->repeat);
+					}
+					else
+						throw QString("sPrimitiveCylinder");
+					break;
+				}
+
+				case fractal::objTorus:
+				{
+					const sPrimitiveTorus *torus = dynamic_cast<const sPrimitiveTorus *>(primitive);
+					if (torus)
+					{
+						primitiveCl.data.torus.empty = torus->empty;
+						primitiveCl.data.torus.radius = torus->radius;
+						primitiveCl.data.torus.radiusLPow = torus->radiusLPow;
+						primitiveCl.data.torus.tubeRadius = torus->tubeRadius;
+						primitiveCl.data.torus.tubeRadiusLPow = torus->tubeRadiusLPow;
+						primitiveCl.data.torus.repeat = toClFloat3(torus->repeat);
+					}
+					else
+						throw QString("sPrimitiveTorus");
+					break;
+				}
+
+				case fractal::objCircle:
+				{
+					const sPrimitiveCircle *circle = dynamic_cast<const sPrimitiveCircle *>(primitive);
+					if (circle)
+					{
+						primitiveCl.data.circle.radius = circle->radius;
+					}
+					else
+						throw QString("sPrimitiveCircle");
+					break;
+				}
+
+				case fractal::objRectangle:
+				{
+					const sPrimitiveRectangle *rectangle =
+						dynamic_cast<const sPrimitiveRectangle *>(primitive);
+					if (rectangle)
+					{
+						primitiveCl.data.rectangle.height = rectangle->height;
+						primitiveCl.data.rectangle.width = rectangle->width;
+					}
+					else
+						throw QString("sPrimitiveRectangle");
+					break;
+				}
+
+				default:
+				{
+					qCritical() << "cOpenClDynamicData::BuildPrimitivesData - invalid object type";
+					break;
+				}
+			}
+		}
+		catch (const QString &ex)
+		{
+			qCritical() << QString(
+				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 object");
+		}
+
+		data.append(reinterpret_cast<char *>(&primitiveCl), sizeof(primitiveCl));
+		totalDataOffset += sizeof(primitiveCl);
 	}
 
 	// replace arrayOffset:
