@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -311,17 +311,17 @@ offset:</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_29">
+     <item row="0" column="0" colspan="2">
+      <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
-        <string>Fixed radius component:</string>
+        <string notr="true">aux.color components</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_28">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_29">
        <property name="text">
-        <string>Min radius component:</string>
+        <string>Fixed radius:</string>
        </property>
       </widget>
      </item>
@@ -340,7 +340,7 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -353,7 +353,14 @@ offset:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_28">
+       <property name="text">
+        <string>Min radius:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -368,7 +375,7 @@ offset:</string>
         <string/>
        </property>
        <property name="decimals">
-        <number>2</number>
+        <number>6</number>
        </property>
        <property name="minimum">
         <double>-100.000000000000000</double>
@@ -378,13 +385,6 @@ offset:</string>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
-       <property name="text">
-        <string notr="true">aux.color components</string>
        </property>
       </widget>
      </item>

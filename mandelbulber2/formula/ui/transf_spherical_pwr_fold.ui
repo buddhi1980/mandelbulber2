@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_pwr_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>927</width>
-    <height>904</height>
+    <height>943</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -208,14 +208,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_28">
           <property name="text">
-           <string>Min radius component:</string>
+           <string>Minimum Radius:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
-           <string>Fixed radius component:</string>
+           <string>Fixed Radius:</string>
           </property>
          </widget>
         </item>
@@ -234,7 +234,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
@@ -262,7 +262,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>6</number>
           </property>
           <property name="minimum">
            <double>-100.000000000000000</double>
