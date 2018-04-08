@@ -68,8 +68,8 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	return delta;
 }
 
-formulaOut CalculateDistance(
-	__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam)
+formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
+	sClCalcParams *calcParam, sRenderData *renderData)
 {
 	formulaOut out;
 	out.z = 0.0f;

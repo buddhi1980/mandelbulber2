@@ -44,14 +44,10 @@ typedef struct
 	float delta; // initial step distance for shaders based on distance form camera
 	float depth;
 	int stepCount;
-	int AOVectorsCount;
-	int numberOfLights;
 	int randomSeed;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
-	__global sVectorsAroundCl *AOVectors;
-	__global sLightCl *lights;
 	int paletteSize;
 
 } sShaderInputDataCl;
@@ -94,7 +90,8 @@ float3 Hsv2rgb(float hue, float sat, float val)
 
 //-------------- background shaders ---------------
 
-float3 BackgroundShader(__constant sClInConstants *consts, sShaderInputDataCl *input)
+float3 BackgroundShader(
+	__constant sClInConstants *consts, sRenderData *renderData, sShaderInputDataCl *input)
 {
 	float3 pixel;
 	if (consts->params.background3ColorsEnable)
@@ -157,8 +154,8 @@ float3 IndexToColour(int index, sShaderInputDataCl *input)
 	return color;
 }
 
-float3 SurfaceColor(
-	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParams)
+float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParams)
 {
 	float3 out;
 	calcParams->distThresh = input->distThresh;
@@ -214,8 +211,8 @@ float3 MainSpecular(sShaderInputDataCl *input)
 }
 
 #if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
-float3 MainShadow(
-	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
 	float3 shadow = (float3){1.0f, 1.0f, 1.0f};
 
@@ -260,7 +257,7 @@ float3 MainShadow(
 		calcParam->distThresh = dist_thresh;
 		formulaOut outF;
 
-		outF = CalculateDistance(consts, point2, calcParam);
+		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		dist = outF.distance;
 
 		if (bSoft)
@@ -317,8 +314,8 @@ float3 MainShadow(
 #endif
 
 #ifdef AO_MODE_FAST
-float3 FastAmbientOcclusion(
-	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+float3 FastAmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
 	// reference Iñigo Quilez –iq/rgba:
 	// http://www.iquilezles.org/www/material/nvscene2008/rwwtt.pdf
@@ -333,7 +330,7 @@ float3 FastAmbientOcclusion(
 
 		calcParam->distThresh = input->distThresh;
 		formulaOut outF;
-		outF = CalculateDistance(consts, pointTemp, calcParam);
+		outF = CalculateDistance(consts, pointTemp, calcParam, renderData);
 		float dist = outF.distance;
 
 		if (dist > lastDist * 2.0f) dist = lastDist * 2.0f;
@@ -349,8 +346,8 @@ float3 FastAmbientOcclusion(
 #endif
 
 #ifdef AO_MODE_MULTIPLE_RAYS
-float3 AmbientOcclusion(
-	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
 	float3 AO = 0.0f;
 
@@ -359,12 +356,12 @@ float3 AmbientOcclusion(
 	float intense;
 
 #ifndef MONTE_CARLO_DOF
-	for (int i = 0; i < input->AOVectorsCount; i++)
+	for (int i = 0; i < renderData->AOVectorsCount; i++)
 	{
 #else
-	int i = Random(input->AOVectorsCount, &calcParam->randomSeed);
+	int i = Random(sRenderData->AOVectorsCount, &calcParam->randomSeed);
 #endif
-		sVectorsAroundCl v = input->AOVectors[i];
+		sVectorsAroundCl v = renderData->AOVectors[i];
 
 		float dist;
 
@@ -377,7 +374,7 @@ float3 AmbientOcclusion(
 
 			calcParam->distThresh = input->distThresh;
 			formulaOut outF;
-			outF = CalculateDistance(consts, point2, calcParam);
+			outF = CalculateDistance(consts, point2, calcParam, renderData);
 			dist = outF.distance;
 
 #ifdef ITER_FOG
@@ -411,7 +408,7 @@ float3 AmbientOcclusion(
 
 #ifndef MONTE_CARLO_DOF
 	}
-	AO /= input->AOVectorsCount;
+	AO /= renderData->AOVectorsCount;
 #endif
 
 	return AO;
@@ -420,8 +417,8 @@ float3 AmbientOcclusion(
 
 #ifdef AUX_LIGHTS
 #if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
-float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, float distance,
-	float3 lightVector, sClCalcParams *calcParam)
+float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShaderInputDataCl *input,
+	float distance, float3 lightVector, sClCalcParams *calcParam)
 {
 	// float step = input.delta;
 	float dist;
@@ -459,7 +456,7 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 		calcParam->distThresh = dist_thresh;
 		formulaOut outF;
 
-		outF = CalculateDistance(consts, point2, calcParam);
+		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		dist = outF.distance;
 
 		if (bSoft)
@@ -520,8 +517,9 @@ float AuxShadow(constant sClInConstants *consts, sShaderInputDataCl *input, floa
 }
 #endif // SHADOWS
 
-float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam, __global sLightCl *light, float3 *outSpecular)
+float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam, __global sLightCl *light,
+	float3 *outSpecular)
 {
 	float3 shading = 0.0f;
 
@@ -535,7 +533,8 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where numberOfLights of light was always 24
-	float intensity = 100.0f * light->intensity / (distance * distance) / input->numberOfLights / 6.0;
+	float intensity =
+		100.0f * light->intensity / (distance * distance) / renderData->numberOfLights / 6.0;
 	float shade = dot(input->normal, lightVector);
 	if (shade < 0.0) shade = 0.0;
 	shade = 1.0f - input->material->shading + shade * input->material->shading;
@@ -558,7 +557,7 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 	{
 		float auxShadow = 1.0f;
 #ifdef SHADOWS
-		auxShadow = AuxShadow(consts, input, distance, lightVector, calcParam);
+		auxShadow = AuxShadow(consts, renderData, input, distance, lightVector, calcParam);
 #endif
 		shade *= auxShadow;
 		shade2 *= auxShadow;
@@ -582,22 +581,23 @@ float3 LightShading(__constant sClInConstants *consts, sShaderInputDataCl *input
 	return shading;
 }
 
-float3 AuxLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam, float3 *specularOut)
+float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *specularOut)
 {
 
-	int numberOfLights = input->numberOfLights;
+	int numberOfLights = renderData->numberOfLights;
 	if (numberOfLights < 4) numberOfLights = 4;
 	float3 shadeAuxSum = 0.0f;
 	float3 specularAuxSum = 0.0f;
 	for (int i = 0; i < numberOfLights; i++)
 	{
-		__global sLightCl *light = &input->lights[i];
+		__global sLightCl *light = &renderData->lights[i];
 
 		if (i < consts->params.auxLightNumber || light->enabled)
 		{
 			float3 specularAuxOutTemp;
-			float3 shadeAux = LightShading(consts, input, calcParam, light, &specularAuxOutTemp);
+			float3 shadeAux =
+				LightShading(consts, renderData, input, calcParam, light, &specularAuxOutTemp);
 			shadeAuxSum += shadeAux;
 			specularAuxSum += specularAuxOutTemp;
 		}
@@ -667,8 +667,8 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 //------------- Iridescence shader -------------
 #ifdef USE_IRIDESCENCE
-float3 IridescenceShader(
-	__constant sClInConstants *consts, sShaderInputDataCl *input, sClCalcParams *calcParam)
+float3 IridescenceShader(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam)
 {
 	float3 rainbowColor = 1.0f;
 	if (input->material->iridescenceIntensity > 0.0f)
@@ -678,7 +678,7 @@ float3 IridescenceShader(
 
 		calcParam->distThresh = input->distThresh;
 		formulaOut outF;
-		outF = CalculateDistance(consts, pointTemp, calcParam);
+		outF = CalculateDistance(consts, pointTemp, calcParam, renderData);
 		float dist2 = outF.distance;
 
 		float diff = fabs(dist1 - dist2);
@@ -694,8 +694,9 @@ float3 IridescenceShader(
 #endif
 
 //------------ Object shader ----------------
-float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular, float3 *iridescenceOut)
+float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *outSurfaceColor, float3 *outSpecular,
+	float3 *iridescenceOut)
 {
 	float3 color = 0.7f;
 	float3 mainLight = consts->params.mainLightColour * consts->params.mainLightIntensity;
@@ -715,21 +716,21 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 #ifdef SHADOWS
 		if (consts->params.shadow)
 		{
-			shadow = MainShadow(consts, input, calcParam);
+			shadow = MainShadow(consts, renderData, input, calcParam);
 		}
 #endif
 	}
 
-	float3 surfaceColor = SurfaceColor(consts, input, calcParam);
+	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam);
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
 	{
 #ifdef AO_MODE_FAST
-		AO = FastAmbientOcclusion(consts, input, calcParam);
+		AO = FastAmbientOcclusion(consts, renderData, input, calcParam);
 #endif
 #ifdef AO_MODE_MULTIPLE_RAYS
-		AO = AmbientOcclusion(consts, input, calcParam);
+		AO = AmbientOcclusion(consts, renderData, input, calcParam);
 #endif
 		AO *= consts->params.ambientOcclusion;
 	}
@@ -738,7 +739,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 	float3 auxSpecular = 0.0f;
 
 #ifdef AUX_LIGHTS
-	auxLights = AuxLightsShader(consts, input, calcParam, &auxSpecular);
+	auxLights = AuxLightsShader(consts, renderData, input, calcParam, &auxSpecular);
 #endif
 
 	float3 fakeLights = 0.0f;
@@ -751,7 +752,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 #ifdef USE_IRIDESCENCE
 	if (input->material->iridescenceEnabled)
 	{
-		iridescence = IridescenceShader(consts, input, calcParam);
+		iridescence = IridescenceShader(consts, renderData, input, calcParam);
 	}
 #endif
 	*iridescenceOut = iridescence;
@@ -777,15 +778,15 @@ float3 ObjectShader(__constant sClInConstants *consts, sShaderInputDataCl *input
 }
 
 //------------ Volumetric shader ----------------
-float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
+float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
 {
 	float4 out4 = oldPixel;
 	float3 output = oldPixel.xyz;
 	float totalOpacity = 0.0f;
 
 	// visible lights init
-	int numberOfLights = input->numberOfLights;
+	int numberOfLights = renderData->numberOfLights;
 	if (numberOfLights < 4) numberOfLights = 4;
 
 #ifdef GLOW
@@ -822,7 +823,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		calcParam->distThresh = input->distThresh;
 
 		formulaOut outF;
-		outF = CalculateDistance(consts, point, calcParam);
+		outF = CalculateDistance(consts, point, calcParam, renderData);
 		float distance = outF.distance;
 
 		input2.point = point;
@@ -869,7 +870,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 				float lowestLightDist = 1e10f;
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					__global sLightCl *light = &input->lights[i];
+					__global sLightCl *light = &renderData->lights[i];
 					if (light->enabled)
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
@@ -891,7 +892,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 				for (int i = 0; i < numberOfLights; ++i)
 				{
-					__global sLightCl *light = &input->lights[i];
+					__global sLightCl *light = &renderData->lights[i];
 					if (light->enabled && light->intensity > 0.0f)
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
@@ -937,7 +938,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 		{
 			if (i == 0 && consts->params.volumetricLightEnabled[0])
 			{
-				float3 shadowOutputTemp = MainShadow(consts, &input2, calcParam);
+				float3 shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
 				output += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]
 									* consts->params.mainLightColour;
 				out4.s3 += (shadowOutputTemp.s0 + shadowOutputTemp.s1 + shadowOutputTemp.s2) / 3.0f * step
@@ -946,14 +947,15 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 #ifdef AUX_LIGHTS
 			if (i > 0)
 			{
-				__global sLightCl *light = &input->lights[i - 1];
+				__global sLightCl *light = &renderData->lights[i - 1];
 				if (light->enabled && consts->params.volumetricLightEnabled[i])
 				{
 					float3 lightVectorTemp = light->position - point;
 					float distanceLight = length(lightVectorTemp);
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp = normalize(lightVectorTemp);
-					float lightShadow = AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
+					float lightShadow =
+						AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp, calcParam);
 
 					output += lightShadow * light->colour * consts->params.volumetricLightIntensity[i] * step
 										/ distanceLight2;
@@ -1045,7 +1047,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 					{
 						if (consts->params.mainLightEnable && consts->params.mainLightIntensity > 0.0f)
 						{
-							float3 shadowOutputTemp = MainShadow(consts, &input2, calcParam);
+							float3 shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
 							newColour += shadowOutputTemp * consts->params.mainLightColour
 													 * consts->params.mainLightIntensity;
 						}
@@ -1054,7 +1056,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 #ifdef AUX_LIGHTS
 					if (i > 0)
 					{
-						__global sLightCl *light = &input->lights[i - 1];
+						__global sLightCl *light = &renderData->lights[i - 1];
 						if (light->enabled)
 						{
 							float3 lightVectorTemp = light->position - point;
@@ -1062,7 +1064,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 							float distanceLight2 = distanceLight * distanceLight;
 							lightVectorTemp = normalize(lightVectorTemp);
 							float lightShadow =
-								AuxShadow(consts, &input2, distanceLight, lightVectorTemp, calcParam);
+								AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp, calcParam);
 							float intensity = light->intensity * consts->params.iterFogBrightnessBoost;
 							newColour += lightShadow * light->colour / distanceLight2 * intensity;
 						}
@@ -1071,7 +1073,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 				}
 
 #ifdef AO_MODE_MULTIPLE_RAYS
-				float3 AO = AmbientOcclusion(consts, &input2, calcParam);
+				float3 AO = AmbientOcclusion(consts, renderData, &input2, calcParam);
 				newColour += AO * consts->params.ambientOcclusion;
 #endif // AO_MODE_MULTIPLE_RAYS
 

@@ -32,8 +32,8 @@
  * Normal vector calculation for opencl
  */
 
-float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainDistance,
-	float distThresh, float invertMode, sClCalcParams *calcParam)
+float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, float3 point,
+	float mainDistance, float distThresh, float invertMode, sClCalcParams *calcParam)
 {
 #ifndef SLOW_SHADING
 	float delta = distThresh * consts->params.smoothness;
@@ -43,14 +43,20 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 
 	calcParam->distThresh = distThresh;
 	calcParam->normalCalculationMode = true;
-	float sx1 = CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam).distance;
-	float sx2 = CalculateDistance(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam).distance;
+	float sx1 =
+		CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, renderData).distance;
+	float sx2 =
+		CalculateDistance(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, renderData).distance;
 
-	float sy1 = CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam).distance;
-	float sy2 = CalculateDistance(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam).distance;
+	float sy1 =
+		CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, renderData).distance;
+	float sy2 =
+		CalculateDistance(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, renderData).distance;
 
-	float sz1 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam).distance;
-	float sz2 = CalculateDistance(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam).distance;
+	float sz1 =
+		CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, renderData).distance;
+	float sz2 =
+		CalculateDistance(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, renderData).distance;
 
 	float3 normal = (float3){sx1 - sx2, sy1 - sy2, sz1 - sz2};
 	normal = normalize(normal);
@@ -81,7 +87,7 @@ float3 NormalVector(__constant sClInConstants *consts, float3 point, float mainD
 			for (point2.z = -1.0f; point2.z <= 1.0f; point2.z += 0.2f)
 			{
 				point3 = point + point2 * delta;
-				float dist = CalculateDistance(consts, point3, calcParam).distance;
+				float dist = CalculateDistance(consts, point3, calcParam, renderData).distance;
 				normal += point2 * dist;
 			}
 		}

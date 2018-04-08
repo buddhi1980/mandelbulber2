@@ -134,6 +134,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("object_type_cl.h");
 		clHeaderFiles.append("primitives_cl.h");
 		clHeaderFiles.append("input_data_structures.h");
+		clHeaderFiles.append("render_data_cl.h");
 
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");

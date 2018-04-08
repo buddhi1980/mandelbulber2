@@ -94,21 +94,6 @@ typedef struct
 	bool goDeeper;
 } sRayStack;
 
-typedef struct
-{
-	float3 lightVector;
-	float3 viewVectorNotRotated;
-	__global sMaterialCl *material;
-	__global float4 *palette;
-	__global sVectorsAroundCl *AOVectors;
-	__global sLightCl *lights;
-	int reflectionsMax;
-	int paletteSize;
-	int numberOfLights;
-	int AOVectorsCount;
-
-} sRenderData;
-
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 float3 ReflectionVector(const float3 normal, const float3 incident)
 {
@@ -142,8 +127,8 @@ float Reflectance(const float3 normal, const float3 incident, float n1, float n2
 }
 #endif
 
-void RayMarching(
-	sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts, int *randomSeed)
+void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConstants *consts,
+	sRenderData *renderData, int *randomSeed)
 {
 	bool found = false;
 	int count;
@@ -171,7 +156,7 @@ void RayMarching(
 		distThresh = CalcDistThresh(point, consts);
 		calcParam.distThresh = distThresh;
 		calcParam.detailSize = distThresh;
-		outF = CalculateDistance(consts, point, &calcParam);
+		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
 
 #ifdef USE_REFRACTION
@@ -224,7 +209,7 @@ void RayMarching(
 					point = in.start + in.direction * scan;
 				}
 			}
-			outF = CalculateDistance(consts, point, &calcParam);
+			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
 
 			//#ifdef USE_REFRACTION
@@ -278,7 +263,8 @@ sRayRecursionOut RayRecursion(
 		{
 
 			sRayMarchingOut rayMarchingOut;
-			RayMarching(rayStack[rayIndex].in.rayMarchingIn, &rayMarchingOut, consts, randomSeed);
+			RayMarching(
+				rayStack[rayIndex].in.rayMarchingIn, &rayMarchingOut, consts, renderData, randomSeed);
 			float3 point = rayMarchingOut.point;
 
 			bool found = rayMarchingOut.found;
@@ -303,10 +289,6 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.material = renderData->material;
 			shaderInputData.palette = renderData->palette;
 			shaderInputData.paletteSize = renderData->paletteSize;
-			shaderInputData.AOVectors = renderData->AOVectors;
-			shaderInputData.AOVectorsCount = renderData->AOVectorsCount;
-			shaderInputData.lights = renderData->lights;
-			shaderInputData.numberOfLights = renderData->numberOfLights;
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 
@@ -324,8 +306,9 @@ sRayRecursionOut RayRecursion(
 				calcParam.distThresh = shaderInputData.distThresh;
 				calcParam.detailSize = shaderInputData.delta;
 
-				float3 normal = NormalVector(consts, shaderInputData.point, shaderInputData.lastDist,
-					shaderInputData.distThresh, shaderInputData.invertMode, &calcParam);
+				float3 normal =
+					NormalVector(consts, renderData, shaderInputData.point, shaderInputData.lastDist,
+						shaderInputData.distThresh, shaderInputData.invertMode, &calcParam);
 				shaderInputData.normal = normal;
 
 				rayStack[rayIndex].out.normal = normal;
@@ -501,10 +484,6 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.material = renderData->material;
 			shaderInputData.palette = renderData->palette;
 			shaderInputData.paletteSize = renderData->paletteSize;
-			shaderInputData.AOVectors = renderData->AOVectors;
-			shaderInputData.AOVectorsCount = renderData->AOVectorsCount;
-			shaderInputData.lights = renderData->lights;
-			shaderInputData.numberOfLights = renderData->numberOfLights;
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 
@@ -544,7 +523,7 @@ sRayRecursionOut RayRecursion(
 			{
 				specular = 0.0f;
 				objectShader = ObjectShader(
-					consts, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
+					consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
 
 // calculate reflectance according to Fresnel equations
 
@@ -606,7 +585,7 @@ sRayRecursionOut RayRecursion(
 			}
 			else
 			{
-				backgroundShader = BackgroundShader(consts, &shaderInputData);
+				backgroundShader = BackgroundShader(consts, renderData, &shaderInputData);
 				resultShader.xyz = backgroundShader;
 				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;
@@ -635,8 +614,8 @@ sRayRecursionOut RayRecursion(
 			else
 #endif
 			{
-				resultShader =
-					VolumetricShader(consts, &shaderInputData, &calcParam, resultShader, &opacityOut);
+				resultShader = VolumetricShader(
+					consts, renderData, &shaderInputData, &calcParam, resultShader, &opacityOut);
 			}
 
 			recursionOut.point = point;
