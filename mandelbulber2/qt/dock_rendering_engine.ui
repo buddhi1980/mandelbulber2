@@ -636,7 +636,7 @@ with image resolution</string>
          <number>2</number>
         </property>
         <item row="0" column="0">
-         <widget class="QPushButton" name="bu_bounding_box_size_up">
+         <widget class="QToolButton" name="bu_bounding_box_size_x_up">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -644,12 +644,12 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>* 1.1</string>
+           <string notr="true">x &lt;&gt;</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QPushButton" name="bu_bounding_box_size_down">
+         <widget class="QToolButton" name="bu_bounding_box_size_x_down">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -657,7 +657,144 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="text">
-           <string>* 0.9</string>
+           <string notr="true">x &gt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+         <item row="0" column="2">
+         <widget class="QToolButton" name="bu_bounding_box_size_y_up">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">y &lt;&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QToolButton" name="bu_bounding_box_size_y_down">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">y &gt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QToolButton" name="bu_bounding_box_size_z_up">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">z &lt;&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QToolButton" name="bu_bounding_box_size_z_down">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">z &gt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_bounding_box_move" columnstretch="0,0">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="0" column="0">
+         <widget class="QToolButton" name="bu_bounding_box_move_x_neg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">x &lt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QToolButton" name="bu_bounding_box_move_x_pos">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">x &gt;&gt;</string>
+          </property>
+         </widget>
+        </item>
+         <item row="0" column="2">
+         <widget class="QToolButton" name="bu_bounding_box_move_y_neg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">y &lt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QToolButton" name="bu_bounding_box_move_y_pos">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">y &gt;&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="QToolButton" name="bu_bounding_box_move_z_neg">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">z &lt;&lt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QToolButton" name="bu_bounding_box_move_z_pos">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string notr="true">z &gt;&gt;</string>
           </property>
          </widget>
         </item>

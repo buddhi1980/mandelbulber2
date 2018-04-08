@@ -68,9 +68,21 @@ private slots:
 	static void slotPressedButtonOptimizeForHQ();
 	static void slotDetailLevelChanged();
 	void slotChangedComboDistanceEstimationMethod(int index) const;
+
+	// Limits
 	static void slotPressedButtonSetBoundingBoxAsLimits();
-	static void slotPressedButtonBoundingBoxSizeUp();
-	static void slotPressedButtonBoundingBoxSizeDown();
+	static void slotPressedButtonBoundingBoxSizeXUp();
+	static void slotPressedButtonBoundingBoxSizeXDown();
+	static void slotPressedButtonBoundingBoxSizeYUp();
+	static void slotPressedButtonBoundingBoxSizeYDown();
+	static void slotPressedButtonBoundingBoxSizeZUp();
+	static void slotPressedButtonBoundingBoxSizeZDown();
+	static void slotPressedButtonBoundingBoxMoveXNeg();
+	static void slotPressedButtonBoundingBoxMoveXPos();
+	static void slotPressedButtonBoundingBoxMoveYNeg();
+	static void slotPressedButtonBoundingBoxMoveYPos();
+	static void slotPressedButtonBoundingBoxMoveZNeg();
+	static void slotPressedButtonBoundingBoxMoveZPos();
 
 	void slotCalculateDistanceThreshold();
 

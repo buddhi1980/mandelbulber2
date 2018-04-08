@@ -76,12 +76,34 @@ void cDockRenderingEngine::ConnectSignals() const
 	connect(ui->logedit_detail_level, SIGNAL(returnPressed()), this, SLOT(slotDetailLevelChanged()));
 	connect(ui->comboBox_delta_DE_method, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboDistanceEstimationMethod(int)));
+
+	// Limits
 	connect(ui->bu_bounding_box_to_limit, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonSetBoundingBoxAsLimits()));
-	connect(ui->bu_bounding_box_size_up, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonBoundingBoxSizeUp()));
-	connect(ui->bu_bounding_box_size_down, SIGNAL(clicked()), this,
-		SLOT(slotPressedButtonBoundingBoxSizeDown()));
+	connect(ui->bu_bounding_box_size_x_up, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeXUp()));
+	connect(ui->bu_bounding_box_size_x_down, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeXDown()));
+	connect(ui->bu_bounding_box_size_y_up, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeYUp()));
+	connect(ui->bu_bounding_box_size_y_down, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeYDown()));
+	connect(ui->bu_bounding_box_size_z_up, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeZUp()));
+	connect(ui->bu_bounding_box_size_z_down, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxSizeZDown()));
+	connect(ui->bu_bounding_box_move_x_neg, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveXNeg()));
+	connect(ui->bu_bounding_box_move_x_pos, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveXPos()));
+	connect(ui->bu_bounding_box_move_y_neg, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveYNeg()));
+	connect(ui->bu_bounding_box_move_y_pos, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveYPos()));
+	connect(ui->bu_bounding_box_move_z_neg, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveZNeg()));
+	connect(ui->bu_bounding_box_move_z_pos, SIGNAL(clicked()), this,
+		SLOT(slotPressedButtonBoundingBoxMoveZPos()));
 
 	// NetRender
 	connect(ui->bu_netrender_connect, SIGNAL(clicked()), this, SLOT(slotNetRenderClientConnect()));
@@ -345,13 +367,53 @@ void cDockRenderingEngine::slotPressedButtonSetBoundingBoxAsLimits()
 {
 	gMainInterface->SetBoundingBoxAsLimitsTotal();
 }
-void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeUp()
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeXUp()
 {
-	gMainInterface->BoundingBoxSizeUp();
+	gMainInterface->BoundingBoxMove('x', 0.05, 0.05);
 }
-void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeDown()
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeXDown()
 {
-	gMainInterface->BoundingBoxSizeDown();
+	gMainInterface->BoundingBoxMove('x', -0.05, -0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeYUp()
+{
+	gMainInterface->BoundingBoxMove('y', 0.05, 0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeYDown()
+{
+	gMainInterface->BoundingBoxMove('y', -0.05, -0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeZUp()
+{
+	gMainInterface->BoundingBoxMove('z', 0.05, 0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxSizeZDown()
+{
+	gMainInterface->BoundingBoxMove('z', -0.05, -0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveXNeg()
+{
+	gMainInterface->BoundingBoxMove('x', -0.05, 0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveXPos()
+{
+	gMainInterface->BoundingBoxMove('x', 0.05, -0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveYNeg()
+{
+	gMainInterface->BoundingBoxMove('y', -0.05, 0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveYPos()
+{
+	gMainInterface->BoundingBoxMove('y', 0.05, -0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveZNeg()
+{
+	gMainInterface->BoundingBoxMove('z', -0.05, 0.05);
+}
+void cDockRenderingEngine::slotPressedButtonBoundingBoxMoveZPos()
+{
+	gMainInterface->BoundingBoxMove('z', 0.05, -0.05);
 }
 
 void cDockRenderingEngine::slotCalculateDistanceThreshold()
