@@ -142,6 +142,8 @@
     <file>icons/go-next.png</file>
     <file>icons/go-previous.png</file>
     <file>icons/go-up.png</file>
+    <file>icons/size-up.png</file>
+    <file>icons/size-down.png</file>
     <file>icons/object-rotate-left.png</file>
     <file>icons/object-rotate-right.png</file>
   </qresource>

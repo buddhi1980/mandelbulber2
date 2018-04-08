@@ -90,8 +90,7 @@ public:
 	void Undo();
 	void Redo();
 	void ResetView();
-	void BoundingBoxSizeUp();
-	void BoundingBoxSizeDown();
+	void BoundingBoxMove(char dimension, double moveLower, double moveUpper);
 	void SetBoundingBoxAsLimitsTotal();
 	void SetBoundingBoxAsLimits(CVector3 outerBoundingMin, CVector3 outerBoundingMax);
 	void NewPrimitive(const QString &primitiveType, int index = 0);

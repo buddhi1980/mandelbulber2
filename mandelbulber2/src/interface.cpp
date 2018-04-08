@@ -1487,27 +1487,27 @@ void cInterface::ResetView()
 	StartRender();
 }
 
-void cInterface::BoundingBoxSizeUp()
+void cInterface::BoundingBoxMove(char dimension, double moveLower, double moveUpper)
 {
 	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 limitMin = gPar->Get<CVector3>("limit_min");
 	CVector3 limitMax = gPar->Get<CVector3>("limit_max");
-	CVector3 limitCenter = (limitMin + limitMax) / 2;
-	limitMin += (limitMin - limitCenter) * 0.1;
-	limitMax += (limitMax - limitCenter) * 0.1;
-	gPar->Set("limit_min", limitMin);
-	gPar->Set("limit_max", limitMax);
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
-}
-
-void cInterface::BoundingBoxSizeDown()
-{
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
-	CVector3 limitMin = gPar->Get<CVector3>("limit_min");
-	CVector3 limitMax = gPar->Get<CVector3>("limit_max");
-	CVector3 limitCenter = (limitMin + limitMax) / 2;
-	limitMin -= (limitMin - limitCenter) * 0.1;
-	limitMax -= (limitMax - limitCenter) * 0.1;
+	CVector3 limitDifference = limitMax - limitMin;
+	switch (dimension)
+	{
+		case 'x':
+			limitMin.x -= moveLower * limitDifference.x;
+			limitMax.x += moveUpper * limitDifference.x;
+			break;
+		case 'y':
+			limitMin.y -= moveLower * limitDifference.y;
+			limitMax.y += moveUpper * limitDifference.y;
+			break;
+		case 'z':
+			limitMin.z -= moveLower * limitDifference.z;
+			limitMax.z += moveUpper * limitDifference.z;
+			break;
+	}
 	gPar->Set("limit_min", limitMin);
 	gPar->Set("limit_max", limitMax);
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);

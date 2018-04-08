@@ -94,7 +94,7 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 
 	oldZ = z;
-	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
+	/*bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse};
 
@@ -110,7 +110,18 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
 		fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
 
-	for (int f = 0; f < 5; f++)
+	for (int f = 0; f < 5; f++)*/
+	bool functionEnabledN[3] = {fractal->transformCommon.functionEnabledAx,
+		fractal->transformCommon.functionEnabledAyFalse,
+		fractal->transformCommon.functionEnabledAzFalse};
+	int startIterationN[3] = {fractal->transformCommon.startIterationsA,
+		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC};
+	int stopIterationN[3] = {fractal->transformCommon.stopIterationsA,
+		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC};
+	enumMulti_orderOfFoldsCl foldN[3] = {fractal->surfFolds.orderOfFolds1,
+		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3};
+
+	for (int f = 0; f < 3; f++)
 	{
 		if (functionEnabledN[f] && aux->i >= startIterationN[f] && aux->i < stopIterationN[f])
 		{
@@ -248,11 +259,28 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			z -= fractal->mandelbox.offset;
 		}
 
+		// scale
+		REAL useScale = 1.0f;
 		if (aux->i >= fractal->transformCommon.startIterationsS
 				&& aux->i < fractal->transformCommon.stopIterationsS)
-		{ // scale
-			z *= fractal->mandelbox.scale;
-			aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);
+		{
+			useScale = aux->actualScaleA + fractal->mandelbox.scale;
+
+			z *= useScale;
+			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+			aux->r_dz *= fabs(useScale);
+			if (fractal->transformCommon.functionEnabledFFalse
+					&& aux->i >= fractal->transformCommon.startIterationsY
+					&& aux->i < fractal->transformCommon.stopIterationsY)
+			{
+				// update actualScaleA for next iteration
+				REAL vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+				if (fractal->transformCommon.functionEnabledMFalse)
+					aux->actualScaleA = -vary;
+				else
+					aux->actualScaleA = aux->actualScaleA - vary;
+			}
 		}
 	}
 
@@ -288,7 +316,6 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 						fractal->mandelbox.color.factorSp2
 							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
 		}
-
 		aux->color += colorAdd;
 	}
 	return z;

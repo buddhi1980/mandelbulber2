@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>810</width>
-    <height>4095</height>
+    <width>934</width>
+    <height>5272</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>This formula does not use the global addCpixel constant multiplier (on Options tab)</string>
+      <string>This formula does not use the global addCpixel constant multiplier (on Global Parameters tab)</string>
      </property>
     </widget>
    </item>
@@ -2659,7 +2659,6 @@ to find which works best with selected transforms</string>
 &lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;BenesiMagTransformsIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   CVector4 c &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;const_c&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;benesiT1Enabled &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterations
       &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterations&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
@@ -2906,15 +2905,15 @@ to find which works best with selected transforms</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

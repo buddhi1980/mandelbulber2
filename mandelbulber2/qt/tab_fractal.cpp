@@ -183,6 +183,13 @@ void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 					ui->checkBox_dont_add_c_constant->setEnabled(false);
 					break;
 				}
+
+				case fractal::cpixelUndefined:
+				{
+					ui->checkBox_dont_add_c_constant->setText(QObject::tr("Don't add global C constant"));
+					ui->checkBox_dont_add_c_constant->setEnabled(false);
+					break;
+				}
 			};
 
 			fractal::enumCPixelAddition cPixelAddition = fractalList[index].cpixelAddition;

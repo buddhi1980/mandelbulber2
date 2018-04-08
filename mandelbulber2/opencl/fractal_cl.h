@@ -57,6 +57,10 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
+#ifndef M_PI_180
+#define M_PI_180 0.01745329251994329576923690768489
+#endif
+
 #define IFS_VECTOR_COUNTCl 9
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
@@ -599,6 +603,7 @@ typedef struct
 
 	cl_float3 rotation; // vec3s
 	cl_float3 rotation2;
+	cl_float3 rotationVary;
 	cl_float3 rotation44a; //.........................
 	cl_float3 rotation44b; //..........................
 
@@ -622,8 +627,8 @@ typedef struct
 
 	matrix33 rotationMatrix;
 	matrix33 rotationMatrix2;
+	matrix33 rotationMatrixVary;
 	// matrix44 rotationMatrix44; //....................
-	matrix33 tempRotMatrix;
 
 	cl_int addCpixelEnabled;
 	cl_int addCpixelEnabledFalse;
@@ -1245,6 +1250,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.power8 = toClFloat4(source.power8);
 	target.rotation = toClFloat3(source.rotation);
 	target.rotation2 = toClFloat3(source.rotation2);
+	target.rotationVary = toClFloat3(source.rotationVary);
 	target.rotation44a = toClFloat3(source.rotation44a);
 	target.rotation44b = toClFloat3(source.rotation44b);
 	target.scaleP222 = toClFloat4(source.scaleP222);
@@ -1265,6 +1271,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.constantMultiplier1220 = toClFloat4(source.constantMultiplier1220);
 	target.rotationMatrix = toClMatrix33(source.rotationMatrix);
 	target.rotationMatrix2 = toClMatrix33(source.rotationMatrix2);
+	target.rotationMatrixVary = toClMatrix33(source.rotationMatrixVary);
 	target.addCpixelEnabled = source.addCpixelEnabled;
 	target.addCpixelEnabledFalse = source.addCpixelEnabledFalse;
 	target.alternateEnabledFalse = source.alternateEnabledFalse;

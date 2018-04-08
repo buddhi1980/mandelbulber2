@@ -18,7 +18,6 @@ REAL4 TransfBoxFoldVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 {
 	REAL4 oldZ = z;
 	REAL limit = fractal->mandelbox.foldingLimit;
-	// REAL value = 2.0f *fractal->mandelbox.foldingLimit;
 	REAL tempVC = limit; // constant to be varied
 
 	if (aux->i >= fractal->transformCommon.startIterations250
@@ -29,8 +28,7 @@ REAL4 TransfBoxFoldVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		int iterationRange =
 			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
-		tempVC +=
-			fractal->transformCommon.offset0 * native_divide((1.0f * currentIteration), iterationRange);
+		tempVC += fractal->transformCommon.offset * native_divide(currentIteration, iterationRange);
 	}
 	if (aux->i >= fractal->transformCommon.stopIterations)
 	{

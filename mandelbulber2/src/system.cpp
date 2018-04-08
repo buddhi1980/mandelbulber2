@@ -57,12 +57,10 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #endif
-
 #if defined(__APPLE__) || defined(__MACOSX)
 #include "CoreFoundation/CoreFoundation.h"
 #endif
- 
- 
+
 //#define CLSUPPORT
 
 sSystem systemData;
@@ -105,7 +103,7 @@ bool InitSystem()
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 	systemData.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
 #endif
- 
+
 // logfile
 #ifdef _WIN32 /* WINDOWS */
 	systemData.logfileName = systemData.homeDir + "mandelbulber_log.txt";
