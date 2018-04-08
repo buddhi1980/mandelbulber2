@@ -1493,7 +1493,8 @@ void cInterface::BoundingBoxMove(char dimension, double moveLower, double moveUp
 	CVector3 limitMin = gPar->Get<CVector3>("limit_min");
 	CVector3 limitMax = gPar->Get<CVector3>("limit_max");
 	CVector3 limitDifference = limitMax - limitMin;
-	switch(dimension){
+	switch (dimension)
+	{
 		case 'x':
 			limitMin.x -= moveLower * limitDifference.x;
 			limitMax.x += moveUpper * limitDifference.x;

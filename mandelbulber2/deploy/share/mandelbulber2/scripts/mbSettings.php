@@ -233,10 +233,15 @@ class MbSettings
 					$seq['vals'] = array_fill_keys($seq['keys'], array());
 				} else {
 					$values = explode(';', $line);
-					if (count($values) != count($seq['keys']))
-						throw new Exception('Parsing ' . $category . ' -> count mismatch');
-					foreach ($values as $i => $val) {
-						$seq['vals'][$seq['keys'][$i]][] = trim($val);
+					if($values[0] == 'interpolation'){
+						// TODO handle interpolation types
+					}else{
+						if (count($values) != count($seq['keys']))
+							throw new Exception('Parsing ' . $category . ' -> count mismatch'
+								. ' (values: ' . count($values) . ' vs keys: ' . count($seq['keys']) . ')');
+						foreach ($values as $i => $val) {
+							$seq['vals'][$seq['keys'][$i]][] = trim($val);
+						}
 					}
 				}
 				break;
@@ -332,6 +337,10 @@ class Vector
 		$this->y *= $scalar;
 		$this->z *= $scalar;
 	}
+
+	public function x(){ return $this->x; }
+	public function y(){ return $this->y; }
+	public function z(){ return $this->z; }
 }
 
 ?>

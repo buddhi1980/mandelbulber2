@@ -61,9 +61,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		sFractalDescription("Abox - Mod 1", "abox_mod1", aboxMod1, AboxMod1Iteration, analyticDEType,
 			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
 
-	fractalList->append(sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration,
-		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionABox));
+	fractalList->append(
+		sFractalDescription("Abox - Mod 2", "abox_mod2", aboxMod2, AboxMod2Iteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
 	fractalList->append(sFractalDescription("Abox - Mod 11", "abox_mod11", aboxMod11,
 		AboxMod11Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
@@ -215,9 +215,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbox - Smooth", "mandelbox_smooth", mandelboxSmooth,
 		MandelboxSmoothIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
-	fractalList->append(sFractalDescription("Mandelbox - Variable", "mandelbox_variable", mandelboxVariable,
-		MandelboxVariableIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionABox));
+	fractalList->append(sFractalDescription("Mandelbox - Variable", "mandelbox_variable",
+		mandelboxVariable, MandelboxVariableIteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
 	// Mandelbulb formulas
 	fractalList->append(sFractalDescription("Mandelbulb", "mandelbulb", mandelbulb,
@@ -380,9 +380,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// ------------------ 4D -----------------------
 
-	fractalList->append(sFractalDescription("Abox 4D", "abox4d", abox4d, Abox4dIteration,
-		analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear,
-		coloringFunctionABox));
+	fractalList->append(
+		sFractalDescription("Abox 4D", "abox4d", abox4d, Abox4dIteration, analyticDEType,
+			linearDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 	fractalList->append(sFractalDescription("Bristorbrot 4D", "bristorbrot4d", bristorbrot4d,
 		Bristorbrot4dIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));

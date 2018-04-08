@@ -177,10 +177,8 @@ enum enumFractalFormula
 	modulusMengerSponge = 130,
 	modulusMandelbulb = 131,
 	amazingSurfMod2 = 132,
-	//2.14
+	// 2.14
 	mandelboxVariable = 133,
-
-
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

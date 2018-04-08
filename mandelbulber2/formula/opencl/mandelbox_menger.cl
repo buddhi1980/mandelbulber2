@@ -19,7 +19,7 @@
 REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-
+	REAL colorAdd = 0.0f;
 	if (fractal->mandelbox.rotationsEnabled)
 	{
 		REAL4 zRot;
@@ -37,7 +37,7 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			{
 				*rotDim = fractal->mandelbox.foldingValue - *rotDim;
 				z = Matrix33MulFloat4(fractal->mandelbox.rotinv[0][dim], zRot);
-				aux->color += *colorFactor;
+				colorAdd += *colorFactor;
 			}
 			else
 			{
@@ -46,7 +46,7 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 				{
 					*rotDim = -fractal->mandelbox.foldingValue - *rotDim;
 					z = Matrix33MulFloat4(fractal->mandelbox.rotinv[1][dim], zRot);
-					aux->color += *colorFactor;
+					colorAdd += *colorFactor;
 				}
 			}
 		}
@@ -59,19 +59,19 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 			{
 				z.x = mad(sign(z.x), fractal->mandelbox.foldingValue, -z.x);
-				aux->color += fractal->mandelbox.color.factor.x;
+				colorAdd += fractal->mandelbox.color.factor.x;
 			}
 			if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 			{
 				z.y = mad(sign(z.y), fractal->mandelbox.foldingValue, -z.y);
-				aux->color += fractal->mandelbox.color.factor.y;
+				colorAdd += fractal->mandelbox.color.factor.y;
 			}
 			REAL zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 			REAL zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 			if (fabs(z.z) > zLimit)
 			{
 				z.z = mad(sign(z.z), zValue, -z.z);
-				aux->color += fractal->mandelbox.color.factor.z;
+				colorAdd += fractal->mandelbox.color.factor.z;
 			}
 		}
 	}
@@ -85,14 +85,14 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		{
 			z *= fractal->mandelbox.mboxFactor1;
 			aux->DE *= fractal->mandelbox.mboxFactor1;
-			aux->color += fractal->mandelbox.color.factorSp1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (r2 < fractal->mandelbox.fR2)
 		{
 			REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			aux->color += fractal->mandelbox.color.factorSp2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -191,10 +191,6 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			}
 		}
 	}
-	aux->foldFactor = fractal->foldColor.compFold;
-	aux->minRFactor = fractal->foldColor.compMinR;
-	REAL scaleColor = fractal->foldColor.colorMin + fabs(fractal->mandelbox.scale);
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
+	aux->color += colorAdd;
 	return z;
 }
