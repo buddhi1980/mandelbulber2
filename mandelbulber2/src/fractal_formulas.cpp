@@ -2144,7 +2144,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	}
 
 	oldZ = z;
-	bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
+	/*bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse};
 
@@ -2160,7 +2160,21 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
 		fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
 
-	for (int f = 0; f < 5; f++)
+	for (int f = 0; f < 5; f++)*/
+	bool functionEnabledN[3] = {fractal->transformCommon.functionEnabledAx,
+		fractal->transformCommon.functionEnabledAyFalse,
+		fractal->transformCommon.functionEnabledAzFalse};
+
+	// fractal->transformCommon.functionEnabledBxFalse,
+	// fractal->transformCommon.functionEnabledByFalse};
+	int startIterationN[3] = {fractal->transformCommon.startIterationsA,
+		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC};
+	int stopIterationN[3] = {fractal->transformCommon.stopIterationsA,
+		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC};
+	enumMulti_orderOfFolds foldN[3] = {fractal->surfFolds.orderOfFolds1,
+		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3};
+
+	for (int f = 0; f < 3; f++)
 	{
 		if (functionEnabledN[f] && aux.i >= startIterationN[f] && aux.i < stopIterationN[f])
 		{
