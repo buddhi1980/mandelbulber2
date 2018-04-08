@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_pine_tree</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>756</width>
+    <width>871</width>
     <height>876</height>
    </rect>
   </property>
@@ -48,7 +48,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>This formula does not use the global addCpixel constant multiplier (on Options tab)</string>
+      <string>This formula does not use the global addCpixel constant multiplier (on Global Parameters tab)</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -287,15 +287,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
