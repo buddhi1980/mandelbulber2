@@ -178,6 +178,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
+		// compute fractal
+		programEngine.append("#include \"" + openclEnginePath + "primitives.cl\"\n");
+
 		// calculate distance
 		programEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
@@ -859,7 +862,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 

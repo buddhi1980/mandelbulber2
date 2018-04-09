@@ -213,6 +213,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #endif // DELTA_DE
 
+	int closestObjectId = 0;
+	out.distance = min(out.distance,
+		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
+
 #ifdef LIMITS_ENABLED
 	if (limitBoxDist < calcParam->detailSize)
 	{

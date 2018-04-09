@@ -455,13 +455,13 @@ double cPrimitives::TotalDistance(
 				double distTemp;
 				if (water)
 				{
-					distTemp = water->PrimitiveDistanceWater(point, distance);
+					distTemp = water->PrimitiveDistanceWater(point2, distance);
 				}
 				else
 				{
-					distTemp = primitive->PrimitiveDistance(point);
+					distTemp = primitive->PrimitiveDistance(point2);
 				}
-				distTemp = DisplacementMap(distTemp, point, primitive->objectId, data);
+				distTemp = DisplacementMap(distTemp, point2, primitive->objectId, data);
 				if (distTemp < distance)
 				{
 					closestObject = primitive->objectId;
