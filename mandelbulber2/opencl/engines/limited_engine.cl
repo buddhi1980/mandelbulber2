@@ -66,6 +66,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int materialsMainOffset = GetInteger(0, inBuff);
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
+	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 
 	//--- main material
 
@@ -105,6 +106,16 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	__global sLightCl *__attribute__((aligned(16))) lights =
 		(__global sLightCl *)&inBuff[lightssOffset];
+
+	//--- Primitives
+
+	// primitives count
+	int numberOfPrimitives = GetInteger(primitivesMainOffset, inBuff);
+	int primitivesOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
+
+	// data for primitives
+	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
+		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
 
 	//--------- end of data file ----------------------------------
 
@@ -183,6 +194,20 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		calcParam.normalCalculationMode = false;
 		distThresh = 1e-6f;
 
+		sRenderData renderData;
+		renderData.lightVector = lightVector;
+		renderData.viewVectorNotRotated = viewVectorNotRotated;
+		renderData.material = material;
+		renderData.palette = palette;
+		renderData.AOVectors = AOVectors;
+		renderData.lights = lights;
+		renderData.paletteSize = paletteLength;
+		renderData.numberOfLights = numberOfLights;
+		renderData.AOVectorsCount = AOVectorsCount;
+		renderData.reflectionsMax = 0;
+		renderData.primitives = primitives;
+		renderData.numberOfPrimitives = numberOfPrimitives;
+
 		formulaOut outF;
 		float step = 0.0f;
 
@@ -196,7 +221,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			distThresh = CalcDistThresh(point, consts);
 			calcParam.distThresh = distThresh;
 			calcParam.detailSize = distThresh;
-			outF = CalculateDistance(consts, point, &calcParam);
+			outF = CalculateDistance(consts, point, &calcParam, &renderData);
 			distance = outF.distance;
 
 			if (distance < distThresh)
@@ -241,7 +266,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 						point = start + viewVector * scan;
 					}
 				}
-				outF = CalculateDistance(consts, point, &calcParam);
+				outF = CalculateDistance(consts, point, &calcParam, &renderData);
 				distance = outF.distance;
 				step *= 0.5f;
 			}
@@ -266,33 +291,31 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		shaderInputData.material = material;
 		shaderInputData.palette = palette;
 		shaderInputData.paletteSize = paletteLength;
-		shaderInputData.AOVectors = AOVectors;
-		shaderInputData.AOVectorsCount = AOVectorsCount;
-		shaderInputData.lights = lights;
-		shaderInputData.numberOfLights = numberOfLights;
 		shaderInputData.stepCount = count;
 		shaderInputData.randomSeed = randomSeed;
 
-		float3 normal = NormalVector(consts, point, distance, distThresh, false, &calcParam);
+		float3 normal =
+			NormalVector(consts, &renderData, point, distance, distThresh, false, &calcParam);
 		shaderInputData.normal = normal;
 
 		float3 specular = 0.0f;
 
 		if (found)
 		{
-			color =
-				ObjectShader(consts, &shaderInputData, &calcParam, &surfaceColor, &specular, &iridescence);
+			color = ObjectShader(
+				consts, &renderData, &shaderInputData, &calcParam, &surfaceColor, &specular, &iridescence);
 			alpha = 1.0f;
 		}
 		else
 		{
-			color = BackgroundShader(consts, &shaderInputData);
+			color = BackgroundShader(consts, &renderData, &shaderInputData);
 			scan = 1e20f;
 			alpha = 0.0f;
 		}
 
 		color4 = (float4){color.s0, color.s1, color.s2, alpha};
-		color4 = VolumetricShader(consts, &shaderInputData, &calcParam, color4, &opacityOut);
+		color4 =
+			VolumetricShader(consts, &renderData, &shaderInputData, &calcParam, color4, &opacityOut);
 
 #ifdef PERSP_FISH_EYE_CUT
 	}

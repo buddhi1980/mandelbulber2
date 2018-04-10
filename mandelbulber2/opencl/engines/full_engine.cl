@@ -116,7 +116,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	// data for primitives
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
-	float rounding = primitives[0].data.box.rounding;
 
 	//--------- end of data file ----------------------------------
 
