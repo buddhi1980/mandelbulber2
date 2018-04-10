@@ -466,7 +466,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 	dynamicData->BuildLightsData(&renderData->lights);
+
 	dynamicData->BuildPrimitivesData(paramRender->primitives.GetListOfPrimitives());
+	if (paramRender->primitives.GetListOfPrimitives()->size() > 0)
+		definesCollector += " -DUSE_PRIMITIVES";
 
 	dynamicData->FillHeader();
 

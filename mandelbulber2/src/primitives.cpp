@@ -354,7 +354,7 @@ double sPrimitiveCone::PrimitiveDistance(CVector3 _point) const
 	point = point.mod(repeat);
 
 	point.z -= height;
-	float q = sqrt(point.x * point.x + point.y * point.y);
+	double q = sqrt(point.x * point.x + point.y * point.y);
 	CVector2<double> vect(q, point.z);
 	double dist = wallNormal.Dot(vect);
 	if (!caps) dist = fabs(dist);

@@ -260,6 +260,11 @@ float4 SmoothCVector(const float4 v1, const float4 v2, float k)
 }
 #endif
 
+inline float LengthPow(float2 vect, float p)
+{
+	return pow(pow(vect.x, p) + pow(vect.y, p), 1.0f / p);
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_
