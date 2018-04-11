@@ -77,7 +77,7 @@
       </font>
      </property>
      <property name="text">
-      <string>To have complete control have Check for bailout condition only enabled on this transform.</string>
+      <string>To have complete control have &quot;Check for bailout&quot; condition only enabled on this transform.</string>
      </property>
     </widget>
    </item>
@@ -89,6 +89,19 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_103">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>To have complete control have &quot;Check for bailout&quot; condition only enabled on this transform.</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_65">
      <property name="text">
       <string>out.color = (newComponents * weight)</string>
@@ -96,54 +109,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="1" column="2">
-      <widget class="QLabel" name="label_53">
-       <property name="text">
-        <string>Stop iteration count =</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimum">
-        <number>0</number>
-       </property>
-       <property name="maximum">
-        <number>999</number>
-       </property>
-       <property name="value">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_80">
-       <property name="text">
-        <string>Start iteration count =:</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <layout class="QGridLayout" name="gridLayout_4"/>
    </item>
    <item>
     <widget class="Line" name="line_12">

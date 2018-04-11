@@ -82,8 +82,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>613</width>
-        <height>3290</height>
+        <width>619</width>
+        <height>3786</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -685,7 +685,7 @@ direction vector:</string>
               <number>2</number>
              </property>
              <item>
-              <layout class="QGridLayout" name="gridLayout">
+              <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
                <item row="0" column="1">
                 <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_initial_color_value">
                  <property name="sizePolicy">
@@ -751,7 +751,7 @@ direction vector:</string>
                  <number>2</number>
                 </property>
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,0,0,0">
+                 <layout class="QGridLayout" name="gridLayout_17" columnstretch="0,0,0,1">
                   <property name="spacing">
                    <number>2</number>
                   </property>
@@ -996,7 +996,7 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,0">
+                    <layout class="QGridLayout" name="gridLayout_23" columnstretch="0,1">
                      <property name="spacing">
                       <number>2</number>
                      </property>
@@ -1134,7 +1134,7 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_24" columnstretch="0,0">
+                    <layout class="QGridLayout" name="gridLayout_24" columnstretch="0,1">
                      <property name="spacing">
                       <number>2</number>
                      </property>
@@ -1273,7 +1273,7 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_18" columnstretch="0,0">
+                    <layout class="QGridLayout" name="gridLayout_18" columnstretch="0,1">
                      <property name="spacing">
                       <number>2</number>
                      </property>
@@ -1372,7 +1372,7 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0">
+                    <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,1">
                      <property name="spacing">
                       <number>2</number>
                      </property>
@@ -1675,7 +1675,7 @@ direction vector:</string>
                     <number>2</number>
                    </property>
                    <item>
-                    <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,0">
+                    <layout class="QGridLayout" name="gridLayout_20" columnstretch="0,1">
                      <property name="spacing">
                       <number>2</number>
                      </property>
@@ -1998,7 +1998,7 @@ direction vector:</string>
                        <number>2</number>
                       </property>
                       <item>
-                       <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0">
+                       <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,1">
                         <property name="topMargin">
                          <number>0</number>
                         </property>
@@ -2252,7 +2252,7 @@ direction vector:</string>
                          <number>2</number>
                         </property>
                         <item>
-                         <layout class="QGridLayout" name="gridLayout_21" columnstretch="0,0">
+                         <layout class="QGridLayout" name="gridLayout_21" columnstretch="0,1">
                           <property name="topMargin">
                            <number>0</number>
                           </property>
@@ -2302,7 +2302,7 @@ direction vector:</string>
                  </widget>
                 </item>
                 <item>
-                 <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,0">
+                 <layout class="QGridLayout" name="gridLayout_6" columnstretch="0,1">
                   <item row="0" column="0">
                    <widget class="QLabel" name="label_34">
                     <property name="text">
@@ -2708,7 +2708,7 @@ width:</string>
            <number>2</number>
           </property>
           <item>
-           <layout class="QGridLayout" name="gridLayout_2">
+           <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,1">
             <property name="verticalSpacing">
              <number>2</number>
             </property>
@@ -3527,7 +3527,7 @@ width:</string>
            </widget>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_99" rowstretch="0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0,0">
+           <layout class="QGridLayout" name="gridLayout_99" rowstretch="0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0,1">
             <property name="spacing">
              <number>2</number>
             </property>
@@ -3968,15 +3968,15 @@ object size)</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

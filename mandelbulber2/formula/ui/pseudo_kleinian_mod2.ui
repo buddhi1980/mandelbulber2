@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>940</width>
-    <height>7862</height>
+    <height>8420</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -2850,7 +2850,7 @@ offset:</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -3103,7 +3103,7 @@ offset:</string>
         <property name="checkable">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_38" stretch="0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_38" stretch="0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -3318,21 +3318,7 @@ offset:</string>
            </item>
           </layout>
          </item>
-         <item>
-          <widget class="Line" name="line_8">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="Line" name="line_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
        </widget>
       </item>
      </layout>
@@ -3535,7 +3521,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>(added V2.13) only use when transforms with aux.color are enabled</string>
+         <string>(added V2.13)  use with transforms with aux.color</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
