@@ -13205,8 +13205,9 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	CVector4 temp = fractal->transformCommon.offset0000;
 	CVector4 temp2 = temp * temp;
-	if (z.w < 1e-016) z.w = 1e-016;
-
+	//if (z.w < 1e-016) z.w = 1e-016;
+	if (z.w < 1e-21 && z.w > -1e-21)
+		z.w = (z.w > 0) ? 1e-21 : -1e-21;
 	z.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x)
 				 * fractal->transformCommon.scale1;
 	z.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y)
