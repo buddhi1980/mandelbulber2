@@ -199,8 +199,9 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 	int closestObject = *closestObjectId;
 	float dist = fractalDistance;
 
-	// TODO global position and rotation of primituves
-	float3 point2 = point;
+	float3 point2 = point - renderData->primitivesGlobalPosition->allPrimitivesPosition;
+	point2 =
+		Matrix33MulFloat3(renderData->primitivesGlobalPosition->mRotAllPrimitivesRotation, point2);
 
 	for (int i = 0; i < numberOfPrimitives; i++)
 	{

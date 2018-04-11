@@ -124,6 +124,13 @@ typedef struct
 	cl_float width;
 } sPrimitiveRectangleCl;
 
+typedef struct
+{
+	cl_float3 allPrimitivesPosition;
+	cl_float3 allPrimitivesRotation;
+	matrix33 mRotAllPrimitivesRotation;
+} sPrimitiveGlobalPositionCl;
+
 // union - variable container for primitive data
 typedef union {
 	sPrimitivePlaneCl plane;

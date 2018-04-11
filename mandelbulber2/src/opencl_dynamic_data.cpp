@@ -36,6 +36,7 @@
 
 #include "lights.hpp"
 #include "material.h"
+#include "primitives.h"
 #include "render_worker.hpp"
 
 // custom includes
@@ -65,8 +66,8 @@ cOpenClDynamicData::~cOpenClDynamicData()
 
 int cOpenClDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array)
 {
-	int missingBytes = dataLength % alignmentSize;
-	if (missingBytes > 0)
+	int missingBytes = alignmentSize - dataLength % alignmentSize;
+	if (missingBytes > 0 && missingBytes != alignmentSize)
 	{
 		char *dummyData = new char[missingBytes];
 		memset(dummyData, 0, missingBytes);
@@ -358,13 +359,16 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		sizeof(arrayOffset));
 }
 
-void cOpenClDynamicData::BuildPrimitivesData(const QList<sPrimitiveBasic *> *primitives)
+void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContainer)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
 	 *
 	 * header:
 	 * cl_int numberOfPrimitives
+	 * cl_int globalPositionOffset
 	 * cl_int arrayOffset;
+	 *
+	 * sPrimitiveGlobalPositionCl (aligned to 16)
 	 *
 	 * array (aligned to 16):
 	 * 	sPrimitiveCl primitive1
@@ -373,6 +377,8 @@ void cOpenClDynamicData::BuildPrimitivesData(const QList<sPrimitiveBasic *> *pri
 	 * 	sPrimitiveCl primitiveN
 	 */
 
+	const QList<sPrimitiveBasic *> *primitives = primitivesContainer->GetListOfPrimitives();
+
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	primitivesOffset = totalDataOffset;
 
@@ -380,11 +386,29 @@ void cOpenClDynamicData::BuildPrimitivesData(const QList<sPrimitiveBasic *> *pri
 	data.append(reinterpret_cast<char *>(&numberOfPrimitives), sizeof(numberOfPrimitives));
 	totalDataOffset += sizeof(numberOfPrimitives);
 
+	// reserve bytes for sPrimitiveGlobalPosition offset
+	cl_int globalPositionOffset = 0;
+	int globalPositionOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&globalPositionOffset), sizeof(globalPositionOffset));
+	totalDataOffset += sizeof(globalPositionOffset);
+
 	// reserve bytes for array offset
 	cl_int arrayOffset = 0;
 	int arrayOffsetAddress = totalDataOffset;
 	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
 	totalDataOffset += sizeof(arrayOffset);
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	globalPositionOffset = totalDataOffset;
+	sPrimitiveGlobalPositionCl globalPosition;
+	globalPosition.allPrimitivesPosition = toClFloat3(primitivesContainer->allPrimitivesPosition);
+	globalPosition.allPrimitivesRotation = toClFloat3(primitivesContainer->allPrimitivesRotation);
+	globalPosition.mRotAllPrimitivesRotation =
+		toClMatrix33(primitivesContainer->mRotAllPrimitivesRotation);
+	data.append(reinterpret_cast<char *>(&globalPosition), sizeof(globalPosition));
+	totalDataOffset += sizeof(globalPosition);
+	data.replace(globalPositionOffsetAddress, sizeof(globalPositionOffset),
+		reinterpret_cast<char *>(&globalPositionOffset), sizeof(globalPositionOffset));
 
 	// copy primitives data aligned to 16
 	for (int i = 0; i < numberOfPrimitives; i++)

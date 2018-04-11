@@ -160,7 +160,11 @@ public:
 	~cPrimitives();
 	double TotalDistance(
 		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;
-	const QList<sPrimitiveBasic *> *GetListOfPrimitives() { return &allPrimitives; }
+	const QList<sPrimitiveBasic *> *GetListOfPrimitives() const { return &allPrimitives; }
+
+	CVector3 allPrimitivesPosition;
+	CVector3 allPrimitivesRotation;
+	CRotationMatrix mRotAllPrimitivesRotation;
 
 private:
 	QList<sPrimitiveBasic *> allPrimitives;
@@ -169,10 +173,6 @@ private:
 	{
 		return (normal.Dot(point - position));
 	}
-
-	CVector3 allPrimitivesPosition;
-	CVector3 allPrimitivesRotation;
-	CRotationMatrix mRotAllPrimitivesRotation;
 	bool isAnyPrimitive;
 };
 

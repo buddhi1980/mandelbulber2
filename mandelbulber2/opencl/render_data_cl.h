@@ -17,6 +17,7 @@ typedef struct
 	__global sVectorsAroundCl *AOVectors;
 	__global sLightCl *lights;
 	__global sPrimitiveCl *primitives;
+	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
 	int reflectionsMax;
 	int paletteSize;
 	int numberOfLights;

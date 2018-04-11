@@ -58,13 +58,22 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	//-------- decode data file ----------------
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 
+	//--- Primitives
+
 	// primitives count
 	int numberOfPrimitives = GetInteger(primitivesMainOffset, inBuff);
-	int primitivesOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
+	int primitivesGlobalPositionOffset = GetInteger(primitivesMainOffset + 1 * sizeof(int), inBuff);
+	int primitivesOffset = GetInteger(primitivesMainOffset + 2 * sizeof(int), inBuff);
+
+	// global position of primitives
+	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition =
+		(__global sPrimitiveGlobalPositionCl *)&inBuff[primitivesGlobalPositionOffset];
 
 	// data for primitives
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
+
+	//--------- end of data file ----------------------------------
 
 	sRenderData renderData;
 	renderData.lightVector = 0;
@@ -79,6 +88,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	renderData.reflectionsMax = 0;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
+	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
 
 	// auxiliary vectors
 	const float3 one = (float3){1.0f, 0.0f, 0.0f};
