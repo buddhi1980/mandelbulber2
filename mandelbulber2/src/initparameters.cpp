@@ -536,6 +536,7 @@ void InitFractalParams(cParameterContainer *par)
 	QStringList qslOrderOfZyx({"zyx", "zxy", "yzx", "yxz", "xzy", "xyz"});
 	QStringList qslOrderOfFolds({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslOrderOfTransf({"typeT1", "typeT1Mod", "typeT2", "typeT3", "typeT4", "typeT5b"});
+	QStringList qslOrderOf3Folds({"type1", "type2", "type3"});
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -632,6 +633,36 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("sinTan2Trig_atan2_or_atan", 0, morphNone, paramStandard, qslAtan2Atan);
 	par->addParam("sinTan2Trig_order_of_zyx", 0, morphNone, paramStandard, qslOrderOfZyx);
 
+	// SurfFold
+	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_3", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard, qslOrderOfFolds);
+	par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard, qslOrderOfFolds);
+
+	// Benesi Mag Transforms
+	par->addParam("magTransf_order_of_transf_1", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_2", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard, qslOrderOfTransf);
+	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard, qslOrderOfTransf);
+
+	// asurf3Folds
+	par->addParam("aSurf3Folds_order_of_folds_1", 0, morphNone, paramStandard, qslOrderOf3Folds);
+	par->addParam("aSurf3Folds_order_of_folds_2", 0, morphNone, paramStandard, qslOrderOf3Folds);
+	par->addParam("aSurf3Folds_order_of_folds_3", 0, morphNone, paramStandard, qslOrderOf3Folds);
+
+	// Basic comboBox
+	par->addParam("combo_mode_A", 0, morphNone, paramStandard,
+		QStringList({"combo_mode0", "combo_mode1", "combo_mode2", "combo_mode3", "combo_mode4",
+			"combo_mode5", "combo_mode6", "combo_mode7"}));
+
+	// donut
+	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
+	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
+	par->addParam("donut_factor", 3.0, morphAkima, paramStandard);
+	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
+
 	// surfBox
 	par->addParam("surfBox_enabledX1", true, morphLinear, paramStandard);
 	par->addParam("surfBox_enabledY1", true, morphLinear, paramStandard);
@@ -657,31 +688,6 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("surfBox_offset1A_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("surfBox_offset1B_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("surfBox_scale1Z1", 1.0, morphAkima, paramStandard);
-
-	// SurfFold
-	par->addParam("surfFolds_order_of_folds_1", 0, morphNone, paramStandard, qslOrderOfFolds);
-	par->addParam("surfFolds_order_of_folds_2", 0, morphNone, paramStandard, qslOrderOfFolds);
-	par->addParam("surfFolds_order_of_folds_3", 0, morphNone, paramStandard, qslOrderOfFolds);
-	par->addParam("surfFolds_order_of_folds_4", 0, morphNone, paramStandard, qslOrderOfFolds);
-	par->addParam("surfFolds_order_of_folds_5", 0, morphNone, paramStandard, qslOrderOfFolds);
-
-	// Benesi Mag Transforms
-	par->addParam("magTransf_order_of_transf_1", 0, morphNone, paramStandard, qslOrderOfTransf);
-	par->addParam("magTransf_order_of_transf_2", 0, morphNone, paramStandard, qslOrderOfTransf);
-	par->addParam("magTransf_order_of_transf_3", 0, morphNone, paramStandard, qslOrderOfTransf);
-	par->addParam("magTransf_order_of_transf_4", 0, morphNone, paramStandard, qslOrderOfTransf);
-	par->addParam("magTransf_order_of_transf_5", 0, morphNone, paramStandard, qslOrderOfTransf);
-
-	// Basic comboBox
-	par->addParam("combo_mode_A", 0, morphNone, paramStandard,
-		QStringList({"combo_mode0", "combo_mode1", "combo_mode2", "combo_mode3", "combo_mode4",
-			"combo_mode5", "combo_mode6", "combo_mode7"}));
-
-	// donut
-	par->addParam("donut_ring_radius", 1.0, morphAkima, paramStandard);
-	par->addParam("donut_ring_thickness", 0.1, morphAkima, paramStandard);
-	par->addParam("donut_factor", 3.0, morphAkima, paramStandard);
-	par->addParam("donut_number", 9.0, morphAkima, paramStandard);
 
 	// curvilinear
 	par->addParam("Cpara_enabledLinear", true, morphLinear, paramStandard);

@@ -2167,8 +2167,8 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC};
 	int stopIterationN[3] = {fractal->transformCommon.stopIterationsA,
 		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC};
-	enumMulti_orderOfFolds foldN[3] = {fractal->surfFolds.orderOfFolds1,
-		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3};
+	enumMulti_orderOf3Folds foldN[3] = {fractal->aSurf3Folds.orderOf3Folds1,
+		fractal->aSurf3Folds.orderOf3Folds2, fractal->aSurf3Folds.orderOf3Folds3};
 
 	for (int f = 0; f < 3; f++)
 	{
@@ -2176,7 +2176,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		{
 			switch (foldN[f])
 			{
-				case multi_orderOfFolds_type1: // tglad fold
+				case multi_orderOf3Folds_type1: // tglad fold
 				default:
 					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
@@ -2193,29 +2193,25 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 						Add.w = 0.0;
 						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-						// if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
 						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
 							Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
 						if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
 							Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-						// if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-						//	Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
 						Add *= fractal->transformCommon.scale3D000;
 						z.x = (z.x - (sign(z.x) * (Add.x)));
 						z.y = (z.y - (sign(z.y) * (Add.y)));
-						// z.z = (z.z - (sign(z.z) * (Add.z)));
 					}
 					zCol = z;
 					break;
-				case multi_orderOfFolds_type2: // z = fold - fabs( fabs(z) - fold)
+				case multi_orderOf3Folds_type2: // z = fold - fabs( fabs(z) - fold)
 					z.x = fractal->transformCommon.additionConstant111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.offset111.x);
 					z.y = fractal->transformCommon.additionConstant111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.offset111.y);
 					zCol = z;
 					break;
-				case multi_orderOfFolds_type3:
-					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)
+				case multi_orderOf3Folds_type3:
+					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeams
 					z.x = fractal->transformCommon.offset2
 								- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
 											 - fractal->transformCommon.offset2)

@@ -365,6 +365,22 @@ struct sFractalSurfFolds
 	enumMulti_orderOfFolds orderOfFolds5;
 };
 
+// asurf mod2
+enum enumMulti_orderOf3Folds
+{
+	multi_orderOf3Folds_type1,
+	multi_orderOf3Folds_type2,
+	multi_orderOf3Folds_type3
+};
+struct sFractalASurf3Folds
+{
+	enumMulti_orderOf3Folds orderOf3Folds1;
+	enumMulti_orderOf3Folds orderOf3Folds2;
+	enumMulti_orderOf3Folds orderOf3Folds3;
+};
+
+
+
 // benesi mag transforms
 enum enumMulti_orderOfTransf
 {
@@ -723,6 +739,7 @@ struct sFractal
 	sFractalMagTransforms magTransf;
 	sFractalCpara Cpara;
 	sFractalCombo combo;
+	sFractalASurf3Folds aSurf3Folds;
 
 #ifdef USE_OPENCL
 //	double customParameters[15];

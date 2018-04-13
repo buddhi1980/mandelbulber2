@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>amazing_surf_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>947</width>
-    <height>4095</height>
+    <height>7804</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1018,7 +1018,7 @@
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_3">
+        <widget class="QComboBox" name="comboBox_aSurf3Folds_order_of_folds_3">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1093,7 +1093,7 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_2">
+        <widget class="QComboBox" name="comboBox_aSurf3Folds_order_of_folds_2">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1115,7 +1115,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_1">
+        <widget class="QComboBox" name="comboBox_aSurf3Folds_order_of_folds_1">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -3158,9 +3158,9 @@ offset:</string>
   <tabstop>checkBox_transf_function_enabledAx</tabstop>
   <tabstop>checkBox_transf_function_enabledAy_false</tabstop>
   <tabstop>checkBox_transf_function_enabledAz_false</tabstop>
-  <tabstop>comboBox_surfFolds_order_of_folds_1</tabstop>
-  <tabstop>comboBox_surfFolds_order_of_folds_2</tabstop>
-  <tabstop>comboBox_surfFolds_order_of_folds_3</tabstop>
+  <tabstop>comboBox_aSurf3Folds_order_of_folds_1</tabstop>
+  <tabstop>comboBox_aSurf3Folds_order_of_folds_2</tabstop>
+  <tabstop>comboBox_aSurf3Folds_order_of_folds_3</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_A</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_B</tabstop>
   <tabstop>spinboxInt_transf_start_iterations_C</tabstop>
@@ -3185,7 +3185,7 @@ offset:</string>
   <connection>
    <sender>checkBox_transf_function_enabledAx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>comboBox_surfFolds_order_of_folds_1</receiver>
+   <receiver>comboBox_aSurf3Folds_order_of_folds_1</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -3233,7 +3233,7 @@ offset:</string>
   <connection>
    <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>comboBox_surfFolds_order_of_folds_2</receiver>
+   <receiver>comboBox_aSurf3Folds_order_of_folds_2</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -3281,7 +3281,7 @@ offset:</string>
   <connection>
    <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
-   <receiver>comboBox_surfFolds_order_of_folds_3</receiver>
+   <receiver>comboBox_aSurf3Folds_order_of_folds_3</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

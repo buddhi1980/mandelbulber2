@@ -189,6 +189,15 @@ sFractal::sFractal(const cParameterContainer *container)
 	surfFolds.orderOfFolds5 =
 		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
 
+	// asurf3Folds
+	aSurf3Folds.orderOf3Folds1 =
+		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_1"));
+	aSurf3Folds.orderOf3Folds2 =
+		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_2"));
+	aSurf3Folds.orderOf3Folds3 =
+		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_3"));
+
+
 	// benesi mag transforms
 	magTransf.orderOfTransf1 =
 		enumMulti_orderOfTransf(container->Get<int>("magTransf_order_of_transf_1"));
