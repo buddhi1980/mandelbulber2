@@ -94,10 +94,6 @@ struct sExtendedAux
 	double colorHybrid;
 
 	// temp for trial
-	//double foldFactor;
-	//double radiusFactor;
-	//double minRFactor;
-	//double scaleFactor;
 	double temp100;
 	double addDist;
 };
@@ -110,14 +106,6 @@ struct sFoldColor
 	double factorR;
 	double factorSp1;
 	double factorSp2;
-	//double colorMin;
-	//double compFold0;
-	//double compFold;
-	//double compRadius0;
-	//double compMinR;
-	//double compMinR0;
-	//double compScale;
-	//double deScale0;
 	double scaleA0;
 	double scaleB0;
 	double scaleD0;
@@ -132,8 +120,6 @@ struct sFoldColor
 
 	bool auxColorEnabled;
 	bool auxColorEnabledFalse;
-	//bool deColorEnabledFalse;
-	//bool radiusColorEnabledFalse;
 
 	bool distanceEnabledFalse;
 };

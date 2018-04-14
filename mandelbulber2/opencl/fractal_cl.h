@@ -734,10 +734,6 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.actualScaleA = source.actualScaleA;
 	target.color = source.color;
 	target.colorHybrid = source.colorHybrid;
-        //target.foldFactor = source.foldFactor;
-        //target.radiusFactor = source.radiusFactor;
-        //target.minRFactor = source.minRFactor;
-        //target.scaleFactor = source.scaleFactor;
 	target.temp100 = source.temp100;
 	target.addDist = source.addDist;
 	return target;
@@ -751,14 +747,6 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
         target.factorR = source.factorR;
 	target.factorSp1 = source.factorSp1;
 	target.factorSp2 = source.factorSp2;
-        //target.colorMin = source.colorMin;
-        //target.compFold0 = source.compFold0;
-        //target.compFold = source.compFold;
-        //target.compRadius0 = source.compRadius0;
-        //target.compMinR = source.compMinR;
-        //target.compMinR0 = source.compMinR0;
-        //target.compScale = source.compScale;
-        //target.deScale0 = source.deScale0;
 	target.scaleA0 = source.scaleA0;
 	target.scaleB0 = source.scaleB0;
 	target.scaleD0 = source.scaleD0;
@@ -771,8 +759,6 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.intAz0 = source.intAz0;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
-        //target.deColorEnabledFalse = source.deColorEnabledFalse;
-        //target.radiusColorEnabledFalse = source.radiusColorEnabledFalse;
 	target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;
 }

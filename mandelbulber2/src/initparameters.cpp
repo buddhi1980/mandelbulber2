@@ -724,30 +724,9 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
 	// color controls
-
-	//par->addParam("fold_color_limit_min0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_limit_max9999", 9999.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_factor_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
-	// par->addParam("fold_color_factorMinR0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_factorMaxR0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_comp_fold", 1.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_comp_fold0", 0.0, morphAkima, paramStandard);
-
-	// par->addParam("fold_color_extra_mode_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_de_color_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_radius_color_enabled_false", false, morphLinear, paramStandard);
-	//par->addParam("fold_color_color_min", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_comp_radius0", 0.0, morphAkima, paramStandard);
 
-	//par->addParam("fold_color_comp_minR", 1.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_comp_minR0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_comp_scale", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_de_scale0", 0.0, morphAkima, paramStandard);
-
-	par->addParam("fold_color_old_scale0", 0.0, morphAkima, paramStandard);
-	par->addParam("fold_color_old_scale1", 1.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleA0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleB0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_scaleD0", 0.0, morphAkima, paramStandard);
@@ -759,7 +738,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("fold_color_int_Ax0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Ay0", 0.0, morphAkima, paramStandard);
 	par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);
-	//par->addParam("fold_color_parab_enabled_false", false, morphLinear, paramStandard);
+
 	par->addParam("fold_color_distance_enabled_false", false, morphLinear, paramStandard);
 
 	// common parameters for transforming formulas

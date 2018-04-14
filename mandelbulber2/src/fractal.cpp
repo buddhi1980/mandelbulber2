@@ -248,22 +248,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
 	analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
 
-	//foldColor.compMinR0 = container->Get<double>("fold_color_comp_minR0");
-	//foldColor.compMinR = container->Get<double>("fold_color_comp_minR");
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
-
-	//foldColor.compFold = container->Get<double>("fold_color_comp_fold");
-	//foldColor.compFold0 = container->Get<double>("fold_color_comp_fold0");
-
-	//foldColor.radiusColorEnabledFalse = container->Get<bool>("fold_color_radius_color_enabled_false");
-	//foldColor.compRadius0 = container->Get<double>("fold_color_comp_radius0");
-
-	//foldColor.deColorEnabledFalse = container->Get<bool>("fold_color_de_color_enabled_false");
-	//foldColor.deScale0 = container->Get<double>("fold_color_de_scale0");
-
-	//foldColor.compScale = container->Get<double>("fold_color_comp_scale");
-	//foldColor.colorMin = container->Get<double>("fold_color_color_min");
 
 	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
 	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
