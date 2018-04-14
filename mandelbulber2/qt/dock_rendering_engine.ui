@@ -836,7 +836,7 @@ with image resolution</string>
         <item row="2" column="0">
          <widget class="QLabel" name="bounding_box_z_label">
           <property name="text">
-           <string>Y</string>
+           <string>Z</string>
           </property>
          </widget>
         </item>
