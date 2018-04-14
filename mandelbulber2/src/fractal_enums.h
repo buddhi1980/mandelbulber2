@@ -90,8 +90,8 @@ enum enumColoringFunction
 	coloringFunctionABox = 1,
 	coloringFunctionIFS = 2,
 	coloringFunctionAmazingSurf = 3,
-	coloringFunctionABox2 = 4,
-	coloringFunctionDonut = 5,
+	//coloringFunctionABox2 = 4,
+	coloringFunctionDonut = 4,
 };
 };
 

@@ -297,7 +297,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
-			case coloringFunctionABox2:
+		/*	case coloringFunctionABox2:
 			{
 				double mboxDE;
 				mboxDE = extendedAux.DE;
@@ -310,7 +310,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 										 // minimumR * 1000.0 : 0.0);
 										 + minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
 				break;
-			}
+			}*/
 			case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
 			case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
 			case coloringFunctionUndefined: colorIndex = 0.0; break;

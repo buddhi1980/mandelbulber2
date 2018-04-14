@@ -176,7 +176,7 @@ enum enumFractalFormula
 	coastalbrot = 129,
 	modulusMengerSponge = 130,
 	modulusMandelbulb = 131,
-	amazingSurfMod2 = 132,
+	amazingSurfMod2 = 132, // fixed comboBox v2.14
 	// 2.14
 	mandelboxVariable = 133,
 

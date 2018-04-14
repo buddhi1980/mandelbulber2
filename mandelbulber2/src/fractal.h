@@ -94,12 +94,10 @@ struct sExtendedAux
 	double colorHybrid;
 
 	// temp for trial
-	double foldFactor;
-	double radiusFactor;
-	double minRFactor;
-	double scaleFactor;
-	// double oldHybridFactor;
-	// double temp1Factor;
+	//double foldFactor;
+	//double radiusFactor;
+	//double minRFactor;
+	//double scaleFactor;
 	double temp100;
 	double addDist;
 };
@@ -112,52 +110,30 @@ struct sFoldColor
 	double factorR;
 	double factorSp1;
 	double factorSp2;
-	double colorMin;
-	double compFold0;
-	double compFold;
-	double compRadius0;
-	double compMinR;
-	double compMinR0;
-	double compScale;
-	double deScale0;
-	double oldScale0;
-	// double oldScale1;
-	// double parabScale0;
-	// double newScale0;
-	double limitMin0;
-	double limitMax9999;
+	//double colorMin;
+	//double compFold0;
+	//double compFold;
+	//double compRadius0;
+	//double compMinR;
+	//double compMinR0;
+	//double compScale;
+	//double deScale0;
 	double scaleA0;
 	double scaleB0;
-	// double scaleC0;
 	double scaleD0;
-	double scaleE0;
 	double scaleF0;
-	// double scaleG0;
 	double scaleA1;
 	double scaleB1;
 	double scaleC1;
-	// double period1;
-	// double trigAdd1;
-	// CVector4 xyz000;
-	// CVector4 factor000;
-	// double factorMinR0;
-	// double factorMaxR0;
 
 	int intAx0;
 	int intAy0;
 	int intAz0;
 
-	// bool parabEnabledFalse;
-	// bool cosEnabledFalse;
-
 	bool auxColorEnabled;
 	bool auxColorEnabledFalse;
-	bool deColorEnabledFalse;
-	bool radiusColorEnabledFalse;
-	// bool xyzColorEnabledFalse;
-	// bool oldHybridEnabledFalse;
-	// bool temp1EnabledFalse;
-	// bool extraModeEnabledFalse;
+	//bool deColorEnabledFalse;
+	//bool radiusColorEnabledFalse;
 
 	bool distanceEnabledFalse;
 };

@@ -112,10 +112,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	// these are temp, and most might be removed later
 	// once some decisions have been made
-	extendedAux.minRFactor = 0.0;		// orbit trap weight
-	extendedAux.foldFactor = 0.0;		// aux color weight
-	extendedAux.radiusFactor = 0.0; // radius weight
-	extendedAux.scaleFactor = 0.0;	// DE weight
+	//extendedAux.minRFactor = 0.0;		// orbit trap weight
+	//extendedAux.foldFactor = 0.0;		// aux color weight
+	//extendedAux.radiusFactor = 0.0; // radius weight
+	//extendedAux.scaleFactor = 0.0;	// DE weight
 	// extendedAux.oldHybridFactor = 0.0; // old hybid weight
 	// extendedAux.temp1Factor = 0.0;
 
