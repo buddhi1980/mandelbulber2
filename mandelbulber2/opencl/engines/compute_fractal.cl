@@ -73,6 +73,7 @@ typedef struct
 	float distance;
 	float colorIndex;
 	float orbitTrapR;
+	int objectId;
 	bool maxiter;
 } formulaOut;
 
@@ -91,7 +92,7 @@ float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 }
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
-	enumCalculationModeCl mode, __global sFractalColoringCl *fractalColoring)
+	enumCalculationModeCl mode, __global sFractalColoringCl *fractalColoring, int forcedFormulaIndex)
 {
 	// begin
 	float dist = 0.0f;
@@ -111,7 +112,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	z.x = pointTransformed.x;
 	z.y = pointTransformed.y;
 	z.z = pointTransformed.z;
+
+#ifdef BOOLEAN_OPERATORS
+	if (forcedFormulaIndex >= 0)
+		z.w = consts->sequence.initialWAxis[forcedFormulaIndex];
+	else
+		z.w = consts->sequence.initialWAxis[0];
+#else
 	z.w = consts->sequence.initialWAxis[0];
+#endif
 
 	float initialWAxisColor = z.w;
 
@@ -124,6 +133,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	float colorMin = fractalColoring->initialMinimumR;
 	float orbitTrapTotal = 0.0f;
+
+	int fractalIndex = 0;
+	if (forcedFormulaIndex >= 0) fractalIndex = forcedFormulaIndex;
 
 	// formula init
 	sExtendedAuxCl aux;
@@ -141,8 +153,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.DE = 1.0f;
 	aux.pseudoKleinianDE = 1.0f;
 
-	aux.actualScale =
-		consts->fractal[0].mandelbox.scale; // TODO: forcedFormulaIndex has to be added here
+	aux.actualScale = consts->fractal[fractalIndex].mandelbox.scale;
 	aux.actualScaleA = 0.0f;
 
 	aux.color = 1.0f;
@@ -154,11 +165,10 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.temp100 = 100.0f;
 	aux.addDist = 0.0;
 
-	int formulaIndex = 0;
+	int sequence = 0;
 	__constant sFractalCl *fractal;
 
-	__constant sFractalCl *defaultFractal =
-		&consts->fractal[formulaIndex]; // need to be changed for booleans
+	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
 
 	float4 lastZ = 0.0f;
 	float4 lastLastZ = 0.0f;
@@ -166,8 +176,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
-		formulaIndex = consts->sequence.hybridSequence[min(i, 249)];
-		fractal = &consts->fractal[formulaIndex];
+		if (forcedFormulaIndex >= 0)
+			sequence = forcedFormulaIndex;
+		else
+			sequence = consts->sequence.hybridSequence[min(i, 249)];
+
+		fractal = &consts->fractal[sequence];
 
 		aux.i = i;
 
@@ -188,11 +202,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		float4 tempZ = z;
 
 #ifdef ITERATION_WEIGHT
-		if (consts->sequence.formulaWeight[formulaIndex] > 0)
+		if (consts->sequence.formulaWeight[sequence] > 0)
 		{
 #endif
 
-			switch (formulaIndex)
+			switch (sequence)
 			{
 				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
 				case 1: z = FORMULA_ITER_1(z, fractal, &aux); break;
@@ -209,37 +223,37 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 #endif
 
-		if (consts->sequence.addCConstant[formulaIndex])
+		if (consts->sequence.addCConstant[sequence])
 		{
 			switch (fractal->formula)
 			{
 				case 64: // aboxMod1
 				case 73: // amazingSurf
 				{
-					if (consts->sequence.juliaEnabled[formulaIndex])
+					if (consts->sequence.juliaEnabled[sequence])
 					{
-						float4 juliaC = consts->sequence.juliaConstant[formulaIndex]
-														* consts->sequence.constantMultiplier[formulaIndex];
+						float4 juliaC = consts->sequence.juliaConstant[sequence]
+														* consts->sequence.constantMultiplier[sequence];
 						z += (float4){juliaC.y, juliaC.x, juliaC.z, juliaC.w};
 					}
 					else
 					{
 						z += (float4){aux.const_c.y, aux.const_c.x, aux.const_c.z, aux.const_c.w}
-								 * consts->sequence.constantMultiplier[formulaIndex];
+								 * consts->sequence.constantMultiplier[sequence];
 					}
 					break;
 				}
 
 				default:
 				{
-					if (consts->sequence.juliaEnabled[formulaIndex])
+					if (consts->sequence.juliaEnabled[sequence])
 					{
-						z += consts->sequence.juliaConstant[formulaIndex]
-								 * consts->sequence.constantMultiplier[formulaIndex];
+						z += consts->sequence.juliaConstant[sequence]
+								 * consts->sequence.constantMultiplier[sequence];
 					}
 					else
 					{
-						z += aux.const_c * consts->sequence.constantMultiplier[formulaIndex];
+						z += aux.const_c * consts->sequence.constantMultiplier[sequence];
 					}
 				}
 			}
@@ -248,7 +262,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef ITERATION_WEIGHT
 		if (consts->sequence.isHybrid)
 		{
-			z = SmoothCVector(tempZ, z, consts->sequence.formulaWeight[formulaIndex]);
+			z = SmoothCVector(tempZ, z, consts->sequence.formulaWeight[sequence]);
 		}
 #endif
 
@@ -271,26 +285,26 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 
 		// escape conditions
-		if (consts->sequence.checkForBailout[formulaIndex])
+		if (consts->sequence.checkForBailout[sequence])
 		{
 			// mode normal or deltaDE center point
 			if (mode == calcModeNormal || mode == calcModeDeltaDE1)
 			{
-				if (aux.r > consts->sequence.bailout[formulaIndex])
+				if (aux.r > consts->sequence.bailout[sequence])
 				{
 					out.maxiter = false;
 					break;
 				}
 
-				if (consts->sequence.useAdditionalBailoutCond[formulaIndex])
+				if (consts->sequence.useAdditionalBailoutCond[sequence])
 				{
-					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
 						out.maxiter = false;
 						break;
 					}
 
-					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[formulaIndex])
+					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
 						out.maxiter = false;
 						break;
@@ -363,7 +377,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0f / (distance * distance));
-				if (distance > consts->sequence.bailout[formulaIndex])
+				if (distance > consts->sequence.bailout[sequence])
 				{
 					out.orbitTrapR = orbitTrapTotal;
 					break;
@@ -393,7 +407,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #else //  IS_NOT HYBRID
-	switch (consts->sequence.DEAnalyticFunction[formulaIndex])
+	switch (consts->sequence.DEAnalyticFunction[sequence])
 	{
 		case clAnalyticFunctionLogarithmic:
 		{
@@ -451,7 +465,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef USE_FRACTAL_COLORING
 	if (mode == calcModeColouring)
 	{
-		enumColoringFunctionCl coloringFunction = consts->sequence.coloringFunction[formulaIndex];
+		enumColoringFunctionCl coloringFunction = consts->sequence.coloringFunction[sequence];
 		out.colorIndex = CalculateColorIndex(consts->sequence.isHybrid, aux.r, z, colorMin, &aux,
 			fractalColoring, coloringFunction, defaultFractal);
 	}

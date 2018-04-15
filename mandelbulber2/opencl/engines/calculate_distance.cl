@@ -35,6 +35,12 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
+typedef enum {
+	clBooleanOperatorAND = 0,
+	clBooleanOperatorOR = 1,
+	clBooleanOperatorSUB = 2
+} enumBooleanOperatorCl;
+
 // calculation of distance where ray-marching stops
 float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 {
@@ -68,8 +74,13 @@ float CalcDelta(float3 point, __constant sClInConstants *consts)
 	return delta;
 }
 
+#ifdef BOOLEAN_OPERATORS
+formulaOut CalculateDistanceSimple(__constant sClInConstants *consts, float3 point,
+	sClCalcParams *calcParam, sRenderData *renderData, int forcedFormulaIndex)
+#else
 formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	sClCalcParams *calcParam, sRenderData *renderData)
+#endif
 {
 	formulaOut out;
 	out.z = 0.0f;
@@ -78,7 +89,9 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.colorIndex = 0.0f;
 	out.maxiter = false;
 
+#ifndef BOOLEAN_OPERATORS
 	float limitBoxDist = 0.0f;
+	int forcedFormulaIndex = -1;
 
 #ifdef LIMITS_ENABLED
 	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
@@ -92,9 +105,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		return out;
 	}
 #endif
+#endif // BOOLEAN_OPERATORS
 
 #ifdef ANALYTIC_DE
-	out = Fractal(consts, point, calcParam, calcModeNormal, NULL);
+	out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
 	bool maxiter = out.maxiter;
 
 	if (maxiter) out.distance = 0.0f;
@@ -143,20 +157,26 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	bool maxiter = out.maxiter;
 
 	float r = length(out.z);
-	float r11 = length(
-		Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
-	float r12 = length(
-		Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
+	float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
 	dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
-	float r21 = length(
-		Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
-	float r22 = length(
-		Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
+	float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
 	dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
-	float r31 = length(
-		Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, calcModeDeltaDE2, NULL).z);
-	float r32 = length(
-		Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, calcModeDeltaDE2, NULL).z);
+	float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
+	float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
+		calcModeDeltaDE2, NULL,
+		forcedFormulaIndex).z);
 	dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 	float d = length(dr);
 
@@ -215,6 +235,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	int closestObjectId = 0;
 
+#ifndef BOOLEAN_OPERATORS
 #ifdef USE_PRIMITIVES
 	out.distance = min(out.distance,
 		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
@@ -236,8 +257,154 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out.maxiter = false;
 		out.iters = 0;
 	}
+#endif // BOOLEAN_OPERATORS
 
 	return out;
 }
+
+//------------------------- Calculate distance for Booleans -------------------
+
+#ifdef BOOLEAN_OPERATORS
+formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
+	sClCalcParams *calcParam, sRenderData *renderData)
+{
+	formulaOut out;
+	out.z = 0.0f;
+	out.iters = 0;
+	out.distance = 0.0f;
+	out.colorIndex = 0.0f;
+	out.maxiter = false;
+	out.objectId = 0;
+
+	float limitBoxDist = 0.0f;
+	float dist = 0.0f;
+
+#ifdef LIMITS_ENABLED
+	float3 boxDistance = max(point - consts->params.limitMax, -(point - consts->params.limitMin));
+	limitBoxDist = max(max(boxDistance.x, boxDistance.y), boxDistance.z);
+
+	if (limitBoxDist > calcParam->detailSize)
+	{
+		out.maxiter = false;
+		out.distance = limitBoxDist;
+		out.iters = 0;
+		return out;
+	}
+#endif
+
+	{
+		float3 pointTemp = point;
+
+		pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[0]);
+		pointTemp = pointTemp - consts->params.formulaPosition[0];
+		pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[0], pointTemp);
+		pointTemp *= consts->params.formulaScale[0];
+
+		out = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, 0);
+		dist = out.distance / consts->params.formulaScale[0];
+	}
+
+	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
+	{
+		if (consts->fractal[i + 1].formula != 0) // != fractal::none
+		{
+			float3 pointTemp = point;
+
+			pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[i + 1]);
+			pointTemp = pointTemp - consts->params.formulaPosition[i + 1];
+			pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[i + 1], pointTemp);
+			pointTemp *= consts->params.formulaScale[i + 1];
+
+			formulaOut outTemp;
+
+			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
+			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
+
+			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];
+
+			switch (boolOperator)
+			{
+				case clBooleanOperatorOR:
+					if (distTemp < dist)
+					{
+						outTemp.objectId = 1 + i;
+						out = outTemp;
+					}
+					dist = min(distTemp, dist);
+					break;
+				case clBooleanOperatorAND:
+					if (distTemp > dist)
+					{
+						outTemp.objectId = 1 + i;
+						out = outTemp;
+					}
+					dist = max(distTemp, dist);
+					break;
+				case clBooleanOperatorSUB:
+				{
+					float limit = 1.5f;
+					if (dist < calcParam->detailSize) // if inside 1st
+					{
+						if (distTemp < calcParam->detailSize * limit) // if inside 2nd
+						{
+							if (calcParam->normalCalculationMode)
+							{
+								dist = calcParam->detailSize * limit - distTemp;
+							}
+							else
+							{
+								dist = calcParam->detailSize * limit;
+							}
+						}
+						else // if outside of 2nd
+						{
+							if (calcParam->detailSize * limit - distTemp > dist)
+							{
+								outTemp.objectId = 1 + i;
+								out = outTemp;
+							}
+
+							dist = max(calcParam->detailSize * limit - distTemp, dist);
+							if (dist < 0) dist = 0;
+						}
+					}
+					break;
+				}
+				default: break;
+			}
+		}
+	}
+
+	// out = CalculateDistanceSimple(consts, point, calcParam, renderData);
+
+	int closestObjectId = 0;
+
+#ifdef USE_PRIMITIVES
+	dist = min(dist, TotalDistanceToPrimitives(consts, renderData, point, dist, &closestObjectId));
+	out.objectId = closestObjectId;
+#endif
+
+#ifdef LIMITS_ENABLED
+	if (limitBoxDist < calcParam->detailSize)
+	{
+		dist = max(dist, limitBoxDist);
+	}
+#endif
+
+	float distFromCamera = length(point - consts->params.camera);
+	float distanceLimitMin = consts->params.viewDistanceMin - distFromCamera;
+	dist = max(dist, distanceLimitMin);
+
+	if (distanceLimitMin > calcParam->detailSize)
+	{
+		out.maxiter = false;
+		out.iters = 0;
+	}
+
+	out.distance = dist;
+
+	return out;
+}
+#endif
 
 #endif // MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_

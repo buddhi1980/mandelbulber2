@@ -744,7 +744,7 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	sFoldColorCl target;
 	target.factor = toClFloat3(source.factor);
 	target.factor4D = toClFloat4(source.factor4D);
-        target.factorR = source.factorR;
+	target.factorR = source.factorR;
 	target.factorSp1 = source.factorSp1;
 	target.factorSp2 = source.factorSp2;
 	target.scaleA0 = source.scaleA0;
