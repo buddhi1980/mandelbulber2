@@ -89,10 +89,10 @@ public:
 public slots:
 	void UpdateLimitsForFrameRange() const;
 	bool slotRenderKeyframes();
-
-private slots:
 	void slotAddKeyframe();
 	void slotInsertKeyframe();
+
+private slots:
 	void slotDeleteKeyframe() const;
 	void slotModifyKeyframe();
 	void slotSelectKeyframeAnimImageDir() const;

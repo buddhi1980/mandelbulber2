@@ -67,8 +67,8 @@ public:
 	void SynchronizeInterface(
 		cParameterContainer *par, cFractalContainer *parFractal, qInterface::enumReadWrite mode) const;
 	void StartRender(bool noUndo = false);
-	void MoveCamera(QString buttonName);
-	void RotateCamera(QString buttonName);
+	void MoveCamera(QString buttonName, bool synchronizeAndRender = false);
+	void RotateCamera(QString buttonName, bool synchronizeAndRender = false);
 	void CameraOrTargetEdited() const;
 	void RotationEdited() const;
 	void CameraDistanceEdited() const;

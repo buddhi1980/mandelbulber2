@@ -56,6 +56,9 @@ RenderWindow::RenderWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::Re
 	defaultGeometry = saveGeometry();
 	defaultState = saveState();
 
+	buttonPressTimer = new QTimer(this);
+	connect(buttonPressTimer, SIGNAL(timeout()), this, SLOT(slotButtonLongPress()));
+	buttonPressTimer->start(300);
 #ifndef USE_GAMEPAD
 	ui->menuView->removeAction(ui->actionShow_gamepad_dock);
 	removeDockWidget(ui->dockWidget_gamepad_dock);
