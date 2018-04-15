@@ -373,6 +373,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	if (paramRender->interiorMode) definesCollector += " -DINTERIOR_MODE";
 
+	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
+
 	bool isVolumetricLight = false;
 	for (int i = 0; i < 5; i++)
 	{
