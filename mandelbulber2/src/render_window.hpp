@@ -176,8 +176,10 @@ private slots:
 	// rendered image widget
 	static void slotMouseMovedOnImage(int x, int y);
 	void slotMouseClickOnImage(int x, int y, Qt::MouseButton button) const;
-	static void slotKeyPressOnImage(QKeyEvent *event);
-	static void slotKeyReleaseOnImage(QKeyEvent *event);
+	void slotKeyPressOnImage(QKeyEvent *event);
+	void slotKeyReleaseOnImage(QKeyEvent *event);
+	void slotButtonLongPress();
+	void slotKeyHandle();
 	void slotMouseWheelRotatedOnImage(int delta) const;
 
 private:
@@ -189,6 +191,9 @@ private:
 
 	QByteArray defaultGeometry;
 	QByteArray defaultState;
+	QTimer *buttonPressTimer;
+	QList<int> currentKeyEvents;
+	Qt::KeyboardModifiers lastKeyEventModifiers;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

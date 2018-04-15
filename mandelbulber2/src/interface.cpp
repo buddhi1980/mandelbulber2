@@ -560,13 +560,14 @@ void cInterface::StartRender(bool noUndo)
 	thread->start();
 }
 
-void cInterface::MoveCamera(QString buttonName)
+void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
+
 	// get data from interface
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -648,9 +649,8 @@ void cInterface::MoveCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
-
-	StartRender();
+	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	if(synchronizeAndRender) StartRender();
 }
 
 void cInterface::CameraOrTargetEdited() const
@@ -683,14 +683,14 @@ void cInterface::CameraOrTargetEdited() const
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
-void cInterface::RotateCamera(QString buttonName)
+void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
 {
 	using namespace cameraMovementEnums;
 
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	// get data from interface
-	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -773,9 +773,8 @@ void cInterface::RotateCamera(QString buttonName)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	SynchronizeInterface(gPar, gParFractal, qInterface::write);
-
-	StartRender();
+	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	if(synchronizeAndRender) StartRender();
 }
 
 void cInterface::RotationEdited() const
