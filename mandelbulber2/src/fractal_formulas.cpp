@@ -12510,12 +12510,12 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 
 		// divide by i option
-		if (fractal->transformCommon.functionEnabledCzFalse
+		/*if (fractal->transformCommon.functionEnabledCzFalse
 				&& aux.i >= fractal->transformCommon.startIterationsT
 				&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
 			componentMaster += componentMaster * (1.0 + fractal->transformCommon.scale / (aux.i + 1.0));
-		}
+		}*/
 
 	/*	if (fractal->transformCommon.functionEnabledAyFalse)
 		{ // log
@@ -12740,10 +12740,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			tempP = tempP * fractal->transformCommon.scale3D000;
 			planeBias = tempP.x + tempP.y + tempP.z;
 		}
-		/*	if (fractal->transformCommon.functionEnabledCzFalse)
-			{
-				addI += (aux.i + 1.0) * fractal->transformCommon.scale;
-			}*/
+
 	}
 	// build  componentMaster
 	componentMaster =

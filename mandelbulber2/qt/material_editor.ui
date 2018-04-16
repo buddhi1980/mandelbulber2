@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-840</y>
         <width>619</width>
-        <height>3786</height>
+        <height>3811</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1295,10 +1295,10 @@ direction vector:</string>
                         <number>6</number>
                        </property>
                        <property name="minimum">
-                        <double>-9999.999900000000707</double>
+                        <double>-99999.999899999995250</double>
                        </property>
                        <property name="maximum">
-                        <double>9999.999900000000707</double>
+                        <double>99999.999899999995250</double>
                        </property>
                        <property name="singleStep">
                         <double>0.100000000000000</double>
@@ -1328,7 +1328,7 @@ direction vector:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1365,6 +1365,13 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
+                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_1e13_false">
+                     <property name="text">
+                      <string notr="true">radius / 1e13</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
                     <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
                      <property name="text">
                       <string notr="true">radius squared</string>
@@ -1394,10 +1401,10 @@ direction vector:</string>
                         <number>6</number>
                        </property>
                        <property name="minimum">
-                        <double>-9999.999900000000707</double>
+                        <double>-99999.999899999995250</double>
                        </property>
                        <property name="maximum">
-                        <double>9999.999900000000707</double>
+                        <double>99999.999899999995250</double>
                        </property>
                        <property name="singleStep">
                         <double>0.100000000000000</double>

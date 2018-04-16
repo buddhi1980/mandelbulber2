@@ -151,7 +151,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			double rad = r;
 			if (fractalColoring.radDiv1e13False) rad /= 1e13;
-			if (fractalColoring.radSquaredFalse) rad = r * r;
+			if (fractalColoring.radSquaredFalse) rad *= rad;
 			colorValue += rad * fractalColoring.radWeight;
 		}
 
@@ -161,7 +161,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			double distEst = fabs(extendedAux.DE);
 			if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
 			double radDE = r; // r /DE // was named r2
-			if (fractalColoring.radDivDeSquaredFalse) radDE = r * r;
+			if (fractalColoring.radDivDE1e13False) radDE /= 1e13;
+			if (fractalColoring.radDivDeSquaredFalse) radDE *= radDE;
 			colorValue += radDE * fractalColoring.radDivDeWeight / distEst;
 		}
 
@@ -171,7 +172,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		if (fractalColoring.xyzBiasEnabledFalse)
 		{
 			CVector3 xyzAxis = CVector3(z.x, z.y, z.z);
-			if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13; // mult rounding error ?
+			if (fractalColoring.xyzDiv1e13False) xyzAxis /= 1e13;
 
 			if (fractalColoring.xyzFabsFalse)
 			{

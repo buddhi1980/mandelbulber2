@@ -70,6 +70,7 @@ struct sFractalColoring
 	bool orbitTrapTrue;
 	bool parabEnabledFalse;
 	bool radDiv1e13False;
+	bool radDivDE1e13False;
 	bool radDivDeFalse;
 	bool radDivDeSquaredFalse;
 	bool radDivLogDeFalse;
