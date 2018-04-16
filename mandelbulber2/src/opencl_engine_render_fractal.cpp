@@ -270,11 +270,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
 
-	if (deType == fractal::analyticDEType)
+	bool useAnalyticDEType = false;
+	bool useDeltaDEType = false;
+	bool useLinearDEFunction = false;
+	bool useLogarithmicDEFunction = false;
+	bool usePseudoKleinianDEFunction = false;
+
+	if (fractals->IsHybrid())
 	{
-		definesCollector += " -DANALYTIC_DE";
-		if (fractals->IsHybrid())
+		if (deType == fractal::analyticDEType)
 		{
+			useAnalyticDEType = true;
 			switch (deFunctionType)
 			{
 				case fractal::linearDEFunction: definesCollector += " -DANALYTIC_LINEAR_DE"; break;
@@ -289,19 +295,35 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			}
 		}
 	}
-	else if (deType == fractal::deltaDEType)
+	else // is not Hybrid
 	{
-		definesCollector += " -DDELTA_DE";
-		switch (deFunctionType)
+		for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 		{
-			case fractal::linearDEFunction: definesCollector += " -DDELTA_LINEAR_DE"; break;
-			case fractal::logarithmicDEFunction: definesCollector += " -DDELTA_LOG_DE"; break;
-			case fractal::pseudoKleinianDEFunction:
-				definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
-				break;
-			default: break;
+			if (!paramRender->booleanOperatorsEnabled && i == 1) break;
+
+			if (fractals->GetDEType(i) == fractal::analyticDEType)
+			{
+				useAnalyticDEType = true;
+			}
+			else if (fractals->GetDEType(i) == fractal::deltaDEType)
+			{
+				useDeltaDEType = true;
+				switch (fractals->GetDEFunctionType(i))
+				{
+					case fractal::linearDEFunction: useLinearDEFunction = true; break;
+					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
+					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
+					default: break;
+				}
+			}
 		}
 	}
+
+	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
+	if (useDeltaDEType) definesCollector += " -DDELTA_DE";
+	if (useLinearDEFunction) definesCollector += " -DDELTA_LINEAR_DE";
+	if (useLogarithmicDEFunction) definesCollector += " -DDELTA_LOG_DE";
+	if (usePseudoKleinianDEFunction) definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
 
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 

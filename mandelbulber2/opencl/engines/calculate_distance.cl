@@ -107,130 +107,143 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 #endif // BOOLEAN_OPERATORS
 
+	int forcedFormulaIndexForSequence = max(0, forcedFormulaIndex);
+
 #ifdef ANALYTIC_DE
-	out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
-	bool maxiter = out.maxiter;
+#ifdef BOOLEAN_OPERATORS
+	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == analyticDEType)
+#endif
+	{
+		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
+		bool maxiter = out.maxiter;
 
-	if (maxiter) out.distance = 0.0f;
+		if (maxiter) out.distance = 0.0f;
 
-	if (out.iters < consts->params.minN && out.distance < calcParam->detailSize)
-		out.distance = calcParam->detailSize;
+		if (out.iters < consts->params.minN && out.distance < calcParam->detailSize)
+			out.distance = calcParam->detailSize;
 
 #ifdef INTERIOR_MODE
-	if (!calcParam->normalCalculationMode)
-	{
-		if (out.distance < 0.5f * calcParam->detailSize || maxiter)
+		if (!calcParam->normalCalculationMode)
 		{
-			out.distance = calcParam->detailSize;
-			out.maxiter = false;
+			if (out.distance < 0.5f * calcParam->detailSize || maxiter)
+			{
+				out.distance = calcParam->detailSize;
+				out.maxiter = false;
+			}
 		}
-	}
-	else
-	{
-		if (out.distance < 0.9f * calcParam->detailSize)
+		else
 		{
-			out.distance = calcParam->detailSize - out.distance;
-			out.maxiter = false;
+			if (out.distance < 0.9f * calcParam->detailSize)
+			{
+				out.distance = calcParam->detailSize - out.distance;
+				out.maxiter = false;
+			}
 		}
-	}
 #endif
 
-	if (consts->params.common.iterThreshMode && !calcParam->normalCalculationMode && !maxiter)
-	{
-		if (out.distance < calcParam->detailSize)
+		if (consts->params.common.iterThreshMode && !calcParam->normalCalculationMode && !maxiter)
 		{
-			out.distance = calcParam->detailSize * 1.01f;
+			if (out.distance < calcParam->detailSize)
+			{
+				out.distance = calcParam->detailSize * 1.01f;
+			}
 		}
+
+		if (isinf(out.distance)) out.distance = 0.0f;
+		if (out.distance < 0.0f) out.distance = 0.0f;
+		if (out.distance > 1.0f) out.distance = 1.0f;
 	}
+#endif // ANALYTIC_DE
 
-	if (isinf(out.distance)) out.distance = 0.0f;
-	if (out.distance < 0.0f) out.distance = 0.0f;
-	if (out.distance > 1.0f) out.distance = 1.0f;
-
-#elif DELTA_DE
-	// float delta = length(point)*consts->fractal.deltaDEStep;
-	float delta = 1.0e-5f;
-	float3 dr = 0.0f;
-
-	out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL);
-	calcParam->deltaDEMaxN = out.iters - 1;
-	bool maxiter = out.maxiter;
-
-	float r = length(out.z);
-	float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
-	float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
-	float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
-		calcModeDeltaDE2, NULL,
-		forcedFormulaIndex).z);
-	dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
-	float d = length(dr);
-
-	if (isinf(r) || isinf(d) || d == 0.0f)
+#ifdef DELTA_DE
+#ifdef BOOLEAN_OPERATORS
+	if (consts->sequence.DEType[forcedFormulaIndexForSequence] == deltaDEType)
+#endif
 	{
-		out.distance = 0.0f;
-	}
-	else
-	{
+
+		// float delta = length(point)*consts->fractal.deltaDEStep;
+		float delta = 1.0e-5f;
+		float3 dr = 0.0f;
+
+		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
+		calcParam->deltaDEMaxN = out.iters - 1;
+		bool maxiter = out.maxiter;
+
+		float r = length(out.z);
+		float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
+		float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
+		float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
+		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
+		float d = length(dr);
+
+		if (isinf(r) || isinf(d) || d == 0.0f)
+		{
+			out.distance = 0.0f;
+		}
+		else
+		{
 #ifdef DELTA_LINEAR_DE
-		out.distance = 0.5f * r / d;
+			out.distance = 0.5f * r / d;
 #elif DELTA_LOG_DE
-		out.distance = 0.5f * r * native_log(r) / d;
+			out.distance = 0.5f * r * native_log(r) / d;
 #elif DELTA_PSEUDO_KLEINIAN_DE
-		float rxy = native_sqrt(out.z.x * out.z.x + out.z.y * out.z.y);
-		out.distance = max(rxy - 0.92784f, fabs(rxy * out.z.z) / r) / d;
+			float rxy = native_sqrt(out.z.x * out.z.x + out.z.y * out.z.y);
+			out.distance = max(rxy - 0.92784f, fabs(rxy * out.z.z) / r) / d;
 #endif
-	}
+		}
 
-	if (maxiter) out.distance = 0.0f;
+		if (maxiter) out.distance = 0.0f;
 
-	if (out.iters < consts->params.minN && out.distance < calcParam->detailSize)
-		out.distance = calcParam->detailSize;
+		if (out.iters < consts->params.minN && out.distance < calcParam->detailSize)
+			out.distance = calcParam->detailSize;
 
 #ifdef INTERIOR_MODE
-	if (!calcParam->normalCalculationMode)
-	{
-		if (out.distance < 0.5f * calcParam->detailSize || maxiter)
+		if (!calcParam->normalCalculationMode)
 		{
-			out.distance = calcParam->detailSize;
-			out.maxiter = false;
+			if (out.distance < 0.5f * calcParam->detailSize || maxiter)
+			{
+				out.distance = calcParam->detailSize;
+				out.maxiter = false;
+			}
 		}
-	}
-	else
-	{
-		if (out.distance < 0.9f * calcParam->detailSize)
+		else
 		{
-			out.distance = calcParam->detailSize - out.distance;
-			out.maxiter = false;
+			if (out.distance < 0.9f * calcParam->detailSize)
+			{
+				out.distance = calcParam->detailSize - out.distance;
+				out.maxiter = false;
+			}
 		}
-	}
 #endif
 
-	if (consts->params.common.iterThreshMode && !calcParam->normalCalculationMode && !maxiter)
-	{
-		if (out.distance < calcParam->detailSize)
+		if (consts->params.common.iterThreshMode && !calcParam->normalCalculationMode && !maxiter)
 		{
-			out.distance = calcParam->detailSize * 1.01f;
+			if (out.distance < calcParam->detailSize)
+			{
+				out.distance = calcParam->detailSize * 1.01f;
+			}
 		}
+
+		if (out.distance < 0.0f) out.distance = 0.0f;
+		if (out.distance > 1.0f) out.distance = 1.0f;
 	}
-
-	if (out.distance < 0.0f) out.distance = 0.0f;
-	if (out.distance > 1.0f) out.distance = 1.0f;
-
 #endif // DELTA_DE
 
 	int closestObjectId = 0;
