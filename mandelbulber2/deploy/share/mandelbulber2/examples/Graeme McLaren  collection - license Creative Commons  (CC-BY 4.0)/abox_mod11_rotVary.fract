@@ -1,0 +1,52 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[description]
+Suitable for single precision openCL.
+Raytracing step multiplier is set at an unusually high 1.8 (fast), I think this is due to the distance estimation being very conservative at this fractal location. When morphing or navigating away from this location, the step mutiplier (fudge factor) may need to be reduced to < 1.0 (more normal for this type of fractal). 
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -1.626767364540066 -2.062517648619581 -0.2117870299797499;
+camera_distance_to_target 0.001693110913038133;
+camera_rotation 13.71325415291751 61.31942633681155 -56.83657853745662;
+camera_top -0.6994815651310669 -0.6646816801362841 0.2625334343145643;
+DE_factor 1.8;
+detail_level 2;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 119;
+formula_2 1036;
+fractal_constant_factor 0.9 0.9 0.9;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+main_light_alpha -12;
+main_light_beta 26;
+main_light_colour f100 f100 f100;
+main_light_intensity 1.1;
+mat1_coloring_palette_offset 33.53;
+mat1_coloring_palette_size 255;
+mat1_coloring_speed 0.1;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_weight 10000;
+mat1_is_defined true;
+mat1_metallic true;
+mat1_specular 0.8;
+mat1_specular_width 0.8;
+mat1_surface_color_palette 746c55 cd8342 dc8b53 ffa068 f69358 805133 e88e52 cb7f45 f6b261 71593d faa061 7c6136 675547 d29c60 c19d51 c4a14f bd9c4b caab51 bca24d b2914c b99e51 b89c52 b89c52 b59852 b39853 b59854 b59854 2e5882 1c161a da881a f7991f 5e4c4a b57b0f 694d37 4b90b1 e7be18 596770 527f96 1d9cd3 26d0ff 432f2e dbba2d 50400d 2c1d08 886600 463603 372b39 26c4f4 2ca0cf 0fa8ec 33261e d48a33 fff35b fdd746 956a0b 603600 6e4124 349db3 3e85a1 32b1d4 18b4ff 003244 191917 b56300 2c1908 14130f 2ac1d4 31d2ee 44d3fb 3a7b8f 5b8591 331a13 865302 e9b732 bba013 845318 521a03 211b1d 47bdcb 24a8e9 09a1d0 09a3e3 0f93ac 4f271b 723a00 df8a13 f9b320 426e6f 21869a 4e3e25 6e2303 ffcc37 ffc42f 5c1e05 f59c1a 407885 498087 1a9eb5 4a1b01 d75f09 e58038 7e5a4c 36190b 653101 fed964 53768c 322d29 b46d39 b04718 8c4624 323731 745a4b 375356 524c50 2c6c92 755153 266f82 4d90c4 3785a9 eac866 ffcb43 d59124 eaa91b 795920 dea62d bd6e29 bd6e21 ffb434 c4902b c69320 ce9f29 cfa434 c4a032 ffe946 ffbd2e 4c5f59 8e8684 b28355 647678 656968 463c3a 996945 c3ae6b d8c576 f9e58e f8e48b fbea92 ecd784 d5bf73 d1bb6f c9b56c d0ba6e e1ca7c c6b064 c2ae69 bda565 c4ab6b bba46e b69d67 b7a06e b19a66 ae9d81 ad9a7a bca98b aa945b ac9458 ecbd51 daa849 e3b054 d5a455 c09050 ba8c50 b88b52 b58e4d b38b4e b28a4d b78b4e b7894e b3844e b4824d bd864d ba834b 7d7147 756148 53544e 7a6353 79654c 755d45 615847 7e6e55 756448 807652 887c52 bdab55 b7a14c d4b854 bb9e4e b6944c d0b043 b3713d ca8856 946d44 ce8656 c28952 c88656 b0a857 998f52 e7a568 da854e 7c674c 76664f 736149 766352 5d564c 625a4d 766551 7a6854 6c6754 6c6656 6b6155 7c6b57 7b6651 7c6958 776b53 726658 856954 836751 8d6e4f 675a4a 856b54 646557 726e55 787355 7b7555 817656 827555 857554 856c4e 856652 8e6a50 646150 8d6e52 8d6f55 7b6a56 8d7052 9b785a dba368 756e52 746f51 807353;
+target -1.626959994271809 -2.061728243368662 -0.2103016486481992;
+volumetric_fog_enabled true;
+[fractal_1]
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 51.2;
+mandelbox_scale -1.1;
+mandelbox_vary_scale_vary -0.2;
+transf_minR2_p25 0.15;
+transf_rotation 1 3 -4;
+[fractal_2]
+transf_rotation 3 4 -6;
+transf_start_iterations_250 0;
+transf_stop_iterations 22;
