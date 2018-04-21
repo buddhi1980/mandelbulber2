@@ -46,6 +46,7 @@
 #include "fractal_cl.h"
 #include "fractparams_cl.hpp"
 #include "fractal_sequence_cl.h"
+#include "fractal_coloring_cl.hpp"
 #include "material_cl.h"
 #include "input_data_structures.h"
 
