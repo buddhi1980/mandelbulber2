@@ -297,21 +297,23 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 																																						 : 0.0);
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
-			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
-		/*	case coloringFunctionABox2:
-			{
-				double mboxDE;
-				mboxDE = extendedAux.DE;
-				double r2 = r / fabs(mboxDE);
-				if (r2 > 20) r2 = 20;
-				colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor		// folds part
-										 + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-										 + extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatibility
-										 //	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ?
-										 // minimumR * 1000.0 : 0.0);
-										 + minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
+			case coloringFunctionAmazingSurf:
+				colorIndex = minimumR * 200.0;
 				break;
-			}*/
+			/*	case coloringFunctionABox2:
+				{
+					double mboxDE;
+					mboxDE = extendedAux.DE;
+					double r2 = r / fabs(mboxDE);
+					if (r2 > 20) r2 = 20;
+					colorIndex = extendedAux.color * 100.0 * extendedAux.foldFactor		// folds part
+											 + r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
+											 + extendedAux.scaleFactor * r2 * 5000.0 // for backwards compatibility
+											 //	+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ?
+											 // minimumR * 1000.0 : 0.0);
+											 + minimumR * extendedAux.minRFactor * 1000.0; // orbit trap
+					break;
+				}*/
 			case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
 			case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
 			case coloringFunctionUndefined: colorIndex = 0.0; break;

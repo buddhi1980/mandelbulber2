@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_hybrid_color</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -969,7 +969,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Hybrid Color Trial&lt;br&gt;&lt;br&gt;for folds the aux.color is updated each iteration&lt;br&gt;depending on which slots have formulas that use it&lt;br&gt;&lt;br&gt;&lt;br&gt;bailout may need to be adjusted with some formulas&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Hybrid Color Trial&lt;br&gt;&lt;br&gt;for folds the aux.color is updated each iteration&lt;br&gt;depending on which slots have formulas that use it&lt;br&gt;&lt;br&gt;bailout may need to be adjusted with some formulas&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
@@ -995,39 +995,18 @@
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// double auxColor = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double boxFold = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double divideByIter = 0.0;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double radius = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// double factorR = fractal-&amp;gt;mandelbox.color.factorR;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; componentMaster &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; minValue &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// CVector4 lastPoint = aux.old_z;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// used to turn off or mix with old hybrid color and orbit traps&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.oldHybridFactor *= fractal-&amp;gt;foldColor.oldScale1;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.minRFactor = fractal-&amp;gt;foldColor.scaleC0; // orbit trap weight&lt;/span&gt;
-
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// radius&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (fractal-&amp;gt;transformCommon.functionEnabledCyFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      radius = z.Length();&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      radius *= fractal-&amp;gt;foldColor.scaleG0;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      if (fractal-&amp;gt;transformCommon.functionEnabledxFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        radius *= 1.0 / fabs(aux.DE);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        // if (radius &amp;gt; 20) radius = 20;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    }*/&lt;/span&gt;
-
     &lt;span style=&quot;color:#2929cc&quot;&gt;// radius squared components&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledRFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
@@ -1052,15 +1031,6 @@
       &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledBzFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; temp5 &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;/ (&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
       distEst &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; temp5&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color fold component&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (fractal-&amp;gt;transformCommon.functionEnabledAxFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      auxColor = aux.color;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      double temp8 = 0.0;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      temp8 = auxColor * fractal-&amp;gt;foldColor.scaleF0;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      auxColor = temp8;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    }*/&lt;/span&gt;
 
     &lt;span style=&quot;color:#2929cc&quot;&gt;// max linear offset&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledMFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
@@ -1125,40 +1095,6 @@
       sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; temp51 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; temp47 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; temp46&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// XYZ bias&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;/*  if (fractal-&amp;gt;transformCommon.functionEnabledCxFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        CVector4 temp10 = z;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        if (fractal-&amp;gt;transformCommon.functionEnabledSFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.x *= temp10.x;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        else&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.x = fabs(temp10.x);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        if (fractal-&amp;gt;transformCommon.functionEnabledSwFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.y *= temp10.y;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        else&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.y = fabs(temp10.y);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        if (fractal-&amp;gt;transformCommon.functionEnabledXFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.z *= temp10.z;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        else&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;          temp10.z = fabs(temp10.z);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        }&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        temp10 = temp10 * fractal-&amp;gt;transformCommon.additionConstantA000;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        XYZbias = temp10.x + temp10.y + temp10.z;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      }*/&lt;/span&gt;
-
     &lt;span style=&quot;color:#2929cc&quot;&gt;// plane bias&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAzFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
@@ -1198,52 +1134,35 @@
 
     &lt;span style=&quot;color:#2929cc&quot;&gt;// build  componentMaster&lt;/span&gt;
     componentMaster &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sphereTrap&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// divide by i option&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCzFalse
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsT
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsT&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; componentMaster &lt;span style=&quot;color:#676767&quot;&gt;* (&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale &lt;span style=&quot;color:#676767&quot;&gt;/ (&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// divide by i option&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (fractal-&amp;gt;transformCommon.functionEnabledCzFalse&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;        &amp;amp;&amp;amp; aux.i &amp;gt;= fractal-&amp;gt;transformCommon.startIterationsT&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;        &amp;amp;&amp;amp; aux.i &amp;lt; fractal-&amp;gt;transformCommon.stopIterationsT)&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;    {&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;      componentMaster += componentMaster * (1.0 + fractal-&amp;gt;transformCommon.scale / (aux.i + 1.0));&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;    }*/&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// non-linear palette options&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.parabEnabledFalse)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // parabolic&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster += (componentMaster * componentMaster * fractal-&amp;gt;foldColor.parabScale0);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//}&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.cosEnabledFalse)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // trig&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  double trig = 128 * -fractal-&amp;gt;foldColor.trigAdd1&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//                * (cos(componentMaster * 2.0 * M_PI / fractal-&amp;gt;foldColor.period1) - 1.0);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  componentMaster += trig;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//}&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAyFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// log&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; logCurve &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;log&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleE0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; logCurve&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;/*  if (fractal-&amp;gt;transformCommon.functionEnabledAyFalse)&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;      { // log&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;        double logCurve = log(componentMaster + 1.0) * fractal-&amp;gt;foldColor.scaleE0;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;        componentMaster += logCurve;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;      }*/&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// limit componentMaster&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;lt; fractal-&amp;gt;foldColor.limitMin0)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster = fractal-&amp;gt;foldColor.limitMin0;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;gt; fractal-&amp;gt;foldColor.limitMax9999)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster = fractal-&amp;gt;foldColor.limitMax9999;&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;surfBox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;enabledZ2False&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;componentMaster &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;surfBox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;enabledZ2False&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    minValue &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;componentMaster &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+      &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
+        aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; componentMaster&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+      &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+      minValue &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;temp100&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;+= (&lt;/span&gt;minValue &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;surfBox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1Z1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;+= (&lt;/span&gt;minValue &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;surfBox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1Z1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;256.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-  aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;colorHybrid &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;256.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

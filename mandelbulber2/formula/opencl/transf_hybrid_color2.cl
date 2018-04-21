@@ -23,35 +23,19 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 {
 	// REAL auxColor = 0.0f;
 	REAL R2 = 0.0f;
-
 	REAL distEst = 0.0f;
-	// REAL XYZbias = 0.0f;
 	REAL planeBias = 0.0f;
-	// REAL divideByIter = 0.0f;
-	// REAL radius = 0.0f;
 	REAL linearOffset = 0.0f;
 	// REAL factorR = fractal->mandelbox.color.factorR;
 	REAL componentMaster = 0.0f;
 	REAL minValue = 0.0f;
-	// REAL4 lastPoint = aux->old_z;
 	REAL lengthIter = 0.0f;
 	REAL boxTrap = 0.0f;
 	REAL sphereTrap = 0.0f;
-	//	float sumDist = 0.0f;
 	float lastDist = 0.0f;
 	float addI = 0.0f;
 
-	// used to turn off or mix with old hybrid color and orbit traps
-	// aux->oldHybridFactor *= fractal->foldColor.oldScale1;
-	// aux->minRFactor = fractal->foldColor.scaleC0; // orbit trap weight
-
-	/*{ // length of last movement before termination
-		REAL4 vecIter =  fabs(z - aux->old_z);
-		lengthIter = length(vecIter) * aux->i; // (aux->i + 1.0f);
-		aux->old_z = z;
-	}*/
-	// if (aux->i >= fractal->transformCommon.startIterationsD
-	//&& aux->i < fractal->transformCommon.stopIterationsD)
+	// if
 	{
 		// radius squared components
 		if (fractal->transformCommon.functionEnabledRFalse)
@@ -71,10 +55,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 					&& aux->i < fractal->transformCommon.stopIterationsD)
 			{
 				REAL4 subVs = z - aux->old_z;
-				// subVs *= fractal->foldColor.scaleB1;
 				lastDist = dot(subVs, subVs) * fractal->foldColor.scaleB1;
-
-				// lastDist = (z.z - aux->old_z.z) * fractal->foldColor.scaleB1;
 
 				if (fractal->transformCommon.functionEnabledAxFalse)
 				{
@@ -84,12 +65,11 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				else
 					aux->addDist += lastDist;
 			}
-
 			lastDist = aux->addDist;
-
 			// update
 			aux->old_z = z;
 		}
+
 		/*aux->sum_z +=(z); // fabs
 		REAL4 sumZ = aux->sum_z;
 		sumDist = dot(sumZ, sumZ) * fractal->foldColor.scaleB1;*/
@@ -233,56 +213,10 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			tempP = tempP * fractal->transformCommon.scale3D000;
 			planeBias = tempP.x + tempP.y + tempP.z;
 		}
-		/*	if (fractal->transformCommon.functionEnabledCzFalse)
-			{
-				addI += (aux->i + 1.0f) * fractal->transformCommon.scale;
-			}*/
 	}
 	// build  componentMaster
 	componentMaster =
 		(R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI + sphereTrap + lastDist);
-	// divide by i option
-	/*if (fractal->transformCommon.functionEnabledCzFalse
-			&& aux->i >= fractal->transformCommon.startIterationsT
-			&& aux->i < fractal->transformCommon.stopIterationsT)
-	{
-		int iUse = aux->i - fractal->transformCommon.startIterationsT;
-		componentMaster += fractal->transformCommon.scale * iUse;
-		//componentMaster += componentMaster * (1.0f + native_divide(fractal->transformCommon.scale,
-	(aux->i + 1.0f)));
-		//componentMaster += (aux->i + 1.0f) * fractal->transformCommon.scale;
-	}*/
-
-	// non-linear palette options
-	// if (fractal->foldColor.parabEnabledFalse)
-	//{ // parabolic
-	// componentMaster += (componentMaster * componentMaster * fractal->foldColor.parabScale0);
-	//}
-	// if (fractal->foldColor.cosEnabledFalse)
-	//{ // trig
-	//	REAL trig = 128 * -fractal->foldColor.trigAdd1
-	//								* (native_cos(componentMaster * 2.0f * native_divide(M_PI_F,
-	//fractal->foldColor.period1)) - 1.0f);
-	//	componentMaster += trig;
-	//}
-	if (fractal->transformCommon.functionEnabledAyFalse)
-	{ // log
-		REAL logCurve = log(componentMaster + 1.0f) * fractal->foldColor.scaleE0;
-		componentMaster += logCurve;
-	}
-
-	// limit componentMaster
-	// if (componentMaster < fractal->foldColor.limitMin0)
-	//	componentMaster = fractal->foldColor.limitMin0;
-	// if (componentMaster > fractal->foldColor.limitMax9999)
-	// componentMaster = fractal->foldColor.limitMax9999;
-
-	// final component value + cumulative??
-	{
-		// aux->colorHybrid =
-		//	(componentMaster * 256.0f) ; //+ (lastColorValue );
-	}
-	// aux->temp100 *= fractal->transformCommon.scale0;
 
 	componentMaster *= fractal->transformCommon.scaleA1;
 

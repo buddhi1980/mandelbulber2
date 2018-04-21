@@ -567,7 +567,7 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 	WriteLog("cInterface::MoveCamera(QString buttonName): button: " + buttonName, 2);
 
 	// get data from interface
-	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -649,8 +649,8 @@ void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	if(synchronizeAndRender) StartRender();
+	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	if (synchronizeAndRender) StartRender();
 }
 
 void cInterface::CameraOrTargetEdited() const
@@ -690,7 +690,7 @@ void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
 	WriteLog("cInterface::RotateCamera(QString buttonName): button: " + buttonName, 2);
 
 	// get data from interface
-	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	CVector3 camera = gPar->Get<CVector3>("camera");
 	CVector3 target = gPar->Get<CVector3>("target");
 	CVector3 topVector = gPar->Get<CVector3>("camera_top");
@@ -773,8 +773,8 @@ void cInterface::RotateCamera(QString buttonName, bool synchronizeAndRender)
 	double dist = cameraTarget.GetDistance();
 	gPar->Set("camera_distance_to_target", dist);
 
-	if(synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	if(synchronizeAndRender) StartRender();
+	if (synchronizeAndRender) SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	if (synchronizeAndRender) StartRender();
 }
 
 void cInterface::RotationEdited() const

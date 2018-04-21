@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -28,6 +28,7 @@
 REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
+	REAL colorAdd = 0.0f;
 	aux->actualScale = mad(
 		(fabs(aux->actualScale) - 1.0f), fractal->mandelboxVary4D.scaleVary, fractal->mandelbox.scale);
 	// Tglad Fold
@@ -41,9 +42,9 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 	}
-	if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
-	if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-	if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+	if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+	if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+	if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 	/*	REAL rr;
 		if (temp > 0.0f)
 			rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // on top & bottom of cyl. z.z should be tempZ
@@ -63,14 +64,14 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	{
 		z *= fractal->transformCommon.maxMinR2factor;
 		aux->DE *= fractal->transformCommon.maxMinR2factor;
-		aux->color += fractal->mandelbox.color.factorSp1;
+		colorAdd += fractal->mandelbox.color.factorSp1;
 	}
 	else if (rr < fractal->transformCommon.maxR2d1)
 	{
 		REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->color += fractal->mandelbox.color.factorSp2;
+		colorAdd += fractal->mandelbox.color.factorSp2;
 	}
 	// Scale
 	z *= aux->actualScale;
@@ -119,11 +120,10 @@ REAL4 AboxMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-	aux->foldFactor = fractal->foldColor.compFold; // fold group weight
-	aux->minRFactor = fractal->foldColor.compMinR; // orbit trap weight
-
-	REAL scaleColor = fractal->foldColor.colorMin + fabs(aux->actualScale); // scale, useScale, m, etc
-	// scaleColor += fabs(fractal->mandelbox.scale);
-	aux->scaleFactor = scaleColor * fractal->foldColor.compScale;
+	// color updated v2.14
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux->color += colorAdd;
+	}
 	return z;
 }

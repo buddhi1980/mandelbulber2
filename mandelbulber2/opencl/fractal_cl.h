@@ -99,12 +99,6 @@ typedef struct
 	cl_float colorHybrid;
 
 	// temp for trial
-	cl_float foldFactor;
-	cl_float radiusFactor;
-	cl_float minRFactor;
-	cl_float scaleFactor;
-	// cl_float oldHybridFactor;
-	// cl_float temp1Factor;
 	cl_float temp100;
 	cl_float addDist;
 } sExtendedAuxCl;
@@ -117,52 +111,20 @@ typedef struct
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
-	cl_float colorMin;
-	cl_float compFold0;
-	cl_float compFold;
-	cl_float compRadius0;
-	cl_float compMinR;
-	cl_float compMinR0;
-	cl_float compScale;
-	cl_float deScale0;
-	cl_float oldScale0;
-	// cl_float oldScale1;
-	// cl_float parabScale0;
-	// cl_float newScale0;
-	cl_float limitMin0;
-	cl_float limitMax9999;
 	cl_float scaleA0;
 	cl_float scaleB0;
-	// cl_float scaleC0;
 	cl_float scaleD0;
-	cl_float scaleE0;
 	cl_float scaleF0;
-	// cl_float scaleG0;
 	cl_float scaleA1;
 	cl_float scaleB1;
 	cl_float scaleC1;
-	// cl_float period1;
-	// cl_float trigAdd1;
-	// cl_float4 xyz000;
-	// cl_float4 factor000;
-	// cl_float factorMinR0;
-	// cl_float factorMaxR0;
 
 	cl_int intAx0;
 	cl_int intAy0;
 	cl_int intAz0;
 
-	// cl_int parabEnabledFalse;
-	// cl_int cosEnabledFalse;
-
 	cl_int auxColorEnabled;
 	cl_int auxColorEnabledFalse;
-	cl_int deColorEnabledFalse;
-	cl_int radiusColorEnabledFalse;
-	// cl_int xyzColorEnabledFalse;
-	// cl_int oldHybridEnabledFalse;
-	// cl_int temp1EnabledFalse;
-	// cl_int extraModeEnabledFalse;
 
 	cl_int distanceEnabledFalse;
 } sFoldColorCl;
@@ -350,6 +312,19 @@ typedef struct
 	enumMulti_orderOfFoldsCl orderOfFolds4;
 	enumMulti_orderOfFoldsCl orderOfFolds5;
 } sFractalSurfFoldsCl;
+
+// asurf mod2
+typedef enum {
+	multi_orderOf3FoldsCl_type1,
+	multi_orderOf3FoldsCl_type2,
+	multi_orderOf3FoldsCl_type3
+} enumMulti_orderOf3FoldsCl;
+typedef struct
+{
+	enumMulti_orderOf3FoldsCl orderOf3Folds1;
+	enumMulti_orderOf3FoldsCl orderOf3Folds2;
+	enumMulti_orderOf3FoldsCl orderOf3Folds3;
+} sFractalASurf3FoldsCl;
 
 // benesi mag transforms
 typedef enum {
@@ -705,6 +680,7 @@ typedef struct
 	sFractalMagTransformsCl magTransf;
 	sFractalCparaCl Cpara;
 	sFractalComboCl combo;
+	sFractalASurf3FoldsCl aSurf3Folds;
 
 #ifdef USE_OPENCL
 //	cl_float customParameters[15];
@@ -997,6 +973,15 @@ inline sFractalSurfFoldsCl clCopySFractalSurfFoldsCl(const sFractalSurfFolds &so
 	target.orderOfFolds3 = enumMulti_orderOfFoldsCl(source.orderOfFolds3);
 	target.orderOfFolds4 = enumMulti_orderOfFoldsCl(source.orderOfFolds4);
 	target.orderOfFolds5 = enumMulti_orderOfFoldsCl(source.orderOfFolds5);
+	return target;
+}
+
+inline sFractalASurf3FoldsCl clCopySFractalASurf3FoldsCl(const sFractalASurf3Folds &source)
+{
+	sFractalASurf3FoldsCl target;
+	target.orderOf3Folds1 = enumMulti_orderOf3FoldsCl(source.orderOf3Folds1);
+	target.orderOf3Folds2 = enumMulti_orderOf3FoldsCl(source.orderOf3Folds2);
+	target.orderOf3Folds3 = enumMulti_orderOf3FoldsCl(source.orderOf3Folds3);
 	return target;
 }
 
@@ -1330,6 +1315,7 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.magTransf = clCopySFractalMagTransformsCl(source.magTransf);
 	target.Cpara = clCopySFractalCparaCl(source.Cpara);
 	target.combo = clCopySFractalComboCl(source.combo);
+	target.aSurf3Folds = clCopySFractalASurf3FoldsCl(source.aSurf3Folds);
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

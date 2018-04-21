@@ -75,8 +75,8 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 	REAL4 temp = fractal->transformCommon.offset0000;
 	REAL4 temp2 = temp * temp;
-	if (z.w < 1e-016f) z.w = 1e-016f;
-
+	// if (z.w < 1e-016f) z.w = 1e-016f;
+	if (z.w < 1e-21f && z.w > -1e-21f) z.w = (z.w > 0) ? 1e-21f : -1e-21f;
 	z.x +=
 		(native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f * temp.x)
 		* sign(z.x) * fractal->transformCommon.scale1;
@@ -90,6 +90,7 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		(native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w)
 		* sign(z.w) * fractal->transformCommon.scale1;
 
+	// r power
 	if (aux->i >= fractal->transformCommon.startIterationsS
 			&& aux->i < fractal->transformCommon.stopIterationsS)
 	{
@@ -98,6 +99,7 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		if (fractal->mandelboxVary4D.rPower != 1.0f)
 			rr = native_powr(rr, fractal->mandelboxVary4D.rPower);
 
+		// spherical fold
 		// z += fractal->transformCommon.offset0000;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
@@ -237,37 +239,45 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
+	// color updated v2.13 & mode2 v2.14
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (zCol.x != oldZ.x)
+		if (fractal->transformCommon.functionEnabledCxFalse)
 		{
-			colorAdd += fractal->mandelbox.color.factor4D.x
-									* (fabs(zCol.x) - fractal->transformCommon.offset1111.x);
-		}
-		if (zCol.y != oldZ.y)
-		{
-			colorAdd += fractal->mandelbox.color.factor4D.y
-									* (fabs(zCol.y) - fractal->transformCommon.offset1111.y);
-		}
-		if (zCol.z != oldZ.z)
-		{
-			colorAdd += fractal->mandelbox.color.factor4D.z
-									* (fabs(zCol.z) - fractal->transformCommon.offset1111.z);
-		}
-		if (zCol.w != oldZ.w)
-		{
-			colorAdd += fractal->mandelbox.color.factor4D.w
-									* (fabs(zCol.w) - fractal->transformCommon.offset1111.w);
-		}
-		if (rrCol < fractal->transformCommon.maxR2d1)
-		{
-			if (rrCol < fractal->transformCommon.minR2p25)
+			if (zCol.x != oldZ.x)
 				colorAdd +=
-					mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
-						fractal->mandelbox.color.factorSp2
-							* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
-			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+					fractal->mandelbox.color.factor.x * (fabs(zCol.x) - fractal->mandelbox.color.factor4D.x);
+			if (zCol.y != oldZ.y)
+				colorAdd +=
+					fractal->mandelbox.color.factor.y * (fabs(zCol.y) - fractal->mandelbox.color.factor4D.y);
+			if (zCol.z != oldZ.z)
+				colorAdd +=
+					fractal->mandelbox.color.factor.z * (fabs(zCol.z) - fractal->mandelbox.color.factor4D.z);
+			if (zCol.w != oldZ.w)
+				colorAdd +=
+					fractal->mandelbox.color.factor.z * (fabs(zCol.w) - fractal->mandelbox.color.factor4D.w);
+			if (rrCol < fractal->transformCommon.maxR2d1)
+			{
+				if (rrCol < fractal->transformCommon.minR2p25)
+					colorAdd +=
+						mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 - rrCol),
+							fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
+				else
+					colorAdd +=
+						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			}
+		}
+		else
+		{
+			if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor4D.x;
+			if (zCol.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor4D.y;
+			if (zCol.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor4D.z;
+			if (zCol.w != oldZ.w) colorAdd += fractal->mandelbox.color.factor4D.w;
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1;
+			else if (rrCol < fractal->transformCommon.maxR2d1)
+				colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 		aux->color += colorAdd;
 	}

@@ -128,7 +128,6 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
 	"fractal_coloring_xyz_fabs_enabled_false", "fractal_coloring_xyz_div_1e13_false",
 
-
 	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_true",
 	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
 	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",

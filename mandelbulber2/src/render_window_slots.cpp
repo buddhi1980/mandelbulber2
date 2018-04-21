@@ -160,11 +160,11 @@ void RenderWindow::slotButtonLongPress()
 
 void RenderWindow::slotKeyHandle()
 {
-	if(currentKeyEvents.size() == 0) return;
+	if (currentKeyEvents.size() == 0) return;
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
-	for(int i = 0; i < currentKeyEvents.size(); i++)
+	for (int i = 0; i < currentKeyEvents.size(); i++)
 	{
 		int key = currentKeyEvents.at(i);
 		Qt::KeyboardModifiers modifiers = lastKeyEventModifiers;

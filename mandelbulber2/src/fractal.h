@@ -341,8 +341,6 @@ struct sFractalASurf3Folds
 	enumMulti_orderOf3Folds orderOf3Folds3;
 };
 
-
-
 // benesi mag transforms
 enum enumMulti_orderOfTransf
 {

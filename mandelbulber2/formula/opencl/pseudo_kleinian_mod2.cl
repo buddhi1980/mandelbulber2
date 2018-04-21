@@ -191,15 +191,16 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		aux->r_dz *= avgScale;
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
-		REAL4 oldZ = z;
+		oldZ = z;
 		z = (fabs(z + fractal->transformCommon.additionConstant111)
 				 - fabs(z - fractal->transformCommon.additionConstant111) - z);
-		if (fractal->foldColor.auxColorEnabledFalse)
+		zCol = z;
+		/*if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
 			if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
 			if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
-		}
+		}*/
 		tempXZ = (z.y + z.x) * SQRT_1_2;
 
 		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
@@ -294,7 +295,8 @@ REAL4 PseudoKleinianMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	}
 	aux->pseudoKleinianDE = fractal->analyticDE.scale1; // pK DE
 	// aux->pseudoKleinianZZ = fractal->transformCommon.scale0; // pK z.z * z.z * scale0
-	// color updated v2.13
+
+	// color updated v2.13 & mode2 v2.14
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse)

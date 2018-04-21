@@ -86,6 +86,7 @@ typedef struct
 	cl_int orbitTrapTrue;
 	cl_int parabEnabledFalse;
 	cl_int radDiv1e13False;
+	cl_int radDivDE1e13False;
 	cl_int radDivDeFalse;
 	cl_int radDivDeSquaredFalse;
 	cl_int radDivLogDeFalse;
@@ -152,6 +153,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.orbitTrapTrue = source.orbitTrapTrue;
 	target.parabEnabledFalse = source.parabEnabledFalse;
 	target.radDiv1e13False = source.radDiv1e13False;
+	target.radDivDE1e13False = source.radDivDE1e13False;
 	target.radDivDeFalse = source.radDivDeFalse;
 	target.radDivDeSquaredFalse = source.radDivDeSquaredFalse;
 	target.radDivLogDeFalse = source.radDivLogDeFalse;

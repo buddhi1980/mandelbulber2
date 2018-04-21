@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_hybrid_color2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1405,35 +1405,19 @@
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// double auxColor = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; R2 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double XYZbias = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double divideByIter = 0.0;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// double radius = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// double factorR = fractal-&amp;gt;mandelbox.color.factorR;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; componentMaster &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; minValue &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// CVector4 lastPoint = aux.old_z;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  float sumDist = 0.0;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;float&lt;/span&gt; lastDist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;float&lt;/span&gt; addI &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// used to turn off or mix with old hybrid color and orbit traps&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.oldHybridFactor *= fractal-&amp;gt;foldColor.oldScale1;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.minRFactor = fractal-&amp;gt;foldColor.scaleC0; // orbit trap weight&lt;/span&gt;
-
-  &lt;span style=&quot;color:#2929cc&quot;&gt;/*{ // length of last movement before termination&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    CVector4 vecIter =  fabs(z - aux.old_z);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    lengthIter = vecIter.Length() * aux.i; // (aux.i + 1.0);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    aux.old_z = z;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  }*/&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (aux.i &amp;gt;= fractal-&amp;gt;transformCommon.startIterationsD&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//&amp;amp;&amp;amp; aux.i &amp;lt; fractal-&amp;gt;transformCommon.stopIterationsD)&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// if&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;// radius squared components&lt;/span&gt;
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledRFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
@@ -1453,10 +1437,7 @@
           &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsD&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
       &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
         CVector4 subVs &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;old_z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-        &lt;span style=&quot;color:#2929cc&quot;&gt;// subVs *= fractal-&amp;gt;foldColor.scaleB1;&lt;/span&gt;
         lastDist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; subVs&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Dot&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;subVs&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleB1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
-        &lt;span style=&quot;color:#2929cc&quot;&gt;// lastDist = (z.z - aux.old_z.z) * fractal-&amp;gt;foldColor.scaleB1;&lt;/span&gt;
 
         &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAxFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
         &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
@@ -1466,12 +1447,11 @@
         &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
           aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;addDist &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; lastDist&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-
       lastDist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;addDist&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-
       &lt;span style=&quot;color:#2929cc&quot;&gt;// update&lt;/span&gt;
       aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;old_z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+
     &lt;span style=&quot;color:#2929cc&quot;&gt;/*aux.sum_z +=(z); // fabs&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    CVector4 sumZ = aux.sum_z;&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    sumDist = sumZ.Dot(sumZ) * fractal-&amp;gt;foldColor.scaleB1;*/&lt;/span&gt;
@@ -1612,54 +1592,10 @@
       tempP &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tempP &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale3D000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
       planeBias &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; tempP&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; tempP&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; tempP&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;/*  if (fractal-&amp;gt;transformCommon.functionEnabledCzFalse)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        addI += (aux.i + 1.0) * fractal-&amp;gt;transformCommon.scale;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      }*/&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// build  componentMaster&lt;/span&gt;
   componentMaster &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;R2 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; distEst &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; planeBias &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; lengthIter &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; linearOffset &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; boxTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; addI &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; sphereTrap &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; lastDist&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// divide by i option&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (fractal-&amp;gt;transformCommon.functionEnabledCzFalse&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      &amp;amp;&amp;amp; aux.i &amp;gt;= fractal-&amp;gt;transformCommon.startIterationsT&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      &amp;amp;&amp;amp; aux.i &amp;lt; fractal-&amp;gt;transformCommon.stopIterationsT)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  {&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    int iUse = aux.i - fractal-&amp;gt;transformCommon.startIterationsT;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    componentMaster += fractal-&amp;gt;transformCommon.scale * iUse;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    //componentMaster += componentMaster * (1.0 + fractal-&amp;gt;transformCommon.scale / (aux.i + 1.0));&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    //componentMaster += (aux.i + 1.0) * fractal-&amp;gt;transformCommon.scale;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  }*/&lt;/span&gt;
-
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// non-linear palette options&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.parabEnabledFalse)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // parabolic&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster += (componentMaster * componentMaster * fractal-&amp;gt;foldColor.parabScale0);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//}&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (fractal-&amp;gt;foldColor.cosEnabledFalse)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//{ // trig&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  double trig = 128 * -fractal-&amp;gt;foldColor.trigAdd1&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//                * (cos(componentMaster * 2.0 * M_PI / fractal-&amp;gt;foldColor.period1) - 1.0);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  componentMaster += trig;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//}&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAyFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// log&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; logCurve &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;log&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;foldColor&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleE0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    componentMaster &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; logCurve&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// limit componentMaster&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;lt; fractal-&amp;gt;foldColor.limitMin0)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;//  componentMaster = fractal-&amp;gt;foldColor.limitMin0;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// if (componentMaster &amp;gt; fractal-&amp;gt;foldColor.limitMax9999)&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// componentMaster = fractal-&amp;gt;foldColor.limitMax9999;&lt;/span&gt;
-
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// final component value + cumulative??&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.colorHybrid =&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//  (componentMaster * 256.0) ; //+ (lastColorValue );&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.temp100 *= fractal-&amp;gt;transformCommon.scale0;&lt;/span&gt;
 
   componentMaster &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
