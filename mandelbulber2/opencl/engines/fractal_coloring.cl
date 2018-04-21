@@ -176,7 +176,7 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 				if (colorValue > fractalColoring->cosStartValue)
 				{
 					float trig = (0.5f
-												 - 0.5f * cos((colorValue - fractalColoring->cosStartValue) * M_PI
+												 - 0.5f * cos((colorValue - fractalColoring->cosStartValue) * M_PI_F
 																			/ (fractalColoring->cosPeriod * 2.0f)))
 											 * fractalColoring->cosAdd;
 					colorValue += trig;
