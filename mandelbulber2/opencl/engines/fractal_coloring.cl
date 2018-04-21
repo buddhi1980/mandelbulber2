@@ -229,21 +229,25 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 				break;
 			}
 			case clColoringFunctionIFS: colorIndex = minimumR * 1000.0f; break;
-			case clColoringFunctionAmazingSurf: colorIndex = minimumR * 200.0f; break;
-			case clColoringFunctionABox2:
-			{
-				float mboxDE;
-				mboxDE = extendedAux->DE;
-				float r2 = r / fabs(mboxDE);
-				if (r2 > 20.0f) r2 = 20.0f;
-				colorIndex = extendedAux->color * 100.0f * extendedAux->foldFactor // folds part
-										 + r * defaultFractal->mandelbox.color.factorR / 1e13f // abs z part
-										 + extendedAux->scaleFactor * r2 * 5000.0f // for backwards compatibility
-										 //	+ ((fractalColoring->coloringAlgorithm != fractalColoring_Standard) ?
-										 // minimumR * 1000.0 : 0.0);
-										 + minimumR * extendedAux->minRFactor * 1000.0f; // orbit trap
+			case clColoringFunctionAmazingSurf:
+				colorIndex = minimumR * 200.0f;
 				break;
-			}
+			// case clColoringFunctionABox2:
+			//			{
+			//				float mboxDE;
+			//				mboxDE = extendedAux->DE;
+			//				float r2 = r / fabs(mboxDE);
+			//				if (r2 > 20.0f) r2 = 20.0f;
+			//				colorIndex = extendedAux->color * 100.0f * extendedAux->foldFactor // folds part
+			//										 + r * defaultFractal->mandelbox.color.factorR / 1e13f // abs z part
+			//										 + extendedAux->scaleFactor * r2 * 5000.0f // for backwards
+			// compatibility
+			//										 //	+ ((fractalColoring->coloringAlgorithm != fractalColoring_Standard)
+			//?
+			//										 // minimumR * 1000.0 : 0.0);
+			//										 + minimumR * extendedAux->minRFactor * 1000.0f; // orbit trap
+			//				break;
+			//			}
 			case clColoringFunctionDonut:
 				colorIndex = extendedAux->color * 2000.0f / extendedAux->i;
 				break;

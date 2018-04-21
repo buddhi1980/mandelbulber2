@@ -56,6 +56,7 @@ sFractalColoring::sFractalColoring()
 	orbitTrapTrue = false;
 	parabEnabledFalse = false;
 	radDiv1e13False = false;
+	radDivDE1e13False = false;
 	radDivDeFalse = false;
 	radDivDeSquaredFalse = false;
 	radDivLogDeFalse = false;
@@ -94,6 +95,7 @@ sFractalColoring::sFractalColoring()
 	orbitTrapWeight = 0.0;
 	parabScale = 0.0;
 	parabStartValue = 0.0;
+	radDivDeWeight = 0.0;
 	radDivDeWeight = 0.0;
 	radWeight = 0.0;
 	roundScale = 0.0;

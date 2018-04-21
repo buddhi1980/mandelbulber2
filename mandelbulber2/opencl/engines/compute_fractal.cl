@@ -158,10 +158,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	aux.color = 1.0f;
 	aux.colorHybrid = 0.0f;
-	aux.foldFactor = 0.0f;
-	aux.minRFactor = 0.0f;
-	aux.scaleFactor = 0.0f;
-	// aux.oldHybridFactor = 1.0f;
+
 	aux.temp100 = 100.0f;
 	aux.addDist = 0.0;
 
