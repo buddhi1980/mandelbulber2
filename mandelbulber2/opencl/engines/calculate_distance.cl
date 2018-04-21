@@ -161,8 +161,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 	{
 
-		// float delta = length(point)*consts->fractal.deltaDEStep;
-		float delta = 1.0e-5f;
+		float delta = max(length(point) * 1.0e-6f, calcParam->detailSize * 0.1f);
+		// float delta = 1.0e-5f;
 		float3 dr = 0.0f;
 
 		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
@@ -171,25 +171,25 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		float r = length(out.z);
 		float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
 		float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
 		float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
+			calcModeDeltaDE2, NULL,
+			forcedFormulaIndex).z);
 		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 		float d = length(dr);
 

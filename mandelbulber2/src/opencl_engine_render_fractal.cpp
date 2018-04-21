@@ -294,6 +294,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 				default: break;
 			}
 		}
+		if (deType == fractal::deltaDEType)
+		{
+			useDeltaDEType = true;
+			switch (fractals->GetDEFunctionType(0))
+			{
+				case fractal::linearDEFunction: useLinearDEFunction = true; break;
+				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
+				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
+				default: break;
+			}
+		}
 	}
 	else // is not Hybrid
 	{
@@ -889,7 +900,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 
