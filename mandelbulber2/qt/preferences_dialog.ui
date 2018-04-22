@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -1171,10 +1171,21 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0" colspan="3">
+                <item row="5" column="0" colspan="3">
                  <widget class="QCheckBox" name="checkBox_opencl_disable_build_cache">
                   <property name="text">
                    <string>Disable cache for OpenCL programs</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="3">
+                 <widget class="QCheckBox" name="checkBox_opencl_use_fast_relaxed_math">
+                  <property name="toolTip">
+                   <string>It enables -cl-fast-relaxed-math OpenCL flag. It provides aditional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Use fast relaxed math</string>
                   </property>
                  </widget>
                 </item>

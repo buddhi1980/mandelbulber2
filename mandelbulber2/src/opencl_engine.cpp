@@ -54,6 +54,7 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	kernelCreated = false;
 	locked = false;
 	useBuildCache = true;
+	useFastRelaxedMath = false;
 #endif
 
 	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
@@ -117,7 +118,11 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 			if (checkErr(err, "cl::Program()"))
 			{
-				std::string buildParams = "-w -cl-single-precision-constant -cl-denorms-are-zero";
+				std::string buildParams =
+					"-w -cl-single-precision-constant -cl-denorms-are-zero -cl-mad-enable";
+
+				if (useFastRelaxedMath) buildParams += " -cl-fast-relaxed-math";
+
 				buildParams.append(" -DOPENCL_KERNEL_CODE");
 
 				buildParams += definesCollector.toUtf8().constData();
@@ -553,8 +558,9 @@ bool cOpenClEngine::AssignParametersToKernel()
 	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 	{
 		int err = kernel->setArg(argIterator++, *inputAndOutputBuffers[i].clPtr);
-		if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for "
-												 + inputAndOutputBuffers[i].name))
+		if (!checkErr(err,
+					"kernel->setArg(" + QString::number(argIterator) + ") for "
+						+ inputAndOutputBuffers[i].name))
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffers[i].name),

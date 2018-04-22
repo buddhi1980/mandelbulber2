@@ -106,6 +106,7 @@ public:
 	bool ReadBuffersFromQueue();
 	bool CreateCommandQueue();
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
+	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }
 	void ReleaseMemory();
 	bool AssignParametersToKernel();
 	virtual bool AssignParametersToKernelAdditional(int argIterator)
@@ -146,6 +147,7 @@ private:
 	QMutex lock;
 	bool locked;
 	bool useBuildCache;
+	bool useFastRelaxedMath;
 	QByteArray lastProgramHash;
 	QByteArray lastBuildParametersHash;
 

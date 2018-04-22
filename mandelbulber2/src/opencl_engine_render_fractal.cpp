@@ -227,6 +227,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	}
 
 	SetUseBuildCache(!params->Get<bool>("opencl_disable_build_cache"));
+	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
 	// building OpenCl kernel
 	QString errorString;

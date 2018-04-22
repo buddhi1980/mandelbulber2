@@ -39,6 +39,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "opencl_hardware.h"
+#include "parameters.hpp"
 #include "progress_text.hpp"
 
 cOpenClEngineRenderDOFPhase1::cOpenClEngineRenderDOFPhase1(cOpenClHardware *_hardware)
@@ -84,8 +85,6 @@ void cOpenClEngineRenderDOFPhase1::SetParameters(const sParamRender *paramRender
 
 bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContainer *params)
 {
-	Q_UNUSED(params);
-
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
@@ -110,6 +109,8 @@ bool cOpenClEngineRenderDOFPhase1::LoadSourcesAndCompile(const cParameterContain
 	QString engineFileName = "dof_phase1.cl";
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
 	// building OpenCl kernel
 	QString errorString;

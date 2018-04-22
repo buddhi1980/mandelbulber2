@@ -39,6 +39,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "opencl_hardware.h"
+#include "parameters.hpp"
 #include "progress_text.hpp"
 
 cOpenClEngineRenderSSAO::cOpenClEngineRenderSSAO(cOpenClHardware *_hardware)
@@ -86,8 +87,6 @@ void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 
 bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *params)
 {
-	Q_UNUSED(params);
-
 	programsLoaded = false;
 	readyForRendering = false;
 	emit updateProgressAndStatus(
@@ -112,6 +111,8 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 	QString engineFileName = "ssao.cl";
 	QString engineFullFileName = openclEnginePath + engineFileName;
 	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+	SetUseFastRelaxedMath(params->Get<bool>("opencl_use_fast_relaxed_math"));
 
 	// building OpenCl kernel
 	QString errorString;
