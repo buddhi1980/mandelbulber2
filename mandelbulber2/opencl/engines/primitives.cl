@@ -139,7 +139,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 	float planeDistance = point.z;
 	if (planeDistance < amplitude * 10.0f)
 	{
-		float phase = primitive->data.water.animSpeed * primitive->data.water.animFrame * 0.f;
+		float phase = primitive->data.water.animSpeed * primitive->data.water.animFrame * 0.1f;
 
 		if (primitive->data.water.waveFromObjectsEnable)
 		{

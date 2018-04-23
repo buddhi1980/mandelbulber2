@@ -173,10 +173,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	// loop
 	for (i = 0; i < N; i++)
 	{
+#if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 		if (forcedFormulaIndex >= 0)
 			sequence = forcedFormulaIndex;
 		else
 			sequence = consts->sequence.hybridSequence[min(i, 249)];
+#else
+		sequence = 0;
+#endif
 
 		fractal = &consts->fractal[sequence];
 
@@ -203,6 +207,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 #endif
 
+#if defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 			switch (sequence)
 			{
 				case 0: z = FORMULA_ITER_0(z, fractal, &aux); break;
@@ -215,6 +220,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				case 7: z = FORMULA_ITER_7(z, fractal, &aux); break;
 				case 8: z = FORMULA_ITER_8(z, fractal, &aux); break;
 			}
+#else	// not HYBRID and not BOOLEAN
+		z = FORMULA_ITER_0(z, fractal, &aux);
+#endif // defined(IS_HYBRID) || defined(BOOLEAN_OPERATORS)
 
 #ifdef ITERATION_WEIGHT
 		}
