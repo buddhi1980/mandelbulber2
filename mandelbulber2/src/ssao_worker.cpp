@@ -160,10 +160,15 @@ void cSSAOWorker::doWork()
 					if (params->SSAO_random_mode)
 					{
 						angle = angleStep * angleIndex + Random(maxRandom) / 10000.0;
+						ca = cos(angle);
+						sa = sin(angle);
+					}
+					else
+					{
+						ca = cosine[(int)angle];
+						sa = sine[(int)angle];
 					}
 
-					ca = cosine[(int)angle];
-					sa = sine[(int)angle];
 					double max_diff = -1e50;
 
 					for (double r = 1.0; r < quality; r += rRandom)

@@ -59,18 +59,31 @@ kernel void SSAO(
 		float ambient = 0.0f;
 		float angleStep = M_PI_F * 2.0f / quality;
 		int maxRandom = 62831 / quality;
-		int randomSeed = i / 2;
+		int randomSeed = i;
+
+		// randomizing random seed
+		if (p.random_mode)
+		{
+			for (int i = 0; i < 3; i++)
+				randomSeed = RandomInt(&randomSeed);
+		}
+
 		float rRandom = 1.0f;
 		if (p.random_mode) rRandom = 0.5f + Random(65536, &randomSeed) / 65536.0f;
 
 		for (int angleIndex = 0; angleIndex < quality; angleIndex++)
 		{
 			float angle = angleIndex;
+			float2 dir;
 			if (p.random_mode)
 			{
 				angle = angleStep * angleIndex + Random(maxRandom, &randomSeed) / 10000.0f;
+				dir = (float2){cos(angle), sin(angle)};
 			}
-			float2 dir = (float2){sineCosineBuffer[(int)angle + p.quality], sineCosineBuffer[(int)angle]};
+			else
+			{
+				dir = (float2){sineCosineBuffer[(int)angle + p.quality], sineCosineBuffer[(int)angle]};
+			}
 			float maxDiff = -1e10f;
 
 			for (float r = 1.0f; r < quality; r += rRandom)
