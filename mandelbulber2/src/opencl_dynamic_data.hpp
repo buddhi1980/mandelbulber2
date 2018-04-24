@@ -53,7 +53,7 @@ public:
 
 	void Clear();
 	static int PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array);
-	void BuildMaterialsData(const QMap<int, cMaterial> &materials);
+	int BuildMaterialsData(const QMap<int, cMaterial> &materials); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);
 	void BuildPrimitivesData(const cPrimitives *primitives);

@@ -68,26 +68,39 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 
-	//--- main material
+	//--- materials
+	__global sMaterialCl *materials[MAT_ARRAY_SIZE];
+	__global float4 *palettes[MAT_ARRAY_SIZE];
+	int paletteLengths[MAT_ARRAY_SIZE];
 
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
 
-	// materials 0 offset:
-	const int materialAddressOffset = materialsMainOffset + 1 * sizeof(int);
-	int material0Offset = GetInteger(materialAddressOffset, inBuff);
+	for (int i = 0; i < MAT_ARRAY_SIZE; i++)
+	{
+		// material offset:
+		const int materialAddressOffset = materialsMainOffset + (i + 1) * sizeof(int);
+		int materialOffset = GetInteger(materialAddressOffset, inBuff);
 
-	// material header
-	int materialClOffset = GetInteger(material0Offset, inBuff);
-	int paletteItemsOffset = GetInteger(material0Offset + sizeof(int), inBuff);
-	int paletteSize = GetInteger(material0Offset + sizeof(int) * 2, inBuff);
-	int paletteLength = GetInteger(material0Offset + sizeof(int) * 3, inBuff);
+		// material header
+		int materialClOffset = GetInteger(materialOffset, inBuff);
+		int paletteItemsOffset = GetInteger(materialOffset + sizeof(int), inBuff);
+		int paletteSize = GetInteger(materialOffset + sizeof(int) * 2, inBuff);
+		int paletteLengthTemp = GetInteger(materialOffset + sizeof(int) * 3, inBuff);
+		paletteLengths[i] = paletteLengthTemp;
 
-	// material data
-	__global sMaterialCl *material = (__global sMaterialCl *)&inBuff[materialClOffset];
+		// material data
+		__global sMaterialCl *materialTemp = (__global sMaterialCl *)&inBuff[materialClOffset];
+		materials[i] = materialTemp;
 
-	// palette data
-	__global float4 *palette = (__global float4 *)&inBuff[paletteItemsOffset];
+		// palette data
+		__global float4 *paletteTemp = (__global float4 *)&inBuff[paletteItemsOffset];
+		palettes[i] = paletteTemp;
+	}
+
+	__global sMaterialCl *material = materials[1];
+	__global float4 *palette = palettes[1];
+	int paletteLength = paletteLengths[1];
 
 	//--- AO vectors
 

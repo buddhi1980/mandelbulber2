@@ -457,7 +457,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	// materials
 	QMap<int, cMaterial> materials;
 	CreateMaterialsMap(paramContainer, &materials, true);
-	dynamicData->BuildMaterialsData(materials);
+	int materialsArraySize = dynamicData->BuildMaterialsData(materials);
+	definesCollector += " -DMAT_ARRAY_SIZE=" + QString::number(materialsArraySize);
 
 	bool anyMaterialIsReflective = false;
 	bool anyMaterialIsRefractive = false;

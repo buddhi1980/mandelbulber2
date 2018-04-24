@@ -134,7 +134,7 @@ QByteArray &cOpenClDynamicData::GetData(void)
 	return data;
 }
 
-void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
+int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
 {
 	/* material dynamic data structure
 
@@ -167,7 +167,14 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	materialsOffset = totalDataOffset;
 
-	cl_int numberOfMaterials = materials.size();
+	// number of materials is a maximum material index
+	// Empty material indexes will be filled with zero data
+	QList<int> keys = materials.keys();
+
+	qDebug() << keys;
+
+	qSort(keys.begin(), keys.end());
+	cl_int numberOfMaterials = keys.last() + 1;
 
 	// numberOfMaterials
 	data.append(reinterpret_cast<char *>(&numberOfMaterials), sizeof(numberOfMaterials));
@@ -186,21 +193,34 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 	// add dummy bytes for alignment to 16
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 
-	int materialIndex = 0;
-
-	foreach (const cMaterial &material, materials)
+	for (int materialIndex = 0; materialIndex < numberOfMaterials; materialIndex++)
 	{
-		materialOffsets[materialIndex] = totalDataOffset;
-
-		sMaterialCl materialCl = clCopySMaterialCl(material);
-		cColorPalette palette = material.palette;
-		int paletteSize = palette.GetSize();
-		cl_float4 *paletteCl = new cl_float4[paletteSize];
-		for (int i = 0; i < paletteSize; i++)
+		sMaterialCl materialCl;
+		cl_float4 *paletteCl;
+		int paletteSize;
+		if (materials.contains(materialIndex))
 		{
-			paletteCl[i] = toClFloat4(CVector4(palette.GetColor(i).R / 256.0,
-				palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
+			cMaterial material = materials[materialIndex];
+			materialCl = clCopySMaterialCl(material);
+			cColorPalette palette = material.palette;
+			paletteSize = palette.GetSize();
+			paletteCl = new cl_float4[paletteSize];
+			for (int i = 0; i < paletteSize; i++)
+			{
+				paletteCl[i] = toClFloat4(CVector4(palette.GetColor(i).R / 256.0,
+					palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
+			}
 		}
+		else
+		{
+			// fill not used material with dummy
+			memset(&materialCl, 0, sizeof(materialCl));
+			paletteSize = 1;
+			paletteCl = new cl_float4[1];
+			paletteCl[0] = toClFloat4(CVector4());
+		}
+
+		materialOffsets[materialIndex] = totalDataOffset;
 
 		cl_int materialClOffset = 0;
 		cl_int paletteItemsOffset = 0;
@@ -249,7 +269,6 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 		data.replace(paletteItemsOffsetAddress, sizeof(paletteItemsOffset),
 			reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
 
-		materialIndex++;
 		delete[] paletteCl;
 	}
 
@@ -258,6 +277,8 @@ void cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &material
 		reinterpret_cast<char *>(materialOffsets), materialOffsetsSize);
 
 	delete[] materialOffsets;
+
+	return numberOfMaterials;
 }
 
 void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_int vectorsCount)

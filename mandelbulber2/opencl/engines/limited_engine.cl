@@ -73,8 +73,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
 
-	// materials 0 offset:
-	const int materialAddressOffset = materialsMainOffset + 1 * sizeof(int);
+	// materials 1 offset:
+	const int materialAddressOffset = materialsMainOffset + 2 * sizeof(int);
 	int material0Offset = GetInteger(materialAddressOffset, inBuff);
 
 	// material header
