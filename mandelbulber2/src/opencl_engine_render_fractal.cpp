@@ -608,6 +608,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		QElapsedTimer progressRefreshTimer;
 		progressRefreshTimer.start();
 
+		QElapsedTimer timerImageRefresh;
+		timerImageRefresh.start();
+		int lastRefreshTime = 1;
+
 		qint64 numberOfPixels = qint64(width) * qint64(height);
 		qint64 gridWidth = width / optimalJob.stepSizeX;
 		qint64 gridHeight = height / optimalJob.stepSizeY;
@@ -625,6 +629,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
 
+		QList<QRect> lastRenderedRects;
+
 		double doneMC = 0.0f;
 		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
 
@@ -638,7 +644,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 				// requires initialization for all opencl devices
 				// requires optimalJob for all opencl devices
 
-				QList<QRect> lastRenderedRects;
+				lastRenderedRects.clear();
 
 				qint64 pixelsRendered = 0;
 				qint64 pixelsRenderedMC = 0;
@@ -680,20 +686,23 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 							// writing data to queue
 							if (!WriteBuffersToQueue()) throw;
 
-							if (!autoRefreshMode && !monteCarlo)
-							{
-								const QRect currentCorners = SizedRectangle(jobX, jobY, jobWidth2, jobHeight2);
-								MarkCurrentPendingTile(image, currentCorners);
-							}
+							//							if (!autoRefreshMode && !monteCarlo && progressRefreshTimer.elapsed()
+							//> 1000)
+							//							{
+							//								const QRect currentCorners = SizedRectangle(jobX, jobY, jobWidth2,
+							// jobHeight2);
+							//								MarkCurrentPendingTile(image, currentCorners);
+							//							}
 
 							// processing queue
 							if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) throw;
 
 							// update image when OpenCl kernel is working
-							if (lastRenderedRects.size() > 0)
+							if (lastRenderedRects.size() > 0
+									&& timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
 							{
-								QElapsedTimer timerImageRefresh;
-								timerImageRefresh.start();
+								timerImageRefresh.restart();
+
 								image->NullPostEffect(&lastRenderedRects);
 								image->CompileImage(&lastRenderedRects);
 								if (image->IsPreview())
@@ -702,10 +711,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 									image->UpdatePreview(&lastRenderedRects);
 									emit updateImage();
 								}
+								lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
+
 								lastRenderedRects.clear();
-								optimalJob.optimalProcessingCycle = 2.0 * timerImageRefresh.elapsed() / 1000.0;
-								if (optimalJob.optimalProcessingCycle < 0.1)
-									optimalJob.optimalProcessingCycle = 0.1;
+								timerImageRefresh.restart();
 							}
 
 							if (!ReadBuffersFromQueue()) throw;
@@ -809,6 +818,16 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 						if (*stopRequest)
 						{
+							image->NullPostEffect(&lastRenderedRects);
+							image->CompileImage(&lastRenderedRects);
+							if (image->IsPreview())
+							{
+								image->ConvertTo8bit(&lastRenderedRects);
+								image->UpdatePreview(&lastRenderedRects);
+								emit updateImage();
+							}
+							lastRenderedRects.clear();
+
 							delete[] noiseTable;
 							return false;
 						}
@@ -867,17 +886,17 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 			"cOpenClEngineRenderFractal: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);
 
 		// refresh image at end
-		image->NullPostEffect();
+		image->NullPostEffect(&lastRenderedRects);
 
 		WriteLog("image->CompileImage()", 2);
-		image->CompileImage();
+		image->CompileImage(&lastRenderedRects);
 
 		if (image->IsPreview())
 		{
 			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bit();
+			image->ConvertTo8bit(&lastRenderedRects);
 			WriteLog("image->UpdatePreview()", 2);
-			image->UpdatePreview();
+			image->UpdatePreview(&lastRenderedRects);
 			WriteLog("image->GetImageWidget()->update()", 2);
 			emit updateImage();
 		}

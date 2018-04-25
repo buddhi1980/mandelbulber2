@@ -171,8 +171,6 @@ int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials
 	// Empty material indexes will be filled with zero data
 	QList<int> keys = materials.keys();
 
-	qDebug() << keys;
-
 	qSort(keys.begin(), keys.end());
 	cl_int numberOfMaterials = keys.last() + 1;
 
