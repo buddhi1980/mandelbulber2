@@ -73,6 +73,7 @@ public:
 	static bool ConfirmMessage(QString message);
 	static void MoveCursor(int leftRight, int downUp);
 	static void EraseLine();
+	static bool IsOutputTty();
 
 public slots:
 	void slotNetRender();

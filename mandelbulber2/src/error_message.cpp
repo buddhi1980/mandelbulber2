@@ -105,9 +105,9 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 		else if (messageType == errorMessage)
 		{
 			header = cHeadless::colorize(
-				QObject::tr("\nError: "), cHeadless::ansiRed, cHeadless::noExplicitColor, true);
+				QObject::tr("\nError: "), cHeadless::ansiRed, cHeadless::ansiWhite, true);
 			messageText =
-				cHeadless::colorize(text, cHeadless::ansiRed, cHeadless::noExplicitColor, false);
+				cHeadless::colorize(text, cHeadless::ansiRed, cHeadless::ansiWhite, false);
 		}
 		else if (messageType == infoMessage)
 		{
@@ -117,7 +117,7 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 				cHeadless::colorize(text, cHeadless::ansiGreen, cHeadless::noExplicitColor, false);
 		}
 
-		out << header << messageText << "\n\n";
+		out << header << messageText << "\n";
 	}
 }
 

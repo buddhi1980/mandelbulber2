@@ -578,7 +578,7 @@ void cQueue::slotQueueRender() const
 	else
 	{
 		cErrorMessage::showMessage(
-			QObject::tr("No queue items to render"), cErrorMessage::errorMessage, nullptr);
+			QObject::tr("No queue items to render"), cErrorMessage::warningMessage, nullptr);
 	}
 }
 

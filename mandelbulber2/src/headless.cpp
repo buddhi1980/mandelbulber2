@@ -52,6 +52,9 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
+#ifndef _WIN32 /* Linux / MacOS */
+#include <unistd.h> /* needed for isatty() */
+#endif
 
 cHeadless::cHeadless() : QObject()
 {
@@ -134,10 +137,20 @@ void cHeadless::RenderQueue()
 
 		cErrorMessage::showMessage(
 			"Queue is empty. Waiting for something to do.", cErrorMessage::infoMessage);
+		int intProgress = 0;
+		QTextStream out(stdout);
 		do
 		{
 			gApplication->processEvents();
 			Wait(100);
+			if(!IsOutputTty()) continue;
+
+			QString progressChars = "|\\-/";
+			intProgress = (intProgress + 1) % progressChars.length();
+			QString text = colorize(progressChars.mid(intProgress, 1), ansiBlue, noExplicitColor, true)
+				+ QString(" Waiting ...") + "\r";
+			out << text;
+			out.flush();
 		} while (gQueue->GetQueueSize() == 0);
 
 		gQueue->slotQueueRender();
@@ -353,7 +366,7 @@ void cHeadless::RenderingProgressOutput(
 		if (useHeader != "") useHeader += ": ";
 		int freeWidth = systemData.terminalWidth - progressTxt.length() - useHeader.length() - 4;
 		int intProgress = freeWidth * percentDone;
-		text = "\r";
+        if(IsOutputTty()) text = "\r";
 		text += colorize(useHeader, ansiYellow, noExplicitColor, true);
 		text += formattedText;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
@@ -373,10 +386,8 @@ void cHeadless::RenderingProgressOutput(
 QString cHeadless::colorize(
 	QString text, ansiColor foregroundColor, ansiColor backgroundColor, bool bold)
 {
-// more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
-#ifdef _WIN32 /* WINDOWS */
-	return text;
-#else
+	// more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
+	if(!IsOutputTty()) return text;
 	if (!systemData.useColor) return text;
 
 	QStringList ansiSequence;
@@ -392,14 +403,11 @@ QString cHeadless::colorize(
 	colorizedString += text;
 	colorizedString += "\033[0m"; // reset color and bold after string
 	return colorizedString;
-#endif
 }
 
 QString cHeadless::formatLine(const QString &text)
 {
-#ifdef _WIN32 /* WINDOWS */
-	return text;
-#else
+	if(!IsOutputTty()) return text;
 	if (!systemData.useColor) return text;
 	QList<QRegularExpression> reType;
 	reType.append(
@@ -449,7 +457,6 @@ QString cHeadless::formatLine(const QString &text)
 	}
 
 	return out;
-#endif
 }
 
 bool cHeadless::ConfirmMessage(QString message)
@@ -464,20 +471,15 @@ bool cHeadless::ConfirmMessage(QString message)
 
 void cHeadless::EraseLine()
 {
-#ifdef _WIN32 /* WINDOWS */
-	return;
-#else
+	if(!IsOutputTty()) return;
 	QTextStream out(stdout);
 	out << "\033[2K";
 	out.flush();
-#endif
 }
 
 void cHeadless::MoveCursor(int leftRight, int downUp)
 {
-#ifdef _WIN32 /* WINDOWS */
-	return;
-#else
+	if(!IsOutputTty()) return;
 	QTextStream out(stdout);
 	if (leftRight != 0)
 	{
@@ -494,5 +496,12 @@ void cHeadless::MoveCursor(int leftRight, int downUp)
 		out << code;
 	}
 	out.flush();
+}
+
+bool cHeadless::IsOutputTty()
+{
+#ifdef _WIN32 /* WINDOWS */
+	return false;
 #endif
+	return isatty(fileno(stdout));
 }
