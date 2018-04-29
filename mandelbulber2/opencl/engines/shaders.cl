@@ -45,6 +45,7 @@ typedef struct
 	float depth;
 	int stepCount;
 	int randomSeed;
+	int objectId;
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;

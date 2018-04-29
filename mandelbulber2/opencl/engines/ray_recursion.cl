@@ -286,9 +286,11 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-			shaderInputData.material = renderData->material;
-			shaderInputData.palette = renderData->palette;
-			shaderInputData.paletteSize = renderData->paletteSize;
+			shaderInputData.objectId = 0; // TODO it's 0 just for testing
+			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
+			shaderInputData.material = renderData->materials[objectData->materialId];
+			shaderInputData.palette = renderData->palettes[objectData->materialId];
+			shaderInputData.paletteSize = renderData->paletteLengths[objectData->materialId];
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 
@@ -481,9 +483,11 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-			shaderInputData.material = renderData->material;
-			shaderInputData.palette = renderData->palette;
-			shaderInputData.paletteSize = renderData->paletteSize;
+			shaderInputData.objectId = 0; // TODO it's 0 just for testing
+			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
+			shaderInputData.material = renderData->materials[objectData->materialId];
+			shaderInputData.palette = renderData->palettes[objectData->materialId];
+			shaderInputData.paletteSize = renderData->paletteLengths[objectData->materialId];
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 

@@ -67,6 +67,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
 	int lightsMainOffset = GetInteger(2 * sizeof(int), inBuff);
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
+	int objectsMainOffset = GetInteger(4 * sizeof(int), inBuff);
 
 	//--- materials
 	__global sMaterialCl *materials[MAT_ARRAY_SIZE];
@@ -135,6 +136,15 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	__global sPrimitiveCl *__attribute__((aligned(16))) primitives =
 		(__global sPrimitiveCl *)&inBuff[primitivesOffset];
 
+	//--- Objects
+
+	// AO vectors count
+	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
+	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
+
+	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
+		(__global sObjectDataCl *)&inBuff[objectsOffset];
+
 	//--------- end of data file ----------------------------------
 
 	// auxiliary vectors
@@ -201,17 +211,18 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	sRenderData renderData;
 	renderData.lightVector = lightVector;
 	renderData.viewVectorNotRotated = viewVectorNotRotated;
-	renderData.material = material;
-	renderData.palette = palette;
+	renderData.materials = materials;
+	renderData.palettes = palettes;
 	renderData.AOVectors = AOVectors;
 	renderData.lights = lights;
-	renderData.paletteSize = paletteLength;
+	renderData.paletteLengths = paletteLengths;
 	renderData.numberOfLights = numberOfLights;
 	renderData.AOVectorsCount = AOVectorsCount;
 	renderData.reflectionsMax = reflectionsMax;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
 	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
+	renderData.objectsData = objectsData;
 
 	float4 resultShader = 0.0f;
 	float3 objectColour = 0.0f;

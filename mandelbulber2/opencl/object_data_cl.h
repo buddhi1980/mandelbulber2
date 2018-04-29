@@ -29,28 +29,27 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * structure of sRenderData, which is used as a container for all rendering relevant data
+ * opencl representation of objects data
  */
 
-#ifndef MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_
-#define MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_
+#ifndef MANDELBULBER2_OPENCL_OBJECT_DATA_CL_H_
+#define MANDELBULBER2_OPENCL_OBJECT_DATA_CL_H_
 
+#ifndef OPENCL_KERNEL_CODE
+#include "object_type_cl.h"
+#include "opencl_algebra.h"
+#endif
+
+// object data
 typedef struct
 {
-	float3 lightVector;
-	float3 viewVectorNotRotated;
-	__global sMaterialCl **materials;
-	__global float4 **palettes;
-	__global sVectorsAroundCl *AOVectors;
-	__global sLightCl *lights;
-	__global sPrimitiveCl *primitives;
-	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
-	__global sObjectDataCl *objectsData;
-	int reflectionsMax;
-	int *paletteLengths;
-	int numberOfLights;
-	int AOVectorsCount;
-	int numberOfPrimitives;
-} sRenderData;
+	cl_int enable;
+	cl_int objectId;
+	cl_float3 position;
+	cl_float3 size;
+	cl_int materialId;
+	enumObjectTypeCl objectType;
+	matrix33 rotationMatrix;
+} sObjectDataCl;
 
-#endif /* MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_ */
+#endif /* MANDELBULBER2_OPENCL_OBJECT_DATA_CL_H_ */

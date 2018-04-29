@@ -36,21 +36,9 @@
 #define MANDELBULBER2_OPENCL_PRIMITIVES_CL_H_
 
 #ifndef OPENCL_KERNEL_CODE
-#include "object_type_cl.h"
+#include "object_data_cl.h"
 #include "opencl_algebra.h"
 #endif
-
-// object data
-typedef struct
-{
-	cl_int enable;
-	cl_int objectId;
-	cl_float3 position;
-	cl_float3 size;
-	cl_int materialId;
-	enumObjectTypeCl objectType;
-	matrix33 rotationMatrix;
-} objectDataCl;
 
 // primitive specified parameters
 typedef struct
@@ -147,8 +135,8 @@ typedef union {
 // full definition of primitive
 typedef struct
 {
-	objectDataCl object; // structure
-	uPrimitiveCl data;	 // union !!!
+	sObjectDataCl object; // structure
+	uPrimitiveCl data;		// union !!!
 } sPrimitiveCl;
 
 #endif /* MANDELBULBER2_OPENCL_PRIMITIVES_CL_H_ */

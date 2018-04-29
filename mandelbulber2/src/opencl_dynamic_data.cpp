@@ -54,10 +54,12 @@ cOpenClDynamicData::cOpenClDynamicData()
 	AOVectorsOffset = 0;
 	lightsOffset = 0;
 	primitivesOffset = 0;
+	objectsOffset = 0;
 	materialsOffsetAddress = 0;
 	AOVectorsOffsetAddress = 0;
 	lightsOffsetAddress = 0;
 	primitivesOffsetAddress = 0;
+	objectsOffsetAddress = 0;
 }
 
 cOpenClDynamicData::~cOpenClDynamicData()
@@ -106,6 +108,10 @@ void cOpenClDynamicData::ReserveHeader()
 	primitivesOffsetAddress = totalDataOffset;
 	data.append(reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
 	totalDataOffset += sizeof(primitivesOffset);
+
+	objectsOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&objectsOffset), sizeof(objectsOffset));
+	totalDataOffset += sizeof(objectsOffset);
 }
 
 void cOpenClDynamicData::FillHeader()
@@ -121,6 +127,9 @@ void cOpenClDynamicData::FillHeader()
 
 	data.replace(primitivesOffsetAddress, sizeof(primitivesOffset),
 		reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
+
+	data.replace(objectsOffsetAddress, sizeof(objectsOffset),
+		reinterpret_cast<char *>(&objectsOffset), sizeof(objectsOffset));
 }
 
 void cOpenClDynamicData::Clear()
@@ -603,6 +612,60 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 
 		data.append(reinterpret_cast<char *>(&primitiveCl), sizeof(primitiveCl));
 		totalDataOffset += sizeof(primitiveCl);
+	}
+
+	// replace arrayOffset:
+	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
+		sizeof(arrayOffset));
+}
+
+void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData)
+{
+	/* use __attribute__((aligned(16))) in kernel code for array
+	 *
+	 * header:
+	 * cl_int numberOfObjects
+	 * cl_int arrayOffset;
+	 *
+	 * array (aligned to 16):
+	 * 	objectDataCl object1
+	 * 	objectDataCl object2
+	 *  ...
+	 * 	objectDataCl objectN
+	 */
+
+	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+	objectsOffset = totalDataOffset;
+
+	cl_int numberOfObjects = objectData->size();
+	data.append(reinterpret_cast<char *>(&numberOfObjects), sizeof(numberOfObjects));
+	totalDataOffset += sizeof(numberOfObjects);
+
+	// reserve bytes for array offset
+	cl_int arrayOffset = 0;
+	int arrayOffsetAddress = totalDataOffset;
+	data.append(reinterpret_cast<char *>(&arrayOffset), sizeof(arrayOffset));
+	totalDataOffset += sizeof(arrayOffset);
+
+	// copy objects aligned to 16
+	for (int i = 0; i < numberOfObjects; i++)
+	{
+		// align struct to 16
+		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
+		if (i == 0) arrayOffset = totalDataOffset;
+
+		sObjectDataCl objectCl;
+		const cObjectData *object = &objectData->at(i);
+		objectCl.enable = true; // dummy - only used for primitives data
+		objectCl.objectId = i;
+		objectCl.position = toClFloat3(object->position);
+		objectCl.size = toClFloat3(object->size);
+		objectCl.materialId = object->materialId;
+		objectCl.objectType = static_cast<enumObjectTypeCl>(object->objectType);
+		objectCl.rotationMatrix = toClMatrix33(object->rotationMatrix);
+
+		data.append(reinterpret_cast<char *>(&objectCl), sizeof(objectCl));
+		totalDataOffset += sizeof(objectCl);
 	}
 
 	// replace arrayOffset:

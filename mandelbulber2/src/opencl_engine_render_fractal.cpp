@@ -132,6 +132,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("fractal_sequence_cl.h");
 		clHeaderFiles.append("material_cl.h");
 		clHeaderFiles.append("object_type_cl.h");
+		clHeaderFiles.append("object_data_cl.h");
 		clHeaderFiles.append("primitives_cl.h");
 		clHeaderFiles.append("input_data_structures.h");
 		clHeaderFiles.append("render_data_cl.h");
@@ -507,6 +508,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->BuildPrimitivesData(&paramRender->primitives);
 	if (paramRender->primitives.GetListOfPrimitives()->size() > 0)
 		definesCollector += " -DUSE_PRIMITIVES";
+
+	dynamicData->BuildObjectsData(&renderData->objectData);
+	// definesCollector += " -DOBJ_ARRAY_SIZE=" + QString::number(renderData->objectData.size());
 
 	dynamicData->FillHeader();
 
