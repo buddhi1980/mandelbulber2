@@ -52,17 +52,10 @@
 #include "render_job.hpp"
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
-#ifndef _WIN32			/* Linux / MacOS */
-#include <unistd.h> /* needed for isatty() */
-#endif
 
-cHeadless::cHeadless() : QObject()
-{
-}
+cHeadless::cHeadless() : QObject() {}
 
-cHeadless::~cHeadless()
-{
-}
+cHeadless::~cHeadless() {}
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
@@ -143,7 +136,7 @@ void cHeadless::RenderQueue()
 		{
 			gApplication->processEvents();
 			Wait(100);
-			if (!IsOutputTty()) continue;
+			if (!systemData.isOutputTty) continue;
 
 			QString progressChars = "|\\-/";
 			intProgress = (intProgress + 1) % progressChars.length();
@@ -212,10 +205,12 @@ void cHeadless::RenderFlightAnimation() const
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation =
 		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																			 const QString &, double, cProgressText::enumProgressType)),
-		this, SLOT(slotUpdateProgressAndStatus(
-						const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		this,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 	// unused
 	//								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
@@ -233,10 +228,12 @@ void cHeadless::RenderKeyframeAnimation() const
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation =
 		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																				 const QString &, double, cProgressText::enumProgressType)),
-		this, SLOT(slotUpdateProgressAndStatus(
-						const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		this,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	// QObject::connect(gKeyframeAnimation,
 	// SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
 	// 								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
@@ -366,7 +363,7 @@ void cHeadless::RenderingProgressOutput(
 		if (useHeader != "") useHeader += ": ";
 		int freeWidth = systemData.terminalWidth - progressTxt.length() - useHeader.length() - 4;
 		int intProgress = freeWidth * percentDone;
-		if (IsOutputTty()) text = "\r";
+		if (systemData.isOutputTty) text = "\r";
 		text += colorize(useHeader, ansiYellow, noExplicitColor, true);
 		text += formattedText;
 		text += colorize("[", ansiBlue, noExplicitColor, true);
@@ -387,7 +384,7 @@ QString cHeadless::colorize(
 	QString text, ansiColor foregroundColor, ansiColor backgroundColor, bool bold)
 {
 	// more information on ANSI escape codes here: https://en.wikipedia.org/wiki/ANSI_escape_code
-	if (!IsOutputTty()) return text;
+	if (!systemData.isOutputTty) return text;
 	if (!systemData.useColor) return text;
 
 	QStringList ansiSequence;
@@ -407,7 +404,7 @@ QString cHeadless::colorize(
 
 QString cHeadless::formatLine(const QString &text)
 {
-	if (!IsOutputTty()) return text;
+	if (!systemData.isOutputTty) return text;
 	if (!systemData.useColor) return text;
 	QList<QRegularExpression> reType;
 	reType.append(
@@ -471,7 +468,7 @@ bool cHeadless::ConfirmMessage(QString message)
 
 void cHeadless::EraseLine()
 {
-	if (!IsOutputTty()) return;
+	if (!systemData.isOutputTty) return;
 	QTextStream out(stdout);
 	out << "\033[2K";
 	out.flush();
@@ -479,7 +476,7 @@ void cHeadless::EraseLine()
 
 void cHeadless::MoveCursor(int leftRight, int downUp)
 {
-	if (!IsOutputTty()) return;
+	if (!systemData.isOutputTty) return;
 	QTextStream out(stdout);
 	if (leftRight != 0)
 	{
@@ -496,13 +493,4 @@ void cHeadless::MoveCursor(int leftRight, int downUp)
 		out << code;
 	}
 	out.flush();
-}
-
-bool cHeadless::IsOutputTty()
-{
-#ifdef _WIN32 /* WINDOWS */
-	return false;
-#else
-	return isatty(fileno(stdout));
-#endif
 }

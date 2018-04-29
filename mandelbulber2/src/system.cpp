@@ -165,12 +165,10 @@ bool InitSystem()
 
 	// get number of columns of console
 	systemData.terminalWidth = 80;
-
 	systemData.loggingVerbosity = 3;
-
 	systemData.settingsLoadedFromCLI = false;
-
 	systemData.globalStopRequest = false;
+	systemData.isOutputTty = IsOutputTty();
 
 #ifndef WIN32
 	handle_winch(-1);
@@ -187,8 +185,9 @@ void handle_winch(int sig)
 	struct winsize w;
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	systemData.terminalWidth = w.ws_col;
-    if (systemData.terminalWidth <= 0) systemData.terminalWidth = 100;
-    if (systemData.terminalWidth >= 1000) systemData.terminalWidth = 100;
+	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
+	if (systemData.terminalWidth >= 150) systemData.terminalWidth = 150;
+	if (!systemData.isOutputTty) systemData.terminalWidth = 80;
 	signal(SIGWINCH, handle_winch);
 #endif
 }
@@ -738,4 +737,13 @@ QString sSystem::GetIniFile() const
 		}
 	}
 	return fullIniFileName;
+}
+
+bool IsOutputTty()
+{
+#ifdef _WIN32 /* WINDOWS */
+	return false;
+#else
+	return isatty(fileno(stdout));
+#endif
 }

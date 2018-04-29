@@ -192,6 +192,7 @@ public:
 	int preferredFontSize;
 	int preferredFontPointSize;
 	int preferredThumbnailSize;
+	bool isOutputTty;
 };
 
 struct sActualFileNames
@@ -228,5 +229,6 @@ void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
 QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);
 void CalcPreferredFontSize(bool noGui);
+bool IsOutputTty();
 
 #endif /* MANDELBULBER2_SRC_SYSTEM_HPP_ */
