@@ -88,6 +88,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	out.distance = 0.0f;
 	out.colorIndex = 0.0f;
 	out.maxiter = false;
+	out.objectId = 0;
 
 #ifndef BOOLEAN_OPERATORS
 	float limitBoxDist = 0.0f;
@@ -252,6 +253,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #ifdef USE_PRIMITIVES
 	out.distance = min(out.distance,
 		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
+	out.objectId = closestObjectId;
 #endif
 
 #ifdef LIMITS_ENABLED
@@ -315,6 +317,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		out = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, 0);
 		dist = out.distance / consts->params.formulaScale[0];
+		out.objectId = 0;
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
@@ -390,7 +393,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 	// out = CalculateDistanceSimple(consts, point, calcParam, renderData);
 
-	int closestObjectId = 0;
+	int closestObjectId = out.objectId;
 
 #ifdef USE_PRIMITIVES
 	dist = min(dist, TotalDistanceToPrimitives(consts, renderData, point, dist, &closestObjectId));

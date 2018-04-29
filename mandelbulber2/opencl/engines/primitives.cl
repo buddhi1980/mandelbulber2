@@ -260,9 +260,16 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 				default: break;
 			}
 
+			if (distTemp < dist)
+			{
+				closestObject = primitive->object.objectId;
+			}
+
 			dist = min(dist, distTemp);
 		}
 	}
+
+	*closestObjectId = closestObject;
 	return dist;
 }
 

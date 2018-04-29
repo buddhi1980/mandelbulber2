@@ -158,6 +158,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 		calcParam.detailSize = distThresh;
 		outF = CalculateDistance(consts, point, &calcParam, renderData);
 		distance = outF.distance;
+		out->objectId = outF.objectId;
 
 #ifdef USE_REFRACTION
 		if (in.invertMode)
@@ -211,6 +212,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 			}
 			outF = CalculateDistance(consts, point, &calcParam, renderData);
 			distance = outF.distance;
+			out->objectId = outF.objectId;
 
 			//#ifdef USE_REFRACTION
 			if (in.invertMode)
@@ -286,7 +288,7 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-			shaderInputData.objectId = 0; // TODO it's 0 just for testing
+			shaderInputData.objectId = rayMarchingOut.objectId;
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
@@ -483,7 +485,7 @@ sRayRecursionOut RayRecursion(
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
-			shaderInputData.objectId = 0; // TODO it's 0 just for testing
+			shaderInputData.objectId = rayMarchingOut.objectId;
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
