@@ -4109,9 +4109,9 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
 							 != 0))
 			{
-				int iterationRange =
+				double iterationRange =
 					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
-				int currentIteration = (aux.i - fractal->transformCommon.startIterations);
+				double currentIteration = (aux.i - fractal->transformCommon.startIterations);
 				tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 			}
 
