@@ -10219,6 +10219,7 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	aux.r_dz *= fabs(fractal->transformCommon.scale);
 
 	double r2 = z.Dot(z);
 	if (fractal->transformCommon.functionEnabledyFalse) r2 = r2Temp;
@@ -10242,6 +10243,7 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 	mode = 1.0 / mode;
 	z *= mode;
 	aux.DE *= mode;
+	aux.r_dz *= mode;
 
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 }

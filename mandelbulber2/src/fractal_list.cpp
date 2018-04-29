@@ -596,7 +596,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// Spherical Transforms
 	fractalList->append(sFractalDescription("T>Spherical Invert", "transf_spherical_inv",
-		transfSphericalInv, TransfSphericalInvIteration, analyticDEType, linearDEFunction,
+		transfSphericalInv, TransfSphericalInvIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Invert C", "transf_spherical_inv_c",
 		transfSphericalInvC, TransfSphericalInvCIteration, analyticDEType, withoutDEFunction,
