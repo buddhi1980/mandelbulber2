@@ -266,6 +266,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
 	paramRender->resolution = 1.0 / paramRender->imageHeight;
 
+	if (enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode")) == clRenderEngineTypeFull)
+		definesCollector += " -DFULL_ENGINE";
+
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);

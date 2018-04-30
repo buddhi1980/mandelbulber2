@@ -39,15 +39,22 @@ typedef struct
 {
 	float3 lightVector;
 	float3 viewVectorNotRotated;
+#ifdef FULL_ENGINE
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
+	int *paletteLengths;
+#else
+	__global sMaterialCl *material;
+	__global float4 *palette;
+	int paletteLength;
+#endif
 	__global sVectorsAroundCl *AOVectors;
 	__global sLightCl *lights;
 	__global sPrimitiveCl *primitives;
 	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
 	__global sObjectDataCl *objectsData;
 	int reflectionsMax;
-	int *paletteLengths;
+
 	int numberOfLights;
 	int AOVectorsCount;
 	int numberOfPrimitives;
