@@ -319,9 +319,24 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			alpha = 0.0f;
 		}
 
+#ifdef GLOW
+		// glow init
+		float glow = count * consts->params.glowIntensity / 512.0f * consts->params.DEFactor;
+		float glowN = 1.0f - glow;
+		if (glowN < 0.0f) glowN = 0.0f;
+
+		float3 glowColor;
+
+		glowColor = (glowN * consts->params.glowColor1 + consts->params.glowColor2 * glow);
+
+		glow *= 0.7f;
+		float glowOpacity = 1.0f * glow;
+		if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+		color = glow * glowColor + (1.0f - glowOpacity) * color;
+		alpha += glowOpacity;
+#endif // GLOW
+
 		color4 = (float4){color.s0, color.s1, color.s2, alpha};
-		color4 =
-			VolumetricShader(consts, &renderData, &shaderInputData, &calcParam, color4, &opacityOut);
 
 #ifdef PERSP_FISH_EYE_CUT
 	}

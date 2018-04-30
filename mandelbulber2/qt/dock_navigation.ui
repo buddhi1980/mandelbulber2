@@ -118,7 +118,7 @@
        </item>
        <item>
         <property name="text">
-         <string>limited</string>
+         <string>medium</string>
         </property>
        </item>
        <item>
@@ -156,8 +156,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>247</width>
-        <height>804</height>
+        <width>229</width>
+        <height>810</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">

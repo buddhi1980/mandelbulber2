@@ -779,6 +779,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	return color;
 }
 
+#ifdef FULL_ENGINE
 //------------ Volumetric shader ----------------
 float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderData,
 	sShaderInputDataCl *input, sClCalcParams *calcParam, float4 oldPixel, float *opacityOut)
@@ -1100,3 +1101,4 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 	out4.xyz = output;
 	return out4;
 }
+#endif //FULL_ENGINE
