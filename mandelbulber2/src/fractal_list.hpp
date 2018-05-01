@@ -179,6 +179,7 @@ enum enumFractalFormula
 	amazingSurfMod2 = 132, // fixed comboBox v2.14
 	// 2.14
 	mandelboxVariable = 133,
+	boxFold4dBulbPow2 = 134,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,

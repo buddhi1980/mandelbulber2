@@ -251,6 +251,7 @@ void TransfZvectorAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExten
 // 4D
 void Abox4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Bristorbrot4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void BoxFold4dBulbPow2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelboxVaryScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MixPinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Menger4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
