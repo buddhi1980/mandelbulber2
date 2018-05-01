@@ -1,0 +1,63 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_color_2 e800 e800 bd00;
+camera 13.06785688350029 4.899577371557203 4.287475541387376;
+camera_distance_to_target 3.014438152313228;
+camera_rotation 156.3745984674497 11.42865840147291 0;
+camera_top 0.07940870417703629 0.1815399168163374 0.9801721870688034;
+DE_factor 0.6;
+DE_thresh 0.000625;
+detail_level 2;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+fog_color_2 0b00 b300 1100;
+formula_1 134;
+image_height 1200;
+image_width 1600;
+initial_waxis 0.6;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_colour 0000 0000 ff00;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 28882;
+mat1_fractal_coloring_algorithm 4;
+mat1_fractal_coloring_aux_color_weight 12;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_iter_add_scale 5;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_rad_div_de_weight 2.1;
+mat1_fractal_coloring_rad_div_log_de_false true;
+mat1_fractal_coloring_xyz_000 0 0 2.800006;
+mat1_fractal_coloring_xyz_bias_enabled_false true;
+mat1_fractal_coloring_xyzC_111 0 0 3.8;
+mat1_is_defined true;
+mat1_metallic true;
+mat1_surface_color 6c00 a100 5000;
+N 19;
+raytraced_reflections true;
+reflections_max 2;
+target 11.88375798432685 2.192554030903989 4.884779320260862;
+view_distance_max 23;
+volumetric_fog_colour_1_distance 0.2477026415658172;
+volumetric_fog_colour_2_distance 0.4954052831316344;
+volumetric_fog_density 0.25;
+volumetric_fog_distance_factor 0.4954052831316344;
+volumetric_fog_enabled true;
+[fractal_1]
+transf_function_enabledR_false true;
+transf_minR2_p25 0.15;
+transf_offset_0000 0 0 -0.1 0.1;
+transf_offset_1111 0.9 1 1 0.3;
+transf_rotation44a 0 0 -2;
+transf_scale 1.02;
+transf_scale_vary_0 0.002;
+transf_start_iterations_A 11;
+transf_stop_iterations_A 12;
+transf_stop_iterations_B 26;
+transf_stop_iterations_C 23;
+transf_stop_iterations_S 20;
