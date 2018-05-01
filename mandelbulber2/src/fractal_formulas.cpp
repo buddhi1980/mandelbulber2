@@ -3605,6 +3605,7 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
  */
 void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double colorAdd;
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
@@ -3627,9 +3628,9 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		if (fractal->transformCommon.functionEnabledAz)
 			tempB.z = fabs(z.z - fractal->transformCommon.additionConstantA111.z);
 		z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledFalse
@@ -3639,19 +3640,19 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
 		{
 			z.x = sign(z.x) * fractal->mandelbox.foldingValue - z.x;
-			aux.color += fractal->mandelbox.color.factor.x;
+			colorAdd += fractal->mandelbox.color.factor.x;
 		}
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
 		{
 			z.y = sign(z.y) * fractal->mandelbox.foldingValue - z.y;
-			aux.color += fractal->mandelbox.color.factor.y;
+			colorAdd += fractal->mandelbox.color.factor.y;
 		}
 		double zLimit = fractal->mandelbox.foldingLimit * fractal->transformCommon.scale1;
 		double zValue = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1;
 		if (fabs(z.z) > zLimit)
 		{
 			z.z = sign(z.z) * zValue - z.z;
-			aux.color += fractal->mandelbox.color.factor.z;
+			colorAdd += fractal->mandelbox.color.factor.z;
 		}
 	}
 
@@ -3665,14 +3666,14 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		{
 			z *= fractal->mandelbox.mboxFactor1;
 			aux.DE *= fractal->mandelbox.mboxFactor1;
-			aux.color += fractal->mandelbox.color.factorSp1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
 		}
 		else if (r2 < fractal->mandelbox.fR2)
 		{
 			double tglad_factor2 = fractal->mandelbox.fR2 / r2;
 			z *= tglad_factor2;
 			aux.DE *= tglad_factor2;
-			aux.color += fractal->mandelbox.color.factorSp2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
 		}
 	}
 
@@ -3701,6 +3702,13 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (fractal->mandelbox.mainRotationEnabled && aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 		z = fractal->mandelbox.mainRot.RotateVector(z);
+
+	// color updated v2.14
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		aux.color += colorAdd;
+	}
+
 }
 
 /**

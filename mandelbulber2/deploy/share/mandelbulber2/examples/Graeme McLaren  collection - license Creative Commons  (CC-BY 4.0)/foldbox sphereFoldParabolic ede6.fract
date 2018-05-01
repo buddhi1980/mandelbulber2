@@ -1,0 +1,57 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_color_1 aa00 ff00 ff00;
+camera 1.934830911963049 -1.862958836242314 -1.728094122169761;
+camera_distance_to_target 0.006088960915802727;
+camera_rotation 108.476712666993 -4.282599485289197 -127.7651132602478;
+camera_top 0.2939095101561719 -0.735284541928115 -0.6107158441053588;
+DE_thresh 1e-05;
+detail_level 2;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 59;
+formula_2 1073;
+fractal_constant_factor 0.9 0.9 0.9;
+hybrid_fractal_enable true;
+image_height 1600;
+image_width 1600;
+keyframe_last_to_render 0;
+limit_min -10 0 -10;
+main_light_alpha 0;
+main_light_beta 30;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 475331;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_rad_weight 0;
+mat1_fractal_coloring_max_color_value 4;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_rad_div_1e13_false true;
+mat1_fractal_coloring_rad_enabled_false true;
+mat1_fractal_coloring_rad_weight 1408;
+mat1_fractal_coloring_xyzC_111 0 0 0;
+mat1_is_defined true;
+mat1_metallic true;
+mat1_surface_color ba00 c300 5000;
+mat1_surface_color_palette 968947 aa2710 d5d5d5 921911 7e822f 7e822f 799b44 5c8fda 3747d3 dd4bd1 2b8d0c 203c8e 9b00e0 00726a 287ed5 ff5775 170050 a54000 720000 6b6c70 520022 97788c 946558 da94c0 c961d7 b90000 946ebe 30ff9f d11b0a 2a9e43 c49586 1c3d35;
+target 1.929071946372908 -1.86488315680179 -1.728548820696396;
+textured_background_map_type 2;
+view_distance_max 36.96309397593545;
+volumetric_fog_colour_1_distance 0.03432169825161017;
+volumetric_fog_colour_2_distance 0.06864339650322035;
+volumetric_fog_density 0.2;
+volumetric_fog_distance_factor 0.06864339650322035;
+[fractal_1]
+mandelbox_main_rotation_enabled true;
+mandelbox_rotation_main -3 -6 6;
+mandelbox_scale 0.9;
+transf_stop_iterations_B 1;
+[fractal_2]
+transf_function_enabledX_false true;
+transf_maxR2_1 3;
+transf_offset_0 1;
+transf_scale_1 3;
+transf_scaleA_1 -1.4;
