@@ -208,7 +208,7 @@ enum enumFractalFormula
 	transfZvectorAxisSwap = 1022,
 	transfAbsAddConstant = 1023,
 	transfNegAbsAddConstant = 1024,
-	transfAbsAddTgladFold = 1025,
+	transfAbsAddTgladFold = 1025, // fixed tweak groupChecck V2.14
 	transfMultipleAngle = 1026,
 	transfRPower = 1027,
 	transfIterationWeight = 1028, // fixed V2.10

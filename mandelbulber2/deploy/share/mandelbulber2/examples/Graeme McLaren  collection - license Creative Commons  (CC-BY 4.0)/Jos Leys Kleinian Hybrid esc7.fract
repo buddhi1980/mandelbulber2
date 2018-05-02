@@ -1,0 +1,61 @@
+# Mandelbulber settings file
+# version 2.13
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+aux_light_intensity_1 4.360560436607794e-05;
+aux_light_position_1 -4.256305180190915 1.934714200825864 -11.94027389432761;
+background_3_colors_enable false;
+background_color_1 7500 7400 7f00;
+background_color_3 5500 aa00 ff00;
+bailout 10;
+camera 301.6904743885267 -438.2784468930019 -193.1132163166291;
+camera_distance_to_target 0.001999999999862319;
+camera_rotation 175.4212782697166 13.64512182065938 -63.7306632414752;
+camera_top 0.9021965810688265 0.03249309466240088 0.4300994395566924;
+DE_factor 0.2;
+DE_thresh 0.0003125;
+detail_level 0.5;
+flight_last_to_render 0;
+formula_1 122;
+formula_2 1065;
+formula_start_iteration_2 3;
+formula_stop_iteration_2 5;
+fov 0.5;
+gamma 0.7;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+limit_max 1 2 1;
+limit_min -1 -1 -1;
+main_light_alpha 34;
+main_light_beta 0;
+main_light_colour f100 f100 f100;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 653440;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_orbit_trap_weight 19.5;
+mat1_fractal_coloring_xyz_000 0 0 10;
+mat1_fractal_coloring_xyzC_111 0 10000 0;
+mat1_is_defined true;
+mat1_specular 0.8;
+mat1_specular_color ff00 fa00 6600;
+mat1_specular_width 0.3;
+mat1_surface_color_palette 000000 aac4ea d4ffb2 c2c260 d7e633 c5c741 c5b013 e9e79f 46aec0 2a93bf 5ab49a 9fffff 98ff78 c2a933 000000 56b0e0 000034 9e19d7 000000 6ed25d 320000 c5d811 000000 39d888 000000 d08d4f 000000 b8fdc8 000000 657434 000000 b7cde2;
+N 20;
+reflections_max 2;
+target 301.6903192372978 -438.2803842413788 -193.112744501663;
+view_distance_max 45;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_offset_1 0.7;
+analyticDE_tweak_005 0.1;
+transf_addition_constant_0777 1 0.056 1;
+transf_folding_value 1.93;
+transf_minimum_radius_05 1.9;
+transf_offset 0.09;
+transf_offset_111 1 1 0.6;
+[fractal_2]
+transf_offset_000 -1 -0.1 0;
+transf_offset_111 1.7 -0.5 -0.2;

@@ -8249,6 +8249,143 @@ void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 // NEW TRANSFORM FORMULAS-----------------------------------------------------------------
+/**
+ * abs add  constant,  z = abs( z + pre-offset) + Offset
+ */
+void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+
+	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+
+	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+	z += fractal->transformCommon.offsetA000;
+}
+
+/**
+ * abs add tglad fold,  z = abs( z + constant) - abs( z - constant) - z:
+ * with a fold tweak option
+ * This formula contains aux.color
+ */
+void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z = fabs(z + fractal->transformCommon.additionConstant000)
+			- fabs(z - fractal->transformCommon.additionConstant000) - z;
+
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		CVector4 limit = fractal->transformCommon.additionConstant000;
+		CVector4 length = 2.0 * limit;
+		CVector4 tgladS = 1.0 / length;
+		CVector4 Add;
+		Add.w = 0.0;
+		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
+		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
+		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
+
+		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
+			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
+		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
+			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
+		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
+			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
+		Add *= fractal->transformCommon.offset000;
+		z.x = (z.x - (sign(z.x) * (Add.x)));
+		z.y = (z.y - (sign(z.y) * (Add.y)));
+		z.z = (z.z - (sign(z.z) * (Add.z)));
+	}
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
+	}
+}
+
+/**
+ * abs add conditional
+ */
+void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - fabs(z.x)
+												+ fabs(z.x) * fractal->transformCommon.offset000.x);
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		z.y = sign(z.y) * (fractal->transformCommon.offset111.y - fabs(z.y)
+												+ fabs(z.y) * fractal->transformCommon.offset000.y);
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		z.z = sign(z.z) * (fractal->transformCommon.offset111.z - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.offset000.z);
+
+	}																			// aux.DE = aux.DE * l/L;
+	aux.DE *= fractal->analyticDE.scale1; // DE tweak
+}
+
+/**
+ * abs Negative abs constant,  z = - abs( z + constant)
+ */
+void TransfNegAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	z += fractal->transformCommon.additionConstant000;
+	if (fractal->transformCommon.functionEnabledx) z.x = -fabs(z.x);
+
+	if (fractal->transformCommon.functionEnabledy) z.y = -fabs(z.y);
+
+	if (fractal->transformCommon.functionEnabledz) z.z = -fabs(z.z);
+}
+
+/**
+ * abs Multi - Multiple parameters for abs functions
+ */
+void TransfAbsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	CVector4 tempA, tempB;
+
+	if (fractal->transformCommon.functionEnabledAx)
+		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
+
+	if (fractal->transformCommon.functionEnabledx)
+		tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
+
+	z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
+	if (fractal->transformCommon.functionEnabledAy)
+		tempA.y = fabs(z.y + fractal->transformCommon.additionConstant000.y);
+
+	if (fractal->transformCommon.functionEnabledy)
+		tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
+
+	z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+
+	if (fractal->transformCommon.functionEnabledAz)
+		tempA.z = fabs(z.z + fractal->transformCommon.additionConstant000.z);
+
+	if (fractal->transformCommon.functionEnabledz)
+		tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
+
+	z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
+
+	z += fractal->transformCommon.offsetA000;
+}
 
 /**
  * Adds c constant to z vector
@@ -9114,144 +9251,6 @@ void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
- * abs add  constant,  z = abs( z + pre-offset) + Offset
- */
-void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
-
-	z += fractal->transformCommon.additionConstant000;
-
-	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-
-	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-
-	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-
-	z += fractal->transformCommon.offsetA000;
-}
-
-/**
- * abs. Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
- * tglad's fold, with a fold tweak option
- * This formula contains aux.color
- */
-void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	CVector4 oldZ = z;
-	z = fabs(z + fractal->transformCommon.additionConstant000)
-			- fabs(z - fractal->transformCommon.additionConstant000) - z;
-
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsA
-			&& aux.i < fractal->transformCommon.stopIterationsA)
-	{
-		CVector4 limit = fractal->transformCommon.additionConstant000;
-		CVector4 length = 2.0 * limit;
-		CVector4 tgladS = 1.0 / length;
-		CVector4 Add;
-		Add.w = 0.0;
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.offset000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
-	}
-	if (fractal->foldColor.auxColorEnabledFalse)
-	{
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor.z;
-	}
-}
-
-/**
- * abs add conditional
- */
-void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	if (fractal->transformCommon.functionEnabledx)
-	{
-		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - fabs(z.x)
-												+ fabs(z.x) * fractal->transformCommon.offset000.x);
-	}
-
-	if (fractal->transformCommon.functionEnabledy)
-	{
-		z.y = sign(z.y) * (fractal->transformCommon.offset111.y - fabs(z.y)
-												+ fabs(z.y) * fractal->transformCommon.offset000.y);
-	}
-
-	if (fractal->transformCommon.functionEnabledz)
-	{
-		z.z = sign(z.z) * (fractal->transformCommon.offset111.z - fabs(z.z)
-												+ fabs(z.z) * fractal->transformCommon.offset000.z);
-
-	}																			// aux.DE = aux.DE * l/L;
-	aux.DE *= fractal->analyticDE.scale1; // DE tweak
-}
-
-/**
- * abs Negative abs constant,  z = - abs( z + constant)
- */
-void TransfNegAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
-
-	z += fractal->transformCommon.additionConstant000;
-	if (fractal->transformCommon.functionEnabledx) z.x = -fabs(z.x);
-
-	if (fractal->transformCommon.functionEnabledy) z.y = -fabs(z.y);
-
-	if (fractal->transformCommon.functionEnabledz) z.z = -fabs(z.z);
-}
-
-/**
- * abs Multi - Multiple parameters for abs functions
- */
-void TransfAbsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
-
-	CVector4 tempA, tempB;
-
-	if (fractal->transformCommon.functionEnabledAx)
-		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
-
-	if (fractal->transformCommon.functionEnabledx)
-		tempB.x = fabs(z.x - fractal->transformCommon.offset000.x);
-
-	z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
-
-	if (fractal->transformCommon.functionEnabledAy)
-		tempA.y = fabs(z.y + fractal->transformCommon.additionConstant000.y);
-
-	if (fractal->transformCommon.functionEnabledy)
-		tempB.y = fabs(z.y - fractal->transformCommon.offset000.y);
-
-	z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
-
-	if (fractal->transformCommon.functionEnabledAz)
-		tempA.z = fabs(z.z + fractal->transformCommon.additionConstant000.z);
-
-	if (fractal->transformCommon.functionEnabledz)
-		tempB.z = fabs(z.z - fractal->transformCommon.offset000.z);
-
-	z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
-
-	z += fractal->transformCommon.offsetA000;
-}
-
-/**
  * folding tetra3D from M3D (Luca GN 2011):
  * Code taken from the forums, KIFS original thread
  * side note - if you disable the 1st half, 2nd half will be
@@ -9385,6 +9384,7 @@ void TransfLinCombineCXYZIteration(CVector4 &z, const sFractal *fractal, sExtend
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
 }
+
 /**
  * Transform Menger Fold
  * Menger Sponge formula created by Knighty

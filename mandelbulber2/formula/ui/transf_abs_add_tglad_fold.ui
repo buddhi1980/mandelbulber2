@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_tglad_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>868</width>
-    <height>987</height>
+    <height>1241</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_26">
      <property name="text">
-      <string>ABS Add Constant V2
+      <string>ABS Add tglad fold
 z = abs( z + constant) - abs( z - constant) - z;</string>
      </property>
     </widget>
@@ -141,7 +141,7 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_23">
        <property name="text">
-        <string>ABS addition constant:</string>
+        <string>constant:</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
@@ -151,9 +151,9 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
     </layout>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupBox_transf_function_enabled_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
      <property name="title">
-      <string>ABox &amp;Tweak</string>
+      <string>Fold &amp;Tweak</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -367,7 +367,7 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_31">
        <property name="text">
-        <string>X plane component:</string>
+        <string>X plane:</string>
        </property>
       </widget>
      </item>
@@ -402,14 +402,14 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
      <item row="3" column="0">
       <widget class="QLabel" name="label_32">
        <property name="text">
-        <string>Y plane component:</string>
+        <string>Y plane:</string>
        </property>
       </widget>
      </item>
      <item row="4" column="0">
       <widget class="QLabel" name="label_33">
        <property name="text">
-        <string>Z plane component:</string>
+        <string>Z plane:</string>
        </property>
       </widget>
      </item>
