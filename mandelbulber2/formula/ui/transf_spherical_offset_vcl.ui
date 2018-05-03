@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_offset_vcl</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>2282</height>
+    <width>898</width>
+    <height>2298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,10 +48,17 @@
       </font>
      </property>
      <property name="text">
-      <string>Note. Curvi Function requires the condition that B &gt; 2 *A</string>
+      <string>Note. Curvi Function requires the condition that B &gt; 2 * A</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="Line" name="line_6">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -79,20 +86,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="QLabel" name="label_102">
@@ -332,7 +325,7 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_7">
+    <widget class="Line" name="line_5">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -465,15 +458,33 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_5">
+    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_144">
+       <property name="text">
+        <string>z *= 1.0  +   offset / -z.Dot(z);</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+       <property name="text">
+        <string>Dot Mode</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="Line" name="line_4">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
-     <item row="1" column="1">
+    <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,1">
+     <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -491,52 +502,24 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.989999999999995</double>
+        <double>-999.990000000000009</double>
        </property>
        <property name="maximum">
-        <double>99.989999999999995</double>
+        <double>999.990000000000009</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_144">
-       <property name="text">
-        <string>z *= 1.0 + offset/ -z.Dot(z);</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_105">
-       <property name="text">
-        <string>Offset:</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
+      <widget class="QLabel" name="label_106">
        <property name="text">
-        <string>Dot Mode</string>
+        <string>Final Addition:</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_11">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_10">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
@@ -571,7 +554,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_143">
        <property name="text">
-        <string>Post Scale z:</string>
+        <string>Post Scale:</string>
        </property>
       </widget>
      </item>
@@ -585,16 +568,16 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_9">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+    <widget class="QLabel" name="label_104">
+     <property name="text">
+      <string>Analytical DE tweaks</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_104">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
      <property name="text">
-      <string>Analytical DE tweaks</string>
+      <string>change to logarithmic DE</string>
      </property>
     </widget>
    </item>
@@ -662,14 +645,14 @@
      <item row="1" column="0">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>Lin. DE Offset:</string>
+        <string> DE Offset:</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>Lin. DE Scale:</string>
+        <string> DE Scale:</string>
        </property>
       </widget>
      </item>
@@ -884,7 +867,6 @@
   <tabstop>spinbox_Cpara_parab_slope</tabstop>
   <tabstop>spinbox_Cpara_parab_scale</tabstop>
   <tabstop>checkBox_transf_function_enabled_false</tabstop>
-  <tabstop>spinbox_transf_offset_0</tabstop>
   <tabstop>spinbox_transf_scale</tabstop>
   <tabstop>spinbox_analyticDE_offset_0</tabstop>
   <tabstop>spinbox_analyticDE_scale_1</tabstop>

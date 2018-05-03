@@ -10817,16 +10817,12 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
  */
 void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double para = fractal->transformCommon.offset;
-	if (fractal->transformCommon.functionEnabled)
-	{
-		double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1.0 + para / lengthTempZ;
-		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-		aux.r_dz *= fabs(fractal->transformCommon.scale);
-	}
+	// if (-z.Length() > -1e-21) -z.Length() = -1e-21;   //  z is neg.)
+	z *= 1.0 + fractal->transformCommon.offset / -z.Length();
+	z *= fractal->transformCommon.scale;
+
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	aux.r_dz *= fabs(fractal->transformCommon.scale);
 }
 
 /**
@@ -10836,7 +10832,6 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 {
 	double para = fractal->Cpara.para00;
 	double paraAdd = 0.0;
-	double paraDot = 0.0;
 	double paraAddP0 = 0.0;
 	// curvilinear mode
 	if (fractal->transformCommon.functionEnabled)
@@ -10871,7 +10866,6 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 			// Curvi part on "true"
 			if (fractal->Cpara.enabledCurves)
 			{
-				// double paraAdd = 0.0;
 				double paraIt;
 				if (lengthAB > 2.0 * fractal->Cpara.iterA) // stop  error, todo fix.
 				{
@@ -10894,31 +10888,45 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 		}
 	}
 	// Parabolic
-	// double paraAddP0 = 0.0;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux.i * fractal->Cpara.parabSlope)
 								+ (aux.i * aux.i * 0.001 * fractal->Cpara.parabScale);
 		para += paraAddP0;
 	}
+	// para offset
+	para += fractal->transformCommon.offset0;
 
-	// using the parameter
-	// z *= 1.0 + para / -z.Dot(z);
-
+	double div = 0.0;
+	// dot mode
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		paraDot = fractal->transformCommon.offset0;
-		para += paraDot;
+		div = z.Dot(z);
+	}
+	else
+	{
+		div = z.Length();
 	}
 
-	z *= 1.0 + para / -z.Dot(z);
+	// using the parameter
+	z *= 1.0 + para / -div;
+
 	// post scale
 	z *= fractal->transformCommon.scale;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
 
-	aux.DE =
-		aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+	// DE tweak
+	if (fractal->transformCommon.functionEnabledxFalse)
+	{
+		aux.r_dz =
+			aux.r_dz * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+	}
+	else
+	{
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+	}
 }
 
 /**
@@ -10930,13 +10938,13 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 	// if (z.x > -1e-21 && z.x < 1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
 	// if (z.y > -1e-21 && z.y < 1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
 	// if (z.z > -1e-21 && z.z < 1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
-	double r2 = pow(pow(z.x, fractal->transformCommon.pwr4) + pow(z.y, fractal->transformCommon.pwr4)
+	double rr = pow(pow(z.x, fractal->transformCommon.pwr4) + pow(z.y, fractal->transformCommon.pwr4)
 										+ pow(z.z, fractal->transformCommon.pwr4),
 		fractal->transformCommon.pwr05);
 
-	// if (r2 < 1e-21 && r2 > -1e-21)
-	//	r2 = (r2 > 0) ? 1e-21 : -1e-21;
-	if (r2 < fractal->mandelbox.mR2)
+	// if (rr < 1e-21 && rr > -1e-21)
+	//	rr = (rr > 0) ? 1e-21 : -1e-21;
+	if (rr < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux.DE *= fractal->mandelbox.mboxFactor1;
@@ -10945,9 +10953,9 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 			aux.color += fractal->mandelbox.color.factorSp1;
 		}
 	}
-	else if (r2 < fractal->mandelbox.fR2)
+	else if (rr < fractal->mandelbox.fR2)
 	{
-		double tglad_factor2 = fractal->mandelbox.fR2 / r2;
+		double tglad_factor2 = fractal->mandelbox.fR2 / rr;
 		z *= tglad_factor2;
 		aux.DE *= tglad_factor2;
 		if (fractal->foldColor.auxColorEnabledFalse)
@@ -10956,6 +10964,7 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 		}
 	}
 }
+
 /**
  * Surf Box Fold
  * allows different fold types for each axis.
