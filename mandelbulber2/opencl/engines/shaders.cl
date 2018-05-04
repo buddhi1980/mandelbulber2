@@ -169,23 +169,64 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	fout.colorIndex = 0.0f;
 	fout.maxiter = false;
 
+	float3 pointTemp = input->point;
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
-	if (input->material->useColorsFromPalette)
-	{
-		// TODO object index for booleans
-		__global sFractalColoringCl *fractalColoring = &input->material->fractalColoring;
-		fout = Fractal(consts, input->point, calcParams, calcModeColouring, fractalColoring, -1);
-		int nCol = floor(fout.colorIndex);
-		nCol = abs(nCol) % (248 * 256);
-		int color_number =
-			(int)(nCol * input->material->coloring_speed + 256 * input->material->paletteOffset) % 65536;
 
-		color = IndexToColour(color_number, input);
-	}
-	else
+#if defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
+	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
+	switch (objectType)
 	{
-		color = input->material->color;
+		case clObjFractal: {
+#endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
+
+			if (input->material->useColorsFromPalette)
+			{
+#ifdef BOOLEAN_OPERATORS
+				int formulaIndex = input->objectId;
+
+				pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[formulaIndex]);
+				pointTemp = pointTemp - consts->params.formulaPosition[formulaIndex];
+				pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[formulaIndex], pointTemp);
+				pointTemp *= consts->params.formulaScale[formulaIndex];
+
+#else
+		int formulaIndex = -1;
+#endif
+				__global sFractalColoringCl *fractalColoring = &input->material->fractalColoring;
+				fout =
+					Fractal(consts, pointTemp, calcParams, calcModeColouring, fractalColoring, formulaIndex);
+				int nCol = floor(fout.colorIndex);
+				nCol = abs(nCol) % (248 * 256);
+				int color_number =
+					(int)(nCol * input->material->coloring_speed + 256 * input->material->paletteOffset)
+					% 65536;
+
+				color = IndexToColour(color_number, input);
+			}
+			else
+			{
+				color = input->material->color;
+			}
+#if defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
+			break;
+		}
+		case clObjPlane:
+		case clObjWater:
+		case clObjSphere:
+		case clObjBox:
+		case clObjRectangle:
+		case clObjCircle:
+		case clObjCone:
+		case clObjTorus:
+		case clObjCylinder:
+		{
+			color = input->material->color;
+			break;
+		}
+		case clObjNone: { color = 0.0f;
+		}
 	}
+#endif
 
 	out = (float3){color.x, color.y, color.z};
 
@@ -1101,4 +1142,4 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 	out4.xyz = output;
 	return out4;
 }
-#endif //FULL_ENGINE
+#endif // FULL_ENGINE
