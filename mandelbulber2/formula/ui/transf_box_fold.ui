@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -146,46 +146,32 @@
     </layout>
    </item>
    <item>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-100.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>100.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_25">
+     <item row="2" column="0" colspan="3">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
        <property name="text">
-        <string>X plane:</string>
+        <string notr="true">enable aux.color mode 2</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
+     <item row="5" column="0" colspan="2">
+      <widget class="QLabel" name="label_26">
+       <property name="text">
+        <string>Y plane:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -213,21 +199,21 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_26">
+     <item row="3" column="0" colspan="3">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
        <property name="text">
-        <string>Y plane:</string>
+        <string notr="true">enable aux.color mode 3</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_30">
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="label_27">
        <property name="text">
-        <string>Z plane:</string>
+        <string>aux.color components</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="5" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -258,32 +244,53 @@
      <item row="1" column="0" colspan="3">
       <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
-        <string notr="true">aux.color components</string>
+        <string notr="true">enable aux.color mode 1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_mandelbox_color_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-100.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0" colspan="2">
+      <widget class="QLabel" name="label_25">
+       <property name="text">
+        <string>X plane:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0" colspan="2">
+      <widget class="QLabel" name="label_30">
+       <property name="text">
+        <string>Z plane:</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
-     <property name="text">
-      <string notr="true">enable aux.color mode 2</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
-     <property name="text">
-      <string notr="true">enable aux.color mode 3</string>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_40">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">

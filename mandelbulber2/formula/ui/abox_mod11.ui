@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod11</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -399,13 +399,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="font">
       <font>
@@ -725,7 +718,7 @@ offset:</string>
         <property name="checkable">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1132,24 +1125,10 @@ offset:</string>
            </layout>
           </widget>
          </item>
-         <item>
-          <widget class="Line" name="line_10">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_29">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -1441,13 +1420,6 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_26">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1701,13 +1673,6 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_27">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
      <property name="title">
       <string>Ro&amp;tation</string>
@@ -1715,7 +1680,7 @@ offset:</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1912,13 +1877,6 @@ offset:</string>
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="Line" name="line_28">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -2020,7 +1978,7 @@ offset:</string>
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
+    <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled">
      <property name="title">
       <string>aux color c&amp;omponents</string>
      </property>

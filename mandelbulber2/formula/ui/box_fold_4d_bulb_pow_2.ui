@@ -1589,13 +1589,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_164">
-          <property name="text">
-           <string>Constant:</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_162">
           <property name="text">
@@ -1656,6 +1649,13 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="2">
+         <widget class="QLabel" name="label_164">
+          <property name="text">
+           <string>Constant:</string>
           </property>
          </widget>
         </item>
