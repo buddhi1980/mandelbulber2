@@ -135,7 +135,7 @@ void cAudioTrackCollection::AddParameters(
 			FullParameterName("midfreq", parameterName), 1000.0, 5.0, 20000.0, morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("bandwidth", parameterName), 200.0, 5.0, 20000.0, morphNone, paramStandard);
-		params->addParam(FullParameterName("additionfactor", parameterName), 1.0, 0.0, 65535.0,
+		params->addParam(FullParameterName("additionfactor", parameterName), 1.0, -65535.0, 65535.0,
 			morphNone, paramStandard);
 		params->addParam(
 			FullParameterName("multfactor", parameterName), 1.0, 0.0, 20000.0, morphNone, paramStandard);
