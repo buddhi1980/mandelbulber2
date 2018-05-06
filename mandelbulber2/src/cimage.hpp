@@ -83,6 +83,8 @@ public:
 	void SetAsMainImage() { isMainImage = true; }
 	bool IsMainImage() const { return isMainImage; }
 
+	void SetFastPreview(bool enable) { fastPreview = enable; }
+
 	inline qint64 getImageIndex(const qint64 x, const qint64 y) const
 	{
 		// assert(x >= 0 && x < width && y >= 0 && y < height);
@@ -301,6 +303,7 @@ private:
 	bool gammaTablePrepared;
 	bool allocLater;
 	bool isStereoLeftRight;
+	bool fastPreview;
 
 	QMutex previewMutex;
 

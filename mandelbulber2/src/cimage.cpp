@@ -81,6 +81,8 @@ void cImage::construct()
 
 	isStereoLeftRight = false;
 	isMainImage = false;
+
+	fastPreview = false;
 }
 
 cImage::~cImage()
@@ -458,28 +460,33 @@ quint8 *cImage::CreatePreview(
 	previewMutex.lock();
 	int w = int(width * scale);
 	int h = int(height * scale);
-	previewVisibleWidth = visibleWidth;
-	previewVisibleHeight = visibleHeight;
-	if (previewAllocated)
-	{
-		delete[] preview;
-		delete[] preview2;
-	}
-	preview = new sRGB8[w * h];
-	preview2 = new sRGB8[w * h];
 
-	memset(preview, 0, sizeof(sRGB8) * quint64(w) * quint64(h));
-	memset(preview2, 0, sizeof(sRGB8) * quint64(w) * quint64(h));
-	previewAllocated = true;
-	previewWidth = w;
-	previewHeight = h;
-	previewScale = scale;
-	quint8 *ptr = reinterpret_cast<quint8 *>(preview);
+	if (w != previewWidth || h != previewHeight || !previewAllocated)
+	{
+
+		previewVisibleWidth = visibleWidth;
+		previewVisibleHeight = visibleHeight;
+		if (previewAllocated)
+		{
+			delete[] preview;
+			delete[] preview2;
+		}
+		preview = new sRGB8[w * h];
+		preview2 = new sRGB8[w * h];
+
+		memset(preview, 0, sizeof(sRGB8) * quint64(w) * quint64(h));
+		memset(preview2, 0, sizeof(sRGB8) * quint64(w) * quint64(h));
+		previewAllocated = true;
+		previewWidth = w;
+		previewHeight = h;
+		previewScale = scale;
+	}
 
 	if (widget) imageWidget = widget;
 
-	previewMutex.unlock();
+	quint8 *ptr = reinterpret_cast<quint8 *>(preview);
 
+	previewMutex.unlock();
 	return ptr;
 }
 
@@ -596,13 +603,13 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				float deltaX = scaleX / countX;
 				float deltaY = scaleY / countY;
 
-				int xStart = rect.left() / scaleX - 1;
+				int xStart = rect.left() / scaleX;
 				xStart = qMax(xStart, 0);
-				int xEnd = rect.right() / scaleX + 1;
+				int xEnd = (rect.right() + 1) / scaleX;
 				xEnd = qMin(xEnd, w - 1);
-				int yStart = rect.top() / scaleY - 1;
+				int yStart = rect.top() / scaleY;
 				yStart = qMax(yStart, 0);
-				int yEnd = rect.bottom() / scaleY + 1;
+				int yEnd = (rect.bottom() + 1) / scaleY;
 				yEnd = qMin(yEnd, h - 1);
 
 				//#ifndef _WIN32
@@ -612,30 +619,39 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				{
 					for (int x = xStart; x <= xEnd; x++)
 					{
-						int R = 0;
-						int G = 0;
-						int B = 0;
-						for (int j = 0; j < countY; j++)
+						if (fastPreview)
 						{
-							float yy = y * scaleY + j * deltaY;
-
-							for (int i = 0; i < countX; i++)
+							qint64 xx = x * scaleX;
+							qint64 yy = y * scaleY;
+							preview[quint64(x) + quint64(y) * quint64(w)] = image8[yy * width + xx];
+						}
+						else
+						{
+							int R = 0;
+							int G = 0;
+							int B = 0;
+							for (int j = 0; j < countY; j++)
 							{
-								float xx = x * scaleX + i * deltaX;
-								if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
+								float yy = y * scaleY + j * deltaY;
+
+								for (int i = 0; i < countX; i++)
 								{
-									sRGB8 oldPixel = Interpolation(xx, yy);
-									R += oldPixel.R;
-									G += oldPixel.G;
-									B += oldPixel.B;
-								}
-							} // next i
-						}		// next j
-						sRGB8 newPixel;
-						newPixel.R = quint8(R / factor);
-						newPixel.G = quint8(G / factor);
-						newPixel.B = quint8(B / factor);
-						preview[quint64(x) + quint64(y) * quint64(w)] = newPixel;
+									float xx = x * scaleX + i * deltaX;
+									if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
+									{
+										sRGB8 oldPixel = Interpolation(xx, yy);
+										R += oldPixel.R;
+										G += oldPixel.G;
+										B += oldPixel.B;
+									}
+								} // next i
+							}		// next j
+							sRGB8 newPixel;
+							newPixel.R = quint8(R / factor);
+							newPixel.G = quint8(G / factor);
+							newPixel.B = quint8(B / factor);
+							preview[quint64(x) + quint64(y) * quint64(w)] = newPixel;
+						}
 					} // next x
 				}		// next y
 			}
