@@ -387,6 +387,7 @@
     </property>
     <addaction name="actionUser_Manual"/>
     <addaction name="actionUser_News"/>
+    <addaction name="actionUser_HotKeys"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -1498,6 +1499,18 @@
    </property>
    <property name="text">
     <string>&amp;News</string>
+   </property>
+  </action>
+  <action name="actionUser_HotKeys">
+   <property name="icon">
+    <iconset theme="dialog-information" resource="icons.qrc">
+     <normaloff>:/system/icons/dialog-information.svg</normaloff>:/system/icons/dialog-information.svg</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;HotKeys</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Alt+H</string>
    </property>
   </action>
   <action name="actionDetach_image_from_main_window">

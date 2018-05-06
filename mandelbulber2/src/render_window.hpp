@@ -134,6 +134,7 @@ private slots:
 	void slotMenuAboutQt();
 	void slotMenuAboutManual();
 	void slotMenuAboutNews();
+    void slotMenuAboutHotKeys();
 	void slotMenuAboutThirdParty();
 	void showDescriptionPopup();
 	void slotMenuLoadExample();
