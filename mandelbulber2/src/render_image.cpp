@@ -83,7 +83,7 @@ bool cRenderer::RenderImage()
 		int progressiveSteps;
 		if (data->configuration.UseProgressive())
 			progressiveSteps =
-				int(log(double(max(image->GetWidth(), image->GetHeight()))) / log(2.0)) - 3;
+				int(log(double(max(image->GetWidth(), image->GetHeight()))) / log(2.0)) - 4;
 		else
 			progressiveSteps = 0;
 

@@ -395,8 +395,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotKeyPressOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
-	connect(renderedImage, SIGNAL(mouseWheelRotated(int)), mainWindow,
-		SLOT(slotMouseWheelRotatedOnImage(int)));
+	connect(renderedImage, SIGNAL(mouseWheelRotated(int, int, int)), mainWindow,
+		SLOT(slotMouseWheelRotatedOnImage(int, int, int)));
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
@@ -1168,6 +1168,17 @@ void cInterface::SetByMouse(
 
 			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
 
+			double wheelDistance = 1.0;
+			if (clickMode == RenderedImage::clickMoveCamera)
+			{
+
+				if (mode.length() > 1) // if mouse wheel delta is available
+				{
+					int wheelDelta = mode.at(1).toInt();
+					wheelDistance = 0.001 * fabs(wheelDelta);
+				}
+			}
+
 			CVector3 angles = cameraTarget.GetRotation();
 			CRotationMatrix mRot;
 			mRot.SetRotation(angles);
@@ -1178,6 +1189,8 @@ void cInterface::SetByMouse(
 			normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
 			normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
 
+			normalizedPoint *= wheelDistance;
+
 			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
 
 			CVector3 point = camera + viewVector * depth;
@@ -1187,7 +1200,10 @@ void cInterface::SetByMouse(
 				case RenderedImage::clickMoveCamera:
 				{
 					double distance = (camera - point).Length();
+
 					double moveDistance = (stepMode == absolute) ? movementStep : distance * movementStep;
+					moveDistance *= wheelDistance;
+
 					if (stepMode == relative)
 					{
 						if (moveDistance > depth * 0.99) moveDistance = depth * 0.99;
@@ -1971,8 +1987,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);

@@ -212,7 +212,7 @@ void RenderWindow::slotKeyHandle()
 	gMainInterface->StartRender();
 }
 
-void RenderWindow::slotMouseWheelRotatedOnImage(int delta) const
+void RenderWindow::slotMouseWheelRotatedOnImage(int x, int y, int delta) const
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
@@ -225,6 +225,13 @@ void RenderWindow::slotMouseWheelRotatedOnImage(int delta) const
 			double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
 			dist *= deltaLog;
 			ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
+			break;
+		}
+		case RenderedImage::clickMoveCamera:
+		{
+			Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
+			mode.append(QVariant(delta));
+			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
 			break;
 		}
 		default: break;

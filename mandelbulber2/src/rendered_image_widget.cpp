@@ -725,7 +725,7 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 
 void RenderedImage::wheelEvent(QWheelEvent *event)
 {
-	emit mouseWheelRotated(event->delta());
+	emit mouseWheelRotated(event->x(), event->y(), event->delta());
 	if (params)
 	{
 		if (cursorVisible && isFocus && redrawed)
