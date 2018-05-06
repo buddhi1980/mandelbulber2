@@ -165,8 +165,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		if ((gNetRender->IsClient() || gNetRender->IsServer()) && canUseNetRender)
 		{
 			image->ClearImage();
-//			image->UpdatePreview();
-//			if (hasQWidget) emit updateImage();
+			//			image->UpdatePreview();
+			//			if (hasQWidget) emit updateImage();
 		}
 	}
 
@@ -220,7 +220,7 @@ bool cRenderJob::InitImage(int w, int h, const sImageOptional &optional)
 				scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), image);
 			image->CreatePreview(
 				scale, image->GetPreviewVisibleWidth(), image->GetPreviewVisibleHeight(), imageWidget);
-			//image->UpdatePreview();
+			// image->UpdatePreview();
 			emit SetMinimumWidgetSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		}
 
@@ -529,10 +529,7 @@ bool cRenderJob::Execute()
 		renderData->statistics.Reset();
 		renderData->statistics.usedDEType = fractals->GetDETypeString();
 
-		if(cOpenClEngineRenderFractal::enumClRenderEngineMode(
-				 paramsContainer->Get<int>("opencl_mode"))
-				 == cOpenClEngineRenderFractal::clRenderEngineTypeFast)
-			image->SetFastPreview(true);
+		image->SetFastPreview(true);
 
 		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
 			SIGNAL(updateStatistics(cStatistics)));
@@ -625,6 +622,23 @@ bool cRenderJob::Execute()
 			{
 				gOpenCl->openclEngineRenderDOF->RenderDOF(
 					params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
+			}
+		}
+
+		if (!*renderData->stopRequest)
+		{
+			if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						paramsContainer->Get<int>("opencl_mode"))
+					== cOpenClEngineRenderFractal::clRenderEngineTypeFast)
+				image->SetFastPreview(true);
+			else
+				image->SetFastPreview(false);
+
+			if (image->IsPreview())
+			{
+				image->UpdatePreview();
+				WriteLog("image->GetImageWidget()->update()", 2);
+				emit updateImage();
 			}
 		}
 

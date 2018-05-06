@@ -533,35 +533,41 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
-				//#ifndef _WIN32
-				//#pragma omp parallel for
-				//#endif
 				for (int x = 0; x < int(w); x++)
 				{
-					int R = 0;
-					int G = 0;
-					int B = 0;
-					for (int j = 0; j < countY; j++)
+					if (fastPreview)
 					{
-						float yy = y * scaleY + j * deltaY;
-
-						for (int i = 0; i < countX; i++)
+						qint64 xx = x * scaleX;
+						qint64 yy = y * scaleY;
+						preview[quint64(x) + quint64(y) * quint64(w)] = image8[yy * width + xx];
+					}
+					else
+					{
+						int R = 0;
+						int G = 0;
+						int B = 0;
+						for (int j = 0; j < countY; j++)
 						{
-							float xx = x * scaleX + i * deltaX;
-							if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
+							float yy = y * scaleY + j * deltaY;
+
+							for (int i = 0; i < countX; i++)
 							{
-								sRGB8 oldPixel = Interpolation(xx, yy);
-								R += oldPixel.R;
-								G += oldPixel.G;
-								B += oldPixel.B;
-							}
-						} // next i
-					}		// next j
-					sRGB8 newPixel;
-					newPixel.R = quint8(R / factor);
-					newPixel.G = quint8(G / factor);
-					newPixel.B = quint8(B / factor);
-					preview[quint64(x) + quint64(y) * quint64(w)] = newPixel;
+								float xx = x * scaleX + i * deltaX;
+								if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
+								{
+									sRGB8 oldPixel = Interpolation(xx, yy);
+									R += oldPixel.R;
+									G += oldPixel.G;
+									B += oldPixel.B;
+								}
+							} // next i
+						}		// next j
+						sRGB8 newPixel;
+						newPixel.R = quint8(R / factor);
+						newPixel.G = quint8(G / factor);
+						newPixel.B = quint8(B / factor);
+						preview[quint64(x) + quint64(y) * quint64(w)] = newPixel;
+					}
 				} // next x
 			}		// next y
 		}

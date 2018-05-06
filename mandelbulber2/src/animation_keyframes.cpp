@@ -752,6 +752,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				const ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+				gApplication->processEvents();
 			}
 			//--------------------------------------------------------------------
 		}

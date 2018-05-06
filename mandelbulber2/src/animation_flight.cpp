@@ -873,6 +873,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			const ImageFileSave::enumImageFileType fileType =
 				ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 			SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+			gApplication->processEvents();
 		}
 
 		emit updateProgressAndStatus(QObject::tr("Animation finished"), progressText.getText(1.0), 1.0,

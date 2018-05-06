@@ -902,10 +902,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		{
 			WriteLog("image->ConvertTo8bit()", 2);
 			image->ConvertTo8bit(&lastRenderedRects);
-			WriteLog("image->UpdatePreview()", 2);
-			image->UpdatePreview(&lastRenderedRects);
-			WriteLog("image->GetImageWidget()->update()", 2);
-			emit updateImage();
+//			WriteLog("image->UpdatePreview()", 2);
+//			image->UpdatePreview(&lastRenderedRects);
+//			WriteLog("image->GetImageWidget()->update()", 2);
+//			emit updateImage();
 		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);

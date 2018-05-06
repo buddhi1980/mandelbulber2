@@ -78,6 +78,8 @@ bool cRenderer::RenderImage()
 	{
 		image->SetImageParameters(params->imageAdjustments);
 
+		image->SetFastPreview(true);
+
 		int progressiveSteps;
 		if (data->configuration.UseProgressive())
 			progressiveSteps =
@@ -142,6 +144,7 @@ bool cRenderer::RenderImage()
 		do
 		{
 			WriteLogDouble("Progressive loop", scheduler->GetProgressiveStep(), 2);
+
 			for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 			{
 				WriteLog(QString("Thread ") + QString::number(i) + " create", 3);
@@ -227,6 +230,7 @@ bool cRenderer::RenderImage()
 
 						if (data->configuration.UseImageRefresh())
 						{
+							image->SetFastPreview(true);
 							image->UpdatePreview(&listToRefresh);
 							emit updateImage();
 						}
@@ -423,6 +427,8 @@ bool cRenderer::RenderImage()
 
 		if (image->IsPreview())
 		{
+			image->SetFastPreview(*data->stopRequest);
+
 			WriteLog("image->ConvertTo8bit()", 2);
 			image->ConvertTo8bit();
 			WriteLog("image->UpdatePreview()", 2);
