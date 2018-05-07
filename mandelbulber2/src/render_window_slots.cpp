@@ -205,9 +205,15 @@ void RenderWindow::slotKeyHandle()
 				case Qt::Key_Down: gMainInterface->RotateCamera("bu_rotate_down"); break;
 				case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_left"); break;
 				case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_right"); break;
-				case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
+
+                case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
+                case Qt::Key_M: gKeyframeAnimation->slotModifyKeyframe(); break;
+                //case Qt::Key_D: gKeyframeAnimation->slotDeleteKeyframe(); break;
+                case Qt::Key_N: gKeyframeAnimation->slotIncreaseCurrentTableIndex(); break;
+                case Qt::Key_P: gKeyframeAnimation->slotDecreaseCurrentTableIndex(); break;
 				default: break;
 			}
+
 		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);

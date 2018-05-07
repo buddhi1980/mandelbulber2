@@ -148,9 +148,9 @@ void RenderWindow::slotMenuAboutHotKeys()
 {
     QString ctrlBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Ctrl") + "</span>";
     QString altBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Alt") + "</span>";
-    QString shiftBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Alt") + "</span>";
+    QString shiftBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Shift") + "</span>";
 
-    QString style= "<style>td { padding: 2px; }</style>";
+    QString style= "<style>td { padding: 2px; color: black;}</style>";
     QString text = "<table><tr>";
     text += "<td style='padding: 5px; background-color: #DDF'>";
     text += "<h3>" + tr("Main Program Hotkeys") + "</h3>";
@@ -205,17 +205,33 @@ void RenderWindow::slotMenuAboutHotKeys()
     text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow right") + "</th><td>" + tr("Roll right") + "</td></tr>";
     text += "</table>";
 
+    text += "<td style='padding: 5px; background-color: #FDD'>";
+    text += "<h3>" + tr("Render Window Keyframe / Flight") + "</h3>";
+
+    text += "<table border='1'>";
+    text += " <tr><th colspan='2'>" + tr("Flight") + "</th></tr>";
+    text += " <tr><th>" + tr("Left mouse click") + "</th><td>" + tr("Increase speed") + "</td></tr>";
+    text += " <tr><th>" + tr("Right mouse click") + "</th><td>" + tr("Decrease speed") + "</td></tr>";
+    text += " <tr><th>" + tr("Arrow keys") + "</th><td>" + tr("Strafe (move forward and sideward)") + "</td></tr>";
+    text += " <tr><th>" + shiftBadge + "+" + tr("Arrow keys") + "</th><td>" + tr("Strafe orthogonal (move sideward only)") + "</td></tr>";
+    text += " <tr><th>" + tr("Spacebar") + "</th><td>" + tr("Pause / Unpause") + "</td></tr>";
+    text += " <tr><th>Z, X</th><td>" + tr("Roll rotation") + "</td></tr>";
+    text += "</table>";
+
     text += "<table style='margin-top: 10px;' border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Other") + "</th></tr>";
+    text += " <tr><th colspan='2'>" + tr("Keyframe") + "</th></tr>";
     text += " <tr><th>I</th><td>" + tr("Add Keyframe") + "</td></tr>";
+    text += " <tr><th>M</th><td>" + tr("Modify current Keyframe") + "</td></tr>";
+    text += " <tr><th>N</th><td>" + tr("Move to next Keyframe") + "</td></tr>";
+    text += " <tr><th>P</th><td>" + tr("Move to previous Keyframe") + "</td></tr>";
     text += "</table>";
 
     text += "</td>";
     text += "</tr></table>";
 
     QMessageBox *messageBox = new QMessageBox(this);
-    messageBox->setFixedWidth(600);
-    messageBox->setMinimumWidth(600);
+    messageBox->setFixedWidth(900);
+    messageBox->setMinimumWidth(900);
     messageBox->setText(style + text);
     messageBox->setWindowTitle(QObject::tr("HotKeys Cheatsheet"));
     messageBox->setIcon(QMessageBox::Information);
@@ -224,7 +240,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 
      // ! Evil hack to increase size of qmessagebox,
      // see here for more info: https://stackoverflow.com/questions/37668820/how-can-i-resize-qmessagebox
-     QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+     QSpacerItem* horizontalSpacer = new QSpacerItem(900, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
      QGridLayout* layout = (QGridLayout*)messageBox->layout();
      layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
 

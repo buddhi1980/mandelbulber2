@@ -313,6 +313,16 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 	return false;
 }
 
+void cKeyframeAnimation::slotIncreaseCurrentTableIndex()
+{
+    table->setCurrentCell(table->currentRow(), table->currentColumn() + 1 % table->columnCount());
+}
+
+void cKeyframeAnimation::slotDecreaseCurrentTableIndex()
+{
+    table->setCurrentCell(table->currentRow(), table->currentColumn() - 1 % table->columnCount());
+}
+
 void cKeyframeAnimation::PrepareTable()
 {
 	table->setRowCount(0);
