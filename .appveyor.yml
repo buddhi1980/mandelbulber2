@@ -36,6 +36,7 @@ matrix:
   allow_failures:
     - platform: ARM
     - configuration: AnalysisRelease
+    - configuration: Debug
 
 # scripts to run before build
 before_build:
