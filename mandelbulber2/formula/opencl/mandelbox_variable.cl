@@ -152,9 +152,9 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 					&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
 							 != 0))
 			{
-				float iterationRange =
+				REAL iterationRange =
 					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
-				float currentIteration = (aux->i - fractal->transformCommon.startIterations);
+				REAL currentIteration = (aux->i - fractal->transformCommon.startIterations);
 				tempVC +=
 					fractal->transformCommon.offset000 * native_divide(currentIteration, iterationRange);
 			}

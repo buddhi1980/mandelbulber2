@@ -22,6 +22,7 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+	aux->r_dz *= fabs(fractal->transformCommon.scale);
 
 	REAL r2 = dot(z, z);
 	if (fractal->transformCommon.functionEnabledyFalse) r2 = r2Temp;
@@ -45,6 +46,7 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	mode = native_recip(mode);
 	z *= mode;
 	aux->DE *= mode;
+	aux->r_dz *= mode;
 
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	return z;

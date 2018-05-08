@@ -19,14 +19,14 @@ REAL4 TransfSphericalPwrFoldIteration(REAL4 z, __constant sFractalCl *fractal, s
 	// if (z.x > -1e-21f && z.x < 1e-21f) z.x = (z.x > 0) ? 1e-21f : -1e-21f;
 	// if (z.y > -1e-21f && z.y < 1e-21f) z.y = (z.y > 0) ? 1e-21f : -1e-21f;
 	// if (z.z > -1e-21f && z.z < 1e-21f) z.z = (z.z > 0) ? 1e-21f : -1e-21f;
-	REAL r2 = native_powr(native_powr(z.x, fractal->transformCommon.pwr4)
+	REAL rr = native_powr(native_powr(z.x, fractal->transformCommon.pwr4)
 													+ native_powr(z.y, fractal->transformCommon.pwr4)
 													+ native_powr(z.z, fractal->transformCommon.pwr4),
 		fractal->transformCommon.pwr05);
 
-	// if (r2 < 1e-21f && r2 > -1e-21f)
-	//	r2 = (r2 > 0) ? 1e-21f : -1e-21f;
-	if (r2 < fractal->mandelbox.mR2)
+	// if (rr < 1e-21f && rr > -1e-21f)
+	//	rr = (rr > 0) ? 1e-21f : -1e-21f;
+	if (rr < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux->DE *= fractal->mandelbox.mboxFactor1;
@@ -35,9 +35,9 @@ REAL4 TransfSphericalPwrFoldIteration(REAL4 z, __constant sFractalCl *fractal, s
 			aux->color += fractal->mandelbox.color.factorSp1;
 		}
 	}
-	else if (r2 < fractal->mandelbox.fR2)
+	else if (rr < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, rr);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		if (fractal->foldColor.auxColorEnabledFalse)

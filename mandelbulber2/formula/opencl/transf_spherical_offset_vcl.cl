@@ -18,7 +18,6 @@ REAL4 TransfSphericalOffsetVCLIteration(
 {
 	REAL para = fractal->Cpara.para00;
 	REAL paraAdd = 0.0f;
-	REAL paraDot = 0.0f;
 	REAL paraAddP0 = 0.0f;
 	// curvilinear mode
 	if (fractal->transformCommon.functionEnabled)
@@ -53,7 +52,6 @@ REAL4 TransfSphericalOffsetVCLIteration(
 			// Curvi part on "true"
 			if (fractal->Cpara.enabledCurves)
 			{
-				// REAL paraAdd = 0.0f;
 				REAL paraIt;
 				if (lengthAB > 2.0f * fractal->Cpara.iterA) // stop  error, todo fix.
 				{
@@ -76,30 +74,44 @@ REAL4 TransfSphericalOffsetVCLIteration(
 		}
 	}
 	// Parabolic
-	// REAL paraAddP0 = 0.0f;
 	if (fractal->Cpara.enabledParabFalse)
 	{ // parabolic = paraOffset + iter *slope + (iter *iter *scale)
 		paraAddP0 = fractal->Cpara.parabOffset0 + (aux->i * fractal->Cpara.parabSlope)
 								+ (aux->i * aux->i * 0.001f * fractal->Cpara.parabScale);
 		para += paraAddP0;
 	}
+	// para offset
+	para += fractal->transformCommon.offset0;
 
-	// using the parameter
-	// z *= 1.0f + native_divide(para, -dot(z, z));
-
+	REAL div = 0.0f;
+	// dot mode
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		paraDot = fractal->transformCommon.offset0;
-		para += paraDot;
+		div = dot(z, z);
+	}
+	else
+	{
+		div = length(z);
 	}
 
-	z *= 1.0f + native_divide(para, -dot(z, z));
+	// using the parameter
+	z *= 1.0f + native_divide(para, -div);
+
 	// post scale
 	z *= fractal->transformCommon.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
 	aux->r_dz *= fabs(fractal->transformCommon.scale);
 
-	aux->DE = mad(
-		aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0); // DE tweak  or aux->DE +=
+	// DE tweak
+	if (fractal->transformCommon.functionEnabledxFalse)
+	{
+		aux->r_dz = mad(aux->r_dz, fractal->analyticDE.scale1,
+			fractal->analyticDE.offset0); // DE tweak  or aux->DE +=
+	}
+	else
+	{
+		aux->DE = mad(
+			aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0); // DE tweak  or aux->DE +=
+	}
 	return z;
 }

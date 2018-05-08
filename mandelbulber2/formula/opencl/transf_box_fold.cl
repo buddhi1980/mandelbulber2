@@ -32,14 +32,15 @@ REAL4 TransfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		z.z = mad(sign(z.z), zValue, -z.z);
 	}
+	// aux->colo mode 1
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 	}
 
-	// alternative 1
+	// mode 2
 	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
 		if (fabs(z.x) > fractal->mandelbox.foldingLimit)
@@ -77,7 +78,7 @@ REAL4 TransfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->color += colorAdd;
 	}
 
-	// alternative 2
+	// mode 3
 	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
 		REAL valMinusLim = fractal->mandelbox.foldingValue - fractal->mandelbox.foldingLimit;

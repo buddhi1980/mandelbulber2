@@ -15,15 +15,11 @@
 
 REAL4 TransfSphericalOffsetIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL para = fractal->transformCommon.offset;
-	if (fractal->transformCommon.functionEnabled)
-	{
-		REAL lengthTempZ = -length(z);
-		// if (lengthTempZ > -1e-21f) lengthTempZ = -1e-21f;   //  z is neg.)
-		z *= 1.0f + native_divide(para, lengthTempZ);
-		z *= fractal->transformCommon.scale;
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
-		aux->r_dz *= fabs(fractal->transformCommon.scale);
-	}
+	// if (-length(z) > -1e-21f) -length(z) = -1e-21f;   //  z is neg.)
+	z *= 1.0f + native_divide(fractal->transformCommon.offset, -length(z));
+	z *= fractal->transformCommon.scale;
+
+	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
+	aux->r_dz *= fabs(fractal->transformCommon.scale);
 	return z;
 }
