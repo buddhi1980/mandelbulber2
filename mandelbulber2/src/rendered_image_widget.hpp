@@ -101,6 +101,8 @@ public:
 	}
 	void setNewZ(double z) { smoothLastZMouse = z; }
 	void setClickMode(QList<QVariant> _clickMode);
+	void SetEnableClickModes(bool enable) { clickModesEnables = enable; }
+	bool GetEnableClickModes() const { return clickModesEnables; }
 	void SetFrontDist(double dist) { frontDist = dist; }
 	void SetCursorVisibility(bool enable) { cursorVisible = enable; }
 	void SetGridType(enumGridType gridType);
@@ -149,6 +151,7 @@ private:
 	bool isOnObject;
 	bool placeLightBehind;
 	bool redrawed;
+	bool clickModesEnables;
 	cFractalContainer *fractals;
 	cImage *image;
 	cParameterContainer *params;

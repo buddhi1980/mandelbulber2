@@ -120,7 +120,10 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 		case RenderedImage::clickGetPoint:
 		case RenderedImage::clickWrapLimitsAroundObject:
 		{
-			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+			if (gMainInterface->renderedImage->GetEnableClickModes())
+			{
+				gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+			}
 			break;
 		}
 		case RenderedImage::clickDoNothing:
@@ -206,14 +209,15 @@ void RenderWindow::slotKeyHandle()
 				case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_left"); break;
 				case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_right"); break;
 
-                case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
-                case Qt::Key_M: gKeyframeAnimation->slotModifyKeyframe(); break;
-                //case Qt::Key_D: gKeyframeAnimation->slotDeleteKeyframe(); break;
-                case Qt::Key_N: gKeyframeAnimation->slotIncreaseCurrentTableIndex(); break;
-                case Qt::Key_P: gKeyframeAnimation->slotDecreaseCurrentTableIndex(); break;
+				case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
+				case Qt::Key_M:
+					gKeyframeAnimation->slotModifyKeyframe();
+					break;
+				// case Qt::Key_D: gKeyframeAnimation->slotDeleteKeyframe(); break;
+				case Qt::Key_N: gKeyframeAnimation->slotIncreaseCurrentTableIndex(); break;
+				case Qt::Key_P: gKeyframeAnimation->slotDecreaseCurrentTableIndex(); break;
 				default: break;
 			}
-
 		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
@@ -222,27 +226,30 @@ void RenderWindow::slotKeyHandle()
 
 void RenderWindow::slotMouseWheelRotatedOnImage(int x, int y, int delta) const
 {
-	int index = ui->comboBox_mouse_click_function->currentIndex();
-	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
-	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
-	switch (clickMode)
+	if (gMainInterface->renderedImage->GetEnableClickModes())
 	{
-		case RenderedImage::clickPlaceLight:
+		int index = ui->comboBox_mouse_click_function->currentIndex();
+		QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
+		RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
+		switch (clickMode)
 		{
-			double deltaLog = exp(delta * 0.001);
-			double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
-			dist *= deltaLog;
-			ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
-			break;
+			case RenderedImage::clickPlaceLight:
+			{
+				double deltaLog = exp(delta * 0.001);
+				double dist = ui->widgetEffects->GetAuxLightManualPlacementDistance();
+				dist *= deltaLog;
+				ui->widgetEffects->SetAuxLightManualPlacementDistance(dist);
+				break;
+			}
+			case RenderedImage::clickMoveCamera:
+			{
+				Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
+				mode.append(QVariant(delta));
+				gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
+				break;
+			}
+			default: break;
 		}
-		case RenderedImage::clickMoveCamera:
-		{
-			Qt::MouseButton button = (delta > 0) ? Qt::LeftButton : Qt::RightButton;
-			mode.append(QVariant(delta));
-			gMainInterface->SetByMouse(CVector2<double>(x, y), button, mode);
-			break;
-		}
-		default: break;
 	}
 }
 

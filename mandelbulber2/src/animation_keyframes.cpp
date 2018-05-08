@@ -315,12 +315,12 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 
 void cKeyframeAnimation::slotIncreaseCurrentTableIndex()
 {
-    table->setCurrentCell(table->currentRow(), table->currentColumn() + 1 % table->columnCount());
+	table->setCurrentCell(table->currentRow(), table->currentColumn() + 1 % table->columnCount());
 }
 
 void cKeyframeAnimation::slotDecreaseCurrentTableIndex()
 {
-    table->setCurrentCell(table->currentRow(), table->currentColumn() - 1 % table->columnCount());
+	table->setCurrentCell(table->currentRow(), table->currentColumn() - 1 % table->columnCount());
 }
 
 void cKeyframeAnimation::PrepareTable()
@@ -589,7 +589,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 
 	if (!systemData.noGui && image->IsMainImage())
+	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+		imageWidget->SetEnableClickModes(false);
+	}
 
 	try
 	{
@@ -684,7 +687,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				delete renderJob;
 
 				if (!systemData.noGui && image->IsMainImage())
+				{
 					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+					imageWidget->SetEnableClickModes(true);
+				}
 
 				return RenderKeyframes(stopRequest);
 			}
@@ -784,7 +790,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		delete renderJob;
 
 		if (!systemData.noGui && image->IsMainImage())
+		{
 			mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+			imageWidget->SetEnableClickModes(true);
+		}
 
 		return false;
 	}
@@ -792,7 +801,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	delete renderJob;
 
 	if (!systemData.noGui && image->IsMainImage())
+	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+		imageWidget->SetEnableClickModes(true);
+	}
 
 	return true;
 }

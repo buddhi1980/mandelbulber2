@@ -427,7 +427,7 @@ bool cRenderer::RenderImage()
 
 		if (image->IsPreview())
 		{
-			image->SetFastPreview(*data->stopRequest);
+			image->SetFastPreview(*data->stopRequest || data->configuration.GetMaxRenderTime() < 1e49);
 
 			WriteLog("image->ConvertTo8bit()", 2);
 			image->ConvertTo8bit();

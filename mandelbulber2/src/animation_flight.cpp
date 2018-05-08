@@ -40,6 +40,7 @@
 
 #include "animation_flight.hpp"
 
+#include <QWidget>
 #include "ui_dock_animation.h"
 
 #include "animation_frames.hpp"
@@ -142,7 +143,7 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 		gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 
 	image = _image;
-	imageWidget = _imageWidget;
+	imageWidget = dynamic_cast<RenderedImage *>(_imageWidget);
 	params = _params;
 	fractalParams = _fractal;
 	linearSpeedSp = 0.0;
@@ -317,6 +318,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	renderJob->Init(cRenderJob::flightAnimRecord, config);
 	mainInterface->stopRequest = false;
 
+	image->SetFastPreview(true);
+
 	// vector for speed and rotation control
 	CVector3 cameraSpeed;
 	CVector3 cameraAcceleration;
@@ -347,6 +350,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	recordPause = false;
 
 	mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+	imageWidget->SetEnableClickModes(false);
 
 	mainInterface->progressBarAnimation->show();
 
@@ -495,7 +499,10 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	}
 
 	if (!systemData.noGui && image->IsMainImage())
+	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+		imageWidget->SetEnableClickModes(true);
+	}
 
 	// retrieve original click mode
 	const QList<QVariant> item =
@@ -503,6 +510,8 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			->itemData(mainInterface->mainWindow->GetComboBoxMouseClickFunction()->currentIndex())
 			.toList();
 	gMainInterface->renderedImage->setClickMode(item);
+
+	image->SetFastPreview(false);
 
 	UpdateLimitsForFrameRange();
 	ui->spinboxInt_flight_last_to_render->setValue(frames->GetNumberOfFrames());
@@ -748,7 +757,10 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	progressText.ResetTimer();
 
 	if (!systemData.noGui && image->IsMainImage())
+	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+		imageWidget->SetEnableClickModes(false);
+	}
 
 	try
 	{
@@ -804,7 +816,10 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			{
 				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_flight_dir"));
 				if (!systemData.noGui && image->IsMainImage())
+				{
 					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+					imageWidget->SetEnableClickModes(true);
+				}
 
 				return RenderFlight(stopRequest);
 			}
@@ -893,13 +908,19 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		delete renderJob;
 
 		if (!systemData.noGui && image->IsMainImage())
+		{
 			mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+			imageWidget->SetEnableClickModes(true);
+		}
 
 		return false;
 	}
 
 	if (!systemData.noGui && image->IsMainImage())
+	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+		imageWidget->SetEnableClickModes(true);
+	}
 
 	delete renderJob;
 	return true;

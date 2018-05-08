@@ -629,7 +629,8 @@ bool cRenderJob::Execute()
 		{
 			if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
 						paramsContainer->Get<int>("opencl_mode"))
-					== cOpenClEngineRenderFractal::clRenderEngineTypeFast)
+						== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+					|| mode == flightAnimRecord)
 				image->SetFastPreview(true);
 			else
 				image->SetFastPreview(false);

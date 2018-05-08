@@ -76,6 +76,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	anaglyphMode = false;
 	gridType = gridTypeCrosshair;
 	placeLightBehind = false;
+	clickModesEnables = true;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
@@ -580,7 +581,10 @@ void RenderedImage::mousePressEvent(QMouseEvent *event)
 	}
 	else
 	{
-		emit singleClick(event->x(), event->y(), event->button());
+		if (clickModesEnables)
+		{
+			emit singleClick(event->x(), event->y(), event->button());
+		}
 	}
 }
 
@@ -725,18 +729,22 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 
 void RenderedImage::wheelEvent(QWheelEvent *event)
 {
-	emit mouseWheelRotated(event->x(), event->y(), event->delta());
-	if (params)
+	if (clickModesEnables || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 	{
-		if (cursorVisible && isFocus && redrawed)
+		emit mouseWheelRotated(event->x(), event->y(), event->delta());
+		if (params)
 		{
-			update();
+			if (cursorVisible && isFocus && redrawed)
+			{
+				update();
+			}
 		}
-	}
-	else
-	{
-		if (cursorVisible)
-			qCritical() << "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
+		else
+		{
+			if (cursorVisible)
+				qCritical()
+					<< "RenderedImage::mouseMoveEvent(QMouseEvent * event): parameters not assigned";
+		}
 	}
 }
 

@@ -55,6 +55,7 @@ class cInterface;
 class cFractalContainer;
 class cParameterContainer;
 class MyTableWidgetAnim;
+class RenderedImage;
 
 namespace Ui
 {
@@ -120,7 +121,7 @@ private:
 	Ui::cDockAnimation *ui;
 	cAnimationFrames *frames;
 	cImage *image;
-	QWidget *imageWidget;
+	RenderedImage *imageWidget;
 	cParameterContainer *params;
 	cFractalContainer *fractalParams;
 	QStringList tableRowNames;
