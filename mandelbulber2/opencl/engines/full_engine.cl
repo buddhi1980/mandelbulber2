@@ -40,7 +40,7 @@ int GetInteger(int byte, __global char *array)
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
-	__constant sClInConstants *consts, int initRandomSeed)
+	__constant sClInConstants *consts, image2d_t image2dBackground, int initRandomSeed)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -249,7 +249,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		recursionIn.objectColour = objectColour;
 		recursionIn.rayBranch = rayBranchReflection;
 
-		sRayRecursionOut recursionOut = RayRecursion(recursionIn, &renderData, consts, &randomSeed);
+		sRayRecursionOut recursionOut =
+			RayRecursion(recursionIn, &renderData, consts, image2dBackground, &randomSeed);
 		resultShader = recursionOut.resultShader;
 		objectColour = recursionOut.objectColour;
 		depth = recursionOut.rayMarchingOut.depth;

@@ -40,7 +40,7 @@ int GetInteger(int byte, __global char *array)
 
 //------------------ MAIN RENDER FUNCTION --------------------
 kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
-	__constant sClInConstants *consts, int initRandomSeed)
+	__constant sClInConstants *consts, image2d_t image2dBackground, int initRandomSeed)
 {
 	// get actual pixel
 	const int imageX = get_global_id(0);
@@ -314,7 +314,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		}
 		else
 		{
-			color = BackgroundShader(consts, &renderData, &shaderInputData);
+			color = BackgroundShader(consts, &renderData, image2dBackground, &shaderInputData);
 			scan = 1e20f;
 			alpha = 0.0f;
 		}

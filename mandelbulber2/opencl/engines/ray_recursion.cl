@@ -234,8 +234,8 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 	out->count = count;
 }
 
-sRayRecursionOut RayRecursion(
-	sRayRecursionIn in, sRenderData *renderData, __constant sClInConstants *consts, int *randomSeed)
+sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
+	__constant sClInConstants *consts, image2d_t image2dBackground, int *randomSeed)
 {
 	int rayIndex = 0; // level of recursion
 
@@ -591,7 +591,8 @@ sRayRecursionOut RayRecursion(
 			}
 			else
 			{
-				backgroundShader = BackgroundShader(consts, renderData, &shaderInputData);
+				backgroundShader =
+					BackgroundShader(consts, renderData, image2dBackground, &shaderInputData);
 				resultShader.xyz = backgroundShader;
 				resultShader.w = 0.0f;
 				rayMarchingOut.depth = 1e20f;

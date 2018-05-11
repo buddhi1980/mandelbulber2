@@ -32,6 +32,8 @@
  * misc shader function optimized for opencl
  */
 
+__constant sampler_t sampler = CLK_NORMALIZED_COORDS_TRUE | CLK_ADDRESS_REPEAT | CLK_FILTER_LINEAR;
+
 typedef struct
 {
 	float3 point;
@@ -91,10 +93,32 @@ float3 Hsv2rgb(float hue, float sat, float val)
 
 //-------------- background shaders ---------------
 
-float3 BackgroundShader(
-	__constant sClInConstants *consts, sRenderData *renderData, sShaderInputDataCl *input)
+float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderData,
+	image2d_t image2dBackground, sShaderInputDataCl *input)
 {
 	float3 pixel;
+
+#ifdef TEXTURED_BACKGROUND
+	float3 rotatedViewVector =
+		Matrix33MulFloat3(consts->params.mRotBackgroundRotation, input->viewVector);
+
+	double alphaTexture =
+		fmod(-atan2(rotatedViewVector.y, rotatedViewVector.x) + 3.5f * M_PI_F, 2.0f * M_PI_F);
+	double betaTexture = -atan2(rotatedViewVector.z, length(rotatedViewVector.xy));
+	if (betaTexture > 0.5f * M_PI_F) betaTexture = 0.5f * M_PI_F - betaTexture;
+	if (betaTexture < -0.5f * M_PI_F) betaTexture = -0.5f * M_PI_F + betaTexture;
+	float2 texCord;
+	texCord.x = alphaTexture / (2.0f * M_PI_F) / consts->params.backgroundHScale
+							+ consts->params.backgroundTextureOffsetX;
+	texCord.y = (betaTexture / (M_PI_F) + 0.5f) / consts->params.backgroundVScale
+							+ consts->params.backgroundTextureOffsetY;
+	float4 pixelTex = read_imagef(image2dBackground, sampler, texCord);
+
+	pixel = pixelTex.xyz * consts->params.background_brightness;
+	return pixel;
+
+#else	// TEXTURED_BACKGROUND
+
 	if (consts->params.background3ColorsEnable)
 	{
 		float3 vector = (float3){0.0f, 0.0f, 1.0f};
@@ -127,7 +151,9 @@ float3 BackgroundShader(
 	{
 		pixel = consts->params.background_color1 * consts->params.background_brightness;
 	}
+
 	return pixel;
+#endif // TEXTURED_BACKGROUND
 }
 
 //----------------- object shaders -----------------

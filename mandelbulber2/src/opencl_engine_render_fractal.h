@@ -76,6 +76,7 @@ public:
 		sRenderData *renderData);
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
+	bool PrepareBufferForBackground(sRenderData *renderData);
 	bool AssignParametersToKernelAdditional(int argIterator) override;
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
@@ -102,9 +103,15 @@ private:
 	QByteArray inBuffer;
 	cl::Buffer *inCLBuffer;
 
+	cl::Image2D *backgroundImage2D;
+	cl_uchar4 *backgroungImageBuffer;
+
 	cOpenClDynamicData *dynamicData;
 
 	QStringList listOfUsedFormulas;
+
+	enumClRenderEngineMode renderEngineMode;
+
 	bool autoRefreshMode;
 	bool monteCarlo;
 

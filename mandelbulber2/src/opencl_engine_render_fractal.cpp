@@ -57,6 +57,7 @@
 #include "rectangle.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
+#include "texture.hpp"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -70,6 +71,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 #ifdef USE_OPENCL
 	constantInBuffer = nullptr;
 	inCLConstBuffer = nullptr;
+	backgroungImageBuffer = nullptr;
+	backgroundImage2D = nullptr;
 
 	inCLBuffer = nullptr;
 
@@ -78,6 +81,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
 	autoRefreshMode = false;
 	monteCarlo = false;
+
+	renderEngineMode = clRenderEngineTypeNone;
 
 #endif
 }
@@ -99,6 +104,9 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	inCLConstBuffer = nullptr;
 	if (inCLBuffer) delete inCLBuffer;
 	inCLBuffer = nullptr;
+	if (backgroungImageBuffer) delete backgroungImageBuffer;
+	backgroungImageBuffer = nullptr;
+
 	dynamicData->Clear();
 }
 
@@ -170,7 +178,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			}
 		}
 
-		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
+		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// fractal coloring
 			programEngine.append("#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
@@ -191,19 +199,19 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// 3D projections (3point, equirectagular, fisheye)
 		programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
 
-		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
+		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// shaders
 			programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
 		}
 
-		if (params->Get<int>("opencl_mode") == clRenderEngineTypeFull)
+		if (renderEngineMode == clRenderEngineTypeFull)
 		{
 			// ray recursion
 			programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
 		}
 
-		if (params->Get<int>("opencl_mode") != clRenderEngineTypeFast)
+		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			// Monte Carlo DOF
 			programEngine.append("#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
@@ -211,7 +219,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// main engine
 		QString engineFileName;
-		switch (enumClRenderEngineMode(params->Get<int>("opencl_mode")))
+		switch (renderEngineMode)
 		{
 			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
 			case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
@@ -261,13 +269,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	definesCollector.clear();
 
+	renderEngineMode = enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode"));
+
 	// update camera rotation data (needed for simplified calculation in opencl kernel)
 	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
 	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
 	paramRender->resolution = 1.0 / paramRender->imageHeight;
 
-	if (enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode")) == clRenderEngineTypeFull)
-		definesCollector += " -DFULL_ENGINE";
+	if (renderEngineMode == clRenderEngineTypeFull) definesCollector += " -DFULL_ENGINE";
 
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
@@ -450,6 +459,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->DOFMonteCarlo && paramRender->DOFEnabled)
 		definesCollector += " -DMONTE_CARLO_DOF";
 
+	if (paramRender->texturedBackground)
+		definesCollector += " -DTEXTURED_BACKGROUND";
+
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
 	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
@@ -484,8 +496,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
 	if (anyMaterialHasSpecialColoring) definesCollector += " -DUSE_COLORING_MODES";
 	if (anyMaterialHasIridescence) definesCollector += " -DUSE_IRIDESCENCE";
-	if (paramContainer->Get<int>("opencl_mode") != clRenderEngineTypeFast
-			&& anyMaterialHasColoringEnabled)
+	if (renderEngineMode != clRenderEngineTypeFast && anyMaterialHasColoringEnabled)
 		definesCollector += " -DUSE_FRACTAL_COLORING";
 	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
 
@@ -522,7 +533,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
 	monteCarlo = paramRender->DOFMonteCarlo && paramRender->DOFEnabled
-							 && paramContainer->Get<int>("opencl_mode") != clRenderEngineTypeFast;
+							 && renderEngineMode != clRenderEngineTypeFast;
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);
@@ -641,6 +652,14 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		double doneMC = 0.0f;
 		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
 
+		// writing data to queue
+		if (!WriteBuffersToQueue()) throw;
+
+		if (renderEngineMode != clRenderEngineTypeFast)
+		{
+			if (!PrepareBufferForBackground(renderData)) throw;
+		}
+
 		try
 		{
 
@@ -689,9 +708,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						{
 							// assign parameters to kernel
 							if (!AssignParametersToKernel()) throw;
-
-							// writing data to queue
-							if (!WriteBuffersToQueue()) throw;
 
 							//							if (!autoRefreshMode && !monteCarlo && progressRefreshTimer.elapsed()
 							//> 1000)
@@ -902,10 +918,10 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		{
 			WriteLog("image->ConvertTo8bit()", 2);
 			image->ConvertTo8bit(&lastRenderedRects);
-//			WriteLog("image->UpdatePreview()", 2);
-//			image->UpdatePreview(&lastRenderedRects);
-//			WriteLog("image->GetImageWidget()->update()", 2);
-//			emit updateImage();
+			//			WriteLog("image->UpdatePreview()", 2);
+			//			image->UpdatePreview(&lastRenderedRects);
+			//			WriteLog("image->GetImageWidget()->update()", 2);
+			//			emit updateImage();
 		}
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
@@ -1030,8 +1046,21 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		return false;
 	}
 
+	if (renderEngineMode != clRenderEngineTypeFast)
+	{
+		err = kernel->setArg(
+			argIterator++, *backgroundImage2D); // input data in constant memory (faster than global)
+		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("background image")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
 	err = kernel->setArg(argIterator++, Random(1000000)); // random seed
-	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
+	if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot set OpenCL argument for %3").arg(QObject::tr("random seed")),
@@ -1136,6 +1165,41 @@ size_t cOpenClEngineRenderFractal::CalcNeededMemory()
 	size_t mem1 = optimalJob.sizeOfPixel * optimalJob.stepSize;
 	size_t mem2 = dynamicData->GetData().size();
 	return max(mem1, mem2);
+}
+
+bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderData)
+{
+	// buffer for background image
+
+	int texWidth = renderData->textures.backgroundTexture.Width();
+	int texHeight = renderData->textures.backgroundTexture.Height();
+
+	if (backgroungImageBuffer) delete[] backgroungImageBuffer;
+	backgroungImageBuffer = new cl_uchar4[texWidth * texHeight];
+	size_t backgroundImage2DWidth = texWidth;
+	size_t backgroundImage2DHeight = texHeight;
+
+	for (int y = 0; y < texHeight; y++)
+	{
+		for (int x = 0; x < texWidth; x++)
+		{
+			sRGBA16 pixel = renderData->textures.backgroundTexture.FastPixel(x, y);
+			backgroungImageBuffer[x + y * texWidth].s[0] = pixel.R / 256;
+			backgroungImageBuffer[x + y * texWidth].s[1] = pixel.G / 256;
+			backgroungImageBuffer[x + y * texWidth].s[2] = pixel.B / 256;
+			backgroungImageBuffer[x + y * texWidth].s[3] = CL_UCHAR_MAX;
+		}
+	}
+
+	cl_int err;
+	if (backgroundImage2D) delete backgroundImage2D;
+	backgroundImage2D =
+		new cl::Image2D(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+			cl::ImageFormat(CL_RGBA, CL_UNORM_INT8), backgroundImage2DWidth, backgroundImage2DHeight,
+			backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer, &err);
+	if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
+
+	return true;
 }
 
 #endif
