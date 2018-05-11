@@ -198,7 +198,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 pointTemp = input->point;
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
 
-#if defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
+#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)) && defined(FULL_ENGINE)
 	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
 	switch (objectType)
 	{
@@ -233,7 +233,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 			{
 				color = input->material->color;
 			}
-#if defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
+#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)) && defined(FULL_ENGINE)
 			break;
 		}
 		case clObjPlane:
