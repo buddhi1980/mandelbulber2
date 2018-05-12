@@ -152,7 +152,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		if (isinf(out.distance)) out.distance = 0.0f;
 		if (out.distance < 0.0f) out.distance = 0.0f;
-		if (out.distance > 1.0f) out.distance = 1.0f;
+		if (out.distance > 5.0f) out.distance = 5.0f;
 	}
 #endif // ANALYTIC_DE
 
@@ -243,7 +243,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		}
 
 		if (out.distance < 0.0f) out.distance = 0.0f;
-		if (out.distance > 1.0f) out.distance = 1.0f;
+		if (out.distance > 5.0f) out.distance = 5.0f;
 	}
 #endif // DELTA_DE
 

@@ -99,10 +99,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		palettes[i] = paletteTemp;
 	}
 
-	__global sMaterialCl *material = materials[1];
-	__global float4 *palette = palettes[1];
-	int paletteLength = paletteLengths[1];
-
 	//--- AO vectors
 
 	// AO vectors count
@@ -138,7 +134,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//--- Objects
 
-	// AO vectors count
 	int numberOfObjects = GetInteger(objectsMainOffset, inBuff);
 	int objectsOffset = GetInteger(objectsMainOffset + 1 * sizeof(int), inBuff);
 
