@@ -3605,7 +3605,7 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
  */
 void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double colorAdd;
+	double colorAdd = 0.0;
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
