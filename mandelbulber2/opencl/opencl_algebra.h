@@ -176,6 +176,15 @@ float4 RotateAroundVectorByAngle4(float4 origin4d, float3 axis, float angle)
 	return (float4){vector.x, vector.y, vector.z, origin4d.w};
 }
 
+inline matrix33 TransposeMatrix(matrix33 m)
+{
+	matrix33 out;
+	out.m1 = (float3){m.m1.x, m.m2.x, m.m3.x};
+	out.m2 = (float3){m.m1.y, m.m2.y, m.m3.y};
+	out.m3 = (float3){m.m1.z, m.m2.z, m.m3.z};
+	return out;
+}
+
 float SmoothConditionAGreaterB(float a, float b, float sharpness)
 {
 	return native_recip(1.0f + native_exp(sharpness * (b - a)));

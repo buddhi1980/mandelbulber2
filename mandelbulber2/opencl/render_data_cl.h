@@ -58,6 +58,9 @@ typedef struct
 	int numberOfLights;
 	int AOVectorsCount;
 	int numberOfPrimitives;
+
+	matrix33 mRot;
+	matrix33 mRotInv;
 } sRenderData;
 
 #endif /* MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_ */

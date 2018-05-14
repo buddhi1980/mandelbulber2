@@ -460,7 +460,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DMONTE_CARLO_DOF";
 
 	if (paramRender->texturedBackground)
+	{
 		definesCollector += " -DTEXTURED_BACKGROUND";
+		switch (paramRender->texturedBackgroundMapType)
+		{
+			case params::mapEquirectangular: definesCollector += " -DBACKGROUND_EQUIRECTANGULAR"; break;
+			case params::mapDoubleHemisphere:
+				definesCollector += " -DBACKGROUND_DOUBLE_HEMISPHERE";
+				break;
+			case params::mapFlat: definesCollector += " -DBACKGROUND_FLAT"; break;
+		}
+	}
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 

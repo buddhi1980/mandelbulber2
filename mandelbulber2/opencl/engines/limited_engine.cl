@@ -150,6 +150,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
 	rot = RotateX(rot, consts->params.sweetSpotVAngle);
 
+	matrix33 rotInv = TransposeMatrix(rot);
+
 	// starting point for ray-marching
 	float3 start = consts->params.camera;
 
@@ -213,6 +215,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		renderData.primitives = primitives;
 		renderData.numberOfPrimitives = numberOfPrimitives;
 		renderData.primitivesGlobalPosition = primitivesGlobalPosition;
+		renderData.mRot = rot;
+		renderData.mRotInv = rotInv;
 
 		formulaOut outF;
 		float step = 0.0f;

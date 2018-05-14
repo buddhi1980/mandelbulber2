@@ -97,8 +97,12 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	image2d_t image2dBackground, sShaderInputDataCl *input)
 {
 	float3 pixel;
+	float3 viewVectorNorm = input->viewVector;
+	viewVectorNorm = normalize(viewVectorNorm);
 
 #ifdef TEXTURED_BACKGROUND
+
+#ifdef BACKGROUND_EQUIRECTANGULAR
 	float3 rotatedViewVector =
 		Matrix33MulFloat3(consts->params.mRotBackgroundRotation, input->viewVector);
 
@@ -114,8 +118,56 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 							+ consts->params.backgroundTextureOffsetY;
 	float4 pixelTex = read_imagef(image2dBackground, sampler, texCord);
 
-	pixel = pixelTex.xyz * consts->params.background_brightness;
-	return pixel;
+	pixel = pixelTex.xyz;
+#endif // BACKGROUND_EQUIRECTANGULAR
+
+#ifdef BACKGROUND_FLAT
+	float3 vect = Matrix33MulFloat3(renderData->mRotInv, input->viewVector);
+	vect = Matrix33MulFloat3(consts->params.mRotBackgroundRotation, vect);
+
+	float2 tex;
+	if (fabs(vect.y) > 1e-10f)
+	{
+		tex.x =
+			vect.x / vect.y / consts->params.fov * consts->params.imageHeight / consts->params.imageWidth;
+		tex.y = -vect.z / vect.y / consts->params.fov;
+	}
+	else
+	{
+		tex.x = vect.x > 0.0f ? 1.0f : -1.0f;
+		tex.y = vect.z > 0.0f ? -1.0f : 1.0f;
+	}
+
+	tex.x =
+		(tex.x / consts->params.backgroundHScale) + 0.5f + consts->params.backgroundTextureOffsetX;
+	tex.y =
+		(tex.y / consts->params.backgroundVScale) + 0.5f + consts->params.backgroundTextureOffsetY;
+
+	float4 pixelTex = read_imagef(image2dBackground, sampler, tex);
+	pixel = pixelTex.xyz;
+#endif // BACKGROUND_FLAT
+
+#ifdef BACKGROUND_DOUBLE_HEMISPHERE
+	float3 rotatedViewVector =
+		Matrix33MulFloat3(consts->params.mRotBackgroundRotation, input->viewVector);
+	float alphaTexture = atan2(rotatedViewVector.y, rotatedViewVector.x);
+	float betaTexture = atan2(rotatedViewVector.z, length(rotatedViewVector.xy));
+
+	float offset = 0.0f;
+	if (betaTexture < 0.0f)
+	{
+		betaTexture = -betaTexture;
+		alphaTexture = M_PI_F - alphaTexture;
+		offset = 0.5f;
+	}
+
+	float2 tex;
+	tex.x = 0.25f + cos(alphaTexture) * (1.0f - betaTexture / (0.5f * M_PI_F)) * 0.25f + offset;
+	tex.y = 0.5f + sin(alphaTexture) * (1.0f - betaTexture / (0.5f * M_PI_F)) * 0.5f;
+	float4 pixelTex = read_imagef(image2dBackground, sampler, tex);
+	pixel = pixelTex.xyz;
+
+#endif
 
 #else	// TEXTURED_BACKGROUND
 
@@ -123,8 +175,6 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	{
 		float3 vector = (float3){0.0f, 0.0f, 1.0f};
 		vector = normalize(vector);
-		float3 viewVectorNorm = input->viewVector;
-		viewVectorNorm = normalize(viewVectorNorm);
 		float grad = dot(viewVectorNorm, vector) + 1.0f;
 
 		if (grad < 1.0f)
@@ -138,22 +188,21 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 			float gradN = 1.0f - grad;
 			pixel = consts->params.background_color2 * gradN + consts->params.background_color1 * grad;
 		}
-		pixel *= consts->params.background_brightness;
-
-		float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
-									/ consts->params.mainLightVisibilitySize;
-		light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
-						* consts->params.mainLightIntensity;
-
-		pixel += light * consts->params.mainLightColour;
 	}
 	else
 	{
-		pixel = consts->params.background_color1 * consts->params.background_brightness;
+		pixel = consts->params.background_color1;
 	}
+#endif // TEXTURED_BACKGROUND
+
+	pixel *= consts->params.background_brightness;
+	float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
+								/ consts->params.mainLightVisibilitySize;
+	light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
+					* consts->params.mainLightIntensity;
+	pixel += light * consts->params.mainLightColour;
 
 	return pixel;
-#endif // TEXTURED_BACKGROUND
 }
 
 //----------------- object shaders -----------------
