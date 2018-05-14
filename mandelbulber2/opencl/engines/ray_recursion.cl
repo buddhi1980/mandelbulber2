@@ -288,7 +288,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
+#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
+#else
+			shaderInputData.objectId = 0;
+#endif
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
@@ -485,7 +489,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.lastDist = rayMarchingOut.lastDist;
 			shaderInputData.depth = rayMarchingOut.depth;
 			shaderInputData.invertMode = rayStack[rayIndex].in.calcInside;
+#if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES))
 			shaderInputData.objectId = rayMarchingOut.objectId;
+#else
+			shaderInputData.objectId = 0;
+#endif
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
