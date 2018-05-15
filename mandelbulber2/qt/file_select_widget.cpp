@@ -35,6 +35,7 @@
 
 #include "file_select_widget.h"
 
+#include "../src/files.h"
 #include "preview_file_dialog.h"
 
 #include "src/animation_flight.hpp"
@@ -145,7 +146,8 @@ void FileSelectWidget::slotChangedFile()
 	if (lineEdit->text() != actualText)
 	{
 		actualText = lineEdit->text();
-		QPixmap pixmap(lineEdit->text());
+		QString filename = AnimatedFileName(actualText, 0);
+		QPixmap pixmap(filename);
 
 		if (pixmap.isNull())
 		{

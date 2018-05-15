@@ -148,9 +148,12 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
 };
 
-void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet = false)
+void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet)
 {
 	id = _id;
+
+	int frameNo = materialParam->Get<int>("frame_no");
+	qDebug() << frameNo;
 
 	shading = materialParam->Get<double>(Name("shading", id));
 	specular = materialParam->Get<double>(Name("specular", id));
@@ -365,26 +368,26 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	else
 	{
 		if (useColorTexture)
-			colorTexture = cTexture(
-				materialParam->Get<QString>(Name("file_color_texture", id)), cTexture::useMipmaps, quiet);
+			colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
 
 		if (useDiffusionTexture)
 			diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)),
-				cTexture::useMipmaps, quiet);
+				cTexture::useMipmaps, frameNo, quiet);
 
 		if (useLuminosityTexture)
 			luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)),
-				cTexture::useMipmaps, quiet);
+				cTexture::useMipmaps, frameNo, quiet);
 
 		if (useDisplacementTexture)
 			displacementTexture =
 				cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)),
-					cTexture::doNotUseMipmaps, quiet);
+					cTexture::doNotUseMipmaps, frameNo, quiet);
 
 		if (useNormalMapTexture)
 		{
 			normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
-				cTexture::useMipmaps, quiet);
+				cTexture::useMipmaps, frameNo, quiet);
 			if (materialParam->Get<bool>(Name("normal_map_texture_invert_green", id)))
 				normalMapTexture.SetInvertGreen(true);
 		}
@@ -396,6 +399,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 void CreateMaterialsMap(
 	const cParameterContainer *params, QMap<int, cMaterial> *materials, bool quiet)
 {
+	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();
 	for (int i = 0; i < listOfParameters.size(); i++)
 	{

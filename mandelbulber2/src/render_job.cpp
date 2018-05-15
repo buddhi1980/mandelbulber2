@@ -256,6 +256,8 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	emit updateProgressAndStatus(QObject::tr("Initialization"), QObject::tr("Loading textures"), 0.0);
 	// gApplication->processEvents();
 
+	int frameNo = paramsContainer->Get<int>("frame_no");
+
 	if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
 	{
 		// get received textures from NetRender buffer
@@ -280,16 +282,16 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 		if (paramsContainer->Get<bool>("textured_background"))
 			renderData->textures.backgroundTexture =
 				cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps,
-					config.UseIgnoreErrors());
+					frameNo, config.UseIgnoreErrors());
 
 		if (paramsContainer->Get<bool>("env_mapping_enable"))
 			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
-				cTexture::doNotUseMipmaps, config.UseIgnoreErrors());
+				cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors());
 
 		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
 				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 			renderData->textures.lightmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps,
+				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps, frameNo,
 					config.UseIgnoreErrors());
 	}
 

@@ -46,16 +46,19 @@
 #include "qimage.h"
 
 // constructor
-cTexture::cTexture(QString filename, enumUseMipmaps mode, bool beQuiet)
+cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet)
 {
 	bitmap = nullptr;
 
+	filename = AnimatedFileName(filename, frameNo);
+
 	filename = FilePathHelperTextures(filename);
+	qDebug() << filename;
 
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	bitmap = LoadPNG(filename, width, height);
 
-	// if not try to use Qt image loader
+	// if not, try to use Qt image loader
 	if (!bitmap)
 	{
 		QImage qImage;

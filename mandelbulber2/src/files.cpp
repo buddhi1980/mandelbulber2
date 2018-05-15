@@ -508,3 +508,31 @@ QByteArray LoadUtf8TextFromFile(const QString &fileName)
 		return text.toUtf8();
 	}
 }
+
+QString AnimatedFileName(const QString &filenameString, int frame)
+{
+	QString outFilename = filenameString;
+	if (filenameString.contains('%'))
+	{
+		int firstPercent = filenameString.indexOf('%');
+		int numberOfPercents = 1;
+
+		for (int i = firstPercent; i < filenameString.length(); i++)
+		{
+			if (filenameString.at(i) != '%')
+			{
+				numberOfPercents = i - firstPercent;
+				break;
+			}
+		}
+
+		QString numberString = QString("%1").arg(frame, numberOfPercents, 10, QChar('0'));
+
+		for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+		{
+			outFilename[i] = numberString[i - firstPercent];
+		}
+	}
+
+	return outFilename;
+}
