@@ -153,7 +153,6 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	id = _id;
 
 	int frameNo = materialParam->Get<int>("frame_no");
-	qDebug() << frameNo;
 
 	shading = materialParam->Get<double>(Name("shading", id));
 	specular = materialParam->Get<double>(Name("specular", id));

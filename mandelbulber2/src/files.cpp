@@ -532,6 +532,37 @@ QString AnimatedFileName(const QString &filenameString, int frame)
 		{
 			outFilename[i] = numberString[i - firstPercent];
 		}
+
+		// looking for last file number and make sequence as a loop
+		if (!QFile::exists(outFilename))
+		{
+			QFileInfo fileInfo(outFilename);
+			QDir dir = fileInfo.absoluteDir();
+
+			QStringList nameFilters;
+			QString nameFilter = QFileInfo(filenameString).fileName();
+			nameFilter = nameFilter.replace(QChar('%'), QChar('?'));
+			nameFilters.append(nameFilter);
+			dir.setNameFilters(nameFilters);
+			QStringList fileList = dir.entryList(QDir::Files, QDir::Name);
+
+			if (fileList.length() > 0)
+			{
+				QString lastFile = fileList.last();
+				QString maxIndexText = lastFile.mid(
+					firstPercent - filenameString.length() + lastFile.length(), numberOfPercents);
+				int maxIndex = maxIndexText.toInt();
+
+				int frameModulo = frame % (maxIndex + 1);
+
+				// correct frame number
+				numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
+				for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+				{
+					outFilename[i] = numberString[i - firstPercent];
+				}
+			}
+		}
 	}
 
 	return outFilename;
