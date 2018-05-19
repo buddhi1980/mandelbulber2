@@ -173,7 +173,7 @@ public:
 	// get line numbers which should be rendered first
 	QList<int> GetStartingPositions() const { return startingPositions; }
 	// get received textures
-	QByteArray *GetTexture(QString textureName);
+	QByteArray *GetTexture(QString textureName, int frameNo);
 
 	bool WaitForAllClientsReady(double timeout);
 

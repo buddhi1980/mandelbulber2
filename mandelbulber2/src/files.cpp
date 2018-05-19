@@ -509,7 +509,8 @@ QByteArray LoadUtf8TextFromFile(const QString &fileName)
 	}
 }
 
-QString AnimatedFileName(const QString &filenameString, int frame)
+QString AnimatedFileName(
+	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList)
 {
 	QString outFilename = filenameString;
 	if (filenameString.contains('%'))
@@ -533,33 +534,59 @@ QString AnimatedFileName(const QString &filenameString, int frame)
 			outFilename[i] = numberString[i - firstPercent];
 		}
 
-		// looking for last file number and make sequence as a loop
-		if (!QFile::exists(outFilename))
+		// looking for the texture in NetRender
+		if (netRenderTextureList)
 		{
-			QFileInfo fileInfo(outFilename);
-			QDir dir = fileInfo.absoluteDir();
-
-			QStringList nameFilters;
-			QString nameFilter = QFileInfo(filenameString).fileName();
-			nameFilter = nameFilter.replace(QChar('%'), QChar('?'));
-			nameFilters.append(nameFilter);
-			dir.setNameFilters(nameFilters);
-			QStringList fileList = dir.entryList(QDir::Files, QDir::Name);
-
-			if (fileList.length() > 0)
+			if (netRenderTextureList->length() > 0)
 			{
-				QString lastFile = fileList.last();
-				QString maxIndexText = lastFile.mid(
-					firstPercent - filenameString.length() + lastFile.length(), numberOfPercents);
-				int maxIndex = maxIndexText.toInt();
+				int maxLookupIndex = pow(10, numberOfPercents);
 
-				int frameModulo = frame % (maxIndex + 1);
-
-				// correct frame number
-				numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
-				for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+				for (int index = 0; index < maxLookupIndex; index++)
 				{
-					outFilename[i] = numberString[i - firstPercent];
+					QString tempFilename = filenameString;
+					for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+					{
+						QString tempNumberString = QString("%1").arg(index, numberOfPercents, 10, QChar('0'));
+						tempFilename[i] = tempNumberString[i - firstPercent];
+					}
+
+					if (netRenderTextureList->contains(tempFilename))
+					{
+						return tempFilename;
+					}
+				}
+			}
+		}
+		else
+		{
+			// looking for last file number and make sequence as a loop
+			if (!QFile::exists(outFilename))
+			{
+				QFileInfo fileInfo(outFilename);
+				QDir dir = fileInfo.absoluteDir();
+
+				QStringList nameFilters;
+				QString nameFilter = QFileInfo(filenameString).fileName();
+				nameFilter = nameFilter.replace(QChar('%'), QChar('?'));
+				nameFilters.append(nameFilter);
+				dir.setNameFilters(nameFilters);
+				QStringList fileList = dir.entryList(QDir::Files, QDir::Name);
+
+				if (fileList.length() > 0)
+				{
+					QString lastFile = fileList.last();
+					QString maxIndexText = lastFile.mid(
+						firstPercent - filenameString.length() + lastFile.length(), numberOfPercents);
+					int maxIndex = maxIndexText.toInt();
+
+					int frameModulo = frame % (maxIndex + 1);
+
+					// correct frame number
+					numberString = QString("%1").arg(frameModulo, numberOfPercents, 10, QChar('0'));
+					for (int i = firstPercent; i < firstPercent + numberOfPercents; i++)
+					{
+						outFilename[i] = numberString[i - firstPercent];
+					}
 				}
 			}
 		}

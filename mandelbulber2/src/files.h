@@ -62,6 +62,7 @@ QString FilePathHelper(const QString &path, const QStringList &pathList);
 QString FilePathHelperTextures(const QString &path);
 QString FilePathHelperSounds(const QString &path);
 QByteArray LoadUtf8TextFromFile(const QString &fileName);
-QString AnimatedFileName(const QString &filenameString, int frame);
+QString AnimatedFileName(
+	const QString &filenameString, int frame, const QList<QString> *netRenderTextureList = nullptr);
 
 #endif /* MANDELBULBER2_SRC_FILES_H_ */

@@ -262,8 +262,8 @@ void CNetRender::SetClient(QString address, int portNo)
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
-		out << "NetRender - Client Setup, link to server: " + address + ", port: "
-						 + QString::number(portNo) + "\n";
+		out << "NetRender - Client Setup, link to server: " + address
+						 + ", port: " + QString::number(portNo) + "\n";
 	}
 }
 
@@ -539,6 +539,9 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
 					WriteLog(
 						QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
+
+					// getting textures from server
+					textures.clear();
 
 					qint32 numberOfTextures;
 					stream >> numberOfTextures;
@@ -868,6 +871,10 @@ void CNetRender::SetCurrentJob(
 				stream.writeRawData(buffer.data(), buffer.size());
 				continue;
 			}
+			else
+			{
+				qCritical() << "Cannot send texture using NetRender. File:" << listOfTextures[i];
+			}
 
 			stream << qint32(0); // empty entry
 		}
@@ -1066,7 +1073,9 @@ bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
 	return majorVersion1 == majorVersion2;
 }
 
-QByteArray *CNetRender::GetTexture(QString textureName)
+QByteArray *CNetRender::GetTexture(QString textureName, int frameNo)
 {
-	return &textures[textureName];
+	const QList<QString> keys = textures.keys();
+	QString animatedTextureName = AnimatedFileName(textureName, frameNo, &keys);
+	return &textures[animatedTextureName];
 }

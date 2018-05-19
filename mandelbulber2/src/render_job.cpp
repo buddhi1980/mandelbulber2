@@ -263,18 +263,18 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 		// get received textures from NetRender buffer
 		if (paramsContainer->Get<bool>("textured_background"))
 			renderData->textures.backgroundTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_background")),
+				gNetRender->GetTexture(paramsContainer->Get<QString>("file_background"), frameNo),
 				cTexture::doNotUseMipmaps);
 
 		if (paramsContainer->Get<bool>("env_mapping_enable"))
 			renderData->textures.envmapTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_envmap")),
+				gNetRender->GetTexture(paramsContainer->Get<QString>("file_envmap"), frameNo),
 				cTexture::doNotUseMipmaps);
 
 		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
 				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 			renderData->textures.lightmapTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_lightmap")),
+				gNetRender->GetTexture(paramsContainer->Get<QString>("file_lightmap"), frameNo),
 				cTexture::doNotUseMipmaps);
 	}
 	else

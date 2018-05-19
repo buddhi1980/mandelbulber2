@@ -336,28 +336,33 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	{
 		if (useColorTexture)
 			colorTexture.FromQByteArray(
-				gNetRender->GetTexture(materialParam->Get<QString>(Name("file_color_texture", id))),
+				gNetRender->GetTexture(
+					materialParam->Get<QString>(Name("file_color_texture", id)), frameNo),
 				cTexture::useMipmaps);
 
 		if (useDiffusionTexture)
 			diffusionTexture.FromQByteArray(
-				gNetRender->GetTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id))),
+				gNetRender->GetTexture(
+					materialParam->Get<QString>(Name("file_diffusion_texture", id)), frameNo),
 				cTexture::useMipmaps);
 
 		if (useLuminosityTexture)
 			luminosityTexture.FromQByteArray(
-				gNetRender->GetTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id))),
+				gNetRender->GetTexture(
+					materialParam->Get<QString>(Name("file_luminosity_texture", id)), frameNo),
 				cTexture::useMipmaps);
 
 		if (useDisplacementTexture)
 			displacementTexture.FromQByteArray(
-				gNetRender->GetTexture(materialParam->Get<QString>(Name("file_displacement_texture", id))),
+				gNetRender->GetTexture(
+					materialParam->Get<QString>(Name("file_displacement_texture", id)), frameNo),
 				cTexture::doNotUseMipmaps);
 
 		if (useNormalMapTexture)
 		{
 			normalMapTexture.FromQByteArray(
-				gNetRender->GetTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id))),
+				gNetRender->GetTexture(
+					materialParam->Get<QString>(Name("file_normal_map_texture", id)), frameNo),
 				cTexture::doNotUseMipmaps);
 
 			if (materialParam->Get<bool>(Name("normal_map_texture_invert_green", id)))
