@@ -175,7 +175,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				double high = fractals.GetBailout(sequence) * 10.0;
 				z = CVector4(high, high, high, high);
-				break;
+				out->distance = 10.0;
+				out->iters = 1;
+				out->z = z.GetXYZ();
+				return;
 			}
 			// -----------------------------------------------------------------------------
 		}

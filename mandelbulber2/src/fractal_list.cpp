@@ -53,7 +53,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	//													coloring function)
 
 	//----------------------- complete formulas ------------------------------
-	fractalList->append(sFractalDescription("None", "", none, nullptr, deltaDEType, withoutDEFunction,
+	fractalList->append(sFractalDescription("None", "", none, nullptr, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 1, analyticFunctionNone, coloringFunctionDefault));
 
 	// Abox formulas

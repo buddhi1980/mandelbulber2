@@ -50,6 +50,7 @@ typedef enum {
 } enumDEFunctionTypeCl;
 
 typedef enum {
+	clAnalyticFunctionUndefined = -1,
 	clAnalyticFunctionNone = 0,
 	clAnalyticFunctionLinear = 1,
 	clAnalyticFunctionLogarithmic = 2,

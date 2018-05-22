@@ -88,7 +88,8 @@ typedef enum {
 
 float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	return z;
+	aux->r = -1.0f; // signal for main loop to break;
+	return 0.0f;
 }
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
@@ -227,6 +228,17 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef ITERATION_WEIGHT
 		}
 #endif
+
+		if (aux.r < 0.0f) // if was run DummyIteration
+		{
+			float high = consts->sequence.bailout[sequence] * 10.0f;
+			z = high;
+			aux.r = length(z);
+			out.distance = 10.0f;
+			out.iters = 1;
+			out.z = z;
+			return out;
+		}
 
 		if (consts->sequence.addCConstant[sequence])
 		{
@@ -463,6 +475,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 
 		case clAnalyticFunctionNone: dist = -1.0; break;
+		case clAnalyticFunctionUndefined: dist = aux.r; break;
 	}
 
 #endif // IS_HYBRID
