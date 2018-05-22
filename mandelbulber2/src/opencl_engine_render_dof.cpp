@@ -143,7 +143,8 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
 	quint64 numberOfPixels = quint64(image->GetWidth()) * quint64(image->GetHeight());
-	cPostRenderingDOF::sSortZ<float> *tempSort = new cPostRenderingDOF::sSortZ<float>[numberOfPixels];
+	cPostRenderingDOF::sSortZ<float> *tempSort =
+		new cPostRenderingDOF::sSortZ<float>[ numberOfPixels ];
 
 	for (quint64 index = 0; index < numberOfPixels; index++)
 	{

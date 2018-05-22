@@ -41,6 +41,7 @@
 #include "animation_flight.hpp"
 
 #include <QWidget>
+
 #include "ui_dock_animation.h"
 
 #include "animation_frames.hpp"

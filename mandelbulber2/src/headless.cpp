@@ -53,9 +53,13 @@
 #include "rendering_configuration.hpp"
 #include "voxel_export.hpp"
 
-cHeadless::cHeadless() : QObject() {}
+cHeadless::cHeadless() : QObject()
+{
+}
 
-cHeadless::~cHeadless() {}
+cHeadless::~cHeadless()
+{
+}
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
@@ -205,12 +209,10 @@ void cHeadless::RenderFlightAnimation() const
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gFlightAnimation =
 		new cFlightAnimation(gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
-	QObject::connect(gFlightAnimation,
-		SIGNAL(updateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)),
-		this,
-		SLOT(slotUpdateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																			 const QString &, double, cProgressText::enumProgressType)),
+		this, SLOT(slotUpdateProgressAndStatus(
+						const QString &, const QString &, double, cProgressText::enumProgressType)));
 	// QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 	// unused
 	//								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
@@ -228,12 +230,10 @@ void cHeadless::RenderKeyframeAnimation() const
 	cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	gKeyframeAnimation =
 		new cKeyframeAnimation(gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
-	QObject::connect(gKeyframeAnimation,
-		SIGNAL(updateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)),
-		this,
-		SLOT(slotUpdateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																				 const QString &, double, cProgressText::enumProgressType)),
+		this, SLOT(slotUpdateProgressAndStatus(
+						const QString &, const QString &, double, cProgressText::enumProgressType)));
 	// QObject::connect(gKeyframeAnimation,
 	// SIGNAL(updateProgressHide(cProgressText::enumProgressType)), unused
 	// 								 this, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));

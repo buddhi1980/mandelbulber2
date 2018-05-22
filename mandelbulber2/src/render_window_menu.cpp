@@ -146,105 +146,124 @@ void RenderWindow::slotMenuAboutNews()
 
 void RenderWindow::slotMenuAboutHotKeys()
 {
-    QString ctrlBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Ctrl") + "</span>";
-    QString altBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Alt") + "</span>";
-    QString shiftBadge = "<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Shift") + "</span>";
+	QString ctrlBadge =
+		"<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Ctrl") + "</span>";
+	QString altBadge =
+		"<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Alt") + "</span>";
+	QString shiftBadge =
+		"<span style='background-color: #222; color: #FFF; padding: 3px;'>" + tr("Shift") + "</span>";
 
-    QString style= "<style>td { padding: 2px; color: black;}</style>";
-    QString text = "<table><tr>";
-    text += "<td style='padding: 5px; background-color: #DDF'>";
-    text += "<h3>" + tr("Main Program Hotkeys") + "</h3>";
-    text += "<table border='1'>";
-    text += " <tr><th colspan='2'>" + tr("File") + "</th></tr>";
-    text += " <tr><th>" + ctrlBadge + " + O</th><td>" +  tr("Load settings...") + "</td></tr>";
-    text += " <tr><th>" + altBadge + " + O</th><td>" +  tr("Load settings from clipboard...") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + " + altBadge + " + O</th><td>" +  tr("Load example...") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + S</th><td>" +  tr("Save settings...") + "</td></tr>";
-    text += " <tr><th>" + altBadge + " + S</th><td>" +  tr("Save settings to clipboard...") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + I</th><td>" +  tr("Import legacy settings...") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + M</th><td>" +  tr("Export Mesh") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + P</th><td>" +  tr("Program Preferences") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + Q</th><td>" +  tr("Quit") + "</td></tr>";
-    text += "</table>";
+	QString style = "<style>td { padding: 2px; color: black;}</style>";
+	QString text = "<table><tr>";
+	text += "<td style='padding: 5px; background-color: #DDF'>";
+	text += "<h3>" + tr("Main Program Hotkeys") + "</h3>";
+	text += "<table border='1'>";
+	text += " <tr><th colspan='2'>" + tr("File") + "</th></tr>";
+	text += " <tr><th>" + ctrlBadge + " + O</th><td>" + tr("Load settings...") + "</td></tr>";
+	text +=
+		" <tr><th>" + altBadge + " + O</th><td>" + tr("Load settings from clipboard...") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + altBadge + " + O</th><td>" + tr("Load example...")
+					+ "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + S</th><td>" + tr("Save settings...") + "</td></tr>";
+	text +=
+		" <tr><th>" + altBadge + " + S</th><td>" + tr("Save settings to clipboard...") + "</td></tr>";
+	text +=
+		" <tr><th>" + ctrlBadge + " + I</th><td>" + tr("Import legacy settings...") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + M</th><td>" + tr("Export Mesh") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + P</th><td>" + tr("Program Preferences") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + Q</th><td>" + tr("Quit") + "</td></tr>";
+	text += "</table>";
 
-    text += "<table style='margin-top: 10px;' border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Other") + "</th></tr>";
-    text += " <tr><th>" + ctrlBadge + " + Z</th><td>" +  tr("Undo") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + Y</th><td>" +  tr("Redo") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + H</th><td>" +  tr("Show User Manual") + "</td></tr>";
-    text += " <tr><th>" + altBadge + " + H</th><td>" +  tr("Show (these) Hotkeys") + "</td></tr>";
-    text += "</table>";
-    text += "</td>";
+	text += "<table style='margin-top: 10px;' border='1'>";
+	text += " <tr><th colspan='2'>" + tr("Other") + "</th></tr>";
+	text += " <tr><th>" + ctrlBadge + " + Z</th><td>" + tr("Undo") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + Y</th><td>" + tr("Redo") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + H</th><td>" + tr("Show User Manual") + "</td></tr>";
+	text += " <tr><th>" + altBadge + " + H</th><td>" + tr("Show (these) Hotkeys") + "</td></tr>";
+	text += "</table>";
+	text += "</td>";
 
-    text += "<td style='padding: 5px; background-color: #DFD'>";
-    text += "<h3>" + tr("Render Window Hotkeys") + "</h3>";
+	text += "<td style='padding: 5px; background-color: #DFD'>";
+	text += "<h3>" + tr("Render Window Hotkeys") + "</h3>";
 
-    text += "<table border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Movement") + "</th></tr>";
-    text += " <tr><th>W</th><td>" + tr("up") + "</td></tr>";
-    text += " <tr><th>S</th><td>" + tr("down") + "</td></tr>";
-    text += " <tr><th>A</th><td>" + tr("left") + "</td></tr>";
-    text += " <tr><th>" + shiftBadge + " + " + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
-    text += " <tr><th>D</th><td>" + tr("right") + "</td></tr>";
-    text += " <tr><th>" + shiftBadge + " + " + tr("Arrow right") + "</th><td>" + tr("right") + "</td></tr>";
-    text += " <tr><th>Q</th><td>" + tr("forward") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow up") + "</th><td>" + tr("forward") + "</td></tr>";
-    text += " <tr><th>" + shiftBadge + " + " + tr("Arrow up") + "</th><td>" + tr("forward") + "</td></tr>";
-    text += " <tr><th>Z</th><td>" + tr("backward") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward") + "</td></tr>";
-    text += " <tr><th>" + shiftBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward") + "</td></tr>";
-    text += "</table>";
+	text += "<table border='1'>";
+	text += " <tr><th colspan='2'>" + tr("Movement") + "</th></tr>";
+	text += " <tr><th>W</th><td>" + tr("up") + "</td></tr>";
+	text += " <tr><th>S</th><td>" + tr("down") + "</td></tr>";
+	text += " <tr><th>A</th><td>" + tr("left") + "</td></tr>";
+	text +=
+		" <tr><th>" + shiftBadge + " + " + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
+	text += " <tr><th>D</th><td>" + tr("right") + "</td></tr>";
+	text +=
+		" <tr><th>" + shiftBadge + " + " + tr("Arrow right") + "</th><td>" + tr("right") + "</td></tr>";
+	text += " <tr><th>Q</th><td>" + tr("forward") + "</td></tr>";
+	text +=
+		" <tr><th>" + ctrlBadge + " + " + tr("Arrow up") + "</th><td>" + tr("forward") + "</td></tr>";
+	text +=
+		" <tr><th>" + shiftBadge + " + " + tr("Arrow up") + "</th><td>" + tr("forward") + "</td></tr>";
+	text += " <tr><th>Z</th><td>" + tr("backward") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward")
+					+ "</td></tr>";
+	text += " <tr><th>" + shiftBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward")
+					+ "</td></tr>";
+	text += "</table>";
 
-    text += "<table style='margin-top: 10px;' border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Rotation") + "</th></tr>";
-    text += " <tr><th>" + tr("Arrow up") + "</th><td>" + tr("up") + "</td></tr>";
-    text += " <tr><th>" + tr("Arrow down") + "</th><td>" + tr("down") + "</td></tr>";
-    text += " <tr><th>" + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
-    text += " <tr><th>" + tr("Arrow right") + "</th><td>" + tr("right") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow left") + "</th><td>" + tr("Roll left") + "</td></tr>";
-    text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow right") + "</th><td>" + tr("Roll right") + "</td></tr>";
-    text += "</table>";
+	text += "<table style='margin-top: 10px;' border='1'>";
+	text += " <tr><th colspan='2'>" + tr("Rotation") + "</th></tr>";
+	text += " <tr><th>" + tr("Arrow up") + "</th><td>" + tr("up") + "</td></tr>";
+	text += " <tr><th>" + tr("Arrow down") + "</th><td>" + tr("down") + "</td></tr>";
+	text += " <tr><th>" + tr("Arrow left") + "</th><td>" + tr("left") + "</td></tr>";
+	text += " <tr><th>" + tr("Arrow right") + "</th><td>" + tr("right") + "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow left") + "</th><td>" + tr("Roll left")
+					+ "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + tr("Arrow right") + "</th><td>" + tr("Roll right")
+					+ "</td></tr>";
+	text += "</table>";
 
-    text += "<td style='padding: 5px; background-color: #FDD'>";
-    text += "<h3>" + tr("Render Window Keyframe / Flight") + "</h3>";
+	text += "<td style='padding: 5px; background-color: #FDD'>";
+	text += "<h3>" + tr("Render Window Keyframe / Flight") + "</h3>";
 
-    text += "<table border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Flight") + "</th></tr>";
-    text += " <tr><th>" + tr("Left mouse click") + "</th><td>" + tr("Increase speed") + "</td></tr>";
-    text += " <tr><th>" + tr("Right mouse click") + "</th><td>" + tr("Decrease speed") + "</td></tr>";
-    text += " <tr><th>" + tr("Arrow keys") + "</th><td>" + tr("Strafe (move forward and sideward)") + "</td></tr>";
-    text += " <tr><th>" + shiftBadge + "+" + tr("Arrow keys") + "</th><td>" + tr("Strafe orthogonal (move sideward only)") + "</td></tr>";
-    text += " <tr><th>" + tr("Spacebar") + "</th><td>" + tr("Pause / Unpause") + "</td></tr>";
-    text += " <tr><th>Z, X</th><td>" + tr("Roll rotation") + "</td></tr>";
-    text += "</table>";
+	text += "<table border='1'>";
+	text += " <tr><th colspan='2'>" + tr("Flight") + "</th></tr>";
+	text += " <tr><th>" + tr("Left mouse click") + "</th><td>" + tr("Increase speed") + "</td></tr>";
+	text += " <tr><th>" + tr("Right mouse click") + "</th><td>" + tr("Decrease speed") + "</td></tr>";
+	text += " <tr><th>" + tr("Arrow keys") + "</th><td>" + tr("Strafe (move forward and sideward)")
+					+ "</td></tr>";
+	text += " <tr><th>" + shiftBadge + "+" + tr("Arrow keys") + "</th><td>"
+					+ tr("Strafe orthogonal (move sideward only)") + "</td></tr>";
+	text += " <tr><th>" + tr("Spacebar") + "</th><td>" + tr("Pause / Unpause") + "</td></tr>";
+	text += " <tr><th>Z, X</th><td>" + tr("Roll rotation") + "</td></tr>";
+	text += "</table>";
 
-    text += "<table style='margin-top: 10px;' border='1'>";
-    text += " <tr><th colspan='2'>" + tr("Keyframe") + "</th></tr>";
-    text += " <tr><th>I</th><td>" + tr("Add Keyframe") + "</td></tr>";
-    text += " <tr><th>M</th><td>" + tr("Modify current Keyframe") + "</td></tr>";
-    text += " <tr><th>N</th><td>" + tr("Move to next Keyframe") + "</td></tr>";
-    text += " <tr><th>P</th><td>" + tr("Move to previous Keyframe") + "</td></tr>";
-    text += "</table>";
+	text += "<table style='margin-top: 10px;' border='1'>";
+	text += " <tr><th colspan='2'>" + tr("Keyframe") + "</th></tr>";
+	text += " <tr><th>I</th><td>" + tr("Add Keyframe") + "</td></tr>";
+	text += " <tr><th>M</th><td>" + tr("Modify current Keyframe") + "</td></tr>";
+	text += " <tr><th>N</th><td>" + tr("Move to next Keyframe") + "</td></tr>";
+	text += " <tr><th>P</th><td>" + tr("Move to previous Keyframe") + "</td></tr>";
+	text += "</table>";
 
-    text += "</td>";
-    text += "</tr></table>";
+	text += "</td>";
+	text += "</tr></table>";
 
-    QMessageBox *messageBox = new QMessageBox(this);
-    messageBox->setFixedWidth(900);
-    messageBox->setMinimumWidth(900);
-    messageBox->setText(style + text);
-    messageBox->setWindowTitle(QObject::tr("HotKeys Cheatsheet"));
-    messageBox->setIcon(QMessageBox::Information);
-    messageBox->addButton(QMessageBox::Ok);
-    messageBox->setDefaultButton(QMessageBox::Ok);
+	QMessageBox *messageBox = new QMessageBox(this);
+	messageBox->setFixedWidth(900);
+	messageBox->setMinimumWidth(900);
+	messageBox->setText(style + text);
+	messageBox->setWindowTitle(QObject::tr("HotKeys Cheatsheet"));
+	messageBox->setIcon(QMessageBox::Information);
+	messageBox->addButton(QMessageBox::Ok);
+	messageBox->setDefaultButton(QMessageBox::Ok);
 
-     // ! Evil hack to increase size of qmessagebox,
-     // see here for more info: https://stackoverflow.com/questions/37668820/how-can-i-resize-qmessagebox
-     QSpacerItem* horizontalSpacer = new QSpacerItem(900, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-     QGridLayout* layout = (QGridLayout*)messageBox->layout();
-     layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+	// ! Evil hack to increase size of qmessagebox,
+	// see here for more info:
+	// https://stackoverflow.com/questions/37668820/how-can-i-resize-qmessagebox
+	QSpacerItem *horizontalSpacer =
+		new QSpacerItem(900, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	QGridLayout *layout = (QGridLayout *)messageBox->layout();
+	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
 
-    messageBox->exec();
+	messageBox->exec();
 }
 
 void RenderWindow::slotMenuAboutThirdParty()

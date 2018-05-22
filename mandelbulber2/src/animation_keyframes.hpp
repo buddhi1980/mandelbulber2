@@ -89,15 +89,15 @@ public:
 public slots:
 	void UpdateLimitsForFrameRange() const;
 	bool slotRenderKeyframes();
-    void slotAddKeyframe();
-    void slotInsertKeyframe();
-    void slotDeleteKeyframe() const;
-    void slotIncreaseCurrentTableIndex();
-    void slotDecreaseCurrentTableIndex();
-    void slotModifyKeyframe();
+	void slotAddKeyframe();
+	void slotInsertKeyframe();
+	void slotDeleteKeyframe() const;
+	void slotIncreaseCurrentTableIndex();
+	void slotDecreaseCurrentTableIndex();
+	void slotModifyKeyframe();
 
 private slots:
-    void slotSelectKeyframeAnimImageDir() const;
+	void slotSelectKeyframeAnimImageDir() const;
 	void slotTableCellChanged(int row, int column);
 	void slotDeleteAllImages() const;
 	void slotShowAnimation() const;
@@ -108,8 +108,8 @@ private slots:
 	void slotValidate();
 	void slotCellDoubleClicked(int row, int column) const;
 	void slotCellClicked(int row, int column) const;
-    void slotSetConstantTargetDistance();
-    void slotUpdateAnimationPathSelection();
+	void slotSetConstantTargetDistance();
+	void slotUpdateAnimationPathSelection();
 
 private:
 	void PrepareTable();

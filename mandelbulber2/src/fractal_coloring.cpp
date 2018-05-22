@@ -299,9 +299,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 																																						 : 0.0);
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
-			case coloringFunctionAmazingSurf:
-				colorIndex = minimumR * 200.0;
-				break;
+			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
 			case coloringFunctionDonut: colorIndex = extendedAux.color * 2000.0 / extendedAux.i; break;
 			case coloringFunctionDefault: colorIndex = minimumR * 5000.0; break;
 			case coloringFunctionUndefined: colorIndex = 0.0; break;
