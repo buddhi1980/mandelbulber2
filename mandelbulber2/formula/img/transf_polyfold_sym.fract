@@ -1,0 +1,24 @@
+# Mandelbulber settings file
+# version 2.14
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1.905303973153591 -3.227928325433346 2.979079905778077;
+camera_distance_to_target 8.669515696340538;
+camera_rotation 25.80019713107027 -39.29860056405428 -7.058700993702804;
+camera_top -0.384208033246821 0.5124205828465201 0.7679904514144967;
+formula_1 1080;
+formula_2 7;
+formula_stop_iteration_1 3;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+mat1_is_defined true;
+target -1.014662217011869 2.812258816345639 -2.511861648242817;
+[fractal_1]
+transf_int_1 6;
+[fractal_2]
+transf_addition_constant 0.7 0.337972 0.337972;
+transf_constant_multiplier_111 0.7 1.053678 1;
+transf_scale3D_111 2.445328 2.644135 1.053678;

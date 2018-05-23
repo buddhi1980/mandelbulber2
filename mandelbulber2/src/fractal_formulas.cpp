@@ -9642,6 +9642,34 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
+ * poly fold sym darkbeams version
+ * @reference
+ * //  Darkbeam (luca) http://www.fractalforums.com/mandelbulber/
+ * _polyfold_sym-and-polyfoldsymifs-in-mandelbulber-2/msg98162/#msg98162
+ */
+void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+    Q_UNUSED(aux);
+    int order = fractal->transformCommon.int1;
+    double div2PI = (double)order/M_PI_2x;
+
+    bool cy = false;
+    int sector = (int)(-div2PI * atan(z.x/z.y));
+    if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
+    double angle = (double)sector/div2PI;
+    //z.xy = rotate(z.xy,angle); // sin
+    z.x = z.x * cos(angle) - z.y * sin(angle);
+    z.y = z.x * sin(angle) + z.y * cos(angle);
+    if (cy == true) z.y = -z.y;
+    if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+
+}
+
+
+
+
+
+/**
  * z(n+1) = z(n) * abs(z(n)) ^ p-1
  */
 void TransfRPowerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)

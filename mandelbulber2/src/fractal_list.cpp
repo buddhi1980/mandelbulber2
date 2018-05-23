@@ -543,6 +543,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
 		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+    fractalList->append(sFractalDescription("T>Poly Fold Sym", "transf_polyfold_sym",
+        transfPolyFoldSym, TransfPolyFoldSymIteration, analyticDEType, withoutDEFunction,
+        cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Power2 Polynomial", "transf_pwr2_polynomial",
 		transfPwr2Polynomial, TransfPwr2PolynomialIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
