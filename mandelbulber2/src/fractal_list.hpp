@@ -271,6 +271,7 @@ enum enumFractalFormula
 	transfAddConstantMod1 = 1079,
     // 2.14
     transfPolyFoldSym = 1080,
+    transfPolyFoldSymMulti = 1081,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

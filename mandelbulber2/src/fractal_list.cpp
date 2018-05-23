@@ -548,6 +548,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
         transfPolyFoldSym, TransfPolyFoldSymIteration, analyticDEType, withoutDEFunction,
         cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
+    fractalList->append(sFractalDescription("T>Poly Fold Sym Multi", "transf_polyfold_sym_multi",
+        transfPolyFoldSymMulti, TransfPolyFoldSymMultiIteration, analyticDEType, withoutDEFunction,
+        cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Power2 Polynomial", "transf_pwr2_polynomial",
 		transfPwr2Polynomial, TransfPwr2PolynomialIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
