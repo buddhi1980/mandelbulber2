@@ -62,13 +62,6 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="3" colspan="2">
-      <widget class="Line" name="line_53">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="4">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_222_x">
        <property name="sizePolicy">
@@ -262,6 +255,13 @@
       <widget class="QLabel" name="label_258">
        <property name="text">
         <string>Scale:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="3">
+      <widget class="Line" name="line_53">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>

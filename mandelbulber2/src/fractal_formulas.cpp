@@ -1751,6 +1751,7 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 	}
 	z = z * m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -1792,13 +1793,68 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	aux.DE = aux.DE * fabs(m) + 1.0;
+
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		aux.color += colorAdd;
 	}
 }
+
+/**
+ * ABoxModKaliV2, a formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ */
+void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+
+
+	CVector4 c = aux.const_c;
+	double colorAdd = 0.0;
+	CVector4 oldZ = z;
+
+	z.x = fractal->transformCommon.additionConstant0555.x - fabs(z.x);
+	z.y = fractal->transformCommon.additionConstant0555.y - fabs(z.y);
+
+	if (fractal->transformCommon.functionEnabledM)
+	{
+		 z.z = fractal->transformCommon.additionConstant0555.z - fabs(z.z);
+	}
+
+	double rr = z.Dot(z);
+	double MinR = fractal->transformCommon.minR06;
+	double dividend = rr < MinR ? MinR : min(rr, 1.0);
+	double m = fractal->transformCommon.scale015 / dividend;
+	z = z * m;
+	aux.DE = aux.DE * fabs(m) + 1.0;
+
+	if (fractal->transformCommon.addCpixelEnabledFalse)
+	{
+		CVector4 tempFAB = c;
+		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
+		if (fractal->transformCommon.functionEnabledy) tempFAB.y = fabs(tempFAB.y);
+		if (fractal->transformCommon.functionEnabledz) tempFAB.z = fabs(tempFAB.z);
+
+		tempFAB *= fractal->transformCommon.constantMultiplier000;
+
+		z.x += sign(z.x) * tempFAB.x;
+		z.y += sign(z.y) * tempFAB.y;
+		z.z += sign(z.z) * tempFAB.z;
+	}
+
+	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (rr < MinR) aux.color = fractal->mandelbox.color.factorSp1;
+		aux.color += colorAdd;
+	}
+}
+
 
 /**
  * ABoxVS_icen1, a formula from Mandelbulb3D.
@@ -1852,11 +1908,11 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= aux.actualScale; // aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
-    if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
-            && aux.i < fractal->transformCommon.stopIterations)
-    {
-        z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-    }
+	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
+		 && aux.i < fractal->transformCommon.stopIterations)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
 	if (fractal->transformCommon.juliaMode)
 	{
@@ -9655,21 +9711,21 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-    Q_UNUSED(aux);
+	Q_UNUSED(aux);
 
-    int order = fractal->transformCommon.int1;
-    double div2PI = (double)order/M_PI_2x;
+	int order = fractal->transformCommon.int1;
+	double div2PI = (double)order/M_PI_2x;
 
-    bool cy = false;
-    int sector = (int)(-div2PI * atan(z.x/z.y));
-    if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
-    double angle = (double)sector/div2PI;
-    //z.xy = rotate(z.xy,angle); // sin
-    z.x = z.x * cos(angle) - z.y * sin(angle);
-    z.y = z.x * sin(angle) + z.y * cos(angle);
-    if (cy) z.y = -z.y;
-    if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
-    // could implement odd/even aux.color
+	bool cy = false;
+	int sector = (int)(-div2PI * atan(z.x/z.y));
+	if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
+	double angle = (double)sector/div2PI;
+	//z.xy = rotate(z.xy,angle); // sin
+	z.x = z.x * cos(angle) - z.y * sin(angle);
+	z.y = z.x * sin(angle) + z.y * cos(angle);
+	if (cy) z.y = -z.y;
+	//if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+	// could implement odd/even aux.color
 }
 
 /**
@@ -9680,56 +9736,56 @@ void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-    Q_UNUSED(aux);
+	Q_UNUSED(aux);
 
-    int order = fractal->transformCommon.int1;
-    double div2PI = (double)order/M_PI_2x;
+	int order = fractal->transformCommon.int1;
+	double div2PI = (double)order/M_PI_2x;
 
-    if (fractal->transformCommon.functionEnabledCx)
-    {
-        bool cy = false;
-        int sector = (int)(-div2PI * atan(z.x/z.y));
-        if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
-        double angle = (double)sector/div2PI;
-        //z.xy = rotate(z.xy,angle); // sin
-        z.x = z.x * cos(angle) - z.y * sin(angle);
-        z.y = z.x * sin(angle) + z.y * cos(angle);
-        if (cy == true) z.y = -z.y;
-        //if (fractal->transformCommon.functionEnabledFalse)
-        {
-            if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
-        }
-    }
-    if (fractal->transformCommon.functionEnabledCyFalse)
-    {
-        bool cz = false;
-        int sector = (int)(-div2PI * atan(z.y/z.z));
-        if (sector&1) cz = true; // parity   if (sector&1) is a "bitcheck", true = odd
-        double angle = (double)sector/div2PI;
-        //z.xy = rotate(z.xy,angle); // sin
-        z.y = z.y * cos(angle) - z.z * sin(angle);
-        z.z = z.y * sin(angle) + z.z * cos(angle);
-        if (cz == true) z.z = -z.z;
-        //if (fractal->transformCommon.functionEnabledFalse)
-        {
-            if ((order&1) && (sector == 0)) z.z = fabs(z.z); // more continuous?
-        }
-    }
-    if (fractal->transformCommon.functionEnabledCzFalse)
-    {
-        bool cx = false;
-        int sector = (int)(-div2PI * atan(z.z/z.x));
-        if (sector&1) cx = true; // parity   if (sector&1) is a "bitcheck", true = odd
-        double angle = (double)sector/div2PI;
-        //z.xy = rotate(z.xy,angle); // sin
-        z.z = z.z * cos(angle) - z.x * sin(angle);
-        z.x = z.z * sin(angle) + z.x * cos(angle);
-        if (cx == true) z.x = -z.x;
-        //if (fractal->transformCommon.functionEnabledFalse)
-        {
-            if ((order&1) && (sector == 0)) z.x = fabs(z.x); // more continuous?
-        }
-    }
+	if (fractal->transformCommon.functionEnabledCx)
+	{
+		bool cy = false;
+		int sector = (int)(-div2PI * atan(z.x/z.y));
+		if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
+		double angle = (double)sector/div2PI;
+		//z.xy = rotate(z.xy,angle); // sin
+		 z.x = z.x * cos(angle) - z.y * sin(angle);
+		z.y = z.x * sin(angle) + z.y * cos(angle);
+		if (cy == true) z.y = -z.y;
+		//if (fractal->transformCommon.functionEnabledFalse)
+		{
+			//if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+		}
+	}
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		bool cz = false;
+		int sector = (int)(-div2PI * atan(z.y/z.z));
+		if (sector&1) cz = true; // parity   if (sector&1) is a "bitcheck", true = odd
+		double angle = (double)sector/div2PI;
+		//z.xy = rotate(z.xy,angle); // sin
+		z.y = z.y * cos(angle) - z.z * sin(angle);
+		z.z = z.y * sin(angle) + z.z * cos(angle);
+		if (cz == true) z.z = -z.z;
+		//if (fractal->transformCommon.functionEnabledFalse)
+		{
+			//if ((order&1) && (sector == 0)) z.z = fabs(z.z); // more continuous?
+		}
+	}
+	if (fractal->transformCommon.functionEnabledCzFalse)
+	{
+		bool cx = false;
+		int sector = (int)(-div2PI * atan(z.z/z.x));
+		if (sector&1) cx = true; // parity   if (sector&1) is a "bitcheck", true = odd
+		double angle = (double)sector/div2PI;
+		//z.xy = rotate(z.xy,angle); // sin
+		z.z = z.z * cos(angle) - z.x * sin(angle);
+		z.x = z.z * sin(angle) + z.x * cos(angle);
+		if (cx == true) z.x = -z.x;
+		//if (fractal->transformCommon.functionEnabledFalse)
+		{
+			//if ((order&1) && (sector == 0)) z.x = fabs(z.x); // more continuous?
+		}
+	}
 }
 
 

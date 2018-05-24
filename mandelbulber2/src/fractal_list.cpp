@@ -85,6 +85,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		aboxModKaliEiffie, AboxModKaliEiffieIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
+	fractalList->append(sFractalDescription("Abox - Mod Kali-V2", "abox_mod_kali_v2",
+		 aboxModKaliV2,  AboxModKaliV2Iteration, analyticDEType, linearDEFunction,
+		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
+
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
@@ -544,13 +548,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-    fractalList->append(sFractalDescription("T>Poly Fold Sym", "transf_polyfold_sym",
-        transfPolyFoldSym, TransfPolyFoldSymIteration, analyticDEType, withoutDEFunction,
-        cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Poly Fold Sym", "transf_polyfold_sym",
+		transfPolyFoldSym, TransfPolyFoldSymIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-    fractalList->append(sFractalDescription("T>Poly Fold Sym Multi", "transf_polyfold_sym_multi",
-        transfPolyFoldSymMulti, TransfPolyFoldSymMultiIteration, analyticDEType, withoutDEFunction,
-        cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Poly Fold Sym Multi", "transf_polyfold_sym_multi",
+		transfPolyFoldSymMulti, TransfPolyFoldSymMultiIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Power2 Polynomial", "transf_pwr2_polynomial",
 		transfPwr2Polynomial, TransfPwr2PolynomialIteration, analyticDEType, linearDEFunction,

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_benesi_t5b</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -38,13 +38,6 @@
       <widget class="QLabel" name="label_254">
        <property name="text">
         <string notr="true">y</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="Line" name="line_80">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -327,13 +320,6 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="3">
-      <widget class="Line" name="line_77">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
      <item row="10" column="2">
       <widget class="QLabel" name="label_256">
        <property name="text">
@@ -387,13 +373,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="3" colspan="3">
-      <widget class="Line" name="line_53">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -456,14 +435,28 @@
      <item row="1" column="5">
       <widget class="QSpinBox" name="spinboxInt_transf_int8_Y"/>
      </item>
+     <item row="11" column="2" colspan="4">
+      <widget class="Line" name="line_53">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="2" colspan="4">
+      <widget class="Line" name="line_77">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2" colspan="4">
+      <widget class="Line" name="line_80">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_55">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">

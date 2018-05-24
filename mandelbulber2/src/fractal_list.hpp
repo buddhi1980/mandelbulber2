@@ -180,6 +180,7 @@ enum enumFractalFormula
 	// 2.14
 	mandelboxVariable = 133,
 	boxFold4dBulbPow2 = 134,
+	aboxModKaliV2 = 135,
 
 	// 152 to 172 reserved for scator
 	imaginaryScatorPower2 = 152,
@@ -269,9 +270,9 @@ enum enumFractalFormula
 	// 2.13
 	transfAddCpixelRotated = 1078,
 	transfAddConstantMod1 = 1079,
-    // 2.14
-    transfPolyFoldSym = 1080,
-    transfPolyFoldSymMulti = 1081,
+	// 2.14
+	transfPolyFoldSym = 1080,
+	transfPolyFoldSymMulti = 1081,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
