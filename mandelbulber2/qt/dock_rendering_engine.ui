@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>347</width>
-    <height>1475</height>
+    <width>368</width>
+    <height>1624</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -168,11 +168,11 @@ each fractal formula</string>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Preferred mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Automatic mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
-            <string>Preferred</string>
+            <string>Automatic (analytic if possible)</string>
            </property>
           </item>
           <item>
@@ -259,11 +259,11 @@ function:</string>
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Preferred mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
           <item>
            <property name="text">
-            <string>Preferred</string>
+            <string>Automatic</string>
            </property>
           </item>
           <item>
@@ -655,7 +655,7 @@ with image resolution</string>
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_bounding_box_size" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_bounding_box_size" columnstretch="0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -675,9 +675,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -695,9 +695,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -715,9 +715,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -735,9 +735,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -762,9 +762,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -782,9 +782,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -802,9 +802,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -822,9 +822,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -849,9 +849,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-up.png</normaloff>:/navigation/icons/size-up.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -869,9 +869,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/size-down.png</normaloff>:/navigation/icons/size-down.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -889,9 +889,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
@@ -909,9 +909,9 @@ with image resolution</string>
            </sizepolicy>
           </property>
           <property name="icon">
-	   <iconset resource="icons.qrc">
-	    <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
-	  </property>
+           <iconset resource="icons.qrc">
+            <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
+          </property>
           <property name="iconSize">
            <size>
             <width>24</width>
