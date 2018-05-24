@@ -95,7 +95,7 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 In addition, there exists an MSVC Solution located in this git package. The solution accommodates all dependencies with NUGET for autonomous compilation of OpenCL accelerated Binary.
 
-The system requires the QT5 framework in conjuction with LZO for real-time data compression and GSL for scientific resources.
+The system requires the QT5 framework in conjunction with LZO for real-time data compression and GSL for scientific resources.
 
 ## Resources
 [Video tutorials](https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql)
