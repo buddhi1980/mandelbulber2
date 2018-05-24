@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -350,7 +350,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -1009,7 +1009,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
-      <string>A&amp;uxiliary color components</string>
+      <string>a&amp;ux.color components</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1035,7 +1035,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>Z plane component:</string>
+           <string>Z plane:</string>
           </property>
          </widget>
         </item>
@@ -1070,7 +1070,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
-           <string>X plane component:</string>
+           <string>X plane:</string>
           </property>
          </widget>
         </item>
@@ -1133,14 +1133,14 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>Y plane component:</string>
+           <string>Y plane:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>MinR2 component:</string>
+           <string>MinR2:</string>
           </property>
          </widget>
         </item>
@@ -1203,7 +1203,7 @@ offset:</string>
         <item row="5" column="0">
          <widget class="QLabel" name="label_37">
           <property name="text">
-           <string>MaxR2 component</string>
+           <string>MaxR2</string>
           </property>
          </widget>
         </item>

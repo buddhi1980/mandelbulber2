@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_quat</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -350,7 +350,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -787,7 +787,7 @@ offset:</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1112,13 +1112,6 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="Line" name="line_56">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_333_x">
           <property name="sizePolicy">
@@ -1147,14 +1140,14 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="Line" name="line_56">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_61">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -1513,34 +1506,13 @@ offset:</string>
          <number>2</number>
         </property>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_40">
-          <property name="text">
-           <string notr="true">alpha</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="Line" name="line_7">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_38">
-          <property name="text">
-           <string notr="true">gamma</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
          <widget class="QLabel" name="label_39">
           <property name="text">
            <string notr="true">beta</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1568,7 +1540,7 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
+        <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1596,7 +1568,7 @@ offset:</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1621,6 +1593,20 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_40">
+          <property name="text">
+           <string notr="true">alpha</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_38">
+          <property name="text">
+           <string notr="true">gamma</string>
           </property>
          </widget>
         </item>
@@ -2093,7 +2079,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout_65" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2469,7 +2455,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
-      <string>A&amp;uxiliary color components</string>
+      <string>a&amp;ux.color components</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2495,7 +2481,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_34">
           <property name="text">
-           <string>Z plane component:</string>
+           <string>Z plane:</string>
           </property>
          </widget>
         </item>
@@ -2530,7 +2516,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_29">
           <property name="text">
-           <string>X plane component:</string>
+           <string>X plane:</string>
           </property>
          </widget>
         </item>
@@ -2593,14 +2579,14 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>Y plane component:</string>
+           <string>Y plane:</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_36">
           <property name="text">
-           <string>MinR2 component:</string>
+           <string>MinR2:</string>
           </property>
          </widget>
         </item>
@@ -2663,7 +2649,7 @@ offset:</string>
         <item row="5" column="0">
          <widget class="QLabel" name="label_37">
           <property name="text">
-           <string>MaxR2 component</string>
+           <string>MaxR2:</string>
           </property>
          </widget>
         </item>

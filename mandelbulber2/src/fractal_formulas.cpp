@@ -1852,6 +1852,12 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= aux.actualScale; // aux.actualScale;
 	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
+    if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
+            && aux.i < fractal->transformCommon.stopIterations)
+    {
+        z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+    }
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z += fractal->transformCommon.juliaC - c * fractal->transformCommon.constantMultiplier111;
