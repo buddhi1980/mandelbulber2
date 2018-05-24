@@ -302,8 +302,13 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		QPoint windowPoint = this->mapTo(topWidget, QPoint());
 		int width = this->width();
 		int hOffset = this->height();
+
 		slider->adjustSize();
 		slider->setFixedWidth(width);
+
+		if (windowPoint.y() + slider->height() + hOffset > topWidget->height())
+			hOffset = -slider->height();
+
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
@@ -324,6 +329,8 @@ void MyLineEdit::focusOutEvent(QFocusEvent *event)
 	{
 		slider->disconnect();
 		slider->hide();
+		slider->deleteLater();
+		slider = nullptr;
 	}
 }
 

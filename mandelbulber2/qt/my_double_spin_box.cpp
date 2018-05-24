@@ -153,6 +153,10 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		int hOffset = this->height();
 		slider->adjustSize();
 		slider->setFixedWidth(width);
+
+		if (windowPoint.y() + slider->height() + hOffset > topWidget->height())
+			hOffset = -slider->height();
+
 		slider->move(windowPoint.x(), windowPoint.y() + hOffset);
 		slider->show();
 
@@ -186,6 +190,8 @@ void MyDoubleSpinBox::focusOutEvent(QFocusEvent *event)
 	{
 		slider->disconnect();
 		slider->hide();
+		slider->deleteLater();
+		slider = nullptr;
 	}
 }
 
