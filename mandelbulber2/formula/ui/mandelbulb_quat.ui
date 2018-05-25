@@ -32,12 +32,12 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Mandelbulb Quaternion BETA not finished</string>
+      <string>Mandelbulb Quaternion</string>
      </property>
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -656,13 +656,6 @@
           </layout>
          </item>
         </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="Line" name="line_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
        </widget>
       </item>
       <item>

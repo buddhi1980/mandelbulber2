@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>871</width>
+    <width>925</width>
     <height>2415</height>
    </rect>
   </property>
@@ -510,7 +510,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_21" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_21" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -702,13 +702,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="Line" name="line_9">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -720,7 +713,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_20" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_20" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -750,7 +743,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_31">
+       <layout class="QGridLayout" name="gridLayout_31" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -917,13 +910,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="Line" name="line_8">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -1061,15 +1047,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
