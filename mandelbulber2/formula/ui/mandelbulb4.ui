@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb4</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
+    <width>762</width>
     <height>555</height>
    </rect>
   </property>
@@ -203,10 +203,7 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-     </layout>
-    </widget>
-   </item>
-   <item>
+      <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;Fractal formula created by Buddhi&lt;/p&gt;&lt;table&gt;
@@ -262,18 +259,21 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
   <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -394,7 +394,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_167">
           <property name="text">
-           <string>Minimum Radius^2:</string>
+           <string>MinimumR2:</string>
           </property>
          </widget>
         </item>

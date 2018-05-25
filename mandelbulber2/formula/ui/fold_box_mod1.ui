@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>fold_box_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>918</width>
-    <height>3088</height>
+    <height>3208</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -481,7 +481,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -498,7 +498,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1">
+       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -509,8 +509,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+        <item row="1" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_value">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -537,22 +537,8 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_55">
-          <property name="text">
-           <string>Box folding value:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="Line" name="line_22">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_folding_value">
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -607,7 +593,14 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_55">
+          <property name="text">
+           <string>Box folding value:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
          <widget class="QLabel" name="label_56">
           <property name="text">
            <string>z.z scale:</string>
@@ -615,13 +608,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_23">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -634,7 +620,7 @@
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -779,13 +765,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_13">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -1015,13 +994,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>

@@ -1794,7 +1794,6 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		aux.color += colorAdd;
@@ -1807,11 +1806,9 @@ void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
-	CVector4 oldZ = z;
+	//CVector4 oldZ = z;
 
 	z.x = fractal->transformCommon.additionConstant0555.x - fabs(z.x);
 	z.y = fractal->transformCommon.additionConstant0555.y - fabs(z.y);
@@ -1821,13 +1818,30 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		 z.z = fractal->transformCommon.additionConstant0555.z - fabs(z.z);
 	}
 
+	// spherical fold & scaling
 	double rr = z.Dot(z);
-	double MinR = fractal->transformCommon.minR06;
-	double dividend = rr < MinR ? MinR : min(rr, 1.0);
-	double m = fractal->transformCommon.scale015 / dividend;
+	double m = fractal->transformCommon.scale015;
+	if (rr < fractal->transformCommon.minR2p25)
+	{
+		m *= fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+		colorAdd += fractal->mandelbox.color.factorSp1;
+	}
+	else if (rr < fractal->transformCommon.maxR2d1)
+	{
+		m *= fractal->transformCommon.maxR2d1 / rr;
+		colorAdd += fractal->mandelbox.color.factorSp2;
+	}
 	z = z * m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 
+	// rotaion
+	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	// add cpixel symmetrical
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
 		CVector4 tempFAB = c;
@@ -1842,15 +1856,10 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z += sign(z.z) * tempFAB.z;
 	}
 
-	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
-
+	// aux.color controls
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (rr < MinR) aux.color = fractal->mandelbox.color.factorSp1;
+		// if (rr < MinR) aux.color += fractal->mandelbox.color.factorSp1;
 		aux.color += colorAdd;
 	}
 }
@@ -8520,7 +8529,7 @@ void TransfAddConstantMod1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	// std offset
 	z += fractal->transformCommon.additionConstantA000;
 	// polynomial
-	if (fractal->transformCommon.functionEnabledBxFalse
+	if (fractal->transformCommon.functionEnabledBx
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
