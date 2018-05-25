@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_juliabulb</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>907</width>
-    <height>3679</height>
+    <width>934</width>
+    <height>4247</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -548,8 +548,15 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_y">
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_263">
+          <property name="text">
+           <string notr="true">z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -566,18 +573,18 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>9.999000000000001</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="7" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_z">
+        <item row="1" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -594,20 +601,13 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>9.999000000000001</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="1" colspan="3">
-         <widget class="Line" name="line_61">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -681,15 +681,8 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="QLabel" name="label_263">
-          <property name="text">
-           <string notr="true">z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+        <item row="6" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -706,18 +699,18 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>0.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>9.999000000000001</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
-        <item row="1" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
+        <item row="7" column="3">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetF_000_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -734,10 +727,10 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>0.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>9.999000000000001</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -772,17 +765,17 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1" colspan="3">
-         <widget class="Line" name="line_55">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="2">
          <widget class="QLabel" name="label_268">
           <property name="text">
            <string notr="true">y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" colspan="2">
+         <widget class="Line" name="line_55">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -1547,15 +1540,15 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

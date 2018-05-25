@@ -49,7 +49,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MySpinBox" name="spinboxInt_transf_int_1">
+      <widget class="MySpinBox" name="spinboxInt_transf_int_6">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>

@@ -318,6 +318,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.intA = container->Get<int>("transf_int_A");
 	transformCommon.intB = container->Get<int>("transf_int_B");
 	transformCommon.int1 = container->Get<int>("transf_int_1");
+	transformCommon.int6 = container->Get<int>("transf_int_6");
 	transformCommon.int8X = container->Get<int>("transf_int8_X");
 	transformCommon.int8Y = container->Get<int>("transf_int8_Y");
 	transformCommon.int8Z = container->Get<int>("transf_int8_Z");

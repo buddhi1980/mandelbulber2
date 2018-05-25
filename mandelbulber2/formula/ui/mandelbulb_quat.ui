@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_quat</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>4095</height>
+    <height>5016</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,7 +37,7 @@
      <property name="checkable">
       <bool>false</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_39" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -377,16 +377,6 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="10" column="1">
-            <widget class="QLabel" name="label_2">
-             <property name="layoutDirection">
-              <enum>Qt::RightToLeft</enum>
-             </property>
-             <property name="text">
-              <string>DE Vector Influence:</string>
-             </property>
-            </widget>
-           </item>
            <item row="4" column="3">
             <widget class="MyDoubleSpinBox" name="spinbox3_transf_constant_multiplier_122_z">
              <property name="sizePolicy">
@@ -650,6 +640,16 @@
             <widget class="QLabel" name="label_93">
              <property name="text">
               <string notr="true">z.x</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1" colspan="2">
+            <widget class="QLabel" name="label_2">
+             <property name="layoutDirection">
+              <enum>Qt::RightToLeft</enum>
+             </property>
+             <property name="text">
+              <string>DE Vector Influence:</string>
              </property>
             </widget>
            </item>
@@ -1070,12 +1070,12 @@
          <string/>
         </property>
         <property name="title">
-         <string>Rotation &amp;3D</string>
+         <string>Rota&amp;tion</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0">
          <property name="spacing">
           <number>2</number>
          </property>
@@ -1143,14 +1143,7 @@
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="0" column="0" colspan="2">
-            <widget class="Line" name="line_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
+           <item row="1" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1178,7 +1171,7 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
+           <item row="2" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_z">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1206,7 +1199,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="0" column="1">
             <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_x">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1234,7 +1227,7 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0">
+           <item row="2" column="0">
             <widget class="QLabel" name="label_36">
              <property name="text">
               <string notr="true">gamma</string>
@@ -1244,7 +1237,7 @@
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="1" column="0">
             <widget class="QLabel" name="label_34">
              <property name="text">
               <string notr="true">beta</string>
@@ -1254,7 +1247,7 @@
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
+           <item row="0" column="0">
             <widget class="QLabel" name="label_35">
              <property name="text">
               <string notr="true">alpha</string>
@@ -1265,13 +1258,6 @@
             </widget>
            </item>
           </layout>
-         </item>
-         <item>
-          <widget class="Line" name="line_60">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-          </widget>
          </item>
         </layout>
        </widget>
@@ -1397,7 +1383,7 @@
           </widget>
          </item>
          <item>
-          <layout class="QGridLayout" name="gridLayout_75" columnstretch="0,0">
+          <layout class="QGridLayout" name="gridLayout_75" columnstretch="0,1">
            <property name="topMargin">
             <number>0</number>
            </property>
@@ -1723,13 +1709,6 @@
         </layout>
        </widget>
       </item>
-      <item>
-       <widget class="Line" name="line_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -1912,13 +1891,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0" colspan="3">
-      <widget class="Line" name="line_22">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
@@ -2211,15 +2183,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
