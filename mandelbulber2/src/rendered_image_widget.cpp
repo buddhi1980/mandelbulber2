@@ -729,8 +729,11 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 
 void RenderedImage::wheelEvent(QWheelEvent *event)
 {
+
 	if (clickModesEnables || enumClickMode(clickModeData.at(0).toInt()) == clickFlightSpeedControl)
 	{
+		event->accept(); // do not propagate event to parent widgets - prevents from scrolling
+
 		emit mouseWheelRotated(event->x(), event->y(), event->delta());
 		if (params)
 		{

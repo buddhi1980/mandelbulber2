@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -1173,6 +1173,9 @@ and will only be present after enabling and re-render.</string>
                 </item>
                 <item row="5" column="0" colspan="3">
                  <widget class="QCheckBox" name="checkBox_opencl_disable_build_cache">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It disables 'compute cache' used by NVidia driver. It is sometimes needed to use this option to refresh precompiled OpenCL programs after changing OpenCL source files (e.g. after upgrade of the program).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Disable cache for OpenCL programs</string>
                   </property>
@@ -1181,8 +1184,7 @@ and will only be present after enabling and re-render.</string>
                 <item row="4" column="0" colspan="3">
                  <widget class="QCheckBox" name="checkBox_opencl_use_fast_relaxed_math">
                   <property name="toolTip">
-                   <string>It enables -cl-fast-relaxed-math OpenCL flag. It provides aditional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.
-</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides aditional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Use fast relaxed math</string>
