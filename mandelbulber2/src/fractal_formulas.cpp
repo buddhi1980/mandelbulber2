@@ -9728,13 +9728,13 @@ void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	bool cy = false;
 	int sector = (int)(-div2PI * atan(z.x/z.y));
 	if (sector&1) cy = true; // parity   if (sector&1) is a "bitcheck", true = odd
-	double angle = (double)sector/div2PI;
+	double angle = (double)(sector/div2PI);
 	//z.xy = rotate(z.xy,angle); // sin
+	double tempZx = z.x;
 	z.x = z.x * cos(angle) - z.y * sin(angle);
-	z.y = z.x * sin(angle) + z.y * cos(angle);
+	z.y = tempZx * sin(angle) + z.y * cos(angle);
 	if (cy) z.y = -z.y;
 	//if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
-	// could implement odd/even aux.color
 }
 
 /**
@@ -9749,48 +9749,46 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 
 	int order = fractal->transformCommon.int6;
 	double div2PI = (double)order/M_PI_2x;
+	double temp = 0.0;
 
 	if (fractal->transformCommon.functionEnabledCx)
 	{
 		bool cy = false;
 		int sector = (int)(-div2PI * atan(z.x/z.y));
 		if (sector&1) cy = true;
-		double angle = (double)sector/div2PI;
-		 z.x = z.x * cos(angle) - z.y * sin(angle);
-		z.y = z.x * sin(angle) + z.y * cos(angle);
+		double angle = (double)(sector/div2PI);
+		temp = z.x;
+		z.x = z.x * cos(angle) - z.y * sin(angle);
+		z.y = temp * sin(angle) + z.y * cos(angle);
 		if (cy == true) z.y = -z.y;
-		//if (fractal->transformCommon.functionEnabledFalse)
+		/*if (fractal->transformCommon.functionEnabledFalse)
 		{
-			//if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+			if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+			else if (cy == true) z.y = -z.y;
 		}
+		else if (cy == true) z.y = -z.y;*/
 	}
 	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
 		bool cz = false;
 		int sector = (int)(-div2PI * atan(z.y/z.z));
 		if (sector&1) cz = true;
-		double angle = (double)sector/div2PI;
+		double angle = (double)(sector/div2PI);
+		temp = z.y;
 		z.y = z.y * cos(angle) - z.z * sin(angle);
-		z.z = z.y * sin(angle) + z.z * cos(angle);
+		z.z = temp * sin(angle) + z.z * cos(angle);
 		if (cz == true) z.z = -z.z;
-		//if (fractal->transformCommon.functionEnabledFalse)
-		{
-			//if ((order&1) && (sector == 0)) z.z = fabs(z.z); // more continuous?
-		}
 	}
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
 		bool cx = false;
 		int sector = (int)(-div2PI * atan(z.z/z.x));
 		if (sector&1) cx = true;
-		double angle = (double)sector/div2PI;
+		double angle = (double)(sector/div2PI);
+		temp = z.z;
 		z.z = z.z * cos(angle) - z.x * sin(angle);
-		z.x = z.z * sin(angle) + z.x * cos(angle);
+		z.x = temp * sin(angle) + z.x * cos(angle);
 		if (cx == true) z.x = -z.x;
-		//if (fractal->transformCommon.functionEnabledFalse)
-		{
-			//if ((order&1) && (sector == 0)) z.x = fabs(z.x); // more continuous?
-		}
 	}
 }
 

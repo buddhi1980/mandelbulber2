@@ -443,6 +443,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
+				// TODO test other linear functions 2 3 & 4
 				case analyticFunctionIFS:
 				{
 					if (extendedAux.DE > 0)
