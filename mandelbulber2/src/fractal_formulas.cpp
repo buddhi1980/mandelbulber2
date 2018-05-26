@@ -1842,7 +1842,9 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	}
 
 	// add cpixel symmetrical
-	if (fractal->transformCommon.addCpixelEnabledFalse)
+	if (fractal->transformCommon.addCpixelEnabledFalse
+		&& aux.i >= fractal->transformCommon.startIterationsC
+		&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		CVector4 tempFAB = c;
 		if (fractal->transformCommon.functionEnabledx) tempFAB.x = fabs(tempFAB.x);
