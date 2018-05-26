@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>msltoe_toroidal</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>1418</height>
+    <height>1531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -161,13 +161,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_54">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
@@ -313,13 +306,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_55">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
@@ -487,13 +473,6 @@
        </widget>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -727,15 +706,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

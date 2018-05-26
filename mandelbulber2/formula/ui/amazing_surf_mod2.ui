@@ -643,6 +643,46 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_7">
+     <item row="13" column="0">
+      <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1">
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+         <property name="text">
+          <string>Enable fold z.z:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+         <property name="text">
+          <string>Enable swap z.x z.y</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_z">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="prefix">
+          <string/>
+         </property>
+         <property name="decimals">
+          <number>6</number>
+         </property>
+         <property name="minimum">
+          <double>-99.989999999999995</double>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
      <item row="5" column="0">
       <widget class="MyGroupBox" name="groupCheck_transf_function_enabledCz_false">
        <property name="font">
@@ -822,7 +862,7 @@
        </item>
       </layout>
      </item>
-     <item row="11" column="0">
+     <item row="10" column="0">
       <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,0,0,0,1">
        <property name="spacing">
         <number>2</number>
@@ -923,7 +963,7 @@
        </item>
       </layout>
      </item>
-     <item row="13" column="0">
+     <item row="12" column="0">
       <layout class="QGridLayout" name="gridLayout_75">
        <property name="topMargin">
         <number>5</number>
@@ -1154,47 +1194,7 @@
        </item>
       </layout>
      </item>
-     <item row="14" column="0">
-      <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1">
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
-         <property name="text">
-          <string>Enable fold z.z:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
-         <property name="text">
-          <string>Enable swap z.x z.y</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_111_z">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="prefix">
-          <string/>
-         </property>
-         <property name="decimals">
-          <number>6</number>
-         </property>
-         <property name="minimum">
-          <double>-99.989999999999995</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="10" column="0">
+     <item row="9" column="0">
       <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,1">
        <item row="2" column="0">
         <widget class="QLabel" name="label_137">
@@ -1218,7 +1218,7 @@
        </item>
       </layout>
      </item>
-     <item row="7" column="0">
+     <item row="6" column="0">
       <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,1">
        <item row="0" column="1">
         <widget class="QLabel" name="label_4">
@@ -1321,7 +1321,7 @@
        </item>
       </layout>
      </item>
-     <item row="8" column="0">
+     <item row="7" column="0">
       <layout class="QGridLayout" name="gridLayout_67" columnstretch="0,0,0,0,1">
        <property name="spacing">
         <number>2</number>
@@ -1393,21 +1393,14 @@
        </item>
       </layout>
      </item>
-     <item row="12" column="0">
+     <item row="11" column="0">
       <widget class="Line" name="line_3">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="Line" name="line">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
+     <item row="8" column="0">
       <widget class="Line" name="line_4">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
@@ -1415,13 +1408,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="QGroupBox" name="groupBox_2">
@@ -1722,7 +1708,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1897,13 +1883,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_6">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,1">

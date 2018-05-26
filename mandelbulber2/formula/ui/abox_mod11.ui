@@ -557,7 +557,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_19" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>

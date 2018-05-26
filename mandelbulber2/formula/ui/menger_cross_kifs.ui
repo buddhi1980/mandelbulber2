@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_cross_kifs</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
+    <width>934</width>
     <height>3656</height>
    </rect>
   </property>
@@ -363,13 +363,6 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="3">
-         <widget class="Line" name="line_4">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_174">
           <property name="text">
@@ -440,14 +433,14 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="1" colspan="2">
+         <widget class="Line" name="line_4">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
       <item>
        <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
@@ -643,7 +636,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="3">
+        <item row="2" column="1" colspan="2">
          <widget class="Line" name="line_25">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -787,14 +780,14 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
-        <item row="2" column="0">
+        <item row="1" column="0">
          <widget class="QLabel" name="label_105">
           <property name="text">
            <string>DE tweak:</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -822,23 +815,9 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="Line" name="line_23">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -1285,17 +1264,17 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="0">
-         <widget class="Line" name="line_8">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="5" column="0" colspan="3">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
           <property name="text">
            <string>enable fabs(z.x) Fold</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <widget class="Line" name="line_8">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
@@ -1491,39 +1470,18 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_7">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_9">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,1">
-     <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0">
+     <item row="1" column="0">
       <widget class="QLabel" name="label_179">
        <property name="text">
-        <string>Hybrid mode. Linear DE &quot;r&quot; factor: dist = (r - factor)/DE</string>
+        <string>Linear DE &quot;r&quot; factor: dist = (r - factor)/DE</string>
        </property>
        <property name="wordWrap">
         <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="1" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_factor_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1551,10 +1509,13 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="2">
-      <widget class="Line" name="line_10">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_182">
+       <property name="text">
+        <string>Hybrid mode DE.</string>
+       </property>
+       <property name="wordWrap">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -1740,15 +1701,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

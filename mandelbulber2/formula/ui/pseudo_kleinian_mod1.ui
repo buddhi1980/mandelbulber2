@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>929</width>
-    <height>4095</height>
+    <height>5357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -60,13 +60,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_66">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledP_false">
      <property name="toolTip">
       <string/>
@@ -77,7 +70,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -347,13 +340,6 @@
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="Line" name="line_65">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -368,7 +354,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -543,13 +529,6 @@
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="Line" name="line_60">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -564,7 +543,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -861,13 +840,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="Line" name="line_53">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_200_z">
           <property name="sizePolicy">
@@ -924,14 +896,14 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="Line" name="line_53">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_55">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -947,7 +919,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1256,13 +1228,6 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="Line" name="line_54">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="1">
          <widget class="QLabel" name="label_134">
           <property name="sizePolicy">
@@ -1307,14 +1272,14 @@
           </property>
          </widget>
         </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="Line" name="line_54">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_61">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -1330,7 +1295,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1767,13 +1732,6 @@
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="Line" name="line_59">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -1882,13 +1840,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_8">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledAy_false">
      <property name="font">
       <font>
@@ -1990,13 +1941,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_6">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -2522,13 +2466,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_25">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledM_false">
      <property name="font">
       <font>
@@ -2545,7 +2482,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -3079,13 +3016,6 @@
         </item>
        </layout>
       </item>
-      <item>
-       <widget class="Line" name="line_5">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </widget>
    </item>
@@ -3351,15 +3281,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

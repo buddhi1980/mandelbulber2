@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold_xyz_bias</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -589,6 +589,41 @@ reverse offset:</string>
           </property>
          </widget>
         </item>
+        <item row="3" column="0" colspan="3">
+         <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+          <property name="text">
+           <string notr="true">limit mode,     if (MinR2 &gt; MaxR2) MinR2 = MaxR2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_x">
           <property name="sizePolicy">
@@ -617,45 +652,10 @@ reverse offset:</string>
           </property>
          </widget>
         </item>
-        <item row="5" column="0" colspan="3">
+        <item row="4" column="0" colspan="3">
          <widget class="Line" name="line_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled">
-          <property name="text">
-           <string notr="true">limit mode,     if (MinR2 &gt; MaxR2) MinR2 = MaxR2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -719,13 +719,6 @@ reverse offset:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="Line" name="line_6">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_122">
           <property name="sizePolicy">
@@ -749,7 +742,7 @@ reverse offset:</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="0" colspan="2">
+        <item row="5" column="0" colspan="2">
          <widget class="QLabel" name="label_18">
           <property name="text">
            <string>Post Scale:</string>
@@ -759,13 +752,6 @@ reverse offset:</string>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_3">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -851,13 +837,6 @@ reverse offset:</string>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_7">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">

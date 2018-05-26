@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>msltoe_sym3_mod</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
+    <width>898</width>
     <height>2049</height>
    </rect>
   </property>
@@ -313,13 +313,6 @@
     </layout>
    </item>
    <item>
-    <widget class="Line" name="line_58">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot; towards the origin.&lt;/p&gt;&lt;p&gt;This transform allows the addition or subtraction of Cpixel, dependent on whether z is postive or negative.&lt;/p&gt;&lt;p&gt;e.g if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is positive then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c.x)&lt;/span&gt; is added, if &lt;span style=&quot; font-style:italic;&quot;&gt;z.x&lt;/span&gt; is negative then &lt;span style=&quot; font-style:italic;&quot;&gt;fabs(c)&lt;/span&gt; is subtracted. &lt;/p&gt;&lt;p&gt;Also try negative addCpixel constant multipliers.&lt;/p&gt;&lt;p&gt;If checkBoxes are disabled then Cpixel remains signed.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -497,7 +490,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -607,13 +600,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_23">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -776,15 +762,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

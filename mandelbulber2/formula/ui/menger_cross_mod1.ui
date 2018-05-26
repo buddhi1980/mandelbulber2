@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_cross_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>889</width>
+    <width>934</width>
     <height>3346</height>
    </rect>
   </property>
@@ -399,18 +399,11 @@
        </layout>
       </item>
       <item>
-       <widget class="Line" name="line_23">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="label_112">
         <property name="font">
          <font>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="text">
@@ -531,20 +524,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_22">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -679,7 +658,7 @@
        </widget>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_37">
+       <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -791,13 +770,6 @@
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="Line" name="line_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
     </widget>
    </item>
    <item>
@@ -987,13 +959,6 @@
     </widget>
    </item>
    <item>
-    <widget class="Line" name="line_21">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-   </item>
-   <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
       <string>Infor&amp;mation</string>
@@ -1167,15 +1132,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
