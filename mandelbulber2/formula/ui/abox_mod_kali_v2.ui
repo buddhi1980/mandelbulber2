@@ -661,7 +661,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_fold_color_aux_color_enabled_false">
      <property name="title">
-      <string>aux color c&amp;omponents (TODO XYZ plane)</string>
+      <string>aux color c&amp;omponents</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -987,5 +987,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledM</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_addition_constant_0555_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>261</x>
+     <y>118</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

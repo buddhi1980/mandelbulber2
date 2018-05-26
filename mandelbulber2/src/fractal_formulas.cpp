@@ -1808,7 +1808,7 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 {
 	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
-	//CVector4 oldZ = z;
+	CVector4 oldZ = z;
 
 	z.x = fractal->transformCommon.additionConstant0555.x - fabs(z.x);
 	z.y = fractal->transformCommon.additionConstant0555.y - fabs(z.y);
@@ -1817,6 +1817,7 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		 z.z = fractal->transformCommon.additionConstant0555.z - fabs(z.z);
 	}
+	CVector4 postZ = z;
 
 	// spherical fold & scaling
 	double rr = z.Dot(z);
@@ -1834,7 +1835,7 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	z = z * m;
 	aux.DE = aux.DE * fabs(m) + 1.0;
 
-	// rotaion
+	// rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
@@ -1861,7 +1862,10 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	// aux.color controls
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		// if (rr < MinR) aux.color += fractal->mandelbox.color.factorSp1;
+		postZ -= oldZ;
+		if (postZ.x < 1.0) aux.color += fractal->mandelbox.color.factor.x;
+		if (postZ.y < 1.0) aux.color += fractal->mandelbox.color.factor.y;
+		if (postZ.z < 1.0) aux.color += fractal->mandelbox.color.factor.z;
 		aux.color += colorAdd;
 	}
 }
