@@ -688,8 +688,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->limitsEnabled
-										 && !params->common.iterThreshMode && softRange > 0.0;
+	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
@@ -708,7 +707,18 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-		if (bSoft)
+		bool limitsAcheved = false;
+		if (params->limitsEnabled)
+		{
+			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
+					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
+					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
+			{
+				limitsAcheved = true;
+			}
+		}
+
+		if (bSoft && !limitsAcheved)
 		{
 			double angle = (dist - dist_thresh) / i;
 			if (angle < 0) angle = 0;
@@ -1252,8 +1262,7 @@ double cRenderWorker::AuxShadow(
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->limitsEnabled
-										 && !params->common.iterThreshMode && softRange > 0.0;
+	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0;
 
 	for (double i = input.delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
 	{
@@ -1272,7 +1281,18 @@ double cRenderWorker::AuxShadow(
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-		if (bSoft)
+		bool limitsAcheved = false;
+		if (params->limitsEnabled)
+		{
+			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
+					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
+					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
+			{
+				limitsAcheved = true;
+			}
+		}
+
+		if (bSoft && !limitsAcheved)
 		{
 			double angle = (dist - dist_thresh) / i;
 			if (angle < 0) angle = 0;

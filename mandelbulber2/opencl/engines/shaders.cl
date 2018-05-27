@@ -355,8 +355,8 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
 
-	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
-										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
+	const bool bSoft =
+		!consts->params.iterFogEnabled && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
 	int count = 0;
 	float step = 0.0f;
@@ -378,7 +378,13 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		dist = outF.distance;
 
-		if (bSoft)
+		bool limitsAcheved = false;
+#ifdef LIMITS_ENABLED
+		limitsAcheved = any(isless(point2, consts->params.limitMin))
+										|| any(isgreater(point2, consts->params.limitMax));
+#endif // LIMITS_ENABLED
+
+		if (bSoft && !limitsAcheved)
 		{
 			float angle = (dist - dist_thresh) / i;
 			if (angle < 0.0f) angle = 0.0f;
@@ -551,8 +557,8 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
 
-	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.limitsEnabled
-										 && !consts->params.common.iterThreshMode && softRange > 0.0f;
+	const bool bSoft =
+		!consts->params.iterFogEnabled && !consts->params.common.iterThreshMode && softRange > 0.0f;
 
 	int count = 0;
 	float step = 0.0f;
@@ -577,7 +583,13 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
 		dist = outF.distance;
 
-		if (bSoft)
+		bool limitsAcheved = false;
+#ifdef LIMITS_ENABLED
+		limitsAcheved = any(isless(point2, consts->params.limitMin))
+										|| any(isgreater(point2, consts->params.limitMax));
+#endif // LIMITS_ENABLED
+
+		if (bSoft && !limitsAcheved)
 		{
 			float angle = (dist - dist_thresh) / i;
 			if (angle < 0.0f) angle = 0.0f;
