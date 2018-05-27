@@ -167,6 +167,8 @@ void RenderWindow::slotKeyHandle()
 
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
+	bool render = false;
+
 	for (int i = 0; i < currentKeyEvents.size(); i++)
 	{
 		int key = currentKeyEvents.at(i);
@@ -175,10 +177,22 @@ void RenderWindow::slotKeyHandle()
 		{ // Shift pressed
 			switch (key)
 			{
-				case Qt::Key_Up: gMainInterface->MoveCamera("bu_move_forward"); break;
-				case Qt::Key_Down: gMainInterface->MoveCamera("bu_move_backward"); break;
-				case Qt::Key_Left: gMainInterface->MoveCamera("bu_move_left"); break;
-				case Qt::Key_Right: gMainInterface->MoveCamera("bu_move_right"); break;
+				case Qt::Key_Up:
+					gMainInterface->MoveCamera("bu_move_forward");
+					render = true;
+					break;
+				case Qt::Key_Down:
+					gMainInterface->MoveCamera("bu_move_backward");
+					render = true;
+					break;
+				case Qt::Key_Left:
+					gMainInterface->MoveCamera("bu_move_left");
+					render = true;
+					break;
+				case Qt::Key_Right:
+					gMainInterface->MoveCamera("bu_move_right");
+					render = true;
+					break;
 				default: break;
 			}
 		}
@@ -186,10 +200,22 @@ void RenderWindow::slotKeyHandle()
 		{ // Ctrl pressed
 			switch (key)
 			{
-				case Qt::Key_Up: gMainInterface->MoveCamera("bu_move_forward"); break;
-				case Qt::Key_Down: gMainInterface->MoveCamera("bu_move_backward"); break;
-				case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_roll_left"); break;
-				case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_roll_right"); break;
+				case Qt::Key_Up:
+					gMainInterface->MoveCamera("bu_move_forward");
+					render = true;
+					break;
+				case Qt::Key_Down:
+					gMainInterface->MoveCamera("bu_move_backward");
+					render = true;
+					break;
+				case Qt::Key_Left:
+					gMainInterface->RotateCamera("bu_rotate_roll_left");
+					render = true;
+					break;
+				case Qt::Key_Right:
+					gMainInterface->RotateCamera("bu_rotate_roll_right");
+					render = true;
+					break;
 				default: break;
 			}
 		}
@@ -198,16 +224,46 @@ void RenderWindow::slotKeyHandle()
 			// No keyboard modifiers
 			switch (key)
 			{
-				case Qt::Key_W: gMainInterface->MoveCamera("bu_move_up"); break;
-				case Qt::Key_S: gMainInterface->MoveCamera("bu_move_down"); break;
-				case Qt::Key_A: gMainInterface->MoveCamera("bu_move_left"); break;
-				case Qt::Key_D: gMainInterface->MoveCamera("bu_move_right"); break;
-				case Qt::Key_Q: gMainInterface->MoveCamera("bu_move_forward"); break;
-				case Qt::Key_Z: gMainInterface->MoveCamera("bu_move_backward"); break;
-				case Qt::Key_Up: gMainInterface->RotateCamera("bu_rotate_up"); break;
-				case Qt::Key_Down: gMainInterface->RotateCamera("bu_rotate_down"); break;
-				case Qt::Key_Left: gMainInterface->RotateCamera("bu_rotate_left"); break;
-				case Qt::Key_Right: gMainInterface->RotateCamera("bu_rotate_right"); break;
+				case Qt::Key_W:
+					gMainInterface->MoveCamera("bu_move_up");
+					render = true;
+					break;
+				case Qt::Key_S:
+					gMainInterface->MoveCamera("bu_move_down");
+					render = true;
+					break;
+				case Qt::Key_A:
+					gMainInterface->MoveCamera("bu_move_left");
+					render = true;
+					break;
+				case Qt::Key_D:
+					gMainInterface->MoveCamera("bu_move_right");
+					render = true;
+					break;
+				case Qt::Key_Q:
+					gMainInterface->MoveCamera("bu_move_forward");
+					render = true;
+					break;
+				case Qt::Key_Z:
+					gMainInterface->MoveCamera("bu_move_backward");
+					render = true;
+					break;
+				case Qt::Key_Up:
+					gMainInterface->RotateCamera("bu_rotate_up");
+					render = true;
+					break;
+				case Qt::Key_Down:
+					gMainInterface->RotateCamera("bu_rotate_down");
+					render = true;
+					break;
+				case Qt::Key_Left:
+					gMainInterface->RotateCamera("bu_rotate_left");
+					render = true;
+					break;
+				case Qt::Key_Right:
+					gMainInterface->RotateCamera("bu_rotate_right");
+					render = true;
+					break;
 
 				case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
 				case Qt::Key_M:
@@ -221,7 +277,11 @@ void RenderWindow::slotKeyHandle()
 		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-	gMainInterface->StartRender();
+
+	if (render)
+	{
+		gMainInterface->StartRender();
+	}
 }
 
 void RenderWindow::slotMouseWheelRotatedOnImage(int x, int y, int delta) const
