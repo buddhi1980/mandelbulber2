@@ -7877,13 +7877,13 @@ pro Pixel:</translation>
         <location filename="../qt/dock_effects.ui" line="724"/>
         <location filename="../qt/ui_dock_effects.h" line="2687"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to light map image. For ambient occlusion effect based on multiple rays&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Light Map für den Umgebungsverdeckungs-Effekt basierend auf mehreren Strahlen.&lt;/p&gt; &lt;p&gt;Um animierte Texturen (Bildsequenzen) zu verwenden, ersetzen Sie die Zahlen durch das Symbol &apos;%&apos;. Beispiel: Wenn die Reihenfolge der Bilder wie folgt aussieht:&lt;br/&gt;texture0001.jpg&lt;br/&gt; texture0002.jpg&lt;br/&gt;usw.&lt;/p&gt;&lt;p&gt;Verwenden Sie dann folgenden Dateinamen: texture%%%%.jpg &lt;br/&gt;Dies weist das Programm an, dies als kein einzelnes Bild zu behandeln, sondern als eine Sequenz von Bildern mit einem vierstelligen Index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="784"/>
         <location filename="../qt/ui_dock_effects.h" line="2695"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;File-path to reflection map image .&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zur Reflektionsmap.&lt;/p&gt;&lt;p&gt;Um animierte Texturen (Bildsequenzen) zu verwenden, ersetzen Sie die Zahlen durch das Symbol &apos;%&apos;. Beispiel: Wenn die Reihenfolge der Bilder wie folgt aussieht:&lt;br/&gt;texture0001.jpg&lt;br/&gt; texture0002.jpg&lt;br/&gt;usw.&lt;/p&gt;&lt;p&gt;Verwenden Sie dann folgenden Dateinamen: texture%%%%.jpg &lt;br/&gt;Dies weist das Programm an, dies als kein einzelnes Bild zu behandeln, sondern als eine Sequenz von Bildern mit einem vierstelligen Index..&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="870"/>
@@ -8145,7 +8145,7 @@ Setzen Sie 100, um die Kompatibilität mit Version &amp;lt;= 2.12 zu gewährleis
         <location filename="../qt/dock_effects.ui" line="1966"/>
         <location filename="../qt/ui_dock_effects.h" line="2901"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to the background image. Acceptable formats are BMP, GIF, JPG, PNG&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by &apos;%&apos; symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dateipfad zum Hintergrund Bild. Akzeptierte Formate sind: BMP, GIF, JPG, PNG&lt;/p&gt;&lt;p&gt;Um animierte Texturen (Bildsequenzen) zu verwenden, ersetzen Sie die Zahlen durch das Symbol &apos;%&apos;. Beispiel: Wenn die Reihenfolge der Bilder wie folgt aussieht:&lt;br/&gt;texture0001.jpg&lt;br/&gt; texture0002.jpg&lt;br/&gt;usw.&lt;/p&gt;&lt;p&gt;Verwenden Sie dann folgenden Dateinamen: texture%%%%.jpg &lt;br/&gt;Dies weist das Programm an, dies als kein einzelnes Bild zu behandeln, sondern als eine Sequenz von Bildern mit einem vierstelligen Index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="2001"/>
@@ -10758,13 +10758,13 @@ Bedingung):</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="171"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1035"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Automatic mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distanzermittlung ist eine Methode, die die ungefähre Entfernung zur Fraktaloberfläche von jedem beliebigen Punkt im Raum berechnet.&lt;/p&gt;&lt;p&gt;- Automatischer Modus verwendet die Methode zur Distanzermittlung, die für das selektierte Fraktal angegeben ist.&lt;/p&gt;&lt;p&gt;Erzwinge &amp;quot;Delta DE&amp;quot; Methode verwendet Delta DE Algorithmus der langsamer ist, dafür aber auch mit untypischen Fraktalkonfigurationen funktioniert.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="175"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1031"/>
         <source>Automatic (analytic if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch (analytisch wenn möglich)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="188"/>
@@ -10786,13 +10786,13 @@ Ermittlungsfunktion:</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="262"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1066"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distanzermittlung ist eine Methode, die die ungefähre Entfernung zur Fraktaloberfläche von jedem beliebigen Punkt im Raum berechnet.&lt;/p&gt;&lt;p&gt;Bei einigen Fraktalfunktionen steigt die Länge des Iterationsvektors exponentiell, bei anderen in linearer Weise.&lt;/p&gt;&lt;p&gt;- Automatischer Modus - findet die beste Methode für die aktuellen Einstellungen des Fraktals&lt;/p&gt;&lt;p&gt;- Logarithmisch - am besten geeignet für Fraktale mit exponentiellem Wachstum des Iterationsvektors (z.B. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Linear - am besten geeignet für Fraktale mit linearem Wachstum des Iterationsvektors (z.B. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - Distanzermittlungsmodus zur Verwendung bei Hybriden mit Pseudo Kleinian Formeln&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="266"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1059"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatisch</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="309"/>
@@ -10878,25 +10878,25 @@ mit Bild Auflösung</translation>
         <location filename="../qt/dock_rendering_engine.ui" line="653"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1127"/>
         <source>Resize and move the bounding box axes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Größe und Position der äußeren Hülle ändern:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="665"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1128"/>
         <source>X</source>
-        <translation type="unfinished">X</translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="752"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1129"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="839"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1130"/>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1213"/>
@@ -11786,7 +11786,7 @@ width:</source>
         <location filename="../qt/material_editor.ui" line="620"/>
         <location filename="../qt/ui_material_editor.h" line="2377"/>
         <source>w:</source>
-        <translation type="unfinished"></translation>
+        <translation>w:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="663"/>
@@ -13914,7 +13914,7 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1177"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1019"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It disables &apos;compute cache&apos; used by NVidia driver. It is sometimes needed to use this option to refresh precompiled OpenCL programs after changing OpenCL source files (e.g. after upgrade of the program).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dies deaktiviert den &apos;Compute Cache&apos;, der vom nVidia Treiber verwendet wird. Es ist manchmal erforderlich, diese Option zu verwenden, um vorkompilierte OpenCL-Programme zu aktualisieren, nachdem OpenCL-Quelldateien geändert wurden (z. B. nach einem Upgrade des Programms).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1180"/>
@@ -13926,13 +13926,13 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <location filename="../qt/preferences_dialog.ui" line="1187"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1023"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides aditional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dies aktiviert das &apos;-cl-fast-relaxed-math&apos; OpenCL-Flag. Es bietet zusätzliche Geschwindigkeit, indem es einige Überprüfungen für die mathematischen Operationen wie &apos;Division durch Null&apos; oder &apos;Not-a-Number&apos; entfernt. In einigen Fällen kann dies zu unvorhersehbaren Ergebnissen führen..&lt;/p&gt;&lt;p&gt;Es ist erforderlich, das Programm neu zu starten, um diese Option anzuwenden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1190"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1025"/>
         <source>Use fast relaxed math</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwende fast relaxed math</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1199"/>
