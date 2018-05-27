@@ -332,6 +332,10 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
 	QList<QAction *> actions = ui->toolBar->actions();
 	QStringList toolbarInActions;
+
+	QApplication::connect(
+		mapPresetsFromExamplesLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
+
 	for (int i = 0; i < actions.size(); i++)
 	{
 		QAction *action = actions.at(i);
@@ -417,8 +421,6 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 		}
 		QApplication::processEvents();
 	}
-	QApplication::connect(
-		mapPresetsFromExamplesLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
 
 	QApplication::connect(mapPresetsFromExamplesRemove, SIGNAL(mapped(QString)), this,
 		SLOT(slotMenuRemovePreset(QString)));
