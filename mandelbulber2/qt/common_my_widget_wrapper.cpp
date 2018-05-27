@@ -141,12 +141,11 @@ void CommonMyWidgetWrapper::setToolTipText()
 {
 	QString toolTipText = widget->toolTip();
 	toolTipText +=
-		"\n"
-		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter name: %1").arg(parameterName)
-		+ "<br>";
-	toolTipText += QCoreApplication::translate("CommonMyWidgetWrapper", "Default value: %1")
-									 .arg(getDefaultAsString());
-	widget->setToolTip(toolTipText);
+        QString("<table style='margin-top: 5px;'>")
+            + "<tr><td>" + QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter&nbsp;name:&nbsp;") + "</td><td><b>" + getFullParameterName() + "</b></td></tr>"
+            + "<tr><td>" + QCoreApplication::translate("CommonMyWidgetWrapper", "Default&nbsp;value:&nbsp;") + "</td><td><b>" + getDefaultAsString() + "</b></td></tr>"
+        + "</table>";
+    widget->setToolTip(toolTipText);
 }
 
 QString CommonMyWidgetWrapper::GetType(const QString &name)

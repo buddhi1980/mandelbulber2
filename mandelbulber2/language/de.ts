@@ -107,13 +107,25 @@
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="145"/>
-        <source>Parameter name: %1</source>
-        <translation>Parameter Name: %1</translation>
+        <source>Parameter&amp;nbsp;name:&amp;nbsp;</source>
+        <translation>Parameter&amp;nbsp;Name:&amp;nbsp;</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="147"/>
+        <source>Parameter&amp;nbsp;type:&amp;nbsp;</source>
+        <translation type="vanished">Parametertyp:&amp;nbsp;</translation>
+    </message>
+    <message>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="146"/>
+        <source>Default&amp;nbsp;value:&amp;nbsp;</source>
+        <translation>Standardwert:&amp;nbsp;</translation>
+    </message>
+    <message>
+        <source>Parameter name: %1</source>
+        <translation type="vanished">Parameter Name: %1</translation>
+    </message>
+    <message>
         <source>Default value: %1</source>
-        <translation>Standard Wert: %1</translation>
+        <translation type="vanished">Standard Wert: %1</translation>
     </message>
 </context>
 <context>
