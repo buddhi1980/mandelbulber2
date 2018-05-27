@@ -392,7 +392,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			/*if (extendedAux.r_dz > 0)
+			if (extendedAux.r_dz > 0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
@@ -416,35 +416,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->distance =
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);
-				}*/
-
-
-
-
-
-			if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
-			{
-				out->distance = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
-			}
-			else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction
-					 && extendedAux.r_dz > 0)
-			{
-				out->distance = 0.5 * r * log(r) / extendedAux.r_dz;
-			}
-			else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
-			{
-				double rxy = sqrt(z.x * z.x + z.y * z.y);
-				out->distance =
-					max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / fabs(extendedAux.DE);
-			}
-			else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
-			{
-				if (fractals.GetFractal(0)->transformCommon.functionEnabled)
-					z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
-
-				out->distance =
-					min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
-					/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);
+				}
 			}
 			else
 			{
@@ -476,14 +448,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case analyticFunctionPseudoKleinian:
 				{
-					//if (extendedAux.DE > 0)
+					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
 						out->distance =
-							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / fabs(extendedAux.DE);
+							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 					}
-					//else
-					//	out->distance = r;
+					else
+						out->distance = r;
 					break;
 				}
 				case analyticFunctionJosKleinian:

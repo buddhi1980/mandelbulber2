@@ -438,18 +438,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 		case clAnalyticFunctionLinear:
 		{
-			if (aux.DE > 0.0f)
-				dist = aux.r / fabs(aux.DE);
-			else
-				dist = aux.r;
+			dist = aux.r / fabs(aux.DE);
 			break;
 		}
 		case clAnalyticFunctionIFS:
 		{
-			if (aux.DE > 0.0f)
-				dist = (aux.r - 2.0) / (aux.DE);
-			else
-				dist = aux.r;
+			dist = (aux.r - 2.0) / fabs(aux.DE);
 			break;
 		}
 		case clAnalyticFunctionPseudoKleinian:
@@ -461,7 +455,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			}
 			else
 				dist = aux.r;
-
 			break;
 		}
 		case clAnalyticFunctionJosKleinian:
