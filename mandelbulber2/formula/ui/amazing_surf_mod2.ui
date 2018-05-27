@@ -1708,7 +1708,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1725,50 +1725,66 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,0,1">
-        <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
-          <property name="text">
-           <string>Force Cylindrical Fold</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>Cylinder scale:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="Line" name="line_7">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
         </property>
+        <property name="title">
+         <string>Force Cyl&amp;indrical Fold</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_10">
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>2</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" name="gridLayout_22" columnstretch="0,1">
+           <item row="1" column="1">
+            <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleB_1">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-99.989999999999995</double>
+             </property>
+             <property name="singleStep">
+              <double>0.100000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_20">
+             <property name="text">
+              <string>Cylinder scale:</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>
@@ -3107,7 +3123,6 @@ offset:</string>
   <tabstop>spinboxInt_transf_stop_iterations_C</tabstop>
   <tabstop>checkBox_transf_function_enabledAx_false</tabstop>
   <tabstop>groupCheck_transf_function_enabledAy</tabstop>
-  <tabstop>checkBox_transf_function_enabled_false</tabstop>
   <tabstop>checkBox_transf_alternate_enabled_false</tabstop>
   <tabstop>comboBox_mandelbulbMulti_order_of_xyz</tabstop>
   <tabstop>groupCheck_mandelbox_main_rotation_enabled</tabstop>
@@ -3258,22 +3273,6 @@ offset:</string>
     <hint type="destinationlabel">
      <x>942</x>
      <y>1085</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_transf_function_enabled_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_transf_scaleB_1</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>17</x>
-     <y>1439</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>439</x>
-     <y>1438</y>
     </hint>
    </hints>
   </connection>
