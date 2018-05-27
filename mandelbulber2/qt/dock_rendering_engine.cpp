@@ -182,6 +182,9 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate() const
 		table->setHorizontalHeaderLabels(header);
 	}
 
+	QHeaderView *headers = table->horizontalHeader();
+	headers->setSectionResizeMode(QHeaderView::ResizeToContents);
+
 	// change table
 	if (table->rowCount() != gNetRender->GetClientCount())
 	{
