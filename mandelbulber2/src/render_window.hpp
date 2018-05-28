@@ -181,7 +181,7 @@ private slots:
 	void slotKeyReleaseOnImage(QKeyEvent *event);
 	void slotButtonLongPress();
 	void slotKeyHandle();
-	void slotMouseWheelRotatedOnImage(int x, int y, int delta) const;
+	void slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta) const;
 
 private:
 	Ui::RenderWindow *ui;

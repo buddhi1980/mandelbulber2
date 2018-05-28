@@ -154,6 +154,9 @@ void RenderWindow::slotKeyPressOnImage(QKeyEvent *event)
 void RenderWindow::slotKeyReleaseOnImage(QKeyEvent *event)
 {
 	currentKeyEvents.removeOne(event->key());
+	lastKeyEventModifiers = event->modifiers();
+	slotKeyHandle();
+	buttonPressTimer->start();
 }
 
 void RenderWindow::slotButtonLongPress()
@@ -284,7 +287,7 @@ void RenderWindow::slotKeyHandle()
 	}
 }
 
-void RenderWindow::slotMouseWheelRotatedOnImage(int x, int y, int delta) const
+void RenderWindow::slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta) const
 {
 	if (gMainInterface->renderedImage->GetEnableClickModes())
 	{

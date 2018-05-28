@@ -397,8 +397,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotKeyPressOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(keyRelease(QKeyEvent *)), mainWindow,
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
-	connect(renderedImage, SIGNAL(mouseWheelRotated(int, int, int)), mainWindow,
-		SLOT(slotMouseWheelRotatedOnImage(int, int, int)));
+	connect(renderedImage, SIGNAL(mouseWheelRotatedWithCtrl(int, int, int)), mainWindow,
+		SLOT(slotMouseWheelRotatedWithCtrlOnImage(int, int, int)));
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));

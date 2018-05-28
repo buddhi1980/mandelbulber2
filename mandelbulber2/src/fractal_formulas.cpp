@@ -10191,8 +10191,7 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 {
 	z *= fractal->transformCommon.scale;
 	double DEoffset = 1.0;
-	if (fractal->transformCommon.functionEnabledFalse)
-		DEoffset = fractal->analyticDE.offset0;
+	if (fractal->transformCommon.functionEnabledFalse) DEoffset = fractal->analyticDE.offset0;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + DEoffset;
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
 }

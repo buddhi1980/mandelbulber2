@@ -206,6 +206,8 @@ void RenderWindow::slotMenuAboutHotKeys()
 					+ "</td></tr>";
 	text += " <tr><th>" + shiftBadge + " + " + tr("Arrow down") + "</th><td>" + tr("backward")
 					+ "</td></tr>";
+	text += " <tr><th>" + ctrlBadge + " + " + tr("Mouse Wheel") + "</th><td>"
+					+ tr("forward / backward") + "</td></tr>";
 	text += "</table>";
 
 	text += "<table style='margin-top: 10px;' border='1'>";

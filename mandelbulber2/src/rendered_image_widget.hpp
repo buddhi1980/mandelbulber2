@@ -175,7 +175,7 @@ signals:
 	void singleClick(int x, int y, Qt::MouseButton button);
 	void keyPress(QKeyEvent *event);
 	void keyRelease(QKeyEvent *event);
-	void mouseWheelRotated(int x, int y, int delta);
+	void mouseWheelRotatedWithCtrl(int x, int y, int delta);
 };
 
 #endif /* MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_ */
