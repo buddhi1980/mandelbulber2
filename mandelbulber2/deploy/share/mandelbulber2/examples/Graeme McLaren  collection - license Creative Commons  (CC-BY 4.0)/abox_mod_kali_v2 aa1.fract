@@ -1,0 +1,31 @@
+# Mandelbulber settings file
+# version 2.14
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -0.1310061352683942 -1.699149049672742 -0.8981201294401222;
+camera_distance_to_target 0.03450772166252138;
+camera_rotation -86.34467889905721 -1.682504770533213 13.98265393367043;
+camera_top 0.04383785669479411 -0.2393201515301443 0.9699505695611482;
+DE_factor 0.7;
+detail_level 0.5;
+formula_1 135;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+julia_c 1 0.3 1;
+julia_mode true;
+mat1_is_defined true;
+raytraced_reflections true;
+target -0.09658346182249748 -1.696949988723344 -0.8991333116132958;
+volumetric_fog_colour_1_distance 0.0001422316795676916;
+volumetric_fog_colour_2_distance 0.0002844633591353833;
+volumetric_fog_density 0.125;
+volumetric_fog_distance_factor 0.0002844633591353833;
+volumetric_fog_enabled true;
+[fractal_1]
+transf_maxR2_1 1.5;
+transf_minimum_radius_06 0;
+transf_rotation 26 0 0;
+transf_rotation_enabled true;
+transf_scale_015 2;

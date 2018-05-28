@@ -413,7 +413,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
 	float rxy = length(z.xy);
-	dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
+        dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / fabs(aux.DE);
 #elif ANALYTIC_JOS_KLEINIAN_DE
 	if (consts->fractal[0].transformCommon.functionEnabled)
 		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);

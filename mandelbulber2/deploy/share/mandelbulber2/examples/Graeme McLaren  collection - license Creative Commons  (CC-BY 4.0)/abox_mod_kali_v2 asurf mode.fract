@@ -1,0 +1,27 @@
+# Mandelbulber settings file
+# version 2.14
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1.154234551308565 -2.588973202174937 0.1587777425047527;
+camera_distance_to_target 2.613003969192505;
+camera_rotation 24.14644346713145 -29.03227579980542 -0.1245075352833094;
+camera_top -0.2005051706328054 0.4419497076798343 0.8743444014981846;
+DE_factor 0.7;
+detail_level 0.5;
+formula_1 135;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+julia_c -0.09694045684753005 -0.5100627307384569 0.9208941309752512;
+julia_mode true;
+mat1_is_defined true;
+raytraced_reflections true;
+target 0.2196436750143975 -0.5042045114229428 -1.109318919041085;
+view_distance_max 27.99665547250685;
+[fractal_1]
+fold_color_aux_color_enabled_false true;
+mandelbox_color 0 0.14375 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 0;
+transf_function_enabledM false;
