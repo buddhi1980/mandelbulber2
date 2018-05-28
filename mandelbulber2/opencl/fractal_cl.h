@@ -533,6 +533,7 @@ typedef struct
 	cl_int intA;
 	cl_int intB;
 	cl_int int1;
+	cl_int int6;
 	cl_int int8X;
 	cl_int int8Y;
 	cl_int int8Z;
@@ -1174,6 +1175,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.intA = source.intA;
 	target.intB = source.intB;
 	target.int1 = source.int1;
+	target.int6 = source.int6;
 	target.int8X = source.int8X;
 	target.int8Y = source.int8Y;
 	target.int8Z = source.int8Z;

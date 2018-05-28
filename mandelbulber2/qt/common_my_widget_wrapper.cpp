@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -141,11 +141,12 @@ void CommonMyWidgetWrapper::setToolTipText()
 {
 	QString toolTipText = widget->toolTip();
 	toolTipText +=
-        QString("<table style='margin-top: 5px;'>")
-            + "<tr><td>" + QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter&nbsp;name:&nbsp;") + "</td><td><b>" + getFullParameterName() + "</b></td></tr>"
-            + "<tr><td>" + QCoreApplication::translate("CommonMyWidgetWrapper", "Default&nbsp;value:&nbsp;") + "</td><td><b>" + getDefaultAsString() + "</b></td></tr>"
-        + "</table>";
-    widget->setToolTip(toolTipText);
+		QString("<table style='margin-top: 5px;'>") + "<tr><td>"
+		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Parameter&nbsp;name:&nbsp;")
+		+ "</td><td><b>" + getFullParameterName() + "</b></td></tr>" + "<tr><td>"
+		+ QCoreApplication::translate("CommonMyWidgetWrapper", "Default&nbsp;value:&nbsp;")
+		+ "</td><td><b>" + getDefaultAsString() + "</b></td></tr>" + "</table>";
+	widget->setToolTip(toolTipText);
 }
 
 QString CommonMyWidgetWrapper::GetType(const QString &name)

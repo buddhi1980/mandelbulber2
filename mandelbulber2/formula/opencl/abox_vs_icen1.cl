@@ -63,6 +63,12 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	z *= aux->actualScale; // aux->actualScale;
 	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
 
+	if (fractal->transformCommon.rotationEnabled && aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+	}
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z += mad(-fractal->transformCommon.constantMultiplier111, c, fractal->transformCommon.juliaC);

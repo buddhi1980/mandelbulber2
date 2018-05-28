@@ -19,7 +19,7 @@ REAL4 TransfAddConstantMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	// std offset
 	z += fractal->transformCommon.additionConstantA000;
 	// polynomial
-	if (fractal->transformCommon.functionEnabledBxFalse
+	if (fractal->transformCommon.functionEnabledBx
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{

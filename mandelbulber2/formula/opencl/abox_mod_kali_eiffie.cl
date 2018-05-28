@@ -70,6 +70,7 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 	}
 	z = z * m;
+	aux->DE = mad(aux->DE, fabs(m), 1.0f);
 
 	z += fractal->transformCommon.additionConstant000;
 
@@ -111,7 +112,6 @@ REAL4 AboxModKaliEiffieIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-	aux->DE = mad(aux->DE, fabs(m), 1.0f);
 
 	if (fractal->foldColor.auxColorEnabled)
 	{

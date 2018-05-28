@@ -85,9 +85,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		aboxModKaliEiffie, AboxModKaliEiffieIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
-	fractalList->append(sFractalDescription("Abox - Mod Kali-V2", "abox_mod_kali_v2",
-		 aboxModKaliV2,  AboxModKaliV2Iteration, analyticDEType, linearDEFunction,
-		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Abox - Mod Kali-V2", "abox_mod_kali_v2", aboxModKaliV2,
+		AboxModKaliV2Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
 
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
@@ -548,11 +548,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>Poly Fold Sym", "transf_polyfold_sym",
+	fractalList->append(sFractalDescription("T>Poly Fold Sym", "transf_poly_fold_sym",
 		transfPolyFoldSym, TransfPolyFoldSymIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>Poly Fold Sym Multi", "transf_polyfold_sym_multi",
+	fractalList->append(sFractalDescription("T>Poly Fold Sym Multi", "transf_poly_fold_sym_multi",
 		transfPolyFoldSymMulti, TransfPolyFoldSymMultiIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
