@@ -105,7 +105,7 @@ enum enumFractalFormula
 	aboxMod1 = 64,				// fix scale v2.11 v2.12
 	mandelbulbMulti = 65, // updated V2.08
 	benesiPineTree = 66,
-	benesiT1PineTree = 67, // updated V2.09
+	benesiT1PineTree = 67, // updated V2.09, rot2 v2.14
 	msltoeSym3Mod = 68,
 	msltoeSym4Mod = 69,
 	eiffieMsltoe = 70, // updated V2.08
@@ -145,7 +145,7 @@ enum enumFractalFormula
 	bristorbrot4d = 102,
 	pseudoKleinian = 103,			// fix DE V2.10
 	pseudoKleinianMod1 = 104, // fix T1 T1M V2.10 & DE
-	benesiPwr2Mandelbulb = 105,
+	benesiPwr2Mandelbulb = 105, // rot2 v2.14
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107,
@@ -226,7 +226,7 @@ enum enumFractalFormula
 	transfAddConstant4d = 1039,
 	transfBoxFold4d = 1040,
 	transfIterationWeight4d = 1041, // fixed V2.10
-	transfSphericalFold4d = 1042,		// updated V2.11
+	transfSphericalFold4d = 1042, // updated V2.11
 	transfScale4d = 1043,
 	transfAbsAddConstant4d = 1044,
 	transfAbsAddTgladFold4d = 1045,
@@ -237,7 +237,7 @@ enum enumFractalFormula
 	transfSphericalFoldAbox = 1049,
 	transfSphericalFoldVaryV1 = 1050,
 	transfQuaternionFold = 1051,
-	transfMengerFold = 1052,
+	transfMengerFold = 1052, // added aox.r_dz v2.14
 	// V2.09
 	transfInvCylindrical = 1053,
 	transfRpow3 = 1054,
@@ -246,7 +246,7 @@ enum enumFractalFormula
 	transfBoxFoldVaryV1 = 1057,
 	// 2.10
 	transfSurfBoxFold = 1058,
-	transfOctoFold = 1059,
+	transfOctoFold = 1059, // added aox.r_dz v2.14
 	transfScaleVaryVCL = 1060,
 	transfSphericalFoldVaryVCL = 1061,
 	transfAddExp2Z = 1062, // updated V2.12

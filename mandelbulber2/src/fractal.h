@@ -673,6 +673,7 @@ struct sFractalTransformCommon
 	bool functionEnabledXFalse;
 	bool juliaMode;
 	bool rotationEnabled;
+	bool rotation2EnabledFalse;
 };
 
 struct sFractal

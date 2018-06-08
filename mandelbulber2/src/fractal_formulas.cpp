@@ -2744,6 +2744,10 @@ void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z.y += fractal->transformCommon.offset000.y;
 		z.z += fractal->transformCommon.offset000.z;
 	}
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+	}
 }
 
 /**
@@ -3100,6 +3104,10 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 		z.x += fractal->transformCommon.offset000.x;
 		z.y += fractal->transformCommon.offset000.y;
 		z.z += fractal->transformCommon.offset000.z;
+	}
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
 	}
 }
 
@@ -11203,7 +11211,7 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
  * allows different fold types for each axis.
  * amazing surface if one axis has no folds enabled.
  * made from various folds found in the posts at fractalforums.com
- * This formula contains aux.color
+ * This formula contains aux.color, analytic aux.DE and aux.r-dz
  */
 void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11311,13 +11319,14 @@ void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;
 	}
-	aux.DE *= fractal->analyticDE.scale1; // tweak
+	if (fractal->analyticDE.enabled) aux.DE *= fractal->analyticDE.scale1; // tweak
+	else aux.r_dz *= fractal->analyticDE.scale1; // tweak
 }
 
 /**
  * TransfSurfFoldMultiIteration
  * Based on amazing_surf_mod1 from Mandelbulb3D
- * This formula contains aux.color
+ * This formula contains aux.color, analytic aux.DE and aux.r-dz
  */
 void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11378,6 +11387,8 @@ void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
 	}
+	if (fractal->analyticDE.enabled) aux.DE *= fractal->analyticDE.scale1; // tweak
+	else aux.r_dz *= fractal->analyticDE.scale1; // tweak
 }
 
 /**

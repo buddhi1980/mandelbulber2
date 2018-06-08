@@ -988,6 +988,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledSw_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
+	par->addParam("transf_rotation2_enabled_false", false, morphLinear, paramStandard);
 
 	// platonic_solid
 
