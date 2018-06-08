@@ -434,6 +434,7 @@ struct sFractalCpara
 
 struct sFractalAnalyticDE
 {
+	bool enabled;
 	bool enabledFalse;
 	bool enabledAuxR2False;
 	double scale1;

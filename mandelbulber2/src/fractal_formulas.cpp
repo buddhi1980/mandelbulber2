@@ -8444,28 +8444,41 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 /**
- * abs add conditional
+ * abs add conditional.
  */
 void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - fabs(z.x)
-												+ fabs(z.x) * fractal->transformCommon.offset000.x);
+			+ fabs(z.x) * fractal->transformCommon.offset000.x);
 	}
+	/*{
+		double signZx = sign(z.x);
+		z.x = (signZx * fractal->transformCommon.offset111.x)
+			- fabs(z.x) * (signZx - fractal->transformCommon.offset000.x);
+	}*/
+	/*{
+		double Absx = fabs(z.x);
+		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - Absx
+			+ Absx * fractal->transformCommon.offset000.x);
+	}*/
+
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		z.y = sign(z.y) * (fractal->transformCommon.offset111.y - fabs(z.y)
-												+ fabs(z.y) * fractal->transformCommon.offset000.y);
+			+ fabs(z.y) * fractal->transformCommon.offset000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z = sign(z.z) * (fractal->transformCommon.offset111.z - fabs(z.z)
-												+ fabs(z.z) * fractal->transformCommon.offset000.z);
+			+ fabs(z.z) * fractal->transformCommon.offset000.z);
+	}
+	// aux.DE = aux.DE * l/L;
 
-	}																			// aux.DE = aux.DE * l/L;
+	aux.r_dz *= fractal->analyticDE.scale1; // DE tweak
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
 
@@ -9524,6 +9537,7 @@ void TransfLinCombineCXYZIteration(CVector4 &z, const sFractal *fractal, sExtend
  * Menger Sponge formula created by Knighty
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
+ * analytic aux.DE and aux.r-dz
  */
 void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9548,7 +9562,8 @@ void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		{
 			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		}
-		aux.DE *= fractal->transformCommon.scale3;
+		if (fractal->analyticDE.enabled) aux.DE *= fractal->transformCommon.scale3;
+		else aux.r_dz *= fractal->transformCommon.scale3;
 	}
 }
 
@@ -9567,6 +9582,7 @@ void TransfMultipleAngleIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 /**
  * Octo
+ * analytic aux.DE and aux.r-dz
  */
 void TransfOctoFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9585,7 +9601,8 @@ void TransfOctoFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z = z * fractal->transformCommon.scale2
 			- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
 
-	aux.DE *= fractal->transformCommon.scale2;
+	if (fractal->analyticDE.enabled) aux.DE *= fractal->transformCommon.scale2;
+	else aux.r_dz *= fractal->transformCommon.scale2;
 }
 
 /**

@@ -533,13 +533,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfLinCombineCXYZ, TransfLinCombineCXYZIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Menger Fold", "transf_menger_fold", transfMengerFold,
-		TransfMengerFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		TransfMengerFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Multiple angle", "transf_multiple_angle",
 		transfMultipleAngle, TransfMultipleAngleIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Octo Fold", "transf_octo_fold", transfOctoFold,
-		TransfOctoFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		TransfOctoFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Parab Fold", "transf_parab_fold", transfParabFold,
 		TransfParabFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,

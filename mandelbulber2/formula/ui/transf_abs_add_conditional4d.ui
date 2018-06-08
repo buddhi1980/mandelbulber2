@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_conditional4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_133">
      <property name="text">
-      <string>z = SIGN(z) * (offset - abs(z) + abs(z) * Slope) 4D</string>
+      <string>z = SIGN(z) * (offset - abs(z) )  +  ( abs(z) * scale ) ;   4D</string>
      </property>
     </widget>
    </item>
@@ -219,7 +219,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_108">
        <property name="text">
-        <string>Offset:</string>
+        <string>offset:</string>
        </property>
       </widget>
      </item>
@@ -317,7 +317,7 @@
      <item row="10" column="0">
       <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>Slope:</string>
+        <string>scale:</string>
        </property>
       </widget>
      </item>

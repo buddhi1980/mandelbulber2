@@ -2296,7 +2296,7 @@
            </font>
           </property>
           <property name="text">
-           <string>z.z subtr. scale:</string>
+           <string>z.z tweak scale:</string>
           </property>
          </widget>
         </item>
@@ -2337,7 +2337,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2450,13 +2450,6 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="Line" name="line_22">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
