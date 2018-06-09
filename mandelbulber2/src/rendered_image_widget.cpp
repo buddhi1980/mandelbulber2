@@ -211,7 +211,7 @@ void RenderedImage::DisplayCoordinates()
 		case clickFlightSpeedControl:
 			text = tr("LMB - increase speed");
 			text += tr("\nRMB - decrease speed");
-			text += tr("\narrow keys - strafe");
+			text += tr("\narrow keys - sidewards");
 			text += tr("\nz, x keys - roll");
 			text += tr("\nspacebar - pause");
 			text += tr("\nhold shift key - orthogonal strafe");

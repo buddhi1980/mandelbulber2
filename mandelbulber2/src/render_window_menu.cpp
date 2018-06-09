@@ -229,10 +229,10 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th colspan='2'>" + tr("Flight") + "</th></tr>";
 	text += " <tr><th>" + tr("Left mouse click") + "</th><td>" + tr("Increase speed") + "</td></tr>";
 	text += " <tr><th>" + tr("Right mouse click") + "</th><td>" + tr("Decrease speed") + "</td></tr>";
-	text += " <tr><th>" + tr("Arrow keys") + "</th><td>" + tr("Strafe (move forward and sideward)")
+	text +=
+		" <tr><th>" + tr("Arrow keys") + "</th><td>" + tr("Move forward and sideward") + "</td></tr>";
+	text += " <tr><th>" + shiftBadge + "+" + tr("Arrow keys") + "</th><td>" + tr("Move sideward only")
 					+ "</td></tr>";
-	text += " <tr><th>" + shiftBadge + "+" + tr("Arrow keys") + "</th><td>"
-					+ tr("Strafe orthogonal (move sideward only)") + "</td></tr>";
 	text += " <tr><th>" + tr("Spacebar") + "</th><td>" + tr("Pause / Unpause") + "</td></tr>";
 	text += " <tr><th>Z, X</th><td>" + tr("Roll rotation") + "</td></tr>";
 	text += "</table>";
