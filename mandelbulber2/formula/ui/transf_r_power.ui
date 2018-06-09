@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_r_power</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>778</width>
+    <width>781</width>
     <height>756</height>
    </rect>
   </property>
@@ -34,6 +34,13 @@
      <property name="spacing">
       <number>2</number>
      </property>
+     <item row="0" column="0" rowspan="2">
+      <widget class="QLabel" name="label_108">
+       <property name="text">
+        <string>Power:</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="1">
       <widget class="MyDoubleSpinBox" name="spinbox_power">
        <property name="sizePolicy">
@@ -62,14 +69,16 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0" rowspan="2">
-      <widget class="QLabel" name="label_108">
-       <property name="text">
-        <string>Power:</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_109">
+     <property name="text">
+      <string>Analytic logrithmic DE type formula 
+but will work with analytic linear types with power &lt; 1.0,
+ or Delta DE linear can be used.</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -164,15 +173,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

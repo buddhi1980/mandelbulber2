@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_reciprocal3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -315,6 +315,9 @@
      </item>
      <item row="3" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string>3 limit &amp; 2 mult. mode</string>
        </property>
@@ -931,5 +934,54 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledCx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetB_111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>404</x>
+     <y>357</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetB_111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>45</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>348</x>
+     <y>381</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_offsetB_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>91</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>365</x>
+     <y>407</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

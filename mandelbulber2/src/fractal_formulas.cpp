@@ -9830,6 +9830,7 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 
 /**
  * z(n+1) = z(n) * abs(z(n)) ^ p-1
+ * analytic aux.r-dz
  */
 void TransfRPowerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11055,6 +11056,7 @@ void TransfSphericalFoldXYZBiasIteration(CVector4 &z, const sFractal *fractal, s
 
 /**
  * spherical radial offset.
+ * This formula contains analytic aux.DE and aux.r-dz
  */
 void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11068,6 +11070,7 @@ void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExten
 
 /**
  * spherical radial offset Curvilinear.
+ * This formula contains analytic aux.DE and aux.r-dz
  */
 void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -11172,7 +11175,7 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 
 /**
  * spherical pwr fold
- * This formula contains aux.color
+ * This formula contains aux.color and analytic aux.DE
  */
 void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {

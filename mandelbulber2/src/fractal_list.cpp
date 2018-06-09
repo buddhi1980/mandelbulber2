@@ -583,7 +583,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// R Power Transforms
 	fractalList->append(sFractalDescription("T>R^Power", "transf_r_power", transfRPower,
-		TransfRPowerIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
+		TransfRPowerIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Rpow3", "transf_rpow3", transfRpow3,
 		TransfRpow3Iteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
