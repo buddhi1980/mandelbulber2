@@ -6511,7 +6511,7 @@ void MsltoeSym2ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.x = -z.x;
 	}
 
-	CVector4 z2 = z * z;							// squares
+	CVector4 z2 = z * z; // squares
 	double v3 = (z2.x + z2.y + z2.z); // sum of squares
 	// if (v3 < 1e-21 && v3 > -1e-21)
 	//	v3 = (v3 > 0) ? 1e-21 : -1e-21;
@@ -8316,7 +8316,7 @@ void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAu
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
- *            http://luz.izt.uam.mx/index.html/?q=node/95&language=en
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
  * @author Manuel Fernandez-Guasti
  */
 void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -11063,9 +11063,10 @@ void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExten
 	// if (-z.Length() > -1e-21) -z.Length() = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / -z.Length();
 	z *= fractal->transformCommon.scale;
-
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-	aux.r_dz *= fabs(fractal->transformCommon.scale);
+	if (fractal->analyticDE.enabled)
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale)
+			+ fractal->analyticDE.offset1;
+	else aux.r_dz *= fractal->transformCommon.scale;
 }
 
 /**
@@ -11161,15 +11162,21 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 	aux.r_dz *= fabs(fractal->transformCommon.scale);
 
 	// DE tweak
+	if (fractal->analyticDE.enabled)
+		aux.DE = aux.DE * fabs(fractal->analyticDE.scale1)
+			+ fractal->analyticDE.offset0;
+	else aux.r_dz =
+			aux.r_dz * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		aux.r_dz =
-			aux.r_dz * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+			aux.r_dz * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak
 	}
 	else
 	{
 		aux.DE =
-			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+			aux.DE * fabs(fractal->analyticDE.scale1) + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
 	}
 }
 

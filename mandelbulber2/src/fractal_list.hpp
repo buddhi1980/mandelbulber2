@@ -183,7 +183,7 @@ enum enumFractalFormula
 	aboxModKaliV2 = 135,
 
 	// 152 to 172 reserved for scator
-	imaginaryScatorPower2 = 152,
+	imaginaryScatorPower2 = 152, // fixed r calc v2.14
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,

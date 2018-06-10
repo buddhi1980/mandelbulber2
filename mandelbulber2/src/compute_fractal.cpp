@@ -232,10 +232,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
-			case imaginaryScatorPower2:
+			case imaginaryScatorPower2: // corrected v2.14
 			{
 				CVector4 z2 = z * z;
-				r = sqrt(z2.x + z2.y + z2.z) + (z2.y * z2.z) / (z2.x);
+				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
 				break;
 			}
 			// scator magnitudes
