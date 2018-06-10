@@ -29,7 +29,7 @@ cAbstractFractal::~cAbstractFractal()
 	// TODO Auto-generated destructor stub
 }
 
-bool cAbstractFractal::CheckForErrors()
+bool cAbstractFractal::CheckForErrors() const
 {
 	bool error = false;
 	if (nameInComboBox == "")

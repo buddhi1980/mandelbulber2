@@ -86,7 +86,7 @@ public:
 				: itemSize(itemSize), length(length), name(name), ptr(nullptr), clPtr(nullptr)
 		{
 		}
-		qint64 size() { return itemSize * length; }
+		qint64 size() const { return itemSize * length; }
 		qint64 itemSize;
 		qint64 length;
 		QString name;

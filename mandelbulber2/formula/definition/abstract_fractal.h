@@ -25,7 +25,7 @@ public:
 	virtual ~cAbstractFractal();
 
 public:
-	bool CheckForErrors(); // this method will be used in NineFractals class
+	bool CheckForErrors() const; // this method will be used in NineFractals class
 
 protected:
 	virtual void FormulaCode(CVector4 &, const sFractal *, sExtendedAux &);
