@@ -1,6 +1,47 @@
 Version history
 
-v2.13-2
+v2.14
+- Added new fractal formulas:
+  *
+  * //to fill out by mclarekin
+- Fractals: //to fill out by mclarekin
+- OpenCL: implemented primitive objects
+- OpenCL: implemented Boolean operators for fractal formulas
+- OpenCL: implemented multiple materials
+- OpenCL: implemented background texture mapping
+- OpenCL: improved quality of DeltaDE algorithm in OpenCL kernel
+- OpenCL: added option for fast_relaxed_math (speed up rendering by 20-50%)
+- OpenCL: optimized image refreshing (improved GPU utilization)
+- OpenCL: "limited" engine renamed to "medium"
+- OpenCL: "medium" engine don't render volumetric effects (to be much faster than "full")
+- OpenCL: Changed max estimated distance to 5.0 (was 1.0). It caused wrong rendering of background
+- Shaders: Corrected SSAO random mode. It couldn't work properly with precomputed sin/cos
+- Shaders: Now there is possible to use soft shadows when limits are enabled
+- UI: enhanced controls for limits (bounding box) definition
+- UI: corrected number of decimal places in fractal UIs
+- UI: key presses regarding navigation will fire every 300ms while pressed to enable continuous movement
+- UI: multiple keys can be pressed at the same time
+- UI: increased max value of audio_trak_collection parameter additionFactor to 65535
+- UI: optimized refreshing of image preview (used simple scaling during rendering)
+- UI: New navigation mode which uses ctrl + mouse wheel
+- UI: changed keyboard layout to more comfortable (more like in 3D games)
+- UI: added HotKeys Cheatsheet
+- UI: Added hotkeys for keyframe handling
+- UI: fixed bug: slider popup window appeared in wrong place when dock was detached
+- UI: renamed "Preferred" to "Automatic" in selection for distance estimation method
+- UI: fixed bug: it was not possible to load toolbar presets when they were being refreshed at application startup
+- UI: Added autoResize to NetRender table. It was much to wide.
+- UI: Mouse wheel now only zooms, when ctrl is pressed otherwise the mouse wheel event only scrolls the render window
+- UI: Fixed problem with missing qGamePad slot
+- UI: Eliminated annoying flickering of UI when settings without animation was loaded
+- Animation: implemented animated textures
+- Animation: Fixed bug: use of mouse click or mouse click caused crashes when animation was rendered or recorded flight path
+- Examples: updated standard preset settings
+- CLI: queue now shows a waiting spinner, while waiting for something to do
+- CLI: linux and MacOS now detect if output is a terminal or a file. When it is a file, the output is plane text without ANSI escape codes
+- Compilation: configured CircleCL to create MacOS builds
+
+v2.13-2 (April 2018)
 - UI: fixed bug: using mouse wheel on spinbox with dial could cause program crash
 
 v2.13-1 (April 2018)
