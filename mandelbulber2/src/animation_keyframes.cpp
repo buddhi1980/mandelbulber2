@@ -811,8 +811,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 void cKeyframeAnimation::RefreshTable()
 {
-	mainInterface->progressBarAnimation->show();
-
 	UpdateLimitsForFrameRange(); // it is needed to do it also here, because limits must be set just
 															 // after loading of settings
 	mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
