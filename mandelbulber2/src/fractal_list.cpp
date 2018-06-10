@@ -190,6 +190,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Ides 2", "ides2", ides2, Ides2Iteration, deltaDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imaginary_scator_power2",
+		imaginaryScatorPower2, ImaginaryScatorPower2Iteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
@@ -378,9 +381,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Xenodreambuie", "xenodreambuie", xenodreambuie,
 		XenodreambuieIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imaginary_scator_power2",
-		imaginaryScatorPower2, ImaginaryScatorPower2Iteration, deltaDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
 
 	// ------------------ 4D -----------------------
 
