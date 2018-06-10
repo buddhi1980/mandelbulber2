@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>msltoe_sym3_mod3</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>

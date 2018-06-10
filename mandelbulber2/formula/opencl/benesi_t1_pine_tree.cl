@@ -92,5 +92,9 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.y += fractal->transformCommon.offset000.y;
 		z.z += fractal->transformCommon.offset000.z;
 	}
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
+	}
 	return z;
 }

@@ -417,6 +417,7 @@ typedef struct
 
 typedef struct
 {
+	cl_int enabled;
 	cl_int enabledFalse;
 	cl_int enabledAuxR2False;
 	cl_float scale1;
@@ -655,6 +656,7 @@ typedef struct
 	cl_int functionEnabledXFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
+	cl_int rotation2EnabledFalse;
 } sFractalTransformCommonCl;
 
 typedef struct
@@ -1062,6 +1064,7 @@ inline sFractalCparaCl clCopySFractalCparaCl(const sFractalCpara &source)
 inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE &source)
 {
 	sFractalAnalyticDECl target;
+	target.enabled = source.enabled;
 	target.enabledFalse = source.enabledFalse;
 	target.enabledAuxR2False = source.enabledAuxR2False;
 	target.scale1 = source.scale1;
@@ -1290,6 +1293,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledXFalse = source.functionEnabledXFalse;
 	target.juliaMode = source.juliaMode;
 	target.rotationEnabled = source.rotationEnabled;
+	target.rotation2EnabledFalse = source.rotation2EnabledFalse;
 	return target;
 }
 
