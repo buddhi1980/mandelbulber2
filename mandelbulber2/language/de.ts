@@ -115,7 +115,7 @@
         <translation type="vanished">Parametertyp:&amp;nbsp;</translation>
     </message>
     <message>
-        <location filename="../qt/common_my_widget_wrapper.cpp" line="146"/>
+        <location filename="../qt/common_my_widget_wrapper.cpp" line="147"/>
         <source>Default&amp;nbsp;value:&amp;nbsp;</source>
         <translation>Standardwert:&amp;nbsp;</translation>
     </message>
@@ -936,7 +936,7 @@ Wollen Sie jetzt zu dieser neuen Datenstruktur upgraden? Das Programm startet si
         <translation>Optimaler DE Faktor ist: %1, welcher %2% an falschen Distanzermittlungen liefert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="410"/>
+        <location filename="../src/render_window_slots.cpp" line="413"/>
         <source>Toolbar settings: </source>
         <translation>Toolbar Einstellungen:</translation>
     </message>
@@ -1046,7 +1046,7 @@ Den letzten Stand wiederherstellen?</translation>
         <location filename="../src/animation_flight.cpp" line="792"/>
         <location filename="../src/animation_flight.cpp" line="1157"/>
         <location filename="../src/animation_keyframes.cpp" line="660"/>
-        <location filename="../src/animation_keyframes.cpp" line="1020"/>
+        <location filename="../src/animation_keyframes.cpp" line="1018"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
         <translation>Das wird alle Bilder im Bildordner löschen.
@@ -1079,7 +1079,7 @@ Fortsetzen?</translation>
         <location filename="../src/animation_flight.cpp" line="786"/>
         <location filename="../src/animation_flight.cpp" line="1156"/>
         <location filename="../src/animation_keyframes.cpp" line="655"/>
-        <location filename="../src/animation_keyframes.cpp" line="1019"/>
+        <location filename="../src/animation_keyframes.cpp" line="1017"/>
         <source>Truncate Image Folder</source>
         <translation>Bilderordner leeren</translation>
     </message>
@@ -1130,19 +1130,19 @@ Soll der Bilderordner geleert werden?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="961"/>
-        <location filename="../src/animation_keyframes.cpp" line="847"/>
+        <location filename="../src/animation_keyframes.cpp" line="845"/>
         <source>Refreshing animation</source>
         <translation>Animationsframes werden aktualisiert</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1061"/>
-        <location filename="../src/animation_keyframes.cpp" line="921"/>
+        <location filename="../src/animation_keyframes.cpp" line="919"/>
         <source>Animation Image Folder</source>
         <translation>Ordner für Animationsbilder</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1064"/>
-        <location filename="../src/animation_keyframes.cpp" line="924"/>
+        <location filename="../src/animation_keyframes.cpp" line="922"/>
         <source>Choose Animation Image Folder</source>
         <translation>Wähle Ordner für Animationsbilder</translation>
     </message>
@@ -1207,7 +1207,7 @@ Adresse des Klienten:</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="629"/>
-        <location filename="../src/animation_keyframes.cpp" line="1308"/>
+        <location filename="../src/animation_keyframes.cpp" line="1306"/>
         <source>Camera collides with fractal at following frames:
 </source>
         <translation>Die Kamera kollidiert mit dem Fraktal an folgenden Frames:
@@ -1224,30 +1224,30 @@ Adresse des Klienten:</translation>
         <translation>Frame %1 von %2 (Key %3)</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1187"/>
+        <location filename="../src/animation_keyframes.cpp" line="1185"/>
         <source>Export keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1188"/>
+        <location filename="../src/animation_keyframes.cpp" line="1186"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
         <translation>Es sind bereits aufgenommene Flugframes vorhanden.
 Aktuelle Flugframes verwerfen?</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1211"/>
+        <location filename="../src/animation_keyframes.cpp" line="1209"/>
         <source>Exporting</source>
         <translation>Exportiere</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1262"/>
-        <location filename="../src/animation_keyframes.cpp" line="1282"/>
+        <location filename="../src/animation_keyframes.cpp" line="1260"/>
+        <location filename="../src/animation_keyframes.cpp" line="1280"/>
         <source>Checking for collisions</source>
         <translation>Prüfe auf Kollisionen</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1263"/>
+        <location filename="../src/animation_keyframes.cpp" line="1261"/>
         <source>Checking for collisions on keyframe # %1</source>
         <translation>Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
@@ -1260,19 +1260,19 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation type="vanished">Prüfe auf Kollisionen bei Keyframe # %1</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1283"/>
+        <location filename="../src/animation_keyframes.cpp" line="1281"/>
         <source>Checking for collisions finished</source>
         <translation>Kollisionsprüfung beendet</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1313"/>
+        <location filename="../src/animation_keyframes.cpp" line="1311"/>
         <source>No collisions detected
 </source>
         <translation>Keine Kollisionen erkannt
 </translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1367"/>
+        <location filename="../src/animation_keyframes.cpp" line="1365"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
         <translation>Zielentfernung kann nicht geändert werden. Fehlende Kameraparameter in Keyframes</translation>
     </message>
@@ -1287,27 +1287,27 @@ Aktuelle Flugframes verwerfen?</translation>
         <translation>News</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="253"/>
+        <location filename="../src/render_window_menu.cpp" line="255"/>
         <source>HotKeys Cheatsheet</source>
         <translation>HotKeys Cheatsheet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="310"/>
+        <location filename="../src/render_window_menu.cpp" line="312"/>
         <source>Description</source>
         <translation>Beschreibung</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="314"/>
+        <location filename="../src/render_window_menu.cpp" line="316"/>
         <source>Ok, don&apos;t show again</source>
         <translation>Ok, nicht erneut zeigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="649"/>
+        <location filename="../src/render_window_menu.cpp" line="651"/>
         <source>Settings saved to clipboard</source>
         <translation>Einstellungen in Zwischenablage gespeichert</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="440"/>
+        <location filename="../src/render_window_menu.cpp" line="442"/>
         <source>Cannot load settings from clipboard!</source>
         <translation>Kann die Einstellungen nicht aus der Zwischenablage laden!</translation>
     </message>
@@ -5546,7 +5546,7 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="162"/>
-        <location filename="../src/render_window_menu.cpp" line="382"/>
+        <location filename="../src/render_window_menu.cpp" line="384"/>
         <source>Load settings...</source>
         <translation>Einstellungen laden...</translation>
     </message>
@@ -5593,9 +5593,9 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="61"/>
-        <location filename="../src/render_window_menu.cpp" line="354"/>
-        <location filename="../src/render_window_menu.cpp" line="377"/>
-        <location filename="../src/render_window_menu.cpp" line="617"/>
+        <location filename="../src/render_window_menu.cpp" line="356"/>
+        <location filename="../src/render_window_menu.cpp" line="379"/>
+        <location filename="../src/render_window_menu.cpp" line="619"/>
         <source>Fractals (*.txt *.fract)</source>
         <translation>Fraktale (*.txt *.fract)</translation>
     </message>
@@ -5626,7 +5626,7 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="167"/>
-        <location filename="../src/render_window_menu.cpp" line="623"/>
+        <location filename="../src/render_window_menu.cpp" line="625"/>
         <source>Save settings...</source>
         <translation>Einstellungen speichern...</translation>
     </message>
@@ -5677,41 +5677,41 @@ und Wasser):</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="191"/>
-        <location filename="../src/render_window_menu.cpp" line="213"/>
+        <location filename="../src/render_window_menu.cpp" line="215"/>
         <source>up</source>
         <translation>hoch</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="192"/>
-        <location filename="../src/render_window_menu.cpp" line="214"/>
+        <location filename="../src/render_window_menu.cpp" line="216"/>
         <source>down</source>
         <translation>runter</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="193"/>
         <location filename="../src/render_window_menu.cpp" line="195"/>
-        <location filename="../src/render_window_menu.cpp" line="215"/>
+        <location filename="../src/render_window_menu.cpp" line="217"/>
         <source>left</source>
         <translation>links</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="195"/>
-        <location filename="../src/render_window_menu.cpp" line="215"/>
         <location filename="../src/render_window_menu.cpp" line="217"/>
+        <location filename="../src/render_window_menu.cpp" line="219"/>
         <source>Arrow left</source>
         <translation>Pfeil links</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="196"/>
         <location filename="../src/render_window_menu.cpp" line="198"/>
-        <location filename="../src/render_window_menu.cpp" line="216"/>
+        <location filename="../src/render_window_menu.cpp" line="218"/>
         <source>right</source>
         <translation>rechts</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="198"/>
-        <location filename="../src/render_window_menu.cpp" line="216"/>
-        <location filename="../src/render_window_menu.cpp" line="219"/>
+        <location filename="../src/render_window_menu.cpp" line="218"/>
+        <location filename="../src/render_window_menu.cpp" line="221"/>
         <source>Arrow right</source>
         <translation>Pfeil rechts</translation>
     </message>
@@ -5725,7 +5725,7 @@ und Wasser):</translation>
     <message>
         <location filename="../src/render_window_menu.cpp" line="201"/>
         <location filename="../src/render_window_menu.cpp" line="203"/>
-        <location filename="../src/render_window_menu.cpp" line="213"/>
+        <location filename="../src/render_window_menu.cpp" line="215"/>
         <source>Arrow up</source>
         <translation>Pfeil hoch</translation>
     </message>
@@ -5739,157 +5739,175 @@ und Wasser):</translation>
     <message>
         <location filename="../src/render_window_menu.cpp" line="205"/>
         <location filename="../src/render_window_menu.cpp" line="207"/>
-        <location filename="../src/render_window_menu.cpp" line="214"/>
+        <location filename="../src/render_window_menu.cpp" line="216"/>
         <source>Arrow down</source>
         <translation>Pfeil runter</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="212"/>
+        <location filename="../src/render_window_menu.cpp" line="209"/>
+        <source>Mouse Wheel</source>
+        <translation>Mausrad</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_menu.cpp" line="210"/>
+        <source>forward / backward</source>
+        <translation>Vorwärts / Rückwärts</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_menu.cpp" line="214"/>
         <source>Rotation</source>
         <translation>Rotation</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="217"/>
+        <location filename="../src/render_window_menu.cpp" line="219"/>
         <source>Roll left</source>
         <translation>Roll links</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="219"/>
+        <location filename="../src/render_window_menu.cpp" line="221"/>
         <source>Roll right</source>
         <translation>Roll rechts</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="224"/>
+        <location filename="../src/render_window_menu.cpp" line="226"/>
         <source>Render Window Keyframe / Flight</source>
         <translation>Renderfenster Keyframe / Flug</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="227"/>
+        <location filename="../src/render_window_menu.cpp" line="229"/>
         <source>Flight</source>
         <translation>Flug</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="228"/>
+        <location filename="../src/render_window_menu.cpp" line="230"/>
         <source>Left mouse click</source>
         <translation>Linker Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="228"/>
+        <location filename="../src/render_window_menu.cpp" line="230"/>
         <source>Increase speed</source>
         <translation>Beschleunigen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="229"/>
+        <location filename="../src/render_window_menu.cpp" line="231"/>
         <source>Right mouse click</source>
         <translation>Rechter Mausklick</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="229"/>
+        <location filename="../src/render_window_menu.cpp" line="231"/>
         <source>Decrease speed</source>
         <translation>Verlangsamen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="230"/>
-        <location filename="../src/render_window_menu.cpp" line="232"/>
+        <location filename="../src/render_window_menu.cpp" line="233"/>
+        <location filename="../src/render_window_menu.cpp" line="234"/>
         <source>Arrow keys</source>
         <translation>Pfeiltasten</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="230"/>
         <source>Strafe (move forward and sideward)</source>
-        <translation>Schräg bewegen (vorwärts und seitwärts)</translation>
+        <translation type="vanished">Schräg bewegen (vorwärts und seitwärts)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="233"/>
         <source>Strafe orthogonal (move sideward only)</source>
-        <translation>Orthogonal bewegen (nur seitwärts)</translation>
+        <translation type="vanished">Orthogonal bewegen (nur seitwärts)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="234"/>
+        <location filename="../src/render_window_menu.cpp" line="236"/>
         <source>Spacebar</source>
         <translation>Leertaste</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="234"/>
+        <location filename="../src/render_window_menu.cpp" line="236"/>
         <source>Pause / Unpause</source>
         <translation>Pause / Start</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="235"/>
+        <location filename="../src/render_window_menu.cpp" line="237"/>
         <source>Roll rotation</source>
         <translation>Roll Rotation</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="239"/>
+        <location filename="../src/render_window_menu.cpp" line="241"/>
         <source>Keyframe</source>
         <translation>Keyframe</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="240"/>
+        <location filename="../src/render_window_menu.cpp" line="242"/>
         <source>Add Keyframe</source>
         <translation>Keyframe hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="241"/>
+        <location filename="../src/render_window_menu.cpp" line="243"/>
         <source>Modify current Keyframe</source>
         <translation>Aktuellen Keyframe ändern</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="242"/>
+        <location filename="../src/render_window_menu.cpp" line="244"/>
         <source>Move to next Keyframe</source>
         <translation>Zu nächstem Keyframe</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="243"/>
+        <location filename="../src/render_window_menu.cpp" line="245"/>
         <source>Move to previous Keyframe</source>
         <translation>Zu vorherigem Keyframe</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="359"/>
+        <location filename="../src/render_window_menu.cpp" line="361"/>
         <source>Load example settings...</source>
         <translation>Lade Beispiel Einstellungen...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="496"/>
+        <location filename="../src/render_window_menu.cpp" line="498"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
         <translation>JPEG Bilder (*.jpg *.jpeg)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="528"/>
-        <location filename="../src/render_window_menu.cpp" line="550"/>
-        <location filename="../src/render_window_menu.cpp" line="583"/>
+        <location filename="../src/render_window_menu.cpp" line="530"/>
+        <location filename="../src/render_window_menu.cpp" line="552"/>
+        <location filename="../src/render_window_menu.cpp" line="585"/>
         <source>Save image to %1 file...</source>
         <translation>Speichere Bild als %1 Datei...</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="557"/>
-        <location filename="../src/render_window_menu.cpp" line="568"/>
-        <location filename="../src/render_window_menu.cpp" line="590"/>
-        <location filename="../src/render_window_menu.cpp" line="601"/>
+        <location filename="../src/render_window_menu.cpp" line="559"/>
+        <location filename="../src/render_window_menu.cpp" line="570"/>
+        <location filename="../src/render_window_menu.cpp" line="592"/>
+        <location filename="../src/render_window_menu.cpp" line="603"/>
         <source>Saving %1 image</source>
         <translation>Speichere %1 Bild</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="558"/>
-        <location filename="../src/render_window_menu.cpp" line="591"/>
+        <location filename="../src/render_window_menu.cpp" line="560"/>
+        <location filename="../src/render_window_menu.cpp" line="593"/>
         <source>Saving image started</source>
         <translation>Speichern gestartet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="569"/>
-        <location filename="../src/render_window_menu.cpp" line="602"/>
+        <location filename="../src/render_window_menu.cpp" line="571"/>
+        <location filename="../src/render_window_menu.cpp" line="604"/>
         <source>Saving image finished</source>
         <translation>Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="501"/>
-        <location filename="../src/render_window_menu.cpp" line="546"/>
-        <location filename="../src/render_window_menu.cpp" line="579"/>
+        <location filename="../src/render_window_menu.cpp" line="503"/>
+        <location filename="../src/render_window_menu.cpp" line="548"/>
+        <location filename="../src/render_window_menu.cpp" line="581"/>
         <source>PNG images (*.png)</source>
         <translation>PNG Bilder (*.png)</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="515"/>
+        <location filename="../src/render_window_menu.cpp" line="233"/>
+        <source>Move forward and sideward</source>
+        <translation>Vorwärts und seitwärts bewegen</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_menu.cpp" line="234"/>
+        <source>Move sideward only</source>
+        <translation>Nur seitwärts bewegen</translation>
+    </message>
+    <message>
+        <location filename="../src/render_window_menu.cpp" line="517"/>
         <source>TIFF images (*.tiff)</source>
         <translation>TIFF Bilder (*.tiff)</translation>
     </message>
@@ -5910,7 +5928,7 @@ und Wasser):</translation>
         <translation type="vanished">PNG Speichern beendet</translation>
     </message>
     <message>
-        <location filename="../src/render_window_menu.cpp" line="507"/>
+        <location filename="../src/render_window_menu.cpp" line="509"/>
         <source>EXR images (*.exr)</source>
         <translation>EXR Bilder (*.exr)</translation>
     </message>
@@ -6002,22 +6020,22 @@ und Wasser):</translation>
         <translation>Info Drittanbieter</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="554"/>
+        <location filename="../src/render_window_slots.cpp" line="557"/>
         <source>Add window settings</source>
         <translation>Fenstereinstellungen hinzufügen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="555"/>
+        <location filename="../src/render_window_slots.cpp" line="558"/>
         <source>Enter a name for the new window settings</source>
         <translation>Geben Sie einen Namen für die neuen Fenstereinstellungen ein</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="615"/>
+        <location filename="../src/render_window_slots.cpp" line="618"/>
         <source>Remove window settings</source>
         <translation>Fenstereinstellungen löschen</translation>
     </message>
     <message>
-        <location filename="../src/render_window_slots.cpp" line="616"/>
+        <location filename="../src/render_window_slots.cpp" line="619"/>
         <source>Select window setting to remove</source>
         <translation>Fenstereinstellungen zum Löschen auswählen</translation>
     </message>
@@ -6086,8 +6104,14 @@ RMB - Verlangsamen</translation>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="214"/>
         <source>
-arrow keys - strafe</source>
+arrow keys - sidewards</source>
         <translation>
+Pfeiltasten - seitwärts</translation>
+    </message>
+    <message>
+        <source>
+arrow keys - strafe</source>
+        <translation type="vanished">
 Pfeiltasten - Bewegen</translation>
     </message>
     <message>
@@ -6643,7 +6667,6 @@ Objekt bilden</translation>
         <translation>Fluganimation rendern</translation>
     </message>
     <message>
-        <location filename="../qt/dock_animation.ui" line="108"/>
         <location filename="../qt/ui_dock_animation.h" line="886"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts recording flight path. &lt;/p&gt;&lt;p&gt;It is recommended to decrease image resolution for better rendering performance.&lt;/p&gt;&lt;p&gt;The mouse pointer is used as the controller. &lt;br/&gt;Move the mouse pointer to change flight direction.&lt;br/&gt;Left mouse button increases flight speed. Right mouse button decreases speed.&lt;br/&gt;Arrow keys moves camera up, down, left and right (strafe)&lt;br/&gt;Z and X keys rotate the camera (roll)&lt;br/&gt;Spacebar pauses flight path recording . &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet die Aufnahme der Flugbahn. &lt;/p&gt;&lt;p&gt;Es wird empfohlen, die Bildauflösung während der Aufnahme zu verringern, um eine bessere Renderperformance zu erreichen.&lt;/p&gt;&lt;p&gt;Der Mauszeiger kann als Controller des Flugs verwendet werden. &lt;br/&gt;Mit der Bewegung des Mauszeigers über dem Bild kann die Flugrichtung geändert werden.&lt;br/&gt;Linke Maustaste erhöht Fluggeschwindigkeit. Rechte Maustaste verringert Fluggeschwindigkeit.&lt;br/&gt;Die Pfeil-Tasten bewegen die Kamera nach oben, unten, links und rechts (seitlich)&lt;br/&gt;Tasten Z und X drehen die Kamera (Rolle)&lt;br/&gt;Leertaste pausiert die Aufzeichnung des Fluges. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -7153,6 +7176,11 @@ Objekt bilden</translation>
         <location filename="../qt/ui_dock_animation.h" line="1064"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum distance between camera and fractal which is allowed during &lt;span style=&quot; font-style:italic;&quot;&gt;Validate&lt;/span&gt; function (collision detection)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimale Distanz zwischen Kamera und Fraktal, die für &lt;span style=&quot; font-style:italic;&quot;&gt;Validiere&lt;/span&gt; Funktion erlaubt ist (Kollisionserkennung)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_animation.ui" line="108"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts recording flight path. &lt;/p&gt;&lt;p&gt;It is recommended to decrease image resolution for better rendering performance.&lt;/p&gt;&lt;p&gt;The mouse pointer is used as the controller. &lt;br/&gt;Move the mouse pointer to change flight direction.&lt;br/&gt;Left mouse button increases flight speed. Right mouse button decreases speed.&lt;br/&gt;Arrow keys moves camera up, down, left and right (move sidewards)&lt;br/&gt;Z and X keys rotate the camera (roll)&lt;br/&gt;Spacebar pauses flight path recording . &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startet die Aufnahme der Flugbahn. &lt;/p&gt;&lt;p&gt;Es wird empfohlen, die Bildauflösung während der Aufnahme zu verringern, um eine bessere Renderperformance zu erreichen.&lt;/p&gt;&lt;p&gt;Der Mauszeiger kann als Controller des Flugs verwendet werden. &lt;br/&gt;Mit der Bewegung des Mauszeigers über dem Bild kann die Flugrichtung geändert werden.&lt;br/&gt;Linke Maustaste erhöht Fluggeschwindigkeit. Rechte Maustaste verringert Fluggeschwindigkeit.&lt;br/&gt;Die Pfeil-Tasten bewegen die Kamera nach oben, unten, links und rechts (seitlich)&lt;br/&gt;Tasten Z und X drehen die Kamera (Rolle)&lt;br/&gt;Leertaste pausiert die Aufzeichnung des Fluges. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_animation.ui" line="657"/>
@@ -9963,13 +9991,18 @@ keine Umgebungsverdunklung)</translation>
         <translation>Opencl Modus:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="111"/>
+        <location filename="../qt/dock_navigation.ui" line="110"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes for OpenCL computation (GPU support):&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;no OpenCL&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - use only CPU&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;fast&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - very fast rendering on GPU. Fractal has visible shape, but colors and effects are not calculated. It is very good mode for fast camera navigation and looking for interesting fractal shapes in auto-refresh mode.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;medium&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - medium rendering speed on GPU. There is calculated color of the fractal, light sources with shadows are used. There is used only first defined material. Reflections and volumetric effects are not calculated.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;full&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - the most accurate and the the slowest rendering. Uses more GPU resources. All effects are calculated (except texture mapping which is not implemented yet in OpenCL rendering engine) &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modi für OpenCL-Berechnungen (GPU-Unterstützung):&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;kein OpenCL&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - CPU Modus&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;schnell&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - sehr schnelles Rendering auf GPU. Das Fraktal hat sichtbare Form, aber Farben und Effekte werden nicht berechnet. Es ist ein sehr guter Modus für die schnelle Kameranavigation und die Suche nach interessanten fraktalen Formen im Auto-Refresh-Modus.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Medium&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - mittlere Rendergeschwindigkeit auf der GPU. Es wird die Farbe des Fraktals, Lichtquellen und Schatten verwendet. Es wird aber nur das erste definierte Material verwendet. Reflexionen und volumetrische Effekte werden nicht berechnet.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;voll&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - das genaueste und das langsamste Rendering. Verwendet mehr GPU-Ressourcen. Alle Effekte werden berechnet (außer Textur-Mapping, das noch nicht in der OpenCL-Rendering-Engine implementiert ist)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/dock_navigation.ui" line="114"/>
         <location filename="../qt/ui_dock_navigation.h" line="844"/>
         <source>no OpenCL</source>
         <translation>kein OpenCL</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="116"/>
+        <location filename="../qt/dock_navigation.ui" line="119"/>
         <location filename="../qt/ui_dock_navigation.h" line="845"/>
         <source>fast</source>
         <translation>schnell</translation>
@@ -9979,85 +10012,85 @@ keine Umgebungsverdunklung)</translation>
         <translation type="vanished">begrenzt</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="126"/>
+        <location filename="../qt/dock_navigation.ui" line="129"/>
         <location filename="../qt/ui_dock_navigation.h" line="847"/>
         <source>full</source>
         <translation>voll</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="142"/>
+        <location filename="../qt/dock_navigation.ui" line="145"/>
         <location filename="../qt/ui_dock_navigation.h" line="849"/>
         <source>Auto-refresh</source>
         <translation>Auto-Refresh</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="187"/>
+        <location filename="../qt/dock_navigation.ui" line="190"/>
         <location filename="../qt/ui_dock_navigation.h" line="851"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;These parameters and gauges controls position of camera and point where the camera is looking at (target)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Diese Parameter und  Bedienelemente editieren die Position der Kamera und den Punkt, auf den die Kamera gerichtet ist (Ziel)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Camera target.png&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="190"/>
+        <location filename="../qt/dock_navigation.ui" line="193"/>
         <location filename="../qt/ui_dock_navigation.h" line="853"/>
         <source>Coordinates:</source>
         <translation>Koordinaten:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="211"/>
+        <location filename="../qt/dock_navigation.ui" line="214"/>
         <location filename="../qt/ui_dock_navigation.h" line="855"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of camera&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kamera Koordinaten&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="214"/>
+        <location filename="../qt/dock_navigation.ui" line="217"/>
         <location filename="../qt/ui_dock_navigation.h" line="857"/>
         <source>Camera</source>
         <translation>Kamera</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="270"/>
-        <location filename="../qt/dock_navigation.ui" line="388"/>
+        <location filename="../qt/dock_navigation.ui" line="273"/>
+        <location filename="../qt/dock_navigation.ui" line="391"/>
         <location filename="../qt/ui_dock_navigation.h" line="858"/>
         <location filename="../qt/ui_dock_navigation.h" line="865"/>
         <source>x:</source>
         <translation>x:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="287"/>
-        <location filename="../qt/dock_navigation.ui" line="405"/>
+        <location filename="../qt/dock_navigation.ui" line="290"/>
+        <location filename="../qt/dock_navigation.ui" line="408"/>
         <location filename="../qt/ui_dock_navigation.h" line="859"/>
         <location filename="../qt/ui_dock_navigation.h" line="866"/>
         <source>y:</source>
         <translation>y:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="304"/>
-        <location filename="../qt/dock_navigation.ui" line="422"/>
+        <location filename="../qt/dock_navigation.ui" line="307"/>
+        <location filename="../qt/dock_navigation.ui" line="425"/>
         <location filename="../qt/ui_dock_navigation.h" line="860"/>
         <location filename="../qt/ui_dock_navigation.h" line="867"/>
         <source>z:</source>
         <translation>z:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="329"/>
+        <location filename="../qt/dock_navigation.ui" line="332"/>
         <location filename="../qt/ui_dock_navigation.h" line="862"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Coordinates of target&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ziel Koordinaten&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="332"/>
+        <location filename="../qt/dock_navigation.ui" line="335"/>
         <location filename="../qt/ui_dock_navigation.h" line="864"/>
         <source>Target</source>
         <translation>Ziel</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="453"/>
+        <location filename="../qt/dock_navigation.ui" line="456"/>
         <location filename="../qt/ui_dock_navigation.h" line="869"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set camera far from the fractal. It keeps actual camera angle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setzt die Kamera weit entfernt vom Fraktal. Behält den Kamerawinkel bei.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="456"/>
+        <location filename="../qt/dock_navigation.ui" line="459"/>
         <location filename="../qt/ui_dock_navigation.h" line="871"/>
         <source>Reset view</source>
         <translation>Ansicht reseten</translation>
@@ -10067,248 +10100,248 @@ keine Umgebungsverdunklung)</translation>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl Kamera / Ziel Bewegungsmodus&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; -Bewegt Kamera und Ziel um dieselbe Distanz&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; - Bewegt nur die Kamera. Ziel bleibt fix. Kamera rotiert um stationäres Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Ziel bewegen -Bewegt nur das Ziel. Kamera bleibt fix. Stationäre Kamera rbeobachtet bewegtes Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="121"/>
+        <location filename="../qt/dock_navigation.ui" line="124"/>
         <location filename="../qt/ui_dock_navigation.h" line="846"/>
         <source>medium</source>
         <translation>Medium</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="469"/>
+        <location filename="../qt/dock_navigation.ui" line="472"/>
         <location filename="../qt/ui_dock_navigation.h" line="879"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection of camera / target movement mode&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera and target&lt;/span&gt; - moves camera and target by the same distance&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; - moves only camera. Target stays in the same place. Camera rotates to look at stationary target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Move target - moves only target. Camera stays in the same place. Camera rotates to look at moving target.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl Kamera / Ziel Bewegungsmodus&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; -Bewegt Kamera und Ziel um dieselbe Distanz&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move camera and target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; - Bewegt nur die Kamera. Ziel bleibt fix. Kamera rotiert um stationäres Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;Ziel bewegen -Bewegt nur das Ziel. Kamera bleibt fix. Stationäre Kamera rbeobachtet bewegtes Ziel.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/move only target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="473"/>
+        <location filename="../qt/dock_navigation.ui" line="476"/>
         <location filename="../qt/ui_dock_navigation.h" line="874"/>
         <source>Move camera and target</source>
         <translation>Kamera und Ziel bewegen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="478"/>
+        <location filename="../qt/dock_navigation.ui" line="481"/>
         <location filename="../qt/ui_dock_navigation.h" line="875"/>
         <source>Move camera</source>
         <translation>Kamera bewegen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="483"/>
+        <location filename="../qt/dock_navigation.ui" line="486"/>
         <location filename="../qt/ui_dock_navigation.h" line="876"/>
         <source>Move target</source>
         <translation>Ziel bewegen</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="502"/>
+        <location filename="../qt/dock_navigation.ui" line="505"/>
         <location filename="../qt/ui_dock_navigation.h" line="881"/>
         <source>Camera distance
 to target:</source>
         <translation>Kameradistanz zum Ziel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="516"/>
+        <location filename="../qt/dock_navigation.ui" line="519"/>
         <location filename="../qt/ui_dock_navigation.h" line="884"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls distance between camera and target&lt;/p&gt;&lt;p&gt;In&lt;span style=&quot; font-style:italic;&quot;&gt; Move camera and target&lt;/span&gt; and &lt;span style=&quot; font-style:italic;&quot;&gt;Move camera&lt;/span&gt; modes it moves camera closer/further from target.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Kontrolliert die Distanz zwischen Kamera und Ziel&lt;/p&gt;&lt;p&gt;Bei&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera und Ziel bewegen&lt;/span&gt; und &lt;span style=&quot; font-style:italic;&quot;&gt;Kamera bewegen&lt;/span&gt; Modus bewegt es die Kamera näher heran / weiter weg vom Ziel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="533"/>
+        <location filename="../qt/dock_navigation.ui" line="536"/>
         <location filename="../qt/ui_dock_navigation.h" line="887"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the right by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach rechts, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="553"/>
+        <location filename="../qt/dock_navigation.ui" line="556"/>
         <location filename="../qt/ui_dock_navigation.h" line="891"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the left by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach links, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="573"/>
+        <location filename="../qt/dock_navigation.ui" line="576"/>
         <location filename="../qt/ui_dock_navigation.h" line="895"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target up by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach oben, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="593"/>
+        <location filename="../qt/dock_navigation.ui" line="596"/>
         <location filename="../qt/ui_dock_navigation.h" line="899"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target forward by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach vorne, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="613"/>
+        <location filename="../qt/dock_navigation.ui" line="616"/>
         <location filename="../qt/ui_dock_navigation.h" line="903"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target backwards by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach hinten, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="633"/>
+        <location filename="../qt/dock_navigation.ui" line="636"/>
         <location filename="../qt/ui_dock_navigation.h" line="907"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target down by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Bewegt die Kamera oder das Ziel um die Distanz nach unten, die in &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter angegeben ist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="684"/>
+        <location filename="../qt/dock_navigation.ui" line="687"/>
         <location filename="../qt/ui_dock_navigation.h" line="910"/>
         <source>step:</source>
         <translation>Schritt:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="697"/>
+        <location filename="../qt/dock_navigation.ui" line="700"/>
         <location filename="../qt/ui_dock_navigation.h" line="912"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step for camera or target movement.&lt;/p&gt;&lt;p&gt;It can be relative or absolute step.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to the fractal surface.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Schritt für Kamera oder Ziel Bewegung.&lt;/p&gt;&lt;p&gt;Der Schritt kann relativ oder absolut angegeben werden.&lt;/p&gt;&lt;p&gt;Wenn er relativ gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="715"/>
+        <location filename="../qt/dock_navigation.ui" line="718"/>
         <location filename="../qt/ui_dock_navigation.h" line="920"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for movement step calculation.&lt;/p&gt;&lt;p&gt;If it is set relative then movement distance equals  &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; multiplied by actual distance to fractal surface. This is the preferred mode.&lt;/p&gt;&lt;p&gt;If it is set absolute then movement equals step set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl der Bewegungsschritt Berechnung.&lt;/p&gt;&lt;p&gt;Wenn es relativ gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; mal aktueller Distanz zur Fraktaloberfläche. Das ist der präferierte Modus.&lt;/p&gt;&lt;p&gt;Wenn es absolut gesetzt ist, dann ist die Bewegungsdistanz gleich dem &lt;span style=&quot; font-style:italic;&quot;&gt;Schritt&lt;/span&gt; Parameter. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="719"/>
+        <location filename="../qt/dock_navigation.ui" line="722"/>
         <location filename="../qt/ui_dock_navigation.h" line="916"/>
         <source>Relative step mode</source>
         <translation>relativer Schrittmodus</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="724"/>
+        <location filename="../qt/dock_navigation.ui" line="727"/>
         <location filename="../qt/ui_dock_navigation.h" line="917"/>
         <source>Absolute step mode</source>
         <translation>absoluter Schrittmodus</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="735"/>
+        <location filename="../qt/dock_navigation.ui" line="738"/>
         <location filename="../qt/ui_dock_navigation.h" line="923"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls for camera rotation in three different axes&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Yaw_Pich_Roll.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;image source: &amp;quot;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:Yaw_Axis_Corrected.svg#/media/File:Yaw_Axis_Corrected.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw Axis Corrected&lt;/span&gt;&lt;/a&gt;&amp;quot; by &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;: &lt;a href=&quot;//commons.wikimedia.org/wiki/User:Auawise&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Auawise&lt;/span&gt;&lt;/a&gt;derivative work: &lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Jrvz&lt;/span&gt;&lt;/a&gt; (&lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User_talk:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;talk&lt;/span&gt;&lt;/a&gt;) - &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;. Licensed under &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/3.0&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;CC BY-SA 3.0&lt;/span&gt;&lt;/a&gt; via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Wikimedia Commons&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Einstellungen für die Kamera Rotation auf drei verschiedenen Achsen.&lt;/p&gt;&lt;p&gt;Yaw, Pitch und Roll werden im Deutschen auch Gier, Nick und Roll Winkel genannt.&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/Yaw_Pich_Roll.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;image source: &amp;quot;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:Yaw_Axis_Corrected.svg#/media/File:Yaw_Axis_Corrected.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw Axis Corrected&lt;/span&gt;&lt;/a&gt;&amp;quot; by &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;: &lt;a href=&quot;//commons.wikimedia.org/wiki/User:Auawise&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Auawise&lt;/span&gt;&lt;/a&gt;derivative work: &lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Jrvz&lt;/span&gt;&lt;/a&gt; (&lt;a href=&quot;//commons.wikimedia.org/w/index.php?title=User_talk:Jrvz&amp;amp;action=edit&amp;amp;redlink=1&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;talk&lt;/span&gt;&lt;/a&gt;) - &lt;a href=&quot;//commons.wikimedia.org/wiki/File:Yaw_Axis.svg&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Yaw_Axis.svg&lt;/span&gt;&lt;/a&gt;. Licensed under &lt;a href=&quot;http://creativecommons.org/licenses/by-sa/3.0&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;CC BY-SA 3.0&lt;/span&gt;&lt;/a&gt; via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#ae6326;&quot;&gt;Wikimedia Commons&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="738"/>
+        <location filename="../qt/dock_navigation.ui" line="741"/>
         <location filename="../qt/ui_dock_navigation.h" line="926"/>
         <source>Camera rotation:</source>
         <translation>Kamera Rotation:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="770"/>
+        <location filename="../qt/dock_navigation.ui" line="773"/>
         <location filename="../qt/ui_dock_navigation.h" line="928"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gier links&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="796"/>
+        <location filename="../qt/dock_navigation.ui" line="799"/>
         <location filename="../qt/ui_dock_navigation.h" line="932"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch up&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nick hoch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="822"/>
+        <location filename="../qt/dock_navigation.ui" line="825"/>
         <location filename="../qt/ui_dock_navigation.h" line="936"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gier rechts&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="848"/>
+        <location filename="../qt/dock_navigation.ui" line="851"/>
         <location filename="../qt/ui_dock_navigation.h" line="940"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll rechts&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="874"/>
+        <location filename="../qt/dock_navigation.ui" line="877"/>
         <location filename="../qt/ui_dock_navigation.h" line="944"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll links&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="900"/>
+        <location filename="../qt/dock_navigation.ui" line="903"/>
         <location filename="../qt/ui_dock_navigation.h" line="948"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch down&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nick runter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="951"/>
+        <location filename="../qt/dock_navigation.ui" line="954"/>
         <location filename="../qt/ui_dock_navigation.h" line="951"/>
         <source>rotation step:</source>
         <translation>Rotationsschritt:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="964"/>
+        <location filename="../qt/dock_navigation.ui" line="967"/>
         <location filename="../qt/ui_dock_navigation.h" line="953"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Step of rotation in degrees&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotationsschritt in Grad&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1003"/>
+        <location filename="../qt/dock_navigation.ui" line="1006"/>
         <location filename="../qt/ui_dock_navigation.h" line="963"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes of camera rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Rotate camera&lt;/span&gt; - rotates the camera by moving the target around the camera&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Rotate around target - rotates the camera by moving camera around the target&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modi der Kamera Rotation&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Kamera rotieren&lt;/span&gt; - rotiert die Kamera indem das Ziel um die Kamera bewegt wird&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate target around camera.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;Um Ziel rotieren - rotiert die Kamera indem sie um das Ziel bewegt wird&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/rotate camera around target.png&quot;/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1007"/>
+        <location filename="../qt/dock_navigation.ui" line="1010"/>
         <location filename="../qt/ui_dock_navigation.h" line="959"/>
         <source>Rotate camera</source>
         <translation>Kamera rotieren</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1012"/>
+        <location filename="../qt/dock_navigation.ui" line="1015"/>
         <location filename="../qt/ui_dock_navigation.h" line="960"/>
         <source>Rotate around target</source>
         <translation>Um Ziel rotieren</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1026"/>
+        <location filename="../qt/dock_navigation.ui" line="1029"/>
         <location filename="../qt/ui_dock_navigation.h" line="971"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for rotation modes&lt;/p&gt;&lt;p&gt;Fixed roll angle - rotates camera using world axes. This mode does not change the roll angle but can be difficult to predict when camera is upside down or almost in vertical orientation.&lt;/p&gt;&lt;p&gt;Straight rotation - rotates camera using actual camera axes. This mode rotates camera in a more intuitive way.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Auswahl des Rotationsmodus&lt;/p&gt;&lt;p&gt;Fester  Roll Winkel - rotiert die Kamera nach Weltachsen. Dieser Modus verändert den Roll Winkel nicht, kann aber schwer vorhersehbares Verhalten zeigen, wenn die Kamera auf dem Kopf oder nahezu vertikal ausgerichtet ist.&lt;/p&gt;&lt;p&gt;Gerade Rotation - Rotiert die Kamera nach eigentlichen Kameraachsen. Dieser Modus rotiert die Kamera auf eine intuitivere Art und Weise.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1030"/>
+        <location filename="../qt/dock_navigation.ui" line="1033"/>
         <location filename="../qt/ui_dock_navigation.h" line="967"/>
         <source>Fixed roll angle</source>
         <translation>Fester Roll Winkel</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1035"/>
+        <location filename="../qt/dock_navigation.ui" line="1038"/>
         <location filename="../qt/ui_dock_navigation.h" line="968"/>
         <source>Straight rotation</source>
         <translation>Gerade Rotation</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1078"/>
+        <location filename="../qt/dock_navigation.ui" line="1081"/>
         <location filename="../qt/ui_dock_navigation.h" line="973"/>
         <source>yaw:</source>
         <translation>Gier:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1091"/>
+        <location filename="../qt/dock_navigation.ui" line="1094"/>
         <location filename="../qt/ui_dock_navigation.h" line="975"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around yaw axis (left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Gier-Achse (links &amp;lt;-&amp;gt; rechts)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1098"/>
+        <location filename="../qt/dock_navigation.ui" line="1101"/>
         <location filename="../qt/ui_dock_navigation.h" line="977"/>
         <source>pitch:</source>
         <translation>Nick:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1111"/>
+        <location filename="../qt/dock_navigation.ui" line="1114"/>
         <location filename="../qt/ui_dock_navigation.h" line="979"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around pitch axis (up &amp;lt;-&amp;gt; down)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Nick-Achse (hoch &amp;lt;-&amp;gt; runter)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1118"/>
+        <location filename="../qt/dock_navigation.ui" line="1121"/>
         <location filename="../qt/ui_dock_navigation.h" line="981"/>
         <source>roll:</source>
         <translation>Roll:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1131"/>
+        <location filename="../qt/dock_navigation.ui" line="1134"/>
         <location filename="../qt/ui_dock_navigation.h" line="983"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation of camera around roll axis (rotates image left &amp;lt;-&amp;gt; right)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rotation der Kamera um Roll-Achse (rotiert das Bild links herum &amp;lt;-&amp;gt; rechts herum)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1146"/>
+        <location filename="../qt/dock_navigation.ui" line="1149"/>
         <location filename="../qt/ui_dock_navigation.h" line="986"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sweet spot position used especially for fulldome images or animations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Fokus Punkt Position wird vorallem für die Vollkuppel Bilder und Animationen verwendet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -10318,19 +10351,19 @@ to target:</source>
         <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Die Fokus Punkt Position wird vorallem für die Vollkuppel Bilder und Animationen verwendet.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1149"/>
+        <location filename="../qt/dock_navigation.ui" line="1152"/>
         <location filename="../qt/ui_dock_navigation.h" line="988"/>
         <source>Sweet spot angle:</source>
         <translation>Fokus Winkel:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1234"/>
+        <location filename="../qt/dock_navigation.ui" line="1237"/>
         <location filename="../qt/ui_dock_navigation.h" line="993"/>
         <source>horizontal:</source>
         <translation>horizontal:</translation>
     </message>
     <message>
-        <location filename="../qt/dock_navigation.ui" line="1244"/>
+        <location filename="../qt/dock_navigation.ui" line="1247"/>
         <location filename="../qt/ui_dock_navigation.h" line="994"/>
         <source>vertical:</source>
         <translation>vertikal:</translation>
@@ -11623,22 +11656,22 @@ previews</source>
 Vorschau</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="848"/>
+        <location filename="../src/animation_keyframes.cpp" line="846"/>
         <source>Refreshing animation frames</source>
         <translation>Animationsframes aktualisieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1211"/>
+        <location filename="../src/animation_keyframes.cpp" line="1209"/>
         <source>Exporting keyframes to flight</source>
         <translation>Keyframes zu Flug exportieren</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1379"/>
+        <location filename="../src/animation_keyframes.cpp" line="1377"/>
         <source>Audio</source>
         <translation>Audio</translation>
     </message>
     <message>
-        <location filename="../src/animation_keyframes.cpp" line="1451"/>
+        <location filename="../src/animation_keyframes.cpp" line="1449"/>
         <source>Camera distance from selected keyframe: %1</source>
         <translation>Kamera Distanz von selektiertem Keyframe: %1</translation>
     </message>
@@ -13936,6 +13969,15 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1187"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides additional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dies aktiviert das &apos;-cl-fast-relaxed-math&apos; OpenCL-Flag. Es bietet zusätzliche Geschwindigkeit, indem es einige Überprüfungen für die mathematischen Operationen wie &apos;Division durch Null&apos; oder &apos;Not-a-Number&apos; entfernt. In einigen Fällen kann dies zu unvorhersehbaren Ergebnissen führen..&lt;/p&gt;&lt;p&gt;Es ist erforderlich, das Programm neu zu starten, um diese Option anzuwenden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qt/preferences_dialog.ui" line="1199"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;texture mapping&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;support for multiple GPUs&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;voxel / mesh export&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber kann OpenCL verwenden, um das Rendering zu beschleunigen.&lt;br/&gt;Weitere Informationen zu Setup und Workflow finden Sie im Handbuch&lt;br/&gt;unter Menu &amp;gt; Hilfe &amp;gt; Handbuch.&lt;/p&gt;&lt;p&gt;Die OpenCL-Unterstützung ist immer noch alpha und es fehlen folgende Funktionen im nicht-OpenCL-Modus:&lt;ul&gt;&lt;li&gt;Es wird nur Material #1 verwendet&lt;/li&gt;&lt;li&gt;Texture Mapping (auch Hintergrund)&lt;/li&gt;&lt;li&gt;Primitive Objekte&lt;/li&gt;&lt;li&gt;HDR blur&lt;/li&gt;&lt;li&gt;Stereoskope Bilder&lt;/li&gt;&lt;li&gt;NetRender&lt;/li&gt;&lt;li&gt;boolsche Operatoren&lt;/li&gt;&lt;li&gt;Unterstützung mehrerer GPUs&lt;/li&gt;&lt;li&gt;Voxel / Mesh export&lt;/li&gt;&lt;li&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <location filename="../qt/ui_preferences_dialog.h" line="1023"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides aditional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dies aktiviert das &apos;-cl-fast-relaxed-math&apos; OpenCL-Flag. Es bietet zusätzliche Geschwindigkeit, indem es einige Überprüfungen für die mathematischen Operationen wie &apos;Division durch Null&apos; oder &apos;Not-a-Number&apos; entfernt. In einigen Fällen kann dies zu unvorhersehbaren Ergebnissen führen..&lt;/p&gt;&lt;p&gt;Es ist erforderlich, das Programm neu zu starten, um diese Option anzuwenden.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -13947,7 +13989,6 @@ und sind nur nach Aktivierung und Re-Render präsent.</translation>
         <translation>Verwende fast relaxed math</translation>
     </message>
     <message>
-        <location filename="../qt/preferences_dialog.ui" line="1199"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1026"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the handbook&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; Handbook.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
 &lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;only material #1 is used&lt;/li&gt;
