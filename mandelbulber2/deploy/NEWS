@@ -2,9 +2,17 @@ Version history
 
 v2.14
 - Added new fractal formulas:
-  *
-  * //to fill out by mclarekin
-- Fractals: //to fill out by mclarekin
+   mandelboxVariable
+   boxFold4dBulbPow2
+   aboxModKaliV2
+   transfPolyFoldSym
+   transfPolyFoldSymMulti
+- Fractals:
+   transfOctoFold & transfMengerFold, now work with analytic logarithmic DE
+   imaginaryScatorPower2 fixed r calc
+   benesiT1PineTree & benesiPwr2Mandelbulb. Added 2nd rotation (for animation)
+   amazingSurfMod2 fixed comboBox
+
 - OpenCL: implemented primitive objects
 - OpenCL: implemented Boolean operators for fractal formulas
 - OpenCL: implemented multiple materials
