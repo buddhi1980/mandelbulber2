@@ -83,10 +83,11 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 {
 	formulaOut out;
-	out.z = 0.0f;
+	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
 	out.iters = 0;
 	out.distance = 0.0f;
 	out.colorIndex = 0.0f;
+	out.orbitTrapR = 0.0f;
 	out.maxiter = false;
 	out.objectId = 0;
 
@@ -284,10 +285,11 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	sClCalcParams *calcParam, sRenderData *renderData)
 {
 	formulaOut out;
-	out.z = 0.0f;
+	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
 	out.iters = 0;
 	out.distance = 0.0f;
 	out.colorIndex = 0.0f;
+	out.orbitTrapR = 0.0f;
 	out.maxiter = false;
 	out.objectId = 0;
 
@@ -331,7 +333,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[i + 1], pointTemp);
 			pointTemp *= consts->params.formulaScale[i + 1];
 
-			formulaOut outTemp;
+                        formulaOut outTemp;
 
 			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
@@ -344,7 +346,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					if (distTemp < dist)
 					{
 						outTemp.objectId = 1 + i;
-						out = outTemp;
+						out.z = outTemp.z;
+						out.iters = outTemp.iters;
+						out.distance = outTemp.distance;
+						out.colorIndex = outTemp.colorIndex;
+						out.orbitTrapR = outTemp.orbitTrapR;
+						out.maxiter = outTemp.maxiter;
+						out.objectId = outTemp.objectId;
 					}
 					dist = min(distTemp, dist);
 					break;
@@ -352,7 +360,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					if (distTemp > dist)
 					{
 						outTemp.objectId = 1 + i;
-						out = outTemp;
+						out.z = outTemp.z;
+						out.iters = outTemp.iters;
+						out.distance = outTemp.distance;
+						out.colorIndex = outTemp.colorIndex;
+						out.orbitTrapR = outTemp.orbitTrapR;
+						out.maxiter = outTemp.maxiter;
+						out.objectId = outTemp.objectId;
 					}
 					dist = max(distTemp, dist);
 					break;
@@ -377,7 +391,13 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 							if (calcParam->detailSize * limit - distTemp > dist)
 							{
 								outTemp.objectId = 1 + i;
-								out = outTemp;
+								out.z = outTemp.z;
+								out.iters = outTemp.iters;
+								out.distance = outTemp.distance;
+								out.colorIndex = outTemp.colorIndex;
+								out.orbitTrapR = outTemp.orbitTrapR;
+								out.maxiter = outTemp.maxiter;
+								out.objectId = outTemp.objectId;
 							}
 
 							dist = max(calcParam->detailSize * limit - distTemp, dist);
