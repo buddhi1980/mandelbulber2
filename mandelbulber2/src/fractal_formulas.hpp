@@ -107,11 +107,11 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 void CrossMengerMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void HypercomplexIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Ides2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -168,6 +168,7 @@ void QuaternionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void RealScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

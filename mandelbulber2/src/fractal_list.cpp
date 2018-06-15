@@ -365,6 +365,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		QuickDudleyModIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionNone, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Real Scator Power 2", "real_scator_power2",
+		realScatorPower2, RealScatorPower2Iteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe", "riemann_sphere_msltoe",
 		riemannSphereMsltoe, RiemannSphereMsltoeIteration, deltaDEType, logarithmicDEFunction,

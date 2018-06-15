@@ -3801,6 +3801,32 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
+ * quadratic iteration in imaginary scator algebra
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
+ * @author Manuel Fernandez-Guasti
+ */
+void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
+
+	double x2 = z.x * z.x; //+ 1e-061
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+
+	double newx = x2 - y2 - z2 + (y2 * z2) / x2;
+	double newy = 2.0 * z.x * z.y * (1.0 - z2 / x2);
+	double newz = 2.0 * z.x * z.z * (1.0 - y2 / x2);
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+/**
  * IQ-Bulb from Mandelbulb 3D and Inigo Quilez
  * @reference http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
  */
@@ -7828,6 +7854,31 @@ void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 }
 
 /**
+ * quadratic iteration in real scator algebra
+ * @reference
+ *            https://luz.izt.uam.mx/drupal/en/fractals/hun
+ * @author Manuel Fernandez-Guasti
+ */
+void RealScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
+
+	double x2 = z.x * z.x; //+ 1e-061
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+
+	double newx = x2 + y2 + z2 + (y2 * z2) / x2;
+	double newy = 2.0 * z.x * z.y * (1.0 + z2 / x2);
+	double newz = 2.0 * z.x * z.z * (1.0 + y2 / x2);
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+
+/**
  * RiemannSphereMsltoe
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/
  * riemann-fractals/msg33500/#msg33500
@@ -8311,31 +8362,7 @@ void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAu
 	}
 }
 
-/**
- * quadratic iteration in imaginary scator algebra
- * @reference
- * http://www.fractalforums.com/new-theories-and-research/
- * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
- * https://luz.izt.uam.mx/drupal/en/fractals/ix
- * @author Manuel Fernandez-Guasti
- */
-void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
 
-	double x2 = z.x * z.x; //+ 1e-061
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-
-	double newx = x2 - y2 - z2 + (y2 * z2) / x2;
-	double newy = 2.0 * z.x * z.y * (1.0 - z2 / x2);
-	double newz = 2.0 * z.x * z.z * (1.0 - y2 / x2);
-
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
-}
 
 // NEW TRANSFORM FORMULAS-----------------------------------------------------------------
 /**
