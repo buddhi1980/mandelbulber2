@@ -548,11 +548,11 @@ void cImage::UpdatePreview(QList<int> *list)
 						int B = 0;
 						for (int j = 0; j < countY; j++)
 						{
-							float yy = y * scaleY + j * deltaY;
+							float yy = y * scaleY + j * deltaY - 0.5;
 
 							for (int i = 0; i < countX; i++)
 							{
-								float xx = x * scaleX + i * deltaX;
+								float xx = x * scaleX + i * deltaX - 0.5;
 								if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
 								{
 									sRGB8 oldPixel = Interpolation(xx, yy);
@@ -638,11 +638,11 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 							int B = 0;
 							for (int j = 0; j < countY; j++)
 							{
-								float yy = y * scaleY + j * deltaY;
+								float yy = y * scaleY + j * deltaY - 0.5;
 
 								for (int i = 0; i < countX; i++)
 								{
-									float xx = x * scaleX + i * deltaX;
+									float xx = x * scaleX + i * deltaX - 0.5;
 									if (xx > 0 && xx < width - 1 && yy > 0 && yy < height - 1)
 									{
 										sRGB8 oldPixel = Interpolation(xx, yy);
