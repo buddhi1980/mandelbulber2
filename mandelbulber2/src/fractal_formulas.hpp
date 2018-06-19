@@ -111,7 +111,7 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 void HypercomplexIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Ides2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -168,10 +168,15 @@ void QuaternionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void RealScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+void ScatorPower2ImaginaryIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -281,5 +286,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

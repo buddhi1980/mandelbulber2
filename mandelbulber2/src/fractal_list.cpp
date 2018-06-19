@@ -190,9 +190,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Ides 2", "ides2", ides2, Ides2Iteration, deltaDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Imaginary scator Power 2", "imaginary_scator_power2",
-		imaginaryScatorPower2, ImaginaryScatorPower2Iteration, deltaDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+
+
+
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
@@ -365,10 +365,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		QuickDudleyModIteration, deltaDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Real Scator Power 2", "real_scator_power2",
-		realScatorPower2, RealScatorPower2Iteration, deltaDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
-
 	// Riemann formulas
 	fractalList->append(sFractalDescription("Riemann - Sphere Msltoe", "riemann_sphere_msltoe",
 		riemannSphereMsltoe, RiemannSphereMsltoeIteration, deltaDEType, logarithmicDEFunction,
@@ -379,6 +375,21 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, RiemannBulbMsltoeMod2Iteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
+
+	// Scator Algebra formulas
+	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",
+		scatorPower2Real, ScatorPower2RealIteration, deltaDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Scator Power 2 Imaginary", "scator_power2_imaginary",
+		scatorPower2Imaginary, ScatorPower2ImaginaryIteration, deltaDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2",
+		scatorPower2, ScatorPower2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_stdR",
+		scatorPower2StdR, ScatorPower2StdRIteration, analyticDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
@@ -726,4 +737,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog, TestingLogIteration,
+		analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
+
 }

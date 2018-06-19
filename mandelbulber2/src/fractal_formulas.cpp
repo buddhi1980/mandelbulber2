@@ -3801,32 +3801,6 @@ void FoldBoxMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
- * quadratic iteration in imaginary scator algebra
- * @reference
- * http://www.fractalforums.com/new-theories-and-research/
- * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
- * https://luz.izt.uam.mx/drupal/en/fractals/ix
- * @author Manuel Fernandez-Guasti
- */
-void ImaginaryScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
-	double x2 = z.x * z.x; //+ 1e-061
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-
-	double newx = x2 - y2 - z2 + (y2 * z2) / x2;
-	double newy = 2.0 * z.x * z.y * (1.0 - z2 / x2);
-	double newz = 2.0 * z.x * z.z * (1.0 - y2 / x2);
-
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
-}
-
-/**
  * IQ-Bulb from Mandelbulb 3D and Inigo Quilez
  * @reference http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
  */
@@ -7854,31 +7828,6 @@ void Quaternion3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 }
 
 /**
- * quadratic iteration in real scator algebra
- * @reference
- *            https://luz.izt.uam.mx/drupal/en/fractals/hun
- * @author Manuel Fernandez-Guasti
- */
-void RealScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(fractal);
-	Q_UNUSED(aux);
-
-	double x2 = z.x * z.x; //+ 1e-061
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-
-	double newx = x2 + y2 + z2 + (y2 * z2) / x2;
-	double newy = 2.0 * z.x * z.y * (1.0 + z2 / x2);
-	double newz = 2.0 * z.x * z.z * (1.0 + y2 / x2);
-
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
-}
-
-
-/**
  * RiemannSphereMsltoe
  * @reference http://www.fractalforums.com/the-3d-mandelbulb/
  * riemann-fractals/msg33500/#msg33500
@@ -7998,6 +7947,137 @@ void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 			z.z = fabs(sin(M_PI * z.z * fractal->transformCommon.scale1));
 		}
 	}
+}
+
+/**
+ * quadratic iteration in imaginary scator algebra
+ * Use stop at maximum iteration (at maxiter)for the image to rendered correctly
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
+ * @author Manuel Fernandez-Guasti
+ */
+void ScatorPower2ImaginaryIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
+
+	double x2 = z.x * z.x; // + 1e-061;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+
+	double newx = x2 - y2 - z2 + (y2 * z2) / x2;
+	double newy = 2.0 * z.x * z.y * (1.0 - z2 / x2);
+	double newz = 2.0 * z.x * z.z * (1.0 - y2 / x2);
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+/**
+ * quadratic iteration in real scator algebra
+ * Use stop at maximum iteration (at maxiter)for the image to rendered correctly
+ * @reference
+ * https://luz.izt.uam.mx/drupal/en/fractals/hun
+ * @author Manuel Fernandez-Guasti
+ */
+void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+	Q_UNUSED(aux);
+
+	double x2 = z.x * z.x; //+ 1e-061
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+
+	double newx = x2 + y2 + z2 + (y2 * z2) / x2;
+	double newy = 2.0 * z.x * z.y * (1.0 + z2 / x2);
+	double newz = 2.0 * z.x * z.z * (1.0 + y2 / x2);
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+/**
+ * quadratic iteration in real or imaginary scator algebra
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
+ * @author Manuel Fernandez-Guasti
+ * This formula contains aux.r_dz
+ */
+void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// log DE calc
+	if (fractal->analyticDE.enabled)
+	{
+		double r = aux.r;
+		if (fractal->transformCommon.functionEnabledXFalse)
+		{
+			r = z.Length();
+		}
+		aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+	// Scator real enabled
+	CVector4 zz = z * z;
+	CVector4 newZ = z;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+	}
+	else
+	{
+		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+	}
+	z = newZ;
+}
+
+/**
+ * quadratic iteration in real or imaginary scator algebra
+ * using r = length
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
+ * @author Manuel Fernandez-Guasti
+ * This formula contains aux.r_dz
+ */
+void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 zz = z * z;
+	// log DE calc
+	if (fractal->analyticDE.enabled)
+	{
+		double r = aux.r;
+		if (fractal->transformCommon.functionEnabledXFalse)
+		{
+			r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / (zz.x));
+		}
+		aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+	// Scator real enabled
+	CVector4 newZ = z;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+	}
+	else
+	{
+		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+	}
+	z = newZ;
 }
 
 /**
@@ -13810,3 +13890,139 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.color += colorAdd;
 	}
 }
+
+/**
+ * standard r
+ *
+ * quadratic iteration in imaginary scator algebra
+ * Use stop at maximum iteration (at maxiter)for the image to rendered correctly
+ * @reference
+ * http://www.fractalforums.com/new-theories-and-research/
+ * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
+ * https://luz.izt.uam.mx/drupal/en/fractals/ix
+ * @author Manuel Fernandez-Guasti
+ */
+void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 c = aux.const_c;
+	CVector4 zz = z * z;
+	// log DE calc
+	if (fractal->analyticDE.enabled)
+	{
+		double r = aux.r;
+		if (fractal->transformCommon.functionEnabledXFalse)
+		{
+			r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / (zz.x));
+		}
+		aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+	CVector4 newZ = z;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+	}
+	else
+	{
+		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
+		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
+		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+	}
+	z = newZ;
+
+	// addCpixel
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector4 tempC = c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+
+			tempC = aux.c;
+
+			if (fractal->transformCommon.addCpixelEnabled)
+			{
+				CVector4 cc = tempC * tempC;
+				CVector4 newC = tempC;
+
+				if (fractal->transformCommon.functionEnabledFalse)
+				{
+					newC.x = cc.x - cc.y - cc.z + (cc.y * cc.z) / cc.x;
+					newC.y = 2.0 * c.x * c.y * (1.0 - cc.z / cc.x);
+					newC.z = 2.0 * c.x * c.z * (1.0 - cc.y / cc.x);
+				}
+				else
+				{
+					newC.x = cc.x + cc.y + cc.z + (cc.y * cc.z) / cc.x;
+					newC.y = 2.0 * c.x * c.y * (1.0 + cc.z / cc.x);
+					newC.z = 2.0 * c.x * c.z * (1.0 + cc.y / cc.x);
+				}
+				tempC = newC;
+			}
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			if (fractal->transformCommon.addCpixelEnabled)
+			{
+				CVector4 cc = c * c;
+				CVector4 newC = c;
+
+				if (fractal->transformCommon.functionEnabledFalse)
+				{
+					newC.x = cc.x - cc.y - cc.z + (cc.y * cc.z) / cc.x;
+					newC.y = 2.0 * c.x * c.y * (1.0 - cc.z / cc.x);
+					newC.z = 2.0 * c.x * c.z * (1.0 - cc.y / cc.x);
+				}
+				else
+				{
+					newC.x = cc.x + cc.y + cc.z + (cc.y * cc.z) / cc.x;
+					newC.y = 2.0 * c.x * c.y * (1.0 + cc.z / cc.x);
+					newC.z = 2.0 * c.x * c.z * (1.0 + cc.y / cc.x);
+				}
+				c = newC;
+			}
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+
+	/*double r = aux.r;
+	if (fractal->transformCommon.functionEnabledXFalse)
+	{
+		r = z.Length();
+	}
+	else
+	{
+		CVector4 zz = z * z;
+		r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / (zz.x));
+	}
+	aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;*/
+
+
+}
+
+

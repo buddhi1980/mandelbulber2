@@ -183,8 +183,10 @@ enum enumFractalFormula
 	aboxModKaliV2 = 135,
 
 	// 152 to 172 reserved for scator
-	imaginaryScatorPower2 = 152, // fixed r calc v2.14
-	realScatorPower2 = 156,
+	scatorPower2Imaginary = 152, // fixed r calc v2.14
+	scatorPower2Real = 156, // added V2.15
+	scatorPower2 = 173, // added V2.15
+	scatorPower2StdR = 174, // added V2.15
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,
@@ -280,6 +282,7 @@ enum enumFractalFormula
 	transfHybridColor2 = 2001,
 	testing = 2100,
 	testing4d = 2101,
+	testingLog = 2102,
 };
 }
 
