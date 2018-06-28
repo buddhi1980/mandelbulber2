@@ -385,10 +385,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2",
 		scatorPower2, ScatorPower2Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_stdR",
 		scatorPower2StdR, ScatorPower2StdRIteration, analyticDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Sierpinski 3D", "sierpinski3d", sierpinski3d,
 		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,

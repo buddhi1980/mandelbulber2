@@ -35,7 +35,7 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Real Scator Power 2,   for analytic logarthmic DE  testing standard r</string>
+      <string>Real Scator Power 2,   for analytic logarthmic DE</string>
      </property>
     </widget>
    </item>
@@ -339,7 +339,7 @@
       <item>
        <widget class="QCheckBox" name="checkBox_transf_function_enabledX_false">
         <property name="text">
-         <string notr="true">enable r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));</string>
+         <string notr="true">enable r = aux.r;</string>
         </property>
        </widget>
       </item>

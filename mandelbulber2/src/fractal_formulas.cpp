@@ -8015,10 +8015,12 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	// log DE calc
 	if (fractal->analyticDE.enabled)
 	{
-		double r = aux.r;
+		double r = aux.r; // = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
 		if (fractal->transformCommon.functionEnabledXFalse)
 		{
 			r = z.Length();
+			// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
+			// r = sqrt(max(z2.x + z2.y, max(z2.y + z2.z, z2.x + z2.z)));
 		}
 		aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
@@ -8026,13 +8028,13 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 zz = z * z;
 	CVector4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
-	{
+	{ // scator imag
 		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
 		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
 		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
 	}
 	else
-	{
+	{ // scator real
 		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
 		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
 		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
@@ -13909,10 +13911,10 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	// log DE calc
 	if (fractal->analyticDE.enabled)
 	{
-		double r = aux.r;
+		double r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
 		if (fractal->transformCommon.functionEnabledXFalse)
 		{
-			r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / (zz.x));
+			r = z.Length();
 		}
 		aux.r_dz = r * aux.r_dz * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
@@ -13951,15 +13953,15 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 				if (fractal->transformCommon.functionEnabledFalse)
 				{
-					newC.x = cc.x - cc.y - cc.z + (cc.y * cc.z) / cc.x;
-					newC.y = 2.0 * c.x * c.y * (1.0 - cc.z / cc.x);
-					newC.z = 2.0 * c.x * c.z * (1.0 - cc.y / cc.x);
+					newC.x = (cc.y * cc.z) / cc.x;
+					newC.y = (1.0 - cc.z / cc.x);
+					newC.z = (1.0 - cc.y / cc.x);
 				}
 				else
 				{
-					newC.x = cc.x + cc.y + cc.z + (cc.y * cc.z) / cc.x;
-					newC.y = 2.0 * c.x * c.y * (1.0 + cc.z / cc.x);
-					newC.z = 2.0 * c.x * c.z * (1.0 + cc.y / cc.x);
+					newC.x = (cc.y * cc.z) / cc.x;
+					newC.y = (1.0 + cc.z / cc.x);
+					newC.z = (1.0 + cc.y / cc.x);
 				}
 				tempC = newC;
 			}
@@ -13984,15 +13986,15 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 				if (fractal->transformCommon.functionEnabledFalse)
 				{
-					newC.x = cc.x - cc.y - cc.z + (cc.y * cc.z) / cc.x;
-					newC.y = 2.0 * c.x * c.y * (1.0 - cc.z / cc.x);
-					newC.z = 2.0 * c.x * c.z * (1.0 - cc.y / cc.x);
+					newC.x = (cc.y * cc.z) / cc.x;
+					newC.y = (1.0 - cc.z / cc.x);
+					newC.z = (1.0 - cc.y / cc.x);
 				}
 				else
 				{
-					newC.x = cc.x + cc.y + cc.z + (cc.y * cc.z) / cc.x;
-					newC.y = 2.0 * c.x * c.y * (1.0 + cc.z / cc.x);
-					newC.z = 2.0 * c.x * c.z * (1.0 + cc.y / cc.x);
+					newC.x = (cc.y * cc.z) / cc.x;
+					newC.y = (1.0 + cc.z / cc.x);
+					newC.z = (1.0 + cc.y / cc.x);
 				}
 				c = newC;
 			}

@@ -232,15 +232,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
+			case testingLog:
 			case scatorPower2: // add v2.15
 			case scatorPower2Real: // add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
 			{
 				CVector4 z2 = z * z;
-				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
-				// r = sqrt(z2.x + z2.y + z2.z);
-				// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
-				// r = sqrt(max(z2.x + z2.y, max(z2.y + z2.z, z2.x + z2.z)));
+				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+
 				break;
 			}
 			// scator magnitudes
@@ -251,7 +250,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				CVector4 z2 = z * z;
 				// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
 				//r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x)); // works better!!
-				r = sqrt(z2.x + z2.y + z2.z);
 				break;
 			}
 			// scator magnitudes

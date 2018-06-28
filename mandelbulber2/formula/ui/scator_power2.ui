@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>694</height>
+    <height>724</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,7 +33,7 @@
     <widget class="QLabel" name="label">
      <property name="text">
       <string>Real Scator Power 2,   for analytic logarthmic DE, using scator algebra 
-r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));</string>
+r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
      </property>
     </widget>
    </item>
