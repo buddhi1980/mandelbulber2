@@ -239,7 +239,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				CVector4 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
-
 				break;
 			}
 			// scator magnitudes

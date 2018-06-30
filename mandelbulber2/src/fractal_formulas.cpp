@@ -8029,15 +8029,25 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{ // scator imag
-		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+		newZ.x = zz.x - zz.y - zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+
+		newZ.x +=  (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 - zz.z / zz.x);
+		newZ.z *= (1.0 - zz.y / zz.x);
+		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	else
 	{ // scator real
-		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+		newZ.x = zz.x + zz.y + zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 + zz.z / zz.x);
+		newZ.z *= (1.0 + zz.y / zz.x);
+		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	z = newZ;
 }
@@ -8068,16 +8078,26 @@ void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	// Scator real enabled
 	CVector4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+	{ // scator imag
+		newZ.x = zz.x - zz.y - zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+
+		newZ.x +=  (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 - zz.z / zz.x);
+		newZ.z *= (1.0 - zz.y / zz.x);
+		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	else
-	{
-		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+	{ // scator real
+		newZ.x = zz.x + zz.y + zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 + zz.z / zz.x);
+		newZ.z *= (1.0 + zz.y / zz.x);
+		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	z = newZ;
 }
@@ -13894,10 +13914,9 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 }
 
 /**
- * standard r
  *
- * quadratic iteration in imaginary scator algebra
- * Use stop at maximum iteration (at maxiter)for the image to rendered correctly
+ * quadratic iteration in real or imaginary scator algebra
+
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * ix-possibly-the-holy-grail-fractal-%28in-fff-lore%29
@@ -13923,17 +13942,55 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		newZ.x = zz.x - zz.y - zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 - zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 - zz.y / zz.x);
+		newZ.x = zz.x - zz.y - zz.z;
+		newZ.y = z.x * z.y;
+		newZ.z = z.x * z.z;
+
+		newZ.x +=  (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 - zz.z / zz.x);
+		newZ.z *= (1.0 - zz.y / zz.x);
+
+		newZ *= fractal->transformCommon.constantMultiplier122;
+		newZ += fractal->transformCommon.additionConstant000;
+
+		if (fractal->transformCommon.functionEnabledSFalse)
+		{
+			zz = newZ * newZ;
+			newZ.x -=  (zz.y * zz.z) / zz.x;
+			newZ.y /= (1.0 - zz.z / zz.x);
+			newZ.z /= (1.0 - zz.y / zz.x);
+		}
+		z = newZ;
 	}
 	else
 	{
-		newZ.x = zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x;
-		newZ.y = 2.0 * z.x * z.y * (1.0 + zz.z / zz.x);
-		newZ.z = 2.0 * z.x * z.z * (1.0 + zz.y / zz.x);
+		newZ.x = zz.x + zz.y + zz.z; // + (zz.y * zz.z) / zz.x;
+		newZ.y = z.x * z.y; //* (1.0 + zz.z / zz.x);
+		newZ.z = z.x * z.z; // * (1.0 + zz.y / zz.x);
+
+		newZ.x += (zz.y * zz.z) / zz.x;
+		newZ.y *= (1.0 + zz.z / zz.x);
+		newZ.z *= (1.0 + zz.y / zz.x);
+		//aux.r_dz = aux.r_dz * 2.0 * aux.r;
+		//double tempL = z.Length();
+		newZ *= fractal->transformCommon.constantMultiplier122;
+		// if (tempL < 1e-21) tempL = 1e-21;
+		//CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
+		//double avgScale = tempAvgScale.Length() / tempL;
+		//double tempAux = aux.r_dz * avgScale;
+		//aux.r_dz = aux.r_dz + (tempAux - aux.r_dz) * fractal->transformCommon.scaleA1;
+		newZ += fractal->transformCommon.additionConstant000;
+
+		if (fractal->transformCommon.functionEnabledSFalse)
+		{
+			zz = newZ * newZ;
+			newZ.x -=  (zz.y * zz.z) / zz.x;
+			newZ.y /= (1.0 + zz.z / zz.x);
+			newZ.z /= (1.0 + zz.y / zz.x);
+		}
+		z = newZ;
 	}
-	z = newZ;
+
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -13941,7 +13998,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
 		CVector4 tempC = c;
-		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate swap
 		{
 
 			tempC = aux.c;
@@ -13979,22 +14036,29 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		}
 		else
 		{
-			if (fractal->transformCommon.addCpixelEnabled)
+			if (fractal->transformCommon.addCpixelEnabled) // standard swap
 			{
 				CVector4 cc = c * c;
 				CVector4 newC = c;
 
 				if (fractal->transformCommon.functionEnabledFalse)
 				{
-					newC.x = (cc.y * cc.z) / cc.x;
+					newC.x = 1.0 - (cc.y * cc.z) / cc.x;
+					//newC.x = c.x; // /(cc.y * cc.z);
+					//newC.x = (cc.y * cc.z) / cc.x;
 					newC.y = (1.0 - cc.z / cc.x);
 					newC.z = (1.0 - cc.y / cc.x);
 				}
 				else
 				{
-					newC.x = (cc.y * cc.z) / cc.x;
-					newC.y = (1.0 + cc.z / cc.x);
-					newC.z = (1.0 + cc.y / cc.x);
+					//newC.x = c.x + (cc.y * cc.z) / cc.x;
+					newC.x = c.x; // /(cc.y * cc.z);
+					//newC.x = (cc.y * cc.z) / cc.x;
+					newC.y = c.y * (1.0 + cc.z / cc.x);
+					newC.z = c.z * (1.0 + cc.y / cc.x);
+
+					//newC.y = (1.0 + cc.z / cc.x);
+					//newC.z = (1.0 + cc.y / cc.x);
 				}
 				c = newC;
 			}
