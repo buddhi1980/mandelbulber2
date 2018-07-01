@@ -63,7 +63,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("image_height", 600, 5, 65535, morphNone, paramStandard);
 	par->addParam("tiles", 1, 1, 64, morphNone, paramStandard);
 	par->addParam("tile_number", 0, morphNone, paramStandard);
-	par->addParam("image_proportion", 0, morphNone, paramNoSave);
+	par->addParam("image_proportion", 0, morphNone, paramStandard);
 	par->addParam("antialiasing_enabled", false, morphNone, paramStandard);
 	par->addParam("antialiasing_size", 2, 1, 10, morphNone, paramStandard);
 
