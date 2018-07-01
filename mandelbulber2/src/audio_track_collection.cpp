@@ -34,13 +34,12 @@
 
 #include "audio_track_collection.h"
 
-#include "QNetworkReply"
-#include "QNetworkRequest"
 #include "audio_track.h"
 #include "global_data.hpp"
 #include "one_parameter.hpp"
 #include "parameters.hpp"
 #include "system.hpp"
+#include "resource_http_provider.hpp"
 
 cAudioTrackCollection::cAudioTrackCollection()
 {
@@ -202,38 +201,8 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 		QString filename =
 			params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
 
-		// TEMPORARY CODE TO LOAD AUDIO OVER HTTP AND CACHE
-		if (filename.startsWith("http://") || filename.startsWith("https://"))
-		{
-			QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-			hashCrypt.addData(filename.toLocal8Bit());
-			QByteArray hash = hashCrypt.result();
-			QString cachedFileName = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex()
-															 + "." + QFileInfo(filename).suffix();
-			if (!QFile(cachedFileName).exists())
-			{
-				QFile *tempFile = new QFile(cachedFileName);
-				QNetworkAccessManager network;
-				QNetworkReply *reply = network.get(QNetworkRequest(QUrl(filename)));
-				if (!tempFile->open(QIODevice::WriteOnly))
-				{
-					qCritical() << "could not open file for writing!";
-				}
-				else
-				{
-					while (!reply->isFinished())
-					{
-						Wait(10);
-						gApplication->processEvents();
-					}
-					tempFile->write(reply->readAll());
-					tempFile->flush();
-					tempFile->close();
-				}
-				filename = cachedFileName;
-			}
-		}
-		// TEMPORARY CODE TO LOAD AUDIO OVER HTTP AND CACHE
+		cResourceHttpProvider httpProvider(filename);
+		if(httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
 
 		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())
 		{
