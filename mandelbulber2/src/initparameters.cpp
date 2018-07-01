@@ -279,6 +279,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("volumetric_fog_colour_1_distance", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("volumetric_fog_colour_2_distance", 2.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("volumetric_fog_distance_factor", 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("volumetric_fog_distance_from_surface", 1e-15, 0.0, 1e15, morphLinear, paramStandard);
 
 	par->addParam("iteration_fog_enable", false, morphLinear, paramStandard);
 	par->addParam("iteration_fog_opacity", 1000.0, 0.0, 1e15, morphLinear, paramStandard);

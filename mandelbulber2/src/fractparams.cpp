@@ -172,6 +172,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	volFogColour3 = container->Get<sRGB>("fog_color", 3);
 	volFogDensity = container->Get<double>("volumetric_fog_density");
 	volFogDistanceFactor = container->Get<double>("volumetric_fog_distance_factor");
+	volFogDistanceFromSurface = container->Get<double>("volumetric_fog_distance_from_surface");
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
 	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");

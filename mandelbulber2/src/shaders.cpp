@@ -538,16 +538,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		//-------------------- volumetric fog
 		if (fogIntensity > 0.0f && params->volFogEnabled)
 		{
-			float densityTemp = step * fogReduce / (distance * distance + fogReduce * fogReduce);
+			double distanceShifted = fabs(distance - params->volFogDistanceFromSurface)
+															 + 0.1 * params->volFogDistanceFromSurface;
+			float densityTemp =
+				step * fogReduce / (distanceShifted * distanceShifted + fogReduce * fogReduce);
 
-			float k = distance / colourThresh;
+			float k = distanceShifted / colourThresh;
 			if (k > 1) k = 1.0f;
 			float kn = 1.0f - k;
 			float fogTempR = params->volFogColour1.R * kn + params->volFogColour2.R * k;
 			float fogTempG = params->volFogColour1.G * kn + params->volFogColour2.G * k;
 			float fogTempB = params->volFogColour1.B * kn + params->volFogColour2.B * k;
 
-			float k2 = distance / colourThresh2 * k;
+			float k2 = distanceShifted / colourThresh2 * k;
 			if (k2 > 1) k2 = 1.0;
 			kn = 1.0f - k2;
 			fogTempR = fogTempR * kn + params->volFogColour3.R * k2;
@@ -560,8 +563,6 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			output.R = fogDensity * fogTempR / 65536.0f + (1.0f - fogDensity) * output.R;
 			output.G = fogDensity * fogTempG / 65536.0f + (1.0f - fogDensity) * output.G;
 			output.B = fogDensity * fogTempB / 65536.0f + (1.0f - fogDensity) * output.B;
-			// qDebug() << "densityTemp " << densityTemp << "k" << k << "k2" << k2 << "fogTempR" <<
-			// fogTempR << "fogDensity" << fogDensity << "output.R" << output.R;
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
