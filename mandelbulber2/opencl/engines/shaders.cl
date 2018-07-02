@@ -1114,19 +1114,22 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 //-------------------- volumetric fog
 #ifdef VOLUMETRIC_FOG
 		{
+			float distanceShifted = fabs(distance - consts->params.volFogDistanceFromSurface)
+															+ 0.1f * consts->params.volFogDistanceFromSurface;
+
 			float densityTemp =
 				step * consts->params.volFogDistanceFactor
-				/ (distance * distance
+				/ (distanceShifted * distanceShifted
 						+ consts->params.volFogDistanceFactor * consts->params.volFogDistanceFactor);
 
-			float k = distance / consts->params.volFogColour1Distance;
+			float k = distanceShifted / consts->params.volFogColour1Distance;
 			if (k > 1.0f) k = 1.0f;
 			float kn = 1.0f - k;
 			float3 fogTemp;
 			fogTemp = consts->params.volFogColour1 * kn + consts->params.volFogColour2 * k;
 
-			float k2 = distance / consts->params.volFogColour2Distance * k;
-			if (k2 > 1) k2 = 1.0;
+			float k2 = distanceShifted / consts->params.volFogColour2Distance * k;
+			if (k2 > 1) k2 = 1.0f;
 			kn = 1.0f - k2;
 			fogTemp = fogTemp * kn + consts->params.volFogColour3 * k2;
 
