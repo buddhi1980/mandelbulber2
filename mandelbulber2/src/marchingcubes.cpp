@@ -45,10 +45,93 @@
 #include "fractparams.hpp"
 #include "initparameters.hpp"
 #include "nine_fractals.hpp"
+#include "opencl_engine.h"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 #include "render_data.hpp"
+
+MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
+	const cFractalContainer *fractalContainer, sParamRender *params, cNineFractals *fractals,
+	sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
+	const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
+	std::vector<long long> &polygons, std::vector<double> &colorIndices)
+		: vertices{vertices}, polygons{polygons}, colorIndices{colorIndices}
+{
+	this->numx = numx;
+	this->numy = numy;
+	this->numz = numz;
+
+	this->lower = lower;
+	this->upper = upper;
+
+	this->params = params;
+	this->fractals = fractals;
+	this->dist_thresh = dist_thresh;
+	this->renderData = renderData;
+
+	this->paramsContainer = paramsContainer;
+	this->fractalContainer = fractalContainer;
+
+	dx = (upper.x - lower.x) / numx;
+	dy = (upper.y - lower.y) / numy;
+	dz = (upper.z - lower.z) / numz;
+
+	numyb = numy + 1;
+	numzb = numz + 1;
+	numyzb = numyb * numzb;
+	z3 = numz * 3;
+	yz3 = numy * z3;
+
+	this->stop = stop;
+
+	shared_indices = nullptr;
+	voxelBuffer = nullptr;
+	colorBuffer = nullptr;
+
+	try
+	{
+		shared_indices = new long long[2 * numy * numz * 3];
+		voxelBuffer = new double[2 * numyzb];
+		colorBuffer = new double[2 * numyzb];
+	}
+	catch (std::bad_alloc &ba)
+	{
+		FreeBuffers();
+		throw ba;
+	}
+}
+
+void MarchingCubes::FreeBuffers()
+{
+	if (shared_indices) delete[] shared_indices;
+	if (voxelBuffer) delete[] voxelBuffer;
+	if (colorBuffer) delete[] colorBuffer;
+}
 
 void MarchingCubes::RunMarchingCube()
 {
+	bool openClEnabled = false;
+#ifdef USE_OPENCL
+	openClEnabled = paramsContainer->Get<bool>("opencl_enabled");
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			paramsContainer, fractalContainer, params, fractals, renderData);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+			WriteLogDouble("OpenCl render fractal - needed mem:",
+				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+			// result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest,
+			// renderData);
+		}
+	}
+
+#endif // USE_OPENCL
+
 	// numx, numy and numz are the numbers of evaluations in each direction
 	for (long long i = 0; i < numx; ++i)
 	{
@@ -65,10 +148,31 @@ void MarchingCubes::RunMarchingCube()
 				colorBuffer[ptr] = colorBuffer[ptr2];
 			}
 		}
-		calculateVoxelPlane(i);
+
+#ifdef USE_OPENCL
+		if (openClEnabled)
+		{
+			// result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest,
+			// renderData);
+		}
+#endif // USE_OPENCL
+
+		if (!openClEnabled)
+		{
+			calculateVoxelPlane(i);
+		}
 		calculateEdges(i);
 		if (*stop) break;
 	}
+
+#ifdef USE_OPENCL
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif // USE_OPENCL
+
 	emit finished();
 }
 

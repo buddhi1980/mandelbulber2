@@ -38,64 +38,27 @@
 #define MANDELBULBER2_SRC_MARCHINGCUBES_H_
 
 #include <stddef.h>
-
 #include <QObject>
+#include <vector>
 
 #include "algebra.hpp"
-#include "fractparams.hpp"
-#include "nine_fractals.hpp"
+
+struct sParamRender;
+class cNineFractals;
+struct sRenderData;
+class cParameterContainer;
+class cFractalContainer;
 
 class MarchingCubes : public QObject
 {
 	Q_OBJECT
 
 public:
-	MarchingCubes(sParamRender *params, const cNineFractals *fractals, sRenderData *renderData,
-		int numx, int numy, int numz, const CVector3 &lower, const CVector3 &upper, double dist_thresh,
-		bool *stop, std::vector<double> &vertices, std::vector<long long> &polygons,
-		std::vector<double> &colorIndices)
-			: vertices{vertices}, polygons{polygons}, colorIndices{colorIndices}
-	{
-		this->numx = numx;
-		this->numy = numy;
-		this->numz = numz;
-
-		this->lower = lower;
-		this->upper = upper;
-
-		this->params = params;
-		this->fractals = fractals;
-		this->dist_thresh = dist_thresh;
-		this->renderData = renderData;
-
-		dx = (upper.x - lower.x) / numx;
-		dy = (upper.y - lower.y) / numy;
-		dz = (upper.z - lower.z) / numz;
-
-		numyb = numy + 1;
-		numzb = numz + 1;
-		numyzb = numyb * numzb;
-		z3 = numz * 3;
-		yz3 = numy * z3;
-
-		this->stop = stop;
-
-		shared_indices = nullptr;
-		voxelBuffer = nullptr;
-		colorBuffer = nullptr;
-
-		try
-		{
-			shared_indices = new long long[2 * numy * numz * 3];
-			voxelBuffer = new double[2 * numyzb];
-			colorBuffer = new double[2 * numyzb];
-		}
-		catch (std::bad_alloc &ba)
-		{
-			FreeBuffers();
-			throw ba;
-		}
-	}
+	MarchingCubes(const cParameterContainer *paramsContainer,
+		const cFractalContainer *fractalContainer, sParamRender *params, cNineFractals *fractals,
+		sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
+		const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
+		std::vector<long long> &polygons, std::vector<double> &colorIndices);
 
 	~MarchingCubes() { FreeBuffers(); }
 
@@ -103,12 +66,7 @@ public slots:
 	void RunMarchingCube();
 
 private:
-	void FreeBuffers()
-	{
-		if (shared_indices) delete[] shared_indices;
-		if (voxelBuffer) delete[] voxelBuffer;
-		if (colorBuffer) delete[] colorBuffer;
-	}
+	void FreeBuffers();
 	static int edge_table[256];
 	static int triangle_table[256][16];
 
@@ -141,14 +99,16 @@ private:
 	int z3;
 	int yz3;
 	sParamRender *params;
-	const cNineFractals *fractals;
+	cNineFractals *fractals;
 	sRenderData *renderData;
 	double dist_thresh;
+	const cParameterContainer *paramsContainer;
+	const cFractalContainer *fractalContainer;
 
 	bool *stop;
-	vector<double> &vertices;
-	vector<long long> &polygons;
-	vector<double> &colorIndices;
+	std::vector<double> &vertices;
+	std::vector<long long> &polygons;
+	std::vector<double> &colorIndices;
 
 	void calculateVoxelPlane(int i);
 

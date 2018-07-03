@@ -83,7 +83,7 @@ void cMeshExport::ProcessVolume()
 	QScopedPointer<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	QScopedPointer<const cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
 	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
 	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
@@ -114,8 +114,9 @@ void cMeshExport::ProcessVolume()
 	MarchingCubes *marchingCube;
 	try
 	{
-		marchingCube = new MarchingCubes(params.data(), fractals.data(), renderData.data(), w, h, l,
-			limitMin, limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
+		marchingCube =
+			new MarchingCubes(gPar, gParFractal, params.data(), fractals.data(), renderData.data(), w, h,
+				l, limitMin, limitMax, dist_thresh, &stop, vertices, polygons, colorIndices);
 	}
 	catch (std::bad_alloc &ba)
 	{
