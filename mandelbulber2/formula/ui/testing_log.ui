@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>938</height>
+    <height>1158</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,6 +50,13 @@
     <widget class="QCheckBox" name="checkBox_transf_function_enabledS_false">
      <property name="text">
       <string notr="true">test reverse</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabledD_false">
+     <property name="text">
+      <string notr="true">test addCpixel</string>
      </property>
     </widget>
    </item>

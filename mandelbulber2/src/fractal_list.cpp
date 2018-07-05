@@ -549,7 +549,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Menger Fold", "transf_menger_fold", transfMengerFold,
 		TransfMengerFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionIFS, coloringFunctionDefault));
+		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Multiple angle", "transf_multiple_angle",
 		transfMultipleAngle, TransfMultipleAngleIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));

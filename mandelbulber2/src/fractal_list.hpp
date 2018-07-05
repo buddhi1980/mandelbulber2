@@ -240,7 +240,7 @@ enum enumFractalFormula
 	transfSphericalFoldAbox = 1049,
 	transfSphericalFoldVaryV1 = 1050,
 	transfQuaternionFold = 1051,
-	transfMengerFold = 1052, // added aox.r_dz v2.14
+	transfMengerFold = 1052, // fixed  v2.15
 	// V2.09
 	transfInvCylindrical = 1053,
 	transfRpow3 = 1054,

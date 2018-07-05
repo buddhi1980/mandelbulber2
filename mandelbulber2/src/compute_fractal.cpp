@@ -239,20 +239,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				CVector4 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+				// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
 				break;
 			}
 			// scator magnitudes
 			// magnitude in imaginary scator algebra
-
-			/*case realScatorPower2:
-			{
-				CVector4 z2 = z * z;
-				// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
-				//r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x)); // works better!!
-				break;
-			}
-			// scator magnitudes
-			// magnitude in real scator algebra*/
 
 			// case pseudoKleinian:
 			// case pseudoKleinianMod1:
