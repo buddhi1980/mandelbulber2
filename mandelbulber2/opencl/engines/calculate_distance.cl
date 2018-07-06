@@ -333,7 +333,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[i + 1], pointTemp);
 			pointTemp *= consts->params.formulaScale[i + 1];
 
-                        formulaOut outTemp;
+			formulaOut outTemp;
 
 			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];

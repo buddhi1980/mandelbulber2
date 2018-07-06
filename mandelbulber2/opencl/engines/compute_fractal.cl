@@ -294,15 +294,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			case 152: // imaginaryScatorPower2
 			{
 				float4 z2 = z * z;
-                                aux.r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
+				aux.r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
 				break;
 			}
-                        case 156: // realScatorPower2
-                        {
-                                float4 z2 = z * z;
-                                aux.r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
-                                break;
-                        }
+			case 156: // realScatorPower2
+			{
+				float4 z2 = z * z;
+				aux.r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
+				break;
+			}
 
 			default: aux.r = length(z); break;
 		}

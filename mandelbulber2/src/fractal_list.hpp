@@ -143,8 +143,8 @@ enum enumFractalFormula
 	benesiMagTransforms = 100,
 	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
 	bristorbrot4d = 102,
-	pseudoKleinian = 103,			// fix DE V2.10
-	pseudoKleinianMod1 = 104, // fix T1 T1M V2.10 & DE
+	pseudoKleinian = 103,				// fix DE V2.10
+	pseudoKleinianMod1 = 104,		// fix T1 T1M V2.10 & DE
 	benesiPwr2Mandelbulb = 105, // rot2 v2.14
 	mengerCrossMod1 = 106,
 	// V2.10
@@ -184,9 +184,9 @@ enum enumFractalFormula
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
-	scatorPower2Real = 156, // added V2.15
-	scatorPower2 = 173, // added V2.15
-	scatorPower2StdR = 174, // added V2.15
+	scatorPower2Real = 156,			 // added V2.15
+	scatorPower2 = 173,					 // added V2.15
+	scatorPower2StdR = 174,			 // added V2.15
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,
@@ -229,7 +229,7 @@ enum enumFractalFormula
 	transfAddConstant4d = 1039,
 	transfBoxFold4d = 1040,
 	transfIterationWeight4d = 1041, // fixed V2.10
-	transfSphericalFold4d = 1042, // updated V2.11
+	transfSphericalFold4d = 1042,		// updated V2.11
 	transfScale4d = 1043,
 	transfAbsAddConstant4d = 1044,
 	transfAbsAddTgladFold4d = 1045,
@@ -240,7 +240,7 @@ enum enumFractalFormula
 	transfSphericalFoldAbox = 1049,
 	transfSphericalFoldVaryV1 = 1050,
 	transfQuaternionFold = 1051,
-	transfMengerFold = 1052, // added aox.r_dz v2.14
+	transfMengerFold = 1052, // fixed  v2.15
 	// V2.09
 	transfInvCylindrical = 1053,
 	transfRpow3 = 1054,

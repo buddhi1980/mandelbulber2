@@ -42,9 +42,9 @@ class cResourceHttpProvider : public QObject
 {
 	Q_OBJECT
 public:
-        cResourceHttpProvider(QString &filename);
+	cResourceHttpProvider(QString &filename);
 	~cResourceHttpProvider();
-        bool IsUrl();
+	bool IsUrl();
 	QString cacheAndGetFilename();
 
 private:
@@ -52,8 +52,8 @@ private:
 	QString GetCachedFileName();
 	bool IsInCache();
 
-        QString cachedFilename;
-        QString filename;
+	QString cachedFilename;
+	QString filename;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

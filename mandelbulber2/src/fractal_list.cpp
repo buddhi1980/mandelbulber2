@@ -191,8 +191,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
 
-
-
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
@@ -383,10 +381,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Scator Power 2 Imaginary", "scator_power2_imaginary",
 		scatorPower2Imaginary, ScatorPower2ImaginaryIteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2",
-		scatorPower2, ScatorPower2Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_stdR",
+	fractalList->append(sFractalDescription("Scator Power 2", "scator_power2", scatorPower2,
+		ScatorPower2Iteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Scator Power 2 StdR", "scator_power2_std_r",
 		scatorPower2StdR, ScatorPower2StdRIteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
@@ -549,7 +547,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Menger Fold", "transf_menger_fold", transfMengerFold,
 		TransfMengerFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionIFS, coloringFunctionDefault));
+		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Multiple angle", "transf_multiple_angle",
 		transfMultipleAngle, TransfMultipleAngleIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -738,8 +736,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog, TestingLogIteration,
-		analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
-
+	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog,
+		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 }

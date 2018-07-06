@@ -35,58 +35,60 @@
 
 #include "resource_http_provider.hpp"
 
-#include "system.hpp"
-#include "global_data.hpp"
-
 #include "QNetworkReply"
 #include "QNetworkRequest"
+#include "global_data.hpp"
+#include "system.hpp"
 
 cResourceHttpProvider::cResourceHttpProvider(QString &_filename)
 {
-    filename = _filename;
-    QCryptographicHash hashCrypt(QCryptographicHash::Md4);
-    hashCrypt.addData(filename.toLocal8Bit());
-    QByteArray hash = hashCrypt.result();
-    this->cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "." + QFileInfo(filename).suffix();
+	filename = _filename;
+	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+	hashCrypt.addData(filename.toLocal8Bit());
+	QByteArray hash = hashCrypt.result();
+	this->cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "."
+												 + QFileInfo(filename).suffix();
 }
 cResourceHttpProvider::~cResourceHttpProvider()
-{}
+{
+}
 
 bool cResourceHttpProvider::IsUrl()
 {
-    if (filename.startsWith("http://") || filename.startsWith("https://"))
-    {
-            return true;
-    }
-    return false;
+	if (filename.startsWith("http://") || filename.startsWith("https://"))
+	{
+		return true;
+	}
+	return false;
 }
 
 QString cResourceHttpProvider::cacheAndGetFilename()
 {
-    if (!QFile(cachedFilename).exists()){
-        loadOverInternet();
-    }
-    return cachedFilename;
+	if (!QFile(cachedFilename).exists())
+	{
+		loadOverInternet();
+	}
+	return cachedFilename;
 }
 
 void cResourceHttpProvider::loadOverInternet()
 {
-    QFile *tempFile = new QFile(cachedFilename);
-    QNetworkAccessManager network;
-    QNetworkReply *reply = network.get(QNetworkRequest(QUrl(filename)));
-    if (!tempFile->open(QIODevice::WriteOnly))
-    {
-            qCritical() << "could not open file for writing!";
-    }
-    else
-    {
-            while (!reply->isFinished())
-            {
-                    Wait(10);
-                    gApplication->processEvents();
-            }
-            tempFile->write(reply->readAll());
-            tempFile->flush();
-            tempFile->close();
-    }
+	QFile *tempFile = new QFile(cachedFilename);
+	QNetworkAccessManager network;
+	QNetworkReply *reply = network.get(QNetworkRequest(QUrl(filename)));
+	if (!tempFile->open(QIODevice::WriteOnly))
+	{
+		qCritical() << "could not open file for writing!";
+	}
+	else
+	{
+		while (!reply->isFinished())
+		{
+			Wait(10);
+			gApplication->processEvents();
+		}
+		tempFile->write(reply->readAll());
+		tempFile->flush();
+		tempFile->close();
+	}
 }
