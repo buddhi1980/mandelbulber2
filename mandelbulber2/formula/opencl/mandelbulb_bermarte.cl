@@ -76,15 +76,15 @@ REAL4 MandelbulbBermarteIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic log DE adjustment
-		aux->r_dz = mad(native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
-											* aux->r_dz * fractal->transformCommon.pwr8,
+		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr8 - fractal->analyticDE.offset1)
+										* aux->DE * fractal->transformCommon.pwr8,
 			fractal->analyticDE.scale1, fractal->analyticDE.offset2);
 	}
 	else // default, i.e. scale1 & offset1 & offset2 = 1.0f
 	{
-		aux->r_dz =
+		aux->DE =
 			mad(native_powr(aux->r, fractal->transformCommon.pwr8 - 1.0f) * fractal->transformCommon.pwr8,
-				aux->r_dz, 1.0f);
+				aux->DE, 1.0f);
 	}
 	return z;
 }

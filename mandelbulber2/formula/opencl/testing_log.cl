@@ -33,7 +33,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		{
 			r = length(z);
 		}
-		aux->r_dz = mad(r * aux->r_dz * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	}
 
 	REAL4 newZ = z;
@@ -82,8 +82,9 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	else
 	{
 		newZ.x = zz.x + zz.y + zz.z; // + native_divide((zz.y * zz.z), zz.x);
-		newZ.y = z.x * z.y;					 //* (1.0f + native_divide(zz.z, zz.x));
-		newZ.z = z.x * z.z;					 // * (1.0f + native_divide(zz.y, zz.x));
+
+		newZ.y = z.x * z.y; //* (1.0f + native_divide(zz.z, zz.x));
+		newZ.z = z.x * z.z; // * (1.0f + native_divide(zz.y, zz.x));
 
 		// newZ *= fractal->transformCommon.constantMultiplier122;
 
@@ -100,6 +101,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		// REAL tempL = length(z);
 		newZ *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
+
 		// REAL4 tempAvgScale = (REAL4) {z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
 		// REAL avgScale = native_divide(length(tempAvgScale), tempL);
 		// REAL tempAux = aux->r_dz * avgScale;
@@ -210,6 +212,6 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		REAL4 zz = z * z;
 		r = native_sqrt(zz.x + zz.y + zz.z + native_divide((zz.y * zz.z), (zz.x)));
 	}
-	aux->r_dz = mad(r * aux->r_dz * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);*/
+	aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);*/
 	return z;
 }

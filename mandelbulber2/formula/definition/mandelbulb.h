@@ -44,7 +44,7 @@ public:
 		const double th = th0 * fractal->bulb.power;
 		const double ph = ph0 * fractal->bulb.power;
 		const double cth = cos(th);
-		aux.r_dz = (rp * aux.r_dz) * fractal->bulb.power + 1.0;
+		aux.DE = (rp * aux.DE) * fractal->bulb.power + 1.0;
 		rp *= aux.r;
 		z.x = cth * cos(ph) * rp;
 		z.y = cth * sin(ph) * rp;

@@ -19,14 +19,14 @@ REAL4 MsltoeSym4ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 {
 	REAL4 c = aux->const_c;
 	REAL4 oldZ = z;
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL4 temp = z;
 	REAL tempL = length(temp);
 	// if (tempL < 1e-21f)
 	//	tempL = 1e-21f;
 	z *= fractal->transformCommon.scale3D111;
 
-	aux->r_dz *= fabs(native_divide(length(z), tempL));
+	aux->DE *= fabs(native_divide(length(z), tempL));
 
 	if (fabs(z.x) < fabs(z.z))
 	{
@@ -84,6 +84,6 @@ REAL4 MsltoeSym4ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	z *= fractal->transformCommon.scale1;
-	aux->r_dz *= fabs(fractal->transformCommon.scale1);
+	aux->DE *= fabs(fractal->transformCommon.scale1);
 	return z;
 }

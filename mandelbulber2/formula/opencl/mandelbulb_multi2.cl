@@ -61,7 +61,7 @@ REAL4 MandelbulbMulti2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 	REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-	aux->r_dz = mad(rp * aux->r_dz, fractal->bulb.power, 1.0f);
+	aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
 	rp *= aux->r;
 
 	if (fractal->transformCommon.functionEnabledxFalse)

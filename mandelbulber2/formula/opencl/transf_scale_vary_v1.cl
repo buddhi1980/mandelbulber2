@@ -34,6 +34,5 @@ REAL4 TransfScaleVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	z *= tempVC;
 	aux->DE = mad(aux->DE, fabs(tempVC), 1.0f); // prepared for future analytic DE for hybrids
-	aux->r_dz *= fabs(tempVC);
 	return z;
 }

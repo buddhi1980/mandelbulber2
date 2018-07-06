@@ -18,7 +18,7 @@ REAL4 MandelbulbPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL x2 = z.x * z.x;
 	REAL y2 = z.y * z.y;
 	REAL z2 = z.z * z.z;

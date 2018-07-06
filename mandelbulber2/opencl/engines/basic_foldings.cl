@@ -78,7 +78,6 @@ REAL4 SphericalFolding(REAL4 z, __constant sFractalFoldingsCl *foldings, sExtend
 	{
 		z = z * fold_factor1_2;
 		aux->DE *= fold_factor1_2;
-		aux->r_dz *= sqrt(fold_factor1_2);
 		aux->color *= 0.9;
 	}
 	else if (r2_2 < fR2_2)
@@ -86,7 +85,6 @@ REAL4 SphericalFolding(REAL4 z, __constant sFractalFoldingsCl *foldings, sExtend
 		REAL fold_factor2_2 = fR2_2 / r2_2;
 		z = z * fold_factor2_2;
 		aux->DE *= fold_factor2_2;
-		aux->r_dz *= sqrt(fold_factor1_2);
 		aux->color *= 0.9;
 	}
 	return z;

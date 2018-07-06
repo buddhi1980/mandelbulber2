@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -67,7 +67,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-		aux->r_dz = mad(rp * aux->r_dz, fractal->bulb.power, 1.0f);
+		aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
 		rp *= aux->r;
 
 		if (fractal->transformCommon.functionEnabledxFalse)
@@ -92,14 +92,14 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 			&& aux->i < fractal->transformCommon.stopIterationsD)
 	{
 		aux->r = length(z);
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 		REAL4 temp = z;
 		REAL tempL = length(temp);
 		// if (tempL < 1e-21f)
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->r_dz *= fabs(native_divide(length(z), tempL));
+		aux->DE *= fabs(native_divide(length(z), tempL));
 
 		if (fabs(z.x) < fabs(z.z))
 		{
@@ -141,7 +141,7 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 		z.y = native_cos(psi) * lengthYZ;
 		z.z = native_sin(psi) * lengthYZ;
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 
 		REAL4 z2 = z * z;
 		REAL rr = z2.x + z2.y + z2.z;
@@ -195,6 +195,6 @@ REAL4 MandelbulbJuliabulbIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	// scale
 	z *= fractal->transformCommon.scale1;
-	aux->r_dz *= fabs(fractal->transformCommon.scale1);
+	aux->DE *= fabs(fractal->transformCommon.scale1);
 	return z;
 }

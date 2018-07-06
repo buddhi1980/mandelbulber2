@@ -19,7 +19,7 @@ REAL4 CoastalbrotIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	REAL temp = aux->r;
 	temp = native_powr(temp, 7.7f);
-	aux->r_dz = temp * aux->r_dz * 7.7f;
+	aux->DE = temp * aux->DE * 7.7f;
 	temp *= aux->r;
 
 	z.x = native_sin(native_sin(native_sin(M_PI_F / 3 + z.x * M_PI_F)));

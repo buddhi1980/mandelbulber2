@@ -19,7 +19,7 @@ REAL4 BristorbrotIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y));
 	REAL newy = z.y * (mad(2.0f, z.x, -z.z));
 	REAL newz = z.z * (mad(2.0f, z.x, z.y));

@@ -9651,8 +9651,8 @@ void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		}
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.r_dz * fractal->transformCommon.scale3 * fractal->analyticDE.scale1
-								 + fractal->analyticDE.offset0;
+			aux.DE = aux.DE * fractal->transformCommon.scale3 * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset0;
 		else
 			aux.DE *= fractal->transformCommon.scale3;
 	}
@@ -13915,8 +13915,8 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	{
 		newZ.x = zz.x + zz.y + zz.z; // + (zz.y * zz.z) / zz.x;
 
-		newZ.y = z.x * z.y;					 //* (1.0 + zz.z / zz.x);
-		newZ.z = z.x * z.z;					 // * (1.0 + zz.y / zz.x);
+		newZ.y = z.x * z.y; //* (1.0 + zz.z / zz.x);
+		newZ.z = z.x * z.z; // * (1.0 + zz.y / zz.x);
 
 		// newZ *= fractal->transformCommon.constantMultiplier122;
 
@@ -13928,7 +13928,6 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		newZ.x += (zz.y * zz.z) / zz.x;
 		newZ.y *= (1.0 + zz.z / zz.x);
 		newZ.z *= (1.0 + zz.y / zz.x);
-
 
 		// aux.r_dz = aux.r_dz * 2.0 * aux.r;
 		// double tempL = z.Length();

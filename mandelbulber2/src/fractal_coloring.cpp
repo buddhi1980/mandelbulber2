@@ -161,7 +161,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		if (fractalColoring.radDivDeFalse)
 		{
 			double distEst = fabs(extendedAux.DE);
-			if (fractalColoring.radDivLogDeFalse) distEst = fabs(extendedAux.r_dz);
 			double radDE = r; // r /DE // was named r2
 			if (fractalColoring.radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring.radDivDeSquaredFalse) radDE *= radDE;

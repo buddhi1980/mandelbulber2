@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -49,14 +49,12 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
-			aux->r_dz *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			aux->r_dz *= tglad_factor2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -70,7 +68,6 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale);
-		aux->r_dz *= fabs(useScale);
 
 		if (aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -89,8 +86,8 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(z);
-		aux->r_dz =
-			aux->r * aux->r_dz * 16.0f * fractal->analyticDE.scale1
+		aux->DE =
+			aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
 				* native_divide(native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
 																		+ 2.0f + fractal->analyticDE.offset2),
 						SQRT_3)

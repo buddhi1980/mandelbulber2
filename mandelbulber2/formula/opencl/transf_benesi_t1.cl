@@ -27,7 +27,6 @@ REAL4 TransfBenesiT1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z = fabs(z) * fractal->transformCommon.scale3D222;
 	// if (tempL < 1e-21f) tempL = 1e-21f;
 	REAL avgScale = native_divide(length(z), tempL);
-	aux->r_dz *= avgScale;
 	aux->DE = mad(aux->DE, avgScale, 1.0f);
 
 	if (fractal->transformCommon.rotationEnabled)

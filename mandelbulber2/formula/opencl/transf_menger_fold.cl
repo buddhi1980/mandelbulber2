@@ -56,7 +56,7 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 		}
 		if (!fractal->analyticDE.enabledFalse)
-			aux->r_dz = mad(aux->r_dz * fractal->transformCommon.scale3, fractal->analyticDE.scale1,
+			aux->DE = mad(aux->DE * fractal->transformCommon.scale3, fractal->analyticDE.scale1,
 				fractal->analyticDE.offset0);
 		else
 			aux->DE *= fractal->transformCommon.scale3;

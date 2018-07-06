@@ -22,7 +22,7 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	z.y = native_cos(psi) * lengthYZ;
 	z.z = native_sin(psi) * lengthYZ;
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 
 	REAL4 z2 = z * z;
 	REAL rr = z2.x + z2.y + z2.z;
@@ -51,15 +51,15 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	z *= fractal->transformCommon.scale1;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
-	// aux->r_dz *= fabs(fractal->transformCommon.scale1);
+	// aux->DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic log DE adjustment
-		aux->r_dz *= fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1;
+		aux->DE *= fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1;
 	}
 	else
 	{
-		aux->r_dz *= fabs(fractal->transformCommon.scale1);
+		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
 	return z;
 }

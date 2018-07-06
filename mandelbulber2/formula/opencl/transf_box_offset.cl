@@ -26,7 +26,6 @@ REAL4 TransfBoxOffsetIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL tempL = length(temp);
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 	}
 	return z;

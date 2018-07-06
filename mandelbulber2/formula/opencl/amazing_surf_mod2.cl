@@ -264,7 +264,7 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 			z *= useScale;
 			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-			aux->r_dz *= fabs(useScale);
+			aux->DE *= fabs(useScale);
 			if (fractal->transformCommon.functionEnabledFFalse
 					&& aux->i >= fractal->transformCommon.startIterationsY
 					&& aux->i < fractal->transformCommon.stopIterationsY)

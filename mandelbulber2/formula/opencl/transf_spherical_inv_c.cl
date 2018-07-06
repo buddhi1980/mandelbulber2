@@ -48,7 +48,6 @@ REAL4 TransfSphericalInvCIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		rSqrL = native_recip(rSqrL);
 		z *= rSqrL;
 		aux->DE *= rSqrL;
-		aux->r_dz *= rSqrL;
 		z += tempC;
 	}
 	z += tempC; //* fractal->transformCommon.constantMultiplier111;

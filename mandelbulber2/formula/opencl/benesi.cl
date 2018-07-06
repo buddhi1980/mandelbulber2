@@ -19,7 +19,7 @@ REAL4 BenesiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 	Q_UNUSED(fractal);
 
 	REAL4 c = aux->const_c;
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL r1 = mad(z.y, z.y, z.z * z.z);
 	REAL newx;
 	if (c.x < 0.0f || z.x < native_sqrt(r1))

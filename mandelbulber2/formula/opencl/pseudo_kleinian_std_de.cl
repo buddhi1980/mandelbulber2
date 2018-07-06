@@ -71,7 +71,6 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
 		tempXZ = (z.y + z.x) * SQRT_1_2;
@@ -94,7 +93,6 @@ REAL4 PseudoKleinianStdDEIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 
 		z = (fabs(z + fractal->transformCommon.additionConstant111)

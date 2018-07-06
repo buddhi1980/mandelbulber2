@@ -36,7 +36,6 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp1;
@@ -48,7 +47,6 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAyFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp2;
@@ -76,7 +74,6 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp1;
@@ -88,7 +85,6 @@ REAL4 TransfSphericalFoldParabIteration(
 			if (fractal->transformCommon.functionEnabledAxFalse && m > tempM) m = tempM + (tempM - m);
 			z *= m;
 			aux->DE = aux->DE * m;
-			aux->r_dz *= m;
 			if (fractal->foldColor.auxColorEnabledFalse)
 			{
 				aux->color += fractal->mandelbox.color.factorSp2;

@@ -41,7 +41,7 @@ REAL4 MandelbulbVaryPowerV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	REAL th = th0 * tempVC;
 	REAL ph = ph0 * tempVC;
 	REAL cth = native_cos(th);
-	aux->r_dz = mad(rp * aux->r_dz, tempVC, 1.0f);
+	aux->DE = mad(rp * aux->DE, tempVC, 1.0f);
 	rp *= aux->r;
 	z = (REAL4){cth * native_cos(ph), cth * native_sin(ph), native_sin(th), 0.0f} * rp;
 	return z;

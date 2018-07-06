@@ -86,7 +86,6 @@ typedef struct
 	cl_float pos_neg;
 	cl_float cw;
 
-	cl_float r_dz;
 	cl_float r;
 	cl_float DE;
 	cl_float pseudoKleinianDE;
@@ -704,7 +703,6 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.sum_z = toClFloat4(source.sum_z);
 	target.pos_neg = source.pos_neg;
 	target.cw = source.cw;
-	target.r_dz = source.r_dz;
 	target.r = source.r;
 	target.DE = source.DE;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;

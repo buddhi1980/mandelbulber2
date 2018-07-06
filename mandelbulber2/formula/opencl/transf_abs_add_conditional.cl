@@ -44,7 +44,6 @@ REAL4 TransfAbsAddConditionalIteration(REAL4 z, __constant sFractalCl *fractal, 
 	}
 	// aux->DE = aux->DE * l/L;
 
-	aux->r_dz *= fractal->analyticDE.scale1; // DE tweak
-	aux->DE *= fractal->analyticDE.scale1;	 // DE tweak
+	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;
 }

@@ -81,7 +81,6 @@ struct sExtendedAux
 	double pos_neg;
 	double cw;
 
-	double r_dz;
 	double r;
 	double DE;
 	double pseudoKleinianDE;

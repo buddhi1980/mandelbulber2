@@ -59,14 +59,14 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		aux->r = length(z);
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, 0.0f};
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 		REAL tempL = length(z);
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL3 tempAvgScale = (REAL3){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f)};
 		REAL avgScale = native_divide(length(tempAvgScale), tempL);
-		REAL tempAux = aux->r_dz * avgScale;
-		aux->r_dz = mad(fractal->transformCommon.scaleF1, (tempAux - aux->r_dz), aux->r_dz);
+		REAL tempAux = aux->DE * avgScale;
+		aux->DE = mad(fractal->transformCommon.scaleF1, (tempAux - aux->DE), aux->DE);
 		z += fractal->transformCommon.offset000;
 	}
 	// sym4
@@ -75,14 +75,14 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		aux->r = length(z);
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 		REAL4 temp = z;
 		REAL tempL = length(temp);
 		// if (tempL < 1e-21f)
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->r_dz *= fabs(native_divide(length(z), tempL));
+		aux->DE *= fabs(native_divide(length(z), tempL));
 
 		if (fabs(z.x) < fabs(z.z))
 		{
@@ -119,7 +119,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 		// scale
 		z *= fractal->transformCommon.scale1;
-		aux->r_dz *= fabs(fractal->transformCommon.scale1);
+		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -178,7 +178,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
 		REAL ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
 
-		aux->r_dz = mad(rp * aux->r_dz, fractal->bulb.power, 1.0f);
+		aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
 		rp *= aux->r;
 
 		if (fractal->transformCommon.functionEnabledxFalse)

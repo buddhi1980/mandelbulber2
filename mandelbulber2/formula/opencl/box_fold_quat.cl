@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -51,14 +51,12 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
-			aux->r_dz *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			aux->r_dz *= tglad_factor2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -71,7 +69,6 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-		aux->r_dz *= fabs(useScale);
 
 		if (aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -98,7 +95,6 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = aux->DE * avgScale;
 		z = (fabs(z + fractal->transformCommon.additionConstantA111)
 				 - fabs(z - fractal->transformCommon.additionConstantA111) - z);
@@ -129,7 +125,6 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			-fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f));
 
 		aux->DE *= fractal->transformCommon.scaleA2;
-		aux->r_dz *= fractal->transformCommon.scaleA2;
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -165,18 +160,18 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.x -= 2.0f * fractal->transformCommon.constantMultiplier111.x;
 		z.y -= 2.0f * fractal->transformCommon.constantMultiplier111.y;
 		z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
-		aux->r_dz *= fractal->transformCommon.scale2;
+		aux->DE *= fractal->transformCommon.scale2;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(z);
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux->r_dz = mad(aux->r_dz, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 		}
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
 
@@ -185,8 +180,8 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL4 tempAvgScale = (REAL4){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
 		REAL avgScale = native_divide(length(tempAvgScale), tempL);
-		REAL tempAux = aux->r_dz * avgScale;
-		aux->r_dz = mad(fractal->transformCommon.scaleA1, (tempAux - aux->r_dz), aux->r_dz);
+		REAL tempAux = aux->DE * avgScale;
+		aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
 
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{

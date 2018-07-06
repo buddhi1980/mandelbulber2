@@ -79,6 +79,5 @@ REAL4 TransfScaleVaryVCLIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 
 	z *= para; // using the parameter
 	aux->DE = mad(aux->DE, fabs(para), 1.0f);
-	aux->r_dz *= fabs(para);
 	return z;
 }

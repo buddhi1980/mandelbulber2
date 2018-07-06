@@ -25,7 +25,6 @@ REAL4 TransfSphericalFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux->DE *= fractal->mandelbox.mboxFactor1;
-		aux->r_dz *= fractal->mandelbox.mboxFactor1;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp1;
@@ -36,7 +35,6 @@ REAL4 TransfSphericalFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
-		aux->r_dz *= fractal->mandelbox.mboxFactor1;
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
 			aux->color += fractal->mandelbox.color.factorSp2;

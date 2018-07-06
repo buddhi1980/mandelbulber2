@@ -99,7 +99,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
-	extendedAux.r_dz = 1.0;
 	extendedAux.r = r;
 	extendedAux.DE = 1.0;
 	extendedAux.pseudoKleinianDE = 1.0;
@@ -396,7 +395,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	{
 		if (fractals.IsHybrid())
 		{
-			if (extendedAux.r_dz > 0)
+			if (extendedAux.DE != 0.0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{

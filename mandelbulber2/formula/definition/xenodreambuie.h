@@ -39,7 +39,7 @@ public:
 	void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
 	{
 		double rp = pow(aux.r, fractal->bulb.power - 1.0);
-		aux.r_dz = rp * aux.r_dz * fractal->bulb.power + 1.0;
+		aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 		rp *= aux.r;
 
 		double th = atan2(z.y, z.x) + fractal->bulb.betaAngleOffset;

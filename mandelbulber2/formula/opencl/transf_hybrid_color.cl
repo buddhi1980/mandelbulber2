@@ -49,7 +49,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
 			if (fractal->transformCommon.functionEnabledBxFalse)
-				distEst = aux->r_dz;
+				distEst = aux->DE;
 			else
 				distEst = aux->DE;
 			REAL temp5 = 0.0f;

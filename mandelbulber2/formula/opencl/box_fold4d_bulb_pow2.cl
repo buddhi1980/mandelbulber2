@@ -73,13 +73,11 @@ REAL4 BoxFold4dBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			z *= fractal->transformCommon.maxMinR2factor;
 			aux->DE *= fractal->transformCommon.maxMinR2factor;
-			aux->r_dz *= fractal->transformCommon.maxMinR2factor;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
 			aux->DE *= native_divide(fractal->transformCommon.maxR2d1, rr);
-			aux->r_dz *= native_divide(fractal->transformCommon.maxR2d1, rr);
 		}
 
 		z -= fractal->transformCommon.offset0000;
@@ -95,7 +93,6 @@ REAL4 BoxFold4dBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		z *= useScale;
 		aux->DE = aux->DE * fabs(useScale);
-		aux->r_dz *= fabs(useScale);
 
 		if (fractal->transformCommon.functionEnabledSFalse
 				&& aux->i >= fractal->transformCommon.startIterationsX
@@ -168,8 +165,8 @@ REAL4 BoxFold4dBulbPow2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(z);
-		aux->r_dz =
-			aux->r * aux->r_dz * 16.0f * fractal->analyticDE.scale1
+		aux->DE =
+			aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
 				* native_divide(native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
 																		+ 2.0f + fractal->analyticDE.offset2),
 						SQRT_3)

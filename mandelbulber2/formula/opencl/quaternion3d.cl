@@ -18,7 +18,7 @@
 REAL4 Quaternion3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
 
 	REAL tempL = length(z);
@@ -26,8 +26,8 @@ REAL4 Quaternion3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// if (tempL < 1e-21f) tempL = 1e-21f;
 	REAL4 tempAvgScale = (REAL4){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
 	REAL avgScale = native_divide(length(tempAvgScale), tempL);
-	REAL tempAux = aux->r_dz * avgScale;
-	aux->r_dz = mad(fractal->transformCommon.scaleA1, (tempAux - aux->r_dz), aux->r_dz);
+	REAL tempAux = aux->DE * avgScale;
+	aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);

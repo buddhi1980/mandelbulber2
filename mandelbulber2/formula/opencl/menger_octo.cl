@@ -194,7 +194,6 @@ REAL4 MengerOctoIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 		z = (z * fractal->transformCommon.scale1) + (zA * fractal->transformCommon.offsetA0)
 				+ (zB * fractal->transformCommon.offsetB0);
 		aux->DE *= fractal->transformCommon.scale1;
-		aux->r_dz *= fractal->transformCommon.scale1;
 	}
 	return z;
 }

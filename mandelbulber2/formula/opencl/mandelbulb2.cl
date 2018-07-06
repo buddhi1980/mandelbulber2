@@ -17,7 +17,7 @@ REAL4 Mandelbulb2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 
 	REAL tempR = native_sqrt(mad(z.x, z.x, z.y * z.y)); //+ 1e-030f
 	z *= native_recip(tempR);

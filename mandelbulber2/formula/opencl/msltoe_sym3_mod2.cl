@@ -19,7 +19,7 @@ REAL4 MsltoeSym3Mod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 {
 	REAL4 c = aux->const_c;
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 
 	REAL theta;
 	REAL phi;
@@ -65,6 +65,6 @@ REAL4 MsltoeSym3Mod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	//	lengthTempZ = -1e-21f;   //  z is neg.)
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	z *= fractal->transformCommon.scale1;
-	aux->r_dz *= fabs(fractal->transformCommon.scale1);
+	aux->DE *= fabs(fractal->transformCommon.scale1);
 	return z;
 }

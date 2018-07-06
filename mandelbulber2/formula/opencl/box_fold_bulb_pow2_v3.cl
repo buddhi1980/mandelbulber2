@@ -49,14 +49,12 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
-			aux->r_dz *= tglad_factor1;
 		}
 		else if (rr < fractal->transformCommon.maxR2d1)
 		{
 			REAL tglad_factor2 = native_divide(fractal->transformCommon.maxR2d1, rr);
 			z *= tglad_factor2;
 			aux->DE *= tglad_factor2;
-			aux->r_dz *= tglad_factor2;
 		}
 		z -= fractal->mandelbox.offset;
 	}
@@ -69,7 +67,6 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-		aux->r_dz *= fabs(useScale);
 
 		if (aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)
@@ -96,7 +93,6 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z = fabs(z) * fractal->transformCommon.scale3D333;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = aux->DE * avgScale;
 		z = (fabs(z + fractal->transformCommon.additionConstantA111)
 				 - fabs(z - fractal->transformCommon.additionConstantA111) - z);
@@ -125,9 +121,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.x = fabs(z.x);
 		z = mad(z, fractal->transformCommon.scaleA2,
 			-fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f));
-
 		aux->DE *= fractal->transformCommon.scaleA2;
-		aux->r_dz *= fractal->transformCommon.scaleA2;
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -170,7 +164,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 		}
-		aux->r_dz *= fractal->transformCommon.scale3;
+		aux->DE *= fractal->transformCommon.scale3;
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsA
@@ -180,19 +174,19 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux->r_dz = mad(aux->r * aux->r_dz * 10.0f * fractal->analyticDE.scale1,
+			aux->DE = mad(aux->r * aux->DE * 10.0f * fractal->analyticDE.scale1,
 				native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
 										+ fractal->analyticDE.offset2),
 				fractal->analyticDE.offset1);
 		}
 		else
 		{
-			aux->r_dz = aux->r * aux->r_dz * 16.0f * fractal->analyticDE.scale1
-										* native_divide(
-												native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
-																		+ 2.0f + fractal->analyticDE.offset2),
-												SQRT_3)
-									+ fractal->analyticDE.offset1;
+			aux->DE = aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
+									* native_divide(
+											native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
+																	+ 2.0f + fractal->analyticDE.offset2),
+											SQRT_3)
+								+ fractal->analyticDE.offset1;
 		}
 
 		z = z * 2.0f;

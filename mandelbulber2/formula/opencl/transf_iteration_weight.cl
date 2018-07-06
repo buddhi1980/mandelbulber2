@@ -22,6 +22,5 @@ REAL4 TransfIterationWeightIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	z = (z * fractal->transformCommon.scale) + (zA * fractal->transformCommon.offset)
 			+ (zB * fractal->transformCommon.offset0);
 	aux->DE *= fractal->transformCommon.scale;
-	aux->r_dz *= fractal->transformCommon.scale;
 	return z;
 }

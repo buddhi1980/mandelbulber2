@@ -31,6 +31,5 @@ REAL4 TransfInvCylindricalIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scaleA1), fractal->transformCommon.scaleB1,
 		fractal->transformCommon.offset1);
-	aux->r_dz *= fabs(fractal->transformCommon.scaleA1) * fractal->transformCommon.scaleB1;
 	return z;
 }

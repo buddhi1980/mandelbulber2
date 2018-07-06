@@ -18,7 +18,7 @@ REAL4 QuaternionIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y)) - z.w * z.w;
 	REAL newy = 2.0f * z.x * z.y;
 	REAL newz = 2.0f * z.x * z.z;

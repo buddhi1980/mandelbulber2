@@ -23,7 +23,7 @@ REAL4 MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL th = th0 * fractal->bulb.power;
 	REAL ph = ph0 * fractal->bulb.power;
 	REAL cth = native_cos(th);
-	aux->r_dz = mad((rp * aux->r_dz), fractal->bulb.power, 1.0f);
+	aux->DE = mad((rp * aux->DE), fractal->bulb.power, 1.0f);
 	rp *= aux->r;
 	z.x = cth * native_cos(ph) * rp;
 	z.y = cth * native_sin(ph) * rp;

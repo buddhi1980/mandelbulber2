@@ -17,7 +17,7 @@ REAL4 Mandelbulb3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 
 	REAL temp, tempR;
 

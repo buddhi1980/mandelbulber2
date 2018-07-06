@@ -17,7 +17,7 @@
 REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL4 temp = z;
 	if (fabs(z.y) < fabs(z.z)) // then swap
 	{
@@ -58,14 +58,13 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, lengthTempZ);
 	z *= fractal->transformCommon.scale1;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale1), 1.0f);
-	aux->r_dz *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->transformCommon.functionEnabledFalse // quaternion fold
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		aux->r = length(z);
-		aux->r_dz = aux->r_dz * 2.0f * aux->r;
+		aux->DE = aux->DE * 2.0f * aux->r;
 		z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
 		if (fractal->transformCommon.functionEnabledAxFalse)
 		{
@@ -74,9 +73,9 @@ REAL4 MsltoeSym3ModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			z *= (REAL4){1.0f, 2.0f, 2.0f, 1.0f};
 			// if (tempL < 1e-21f) tempL = 1e-21f;
 			REAL avgScale = native_divide(length(z), tempL);
-			// aux->r_dz *= avgScale * fractal->transformCommon.scaleA1;
-			REAL tempAux = aux->r_dz * avgScale;
-			aux->r_dz = mad(fractal->transformCommon.scaleA1, (tempAux - aux->r_dz), aux->r_dz);
+			// aux->DE *= avgScale * fractal->transformCommon.scaleA1;
+			REAL tempAux = aux->DE * avgScale;
+			aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
 		}
 		else
 		{

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -22,7 +22,6 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
-	aux->r_dz *= fabs(fractal->transformCommon.scale);
 
 	REAL r2 = dot(z, z);
 	if (fractal->transformCommon.functionEnabledyFalse) r2 = r2Temp;
@@ -46,7 +45,6 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	mode = native_recip(mode);
 	z *= mode;
 	aux->DE *= mode;
-	aux->r_dz *= mode;
 
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 	return z;

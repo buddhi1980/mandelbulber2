@@ -149,7 +149,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.pos_neg = 1.0;
 	aux.cw = 0.0f;
 
-	aux.r_dz = 1.0f;
 	aux.r = length(z);
 	aux.DE = 1.0f;
 	aux.pseudoKleinianDE = 1.0f;
@@ -414,7 +413,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
-	dist = 0.5f * aux.r * native_log(aux.r) / (aux.r_dz);
+	dist = 0.5f * aux.r * native_log(aux.r) / (aux.DE);
 #elif ANALYTIC_LINEAR_DE
 	dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
@@ -434,9 +433,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	{
 		case clAnalyticFunctionLogarithmic:
 		{
-			if (aux.r_dz > 0.0f)
+			if (aux.DE > 0.0f)
 			{
-				dist = 0.5f * aux.r * native_log(aux.r) / aux.r_dz;
+				dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
 			}
 			else
 				dist = aux.r;

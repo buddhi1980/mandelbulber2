@@ -92,7 +92,6 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 		if (fractalColoring->radDivDeFalse)
 		{
 			float distEst = fabs(extendedAux->DE);
-			if (fractalColoring->radDivLogDeFalse) distEst = fabs(extendedAux->r_dz);
 			float radDE = r;
 			if (fractalColoring->radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring->radDivDeSquaredFalse) radDE *= radDE;

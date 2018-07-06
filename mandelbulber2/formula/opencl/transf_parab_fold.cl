@@ -121,7 +121,6 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		REAL tempL = length(temp);
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
 		aux->DE = aux->DE * avgScale;
 	}
 	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);

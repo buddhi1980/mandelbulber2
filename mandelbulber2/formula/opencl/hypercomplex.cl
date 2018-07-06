@@ -20,7 +20,7 @@ REAL4 HypercomplexIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	Q_UNUSED(fractal);
 
-	aux->r_dz = aux->r_dz * 2.0f * aux->r;
+	aux->DE = aux->DE * 2.0f * aux->r;
 	REAL newx = mad(-z.z, z.z, mad(z.x, z.x, -z.y * z.y)) - z.w * z.w;
 	REAL newy = mad(2.0f * z.x, z.y, -2.0f * z.w * z.z);
 	REAL newz = mad(2.0f * z.x, z.z, -2.0f * z.y * z.w);

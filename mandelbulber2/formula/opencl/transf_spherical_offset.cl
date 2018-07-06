@@ -22,6 +22,6 @@ REAL4 TransfSphericalOffsetIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (fractal->analyticDE.enabled)
 		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), fractal->analyticDE.offset1);
 	else
-		aux->r_dz *= fractal->transformCommon.scale;
+		aux->DE *= fractal->transformCommon.scale;
 	return z;
 }

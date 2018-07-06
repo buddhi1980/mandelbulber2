@@ -25,6 +25,5 @@ REAL4 CollatzIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	z = xV + mad(z, 4.0f, -temp);
 	z /= 4.0f;
 	aux->DE = mad(aux->DE, 4.0f, 1.0f);
-	aux->r_dz *= 4.0f;
 	return z;
 }

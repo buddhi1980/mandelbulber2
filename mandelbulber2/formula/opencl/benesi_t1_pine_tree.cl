@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -32,7 +32,7 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->r_dz *= avgScale;
+		aux->DE *= avgScale;
 
 		if (fractal->transformCommon.rotationEnabled)
 		{
@@ -72,7 +72,7 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.z = mad(fractal->transformCommon.constantMultiplier100.y, tempC.z, (t * (z.y - z.z)));
 		z.y =
 			mad(fractal->transformCommon.constantMultiplier100.z, tempC.y, (2.0f * t * temp.y * temp.z));
-		aux->r_dz = mad(aux->r * aux->r_dz, 2.0f, 1.0f);
+		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -83,7 +83,7 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 					z.x * native_sin(z.y * fractal->transformCommon.scale1),
 					z.z * fractal->transformCommon.scaleC1, z.w}
 				* fractal->transformCommon.scaleA1;
-		aux->r_dz *= fabs(fractal->transformCommon.scaleA1);
+		aux->DE *= fabs(fractal->transformCommon.scaleA1);
 	}
 
 	if (fractal->transformCommon.juliaMode)

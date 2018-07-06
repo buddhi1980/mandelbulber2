@@ -152,7 +152,6 @@ REAL4 Menger4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 		z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
 				+ (zB4 * fractal->transformCommon.offset0);
 		aux->DE *= fractal->transformCommon.scale;
-		aux->r_dz *= fractal->transformCommon.scale;
 	}
 
 	aux->DE *= fractal->analyticDE.scale1;

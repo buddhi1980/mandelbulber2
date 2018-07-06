@@ -179,7 +179,6 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		z *= useScale;
 		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-		aux->r_dz *= fabs(useScale);
 		if (fractal->transformCommon.functionEnabledFFalse
 				&& aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)
