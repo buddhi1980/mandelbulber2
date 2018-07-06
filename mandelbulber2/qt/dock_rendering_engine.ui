@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>368</width>
+    <width>382</width>
     <height>1624</height>
    </rect>
   </property>
@@ -250,7 +250,7 @@ function:</string>
         <item row="6" column="1" colspan="2">
          <widget class="QComboBox" name="comboBox_delta_DE_function">
           <property name="enabled">
-           <bool>false</bool>
+           <bool>true</bool>
           </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -268,22 +268,22 @@ function:</string>
           </item>
           <item>
            <property name="text">
-            <string>Delta DE Linear</string>
+            <string>Linear</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Delta DE Logarithmic</string>
+            <string>Logarithmic</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Delta DE Pseudo Kleinian</string>
+            <string>Pseudo Kleinian</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Delta DE JosKleinian</string>
+            <string>JosKleinian</string>
            </property>
           </item>
          </widget>

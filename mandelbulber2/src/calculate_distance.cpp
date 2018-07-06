@@ -215,7 +215,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 	{
 		out->maxiter = false;
 		out->objectId = 0;
-		out->maxiter = false;
 		out->iters = 0;
 	}
 
@@ -396,7 +395,7 @@ double CalculateDistanceMinPlane(const sParamRender &params, const cNineFractals
 		double newDistStepMin = 0;
 		for (int i = 0; i <= transVectorAngles; i++)
 		{
-			const double angle = (1.0 * i / transVectorAngles) * 2.0 * M_PI;
+			const double angle = (double(i) / transVectorAngles) * 2.0 * M_PI;
 			CVector3 transversalVect = orthDirection;
 			transversalVect = transversalVect.RotateAroundVectorByAngle(rotationAxis, angle);
 			transversalVect.Normalize();

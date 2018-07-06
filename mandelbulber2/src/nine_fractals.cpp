@@ -181,7 +181,9 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 
 	if (isHybrid || forceDeltaDE)
 	{
-		DEType[0] = fractal::deltaDEType;
+		DEType[0] = fractal::analyticDEType;
+		useOptimizedDE = true;
+
 		if (fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"))
 				== fractal::preferredDEFunction)
 		{
@@ -214,10 +216,11 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 						optimizedDEType = DEFunction;
 					}
 
-					if ((optimizedDEType != DEFunction && DEFunction != fractal::withoutDEFunction)
-							|| fractalList[index].DEType == fractal::deltaDEType)
+					if (fractalList[index].DEType == fractal::deltaDEType)
 					{
-						optimizedDEType = fractal::preferredDEFunction;
+						DEType[0] = fractal::deltaDEType;
+						useOptimizedDE = false;
+						forceDeltaDE = true;
 					}
 				}
 			}
@@ -234,16 +237,21 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 		else
 		{
+			for (int f = 0; f < NUMBER_OF_FRACTALS; f++)
+			{
+				fractal::enumFractalFormula formula = fractals[f]->formula;
+				int index = GetIndexOnFractalList(formula);
+				if (fractalList[index].DEType == fractal::deltaDEType)
+				{
+					DEType[0] = fractal::deltaDEType;
+				}
+			}
 			DEFunctionType[0] = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
 		}
 
-		// if it's possible to use analyticDEType then use optimized settings
-		if (optimizedDEType > fractal::preferredDEFunction
-				&& optimizedDEType <= fractal::numberOfDEFunctions)
+		if (forceDeltaDE)
 		{
-			DEType[0] = fractal::analyticDEType;
-			DEFunctionType[0] = optimizedDEType;
-			useOptimizedDE = true;
+			DEType[0] = fractal::deltaDEType;
 		}
 	}
 	else
