@@ -145,8 +145,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-				+ extendedAux.colorHybrid // transf_hybrid_color inputs
-					* fractalColoring.auxColorHybridWeight;
+										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
+												* fractalColoring.auxColorHybridWeight;
 
 		// radius components (historic)
 		if (fractalColoring.radFalse)
@@ -189,7 +189,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			if (fractalColoring.xyzZSqrdFalse) xyzAxis.z *= xyzAxis.z;
 
 			xyzValue = (xyzAxis.x + xyzAxis.y + xyzAxis.z)
-				 * (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
+								 * (1.0 + (fractalColoring.xyzIterScale * extendedAux.i));
 		}
 
 		addValue += xyzValue; // addValue accumulates outputs
@@ -221,9 +221,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			{
 				if (colorValue > fractalColoring.addStartValue)
 				{
-					colorValue += (1.0 - 1.0 / (1.0
-						+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
-							* fractalColoring.addMax;
+					colorValue +=
+						(1.0
+							- 1.0 / (1.0
+												+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+						* fractalColoring.addMax;
 				}
 			}
 
@@ -244,9 +246,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (colorValue > fractalColoring.cosStartValue)
 				{
 					double trig = (0.5
-						- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
-							/ (fractalColoring.cosPeriod * 2.0)))
-								* fractalColoring.cosAdd;
+													- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
+																			/ (fractalColoring.cosPeriod * 2.0)))
+												* fractalColoring.cosAdd;
 					colorValue += trig;
 				}
 			}
@@ -291,9 +293,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0 // folds part
+					extendedAux.color * 100.0														 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0
+																																						 : 0.0);
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;

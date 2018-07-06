@@ -280,7 +280,9 @@ function getCopyStruct($structName, $properties)
 		}
 
 		// close open for loops
-		$copyLine .= str_repeat("}", count(@$property['array']));
+		if (array_key_exists('array', $property) && !empty($property['array'])) {
+			$copyLine .= str_repeat("}", count($property['array']));
+		}
 		$out .= '	' . $copyLine . PHP_EOL;
 	}
 

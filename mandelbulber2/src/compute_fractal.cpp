@@ -233,8 +233,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		switch (fractal->formula)
 		{
 			case testingLog:
-			case scatorPower2: // add v2.15
-			case scatorPower2Real: // add v2.15
+			case scatorPower2:					// add v2.15
+			case scatorPower2Real:			// add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
 			{
 				CVector4 z2 = z * z;

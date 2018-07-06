@@ -38,8 +38,8 @@
 #include "global_data.hpp"
 #include "one_parameter.hpp"
 #include "parameters.hpp"
-#include "system.hpp"
 #include "resource_http_provider.hpp"
+#include "system.hpp"
 
 cAudioTrackCollection::cAudioTrackCollection()
 {
@@ -202,7 +202,7 @@ void cAudioTrackCollection::LoadAllAudioFiles(cParameterContainer *params)
 			params->Get<QString>(FullParameterName("soundfile", listOfAllParameters.at(i)));
 
 		cResourceHttpProvider httpProvider(filename);
-		if(httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
 
 		if (!filename.isEmpty() && !audioTracks[listOfAllParameters[i]]->isLoaded())
 		{

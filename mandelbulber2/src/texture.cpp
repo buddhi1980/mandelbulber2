@@ -56,7 +56,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 	filename = FilePathHelperTextures(filename);
 
 	cResourceHttpProvider httpProvider(filename);
-	if(httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+	if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
 
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	bitmap = LoadPNG(filename, width, height);
