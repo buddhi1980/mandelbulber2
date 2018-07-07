@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_octo_fold</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>808</width>
-    <height>597</height>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -191,31 +191,10 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_4">
-     <property name="title">
-      <string>Analytic linear DE</string>
+    <widget class="QCheckBox" name="checkBox_analyticDE_enabled">
+     <property name="text">
+      <string>Analytic DE enabled</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_8">
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled">
-        <property name="text">
-         <string>Disable for analytic logrithmic DE</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
    </item>
    <item>
