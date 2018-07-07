@@ -9650,11 +9650,14 @@ void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		{
 			z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		}
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fractal->transformCommon.scale3 * fractal->analyticDE.scale1
+		if (fractal->analyticDE.enabled)
+		{
+			if (!fractal->analyticDE.enabledFalse)
+				aux.DE *= fractal->transformCommon.scale3;
+			else
+				aux.DE = aux.DE * fractal->transformCommon.scale3 * fractal->analyticDE.scale1
 							 + fractal->analyticDE.offset0;
-		else
-			aux.DE *= fractal->transformCommon.scale3;
+		}
 	}
 }
 
@@ -9693,9 +9696,13 @@ void TransfOctoFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
 
 	if (fractal->analyticDE.enabled)
-		aux.DE *= fractal->transformCommon.scale2;
-	//else
-		//aux.DE *= fractal->transformCommon.scale2;
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE *= fractal->transformCommon.scale2;
+		else
+			aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
+	}
 }
 
 /**
