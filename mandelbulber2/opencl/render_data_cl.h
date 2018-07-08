@@ -37,8 +37,11 @@
 
 typedef struct
 {
+#ifndef MESH_EXPORT
 	float3 lightVector;
 	float3 viewVectorNotRotated;
+#endif
+
 #ifdef FULL_ENGINE
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
@@ -48,19 +51,28 @@ typedef struct
 	__global float4 *palette;
 	int paletteLength;
 #endif
+
+#ifndef MESH_EXPORT
 	__global sVectorsAroundCl *AOVectors;
 	__global sLightCl *lights;
+#endif
 	__global sPrimitiveCl *primitives;
 	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
-	__global sObjectDataCl *objectsData;
-	int reflectionsMax;
 
+#ifndef MESH_EXPORT
+	__global sObjectDataCl *objectsData;
+
+	int reflectionsMax;
 	int numberOfLights;
 	int AOVectorsCount;
+#endif
+
 	int numberOfPrimitives;
 
+#ifndef MESH_EXPORT
 	matrix33 mRot;
 	matrix33 mRotInv;
+#endif
 } sRenderData;
 
 #endif /* MANDELBULBER2_OPENCL_RENDER_DATA_CL_H_ */
