@@ -43,6 +43,7 @@ enum enumDEMethod
 {
 	preferredDEMethod = 0,
 	forceDeltaDEMethod = 1,
+	forceAnalyticDE = 2
 };
 
 enum enumDEFunctionType

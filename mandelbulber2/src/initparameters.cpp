@@ -190,7 +190,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("repeat_from", 1, 1, 9, morphLinear, paramStandard);
 	par->addParam(
 		"delta_DE_function", int(fractal::preferredDEFunction), 0, 4, morphNone, paramStandard);
-	par->addParam("delta_DE_method", int(fractal::preferredDEMethod), 0, 1, morphNone, paramStandard);
+	par->addParam("delta_DE_method", int(fractal::preferredDEMethod), 0, 2, morphNone, paramStandard);
 	par->addParam("use_default_bailout", true, morphNone, paramStandard);
 	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
 	par->addParam("linear_DE_offset", 0.0, morphLinear, paramStandard);

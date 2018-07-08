@@ -167,10 +167,11 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		}
 	}
 
-	if (fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceDeltaDEMethod)
-		forceDeltaDE = true;
-	else
-		forceDeltaDE = false;
+	forceDeltaDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceDeltaDEMethod;
+
+	forceAnalyticDE =
+		fractal::enumDEMethod(generalPar->Get<int>("delta_DE_method")) == fractal::forceAnalyticDE;
 
 	optimizedDEType = fractal::withoutDEFunction;
 	useOptimizedDE = false;
@@ -216,7 +217,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 						optimizedDEType = DEFunction;
 					}
 
-					if (fractalList[index].DEType == fractal::deltaDEType)
+					if (!forceAnalyticDE && fractalList[index].DEType == fractal::deltaDEType)
 					{
 						DEType[0] = fractal::deltaDEType;
 						useOptimizedDE = false;
@@ -241,7 +242,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			{
 				fractal::enumFractalFormula formula = fractals[f]->formula;
 				int index = GetIndexOnFractalList(formula);
-				if (fractalList[index].DEType == fractal::deltaDEType)
+				if (!forceAnalyticDE && fractalList[index].DEType == fractal::deltaDEType)
 				{
 					DEType[0] = fractal::deltaDEType;
 				}
@@ -249,10 +250,8 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			DEFunctionType[0] = fractal::enumDEFunctionType(generalPar->Get<int>("delta_DE_function"));
 		}
 
-		if (forceDeltaDE)
-		{
-			DEType[0] = fractal::deltaDEType;
-		}
+		if (forceDeltaDE) DEType[0] = fractal::deltaDEType;
+		if (forceAnalyticDE) DEType[0] = fractal::analyticDEType;
 	}
 	else
 	{

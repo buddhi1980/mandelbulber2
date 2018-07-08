@@ -102,6 +102,7 @@ public:
 
 private:
 	bool forceDeltaDE;
+	bool forceAnalyticDE;
 	bool isHybrid;
 	bool isBoolean;
 	fractal::enumDEFunctionType optimizedDEType;

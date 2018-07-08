@@ -180,6 +180,11 @@ each fractal formula</string>
             <string>Force &quot;Delta DE&quot; method</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>Force &quot;Analytic DE&quot; method</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="5" column="0">
