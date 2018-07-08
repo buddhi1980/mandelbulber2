@@ -74,6 +74,7 @@ private slots:
 private:
 #ifdef USE_OPENCL
 	void UpdateOpenCLListBoxes();
+	void UpdateOpenCLMemoryLimits();
 #endif
 
 	Ui::cPreferencesDialog *ui;

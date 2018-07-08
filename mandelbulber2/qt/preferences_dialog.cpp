@@ -97,6 +97,7 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 
 #ifdef USE_OPENCL
 	UpdateOpenCLListBoxes();
+	UpdateOpenCLMemoryLimits();
 #else	// USE_OPENCL
 	ui->tabWidget->removeTab(2); // hide GPU tab for now
 #endif // USE_OPENCL
@@ -467,5 +468,18 @@ void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int 
 	Q_UNUSED(index);
 	on_listWidget_opencl_platform_list_currentRowChanged(
 		ui->listWidget_opencl_platform_list->currentRow());
+}
+
+void cPreferencesDialog::UpdateOpenCLMemoryLimits()
+{
+	if(gOpenCl->openClHardware->getDevicesInformation().size() > 0)
+	{
+		cOpenClDevice::sDeviceInformation deviceInformation = gOpenCl->openClHardware->getSelectedDeviceInformation();
+		cl_ulong globalMemSize = deviceInformation.globalMemSize / 1024 / 1024;
+		cl_ulong maxMemAllocSize = deviceInformation.maxMemAllocSize / 1024 / 1024;
+		ui->spinboxInt_opencl_memory_limit->setMaximum(globalMemSize);
+		ui->sliderInt_opencl_memory_limit->setMaximum(globalMemSize);
+		ui->label_opencl_suggested_memory_limit->setText(tr("Suggested memory limit (based on CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB").arg(maxMemAllocSize - 1));
+	}
 }
 #endif
