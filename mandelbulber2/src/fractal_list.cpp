@@ -442,8 +442,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfAbsAddTgladFold, TransfAbsAddTgladFoldIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Abs Add Conditional", "transf_abs_add_conditional",
-		transfAbsAddConditional, TransfAbsAddConditionalIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfAbsAddConditional, TransfAbsAddConditionalIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Abs Add Multi", "transf_abs_add_multi",
 		transfAbsAddMulti, TransfAbsAddMultiIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -462,8 +462,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfAddExp2ZIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Add Constant Mod1", "transf_add_constant_mod1",
-		transfAddConstantMod1, TransfAddConstantMod1Iteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfAddConstantMod1, TransfAddConstantMod1Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	// Add Cpixel Transforms
 	fractalList->append(sFractalDescription("T>Add Cpixel", "transf_add_cpixel", transfAddCpixel,
@@ -489,14 +489,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// Benesi Transforms
 	fractalList->append(sFractalDescription("T>Benesi T1", "transf_benesi_t1", transfBenesiT1,
-		TransfBenesiT1Iteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfBenesiT1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Benesi T1 Mod", "transf_benesi_t1_mod",
-		transfBenesiT1Mod, TransfBenesiT1ModIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfBenesiT1Mod, TransfBenesiT1ModIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Benesi T2", "transf_benesi_t2", transfBenesiT2,
-		TransfBenesiT2Iteration, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfBenesiT2Iteration, deltaDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Benesi T3", "transf_benesi_t3", transfBenesiT3,
 		TransfBenesiT3Iteration, deltaDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
@@ -537,26 +537,26 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfFoldingTetra3d, TransfFoldingTetra3dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Iteration Weight", "transf_iteration_weight",
-		transfIterationWeight, TransfIterationWeightIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfIterationWeight, TransfIterationWeightIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Inverse Cylindrical", "transf_inv_cylindrical",
-		transfInvCylindrical, TransfInvCylindricalIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfInvCylindrical, TransfInvCylindricalIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Linear Combine CXYZ", "transf_lin_combine_cxyz",
 		transfLinCombineCXYZ, TransfLinCombineCXYZIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Menger Fold", "transf_menger_fold", transfMengerFold,
-		TransfMengerFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfMengerFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Multiple angle", "transf_multiple_angle",
 		transfMultipleAngle, TransfMultipleAngleIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Octo Fold", "transf_octo_fold", transfOctoFold,
-		TransfOctoFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfOctoFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Parab Fold", "transf_parab_fold", transfParabFold,
-		TransfParabFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfParabFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Platonic Solid", "transf_platonic_solid",
 		transfPlatonicSolid, TransfPlatonicSolidIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -571,7 +571,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("T>Power2 Polynomial", "transf_pwr2_polynomial",
 		transfPwr2Polynomial, TransfPwr2PolynomialIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 10, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Quaternion Fold", "transf_quaternion_fold",
 		transfQuaternionFold, TransfQuaternionFoldIteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -596,85 +596,85 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	// R Power Transforms
 	fractalList->append(sFractalDescription("T>R^Power", "transf_r_power", transfRPower,
-		TransfRPowerIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfRPowerIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Rpow3", "transf_rpow3", transfRpow3,
-		TransfRpow3Iteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfRpow3Iteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Scale Transforms
 	fractalList->append(sFractalDescription("T>Scale", "transf_scale", transfScale,
-		TransfScaleIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfScaleIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Scale Vary V2.12", "transf_scale_vary_v212",
-		transfScaleVaryV212, TransfScaleVaryV212Iteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfScaleVaryV212, TransfScaleVaryV212Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Scale Vary Multi", "transf_scale_vary_multi",
-		transfScaleVaryMulti, TransfScaleVaryMultiIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfScaleVaryMulti, TransfScaleVaryMultiIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Scale VaryV1", "transf_scale_vary_v1",
-		transfScaleVaryV1, TransfScaleVaryV1Iteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfScaleVaryV1, TransfScaleVaryV1Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Scale VaryVCL", "transf_scale_vary_vcl",
-		transfScaleVaryVCL, TransfScaleVaryVCLIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfScaleVaryVCL, TransfScaleVaryVCLIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Scale 3D", "transf_scale3d", transfScale3d,
-		TransfScale3dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfScale3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 
 	// Spherical Transforms
 	fractalList->append(sFractalDescription("T>Spherical Invert", "transf_spherical_inv",
-		transfSphericalInv, TransfSphericalInvIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSphericalInv, TransfSphericalInvIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Invert C", "transf_spherical_inv_c",
 		transfSphericalInvC, TransfSphericalInvCIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold", "transf_spherical_fold",
 		transfSphericalFold, TransfSphericalFoldIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold ABox", "transf_spherical_fold_abox",
 		transfSphericalFoldAbox, TransfSphericalFoldAboxIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold CHS", "transf_spherical_fold_chs",
 		transfSphericalFoldCHS, TransfSphericalFoldCHSIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold Cuboid", "transf_spherical_fold_cuboid",
 		transfSphericalFoldCuboid, TransfSphericalFoldCuboidIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold Parab", "transf_spherical_fold_parab",
-		transfSphericalFoldParab, TransfSphericalFoldParabIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSphericalFoldParab, TransfSphericalFoldParabIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold VaryV1",
 		"transf_spherical_fold_vary_v1", transfSphericalFoldVaryV1, TransfSphericalFoldVaryV1Iteration,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
 		coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold VaryVCL",
 		"transf_spherical_fold_vary_vcl", transfSphericalFoldVaryVCL,
 		TransfSphericalFoldVaryVCLIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault,
-		100, analyticFunctionNone, coloringFunctionDefault));
+		100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold XYZ Bias",
 		"transf_spherical_fold_xyz_bias", transfSphericalFoldXYZBias,
 		TransfSphericalFoldXYZBiasIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault,
-		100, analyticFunctionNone, coloringFunctionDefault));
+		100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Pwr Fold", "transf_spherical_pwr_fold",
 		transfSphericalPwrFold, TransfSphericalPwrFoldIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Offset", "transf_spherical_offset",
-		transfSphericalOffset, TransfSphericalOffsetIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSphericalOffset, TransfSphericalOffsetIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical OffsetVCL", "transf_spherical_offset_vcl",
-		transfSphericalOffsetVCL, TransfSphericalOffsetVCLIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSphericalOffsetVCL, TransfSphericalOffsetVCLIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	// Surf Transforms
 	fractalList->append(sFractalDescription("T>Surf Box_Fold", "transf_surf_box_fold",
-		transfSurfBoxFold, TransfSurfBoxFoldIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSurfBoxFold, TransfSurfBoxFoldIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Surf Fold Multi", "transf_surf_fold_multi",
-		transfSurfFoldMulti, TransfSurfFoldMultiIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfSurfFoldMulti, TransfSurfFoldMultiIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Zvector Axis Swap", "transf_zvector_axis_swap",
 		transfZvectorAxisSwap, TransfZvectorAxisSwapIteration, analyticDEType, withoutDEFunction,
@@ -695,7 +695,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("T>Abs Add Conditional 4D",
 		"transf_abs_add_conditional4d", transfAbsAddConditional4d, TransfAbsAddConditional4dIteration,
-		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
 		coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Abs Add Constant 4D", "transf_abs_add_constant4d",
 		transfAbsAddConstant4d, TransfAbsAddConstant4dIteration, analyticDEType, withoutDEFunction,
@@ -704,8 +704,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfAbsAddTgladFold4d, TransfAbsAddTgladFold4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Iteration Weight 4D", "transf_iteration_weight4d",
-		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Reciprocal 4D", "transf_reciprocal4d",
 		transfReciprocal4d, TransfReciprocal4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -713,11 +713,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfRotation4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Scale 4D", "transf_scale4d", transfScale4d,
-		TransfScale4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+		TransfScale4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold 4D", "transf_spherical_fold4d",
 		transfSphericalFold4d, TransfSphericalFold4dIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	// ------------------ hybrid color trial -----------------------
 

@@ -9656,7 +9656,7 @@ void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 				aux.DE *= fractal->transformCommon.scale3;
 			else
 				aux.DE = aux.DE * fractal->transformCommon.scale3 * fractal->analyticDE.scale1
-							 + fractal->analyticDE.offset0;
+								 + fractal->analyticDE.offset0;
 		}
 	}
 }
@@ -9701,7 +9701,7 @@ void TransfOctoFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			aux.DE *= fractal->transformCommon.scale2;
 		else
 			aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
-						 + fractal->analyticDE.offset0;
+							 + fractal->analyticDE.offset0;
 	}
 }
 
@@ -9928,7 +9928,6 @@ void TransfRPowerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	double rp = pow(aux.r, fractal->bulb.power - 1.0);
 	aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
 	z *= rp;
-	aux.DE *= rp;
 }
 
 /**

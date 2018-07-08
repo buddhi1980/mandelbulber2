@@ -73,7 +73,7 @@ enum enumDEType
 	deltaDEType = 1
 };
 
-enum enumDEAnalyticFunction
+enum enumDEAnalyticFunction // DE function for non hybrid fractals
 {
 	analyticFunctionUndefined = -1,
 	analyticFunctionNone = 0,

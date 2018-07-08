@@ -19,6 +19,5 @@ REAL4 TransfRPowerIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL rp = native_powr(aux->r, fractal->bulb.power - 1.0f);
 	aux->DE = mad(rp * aux->DE, fractal->bulb.power, 1.0f);
 	z *= rp;
-	aux->DE *= rp;
 	return z;
 }
