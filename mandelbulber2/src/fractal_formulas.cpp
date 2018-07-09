@@ -7990,8 +7990,6 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		if (fractal->transformCommon.functionEnabledXFalse)
 		{
 			r = z.Length();
-			// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
-			// r = sqrt(max(z2.x + z2.y, max(z2.y + z2.z, z2.x + z2.z)));
 		}
 		aux.DE = r * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
@@ -9833,15 +9831,39 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  * http://www.fractalforums.com/3d-fractal-generation/platonic-dimensions/msg36528/#msg36528
  */
 void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+/*{
+	Q_UNUSED(aux);
+
+	double rho = sqrt(z.Length()); // the radius
+	double theta =
+		cos(fractal->platonicSolid.frequency * z.x) * sin(fractal->platonicSolid.frequency * z.y)
+		+ cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
+		+ cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
+	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
+	z *= r;
+}*/
 {
 	//Q_UNUSED(aux);
 
 	double rho = 0.0;
 
-	if (fractal->transformCommon.functionEnabledx) sqrt(z.Length()); // the radius
+	/*if (fractal->transformCommon.functionEnabledx) rho = sqrt(z.Length()); // the radius
 	if (fractal->transformCommon.functionEnabledyFalse) rho = z.Length();
 	if (fractal->transformCommon.functionEnabledzFalse) rho = z.Dot(z);
+	*/
 
+	double rho1, rho2, rho3 = 0.0;
+	if (fractal->transformCommon.functionEnabledx) rho1 = sqrt(aux.r); // the radius
+	if (fractal->transformCommon.functionEnabledyFalse)  rho2 = aux.r;
+	if (fractal->transformCommon.functionEnabledzFalse)  rho3 = z.Dot(z);
+
+
+
+
+	if (fractal->transformCommon.functionEnabled)
+			rho = rho1 + (rho2 - rho1) * fractal->transformCommon.scale1;
+	else
+		rho = rho1 + rho2 + rho3;
 
 	double theta =
 		cos(fractal->platonicSolid.frequency * z.x) * sin(fractal->platonicSolid.frequency * z.y)
@@ -9851,13 +9873,13 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	if (fractal->transformCommon.functionEnabledFalse) theta = fabs(theta);
 
-	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
+	double platonicR = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
 
-	z *= r; // r can be neg
+	z *= platonicR; //  can be neg
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fabs(r) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fabs(platonicR) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 }
 
@@ -13894,6 +13916,9 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		}
 		aux.DE = r * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
+	// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
+	// CVector4 zz = z * z;
+	// r = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
 
 	CVector4 newZ = z;
 
@@ -13911,6 +13936,9 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		newZ.z *= (1.0 - zz.y / zz.x);
 		newZ *= fractal->transformCommon.constantMultiplier122; //vec3 (1,2,2)
 		z = newZ;
+
+
+
 	}*/
 
 	{

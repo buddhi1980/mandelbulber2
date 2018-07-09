@@ -443,7 +443,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->distance = r / fabs(extendedAux.DE);
 					break;
 				}
-				// TODO test other linear functions 2 3 & 4
 				case analyticFunctionIFS:
 				{
 					out->distance = (r - 2.0) / fabs(extendedAux.DE);
@@ -461,6 +460,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
+
+				// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
+				// CVector4 zz = z * z;
+				// r = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
+
+
 				case analyticFunctionJosKleinian:
 				{
 					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
