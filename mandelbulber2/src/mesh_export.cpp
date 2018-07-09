@@ -90,6 +90,7 @@ void cMeshExport::ProcessVolume()
 
 	params->N = maxIter;
 
+	// calculate uniform mesh step
 	double sizeX = (limitMax.x - limitMin.x);
 	double sizeY = (limitMax.y - limitMin.y);
 	double sizeZ = (limitMax.z - limitMin.z);
@@ -97,12 +98,23 @@ void cMeshExport::ProcessVolume()
 	double step = maxSize / w;
 
 	double dist_thresh = 0.5 * step / params->detailLevel;
+
+	// extension by one at each side
+	double extension = step + dist_thresh;
+	limitMax += CVector3(extension, extension, extension);
+	limitMin -= CVector3(extension, extension, extension);
+
 	w = sizeX / step;
 	h = sizeY / step;
 	l = sizeZ / step;
+
 	limitMax.x = limitMin.x + w * step;
 	limitMax.y = limitMin.y + h * step;
 	limitMax.z = limitMin.z + l * step;
+
+	// update fractal limits to calculated box
+	params.data()->limitMin = limitMin + CVector3(extension, extension, extension);
+	params.data()->limitMax = limitMax - CVector3(extension, extension, extension);
 
 	progressText.ResetTimer();
 
