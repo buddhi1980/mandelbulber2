@@ -2661,6 +2661,14 @@ void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;
 	z.y = (2.0 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
 	aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+
+	if (fractal->transformCommon.angle0 != 0)
+	{
+		double tempY = z.y;
+		double beta = fractal->transformCommon.angle0 * M_PI_180;
+		z.y = z.y * cos(beta) + z.z * sin(beta);
+		z.z = tempY * -sin(beta) + z.z * cos(beta);
+	}
 }
 
 /**
@@ -9625,7 +9633,7 @@ void TransfLinCombineCXYZIteration(CVector4 &z, const sFractal *fractal, sExtend
  * Menger Sponge formula created by Knighty
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/kaleidoscopic-(escape-time-ifs)/
- * analytic aux.DE and aux.r-dz
+ * analytic aux.DE
  */
 void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9676,7 +9684,7 @@ void TransfMultipleAngleIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 /**
  * Octo
- * analytic aux.DE and aux.r-dz
+ * analytic aux.DE
  */
 void TransfOctoFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -9790,10 +9798,6 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		}
 	}
 
-	// z.x = sign(temp.x) * z.x;
-	// z.y = sign(temp.y) * z.y;
-	// z.z = sign(temp.z) * z.z;
-
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		z = (z - temp) * fractal->transformCommon.scale3D111;
@@ -9811,14 +9815,16 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z = (z - temp) * temp * fractal->transformCommon.scale3D111;
 	}
 
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->analyticDE.enabled)
 	{
-		double tempL = temp.Length();
-		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = z.Length() / tempL;
-		aux.DE = aux.DE * avgScale;
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		else
+		{
+			double avgScale = z.Length() / temp.Length();
+			aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		}
 	}
-	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -9828,15 +9834,31 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	//Q_UNUSED(aux);
 
-	double rho = sqrt(z.Length()); // the radius
+	double rho = 0.0;
+
+	if (fractal->transformCommon.functionEnabledx) sqrt(z.Length()); // the radius
+	if (fractal->transformCommon.functionEnabledyFalse) rho = z.Length();
+	if (fractal->transformCommon.functionEnabledzFalse) rho = z.Dot(z);
+
+
 	double theta =
 		cos(fractal->platonicSolid.frequency * z.x) * sin(fractal->platonicSolid.frequency * z.y)
 		+ cos(fractal->platonicSolid.frequency * z.y) * sin(fractal->platonicSolid.frequency * z.z)
 		+ cos(fractal->platonicSolid.frequency * z.z) * sin(fractal->platonicSolid.frequency * z.x);
+		// theta is pos or neg && < 3.0
+
+	if (fractal->transformCommon.functionEnabledFalse) theta = fabs(theta);
+
 	double r = theta * fractal->platonicSolid.amplitude + rho * fractal->platonicSolid.rhoMul;
-	z *= r;
+
+	z *= r; // r can be neg
+
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = aux.DE * fabs(r) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 }
 
 /**
@@ -10138,7 +10160,6 @@ void TransfReciprocal3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		tempZ.z += fabs(z.z) * fractal->transformCommon.offset000.z;
 		z.z = sign(z.z) * tempZ.z;
 	}
-	// aux.DE = aux.DE * l/L;
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
 

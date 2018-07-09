@@ -265,6 +265,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas
+	transformCommon.angle0 = container->Get<double>("transf_angle_0");
 	transformCommon.alphaAngleOffset = container->Get<double>("transf_alpha_angle_offset");
 	transformCommon.betaAngleOffset = container->Get<double>("transf_beta_angle_offset");
 	transformCommon.foldingValue = container->Get<double>("transf_folding_value");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_reciprocal3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -157,10 +157,10 @@
         <string/>
        </property>
        <property name="decimals">
-        <number>6</number>
+        <number>2</number>
        </property>
        <property name="minimum">
-        <double>-99.989999999999995</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>
@@ -682,7 +682,7 @@
      <item row="27" column="0" colspan="2">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak:</string>
+        <string>Analytic DE Tweak:</string>
        </property>
       </widget>
      </item>

@@ -449,6 +449,7 @@ struct sFractalAnalyticDE
 // common parameters for transforming formulas
 struct sFractalTransformCommon
 {
+	double angle0;
 	double alphaAngleOffset;
 	double betaAngleOffset;
 	double foldingValue;
