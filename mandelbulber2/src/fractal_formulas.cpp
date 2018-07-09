@@ -9852,16 +9852,17 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.functionEnabledzFalse) rho = z.Dot(z);
 	*/
 
-	double rho1, rho2, rho3 = 0.0;
-	if (fractal->transformCommon.functionEnabledx) rho1 = sqrt(aux.r); // the radius
-	if (fractal->transformCommon.functionEnabledyFalse)  rho2 = aux.r;
-	if (fractal->transformCommon.functionEnabledzFalse)  rho3 = z.Dot(z);
+	double rho1 = 0.0;
+	double rho2 = 0.0;
+	double rho3 = 0.0;
+	if (fractal->transformCommon.functionEnabledx) rho1 = sqrt(z.Length()); // the radius
+	if (fractal->transformCommon.functionEnabledyFalse) rho2 = z.Length();
+	if (fractal->transformCommon.functionEnabledzFalse) rho3 = z.Dot(z);
 
-
-
-
-	if (fractal->transformCommon.functionEnabled)
-			rho = rho1 + (rho2 - rho1) * fractal->transformCommon.scale1;
+	if (fractal->transformCommon.functionEnabledAxFalse)
+		rho = rho1 + (rho2 - rho1) * fractal->transformCommon.scale1;
+	else if (fractal->transformCommon.functionEnabledAyFalse)
+		rho = rho2 + (rho3 - rho2) * fractal->transformCommon.scale1;
 	else
 		rho = rho1 + rho2 + rho3;
 
