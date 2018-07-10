@@ -1155,12 +1155,19 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 		z -= fractal->mandelbox.offset;
 	}
+
 	// scale, incl DarkBeams Scale vary
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		z *= aux.actualScale;
-		aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		//aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		else // testing for log
+			aux.DE = aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset1;
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -9879,7 +9886,7 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	if (fractal->analyticDE.enabled)
 	{
-		aux.DE = aux.DE * fabs(platonicR) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		aux.DE = aux.DE * fabs(platonicR) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
 

@@ -215,7 +215,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyGroupBox" name="groupCheck__analyticDE_enabled_false">
+       <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
         <property name="title">
          <string>Analytic  D&amp;E extra controls</string>
         </property>
