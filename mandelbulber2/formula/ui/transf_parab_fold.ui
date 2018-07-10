@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>817</width>
-    <height>2501</height>
+    <height>2527</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -403,7 +403,7 @@
        <item row="0" column="2">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string/>
          </property>
          <property name="text">
           <string>mode3</string>
@@ -413,7 +413,7 @@
        <item row="0" column="0">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string/>
          </property>
          <property name="text">
           <string>mode1</string>
@@ -423,7 +423,7 @@
        <item row="0" column="1">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
          <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string/>
          </property>
          <property name="text">
           <string>mode2</string>
