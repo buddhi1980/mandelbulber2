@@ -2008,7 +2008,7 @@ offset:</string>
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>offset0:</string>
+           <string>offset1:</string>
           </property>
          </widget>
         </item>
