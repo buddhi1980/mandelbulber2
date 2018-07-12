@@ -44,6 +44,7 @@
 // custom includes
 #ifdef USE_OPENCL
 #include "opencl/input_data_structures.h"
+#include "opencl/mesh_export_data.h"
 #endif // USE_OPENCL
 
 class cImage;
@@ -73,7 +74,7 @@ public:
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void SetParameters(const cParameterContainer *paramContainer,
 		const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
-		sRenderData *renderData);
+		sRenderData *renderData, bool meshExportModeEnable);
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
@@ -100,6 +101,9 @@ private:
 	sClInConstants *constantInBuffer;
 	cl::Buffer *inCLConstBuffer;
 
+	sClMeshExport *constantInMeshExportBuffer;
+	cl::Buffer *inCLConstMeshExportBuffer;
+
 	QByteArray inBuffer;
 	cl::Buffer *inCLBuffer;
 
@@ -114,6 +118,7 @@ private:
 
 	bool autoRefreshMode;
 	bool monteCarlo;
+	bool meshExportMode;
 
 #endif
 

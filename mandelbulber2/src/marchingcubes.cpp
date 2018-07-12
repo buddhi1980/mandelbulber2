@@ -117,7 +117,7 @@ void MarchingCubes::RunMarchingCube()
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			paramsContainer, fractalContainer, params, fractals, renderData);
+			paramsContainer, fractalContainer, params, fractals, renderData, true);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);

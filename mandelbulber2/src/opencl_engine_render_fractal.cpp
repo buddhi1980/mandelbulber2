@@ -63,6 +63,7 @@
 #ifdef USE_OPENCL
 #include "opencl/fractal_cl.h"
 #include "opencl/fractparams_cl.hpp"
+#include "opencl/mesh_export_data.h"
 #endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
@@ -73,6 +74,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	inCLConstBuffer = nullptr;
 	backgroungImageBuffer = nullptr;
 	backgroundImage2D = nullptr;
+	constantInMeshExportBuffer = nullptr;
+	inCLConstMeshExportBuffer = nullptr;
 
 	inCLBuffer = nullptr;
 
@@ -83,6 +86,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 	monteCarlo = false;
 
 	renderEngineMode = clRenderEngineTypeNone;
+	meshExportMode = false;
 
 #endif
 }
@@ -102,6 +106,12 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	constantInBuffer = nullptr;
 	if (inCLConstBuffer) delete inCLConstBuffer;
 	inCLConstBuffer = nullptr;
+
+	if (constantInMeshExportBuffer) delete constantInMeshExportBuffer;
+	constantInMeshExportBuffer = nullptr;
+	if (inCLConstMeshExportBuffer) delete inCLConstMeshExportBuffer;
+	inCLConstMeshExportBuffer = nullptr;
+
 	if (inCLBuffer) delete inCLBuffer;
 	inCLBuffer = nullptr;
 	if (backgroungImageBuffer) delete backgroungImageBuffer;
@@ -219,12 +229,19 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 		// main engine
 		QString engineFileName;
-		switch (renderEngineMode)
+		if (meshExportMode)
 		{
-			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
-			case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
-			case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
-			case clRenderEngineTypeNone: break;
+			engineFileName = "slicer_engine.cl";
+		}
+		else
+		{
+			switch (renderEngineMode)
+			{
+				case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
+				case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
+				case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
+				case clRenderEngineTypeNone: break;
+			}
 		}
 		QString engineFullFileName = openclEnginePath + engineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
@@ -260,12 +277,20 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer,
 	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
-	sRenderData *renderData)
+	sRenderData *renderData, bool meshExportModeEnable)
 {
 	Q_UNUSED(fractalContainer);
 
+	meshExportMode = meshExportModeEnable;
+
 	if (constantInBuffer) delete constantInBuffer;
 	constantInBuffer = new sClInConstants;
+
+	if (meshExportMode)
+	{
+		if (constantInMeshExportBuffer) delete constantInMeshExportBuffer;
+		constantInMeshExportBuffer = new sClMeshExport;
+	}
 
 	definesCollector.clear();
 
@@ -277,6 +302,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	paramRender->resolution = 1.0 / paramRender->imageHeight;
 
 	if (renderEngineMode == clRenderEngineTypeFull) definesCollector += " -DFULL_ENGINE";
+
+	if (meshExportMode) definesCollector += " -DMESH_EXPORT";
 
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
