@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>scator_power2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>724</height>
+    <height>1225</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -205,7 +205,7 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>aux.r_dz scale1:</string>
+           <string>aux.DE scale1:</string>
           </property>
          </widget>
         </item>
@@ -240,7 +240,7 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>aux.r_dz offset1:</string>
+           <string>aux.DE offset1:</string>
           </property>
          </widget>
         </item>
