@@ -89,7 +89,6 @@ typedef struct
 	cl_int radDivDE1e13False;
 	cl_int radDivDeFalse;
 	cl_int radDivDeSquaredFalse;
-	cl_int radDivLogDeFalse;
 	cl_int radFalse;
 	cl_int radSquaredFalse;
 	cl_int roundEnabledFalse;
@@ -156,7 +155,6 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.radDivDE1e13False = source.radDivDE1e13False;
 	target.radDivDeFalse = source.radDivDeFalse;
 	target.radDivDeSquaredFalse = source.radDivDeSquaredFalse;
-	target.radDivLogDeFalse = source.radDivLogDeFalse;
 	target.radFalse = source.radFalse;
 	target.radSquaredFalse = source.radSquaredFalse;
 	target.roundEnabledFalse = source.roundEnabledFalse;

@@ -432,6 +432,7 @@ typedef struct
 // common parameters for transforming formulas
 typedef struct
 {
+	cl_float angle0;
 	cl_float alphaAngleOffset;
 	cl_float betaAngleOffset;
 	cl_float foldingValue;
@@ -1080,6 +1081,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	const sFractalTransformCommon &source)
 {
 	sFractalTransformCommonCl target;
+	target.angle0 = source.angle0;
 	target.alphaAngleOffset = source.alphaAngleOffset;
 	target.betaAngleOffset = source.betaAngleOffset;
 	target.foldingValue = source.foldingValue;
