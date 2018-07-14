@@ -64,7 +64,8 @@
       </font>
      </property>
      <property name="text">
-      <string>To have complete control have &quot;Check for bailout&quot; condition only enabled on this transform.</string>
+      <string>To have complete control have &quot;Check for bailout&quot; 
+condition only enabled on this transform.</string>
      </property>
     </widget>
    </item>

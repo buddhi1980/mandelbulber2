@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>889</width>
-    <height>4369</height>
+    <height>4503</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -99,7 +99,7 @@
         <enum>Qt::RightToLeft</enum>
        </property>
        <property name="text">
-        <string>DE Vector Influence:</string>
+        <string>r condition:</string>
        </property>
       </widget>
      </item>
