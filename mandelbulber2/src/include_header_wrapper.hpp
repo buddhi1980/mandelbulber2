@@ -48,6 +48,9 @@
 
 // custom includes
 #ifdef USE_OPENCL
+
+#define CL_TARGET_OPENCL_VERSION 120
+
 #ifdef _WIN32
 #ifndef _MSC_VER
 // clew for cross compile
