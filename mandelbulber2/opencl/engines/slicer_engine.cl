@@ -53,7 +53,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	float width = convert_float(consts->params.imageWidth);
 	float height = convert_float(consts->params.imageHeight);
 
-	float3 delta = (meshConfig->limitMax - meshConfig->limitMin) / meshConfig->size;
+	float3 delta = (meshConfig->limitMax - meshConfig->limitMin) / convert_float3(meshConfig->size);
 
 	float resolution = 1.0f / height;
 
@@ -114,15 +114,15 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	sClCalcParams calcParam;
 	calcParam.N = meshConfig->maxiter;
 	calcParam.normalCalculationMode = false;
-	calcParam.distThresh = distThresh;
-	calcParam.detailSize = distThresh;
+	calcParam.distThresh = meshConfig->distThresh;
+	calcParam.detailSize = meshConfig->distThresh;
 
 	float distThresh = meshConfig->distThresh;
 
 	sRenderData renderData;
-	renderData.material = 0;
-	renderData.palette = 0;
-	renderData.paletteLength = 0;
+	renderData.materials = 0;
+	renderData.palettes = 0;
+	renderData.paletteLengths = 0;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
 	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
@@ -132,7 +132,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	outF = CalculateDistance(consts, point, &calcParam, &renderData);
 	float distance = outF.distance;
 
-	color4 = (float4){color.s0, color.s1, color.s2, alpha};
+	// color4 = (float4){color.s0, color.s1, color.s2, alpha};
 
 	outDistances[buffIndex] = distance;
 	outColor[buffIndex] = 0.0f; // TODO color calculation

@@ -63,7 +63,7 @@
 #ifdef USE_OPENCL
 #include "opencl/fractal_cl.h"
 #include "opencl/fractparams_cl.hpp"
-#include "opencl/mesh_export_data.h"
+#include "../opencl/mesh_export_data_cl.h"
 #endif
 
 cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardware)
@@ -155,6 +155,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("input_data_structures.h");
 		clHeaderFiles.append("render_data_cl.h");
 
+		if (meshExportMode) clHeaderFiles.append("mesh_export_data_cl.h");
+
 		// pass through define constants
 		programEngine.append("#define USE_OPENCL 1\n");
 
@@ -203,28 +205,31 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// calculate distance
 		programEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
-		// normal vector calculation
-		programEngine.append("#include \"" + openclEnginePath + "normal_vector.cl\"\n");
-
-		// 3D projections (3point, equirectagular, fisheye)
-		programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
-
-		if (renderEngineMode != clRenderEngineTypeFast)
+		if (!meshExportMode)
 		{
-			// shaders
-			programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
-		}
+			// normal vector calculation
+			programEngine.append("#include \"" + openclEnginePath + "normal_vector.cl\"\n");
 
-		if (renderEngineMode == clRenderEngineTypeFull)
-		{
-			// ray recursion
-			programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
-		}
+			// 3D projections (3point, equirectagular, fisheye)
+			programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
 
-		if (renderEngineMode != clRenderEngineTypeFast)
-		{
-			// Monte Carlo DOF
-			programEngine.append("#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
+			if (renderEngineMode != clRenderEngineTypeFast)
+			{
+				// shaders
+				programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
+			}
+
+			if (renderEngineMode == clRenderEngineTypeFull)
+			{
+				// ray recursion
+				programEngine.append("#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
+			}
+
+			if (renderEngineMode != clRenderEngineTypeFast)
+			{
+				// Monte Carlo DOF
+				programEngine.append("#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
+			}
 		}
 
 		// main engine
@@ -590,7 +595,22 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-	outputBuffers << sClInputOutputBuffer(sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+	if (!meshExportMode)
+	{
+		outputBuffers << sClInputOutputBuffer(sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+	}
+	else
+	{
+		// buffer for distances
+		outputBuffers << sClInputOutputBuffer(sizeof(float),
+			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
+			"mesh-distances-buffer");
+
+		// buffer for colors
+		outputBuffers << sClInputOutputBuffer(sizeof(float),
+			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
+			"mesh-colors-buffer");
+	}
 }
 
 bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *params)
@@ -615,6 +635,23 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
+		}
+
+		if (meshExportMode)
+		{
+			if (inCLConstMeshExportBuffer) delete inCLConstMeshExportBuffer;
+			inCLConstMeshExportBuffer =
+				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+					sizeof(sClMeshExport), constantInMeshExportBuffer, &err);
+			if (!checkErr(err,
+						"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
+						"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 		}
 
 		// this buffer will be used for color palettes, lights, etc...
@@ -1199,9 +1236,17 @@ bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 
 size_t cOpenClEngineRenderFractal::CalcNeededMemory()
 {
-	size_t mem1 = optimalJob.sizeOfPixel * optimalJob.stepSize;
-	size_t mem2 = dynamicData->GetData().size();
-	return max(mem1, mem2);
+	if (!meshExportMode)
+	{
+		size_t mem1 = optimalJob.sizeOfPixel * optimalJob.stepSize;
+		size_t mem2 = dynamicData->GetData().size();
+		return max(mem1, mem2);
+	}
+	else
+	{
+		size_t mem = 0; // TODO calculation of amout of needed memory
+		return mem;
+	}
 }
 
 bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderData)
@@ -1237,6 +1282,19 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
 
 	return true;
+}
+
+bool cOpenClEngineRenderFractal::Render(
+	double *distances, double *colors, int sliceIndex, bool *stopRequest, sRenderData *renderData)
+{
+	// TODO write render slice code
+
+	return true;
+}
+
+void cOpenClEngineRenderFractal::SetMeshExportParameters(const sClMeshExport *meshParams)
+{
+	*constantInMeshExportBuffer = *meshParams;
 }
 
 #endif

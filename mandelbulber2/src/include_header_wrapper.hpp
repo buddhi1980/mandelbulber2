@@ -49,7 +49,9 @@
 // custom includes
 #ifdef USE_OPENCL
 
+#ifndef CL_TARGET_OPENCL_VERSION
 #define CL_TARGET_OPENCL_VERSION 120
+#endif
 
 #ifdef _WIN32
 #ifndef _MSC_VER

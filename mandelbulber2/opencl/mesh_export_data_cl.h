@@ -5,14 +5,14 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_H_
-#define MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_H_
+#ifndef MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_CL_H_
+#define MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_CL_H_
 
 typedef struct
 {
 	cl_float3 limitMin;
 	cl_float3 limitMax;
-	cl_float dist_thresh;
+	cl_float distThresh;
 	cl_int3 size;
 	cl_int maxiter;
 	cl_int sliceWidth;	// must be size.x + 1
@@ -21,4 +21,4 @@ typedef struct
 
 } sClMeshExport;
 
-#endif /* MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_H_ */
+#endif /* MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_CL_H_ */

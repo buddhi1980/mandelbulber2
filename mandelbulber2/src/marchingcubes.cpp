@@ -50,6 +50,10 @@
 #include "opencl_global.h"
 #include "render_data.hpp"
 
+#ifdef USE_OPENCL
+#include "opencl/mesh_export_data_cl.h"
+#endif
+
 MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
 	const cFractalContainer *fractalContainer, sParamRender *params, cNineFractals *fractals,
 	sRenderData *renderData, int numx, int numy, int numz, const CVector3 &lower,
@@ -112,12 +116,24 @@ void MarchingCubes::RunMarchingCube()
 {
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
+
 	openClEnabled = paramsContainer->Get<bool>("opencl_enabled");
+
+	sClMeshExport clMeshParams;
+	clMeshParams.distThresh = dist_thresh;
+	clMeshParams.limitMax = toClFloat3(upper);
+	clMeshParams.limitMin = toClFloat3(lower);
+	clMeshParams.maxiter = params->N;
+	clMeshParams.size = toClInt3(numx, numy, numz);
+	clMeshParams.sliceHeight = numy + 1;
+	clMeshParams.sliceWidth = numz + 1;
+
 	if (openClEnabled)
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
 			paramsContainer, fractalContainer, params, fractals, renderData, true);
+		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
 		{
 			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
@@ -152,8 +168,8 @@ void MarchingCubes::RunMarchingCube()
 #ifdef USE_OPENCL
 		if (openClEnabled)
 		{
-			// result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest,
-			// renderData);
+			bool result = gOpenCl->openClEngineRenderFractal->Render(
+				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData);
 		}
 #endif // USE_OPENCL
 

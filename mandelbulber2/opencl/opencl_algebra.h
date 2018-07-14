@@ -69,6 +69,11 @@ inline cl_float3 toClFloat3(CVector3 v)
 	cl_float3 retVal = {{cl_float(v.x), cl_float(v.y), cl_float(v.z), cl_float(0.0)}};
 	return retVal;
 }
+inline cl_int3 toClInt3(int x, int y, int z)
+{
+	cl_int3 retVal = {{cl_int(x), cl_int(y), cl_int(z), cl_int(0)}};
+	return retVal;
+}
 inline cl_int3 toClInt3(sRGB c)
 {
 	cl_int3 retVal = {{cl_int(c.R), cl_int(c.G), cl_int(c.B), cl_int(1)}};

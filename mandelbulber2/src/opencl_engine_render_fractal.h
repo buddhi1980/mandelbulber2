@@ -44,7 +44,7 @@
 // custom includes
 #ifdef USE_OPENCL
 #include "opencl/input_data_structures.h"
-#include "opencl/mesh_export_data.h"
+#include "opencl/mesh_export_data_cl.h"
 #endif // USE_OPENCL
 
 class cImage;
@@ -82,7 +82,14 @@ public:
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool ReadBuffersFromQueue();
+
+	// render 3D fractal
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
+
+	// render 2D slice with fractal
+	bool Render(
+		double *distances, double *colors, int sliceIndex, bool *stopRequest, sRenderData *renderData);
+
 	QList<QPoint> calculateOptimalTileSequence(int gridWidth, int gridHeight);
 	static bool sortByCenterDistanceAsc(
 		const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight);
@@ -90,6 +97,7 @@ public:
 	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
+	void SetMeshExportParameters(const sClMeshExport *meshParams);
 
 private:
 	const int outputIndex = 0;
