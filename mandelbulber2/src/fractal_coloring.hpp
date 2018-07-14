@@ -73,7 +73,6 @@ struct sFractalColoring
 	bool radDivDE1e13False;
 	bool radDivDeFalse;
 	bool radDivDeSquaredFalse;
-	bool radDivLogDeFalse;
 	bool radFalse;
 	bool radSquaredFalse;
 	bool roundEnabledFalse;

@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2317</y>
-        <width>613</width>
-        <height>3321</height>
+        <y>-780</y>
+        <width>619</width>
+        <height>3786</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1328,7 +1328,7 @@ direction vector:</string>
                   <property name="checkable">
                    <bool>true</bool>
                   </property>
-                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0,0,0">
+                  <layout class="QVBoxLayout" name="verticalLayout_36" stretch="0,0,0,0">
                    <property name="spacing">
                     <number>2</number>
                    </property>
@@ -1354,13 +1354,6 @@ direction vector:</string>
                      </property>
                      <property name="text">
                       <string>scale of 19.5 = old hybrid default ( r  * 5000) / DE )</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_log_de_false">
-                     <property name="text">
-                      <string notr="true">change to analytical log DE</string>
                      </property>
                     </widget>
                    </item>

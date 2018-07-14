@@ -1230,8 +1230,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 
 	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_enabled_false", materialId), false,
 		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_log_de_false", materialId), false,
-		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_weight", materialId), 1.0, -1e20, 1e20,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_squared_false", materialId), false,

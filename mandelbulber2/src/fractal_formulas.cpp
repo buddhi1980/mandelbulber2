@@ -13003,10 +13003,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-				distEst = aux.DE;
-			else
-				distEst = aux.DE;
+			distEst = aux.DE;
 			double temp5 = 0.0;
 			temp5 = distEst * fractal->foldColor.scaleD0;
 			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= 1.0 / (aux.i + 1.0);
@@ -13236,10 +13233,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-				distEst = aux.DE;
-			else
-				distEst = aux.DE;
+			distEst = aux.DE;
 			double temp5 = 0.0;
 			temp5 = distEst * fractal->foldColor.scaleD0;
 			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= 1.0 / (aux.i + 1.0);
