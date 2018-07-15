@@ -150,8 +150,8 @@ enum enumFractalFormula
 	// V2.10
 	mengerPrismShape2 = 107,
 	mixPinski4d = 108, // fixed V2.11
-	sierpinski4d = 109,
-	sierpinski3d = 110,
+	sierpinski4d = 109, // update DE v2.15
+	sierpinski3d = 110, // update DE v2.15
 	menger4d = 111,			// fixed V2.11
 	menger4dMod1 = 112, // fixed V2.11
 	mengerSmooth = 113,
@@ -239,7 +239,7 @@ enum enumFractalFormula
 	transfRotationFoldingPlane = 1048,
 	transfSphericalFoldAbox = 1049,
 	transfSphericalFoldVaryV1 = 1050,
-	transfQuaternionFold = 1051,
+	transfQuaternionFold = 1051, // changed DE v2.15
 	transfMengerFold = 1052, // fixed  v2.15
 	// V2.09
 	transfInvCylindrical = 1053,

@@ -8143,7 +8143,6 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	z = z * fractal->transformCommon.scaleA2;
-	aux.DE *= fractal->transformCommon.scaleA2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -8158,7 +8157,14 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	aux.DE *= fractal->analyticDE.scale1;
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE *= fractal->transformCommon.scale2;
+		else
+			aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset0;
+	}
 }
 
 /**
@@ -10041,16 +10047,29 @@ void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 
-		aux.DE = aux.DE * 2.0 * aux.r;
-		double tempL = z.Length();
+		//aux.DE = aux.DE * 2.0 * aux.r;
+
+		//double tempL = z.Length();
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21) tempL = 1e-21;
-		CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
-		double avgScale = tempAvgScale.Length() / tempL;
-		double tempAux = aux.DE * avgScale;
-		aux.DE = aux.DE + (tempAux - aux.DE) * fractal->transformCommon.scaleA1;
+		//CVector4 tempAvgScale = CVector4(z.x, z.y / 2.0, z.z / 2.0, z.w);
+		//double avgScale = tempAvgScale.Length() / tempL;
+		//double tempAux = aux.DE * avgScale;
+		//aux.DE = aux.DE + (tempAux - aux.DE) * fractal->transformCommon.scaleA1;
+
+		if (fractal->analyticDE.enabled)
+		{
+			if (!fractal->analyticDE.enabledFalse)
+				aux.DE = aux.DE * 2.0 * aux.r;
+			else
+				aux.DE = aux.DE * 2.0 * aux.r * fractal->analyticDE.scale1
+								 + fractal->analyticDE.offset0;
+		}
+
+		// offset
 		z += fractal->transformCommon.additionConstant000;
 	}
+		// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
 		CVector4 tempC = c;
@@ -12454,7 +12473,6 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	z = z * fractal->transformCommon.scaleA2;
-	aux.DE *= fractal->transformCommon.scaleA2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -12511,7 +12529,15 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			z.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 		}
 	}
-	aux.DE *= fractal->analyticDE.scale1;
+	//aux.DE *= fractal->analyticDE.scale1;
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE *= fractal->transformCommon.scaleA2;
+		else
+			aux.DE = aux.DE * fractal->transformCommon.scaleA2 * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset0;
+	}
 }
 
 /**
@@ -13906,6 +13932,7 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+	CVector4 oldZ = z;
 	 // if
 	{
 		CVector4 zz = z * z;
@@ -14010,6 +14037,8 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			newZ.y *= 1.0 + (scaleScat.y * (zz.z / zz.x));
 			newZ.z *= 1.0 + (scaleScat.z * (zz.y / zz.x));
 
+
+
 			// aux.DE = aux.DE * 2.0 * aux.r;
 			// double tempL = z.Length();
 
@@ -14029,6 +14058,8 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 				newZ.z /= (1.0 + zz.y / zz.x);
 			}
 			z = newZ;
+			double tempp = oldZ.Length()/z.Length();
+			aux.DE *= tempp;
 		}
 	}
 	// addCpixel
