@@ -7995,7 +7995,7 @@ void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// log DE calc
+
 	if (fractal->analyticDE.enabled)
 	{
 		double r = aux.r; // = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
@@ -8044,7 +8044,7 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 zz = z * z;
-	// log DE calc
+
 	if (fractal->analyticDE.enabled)
 	{
 		double r = aux.r;
@@ -8157,14 +8157,11 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (fractal->analyticDE.enabled)
-	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE *= fractal->transformCommon.scale2;
-		else
-			aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
-							 + fractal->analyticDE.offset0;
-	}
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE *= fractal->transformCommon.scale2;
+	else
+		aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -12529,15 +12526,12 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			z.w = tp.z * -sin(zeta) + tp.w * cos(zeta);
 		}
 	}
-	//aux.DE *= fractal->analyticDE.scale1;
-	if (fractal->analyticDE.enabled)
-	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE *= fractal->transformCommon.scaleA2;
-		else
-			aux.DE = aux.DE * fractal->transformCommon.scaleA2 * fractal->analyticDE.scale1
-							 + fractal->analyticDE.offset0;
-	}
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE *= fractal->transformCommon.scaleA2;
+	else
+		aux.DE = aux.DE * fractal->transformCommon.scaleA2 * fractal->analyticDE.scale1
+					 + fractal->analyticDE.offset0;
 }
 
 /**

@@ -166,10 +166,10 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="toolTip">
-      <string/>
+      <string>Occasionally disable in Hybrid Mode. A few hybrid settings may work best with the analytic DE code disabled in this formula.</string>
      </property>
      <property name="title">
-      <string>Analytic Logrith&amp;mic DE adjustment</string>
+      <string>Formula Analytic D&amp;E (disable for some Hybrid settings )</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

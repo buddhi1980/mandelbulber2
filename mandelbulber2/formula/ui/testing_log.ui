@@ -689,7 +689,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic Logrith&amp;mic DE adjustment</string>
+      <string>Formula Analytic D&amp;E (disable for some Hybrid settings )</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

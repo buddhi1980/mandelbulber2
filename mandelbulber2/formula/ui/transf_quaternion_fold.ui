@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>889</width>
-    <height>1505</height>
+    <height>1591</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -514,7 +514,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="title">
-      <string>Analytic  D&amp;E enabled</string>
+      <string>Transform Analytic D&amp;E (disable for some Hybrid settings )BETA</string>
      </property>
      <property name="checkable">
       <bool>true</bool>

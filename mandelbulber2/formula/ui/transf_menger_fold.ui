@@ -363,7 +363,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
      <property name="title">
-      <string>Analytic  D&amp;E enabled</string>
+      <string>Transform Analytic D&amp;E (disable for some Hybrid settings )BETA</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
