@@ -141,8 +141,6 @@ void MarchingCubes::RunMarchingCube()
 				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-			// result = gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest,
-			// renderData);
 		}
 	}
 

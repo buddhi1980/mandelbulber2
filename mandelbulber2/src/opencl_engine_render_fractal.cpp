@@ -117,6 +117,8 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	if (backgroungImageBuffer) delete backgroungImageBuffer;
 	backgroungImageBuffer = nullptr;
 
+	cOpenClEngine::ReleaseMemory();
+
 	dynamicData->Clear();
 }
 
@@ -1120,7 +1122,20 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		return false;
 	}
 
-	if (renderEngineMode != clRenderEngineTypeFast)
+	if (meshExportMode)
+	{
+		err = kernel->setArg(argIterator++,
+			*inCLConstMeshExportBuffer); // input data in constant memory (faster than global)
+		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %2").arg(QObject::tr("constant mesh data")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
+	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
 	{
 		err = kernel->setArg(
 			argIterator++, *backgroundImage2D); // input data in constant memory (faster than global)
@@ -1133,13 +1148,16 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		}
 	}
 
-	err = kernel->setArg(argIterator++, Random(1000000)); // random seed
-	if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
+	if (!meshExportMode)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot set OpenCL argument for %3").arg(QObject::tr("random seed")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+		err = kernel->setArg(argIterator++, Random(1000000)); // random seed
+		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %3").arg(QObject::tr("random seed")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
 	return true;
@@ -1288,6 +1306,27 @@ bool cOpenClEngineRenderFractal::Render(
 	double *distances, double *colors, int sliceIndex, bool *stopRequest, sRenderData *renderData)
 {
 	// TODO write render slice code
+
+	constantInMeshExportBuffer->sliceIndex = sliceIndex;
+
+	// writing data to queue
+	if (!WriteBuffersToQueue()) return false;
+
+	// assign parameters to kernel
+	if (!AssignParametersToKernel()) return false;
+
+	optimalJob.stepSizeX = constantInMeshExportBuffer->sliceWidth;
+	size_t pixelsLeftX = optimalJob.stepSizeX;
+
+	optimalJob.stepSizeY = constantInMeshExportBuffer->sliceWidth;
+	size_t pixelsLeftY = optimalJob.stepSizeY;
+
+	// processing queue
+	if (!ProcessQueue(0, 0, pixelsLeftX, pixelsLeftY)) return false;
+
+	if (!ReadBuffersFromQueue()) return false;
+
+	qDebug() << "processed";
 
 	return true;
 }
