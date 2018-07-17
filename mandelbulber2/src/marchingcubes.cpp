@@ -175,7 +175,10 @@ void MarchingCubes::RunMarchingCube()
 		{
 			calculateVoxelPlane(i);
 		}
-		calculateEdges(i);
+		if (i > 0)
+		{
+			calculateEdges(i);
+		}
 		if (*stop) break;
 	}
 

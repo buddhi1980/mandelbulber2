@@ -120,7 +120,7 @@ void MeshFileSavePLY::SavePLY()
 	oT << QString("ply\n").toLatin1();
 	oT << QString("format %1 1.0\n").arg(plyFormat).toLatin1();
 	oT << QString("comment Mandelbulber Exported Mesh\n").toLatin1();
-	oT << QString("element vertex %1\n").arg(meshData.vertices.size() / 3).toLatin1();
+	oT << QString("element vertex %1\n").arg(meshData.vertices->size() / 3).toLatin1();
 	oT << QString("property double x\n").toLatin1();
 	oT << QString("property double y\n").toLatin1();
 	oT << QString("property double z\n").toLatin1();
@@ -132,33 +132,33 @@ void MeshFileSavePLY::SavePLY()
 		oT << QString("property uchar green\n").toLatin1();
 		oT << QString("property uchar blue\n").toLatin1();
 	}
-	oT << QString("element face %1\n").arg(meshData.polygons.size() / 3).toLatin1();
+	oT << QString("element face %1\n").arg(meshData.polygons->size() / 3).toLatin1();
 	oT << QString("property list uchar int vertex_index\n").toLatin1();
 	oT << QString("end_header\n").toLatin1();
 	oT.flush();
 
 	// write vertices
-	for (unsigned int i = 0; i < meshData.vertices.size() / 3; i++)
+	for (unsigned long long i = 0; i < meshData.vertices->size() / 3; i++)
 	{
 		if (isBinary)
 		{
-			oB.writeRawData((char *)&meshData.vertices[i * 3], sizeof(double) * 3);
-			oB.writeRawData((char *)&meshData.colorIndices[i], sizeof(double) * 1);
+			oB.writeRawData((char *)&meshData.vertices->at(i * 3), sizeof(double) * 3);
+			oB.writeRawData((char *)&meshData.colorIndices->at(i), sizeof(double) * 1);
 			oB.writeRawData((char *)&alpha, sizeof(double) * 1);
 		}
 		else
 		{
 			oT << QString("%1 %2 %3")
-							.arg(meshData.vertices[i * 3])
-							.arg(meshData.vertices[i * 3 + 1])
-							.arg(meshData.vertices[i * 3 + 2])
+							.arg(meshData.vertices->at(i * 3))
+							.arg(meshData.vertices->at(i * 3 + 1))
+							.arg(meshData.vertices->at(i * 3 + 2))
 							.toLatin1();
-			oT << QString(" %1 %2").arg(meshData.colorIndices[i].R).arg(alpha).toLatin1();
+			oT << QString(" %1 %2").arg(meshData.colorIndices->at(i).R).arg(alpha).toLatin1();
 		}
 
 		if (withColor)
 		{
-			sRGB8 colour = meshData.colorIndices[i];
+			sRGB8 colour = meshData.colorIndices->at(i);
 			if (isBinary)
 			{
 				oB.writeRawData((char *)&colour, sizeof(sRGB8));
@@ -172,13 +172,13 @@ void MeshFileSavePLY::SavePLY()
 	}
 
 	// write polygons
-	for (unsigned int i = 0; i < meshData.polygons.size(); i += 3)
+	for (unsigned long long i = 0; i < meshData.polygons->size(); i += 3)
 	{
 		if (isBinary)
 		{
-			int p1 = meshData.polygons[i + 2];
-			int p2 = meshData.polygons[i + 1];
-			int p3 = meshData.polygons[i + 0];
+			int p1 = meshData.polygons->at(i + 2);
+			int p2 = meshData.polygons->at(i + 1);
+			int p3 = meshData.polygons->at(i + 0);
 			oB.writeRawData((char *)&polygonSize, sizeof(char) * 1);
 			oB.writeRawData((char *)&p1, sizeof(int) * 1);
 			oB.writeRawData((char *)&p2, sizeof(int) * 1);
@@ -188,9 +188,9 @@ void MeshFileSavePLY::SavePLY()
 		{
 			oT << QString("%1 %2 %3 %4\n")
 							.arg((int)polygonSize)
-							.arg(meshData.polygons[i + 2])
-							.arg(meshData.polygons[i + 1])
-							.arg(meshData.polygons[i + 0])
+							.arg(meshData.polygons->at(i + 2))
+							.arg(meshData.polygons->at(i + 1))
+							.arg(meshData.polygons->at(i + 0))
 							.toLatin1();
 		}
 	}

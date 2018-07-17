@@ -1330,7 +1330,6 @@ bool cOpenClEngineRenderFractal::Render(
 	// TODO write render slice code
 
 	constantInMeshExportBuffer->sliceIndex = sliceIndex;
-	qDebug() << sliceIndex;
 
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;

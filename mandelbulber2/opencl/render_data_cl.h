@@ -42,7 +42,7 @@ typedef struct
 	float3 viewVectorNotRotated;
 #endif
 
-#ifdef FULL_ENGINE
+#if defined(FULL_ENGINE) || defined(MESH_EXPORT)
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
 	int *paletteLengths;

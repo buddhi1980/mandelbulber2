@@ -87,15 +87,21 @@ public:
 
 	struct structSaveMeshData
 	{
-		structSaveMeshData() {}
-		structSaveMeshData(std::vector<double> &_vertices, std::vector<long long> &_polygons,
-			std::vector<sRGB8> &_colorIndices)
+		structSaveMeshData()
+		{
+			vertices = nullptr;
+			polygons = nullptr;
+			colorIndices = nullptr;
+		}
+
+		structSaveMeshData(std::vector<double> *_vertices, std::vector<long long> *_polygons,
+			std::vector<sRGB8> *_colorIndices)
 				: vertices(_vertices), polygons(_polygons), colorIndices(_colorIndices)
 		{
 		}
-		std::vector<double> vertices;
-		std::vector<long long> polygons;
-		std::vector<sRGB8> colorIndices;
+		std::vector<double> *vertices;
+		std::vector<long long> *polygons;
+		std::vector<sRGB8> *colorIndices;
 	};
 
 	static QString MeshFileExtension(enumMeshFileType meshFileType);

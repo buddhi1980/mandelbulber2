@@ -168,7 +168,7 @@ void cMeshExport::ProcessVolume()
 	}
 
 	// Save to file
-	MeshFileSave::structSaveMeshData meshData(vertices, polygons, colorsRGB);
+	MeshFileSave::structSaveMeshData meshData(&vertices, &polygons, &colorsRGB);
 	MeshFileSave *meshFileSave = MeshFileSave::create(outputFileName, meshConfig, meshData);
 	QObject::connect(meshFileSave,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
