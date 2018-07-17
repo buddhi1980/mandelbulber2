@@ -108,8 +108,8 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 
 	float3 point;
 	point.x = meshConfig->limitMin.x + meshConfig->sliceIndex * delta.x;
-	point.y = meshConfig->limitMin.x + imageX * delta.y;
-	point.z = meshConfig->limitMin.x + imageY * delta.z;
+	point.y = meshConfig->limitMin.y + imageY * delta.y;
+	point.z = meshConfig->limitMin.z + imageX * delta.z;
 
 	sClCalcParams calcParam;
 	calcParam.N = meshConfig->maxiter;

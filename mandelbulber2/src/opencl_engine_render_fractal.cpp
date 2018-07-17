@@ -1205,6 +1205,28 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		return false;
 	}
 
+	if (meshExportMode)
+	{
+		err = queue->enqueueWriteBuffer(
+			*inCLConstMeshExportBuffer, CL_TRUE, 0, sizeof(sClMeshExport), constantInMeshExportBuffer);
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
+		{
+			emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1")
+															.arg(QObject::tr("constant mesh export buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+
+		err = queue->finish();
+		if (!checkErr(err, "CommandQueue::finish() - inCLConstMeshExportBuffer"))
+		{
+			emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1")
+															.arg(QObject::tr("constant mesh export buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
 	return true;
 }
 
@@ -1308,6 +1330,7 @@ bool cOpenClEngineRenderFractal::Render(
 	// TODO write render slice code
 
 	constantInMeshExportBuffer->sliceIndex = sliceIndex;
+	qDebug() << sliceIndex;
 
 	// writing data to queue
 	if (!WriteBuffersToQueue()) return false;
@@ -1318,7 +1341,7 @@ bool cOpenClEngineRenderFractal::Render(
 	optimalJob.stepSizeX = constantInMeshExportBuffer->sliceWidth;
 	size_t pixelsLeftX = optimalJob.stepSizeX;
 
-	optimalJob.stepSizeY = constantInMeshExportBuffer->sliceWidth;
+	optimalJob.stepSizeY = constantInMeshExportBuffer->sliceHeight;
 	size_t pixelsLeftY = optimalJob.stepSizeY;
 
 	// processing queue
@@ -1326,7 +1349,18 @@ bool cOpenClEngineRenderFractal::Render(
 
 	if (!ReadBuffersFromQueue()) return false;
 
-	qDebug() << "processed";
+	for (int y = 0; y < constantInMeshExportBuffer->sliceHeight; y++)
+	{
+		for (int x = 0; x < constantInMeshExportBuffer->sliceWidth; x++)
+		{
+			size_t address = x + y * constantInMeshExportBuffer->sliceWidth;
+			double distance =
+				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshDistancesIndex].ptr))[address];
+			distances[address
+								+ constantInMeshExportBuffer->sliceWidth
+										* constantInMeshExportBuffer->sliceHeight] = distance;
+		}
+	}
 
 	return true;
 }

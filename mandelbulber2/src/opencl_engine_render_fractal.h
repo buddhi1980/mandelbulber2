@@ -101,6 +101,8 @@ public:
 
 private:
 	const int outputIndex = 0;
+	const int outputMeshDistancesIndex = 0;
+	const int outputMeshColorsIndex = 1;
 
 	QString GetKernelName() override;
 
