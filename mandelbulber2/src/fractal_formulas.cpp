@@ -10373,9 +10373,17 @@ void TransfRotationFoldingIteration(CVector4 &z, const sFractal *fractal, sExten
 void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
+
+	/*z *= fractal->transformCommon.scale;
 	double DEoffset = 1.0;
 	if (fractal->transformCommon.functionEnabledFalse) DEoffset = fractal->analyticDE.offset0;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + DEoffset;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + DEoffset;*/
 }
 
 /**
@@ -10603,6 +10611,154 @@ void TransfScale3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	z *= fractal->transformCommon.scale3D111;
 	aux.DE = aux.DE * z.Length() / aux.r + 1.0;
 }
+
+/**
+ * sin or cos z
+ */
+void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+	//CVector4 oldZ = z;
+	CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
+
+	if (fractal->transformCommon.functionEnabledAx)
+	{
+		if (!fractal->transformCommon.functionEnabledAxFalse) trigZ.x = sin(scaleZ.x);
+		else trigZ.x = cos(scaleZ.x); // scale =0, cos = 1
+	}
+	if (fractal->transformCommon.functionEnabledAy)
+	{
+		if (!fractal->transformCommon.functionEnabledAyFalse) trigZ.y = sin(scaleZ.y);
+		else trigZ.y = cos(scaleZ.y);
+	}
+	if (fractal->transformCommon.functionEnabledAz)
+	{
+		if (!fractal->transformCommon.functionEnabledAzFalse) trigZ.z = sin(scaleZ.z);
+		else trigZ.z = cos(scaleZ.z);
+	}
+
+	 z = trigZ * fractal->transformCommon.scale;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
+}
+
+/**
+ * sin and cos
+ */
+void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+	CVector4 oldZ = z;
+	CVector4 sinZ = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 cosZ = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
+
+	if (fractal->transformCommon.functionEnabledAx) sinZ.x = sin(scaleZ.x); // scale =0, sin = 0
+	if (fractal->transformCommon.functionEnabledAy) sinZ.y = sin(scaleZ.y);
+	if (fractal->transformCommon.functionEnabledAz) sinZ.z = sin(scaleZ.z);
+
+	if (fractal->transformCommon.functionEnabledAxFalse) cosZ.x = cos(scaleZ.x); // scale =0, cos = 1
+	if (fractal->transformCommon.functionEnabledAyFalse) cosZ.y = cos(scaleZ.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) cosZ.z = cos(scaleZ.z);
+
+	double postScale = fractal->transformCommon.scale;
+
+	if (!fractal->transformCommon.functionEnabledFalse) z = (sinZ + cosZ) * postScale;
+	else
+	{
+		/*enumMulti_orderOfFolds foldN[5] = {fractal->surfFolds.orderOfFolds1,
+			fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
+			fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
+
+		for (int f = 0; f < 5; f++)
+		{
+			switch (foldN[f])
+			{
+				case multi_orderOfFolds_type1:
+				default:
+					z = sinZ * cosZ * postScale;
+					break;
+				case multi_orderOfFolds_type2:
+					z = oldZ + (sinZ + cosZ) * postScale;
+					break;
+				case multi_orderOfFolds_type3:
+					z = oldZ + (sinZ * cosZ) * postScale;
+					break;
+				case multi_orderOfFolds_type4:
+					z = oldZ * (sinZ + cosZ) * postScale;
+					break;
+				case multi_orderOfFolds_type5:
+					z = oldZ * (sinZ * cosZ) * postScale;
+					break;
+			}
+		}*/
+		if (fractal->transformCommon.functionEnabled) z = sinZ * cosZ * postScale;
+		if (fractal->transformCommon.functionEnabledBxFalse) z = oldZ + (sinZ + cosZ) * postScale;
+		if (fractal->transformCommon.functionEnabledByFalse) z = oldZ + (sinZ * cosZ) * postScale;
+		if (fractal->transformCommon.functionEnabledCxFalse) z = oldZ * (sinZ + cosZ) * postScale;
+		if (fractal->transformCommon.functionEnabledCyFalse) z = oldZ * (sinZ * cosZ) * postScale;
+	}
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
+}
+
+/**
+ * max sin - cos
+ */
+void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	CVector4 sinZ = z * fractal->transformCommon.constantMultiplierA111;
+	CVector4 cosZ = z * fractal->transformCommon.constantMultiplierB111;
+	sinZ.x = sin(sinZ.x);
+	sinZ.y = sin(sinZ.y);
+	sinZ.z = sin(sinZ.z);
+	cosZ.x = cos(cosZ.x);
+	cosZ.y = cos(cosZ.y);
+	cosZ.z = cos(cosZ.z);
+	CVector4 sinCosZ = sinZ * cosZ;
+	CVector4 maxZ = z;
+	maxZ.x = max(max(sinZ.x,cosZ.x), sinCosZ.x);
+	maxZ.y = max(max(sinZ.y,cosZ.y), sinCosZ.y);
+	maxZ.z = max(max(sinZ.z,cosZ.z), sinCosZ.z);
+
+	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		z = maxZ * fractal->transformCommon.scale;
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabled)
+		{ z += maxZ * fractal->transformCommon.scale;
+
+		}
+		else
+		{
+			// todo
+		}
+	}
+
+	if (fractal->analyticDE.enabled) // temp
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+		else
+			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset1;
+	}
+
+}
+
 
 /**
  * spherical invert
@@ -12527,7 +12683,7 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		}
 	}
 
-	if (!fractal->analyticDE.enabledFalse)
+	if (!fractal->analyticDE.enabledFalse) // testing
 		aux.DE *= fractal->transformCommon.scaleA2;
 	else
 		aux.DE = aux.DE * fractal->transformCommon.scaleA2 * fractal->analyticDE.scale1
