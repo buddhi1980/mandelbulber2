@@ -240,6 +240,11 @@ void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfScaleVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScale3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

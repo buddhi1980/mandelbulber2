@@ -276,6 +276,10 @@ enum enumFractalFormula
 	// 2.14
 	transfPolyFoldSym = 1080,
 	transfPolyFoldSymMulti = 1081,
+	// 2.15
+	transfSinOrCos = 1082,
+	transfSinAndCos = 1083,
+	transfSinAndCosMax = 1084,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

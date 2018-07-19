@@ -624,6 +624,18 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfScale3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("T>Sin Or Cos", "transf_sin_or_cos", transfSinOrCos,
+		TransfSinOrCosIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Sin And Cos", "transf_sin_and_cos", transfSinAndCos,
+		TransfSinAndCosIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Sin And Cos - Max", "transf_sin_and_cos_max", transfSinAndCosMax,
+		TransfSinAndCosMaxIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+
+
+
 	// Spherical Transforms
 	fractalList->append(sFractalDescription("T>Spherical Invert", "transf_spherical_inv",
 		transfSphericalInv, TransfSphericalInvIteration, analyticDEType, linearDEFunction,
