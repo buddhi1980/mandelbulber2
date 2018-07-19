@@ -32,7 +32,8 @@
    <item>
     <widget class="QLabel" name="label_113">
      <property name="text">
-      <string>z = sin(z*scale)  * postScale;</string>
+      <string>z = sin(z*scale)  * postScale;
+pre-transform, slot#1 for 1 iteration  </string>
      </property>
     </widget>
    </item>
@@ -234,6 +235,9 @@
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the DE every time this slot is iterated.&lt;/p&gt;&lt;p&gt;The aim is to keep these parameters as low as possible.&lt;/p&gt;&lt;p&gt;High values improve the DE, but detail is lost.&lt;/p&gt;&lt;p&gt;Occasionally a negative Offset value is used. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="title">
       <string>Analytic  D&amp;E extra controls</string>
      </property>
