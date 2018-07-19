@@ -18,6 +18,7 @@ typedef struct
 	cl_int sliceWidth;	// must be size.x + 1
 	cl_int sliceHeight; // must be size.y + 1
 	cl_int sliceIndex;
+	cl_int coloredMesh;
 
 } sClMeshExport;
 

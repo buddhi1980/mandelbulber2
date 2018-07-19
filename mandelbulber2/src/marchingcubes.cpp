@@ -92,6 +92,8 @@ MarchingCubes::MarchingCubes(const cParameterContainer *paramsContainer,
 	voxelBuffer = nullptr;
 	colorBuffer = nullptr;
 
+	coloredMesh = paramsContainer->Get<bool>("mesh_color");
+
 	try
 	{
 		shared_indices = new long long[2 * numy * numz * 3];
@@ -127,6 +129,7 @@ void MarchingCubes::RunMarchingCube()
 	clMeshParams.size = toClInt3(numx, numy, numz);
 	clMeshParams.sliceHeight = numy + 1;
 	clMeshParams.sliceWidth = numz + 1;
+	clMeshParams.coloredMesh = coloredMesh;
 
 	if (openClEnabled)
 	{
@@ -141,6 +144,13 @@ void MarchingCubes::RunMarchingCube()
 				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		}
+		else
+		{
+			emit finished();
+			gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			gOpenCl->openClEngineRenderFractal->Unlock();
+			return;
 		}
 	}
 
@@ -168,6 +178,13 @@ void MarchingCubes::RunMarchingCube()
 		{
 			bool result = gOpenCl->openClEngineRenderFractal->Render(
 				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData);
+
+			if (!result)
+			{
+				gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+				gOpenCl->openClEngineRenderFractal->Unlock();
+				return;
+			}
 		}
 #endif // USE_OPENCL
 

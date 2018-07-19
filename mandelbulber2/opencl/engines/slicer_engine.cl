@@ -60,13 +60,10 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	//-------- decode data file ----------------
 	// main offset for materials
 
-	/*
 	int materialsMainOffset = GetInteger(0, inBuff);
-	*/
 
 	int primitivesMainOffset = GetInteger(3 * sizeof(int), inBuff);
 
-	/*
 	//--- main material
 
 	// number of materials
@@ -78,16 +75,9 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 
 	// material header
 	int materialClOffset = GetInteger(material0Offset, inBuff);
-	int paletteItemsOffset = GetInteger(material0Offset + sizeof(int), inBuff);
-	int paletteSize = GetInteger(material0Offset + sizeof(int) * 2, inBuff);
-	int paletteLength = GetInteger(material0Offset + sizeof(int) * 3, inBuff);
 
 	// material data
 	__global sMaterialCl *material = (__global sMaterialCl *)&inBuff[materialClOffset];
-
-	// palette data
-	__global float4 *palette = (__global float4 *)&inBuff[paletteItemsOffset];
-*/
 
 	//--- Primitives
 
@@ -132,8 +122,16 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	outF = CalculateDistance(consts, point, &calcParam, &renderData);
 	float distance = outF.distance;
 
-	// color4 = (float4){color.s0, color.s1, color.s2, alpha};
+#ifdef MESH_EXPORT_COLOR
+	int formulaIndex = -1;
+
+	__global sFractalColoringCl *fractalColoring = &material->fractalColoring;
+	outF = Fractal(consts, point, &calcParam, calcModeColouring, fractalColoring, formulaIndex);
+	float color = outF.colorIndex;
+#else
+	float color = 0.0f;
+#endif
 
 	outDistances[buffIndex] = distance;
-	outColor[buffIndex] = 0.0f; // TODO color calculation
+	outColor[buffIndex] = color; // TODO color calculation
 }

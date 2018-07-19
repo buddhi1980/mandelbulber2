@@ -106,6 +106,7 @@ private:
 	double dist_thresh;
 	const cParameterContainer *paramsContainer;
 	const cFractalContainer *fractalContainer;
+	bool coloredMesh;
 
 	bool *stop;
 	std::vector<double> &vertices;
