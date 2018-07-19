@@ -97,7 +97,11 @@ void cMeshExport::ProcessVolume()
 	double maxSize = dMax(sizeX, sizeY, sizeZ);
 	double step = maxSize / w;
 
-	double dist_thresh = 0.5 * step / params->detailLevel;
+	double dist_thresh;
+	if (!params->constantDEThreshold)
+		dist_thresh = 0.5 * step / params->detailLevel;
+	else
+		dist_thresh = params->DEThresh;
 
 	// extension by one at each side
 	double extension = step + dist_thresh;

@@ -119,7 +119,10 @@ void MarchingCubes::RunMarchingCube()
 	bool openClEnabled = false;
 #ifdef USE_OPENCL
 
-	openClEnabled = paramsContainer->Get<bool>("opencl_enabled");
+	openClEnabled =
+		paramsContainer->Get<bool>("opencl_enabled")
+		&& cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
+				 != cOpenClEngineRenderFractal::clRenderEngineTypeNone;
 
 	sClMeshExport clMeshParams;
 	clMeshParams.distThresh = dist_thresh;

@@ -39,6 +39,8 @@
 
 #include "voxel_export.hpp"
 
+#include <QScopedPointer>
+#include <QVector>
 #include "calculate_distance.hpp"
 #include "common_math.h"
 #include "file_image.hpp"
@@ -46,7 +48,11 @@
 #include "fractparams.hpp"
 #include "initparameters.hpp"
 #include "nine_fractals.hpp"
+#include "object_data.hpp"
+#include "opencl_engine_render_fractal.h"
+#include "opencl_global.h"
 #include "progress_text.hpp"
+#include "render_data.hpp"
 
 cVoxelExport::cVoxelExport(
 	int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter)
@@ -70,18 +76,71 @@ cVoxelExport::~cVoxelExport()
 
 void cVoxelExport::ProcessVolume()
 {
-	const cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
-	sParamRender *params = new sParamRender(gPar);
+	QScopedPointer<sRenderData> renderData(new sRenderData);
+	renderData->objectData.resize(NUMBER_OF_FRACTALS);
+
+	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
+	sParamRender *params = new sParamRender(gPar, &renderData->objectData);
+
+	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
 
 	params->N = maxIter;
 
 	const double stepX = (limitMax.x - limitMin.x) * (1.0 / w);
 	const double stepY = (limitMax.y - limitMin.y) * (1.0 / h);
 	const double stepZ = (limitMax.z - limitMin.z) * (1.0 / l);
-	const double dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
+
+	double dist_thresh;
+	if (!params->constantDEThreshold)
+		dist_thresh = 0.5 * dMin(stepX, stepY, stepZ) / params->detailLevel;
+	else
+		dist_thresh = params->DEThresh;
 
 	cProgressText progressText;
 	progressText.ResetTimer();
+
+	bool openClEnabled = false;
+
+#ifdef USE_OPENCL
+	openClEnabled =
+		gPar->Get<bool>("opencl_enabled")
+		&& cOpenClEngineRenderFractal::enumClRenderEngineMode(gPar->Get<int>("opencl_mode"))
+				 != cOpenClEngineRenderFractal::clRenderEngineTypeNone;
+
+	sClMeshExport clMeshParams;
+	clMeshParams.distThresh = dist_thresh;
+	clMeshParams.limitMax = toClFloat3(limitMax);
+	clMeshParams.limitMin = toClFloat3(limitMin);
+	clMeshParams.maxiter = params->N;
+	clMeshParams.size = toClInt3(w, h, l);
+	clMeshParams.sliceHeight = h;
+	clMeshParams.sliceWidth = w;
+	clMeshParams.coloredMesh = false;
+
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->Lock();
+		gOpenCl->openClEngineRenderFractal->SetParameters(
+			gPar, gParFractal, params, fractals, renderData.data(), true);
+		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
+		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
+		{
+			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(gPar);
+			WriteLogDouble("OpenCl render fractal - needed mem:",
+				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
+			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(gPar);
+			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		}
+		else
+		{
+			emit finished();
+			gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			gOpenCl->openClEngineRenderFractal->Unlock();
+			return;
+		}
+	}
+
+#endif // USE_OPENCL
 
 	for (int z = 0; z < l; z++)
 	{
@@ -91,25 +150,45 @@ void cVoxelExport::ProcessVolume()
 		emit updateProgressAndStatus(
 			tr("Voxel Export") + statusText, progressText.getText(percentDone), percentDone);
 
-#pragma omp parallel for
-		for (int x = 0; x < w; x++)
+#ifdef USE_OPENCL
+		if (openClEnabled)
 		{
-			CVector3 point;
-			for (int y = 0; y < h; y++)
-			{
-				if (stop) break;
-				point.x = limitMin.x + x * stepX;
-				point.y = limitMin.y + y * stepY;
-				point.z = limitMin.z + z * stepZ;
+			//			bool result = gOpenCl->openClEngineRenderFractal->Render(
+			//				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData);
+			//
+			//			if (!result)
+			//			{
+			//				gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+			//				gOpenCl->openClEngineRenderFractal->Unlock();
+			//				return;
+			//			}
 
-				sDistanceOut distanceOut;
-				const sDistanceIn distanceIn(point, dist_thresh, false);
-
-				const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
-
-				voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
-			}
+			// TODO buffer for distances and conversion from distances to binary
 		}
+#endif // USE_OPENCL
+
+		if (!openClEnabled)
+		{
+#pragma omp parallel for schedule(dynamic, 1)
+			for (int x = 0; x < w; x++)
+			{
+				CVector3 point;
+				for (int y = 0; y < h; y++)
+				{
+					if (stop) break;
+					point.x = limitMin.x + x * stepX;
+					point.y = limitMin.y + y * stepY;
+					point.z = limitMin.z + z * stepZ;
+
+					sDistanceOut distanceOut;
+					const sDistanceIn distanceIn(point, dist_thresh, false);
+
+					const double dist = CalculateDistance(*params, *fractals, distanceIn, &distanceOut);
+
+					voxelLayer[x + y * w] = static_cast<unsigned char>(dist <= dist_thresh);
+				} // for y
+			}		// for x
+		}			// if not openClEnabled
 
 		if (stop || !StoreLayer(z))
 		{
