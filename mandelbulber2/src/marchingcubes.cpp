@@ -179,8 +179,9 @@ void MarchingCubes::RunMarchingCube()
 #ifdef USE_OPENCL
 		if (openClEnabled)
 		{
+			size_t dataOffset = clMeshParams.sliceHeight * clMeshParams.sliceWidth;
 			bool result = gOpenCl->openClEngineRenderFractal->Render(
-				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData);
+				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData, dataOffset);
 
 			if (!result)
 			{

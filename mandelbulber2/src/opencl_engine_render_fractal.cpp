@@ -1324,8 +1324,8 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	return true;
 }
 
-bool cOpenClEngineRenderFractal::Render(
-	double *distances, double *colors, int sliceIndex, bool *stopRequest, sRenderData *renderData)
+bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int sliceIndex,
+	bool *stopRequest, sRenderData *renderData, size_t dataOffset)
 {
 	Q_UNUSED(renderData);
 
@@ -1355,15 +1355,14 @@ bool cOpenClEngineRenderFractal::Render(
 			size_t address = x + y * constantInMeshExportBuffer->sliceWidth;
 			double distance =
 				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshDistancesIndex].ptr))[address];
-			distances[address
-								+ constantInMeshExportBuffer->sliceWidth
-										* constantInMeshExportBuffer->sliceHeight] = distance;
+			distances[address + dataOffset] = distance;
 
-			double color =
-				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshColorsIndex].ptr))[address];
-			colors[address
-						 + constantInMeshExportBuffer->sliceWidth * constantInMeshExportBuffer->sliceHeight] =
-				color;
+			if (colors)
+			{
+				double color =
+					(reinterpret_cast<cl_float *>(outputBuffers[outputMeshColorsIndex].ptr))[address];
+				colors[address + dataOffset] = color;
+			}
 		}
 	}
 

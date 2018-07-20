@@ -40,6 +40,7 @@
 #include "voxel_export.hpp"
 
 #include <QScopedPointer>
+#include <QtCore>
 #include <QVector>
 #include "calculate_distance.hpp"
 #include "common_math.h"
@@ -65,13 +66,13 @@ cVoxelExport::cVoxelExport(
 	this->limitMax = limitMax;
 	this->folder = folder;
 	this->maxIter = maxIter;
-	voxelLayer = new unsigned char[w * h];
+	voxelLayer.reset(new unsigned char[w * h]);
 	stop = false;
 }
 
 cVoxelExport::~cVoxelExport()
 {
-	delete[] voxelLayer;
+	// nothing to delete
 }
 
 void cVoxelExport::ProcessVolume()
@@ -79,8 +80,8 @@ void cVoxelExport::ProcessVolume()
 	QScopedPointer<sRenderData> renderData(new sRenderData);
 	renderData->objectData.resize(NUMBER_OF_FRACTALS);
 
-	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
-	sParamRender *params = new sParamRender(gPar, &renderData->objectData);
+	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
+	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
 	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
 
@@ -100,6 +101,7 @@ void cVoxelExport::ProcessVolume()
 	progressText.ResetTimer();
 
 	bool openClEnabled = false;
+	QScopedArrayPointer<double> voxelDistances;
 
 #ifdef USE_OPENCL
 	openClEnabled =
@@ -121,7 +123,7 @@ void cVoxelExport::ProcessVolume()
 	{
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
-			gPar, gParFractal, params, fractals, renderData.data(), true);
+			gPar, gParFractal, params.data(), fractals.data(), renderData.data(), true);
 		gOpenCl->openClEngineRenderFractal->SetMeshExportParameters(&clMeshParams);
 		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(gPar))
 		{
@@ -138,11 +140,13 @@ void cVoxelExport::ProcessVolume()
 			gOpenCl->openClEngineRenderFractal->Unlock();
 			return;
 		}
+
+		voxelDistances.reset(new double[w * h]);
 	}
 
 #endif // USE_OPENCL
 
-	for (int z = 0; z < l; z++)
+	for (size_t z = 0; z < l; z++)
 	{
 		const QString statusText =
 			" - " + tr("Processing layer %1 of %2").arg(QString::number(z + 1), QString::number(l));
@@ -153,27 +157,35 @@ void cVoxelExport::ProcessVolume()
 #ifdef USE_OPENCL
 		if (openClEnabled)
 		{
-			//			bool result = gOpenCl->openClEngineRenderFractal->Render(
-			//				voxelBuffer, colorBuffer, i, renderData->stopRequest, renderData);
-			//
-			//			if (!result)
-			//			{
-			//				gOpenCl->openClEngineRenderFractal->ReleaseMemory();
-			//				gOpenCl->openClEngineRenderFractal->Unlock();
-			//				return;
-			//			}
+			bool result = gOpenCl->openClEngineRenderFractal->Render(
+				voxelDistances.data(), nullptr, z, renderData->stopRequest, renderData.data(), 0);
 
-			// TODO buffer for distances and conversion from distances to binary
+			if (!result)
+			{
+				gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+				gOpenCl->openClEngineRenderFractal->Unlock();
+				return;
+			}
+
+			for (size_t x = 0; x < w; x++)
+			{
+				for (size_t y = 0; y < h; y++)
+				{
+					size_t address = x + y * w;
+					voxelLayer[address] = static_cast<unsigned char>(voxelDistances[address] <= dist_thresh);
+				}
+			}
 		}
+
 #endif // USE_OPENCL
 
 		if (!openClEnabled)
 		{
 #pragma omp parallel for schedule(dynamic, 1)
-			for (int x = 0; x < w; x++)
+			for (size_t x = 0; x < w; x++)
 			{
 				CVector3 point;
-				for (int y = 0; y < h; y++)
+				for (size_t y = 0; y < h; y++)
 				{
 					if (stop) break;
 					point.x = limitMin.x + x * stepX;
@@ -196,8 +208,14 @@ void cVoxelExport::ProcessVolume()
 		}
 	}
 
-	delete fractals;
-	delete params;
+#ifdef USE_OPENCL
+	if (openClEnabled)
+	{
+		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		gOpenCl->openClEngineRenderFractal->Unlock();
+	}
+#endif // USE_OPENCL
+
 	QString statusText;
 	if (stop)
 		statusText = tr("Voxel Export finished - Cancelled export");
@@ -211,7 +229,7 @@ bool cVoxelExport::StoreLayer(int z) const
 {
 	const QString filename =
 		folder.absolutePath() + QDir::separator() + QString("layer_%1.png").arg(z, 5, 10, QChar('0'));
-	if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer, w, h))
+	if (!ImageFileSavePNG::SavePNGQtBlackAndWhite(filename, voxelLayer.data(), w, h))
 	{
 		qCritical() << "Cannot write to file " << filename;
 		return false;

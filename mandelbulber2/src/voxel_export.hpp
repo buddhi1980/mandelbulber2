@@ -63,8 +63,8 @@ public slots:
 private:
 	bool StoreLayer(int z) const;
 
-	unsigned char *voxelLayer;
-	int w, h, l;
+	QScopedArrayPointer<unsigned char> voxelLayer;
+	size_t w, h, l;
 	CVector3 limitMin;
 	CVector3 limitMax;
 	QDir folder;
