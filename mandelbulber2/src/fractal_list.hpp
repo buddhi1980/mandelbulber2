@@ -280,6 +280,7 @@ enum enumFractalFormula
 	transfSinOrCos = 1082,
 	transfSinAndCos = 1083,
 	transfSinAndCosMax = 1084,
+	transfBlockify = 1085,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

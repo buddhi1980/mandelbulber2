@@ -177,7 +177,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	surfBox.offset1B222 = CVector4(container->Get<CVector3>("surfBox_offset1B_222"), 0.0);
 	surfBox.scale1Z1 = container->Get<double>("surfBox_scale1Z1");
 
-	// surfFolds
+	// FIVE  surfFolds
 	surfFolds.orderOfFolds1 =
 		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_1"));
 	surfFolds.orderOfFolds2 =
@@ -189,7 +189,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	surfFolds.orderOfFolds5 =
 		enumMulti_orderOfFolds(container->Get<int>("surfFolds_order_of_folds_5"));
 
-	// asurf3Folds
+	// THREE  asurf3Folds
 	aSurf3Folds.orderOf3Folds1 =
 		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_1"));
 	aSurf3Folds.orderOf3Folds2 =

@@ -9287,6 +9287,74 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
 }
 
 /**
+ * Blockify
+ * based on a block of Fragmentarium code, from Adam Nixon
+ * analytic aux.DE
+ */
+void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	//CVector4 oldZ = z;
+	double master = fractal->transformCommon.scale / 100.0;
+	CVector4 bSize = fractal->transformCommon.constantMultiplier111 * master;
+	// bsize maybe shortened to a double??
+
+	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledDFalse)
+		{
+			if (fractal->transformCommon.functionEnabledCx)
+			z.x = int(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy)
+			z.y = int(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz)
+			z.z = int(z.z / bSize.z) * bSize.z;
+		}
+		else // normalize
+		{
+			double rr = z.Dot(z);
+			z /= rr;
+			bSize /= 100.0;
+			if (fractal->transformCommon.functionEnabledCx)
+			z.x = int(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy)
+			z.y = int(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz)
+			z.z = int(z.z / bSize.z) * bSize.z;
+			z *= rr;
+		}
+	}
+	else // radial
+	{
+		double rr = z.Dot(z);
+		if (fractal->transformCommon.functionEnabledRFalse) rr = sqrt(rr); // z.Length();
+		if (fractal->transformCommon.functionEnabledBxFalse) rr = z.x * z.x + z.y * z.y;
+		if (fractal->transformCommon.functionEnabledByFalse) rr = z.y * z.y + z.z * z.z;
+		if (fractal->transformCommon.functionEnabledBzFalse) rr = z.z * z.z + z.x * z.x;
+		z /= rr;
+		rr = int( rr / master) * master;
+		z *= rr;
+	}
+
+	// DE thing that has no effect, too small diff?
+	/*if (fractal->transformCommon.functionEnabled)
+	{
+		double AN = z.Length()/ oldZ.Length();
+		aux.DE *= AN;
+	}*/
+
+	// post scale
+	z *=fractal->transformCommon.scale1;
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE *= fractal->transformCommon.scale1;
+		else
+			aux.DE = aux.DE * fractal->transformCommon.scale1 * fractal->analyticDE.scale1
+							 + fractal->analyticDE.offset0;
+	}
+}
+
+/**
  * Box Fold
  * This formula contains aux.color
  */
@@ -10617,7 +10685,8 @@ void TransfScale3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
  */
 void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	//Q_UNUSED(aux);
+
 	//CVector4 oldZ = z;
 	CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
@@ -10638,8 +10707,8 @@ void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		else trigZ.z = cos(scaleZ.z);
 	}
 
-	 z = trigZ * fractal->transformCommon.scale;
-
+	z = trigZ * fractal->transformCommon.scale;
+	//   if z == oldZ    z = oldZ * fractal->transformCommon.scale;
 	if (!fractal->analyticDE.enabledFalse)
 		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
 	else
@@ -10652,7 +10721,7 @@ void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  */
 void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	//Q_UNUSED(aux);
 	CVector4 oldZ = z;
 	CVector4 sinZ = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 cosZ = CVector4(0.0, 0.0, 0.0, 0.0);
@@ -10716,7 +10785,7 @@ void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	//Q_UNUSED(aux);
 
 	CVector4 sinZ = z * fractal->transformCommon.constantMultiplierA111;
 	CVector4 cosZ = z * fractal->transformCommon.constantMultiplierB111;

@@ -519,6 +519,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfBenesiSphereCube, TransfBenesiSphereCubeIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
+
+
 	// Box Fold Transforms
 	fractalList->append(sFractalDescription("T>Box Fold", "transf_box_fold", transfBoxFold,
 		TransfBoxFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
@@ -751,4 +753,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog,
 		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>Blockify", "transf_blockify", transfBlockify,
+		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
 }
