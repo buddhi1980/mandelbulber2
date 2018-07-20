@@ -204,10 +204,14 @@ void TransfBenesiT2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 void TransfBenesiT3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBenesiT4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBenesiT5bIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void TransfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxFoldXYZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+
 void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

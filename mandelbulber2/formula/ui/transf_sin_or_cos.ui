@@ -196,13 +196,6 @@ pre-transform, slot#1 for 1 iteration  </string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_121">
-       <property name="text">
-        <string>post scale z</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
        <property name="sizePolicy">
@@ -228,6 +221,13 @@ pre-transform, slot#1 for 1 iteration  </string>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_121">
+       <property name="text">
+        <string>post scale z</string>
        </property>
       </widget>
      </item>
