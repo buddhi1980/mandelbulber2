@@ -236,7 +236,8 @@ void MarchingCubes::calculateVoxelPlane(int i)
 #endif // USE_OFFLOAD
 
 #pragma omp parallel for schedule(dynamic, 1)
-			for (long long kk = 0; kk < numzb; ++kk)
+			for (long long kk = 0; kk < numzb;
+					 ++kk) // long long is used because size_t doesn't work with msvc and OpenMP
 			{
 				long long ptr = ii * numyzb + jj * numzb + kk;
 

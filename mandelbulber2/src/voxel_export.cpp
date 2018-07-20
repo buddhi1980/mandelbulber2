@@ -146,7 +146,7 @@ void cVoxelExport::ProcessVolume()
 
 #endif // USE_OPENCL
 
-	for (size_t z = 0; z < l; z++)
+	for (long long z = 0; z < l; z++)
 	{
 		const QString statusText =
 			" - " + tr("Processing layer %1 of %2").arg(QString::number(z + 1), QString::number(l));
@@ -167,11 +167,11 @@ void cVoxelExport::ProcessVolume()
 				return;
 			}
 
-			for (size_t x = 0; x < w; x++)
+			for (long long x = 0; x < w; x++)
 			{
-				for (size_t y = 0; y < h; y++)
+				for (long long y = 0; y < h; y++)
 				{
-					size_t address = x + y * w;
+					long long address = x + y * w;
 					voxelLayer[address] = static_cast<unsigned char>(voxelDistances[address] <= dist_thresh);
 				}
 			}
@@ -181,11 +181,12 @@ void cVoxelExport::ProcessVolume()
 
 		if (!openClEnabled)
 		{
-#pragma omp parallel for schedule(dynamic, 1)
-			for (size_t x = 0; x < w; x++)
+#pragma omp parallel for schedule( \
+	dynamic, 1) // long long is used because size_t doesn't work with msvc and OpenMP
+			for (long long x = 0; x < w; x++)
 			{
 				CVector3 point;
-				for (size_t y = 0; y < h; y++)
+				for (long long y = 0; y < h; y++)
 				{
 					if (stop) break;
 					point.x = limitMin.x + x * stepX;
