@@ -144,7 +144,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ extendedAux.colorHybrid // transf_hybrid_color inputs
+										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
 
 		// radius components (historic)

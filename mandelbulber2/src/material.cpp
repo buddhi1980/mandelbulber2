@@ -119,9 +119,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
 	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_1e13_false",
 
-	"fractal_coloring_rad_div_de_enabled_false",
-	"fractal_coloring_rad_div_de_weight", "fractal_coloring_rad_div_de_squared_false",
-	"fractal_coloring_rad_div_de_1e13_false",
+	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_de_weight",
+	"fractal_coloring_rad_div_de_squared_false", "fractal_coloring_rad_div_de_1e13_false",
 
 	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_iter_scale", "fractal_coloring_xyz_x_sqrd_enabled_false",

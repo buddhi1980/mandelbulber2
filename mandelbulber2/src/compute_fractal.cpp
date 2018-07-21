@@ -465,7 +465,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// CVector4 zz = z * z;
 				// r = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
 
-
 				case analyticFunctionJosKleinian:
 				{
 					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)

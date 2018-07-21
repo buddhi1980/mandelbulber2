@@ -472,14 +472,17 @@ void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int 
 
 void cPreferencesDialog::UpdateOpenCLMemoryLimits()
 {
-	if(gOpenCl->openClHardware->getDevicesInformation().size() > 0)
+	if (gOpenCl->openClHardware->getDevicesInformation().size() > 0)
 	{
-		cOpenClDevice::sDeviceInformation deviceInformation = gOpenCl->openClHardware->getSelectedDeviceInformation();
+		cOpenClDevice::sDeviceInformation deviceInformation =
+			gOpenCl->openClHardware->getSelectedDeviceInformation();
 		cl_ulong globalMemSize = deviceInformation.globalMemSize / 1024 / 1024;
 		cl_ulong maxMemAllocSize = deviceInformation.maxMemAllocSize / 1024 / 1024;
 		ui->spinboxInt_opencl_memory_limit->setMaximum(globalMemSize);
 		ui->sliderInt_opencl_memory_limit->setMaximum(globalMemSize);
-		ui->label_opencl_suggested_memory_limit->setText(tr("Suggested memory limit (based on CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB").arg(maxMemAllocSize - 1));
+		ui->label_opencl_suggested_memory_limit->setText(
+			tr("Suggested memory limit (based on CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB")
+				.arg(maxMemAllocSize - 1));
 	}
 }
 #endif

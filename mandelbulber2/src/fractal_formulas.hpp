@@ -211,7 +211,6 @@ void TransfBoxFoldVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfBoxFoldXYZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-
 void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

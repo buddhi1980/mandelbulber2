@@ -519,8 +519,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfBenesiSphereCube, TransfBenesiSphereCubeIteration, deltaDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-
-
 	// Box Fold Transforms
 	fractalList->append(sFractalDescription("T>Box Fold", "transf_box_fold", transfBoxFold,
 		TransfBoxFoldIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
@@ -632,11 +630,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Sin And Cos", "transf_sin_and_cos", transfSinAndCos,
 		TransfSinAndCosIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Sin And Cos - Max", "transf_sin_and_cos_max", transfSinAndCosMax,
-		TransfSinAndCosMaxIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
-
-
+	fractalList->append(sFractalDescription("T>Sin And Cos - Max", "transf_sin_and_cos_max",
+		transfSinAndCosMax, TransfSinAndCosMaxIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
 	// Spherical Transforms
 	fractalList->append(sFractalDescription("T>Spherical Invert", "transf_spherical_inv",
