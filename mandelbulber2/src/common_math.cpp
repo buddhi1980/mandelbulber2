@@ -202,11 +202,11 @@ double MagicRound(double val, double maxError)
 		for (int i = 0; i < 10; i++)
 		{
 			rounded = round(val * multiplier);
-			double error = fabs(rounded / multiplier - val) / abs(val);
+			double error = fabs(rounded / multiplier - val) / fabs(val);
 			if (error < maxError) break;
 
 			double rounded5 = rounded + 0.5;
-			error = fabs(rounded5 / multiplier - val) / abs(val);
+			error = fabs(rounded5 / multiplier - val) / fabs(val);
 			if (error < maxError)
 			{
 				rounded = rounded5;
@@ -214,7 +214,7 @@ double MagicRound(double val, double maxError)
 			}
 
 			rounded5 = rounded - 0.5;
-			error = fabs(rounded5 / multiplier - val) / abs(val);
+			error = fabs(rounded5 / multiplier - val) / fabs(val);
 			if (error < maxError)
 			{
 				rounded = rounded5;
@@ -222,7 +222,7 @@ double MagicRound(double val, double maxError)
 			}
 
 			rounded5 = rounded + 0.25;
-			error = fabs(rounded5 / multiplier - val) / abs(val);
+			error = fabs(rounded5 / multiplier - val) / fabs(val);
 			if (error < maxError)
 			{
 				rounded = rounded5;
@@ -230,7 +230,7 @@ double MagicRound(double val, double maxError)
 			}
 
 			rounded5 = rounded - 0.25;
-			error = fabs(rounded5 / multiplier - val) / abs(val);
+			error = fabs(rounded5 / multiplier - val) / fabs(val);
 			if (error < maxError)
 			{
 				rounded = rounded5;
