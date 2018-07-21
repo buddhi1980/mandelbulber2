@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_QUEUE_HPP_
 #define MANDELBULBER2_SRC_QUEUE_HPP_
 
+#include <utility>
+
 #include <QtCore>
 
 // forward declarations
@@ -65,7 +67,7 @@ public:
 	struct structQueueItem
 	{
 		structQueueItem(QString _filename, enumRenderType _renderType)
-				: filename(_filename), renderType(_renderType)
+				: filename(std::move(_filename)), renderType(_renderType)
 		{
 		}
 		bool operator==(const structQueueItem &other) const

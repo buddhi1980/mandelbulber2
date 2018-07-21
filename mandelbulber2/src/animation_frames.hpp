@@ -38,6 +38,8 @@
 #ifndef MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 #define MANDELBULBER2_SRC_ANIMATION_FRAMES_HPP_
 
+#include <utility>
+
 #include <QtGui>
 
 #include "audio_track_collection.h"
@@ -64,8 +66,8 @@ public:
 	{
 		sParameterDescription(QString _parameterName, QString _containerName,
 			parameterContainer::enumVarType _varType, parameterContainer::enumMorphType _morphType)
-				: parameterName(_parameterName),
-					containerName(_containerName),
+				: parameterName(std::move(_parameterName)),
+					containerName(std::move(_containerName)),
 					varType(_varType),
 					morphType(_morphType)
 		{

@@ -41,6 +41,8 @@
 #include <gsl/gsl_interp.h>
 #include <gsl/gsl_spline.h>
 
+#include <utility>
+
 #include <QList>
 
 #include "one_parameter.hpp"
@@ -50,8 +52,8 @@ class cMorph
 public:
 	struct sMorphParameter
 	{
-		sMorphParameter(int _keyframe, const cOneParameter &_parameter)
-				: keyframe(_keyframe), parameter(_parameter)
+		sMorphParameter(int _keyframe, cOneParameter _parameter)
+				: keyframe(_keyframe), parameter(std::move(_parameter))
 		{
 		}
 		int keyframe;

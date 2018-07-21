@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_H_
 
+#include <utility>
+
 #include <QtCore>
 
 #include "error_message.hpp"
@@ -83,7 +85,7 @@ public:
 	struct sClInputOutputBuffer
 	{
 		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
-				: itemSize(itemSize), length(length), name(name), ptr(nullptr), clPtr(nullptr)
+				: itemSize(itemSize), length(length), name(std::move(name)), ptr(nullptr), clPtr(nullptr)
 		{
 		}
 		qint64 size() const { return itemSize * length; }

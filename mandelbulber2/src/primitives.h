@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_PRIMITIVES_H_
 #define MANDELBULBER2_SRC_PRIMITIVES_H_
 
+#include <utility>
+
 #include "QtCore"
 #include "algebra.hpp"
 #include "color_structures.hpp"
@@ -48,7 +50,7 @@ struct sRenderData;
 struct sPrimitiveItem
 {
 	sPrimitiveItem(fractal::enumObjectType _type, int _id, QString _name)
-			: type(_type), id(_id), name(_name)
+			: type(_type), id(_id), name(std::move(_name))
 	{
 	}
 

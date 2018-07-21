@@ -34,6 +34,8 @@
 
 #include "thumbnail.hpp"
 
+#include <utility>
+
 #include <QFileInfo>
 #include <QPixmap>
 
@@ -45,8 +47,8 @@
 #include "system.hpp"
 
 cThumbnail::cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal,
-	int _width, int _height, const QString &_hash = QString())
-		: params(_params), fractal(_fractal), width(_width), height(_height), hash(_hash)
+	int _width, int _height, QString _hash = QString())
+		: params(_params), fractal(_fractal), width(_width), height(_height), hash(std::move(_hash))
 {
 	image = nullptr;
 	qWidget = nullptr;

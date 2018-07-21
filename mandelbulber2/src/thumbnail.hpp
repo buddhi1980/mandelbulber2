@@ -46,7 +46,7 @@ class cThumbnail
 {
 public:
 	cThumbnail(const cParameterContainer *_params, const cFractalContainer *_fractal, int _width,
-		int _height, const QString &_hash);
+		int _height, QString _hash);
 	~cThumbnail();
 	void AssignWidget(QWidget *widget) { qWidget = widget; }
 	QPixmap Render();

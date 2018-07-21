@@ -39,6 +39,8 @@
 #ifndef MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 #define MANDELBULBER2_SRC_FILE_IMAGE_HPP_
 
+#include <utility>
+
 #include <QtCore>
 
 #include "color_structures.hpp"
@@ -104,7 +106,7 @@ public:
 		}
 		structSaveImageChannel(enumImageContentType _contentType,
 			enumImageChannelQualityType _channelQuality, QString _postfix)
-				: contentType(_contentType), channelQuality(_channelQuality), postfix(_postfix)
+				: contentType(_contentType), channelQuality(_channelQuality), postfix(std::move(_postfix))
 		{
 		}
 

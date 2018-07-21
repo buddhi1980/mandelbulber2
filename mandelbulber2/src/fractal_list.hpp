@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 #define MANDELBULBER2_SRC_FRACTAL_LIST_HPP_
 
+#include <utility>
+
 #include <QtCore>
 
 #include "algebra.hpp"
@@ -294,7 +296,7 @@ enum enumFractalFormula
 struct sFractal;
 struct sExtendedAux;
 
-typedef void (*fractalFormulaFcn)(CVector4 &, const sFractal *, sExtendedAux &);
+using fractalFormulaFcn = void (*)(CVector4 &, const sFractal *, sExtendedAux &);
 
 struct sFractalDescription
 {
@@ -315,8 +317,8 @@ struct sFractalDescription
 		fractal::enumCPixelAddition _cpixelAddition, double _defaultBailout,
 		fractal::enumDEAnalyticFunction _DEAnalyticFunction,
 		fractal::enumColoringFunction _coloringFunction)
-			: nameInComboBox(_nameInComboBox),
-				internalName(_internalName),
+			: nameInComboBox(std::move(_nameInComboBox)),
+				internalName(std::move(_internalName)),
 				internalID(_internalID),
 				fractalFormulaFunction(_fractalFormulaFunction),
 				DEType(_DEType),

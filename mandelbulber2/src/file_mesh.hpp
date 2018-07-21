@@ -38,6 +38,8 @@
 #ifndef MANDELBULBER2_SRC_FILE_MESH_HPP_
 #define MANDELBULBER2_SRC_FILE_MESH_HPP_
 
+#include <utility>
+
 #include <QtCore>
 
 #include "color_structures.hpp"
@@ -76,7 +78,7 @@ public:
 		}
 		structSaveMeshConfig(enumMeshFileType _fileType, QList<enumMeshContentType> _contentTypes,
 			enumMeshFileModeType _fileModeType)
-				: fileType(_fileType), contentTypes(_contentTypes), fileModeType(_fileModeType)
+				: fileType(_fileType), contentTypes(std::move(_contentTypes)), fileModeType(_fileModeType)
 		{
 		}
 

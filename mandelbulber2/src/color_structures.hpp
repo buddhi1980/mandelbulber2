@@ -94,13 +94,13 @@ inline tsRGBA<float>::tsRGBA()
 	A = 1.0;
 }
 
-typedef tsRGB<quint8> sRGB8;
-typedef tsRGB<quint16> sRGB16;
-typedef tsRGB<float> sRGBFloat;
-typedef tsRGB<qint32> sRGB;
+using sRGB8 = tsRGB<quint8>;
+using sRGB16 = tsRGB<quint16>;
+using sRGBFloat = tsRGB<float>;
+using sRGB = tsRGB<qint32>;
 
-typedef tsRGBA<quint8> sRGBA8;
-typedef tsRGBA<quint16> sRGBA16;
-typedef tsRGBA<float> sRGBAfloat;
+using sRGBA8 = tsRGBA<quint8>;
+using sRGBA16 = tsRGBA<quint16>;
+using sRGBAfloat = tsRGBA<float>;
 
 #endif /* MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_ */

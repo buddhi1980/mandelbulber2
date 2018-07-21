@@ -35,6 +35,8 @@
 #ifndef MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 #define MANDELBULBER2_SRC_COMPUTE_FRACTAL_HPP_
 
+#include <utility>
+
 #include "algebra.hpp"
 #include "calculation_mode.h"
 #include "common_params.hpp"
@@ -52,12 +54,12 @@ struct sFractalIn
 	int forcedFormulaIndex;
 	const cMaterial *material;
 
-	sFractalIn(CVector3 _point, int _minN, int _maxN, const sCommonParams &_common,
-		int _forcedFormulaIndex, const cMaterial *_material = nullptr)
+	sFractalIn(CVector3 _point, int _minN, int _maxN, sCommonParams _common, int _forcedFormulaIndex,
+		const cMaterial *_material = nullptr)
 			: point(_point),
 				minN(_minN),
 				maxN(_maxN),
-				common(_common),
+				common(std::move(_common)),
 				forcedFormulaIndex(_forcedFormulaIndex),
 				material(_material)
 	{
