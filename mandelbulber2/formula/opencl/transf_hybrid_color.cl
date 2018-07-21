@@ -48,10 +48,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-				distEst = aux->DE;
-			else
-				distEst = aux->DE;
+			distEst = aux->DE;
 			REAL temp5 = 0.0f;
 			temp5 = distEst * fractal->foldColor.scaleD0;
 			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= native_recip((aux->i + 1.0f));

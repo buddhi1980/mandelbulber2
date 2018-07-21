@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * BoxFold Quaternion  beta
+ * BoxFold Quaternion
  * This formula contains aux.color and aux.actualScale
  * Sometimes Delta DE Linear works best.
 
@@ -68,7 +68,7 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		REAL useScale = aux->actualScaleA + fractal->transformCommon.scale;
 
 		z *= useScale;
-		aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		aux->DE = aux->DE * fabs(useScale);
 
 		if (aux->i >= fractal->transformCommon.startIterationsX
 				&& aux->i < fractal->transformCommon.stopIterationsX)

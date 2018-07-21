@@ -104,7 +104,6 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	z = z * fractal->transformCommon.scaleA2;
-	aux->DE *= fractal->transformCommon.scaleA2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
@@ -119,6 +118,10 @@ REAL4 Sierpinski3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	aux->DE *= fractal->analyticDE.scale1;
+	if (!fractal->analyticDE.enabledFalse)
+		aux->DE *= fractal->transformCommon.scale2;
+	else
+		aux->DE = mad(aux->DE * fractal->transformCommon.scale2, fractal->analyticDE.scale1,
+			fractal->analyticDE.offset0);
 	return z;
 }

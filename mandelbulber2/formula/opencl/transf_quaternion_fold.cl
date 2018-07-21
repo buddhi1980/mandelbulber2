@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -22,16 +22,29 @@ REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 
-		aux->DE = aux->DE * 2.0f * aux->r;
-		REAL tempL = length(z);
+		// aux->DE = aux->DE * 2.0f * aux->r;
+
+		// REAL tempL = length(z);
 		z *= fractal->transformCommon.constantMultiplier122;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL4 tempAvgScale = (REAL4){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
-		REAL avgScale = native_divide(length(tempAvgScale), tempL);
-		REAL tempAux = aux->DE * avgScale;
-		aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
+		// REAL4 tempAvgScale = (REAL4) {z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f), z.w};
+		// REAL avgScale = native_divide(length(tempAvgScale), tempL);
+		// REAL tempAux = aux->DE * avgScale;
+		// aux->DE = mad(fractal->transformCommon.scaleA1, (tempAux - aux->DE), aux->DE);
+
+		if (fractal->analyticDE.enabled)
+		{
+			if (!fractal->analyticDE.enabledFalse)
+				aux->DE = aux->DE * 2.0f * aux->r;
+			else
+				aux->DE =
+					mad(aux->DE * 2.0f * aux->r, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		}
+
+		// offset
 		z += fractal->transformCommon.additionConstant000;
 	}
+	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
 		REAL4 tempC = c;

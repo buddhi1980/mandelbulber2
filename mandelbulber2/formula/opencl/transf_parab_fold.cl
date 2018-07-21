@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -95,10 +95,6 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		}
 	}
 
-	// z.x = sign(temp.x) * z.x;
-	// z.y = sign(temp.y) * z.y;
-	// z.z = sign(temp.z) * z.z;
-
 	if (fractal->transformCommon.functionEnabledxFalse)
 	{
 		z = (z - temp) * fractal->transformCommon.scale3D111;
@@ -116,13 +112,15 @@ REAL4 TransfParabFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z = (z - temp) * temp * fractal->transformCommon.scale3D111;
 	}
 
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (fractal->analyticDE.enabled)
 	{
-		REAL tempL = length(temp);
-		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE = aux->DE * avgScale;
+		if (!fractal->analyticDE.enabledFalse)
+			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		else
+		{
+			REAL avgScale = native_divide(length(z), length(temp));
+			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		}
 	}
-	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

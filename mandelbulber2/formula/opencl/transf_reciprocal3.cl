@@ -114,7 +114,6 @@ REAL4 TransfReciprocal3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		tempZ.z += fabs(z.z) * fractal->transformCommon.offset000.z;
 		z.z = sign(z.z) * tempZ.z;
 	}
-	// aux->DE = aux->DE * l/L;
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;
 }

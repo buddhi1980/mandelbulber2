@@ -21,15 +21,13 @@
 
 REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// log DE calc
+
 	if (fractal->analyticDE.enabled)
 	{
 		REAL r = aux->r; // = native_sqrt(z2.x + z2.y + z2.z + native_divide((z2.y * z2.z), z2.x));
 		if (fractal->transformCommon.functionEnabledXFalse)
 		{
 			r = length(z);
-			// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
-			// r = native_sqrt(max(z2.x + z2.y, max(z2.y + z2.z, z2.x + z2.z)));
 		}
 		aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	}
@@ -41,22 +39,20 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		newZ.x = zz.x - zz.y - zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
-
+		newZ *= fractal->transformCommon.constantMultiplier122;
 		newZ.x += native_divide((zz.y * zz.z), zz.x);
 		newZ.y *= (1.0f - native_divide(zz.z, zz.x));
 		newZ.z *= (1.0f - native_divide(zz.y, zz.x));
-		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	else
 	{ // scator real
 		newZ.x = zz.x + zz.y + zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
-
+		newZ *= fractal->transformCommon.constantMultiplier122;
 		newZ.x += native_divide((zz.y * zz.z), zz.x);
 		newZ.y *= (1.0f + native_divide(zz.z, zz.x));
 		newZ.z *= (1.0f + native_divide(zz.y, zz.x));
-		newZ *= fractal->transformCommon.constantMultiplier122;
 	}
 	z = newZ;
 	return z;

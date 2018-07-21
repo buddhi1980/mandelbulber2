@@ -263,8 +263,13 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			useScale = aux->actualScaleA + fractal->mandelbox.scale;
 
 			z *= useScale;
-			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
-			aux->DE *= fabs(useScale);
+
+			if (!fractal->analyticDE.enabledFalse)
+				aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+			else // testing for log
+				aux->DE =
+					mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+
 			if (fractal->transformCommon.functionEnabledFFalse
 					&& aux->i >= fractal->transformCommon.startIterationsY
 					&& aux->i < fractal->transformCommon.stopIterationsY)

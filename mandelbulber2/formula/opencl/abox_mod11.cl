@@ -164,12 +164,19 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		}
 		z -= fractal->mandelbox.offset;
 	}
+
 	// scale, incl DarkBeams Scale vary
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		z *= aux->actualScale;
-		aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+		// aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+
+		if (!fractal->analyticDE.enabledFalse)
+			aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+		else
+			aux->DE = mad(
+				aux->DE * fabs(aux->actualScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
