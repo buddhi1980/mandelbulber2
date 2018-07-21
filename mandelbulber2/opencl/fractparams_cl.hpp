@@ -105,6 +105,7 @@ typedef struct
 	cl_int interiorMode;
 	cl_int iterThreshMode;
 	cl_int iterFogEnabled;
+	cl_int iterFogShadows;
 	cl_int legacyCoordinateSystem;
 	cl_int limitsEnabled; // enable limits (intersections)
 	cl_int mainLightEnable;
@@ -172,6 +173,7 @@ typedef struct
 	cl_float iterFogColor2Maxiter;
 	cl_float iterFogOpacity;
 	cl_float iterFogOpacityTrim;
+	cl_float iterFogOpacityTrimHigh;
 	cl_float iterFogBrightnessBoost;
 	cl_float mainLightAlpha;
 	cl_float mainLightBeta;
@@ -271,6 +273,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.interiorMode = source.interiorMode;
 	target.iterThreshMode = source.iterThreshMode;
 	target.iterFogEnabled = source.iterFogEnabled;
+	target.iterFogShadows = source.iterFogShadows;
 	target.legacyCoordinateSystem = source.legacyCoordinateSystem;
 	target.limitsEnabled = source.limitsEnabled;
 	target.mainLightEnable = source.mainLightEnable;
@@ -348,6 +351,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.iterFogColor2Maxiter = source.iterFogColor2Maxiter;
 	target.iterFogOpacity = source.iterFogOpacity;
 	target.iterFogOpacityTrim = source.iterFogOpacityTrim;
+	target.iterFogOpacityTrimHigh = source.iterFogOpacityTrimHigh;
 	target.iterFogBrightnessBoost = source.iterFogBrightnessBoost;
 	target.mainLightAlpha = source.mainLightAlpha;
 	target.mainLightBeta = source.mainLightBeta;

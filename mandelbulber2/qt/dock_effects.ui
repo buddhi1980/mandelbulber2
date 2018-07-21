@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>412</width>
-    <height>892</height>
+    <width>584</width>
+    <height>1103</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,7 +38,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -76,8 +76,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>369</width>
-            <height>844</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -839,8 +839,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>355</width>
-            <height>976</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1262,6 +1262,13 @@ for volumetric effects:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_83">
+                  <property name="text">
+                   <string>Max iter. for color#2:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim">
                   <property name="sizePolicy">
@@ -1290,14 +1297,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
+                <item row="6" column="0">
                  <widget class="QLabel" name="label_85">
                   <property name="text">
                    <string>Color #2:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="3" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_1_maxiter">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1332,14 +1339,14 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_84">
                   <property name="text">
                    <string>Color #1:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
+                <item row="4" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_color_2_maxiter">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1374,7 +1381,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
+                <item row="7" column="0">
                  <widget class="QLabel" name="label_86">
                   <property name="text">
                    <string>Color #3:</string>
@@ -1389,20 +1396,13 @@ for volumetric effects:</string>
                  </widget>
                 </item>
                 <item row="3" column="0">
-                 <widget class="QLabel" name="label_83">
-                  <property name="text">
-                   <string>Max iter. for color#2:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
                  <widget class="QLabel" name="label_82">
                   <property name="text">
                    <string>Max iter. for color#1:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="MyColorButton" name="colorButton_iteration_fog_color_3" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #3 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1412,7 +1412,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="MyColorButton" name="colorButton_iteration_fog_color_1" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #1 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1422,7 +1422,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
+                <item row="6" column="1">
                  <widget class="MyColorButton" name="colorButton_iteration_fog_color_2" native="true">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color #2 of fog effect&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1432,7 +1432,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
+                <item row="8" column="1">
                  <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_brightness_boost">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1460,7 +1460,7 @@ for volumetric effects:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="0">
+                <item row="8" column="0">
                  <widget class="QLabel" name="label_99">
                   <property name="text">
                    <string>Brightness boost.
@@ -1468,6 +1468,54 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                   <property name="wordWrap">
                    <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_iteration_fog_shadows">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string>Cast/receive shadows</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_101">
+                  <property name="text">
+                   <string>High iterations trim:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="MyDoubleSpinBox" name="spinbox_iteration_fog_opacity_trim_high">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There is no fog in volume where iteration count is lower than this value. When this parameter is high then fog is only just by fractal surface.&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;trim = 4&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 6&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;trim = 8&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 4 - 16000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 6 - 30000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - iterfog - 8 - 40000.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>2</number>
+                  </property>
+                  <property name="maximum">
+                   <double>1000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -1697,8 +1745,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>379</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2329,7 +2377,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>295</width>
+            <width>527</width>
             <height>1623</height>
            </rect>
           </property>
@@ -3986,8 +4034,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>167</width>
-            <height>109</height>
+            <width>545</width>
+            <height>1083</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

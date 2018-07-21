@@ -572,8 +572,8 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		if (params->iterFogEnabled)
 		{
 			int L = input.stepBuff[index].iters;
-			float opacity =
-				IterOpacity(step, L, params->N, params->iterFogOpacityTrim, params->iterFogOpacity);
+			float opacity = IterOpacity(step, L, params->N, params->iterFogOpacityTrim,
+				params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
 			sRGBAfloat newColour(0.0, 0.0, 0.0, 0.0);
 			if (opacity > 0)
@@ -606,7 +606,17 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					{
 						if (params->mainLightEnable && params->mainLightIntensity > 0.0f)
 						{
-							sRGBAfloat shadowOutputTemp = MainShadow(input2);
+							sRGBAfloat shadowOutputTemp(1.0, 1.0, 1.0, 1.0);
+							if (params->iterFogShadows)
+							{
+								shadowOutputTemp = MainShadow(input2);
+							}
+							else
+							{
+								shadowOutputTemp.R *= params->iterFogBrightnessBoost;
+								shadowOutputTemp.G *= params->iterFogBrightnessBoost;
+								shadowOutputTemp.B *= params->iterFogBrightnessBoost;
+							}
 							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0f
 														 * params->mainLightIntensity;
 							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0f
@@ -625,7 +635,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 							double distanceLight = lightVectorTemp.Length();
 							double distanceLight2 = distanceLight * distanceLight;
 							lightVectorTemp.Normalize();
-							double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
+
+							double lightShadow = 1.0;
+							if (params->iterFogShadows)
+							{
+								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
+							}
 							double intensity = light->intensity * params->iterFogBrightnessBoost;
 							newColour.R += lightShadow * light->colour.R / 65536.0 / distanceLight2 * intensity;
 							newColour.G += lightShadow * light->colour.G / 65536.0 / distanceLight2 * intensity;
@@ -733,7 +748,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		if (params->iterFogEnabled)
 		{
 			opacity = IterOpacity(dist * DEFactor, distanceOut.iters, params->N,
-				params->iterFogOpacityTrim, params->iterFogOpacity);
+				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			opacity *= (factor - i) / factor;
 			opacity = qMin(opacity, 1.0);
 			iterFogSum = opacity + (1.0 - opacity) * iterFogSum;
@@ -834,7 +849,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			if (params->iterFogEnabled)
 			{
 				opacity = IterOpacity(dist * 2.0, distanceOut.iters, params->N, params->iterFogOpacityTrim,
-					params->iterFogOpacity);
+					params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 			}
 			else
 			{
@@ -1307,7 +1322,7 @@ double cRenderWorker::AuxShadow(
 		if (params->iterFogEnabled)
 		{
 			opacity = IterOpacity(dist * DE_factor, distanceOut.iters, params->N,
-				params->iterFogOpacityTrim, params->iterFogOpacity);
+				params->iterFogOpacityTrim, params->iterFogOpacityTrimHigh, params->iterFogOpacity);
 
 			opacity *= (distance - i) / distance;
 			opacity = qMin(opacity, 1.0);
@@ -1347,9 +1362,15 @@ double cRenderWorker::AuxShadow(
 }
 
 double cRenderWorker::IterOpacity(
-	const double step, double iters, double maxN, double trim, double opacitySp)
+	const double step, double iters, double maxN, double trim, double trimHigh, double opacitySp)
 {
 	double opacity = (iters - trim) / maxN;
+	if (iters > trimHigh)
+	{
+		double trim2 = trimHigh + 1.0 - iters;
+		if (trim2 < 0.0) trim2 = 0.0;
+		opacity *= trim2;
+	}
 	if (opacity < 0.0) opacity = 0.0;
 	opacity *= opacity;
 	opacity *= step * opacitySp;

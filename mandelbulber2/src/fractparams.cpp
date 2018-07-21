@@ -126,6 +126,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	iterFogEnabled = container->Get<bool>("iteration_fog_enable");
 	iterFogOpacity = container->Get<double>("iteration_fog_opacity");
 	iterFogOpacityTrim = container->Get<double>("iteration_fog_opacity_trim");
+	iterFogOpacityTrimHigh = container->Get<double>("iteration_fog_opacity_trim_high");
+	iterFogShadows = container->Get<bool>("iteration_fog_shadows");
 	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
 	limitMax = container->Get<CVector3>("limit_max");
 	limitMin = container->Get<CVector3>("limit_min");

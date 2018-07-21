@@ -111,6 +111,7 @@ struct sParamRender
 	bool interiorMode;
 	bool iterThreshMode;
 	bool iterFogEnabled;
+	bool iterFogShadows;
 	bool legacyCoordinateSystem;
 	bool limitsEnabled; // enable limits (intersections)
 	bool mainLightEnable;
@@ -178,6 +179,7 @@ struct sParamRender
 	float iterFogColor2Maxiter;
 	double iterFogOpacity;
 	float iterFogOpacityTrim;
+	float iterFogOpacityTrimHigh;
 	float iterFogBrightnessBoost;
 	double mainLightAlpha;
 	double mainLightBeta;
