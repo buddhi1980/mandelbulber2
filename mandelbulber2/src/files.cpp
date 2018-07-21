@@ -34,9 +34,8 @@
 
 #include "files.h"
 
-#include <string.h>
-
 #include <cstdio>
+#include <cstring>
 
 #include "cimage.hpp"
 #include "error_message.hpp"

@@ -37,8 +37,7 @@
 #ifndef MANDELBULBER2_SRC_MARCHINGCUBES_H_
 #define MANDELBULBER2_SRC_MARCHINGCUBES_H_
 
-#include <stddef.h>
-
+#include <cstddef>
 #include <vector>
 
 #include <QObject>

@@ -38,9 +38,10 @@
 #ifndef MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 #define MANDELBULBER2_SRC_LZO_COMPRESSION_H_
 
-#include <assert.h>
 #include <lzo/lzo1x.h>
 #include <lzo/lzoconf.h>
+
+#include <cassert>
 
 #include <QByteArray>
 #include <QElapsedTimer>

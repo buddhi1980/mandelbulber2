@@ -138,7 +138,7 @@ void cOpenClDynamicData::Clear()
 	totalDataOffset = 0;
 }
 
-QByteArray &cOpenClDynamicData::GetData(void)
+QByteArray &cOpenClDynamicData::GetData()
 {
 	return data;
 }

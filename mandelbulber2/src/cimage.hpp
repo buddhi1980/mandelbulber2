@@ -36,7 +36,7 @@
 #define MANDELBULBER2_SRC_CIMAGE_HPP_
 
 //#include <QtGui/QWidget>
-#include <assert.h>
+#include <cassert>
 
 #include <QMutex>
 #include <QWidget>
@@ -69,12 +69,12 @@ class cImage
 {
 public:
 	cImage(int w, int h, bool _allocLater = false);
-	void construct(void);
+	void construct();
 
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
-	void ClearImage(void) const;
+	void ClearImage() const;
 
 	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
@@ -196,50 +196,50 @@ public:
 		alphaBuffer16[imgIndex] = quint16(alphaBuffer16[imgIndex] * factorN + other * factor);
 	}
 
-	sRGBFloat *GetImageFloatPtr(void) { return imageFloat; }
-	sRGBFloat *GetPostImageFloatPtr(void) { return postImageFloat; }
-	sRGB16 *GetImage16Ptr(void) { return image16; }
-	sRGB8 *GetImage8Ptr(void) { return image8; }
-	quint16 *GetAlphaBufPtr(void) { return alphaBuffer16; }
-	quint8 *GetAlphaBufPtr8(void) { return alphaBuffer8; }
-	float *GetZBufferPtr(void) { return zBuffer; }
-	sRGB8 *GetColorPtr(void) { return colourBuffer; }
-	quint16 *GetOpacityPtr(void) { return opacityBuffer; }
-	size_t GetZBufferSize(void) const { return sizeof(float) * quint64(height) * quint64(width); }
-	QWidget *GetImageWidget(void) { return imageWidget; }
+	sRGBFloat *GetImageFloatPtr() { return imageFloat; }
+	sRGBFloat *GetPostImageFloatPtr() { return postImageFloat; }
+	sRGB16 *GetImage16Ptr() { return image16; }
+	sRGB8 *GetImage8Ptr() { return image8; }
+	quint16 *GetAlphaBufPtr() { return alphaBuffer16; }
+	quint8 *GetAlphaBufPtr8() { return alphaBuffer8; }
+	float *GetZBufferPtr() { return zBuffer; }
+	sRGB8 *GetColorPtr() { return colourBuffer; }
+	quint16 *GetOpacityPtr() { return opacityBuffer; }
+	size_t GetZBufferSize() const { return sizeof(float) * quint64(height) * quint64(width); }
+	QWidget *GetImageWidget() { return imageWidget; }
 
 	void CompileImage(QList<int> *list = nullptr);
 	void CompileImage(const QList<QRect> *list);
 	void NullPostEffect(QList<int> *list = nullptr);
 	void NullPostEffect(const QList<QRect> *list);
 
-	int GetWidth(void) const { return width; }
-	int GetHeight(void) const { return height; }
-	int GetPreviewWidth(void) const { return previewWidth; }
-	int GetPreviewHeight(void) const { return previewHeight; }
-	int GetPreviewVisibleWidth(void) const { return previewVisibleWidth; }
-	int GetPreviewVisibleHeight(void) const { return previewVisibleHeight; }
-	int GetUsedMB(void) const;
+	int GetWidth() const { return width; }
+	int GetHeight() const { return height; }
+	int GetPreviewWidth() const { return previewWidth; }
+	int GetPreviewHeight() const { return previewHeight; }
+	int GetPreviewVisibleWidth() const { return previewVisibleWidth; }
+	int GetPreviewVisibleHeight() const { return previewVisibleHeight; }
+	int GetUsedMB() const;
 	void SetImageParameters(sImageAdjustments adjustments);
-	sImageAdjustments *GetImageAdjustments(void) { return &adj; }
+	sImageAdjustments *GetImageAdjustments() { return &adj; }
 	void SetImageOptional(sImageOptional optInput) { this->opt = optInput; }
-	sImageOptional *GetImageOptional(void) { return &opt; }
+	sImageOptional *GetImageOptional() { return &opt; }
 
-	quint8 *ConvertTo8bit(void) const;
+	quint8 *ConvertTo8bit() const;
 	quint8 *ConvertTo8bit(const QList<QRect> *list) const;
-	quint8 *ConvertAlphaTo8bit(void) const;
-	quint8 *ConvertNormalTo16Bit(void) const;
-	quint8 *ConvertNormalTo8Bit(void) const;
+	quint8 *ConvertAlphaTo8bit() const;
+	quint8 *ConvertNormalTo16Bit() const;
+	quint8 *ConvertNormalTo8Bit() const;
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
 	void UpdatePreview(const QList<QRect> *list);
-	quint8 *GetPreviewPtr(void) const;
-	quint8 *GetPreviewPrimaryPtr(void) const;
-	bool IsPreview(void) const;
+	quint8 *GetPreviewPtr() const;
+	quint8 *GetPreviewPrimaryPtr() const;
+	bool IsPreview() const;
 	void RedrawInWidget(QWidget *qWidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
 	void Squares(int y, int progressiveFactor);
-	void CalculateGammaTable(void);
+	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
 
 	void PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
@@ -262,11 +262,11 @@ public:
 private:
 	bool isAllocated;
 	sRGB8 Interpolation(float x, float y) const;
-	bool AllocMem(void);
-	void FreeImage(void);
-	static inline sRGB16 Black16(void) { return sRGB16(0, 0, 0); }
-	static inline sRGB8 Black8(void) { return sRGB8(0, 0, 0); }
-	static inline sRGBFloat BlackFloat(void) { return sRGBFloat(0, 0, 0); }
+	bool AllocMem();
+	void FreeImage();
+	static inline sRGB16 Black16() { return sRGB16(0, 0, 0); }
+	static inline sRGB8 Black8() { return sRGB8(0, 0, 0); }
+	static inline sRGBFloat BlackFloat() { return sRGBFloat(0, 0, 0); }
 
 	sRGB8 *image8;
 	sRGB16 *image16;

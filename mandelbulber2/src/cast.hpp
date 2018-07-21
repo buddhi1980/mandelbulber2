@@ -35,8 +35,7 @@
 #ifndef MANDELBULBER2_SRC_CAST_HPP_
 #define MANDELBULBER2_SRC_CAST_HPP_
 
-#include <assert.h>
-
+#include <cassert>
 #include <limits>
 
 // Safe Cast Helper for size_t ==> int

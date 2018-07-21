@@ -69,7 +69,7 @@
 #endif // USE_OPENCL
 
 // include math header here with opencl
-#include <math.h>
+#include <cmath>
 
 #if defined(_MSC_VER)
 #pragma warning(pop)

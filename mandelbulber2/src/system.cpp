@@ -34,12 +34,12 @@
 
 #include "system.hpp"
 
-#include <locale.h>
 #include <qstylefactory.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
+#include <clocale>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <iostream>
 
@@ -53,7 +53,7 @@
 
 // custom includes
 #ifndef _WIN32
-#include <signal.h>
+#include <csignal>
 #include <sys/ioctl.h>
 #include <unistd.h>
 #endif

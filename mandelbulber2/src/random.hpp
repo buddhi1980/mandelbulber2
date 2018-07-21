@@ -37,7 +37,8 @@
 
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_rng.h>
-#include <limits.h>
+
+#include <climits>
 
 #include "algebra.hpp"
 

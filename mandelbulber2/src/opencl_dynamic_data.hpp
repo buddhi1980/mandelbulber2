@@ -61,7 +61,7 @@ public:
 	void BuildObjectsData(const QVector<cObjectData> *objectData);
 	void ReserveHeader();
 	void FillHeader();
-	QByteArray &GetData(void);
+	QByteArray &GetData();
 
 private:
 	QByteArray data;
