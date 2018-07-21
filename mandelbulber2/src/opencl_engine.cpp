@@ -108,7 +108,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 			// collecting all parts of program
 			cl::Program::Sources sources;
-			sources.push_back(std::make_pair(programString.constData(), size_t(programString.length())));
+			sources.emplace_back(programString.constData(), size_t(programString.length()));
 
 			// creating cl::Program
 			cl_int err;

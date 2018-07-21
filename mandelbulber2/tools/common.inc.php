@@ -12,7 +12,6 @@ if (!defined('MANDELBULBER_EXEC_PATH')) define('MANDELBULBER_EXEC_PATH', 'mandel
 if (!defined('CLANG_FORMAT_EXEC_PATH')) define('CLANG_FORMAT_EXEC_PATH', 'clang-format');
 if(!defined('RUN_CLANG_TIDY_EXEC_PATH')) define('RUN_CLANG_TIDY_EXEC_PATH', 'run-clang-tidy-5.0.py');
 if(!defined('CLANG_APPLY_BINARY_PATH')) define('CLANG_APPLY_BINARY_PATH', '/usr/bin/clang-apply-replacements-5.0');
-// if (!defined('CLANG_TIDY_EXEC_PATH')) define('CLANG_TIDY_EXEC_PATH', 'clang-tidy');
 
 checkArguments();
 

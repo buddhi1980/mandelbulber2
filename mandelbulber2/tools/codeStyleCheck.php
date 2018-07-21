@@ -271,8 +271,8 @@ function checkClangTidy()
 		'modernize-avoid-bind',
 		'modernize-deprecated-headers',
 		// 'modernize-loop-convert',
-		// 'modernize-make-shared',
-		// 'modernize-make-unique',
+		'modernize-make-shared',
+		'modernize-make-unique',
 		'modernize-pass-by-value',
 		'modernize-raw-string-literal',
 		'modernize-redundant-void-arg',
@@ -284,7 +284,7 @@ function checkClangTidy()
 		// 'modernize-use-auto',
 		'modernize-use-bool-literals',
 		// 'modernize-use-default-member-init',
-		// 'modernize-use-emplace',
+		'modernize-use-emplace',
 		// 'modernize-use-equals-default',
 		'modernize-use-equals-delete',
 		'modernize-use-noexcept',
@@ -296,23 +296,28 @@ function checkClangTidy()
 
 	$checkString = '-*,' . implode(',', $checks);
 
-	/*$cmd = CLANG_TIDY_EXEC_PATH . ' -checks=' . $checkString
-        . ' ' . escapeshellarg($filepath)
-        . ' -p ' . escapeshellarg($cmakeFolder)
-        . ' --header-filter=' . escapeshellarg(PROJECT_PATH)
-		. ' -fix 2>&1';*/
-
 	$cmd = RUN_CLANG_TIDY_EXEC_PATH
             . ' -clang-apply-replacements-binary=' . CLANG_APPLY_BINARY_PATH
             . ' -checks=' . $checkString
             . ' -header-filter=".*"'
-            . ' -quiet'
+            // . ' -quiet'
             . ' -p ' . escapeshellarg($cmakeFolder)
             . (!isDryRun() ? ' -fix' : '')
             . ' 2>/dev/null';
 
 	// echo $cmd; exit;
-	echo shell_exec($cmd);
+	$out = shell_exec($cmd);
+	foreach($checks as $check){
+		$cnt = substr_count ($out , '[' . $check . ']');
+        echo noticeString(str_pad($check, 30)) . ' - ';
+        if($cnt > 0){
+            echo successString($cnt . ' occurences');
+		}else{
+			echo $cnt . ' occurences';
+        }
+        echo PHP_EOL;
+    }
+    file_put_contents(PROJECT_PATH . '/tools/clang-tidy.log', $out);
 
 	return true;
 }
