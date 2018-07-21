@@ -77,7 +77,7 @@ public:
 
 	cRenderWorker(const sParamRender *_params, const cNineFractals *_fractal,
 		sThreadData *_threadData, sRenderData *_data, cImage *_image);
-	~cRenderWorker();
+	~cRenderWorker() override;
 
 	// PrepareAOVectors() is public because is needed also for OpenCL data
 	void PrepareAOVectors();

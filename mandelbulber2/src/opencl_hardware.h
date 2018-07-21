@@ -54,7 +54,7 @@ public:
 	};
 
 	cOpenClHardware(QObject *parent = nullptr);
-	~cOpenClHardware();
+	~cOpenClHardware() override;
 
 #ifdef USE_OPENCL
 public:

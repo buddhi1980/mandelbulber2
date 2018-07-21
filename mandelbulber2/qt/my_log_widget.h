@@ -48,7 +48,7 @@ class MyLogWidget : public QPlainTextEdit
 
 public:
 	explicit MyLogWidget(QWidget *parent = nullptr);
-	~MyLogWidget();
+	~MyLogWidget() override;
 
 public slots:
 	void appendMessage(const QString &text);

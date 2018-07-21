@@ -47,7 +47,7 @@ class cDetachedWindow : public QMainWindow
 	Q_OBJECT
 public:
 	explicit cDetachedWindow(QWidget *parent = nullptr);
-	~cDetachedWindow();
+	~cDetachedWindow() override;
 
 	void InstallImageWidget(QWidget *widget);
 	void RemoveImageWidget(QWidget *widget);

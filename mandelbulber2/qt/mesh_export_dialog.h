@@ -52,7 +52,7 @@ class cMeshExportDialog : public QDialog
 
 public:
 	explicit cMeshExportDialog(QWidget *parent = nullptr);
-	~cMeshExportDialog();
+	~cMeshExportDialog() override;
 
 public slots:
 	void on_pushButton_start_render_layers_clicked();

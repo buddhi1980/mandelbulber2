@@ -56,7 +56,7 @@ class cImageSaveDialog : public QFileDialog
 	Q_OBJECT
 public:
 	cImageSaveDialog(QWidget *parent = nullptr);
-	~cImageSaveDialog();
+	~cImageSaveDialog() override;
 
 private:
 	Ui::cImageSaveDialog *ui;

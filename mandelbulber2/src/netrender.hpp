@@ -50,7 +50,7 @@ class CNetRender : public QObject
 	Q_OBJECT
 public:
 	CNetRender(qint32 workerCount);
-	~CNetRender();
+	~CNetRender() override;
 
 	//--------------- enumerations ---------------------
 public:

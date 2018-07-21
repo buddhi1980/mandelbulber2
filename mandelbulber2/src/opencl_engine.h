@@ -77,7 +77,7 @@ class cOpenClEngine : public QObject
 
 public:
 	cOpenClEngine(cOpenClHardware *hardware);
-	~cOpenClEngine();
+	~cOpenClEngine() override;
 
 #ifdef USE_OPENCL
 	struct sClInputOutputBuffer

@@ -50,7 +50,7 @@ class PlayerWidget : public QWidget
 
 public:
 	PlayerWidget(QWidget *parent = nullptr);
-	~PlayerWidget();
+	~PlayerWidget() override;
 	void SetFilePath(QString filePath);
 	QSize sizeHint() const override { return QSize(800, 600); }
 

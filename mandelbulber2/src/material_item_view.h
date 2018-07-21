@@ -46,7 +46,7 @@ class cMaterialItemView : public QAbstractItemView
 
 public:
 	cMaterialItemView(QWidget *parent);
-	~cMaterialItemView();
+	~cMaterialItemView() override;
 	QModelIndex indexAt(const QPoint &point) const override;
 	QRegion visualRegionForSelection(const QItemSelection &selection) const override;
 	void scrollTo(const QModelIndex &index, ScrollHint hint = EnsureVisible) override;

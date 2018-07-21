@@ -45,7 +45,7 @@ class cHeadless : public QObject
 	Q_OBJECT
 public:
 	cHeadless();
-	~cHeadless();
+	~cHeadless() override;
 
 	enum ansiColor
 	{

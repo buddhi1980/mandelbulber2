@@ -50,7 +50,7 @@ class cDockMeasurements : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockMeasurements(QWidget *parent = nullptr);
-	~cDockMeasurements();
+	~cDockMeasurements() override;
 
 private slots:
 	static void slotPressedButtonGetPoint();

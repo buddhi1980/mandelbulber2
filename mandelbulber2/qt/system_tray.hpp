@@ -48,7 +48,7 @@ class cSystemTray : public QObject
 	Q_OBJECT
 public:
 	cSystemTray(cImage *image, QObject *parent = nullptr);
-	~cSystemTray();
+	~cSystemTray() override;
 
 private:
 	QAction *stActionRender;

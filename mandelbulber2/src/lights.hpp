@@ -61,7 +61,7 @@ public:
 	cLights(const cLights &_lights) : QObject() { Copy(_lights); }
 	cLights(const cParameterContainer *_params, const cFractalContainer *_fractal);
 	void Set(const cParameterContainer *_params, const cFractalContainer *_fractal);
-	~cLights();
+	~cLights() override;
 	sLight *GetLight(const int index) const;
 	int GetNumberOfLights() const { return numberOfLights; }
 	int IsAnyLightEnabled() const { return isAnyLight; };

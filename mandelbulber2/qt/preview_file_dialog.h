@@ -50,7 +50,7 @@ class PreviewFileDialog : public QFileDialog
 	Q_OBJECT
 public:
 	PreviewFileDialog(QWidget *parent = nullptr);
-	~PreviewFileDialog();
+	~PreviewFileDialog() override;
 protected slots:
 	void OnCurrentChanged(const QString &filename);
 	void OnPresetAdd() const;

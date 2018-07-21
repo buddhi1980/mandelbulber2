@@ -47,7 +47,7 @@ class cAnimAudioView : public QWidget
 
 public:
 	cAnimAudioView(QWidget *parent);
-	~cAnimAudioView();
+	~cAnimAudioView() override;
 	void UpdateChart(const cAudioTrack *audioTrack);
 
 private:

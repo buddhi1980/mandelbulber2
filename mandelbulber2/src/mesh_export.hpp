@@ -48,7 +48,7 @@ class cMeshExport : public QObject
 public:
 	cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QString outputFileName,
 		int maxIter, MeshFileSave::structSaveMeshConfig meshConfig);
-	~cMeshExport();
+	~cMeshExport() override;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

@@ -43,7 +43,7 @@ class cResourceHttpProvider : public QObject
 	Q_OBJECT
 public:
 	cResourceHttpProvider(QString &filename);
-	~cResourceHttpProvider();
+	~cResourceHttpProvider() override;
 	bool IsUrl();
 	QString cacheAndGetFilename();
 

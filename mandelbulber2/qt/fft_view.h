@@ -46,7 +46,7 @@ class cFFTView : public QWidget
 
 public:
 	cFFTView(QWidget *parent);
-	~cFFTView();
+	~cFFTView() override;
 
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 

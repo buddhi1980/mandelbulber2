@@ -47,7 +47,7 @@ class cTimeRuler : public QWidget
 
 public:
 	cTimeRuler(QWidget *parent);
-	~cTimeRuler();
+	~cTimeRuler() override;
 
 	void SetParameters(cAudioTrack *audioTrack, int _framesPerKeyframe);
 

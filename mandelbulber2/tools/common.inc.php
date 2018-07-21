@@ -5,11 +5,14 @@
 define('PROJECT_PATH', realpath(dirname(__FILE__)) . '/../');
 define('START_TIME', microtime(true));
 
-if(file_exists(realpath(dirname(__FILE__)) . '/customConfig.php'))
-    require_once(realpath(dirname(__FILE__)) . '/customConfig.php');
+if (file_exists(realpath(dirname(__FILE__)) . '/customConfig.php'))
+	require_once(realpath(dirname(__FILE__)) . '/customConfig.php');
 
-if(!defined('MANDELBULBER_EXEC_PATH')) define('MANDELBULBER_EXEC_PATH', 'mandelbulber2');
-if(!defined('CLANG_FORMAT_EXEC_PATH')) define('CLANG_FORMAT_EXEC_PATH', 'clang-format');
+if (!defined('MANDELBULBER_EXEC_PATH')) define('MANDELBULBER_EXEC_PATH', 'mandelbulber2');
+if (!defined('CLANG_FORMAT_EXEC_PATH')) define('CLANG_FORMAT_EXEC_PATH', 'clang-format');
+if(!defined('RUN_CLANG_TIDY_EXEC_PATH')) define('RUN_CLANG_TIDY_EXEC_PATH', 'run-clang-tidy-5.0.py');
+if(!defined('CLANG_APPLY_BINARY_PATH')) define('CLANG_APPLY_BINARY_PATH', '/usr/bin/clang-apply-replacements-5.0');
+// if (!defined('CLANG_TIDY_EXEC_PATH')) define('CLANG_TIDY_EXEC_PATH', 'clang-tidy');
 
 checkArguments();
 
@@ -20,7 +23,7 @@ function printStart()
 
 function printFinish()
 {
-    echo "\33[2K\r";
+	echo "\33[2K\r";
 	$secString = noticeString(number_format(microtime(true) - START_TIME, 2) . ' seconds');
 	echo 'script took ' . $secString . ' to complete.' . PHP_EOL;
 	if (isDryRun()) {
@@ -33,13 +36,13 @@ function printFinish()
 
 function printResultLine($name, $success, $status, $progress = -1)
 {
-    $out = "\33[2K\r";
+	$out = "\33[2K\r";
 	$itemLine = str_pad(' ├── ' . $name, 50);
 	if (!($success && !isVerbose() && count($status) == 0)) {
 		if ($success) {
-		    $out .= $itemLine . successString(' [ All OK ]') . PHP_EOL;
+			$out .= $itemLine . successString(' [ All OK ]') . PHP_EOL;
 		} else {
-		    $out .= $itemLine . errorString(' [ ERROR  ]') . PHP_EOL;
+			$out .= $itemLine . errorString(' [ ERROR  ]') . PHP_EOL;
 		}
 		if (count($status) > 0) {
 			foreach ($status as $i => $s) {
@@ -52,8 +55,9 @@ function printResultLine($name, $success, $status, $progress = -1)
 	echo $out;
 }
 
-function printProgress($percent){
-    if($percent < 0) return '';
+function printProgress($percent)
+{
+	if ($percent < 0) return '';
 	$freeWidth = 20;
 	$intProgress = floor($freeWidth * $percent);
 
@@ -72,7 +76,7 @@ function printStartGroup($title)
 
 function printEndGroup()
 {
-    echo "\33[2K\r";
+	echo "\33[2K\r";
 	echo ' ╹' . PHP_EOL;
 }
 
@@ -130,7 +134,7 @@ function checkArguments()
 	global $argv;
 	foreach ($argv as $i => $arg) {
 		if ($i == 0) continue;
-		if (!in_array($arg, array('nondry', 'verbose', 'warning', 'checkCl')))
+		if (!in_array($arg, array('nondry', 'verbose', 'warning', 'checkCl', 'checkTidy')))
 			die('Unknown argument: ' . $arg . PHP_EOL);
 	}
 }
@@ -179,7 +183,7 @@ function getModificationInterval($filePath, $onlyEndYear = false)
 	if (empty($yearEnd) || $yearStart == $yearEnd) {
 		return $yearStart;
 	}
-	if($onlyEndYear) return $yearEnd;
+	if ($onlyEndYear) return $yearEnd;
 	return $yearStart . '-' . substr($yearEnd, 2, 2);
 }
 

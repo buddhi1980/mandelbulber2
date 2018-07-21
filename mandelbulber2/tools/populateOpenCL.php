@@ -50,7 +50,7 @@ exit;
 
 function defineCollect($defineFile, &$status)
 {
-    // $oldContent = file_get_contents($defineFile);
+	// $oldContent = file_get_contents($defineFile);
 	$status[] = warningString('TODO');
 	return true;
 }

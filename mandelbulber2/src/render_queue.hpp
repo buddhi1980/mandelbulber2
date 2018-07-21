@@ -56,7 +56,7 @@ class cRenderQueue : public QObject
 	Q_OBJECT
 public:
 	cRenderQueue(cImage *_image, RenderedImage *widget = nullptr);
-	~cRenderQueue();
+	~cRenderQueue() override;
 	bool RenderStill(const cQueue::structQueueItem &queueItem);
 	bool RenderFlight(const cQueue::structQueueItem &queueItem) const;
 	bool RenderKeyframe(const cQueue::structQueueItem &queueItem) const;

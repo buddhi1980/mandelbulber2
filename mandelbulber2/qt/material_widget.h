@@ -49,7 +49,7 @@ class cMaterialWidget : public cThumbnailWidget
 public:
 	cMaterialWidget(QWidget *parent);
 	cMaterialWidget(int _width, int _height, int _oversample, QWidget *parent);
-	~cMaterialWidget();
+	~cMaterialWidget() override;
 	void AssignMaterial(
 		cParameterContainer *_params, int materialIndex, QWidget *_materialEditorWidget = nullptr);
 	void AssignMaterial(const QString &settings, int materialIndex);

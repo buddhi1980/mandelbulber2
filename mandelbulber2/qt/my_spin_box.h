@@ -49,7 +49,7 @@ class MySpinBox : public QSpinBox, public CommonMyWidgetWrapper
 
 public:
 	MySpinBox(QWidget *parent = nullptr);
-	~MySpinBox();
+	~MySpinBox() override;
 
 private:
 	int GetDefault();

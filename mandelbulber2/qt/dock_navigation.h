@@ -50,7 +50,7 @@ class cDockNavigation : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockNavigation(QWidget *parent = nullptr);
-	~cDockNavigation();
+	~cDockNavigation() override;
 
 	void RenderButtonSetEnabled(bool enabled) const;
 	void AutoRefreshSetChecked(bool state) const;

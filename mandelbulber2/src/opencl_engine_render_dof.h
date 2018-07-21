@@ -52,7 +52,7 @@ class cOpenClEngineRenderDOF : public QObject
 	Q_OBJECT
 public:
 	cOpenClEngineRenderDOF(cOpenClHardware *_hardware);
-	~cOpenClEngineRenderDOF();
+	~cOpenClEngineRenderDOF() override;
 
 #ifdef USE_OPENCL
 	bool RenderDOF(const sParamRender *paramRender, const cParameterContainer *params, cImage *image,

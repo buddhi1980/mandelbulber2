@@ -62,7 +62,7 @@ public:
 		const CVector3 &upper, double dist_thresh, bool *stop, std::vector<double> &vertices,
 		std::vector<long long> &polygons, std::vector<double> &colorIndices);
 
-	~MarchingCubes() { FreeBuffers(); }
+	~MarchingCubes() override { FreeBuffers(); }
 
 public slots:
 	void RunMarchingCube();

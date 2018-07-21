@@ -49,7 +49,7 @@ class cRenderSSAO : public QObject
 	Q_OBJECT
 public:
 	cRenderSSAO(const sParamRender *_params, const sRenderData *_renderData, cImage *_image);
-	~cRenderSSAO();
+	~cRenderSSAO() override;
 
 	void SetRegion(const cRegion<int> &_region);
 	void RenderSSAO(QList<int> *list = nullptr);

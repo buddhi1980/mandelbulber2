@@ -50,7 +50,7 @@ class FileSelectWidget : public QWidget, public CommonMyWidgetWrapper
 
 public:
 	FileSelectWidget(QWidget *parent = nullptr);
-	~FileSelectWidget();
+	~FileSelectWidget() override;
 	QString GetPath() const { return lineEdit->text(); }
 	void SetPath(QString path);
 

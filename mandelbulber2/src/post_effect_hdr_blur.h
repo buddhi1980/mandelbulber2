@@ -46,7 +46,7 @@ class cPostEffectHdrBlur : public QObject
 
 public:
 	cPostEffectHdrBlur(cImage *_image);
-	~cPostEffectHdrBlur();
+	~cPostEffectHdrBlur() override;
 	void SetParameters(double _radius, double _intensity);
 
 	void Render(bool *stopRequest);

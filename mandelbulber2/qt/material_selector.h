@@ -51,7 +51,7 @@ class cMaterialSelector : public QWidget, public CommonMyWidgetWrapper
 
 public:
 	cMaterialSelector(QWidget *parent = nullptr);
-	~cMaterialSelector();
+	~cMaterialSelector() override;
 
 	void SetMaterialIndex(int materialIndex);
 	int GetMaterialIndex() const { return actualValue; }

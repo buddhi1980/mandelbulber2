@@ -42,7 +42,7 @@ class MyUiLoader : public QUiLoader
 	Q_OBJECT
 public:
 	MyUiLoader(QObject *parent = nullptr) : QUiLoader(parent) {}
-	~MyUiLoader();
+	~MyUiLoader() override;
 
 	QWidget *createWidget(
 		const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override;

@@ -50,7 +50,7 @@ class cDockAnimation : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockAnimation(QWidget *parent = nullptr);
-	~cDockAnimation();
+	~cDockAnimation() override;
 
 	void DisableEXR() const;
 	void DisableTIFF() const;

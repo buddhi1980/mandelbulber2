@@ -52,7 +52,7 @@ class cDockEffects : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockEffects(QWidget *parent = nullptr);
-	~cDockEffects();
+	~cDockEffects() override;
 
 	void SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const;
 	void SynchronizeInterfaceDOFEnabled(cParameterContainer *par) const;

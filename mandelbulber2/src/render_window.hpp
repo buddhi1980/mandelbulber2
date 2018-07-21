@@ -71,7 +71,7 @@ class RenderWindow : public QMainWindow
 
 public:
 	explicit RenderWindow(QWidget *parent = nullptr);
-	~RenderWindow();
+	~RenderWindow() override;
 
 	// Getters for UI elements
 	cDockAnimation *GetWidgetDockAnimation() const;

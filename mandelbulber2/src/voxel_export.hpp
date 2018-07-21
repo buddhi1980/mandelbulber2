@@ -50,7 +50,7 @@ class cVoxelExport : public QObject
 
 public:
 	cVoxelExport(int w, int h, int l, CVector3 limitMin, CVector3 limitMax, QDir folder, int maxIter);
-	~cVoxelExport();
+	~cVoxelExport() override;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

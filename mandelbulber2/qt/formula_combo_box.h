@@ -52,7 +52,7 @@ class cFormulaComboBox : public QComboBox
 
 public:
 	explicit cFormulaComboBox(QWidget *parent = nullptr);
-	~cFormulaComboBox();
+	~cFormulaComboBox() override;
 	void setModel(QAbstractItemModel *model);
 	void setModelColumn(int visibleColumn);
 	void populateItemsFromFractalList(

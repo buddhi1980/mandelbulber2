@@ -91,7 +91,7 @@ QByteArray lzoUncompress(QByteArray data)
 		if (tmp) delete[] tmp;
 		tmp = new char[len];
 
-		if (lzo1x_decompress_safe((lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp, &len, NULL)
+		if (lzo1x_decompress_safe((lzo_bytep)data.data(), data.size(), (lzo_bytep)tmp, &len, nullptr)
 				== LZO_E_OUTPUT_OVERRUN)
 		{
 			decompressionFactor *= 2;

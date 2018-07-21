@@ -47,7 +47,7 @@ class MyHistogramLabel : public QLabel
 
 public:
 	MyHistogramLabel(QWidget *parent = nullptr);
-	~MyHistogramLabel();
+	~MyHistogramLabel() override;
 
 	void SetBarColor(const QColor &c) { barColor = c; }
 	QColor GetBarColor() const { return barColor; }

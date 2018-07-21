@@ -48,7 +48,7 @@ class cMaterialItemModel : public QAbstractListModel
 
 public:
 	cMaterialItemModel(QObject *parent);
-	~cMaterialItemModel();
+	~cMaterialItemModel() override;
 
 	// will be used to synchronize the data
 	void AssignContainer(cParameterContainer *_parameterContainer);

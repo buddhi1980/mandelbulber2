@@ -46,7 +46,7 @@ foreach ($sourceFiles as $i => $sourceFilePath) {
 	$sourceContent = file_get_contents($sourceFilePath);
 
 	if ($success) $success = checkFileHeader($sourceFilePath, $sourceContent, $status);
-	if ($success) $success = checkClang($sourceContent, $status);
+	if ($success) $success = checkClangFormat($sourceContent, $status);
 	if ($success) $success = checkIncludeHeaders($sourceFilePath, $sourceContent, $status, $folderName);
 
 	if ($success && !isDryRun() && count($status) > 0) {
@@ -55,6 +55,7 @@ foreach ($sourceFiles as $i => $sourceFilePath) {
 	printResultLine($folderName . '/' . $sourceFileName, $success, $status, $i / count($sourceFiles));
 }
 printEndGroup();
+
 printStartGroup('RUNNING CHECKS ON HEADER FILES');
 foreach ($headerFiles as $i => $headerFilePath) {
 	$headerFileName = basename($headerFilePath);
@@ -69,7 +70,7 @@ foreach ($headerFiles as $i => $headerFilePath) {
 
 	if ($success) $success = checkFileHeader($headerFilePath, $headerContent, $status);
 	if ($success) $success = checkDefines($headerContent, $headerFileName, $folderName, $status);
-	if ($success) $success = checkClang($headerContent, $status);
+	if ($success) $success = checkClangFormat($headerContent, $status);
 	if ($success) $success = checkIncludeHeaders($headerFilePath, $headerContent, $status, $folderName);
 
 	if ($success && !isDryRun() && count($status) > 0) {
@@ -78,6 +79,13 @@ foreach ($headerFiles as $i => $headerFilePath) {
 	printResultLine($folderName . '/' . $headerFileName, $success, $status, $i / count($headerFiles));
 }
 printEndGroup();
+
+if(argumentContains('checkTidy')){
+	printStartGroup('RUNNING CLANG-TIDY');
+	echo noticeString('This may take some time ...') . PHP_EOL;
+	checkClangTidy();
+	printEndGroup();
+}
 printFinish();
 exit;
 
@@ -155,7 +163,7 @@ function checkDefines(&$fileContent, $headerFileName, $folderName, &$status)
 	return false;
 }
 
-function checkClang(&$fileContent, &$status)
+function checkClangFormat(&$fileContent, &$status)
 {
 	$contentsBefore = $fileContent;
 
@@ -166,7 +174,7 @@ function checkClang(&$fileContent, &$status)
 	unlink($filepathTemp); // nothing to see here :)
 
 	if ($contentsBefore != $fileContent) {
-		$status[] = noticeString('checkClang changed');
+		$status[] = noticeString('checkClangFormat changed');
 	}
 	return true;
 }
@@ -206,7 +214,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 			if (preg_match($includeFormatRegex, $includeLine, $matchInclude)) {
 				$includeFileName = $matchInclude[2];
 				if ($matchInclude[1] == '"') {
-					// project includes		
+					// project includes
 					if (pathinfo(basename($includeFileName), PATHINFO_FILENAME)
 						== pathinfo(basename($filepath), PATHINFO_FILENAME)) $includesOut['moduleHeader'][] = $includeLine;
 					else if (strpos($includeFileName, 'ui_') === 0) $includesOut['uiAutogenHeader'][] = $includeLine;
@@ -221,7 +229,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 				} else if ($matchInclude[1] == '<') {
 					// system includes
 					if (substr($includeFileName, 0, 1) == 'Q') $includesOut['qtHeader'][] = $includeLine;
-          elseif (substr($includeFileName, -2, 2) == '.h') $includesOut['cHeader'][] = $includeLine;
+                    elseif (substr($includeFileName, -2, 2) == '.h') $includesOut['cHeader'][] = $includeLine;
 					else $includesOut['cppHeader'][] = $includeLine;
 				} else {
 					$status[] = errorString('invalid include line: "' . $includeLine . '"');
@@ -251,6 +259,64 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 	if (isVerbose()) $status[] = warningString('no includes in file');
 	return true;
 }
+
+function checkClangTidy()
+{
+	$cmakeFolder = PROJECT_PATH . '/cmake';
+    shell_exec('cmake ' . escapeshellarg($cmakeFolder) . ' -DCMAKE_EXPORT_COMPILE_COMMANDS=ON');
+
+	// TODO apply more styles, maybe modernize-*?
+	// Following checks are available with clang-tidy-6.0
+	$checks = array(
+		// 'modernize-avoid-bind',
+		// 'modernize-deprecated-headers',
+		// 'modernize-loop-convert',
+		// 'modernize-make-shared',
+		// 'modernize-make-unique',
+		// 'modernize-pass-by-value',
+		// 'modernize-raw-string-literal',
+		// 'modernize-redundant-void-arg',
+		// 'modernize-replace-auto-ptr',
+		// 'modernize-replace-random-shuffle',
+		// 'modernize-return-braced-init-list',
+		// 'modernize-shrink-to-fit',
+		// 'modernize-unary-static-assert',
+		// 'modernize-use-auto',
+		// 'modernize-use-bool-literals',
+		// 'modernize-use-default-member-init',
+		// 'modernize-use-emplace',
+		// 'modernize-use-equals-default',
+		// 'modernize-use-equals-delete',
+		// 'modernize-use-noexcept',
+		'modernize-use-nullptr',
+		'modernize-use-override',
+		// 'modernize-use-transparent-functors',
+		// 'modernize-use-using',
+	);
+
+	$checkString = '-*,' . implode(',', $checks);
+
+	/*$cmd = CLANG_TIDY_EXEC_PATH . ' -checks=' . $checkString
+        . ' ' . escapeshellarg($filepath)
+        . ' -p ' . escapeshellarg($cmakeFolder)
+        . ' --header-filter=' . escapeshellarg(PROJECT_PATH)
+		. ' -fix 2>&1';*/
+
+	$cmd = RUN_CLANG_TIDY_EXEC_PATH
+            . ' -clang-apply-replacements-binary=' . CLANG_APPLY_BINARY_PATH
+            . ' -checks=' . $checkString
+            . ' -header-filter=".*"'
+            . ' -quiet'
+            . ' -p ' . escapeshellarg($cmakeFolder)
+            . (!isDryRun() ? ' -fix' : '')
+            . ' 2>/dev/null';
+
+	// echo $cmd; exit;
+	echo shell_exec($cmd);
+
+	return true;
+}
+
 
 function getFileHeader($author, $description, $modificationString)
 {

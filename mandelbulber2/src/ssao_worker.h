@@ -69,7 +69,7 @@ public:
 
 	cSSAOWorker(const sParamRender *_params, sThreadData *_threadData, const sRenderData *_data,
 		cImage *_image);
-	~cSSAOWorker();
+	~cSSAOWorker() override;
 
 	QThread workerThread;
 

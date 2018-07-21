@@ -49,7 +49,7 @@ class MyDoubleSpinBox : public QDoubleSpinBox, public CommonMyWidgetWrapper
 
 public:
 	MyDoubleSpinBox(QWidget *parent = nullptr);
-	~MyDoubleSpinBox();
+	~MyDoubleSpinBox() override;
 
 	void resetToDefault() override;
 	QString getDefaultAsString() override;

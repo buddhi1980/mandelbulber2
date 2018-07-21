@@ -60,7 +60,7 @@ class cInterface : public QObject
 
 public:
 	cInterface(QObject *parent = nullptr);
-	~cInterface();
+	~cInterface() override;
 	void ShowUi();
 	void ConnectSignals() const;
 	void ConnectProgressAndStatisticsSignals() const;

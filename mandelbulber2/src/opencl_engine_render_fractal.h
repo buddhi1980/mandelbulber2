@@ -68,7 +68,7 @@ public:
 	};
 
 	cOpenClEngineRenderFractal(cOpenClHardware *hardware);
-	~cOpenClEngineRenderFractal();
+	~cOpenClEngineRenderFractal() override;
 
 #ifdef USE_OPENCL
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;

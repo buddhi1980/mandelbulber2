@@ -55,7 +55,7 @@ class cAudioSelector : public QWidget
 	Q_OBJECT
 public:
 	explicit cAudioSelector(QWidget *parent = nullptr);
-	~cAudioSelector();
+	~cAudioSelector() override;
 	void AssignParameter(const QString &_parameterName);
 	void AssignAnimation(cAnimationFrames *_animationFrames);
 

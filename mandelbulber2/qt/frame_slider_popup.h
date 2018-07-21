@@ -49,7 +49,7 @@ class cFrameSliderPopup : public QFrame
 	Q_OBJECT
 public:
 	explicit cFrameSliderPopup(QWidget *parent = nullptr);
-	~cFrameSliderPopup();
+	~cFrameSliderPopup() override;
 
 private:
 	Ui::cFrameSliderPopup *ui;

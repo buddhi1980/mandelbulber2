@@ -52,7 +52,7 @@ class cRenderer : public QObject
 public:
 	cRenderer(const sParamRender *_params, const cNineFractals *_fractal, sRenderData *_renderData,
 		cImage *_image);
-	~cRenderer();
+	~cRenderer() override;
 	bool RenderImage();
 
 private:

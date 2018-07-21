@@ -52,7 +52,7 @@ class cDockRenderingEngine : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockRenderingEngine(QWidget *parent = nullptr);
-	~cDockRenderingEngine();
+	~cDockRenderingEngine() override;
 
 	void SynchronizeInterfaceDistanceEstimation(cParameterContainer *par) const;
 	void ComboDeltaDEFunctionSetEnabled(bool enabled) const;

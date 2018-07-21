@@ -43,7 +43,7 @@ class MyTableWidgetAnim : public QTableWidget
 
 public:
 	MyTableWidgetAnim(QWidget *parent = nullptr);
-	~MyTableWidgetAnim();
+	~MyTableWidgetAnim() override;
 
 private:
 public slots:

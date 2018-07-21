@@ -43,7 +43,7 @@ class MyTableWidgetKeyframes : public QTableWidget
 
 public:
 	MyTableWidgetKeyframes(QWidget *parent = nullptr);
-	~MyTableWidgetKeyframes();
+	~MyTableWidgetKeyframes() override;
 
 private:
 public slots:

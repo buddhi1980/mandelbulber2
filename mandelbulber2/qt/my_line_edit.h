@@ -49,7 +49,7 @@ class MyLineEdit : public QLineEdit, public CommonMyWidgetWrapper
 
 public:
 	MyLineEdit(QWidget *parent = nullptr);
-	~MyLineEdit();
+	~MyLineEdit() override;
 
 private:
 	QAction *actionResetVectorToDefault;

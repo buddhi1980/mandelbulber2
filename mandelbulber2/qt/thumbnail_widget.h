@@ -56,7 +56,7 @@ class cThumbnailWidget : public QWidget
 public:
 	cThumbnailWidget(QWidget *parent);
 	cThumbnailWidget(int _width, int _height, int _oversample, QWidget *parent);
-	~cThumbnailWidget();
+	~cThumbnailWidget() override;
 	void Init(QWidget *parent);
 	void SetSize(int _width, int _height, int _oversample);
 	void AssignParameters(const cParameterContainer &_params, const cFractalContainer &_fractal);

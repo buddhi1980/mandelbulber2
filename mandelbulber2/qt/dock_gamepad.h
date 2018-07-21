@@ -53,8 +53,8 @@ class cDockGamepad : public QWidget
 {
 	Q_OBJECT
 public:
-	explicit cDockGamepad(QWidget *parent = NULL);
-	~cDockGamepad();
+	explicit cDockGamepad(QWidget *parent = nullptr);
+	~cDockGamepad() override;
 
 private slots:
 #ifdef USE_GAMEPAD

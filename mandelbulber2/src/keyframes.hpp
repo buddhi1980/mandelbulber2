@@ -51,7 +51,7 @@ class cKeyframes : public cAnimationFrames
 
 public:
 	cKeyframes();
-	~cKeyframes();
+	~cKeyframes() override;
 	cKeyframes(const cKeyframes &source);
 	cKeyframes &operator=(const cKeyframes &source);
 	sAnimationFrame GetInterpolatedFrame(

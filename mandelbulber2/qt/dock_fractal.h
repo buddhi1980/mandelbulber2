@@ -57,7 +57,7 @@ class cDockFractal : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockFractal(QWidget *parent = nullptr);
-	~cDockFractal();
+	~cDockFractal() override;
 
 	void InitializeFractalUi() const;
 	bool AreHybridFractalsEnabled() const;

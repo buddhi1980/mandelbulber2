@@ -46,7 +46,7 @@ class cAudioTrack : public QObject
 
 public:
 	cAudioTrack(QObject *parent = nullptr);
-	~cAudioTrack();
+	~cAudioTrack() override;
 	void Clear();
 
 	void LoadAudio(const QString &filename);

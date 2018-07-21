@@ -52,7 +52,7 @@ class cOpenClEngineRenderSSAO : public cOpenClEngine
 
 public:
 	cOpenClEngineRenderSSAO(cOpenClHardware *hardware);
-	~cOpenClEngineRenderSSAO();
+	~cOpenClEngineRenderSSAO() override;
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender);

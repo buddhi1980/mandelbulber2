@@ -51,7 +51,7 @@ class cPreferencesDialog : public QDialog
 
 public:
 	explicit cPreferencesDialog(QWidget *parent = nullptr);
-	~cPreferencesDialog();
+	~cPreferencesDialog() override;
 
 private slots:
 	void on_buttonBox_accepted();

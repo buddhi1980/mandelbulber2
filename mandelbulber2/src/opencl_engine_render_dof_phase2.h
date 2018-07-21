@@ -53,7 +53,7 @@ class cOpenClEngineRenderDOFPhase2 : public cOpenClEngine
 
 public:
 	cOpenClEngineRenderDOFPhase2(cOpenClHardware *_hardware);
-	~cOpenClEngineRenderDOFPhase2();
+	~cOpenClEngineRenderDOFPhase2() override;
 
 #ifdef USE_OPENCL
 	void SetParameters(const sParamRender *paramRender);

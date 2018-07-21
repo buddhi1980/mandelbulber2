@@ -54,7 +54,7 @@ class cDockQueue : public QWidget
 	Q_OBJECT
 public:
 	explicit cDockQueue(QWidget *parent = nullptr);
-	~cDockQueue();
+	~cDockQueue() override;
 	MyProgressBar *GetProgressBarImage() const;
 	MyProgressBar *GetProgressBarAnimation() const;
 	Ui::cDockQueue *GetUi() const;

@@ -47,7 +47,7 @@ class cFileDownloader : public QObject
 
 public:
 	cFileDownloader(QString sourceBaseURL, QString targetDir);
-	~cFileDownloader();
+	~cFileDownloader() override;
 	void downloadFileList();
 
 private slots:

@@ -57,7 +57,7 @@ class cWaveFormView : public QWidget
 
 public:
 	cWaveFormView(QWidget *parent);
-	~cWaveFormView();
+	~cWaveFormView() override;
 
 	void AssignAudioTrack(const cAudioTrack *audiotrack);
 

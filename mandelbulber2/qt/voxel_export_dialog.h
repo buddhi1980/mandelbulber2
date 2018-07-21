@@ -52,7 +52,7 @@ class cVoxelExportDialog : public QDialog
 
 public:
 	explicit cVoxelExportDialog(QWidget *parent = nullptr);
-	~cVoxelExportDialog();
+	~cVoxelExportDialog() override;
 
 public slots:
 	void on_pushButton_start_render_layers_clicked();
