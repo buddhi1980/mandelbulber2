@@ -1735,7 +1735,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		connect(setPositionButton, SIGNAL(clicked()), mainWindow,
 			SLOT(slotPressedButtonSetPositionPrimitive()));
 		connect(
-			alignButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAllignPrimitiveAngle()));
+			alignButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonAlignPrimitiveAngle()));
 
 		// adding parameters
 		if (index == 0) // for only new primitive

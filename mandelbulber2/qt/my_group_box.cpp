@@ -136,10 +136,10 @@ void MyGroupBox::slotResetAllToDefault()
 
 	foreach (QWidget *widget, listOfWidgets)
 	{
-		CommonMyWidgetWrapper *mywidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
-		if (mywidget)
+		CommonMyWidgetWrapper *myWidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
+		if (myWidget)
 		{
-			mywidget->resetToDefault();
+			myWidget->resetToDefault();
 		}
 	}
 }

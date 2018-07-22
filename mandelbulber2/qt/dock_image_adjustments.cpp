@@ -52,7 +52,7 @@ cDockImageAdjustments::cDockImageAdjustments(QWidget *parent)
 		: QWidget(parent), ui(new Ui::cDockImageAdjustments)
 {
 	ui->setupUi(this);
-	listOfPresetBushbuttons = ui->groupBox_presets->findChildren<QToolButton *>();
+	listOfPresetPushButtons = ui->groupBox_presets->findChildren<QToolButton *>();
 
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
@@ -82,7 +82,7 @@ void cDockImageAdjustments::ConnectSignals() const
 	connect(ui->comboBox_image_proportion, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboImageProportion(int)));
 
-	foreach (QToolButton *button, listOfPresetBushbuttons)
+	foreach (QToolButton *button, listOfPresetPushButtons)
 	{
 		connect(button, SIGNAL(clicked()), this, SLOT(slotPressedResolutionPreset()));
 	}
@@ -356,7 +356,7 @@ void cDockImageAdjustments::InitResolutionPresets()
 		settings.SaveToFile(presetsFile);
 	}
 
-	foreach (QToolButton *button, listOfPresetBushbuttons)
+	foreach (QToolButton *button, listOfPresetPushButtons)
 	{
 		button->setPopupMode(QToolButton::MenuButtonPopup);
 		button->setText(resolutionPresets->Get<QString>(

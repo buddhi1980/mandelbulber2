@@ -723,18 +723,18 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-		bool limitsAcheved = false;
+		bool limitsReached = false;
 		if (params->limitsEnabled)
 		{
 			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
 					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
 					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
 			{
-				limitsAcheved = true;
+				limitsReached = true;
 			}
 		}
 
-		if (bSoft && !limitsAcheved)
+		if (bSoft && !limitsReached)
 		{
 			double angle = (dist - dist_thresh) / i;
 			if (angle < 0) angle = 0;
@@ -1297,18 +1297,18 @@ double cRenderWorker::AuxShadow(
 		dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-		bool limitsAcheved = false;
+		bool limitsReached = false;
 		if (params->limitsEnabled)
 		{
 			if (point2.x < params->limitMin.x || point2.x > params->limitMax.x
 					|| point2.y < params->limitMin.y || point2.y > params->limitMax.y
 					|| point2.z < params->limitMin.z || point2.z > params->limitMax.z)
 			{
-				limitsAcheved = true;
+				limitsReached = true;
 			}
 		}
 
-		if (bSoft && !limitsAcheved)
+		if (bSoft && !limitsReached)
 		{
 			double angle = (dist - dist_thresh) / i;
 			if (angle < 0) angle = 0;

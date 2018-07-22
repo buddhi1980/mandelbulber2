@@ -104,7 +104,7 @@ private:
 	cAutomatedWidgets *automatedWidgets;
 
 	cParameterContainer *resolutionPresets;
-	QList<QToolButton *> listOfPresetBushbuttons;
+	QList<QToolButton *> listOfPresetPushButtons;
 };
 
 #endif /* MANDELBULBER2_QT_DOCK_IMAGE_ADJUSTMENTS_H_ */

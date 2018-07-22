@@ -257,7 +257,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 	messageBox->addButton(QMessageBox::Ok);
 	messageBox->setDefaultButton(QMessageBox::Ok);
 
-	// ! Evil hack to increase size of qmessagebox,
+	// ! Evil hack to increase size of QMessageBox,
 	// see here for more info:
 	// https://stackoverflow.com/questions/37668820/how-can-i-resize-qmessagebox
 	QSpacerItem *horizontalSpacer =

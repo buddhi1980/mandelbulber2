@@ -106,7 +106,7 @@ private slots:
 	void slotChangedComboGridType(int index);
 
 	void slotPressedButtonDeletePrimitive() const;
-	void slotPressedButtonAllignPrimitiveAngle() const;
+	void slotPressedButtonAlignPrimitiveAngle() const;
 
 	void slotPressedButtonSetPositionPrimitive() const;
 	void slotResizedScrolledAreaImage(int width, int height) const;

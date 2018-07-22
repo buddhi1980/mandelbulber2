@@ -67,7 +67,7 @@ void RenderWindow::slotPressedButtonSetPositionPrimitive() const
 	gMainInterface->renderedImage->setClickMode(item);
 }
 
-void RenderWindow::slotPressedButtonAllignPrimitiveAngle() const
+void RenderWindow::slotPressedButtonAlignPrimitiveAngle() const
 {
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
 
