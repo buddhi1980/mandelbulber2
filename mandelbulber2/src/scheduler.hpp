@@ -77,7 +77,7 @@ private:
 	int numberOfLines;
 	int startLine;
 	int endLine;
-	volatile bool stopRequest;
+	std::atomic<bool> stopRequest;
 	int progressiveStep;
 	int progressivePass;
 	bool progressiveEnabled;

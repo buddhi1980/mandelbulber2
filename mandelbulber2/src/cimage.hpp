@@ -307,7 +307,7 @@ private:
 
 	QMutex previewMutex;
 
-	volatile bool isUsed;
+	std::atomic<bool> isUsed;
 };
 
 sRGB PostRendering_Fog(double z, double min, double max, sRGB fog_color, sRGB color_before);
