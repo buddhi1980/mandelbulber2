@@ -8008,7 +8008,7 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 zz = z * z;
 	CVector4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
-	{ // scator image
+	{ // scator imaginary
 		newZ.x = zz.x - zz.y - zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
@@ -8056,7 +8056,7 @@ void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	// Scator real enabled
 	CVector4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
-	{ // scator image
+	{ // scator imaginary
 		newZ.x = zz.x - zz.y - zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;
@@ -10435,7 +10435,7 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= fractal->transformCommon.scale;
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	else
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
@@ -10708,7 +10708,7 @@ void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z = trigZ * fractal->transformCommon.scale;
 	//   if z == oldZ    z = oldZ * fractal->transformCommon.scale;
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	else
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
@@ -10773,7 +10773,7 @@ void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 	else
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
@@ -10819,7 +10819,7 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->analyticDE.enabled) // temp
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE *= fabs(fractal->transformCommon.scale) + 1.0;
+			aux.DE = aux.DE *  fabs(fractal->transformCommon.scale) + 1.0;
 		else
 			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 							 + fractal->analyticDE.offset1;
