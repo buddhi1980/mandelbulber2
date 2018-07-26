@@ -4043,7 +4043,7 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 			z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
 			if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
-			aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+			aux.DE *= fabs(fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1);
 
 			z += fractal->transformCommon.additionConstantA000;
 
@@ -4063,6 +4063,9 @@ void MandelboxMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			}
 		}
 	}
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	aux.color += colorAdd;
 }
 
@@ -5064,8 +5067,16 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		CVector3 tempAvgScale = CVector3(z.x, z.y / 2.0, z.z / 2.0);
 		double avgScale = tempAvgScale.Length() / tempL;
 		double tempAux = aux.DE * avgScale;
-		aux.DE = aux.DE + (tempAux - aux.DE) * fractal->transformCommon.scaleF1;
+		aux.DE = aux.DE + (tempAux - aux.DE) * fractal->analyticDE.scale1;
 		z += fractal->transformCommon.offset000;
+		//if (!fractal->analyticDE.enabledFalse)
+		//	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
+		//else
+		//	aux.DE =
+		//		aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+
+
 	}
 	// sym4
 	if (fractal->transformCommon.functionEnabledCxFalse
@@ -5080,7 +5091,7 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		//	tempL = 1e-21;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux.DE *= fabs(z.Length() / tempL);
+		aux.DE *= z.Length() / tempL;
 
 		if (fabs(z.x) < fabs(z.z)) swap(z.x, z.z);
 		if (fabs(z.x) < fabs(z.y)) swap(z.x, z.y);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_quat</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -476,7 +476,7 @@
             </widget>
            </item>
            <item row="10" column="3">
-            <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleF_1">
+            <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                <horstretch>0</horstretch>

@@ -132,7 +132,7 @@ enum enumFractalFormula
 	collatz = 88,
 	collatzMod = 89,
 	mengerPwr2Poly = 90,
-	mandelboxMenger = 91,
+	mandelboxMenger = 91, // DE v2.15
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
 	mandelbulbBermarte = 94,
@@ -165,7 +165,7 @@ enum enumFractalFormula
 	mandelbulbMulti2 = 118, // mbulb default changed V2.12
 	aboxMod11 = 119,				// fixed varyscale v2.12
 	// V2.12
-	mandelbulbQuat = 120,
+	mandelbulbQuat = 120, // DE 2.15
 	mandelbulbJuliabulb = 121,
 	josKleinian = 122,
 	aboxMod12 = 123,

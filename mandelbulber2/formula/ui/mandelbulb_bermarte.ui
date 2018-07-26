@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbulb_bermarte</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -85,21 +85,21 @@
        <item row="0" column="3">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
          <property name="text">
-          <string notr="true">fabs(z.y)</string>
+          <string notr="true">abs(z.y)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="4">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
          <property name="text">
-          <string notr="true">fabs(z.z)</string>
+          <string notr="true">abs(z.z)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="2">
         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
          <property name="text">
-          <string notr="true">fabs(z.x)</string>
+          <string notr="true">abs(z.x)</string>
          </property>
         </widget>
        </item>
@@ -150,7 +150,7 @@
      <item row="13" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
        <property name="text">
-        <string notr="true">fabs(z.x)</string>
+        <string notr="true">abs(z.x)</string>
        </property>
       </widget>
      </item>
@@ -227,7 +227,7 @@
      <item row="13" column="1">
       <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
        <property name="text">
-        <string notr="true">fabs(z.y)</string>
+        <string notr="true">abs(z.y)</string>
        </property>
       </widget>
      </item>
@@ -344,7 +344,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic &amp;Logrithmic DE adjustment</string>
+      <string>Analytic D&amp;E extra controls</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -401,14 +401,14 @@
         <item row="2" column="1">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset2:</string>
+           <string>Analytic DE offset2:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Logrithmic DE offset1:</string>
+           <string>Analytic  DE offset1:</string>
           </property>
          </widget>
         </item>
@@ -458,10 +458,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -471,7 +471,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier:</string>
+           <string>Analytic  DE scale1:</string>
           </property>
          </widget>
         </item>
