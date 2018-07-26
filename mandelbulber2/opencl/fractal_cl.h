@@ -424,7 +424,7 @@ typedef struct
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-	cl_float factor2;
+        // cl_float factor2;
 	cl_float scaleLin;
 	cl_float offsetLin;
 } sFractalAnalyticDECl;
