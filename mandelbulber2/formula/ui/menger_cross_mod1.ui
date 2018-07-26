@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_cross_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -527,7 +527,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,1">
      <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
@@ -546,7 +546,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99.000000000000000</double>
@@ -559,7 +559,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_105">
        <property name="text">
-        <string>DE tweak:</string>
+        <string>Analytic DE tweak:</string>
        </property>
       </widget>
      </item>
@@ -687,7 +687,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.000000000000000</double>

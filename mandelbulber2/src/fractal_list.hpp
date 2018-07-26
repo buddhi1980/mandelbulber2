@@ -131,7 +131,7 @@ enum enumFractalFormula
 	aboxModKaliEiffie = 87, // updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
-	mengerPwr2Poly = 90,
+	mengerPwr2Poly = 90, // DE v2.15
 	mandelboxMenger = 91, // DE v2.15
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
@@ -141,7 +141,7 @@ enum enumFractalFormula
 	amazingSurfMulti = 97,
 	// V2.09
 	mengerCrossKIFS = 98,
-	mengerPrismShape = 99, // fix T1 T1M V2.10
+	mengerPrismShape = 99, // fix T1 T1M V2.10. DE v2.15
 	benesiMagTransforms = 100,
 	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
 	bristorbrot4d = 102,
@@ -150,7 +150,7 @@ enum enumFractalFormula
 	benesiPwr2Mandelbulb = 105, // rot2 v2.14
 	mengerCrossMod1 = 106,
 	// V2.10
-	mengerPrismShape2 = 107,
+	mengerPrismShape2 = 107, // DE v2.15
 	mixPinski4d = 108,	// fixed V2.11
 	sierpinski4d = 109, // update DE v2.15
 	sierpinski3d = 110, // update DE v2.15

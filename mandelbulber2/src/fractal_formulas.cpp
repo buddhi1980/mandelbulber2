@@ -5457,6 +5457,8 @@ void MengerMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	z += fractal->transformCommon.additionConstant000;
+
+	// boxoffset
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA) // box offset
@@ -5806,7 +5808,7 @@ void MengerPwr2PolyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			fractal->transformCommon.constantMultiplierB111.z, 0.0);
 		z = constantMult + partB - partA * fnZ1;
 		z *= fractal->transformCommon.scale025;
-		aux.DE = aux.DE * 4.0 * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
+		aux.DE = aux.DE * 4.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -5992,12 +5994,12 @@ void MengerPrismShapeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
 		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
-		aux.DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+		aux.DE *= fractal->transformCommon.scale3;
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
-
-	aux.DE *= fractal->transformCommon.scaleB1;
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -6313,7 +6315,8 @@ void MengerPrismShape2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 		z += fractal->transformCommon.additionConstantA000;
 	}
-	aux.DE *= fractal->analyticDE.scale1;
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**

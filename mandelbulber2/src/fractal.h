@@ -441,7 +441,7 @@ struct sFractalAnalyticDE
 	double offset0;
 	double offset1;
 	double offset2;
-	double factor2;
+	//double factor2;
 	double scaleLin;
 	double offsetLin;
 };
