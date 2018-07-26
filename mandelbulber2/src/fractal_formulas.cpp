@@ -1161,7 +1161,6 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		z *= aux.actualScale;
-		// aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 
 		if (!fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
@@ -1171,6 +1170,7 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
@@ -2658,9 +2658,11 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
+	aux.DE = aux.r * aux.DE * 2.0 + 1.0;
 
+	CVector4 c = aux.const_c;
 	CVector4 temp = z;
+
 	z *= z;
 	double t = 2.0 * temp.x;
 	if (z.y + z.z > 0.0)
@@ -2671,7 +2673,6 @@ void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
 	z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;
 	z.y = (2.0 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
-	aux.DE = aux.r * aux.DE * 2.0 + 1.0;
 
 	if (fractal->transformCommon.angle0 != 0)
 	{
@@ -2704,7 +2705,7 @@ void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21) tempL = 1e-21;
 		double avgScale = z.Length() / tempL;
-		aux.DE *= avgScale;
+		aux.DE *= avgScale; // pos
 
 		if (fractal->transformCommon.rotationEnabled)
 		{
@@ -2789,7 +2790,7 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 		double tempL = temp.Length();
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21) tempL =  1e-21;
-		double avgScale = z.Length() / tempL;
+		double avgScale = z.Length() / tempL; // pos
 
 		aux.DE = aux.DE * avgScale + 1.0;
 
@@ -3356,7 +3357,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z.x = fabs(z.x);
 		z = z * fractal->transformCommon.scaleA2
 				- fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0);
-		aux.DE *= fractal->transformCommon.scaleA2;
+		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -3560,7 +3561,7 @@ void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		z = z * fractal->transformCommon.scaleA2
 				- fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0);
 
-		aux.DE *= fractal->transformCommon.scaleA2;
+		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse

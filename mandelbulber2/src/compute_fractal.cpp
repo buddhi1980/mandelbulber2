@@ -393,6 +393,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// final calculations
 	if (Mode == calcModeNormal)
 	{
+		//if (extendedAux.DE > 0.0); //maybe?
 		if (fractals.IsHybrid())
 		{
 			if (extendedAux.DE != 0.0)
@@ -420,6 +421,29 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
+				/*case testingDEFunction:
+				{
+					double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
+					double linDE = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
+
+					out->distance = "mix function"  (logDE, linDE, extendedAux.temp100 / 100)); // temp use of aux.
+
+				}*/
+
+				// out->distance = = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
+				// CVector4 zz = z * z;
+				// out->distance = = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
+				// out->distance = abs(length(z)-0.0 ) * pow(Scale, float(-n));
+				// Use this to crop to a sphere:
+				//  float e = clamp(length(z)-2.0, 0.0,100.0);
+				//  out->distance = max(d,e);// distance estimate
+				//
+				// #if 1
+				// 	out->distance = (sqrt(r2)-sr)/dd;//bounding volume is a sphere
+				// #else
+				// 	p=abs(p); out->distance = (max(p.x,max(p.y,p.z))-sc)/dd;//bounding volume is a cube
+				// #endif
+
 			}
 			else
 			{
@@ -460,11 +484,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance = r;
 					break;
 				}
-
-				// r = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
-				// CVector4 zz = z * z;
-				// r = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
-
 				case analyticFunctionJosKleinian:
 				{
 					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
@@ -475,6 +494,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					break;
 				}
+
+
 				case analyticFunctionNone: out->distance = -1.0; break;
 				case analyticFunctionUndefined: out->distance = r; break;
 			}

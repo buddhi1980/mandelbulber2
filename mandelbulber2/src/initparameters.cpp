@@ -542,6 +542,7 @@ void InitFractalParams(cParameterContainer *par)
 	QStringList qslOrderOfFolds({"type1", "type2", "type3", "type4", "type5"});
 	QStringList qslOrderOfTransf({"typeT1", "typeT1Mod", "typeT2", "typeT3", "typeT4", "typeT5b"});
 	QStringList qslOrderOf3Folds({"type1", "type2", "type3"});
+	// hmmm?? comboBoxes
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
