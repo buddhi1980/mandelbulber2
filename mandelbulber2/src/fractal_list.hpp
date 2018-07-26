@@ -110,7 +110,7 @@ enum enumFractalFormula
 	benesiT1PineTree = 67, // updated V2.09, rot2 v2.14
 	msltoeSym3Mod = 68,
 	msltoeSym4Mod = 69,
-	eiffieMsltoe = 70, // updated V2.08
+	eiffieMsltoe = 70, // updated V2.08. DE v2.15
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
 	amazingSurf = 73, // fix scale v2.12
@@ -121,7 +121,7 @@ enum enumFractalFormula
 	mandelbulbVaryPowerV1 = 78,
 	quaternion4d = 79, // updated V2.10
 	msltoeSym3Mod2 = 80,
-	msltoeSym3Mod3 = 81,
+	msltoeSym3Mod3 = 81, // DE v2.15
 	msltoeDonut = 82,
 	iqBulb = 83,
 	quickDudleyMod = 84,

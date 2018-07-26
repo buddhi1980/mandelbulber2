@@ -6606,7 +6606,9 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		aux.r = z.Length();
 		aux.DE = aux.DE * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
-		if (fractal->transformCommon.functionEnabledAxFalse)
+
+
+		if (fractal->analyticDE.enabledFalse)
 		{
 			CVector4 temp2 = z;
 			double tempL = temp2.Length();
@@ -6615,7 +6617,7 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			double avgScale = z.Length() / tempL;
 			// aux.DE *= avgScale * fractal->transformCommon.scaleA1;
 			double tempAux = aux.DE * avgScale;
-			aux.DE = aux.DE + (tempAux - aux.DE) * fractal->transformCommon.scaleA1;
+			aux.DE = aux.DE + (tempAux - aux.DE) * fractal->analyticDE.scale1;
 		}
 		else
 		{
@@ -6664,17 +6666,26 @@ void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
 	z *= fractal->transformCommon.scale1;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+	/*aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
 	// aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->analyticDE.enabledFalse)
-	{ // analytic log DE adjustment
+	{ // analytic DE adjustment
 		aux.DE *= fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1;
 	}
 	else
 	{
 		aux.DE *= fabs(fractal->transformCommon.scale1);
-	}
+	}*/
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
+
+
+
+
 }
 
 /**
@@ -6799,7 +6810,7 @@ void MsltoeSym3Mod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		aux.r = z.Length();
 		aux.DE = aux.DE * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
-		if (fractal->transformCommon.functionEnabledAxFalse)
+		if (fractal->analyticDE.enabledFalse)
 		{
 			CVector4 temp = z;
 			double tempL = temp.Length();
@@ -6906,7 +6917,7 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z.z = -rp * sin(phi);
 
 	if (fractal->analyticDE.enabledFalse)
-	{ // analytic log DE adjustment
+	{ // analytic DE adjustment
 		if (fractal->analyticDE.enabledAuxR2False) aux.DE *= aux.DE;
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
 							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
