@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>box_fold_bulb_pow2_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -890,7 +890,7 @@ offset:</string>
         <item row="2" column="0">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Logrithmic DE offset1:</string>
+           <string>Analytic DE offset1:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -900,7 +900,7 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier:</string>
+           <string>Analytic DE scale1:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -910,7 +910,7 @@ offset:</string>
         <item row="3" column="0">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset2:</string>
+           <string>Analytic DE offset2:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
