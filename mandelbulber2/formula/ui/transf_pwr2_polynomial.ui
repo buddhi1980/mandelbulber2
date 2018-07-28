@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_pwr2_polynomial</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>922</width>
+    <width>925</width>
     <height>1678</height>
    </rect>
   </property>
@@ -594,7 +594,7 @@
          </widget>
         </item>
         <item row="9" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_linear">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -701,7 +701,7 @@
          </widget>
         </item>
         <item row="8" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_linear">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -788,7 +788,7 @@
         <item row="9" column="0" colspan="2">
          <widget class="QLabel" name="label_188">
           <property name="text">
-           <string>Analytic Linear DE offset:</string>
+           <string>Analytic DE offset1:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -798,7 +798,7 @@
         <item row="8" column="0" colspan="2">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Linear DE multiplier:</string>
+           <string>Analytic DE scale1:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -953,15 +953,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -975,8 +975,8 @@
   <tabstop>spinbox3_transf_constant_multiplierB_111_y</tabstop>
   <tabstop>spinbox3_transf_constant_multiplierB_111_z</tabstop>
   <tabstop>spinbox_transf_scale_025</tabstop>
-  <tabstop>spinbox_analyticDE_scale_linear</tabstop>
-  <tabstop>spinbox_analyticDE_offset_linear</tabstop>
+  <tabstop>spinbox_analyticDE_scale_1</tabstop>
+  <tabstop>spinbox_analyticDE_offset_1</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>

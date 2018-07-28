@@ -727,8 +727,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("analyticDE_enabled", true, morphLinear, paramStandard);
 	par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
 	// par->addParam("analyticDE_enabled_auxR2_false", false, morphLinear, paramStandard);
-	par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
-	par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
+	//par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
+	//par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
 	// color controls
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);

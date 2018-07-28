@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_fold_parab</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -882,7 +882,7 @@ offset:</string>
    <item>
     <layout class="QGridLayout" name="gridLayout_5" columnstretch="0,1">
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_linear">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -910,7 +910,7 @@ offset:</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_linear">
+      <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -940,14 +940,14 @@ offset:</string>
      <item row="0" column="0">
       <widget class="QLabel" name="label_181">
        <property name="text">
-        <string>Analytic Linear DE multiplier:</string>
+        <string>Analytic DE scale1:</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_190">
        <property name="text">
-        <string>Analytic Linear DE addition:</string>
+        <string>Analytic DE offset1</string>
        </property>
       </widget>
      </item>

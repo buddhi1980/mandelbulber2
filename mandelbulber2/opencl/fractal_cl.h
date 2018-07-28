@@ -1072,8 +1072,8 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE 
 	target.offset1 = source.offset1;
 	target.offset2 = source.offset2;
         //target.factor2 = source.factor2;
-        target.scaleLin = source.scaleLin;
-	target.offsetLin = source.offsetLin;
+        //target.scaleLin = source.scaleLin;
+        //target.offsetLin = source.offsetLin;
 	return target;
 }
 

@@ -442,8 +442,8 @@ struct sFractalAnalyticDE
 	double offset1;
 	double offset2;
 	//double factor2;
-	double scaleLin; // out of date name, only 4 uses. Remove
-	double offsetLin; // out of date name, only 4 uses. Remove
+	//double scaleLin; // out of date name, only 4 uses. Remove
+	//double offsetLin; // out of date name, only 4 uses. Remove
 };
 
 // common parameters for transforming formulas

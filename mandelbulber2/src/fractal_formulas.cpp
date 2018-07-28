@@ -3681,7 +3681,7 @@ void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 	z *= fractal->transformCommon.scale025;
 
-	aux.DE = aux.DE * 4.0 * fractal->analyticDE.scaleLin + 1.0;
+	aux.DE = aux.DE * 4.0 * fractal->analyticDE.scale1 + 1.0;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -10116,7 +10116,7 @@ void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtend
 	z = constantMult + partB - partA * fnZ1;
 	z *= fractal->transformCommon.scale025;
 
-	aux.DE = aux.DE * 4.0 * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
+	aux.DE = aux.DE * 4.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
@@ -11152,7 +11152,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 		useScale += aux.actualScaleA;
 		z *= useScale;
 
-		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
+		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 		// update actualScale for next iteration
 		double vary = fractal->transformCommon.scaleVary0
@@ -11165,7 +11165,7 @@ void TransfSphericalFoldParabIteration(CVector4 &z, const sFractal *fractal, sEx
 	else
 	{
 		z *= useScale;
-		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scaleLin + fractal->analyticDE.offsetLin;
+		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
 
