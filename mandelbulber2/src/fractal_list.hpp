@@ -127,7 +127,7 @@ enum enumFractalFormula
 	quickDudleyMod = 84,
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
-	msltoeToroidal = 86,
+	msltoeToroidal = 86, // update DE v2.15
 	aboxModKaliEiffie = 87, // updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
@@ -137,7 +137,7 @@ enum enumFractalFormula
 	mandelbulbKaliMulti = 93,
 	mandelbulbBermarte = 94,
 	mengerMiddleMod = 95,
-	msltoeToroidalMulti = 96,
+	msltoeToroidalMulti = 96,// update DE v2.15
 	amazingSurfMulti = 97,
 	// V2.09
 	mengerCrossKIFS = 98,

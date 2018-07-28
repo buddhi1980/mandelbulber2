@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>msltoe_toroidal_multi</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -538,7 +538,7 @@
       <string/>
      </property>
      <property name="title">
-      <string>Analytic &amp;Logrithmic DE adjustment</string>
+      <string>Analytic &amp;DE extra controls</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -577,21 +577,21 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Logrithmic DE offset1:</string>
+           <string>Analytic DE offset1:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic Logrithmic DE multiplier:</string>
+           <string>Analytic DE scale1:</string>
           </property>
          </widget>
         </item>
         <item row="2" column="1">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic Logrithmic DE offset2:</string>
+           <string>Analytic DE offset2:</string>
           </property>
          </widget>
         </item>
@@ -613,10 +613,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -641,10 +641,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -669,10 +669,10 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.000000000000000</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -684,7 +684,7 @@
       <item>
        <widget class="QCheckBox" name="checkBox_analyticDE_enabled_auxR2_false">
         <property name="text">
-         <string>enable aux.r_dz squared</string>
+         <string>enable aux.DE non-squared mode</string>
         </property>
        </widget>
       </item>
@@ -742,7 +742,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>

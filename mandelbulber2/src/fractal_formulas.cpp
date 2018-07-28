@@ -1166,7 +1166,8 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 		else
 			aux.DE =
-				aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+				aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1
+					+ fractal->analyticDE.offset1;
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -6683,9 +6684,6 @@ void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
 
-
-
-
 }
 
 /**
@@ -6898,8 +6896,9 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	if (fractal->transformCommon.functionEnabledFalse) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux.DE *= z.Length() / aux.r;
+		aux.DE *= z.Length() / aux.r  + 1.0;
 	}
+
 	// Toroidal bulb
 	double r1 = fractal->transformCommon.minR05; // default 0.5
 	double theta = atan2(z.y, z.x);
@@ -6916,18 +6915,18 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z.y = (r1 + rp * cos(phi)) * sin(theta);
 	z.z = -rp * sin(phi);
 
-	if (fractal->analyticDE.enabledFalse)
-	{ // analytic DE adjustment
-		if (fractal->analyticDE.enabledAuxR2False) aux.DE *= aux.DE;
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
-						 + fractal->analyticDE.offset2;
+	if (!fractal->analyticDE.enabledFalse)
+	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
+		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
+					 * fractal->transformCommon.pwr4
+						 + 1.0;
 	}
 	else
-	{ // default, i.e. scale1 & offset1 & offset2 = 1.0
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-							 * fractal->transformCommon.pwr4
-						 + 1.0;
+	{
+		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
+				 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1
+						* aux.DE * aux.DE
+						 + fractal->analyticDE.offset2;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
@@ -7036,18 +7035,19 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z.z = -rp * sinth;
 	}
 
-	if (fractal->analyticDE.enabledFalse)
-	{ // analytic log DE adjustment
-		if (fractal->analyticDE.enabledAuxR2False) aux.DE *= aux.DE;
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
-						 + fractal->analyticDE.offset2;
+	// DEcalc
+	if (!fractal->analyticDE.enabledFalse)
+	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
+		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
+					 * fractal->transformCommon.pwr4
+						 + 1.0;
 	}
 	else
-	{ // default, i.e. scale1 & offset1 & offset2 = 1.0
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-							 * fractal->transformCommon.pwr4
-						 + 1.0;
+	{
+		if (!fractal->analyticDE.enabledAuxR2False) aux.DE *= aux.DE;
+		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
+					 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
+						 + fractal->analyticDE.offset2;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
