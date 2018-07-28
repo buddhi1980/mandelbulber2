@@ -1065,14 +1065,14 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE 
 	sFractalAnalyticDECl target;
 	target.enabled = source.enabled;
 	target.enabledFalse = source.enabledFalse;
-	target.enabledAuxR2False = source.enabledAuxR2False;
+        //target.enabledAuxR2False = source.enabledAuxR2False;
 	target.scale1 = source.scale1;
 	target.tweak005 = source.tweak005;
 	target.offset0 = source.offset0;
 	target.offset1 = source.offset1;
 	target.offset2 = source.offset2;
-	target.factor2 = source.factor2;
-	target.scaleLin = source.scaleLin;
+        //target.factor2 = source.factor2;
+        target.scaleLin = source.scaleLin;
 	target.offsetLin = source.offsetLin;
 	return target;
 }

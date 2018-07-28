@@ -682,7 +682,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled_auxR2_false">
+       <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
         <property name="text">
          <string>enable aux.DE non-squared mode</string>
         </property>

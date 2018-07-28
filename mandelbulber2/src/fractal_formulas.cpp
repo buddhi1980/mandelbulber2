@@ -7044,7 +7044,7 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 	else
 	{
-		if (!fractal->analyticDE.enabledAuxR2False) aux.DE *= aux.DE;
+		if (!fractal->transformCommon.functionEnabledAyFalse) aux.DE *= aux.DE;
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
 					 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
 						 + fractal->analyticDE.offset2;
