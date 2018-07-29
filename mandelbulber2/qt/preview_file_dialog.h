@@ -56,7 +56,7 @@ protected slots:
 	void OnPresetAdd() const;
 	void OnQueueAdd() const;
 	void slotUpdateProgressAndStatus(
-		const QString &text, const QString &progressText, double progress) const;
+		const QString &text, const QString &progressText, double progress);
 	void slotHideProgressBar() const;
 
 private:

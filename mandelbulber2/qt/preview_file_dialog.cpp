@@ -188,13 +188,14 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 }
 
 void PreviewFileDialog::slotUpdateProgressAndStatus(
-	const QString &text, const QString &progressText, double progress) const
+	const QString &text, const QString &progressText, double progress)
 {
 	info->setText(text);
 	if (!progressBar->isVisible()) progressBar->setVisible(true);
 	progressBar->setValue(progress * 1000.0);
 	progressBar->setTextVisible(true);
 	progressBar->setFormat(progressText);
+	update();
 }
 
 void PreviewFileDialog::slotHideProgressBar() const

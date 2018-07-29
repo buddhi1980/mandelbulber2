@@ -83,7 +83,7 @@ bool cRenderer::RenderImage()
 		int progressiveSteps;
 		if (data->configuration.UseProgressive())
 			progressiveSteps =
-				int(log(double(max(image->GetWidth(), image->GetHeight()))) / log(2.0)) - 4;
+				int(log(double(max(image->GetWidth(), image->GetHeight()))) / log(2.0)) - 2;
 		else
 			progressiveSteps = 0;
 
@@ -133,7 +133,7 @@ bool cRenderer::RenderImage()
 
 		QElapsedTimer timerRefresh;
 		timerRefresh.start();
-		qint64 lastRefreshTime = 0;
+		qint64 lastRefreshTime = 100;
 		QList<int> listToRefresh;
 		QList<int> listToSend;
 
@@ -169,6 +169,15 @@ bool cRenderer::RenderImage()
 						|| systemData.globalStopRequest)
 				{
 					scheduler->Stop();
+
+					image->CompileImage();
+					image->ConvertTo8bit();
+					if (data->configuration.UseImageRefresh())
+					{
+						image->SetFastPreview(true);
+						image->UpdatePreview();
+						emit updateImage();
+					}
 				}
 
 				Wait(10); // wait 10ms
