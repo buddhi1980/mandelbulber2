@@ -202,12 +202,15 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	}
 #endif // TEXTURED_BACKGROUND
 
-	pixel *= consts->params.background_brightness;
-	float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
-								/ consts->params.mainLightVisibilitySize;
-	light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
-					* consts->params.mainLightIntensity;
-	pixel += light * consts->params.mainLightColour;
+	if (consts->params.mainLightEnable)
+	{
+		pixel *= consts->params.background_brightness;
+		float light = (dot(viewVectorNorm, input->lightVect) - 1.0f) * 360.0f
+									/ consts->params.mainLightVisibilitySize;
+		light = 1.0f / (1.0f + pow(light, 6.0f)) * consts->params.mainLightVisibility
+						* consts->params.mainLightIntensity;
+		pixel += light * consts->params.mainLightColour;
+	}
 
 	return pixel;
 }
