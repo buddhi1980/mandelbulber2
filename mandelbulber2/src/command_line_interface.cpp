@@ -456,15 +456,15 @@ void cCommandLineInterface::printExampleHelpAndExit()
 
 	out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-					 "mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
+					 "mandelbulber2 --voxel ply -n path/to/voxel_fractal.fract"
 					 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
-					 "1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
+					 "1#voxel_samples_x=200'",
 					 cHeadless::ansiYellow)
 			<< "\n";
 	out << QObject::tr(
 					 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
-					 "with a resolution of 10x10x10.\nThis will produce 10 slices (z) with a resolution "
-					 "of 10(x) times 10(y) and save as black and white images to working folder/slices.")
+					 "with a resolution of 200x200x200 in the ply format "
+					 "and saves as working folder/slices/output.ply.")
 			<< "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
