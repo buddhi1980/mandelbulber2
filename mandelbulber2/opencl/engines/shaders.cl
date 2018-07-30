@@ -903,22 +903,105 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 totalSpecular =
 		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
+	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
+
 	if (input->material->metallic)
 	{
 		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
-						+ totalSpecular * surfaceColor;
+						+ totalSpecular * surfaceColor + luminosity;
 		*outSpecular = totalSpecular * surfaceColor;
 	}
 	else
 	{
-		color =
-			surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular;
+		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
+						+ totalSpecular + luminosity;
 		*outSpecular = totalSpecular;
 	}
 
 	*outSurfaceColor = surfaceColor;
 	return color;
 }
+
+#if defined(MONTE_CARLO_DOF_GLOBAL_ILLUMINATION) && defined(FULL_ENGINE)
+float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderData,
+	sShaderInputDataCl *input, sClCalcParams *calcParam, image2d_t image2dBackground,
+	float3 objectColor)
+{
+	float3 out = 0.0f;
+	sShaderInputDataCl inputCopy = *input;
+	float3 objectColorTemp = objectColor;
+	for (int rayDepth = 0; rayDepth < consts->params.reflectionsMax; rayDepth++)
+	{
+		float3 reflectedDirection = inputCopy.normal;
+		float randomX = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
+		float randomY = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
+		float randomZ = (Random(20000, &calcParam->randomSeed) - 10000) / 10000.0f;
+		float3 randomVector = (float3){randomX * 1.2f, randomY * 1.2f, randomZ * 1.2f};
+
+		float3 randomizedDirection = normalize(reflectedDirection + randomVector);
+		inputCopy.viewVector = randomizedDirection;
+
+		float dist = 0.0f;
+		bool found = false;
+		int objectId = 0;
+		for (float scan = inputCopy.distThresh; scan < consts->params.viewDistanceMax; scan += dist)
+		{
+			float3 point = inputCopy.point + scan * randomizedDirection;
+
+			float distThresh = CalcDistThresh(point, consts);
+			inputCopy.distThresh = distThresh;
+
+			calcParam->distThresh = distThresh;
+			formulaOut outF;
+			outF = CalculateDistance(consts, point, calcParam, renderData);
+			dist = outF.distance;
+			objectId = outF.objectId;
+
+			if (dist < distThresh)
+			{
+				if (scan < distThresh * 2.0f)
+				{
+					return out;
+				}
+				inputCopy.point = point;
+
+				float3 normal = NormalVector(consts, renderData, inputCopy.point, inputCopy.lastDist,
+					inputCopy.distThresh, inputCopy.invertMode, calcParam);
+				inputCopy.normal = normal;
+				inputCopy.objectId = objectId;
+
+				found = true;
+				break;
+			}
+		}
+
+		if (found)
+		{
+			float3 objectColor;
+			float3 specular;
+			float3 iridescence;
+
+			__global sObjectDataCl *objectData = &renderData->objectsData[inputCopy.objectId];
+			inputCopy.material = renderData->materials[objectData->materialId];
+			inputCopy.palette = renderData->palettes[objectData->materialId];
+			inputCopy.paletteSize = renderData->paletteLengths[objectData->materialId];
+
+			float3 objectShader = ObjectShader(
+				consts, renderData, &inputCopy, calcParam, &objectColor, &specular, &iridescence);
+
+			out += objectShader * objectColorTemp;
+			objectColorTemp = objectColor;
+		}
+		else
+		{
+			float3 backgroundShader = BackgroundShader(consts, renderData, image2dBackground, &inputCopy);
+			out += backgroundShader * objectColorTemp;
+			break;
+		}
+	}
+	return out;
+}
+#endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
 #ifdef FULL_ENGINE
 //------------ Volumetric shader ----------------

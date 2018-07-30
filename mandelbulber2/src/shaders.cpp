@@ -1597,20 +1597,19 @@ sRGBFloat cRenderWorker::IridescenceShader(const sShaderInputData &input) const
 	return rainbowColor;
 }
 
-sRGBFloat cRenderWorker::GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const
+sRGBFloat cRenderWorker::GlobalIlumination(
+	const sShaderInputData &input, sRGBAfloat objectColor) const
 {
 	sRGBFloat out;
 	sShaderInputData inputCopy = input;
 	sRGBAfloat objectColorTemp = objectColor;
 	for (int rayDepth = 0; rayDepth < params->reflectionsMax; rayDepth++)
 	{
-		// qDebug() << "RAY SCAN" << rayDepth;
-		CVector3 reflectedDirection = ReflectionVector(inputCopy.normal, inputCopy.viewVector);
+		CVector3 reflectedDirection = inputCopy.normal;
 		double randomX = (Random(20000) - 10000) / 10000.0;
 		double randomY = (Random(20000) - 10000) / 10000.0;
 		double randomZ = (Random(20000) - 10000) / 10000.0;
 		CVector3 randomVector(randomX * 1.2, randomY * 1.2, randomZ * 1.2);
-		//qDebug() << randomVector.Debug();
 		CVector3 randomizedDirection = reflectedDirection + randomVector;
 		randomizedDirection.Normalize();
 		inputCopy.viewVector = randomizedDirection;
@@ -1618,17 +1617,18 @@ sRGBFloat cRenderWorker::GlobalIlumination(const sShaderInputData &input, sRGBAf
 		double dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
-		for (double scan = input.distThresh; scan < params->viewDistanceMax; scan += dist)
+		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax; scan += dist)
 		{
 			CVector3 point = inputCopy.point + scan * randomizedDirection;
 
 			double distThresh = CalcDistThresh(point);
+			inputCopy.distThresh = distThresh;
+			inputCopy.delta = distThresh;
 
 			sDistanceOut distanceOut;
 			sDistanceIn distanceIn(point, distThresh, false);
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			objectId = distanceOut.objectId;
-			// qDebug() << dist;
 
 			if (dist < distThresh)
 			{
@@ -1642,7 +1642,6 @@ sRGBFloat cRenderWorker::GlobalIlumination(const sShaderInputData &input, sRGBAf
 				inputCopy.objectId = objectId;
 
 				found = true;
-				// qDebug() << "found!!!";
 				break;
 			}
 		}
@@ -1661,15 +1660,13 @@ sRGBFloat cRenderWorker::GlobalIlumination(const sShaderInputData &input, sRGBAf
 			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
 			out.B += (objectShader.B + specular.B) * objectColorTemp.B;
 			objectColorTemp = objectColor;
-			// qDebug() << objectShader.R << objectShader.G << objectShader.B;
-			// qDebug() << out.R << out.G << out.B;
 		}
 		else
 		{
 			sRGBAfloat backgroundShader = BackgroundShader(inputCopy);
 			out.R += backgroundShader.R * objectColorTemp.R;
-			out.G += backgroundShader.G * objectColorTemp.R;
-			out.B += backgroundShader.B * objectColorTemp.R;
+			out.G += backgroundShader.G * objectColorTemp.G;
+			out.B += backgroundShader.B * objectColorTemp.B;
 			break;
 		}
 	}

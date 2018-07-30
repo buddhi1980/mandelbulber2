@@ -539,6 +539,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader = ObjectShader(
 					consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
 
+#ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
+				float3 globalIllumination = GlobalIlumination(
+					consts, renderData, &shaderInputData, &calcParam, image2dBackground, objectColour);
+				objectShader += globalIllumination;
+#endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
+
 // calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)

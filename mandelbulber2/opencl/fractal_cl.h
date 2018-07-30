@@ -418,15 +418,15 @@ typedef struct
 {
 	cl_int enabled;
 	cl_int enabledFalse;
-	cl_int enabledAuxR2False;
+	// bool enabledAuxR2False; // only used once. Remove
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-        // cl_float factor2;
-	cl_float scaleLin;
-	cl_float offsetLin;
+	// double factor2;
+	// double scaleLin; // out of date name, only 4 uses. Remove
+	// double offsetLin; // out of date name, only 4 uses. Remove
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
@@ -1065,15 +1065,11 @@ inline sFractalAnalyticDECl clCopySFractalAnalyticDECl(const sFractalAnalyticDE 
 	sFractalAnalyticDECl target;
 	target.enabled = source.enabled;
 	target.enabledFalse = source.enabledFalse;
-        //target.enabledAuxR2False = source.enabledAuxR2False;
 	target.scale1 = source.scale1;
 	target.tweak005 = source.tweak005;
 	target.offset0 = source.offset0;
 	target.offset1 = source.offset1;
 	target.offset2 = source.offset2;
-        //target.factor2 = source.factor2;
-        //target.scaleLin = source.scaleLin;
-        //target.offsetLin = source.offsetLin;
 	return target;
 }
 

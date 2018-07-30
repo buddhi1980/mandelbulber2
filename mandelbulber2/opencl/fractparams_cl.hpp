@@ -96,6 +96,7 @@ typedef struct
 	cl_int DOFEnabled;
 	cl_int DOFHDRMode;
 	cl_int DOFMonteCarlo;
+	cl_int DOFMonteCarloGlobalIllumination;
 	cl_int envMappingEnable;
 	cl_int fakeLightsEnabled;
 	cl_int fogEnabled;
@@ -264,6 +265,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFEnabled = source.DOFEnabled;
 	target.DOFHDRMode = source.DOFHDRMode;
 	target.DOFMonteCarlo = source.DOFMonteCarlo;
+	target.DOFMonteCarloGlobalIllumination = source.DOFMonteCarloGlobalIllumination;
 	target.envMappingEnable = source.envMappingEnable;
 	target.fakeLightsEnabled = source.fakeLightsEnabled;
 	target.fogEnabled = source.fogEnabled;

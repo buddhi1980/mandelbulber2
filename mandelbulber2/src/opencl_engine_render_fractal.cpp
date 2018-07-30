@@ -491,7 +491,13 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
 	if (paramRender->DOFMonteCarlo && paramRender->DOFEnabled)
+	{
 		definesCollector += " -DMONTE_CARLO_DOF";
+		if(paramRender->DOFMonteCarloGlobalIllumination)
+		{
+			definesCollector += " -DMONTE_CARLO_DOF_GLOBAL_ILLUMINATION";
+		}
+	}
 
 	if (paramRender->texturedBackground)
 	{
@@ -550,7 +556,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	}
 	else
 	{
-		paramRender->reflectionsMax = 0;
+		if(!paramRender->DOFMonteCarloGlobalIllumination)
+		{
+			paramRender->reflectionsMax = 0;
+		}
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
 
