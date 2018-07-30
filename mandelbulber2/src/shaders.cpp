@@ -330,7 +330,8 @@ sRGBAfloat cRenderWorker::BackgroundShader(const sShaderInputData &input) const
 		viewVectorNorm.Normalize();
 		double light =
 			(viewVectorNorm.Dot(input.lightVect) - 1.0) * 360.0 / params->mainLightVisibilitySize;
-		light = 1.0 / (1.0 + pow(light, 6.0)) * params->mainLightVisibility * params->mainLightIntensity;
+		light =
+			1.0 / (1.0 + pow(light, 6.0)) * params->mainLightVisibility * params->mainLightIntensity;
 		pixel2.R += light * params->mainLightColour.R / 65536.0;
 		pixel2.G += light * params->mainLightColour.G / 65536.0;
 		pixel2.B += light * params->mainLightColour.B / 65536.0;
@@ -1594,4 +1595,84 @@ sRGBFloat cRenderWorker::IridescenceShader(const sShaderInputData &input) const
 		rainbowColor = Hsv2rgb(rainbowIndex, sat, 1.0);
 	}
 	return rainbowColor;
+}
+
+sRGBFloat cRenderWorker::GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const
+{
+	sRGBFloat out;
+	sShaderInputData inputCopy = input;
+	sRGBAfloat objectColorTemp = objectColor;
+	for (int rayDepth = 0; rayDepth < params->reflectionsMax; rayDepth++)
+	{
+		// qDebug() << "RAY SCAN" << rayDepth;
+		CVector3 reflectedDirection = ReflectionVector(inputCopy.normal, inputCopy.viewVector);
+		double randomX = (Random(20000) - 10000) / 10000.0;
+		double randomY = (Random(20000) - 10000) / 10000.0;
+		double randomZ = (Random(20000) - 10000) / 10000.0;
+		CVector3 randomVector(randomX * 1.2, randomY * 1.2, randomZ * 1.2);
+		//qDebug() << randomVector.Debug();
+		CVector3 randomizedDirection = reflectedDirection + randomVector;
+		randomizedDirection.Normalize();
+		inputCopy.viewVector = randomizedDirection;
+
+		double dist = 0.0f;
+		bool found = false;
+		int objectId = 0;
+		for (double scan = input.distThresh; scan < params->viewDistanceMax; scan += dist)
+		{
+			CVector3 point = inputCopy.point + scan * randomizedDirection;
+
+			double distThresh = CalcDistThresh(point);
+
+			sDistanceOut distanceOut;
+			sDistanceIn distanceIn(point, distThresh, false);
+			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
+			objectId = distanceOut.objectId;
+			// qDebug() << dist;
+
+			if (dist < distThresh)
+			{
+				if (scan < distThresh * 2.0)
+				{
+					return out;
+				}
+				inputCopy.point = point;
+				CVector3 vn = CalculateNormals(inputCopy);
+				inputCopy.normal = vn;
+				inputCopy.objectId = objectId;
+
+				found = true;
+				// qDebug() << "found!!!";
+				break;
+			}
+		}
+
+		if (found)
+		{
+			sRGBAfloat objectColor;
+			sRGBAfloat specular;
+			sRGBFloat iridescence;
+
+			cObjectData objectData = data->objectData[inputCopy.objectId];
+			inputCopy.material = &data->materials[objectData.materialId];
+
+			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence);
+			out.R += (objectShader.R + specular.R) * objectColorTemp.R;
+			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
+			out.B += (objectShader.B + specular.B) * objectColorTemp.B;
+			objectColorTemp = objectColor;
+			// qDebug() << objectShader.R << objectShader.G << objectShader.B;
+			// qDebug() << out.R << out.G << out.B;
+		}
+		else
+		{
+			sRGBAfloat backgroundShader = BackgroundShader(inputCopy);
+			out.R += backgroundShader.R * objectColorTemp.R;
+			out.G += backgroundShader.G * objectColorTemp.R;
+			out.B += backgroundShader.B * objectColorTemp.R;
+			break;
+		}
+	}
+
+	return out;
 }

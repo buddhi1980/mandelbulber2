@@ -93,6 +93,9 @@ void cDockEffects::ConnectSignals() const
 
 	connect(ui->checkBox_aux_light_place_behind, SIGNAL(stateChanged(int)), this,
 		SLOT(slotChangedPlaceLightBehindObjects(int)));
+
+	connect(ui->groupCheck_DOF_monte_carlo, SIGNAL(toggled(bool)), this,
+		SLOT(slotChangedEnableMCDOF(bool)));
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
@@ -230,4 +233,17 @@ void cDockEffects::UpdateLabelAverageDOFSamples(const QString &avg)
 void cDockEffects::UpdateLabelAverageDOFNoise(const QString &avg)
 {
 	ui->label_average_DOF_noise->setText(avg);
+}
+
+void cDockEffects::slotChangedEnableMCDOF(bool state)
+{
+	if (state)
+	{
+		params::enumAOMode AOMode =
+			params::enumAOMode(ui->comboBox_ambient_occlusion_mode->currentIndex());
+		if(AOMode == params::AOModeScreenSpace)
+		{
+			ui->groupCheck_ambient_occlusion_enabled->setChecked(false);
+		}
+	}
 }

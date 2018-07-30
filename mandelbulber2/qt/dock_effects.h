@@ -77,6 +77,7 @@ private slots:
 	static void slotPressedButtonUpdatePostEffects();
 	static void slotPressedButtonPlaceRandomLightsByMouse();
 	void slotChangedPlaceLightBehindObjects(int state);
+	void slotChangedEnableMCDOF(bool state);
 
 private:
 	void ConnectSignals() const;

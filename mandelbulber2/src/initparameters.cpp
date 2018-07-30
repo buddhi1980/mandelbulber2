@@ -313,6 +313,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_samples", 100, morphLinear, paramStandard);
 	par->addParam("DOF_min_samples", 10, morphLinear, paramStandard);
 	par->addParam("DOF_max_noise", 1.0, 0.00001, 100.0, morphLinear, paramStandard);
+	par->addParam("DOF_MC_global_illumination", false, morphLinear, paramStandard);
 
 	// main light
 	par->addParam("main_light_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
@@ -722,13 +723,13 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
-	//par->addParam("analyticDE_factor_2", 2.0, morphAkima, paramStandard);
+	// par->addParam("analyticDE_factor_2", 2.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_enabled", true, morphLinear, paramStandard);
 	par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
 	// par->addParam("analyticDE_enabled_auxR2_false", false, morphLinear, paramStandard);
-	//par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
-	//par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
+	// par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
+	// par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
 	// color controls
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);

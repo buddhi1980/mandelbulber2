@@ -85,6 +85,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DOFMaxRadius = container->Get<double>("DOF_max_radius");
 	DOFHDRMode = container->Get<bool>("DOF_HDR");
 	DOFMonteCarlo = container->Get<bool>("DOF_monte_carlo");
+	DOFMonteCarloGlobalIllumination = container->Get<bool>("DOF_MC_global_illumination");
 	DOFNumberOfPasses = container->Get<int>("DOF_number_of_passes");
 	DOFSamples = container->Get<int>("DOF_samples");
 	DOFMinSamples = container->Get<int>("DOF_min_samples");

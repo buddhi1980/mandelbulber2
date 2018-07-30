@@ -1013,6 +1013,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate effects for object surface
 				objectShader = ObjectShader(shaderInputData, &objectColour, &specular, &iridescence);
 
+				if (params->DOFMonteCarloGlobalIllumination)
+				{
+					// calculate global illumination
+					sRGBFloat globalIlumination = GlobalIlumination(shaderInputData, objectColour);
+					objectShader.R += globalIlumination.R;
+					objectShader.G += globalIlumination.G;
+					objectShader.B += globalIlumination.B;
+				}
+
 				// calculate reflectance according to Fresnel equations
 
 				// prepare refraction values

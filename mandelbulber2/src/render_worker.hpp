@@ -228,6 +228,7 @@ private:
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
 	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
+	sRGBFloat GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const;
 
 	// data got from main thread
 	const sParamRender *params;

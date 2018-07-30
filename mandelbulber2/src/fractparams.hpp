@@ -102,6 +102,7 @@ struct sParamRender
 	bool DOFEnabled;
 	bool DOFHDRMode;
 	bool DOFMonteCarlo;
+	bool DOFMonteCarloGlobalIllumination;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;
