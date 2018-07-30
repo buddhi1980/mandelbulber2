@@ -967,7 +967,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_37" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2082,7 +2082,7 @@
            <enum>Qt::RightToLeft</enum>
           </property>
           <property name="text">
-           <string notr="true">fabs(z - B)</string>
+           <string notr="true">abs(z - B)</string>
           </property>
          </widget>
         </item>
@@ -2326,7 +2326,7 @@
            <enum>Qt::RightToLeft</enum>
           </property>
           <property name="text">
-           <string notr="true">fabs(z + A)</string>
+           <string notr="true">abs(z + A)</string>
           </property>
          </widget>
         </item>
