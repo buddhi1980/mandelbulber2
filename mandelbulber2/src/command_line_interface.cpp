@@ -38,6 +38,7 @@
 
 #include "animation_frames.hpp"
 #include "error_message.hpp"
+#include "file_image.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
 #include "headless.h"
@@ -100,12 +101,14 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	const QCommandLineOption formatOption(QStringList({"f", "format"}),
 		QCoreApplication::translate("main",
 			"Image output format:\n"
-			"  jpg - JPEG format (default)\n"
-			"  png - PNG format\n"
+			"  jpg  - JPEG format (default)\n"
+			"  png  - PNG format\n"
+			"  exr  - EXR format\n"
+			"  tiff - TIFF format\n"
+			" Legacy formats for still frames:\n"
 			"  png16 - 16-bit PNG format\n"
-			"  png16alpha - 16-bit PNG with alpha channel format\n"
-			"  exr - EXR format\n"
-			"  tiff - TIFF format"),
+			"  png16alpha - 16-bit PNG with alpha channel format"
+		),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption resOption(QStringList({"r", "res"}),
@@ -163,7 +166,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 		QCoreApplication::translate("main",
 			"Renders the voxel volume. Output formats are:\n"
 			"  slice - stack of PNG images into one folder (default)\n"
-			"  ply - Polygon File Format (single 3d file)\n"),
+			"  ply   - Polygon File Format (single 3d file)\n"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption statsOption(QStringList({"stats"}),
@@ -456,15 +459,15 @@ void cCommandLineInterface::printExampleHelpAndExit()
 
 	out << cHeadless::colorize(QObject::tr("Voxel volume render"), cHeadless::ansiBlue) << "\n";
 	out << cHeadless::colorize(
-					 "mandelbulber2 --voxel -n path/to/voxel_fractal.fract"
+					 "mandelbulber2 --voxel ply -n path/to/voxel_fractal.fract"
 					 " -O 'voxel_custom_limit_enabled=1#voxel_limit_min=-1 -1 -1#voxel_limit_max=1 1 "
-					 "1#voxel_samples_x=10#voxel_samples_y=10#voxel_samples_z=10'",
+					 "1#voxel_samples_x=200'",
 					 cHeadless::ansiYellow)
 			<< "\n";
 	out << QObject::tr(
 					 "Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] "
-					 "with a resolution of 10x10x10.\nThis will produce 10 slices (z) with a resolution "
-					 "of 10(x) times 10(y) and save as black and white images to working folder/slices.")
+					 "with a resolution of 200x200x200 in the ply format "
+					 "and saves as working folder/slices/output.ply.")
 			<< "\n\n";
 
 	out << cHeadless::colorize(QObject::tr("Queue render"), cHeadless::ansiBlue) << "\n";
@@ -969,6 +972,13 @@ void cCommandLineInterface::handleImageFileFormat()
 																 + allowedImageFileFormat.join(", "),
 			cErrorMessage::errorMessage);
 		parser.showHelp(cliErrorImageFileFormatInvalid);
+	}
+	else
+	{
+		const ImageFileSave::enumImageFileType fileType =
+			ImageFileSave::ImageFileType(cliData.imageFileFormat);
+		gPar->Set("keyframe_animation_image_type", (int) fileType);
+		gPar->Set("flight_animation_image_type", (int) fileType);
 	}
 }
 

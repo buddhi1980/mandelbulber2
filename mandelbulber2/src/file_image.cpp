@@ -120,13 +120,13 @@ QStringList ImageFileSave::ImageChannelNames()
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
 {
-	if (imageFileExtension == "jpg")
+	if (imageFileExtension == "jpg" || imageFileExtension == "jpeg")
 		return IMAGE_FILE_TYPE_JPG;
 	else if (imageFileExtension == "png")
 		return IMAGE_FILE_TYPE_PNG;
 	else if (imageFileExtension == "exr")
 		return IMAGE_FILE_TYPE_EXR;
-	else if (imageFileExtension == "tiff")
+	else if (imageFileExtension == "tiff" || imageFileExtension == "tif")
 		return IMAGE_FILE_TYPE_TIFF;
 	else
 		return IMAGE_FILE_TYPE_JPG;
