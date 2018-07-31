@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.15-alpha1
+                              MANDELBULBER 2.15-alpha2
 
 1. What is Mandelbulber
 -----------------------
