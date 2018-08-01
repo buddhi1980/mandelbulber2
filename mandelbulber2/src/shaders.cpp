@@ -1617,7 +1617,8 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		double dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
-		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax; scan += dist)
+		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax;
+				 scan += dist * params->DEFactor)
 		{
 			CVector3 point = inputCopy.point + scan * randomizedDirection;
 

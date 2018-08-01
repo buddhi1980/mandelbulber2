@@ -944,7 +944,8 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		float dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
-		for (float scan = inputCopy.distThresh; scan < consts->params.viewDistanceMax; scan += dist)
+		for (float scan = inputCopy.distThresh; scan < consts->params.viewDistanceMax;
+				 scan += dist * consts->params.DEFactor)
 		{
 			float3 point = inputCopy.point + scan * randomizedDirection;
 

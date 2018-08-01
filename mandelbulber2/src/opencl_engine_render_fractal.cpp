@@ -493,7 +493,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->DOFMonteCarlo && paramRender->DOFEnabled)
 	{
 		definesCollector += " -DMONTE_CARLO_DOF";
-		if(paramRender->DOFMonteCarloGlobalIllumination)
+		if (paramRender->DOFMonteCarloGlobalIllumination)
 		{
 			definesCollector += " -DMONTE_CARLO_DOF_GLOBAL_ILLUMINATION";
 		}
@@ -550,16 +550,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DUSE_FRACTAL_COLORING";
 	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
 
-	if ((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
+	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
+			|| paramRender->DOFMonteCarloGlobalIllumination)
 	{
 		definesCollector += " -DREFLECTIONS_MAX=" + QString::number(paramRender->reflectionsMax + 1);
 	}
 	else
 	{
-		if(!paramRender->DOFMonteCarloGlobalIllumination)
-		{
-			paramRender->reflectionsMax = 0;
-		}
+		paramRender->reflectionsMax = 0;
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
 
