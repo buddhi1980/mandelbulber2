@@ -269,8 +269,8 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef BOOLEAN_OPERATORS
 				int formulaIndex = input->objectId;
 
-				pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[formulaIndex]);
-				pointTemp = pointTemp - consts->params.formulaPosition[formulaIndex];
+				pointTemp = modRepeat(pointTemp - consts->params.formulaPosition[formulaIndex],
+					consts->params.formulaRepeat[formulaIndex]);
 				pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[formulaIndex], pointTemp);
 				pointTemp *= consts->params.formulaScale[formulaIndex];
 

@@ -310,10 +310,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 
 	{
-		float3 pointTemp = point;
-
+		float3 pointTemp = point - consts->params.formulaPosition[0];
 		pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[0]);
-		pointTemp = pointTemp - consts->params.formulaPosition[0];
 		pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[0], pointTemp);
 		pointTemp *= consts->params.formulaScale[0];
 
@@ -326,10 +324,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	{
 		if (consts->fractal[i + 1].formula != 0) // != fractal::none
 		{
-			float3 pointTemp = point;
-
+			float3 pointTemp = point - consts->params.formulaPosition[i + 1];
 			pointTemp = modRepeat(pointTemp, consts->params.formulaRepeat[i + 1]);
-			pointTemp = pointTemp - consts->params.formulaPosition[i + 1];
 			pointTemp = Matrix33MulFloat3(consts->params.mRotFormulaRotation[i + 1], pointTemp);
 			pointTemp *= consts->params.formulaScale[i + 1];
 

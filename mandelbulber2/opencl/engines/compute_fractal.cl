@@ -104,7 +104,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 	// repeat, move and rotate
 	float3 pointTransformed =
-		modRepeat(point, consts->params.common.repeat) - consts->params.common.fractalPosition;
+		modRepeat(point - consts->params.common.fractalPosition, consts->params.common.repeat);
 	pointTransformed = Matrix33MulFloat3(consts->params.common.mRotFractalRotation, pointTransformed);
 
 	float4 point4D = (float4){pointTransformed.x, pointTransformed.y, pointTransformed.z, 0.0f};
@@ -290,9 +290,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				aux.r = length(z.xy);
 				break;
 
-			case 152: //scatorPower2Imaginary
-			case 173: //scatorPower2
-			case 156: //scatorPower2Real
+			case 152: // scatorPower2Imaginary
+			case 173: // scatorPower2
+			case 156: // scatorPower2Real
 			{
 				float4 z2 = z * z;
 				aux.r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));

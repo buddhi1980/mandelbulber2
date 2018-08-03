@@ -1113,8 +1113,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 					formulaIndex = -1;
 				else
 				{
-					tempPoint = tempPoint.mod(params->formulaRepeat[formulaIndex])
-											- params->formulaPosition[formulaIndex];
+					tempPoint = (tempPoint - params->formulaPosition[formulaIndex])
+												.mod(params->formulaRepeat[formulaIndex]);
 					tempPoint = params->mRotFormulaRotation[formulaIndex].RotateVector(tempPoint);
 					tempPoint *= params->formulaScale[formulaIndex];
 				}

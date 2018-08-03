@@ -48,7 +48,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	fractalFormulaFcn fractalFormulaFunction;
 
 	// repeat, move and rotate
-	CVector3 pointTransformed = in.point.mod(in.common.repeat) - in.common.fractalPosition;
+	CVector3 pointTransformed = (in.point - in.common.fractalPosition).mod(in.common.repeat);
 	pointTransformed = in.common.mRotFractalRotation.RotateVector(pointTransformed);
 
 	CVector4 z = CVector4(pointTransformed, 0.0);
@@ -393,7 +393,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// final calculations
 	if (Mode == calcModeNormal)
 	{
-		//if (extendedAux.DE > 0.0); //maybe?
+		// if (extendedAux.DE > 0.0); //maybe?
 		if (fractals.IsHybrid())
 		{
 			if (extendedAux.DE != 0.0)
@@ -426,7 +426,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
 					double linDE = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
 
-					out->distance = "mix function"  (logDE, linDE, extendedAux.temp100 / 100)); // temp use of aux.
+					out->distance = "mix function"  (logDE, linDE, extendedAux.temp100 / 100)); // temp use of
+				aux.
 
 				}*/
 
@@ -443,7 +444,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				// #else
 				// 	p=abs(p); out->distance = (max(p.x,max(p.y,p.z))-sc)/dd;//bounding volume is a cube
 				// #endif
-
 			}
 			else
 			{
@@ -494,7 +494,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					break;
 				}
-
 
 				case analyticFunctionNone: out->distance = -1.0; break;
 				case analyticFunctionUndefined: out->distance = r; break;
