@@ -49,6 +49,9 @@ typedef struct
 	cl_float shading;
 	cl_float specular;
 	cl_float specularWidth;
+	cl_float specularMetallic;
+	cl_float specularMetallicRoughness;
+	cl_float specularMetallicWidth;
 	cl_float reflectance;
 	cl_float luminosity;
 	cl_float transparencyIndexOfRefraction;
@@ -86,6 +89,7 @@ typedef struct
 	// texture::enumTextureMapping textureMappingType;
 	cl_int fresnelReflectance;
 	cl_int useColorsFromPalette;
+	cl_int specularPlasticEnable;
 	cl_int metallic;
 
 	cl_int useColorTexture;
@@ -109,6 +113,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.shading = source.shading;
 	target.specular = source.specular;
 	target.specularWidth = source.specularWidth;
+	target.specularMetallic = source.specularMetallic;
+	target.specularMetallicRoughness = source.specularMetallicRoughness;
+	target.specularMetallicWidth = source.specularMetallicWidth;
 	target.reflectance = source.reflectance;
 	target.luminosity = source.luminosity;
 	target.transparencyIndexOfRefraction = source.transparencyIndexOfRefraction;
@@ -135,6 +142,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 
 	target.fresnelReflectance = source.fresnelReflectance;
 	target.useColorsFromPalette = source.useColorsFromPalette;
+	target.specularPlasticEnable = source.specularPlasticEnable;
 	target.metallic = source.metallic;
 
 	target.useColorTexture = source.useColorTexture;

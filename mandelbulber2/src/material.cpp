@@ -44,6 +44,10 @@ cMaterial::cMaterial()
 	shading = 0.0;
 	specular = 0.0;
 	specularWidth = 0.0;
+	specularPlasticEnable = false;
+	specularMetallic = 0.0;
+	specularMetallicRoughness = 0.0;
+	specularMetallicWidth = 0.0;
 	reflectance = 0.0;
 	luminosity = 0.0;
 	coloring_speed = 0.0;

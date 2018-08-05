@@ -2332,6 +2332,9 @@ void cInterface::StartupDefaultSettings()
 	gPar->Set("shadows_enabled", true);
 	gPar->Set("raytraced_reflections", true);
 	gPar->Set("detail_level", 1.0);
+	gPar->Set("mat1_metallic", true);
+	gPar->Set("mat1_specular", 5.0);
+	gPar->Set("mat1_specular_width", 0.05);
 }
 
 void cInterface::DisableJuliaPointMode() const

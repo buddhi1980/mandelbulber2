@@ -325,17 +325,46 @@ float3 MainShading(sShaderInputDataCl *input)
 	return shade;
 }
 
-float3 MainSpecular(sShaderInputDataCl *input)
+float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, float3 lightVector,
+	float specularWidth, float roughness)
 {
-	float3 halfVector = input->lightVect - input->viewVector;
+	float3 halfVector = lightVector - input->viewVector;
 	halfVector = fast_normalize(halfVector);
 	float specular = dot(input->normal, halfVector);
 	if (specular < 0.0f) specular = 0.0f;
-	specular = pow(specular, 30.0f / input->material->specularWidth);
+	specular = pow(specular, 30.0f / specularWidth);
+	if (roughness > 0.0f)
+	{
+		specular *= (1.0f + Random(1000, &calcParam->randomSeed) / 1000.0f * roughness);
+	}
 	if (specular > 15.0f) specular = 15.0f;
 	float3 out = specular;
 	out *= input->material->specularColor;
 	return out;
+}
+
+float3 SpecularHighlightCombined(
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 lightVector, float3 surfaceColor)
+{
+	float3 specular = 0.0f;
+	float3 specularPlastic = 0.0f;
+	if (input->material->specularPlasticEnable)
+	{
+		specularPlastic =
+			SpecularHighlight(input, calcParam, lightVector, input->material->specularWidth, 0.0f);
+		specularPlastic *= input->material->specular;
+	}
+
+	float3 specularMetallic = 0.0f;
+	if (input->material->metallic)
+	{
+		specularMetallic = SpecularHighlight(input, calcParam, lightVector,
+			input->material->specularMetallicWidth, input->material->specularMetallicRoughness);
+		specularMetallic *= input->material->specularMetallic * surfaceColor;
+	}
+
+	specular = specularPlastic + specularMetallic;
+	return specular;
 }
 
 #if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
@@ -661,8 +690,8 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 #endif // SHADOWS
 
 float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
-	sShaderInputDataCl *input, sClCalcParams *calcParam, __global sLightCl *light,
-	float3 *outSpecular)
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor,
+	__global sLightCl *light, float3 *outSpecular)
 {
 	float3 shading = 0.0f;
 
@@ -677,47 +706,42 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	// intensity of lights is divided by 6 because of backward compatibility. There was an error
 	// where numberOfLights of light was always 24
 	float intensity =
-		100.0f * light->intensity / (distance * distance) / renderData->numberOfLights / 6.0;
+		100.0f * light->intensity / (distance * distance) / renderData->numberOfLights / 6.0f;
 	float shade = dot(input->normal, lightVector);
-	if (shade < 0.0) shade = 0.0;
+	if (shade < 0.0f) shade = 0.0f;
 	shade = 1.0f - input->material->shading + shade * input->material->shading;
 
 	shade = shade * intensity;
 	if (shade > 500.0f) shade = 500.0f;
 
 	// specular
-	float3 halfVector = lightVector - input->viewVector;
-	halfVector = normalize(halfVector);
-	float shade2 = dot(input->normal, halfVector);
-	if (shade2 < 0.0f) shade2 = 0.0f;
+	float3 specular =
+		SpecularHighlightCombined(input, calcParam, lightVector, surfaceColor) * intensity;
 
-	shade2 = pow(shade2, 30.0f / input->material->specularWidth);
-	shade2 *= intensity * input->material->specular;
-	if (shade2 > 15.0f) shade2 = 15.0f;
+	float specularMax = max(max(specular.s0, specular.s1), specular.s2);
 
 	// calculate shadow
-	if ((shade > 0.01f || shade2 > 0.01f) && consts->params.shadow)
+	if ((shade > 0.01f || specularMax > 0.01f) && consts->params.shadow)
 	{
 		float auxShadow = 1.0f;
 #ifdef SHADOWS
 		auxShadow = AuxShadow(consts, renderData, input, distance, lightVector, calcParam);
 #endif
 		shade *= auxShadow;
-		shade2 *= auxShadow;
+		specular *= auxShadow;
 	}
 	else
 	{
 		if (consts->params.shadow)
 		{
 			shade = 0.0f;
-			shade2 = 0.0f;
+			specular = 0.0f;
 		}
 	}
 
 	shading = shade * light->colour;
 
-	float3 specular;
-	specular = shade2 * light->colour;
+	specular *= light->colour;
 
 	*outSpecular = specular;
 
@@ -725,7 +749,7 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 }
 
 float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderData,
-	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 *specularOut)
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor, float3 *specularOut)
 {
 
 	int numberOfLights = renderData->numberOfLights;
@@ -739,8 +763,8 @@ float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderDat
 		if (i < consts->params.auxLightNumber || light->enabled)
 		{
 			float3 specularAuxOutTemp;
-			float3 shadeAux =
-				LightShading(consts, renderData, input, calcParam, light, &specularAuxOutTemp);
+			float3 shadeAux = LightShading(
+				consts, renderData, input, calcParam, surfaceColor, light, &specularAuxOutTemp);
 			shadeAuxSum += shadeAux;
 			specularAuxSum += specularAuxOutTemp;
 		}
@@ -753,7 +777,7 @@ float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderDat
 
 #ifdef FAKE_LIGHTS
 float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParams, float3 *specularOut)
+	sClCalcParams *calcParams, float3 surfaceColor, float3 *specularOut)
 {
 	float3 fakeLights;
 
@@ -795,12 +819,8 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	fakeLights = fakeLight2 * consts->params.fakeLightsColor;
 
-	float3 halfVector = normalize(fakeLightNormal - input->viewVector);
-	float fakeSpecular = dot(input->normal, halfVector);
-	if (fakeSpecular < 0.0f) fakeSpecular = 0.0f;
-	fakeSpecular = pow(fakeSpecular, 30.0f / input->material->specularWidth);
-	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
-	float3 fakeSpec = fakeSpecular * consts->params.fakeLightsColor;
+	float3 fakeSpec = SpecularHighlightCombined(input, calcParams, fakeLightNormal, surfaceColor);
+	fakeSpec = fakeSpec * consts->params.fakeLightsColor / r;
 
 	fakeSpec = 0.0f; // TODO to check why in CPU code it's zero
 	*specularOut = fakeSpec;
@@ -854,8 +874,6 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		shade = consts->params.mainLightIntensity
 						* ((float3)1.0f - input->material->shading + input->material->shading * shade);
 
-		specular = MainSpecular(input) * input->material->specular;
-
 #ifdef SHADOWS
 		if (consts->params.shadow)
 		{
@@ -865,6 +883,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam);
+
+	specular = SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor);
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
@@ -882,13 +902,13 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 auxSpecular = 0.0f;
 
 #ifdef AUX_LIGHTS
-	auxLights = AuxLightsShader(consts, renderData, input, calcParam, &auxSpecular);
+	auxLights = AuxLightsShader(consts, renderData, input, calcParam, surfaceColor, &auxSpecular);
 #endif
 
 	float3 fakeLights = 0.0f;
 	float3 fakeLightsSpecular = 0.0f;
 #ifdef FAKE_LIGHTS
-	fakeLights = FakeLightsShader(consts, input, calcParam, &fakeLightsSpecular);
+	fakeLights = FakeLightsShader(consts, input, calcParam, surfaceColor, &fakeLightsSpecular);
 #endif
 
 	float3 iridescence = 1.0f;
@@ -905,18 +925,9 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
 
-	if (input->material->metallic)
-	{
-		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
-						+ totalSpecular * surfaceColor + luminosity;
-		*outSpecular = totalSpecular * surfaceColor;
-	}
-	else
-	{
-		color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO)
-						+ totalSpecular + luminosity;
-		*outSpecular = totalSpecular;
-	}
+	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular
+					+ luminosity;
+	*outSpecular = totalSpecular;
 
 	*outSurfaceColor = surfaceColor;
 	return color;
