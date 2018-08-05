@@ -1110,7 +1110,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("specular_metallic", materialId), 2.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("specular_metallic_width", materialId), 2.0, 1e-10, 1e15,
+	par->addParam(cMaterial::Name("specular_metallic_width", materialId), 1.0, 1e-10, 1e15,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular_metallic_roughness", materialId), 1.0, 0.0, 1e4,
 		morphAkima, paramStandard);
