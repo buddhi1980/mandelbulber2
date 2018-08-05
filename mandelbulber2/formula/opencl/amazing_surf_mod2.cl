@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * asurf mod2
- * modification of amazing surf from M3D. Formula proposed by Kali, with features added by Darkbeam
+ * modification of amazing surf from M3D. Formula proposed by Kali, with features added by DarkBeam
  *
  * Note for the original version apply a c.x c.y SWAP
  *
@@ -162,7 +162,7 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 					zCol = z;
 					break;
 				case multi_orderOf3FoldsCl_type3:
-					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeams
+					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeam's
 					z.x = fractal->transformCommon.offset2
 								- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
 											 - fractal->transformCommon.offset2)

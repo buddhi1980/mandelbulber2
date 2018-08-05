@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,8 +19,9 @@ REAL4 MsltoeToroidalIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledFalse) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux->DE *= native_divide(length(z), aux->r);
+		aux->DE *= native_divide(length(z), aux->r) + 1.0f;
 	}
+
 	// Toroidal bulb
 	REAL r1 = fractal->transformCommon.minR05; // default 0.5f
 	REAL theta = atan2(z.y, z.x);
@@ -37,17 +38,16 @@ REAL4 MsltoeToroidalIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z.y = (mad(rp, native_cos(phi), r1)) * native_sin(theta);
 	z.z = -rp * native_sin(phi);
 
-	if (fractal->analyticDE.enabledFalse)
-	{ // analytic log DE adjustment
-		if (fractal->analyticDE.enabledAuxR2False) aux->DE *= aux->DE;
-		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-										* fractal->transformCommon.pwr4 * fractal->analyticDE.scale1,
-			aux->DE, fractal->analyticDE.offset2);
-	}
-	else
-	{ // default, i.e. scale1 & offset1 & offset2 = 1.0f
+	if (!fractal->analyticDE.enabledFalse)
+	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0f
 		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - 1.0f) * aux->DE * aux->DE,
 			fractal->transformCommon.pwr4, 1.0f);
+	}
+	else
+	{
+		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
+										* fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux->DE,
+			aux->DE, fractal->analyticDE.offset2);
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset

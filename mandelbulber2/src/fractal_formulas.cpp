@@ -1166,8 +1166,7 @@ void AboxMod11Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
 		else
 			aux.DE =
-				aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1
-					+ fractal->analyticDE.offset1;
+				aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
@@ -5070,14 +5069,11 @@ void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		double tempAux = aux.DE * avgScale;
 		aux.DE = aux.DE + (tempAux - aux.DE) * fractal->analyticDE.scale1;
 		z += fractal->transformCommon.offset000;
-		//if (!fractal->analyticDE.enabledFalse)
+		// if (!fractal->analyticDE.enabledFalse)
 		//	aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;
-		//else
+		// else
 		//	aux.DE =
 		//		aux.DE * fabs(aux.actualScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
-
-
 	}
 	// sym4
 	if (fractal->transformCommon.functionEnabledCxFalse
@@ -6608,7 +6604,6 @@ void MsltoeSym3ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		aux.DE = aux.DE * 2.0 * aux.r;
 		z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
-
 		if (fractal->analyticDE.enabledFalse)
 		{
 			CVector4 temp2 = z;
@@ -6683,7 +6678,6 @@ void EiffieMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	else
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale1) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
-
 }
 
 /**
@@ -6896,7 +6890,7 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	if (fractal->transformCommon.functionEnabledFalse) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux.DE *= z.Length() / aux.r  + 1.0;
+		aux.DE *= z.Length() / aux.r + 1.0;
 	}
 
 	// Toroidal bulb
@@ -6918,14 +6912,13 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	if (!fractal->analyticDE.enabledFalse)
 	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-					 * fractal->transformCommon.pwr4
+							 * fractal->transformCommon.pwr4
 						 + 1.0;
 	}
 	else
 	{
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-				 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1
-						* aux.DE * aux.DE
+							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE * aux.DE
 						 + fractal->analyticDE.offset2;
 	}
 
@@ -7039,14 +7032,14 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (!fractal->analyticDE.enabledFalse)
 	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-					 * fractal->transformCommon.pwr4
+							 * fractal->transformCommon.pwr4
 						 + 1.0;
 	}
 	else
 	{
 		if (!fractal->transformCommon.functionEnabledAyFalse) aux.DE *= aux.DE;
 		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-					 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
+							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
 						 + fractal->analyticDE.offset2;
 	}
 
@@ -10845,7 +10838,7 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->analyticDE.enabled) // temp
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE *  fabs(fractal->transformCommon.scale) + 1.0;
+			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
 		else
 			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 							 + fractal->analyticDE.offset1;

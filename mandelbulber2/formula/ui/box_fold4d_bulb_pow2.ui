@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>box_fold4d_bulb_pow2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1798,7 +1798,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_178">
           <property name="text">
-           <string>Analytic DE  offset2:</string>
+           <string>Analytic DE offset2:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2182,7 +2182,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;boxFold4Dbulb.&lt;br&gt;This formula contains aux.color and aux.actualScaleA&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;boxFold4dBulb.&lt;br&gt;This formula contains aux.color and aux.actualScaleA&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/box4dBulb aab5.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

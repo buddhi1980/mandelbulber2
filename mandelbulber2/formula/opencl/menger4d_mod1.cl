@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Menger4D MOD1   from Syntopia & Darkbeam's Menger4 code from M3D
+ * Menger4D MOD1   from Syntopia & DarkBeam's Menger4 code from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
 

@@ -435,15 +435,15 @@ struct sFractalAnalyticDE
 {
 	bool enabled;
 	bool enabledFalse;
-	//bool enabledAuxR2False; // only used once. Remove
+	// bool enabledAuxR2False; // only used once. Remove
 	double scale1;
 	double tweak005;
 	double offset0;
 	double offset1;
 	double offset2;
-	//double factor2;
-	//double scaleLin; // out of date name, only 4 uses. Remove
-	//double offsetLin; // out of date name, only 4 uses. Remove
+	// double factor2;
+	// double scaleLin; // out of date name, only 4 uses. Remove
+	// double offsetLin; // out of date name, only 4 uses. Remove
 };
 
 // common parameters for transforming formulas

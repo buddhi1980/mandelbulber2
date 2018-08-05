@@ -8,7 +8,7 @@
  *
  * Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
  * Variable parameters over iteration time
- * Based on work by Tglad, Buddhi, Darkbeam
+ * Based on work by Tglad, Buddhi, DarkBeam
  * @reference
  * http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467
  * This formula contains aux.color and aux.actualScaleA
@@ -30,7 +30,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		value4 = fractal->transformCommon.additionConstant222;
 
 	if (fractal->mandelbox.rotationsEnabled)
-	{ // TODO evaluate implemenation of vec3 limit and value
+	{ // TODO evaluate implementation of vec3 limit and value
 		/*	REAL4 zRot;
 			// cast vector to array pointer for address taking of components in opencl
 			REAL *zRotP = (REAL *)&zRot;

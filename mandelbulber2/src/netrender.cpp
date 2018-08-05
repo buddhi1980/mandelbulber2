@@ -262,8 +262,8 @@ void CNetRender::SetClient(QString address, int portNo)
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
-		out << "NetRender - Client Setup, link to server: " + address + ", port: "
-						 + QString::number(portNo) + "\n";
+		out << "NetRender - Client Setup, link to server: " + address
+						 + ", port: " + QString::number(portNo) + "\n";
 	}
 }
 

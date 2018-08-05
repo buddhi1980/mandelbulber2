@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -66,8 +66,14 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		REAL3 tempAvgScale = (REAL3){z.x, native_divide(z.y, 2.0f), native_divide(z.z, 2.0f)};
 		REAL avgScale = native_divide(length(tempAvgScale), tempL);
 		REAL tempAux = aux->DE * avgScale;
-		aux->DE = mad(fractal->transformCommon.scaleF1, (tempAux - aux->DE), aux->DE);
+		aux->DE = mad(fractal->analyticDE.scale1, (tempAux - aux->DE), aux->DE);
 		z += fractal->transformCommon.offset000;
+		// if (!fractal->analyticDE.enabledFalse)
+		//	aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
+		// else
+		//	aux->DE =
+		//		mad(aux->DE * fabs(aux->actualScale), fractal->analyticDE.scale1,
+		//fractal->analyticDE.offset1);
 	}
 	// sym4
 	if (fractal->transformCommon.functionEnabledCxFalse
@@ -82,7 +88,7 @@ REAL4 MandelbulbQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		//	tempL = 1e-21f;
 		z *= fractal->transformCommon.scale3D111;
 
-		aux->DE *= fabs(native_divide(length(z), tempL));
+		aux->DE *= native_divide(length(z), tempL);
 
 		if (fabs(z.x) < fabs(z.z))
 		{

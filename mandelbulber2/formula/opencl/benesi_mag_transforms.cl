@@ -30,7 +30,7 @@ REAL4 BenesiMagTransformsIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		REAL tempL = length(temp);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL =  1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
+		REAL avgScale = native_divide(length(z), tempL); // pos
 
 		aux->DE = mad(aux->DE, avgScale, 1.0f);
 

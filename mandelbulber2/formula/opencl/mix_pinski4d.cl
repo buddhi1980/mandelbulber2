@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * Darkbeam's MixPinski4 from M3D
+ * DarkBeam's MixPinski4 from M3D
  * A strange but intriguing fractal, that mixes Sierpinski and Menger folds.
  * The amazing thing is that in 3D it does not work so well! LUCA GN 2011
  * @reference

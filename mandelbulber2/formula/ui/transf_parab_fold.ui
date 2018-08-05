@@ -541,7 +541,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Analytic DE  alternate method</string>
+         <string>Analytic DE alternate method</string>
         </property>
        </widget>
       </item>

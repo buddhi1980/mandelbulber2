@@ -118,7 +118,7 @@ REAL4 TransfSurfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 
 	if (fractal->surfBox.enabledZ5False)
-	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)// DarkBeams Abox mod1 fold
+	{ // z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold)// DarkBeam's Abox mod1 fold
 		z.z = fractal->surfBox.offset1B222.z
 					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;

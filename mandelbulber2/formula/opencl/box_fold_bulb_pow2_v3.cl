@@ -121,7 +121,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		z.x = fabs(z.x);
 		z = mad(z, fractal->transformCommon.scaleA2,
 			-fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f));
-		aux->DE *= fractal->transformCommon.scaleA2;
+		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse

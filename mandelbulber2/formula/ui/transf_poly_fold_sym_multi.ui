@@ -132,8 +132,8 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;poly fold sym multi darkbeams version&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;Darkbeam (luca) http://www.fractalforums.com/mandelbulber/&quot;&gt;Darkbeam (luca) http://www.fractalforums.com/mandelbulber/&lt;br&gt;
+         <string notr="true">&lt;p&gt;poly fold sym multi DarkBeam's version&lt;/p&gt;&lt;table&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;DarkBeam (luca) http://www.fractalforums.com/mandelbulber/&quot;&gt;DarkBeam (luca) http://www.fractalforums.com/mandelbulber/&lt;br&gt;
 &lt;a href=&quot;_polyfold_sym-and-polyfoldsymifs-in-mandelbulber-2/msg98162/#msg98162&quot;&gt;_polyfold_sym-and-polyfoldsymifs-in-mandelbulber-2/msg98162/#msg98162&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -105,17 +105,18 @@ REAL4 MsltoeToroidalMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z.z = -rp * sinth;
 	}
 
-	if (fractal->analyticDE.enabledFalse)
-	{ // analytic log DE adjustment
-		if (fractal->analyticDE.enabledAuxR2False) aux->DE *= aux->DE;
+	// DEcalc
+	if (!fractal->analyticDE.enabledFalse)
+	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0f
+		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - 1.0f) * aux->DE * aux->DE,
+			fractal->transformCommon.pwr4, 1.0f);
+	}
+	else
+	{
+		if (!fractal->transformCommon.functionEnabledAyFalse) aux->DE *= aux->DE;
 		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
 										* fractal->transformCommon.pwr4 * fractal->analyticDE.scale1,
 			aux->DE, fractal->analyticDE.offset2);
-	}
-	else
-	{ // default, i.e. scale1 & offset1 & offset2 = 1.0f
-		aux->DE = mad(native_powr(aux->r, fractal->transformCommon.pwr4 - 1.0f) * aux->DE * aux->DE,
-			fractal->transformCommon.pwr4, 1.0f);
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset

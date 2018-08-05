@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>mandelbulb_bermarte</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -408,7 +408,7 @@
         <item row="1" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic  DE offset1:</string>
+           <string>Analytic DE offset1:</string>
           </property>
          </widget>
         </item>
@@ -471,7 +471,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_176">
           <property name="text">
-           <string>Analytic  DE scale1:</string>
+           <string>Analytic DE scale1:</string>
           </property>
          </widget>
         </item>

@@ -31,7 +31,7 @@ REAL4 CollatzModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	z *= fractal->transformCommon.scale025;
 
-	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scaleLin, 1.0f);
+	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scale1, 1.0f);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{

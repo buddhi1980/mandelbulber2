@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+ * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam
  *
  * This formula has a c.x c.y SWAP
  *

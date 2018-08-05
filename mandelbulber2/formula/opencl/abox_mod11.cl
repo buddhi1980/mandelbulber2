@@ -165,12 +165,11 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		z -= fractal->mandelbox.offset;
 	}
 
-	// scale, incl DarkBeams Scale vary
+	// scale, incl DarkBeam's Scale vary
 	if (aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		z *= aux->actualScale;
-		// aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
 
 		if (!fractal->analyticDE.enabledFalse)
 			aux->DE = mad(aux->DE, fabs(aux->actualScale), 1.0f);
@@ -180,6 +179,7 @@ REAL4 AboxMod11Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 	}
 	// offset
 	z += fractal->transformCommon.additionConstant000;
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsE

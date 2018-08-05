@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * Based on Kalisets1 and KaliDucks, from Mandelbulb 3D, and refer Formula proposed by Kali, with
- * features added by Darkbeam.
+ * features added by DarkBeam.
  *
  * <b>M3D notes:</b>
  * Try out julia and low R_bailout values of 2 down to 1!

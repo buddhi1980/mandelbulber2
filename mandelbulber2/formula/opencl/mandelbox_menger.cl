@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -171,7 +171,7 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			z.x -= 2.0f * fractal->transformCommon.constantMultiplierA111.x;
 			z.y -= 2.0f * fractal->transformCommon.constantMultiplierA111.y;
 			if (z.z > 1.0f) z.z -= 2.0f * fractal->transformCommon.constantMultiplierA111.z;
-			aux->DE *= fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1;
+			aux->DE *= fabs(fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1);
 
 			z += fractal->transformCommon.additionConstantA000;
 
@@ -191,6 +191,9 @@ REAL4 MandelboxMengerIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			}
 		}
 	}
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+
 	aux->color += colorAdd;
 	return z;
 }

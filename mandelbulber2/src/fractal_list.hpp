@@ -127,17 +127,17 @@ enum enumFractalFormula
 	quickDudleyMod = 84,
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
-	msltoeToroidal = 86, // update DE v2.15
+	msltoeToroidal = 86,		// update DE v2.15
 	aboxModKaliEiffie = 87, // updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
-	mengerPwr2Poly = 90, // DE v2.15
+	mengerPwr2Poly = 90,	// DE v2.15
 	mandelboxMenger = 91, // DE v2.15
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
 	mandelbulbBermarte = 94,
 	mengerMiddleMod = 95,
-	msltoeToroidalMulti = 96,// update DE v2.15
+	msltoeToroidalMulti = 96, // update DE v2.15
 	amazingSurfMulti = 97,
 	// V2.09
 	mengerCrossKIFS = 98,
@@ -151,11 +151,11 @@ enum enumFractalFormula
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107, // DE v2.15
-	mixPinski4d = 108,	// fixed V2.11
-	sierpinski4d = 109, // update DE v2.15
-	sierpinski3d = 110, // update DE v2.15
-	menger4d = 111,			// fixed V2.11
-	menger4dMod1 = 112, // fixed V2.11
+	mixPinski4d = 108,			 // fixed V2.11
+	sierpinski4d = 109,			 // update DE v2.15
+	sierpinski3d = 110,			 // update DE v2.15
+	menger4d = 111,					 // fixed V2.11
+	menger4dMod1 = 112,			 // fixed V2.11
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,

@@ -7,7 +7,7 @@
  * see also COPYING file in this folder.    ~+{i%+++
  *
  * asurf trial  beta
- * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam
+ * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam
  *
  * Note for the original version apply a c.x c.y SWAP
  *

@@ -55,6 +55,6 @@ REAL4 TransfPwr2PolynomialIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	z = constantMult + mad(-fnZ1, partA, partB);
 	z *= fractal->transformCommon.scale025;
 
-	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scaleLin, fractal->analyticDE.offsetLin);
+	aux->DE = mad(aux->DE * 4.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	return z;
 }

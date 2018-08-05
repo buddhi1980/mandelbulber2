@@ -144,8 +144,8 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				newZ.z /= (1.0f + native_divide(zz.y, zz.x));
 			}
 			z = newZ;
-			REAL tempp = native_divide(length(oldZ), length(z));
-			aux->DE *= tempp;
+			REAL lengthRatio = native_divide(length(oldZ), length(z));
+			aux->DE *= lengthRatio;
 		}
 	}
 	// addCpixel

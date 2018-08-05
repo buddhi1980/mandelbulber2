@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * spherical fold CHS Cylinder Half Size. Darkbeam s code from M3D
+ * spherical fold CHS Cylinder Half Size. DarkBeam s code from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  * This formula contains aux.color

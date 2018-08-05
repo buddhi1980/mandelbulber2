@@ -35,7 +35,7 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	REAL4 zz = z * z;
 	REAL4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
-	{ // scator imag
+	{ // scator imaginary
 		newZ.x = zz.x - zz.y - zz.z;
 		newZ.y = z.x * z.y;
 		newZ.z = z.x * z.z;

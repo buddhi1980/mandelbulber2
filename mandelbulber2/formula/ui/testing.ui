@@ -2837,7 +2837,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;asurf trial  beta&lt;br&gt;amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by Darkbeam&lt;br&gt;&lt;br&gt;Note for the original version apply a c.x c.y SWAP&lt;br&gt;&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;asurf trial  beta&lt;br&gt;amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam&lt;br&gt;&lt;br&gt;Note for the original version apply a c.x c.y SWAP&lt;br&gt;&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&quot;&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

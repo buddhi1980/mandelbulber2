@@ -32,7 +32,7 @@ REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE *= avgScale;
+		aux->DE *= avgScale; // pos
 
 		if (fractal->transformCommon.rotationEnabled)
 		{

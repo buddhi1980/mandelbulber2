@@ -54,7 +54,7 @@ enum enumDEFunctionType
 	logarithmicDEFunction = 2,
 	pseudoKleinianDEFunction = 3,
 	josKleinianDEFunction = 4,
-	//testingDEFunction = 5,
+	// testingDEFunction = 5,
 	numberOfDEFunctions = 4, // used to prepare array
 	// numberOfDEFunctions = 5, // used to prepare array
 	withoutDEFunction = 99

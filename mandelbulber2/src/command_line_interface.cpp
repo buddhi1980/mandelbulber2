@@ -107,8 +107,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 			"  tiff - TIFF format\n"
 			" Legacy formats for still frames:\n"
 			"  png16 - 16-bit PNG format\n"
-			"  png16alpha - 16-bit PNG with alpha channel format"
-		),
+			"  png16alpha - 16-bit PNG with alpha channel format"),
 		QCoreApplication::translate("main", "FORMAT"));
 
 	const QCommandLineOption resOption(QStringList({"r", "res"}),
@@ -977,8 +976,8 @@ void cCommandLineInterface::handleImageFileFormat()
 	{
 		const ImageFileSave::enumImageFileType fileType =
 			ImageFileSave::ImageFileType(cliData.imageFileFormat);
-		gPar->Set("keyframe_animation_image_type", (int) fileType);
-		gPar->Set("flight_animation_image_type", (int) fileType);
+		gPar->Set("keyframe_animation_image_type", (int)fileType);
+		gPar->Set("flight_animation_image_type", (int)fileType);
 	}
 }
 

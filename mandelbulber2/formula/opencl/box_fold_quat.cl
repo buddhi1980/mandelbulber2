@@ -124,7 +124,7 @@ REAL4 BoxFoldQuatIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z = mad(z, fractal->transformCommon.scaleA2,
 			-fractal->transformCommon.offset100 * (fractal->transformCommon.scaleA2 - 1.0f));
 
-		aux->DE *= fractal->transformCommon.scaleA2;
+		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
 	if (fractal->transformCommon.functionEnabledRFalse

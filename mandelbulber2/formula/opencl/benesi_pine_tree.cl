@@ -18,9 +18,11 @@
 
 REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
+	aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
 
+	REAL4 c = aux->const_c;
 	REAL4 temp = z;
+
 	z *= z;
 	REAL t = 2.0f * temp.x;
 	if (z.y + z.z > 0.0f)
@@ -31,7 +33,6 @@ REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	z.x = mad(fractal->transformCommon.constantMultiplier100.x, c.x, (z.x - z.y - z.z));
 	z.z = mad(fractal->transformCommon.constantMultiplier100.y, c.y, (t * (z.y - z.z)));
 	z.y = mad(fractal->transformCommon.constantMultiplier100.z, c.z, (2.0f * t * temp.y * temp.z));
-	aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
 
 	if (fractal->transformCommon.angle0 != 0)
 	{

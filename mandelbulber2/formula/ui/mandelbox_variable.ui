@@ -2786,7 +2786,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010&lt;br&gt;Variable parameters over iteration time&lt;br&gt;Based on work by Tglad, Buddhi, Darkbeam&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010&lt;br&gt;Variable parameters over iteration time&lt;br&gt;Based on work by Tglad, Buddhi, DarkBeam&lt;/p&gt;&lt;table&gt;
 &lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&quot;&gt;http://www.fractalforums.com/ifs-iterated-function-systems/amazing-fractal/msg12467/#msg12467&lt;br&gt;
 &lt;a href=&quot;This formula contains aux.color and aux.actualScaleA&quot;&gt;This formula contains aux.color and aux.actualScaleA&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
@@ -2823,7 +2823,7 @@ offset:</string>
     value4 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstant222&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;rotationsEnabled&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// TODO evaluate implemenation of vec3 limit and value&lt;/span&gt;
+  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt; &lt;span style=&quot;color:#2929cc&quot;&gt;// TODO evaluate implementation of vec3 limit and value&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;/*  CVector4 zRot;&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;      // cast vector to array pointer for address taking of components in opencl&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;      double *zRotP = reinterpret_cast&amp;lt;double *&amp;gt;(&amp;amp;zRot);&lt;/span&gt;
