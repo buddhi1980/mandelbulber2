@@ -77,16 +77,6 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
-	// calculate specular highlight
-	sRGBAfloat specular;
-	if (params->mainLightEnable)
-	{
-		specular = MainSpecular(input);
-		specular.R *= mat->specular;
-		specular.G *= mat->specular;
-		specular.B *= mat->specular;
-	}
-
 	// calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input);
 	float texColInt = mat->colorTextureIntensity;
@@ -95,6 +85,13 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	colour.G *= input.texColor.G * texColInt + texColIntN;
 	colour.B *= input.texColor.B * texColInt + texColIntN;
 	*surfaceColour = colour;
+
+	// calculate specular highlight
+	sRGBAfloat specular;
+	if (params->mainLightEnable)
+	{
+		specular = SpecularHighlightCombined(input, input.lightVect, colour);
+	}
 
 	// ambient occlusion
 	sRGBAfloat ambient(0.0, 0.0, 0.0, 0.0);
@@ -128,14 +125,14 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	// additional lights
 	sRGBAfloat auxLights;
 	sRGBAfloat auxLightsSpecular;
-	auxLights = AuxLightsShader(input, &auxLightsSpecular);
+	auxLights = AuxLightsShader(input, colour, &auxLightsSpecular);
 
 	// fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
 	sRGBAfloat fakeLightsSpecular(0.0, 0.0, 0.0, 0.0);
 	if (params->fakeLightsEnabled)
 	{
-		fakeLights = FakeLights(input, &fakeLightsSpecular);
+		fakeLights = FakeLights(input, colour, &fakeLightsSpecular);
 	}
 
 	// luminosity
@@ -169,32 +166,16 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	output.A = 1.0;
 
-	if (mat->metallic)
-	{
-		specularOut->R =
-			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R) * colour.R
-			* iridescence.R;
-		specularOut->G =
-			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G) * colour.G
-			* iridescence.G;
-		specularOut->B =
-			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B) * colour.B
-			* iridescence.B;
-		specularOut->A = output.A;
-	}
-	else
-	{
-		specularOut->R =
-			(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R)
-			* iridescence.R;
-		specularOut->G =
-			(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G)
-			* iridescence.G;
-		specularOut->B =
-			(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B)
-			* iridescence.B;
-		specularOut->A = output.A;
-	}
+	specularOut->R =
+		(auxLightsSpecular.R + fakeLightsSpecular.R + mainLight.R * specular.R * shadow.R)
+		* iridescence.R;
+	specularOut->G =
+		(auxLightsSpecular.G + fakeLightsSpecular.G + mainLight.G * specular.G * shadow.G)
+		* iridescence.G;
+	specularOut->B =
+		(auxLightsSpecular.B + fakeLightsSpecular.B + mainLight.B * specular.B * shadow.B)
+		* iridescence.B;
+	specularOut->A = output.A;
 
 	return output;
 }
@@ -999,10 +980,11 @@ sRGBAfloat cRenderWorker::MainShading(const sShaderInputData &input)
 	return shading;
 }
 
-sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input) const
+sRGBAfloat cRenderWorker::SpecularHighlight(
+	const sShaderInputData &input, CVector3 lightVector, float specularWidth, float roughness) const
 {
 	sRGBAfloat specular;
-	CVector3 half = input.lightVect - input.viewVector;
+	CVector3 half = lightVector - input.viewVector;
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0f) shade2 = 0.0f;
@@ -1010,7 +992,11 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input) const
 		10.0f * (1.1f
 							- input.material->diffusionTextureIntensity
 									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-	shade2 = pow(shade2, 30.0f / input.material->specularWidth / diffuse) / diffuse;
+	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+	if (roughness > 0.0f)
+	{
+		shade2 *= (1.0 + Random(1000) / 1000.0f * roughness);
+	}
 	if (shade2 > 15.0f) shade2 = 15.0f;
 	specular.R =
 		shade2 * input.material->specularColor.R / 65536.0f * (input.texDiffuse.R * 0.5f + 0.5f);
@@ -1018,6 +1004,36 @@ sRGBAfloat cRenderWorker::MainSpecular(const sShaderInputData &input) const
 		shade2 * input.material->specularColor.G / 65536.0f * (input.texDiffuse.G * 0.5f + 0.5f);
 	specular.B =
 		shade2 * input.material->specularColor.B / 65536.0f * (input.texDiffuse.B * 0.5f + 0.5f);
+	return specular;
+}
+
+sRGBAfloat cRenderWorker::SpecularHighlightCombined(
+	const sShaderInputData &input, CVector3 lightVector, sRGBAfloat surfaceColor) const
+{
+	sRGBAfloat specular;
+	sRGBAfloat specularPlastic;
+	if (input.material->specularPlasticEnable)
+	{
+		specularPlastic = SpecularHighlight(input, lightVector, input.material->specularWidth, 0.0f);
+		specularPlastic.R *= input.material->specular;
+		specularPlastic.G *= input.material->specular;
+		specularPlastic.B *= input.material->specular;
+	}
+
+	sRGBAfloat specularMetallic;
+	if (input.material->metallic)
+	{
+		specularMetallic = SpecularHighlight(input, lightVector, input.material->specularMetallicWidth,
+			input.material->specularMetallicRoughness);
+		specularMetallic.R *= input.material->specularMetallic * surfaceColor.R;
+		specularMetallic.G *= input.material->specularMetallic * surfaceColor.G;
+		specularMetallic.B *= input.material->specularMetallic * surfaceColor.B;
+	}
+
+	specular.R = specularPlastic.R + specularMetallic.R;
+	specular.G = specularPlastic.G + specularMetallic.G;
+	specular.B = specularPlastic.B + specularMetallic.B;
+
 	return specular;
 }
 
@@ -1172,8 +1188,8 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 #endif
 }
 
-sRGBAfloat cRenderWorker::LightShading(
-	const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular) const
+sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
+	const sLight *light, int number, sRGBAfloat *outSpecular) const
 {
 	sRGBAfloat shading;
 
@@ -1196,33 +1212,27 @@ sRGBAfloat cRenderWorker::LightShading(
 	if (shade > 500.0f) shade = 500.0f;
 
 	// specular
-	CVector3 half = lightVector - input.viewVector;
-	half.Normalize();
-	float shade2 = input.normal.Dot(half);
-	if (shade2 < 0.0f) shade2 = 0.0f;
-
-	float diffuse =
-		10.0f * (1.1f
-							- input.material->diffusionTextureIntensity
-									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-
-	shade2 = pow(shade2, 30.0f / input.material->specularWidth / diffuse) / diffuse;
-	shade2 *= intensity * input.material->specular;
-	if (shade2 > 15.0f) shade2 = 15.0f;
+	sRGBAfloat specular = SpecularHighlightCombined(input, lightVector, surfaceColor);
+	specular.R *= intensity;
+	specular.G *= intensity;
+	specular.B *= intensity;
+	float specularMax = dMax(specular.R, specular.G, specular.B);
 
 	// calculate shadow
-	if ((shade > 0.01f || shade2 > 0.01f) && params->shadow)
+	if ((shade > 0.01f || specularMax > 0.01f) && params->shadow)
 	{
 		double auxShadow = AuxShadow(input, distance, lightVector);
 		shade *= auxShadow;
-		shade2 *= auxShadow;
+		specular.R *= auxShadow;
+		specular.G *= auxShadow;
+		specular.B *= auxShadow;
 	}
 	else
 	{
 		if (params->shadow)
 		{
 			shade = 0;
-			shade2 = 0;
+			specular = sRGBAfloat();
 		}
 	}
 
@@ -1230,15 +1240,15 @@ sRGBAfloat cRenderWorker::LightShading(
 	shading.G = shade * light->colour.G / 65536.0f;
 	shading.B = shade * light->colour.B / 65536.0f;
 
-	outSpecular->R = shade2 * light->colour.R / 65536.0f;
-	outSpecular->G = shade2 * light->colour.G / 65536.0f;
-	outSpecular->B = shade2 * light->colour.B / 65536.0f;
+	outSpecular->R = specular.R * light->colour.R / 65536.0f;
+	outSpecular->G = specular.G * light->colour.G / 65536.0f;
+	outSpecular->B = specular.B * light->colour.B / 65536.0f;
 
 	return shading;
 }
 
 sRGBAfloat cRenderWorker::AuxLightsShader(
-	const sShaderInputData &input, sRGBAfloat *specularOut) const
+	const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *specularOut) const
 {
 
 	int numberOfLights = data->lights.GetNumberOfLights();
@@ -1251,7 +1261,8 @@ sRGBAfloat cRenderWorker::AuxLightsShader(
 		if (i < params->auxLightNumber || light->enabled)
 		{
 			sRGBAfloat specularAuxOutTemp;
-			sRGBAfloat shadeAux = LightShading(input, light, numberOfLights, &specularAuxOutTemp);
+			sRGBAfloat shadeAux =
+				LightShading(input, surfaceColor, light, numberOfLights, &specularAuxOutTemp);
 			shadeAuxSum.R += shadeAux.R;
 			shadeAuxSum.G += shadeAux.G;
 			shadeAuxSum.B += shadeAux.B;
@@ -1383,7 +1394,8 @@ double cRenderWorker::IterOpacity(
 }
 
 // will be done later
-sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec) const
+sRGBAfloat cRenderWorker::FakeLights(
+	const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const
 {
 	sRGBAfloat fakeLights;
 
@@ -1434,19 +1446,11 @@ sRGBAfloat cRenderWorker::FakeLights(const sShaderInputData &input, sRGBAfloat *
 	fakeLights.G = fakeLight2 * params->fakeLightsColor.G / 65536.0f;
 	fakeLights.B = fakeLight2 * params->fakeLightsColor.B / 65536.0f;
 
-	CVector3 half = fakeLightNormal - input.viewVector;
-	half.Normalize();
-	float fakeSpecular = input.normal.Dot(half);
-	if (fakeSpecular < 0.0f) fakeSpecular = 0.0f;
-	float diffuse =
-		10.0f * (1.1f
-							- input.material->diffusionTextureIntensity
-									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-	fakeSpecular = pow(fakeSpecular, 30.0f / input.material->specularWidth / diffuse) / diffuse;
-	if (fakeSpecular > 15.0f) fakeSpecular = 15.0f;
-	fakeSpec->R = fakeSpecular * params->fakeLightsColor.R / 65536.0f;
-	fakeSpec->G = fakeSpecular * params->fakeLightsColor.G / 65536.0f;
-	fakeSpec->B = fakeSpecular * params->fakeLightsColor.B / 65536.0f;
+	sRGBAfloat fakeSpecular = SpecularHighlightCombined(input, fakeLightNormal, surfaceColor);
+
+	fakeSpec->R = fakeSpecular.R / r * params->fakeLightsColor.R / 65536.0f;
+	fakeSpec->G = fakeSpecular.G / r * params->fakeLightsColor.G / 65536.0f;
+	fakeSpec->B = fakeSpecular.B / r * params->fakeLightsColor.B / 65536.0f;
 
 	*fakeSpec = sRGBAfloat();
 	return fakeLights;

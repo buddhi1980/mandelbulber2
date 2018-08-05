@@ -210,17 +210,22 @@ private:
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
 	static sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input) const;
-	sRGBAfloat MainSpecular(const sShaderInputData &input) const;
+	sRGBAfloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
+		float specularWidth, float roughness) const;
+	sRGBAfloat SpecularHighlightCombined(
+		const sShaderInputData &input, CVector3 lightVector, sRGBAfloat surfaceColor) const;
 	sRGBAfloat SurfaceColour(const sShaderInputData &input) const;
 	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat EnvMapping(const sShaderInputData &input) const;
-	sRGBAfloat AuxLightsShader(const sShaderInputData &input, sRGBAfloat *specularOut) const;
+	sRGBAfloat AuxLightsShader(
+		const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *specularOut) const;
 	double AuxShadow(const sShaderInputData &input, double distance, CVector3 lightVector) const;
-	sRGBAfloat LightShading(
-		const sShaderInputData &input, const sLight *light, int number, sRGBAfloat *outSpecular) const;
+	sRGBAfloat LightShading(const sShaderInputData &input, sRGBAfloat surfaceColor,
+		const sLight *light, int number, sRGBAfloat *outSpecular) const;
 	sRGBAfloat BackgroundShader(const sShaderInputData &input) const;
-	sRGBAfloat FakeLights(const sShaderInputData &input, sRGBAfloat *fakeSpec) const;
+	sRGBAfloat FakeLights(
+		const sShaderInputData &input, sRGBAfloat surfaceColor, sRGBAfloat *fakeSpec) const;
 	sRGBAfloat VolumetricShader(
 		const sShaderInputData &input, sRGBAfloat oldPixel, sRGBAfloat *opacityOut) const;
 

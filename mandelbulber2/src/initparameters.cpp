@@ -1099,12 +1099,22 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("name", materialId), QString("material %1").arg(materialId),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("specular", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("specular_width", materialId), 1.0, 1e-10, 1e15, morphAkima, paramStandard);
+
 	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("metallic", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("specular_plastic_enable", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("metallic", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("specular", materialId), 3.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("specular_width", materialId), 0.1, 1e-10, 1e15, morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("specular_metallic", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_metallic_width", materialId), 1.0, 1e-10, 1e15,
+		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_metallic_roughness", materialId), 0.1, 0.0, 1e4,
+		morphAkima, paramStandard);
+
 	par->addParam(
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(

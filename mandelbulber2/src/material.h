@@ -67,6 +67,9 @@ public:
 	float shading;
 	float specular;
 	float specularWidth;
+	float specularMetallic;
+	float specularMetallicRoughness;
+	float specularMetallicWidth;
 	float reflectance;
 	float luminosity;
 	double transparencyIndexOfRefraction;
@@ -105,6 +108,7 @@ public:
 	texture::enumTextureMapping textureMappingType;
 	bool fresnelReflectance;
 	bool useColorsFromPalette;
+	bool specularPlasticEnable;
 	bool metallic;
 
 	bool useColorTexture;

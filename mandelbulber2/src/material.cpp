@@ -86,8 +86,12 @@ cMaterial::~cMaterial()
 
 // this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {
-	"is_defined", "name", "shading", "specular", "specular_width", "specular_color", "reflectance",
-	"luminosity", "transparency_of_surface", "transparency_of_interior",
+	"is_defined", "name", "shading",
+
+	"specular_color", "specular_plastic_enable", "metallic", "specular", "specular_width",
+	"specular_metallic", "specular_metallic_width", "specular_metallic_roughness",
+
+	"reflectance", "luminosity", "transparency_of_surface", "transparency_of_interior",
 	"transparency_index_of_refraction", "surface_color", "transparency_interior_color",
 	"luminosity_color", "fresnel_reflectance", "texture_center", "texture_rotation", "texture_scale",
 	"coloring_random_seed", "coloring_saturation", "coloring_speed", "coloring_palette_size",
@@ -156,7 +160,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	shading = materialParam->Get<double>(Name("shading", id));
 	specular = materialParam->Get<double>(Name("specular", id));
 	specularWidth = materialParam->Get<double>(Name("specular_width", id));
+	specularMetallic = materialParam->Get<double>(Name("specular_metallic", id));
+	specularMetallicWidth = materialParam->Get<double>(Name("specular_metallic_width", id));
+	specularMetallicRoughness = materialParam->Get<double>(Name("specular_metallic_roughness", id));
 	specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
+	specularPlasticEnable = materialParam->Get<bool>(Name("specular_plastic_enable", id));
 	metallic = materialParam->Get<bool>(Name("metallic", id));
 	reflectance = materialParam->Get<double>(Name("reflectance", id));
 	luminosity = materialParam->Get<double>(Name("luminosity", id));
