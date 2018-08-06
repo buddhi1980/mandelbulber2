@@ -79,6 +79,7 @@ private:
 	static bool CheckSection(QString text, QString &section);
 	void Compatibility(QString &name, QString &value) const;
 	void Compatibility2(cParameterContainer *par, cFractalContainer *fract);
+	void PreCompatibilityMaterials(int matIndex, cParameterContainer *par);
 	void CreateAnimationString(
 		QString &text, const QString &headerText, const cAnimationFrames *frames) const;
 

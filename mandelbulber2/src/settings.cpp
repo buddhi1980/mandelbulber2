@@ -704,6 +704,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 			if (cMaterial::paramsList.indexOf(shortName) >= 0)
 			{
 				InitMaterialParams(matIndex, par);
+				PreCompatibilityMaterials(matIndex, par);
 				par->Set(QString("mat%1_is_defined").arg(matIndex), true);
 			}
 			else
@@ -1201,4 +1202,14 @@ QString cSettings::everyLocaleDouble(QString txt)
 	if (systemData.decimalPoint == ',') txtOut = txt.replace('.', ',');
 	if (systemData.decimalPoint == '.') txtOut = txt.replace(',', '.');
 	return txtOut;
+}
+
+void cSettings::PreCompatibilityMaterials(int matIndex, cParameterContainer *par)
+{
+	if (fileVersion < 2.15)
+	{
+		par->Set(cMaterial::Name("metallic", matIndex), false);
+		par->Set(cMaterial::Name("specular", matIndex), 1.0);
+		par->Set(cMaterial::Name("specular_width", matIndex), 1.0);
+	}
 }
