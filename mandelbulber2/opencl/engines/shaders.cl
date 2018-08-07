@@ -884,7 +884,10 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam);
 
-	specular = SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor);
+	if (consts->params.mainLightEnable)
+	{
+		specular = SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor);
+	}
 
 	float3 AO = 0.0f;
 	if (consts->params.ambientOcclusionEnabled)
