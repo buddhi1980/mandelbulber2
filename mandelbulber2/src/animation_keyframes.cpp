@@ -315,12 +315,14 @@ bool cKeyframeAnimation::slotRenderKeyframes()
 
 void cKeyframeAnimation::slotIncreaseCurrentTableIndex()
 {
-	table->setCurrentCell(table->currentRow(), table->currentColumn() + 1 % table->columnCount());
+	int nextColumn = (table->currentColumn() + 1) % table->columnCount();
+	table->setCurrentCell(table->currentRow(), nextColumn);
 }
 
 void cKeyframeAnimation::slotDecreaseCurrentTableIndex()
 {
-	table->setCurrentCell(table->currentRow(), table->currentColumn() - 1 % table->columnCount());
+	int nextColumn = (table->columnCount() + table->currentColumn() - 1) % table->columnCount();
+	table->setCurrentCell(table->currentRow(), nextColumn);
 }
 
 void cKeyframeAnimation::PrepareTable()

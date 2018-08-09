@@ -37,6 +37,7 @@
 
 //#include <QtGui/QWidget>
 #include <cassert>
+#include <atomic>
 
 #include <QMutex>
 #include <QWidget>

@@ -268,13 +268,26 @@ void RenderWindow::slotKeyHandle()
 					render = true;
 					break;
 
-				case Qt::Key_I: gKeyframeAnimation->slotAddKeyframe(); break;
+				case Qt::Key_I:
+					currentKeyEvents.removeOne(key); // long press not allowed
+					gKeyframeAnimation->slotAddKeyframe();
+					break;
 				case Qt::Key_M:
+					currentKeyEvents.removeOne(key); // long press not allowed
 					gKeyframeAnimation->slotModifyKeyframe();
 					break;
-				// case Qt::Key_D: gKeyframeAnimation->slotDeleteKeyframe(); break;
-				case Qt::Key_N: gKeyframeAnimation->slotIncreaseCurrentTableIndex(); break;
-				case Qt::Key_P: gKeyframeAnimation->slotDecreaseCurrentTableIndex(); break;
+				/*case Qt::Key_D:
+				 *		currentKeyEvents.removeOne(key); // long press not allowed
+				 *		gKeyframeAnimation->slotDeleteKeyframe();
+				 * break;*/
+				case Qt::Key_N:
+					currentKeyEvents.removeOne(key); // long press not allowed
+					gKeyframeAnimation->slotIncreaseCurrentTableIndex();
+					break;
+				case Qt::Key_P:
+					currentKeyEvents.removeOne(key); // long press not allowed
+					gKeyframeAnimation->slotDecreaseCurrentTableIndex();
+					break;
 				default: break;
 			}
 		}

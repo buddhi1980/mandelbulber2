@@ -368,7 +368,6 @@ void cPreferencesDialog::on_pushButton_retrieve_materials_clicked() const
 
 QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 {
-	// TODO get from opencl
 	QList<QPair<QString, QString>> devices;
 #ifdef USE_OPENCL
 	QList<cOpenClDevice::sDeviceInformation> openclDevs =
