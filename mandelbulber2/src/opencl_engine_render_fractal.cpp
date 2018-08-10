@@ -52,6 +52,7 @@
 #include "nine_fractals.hpp"
 #include "opencl_dynamic_data.hpp"
 #include "opencl_hardware.h"
+#include "opencl_textures_data.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
 #include "rectangle.hpp"
@@ -79,7 +80,8 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	inCLBuffer = nullptr;
 
-	dynamicData = new cOpenClDynamicData;
+	dynamicData = nullptr;
+	texturesData = nullptr;
 
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
 	autoRefreshMode = false;
@@ -117,9 +119,13 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	if (backgroungImageBuffer) delete backgroungImageBuffer;
 	backgroungImageBuffer = nullptr;
 
-	cOpenClEngine::ReleaseMemory();
+	dynamicData = nullptr;
+	if (dynamicData) delete dynamicData;
 
-	dynamicData->Clear();
+	if (texturesData) delete texturesData;
+	texturesData = nullptr;
+
+	cOpenClEngine::ReleaseMemory();
 }
 
 QString cOpenClEngineRenderFractal::GetKernelName()
@@ -517,7 +523,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
 
 	//----------- create dynamic data -----------
-	dynamicData->Clear();
+	if (dynamicData) delete dynamicData;
+	dynamicData = new cOpenClDynamicData;
 	dynamicData->ReserveHeader();
 
 	// materials
@@ -580,6 +587,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->FillHeader();
 
 	inBuffer = dynamicData->GetData();
+
+	// --------------- textures dynamic data -----------------
+	int numberOfTextures =
+		cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
+
+	if (texturesData) delete texturesData;
+	texturesData = new cOpenClTexturesData(numberOfTextures);
+	texturesData->ReserveHeader();
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");

@@ -50,6 +50,7 @@
 class cImage;
 class cFractalContainer;
 class cOpenClDynamicData;
+class cOpenClTexturesData;
 struct sParamRender;
 class cNineFractals;
 struct sRenderData;
@@ -121,6 +122,7 @@ private:
 	cl_uchar4 *backgroungImageBuffer;
 
 	cOpenClDynamicData *dynamicData;
+	cOpenClTexturesData *texturesData;
 
 	QStringList listOfUsedFormulas;
 

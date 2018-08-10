@@ -8,30 +8,30 @@
 #include "opencl_abstract_dynamic_data.h"
 
 #ifdef USE_OPENCL
-OpenClAbstractDynamicData::OpenClAbstractDynamicData(int _numberOfItems)
+cOpenClAbstractDynamicData::cOpenClAbstractDynamicData(int _numberOfItems)
 		: numberOfItems(_numberOfItems)
 {
 	totalDataOffset = 0;
 }
 
-OpenClAbstractDynamicData::~OpenClAbstractDynamicData()
+cOpenClAbstractDynamicData::~cOpenClAbstractDynamicData()
 {
 	// nothing
 }
 
-void OpenClAbstractDynamicData::Clear()
+void cOpenClAbstractDynamicData::Clear()
 {
 	data.clear();
 	itemOffsets.clear();
 	totalDataOffset = 0;
 }
 
-QByteArray &OpenClAbstractDynamicData::GetData()
+QByteArray &cOpenClAbstractDynamicData::GetData()
 {
 	return data;
 }
 
-int OpenClAbstractDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array)
+int cOpenClAbstractDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array)
 {
 	int missingBytes = alignmentSize - dataLength % alignmentSize;
 	if (missingBytes > 0 && missingBytes != alignmentSize)
@@ -48,7 +48,7 @@ int OpenClAbstractDynamicData::PutDummyToAlign(int dataLength, int alignmentSize
 	}
 }
 
-void OpenClAbstractDynamicData::ReserveHeader()
+void cOpenClAbstractDynamicData::ReserveHeader()
 {
 	for (int i = 0; i < numberOfItems; i++)
 	{
@@ -59,7 +59,7 @@ void OpenClAbstractDynamicData::ReserveHeader()
 	}
 }
 
-void OpenClAbstractDynamicData::FillHeader()
+void cOpenClAbstractDynamicData::FillHeader()
 {
 	for (int i = 0; i < numberOfItems; i++)
 	{

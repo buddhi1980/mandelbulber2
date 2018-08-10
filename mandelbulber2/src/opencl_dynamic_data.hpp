@@ -47,7 +47,7 @@ class cPrimitives;
 class cObjectData;
 
 #ifdef USE_OPENCL
-class cOpenClDynamicData : public OpenClAbstractDynamicData
+class cOpenClDynamicData : public cOpenClAbstractDynamicData
 {
 public:
 	cOpenClDynamicData();

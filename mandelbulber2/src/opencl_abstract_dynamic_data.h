@@ -12,11 +12,11 @@
 #include "include_header_wrapper.hpp"
 
 #ifdef USE_OPENCL
-class OpenClAbstractDynamicData
+class cOpenClAbstractDynamicData
 {
 public:
-	OpenClAbstractDynamicData(int _numberOfItems);
-	~OpenClAbstractDynamicData();
+	cOpenClAbstractDynamicData(int _numberOfItems);
+	~cOpenClAbstractDynamicData();
 
 	void ReserveHeader();
 	void FillHeader();
