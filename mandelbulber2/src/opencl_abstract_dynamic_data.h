@@ -11,6 +11,7 @@
 #include <QtCore>
 #include "include_header_wrapper.hpp"
 
+#ifdef USE_OPENCL
 class OpenClAbstractDynamicData
 {
 public:
@@ -41,5 +42,6 @@ protected:
 
 	QList<sItemOffset> itemOffsets;
 };
+#endif // USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ABSTRACT_DYNAMIC_DATA_H_ */

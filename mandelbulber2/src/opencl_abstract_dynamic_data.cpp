@@ -7,6 +7,7 @@
 
 #include "opencl_abstract_dynamic_data.h"
 
+#ifdef USE_OPENCL
 OpenClAbstractDynamicData::OpenClAbstractDynamicData(int _numberOfItems)
 		: numberOfItems(_numberOfItems)
 {
@@ -66,3 +67,5 @@ void OpenClAbstractDynamicData::FillHeader()
 			reinterpret_cast<char *>(&itemOffsets[i].itemOffset), sizeof(itemOffsets.at(i).itemOffset));
 	}
 }
+
+#endif // USE_OPENCL
