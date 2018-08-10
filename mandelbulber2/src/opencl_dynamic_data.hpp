@@ -38,6 +38,7 @@
 #include <QtCore>
 
 #include "include_header_wrapper.hpp"
+#include "opencl_abstract_dynamic_data.h"
 
 class cMaterial;
 struct sVectorsAround;
@@ -46,41 +47,24 @@ class cPrimitives;
 class cObjectData;
 
 #ifdef USE_OPENCL
-class cOpenClDynamicData
+class cOpenClDynamicData : public OpenClAbstractDynamicData
 {
 public:
 	cOpenClDynamicData();
 	~cOpenClDynamicData();
 
-	void Clear();
-	static int PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array);
 	int BuildMaterialsData(const QMap<int, cMaterial> &materials); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);
 	void BuildPrimitivesData(const cPrimitives *primitives);
 	void BuildObjectsData(const QVector<cObjectData> *objectData);
-	void ReserveHeader();
-	void FillHeader();
-	QByteArray &GetData();
 
 private:
-	QByteArray data;
-	cl_int totalDataOffset;
-
-	cl_int materialsOffset;
-	int materialsOffsetAddress;
-
-	cl_int AOVectorsOffset;
-	int AOVectorsOffsetAddress;
-
-	cl_int lightsOffset;
-	int lightsOffsetAddress;
-
-	cl_int primitivesOffset;
-	int primitivesOffsetAddress;
-
-	cl_int objectsOffset;
-	int objectsOffsetAddress;
+	const int materialsItemIndex = 0;
+	const int AOVectorsItemIndex = 1;
+	const int lightsItemIndex = 2;
+	const int primitivesItemIndex = 3;
+	const int objectsItemIndex = 4;
 };
 
 #endif // USE_OPENCL

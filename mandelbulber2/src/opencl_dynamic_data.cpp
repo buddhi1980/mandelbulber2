@@ -47,100 +47,13 @@
 #endif
 
 #ifdef USE_OPENCL
-cOpenClDynamicData::cOpenClDynamicData()
+cOpenClDynamicData::cOpenClDynamicData() : OpenClAbstractDynamicData(5) // this container has 5
+																																				// items
 {
-	totalDataOffset = 0; // counter for actual address in structure
-	materialsOffset = 0;
-	AOVectorsOffset = 0;
-	lightsOffset = 0;
-	primitivesOffset = 0;
-	objectsOffset = 0;
-	materialsOffsetAddress = 0;
-	AOVectorsOffsetAddress = 0;
-	lightsOffsetAddress = 0;
-	primitivesOffsetAddress = 0;
-	objectsOffsetAddress = 0;
 }
 
 cOpenClDynamicData::~cOpenClDynamicData()
 {
-}
-
-int cOpenClDynamicData::PutDummyToAlign(int dataLength, int alignmentSize, QByteArray *array)
-{
-	int missingBytes = alignmentSize - dataLength % alignmentSize;
-	if (missingBytes > 0 && missingBytes != alignmentSize)
-	{
-		char *dummyData = new char[missingBytes];
-		memset(dummyData, 0, missingBytes);
-		array->append(dummyData, missingBytes);
-		delete[] dummyData;
-		return missingBytes;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-void cOpenClDynamicData::ReserveHeader()
-{
-	/* main header:
-	 * cl_int materialsOffset
-	 * cl_int AOVectorsOffset
-	 * cl_int lightsOffset
-	 * cl_int primitivesOffset
-	 */
-
-	// reserve bytes for array offset
-	materialsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
-	totalDataOffset += sizeof(materialsOffset);
-
-	AOVectorsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
-	totalDataOffset += sizeof(AOVectorsOffset);
-
-	lightsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&lightsOffset), sizeof(lightsOffset));
-	totalDataOffset += sizeof(lightsOffset);
-
-	primitivesOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
-	totalDataOffset += sizeof(primitivesOffset);
-
-	objectsOffsetAddress = totalDataOffset;
-	data.append(reinterpret_cast<char *>(&objectsOffset), sizeof(objectsOffset));
-	totalDataOffset += sizeof(objectsOffset);
-}
-
-void cOpenClDynamicData::FillHeader()
-{
-	data.replace(materialsOffsetAddress, sizeof(materialsOffset),
-		reinterpret_cast<char *>(&materialsOffset), sizeof(materialsOffset));
-
-	data.replace(AOVectorsOffsetAddress, sizeof(AOVectorsOffset),
-		reinterpret_cast<char *>(&AOVectorsOffset), sizeof(AOVectorsOffset));
-
-	data.replace(lightsOffsetAddress, sizeof(lightsOffset), reinterpret_cast<char *>(&lightsOffset),
-		sizeof(lightsOffset));
-
-	data.replace(primitivesOffsetAddress, sizeof(primitivesOffset),
-		reinterpret_cast<char *>(&primitivesOffset), sizeof(primitivesOffset));
-
-	data.replace(objectsOffsetAddress, sizeof(objectsOffset),
-		reinterpret_cast<char *>(&objectsOffset), sizeof(objectsOffset));
-}
-
-void cOpenClDynamicData::Clear()
-{
-	data.clear();
-	totalDataOffset = 0;
-}
-
-QByteArray &cOpenClDynamicData::GetData()
-{
-	return data;
 }
 
 int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
@@ -174,7 +87,7 @@ int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials
 	*/
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-	materialsOffset = totalDataOffset;
+	itemOffsets[materialsItemIndex].itemOffset = totalDataOffset;
 
 	// number of materials is a maximum material index
 	// Empty material indexes will be filled with zero data
@@ -304,7 +217,7 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 	 */
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-	AOVectorsOffset = totalDataOffset;
+	itemOffsets[AOVectorsItemIndex].itemOffset = totalDataOffset;
 
 	data.append(reinterpret_cast<char *>(&vectorsCount), sizeof(vectorsCount));
 	totalDataOffset += sizeof(vectorsCount);
@@ -352,7 +265,7 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 	 */
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-	lightsOffset = totalDataOffset;
+	itemOffsets[lightsItemIndex].itemOffset = totalDataOffset;
 
 	cl_int numberOfLights = lights->GetNumberOfLights();
 	data.append(reinterpret_cast<char *>(&numberOfLights), sizeof(numberOfLights));
@@ -408,7 +321,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 	const QList<sPrimitiveBasic *> *primitives = primitivesContainer->GetListOfPrimitives();
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-	primitivesOffset = totalDataOffset;
+	itemOffsets[primitivesItemIndex].itemOffset = totalDataOffset;
 
 	cl_int numberOfPrimitives = primitives->size();
 	data.append(reinterpret_cast<char *>(&numberOfPrimitives), sizeof(numberOfPrimitives));
@@ -635,7 +548,7 @@ void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData
 	 */
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
-	objectsOffset = totalDataOffset;
+	itemOffsets[objectsItemIndex].itemOffset = totalDataOffset;
 
 	cl_int numberOfObjects = objectData->size();
 	data.append(reinterpret_cast<char *>(&numberOfObjects), sizeof(numberOfObjects));
