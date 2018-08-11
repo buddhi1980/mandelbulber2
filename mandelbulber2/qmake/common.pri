@@ -3,6 +3,7 @@ QT += core gui uitools widgets network testlib multimedia
 macx:QT += svg
 
 CONFIG += link_pkgconfig
+CONFIG += c++11
 
 # optional dependecies
 qtHaveModule(gamepad){
@@ -90,7 +91,7 @@ QMAKE_CXXFLAGS_RELEASE += -O3
 QMAKE_LFLAGS_RELEASE -= -O1
 
 # compiler build flags
-QMAKE_CXXFLAGS += -ffast-math -fopenmp -std=c++11
+QMAKE_CXXFLAGS += -ffast-math -fopenmp
 macx:DEFINES += "SHARED_DIR_IS_APP_DIR" 
 
 # test hardcoded lib path for gsl in travis container 
