@@ -24,9 +24,13 @@ public:
 
 	static int CheckNumberOfTextures(
 		const sTextures &textures, const QMap<int, cMaterial> &materials);
+	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials);
 
 private:
-	static void CountTexture(const cTexture *texture, QSet<QString> *listOfTextures, int *counter);
+	static bool CountTexture(const cTexture *texture, QSet<QString> *listOfTextures, int *counter);
+	void BuildTextureData(const cTexture *texture, int textureIndex);
+
+	int numberOfTextures;
 };
 
 #endif // USE_OPENCL

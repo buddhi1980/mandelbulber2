@@ -55,7 +55,6 @@ cAudioSelector::cAudioSelector(QWidget *parent) : QWidget(parent), ui(new Ui::cA
 	playStream = nullptr;
 
 	ConnectSignals();
-	audio = nullptr;
 	animationFrames = nullptr;
 	setAttribute(Qt::WA_DeleteOnClose, true);
 	SetStartStopButtonsPlayingStatus(QAudio::IdleState);

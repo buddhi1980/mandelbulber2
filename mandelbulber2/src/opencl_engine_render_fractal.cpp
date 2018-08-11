@@ -569,6 +569,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	texturesData.reset(new cOpenClTexturesData(numberOfTextures));
 	texturesData->ReserveHeader();
+	texturesData->BuildAllTexturesData(renderData->textures, materials);
+	texturesData->FillHeader();
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
