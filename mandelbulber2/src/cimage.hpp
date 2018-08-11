@@ -75,7 +75,7 @@ public:
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
-	void ClearImage() const;
+	void ClearImage();
 
 	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
@@ -197,15 +197,15 @@ public:
 		alphaBuffer16[imgIndex] = quint16(alphaBuffer16[imgIndex] * factorN + other * factor);
 	}
 
-	sRGBFloat *GetImageFloatPtr() { return imageFloat; }
-	sRGBFloat *GetPostImageFloatPtr() { return postImageFloat; }
-	sRGB16 *GetImage16Ptr() { return image16; }
-	sRGB8 *GetImage8Ptr() { return image8; }
-	quint16 *GetAlphaBufPtr() { return alphaBuffer16; }
-	quint8 *GetAlphaBufPtr8() { return alphaBuffer8; }
-	float *GetZBufferPtr() { return zBuffer; }
-	sRGB8 *GetColorPtr() { return colourBuffer; }
-	quint16 *GetOpacityPtr() { return opacityBuffer; }
+	sRGBFloat *GetImageFloatPtr() { return imageFloat.data(); }
+	sRGBFloat *GetPostImageFloatPtr() { return postImageFloat.data(); }
+	sRGB16 *GetImage16Ptr() { return image16.data(); }
+	sRGB8 *GetImage8Ptr() { return image8.data(); }
+	quint16 *GetAlphaBufPtr() { return alphaBuffer16.data(); }
+	quint8 *GetAlphaBufPtr8() { return alphaBuffer8.data(); }
+	float *GetZBufferPtr() { return zBuffer.data(); }
+	sRGB8 *GetColorPtr() { return colourBuffer.data(); }
+	quint16 *GetOpacityPtr() { return opacityBuffer.data(); }
 	size_t GetZBufferSize() const { return sizeof(float) * quint64(height) * quint64(width); }
 	QWidget *GetImageWidget() { return imageWidget; }
 
@@ -226,11 +226,11 @@ public:
 	void SetImageOptional(sImageOptional optInput) { this->opt = optInput; }
 	sImageOptional *GetImageOptional() { return &opt; }
 
-	quint8 *ConvertTo8bit() const;
-	quint8 *ConvertTo8bit(const QList<QRect> *list) const;
-	quint8 *ConvertAlphaTo8bit() const;
-	quint8 *ConvertNormalTo16Bit() const;
-	quint8 *ConvertNormalTo8Bit() const;
+	quint8 *ConvertTo8bit();
+	quint8 *ConvertTo8bit(const QList<QRect> *list);
+	quint8 *ConvertAlphaTo8bit();
+	quint8 *ConvertNormalTo16Bit();
+	quint8 *ConvertNormalTo8Bit();
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
 	void UpdatePreview(const QList<QRect> *list);
@@ -243,13 +243,12 @@ public:
 	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
 
-	void PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
-	void AntiAliasedPoint(
-		double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer) const;
+	void PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer);
+	void AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer);
 	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
-		sRGBFloat opacity, int layer) const;
+		sRGBFloat opacity, int layer);
 	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
-		sRGBFloat opacity, int layer) const;
+		sRGBFloat opacity, int layer);
 
 	bool IsStereoLeftRight() const { return isStereoLeftRight; }
 	void SetStereoLeftRight(bool isStereoLeftRightInput)
@@ -269,31 +268,31 @@ private:
 	static inline sRGB8 Black8() { return sRGB8(0, 0, 0); }
 	static inline sRGBFloat BlackFloat() { return sRGBFloat(0, 0, 0); }
 
-	sRGB8 *image8;
-	sRGB16 *image16;
-	sRGBFloat *imageFloat;
-	sRGBFloat *postImageFloat;
+	QScopedArrayPointer<sRGB8> image8;
+	QScopedArrayPointer<sRGB16> image16;
+	QScopedArrayPointer<sRGBFloat> imageFloat;
+	QScopedArrayPointer<sRGBFloat> postImageFloat;
 
-	quint8 *alphaBuffer8;
-	quint16 *alphaBuffer16;
-	quint16 *opacityBuffer;
-	sRGB8 *colourBuffer;
-	float *zBuffer;
+	QScopedArrayPointer<quint8> alphaBuffer8;
+	QScopedArrayPointer<quint16> alphaBuffer16;
+	QScopedArrayPointer<quint16> opacityBuffer;
+	QScopedArrayPointer<sRGB8> colourBuffer;
+	QScopedArrayPointer<float> zBuffer;
 
 	// optional image buffers
-	sRGBFloat *normalFloat;
-	sRGB8 *normal8;
-	sRGB16 *normal16;
+	QScopedArrayPointer<sRGBFloat> normalFloat;
+	QScopedArrayPointer<sRGB8> normal8;
+	QScopedArrayPointer<sRGB16> normal16;
 
-	sRGB8 *preview;
-	sRGB8 *preview2;
+	QScopedArrayPointer<sRGB8> preview;
+	QScopedArrayPointer<sRGB8> preview2;
 	QWidget *imageWidget;
 
 	sImageAdjustments adj;
 	sImageOptional opt;
 	qint64 width;
 	qint64 height;
-	int *gammaTable;
+	QScopedArrayPointer<int> gammaTable;
 	bool previewAllocated;
 	int previewWidth;
 	int previewHeight;
