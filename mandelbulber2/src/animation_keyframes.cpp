@@ -550,12 +550,14 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	*stopRequest = false;
 
 	// preparing Render Job
-	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(
-		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	QScopedPointer<cRenderJob> renderJob(
+		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
+	connect(renderJob.data(),
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+		SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -586,7 +588,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			QObject::tr(
 				"There is no frame to render: first frame to render and last frame to render are equals."),
 			cErrorMessage::warningMessage);
-		delete renderJob;
 		return false;
 	}
 
@@ -686,7 +687,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			if (deletePreviousRender)
 			{
 				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_keyframe_dir"));
-				delete renderJob;
 
 				if (!systemData.noGui && image->IsMainImage())
 				{
@@ -789,7 +789,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		emit updateProgressAndStatus(
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
-		delete renderJob;
 
 		if (!systemData.noGui && image->IsMainImage())
 		{
@@ -799,8 +798,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		return false;
 	}
-
-	delete renderJob;
 
 	if (!systemData.noGui && image->IsMainImage())
 	{

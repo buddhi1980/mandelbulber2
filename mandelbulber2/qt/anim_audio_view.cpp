@@ -49,7 +49,7 @@ cAnimAudioView::~cAnimAudioView()
 {
 }
 
-void cAnimAudioView::UpdateChart(const cAudioTrack *audioTrack)
+void cAnimAudioView::UpdateChart(const QSharedPointer<cAudioTrack> audioTrack)
 {
 	if (audioTrack && audioTrack->isLoaded())
 	{

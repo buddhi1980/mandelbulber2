@@ -304,13 +304,14 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->renderedImage->setClickMode(clickMode);
 
 	// setup of rendering engine
-	cRenderJob *renderJob = new cRenderJob(params, fractalParams, mainInterface->mainImage,
-		&mainInterface->stopRequest, mainInterface->renderedImage);
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(
-		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	QScopedPointer<cRenderJob> renderJob(new cRenderJob(params, fractalParams,
+		mainInterface->mainImage, &mainInterface->stopRequest, mainInterface->renderedImage));
+	connect(renderJob.data(),
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+		SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -516,8 +517,6 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 
 	UpdateLimitsForFrameRange();
 	ui->spinboxInt_flight_last_to_render->setValue(frames->GetNumberOfFrames());
-
-	delete renderJob;
 }
 
 void cFlightAnimation::UpdateThumbnailFromImage(int index) const
@@ -733,13 +732,15 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		gUndo.Store(params, fractalParams, frames, nullptr);
 	}
 
-	cRenderJob *renderJob = new cRenderJob(params, fractalParams, image, stopRequest, imageWidget);
+	QScopedPointer<cRenderJob> renderJob(
+		new cRenderJob(params, fractalParams, image, stopRequest, imageWidget));
 
-	connect(renderJob, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-		this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(
-		renderJob, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob, SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	connect(renderJob.data(),
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
+		SIGNAL(updateStatistics(cStatistics)));
+	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -906,7 +907,6 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		emit updateProgressAndStatus(
 			resultStatus, progressText.getText(1.0), cProgressText::progress_ANIMATION);
 		emit updateProgressHide();
-		delete renderJob;
 
 		if (!systemData.noGui && image->IsMainImage())
 		{
@@ -923,7 +923,6 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		imageWidget->SetEnableClickModes(true);
 	}
 
-	delete renderJob;
 	return true;
 }
 
@@ -1056,17 +1055,17 @@ void cFlightAnimation::slotOrthogonalStrafe(bool _orthogonalStrafe)
 
 void cFlightAnimation::slotSelectAnimFlightImageDir() const
 {
-	QFileDialog *dialog = new QFileDialog();
-	dialog->setFileMode(QFileDialog::DirectoryOnly);
-	dialog->setNameFilter(QObject::tr("Animation Image Folder"));
-	dialog->setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_flight_dir")));
-	dialog->setAcceptMode(QFileDialog::AcceptOpen);
-	dialog->setWindowTitle(QObject::tr("Choose Animation Image Folder"));
-	dialog->setOption(QFileDialog::ShowDirsOnly);
+	QFileDialog dialog;
+	dialog.setFileMode(QFileDialog::DirectoryOnly);
+	dialog.setNameFilter(QObject::tr("Animation Image Folder"));
+	dialog.setDirectory(QDir::toNativeSeparators(params->Get<QString>("anim_flight_dir")));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(QObject::tr("Choose Animation Image Folder"));
+	dialog.setOption(QFileDialog::ShowDirsOnly);
 
-	if (dialog->exec())
+	if (dialog.exec())
 	{
-		QStringList fileNames = dialog->selectedFiles();
+		QStringList fileNames = dialog.selectedFiles();
 		const QString filename = QDir::toNativeSeparators(fileNames.first() + QDir::separator());
 		ui->text_anim_flight_dir->setText(filename);
 		params->Set("anim_flight_dir", filename);

@@ -53,7 +53,7 @@ cTimeRuler::~cTimeRuler()
 {
 }
 
-void cTimeRuler::SetParameters(cAudioTrack *audioTrack, int _framesPerKeyframe)
+void cTimeRuler::SetParameters(QSharedPointer<cAudioTrack> audioTrack, int _framesPerKeyframe)
 {
 	frames = audioTrack->getNumberOfFrames();
 	framesPerSecond = audioTrack->getFramesPerSecond();

@@ -100,7 +100,7 @@ void cAudioSelector::slotLoadAudioFile()
 		slotPlaybackStop();
 		SetStartStopButtonsPlayingStatus(QAudio::IdleState);
 
-		connect(audio, SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
+		connect(audio.data(), SIGNAL(loadingFinished()), this, SLOT(slotAudioLoaded()));
 		audio->LoadAudio(filename);
 	}
 }
@@ -295,8 +295,8 @@ void cAudioSelector::AssignAnimation(cAnimationFrames *_animationFrames)
 	if (animationFrames && !parameterName.isEmpty())
 	{
 		audio = animationFrames->GetAudioPtr(parameterName);
-		connect(audio, SIGNAL(loadingProgress(QString)), this, SIGNAL(loadingProgress(QString)));
-		connect(audio, SIGNAL(loadingFailed()), ui->waveForm, SLOT(slotLoadingFailed()));
+		connect(audio.data(), SIGNAL(loadingProgress(QString)), this, SIGNAL(loadingProgress(QString)));
+		connect(audio.data(), SIGNAL(loadingFailed()), ui->waveForm, SLOT(slotLoadingFailed()));
 
 		if (audio->isLoaded())
 		{

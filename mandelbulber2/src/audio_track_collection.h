@@ -55,7 +55,7 @@ public:
 	void AddAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAudioTrack(const QString fullParameterName, cParameterContainer *params);
 	void DeleteAllAudioTracks(cParameterContainer *params);
-	cAudioTrack *GetAudioTrackPtr(const QString fullParameterName) const;
+	QSharedPointer<cAudioTrack> GetAudioTrackPtr(const QString fullParameterName) const;
 	void AddParameters(cParameterContainer *params, const QString parameterName) const;
 	void RemoveParameters(cParameterContainer *params, const QString parameterName) const;
 	QString FullParameterName(const QString &nameOfSoundParameter, const QString parameterName) const;
@@ -64,7 +64,7 @@ public:
 	void SetPrefix(QString _prefix) { prefix = _prefix; }
 
 private:
-	QMap<QString, cAudioTrack *> audioTracks;
+	QMap<QString, QSharedPointer<cAudioTrack>> audioTracks;
 	QString prefix;
 };
 

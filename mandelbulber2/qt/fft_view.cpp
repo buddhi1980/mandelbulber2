@@ -56,7 +56,7 @@ cFFTView::~cFFTView()
 	// nothing needed here
 }
 
-void cFFTView::AssignAudioTrack(const cAudioTrack *audiotrack)
+void cFFTView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
 {
 
 	if (audiotrack && audiotrack->isLoaded())

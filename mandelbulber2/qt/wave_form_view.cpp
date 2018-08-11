@@ -51,7 +51,7 @@ cWaveFormView::~cWaveFormView()
 {
 }
 
-void cWaveFormView::AssignAudioTrack(const cAudioTrack *audiotrack)
+void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
 {
 	if (audiotrack && audiotrack->isLoaded())
 	{

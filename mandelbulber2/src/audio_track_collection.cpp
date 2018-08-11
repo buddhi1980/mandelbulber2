@@ -47,7 +47,6 @@ cAudioTrackCollection::cAudioTrackCollection()
 
 cAudioTrackCollection::~cAudioTrackCollection()
 {
-	qDeleteAll(audioTracks);
 }
 
 /* Warning! this is fake constructor to avoid copying audio data to cUndo buffers */
@@ -61,7 +60,6 @@ cAudioTrackCollection::cAudioTrackCollection(const cAudioTrackCollection &collec
 cAudioTrackCollection &cAudioTrackCollection::operator=(const cAudioTrackCollection &collection)
 {
 	Q_UNUSED(collection);
-	qDeleteAll(audioTracks);
 	this->audioTracks.clear();
 	return *this;
 }
@@ -76,7 +74,7 @@ void cAudioTrackCollection::AddAudioTrack(
 	}
 	else
 	{
-		audioTracks.insert(fullParameterName, new cAudioTrack());
+		audioTracks.insert(fullParameterName, QSharedPointer<cAudioTrack>(new cAudioTrack()));
 		if (params) // params is nullptr when audio tracks are regenerated
 		{
 			AddParameters(params, fullParameterName);
@@ -89,7 +87,6 @@ void cAudioTrackCollection::DeleteAudioTrack(
 {
 	if (audioTracks.contains(fullParameterName))
 	{
-		delete audioTracks[fullParameterName];
 		audioTracks.remove(fullParameterName);
 		RemoveParameters(params, fullParameterName);
 	}
@@ -110,7 +107,8 @@ void cAudioTrackCollection::DeleteAllAudioTracks(cParameterContainer *params)
 	}
 }
 
-cAudioTrack *cAudioTrackCollection::GetAudioTrackPtr(const QString fullParameterName) const
+QSharedPointer<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
+	const QString fullParameterName) const
 {
 	if (audioTracks.contains(fullParameterName))
 	{

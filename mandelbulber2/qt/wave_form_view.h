@@ -59,7 +59,7 @@ public:
 	cWaveFormView(QWidget *parent);
 	~cWaveFormView() override;
 
-	void AssignAudioTrack(const cAudioTrack *audiotrack);
+	void AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack);
 
 private:
 	void paintEvent(QPaintEvent *event) override;

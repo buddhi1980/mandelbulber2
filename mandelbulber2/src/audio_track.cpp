@@ -54,21 +54,16 @@
 
 cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 {
-	fftAudio = nullptr;
-	decoder = nullptr;
 	Clear();
 }
 
 cAudioTrack::~cAudioTrack()
 {
-	if (fftAudio) delete[] fftAudio;
-	if (decoder) delete decoder;
 }
 
 void cAudioTrack::Clear()
 {
-	if (decoder) delete decoder;
-	decoder = nullptr;
+	decoder.reset();
 
 	memoryReserved = false;
 	length = 0;
@@ -82,8 +77,7 @@ void cAudioTrack::Clear()
 	maxFft = 0.0;
 	rawAudio.clear();
 
-	if (fftAudio) delete[] fftAudio;
-	fftAudio = nullptr;
+	fftAudio.reset();
 
 	animation.clear();
 	maxFftArray = cAudioFFTData();
@@ -167,15 +161,14 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 		desiredFormat.setSampleRate(sampleRate);
 		desiredFormat.setSampleSize(16);
 
-		if (decoder) delete decoder;
-		decoder = new QAudioDecoder(this);
+		decoder.reset(new QAudioDecoder());
 		decoder->setAudioFormat(desiredFormat);
 		decoder->setSourceFilename(filename);
 
-		connect(decoder, SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
-		connect(decoder, SIGNAL(finished()), this, SLOT(slotFinished()));
-		connect(
-			decoder, SIGNAL(error(QAudioDecoder::Error)), this, SLOT(slotError(QAudioDecoder::Error)));
+		connect(decoder.data(), SIGNAL(bufferReady()), this, SLOT(slotReadBuffer()));
+		connect(decoder.data(), SIGNAL(finished()), this, SLOT(slotFinished()));
+		connect(decoder.data(), SIGNAL(error(QAudioDecoder::Error)), this,
+			SLOT(slotError(QAudioDecoder::Error)));
 
 		loadingInProgress = true;
 		decoder->start();
@@ -279,8 +272,7 @@ void cAudioTrack::calculateFFT()
 		emit loadingProgress(tr("Calculating FFT"));
 		QApplication::processEvents();
 
-		if (fftAudio) delete[] fftAudio;
-		fftAudio = new cAudioFFTData[numberOfFrames];
+		fftAudio.reset(new cAudioFFTData[numberOfFrames]);
 
 		const int overSample = sampleRate / framesPerSecond / cAudioFFTData::fftSize + 2;
 
