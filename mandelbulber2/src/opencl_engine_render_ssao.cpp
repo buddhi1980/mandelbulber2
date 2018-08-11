@@ -216,13 +216,13 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer to input buffer
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float *)inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
 		}
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			((cl_float *)inputBuffers[sineCosineIndex].ptr)[i] =
+			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i] =
 				sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			((cl_float *)inputBuffers[sineCosineIndex].ptr)[i + paramsSSAO.quality] =
+			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
 				cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
 		}
 
@@ -266,7 +266,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			{
 				for (int x = 0; x < width; x++)
 				{
-					cl_float total_ambient = ((cl_float *)outputBuffers[outputIndex].ptr)[x + y * width];
+					cl_float total_ambient =
+						((cl_float *)outputBuffers[outputIndex].ptr.data())[x + y * width];
 					unsigned short opacity16 = image->GetPixelOpacity(x, y);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(x, y);

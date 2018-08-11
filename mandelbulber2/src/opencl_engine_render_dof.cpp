@@ -50,13 +50,13 @@
 cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObject(hardware)
 {
 #ifdef USE_OPENCL
-	dofEnginePhase1 = new cOpenClEngineRenderDOFPhase1(hardware);
-	dofEnginePhase2 = new cOpenClEngineRenderDOFPhase2(hardware);
+	dofEnginePhase1.reset(new cOpenClEngineRenderDOFPhase1(hardware));
+	dofEnginePhase2.reset(new cOpenClEngineRenderDOFPhase2(hardware));
 
-	connect(dofEnginePhase1,
+	connect(dofEnginePhase1.data(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-	connect(dofEnginePhase2,
+	connect(dofEnginePhase2.data(),
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
@@ -66,8 +66,6 @@ cOpenClEngineRenderDOF::cOpenClEngineRenderDOF(cOpenClHardware *hardware) : QObj
 cOpenClEngineRenderDOF::~cOpenClEngineRenderDOF()
 {
 #ifdef USE_OPENCL
-	delete dofEnginePhase1;
-	delete dofEnginePhase2;
 #endif
 }
 

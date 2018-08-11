@@ -59,8 +59,8 @@ public:
 		bool *stopRequest, cRegion<int> screenRegion);
 	void Reset();
 
-	cOpenClEngineRenderDOFPhase1 *dofEnginePhase1;
-	cOpenClEngineRenderDOFPhase2 *dofEnginePhase2;
+	QScopedPointer<cOpenClEngineRenderDOFPhase1> dofEnginePhase1;
+	QScopedPointer<cOpenClEngineRenderDOFPhase2> dofEnginePhase2;
 #endif
 
 signals:

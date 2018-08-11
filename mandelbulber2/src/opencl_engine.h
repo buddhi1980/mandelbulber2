@@ -85,15 +85,18 @@ public:
 	struct sClInputOutputBuffer
 	{
 		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
-				: itemSize(itemSize), length(length), name(std::move(name)), ptr(nullptr), clPtr(nullptr)
+				: itemSize(itemSize), length(length), name(std::move(name))
 		{
 		}
+
+		static void Deleter(char *charArray) { delete[] charArray; }
+
 		qint64 size() const { return itemSize * length; }
 		qint64 itemSize;
 		qint64 length;
 		QString name;
-		char *ptr;
-		cl::Buffer *clPtr;
+		QSharedPointer<char> ptr;
+		QSharedPointer<cl::Buffer> clPtr;
 	};
 
 	void Lock();
@@ -130,9 +133,9 @@ protected:
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
-	cl::Program *program;
-	cl::Kernel *kernel;
-	cl::CommandQueue *queue;
+	QScopedPointer<cl::Program> program;
+	QScopedPointer<cl::Kernel> kernel;
+	QScopedPointer<cl::CommandQueue> queue;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;

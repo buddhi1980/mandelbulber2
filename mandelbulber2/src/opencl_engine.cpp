@@ -46,9 +46,6 @@
 cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), hardware(_hardware)
 {
 #ifdef USE_OPENCL
-	program = nullptr;
-	kernel = nullptr;
-	queue = nullptr;
 	programsLoaded = false;
 	readyForRendering = false;
 	kernelCreated = false;
@@ -64,9 +61,6 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 cOpenClEngine::~cOpenClEngine()
 {
 #ifdef USE_OPENCL
-	if (program) delete program;
-	if (kernel) delete kernel;
-	if (queue) delete queue;
 #endif
 }
 
@@ -113,8 +107,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			// creating cl::Program
 			cl_int err;
 
-			if (program) delete program;
-			program = new cl::Program(*hardware->getContext(), sources, &err);
+			program.reset(new cl::Program(*hardware->getContext(), sources, &err));
 
 			if (checkErr(err, "cl::Program()"))
 			{
@@ -182,7 +175,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (programsLoaded)
 	{
-		if (CreateKernel(program))
+		if (CreateKernel(program.data()))
 		{
 			InitOptimalJob(params);
 			return true;
@@ -194,8 +187,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 bool cOpenClEngine::CreateKernel(cl::Program *program)
 {
 	cl_int err;
-	if (kernel) delete kernel;
-	kernel = new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err);
+	kernel.reset(new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err));
 	if (checkErr(err, "cl::Kernel()"))
 	{
 		size_t workGroupSize = 0;
@@ -270,11 +262,11 @@ bool cOpenClEngine::CreateCommandQueue()
 	if (hardware->ContextCreated())
 	{
 		cl_int err;
-		if (queue) delete queue;
 		// TODO: support multiple devices
 		// TODO: create a separate queue per device
 		// iterate through getDevicesInformation[s]
-		queue = new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err);
+		queue.reset(
+			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err));
 
 		if (checkErr(err, "CommandQueue::CommandQueue()"))
 		{
@@ -366,12 +358,11 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 	{
 		for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 		{
-			if (inputAndOutputBuffers[i].ptr) delete[] inputAndOutputBuffers[i].ptr;
-			inputAndOutputBuffers[i].ptr = new char[inputAndOutputBuffers[i].size()];
-			if (inputAndOutputBuffers[i].clPtr) delete[] inputAndOutputBuffers[i].clPtr;
-			inputAndOutputBuffers[i].clPtr =
+			inputAndOutputBuffers[i].ptr.reset(
+				new char[inputAndOutputBuffers[i].size()], sClInputOutputBuffer::Deleter);
+			inputAndOutputBuffers[i].clPtr.reset(
 				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR,
-					inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr, &err);
+					inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr.data(), &err));
 			if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffers[i].name))
 			{
 				emit showErrorMessage(
@@ -383,12 +374,10 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 		for (int i = 0; i < outputBuffers.size(); i++)
 		{
-			if (outputBuffers[i].ptr) delete[] outputBuffers[i].ptr;
-			outputBuffers[i].ptr = new char[outputBuffers[i].size()];
-			if (outputBuffers[i].clPtr) delete[] outputBuffers[i].clPtr;
-			outputBuffers[i].clPtr =
+			outputBuffers[i].ptr.reset(new char[outputBuffers[i].size()], sClInputOutputBuffer::Deleter);
+			outputBuffers[i].clPtr.reset(
 				new cl::Buffer(*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR,
-					outputBuffers[i].size(), outputBuffers[i].ptr, &err);
+					outputBuffers[i].size(), outputBuffers[i].ptr.data(), &err));
 			if (!checkErr(err, "new cl::Buffer(...) for " + outputBuffers[i].name))
 			{
 				emit showErrorMessage(
@@ -400,11 +389,10 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 		for (int i = 0; i < inputBuffers.size(); i++)
 		{
-			if (inputBuffers[i].ptr) delete[] inputBuffers[i].ptr;
-			inputBuffers[i].ptr = new char[inputBuffers[i].size()];
-			if (inputBuffers[i].clPtr) delete[] inputBuffers[i].clPtr;
-			inputBuffers[i].clPtr = new cl::Buffer(*hardware->getContext(),
-				CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, inputBuffers[i].size(), inputBuffers[i].ptr, &err);
+			inputBuffers[i].ptr.reset(new char[inputBuffers[i].size()], sClInputOutputBuffer::Deleter);
+			inputBuffers[i].clPtr.reset(
+				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR,
+					inputBuffers[i].size(), inputBuffers[i].ptr.data(), &err));
 			if (!checkErr(err, "new cl::Buffer(...) for " + inputBuffers[i].name))
 			{
 				emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(inputBuffers[i].name),
@@ -427,24 +415,18 @@ void cOpenClEngine::ReleaseMemory()
 {
 	for (int i = 0; i < outputBuffers.size(); i++)
 	{
-		if (outputBuffers[i].ptr) delete outputBuffers[i].ptr;
-		outputBuffers[i].ptr = nullptr;
-		if (outputBuffers[i].clPtr) delete outputBuffers[i].clPtr;
-		outputBuffers[i].clPtr = nullptr;
+		outputBuffers[i].ptr.reset();
+		outputBuffers[i].clPtr.reset();
 	}
 	for (int i = 0; i < inputBuffers.size(); i++)
 	{
-		if (inputBuffers[i].ptr) delete inputBuffers[i].ptr;
-		inputBuffers[i].ptr = nullptr;
-		if (inputBuffers[i].clPtr) delete inputBuffers[i].clPtr;
-		inputBuffers[i].clPtr = nullptr;
+		inputBuffers[i].ptr.reset();
+		inputBuffers[i].clPtr.reset();
 	}
 	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 	{
-		if (inputAndOutputBuffers[i].ptr) delete inputAndOutputBuffers[i].ptr;
-		inputAndOutputBuffers[i].ptr = nullptr;
-		if (inputAndOutputBuffers[i].clPtr) delete inputAndOutputBuffers[i].clPtr;
-		inputAndOutputBuffers[i].clPtr = nullptr;
+		inputAndOutputBuffers[i].ptr.reset();
+		inputAndOutputBuffers[i].clPtr.reset();
 	}
 	inputBuffers.clear();
 	outputBuffers.clear();
@@ -456,7 +438,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 	for (int i = 0; i < inputBuffers.size(); i++)
 	{
 		cl_int err = queue->enqueueWriteBuffer(
-			*inputBuffers[i].clPtr, CL_TRUE, 0, inputBuffers[i].size(), inputBuffers[i].ptr);
+			*inputBuffers[i].clPtr, CL_TRUE, 0, inputBuffers[i].size(), inputBuffers[i].ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputBuffers[i].name))
 		{
 			emit showErrorMessage(
@@ -468,7 +450,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 	{
 		cl_int err = queue->enqueueWriteBuffer(*inputAndOutputBuffers[i].clPtr, CL_TRUE, 0,
-			inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr);
+			inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr.data());
 		if (!checkErr(
 					err, "CommandQueue::enqueueWriteBuffer(...) for " + inputAndOutputBuffers[i].name))
 		{
@@ -495,7 +477,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 	for (int i = 0; i < outputBuffers.size(); i++)
 	{
 		cl_int err = queue->enqueueReadBuffer(
-			*outputBuffers[i].clPtr, CL_TRUE, 0, outputBuffers[i].size(), outputBuffers[i].ptr);
+			*outputBuffers[i].clPtr, CL_TRUE, 0, outputBuffers[i].size(), outputBuffers[i].ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffers[i].name))
 		{
 			emit showErrorMessage(
@@ -507,7 +489,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 	{
 		cl_int err = queue->enqueueReadBuffer(*inputAndOutputBuffers[i].clPtr, CL_TRUE, 0,
-			inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr);
+			inputAndOutputBuffers[i].size(), inputAndOutputBuffers[i].ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffers[i].name))
 		{
 			emit showErrorMessage(

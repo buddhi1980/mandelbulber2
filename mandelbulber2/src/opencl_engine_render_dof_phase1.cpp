@@ -201,10 +201,10 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer and image to input buffers
 		for (qint64 i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float *)inputBuffers[zBufferIndex].ptr)[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4 *)inputBuffers[imageIndex].ptr)[i] =
+			((cl_float4 *)inputBuffers[imageIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
@@ -248,7 +248,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 				{
 					for (int x = 0; x < jobWidth2; x++)
 					{
-						cl_float4 pixelCl = ((cl_float4 *)outputBuffers[outputIndex].ptr)[x + y * jobWidth2];
+						cl_float4 pixelCl =
+							((cl_float4 *)outputBuffers[outputIndex].ptr.data())[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						quint16 alpha = pixelCl.s[3] * 65535;
 

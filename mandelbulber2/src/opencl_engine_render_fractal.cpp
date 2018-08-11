@@ -71,18 +71,6 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 		: cOpenClEngine(_hardware)
 {
 #ifdef USE_OPENCL
-	constantInBuffer = nullptr;
-	inCLConstBuffer = nullptr;
-	backgroungImageBuffer = nullptr;
-	backgroundImage2D = nullptr;
-	constantInMeshExportBuffer = nullptr;
-	inCLConstMeshExportBuffer = nullptr;
-
-	inCLBuffer = nullptr;
-
-	dynamicData = nullptr;
-	texturesData = nullptr;
-
 	optimalJob.sizeOfPixel = sizeof(sClPixel);
 	autoRefreshMode = false;
 	monteCarlo = false;
@@ -104,26 +92,16 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 
 void cOpenClEngineRenderFractal::ReleaseMemory()
 {
-	if (constantInBuffer) delete constantInBuffer;
-	constantInBuffer = nullptr;
-	if (inCLConstBuffer) delete inCLConstBuffer;
-	inCLConstBuffer = nullptr;
-
-	if (constantInMeshExportBuffer) delete constantInMeshExportBuffer;
-	constantInMeshExportBuffer = nullptr;
-	if (inCLConstMeshExportBuffer) delete inCLConstMeshExportBuffer;
-	inCLConstMeshExportBuffer = nullptr;
-
-	if (inCLBuffer) delete inCLBuffer;
-	inCLBuffer = nullptr;
-	if (backgroungImageBuffer) delete backgroungImageBuffer;
-	backgroungImageBuffer = nullptr;
-
-	dynamicData = nullptr;
-	if (dynamicData) delete dynamicData;
-
-	if (texturesData) delete texturesData;
-	texturesData = nullptr;
+	constantInBuffer.reset();
+	inCLConstBuffer.reset();
+	constantInMeshExportBuffer.reset();
+	inCLConstMeshExportBuffer.reset();
+	inCLBuffer.reset();
+	backgroundImage2D.reset();
+	backgroungImageBuffer.reset();
+	dynamicData.reset();
+	texturesData.reset();
+	inBuffer.clear();
 
 	cOpenClEngine::ReleaseMemory();
 }
@@ -296,13 +274,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	meshExportMode = meshExportModeEnable;
 
-	if (constantInBuffer) delete constantInBuffer;
-	constantInBuffer = new sClInConstants;
+	constantInBuffer.reset(new sClInConstants);
 
 	if (meshExportMode)
 	{
-		if (constantInMeshExportBuffer) delete constantInMeshExportBuffer;
-		constantInMeshExportBuffer = new sClMeshExport;
+		constantInMeshExportBuffer.reset(new sClMeshExport);
 	}
 
 	definesCollector.clear();
@@ -523,8 +499,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
 
 	//----------- create dynamic data -----------
-	if (dynamicData) delete dynamicData;
-	dynamicData = new cOpenClDynamicData;
+	dynamicData.reset(new cOpenClDynamicData);
 	dynamicData->ReserveHeader();
 
 	// materials
@@ -592,8 +567,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	int numberOfTextures =
 		cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
 
-	if (texturesData) delete texturesData;
-	texturesData = new cOpenClTexturesData(numberOfTextures);
+	texturesData.reset(new cOpenClTexturesData(numberOfTextures));
 	texturesData->ReserveHeader();
 
 	//---------------- another parameters -------------
@@ -648,9 +622,9 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	if (hardware->ContextCreated())
 	{
 
-		if (inCLConstBuffer) delete inCLConstBuffer;
-		inCLConstBuffer = new cl::Buffer(*hardware->getContext(),
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, sizeof(sClInConstants), constantInBuffer, &err);
+		inCLConstBuffer.reset(
+			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+				sizeof(sClInConstants), constantInBuffer.data(), &err));
 		if (!checkErr(err,
 					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 					"sizeof(sClInConstants), constantInBuffer, &err)"))
@@ -663,10 +637,9 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 		if (meshExportMode)
 		{
-			if (inCLConstMeshExportBuffer) delete inCLConstMeshExportBuffer;
-			inCLConstMeshExportBuffer =
+			inCLConstMeshExportBuffer.reset(
 				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-					sizeof(sClMeshExport), constantInMeshExportBuffer, &err);
+					sizeof(sClMeshExport), constantInMeshExportBuffer.data(), &err));
 			if (!checkErr(err,
 						"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
 						"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
@@ -679,9 +652,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 		}
 
 		// this buffer will be used for color palettes, lights, etc...
-		if (inCLBuffer) delete inCLBuffer;
-		inCLBuffer = new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			size_t(inBuffer.size()), inBuffer.data(), &err);
+		inCLBuffer.reset(new cl::Buffer(*hardware->getContext(),
+			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err));
 		if (!checkErr(err,
 					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 					"sizeof(sClInBuff), inBuffer, &err)"))
@@ -852,7 +824,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								for (int y = 0; y < jobHeight2; y++)
 								{
 									sClPixel pixelCl =
-										((sClPixel *)outputBuffers[outputIndex].ptr)[x + y * jobWidth2];
+										((sClPixel *)outputBuffers[outputIndex].ptr.data())[x + y * jobWidth2];
 									sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
 									sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
 									unsigned short opacity = pixelCl.opacity;
@@ -1209,7 +1181,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	}
 
 	err = queue->enqueueWriteBuffer(
-		*inCLConstBuffer, CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer);
+		*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1229,8 +1201,8 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (meshExportMode)
 	{
-		err = queue->enqueueWriteBuffer(
-			*inCLConstMeshExportBuffer, CL_TRUE, 0, sizeof(sClMeshExport), constantInMeshExportBuffer);
+		err = queue->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
+			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(QObject::tr("Cannot enqueue writing OpenCL %1")
@@ -1318,8 +1290,7 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	int texWidth = renderData->textures.backgroundTexture.Width();
 	int texHeight = renderData->textures.backgroundTexture.Height();
 
-	if (backgroungImageBuffer) delete[] backgroungImageBuffer;
-	backgroungImageBuffer = new cl_uchar4[texWidth * texHeight];
+	backgroungImageBuffer.reset(new cl_uchar4[texWidth * texHeight]);
 	size_t backgroundImage2DWidth = texWidth;
 	size_t backgroundImage2DHeight = texHeight;
 
@@ -1336,11 +1307,10 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 	}
 
 	cl_int err;
-	if (backgroundImage2D) delete backgroundImage2D;
-	backgroundImage2D =
+	backgroundImage2D.reset(
 		new cl::Image2D(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 			cl::ImageFormat(CL_RGBA, CL_UNORM_INT8), backgroundImage2DWidth, backgroundImage2DHeight,
-			backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer, &err);
+			backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer.data(), &err));
 	if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
 
 	return true;
@@ -1376,13 +1346,13 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int s
 		{
 			size_t address = x + y * constantInMeshExportBuffer->sliceWidth;
 			double distance =
-				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshDistancesIndex].ptr))[address];
+				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshDistancesIndex].ptr.data()))[address];
 			distances[address + dataOffset] = distance;
 
 			if (colors)
 			{
 				double color =
-					(reinterpret_cast<cl_float *>(outputBuffers[outputMeshColorsIndex].ptr))[address];
+					(reinterpret_cast<cl_float *>(outputBuffers[outputMeshColorsIndex].ptr.data()))[address];
 				colors[address + dataOffset] = color;
 			}
 		}

@@ -109,20 +109,20 @@ private:
 
 	static QString toCamelCase(const QString &s);
 
-	sClInConstants *constantInBuffer;
-	cl::Buffer *inCLConstBuffer;
+	QScopedPointer<sClInConstants> constantInBuffer;
+	QScopedPointer<cl::Buffer> inCLConstBuffer;
 
-	sClMeshExport *constantInMeshExportBuffer;
-	cl::Buffer *inCLConstMeshExportBuffer;
+	QScopedPointer<sClMeshExport> constantInMeshExportBuffer;
+	QScopedPointer<cl::Buffer> inCLConstMeshExportBuffer;
 
 	QByteArray inBuffer;
-	cl::Buffer *inCLBuffer;
+	QScopedPointer<cl::Buffer> inCLBuffer;
 
-	cl::Image2D *backgroundImage2D;
-	cl_uchar4 *backgroungImageBuffer;
+	QScopedPointer<cl::Image2D> backgroundImage2D;
+	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
 
-	cOpenClDynamicData *dynamicData;
-	cOpenClTexturesData *texturesData;
+	QScopedPointer<cOpenClDynamicData> dynamicData;
+	QScopedPointer<cOpenClTexturesData> texturesData;
 
 	QStringList listOfUsedFormulas;
 
