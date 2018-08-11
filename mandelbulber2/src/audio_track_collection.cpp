@@ -118,7 +118,7 @@ QSharedPointer<cAudioTrack> cAudioTrackCollection::GetAudioTrackPtr(
 	{
 		qCritical() << "cAudioTrackCollection::GetAudioTrackPtr(): element '" << fullParameterName
 								<< "' doesn't exist";
-		return nullptr;
+		return QSharedPointer<cAudioTrack>(nullptr);
 	}
 }
 
