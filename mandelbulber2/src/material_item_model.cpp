@@ -211,9 +211,9 @@ int cMaterialItemModel::FindFreeIndex()
 	do
 	{
 		occupied = false;
-		for (int materialIndexe : materialIndexes)
+		for (int indexFromArray : materialIndexes)
 		{
-			if (materialIndex == materialIndexe)
+			if (materialIndex == indexFromArray)
 			{
 				occupied = true;
 				materialIndex++;

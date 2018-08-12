@@ -1135,8 +1135,8 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("fake_lights_max_iter", oldData->fractal.fakeLightsMaxIter);
 
 	cColorPalette palette;
-	for (auto i : oldData->palette)
-		palette.AppendColor(i);
+	for (auto color : oldData->palette)
+		palette.AppendColor(color);
 	par->Set("mat1_surface_color_palette", palette);
 
 	if (oldData->fractal.primitives.boxEnable)
@@ -1331,9 +1331,9 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 				oldSettings::enumOldFractalFormula formula =
 					oldData->fractal.hybridFormula[fractalsListTemp.at(i)];
 				bool found = false;
-				for (const auto & l : fractalList)
+				for (const auto & fractalDescription : fractalList)
 				{
-					if (formula == oldSettings::enumOldFractalFormula(l.internalID))
+					if (formula == oldSettings::enumOldFractalFormula(fractalDescription.internalID))
 					{
 						found = true;
 						break;

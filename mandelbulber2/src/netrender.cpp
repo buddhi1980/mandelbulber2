@@ -262,8 +262,8 @@ void CNetRender::SetClient(QString address, int portNo)
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
-		out << "NetRender - Client Setup, link to server: " + address + ", port: "
-						 + QString::number(portNo) + "\n";
+		out << "NetRender - Client Setup, link to server: " + address
+						 + ", port: " + QString::number(portNo) + "\n";
 	}
 }
 
@@ -827,7 +827,7 @@ void CNetRender::Stop()
 {
 	sMessage msg;
 	msg.command = netRender_STOP;
-	for (auto & client : clients)
+	for (auto &client : clients)
 	{
 		SendData(client.socket, msg);
 	}
@@ -879,7 +879,7 @@ void CNetRender::SetCurrentJob(
 			stream << qint32(0); // empty entry
 		}
 
-		for (auto & client : clients)
+		for (auto &client : clients)
 		{
 			SendData(client.socket, msgCurrentJob);
 			client.linesRendered = 0;
@@ -907,9 +907,9 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done)
 		msg.command = netRender_RENDER;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << qint32(done.size());
-		for (int i : done)
+		for (int doneFlag : done)
 		{
-			stream << qint32(i);
+			stream << qint32(doneFlag);
 		}
 		SendData(clients[clientIndex].socket, msg);
 	}

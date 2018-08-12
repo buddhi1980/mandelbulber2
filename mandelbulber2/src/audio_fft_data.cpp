@@ -36,9 +36,9 @@
 
 cAudioFFTData::cAudioFFTData()
 {
-	for (float & i : data)
+	for (float &value : data)
 	{
-		i = 0.0;
+		value = 0.0;
 	}
 }
 

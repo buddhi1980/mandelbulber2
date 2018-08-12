@@ -738,10 +738,10 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 				listOfTextures.insert(renderData->materials[matIndex].luminosityTexture.GetFileName());
 		}
 
-		for (auto & i : renderData->textures.textureList)
+		for (auto & texture : renderData->textures.textureList)
 		{
-			if (i->IsLoaded())
-				listOfTextures.insert(i->GetFileName());
+			if (texture->IsLoaded())
+				listOfTextures.insert(texture->GetFileName());
 		}
 
 		return listOfTextures.toList();

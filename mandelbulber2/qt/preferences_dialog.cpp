@@ -431,11 +431,11 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 		gOpenCl->openClHardware->getPlatformsInformation();
 
 	ui->listWidget_opencl_platform_list->clear();
-	for (auto & i : platformsInformation)
+	for (auto & platformInformation : platformsInformation)
 	{
 		QListWidgetItem *item =
-			new QListWidgetItem(i.name + ", " + i.vendor
-													+ ", " + i.version);
+			new QListWidgetItem(platformInformation.name + ", " + platformInformation.vendor
+													+ ", " + platformInformation.version);
 		ui->listWidget_opencl_platform_list->addItem(item);
 	}
 

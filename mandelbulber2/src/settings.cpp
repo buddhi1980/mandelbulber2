@@ -77,10 +77,10 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 	// standard parameters
 	QList<QString> parameterList = par->GetListOfParameters();
-	for (auto & i : parameterList)
+	for (auto & parameterNameFromList : parameterList)
 	{
-		if (i == "description") continue;
-		settingsText += CreateOneLine(par, i);
+		if (parameterNameFromList == "description") continue;
+		settingsText += CreateOneLine(par, parameterNameFromList);
 	}
 
 	if (format != formatAppSettings)
@@ -91,9 +91,9 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 			{
 				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
 				QString fractalSettingsText = "";
-				for (const auto & i : parameterListFractal)
+				for (const auto & parameterNameFromFractal : parameterListFractal)
 				{
-					fractalSettingsText += CreateOneLine(&fractPar->at(f), i);
+					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterNameFromFractal);
 				}
 				if (fractalSettingsText.length() > 0)
 				{
@@ -1109,12 +1109,12 @@ bool cSettings::DecodeFramesLine(
 			if (frameCount == frames->GetNumberOfFrames())
 			{
 				column++;
-				for (auto & i : parameterList)
+				for (auto & parameterDescription : parameterList)
 				{
 					using namespace parameterContainer;
-					enumVarType type = i.varType;
-					QString containerName = i.containerName;
-					QString parameterName = i.parameterName;
+					enumVarType type = parameterDescription.varType;
+					QString containerName = parameterDescription.containerName;
+					QString parameterName = parameterDescription.parameterName;
 					cParameterContainer *container = frames->ContainerSelector(containerName, par, fractPar);
 
 					if (type == typeVector3)

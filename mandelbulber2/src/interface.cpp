@@ -1651,9 +1651,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		{
 			newId++;
 			occupied = false;
-			for (const auto & listOfPrimitive : listOfPrimitives)
+			for (const auto & primitiveItem : listOfPrimitives)
 			{
-				if (objectType == listOfPrimitive.type && newId == listOfPrimitive.id)
+				if (objectType == primitiveItem.type && newId == primitiveItem.id)
 					occupied = true;
 			}
 		}
@@ -1723,12 +1723,12 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		// rename widgets
 		QList<QWidget *> listOfWidgets = primitiveWidget->findChildren<QWidget *>();
-		for (auto & listOfWidget : listOfWidgets)
+		for (auto & widget : listOfWidgets)
 		{
-			QString name = listOfWidget->objectName();
+			QString name = widget->objectName();
 			int firstDash = name.indexOf('_');
 			QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
-			listOfWidget->setObjectName(newName);
+			widget->setObjectName(newName);
 		}
 
 		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
@@ -1791,9 +1791,9 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 void cInterface::RebuildPrimitives(cParameterContainer *par)
 {
 	// clear all widgets
-	for (const auto & listOfPrimitive : listOfPrimitives)
+	for (const auto & primitiveItem : listOfPrimitives)
 	{
-		QString widgetName = QString("widgetmain_") + listOfPrimitive.name;
+		QString widgetName = QString("widgetmain_") + primitiveItem.name;
 		QWidget *widget =
 			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
 				widgetName);
@@ -1891,17 +1891,17 @@ void cInterface::ComboMouseClickUpdate() const
 
 	if (listOfPrimitives.size() > 0)
 	{
-		for (const auto & listOfPrimitive : listOfPrimitives)
+		for (const auto & primitiveItem : listOfPrimitives)
 		{
-			QString primitiveName = PrimitiveNames(listOfPrimitive.type);
-			int index = listOfPrimitive.id;
+			QString primitiveName = PrimitiveNames(primitiveItem.type);
+			int index = primitiveItem.id;
 			QString comboItemString =
 				QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
 			item.clear();
 			item.append(int(RenderedImage::clickPlacePrimitive));
-			item.append(int(listOfPrimitive.type));
-			item.append(listOfPrimitive.id);
-			item.append(listOfPrimitive.name);
+			item.append(int(primitiveItem.type));
+			item.append(primitiveItem.id);
+			item.append(primitiveItem.name);
 			combo->addItem(comboItemString, item);
 		}
 	}
