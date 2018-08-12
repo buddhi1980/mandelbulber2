@@ -706,8 +706,8 @@ transf_scale_2 1,079812;';
 		file_put_contents($tempFractPath, $settings);
 	}
 	if (!file_exists(MANDELBULBER_EXEC_PATH)) return false;
-	$cmd = MANDELBULBER_EXEC_PATH . " -n -f png16alpha -o '" . $imgPath . "' '" . $tempFractPath . "'";
-	// echo PHP_EOL . $cmd . PHP_EOL;
+        $cmd = MANDELBULBER_EXEC_PATH . " -n -f png16alpha -O 'opencl_enabled=0' -o '" . $imgPath . "' '" . $tempFractPath . "'";
+        // echo PHP_EOL . $cmd . PHP_EOL;
 	shell_exec($cmd);
 	shell_exec("convert '" . $imgPath . "' -depth 8 '" . $imgPath . "'"); // save disk space with 8-bit png
 	return true;
