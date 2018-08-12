@@ -1183,7 +1183,7 @@ void cCommandLineInterface::handleGpu()
             cErrorMessage::errorMessage);
         parser.showHelp(cliErrorOpenClNoDevice);
     }
-    gPar->Set("opencl_device_list", devices[0].hash.toHex());
+		gPar->Set("opencl_device_list", (QString) devices[0].hash.toHex());
 #else
     cErrorMessage::showMessage(QObject::tr("Not compiled for opencl"),
         cErrorMessage::errorMessage);
