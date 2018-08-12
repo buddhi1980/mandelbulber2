@@ -39,10 +39,10 @@
 #ifndef MANDELBULBER2_SRC_SCHEDULER_HPP_
 #define MANDELBULBER2_SRC_SCHEDULER_HPP_
 
+#include <atomic>
 #include <qvector.h>
 
 #include <QMutex>
-
 #include "region.hpp"
 
 class cScheduler

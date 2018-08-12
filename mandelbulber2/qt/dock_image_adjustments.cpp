@@ -361,12 +361,12 @@ void cDockImageAdjustments::InitResolutionPresets()
 		button->setPopupMode(QToolButton::MenuButtonPopup);
 		button->setText(resolutionPresets->Get<QString>(
 			"resolution_preset", PresetButtonIndex(button->objectName())));
-		QMenu *menu = new QMenu(button);
-		QAction *action = new QAction(tr("Change preset"));
+        QMenu *menu = new QMenu(button);
+        QAction *action = new QAction(tr("Change preset"), menu);
 		action->setObjectName(QString("preset_%1").arg(PresetButtonIndex(button->objectName())));
 		menu->addAction(action);
 		button->setMenu(menu);
-		connect(action, SIGNAL(triggered()), this, SLOT(slotChangeResolutionPreset()));
+        connect(action, SIGNAL(triggered()), this, SLOT(slotChangeResolutionPreset()));
 	}
 }
 
