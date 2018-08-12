@@ -52,9 +52,7 @@ cOpenClDynamicData::cOpenClDynamicData() : cOpenClAbstractDynamicData(5) // this
 {
 }
 
-cOpenClDynamicData::~cOpenClDynamicData()
-{
-}
+cOpenClDynamicData::~cOpenClDynamicData() = default;
 
 int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
 {

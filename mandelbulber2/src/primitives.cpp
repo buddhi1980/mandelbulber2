@@ -95,10 +95,9 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	QList<sPrimitiveItem> listOfPrimitives;
 
 	// generating fresh list of primitives based of parameter list
-	for (int i = 0; i < listOfParameters.size(); i++)
+	for (auto parameterName : listOfParameters)
 	{
-		QString parameterName = listOfParameters.at(i);
-		if (parameterName.left(9) == "primitive")
+			if (parameterName.left(9) == "primitive")
 		{
 			isAnyPrimitive = true;
 
@@ -110,9 +109,9 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 
 			// check if item is already on the list
 			bool found = false;
-			for (int l = 0; l < listOfPrimitives.size(); l++)
+			for (const auto & listOfPrimitive : listOfPrimitives)
 			{
-				if (listOfPrimitives.at(l).id == index && listOfPrimitives.at(l).type == type)
+				if (listOfPrimitive.id == index && listOfPrimitive.type == type)
 				{
 					found = true;
 					break;
@@ -125,11 +124,9 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		}
 	}
 
-	for (int i = 0; i < listOfPrimitives.size(); i++)
+	for (auto item : listOfPrimitives)
 	{
-		sPrimitiveItem item = listOfPrimitives.at(i);
-
-		using namespace fractal;
+			using namespace fractal;
 		sPrimitiveBasic *primitive;
 
 		switch (item.type)
@@ -446,10 +443,9 @@ double cPrimitives::TotalDistance(
 		CVector3 point2 = point - allPrimitivesPosition;
 		point2 = mRotAllPrimitivesRotation.RotateVector(point2);
 
-		for (int i = 0; i < allPrimitives.size(); i++)
+		for (auto primitive : allPrimitives)
 		{
-			sPrimitiveBasic *primitive = allPrimitives[i];
-			if (primitive->enable)
+				if (primitive->enable)
 			{
 				sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitive);
 				double distTemp;

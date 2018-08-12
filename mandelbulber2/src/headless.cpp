@@ -57,9 +57,7 @@ cHeadless::cHeadless() : QObject()
 {
 }
 
-cHeadless::~cHeadless()
-{
-}
+cHeadless::~cHeadless() = default;
 
 void cHeadless::RenderStillImage(QString filename, QString imageFileFormat)
 {
@@ -427,9 +425,9 @@ QString cHeadless::formatLine(const QString &text)
 											 ")(voraussichtlich noch: )(.*)"));
 
 	QRegularExpressionMatch matchType;
-	for (int i = 0; i < reType.size(); i++)
+	for (const auto & i : reType)
 	{
-		matchType = reType.at(i).match(text);
+		matchType = i.match(text);
 		if (matchType.hasMatch()) break;
 	}
 

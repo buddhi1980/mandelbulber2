@@ -49,9 +49,7 @@ cTimeRuler::cTimeRuler(QWidget *parent) : QWidget(parent)
 	soundLength = 0.0;
 }
 
-cTimeRuler::~cTimeRuler()
-{
-}
+cTimeRuler::~cTimeRuler() = default;
 
 void cTimeRuler::SetParameters(QSharedPointer<cAudioTrack> audioTrack, int _framesPerKeyframe)
 {

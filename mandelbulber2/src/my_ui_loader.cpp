@@ -43,9 +43,7 @@
 #include "qt/my_line_edit.h"
 #include "qt/my_spin_box.h"
 
-MyUiLoader::~MyUiLoader()
-{
-}
+MyUiLoader::~MyUiLoader() = default;
 
 QWidget *MyUiLoader::createWidget(const QString &className, QWidget *parent, const QString &name)
 {

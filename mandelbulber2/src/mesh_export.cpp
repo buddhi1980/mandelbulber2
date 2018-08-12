@@ -63,9 +63,7 @@ cMeshExport::cMeshExport(int w, int h, int l, CVector3 limitMin, CVector3 limitM
 	stop = false;
 }
 
-cMeshExport::~cMeshExport()
-{
-}
+cMeshExport::~cMeshExport() = default;
 
 void cMeshExport::updateProgressAndStatus(int i)
 {
@@ -164,9 +162,9 @@ void cMeshExport::ProcessVolume()
 	cColorPalette palette = gPar->Get<cColorPalette>("mat1_surface_color_palette");
 	std::vector<sRGB8> colorsRGB;
 
-	for (unsigned int i = 0; i < colorIndices.size(); i++)
+	for (double colorIndice : colorIndices)
 	{
-		sRGB color = palette.IndexToColour(colorIndices[i]);
+		sRGB color = palette.IndexToColour(colorIndice);
 		sRGB8 color8(color.R, color.G, color.B);
 		colorsRGB.push_back(color8);
 	}

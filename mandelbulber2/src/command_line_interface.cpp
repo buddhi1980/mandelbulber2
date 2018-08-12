@@ -270,9 +270,7 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliOperationalMode = modeBootOnly;
 }
 
-cCommandLineInterface::~cCommandLineInterface()
-{
-}
+cCommandLineInterface::~cCommandLineInterface() = default;
 
 void cCommandLineInterface::ReadCLI()
 {
@@ -599,10 +597,9 @@ void cCommandLineInterface::printParametersAndExit()
 	out << cHeadless::colorize(
 		"\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
 	out << "KEY=VALUE\n";
-	for (int i = 0; i < listOfParameters.size(); i++)
+	for (auto parameterName : listOfParameters)
 	{
-		const QString parameterName = listOfParameters.at(i);
-		const QString defaultValue = gPar->GetDefault<QString>(parameterName);
+			const QString defaultValue = gPar->GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 
@@ -610,10 +607,9 @@ void cCommandLineInterface::printParametersAndExit()
 	out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"), cHeadless::ansiYellow,
 		cHeadless::noExplicitColor, true);
 
-	for (int i = 0; i < listOfFractalParameters.size(); i++)
+	for (auto parameterName : listOfFractalParameters)
 	{
-		const QString parameterName = listOfFractalParameters.at(i);
-		const QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
+			const QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
 	}
 

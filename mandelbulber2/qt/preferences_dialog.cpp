@@ -138,9 +138,9 @@ void cPreferencesDialog::on_buttonBox_accepted()
 		ui->listWidget_opencl_device_list->selectedItems();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList activeDevices;
-	for (int i = 0; i < selectedDevicesItems.size(); i++)
+	for (auto selectedDevicesItem : selectedDevicesItems)
 	{
-		activeDevices.append(selectedDevicesItems.at(i)->data(1).toString());
+		activeDevices.append(selectedDevicesItem->data(1).toString());
 	}
 	QString listString = activeDevices.join("|");
 	gPar->Set("opencl_device_list", listString);
@@ -372,10 +372,9 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 #ifdef USE_OPENCL
 	QList<cOpenClDevice::sDeviceInformation> openclDevs =
 		gOpenCl->openClHardware->getDevicesInformation();
-	for (int i = 0; i < openclDevs.size(); i++)
+	for (auto openclDev : openclDevs)
 	{
-		const cOpenClDevice::sDeviceInformation openclDev = openclDevs.at(i);
-		QByteArray hash = openclDev.hash;
+			QByteArray hash = openclDev.hash;
 		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
 	}
 #endif // USE_OPENCL
@@ -395,10 +394,9 @@ void cPreferencesDialog::on_listWidget_opencl_platform_list_currentRowChanged(in
 
 		QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 		QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
-		for (int i = 0; i < devices.size(); i++)
+		for (auto device : devices)
 		{
-			QPair<QString, QString> device = devices.at(i);
-			QListWidgetItem *item = new QListWidgetItem(device.second);
+				QListWidgetItem *item = new QListWidgetItem(device.second);
 			item->setData(1, device.first);
 			bool selected = selectedDevices.contains(device.first);
 			ui->listWidget_opencl_device_list->addItem(item);
@@ -433,11 +431,11 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 		gOpenCl->openClHardware->getPlatformsInformation();
 
 	ui->listWidget_opencl_platform_list->clear();
-	for (int i = 0; i < platformsInformation.size(); i++)
+	for (auto & i : platformsInformation)
 	{
 		QListWidgetItem *item =
-			new QListWidgetItem(platformsInformation[i].name + ", " + platformsInformation[i].vendor
-													+ ", " + platformsInformation[i].version);
+			new QListWidgetItem(i.name + ", " + i.vendor
+													+ ", " + i.version);
 		ui->listWidget_opencl_platform_list->addItem(item);
 	}
 
@@ -451,10 +449,9 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	ui->listWidget_opencl_device_list->clear();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
-	for (int i = 0; i < devices.size(); i++)
+	for (auto device : devices)
 	{
-		QPair<QString, QString> device = devices.at(i);
-		QListWidgetItem *item = new QListWidgetItem(device.second);
+			QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
 		bool selected = selectedDevices.contains(device.first);
 		ui->listWidget_opencl_device_list->addItem(item);

@@ -349,9 +349,9 @@ void cQueue::RemoveQueueItem(const structQueueItem queueItem)
 	RemoveFromList(queueItem);
 	// check if fract file is still on the list (one file with different renderTypes)
 	mutex.lock();
-	for (int i = 0; i < queueListFromFile.size(); i++)
+	for (const auto & i : queueListFromFile)
 	{
-		if (queueListFromFile.at(i).filename == queueItem.filename)
+		if (i.filename == queueItem.filename)
 		{
 			mutex.unlock();
 			return;
@@ -398,10 +398,10 @@ void cQueue::StoreList()
 	{
 		QTextStream stream(&file);
 		stream << "#\n# Mandelbulber queue file\n#\n";
-		for (int i = 0; i < queueListFromFile.size(); i++)
+		for (const auto & i : queueListFromFile)
 		{
-			stream << queueListFromFile.at(i).filename << " "
-						 << GetTypeText(queueListFromFile.at(i).renderType) << endl;
+			stream << i.filename << " "
+						 << GetTypeText(i.renderType) << endl;
 		}
 	}
 	file.close();

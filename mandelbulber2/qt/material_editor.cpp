@@ -98,16 +98,16 @@ void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
 		isMaterialAssigned = true;
 
 		QList<QWidget *> materialWidgets = this->findChildren<QWidget *>();
-		for (int i = 0; i < materialWidgets.size(); i++)
+		for (auto & materialWidget : materialWidgets)
 		{
-			if (!materialWidgets[i]->objectName().isEmpty())
+			if (!materialWidget->objectName().isEmpty())
 			{
-				QString objectName = materialWidgets[i]->objectName();
+				QString objectName = materialWidget->objectName();
 				int posOfDash = objectName.indexOf('_');
 				if (posOfDash > 0)
 				{
 					QString newName = objectName.insert(posOfDash, QString("_mat%1").arg(index));
-					materialWidgets[i]->setObjectName(newName);
+					materialWidget->setObjectName(newName);
 				}
 			}
 		}

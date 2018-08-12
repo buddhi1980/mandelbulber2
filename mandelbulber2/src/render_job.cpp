@@ -720,10 +720,9 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 	if (renderData)
 	{
 		QList<int> keys = renderData->materials.keys();
-		for (int i = 0; i < keys.size(); i++)
+		for (int matIndex : keys)
 		{
-			int matIndex = keys[i];
-			if (renderData->materials[matIndex].colorTexture.IsLoaded())
+				if (renderData->materials[matIndex].colorTexture.IsLoaded())
 				listOfTextures.insert(renderData->materials[matIndex].colorTexture.GetFileName());
 
 			if (renderData->materials[matIndex].diffusionTexture.IsLoaded())
@@ -739,10 +738,10 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 				listOfTextures.insert(renderData->materials[matIndex].luminosityTexture.GetFileName());
 		}
 
-		for (int i = 0; i < renderData->textures.textureList.size(); i++)
+		for (auto & i : renderData->textures.textureList)
 		{
-			if (renderData->textures.textureList[i]->IsLoaded())
-				listOfTextures.insert(renderData->textures.textureList[i]->GetFileName());
+			if (i->IsLoaded())
+				listOfTextures.insert(i->GetFileName());
 		}
 
 		return listOfTextures.toList();

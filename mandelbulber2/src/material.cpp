@@ -84,9 +84,7 @@ cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool qui
 	setParameters(_id, materialParam, quiet);
 }
 
-cMaterial::~cMaterial()
-{
-}
+cMaterial::~cMaterial() = default;
 
 // this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {
@@ -414,10 +412,9 @@ void CreateMaterialsMap(
 {
 	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();
-	for (int i = 0; i < listOfParameters.size(); i++)
+	for (auto parameterName : listOfParameters)
 	{
-		QString parameterName = listOfParameters.at(i);
-		if (parameterName.left(3) == "mat")
+			if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();

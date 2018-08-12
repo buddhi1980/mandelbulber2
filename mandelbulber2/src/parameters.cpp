@@ -463,10 +463,9 @@ void cParameterContainer::PrintListOfParameters() const
 {
 	QString parametersOutput = "Non-Default Parameters for Rendered Example Settings\n";
 	QList<QString> listOfParameters = this->GetListOfParameters();
-	for (int i = 0; i < listOfParameters.size(); i++)
+	for (auto parameterName : listOfParameters)
 	{
-		const QString parameterName = listOfParameters.at(i);
-		const QString parameterValue = this->Get<QString>(parameterName);
+			const QString parameterValue = this->Get<QString>(parameterName);
 		const QString defaultValue = this->GetDefault<QString>(parameterName);
 		if (parameterValue != defaultValue)
 			parametersOutput += parameterName + "=" + parameterValue + "\n";

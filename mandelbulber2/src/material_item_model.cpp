@@ -45,9 +45,7 @@ cMaterialItemModel::cMaterialItemModel(QObject *parent) : QAbstractListModel(par
 	container = nullptr;
 }
 
-cMaterialItemModel::~cMaterialItemModel()
-{
-}
+cMaterialItemModel::~cMaterialItemModel() = default;
 
 void cMaterialItemModel::AssignContainer(cParameterContainer *_parameterContainer)
 {
@@ -189,10 +187,9 @@ void cMaterialItemModel::Regenerate()
 	endRemoveRows();
 
 	QList<QString> list = container->GetListOfParameters();
-	for (int i = 0; i < list.size(); i++)
+	for (auto parameterName : list)
 	{
-		QString parameterName = list.at(i);
-		if (parameterName.left(3) == "mat")
+			if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
@@ -214,9 +211,9 @@ int cMaterialItemModel::FindFreeIndex()
 	do
 	{
 		occupied = false;
-		for (int i = 0; i < materialIndexes.size(); i++)
+		for (int materialIndexe : materialIndexes)
 		{
-			if (materialIndex == materialIndexes[i])
+			if (materialIndex == materialIndexe)
 			{
 				occupied = true;
 				materialIndex++;

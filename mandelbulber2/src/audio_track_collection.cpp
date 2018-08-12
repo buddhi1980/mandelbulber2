@@ -41,13 +41,9 @@
 #include "resource_http_provider.hpp"
 #include "system.hpp"
 
-cAudioTrackCollection::cAudioTrackCollection()
-{
-}
+cAudioTrackCollection::cAudioTrackCollection() = default;
 
-cAudioTrackCollection::~cAudioTrackCollection()
-{
-}
+cAudioTrackCollection::~cAudioTrackCollection() = default;
 
 /* Warning! this is fake constructor to avoid copying audio data to cUndo buffers */
 cAudioTrackCollection::cAudioTrackCollection(const cAudioTrackCollection &collection)

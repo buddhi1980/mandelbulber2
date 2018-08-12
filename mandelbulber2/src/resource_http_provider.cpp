@@ -49,9 +49,7 @@ cResourceHttpProvider::cResourceHttpProvider(QString &_filename)
 	this->cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "."
 												 + QFileInfo(filename).suffix();
 }
-cResourceHttpProvider::~cResourceHttpProvider()
-{
-}
+cResourceHttpProvider::~cResourceHttpProvider() = default;
 
 bool cResourceHttpProvider::IsUrl()
 {

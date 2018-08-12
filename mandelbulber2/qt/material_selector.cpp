@@ -63,9 +63,7 @@ cMaterialSelector::cMaterialSelector(QWidget *parent) : QWidget(parent), CommonM
 		materialWidget, SIGNAL(clicked(Qt::MouseButton)), this, SLOT(slotClicked(Qt::MouseButton)));
 }
 
-cMaterialSelector::~cMaterialSelector()
-{
-}
+cMaterialSelector::~cMaterialSelector() = default;
 
 void cMaterialSelector::resetToDefault()
 {

@@ -441,9 +441,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
 
 	bool isVolumetricLight = false;
-	for (int i = 0; i < 5; i++)
+	for (bool i : paramRender->volumetricLightEnabled)
 	{
-		if (paramRender->volumetricLightEnabled[i]) isVolumetricLight = true;
+		if (i) isVolumetricLight = true;
 	}
 	if (isVolumetricLight)
 	{

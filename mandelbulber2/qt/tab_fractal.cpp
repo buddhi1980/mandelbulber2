@@ -71,10 +71,9 @@ void cTabFractal::InitWidgetNames() const
 {
 	QList<QWidget *> widgetList = findChildren<QWidget *>();
 
-	for (int i = 0; i < widgetList.size(); i++)
+	for (auto widget : widgetList)
 	{
-		QWidget *widget = widgetList[i];
-		QString oldName = widget->objectName();
+			QString oldName = widget->objectName();
 		if (oldName.size() > 0)
 		{
 			QString lastTwoLetters = oldName.right(2);

@@ -77,10 +77,10 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 	// standard parameters
 	QList<QString> parameterList = par->GetListOfParameters();
-	for (int i = 0; i < parameterList.size(); i++)
+	for (auto & i : parameterList)
 	{
-		if (parameterList[i] == "description") continue;
-		settingsText += CreateOneLine(par, parameterList[i]);
+		if (i == "description") continue;
+		settingsText += CreateOneLine(par, i);
 	}
 
 	if (format != formatAppSettings)
@@ -91,9 +91,9 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 			{
 				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
 				QString fractalSettingsText = "";
-				for (int i = 0; i < parameterListFractal.size(); i++)
+				for (const auto & i : parameterListFractal)
 				{
-					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterListFractal[i]);
+					fractalSettingsText += CreateOneLine(&fractPar->at(f), i);
 				}
 				if (fractalSettingsText.length() > 0)
 				{
@@ -602,17 +602,17 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		if (keyframes && linesWithSoundParameters.length() > 0)
 		{
 			foundAnimSoundParameters = true;
-			for (int i = 0; i < linesWithSoundParameters.length(); i++)
+			for (const auto & linesWithSoundParameter : linesWithSoundParameters)
 			{
 				bool result;
-				result = DecodeOneLine(par, linesWithSoundParameters[i]);
+				result = DecodeOneLine(par, linesWithSoundParameter);
 
 				if (!result)
 				{
 					if (!quiet)
 					{
 						QString errorMessage =
-							QObject::tr("Error in settings file. Line: ") + linesWithSoundParameters[i];
+							QObject::tr("Error in settings file. Line: ") + linesWithSoundParameter;
 						cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
 					}
 					errorCount++;
@@ -646,10 +646,9 @@ bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
 {
 	bool matParameterFound = false;
 	QList<QString> list = par->GetListOfParameters();
-	for (int i = 0; i < list.size(); i++)
+	for (auto parameterName : list)
 	{
-		QString parameterName = list.at(i);
-		if (parameterName.left(3) == "mat")
+			if (parameterName.left(3) == "mat")
 		{
 			matParameterFound = true;
 			break;
@@ -1110,12 +1109,12 @@ bool cSettings::DecodeFramesLine(
 			if (frameCount == frames->GetNumberOfFrames())
 			{
 				column++;
-				for (int i = 0; i < parameterList.size(); ++i)
+				for (auto & i : parameterList)
 				{
 					using namespace parameterContainer;
-					enumVarType type = parameterList[i].varType;
-					QString containerName = parameterList[i].containerName;
-					QString parameterName = parameterList[i].parameterName;
+					enumVarType type = i.varType;
+					QString containerName = i.containerName;
+					QString parameterName = i.parameterName;
 					cParameterContainer *container = frames->ContainerSelector(containerName, par, fractPar);
 
 					if (type == typeVector3)

@@ -55,9 +55,7 @@ MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(p
 		SLOT(rowContextMenuRequest(QPoint)));
 }
 
-MyTableWidgetKeyframes::~MyTableWidgetKeyframes()
-{
-}
+MyTableWidgetKeyframes::~MyTableWidgetKeyframes() = default;
 
 void MyTableWidgetKeyframes::tableContextMenuRequest(QPoint point) const
 {

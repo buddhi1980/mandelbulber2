@@ -57,9 +57,7 @@ cAudioTrack::cAudioTrack(QObject *parent) : QObject(parent)
 	Clear();
 }
 
-cAudioTrack::~cAudioTrack()
-{
-}
+cAudioTrack::~cAudioTrack() = default;
 
 void cAudioTrack::Clear()
 {

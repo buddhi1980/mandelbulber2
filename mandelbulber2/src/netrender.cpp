@@ -827,9 +827,9 @@ void CNetRender::Stop()
 {
 	sMessage msg;
 	msg.command = netRender_STOP;
-	for (int i = 0; i < clients.size(); i++)
+	for (auto & client : clients)
 	{
-		SendData(clients[i].socket, msg);
+		SendData(client.socket, msg);
 	}
 }
 
@@ -879,10 +879,10 @@ void CNetRender::SetCurrentJob(
 			stream << qint32(0); // empty entry
 		}
 
-		for (int i = 0; i < clients.size(); i++)
+		for (auto & client : clients)
 		{
-			SendData(clients[i].socket, msgCurrentJob);
-			clients[i].linesRendered = 0;
+			SendData(client.socket, msgCurrentJob);
+			client.linesRendered = 0;
 		}
 	}
 }
@@ -907,9 +907,9 @@ void CNetRender::SendToDoList(int clientIndex, QList<int> done)
 		msg.command = netRender_RENDER;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << qint32(done.size());
-		for (int i = 0; i < done.size(); i++)
+		for (int i : done)
 		{
-			stream << qint32(done.at(i));
+			stream << qint32(i);
 		}
 		SendData(clients[clientIndex].socket, msg);
 	}
@@ -936,9 +936,9 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << qint32(id);
 		stream << qint32(startingPositions.size());
-		for (int i = 0; i < startingPositions.size(); i++)
+		for (int startingPosition : startingPositions)
 		{
-			stream << qint32(startingPositions.at(i));
+			stream << qint32(startingPosition);
 		}
 		SendData(clients[clientIndex].socket, msg);
 		actualId = id;

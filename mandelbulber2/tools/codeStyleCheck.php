@@ -270,7 +270,7 @@ function checkClangTidy()
 	$checks = array(
 		'modernize-avoid-bind',
 		'modernize-deprecated-headers',
-		// 'modernize-loop-convert',
+                'modernize-loop-convert',
 		'modernize-make-shared',
 		'modernize-make-unique',
 		'modernize-pass-by-value',
@@ -285,7 +285,7 @@ function checkClangTidy()
 		'modernize-use-bool-literals',
 		// 'modernize-use-default-member-init',
 		'modernize-use-emplace',
-		// 'modernize-use-equals-default',
+                'modernize-use-equals-default',
 		'modernize-use-equals-delete',
 		'modernize-use-noexcept',
 		'modernize-use-nullptr',

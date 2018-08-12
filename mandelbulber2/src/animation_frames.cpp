@@ -45,27 +45,23 @@
 
 cAnimationFrames *gAnimFrames = nullptr;
 
-cAnimationFrames::cAnimationFrames()
-{
-}
+cAnimationFrames::cAnimationFrames() = default;
 
-cAnimationFrames::~cAnimationFrames()
-{
-}
+cAnimationFrames::~cAnimationFrames() = default;
 
 void cAnimationFrames::AddFrame(
 	const cParameterContainer &params, const cFractalContainer &fractal, int index)
 {
 	sAnimationFrame frame;
 	frame.alreadyRendered = false;
-	for (int i = 0; i < listOfParameters.size(); ++i)
+	for (auto & listOfParameter : listOfParameters)
 	{
 		const cParameterContainer *container =
-			ContainerSelector(listOfParameters[i].containerName, &params, &fractal);
+			ContainerSelector(listOfParameter.containerName, &params, &fractal);
 
 		if (container)
 		{
-			const QString parameterName = listOfParameters[i].parameterName;
+			const QString parameterName = listOfParameter.parameterName;
 			const QString fullParameterName = container->GetContainerName() + "_" + parameterName;
 			cOneParameter oneParameter = container->GetAsOneParameter(parameterName);
 
@@ -87,7 +83,7 @@ void cAnimationFrames::AddFrame(
 		{
 			qCritical() << "cAnimationFrames::AddFrame(const cParameterContainer &params, const "
 										 "cFractalContainer &fractal): Wrong container name: "
-									<< listOfParameters[i].containerName;
+									<< listOfParameter.containerName;
 		}
 	}
 	int indexTemp = index;
@@ -103,9 +99,9 @@ void cAnimationFrames::AddAnimatedParameter(
 		listOfParameters.append(
 			sParameterDescription(parameterName, defaultValue.GetOriginalContainerName(),
 				defaultValue.GetValueType(), defaultValue.GetMorphType()));
-		for (int i = 0; i < frames.size(); ++i)
+		for (auto & frame : frames)
 		{
-			frames[i].parameters.AddParamFromOneParameter(
+			frame.parameters.AddParamFromOneParameter(
 				defaultValue.GetOriginalContainerName() + "_" + parameterName, defaultValue);
 		}
 
@@ -161,10 +157,10 @@ bool cAnimationFrames::AddAnimatedParameter(
 
 void cAnimationFrames::RegenerateAudioTracks(cParameterContainer *param)
 {
-	for (int i = 0; i < listOfParameters.length(); i++)
+	for (auto & listOfParameter : listOfParameters)
 	{
-		AddAudioParameter(listOfParameters[i].parameterName, listOfParameters[i].varType,
-			listOfParameters[i].containerName, param);
+		AddAudioParameter(listOfParameter.parameterName, listOfParameter.varType,
+			listOfParameter.containerName, param);
 	}
 
 	audioTracks.LoadAllAudioFiles(param);
@@ -316,13 +312,13 @@ void cAnimationFrames::GetFrameAndConsolidate(
 	{
 		cParameterContainer frame = frames.at(index).parameters;
 
-		for (int i = 0; i < listOfParameters.size(); ++i)
+		for (auto & listOfParameter : listOfParameters)
 		{
 			cParameterContainer *container =
-				ContainerSelector(listOfParameters[i].containerName, params, fractal);
-			const QString parameterName = listOfParameters[i].parameterName;
+				ContainerSelector(listOfParameter.containerName, params, fractal);
+			const QString parameterName = listOfParameter.parameterName;
 			const cOneParameter oneParameter =
-				frame.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+				frame.GetAsOneParameter(listOfParameter.containerName + "_" + parameterName);
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
 	}
@@ -335,9 +331,9 @@ void cAnimationFrames::GetFrameAndConsolidate(
 void cAnimationFrames::RemoveAnimatedParameter(const QString &fullParameterName)
 {
 
-	for (int i = 0; i < frames.size(); ++i)
+	for (auto & frame : frames)
 	{
-		frames[i].parameters.DeleteParameter(fullParameterName);
+		frame.parameters.DeleteParameter(fullParameterName);
 	}
 
 	for (int i = 0; i < listOfParameters.size(); ++i)

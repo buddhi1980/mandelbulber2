@@ -444,12 +444,12 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 {
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
-	for (QList<QSlider *>::iterator it = widgetList.begin(); it != widgetList.end(); ++it)
+	for (auto & it : widgetList)
 	{
-		QString name = (*it)->objectName();
-		if (name.length() > 1 && (*it)->metaObject()->className() == QString("QSlider"))
+		QString name = it->objectName();
+		if (name.length() > 1 && it->metaObject()->className() == QString("QSlider"))
 		{
-			const QSlider *slider = *it;
+			const QSlider *slider = it;
 
 			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
@@ -561,12 +561,12 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 	}
 
 	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
-	for (QList<QDial *>::iterator it2 = widgetList2.begin(); it2 != widgetList2.end(); ++it2)
+	for (auto & it2 : widgetList2)
 	{
-		QString name = (*it2)->objectName();
-		if (name.length() > 1 && (*it2)->metaObject()->className() == QString("QDial"))
+		QString name = it2->objectName();
+		if (name.length() > 1 && it2->metaObject()->className() == QString("QDial"))
 		{
-			const QDial *dial = *it2;
+			const QDial *dial = it2;
 			QString type, parameterName;
 			GetNameAndType(name, &parameterName, &type);
 

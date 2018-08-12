@@ -352,10 +352,9 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 	QApplication::connect(
 		mapPresetsFromExamplesLoad, SIGNAL(mapped(QString)), this, SLOT(slotMenuLoadPreset(QString)));
 
-	for (int i = 0; i < actions.size(); i++)
+	for (auto action : actions)
 	{
-		QAction *action = actions.at(i);
-		if (action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
+			if (action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
 		if (!toolbarFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
@@ -498,10 +497,9 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 
 	QList<QAction *> actions = ui->menuSaved_window_layouts->actions();
 	QStringList customWindowActions;
-	for (int i = 0; i < actions.size(); i++)
+	for (auto action : actions)
 	{
-		QAction *action = actions.at(i);
-		if (!action->objectName().startsWith("window_")) continue;
+			if (!action->objectName().startsWith("window_")) continue;
 		if (!customWindowStateFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
@@ -665,10 +663,9 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	QSignalMapper *mapRecentFileLoad = new QSignalMapper(this);
 	QList<QAction *> actions = ui->menuRecent_Settings_list->actions();
 	QStringList recentFileInActions;
-	for (int i = 0; i < actions.size(); i++)
+	for (auto action : actions)
 	{
-		QAction *action = actions.at(i);
-		if (!action->objectName().startsWith("recent_")) continue;
+			if (!action->objectName().startsWith("recent_")) continue;
 		if (!recentFileInActions.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed

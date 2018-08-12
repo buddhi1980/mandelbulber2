@@ -46,9 +46,7 @@ cOneParameter::cOneParameter()
 	isEmpty = true;
 }
 
-cOneParameter::~cOneParameter()
-{
-}
+cOneParameter::~cOneParameter() = default;
 
 void cOneParameter::copy(const cOneParameter &other)
 {

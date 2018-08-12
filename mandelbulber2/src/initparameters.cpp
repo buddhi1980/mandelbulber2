@@ -1415,10 +1415,9 @@ void DeletePrimitiveParams(
 void DeleteAllPrimitiveParams(cParameterContainer *par)
 {
 	QList<QString> list = par->GetListOfParameters();
-	for (int i = 0; i < list.size(); i++)
+	for (auto parameterName : list)
 	{
-		QString parameterName = list.at(i);
-		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+			if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1428,10 +1427,9 @@ void DeleteAllPrimitiveParams(cParameterContainer *par)
 void DeleteAllMaterialParams(cParameterContainer *par)
 {
 	QList<QString> list = par->GetListOfParameters();
-	for (int i = 0; i < list.size(); i++)
+	for (auto parameterName : list)
 	{
-		QString parameterName = list.at(i);
-		if (parameterName.left(3) == "mat")
+			if (parameterName.left(3) == "mat")
 		{
 			par->DeleteParameter(parameterName);
 		}

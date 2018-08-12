@@ -63,9 +63,9 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 	{
 		qDeleteAll(morph);
 		morph.clear();
-		for (int i = 0; i < source.morph.size(); i++)
+		for (auto i : source.morph)
 		{
-			this->morph.append(new cMorph(*source.morph.at(i)));
+			this->morph.append(new cMorph(*i));
 		}
 	}
 	this->frames = source.frames;
@@ -127,13 +127,13 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 	{
 		sAnimationFrame frame = GetInterpolatedFrame(index, params, fractal);
 
-		for (int i = 0; i < listOfParameters.size(); ++i)
+		for (auto & listOfParameter : listOfParameters)
 		{
 			cParameterContainer *container =
-				ContainerSelector(listOfParameters[i].containerName, params, fractal);
-			QString parameterName = listOfParameters[i].parameterName;
+				ContainerSelector(listOfParameter.containerName, params, fractal);
+			QString parameterName = listOfParameter.parameterName;
 			cOneParameter oneParameter =
-				frame.parameters.GetAsOneParameter(listOfParameters[i].containerName + "_" + parameterName);
+				frame.parameters.GetAsOneParameter(listOfParameter.containerName + "_" + parameterName);
 
 			container->SetFromOneParameter(parameterName, oneParameter);
 		}
@@ -183,11 +183,11 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 		QString fullParameterName = listOfParameters[parameterIndex].containerName + "_"
 																+ listOfParameters[parameterIndex].parameterName;
 
-		for (int i = 0; i < frames.size(); i++)
+		for (auto & frame : frames)
 		{
-			cOneParameter parameter = frames[i].parameters.GetAsOneParameter(fullParameterName);
+			cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
 			parameter.SetMorphType(morphType);
-			frames[i].parameters.SetFromOneParameter(fullParameterName, parameter);
+			frame.parameters.SetFromOneParameter(fullParameterName, parameter);
 		}
 	}
 }

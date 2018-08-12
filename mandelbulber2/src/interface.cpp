@@ -1651,9 +1651,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		{
 			newId++;
 			occupied = false;
-			for (int i = 0; i < listOfPrimitives.size(); i++)
+			for (const auto & listOfPrimitive : listOfPrimitives)
 			{
-				if (objectType == listOfPrimitives.at(i).type && newId == listOfPrimitives.at(i).id)
+				if (objectType == listOfPrimitive.type && newId == listOfPrimitive.id)
 					occupied = true;
 			}
 		}
@@ -1723,12 +1723,12 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		// rename widgets
 		QList<QWidget *> listOfWidgets = primitiveWidget->findChildren<QWidget *>();
-		for (int i = 0; i < listOfWidgets.size(); i++)
+		for (auto & listOfWidget : listOfWidgets)
 		{
-			QString name = listOfWidgets[i]->objectName();
+			QString name = listOfWidget->objectName();
 			int firstDash = name.indexOf('_');
 			QString newName = name.insert(firstDash + 1, primitiveFullName + "_");
-			listOfWidgets[i]->setObjectName(newName);
+			listOfWidget->setObjectName(newName);
 		}
 
 		connect(deleteButton, SIGNAL(clicked()), mainWindow, SLOT(slotPressedButtonDeletePrimitive()));
@@ -1791,9 +1791,9 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 void cInterface::RebuildPrimitives(cParameterContainer *par)
 {
 	// clear all widgets
-	for (int i = 0; i < listOfPrimitives.size(); i++)
+	for (const auto & listOfPrimitive : listOfPrimitives)
 	{
-		QString widgetName = QString("widgetmain_") + listOfPrimitives.at(i).name;
+		QString widgetName = QString("widgetmain_") + listOfPrimitive.name;
 		QWidget *widget =
 			mainWindow->ui->widgetDockFractal->GetContainerWithPrimitives()->findChild<QWidget *>(
 				widgetName);
@@ -1802,10 +1802,9 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	listOfPrimitives.clear();
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
-	for (int i = 0; i < listOfParameters.size(); i++)
+	for (auto parameterName : listOfParameters)
 	{
-		QString parameterName = listOfParameters.at(i);
-		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+			if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
@@ -1813,9 +1812,9 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 			int index = split.at(2).toInt();
 
 			bool found = false;
-			for (int l = 0; l < listOfPrimitives.size(); l++)
+			for (const auto & listOfPrimitive : listOfPrimitives)
 			{
-				if (listOfPrimitives.at(l).name == primitiveName)
+				if (listOfPrimitive.name == primitiveName)
 				{
 					found = true;
 					break;
@@ -1892,17 +1891,17 @@ void cInterface::ComboMouseClickUpdate() const
 
 	if (listOfPrimitives.size() > 0)
 	{
-		for (int i = 0; i < listOfPrimitives.size(); i++)
+		for (const auto & listOfPrimitive : listOfPrimitives)
 		{
-			QString primitiveName = PrimitiveNames(listOfPrimitives.at(i).type);
-			int index = listOfPrimitives.at(i).id;
+			QString primitiveName = PrimitiveNames(listOfPrimitive.type);
+			int index = listOfPrimitive.id;
 			QString comboItemString =
 				QString(QObject::tr("Place ")) + primitiveName + QString(" #") + QString::number(index);
 			item.clear();
 			item.append(int(RenderedImage::clickPlacePrimitive));
-			item.append(int(listOfPrimitives.at(i).type));
-			item.append(listOfPrimitives.at(i).id);
-			item.append(listOfPrimitives.at(i).name);
+			item.append(int(listOfPrimitive.type));
+			item.append(listOfPrimitive.id);
+			item.append(listOfPrimitive.name);
 			combo->addItem(comboItemString, item);
 		}
 	}

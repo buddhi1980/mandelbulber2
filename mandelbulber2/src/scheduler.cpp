@@ -296,10 +296,9 @@ bool cScheduler::ProgressiveNextStep()
 
 void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers) const
 {
-	for (int i = 0; i < lineNumbers.size(); i++)
+	for (int line : lineNumbers)
 	{
-		int line = lineNumbers.at(i);
-		lineDone[line] = true;
+			lineDone[line] = true;
 		lastLinesDone[line] = true;
 		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}
@@ -322,10 +321,9 @@ QList<int> cScheduler::CreateDoneList() const
 void cScheduler::UpdateDoneLines(const QList<int> &done)
 {
 	mutex.lock();
-	for (int i = 0; i < done.size(); i++)
+	for (int line : done)
 	{
-		int line = done.at(i);
-		lastLinesDone[line] = false;
+			lastLinesDone[line] = false;
 		lineDone[line] = true;
 		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}

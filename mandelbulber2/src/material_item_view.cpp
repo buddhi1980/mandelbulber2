@@ -60,9 +60,7 @@ cMaterialItemView::cMaterialItemView(QWidget *parent) : QAbstractItemView(parent
 	setAutoScroll(true);
 }
 
-cMaterialItemView::~cMaterialItemView()
-{
-}
+cMaterialItemView::~cMaterialItemView() = default;
 
 QModelIndex cMaterialItemView::indexAt(const QPoint &point) const
 {

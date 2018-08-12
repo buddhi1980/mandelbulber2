@@ -74,9 +74,7 @@ FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyW
 	connect(lineEdit, SIGNAL(editingFinished()), this, SLOT(slotChangedFile()));
 }
 
-FileSelectWidget::~FileSelectWidget()
-{
-}
+FileSelectWidget::~FileSelectWidget() = default;
 
 void FileSelectWidget::resetToDefault()
 {

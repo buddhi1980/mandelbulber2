@@ -105,15 +105,15 @@ bool MyGroupBox::GetDefault()
 void MyGroupBox::slotToggled(bool on) const
 {
 	QList<QWidget *> list = this->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
-	for (int i = 0; i < list.size(); ++i)
+	for (auto & i : list)
 	{
 		if (on)
 		{
-			list[i]->show();
+			i->show();
 		}
 		else
 		{
-			list[i]->hide();
+			i->hide();
 		}
 	}
 }

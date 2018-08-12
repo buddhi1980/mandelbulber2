@@ -45,9 +45,7 @@ cStatistics::cStatistics()
 	time = 0.0;
 }
 
-cStatistics::~cStatistics()
-{
-}
+cStatistics::~cStatistics() = default;
 
 void cStatistics::Reset()
 {

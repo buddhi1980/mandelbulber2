@@ -52,9 +52,7 @@ cUndo::cUndo()
 	level = 0;
 }
 
-cUndo::~cUndo()
-{
-}
+cUndo::~cUndo() = default;
 
 void cUndo::Store(cParameterContainer *par, cFractalContainer *parFractal, cAnimationFrames *frames,
 	cKeyframes *keyframes)

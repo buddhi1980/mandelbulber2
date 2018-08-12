@@ -55,9 +55,7 @@ MyTableWidgetAnim::MyTableWidgetAnim(QWidget *parent) : QTableWidget(parent)
 		SLOT(rowContextMenuRequest(QPoint)));
 }
 
-MyTableWidgetAnim::~MyTableWidgetAnim()
-{
-}
+MyTableWidgetAnim::~MyTableWidgetAnim() = default;
 
 void MyTableWidgetAnim::tableContextMenuRequest(QPoint point) const
 {

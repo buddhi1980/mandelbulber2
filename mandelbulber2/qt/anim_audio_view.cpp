@@ -45,9 +45,7 @@ cAnimAudioView::cAnimAudioView(QWidget *parent) : QWidget(parent)
 	framesPerSecond = 30.0;
 }
 
-cAnimAudioView::~cAnimAudioView()
-{
-}
+cAnimAudioView::~cAnimAudioView() = default;
 
 void cAnimAudioView::UpdateChart(const QSharedPointer<cAudioTrack> audioTrack)
 {
