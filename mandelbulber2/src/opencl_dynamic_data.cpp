@@ -518,7 +518,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 		catch (const QString &ex)
 		{
 			qCritical() << QString(
-				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 object");
+				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 object - error: ") << ex;
 		}
 
 		data.append(reinterpret_cast<char *>(&primitiveCl), sizeof(primitiveCl));
