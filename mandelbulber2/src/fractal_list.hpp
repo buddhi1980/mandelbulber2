@@ -283,6 +283,7 @@ enum enumFractalFormula
 	transfSinAndCos = 1083,
 	transfSinAndCosMax = 1084,
 	transfBlockify = 1085,
+	transfAddCpixelScator = 1086,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -8853,6 +8853,114 @@ void TransfAddCpixelRotatedIteration(CVector4 &z, const sFractal *fractal, sExte
 		tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
 	}
 	z += tempC * fractal->transformCommon.constantMultiplier111;
+}
+
+/**
+ * Adds Cpixel constant to z vector, scator algebra
+ */
+void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 tempC = aux.const_c;
+	CVector4 cc = tempC * tempC;
+	CVector4 newC = tempC;
+	CVector4 oldZ = z;
+	double limitA = fractal->transformCommon.scaleA1;
+
+
+		//double temp = 1.0 /cc.x - 1.0;
+		//cc.x =temp;
+
+// c vx cc
+	// axis
+
+	if (fractal->transformCommon.functionEnabledRFalse)
+	{
+		cc = fabs(tempC);
+	}
+
+
+	{
+
+
+		if ( cc.x < limitA)
+		{
+			double temp = 1.0 /cc.x - 1.0;
+			cc.x =temp;
+		}
+
+		if (!fractal->transformCommon.functionEnabledFalse)
+		{ // real
+			newC.x += (cc.y * cc.z) / cc.x; // all pos
+			newC.y *= (1.0 + cc.z / cc.x);
+			newC.z *= (1.0 + cc.y / cc.x);
+			newC *= fractal->transformCommon.constantMultiplier111;
+			if (!fractal->transformCommon.functionEnabledSFalse)
+			{
+				z += newC;
+			}
+			else
+			{
+				z.x += sign(z.x) * newC.x;
+				z.y += sign(z.y) * newC.y;
+				z.z += sign(z.z) * newC.z;
+			}
+		}
+		else
+		{ // imaginary
+			newC.x += (cc.y * cc.z) / cc.x; // pos
+			newC.y *= (1.0 - cc.z / cc.x); //pos  neg
+			newC.z *= (1.0 - cc.y / cc.x); //pos  neg
+			newC *= fractal->transformCommon.constantMultiplier111;
+			if (fractal->transformCommon.functionEnabledy) newC.y = fabs(newC.y);
+			if (fractal->transformCommon.functionEnabledz) newC.z = fabs(newC.z);
+			if (!fractal->transformCommon.functionEnabledSFalse)
+			{
+				z += newC;
+			}
+			else
+			{
+				z.x += sign(z.x) * newC.x;
+				z.y += sign(z.y) * newC.y;
+				z.z += sign(z.z) * newC.z;
+			}
+		}
+
+		if (fractal->analyticDE.enabledFalse)
+		{
+			double vecDE = z.Length() /  oldZ.Length();
+			aux.DE =
+				aux.DE * vecDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		}
+	}
+		/*double limitA = fractal->transformCommon.scaleA1;
+		if (newC.x < limitA)
+		{
+			double temp = limitA - newC.x;
+			newC.x = newC.x * temp / limitA;
+		}*/
+
+		//z.x += sign(z.x) * tempFAB.x;
+		//z.y += sign(z.y) * tempFAB.y;
+		//z.z += sign(z.z) * tempFAB.z;
+
+
+		/*double limitA = fractal->transformCommon.scaleA1;
+
+		if (fabs(tempC.y * tempC.z) < limitA)
+			tempC.x =sign(newC.x) * limitA;
+
+
+		double limitB = fractal->transformCommon.scaleB1;
+
+		if (fabs(tempC.y * tempC.z) > limitB)
+			tempC.x =sign(newC.x) * limitB;*/
+
+		//double limitC = fractal->transformCommon.scaleC1;
+
+		//if (fabs(tempC.y * tempC.z) < limitC)
+			//tempC.x =sign(newC.x) * limitC;
+
+
 }
 
 /**
