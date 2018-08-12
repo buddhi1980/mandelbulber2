@@ -76,8 +76,12 @@ public:
 		cliErrorVoxelOutputFolderDoesNotExists = -50,
 		cliErrorVoxelOutputFormatInvalid = -51,
 
-		cliErrorBenchmarkOutputFolderInvalid = -60
-	};
+        cliErrorBenchmarkOutputFolderInvalid = -60,
+
+        cliErrorOpenClNotCompiled = -70,
+        cliErrorOpenClNoPlatform = -71,
+        cliErrorOpenClNoDevice = -72
+    };
 
 	void ReadCLI();
 	void ProcessCLI() const;
@@ -106,7 +110,8 @@ private:
 	void handleKeyframe();
 	void handleStartFrame();
 	void handleEndFrame();
-	void handleVoxel();
+    void handleVoxel();
+    void handleGpu();
 
 	struct sCliData
 	{
@@ -123,8 +128,9 @@ private:
 		bool voxel;
 		bool test;
 		bool benchmark;
-		bool touch;
-		QString startFrameText;
+        bool touch;
+        bool gpu;
+        QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;
 		QString imageFileFormat;
