@@ -66,6 +66,5 @@ REAL4 EiffieMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	else
 		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scale1), fractal->analyticDE.scale1,
 			fractal->analyticDE.offset1);
-
 	return z;
 }

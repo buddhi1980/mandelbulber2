@@ -418,15 +418,15 @@ typedef struct
 {
 	cl_int enabled;
 	cl_int enabledFalse;
-	// bool enabledAuxR2False; // only used once. Remove
+	// cl_int enabledAuxR2False; // only used once. Remove
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-	// double factor2;
-	// double scaleLin; // out of date name, only 4 uses. Remove
-	// double offsetLin; // out of date name, only 4 uses. Remove
+	// cl_float factor2;
+	// cl_float scaleLin; // out of date name, only 4 uses. Remove
+	// cl_float offsetLin; // out of date name, only 4 uses. Remove
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas

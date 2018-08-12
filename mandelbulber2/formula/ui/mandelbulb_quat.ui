@@ -2016,14 +2016,11 @@
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; tempAux &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; avgScale&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;+ (&lt;/span&gt;tempAux &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
     z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//if (!fractal-&amp;gt;analyticDE.enabledFalse)&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// if (!fractal-&amp;gt;analyticDE.enabledFalse)&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;//  aux.DE = aux.DE * fabs(aux.actualScale) + 1.0;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;//else&lt;/span&gt;
+    &lt;span style=&quot;color:#2929cc&quot;&gt;// else&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;//  aux.DE =&lt;/span&gt;
     &lt;span style=&quot;color:#2929cc&quot;&gt;//    aux.DE * fabs(aux.actualScale) * fractal-&amp;gt;analyticDE.scale1 + fractal-&amp;gt;analyticDE.offset1;&lt;/span&gt;
-
-
-
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
   &lt;span style=&quot;color:#2929cc&quot;&gt;// sym4&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCxFalse

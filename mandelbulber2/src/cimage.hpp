@@ -36,8 +36,8 @@
 #define MANDELBULBER2_SRC_CIMAGE_HPP_
 
 //#include <QtGui/QWidget>
-#include <cassert>
 #include <atomic>
+#include <cassert>
 
 #include <QMutex>
 #include <QWidget>

@@ -21,18 +21,11 @@
 
 REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 oldZ = z;
 
-	if (fractal->analyticDE.enabled)
-	{
-		REAL r = aux->r; // = native_sqrt(z2.x + z2.y + z2.z + native_divide((z2.y * z2.z), z2.x));
-		if (fractal->transformCommon.functionEnabledXFalse)
-		{
-			r = length(z);
-		}
-		aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
-	}
-	// Scator real enabled
+	// Scator real enabled by default
 	REAL4 zz = z * z;
+
 	REAL4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{ // scator imaginary
@@ -55,5 +48,66 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		newZ.z *= (1.0f + native_divide(zz.y, zz.x));
 	}
 	z = newZ;
+
+	// addCpixel
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		REAL4 c = aux->const_c;
+		REAL4 tempC = c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux->c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZCl_xyz:
+				default: tempC = (REAL4){tempC.x, tempC.y, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){tempC.y, tempC.x, tempC.z, tempC.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){tempC.y, tempC.z, tempC.x, tempC.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){tempC.z, tempC.x, tempC.y, tempC.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){tempC.z, tempC.y, tempC.x, tempC.w}; break;
+			}
+			aux->c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZCl_xyz:
+				default: tempC = (REAL4){c.x, c.y, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_xzy: tempC = (REAL4){c.x, c.z, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_yxz: tempC = (REAL4){c.y, c.x, c.z, c.w}; break;
+				case multi_OrderOfXYZCl_yzx: tempC = (REAL4){c.y, c.z, c.x, c.w}; break;
+				case multi_OrderOfXYZCl_zxy: tempC = (REAL4){c.z, c.x, c.y, c.w}; break;
+				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){c.z, c.y, c.x, c.w}; break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+		{
+			REAL r = 0.0f;
+			if (!fractal->transformCommon.functionEnabledXFalse)
+			{
+				r = aux->r; // r = native_sqrt(zz.x + zz.y + zz.z + native_divide((zz.y * zz.z), zz.x));
+			}
+			else
+			{
+				r = length(oldZ);
+			}
+			aux->DE = mad(r * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		}
+		else
+		{
+			REAL vecDE = native_divide(length(z), length(oldZ));
+			aux->DE =
+				mad(aux->DE * vecDE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+		}
+	}
 	return z;
 }

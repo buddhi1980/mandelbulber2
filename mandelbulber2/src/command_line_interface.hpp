@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -76,12 +76,12 @@ public:
 		cliErrorVoxelOutputFolderDoesNotExists = -50,
 		cliErrorVoxelOutputFormatInvalid = -51,
 
-        cliErrorBenchmarkOutputFolderInvalid = -60,
+		cliErrorBenchmarkOutputFolderInvalid = -60,
 
-        cliErrorOpenClNotCompiled = -70,
-        cliErrorOpenClNoPlatform = -71,
-        cliErrorOpenClNoDevice = -72
-    };
+		cliErrorOpenClNotCompiled = -70,
+		cliErrorOpenClNoPlatform = -71,
+		cliErrorOpenClNoDevice = -72
+	};
 
 	void ReadCLI();
 	void ProcessCLI() const;
@@ -110,8 +110,8 @@ private:
 	void handleKeyframe();
 	void handleStartFrame();
 	void handleEndFrame();
-    void handleVoxel();
-    void handleGpu();
+	void handleVoxel();
+	void handleGpu();
 
 	struct sCliData
 	{
@@ -128,9 +128,9 @@ private:
 		bool voxel;
 		bool test;
 		bool benchmark;
-        bool touch;
-        bool gpu;
-        QString startFrameText;
+		bool touch;
+		bool gpu;
+		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;
 		QString imageFileFormat;

@@ -151,15 +151,15 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	const QCommandLineOption testOption(QStringList({"t", "test"}),
 		QCoreApplication::translate("main", "Runs testcases on the mandelbulber instance"));
 
-    const QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
-        QCoreApplication::translate("main",
-            "Runs benchmarks on the mandelbulber instance, specify optional"
-            " parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
-            " When [output] option is set to a folder, the example-test images will be stored there."));
+	const QCommandLineOption benchmarkOption(QStringList({"b", "benchmark"}),
+		QCoreApplication::translate("main",
+			"Runs benchmarks on the mandelbulber instance, specify optional"
+			" parameter difficulty (1 -> very easy, > 20 -> very hard, 10 -> default)."
+			" When [output] option is set to a folder, the example-test images will be stored there."));
 
-    const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
-        QCoreApplication::translate("main",
-            "Runs the program in opencl mode and selects first available gpu device."));
+	const QCommandLineOption gpuOption(QStringList({"g", "gpu"}),
+		QCoreApplication::translate(
+			"main", "Runs the program in opencl mode and selects first available gpu device."));
 
 	const QCommandLineOption touchOption(QStringList({"T", "touch"}),
 		QCoreApplication::translate(
@@ -210,9 +210,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	parser.addOption(benchmarkOption);
 	parser.addOption(touchOption);
 	parser.addOption(voxelOption);
-    parser.addOption(overrideOption);
-    parser.addOption(statsOption);
-    parser.addOption(gpuOption);
+	parser.addOption(overrideOption);
+	parser.addOption(statsOption);
+	parser.addOption(gpuOption);
 	parser.addOption(helpInputOption);
 	parser.addOption(helpExamplesOption);
 	parser.addOption(helpOpenClOption);
@@ -249,9 +249,9 @@ cCommandLineInterface::cCommandLineInterface(QCoreApplication *qApplication)
 	cliData.voxelFormat = parser.value(voxelOption);
 	cliData.test = parser.isSet(testOption);
 	cliData.benchmark = parser.isSet(benchmarkOption);
-    cliData.touch = parser.isSet(touchOption);
-    cliData.gpu = parser.isSet(gpuOption);
-    cliData.showInputHelp = parser.isSet(helpInputOption);
+	cliData.touch = parser.isSet(touchOption);
+	cliData.gpu = parser.isSet(gpuOption);
+	cliData.showInputHelp = parser.isSet(helpInputOption);
 	cliData.showExampleHelp = parser.isSet(helpExamplesOption);
 	cliData.showOpenCLHelp = parser.isSet(helpOpenClOption);
 
@@ -353,8 +353,8 @@ void cCommandLineInterface::ReadCLI()
 		gPar->Set("anim_keyframe_dir", cliData.outputText);
 	}
 
-    // gpu
-    if (cliData.gpu) handleGpu();
+	// gpu
+	if (cliData.gpu) handleGpu();
 
 	// show opencl help only (requires previous handling of override parameters)
 	if (cliData.showOpenCLHelp) printOpenCLHelpAndExit();
@@ -1132,61 +1132,59 @@ void cCommandLineInterface::handleEndFrame()
 
 void cCommandLineInterface::handleVoxel()
 {
-    QStringList allowedVoxelFormat({"ply", "slice"});
-    WriteLogString(
-        "CommandLineInterface::handleVoxel(): cliData.voxelFormat", cliData.voxelFormat, 3);
-    if (!allowedVoxelFormat.contains(cliData.voxelFormat))
-    {
-        cErrorMessage::showMessage(QObject::tr("Specified voxel format is not valid\n"
-                                                                                     "allowed formats are: ")
-                                                                 + allowedVoxelFormat.join(", "),
-            cErrorMessage::errorMessage);
-        parser.showHelp(cliErrorVoxelOutputFormatInvalid);
-    }
+	QStringList allowedVoxelFormat({"ply", "slice"});
+	WriteLogString(
+		"CommandLineInterface::handleVoxel(): cliData.voxelFormat", cliData.voxelFormat, 3);
+	if (!allowedVoxelFormat.contains(cliData.voxelFormat))
+	{
+		cErrorMessage::showMessage(QObject::tr("Specified voxel format is not valid\n"
+																					 "allowed formats are: ")
+																 + allowedVoxelFormat.join(", "),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorVoxelOutputFormatInvalid);
+	}
 
-    const QString folderString = gPar->Get<QString>("voxel_image_path");
-    QDir folder(folderString);
-    if (!folder.exists())
-    {
-        cErrorMessage::showMessage(
-            QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
-                .arg(folderString),
-            cErrorMessage::errorMessage);
-        parser.showHelp(cliErrorVoxelOutputFolderDoesNotExists);
-    }
-    cliOperationalMode = modeVoxel;
-    cliData.nogui = true;
-    systemData.noGui = true;
+	const QString folderString = gPar->Get<QString>("voxel_image_path");
+	QDir folder(folderString);
+	if (!folder.exists())
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Cannot start voxel export. Specified folder (%1) does not exist.")
+				.arg(folderString),
+			cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorVoxelOutputFolderDoesNotExists);
+	}
+	cliOperationalMode = modeVoxel;
+	cliData.nogui = true;
+	systemData.noGui = true;
 }
 
 void cCommandLineInterface::handleGpu()
 {
 #ifdef USE_OPENCL
-    gPar->Set("opencl_enabled", true);
+	gPar->Set("opencl_enabled", true);
 
-    // print available platforms
-    const QList<cOpenClHardware::sPlatformInformation> platforms =
-        gOpenCl->openClHardware->getPlatformsInformation();
-    if (platforms.size() == 0)
-    {
-        cErrorMessage::showMessage(QObject::tr("No opencl platforms found"),
-            cErrorMessage::errorMessage);
-        parser.showHelp(cliErrorOpenClNoPlatform);
-    }
-    gPar->Set("opencl_platform", 0);
+	// print available platforms
+	const QList<cOpenClHardware::sPlatformInformation> platforms =
+		gOpenCl->openClHardware->getPlatformsInformation();
+	if (platforms.size() == 0)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("No opencl platforms found"), cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorOpenClNoPlatform);
+	}
+	gPar->Set("opencl_platform", 0);
 
-    const QList<cOpenClDevice::sDeviceInformation> devices =
-        gOpenCl->openClHardware->getDevicesInformation();
-    if (devices.size() == 0)
-    {
-        cErrorMessage::showMessage(QObject::tr("No opencl devices found"),
-            cErrorMessage::errorMessage);
-        parser.showHelp(cliErrorOpenClNoDevice);
-    }
-		gPar->Set("opencl_device_list", (QString) devices[0].hash.toHex());
+	const QList<cOpenClDevice::sDeviceInformation> devices =
+		gOpenCl->openClHardware->getDevicesInformation();
+	if (devices.size() == 0)
+	{
+		cErrorMessage::showMessage(QObject::tr("No opencl devices found"), cErrorMessage::errorMessage);
+		parser.showHelp(cliErrorOpenClNoDevice);
+	}
+	gPar->Set("opencl_device_list", (QString)devices[0].hash.toHex());
 #else
-    cErrorMessage::showMessage(QObject::tr("Not compiled for opencl"),
-        cErrorMessage::errorMessage);
-    parser.showHelp(cliErrorOpenClNotCompiled);
+	cErrorMessage::showMessage(QObject::tr("Not compiled for opencl"), cErrorMessage::errorMessage);
+	parser.showHelp(cliErrorOpenClNotCompiled);
 #endif
 }

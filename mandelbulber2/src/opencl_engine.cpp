@@ -542,9 +542,8 @@ bool cOpenClEngine::AssignParametersToKernel()
 	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
 	{
 		int err = kernel->setArg(argIterator++, *inputAndOutputBuffers[i].clPtr);
-		if (!checkErr(err,
-					"kernel->setArg(" + QString::number(argIterator) + ") for "
-						+ inputAndOutputBuffers[i].name))
+		if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for "
+												 + inputAndOutputBuffers[i].name))
 		{
 			emit showErrorMessage(
 				QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffers[i].name),

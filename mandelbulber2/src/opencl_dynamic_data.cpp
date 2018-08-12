@@ -48,7 +48,7 @@
 
 #ifdef USE_OPENCL
 cOpenClDynamicData::cOpenClDynamicData() : cOpenClAbstractDynamicData(5) // this container has 5
-																																				// items
+																																				 // items
 {
 }
 
