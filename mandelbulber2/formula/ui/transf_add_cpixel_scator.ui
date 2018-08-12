@@ -31,6 +31,13 @@
    </property>
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0">
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+       <property name="text">
+        <string notr="true">switch division  from c.x  to  c.z</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="0">
       <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
@@ -42,6 +49,13 @@
       <widget class="QLabel" name="label_117">
        <property name="text">
         <string>scator algebra invert c.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
+       <property name="text">
+        <string notr="true">switch from  c^2 to abs(c)</string>
        </property>
       </widget>
      </item>
@@ -80,7 +94,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_120">
        <property name="text">
-        <string>c.x invert limit:</string>
+        <string>invert limit:</string>
        </property>
       </widget>
      </item>
@@ -281,8 +295,7 @@
         <item row="3" column="0" rowspan="3">
          <widget class="QLabel" name="label_18">
           <property name="text">
-           <string>Spherical folding
-offset:</string>
+           <string>testing</string>
           </property>
          </widget>
         </item>
@@ -355,13 +368,6 @@ offset:</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
-          <property name="text">
-           <string notr="true">limit do nothing</string>
           </property>
          </widget>
         </item>
