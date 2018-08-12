@@ -110,6 +110,8 @@ The system requires the QT5 framework in conjunction with LZO for real-time data
 
 [Coverity Scan](http://scan.coverity.com/projects/4723?tab=overview)
 
+![Open Hub](https://www.openhub.net/p/mandelbulber2/widgets/project_thin_badge.gif)
+
 ## License
 
 GNU GPL v3
