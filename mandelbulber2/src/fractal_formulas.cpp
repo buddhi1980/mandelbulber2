@@ -9483,18 +9483,18 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledCx) z.x = int(z.x / bSize.x) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = int(z.y / bSize.y) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = int(z.z / bSize.z) * bSize.z;
+			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
 		}
 		else // normalize
 		{
 			double rr = z.Dot(z);
 			z /= rr;
 			bSize /= 100.0;
-			if (fractal->transformCommon.functionEnabledCx) z.x = int(z.x / bSize.x) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = int(z.y / bSize.y) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = int(z.z / bSize.z) * bSize.z;
+			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
 			z *= rr;
 		}
 	}
@@ -9506,7 +9506,7 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		if (fractal->transformCommon.functionEnabledByFalse) rr = z.y * z.y + z.z * z.z;
 		if (fractal->transformCommon.functionEnabledBzFalse) rr = z.z * z.z + z.x * z.x;
 		z /= rr;
-		rr = int(rr / master) * master;
+		rr = floor(rr / master) * master;
 		z *= rr;
 	}
 
