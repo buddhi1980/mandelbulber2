@@ -26,12 +26,10 @@ cOpenClTexturesData::~cOpenClTexturesData()
 int cOpenClTexturesData::CheckNumberOfTextures(
 	const sTextures &textures, const QMap<int, cMaterial> &materials)
 {
-	int numberOfTextures;
+	int numberOfTextures = 0;
 	QSet<QString> listOfTextures;
 
-	CountTexture(&textures.backgroundTexture, &listOfTextures, &numberOfTextures);
 	CountTexture(&textures.envmapTexture, &listOfTextures, &numberOfTextures);
-	CountTexture(&textures.lightmapTexture, &listOfTextures, &numberOfTextures);
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
@@ -67,14 +65,8 @@ void cOpenClTexturesData::BuildAllTexturesData(
 	int textureIndex = -1;
 	QSet<QString> listOfTextures;
 
-	if (CountTexture(&textures.backgroundTexture, &listOfTextures, &textureIndex))
-		BuildTextureData(&textures.backgroundTexture, textureIndex);
-
 	if (CountTexture(&textures.envmapTexture, &listOfTextures, &textureIndex))
 		BuildTextureData(&textures.envmapTexture, textureIndex);
-
-	if (CountTexture(&textures.lightmapTexture, &listOfTextures, &textureIndex))
-		BuildTextureData(&textures.lightmapTexture, textureIndex);
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
@@ -92,6 +84,13 @@ void cOpenClTexturesData::BuildAllTexturesData(
 
 		if (CountTexture(&material.normalMapTexture, &listOfTextures, &textureIndex))
 			BuildTextureData(&material.normalMapTexture, textureIndex);
+	}
+
+	if (textureIndex == -1) // nothing in the buffer -> add some dummy data
+	{
+		cl_float4 dummy;
+		data.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
+		totalDataOffset += sizeof(dummy);
 	}
 }
 

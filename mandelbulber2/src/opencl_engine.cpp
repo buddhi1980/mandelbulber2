@@ -91,6 +91,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		hashCryptBuildParams.addData(definesCollector.toLocal8Bit());
 		QByteArray hashBuildParams = hashCryptBuildParams.result();
 
+		definesCollector += " -DCODEHASH=" + QString(hashProgram.toHex());
+
 		if (!useBuildCache) DeleteKernelCache();
 
 		// if program is different than in previous run

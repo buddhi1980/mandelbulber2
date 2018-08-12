@@ -97,11 +97,13 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	constantInMeshExportBuffer.reset();
 	inCLConstMeshExportBuffer.reset();
 	inCLBuffer.reset();
+	inCLTextureBuffer.reset();
 	backgroundImage2D.reset();
 	backgroungImageBuffer.reset();
 	dynamicData.reset();
 	texturesData.reset();
 	inBuffer.clear();
+	inTextureBuffer.clear();
 
 	cOpenClEngine::ReleaseMemory();
 }
@@ -571,6 +573,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	texturesData->ReserveHeader();
 	texturesData->BuildAllTexturesData(renderData->textures, materials);
 	texturesData->FillHeader();
+	inTextureBuffer = texturesData->GetData();
+
+	if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
+	definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
@@ -665,7 +671,25 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
+
+		if (renderEngineMode == clRenderEngineTypeFull)
+		{
+			// this buffer will be used for textures
+			inCLTextureBuffer.reset(
+				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+					size_t(inTextureBuffer.size()), inTextureBuffer.data(), &err));
+			if (!checkErr(err,
+						"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+						"sizeof(sClInBuff), inBuffer, &err)"))
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for texture data")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+		}
 	}
+
 	else
 	{
 		emit showErrorMessage(
@@ -1108,6 +1132,18 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		return false;
 	}
 
+	if (renderEngineMode == clRenderEngineTypeFull)
+	{
+		int err = kernel->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
+		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(QObject::tr("input texture data")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
 	err = kernel->setArg(
 		argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
@@ -1164,7 +1200,6 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	cOpenClEngine::WriteBuffersToQueue();
 
 	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
-
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1180,6 +1215,28 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
+	}
+
+	if (renderEngineMode == clRenderEngineTypeFull)
+	{
+		err = queue->enqueueWriteBuffer(
+			*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+
+		err = queue->finish();
+		if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
 	err = queue->enqueueWriteBuffer(

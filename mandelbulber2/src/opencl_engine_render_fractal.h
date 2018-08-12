@@ -118,6 +118,9 @@ private:
 	QByteArray inBuffer;
 	QScopedPointer<cl::Buffer> inCLBuffer;
 
+	QByteArray inTextureBuffer;
+	QScopedPointer<cl::Buffer> inCLTextureBuffer;
+
 	QScopedPointer<cl::Image2D> backgroundImage2D;
 	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
 
