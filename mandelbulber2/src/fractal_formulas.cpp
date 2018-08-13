@@ -8081,14 +8081,11 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	if (fractal->analyticDE.enabled)
 	{
+		double r = aux.r; //r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
+		double vecDE = 0.0;
 		if (!fractal->analyticDE.enabledFalse)
 		{
-			double r = 0.0;
-			if (!fractal->transformCommon.functionEnabledXFalse)
-			{
-				r = aux.r; //r = sqrt(zz.x + zz.y + zz.z + (zz.y * zz.z) / zz.x);
-			}
-			else
+			if (fractal->transformCommon.functionEnabledXFalse)
 			{
 				r = oldZ.Length();
 			}
@@ -8096,9 +8093,8 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		}
 		else
 		{
-			double vecDE = z.Length() /  oldZ.Length();
-			aux.DE =
-				aux.DE * vecDE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+			vecDE = fractal->transformCommon.scaleA1 * z.Length() / oldZ.Length();
+			aux.DE = max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	}
 }
@@ -8921,7 +8917,7 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 
 	CVector4 cc = tempC * tempC;
 	CVector4 newC = tempC;
-	double limitA = fractal->transformCommon.scaleA1;
+	double limitA = fractal->transformCommon.scale0;
 
 	if (fractal->transformCommon.functionEnabledRFalse)
 	{
