@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -166,7 +166,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -201,7 +201,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2318,7 +2318,7 @@ offset:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2534,7 +2534,7 @@ offset:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2566,7 +2566,7 @@ offset:</string>
            </font>
           </property>
           <property name="text">
-           <string>DE factor:</string>
+           <string>PK DE factor:</string>
           </property>
          </widget>
         </item>
@@ -2594,7 +2594,7 @@ offset:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>

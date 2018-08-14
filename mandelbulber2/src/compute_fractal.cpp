@@ -53,7 +53,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	CVector4 z = CVector4(pointTransformed, 0.0);
 
-	// trial
 	double minimumR = 0.0;
 	if (Mode == calcModeColouring)
 	{
@@ -231,13 +230,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
-			case testingLog:
-			case scatorPower2:					// add v2.15
-			case scatorPower2Real:			// add v2.15
+
+			case scatorPower2: // add v2.15
+			case scatorPower2Real: // add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
+			case testingLog:
 			{
 				CVector4 z2 = z * z;
 				r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);
+				//initial condition is normal r, becomes aux.r
+
 				// r = sqrt(z2.x - z2.y - z2.z + (z2.y * z2.z) / (z2.x));
 				break;
 			}

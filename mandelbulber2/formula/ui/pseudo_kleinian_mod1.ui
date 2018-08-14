@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pseudo_kleinian_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1990,7 +1990,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2213,7 +2213,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2273,7 +2273,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2324,7 +2324,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.000000000000000</double>
@@ -2337,7 +2337,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,0">
+       <layout class="QGridLayout" name="gridLayout_34" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2573,7 +2573,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Analytic Linear DE multiplier:</string>
+           <string>Analytic DE scale:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2604,7 +2604,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -2887,7 +2887,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Menger Scale Factor:</string>
+           <string>Menger Scale:</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2918,7 +2918,7 @@
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
