@@ -7839,7 +7839,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	double r = z.Length();
+	double r = aux.r; //z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 
@@ -7877,7 +7877,7 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	double r = z.Length();
+	double r = aux.r; // z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 	double q = 1.0 / (1.0 - z.z);
@@ -7910,12 +7910,12 @@ void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 	Q_UNUSED(aux);
 
 	double radius2 = fractal->transformCommon.minR05;
-	double r2 = z.x * z.x + z.y * z.y + z.z * z.z; // r2 or point radius squared
-	if (r2 < radius2 * radius2)
+	double rr = z.x * z.x + z.y * z.y + z.z * z.z; // r2 or point radius squared
+	if (rr < radius2 * radius2)
 	{
 		if (fractal->transformCommon.functionEnabled)
 			// smooth inside
-			z *= radius2 * ((r2 * 0.1) + 0.4) * 1.18 * fractal->transformCommon.scaleA1 / r2;
+			z *= radius2 * ((rr * 0.1) + 0.4) * 1.18 * fractal->transformCommon.scaleA1 / rr;
 		else
 		{
 			z *= fractal->transformCommon.constantMultiplier111;
@@ -8219,7 +8219,7 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		if (z.y - z.z < 0.0) swap(z.z, z.y);
 	}
 
-	z = z * fractal->transformCommon.scaleA2;
+	z *= fractal->transformCommon.scaleA2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -8235,9 +8235,9 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
-		aux.DE *= fractal->transformCommon.scale2;
+		aux.DE *= fabs(fractal->transformCommon.scale2);
 	else
-		aux.DE = aux.DE * fractal->transformCommon.scale2 * fractal->analyticDE.scale1
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale2) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
 
@@ -12547,7 +12547,7 @@ void Menger4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
 				+ (zB4 * fractal->transformCommon.offset0);
-		aux.DE *= fractal->transformCommon.scale;
+		aux.DE *= fractal->transformCommon.scale1;
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -12693,7 +12693,7 @@ void Menger4dMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 		z = (z * fractal->transformCommon.scale) + (zA4 * fractal->transformCommon.offset)
 				+ (zB4 * fractal->transformCommon.offset0);
-		aux.DE *= fractal->transformCommon.scale;
+		aux.DE *= fractal->transformCommon.scale1;
 	}
 
 	aux.DE *= fractal->analyticDE.scale1;
@@ -12754,7 +12754,7 @@ void MixPinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			z.w = -temp;
 		}
 		z *= fractal->transformCommon.scale1;
-		aux.DE *= fractal->transformCommon.scale1;
+		aux.DE *= fabs(fractal->transformCommon.scale1);
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsC
@@ -12823,7 +12823,7 @@ void MixPinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		z.z = -fabs(-z.z);
 		z.z += 0.5 * offsetM.z * (scaleM - 1.0) / scaleM;
 		z.z = scaleM * z.z;
-		aux.DE *= scaleM * fractal->analyticDE.scale1;
+		aux.DE *= fabs(scaleM) * fractal->analyticDE.scale1;
 	}
 }
 
@@ -12878,7 +12878,7 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		z.w = -temp;
 	}
 
-	z = z * fractal->transformCommon.scaleA2;
+	z *= fractal->transformCommon.scaleA2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -12937,9 +12937,9 @@ void Sierpinski4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}
 
 	if (!fractal->analyticDE.enabledFalse) // testing
-		aux.DE *= fractal->transformCommon.scaleA2;
+		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux.DE = aux.DE * fractal->transformCommon.scaleA2 * fractal->analyticDE.scale1
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scaleA2) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset0;
 }
 

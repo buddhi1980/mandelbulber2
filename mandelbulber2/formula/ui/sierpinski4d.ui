@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>sierpinski4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -637,7 +637,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>3</number>
           </property>
           <property name="minimum">
            <double>-99.989999999999995</double>
@@ -679,7 +679,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>3</number>
           </property>
           <property name="minimum">
            <double>0.000000000000000</double>
