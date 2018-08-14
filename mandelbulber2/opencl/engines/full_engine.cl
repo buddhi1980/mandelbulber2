@@ -61,7 +61,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	float height = convert_float(consts->params.imageHeight);
 	float resolution = 1.0f / height;
 
-	//-------- decode data file ----------------
+	//-------- decode main data file ----------------
 	// main offset for materials
 	int materialsMainOffset = GetInteger(0, inBuff);
 	int AOVectorsMainOffset = GetInteger(1 * sizeof(int), inBuff);
@@ -140,7 +140,26 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	__global sObjectDataCl *__attribute__((aligned(16))) objectsData =
 		(__global sObjectDataCl *)&inBuff[objectsOffset];
 
-	//--------- end of data file ----------------------------------
+//--------- end of data file ----------------------------------
+
+//------------------ decode texture data -----------
+#ifdef USE_TEXTURES
+	__global char4 *textures[NUMBER_OF_TEXTURES];
+	int2 textureSizes[NUMBER_OF_TEXTURES];
+
+	for (int i = 0; i < NUMBER_OF_TEXTURES; i++)
+	{
+		int textureMainOffset = GetInteger(i * sizeof(int), inTextureBuff);
+		int textureDataOffset = GetInteger(textureMainOffset + 0 * sizeof(int), inTextureBuff);
+		int textureWidth = GetInteger(textureMainOffset + 1 * sizeof(int), inTextureBuff);
+		int textureHeight = GetInteger(textureMainOffset + 2 * sizeof(int), inTextureBuff);
+		textureSizes[i] = (int2){textureWidth, textureHeight};
+
+		__global char4 *texture = (__global char4 *)&inTextureBuff[textureDataOffset];
+		textures[i] = texture;
+	}
+#endif
+	//------------------ end of texture data -----------
 
 	// auxiliary vectors
 	const float3 one = (float3){1.0f, 0.0f, 0.0f};
@@ -222,6 +241,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	renderData.objectsData = objectsData;
 	renderData.mRot = rot;
 	renderData.mRotInv = rotInv;
+#ifdef USE_TEXTURES
+	renderData.textures = textures;
+	renderData.textureSizes = textureSizes;
+#endif
 
 	float4 resultShader = 0.0f;
 	float3 objectColour = 0.0f;

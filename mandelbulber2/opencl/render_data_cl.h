@@ -52,6 +52,11 @@ typedef struct
 	int paletteLength;
 #endif
 
+#ifdef USE_TEXTURES
+	__global char4 **textures;
+	int2 *textureSizes;
+#endif
+
 #ifndef MESH_EXPORT
 	__global sVectorsAroundCl *AOVectors;
 	__global sLightCl *lights;

@@ -566,17 +566,20 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	inBuffer = dynamicData->GetData();
 
 	// --------------- textures dynamic data -----------------
-	int numberOfTextures =
-		cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
+	if (renderEngineMode == clRenderEngineTypeFull)
+	{
+		int numberOfTextures =
+			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
 
-	texturesData.reset(new cOpenClTexturesData(numberOfTextures));
-	texturesData->ReserveHeader();
-	texturesData->BuildAllTexturesData(renderData->textures, materials);
-	texturesData->FillHeader();
-	inTextureBuffer = texturesData->GetData();
+		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
+		texturesData->ReserveHeader();
+		texturesData->BuildAllTexturesData(renderData->textures, materials);
+		texturesData->FillHeader();
+		inTextureBuffer = texturesData->GetData();
 
-	if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
-	definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
+		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
+		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
+	}
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
