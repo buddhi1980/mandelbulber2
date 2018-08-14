@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_blockify</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
+    <width>853</width>
     <height>1920</height>
    </rect>
   </property>
@@ -76,10 +76,10 @@ pre-transform, slot#1 for 1 iteration</string>
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>0.000001000000000</double>
        </property>
        <property name="maximum">
-        <double>500.000000000000000</double>
+        <double>999.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -311,13 +311,6 @@ pre-transform, slot#1 for 1 iteration</string>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled">
-     <property name="text">
-      <string>de thing that does not work</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,1" columnminimumwidth="0,0,0">
      <property name="spacing">
       <number>2</number>
@@ -370,7 +363,7 @@ pre-transform, slot#1 for 1 iteration</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -386,6 +379,13 @@ pre-transform, slot#1 for 1 iteration</string>
       <property name="bottomMargin">
        <number>2</number>
       </property>
+      <item>
+       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+        <property name="text">
+         <string>de thing t</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
         <property name="title">

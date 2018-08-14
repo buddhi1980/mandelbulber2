@@ -9479,7 +9479,7 @@ void TransfBenesiSphereCubeIteration(CVector4 &z, const sFractal *fractal, sExte
  */
 void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// CVector4 oldZ = z;
+	CVector4 oldZ = z;
 	double master = fractal->transformCommon.scale / 100.0;
 	CVector4 bSize = fractal->transformCommon.constantMultiplier111 * master;
 	// bsize maybe shortened to a double??
@@ -9488,9 +9488,15 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
-			if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
-			if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
+			//if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			//if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			//if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
+			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
+			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
+			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
+			//if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) * 0.5) * bSize.x;
+			//if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) * 0.5) * bSize.y;
+			//if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) * 0.5) * bSize.z;
 		}
 		else // normalize
 		{
@@ -9516,11 +9522,11 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	}
 
 	// DE thing that has no effect, too small diff?
-	/*if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabled)
 	{
 		double AN = z.Length()/ oldZ.Length();
-		aux.DE *= AN;
-	}*/
+		aux.DE = aux.DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 
 	// post scale
 	z *= fractal->transformCommon.scale1;
