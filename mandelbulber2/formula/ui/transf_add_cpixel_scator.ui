@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_cpixel_scator</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>846</height>
+    <height>2365</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -420,7 +420,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>3</number>
           </property>
           <property name="minimum">
            <double>-99.989999999999995</double>
@@ -462,7 +462,7 @@
            <string/>
           </property>
           <property name="decimals">
-           <number>2</number>
+           <number>3</number>
           </property>
           <property name="minimum">
            <double>0.000000000000000</double>
@@ -698,8 +698,8 @@
      <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>154</x>
-     <y>160</y>
+     <x>178</x>
+     <y>221</y>
     </hint>
    </hints>
   </connection>
@@ -714,8 +714,8 @@
      <y>37</y>
     </hint>
     <hint type="destinationlabel">
-     <x>161</x>
-     <y>191</y>
+     <x>178</x>
+     <y>253</y>
     </hint>
    </hints>
   </connection>
