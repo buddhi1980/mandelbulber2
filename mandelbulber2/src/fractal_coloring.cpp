@@ -144,7 +144,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
+										+ extendedAux.colorHybrid // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
 
 		// radius components (historic)
@@ -271,15 +271,45 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	// Historic HYBRID MODE coloring
 	else if (isHybrid)
+	/*{
+		double r2 = r;
+
+		// aux.DE
+		// if 	(DE function from spinbox) != case analyticFunctionLogarithmic)
+		{
+			double mboxDE = extendedAux.DE;
+			double r2 = r / fabs(mboxDE);
+			if (r2 > 20) r2 = 20;
+		}
+		//   OR          if  (version < v2.15 ) r2 = r;
+		// orbit trap
+		if (minimumR > 100) minimumR = 100;
+
+		// aux.color (init cond = 1.0)
+		double mboxColor;
+		mboxColor = extendedAux.color;
+		if (mboxColor > 1000) mboxColor = 1000;
+
+		// summation
+		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
+	}*/
+
 	{
+		// aux.DE
 		double mboxDE;
 		mboxDE = extendedAux.DE;
 		double r2 = r / fabs(mboxDE);
 		if (r2 > 20) r2 = 20;
+
+		// orbit trap
 		if (minimumR > 100) minimumR = 100;
-		double mboxColor;
+
+		// aux.color (init cond = 1.0)
+		double mboxColor; // aux.color
 		mboxColor = extendedAux.color;
 		if (mboxColor > 1000) mboxColor = 1000;
+
+		// summation
 		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
 	}
 
@@ -291,10 +321,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0														 // folds part
+					extendedAux.color * 100.0 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0
-																																						 : 0.0);
+							 : 0.0);
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
