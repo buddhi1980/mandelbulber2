@@ -1167,9 +1167,9 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		paramStandard);
 	par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima,
 		paramStandard);
-	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 10.0,
+	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1.0,
+	par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("displacement_texture_height", materialId), 0.1, 1e-12, 1e4,
 		morphAkima, paramStandard);
@@ -1417,7 +1417,7 @@ void DeleteAllPrimitiveParams(cParameterContainer *par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto parameterName : list)
 	{
-			if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			par->DeleteParameter(parameterName);
 		}
@@ -1429,7 +1429,7 @@ void DeleteAllMaterialParams(cParameterContainer *par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto parameterName : list)
 	{
-			if (parameterName.left(3) == "mat")
+		if (parameterName.left(3) == "mat")
 		{
 			par->DeleteParameter(parameterName);
 		}

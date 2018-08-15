@@ -51,7 +51,8 @@ public:
 
 	static int CheckNumberOfTextures(
 		const sTextures &textures, const QMap<int, cMaterial> &materials);
-	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials);
+	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials,
+		QMap<QString, int> *textureIndexes);
 
 private:
 	static bool CountTexture(const cTexture *texture, QSet<QString> *listOfTextures, int *counter);

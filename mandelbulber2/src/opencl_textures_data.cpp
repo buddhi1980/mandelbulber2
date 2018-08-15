@@ -86,31 +86,50 @@ bool cOpenClTexturesData::CountTexture(
 	return added;
 }
 
-void cOpenClTexturesData::BuildAllTexturesData(
-	const sTextures &textures, const QMap<int, cMaterial> &materials)
+void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
+	const QMap<int, cMaterial> &materials, QMap<QString, int> *textureIndexes)
 {
 	int textureIndex = -1;
 	QSet<QString> listOfTextures;
+	textureIndexes->clear();
 
 	if (CountTexture(&textures.envmapTexture, &listOfTextures, &textureIndex))
+	{
 		BuildTextureData(&textures.envmapTexture, textureIndex);
+		textureIndexes->insert(textures.envmapTexture.GetFileName(), textureIndex);
+	}
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
 		if (CountTexture(&material.colorTexture, &listOfTextures, &textureIndex))
+		{
 			BuildTextureData(&material.colorTexture, textureIndex);
+			textureIndexes->insert(material.colorTexture.GetFileName(), textureIndex);
+		}
 
 		if (CountTexture(&material.diffusionTexture, &listOfTextures, &textureIndex))
+		{
 			BuildTextureData(&material.diffusionTexture, textureIndex);
+			textureIndexes->insert(material.diffusionTexture.GetFileName(), textureIndex);
+		}
 
 		if (CountTexture(&material.displacementTexture, &listOfTextures, &textureIndex))
+		{
 			BuildTextureData(&material.displacementTexture, textureIndex);
+			textureIndexes->insert(material.displacementTexture.GetFileName(), textureIndex);
+		}
 
 		if (CountTexture(&material.luminosityTexture, &listOfTextures, &textureIndex))
+		{
 			BuildTextureData(&material.luminosityTexture, textureIndex);
+			textureIndexes->insert(material.luminosityTexture.GetFileName(), textureIndex);
+		}
 
 		if (CountTexture(&material.normalMapTexture, &listOfTextures, &textureIndex))
+		{
 			BuildTextureData(&material.normalMapTexture, textureIndex);
+			textureIndexes->insert(material.normalMapTexture.GetFileName(), textureIndex);
+		}
 	}
 
 	if (textureIndex == -1) // nothing in the buffer -> add some dummy data

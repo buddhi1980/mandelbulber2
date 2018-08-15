@@ -72,14 +72,6 @@ typedef struct
 	cl_float3 transparencyInteriorColor;
 	cl_float3 specularColor;
 
-	// cColorPalette palette;
-
-	// cTexture colorTexture;
-	// cTexture diffusionTexture;
-	// cTexture luminosityTexture;
-	// cTexture displacementTexture;
-	// cTexture normalMapTexture;
-
 	cl_float3 textureCenter;
 	cl_float3 textureRotation;
 	cl_float3 textureScale;
@@ -99,6 +91,12 @@ typedef struct
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
 	cl_int iridescenceEnabled;
+
+	cl_int colorTextureIndex;
+	cl_int diffusionTextureIndex;
+	cl_int luminosityTextureIndex;
+	cl_int displacementTextureIndex;
+	cl_int normalMapTextureIndex;
 
 	sFractalColoringCl fractalColoring;
 } sMaterialCl;

@@ -33,6 +33,7 @@
  */
 
 #include "opencl_dynamic_data.hpp"
+#include "opencl_textures_data.h"
 
 #include "lights.hpp"
 #include "material.h"
@@ -54,7 +55,8 @@ cOpenClDynamicData::cOpenClDynamicData() : cOpenClAbstractDynamicData(5) // this
 
 cOpenClDynamicData::~cOpenClDynamicData() = default;
 
-int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials)
+int cOpenClDynamicData::BuildMaterialsData(
+	const QMap<int, cMaterial> &materials, const QMap<QString, int> &textureIndexes)
 {
 	/* material dynamic data structure
 
@@ -120,6 +122,29 @@ int cOpenClDynamicData::BuildMaterialsData(const QMap<int, cMaterial> &materials
 		{
 			cMaterial material = materials[materialIndex];
 			materialCl = clCopySMaterialCl(material);
+
+			QString textureName;
+
+			textureName = material.colorTexture.GetFileName();
+			materialCl.colorTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.diffusionTexture.GetFileName();
+			materialCl.diffusionTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.luminosityTexture.GetFileName();
+			materialCl.luminosityTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.displacementTexture.GetFileName();
+			materialCl.displacementTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.normalMapTexture.GetFileName();
+			materialCl.normalMapTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
 			cColorPalette palette = material.palette;
 			paletteSize = palette.GetSize();
 			paletteCl = new cl_float4[paletteSize];
@@ -518,7 +543,9 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 		catch (const QString &ex)
 		{
 			qCritical() << QString(
-				"cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 object - error: ") << ex;
+											 "cOpenClDynamicData::BuildPrimitivesData - invalid dynamic cast to %1 "
+											 "object - error: ")
+									<< ex;
 		}
 
 		data.append(reinterpret_cast<char *>(&primitiveCl), sizeof(primitiveCl));

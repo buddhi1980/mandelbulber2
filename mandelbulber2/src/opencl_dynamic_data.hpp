@@ -53,7 +53,8 @@ public:
 	cOpenClDynamicData();
 	~cOpenClDynamicData();
 
-	int BuildMaterialsData(const QMap<int, cMaterial> &materials); // returns array size
+	int BuildMaterialsData(const QMap<int, cMaterial> &materials,
+		const QMap<QString, int> &textureIndexes); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);
 	void BuildPrimitivesData(const cPrimitives *primitives);

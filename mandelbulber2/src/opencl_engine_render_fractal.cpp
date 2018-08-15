@@ -500,14 +500,32 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
 
+	QMap<int, cMaterial> materials;
+	CreateMaterialsMap(paramContainer, &materials, true);
+	QMap<QString, int> textureIndexes;
+
+	// --------------- textures dynamic data -----------------
+	if (renderEngineMode == clRenderEngineTypeFull)
+	{
+		int numberOfTextures =
+			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
+
+		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
+		texturesData->ReserveHeader();
+		texturesData->BuildAllTexturesData(renderData->textures, materials, &textureIndexes);
+		texturesData->FillHeader();
+		inTextureBuffer = texturesData->GetData();
+
+		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
+		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
+	}
+
 	//----------- create dynamic data -----------
 	dynamicData.reset(new cOpenClDynamicData);
 	dynamicData->ReserveHeader();
 
 	// materials
-	QMap<int, cMaterial> materials;
-	CreateMaterialsMap(paramContainer, &materials, true);
-	int materialsArraySize = dynamicData->BuildMaterialsData(materials);
+	int materialsArraySize = dynamicData->BuildMaterialsData(materials, textureIndexes);
 	definesCollector += " -DMAT_ARRAY_SIZE=" + QString::number(materialsArraySize);
 
 	bool anyMaterialIsReflective = false;
@@ -564,22 +582,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->FillHeader();
 
 	inBuffer = dynamicData->GetData();
-
-	// --------------- textures dynamic data -----------------
-	if (renderEngineMode == clRenderEngineTypeFull)
-	{
-		int numberOfTextures =
-			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
-
-		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
-		texturesData->ReserveHeader();
-		texturesData->BuildAllTexturesData(renderData->textures, materials);
-		texturesData->FillHeader();
-		inTextureBuffer = texturesData->GetData();
-
-		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
-		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
-	}
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
