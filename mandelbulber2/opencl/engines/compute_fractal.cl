@@ -288,8 +288,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			case 101: // pseudoKleinianStdDE
 				aux.r = length(z.xy);
-				break;
-
+                                break;
+                        case 2102: // testingLog
 			case 152: // scatorPower2Imaginary
 			case 173: // scatorPower2
 			case 156: // scatorPower2Real

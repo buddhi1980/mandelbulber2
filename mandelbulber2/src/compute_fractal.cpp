@@ -230,7 +230,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// r = sqrt(z.x * z.x + z.y * z.y + z.z * z.z + w * w);
 		switch (fractal->formula)
 		{
-
 			case scatorPower2: // add v2.15
 			case scatorPower2Real: // add v2.15
 			case scatorPower2Imaginary: // corrected v2.14
