@@ -1220,8 +1220,13 @@ double cRenderWorker::MonteCarloDOFNoiseEstimation(
 	StdDevSum.B += monteCarloDOFSquareDiff.B;
 
 	sRGBFloat monteCarloDOFStdDev;
-	double totalStdDev = sqrt((StdDevSum.R + StdDevSum.G + StdDevSum.B) / (repeat + 1));
+	double totalStdDev = sqrt((StdDevSum.R + StdDevSum.G + StdDevSum.B) / (repeat + 1.0));
+
+	totalStdDev /= sqrt(repeat + 1);
+
+	double sumBrightness = (pixelSum.R + pixelSum.G + pixelSum.B) / (repeat + 1.0);
+	if (sumBrightness > 1.0) totalStdDev /= sumBrightness;
 
 	// noise value
-	return totalStdDev / sqrt(repeat + 1);
+	return totalStdDev;
 }
