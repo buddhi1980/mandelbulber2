@@ -34,10 +34,11 @@
 
 #ifdef USE_FRACTAL_COLORING
 
-cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float minimumR,
+cl_float CalculateColorIndex(bool isHybrid, cl_float aux.r, cl_float4 z, cl_float minimumR,
 	const sExtendedAuxCl *extendedAux, __global sFractalColoringCl *fractalColoring,
 	cl_int coloringFunction, __constant sFractalCl *defaultFractal)
 {
+        float r = aux.r;  // test
 	float colorIndex = 0.0f;
 	// color by numbers
 
