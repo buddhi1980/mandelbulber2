@@ -850,7 +850,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 							double monteCarloNoiseSum = 0.0;
 							double maxNoise = 0.0;
-							double brightnessSum = 0.0;
 							for (int x = 0; x < jobWidth2; x++)
 							{
 								for (int y = 0; y < jobHeight2; y++)
@@ -888,9 +887,12 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 																	 + (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
 																	 + (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
 										noise *= 0.3333;
+
+										double sumBrightness = newPixel.R + newPixel.G + newPixel.B;
+										if (sumBrightness > 1.0) noise /= (sumBrightness * sumBrightness);
+
 										monteCarloNoiseSum += noise;
 										if (noise > maxNoise) maxNoise = noise;
-										brightnessSum += newPixel.R + newPixel.G + newPixel.B;
 									}
 									else
 									{
@@ -911,8 +913,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								double weight = 0.2;
 								double totalNoiseRect = sqrt(
 									(1.0 - weight) * monteCarloNoiseSum / jobWidth2 / jobHeight2 + weight * maxNoise);
-								double avgBrightness = brightnessSum / jobWidth2 / jobHeight2;
-								if (avgBrightness > 1.0) totalNoiseRect /= avgBrightness;
 								noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoiseRect;
 							}
 
