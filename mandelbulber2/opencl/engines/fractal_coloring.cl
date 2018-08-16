@@ -207,8 +207,7 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 	{
 		float mboxDE;
 		mboxDE = extendedAux->DE;
-                // float r2 = min(r / fabs(mboxDE), 20.0f);
-                float r2 = min(r / 1.0, 20.0f);
+                float r2 = min(r / fabs(mboxDE), 20.0f);
 		minimumR = min(100.0f, minimumR);
 		float mboxColor = min(extendedAux->color, 1000.0f);
 		colorIndex = (minimumR * 1000.0f + mboxColor * 100.0f + r2 * 5000.0f);

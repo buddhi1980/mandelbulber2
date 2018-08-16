@@ -298,7 +298,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// aux.DE
 		double mboxDE;
 		mboxDE = extendedAux.DE;
-		double r2 = r / 1.0; //fabs(mboxDE);
+		double r2 = r / fabs(mboxDE);
 		if (r2 > 20) r2 = 20;
 
 		// orbit trap
