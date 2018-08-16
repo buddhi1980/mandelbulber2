@@ -912,7 +912,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								double totalNoiseRect = sqrt(
 									(1.0 - weight) * monteCarloNoiseSum / jobWidth2 / jobHeight2 + weight * maxNoise);
 								double avgBrightness = brightnessSum / jobWidth2 / jobHeight2;
-								//if(avgBrightness > 1.0) totalNoiseRect /= avgBrightness;
+								if (avgBrightness > 1.0) totalNoiseRect /= avgBrightness;
 								noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoiseRect;
 							}
 
