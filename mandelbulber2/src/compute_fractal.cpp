@@ -394,10 +394,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// final calculations
 	if (Mode == calcModeNormal)
 	{
-		//if (extendedAux.DE > 0.0); //maybe?
+		// if (extendedAux.DE > 0.0); //maybe?
 		if (fractals.IsHybrid())
 		{
-			 if (extendedAux.DE != 0.0)
+			if (extendedAux.DE != 0.0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{

@@ -159,9 +159,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// radius / DE components (historic)
 		if (fractalColoring.radDivDeFalse)
 		{
-			double distEst = fabs(extendedAux.DE);
 			float rFloat = (float)(r);
 			double rDouble = (double)(rFloat);
+
+			//float mboxDEfloat = (float)(extendedAux.DE);
+			double distEst = (double)(extendedAux.DE);
 
 			double radDE = rDouble; // r /DE // was named r2
 			if (fractalColoring.radDivDE1e13False) radDE /= 1e13;
@@ -297,26 +299,18 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	{
 		// aux.DE
-		/*float mboxDEfloat = (float)(extendedAux.DE);
-		double mboxDE = (double)(mboxDEfloat);
+		// float mboxDEfloat = (float)(extendedAux.DE);
+		// double mboxDE = (double)(mboxDEfloat);
 		float rFloat = (float)(r);
 		double rDouble = (double)(rFloat);
-		double r2 = min(rDouble / fabs(mboxDE), 20.0);
+		double r2 = min(rDouble / fabs(extendedAux.DE), 20.0);
 				//if (r2 > 20) r2 = 20;*/
-
-		double r2 = min(r / fabs(extendedAux.DE), 20.0);
-
-
+		//double r2 = min(r / fabs(extendedAux.DE), 20.0);
 
 		// orbit trap
-		//if (minimumR > 100) minimumR = 100;
 		minimumR = min(100.0, minimumR);
 
 		// aux.color (init cond = 1.0)
-		//double mboxColor; // aux.color
-		//mboxColor = extendedAux.color;
-		//if (mboxColor > 1000) mboxColor = 1000;
-
 		double mboxColor = min(extendedAux.color, 1000.0);
 
 		// summation

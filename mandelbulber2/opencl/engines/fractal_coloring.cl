@@ -205,8 +205,8 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
         // Historic HYBRID MODE coloring
         else if (isHybrid)
         {
-                //float mboxDE;
-                //mboxDE = extendedAux->DE;
+                // float mboxDE;
+                // mboxDE = extendedAux->DE;
 
                 // aux.DE
                 float r2 = min(r / fabs(extendedAux->DE), 20.0f);
