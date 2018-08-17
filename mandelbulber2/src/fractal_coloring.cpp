@@ -144,7 +144,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
 			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
-										+ extendedAux.colorHybrid // transf_hybrid_color inputs
+										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
 
 		// radius components (historic)
@@ -162,7 +162,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			float rFloat = (float)(r);
 			double rDouble = (double)(rFloat);
 
-			//float mboxDEfloat = (float)(extendedAux.DE);
+			// float mboxDEfloat = (float)(extendedAux.DE);
 			double distEst = (double)(extendedAux.DE);
 
 			double radDE = rDouble; // r /DE // was named r2
@@ -226,8 +226,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				{
 					colorValue +=
 						(1.0
-							- 1.0 / (1.0
-												+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+							- 1.0
+									/ (1.0
+											+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
 						* fractalColoring.addMax;
 				}
 			}
@@ -249,8 +250,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 				if (colorValue > fractalColoring.cosStartValue)
 				{
 					double trig = (0.5
-													- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
-																			/ (fractalColoring.cosPeriod * 2.0)))
+													- 0.5
+															* cos((colorValue - fractalColoring.cosStartValue) * M_PI
+																		/ (fractalColoring.cosPeriod * 2.0)))
 												* fractalColoring.cosAdd;
 					colorValue += trig;
 				}
@@ -276,36 +278,13 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	// Historic HYBRID MODE coloring
 	else if (isHybrid)
-	/*{
-		double r2 = r;
-
-		// aux.DE
-		// if 	(DE function from spinbox) != case analyticFunctionLogarithmic)
-		{
-			double r2 = min(r / fabs(extendedAux.DE), 20.0);
-		}
-		//   OR          if  (version < v2.15 ) r2 = r;
-
-
-		// orbit trap
-		minimumR = min(100.0, minimumR);
-
-		// aux.color (init cond = 1.0)
-		double mboxColor = min(extendedAux.color, 1000.0);
-
-		// summation
-		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
-	}*/
-
 	{
 		// aux.DE
-		// float mboxDEfloat = (float)(extendedAux.DE);
-		// double mboxDE = (double)(mboxDEfloat);
-		float rFloat = (float)(r);
-		double rDouble = (double)(rFloat);
-		double r2 = min(rDouble / fabs(extendedAux.DE), 20.0);
-				//if (r2 > 20) r2 = 20;*/
-		//double r2 = min(r / fabs(extendedAux.DE), 20.0);
+		// if 	(DE function from spinbox) != case analyticFunctionLogarithmic)
+
+		double r2 = min(r / fabs(extendedAux.DE), 20.0);
+
+		//   OR          if  (version < v2.15 ) r2 = r;
 
 		// orbit trap
 		minimumR = min(100.0, minimumR);
@@ -314,7 +293,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		double mboxColor = min(extendedAux.color, 1000.0);
 
 		// summation
-		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
+		colorIndex = (minimumR * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 	}
 
 	// NORMAL MODE Coloring
@@ -325,10 +304,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0 // folds part
+					extendedAux.color * 100.0														 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
 					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0
-							 : 0.0);
+																																						 : 0.0);
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;

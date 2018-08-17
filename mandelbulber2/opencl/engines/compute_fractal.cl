@@ -77,7 +77,8 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
-typedef enum {
+typedef enum
+{
 	calcModeNormal = 0,
 	calcModeColouring = 1,
 	calcModeFake_AO = 2,
@@ -288,11 +289,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		{
 			case 101: // pseudoKleinianStdDE
 				aux.r = length(z.xy);
-                                break;
-                        case 2102: // testingLog
-			case 152: // scatorPower2Imaginary
-			case 173: // scatorPower2
-			case 156: // scatorPower2Real
+				break;
+			case 2102: // testingLog
+			case 152:	// scatorPower2Imaginary
+			case 173:	// scatorPower2
+			case 156:	// scatorPower2Real
 			{
 				float4 z2 = z * z;
 				aux.r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / (z2.x));
@@ -381,16 +382,22 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (fractal->formula != 8) // not mandelbox
 				{
 					if (len < colorMin) colorMin = len;
+					if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+						break;
 				}
-				// if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
-				if (aux.r > 1e15f) break;
+				else
+				{
+					if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+				}
+				// if (aux.r > 1e15f) break;
 			}
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				float4 delta = z - (float4){consts->params.common.fakeLightsOrbitTrap.x,
-														 consts->params.common.fakeLightsOrbitTrap.y,
-														 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
+				float4 delta = z
+											 - (float4){consts->params.common.fakeLightsOrbitTrap.x,
+													 consts->params.common.fakeLightsOrbitTrap.y,
+													 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
 				float distance = length(delta);
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
@@ -405,11 +412,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 	}
 
-// calculate estimated distance
+	// calculate estimated distance
 
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
-        dist = 0.5f * aux.r * native_log(aux.r) / (aux.DE);
+	dist = 0.5f * aux.r * native_log(aux.r) / (aux.DE);
 #elif ANALYTIC_LINEAR_DE
 	dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
