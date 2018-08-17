@@ -297,14 +297,14 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	{
 		// aux.DE
-		float mboxDEfloat = (float)(extendedAux.DE);
+		/*float mboxDEfloat = (float)(extendedAux.DE);
 		double mboxDE = (double)(mboxDEfloat);
 		float rFloat = (float)(r);
 		double rDouble = (double)(rFloat);
 		double r2 = min(rDouble / fabs(mboxDE), 20.0);
-				//if (r2 > 20) r2 = 20;
+				//if (r2 > 20) r2 = 20;*/
 
-		//double r2 = min(r / fabs(extendedAux.DE), 20.0);
+		double r2 = min(r / fabs(extendedAux.DE), 20.0);
 
 
 
