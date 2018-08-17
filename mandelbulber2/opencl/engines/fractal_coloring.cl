@@ -199,17 +199,24 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
                 if (colorValue > maxCV) colorValue = maxCV;
 
                 colorIndex = colorValue * 256.0f; // convert to colorValue units
-#endif																// USE_EXTRA_COLORING
+#endif
         }
 
         // Historic HYBRID MODE coloring
         else if (isHybrid)
         {
-                float mboxDE;
-                mboxDE = extendedAux->DE;
-                float r2 = min(r / fabs(mboxDE), 20.0f);
+                //float mboxDE;
+                //mboxDE = extendedAux->DE;
+
+                // aux.DE
+                float r2 = min(r / fabs(extendedAux->DE), 20.0f);
+
+                // orbit trap
                 minimumR = min(100.0f, minimumR);
+
+                // aux.color
                 float mboxColor = min(extendedAux->color, 1000.0f);
+
                 colorIndex = (minimumR * 1000.0f + mboxColor * 100.0f + r2 * 5000.0f);
         }
 

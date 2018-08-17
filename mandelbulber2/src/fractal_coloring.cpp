@@ -277,18 +277,16 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// aux.DE
 		// if 	(DE function from spinbox) != case analyticFunctionLogarithmic)
 		{
-			double mboxDE = extendedAux.DE;
-			double r2 = r / fabs(mboxDE);
-			if (r2 > 20) r2 = 20;
+			double r2 = min(r / fabs(extendedAux.DE), 20.0);
 		}
 		//   OR          if  (version < v2.15 ) r2 = r;
+
+
 		// orbit trap
-		if (minimumR > 100) minimumR = 100;
+		minimumR = min(100.0, minimumR);
 
 		// aux.color (init cond = 1.0)
-		double mboxColor;
-		mboxColor = extendedAux.color;
-		if (mboxColor > 1000) mboxColor = 1000;
+		double mboxColor = min(extendedAux.color, 1000.0);
 
 		// summation
 		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
@@ -296,18 +294,27 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 	{
 		// aux.DE
-		double mboxDE;
-		mboxDE = extendedAux.DE;
-		double r2 = r / fabs(mboxDE);
-		if (r2 > 20) r2 = 20;
+		//float mboxDEfloat = (float)(extendedAux.DE);
+		//double mboxDE = (double)(mboxDEfloat);
+		float rFloat = (float)(r);
+		double rDouble = (double)(rFloat);
+		double r2 = min(rDouble / fabs(extendedAux.DE), 20.0);
+				if (r2 > 20) r2 = 20;
+
+		//double r2 = min(r / fabs(extendedAux.DE), 20.0);
+
+
 
 		// orbit trap
-		if (minimumR > 100) minimumR = 100;
+		//if (minimumR > 100) minimumR = 100;
+		minimumR = min(100.0, minimumR);
 
 		// aux.color (init cond = 1.0)
-		double mboxColor; // aux.color
-		mboxColor = extendedAux.color;
-		if (mboxColor > 1000) mboxColor = 1000;
+		//double mboxColor; // aux.color
+		//mboxColor = extendedAux.color;
+		//if (mboxColor > 1000) mboxColor = 1000;
+
+		double mboxColor = min(extendedAux.color, 1000.0);
 
 		// summation
 		colorIndex = (minimumR * 1000.0 + mboxColor * 100 + r2 * 5000.0);
