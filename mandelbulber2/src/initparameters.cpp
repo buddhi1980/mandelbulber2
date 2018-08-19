@@ -1319,6 +1319,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, -1e20, 1e20,
 		morphAkima, paramStandard);
 
+	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,
+		morphNone, paramStandard);
+
+
+
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
 			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),

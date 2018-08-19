@@ -83,6 +83,8 @@ struct sFractalColoring
 	bool xyzYSqrdFalse;
 	bool xyzZSqrdFalse;
 
+	bool tempLimitFalse;
+
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
 

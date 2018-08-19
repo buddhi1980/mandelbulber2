@@ -139,13 +139,21 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		}
 
 		// orbit trap component
-		if (fractalColoring.orbitTrapTrue) colorValue += minimumR * fractalColoring.orbitTrapWeight;
+		if (fractalColoring.orbitTrapTrue)
+		{
+			if (fractalColoring.tempLimitFalse) minimumR = min(100.0, minimumR); // TEMP for testing
+			colorValue += minimumR * fractalColoring.orbitTrapWeight;
+		}
 
 		// auxiliary color components
 		if (fractalColoring.auxColorFalse)
-			colorValue += extendedAux.color * fractalColoring.auxColorWeight // aux.color
+		{
+			double auxColor = extendedAux.color;
+			if (fractalColoring.tempLimitFalse) auxColor = min(auxColor, 1000.0); // TEMP for testing
+			colorValue += auxColor * fractalColoring.auxColorWeight // aux.color
 										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
+		}
 
 		// radius components (historic)
 		if (fractalColoring.radFalse)
@@ -159,16 +167,15 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// radius / DE components (historic)
 		if (fractalColoring.radDivDeFalse)
 		{
-			float rFloat = (float)(r);
-			double rDouble = (double)(rFloat);
+			double distEst = extendedAux.DE;
 
-			// float mboxDEfloat = (float)(extendedAux.DE);
-			double distEst = (double)(extendedAux.DE);
-
-			double radDE = rDouble; // r /DE // was named r2
+			double radDE = r;
 			if (fractalColoring.radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring.radDivDeSquaredFalse) radDE *= radDE;
-			colorValue += radDE * fractalColoring.radDivDeWeight / distEst;
+			radDE /= distEst;
+			if (fractalColoring.tempLimitFalse) radDE = min(radDE, 20.0); // TEMP for testing
+
+			colorValue += radDE * fractalColoring.radDivDeWeight;
 		}
 
 		double addValue = 0.0;
@@ -279,18 +286,14 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 	// Historic HYBRID MODE coloring
 	else if (isHybrid)
 	{
-		// aux.DE
-		// if 	(DE function from spinbox) != case analyticFunctionLogarithmic)
-
-		double r2 = min(r / fabs(extendedAux.DE), 20.0);
-
-		//   OR          if  (version < v2.15 ) r2 = r;
-
 		// orbit trap
 		minimumR = min(100.0, minimumR);
 
 		// aux.color (init cond = 1.0)
 		double mboxColor = min(extendedAux.color, 1000.0);
+
+		// aux.DE
+		double r2 = min(r / fabs(extendedAux.DE), 20.0);
 
 		// summation
 		colorIndex = (minimumR * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);

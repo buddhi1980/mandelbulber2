@@ -151,6 +151,8 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_round_enabled_false", "fractal_coloring_round_scale",
 
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
+
+	"fractal_coloring_temp_limit_false"
 };
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -338,6 +340,11 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_max_color_value", id));
 	fractalColoring.minColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_min_color_value", id));
+
+	fractalColoring.tempLimitFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id));
+	// tempLimit
+
 
 	if (gNetRender->IsClient())
 	{

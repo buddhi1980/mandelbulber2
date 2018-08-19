@@ -98,6 +98,7 @@ typedef struct
 	cl_int xyzXSqrdFalse;
 	cl_int xyzYSqrdFalse;
 	cl_int xyzZSqrdFalse;
+        cl_int tempLimitFalse; // temp
 
 	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
@@ -164,6 +165,8 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.xyzXSqrdFalse = source.xyzXSqrdFalse;
 	target.xyzYSqrdFalse = source.xyzYSqrdFalse;
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
+        target.tempLimitFalse = source.tempLimitFalse; // temp
+
 	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	target.iStartValue = source.iStartValue;
 	target.lineDirection = toClFloat4(source.lineDirection);
@@ -192,6 +195,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.roundScale = source.roundScale;
 	target.sphereRadius = source.sphereRadius;
 	target.xyzIterScale = source.xyzIterScale;
+
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

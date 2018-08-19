@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1396</y>
-        <width>577</width>
-        <height>3372</height>
+        <y>-1200</y>
+        <width>583</width>
+        <height>3909</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -2380,6 +2380,13 @@ direction vector:</string>
                    </widget>
                   </item>
                  </layout>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+                  <property name="text">
+                   <string notr="true">temp for hybrid limits testing:</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>

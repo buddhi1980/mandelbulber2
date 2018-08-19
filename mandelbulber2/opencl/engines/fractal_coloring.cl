@@ -71,13 +71,19 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 		}
 
 		// orbit trap component
-		if (fractalColoring->orbitTrapTrue) colorValue += minimumR * fractalColoring->orbitTrapWeight;
-
+                if (fractalColoring->orbitTrapTrue)
+                {
+                        if (fractalColoring->tempLimitFalse) minimumR = min(100.0, minimumR); // TEMP for testing
+                        colorValue += minimumR * fractalColoring->orbitTrapWeight;
+                }
 		// auxiliary color components
 		if (fractalColoring->auxColorFalse)
+                {
+                        if (fractalColoring->tempLimitFalse) auxColor = min(auxColor, 1000.0); // TEMP for testing
 			colorValue += extendedAux->color * fractalColoring->auxColorWeight // aux.color
 										+ extendedAux->colorHybrid // transf_hybrid_color inputs
 												* fractalColoring->auxColorHybridWeight;
+                }
 
 		// radius components (historic)
 		if (fractalColoring->radFalse)
@@ -91,11 +97,14 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 		// radius / DE components (historic)
 		if (fractalColoring->radDivDeFalse)
 		{
-			float distEst = fabs(extendedAux->DE);
+                        float distEst = extendedAux->DE;
 			float radDE = r;
 			if (fractalColoring->radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring->radDivDeSquaredFalse) radDE *= radDE;
-			colorValue += radDE * fractalColoring->radDivDeWeight / distEst;
+                        radDE /= distEst;
+                        if (fractalColoring->tempLimitFalse) radDE = min(radDE, 20.0; // TEMP for testing
+
+                        colorValue += radDE * fractalColoring->radDivDeWeight;
 		}
 
 		float addValue = 0.0f;
@@ -207,9 +216,6 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 	// Historic HYBRID MODE coloring
 	else if (isHybrid)
 	{
-		// float mboxDE;
-		// mboxDE = extendedAux->DE;
-
 		// aux.DE
 		float r2 = min(r / fabs(extendedAux->DE), 20.0f);
 
@@ -239,22 +245,6 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 			}
 			case clColoringFunctionIFS: colorIndex = minimumR * 1000.0f; break;
 			case clColoringFunctionAmazingSurf: colorIndex = minimumR * 200.0f; break;
-			// case clColoringFunctionABox2:
-			//			{
-			//				float mboxDE;
-			//				mboxDE = extendedAux->DE;
-			//				float r2 = r / fabs(mboxDE);
-			//				if (r2 > 20.0f) r2 = 20.0f;
-			//				colorIndex = extendedAux->color * 100.0f * extendedAux->foldFactor // folds part
-			//										 + r * defaultFractal->mandelbox.color.factorR / 1e13f // abs z part
-			//										 + extendedAux->scaleFactor * r2 * 5000.0f // for backwards
-			// compatibility
-			//										 //	+ ((fractalColoring->coloringAlgorithm != fractalColoring_Standard)
-			//?
-			//										 // minimumR * 1000.0 : 0.0);
-			//										 + minimumR * extendedAux->minRFactor * 1000.0f; // orbit trap
-			//				break;
-			//			}
 			case clColoringFunctionDonut:
 				colorIndex = extendedAux->color * 2000.0f / extendedAux->i;
 				break;
