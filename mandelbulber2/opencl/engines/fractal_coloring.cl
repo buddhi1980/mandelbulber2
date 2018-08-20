@@ -79,7 +79,7 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 		// auxiliary color components
 		if (fractalColoring->auxColorFalse)
                 {
-                        if (fractalColoring->tempLimitFalse) auxColor = min(auxColor, 1000.0); // TEMP for testing
+                        if (fractalColoring->tempLimitFalse) extendedAux->color = min(extendedAux->color, 1000.0); // TEMP for testing
 			colorValue += extendedAux->color * fractalColoring->auxColorWeight // aux.color
 										+ extendedAux->colorHybrid // transf_hybrid_color inputs
 												* fractalColoring->auxColorHybridWeight;
@@ -102,7 +102,7 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float mi
 			if (fractalColoring->radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring->radDivDeSquaredFalse) radDE *= radDE;
                         radDE /= distEst;
-                        if (fractalColoring->tempLimitFalse) radDE = min(radDE, 20.0; // TEMP for testing
+                        if (fractalColoring->tempLimitFalse) radDE = min(radDE, 20.0); // TEMP for testing
 
                         colorValue += radDE * fractalColoring->radDivDeWeight;
 		}
