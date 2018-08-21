@@ -54,7 +54,8 @@ typedef struct
 	int count;
 } sRayMarchingOut;
 
-typedef enum {
+typedef enum
+{
 	rayBranchReflection = 0,
 	rayBranchRefraction = 1,
 	rayBranchDone = 2,
@@ -280,7 +281,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
-			shaderInputData.delta = distThresh;
+			shaderInputData.delta = CalcDelta(point, consts);
 			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
@@ -481,7 +482,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
-			shaderInputData.delta = distThresh;
+			shaderInputData.delta = CalcDelta(point, consts);
 			shaderInputData.lightVect = renderData->lightVector;
 			shaderInputData.point = point;
 			shaderInputData.viewVector = rayStack[rayIndex].in.rayMarchingIn.direction;
@@ -505,7 +506,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			calcParam.N = consts->params.N;
 			calcParam.normalCalculationMode = false;
 			calcParam.distThresh = shaderInputData.distThresh;
-			calcParam.detailSize = shaderInputData.distThresh;
+			calcParam.detailSize = shaderInputData.delta;
 			calcParam.randomSeed = *randomSeed;
 
 #ifdef USE_REFLECTANCE
@@ -545,7 +546,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader += globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
-// calculate reflectance according to Fresnel equations
+				// calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
@@ -617,11 +618,8 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 #ifdef USE_REFRACTION
 			float step = rayMarchingOut.depth / shaderInputData.stepCount;
-			if (rayStack[rayIndex]
-						.in.calcInside) // if the object interior is traced, then the absorption of light has
-														// to
-														// be
-														// calculated
+			if (rayStack[rayIndex].in.calcInside) // if the object interior is traced, then the absorption
+																						// of light has to be calculated
 			{
 				for (int index = shaderInputData.stepCount - 1; index > 0; index--)
 				{

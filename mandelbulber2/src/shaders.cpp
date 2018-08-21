@@ -459,9 +459,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-																 + 1e-100);
+			double fakeLight = 1.0
+												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+														 + 1e-100);
 			output.R +=
 				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
 			output.G +=
@@ -689,7 +690,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0;
+	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode
+										 && !params->interiorMode && softRange > 0.0;
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
@@ -887,7 +889,7 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 	// calculating normal vector based on distance estimation (gradient of distance function)
 	if (!params->slowShading)
 	{
-		double delta = input.delta * params->smoothness;
+		double delta = input.distThresh * params->smoothness;
 		if (params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
 
 		double sx1, sx2, sy1, sy2, sz1, sz2;
@@ -988,10 +990,10 @@ sRGBAfloat cRenderWorker::SpecularHighlight(
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0f) shade2 = 0.0f;
-	float diffuse =
-		10.0f * (1.1f
-							- input.material->diffusionTextureIntensity
-									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+	float diffuse = 10.0f
+									* (1.1f
+											- input.material->diffusionTextureIntensity
+													* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
 	if (roughness > 0.0f)
 	{

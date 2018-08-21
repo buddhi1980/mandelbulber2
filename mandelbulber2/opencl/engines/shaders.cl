@@ -395,8 +395,8 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
 	float maxSoft = 0.0f;
 
-	const bool bSoft =
-		!consts->params.iterFogEnabled && !consts->params.common.iterThreshMode && softRange > 0.0f;
+	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.common.iterThreshMode
+										 && !consts->params.interiorMode && softRange > 0.0f;
 
 	int count = 0;
 	float step = 0.0f;
@@ -413,6 +413,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 			dist_thresh = input->distThresh;
 
 		calcParam->distThresh = dist_thresh;
+		calcParam->detailSize = dist_thresh;
 		formulaOut outF;
 
 		outF = CalculateDistance(consts, point2, calcParam, renderData);
