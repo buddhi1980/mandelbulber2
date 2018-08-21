@@ -141,7 +141,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		// orbit trap component
 		if (fractalColoring.orbitTrapTrue)
 		{
-			if (fractalColoring.tempLimitFalse) minimumR = min(100.0, minimumR); // TEMP for testing
+			//if (fractalColoring.tempLimitFalse) minimumR = min(100.0, minimumR); // TEMP for testing
 			colorValue += minimumR * fractalColoring.orbitTrapWeight;
 		}
 
@@ -149,9 +149,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		if (fractalColoring.auxColorFalse)
 		{
 			double auxColor = extendedAux.color;
-			if (fractalColoring.tempLimitFalse) auxColor = min(auxColor, 1000.0); // TEMP for testing
+			//if (fractalColoring.tempLimitFalse) auxColor = min(auxColor, 1000.0); // TEMP for testing
 			colorValue += auxColor * fractalColoring.auxColorWeight // aux.color
-										+ extendedAux.colorHybrid													 // transf_hybrid_color inputs
+										+ extendedAux.colorHybrid							 // transf_hybrid_color inputs
 												* fractalColoring.auxColorHybridWeight;
 		}
 
@@ -173,7 +173,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			if (fractalColoring.radDivDE1e13False) radDE /= 1e13;
 			if (fractalColoring.radDivDeSquaredFalse) radDE *= radDE;
 			radDE /= distEst;
-			if (fractalColoring.tempLimitFalse) radDE = min(radDE, 20.0); // TEMP for testing
+			//if (fractalColoring.tempLimitFalse) radDE = min(radDE, 20.0); // TEMP for testing
 
 			colorValue += radDE * fractalColoring.radDivDeWeight;
 		}
@@ -281,6 +281,17 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		if (colorValue > maxCV) colorValue = maxCV;
 
 		colorIndex = colorValue * 256.0; // convert to colorValue units
+
+		// pre ver2.15 hybrid mode
+		if (fractalColoring.tempLimitFalse) // TEMP for testing
+		{
+			double oldR = z.Length();
+			if (oldR > 1e15) oldR = 1e15;
+			minimumR = min(100.0, minimumR);
+			double mboxColor = min(extendedAux.color, 1000.0);
+			double r2 = min(oldR / fabs(extendedAux.DE), 20.0);
+			colorIndex = (minimumR * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
+		}
 	}
 
 	// Historic HYBRID MODE coloring
