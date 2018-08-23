@@ -142,6 +142,7 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 	sClCalcParams calcParam;
 	calcParam.N = consts->params.N;
 	calcParam.normalCalculationMode = false;
+	calcParam.iterThreshMode = consts->params.iterThreshMode;
 	float distThresh = 1e-6f;
 
 	formulaOut outF;
@@ -278,6 +279,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			sClCalcParams calcParam;
 			calcParam.N = consts->params.N;
 			calcParam.normalCalculationMode = false;
+			calcParam.iterThreshMode = consts->params.iterThreshMode;
 
 			sShaderInputDataCl shaderInputData;
 			shaderInputData.distThresh = distThresh;
@@ -312,6 +314,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				sClCalcParams calcParam;
 				calcParam.N = consts->params.N;
 				calcParam.normalCalculationMode = false;
+				calcParam.iterThreshMode = consts->params.iterThreshMode;
 				calcParam.distThresh = shaderInputData.distThresh;
 				calcParam.detailSize = shaderInputData.delta;
 
@@ -505,6 +508,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			sClCalcParams calcParam;
 			calcParam.N = consts->params.N;
 			calcParam.normalCalculationMode = false;
+			calcParam.iterThreshMode = consts->params.iterThreshMode;
 			calcParam.distThresh = shaderInputData.distThresh;
 			calcParam.detailSize = shaderInputData.delta;
 			calcParam.randomSeed = *randomSeed;

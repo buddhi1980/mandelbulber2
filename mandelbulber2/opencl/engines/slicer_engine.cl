@@ -104,6 +104,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 	sClCalcParams calcParam;
 	calcParam.N = meshConfig->maxiter;
 	calcParam.normalCalculationMode = false;
+	calcParam.iterThreshMode = consts->params.iterThreshMode;
 	calcParam.distThresh = meshConfig->distThresh;
 	calcParam.detailSize = meshConfig->distThresh;
 

@@ -100,7 +100,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	float dist = 0.0f;
 	int N = calcParam->N;
 
-	if (calcParam->normalCalculationMode) N *= 5;
+	if (calcParam->normalCalculationMode && calcParam->iterThreshMode) N *= 5;
 	if (mode == calcModeColouring) N *= 10;
 
 	// repeat, move and rotate
