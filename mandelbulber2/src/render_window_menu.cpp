@@ -248,24 +248,14 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += "</td>";
 	text += "</tr></table>";
 
-	QMessageBox *messageBox = new QMessageBox(this);
-	messageBox->setFixedWidth(900);
-	messageBox->setMinimumWidth(900);
-	messageBox->setText(style + text);
-	messageBox->setWindowTitle(QObject::tr("HotKeys Cheatsheet"));
-	messageBox->setIcon(QMessageBox::Information);
-	messageBox->addButton(QMessageBox::Ok);
-	messageBox->setDefaultButton(QMessageBox::Ok);
-
-	// ! Evil hack to increase size of QMessageBox,
-	// see here for more info:
-	// https://stackoverflow.com/questions/37668820/how-can-i-resize-qmessagebox
-	QSpacerItem *horizontalSpacer =
-		new QSpacerItem(900, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	QGridLayout *layout = (QGridLayout *)messageBox->layout();
-	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
-
-	messageBox->exec();
+	QLabel *label = new QLabel;
+	label->setText(style + text);
+	QVBoxLayout *layout = new QVBoxLayout();
+	layout->addWidget(label);
+	QDialog *dialog = new QDialog(this);
+	dialog->setLayout(layout);
+	dialog->setWindowTitle(QObject::tr("HotKeys Cheatsheet"));
+	dialog->show();
 }
 
 void RenderWindow::slotMenuAboutThirdParty()
