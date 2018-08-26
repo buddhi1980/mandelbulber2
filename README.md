@@ -63,10 +63,10 @@ The possibilities are literally **infinite**!
 
 In render window:
 
-  - <kbd>Up</kbd> / <kbd>Down</kbd>: Move Camera Forward / Backward
-  - <kbd>Left</kbd> / <kbd>Right</kbd>: Move Camera Left / Right
-  - <kbd>Ctrl</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd>): Move Camera Up / Down
-  - <kbd>Shift</kbd>+(<kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>): Rotate Camera
+  - <kbd>Shift</kbd>+<kbd>Up</kbd> or <kbd>Q</kbd> / <kbd>Shift</kbd>+<kbd>Down</kbd> or <kbd>Z</kbd>: Move Camera Forward / Backward
+  - <kbd>Shift</kbd>+<kbd>Left</kbd> or <kbd>A</kbd> / <kbd>Shift</kbd>+<kbd>Right</kbd> or <kbd>D</kbd>: Move Camera Left / Right
+  - <kbd>W</kbd> / <kbd>S</kbd>: Move Camera Up / Down
+  - <kbd>Up</kbd> / <kbd>Down</kbd> / <kbd>Left</kbd> / <kbd>Right</kbd>: Rotate Camera
   - <kbd>Ctrl</kbd>+(<kbd>Left</kbd> / <kbd>Right</kbd>): Roll Camera Left / Right
 
 ## Building and Deploying 
