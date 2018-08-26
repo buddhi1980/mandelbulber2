@@ -110,13 +110,13 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 			textureCoordinates.x -= material->textureCenter.x;
 			textureCoordinates.y -= material->textureCenter.y;
 
-			CVector3 texY(0.0, 0.0, -1.0);
-			CVector3 texX = texY.Cross(point);
-			texX.Normalize();
-			texY = texX.Cross(point);
-
 			if (textureVectorX && textureVectorY)
 			{
+				CVector3 texY(0.0, 0.0, -1.0);
+				CVector3 texX = texY.Cross(point);
+				texX.Normalize();
+				texY = texX.Cross(point);
+
 				texX = objectData.rotationMatrix.Transpose().RotateVector(texX);
 				texX = material->rotMatrix.Transpose().RotateVector(texX);
 				*textureVectorX = texX;

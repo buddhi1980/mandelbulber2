@@ -279,6 +279,16 @@ inline float LengthPow(float2 vect, float p)
 	return pow(pow(vect.x, p) + pow(vect.y, p), 1.0f / p);
 }
 
+inline float GetAlpha(float3 vect)
+{
+	return atan2(vect.y, vect.x);
+}
+
+inline float GetBeta(float3 vect)
+{
+	return atan2(vect.z, length(vect.xy));
+}
+
 #endif
 
 #endif // MANDELBULBER2_OPENCL_ALGEBRA_HPP_

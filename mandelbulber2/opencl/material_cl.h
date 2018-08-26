@@ -38,6 +38,7 @@
 #ifndef OPENCL_KERNEL_CODE
 #include "fractal_coloring_cl.hpp"
 #include "opencl_algebra.h"
+#include "texture_enums_cl.h"
 
 #include "src/material.h"
 #endif /* OPENCL_KERNEL_CODE */
@@ -78,7 +79,7 @@ typedef struct
 
 	matrix33 rotMatrix;
 
-	// texture::enumTextureMapping textureMappingType;
+	enumTextureMappingCl textureMappingType;
 	cl_int fresnelReflectance;
 	cl_int useColorsFromPalette;
 	cl_int specularPlasticEnable;
@@ -138,6 +139,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.textureRotation = toClFloat3(source.textureRotation);
 	target.textureScale = toClFloat3(source.textureScale);
 
+	target.rotMatrix = toClMatrix33(source.rotMatrix);
+
+	target.textureMappingType = static_cast<enumTextureMappingCl>(source.textureMappingType);
 	target.fresnelReflectance = source.fresnelReflectance;
 	target.useColorsFromPalette = source.useColorsFromPalette;
 	target.specularPlasticEnable = source.specularPlasticEnable;

@@ -136,6 +136,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("fractal_coloring_cl.hpp");
 		clHeaderFiles.append("fractparams_cl.hpp");
 		clHeaderFiles.append("fractal_sequence_cl.h");
+		clHeaderFiles.append("texture_enums_cl.h");
 		clHeaderFiles.append("material_cl.h");
 		clHeaderFiles.append("object_type_cl.h");
 		clHeaderFiles.append("object_data_cl.h");
@@ -200,6 +201,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 			// 3D projections (3point, equirectagular, fisheye)
 			programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
+
+			// texture mapping
+			programEngine.append("#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
 
 			if (renderEngineMode != clRenderEngineTypeFast)
 			{
