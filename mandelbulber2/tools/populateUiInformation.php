@@ -35,7 +35,7 @@ foreach ($formulas as $index => $formula) {
 	printResultLine($formula['nameInComboBox'], $success, $status, $i / count($formulas));
 }
 printEndGroup();
-
+writeFormulaCSV($formulas);
 printFinish();
 exit;
 
@@ -757,6 +757,37 @@ function from_camel_case($input)
 		$match = $match == strtoupper($match) ? strtolower($match) : lcfirst($match);
 	}
 	return implode('_', $ret);
+}
+
+function writeFormulaCSV($formulas){
+	$file = fopen(PROJECT_PATH . 'deploy/formulaData.csv', 'w');
+	fputcsv($file,
+    array(
+        'index',
+        'name',
+        'deType',
+        'deFunctionType',
+        'pixelAddition',
+        'defaultBailout',
+        'analyticFunction',
+        'coloringFunction',
+    ));
+	foreach ($formulas as $index => $formula) {
+	    $data = array(
+			$index,
+			$formula['nameInComboBox'],
+			// $formula['internalName'],
+			// $formula['functionName'],
+			$formula['deType'],
+			$formula['deFunctionType'],
+			$formula['pixelAddition'],
+			$formula['defaultBailout'],
+			$formula['analyticFunction'],
+			$formula['coloringFunction'],
+        );
+    	fputcsv($file, $data);
+	}
+	fclose($file);
 }
 
 ?>
