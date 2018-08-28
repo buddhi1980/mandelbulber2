@@ -8916,13 +8916,17 @@ void TransfAddCpixelRotatedIteration(CVector4 &z, const sFractal *fractal, sExte
 
 /**
  * Adds Cpixel constant to z vector, scator algebra
+ * based on Manuel's math
+ * @reference
+ * https://luz.izt.uam.mx/drupal/en/fractals/hun
+ * @author Manuel Fernandez-Guasti
  */
 void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
 	CVector4 tempC = aux.const_c;
 	if (fractal->transformCommon.functionEnabledSwFalse)
-		 swap(tempC.x, tempC.z);
+		swap(tempC.x, tempC.z);
 
 	CVector4 cc = tempC * tempC;
 	CVector4 newC = tempC;
@@ -8991,36 +8995,6 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 		aux.DE =
 			aux.DE * vecDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
-
-		/*double limitA = fractal->transformCommon.scaleA1;
-		if (newC.x < limitA)
-		{
-			double temp = limitA - newC.x;
-			newC.x = newC.x * temp / limitA;
-		}*/
-
-		//z.x += sign(z.x) * tempFAB.x;
-		//z.y += sign(z.y) * tempFAB.y;
-		//z.z += sign(z.z) * tempFAB.z;
-
-
-		/*double limitA = fractal->transformCommon.scaleA1;
-
-		if (fabs(tempC.y * tempC.z) < limitA)
-			tempC.x =sign(newC.x) * limitA;
-
-
-		double limitB = fractal->transformCommon.scaleB1;
-
-		if (fabs(tempC.y * tempC.z) > limitB)
-			tempC.x =sign(newC.x) * limitB;*/
-
-		//double limitC = fractal->transformCommon.scaleC1;
-
-		//if (fabs(tempC.y * tempC.z) < limitC)
-			//tempC.x =sign(newC.x) * limitC;
-
-
 }
 
 /**

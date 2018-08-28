@@ -323,11 +323,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		MsltoeSym4ModIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Msltoe - Toroidal Bulb", "msltoe_toroidal",
-		msltoeToroidal, MsltoeToroidalIteration, analyticDEType, // TODO fix??
+		msltoeToroidal, MsltoeToroidalIteration, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Msltoe - Toroidal Multi", "msltoe_toroidal_multi",
-		msltoeToroidalMulti, MsltoeToroidalMultiIteration, analyticDEType, // TODO fix??
+		msltoeToroidalMulti, MsltoeToroidalMultiIteration, analyticDEType,
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
