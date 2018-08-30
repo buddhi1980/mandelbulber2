@@ -8998,6 +8998,61 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 /**
+ * Adds Cpixel constant sin or cos
+ */
+void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	CVector4 trigC = aux.const_c * fractal->transformCommon.constantMultiplierC111;
+	CVector4 trigC0 = trigC;
+
+	if (!fractal->transformCommon.functionEnabledBxFalse)
+	{
+		// apply simple trig
+		if (fractal->transformCommon.functionEnabledAx) trigC.x = sin(trigC0.x);
+		if (fractal->transformCommon.functionEnabledAxFalse) trigC.x = cos(trigC0.x);
+		if (fractal->transformCommon.functionEnabledAy) trigC.y = sin(trigC0.y);
+		if (fractal->transformCommon.functionEnabledAyFalse) trigC.y = cos(trigC0.y);
+		if (fractal->transformCommon.functionEnabledAz) trigC.z = sin(trigC0.z);
+		if (fractal->transformCommon.functionEnabledAzFalse) trigC.z = cos(trigC0.z);
+	}
+	else
+	{
+		// mode2
+		if (fractal->transformCommon.functionEnabledAx) trigC.x = (1.0 + sin(trigC0.x)) * sign(trigC.x) / 2.0;
+		if (fractal->transformCommon.functionEnabledAxFalse) trigC.x = (1.0 + cos(trigC0.x)) * sign(trigC.x) / 2.0;
+		if (fractal->transformCommon.functionEnabledAy) trigC.y = (1.0 + sin(trigC0.y)) * sign(trigC.y) / 2.0;
+		if (fractal->transformCommon.functionEnabledAyFalse) trigC.y = (1.0 + cos(trigC0.y)) * sign(trigC.y) / 2.0;
+		if (fractal->transformCommon.functionEnabledAz) trigC.z = (1.0 + sin(trigC0.z)) * sign(trigC.z) / 2.0;
+		if (fractal->transformCommon.functionEnabledAzFalse) trigC.z = (1.0 + cos(trigC0.z)) * sign(trigC.z) / 2.0;
+		// mode3
+		if (fractal->transformCommon.functionEnabledByFalse) trigC *= trigC0;
+	}
+
+	// symmetical
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		trigC = fabs(trigC);
+
+		z.x += sign(z.x) * trigC.x;
+		z.y += sign(z.y) * trigC.y;
+		z.z += sign(z.z) * trigC.z;
+	}
+
+
+	// add cPixel
+	z += trigC * fractal->transformCommon.constantMultiplier111;
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+	{
+		double tweakDE = z.Length()/oldZ.Length();
+		aux.DE = aux.DE * tweakDE * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
+	}
+}
+
+/**
  * Adds Cpixel constant to z vector, with symmetry
  */
 void TransfAddCpixelSymmetricalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -10844,8 +10899,6 @@ void TransfScale3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
  */
 void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(aux);
-
 	// CVector4 oldZ = z;
 	CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;

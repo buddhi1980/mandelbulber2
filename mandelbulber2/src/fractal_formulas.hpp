@@ -61,6 +61,10 @@
 #define M_PI_4 0.78539816339744830961566084581988
 #endif
 
+#ifndef M_PI_2
+#define M_PI_2 1.57079632679489661923132169163975
+#endif
+
 #ifndef M_PI_2x
 #define M_PI_2x 6.283185307179586476925286766559
 #endif
@@ -189,6 +193,7 @@ void TransfAddCpixelCxCyAxisSwapIteration(CVector4 &z, const sFractal *fractal, 
 void TransfAddCpixelIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddCpixelRotatedIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddCpixelSymmetricalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddCpixelVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

@@ -480,6 +480,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Cpixel - Scator", "transf_add_cpixel_scator",
 		transfAddCpixelScator, TransfAddCpixelScatorIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
+
+
+	fractalList->append(sFractalDescription("T>Add Cpixel - Sin Or Cos", "transf_add_cpixel_sin_or_cos",
+		transfAddCpixelSinOrCos, TransfAddCpixelSinOrCosIteration, analyticDEType, withoutDEFunction,
+		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
+
+
+
+
 	fractalList->append(
 		sFractalDescription("T>Add Cpixel - Symmetrical", "transf_add_cpixel_symmetrical",
 			transfAddCpixelSymmetrical, TransfAddCpixelSymmetricalIteration, analyticDEType,
