@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_offset</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -94,7 +94,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.989999999999995</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>
@@ -109,7 +109,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Analytic linear DE</string>
+      <string>Analytic DE Control</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8">
       <property name="leftMargin">
@@ -125,13 +125,6 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled">
-        <property name="text">
-         <string>Disable for analytic logrithmic DE</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <layout class="QGridLayout" name="gridLayout_26" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
@@ -139,7 +132,7 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_177">
           <property name="text">
-           <string>Analytic Linear DE offset1:</string>
+           <string>Analytic DE offset1:</string>
           </property>
          </widget>
         </item>

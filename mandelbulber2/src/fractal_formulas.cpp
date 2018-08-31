@@ -10662,11 +10662,6 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	else
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
 						 + fractal->analyticDE.offset1;
-
-	/*z *= fractal->transformCommon.scale;
-	double DeOffset = 1.0;
-	if (fractal->transformCommon.functionEnabledFalse) DeOffset = fractal->analyticDE.offset0;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + DeOffset;*/
 }
 
 /**
@@ -11081,7 +11076,7 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 	}
 	mode = 1.0 / mode;
 	z *= mode;
-	aux.DE *= mode;
+	aux.DE *= fabs(mode);
 
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
 }
@@ -11644,10 +11639,7 @@ void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExten
 	// if (-z.Length() > -1e-21) -z.Length() = -1e-21;   //  z is neg.)
 	z *= 1.0 + fractal->transformCommon.offset / -z.Length();
 	z *= fractal->transformCommon.scale;
-	if (fractal->analyticDE.enabled)
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + fractal->analyticDE.offset1;
-	else
-		aux.DE *= fractal->transformCommon.scale;
+	aux.DE = aux.DE * fractal->transformCommon.scale + fractal->analyticDE.offset1;
 }
 
 /**
@@ -11739,23 +11731,10 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 
 	// post scale
 	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-	aux.DE *= fabs(fractal->transformCommon.scale);
+	aux.DE = aux.DE * fractal->transformCommon.scale + 1.0;
 
 	// DE tweak
-	if (fractal->analyticDE.enabled)
-		aux.DE = aux.DE * fabs(fractal->analyticDE.scale1) + fractal->analyticDE.offset0;
-	else
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-	if (fractal->transformCommon.functionEnabledxFalse)
-	{
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // DE tweak
-	}
-	else
-	{
-		aux.DE = aux.DE * fabs(fractal->analyticDE.scale1)
-						 + fractal->analyticDE.offset0; // DE tweak  or aux.DE +=
+	aux.DE = aux.DE * fabs(fractal->analyticDE.scale1) + fractal->analyticDE.offset0;
 	}
 }
 

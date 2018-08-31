@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotation_folding</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>931</width>
-    <height>1901</height>
+    <width>934</width>
+    <height>1928</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -352,7 +352,7 @@
       <item>
        <widget class="QLabel" name="label_173">
         <property name="text">
-         <string>z = fabs(z + offset) - fabs( z - offset ) - z;</string>
+         <string>z = abs(z + offset) - abs( z - offset ) - z;</string>
         </property>
        </widget>
       </item>
@@ -946,15 +946,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
