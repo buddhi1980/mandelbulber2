@@ -11734,8 +11734,7 @@ void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sEx
 	aux.DE = aux.DE * fractal->transformCommon.scale + 1.0;
 
 	// DE tweak
-	aux.DE = aux.DE * fabs(fractal->analyticDE.scale1) + fractal->analyticDE.offset0;
-	}
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -11887,10 +11886,7 @@ void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					- fabs(fabs(z.z + fractal->surfBox.offset3A111.z) - fractal->surfBox.offset1B222.z)
 					- fractal->surfBox.offset3A111.z;
 	}
-	if (fractal->analyticDE.enabled)
-		aux.DE *= fractal->analyticDE.scale1; // tweak
-	else
-		aux.DE *= fractal->analyticDE.scale1; // tweak
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
 }
 
 /**
@@ -11957,10 +11953,7 @@ void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
 	}
-	if (fractal->analyticDE.enabled)
-		aux.DE *= fractal->analyticDE.scale1; // tweak
-	else
-		aux.DE *= fractal->analyticDE.scale1; // tweak
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
 }
 
 /**
