@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_neg_abs_add_constant</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_26">
      <property name="text">
-      <string>Neg fABS Add Constant z = - abs( z + constant)</string>
+      <string>Neg ABS Add Constant z = - abs( z + constant)</string>
      </property>
     </widget>
    </item>

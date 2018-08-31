@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold_xyz</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>826</width>
-    <height>1042</height>
+    <height>1088</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -268,6 +268,13 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_30">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
@@ -385,13 +392,6 @@
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="Line" name="line_30">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">

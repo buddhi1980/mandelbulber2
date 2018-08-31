@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_exp2_z</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>823</width>
+    <width>826</width>
     <height>2148</height>
    </rect>
   </property>
@@ -300,7 +300,7 @@
     </widget>
    </item>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,1">
      <item row="0" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
        <property name="sizePolicy">
@@ -319,7 +319,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.989999999999995</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>
@@ -339,7 +339,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>DE Tweak:</string>
+        <string>Analytic DE Tweak:</string>
        </property>
       </widget>
      </item>

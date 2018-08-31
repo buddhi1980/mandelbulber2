@@ -9003,7 +9003,7 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
-	CVector4 trigC = aux.const_c * fractal->transformCommon.constantMultiplierC111;
+	CVector4 trigC = aux.const_c * fractal->transformCommon.constantMultiplierC111; // freq
 	CVector4 trigC0 = trigC;
 
 	if (!fractal->transformCommon.functionEnabledBxFalse)
@@ -9028,10 +9028,15 @@ void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExt
 		// mode3
 		if (fractal->transformCommon.functionEnabledByFalse) trigC *= trigC0;
 	}
+	trigC *= fractal->transformCommon.constantMultiplier111; // ampl
 
-	// symmetical
-	if (fractal->transformCommon.functionEnabledFalse)
+		// add cPixel
+	if (!fractal->transformCommon.functionEnabledFalse)
 	{
+		z += trigC;
+	}
+	else
+	{ // symmetical
 		trigC = fabs(trigC);
 
 		z.x += sign(z.x) * trigC.x;
@@ -9039,11 +9044,7 @@ void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExt
 		z.z += sign(z.z) * trigC.z;
 	}
 
-
-	// add cPixel
-	z += trigC * fractal->transformCommon.constantMultiplier111;
-
-	// DE tweak
+	// DE tweak (sometimes hepls)
 	if (fractal->analyticDE.enabledFalse)
 	{
 		double tweakDE = z.Length()/oldZ.Length();
