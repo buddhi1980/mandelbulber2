@@ -1145,7 +1145,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		return false;
 	}
 
-	if (renderEngineMode == clRenderEngineTypeFull)
+	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
 	{
 		int err = kernel->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
