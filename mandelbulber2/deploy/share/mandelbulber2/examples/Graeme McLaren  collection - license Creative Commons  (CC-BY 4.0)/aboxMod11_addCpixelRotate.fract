@@ -1,0 +1,51 @@
+# Mandelbulber settings file
+# version 2.15
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 0.3770291432998158 -1.70374089417422 0.2174704280219625;
+camera_distance_to_target 0.04188575968146316;
+camera_rotation 165.183915182926 0 0;
+camera_top 0 0 1;
+DE_factor 0.6;
+detail_level 2;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 119;
+formula_2 1078;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+keyframe_last_to_render 0;
+mat1_coloring_palette_offset 16.27;
+mat1_coloring_random_seed 402720;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_iter_scale_enabled_false true;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_orbit_trap_weight 19.5;
+mat1_fractal_coloring_xyz_000 0.4 0 1;
+mat1_fractal_coloring_xyz_bias_enabled_false true;
+mat1_fractal_coloring_xyz_div_1e13_false true;
+mat1_fractal_coloring_xyz_iter_scale 10000;
+mat1_fractal_coloring_xyz_x_sqrd_enabled_false true;
+mat1_fractal_coloring_xyz_z_sqrd_enabled_false true;
+mat1_fractal_coloring_xyzC_111 1 1 256;
+mat1_is_defined true;
+mat1_surface_color_palette 810000 89c8ab 002e7a 001f62 f6fbae bf6991 c6c006 9f5b05 c5fcf5 83712f;
+target 0.3663182354916729 -1.744234020973948 0.2174704280219625;
+view_distance_max 29.01838010867949;
+volumetric_fog_colour_1_distance 0.000311807589075813;
+volumetric_fog_colour_2_distance 0.000623615178151626;
+volumetric_fog_distance_factor 0.000623615178151626;
+[fractal_1]
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_scale -1.11;
+transf_addition_constant_111 1 1 0.113;
+transf_minR2_p25 0.1;
+transf_rotation 9 -5 4;
+transf_rotation_enabled true;
+transf_scaleG_1 0.8;
+transf_start_iterations_C 16;
+transf_stop_iterations_C1 24;

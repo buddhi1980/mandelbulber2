@@ -1,0 +1,73 @@
+# Mandelbulber settings file
+# version 2.15
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+aux_light_colour_1 3f00 2e00 ff00;
+aux_light_enabled_1 true;
+aux_light_intensity_1 7.621999538177208e-06;
+aux_light_position_1 5.999964695321257 -8.032770934787186 5.446566118849495;
+aux_light_visibility 1.347469045105787;
+aux_light_visibility_size 0.2292635946403476;
+camera 6.002783021754218 -8.012450562451145 5.458651661593563;
+camera_distance_to_target 0.002273017773404792;
+camera_rotation 144.5244388992963 -10.03464913696667 -179.3779981051524;
+camera_top 0.1099578942562657 0.1355890785532045 -0.984644536504327;
+constant_DE_threshold true;
+DE_factor 0.125;
+DE_thresh 1e-05;
+dont_add_c_constant_1 true;
+dont_add_c_constant_2 true;
+flight_last_to_render 0;
+formula_1 125;
+formula_2 125;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+keyframe_last_to_render 0;
+main_light_alpha 3;
+main_light_beta 4;
+mat1_is_defined true;
+mat1_luminosity_color ff00 ff00 7f00;
+mat1_specular 0.8;
+mat1_specular_color ff00 ff00 7f00;
+mat1_specular_width 0.8;
+mat1_surface_color 9f00 9f00 9f00;
+N 18;
+target 6.001484042795663 -8.014273307828464 5.458255602566517;
+view_distance_max 54.19674190856015;
+volumetric_fog_colour_1_distance 0.07111223845842778;
+volumetric_fog_colour_2_distance 0.1422244769168556;
+volumetric_fog_distance_factor 0.1422244769168556;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_scale_1 0.8;
+boxfold_bulbpow2_z_factor 20;
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 0;
+mandelbox_scale -1.2;
+transf_minR2_p25 0.1;
+transf_rotation 9 -5 4;
+transf_rotation_enabled true;
+transf_scaleG_1 0.8;
+transf_start_iterations_A 16;
+transf_stop_iterations_A 18;
+transf_stop_iterations_B 18;
+transf_stop_iterations_C 18;
+transf_stop_iterations_C1 12;
+transf_stop_iterations_S 18;
+[fractal_2]
+analyticDE_scale_1 1.2;
+boxfold_bulbpow2_z_factor 43.8;
+mandelbox_color 0 0 0;
+mandelbox_color_Sp1 0;
+mandelbox_color_Sp2 0;
+transf_minR2_p25 0.3;
+transf_start_iterations_A 15;
+transf_stop_iterations_A 17;
+transf_stop_iterations_B 18;
+transf_stop_iterations_C 18;
+transf_stop_iterations_S 18;

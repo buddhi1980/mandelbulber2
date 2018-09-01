@@ -1,0 +1,77 @@
+# Mandelbulber settings file
+# version 2.15
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_brightness 0.9;
+camera 0.6920575947277993 -1.40559694983942 -1.333673287420557;
+camera_distance_to_target 0.04149435088038379;
+camera_rotation 19.41034554804568 0.5017744198065637 0.7728364873899506;
+camera_top 0.01563163186727904 -0.003776468838156917 0.9998706868231901;
+constant_DE_threshold true;
+DE_factor 0.7;
+DE_thresh 0.0003125;
+flight_last_to_render 0;
+fog_color_2 0000 5500 0000;
+formula_1 61;
+formula_2 1065;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+julia_c -0.09694045684753005 -0.5100627307384569 0.9208941309752512;
+keyframe_last_to_render 0;
+mat1_coloring_palette_size 20;
+mat1_coloring_random_seed 533154;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_global_palette_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_iter_add_scale_enabled_true false;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_round_enabled_false true;
+mat1_fractal_coloring_xyz_000 0 0 2;
+mat1_fractal_coloring_xyzC_111 0 0 6.474081;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_plastic_enable false;
+mat1_specular_width 1;
+mat1_surface_color_palette e14959 e14959 e14959 c9c745 c9c745 c9c745 4387db 4387db 4387db c9c745 4e4b83 1161e4 a65e77 9bffff 2fac41 0000d2 a48092 4387db e14959 e14959;
+mat2_color_texture_intensity 0.4;
+mat2_fractal_coloring_add_max 0;
+mat2_fractal_coloring_add_spread 0;
+mat2_fractal_coloring_cos_add 0;
+mat2_fractal_coloring_cos_period 0;
+mat2_fractal_coloring_ic_rad_weight 0;
+mat2_fractal_coloring_parab_scale 0;
+mat2_fractal_coloring_round_scale 0;
+mat2_fractal_coloring_xyzC_111 0 0 0;
+mat2_is_defined true;
+mat2_specular_plastic_enable false;
+mat2_surface_color 5a00 5a00 5a00;
+mat2_texture_center 5.5 0 0;
+mat2_texture_mapping_type 1;
+mat2_texture_scale 0.0625 0.0625 0.125;
+primitive_box_1_enabled true;
+primitive_box_1_material_id 2;
+primitive_box_1_position 0 0 -1.5;
+primitive_box_1_size 4 4 0.25;
+target 0.6782682462236275 -1.366462527999427 -1.333309900485753;
+textured_background_map_type 2;
+view_distance_max 24.24630203262404;
+volumetric_fog_enabled true;
+[fractal_1]
+transf_addition_constantA_000 -0.3 0.6 0;
+transf_int_A 2;
+transf_int_B 4;
+transf_offset 0.3;
+transf_offset_0 0.09999999999999998;
+transf_rotation 0 0 45;
+transf_start_iterations 8;
+transf_start_iterations_A 4;
+transf_stop_iterations 14;
+transf_stop_iterations_A 10;
+[fractal_2]
+transf_function_enabledz false;
+transf_offset_000 0 0.4 0;
+transf_offset_111 1 2 1;
