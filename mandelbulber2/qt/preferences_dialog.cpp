@@ -238,7 +238,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 	QString infoGenerateCacheFiles =
 		"This is a development feature. If you want to obtain all example cache files, click load!\n\n";
 	infoGenerateCacheFiles +=
-		"This will render all example files which are yet missing in your thumbnail cache.\n";
+		"This will render all settings files which are yet missing in your thumbnail cache.\n";
 	infoGenerateCacheFiles +=
 		"This process will take a lot of time and cannot be cancelled.\nProceed?";
 
@@ -248,14 +248,26 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 	if (reply == QMessageBox::Yes)
 	{
-		// this renders all example files as a thumbnail and saves them to the thumbnail cache
-		QString examplePath =
-			QDir::toNativeSeparators(systemData.sharedDir + QDir::separator() + "examples");
-		QDirIterator it(
-			examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
-		QStringList exampleFiles;
-		while (it.hasNext())
-			exampleFiles << it.next();
+		// this renders all example files and from settings folder as a thumbnail and saves them to the
+		// thumbnail cache
+
+		QStringList listOfFiles;
+
+		{
+			QString examplePath = QDir::toNativeSeparators(systemData.sharedDir + "examples");
+			QDirIterator it(
+				examplePath, QStringList() << "*.fract", QDir::Files, QDirIterator::Subdirectories);
+			QStringList exampleFiles;
+			while (it.hasNext())
+				listOfFiles << it.next();
+		}
+		{
+			QDirIterator it(systemData.GetSettingsFolder(), QStringList() << "*.fract", QDir::Files,
+				QDirIterator::Subdirectories);
+			QStringList settingsFiles;
+			while (it.hasNext())
+				listOfFiles << it.next();
+		}
 
 		cParameterContainer *examplePar = new cParameterContainer;
 		cFractalContainer *exampleParFractal = new cFractalContainer;
@@ -277,13 +289,13 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 			exampleParFractal->at(i).SetContainerName(QString("fractal") + QString::number(i));
 			InitFractalParams(&exampleParFractal->at(i));
 		}
-		for (int i = 0; i < exampleFiles.size(); i++)
+		for (int i = 0; i < listOfFiles.size(); i++)
 		{
-			QString filename = exampleFiles.at(i);
+			QString filename = listOfFiles.at(i);
 			gMainInterface->mainWindow->slotUpdateProgressAndStatus(QString("Rendering examples"),
 				tr("rendering %1, %2 of %3")
-					.arg(filename, QString::number(i + 1), QString::number(exampleFiles.size())),
-				1.0 * (i + 1) / exampleFiles.size(), cProgressText::progress_ANIMATION);
+					.arg(filename, QString::number(i + 1), QString::number(listOfFiles.size())),
+				1.0 * (i + 1) / listOfFiles.size(), cProgressText::progress_ANIMATION);
 
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.BeQuiet(true);
@@ -374,7 +386,7 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 		gOpenCl->openClHardware->getDevicesInformation();
 	for (auto openclDev : openclDevs)
 	{
-			QByteArray hash = openclDev.hash;
+		QByteArray hash = openclDev.hash;
 		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
 	}
 #endif // USE_OPENCL
@@ -396,7 +408,7 @@ void cPreferencesDialog::on_listWidget_opencl_platform_list_currentRowChanged(in
 		QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
 		for (auto device : devices)
 		{
-				QListWidgetItem *item = new QListWidgetItem(device.second);
+			QListWidgetItem *item = new QListWidgetItem(device.second);
 			item->setData(1, device.first);
 			bool selected = selectedDevices.contains(device.first);
 			ui->listWidget_opencl_device_list->addItem(item);
@@ -431,11 +443,11 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 		gOpenCl->openClHardware->getPlatformsInformation();
 
 	ui->listWidget_opencl_platform_list->clear();
-	for (auto & platformInformation : platformsInformation)
+	for (auto &platformInformation : platformsInformation)
 	{
 		QListWidgetItem *item =
-			new QListWidgetItem(platformInformation.name + ", " + platformInformation.vendor
-													+ ", " + platformInformation.version);
+			new QListWidgetItem(platformInformation.name + ", " + platformInformation.vendor + ", "
+													+ platformInformation.version);
 		ui->listWidget_opencl_platform_list->addItem(item);
 	}
 
@@ -451,7 +463,7 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
 	for (auto device : devices)
 	{
-			QListWidgetItem *item = new QListWidgetItem(device.second);
+		QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
 		bool selected = selectedDevices.contains(device.first);
 		ui->listWidget_opencl_device_list->addItem(item);
