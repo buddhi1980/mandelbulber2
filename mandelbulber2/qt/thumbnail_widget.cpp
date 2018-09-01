@@ -151,6 +151,8 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("image_width", tWidth * oversample);
 		params->Set("image_height", tHeight * oversample);
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
+		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
+		params->Set("DOF_min_samples", 5);
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
 		oldHash = hash;

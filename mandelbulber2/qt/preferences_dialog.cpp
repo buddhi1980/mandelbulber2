@@ -303,6 +303,7 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 			if (parSettings.Decode(examplePar, exampleParFractal))
 			{
+				thumbWidget->DisableTimer();
 				thumbWidget->AssignParameters(*examplePar, *exampleParFractal);
 				if (!thumbWidget->IsRendered())
 				{
