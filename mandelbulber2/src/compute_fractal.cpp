@@ -399,8 +399,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 					{
 						if (len < minimumR) minimumR = len;
-
-						//if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break; // v2.15 TODO remove after testing
 						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
 					}
 					else

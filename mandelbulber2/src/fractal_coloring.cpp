@@ -234,9 +234,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					colorValue +=
 						(1.0
 							- 1.0
-									/ (1.0
-											+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
-						* fractalColoring.addMax;
+								/ (1.0 + (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+									* fractalColoring.addMax;
 				}
 			}
 
@@ -256,11 +255,12 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 			{
 				if (colorValue > fractalColoring.cosStartValue)
 				{
-					double trig = (0.5
-													- 0.5
-															* cos((colorValue - fractalColoring.cosStartValue) * M_PI
-																		/ (fractalColoring.cosPeriod * 2.0)))
-												* fractalColoring.cosAdd;
+					double trig =
+						(0.5
+							- 0.5
+								* cos((colorValue - fractalColoring.cosStartValue) * M_PI
+									/ (fractalColoring.cosPeriod * 2.0)))
+										* fractalColoring.cosAdd;
 					colorValue += trig;
 				}
 			}
@@ -299,7 +299,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		minimumR = min(100.0, minimumR);
 
 		// aux.color (init cond = 1.0)
-		double mboxColor = min(extendedAux.color, 1000.0);
+		double mboxColor = extendedAux.color;
+		//double mboxColor = min(extendedAux.color, 1000.0);
 
 		// aux.DE
 		double r2 = min(r / fabs(extendedAux.DE), 20.0);
@@ -320,7 +321,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // r or abs z part
 					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
 					// ABOX if fractalColoring_Standard)  minimumR = 0.0
-					// ABOX r and minimumR  changed in V215 by bailout update
+					// ABOX r and minimumR values changed in V215 by bailout update
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;
