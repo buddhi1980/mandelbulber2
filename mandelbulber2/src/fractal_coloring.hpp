@@ -85,6 +85,7 @@ struct sFractalColoring
 
 	bool tempLimitFalse;
 	bool colorPreV215False;
+	bool hybridColorPreV215False;
 
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;

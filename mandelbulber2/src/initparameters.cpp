@@ -1200,11 +1200,17 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,
 		morphNone, paramStandard);
 
-	par->addParam(cMaterial::Name("fractal_coloring_max_color_iter", materialId), 5, 0, 100000,
+	par->addParam(cMaterial::Name("fractal_coloring_max_color_iter", materialId), 1, 0, 100000,
 		morphAkima, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_color_preV215_false", materialId), false,
 		morphNone, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_hybrid_color_preV215_false", materialId), false,
+		morphNone, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,
+		morphNone, paramStandard); // TODO
 
 	// color_by_numbers
 
@@ -1326,8 +1332,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, -1e20, 1e20,
 		morphAkima, paramStandard);
 
-	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,
-		morphNone, paramStandard);
+
 
 
 

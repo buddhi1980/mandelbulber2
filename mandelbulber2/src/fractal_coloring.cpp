@@ -283,7 +283,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		colorIndex = colorValue * 256.0; // convert to colorValue units
 
 		// pre ver2.15 historic hybrid mode
-		if (fractalColoring.tempLimitFalse) // TEMP for testing
+		if (fractalColoring.hybridColorPreV215False)
 		{
 			minimumR = min(100.0, minimumR);
 			double mboxColor = min(extendedAux.color, 1000.0);

@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-355</y>
+        <y>-390</y>
         <width>583</width>
-        <height>3964</height>
+        <height>3989</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -689,7 +689,14 @@ direction vector:</string>
           <item>
            <widget class="QCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
             <property name="text">
-             <string notr="true">pre V2.15 color</string>
+             <string notr="true">pre V2.15 orbit trap color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+            <property name="text">
+             <string notr="true">temp testing</string>
             </property>
            </widget>
           </item>
@@ -2425,9 +2432,9 @@ direction vector:</string>
                  </layout>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+                 <widget class="QCheckBox" name="checkBox_fractal_coloring_hybrid_color_preV215_false">
                   <property name="text">
-                   <string notr="true">temp for hybrid limits testing:</string>
+                   <string notr="true">pre V2.15 Hybrid Mode Color</string>
                   </property>
                  </widget>
                 </item>

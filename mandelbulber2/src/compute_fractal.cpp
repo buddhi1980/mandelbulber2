@@ -315,7 +315,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							case fractalColoring_Standard:
 							{
 								len = colorZ.Length();
-								if (len < minimumR) minimumR = len;
+								if (!in.material->fractalColoring.tempLimitFalse)
+								{
+									if (len < minimumR) minimumR = len;
+								}
+								else
+								{
+									minimumR = len;
+								}
 								break;
 							}
 							case fractalColoring_ZDotPoint:

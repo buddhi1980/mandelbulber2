@@ -111,8 +111,14 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_color_4D_enabled_false", "metallic", "iridescence_enabled",
 	"iridescence_intensity", "iridescence_subsurface_thickness",
 
+
+
+
 	"fractal_coloring_max_color_iter",
-	"fractal_coloring_color_preV215_false",
+	"fractal_coloring_color_preV215_false", "fractal_coloring_hybrid_color_preV215_false",
+
+
+
 
 	"fractal_coloring_extra_color_enabled_false", "fractal_coloring_init_cond_enabled_false",
 	"fractal_coloring_ic_rad_enabled_false", "fractal_coloring_ic_xyz_enabled_false",
@@ -234,8 +240,14 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.color4dEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_color_4D_enabled_false", id));
 
+
+
+
 	fractalColoring.colorPreV215False =
 		materialParam->Get<bool>(Name("fractal_coloring_color_preV215_false", id));
+
+	fractalColoring.hybridColorPreV215False =
+		materialParam->Get<bool>(Name("fractal_coloring_hybrid_color_preV215_false", id));
 
 	fractalColoring.maxColorIter =
 		materialParam->Get<int>(Name("fractal_coloring_max_color_iter", id));
