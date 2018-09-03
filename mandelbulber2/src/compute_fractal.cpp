@@ -56,10 +56,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	double minimumR = 0.0;
 	if (Mode == calcModeColouring)
 	{
-		minimumR = in.material->fractalColoring.initialMinimumR;
+		minimumR = in.material->fractalColoring.initialMinimumR; // default 100.0
 	}
 
-	double len = 0.0; // Temp: declared here for access outside orbit traps code
+	//double len = 0.0; // Temp: declared here for access outside orbit traps code
+	//double colorLength = 0.0; // Temp: declared here for access outside orbit traps code
 
 	if (in.forcedFormulaIndex >= 0)
 	{
@@ -304,53 +305,111 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				CVector4 colorZ = z;
 				if (!in.material->fractalColoring.color4dEnabledFalse) colorZ.w = 0.0;
 
-				// double len = 0.0;
-				switch (in.material->fractalColoring.coloringAlgorithm)
+				if (!in.material->fractalColoring.colorPreV215False)
 				{
-					case fractalColoring_Standard:
+					double len = 0.0;
+					if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 					{
-						len = colorZ.Length();
-						break;
+						switch (in.material->fractalColoring.coloringAlgorithm)
+						{
+							case fractalColoring_Standard:
+							{
+								len = colorZ.Length();
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+							case fractalColoring_ZDotPoint:
+							{
+								len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+							case fractalColoring_Sphere:
+							{
+								len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
+													 - in.material->fractalColoring.sphereRadius);
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+							case fractalColoring_Cross:
+							{
+								len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
+								if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+							case fractalColoring_Line:
+							{
+								len = fabs(colorZ.Dot(in.material->fractalColoring.lineDirection));
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+							case fractalColoring_None:
+							{
+								len = r;
+								if (len < minimumR) minimumR = len;
+								break;
+							}
+						}
 					}
-					case fractalColoring_ZDotPoint:
-					{
-						len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
-						break;
-					}
-					case fractalColoring_Sphere:
-					{
-						len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
-											 - in.material->fractalColoring.sphereRadius);
-						break;
-					}
-					case fractalColoring_Cross:
-					{
-						len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
-						if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
-						break;
-					}
-					case fractalColoring_Line:
-					{
-						len = fabs(colorZ.Dot(in.material->fractalColoring.lineDirection));
-						break;
-					}
-					case fractalColoring_None:
-					{
-						len = r;
-						break;
-					}
-				}
-				if (fractal->formula != mandelbox
-						|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
-				{
-					if (len < minimumR) minimumR = len;
+					//if (fractal->formula == mandelbox) minimumR = 100;
 					if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
 				}
 				else
 				{
-					if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+					double len = 0.0;
+					{
+						switch (in.material->fractalColoring.coloringAlgorithm)
+						{
+							case fractalColoring_Standard:
+							{
+								len = colorZ.Length();
+								break;
+							}
+							case fractalColoring_ZDotPoint:
+							{
+								len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
+								break;
+							}
+							case fractalColoring_Sphere:
+							{
+								len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
+													 - in.material->fractalColoring.sphereRadius);
+								break;
+							}
+							case fractalColoring_Cross:
+							{
+								len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
+								if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
+								break;
+							}
+							case fractalColoring_Line:
+							{
+								len = fabs(colorZ.Dot(in.material->fractalColoring.lineDirection));
+								break;
+							}
+							case fractalColoring_None:
+							{
+								len = r;
+								break;
+							}
+						}
+					}
+					if (fractal->formula != mandelbox // minimumR = 100 default in color calc for Mbox and standard
+							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+					{
+						if (len < minimumR) minimumR = len;
+
+						//if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break; // v2.15 TODO remove after testing
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
+					}
+					else
+					{
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+					}
 				}
 			}
+
 			else if (Mode == calcModeOrbitTrap)
 			{
 				CVector4 delta = z - CVector4(in.common.fakeLightsOrbitTrap, 0.0);
@@ -396,7 +455,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	}
 
 	// final calculations
-	if (Mode == calcModeNormal)
+	if (Mode == calcModeNormal) //analytic
 	{
 		// if (extendedAux.DE > 0.0); //maybe?
 		if (fractals.IsHybrid())

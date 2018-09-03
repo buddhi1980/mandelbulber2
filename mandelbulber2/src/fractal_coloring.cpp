@@ -282,19 +282,17 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 
 		colorIndex = colorValue * 256.0; // convert to colorValue units
 
-		// pre ver2.15 hybrid mode
+		// pre ver2.15 historic hybrid mode
 		if (fractalColoring.tempLimitFalse) // TEMP for testing
 		{
-			double oldR = z.Length();
-			if (oldR > 1e15) oldR = 1e15;
 			minimumR = min(100.0, minimumR);
 			double mboxColor = min(extendedAux.color, 1000.0);
-			double r2 = min(oldR / fabs(extendedAux.DE), 20.0);
+			double r2 = min(r / fabs(extendedAux.DE), 20.0);
 			colorIndex = (minimumR * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 		}
 	}
 
-	// Historic HYBRID MODE coloring
+	//  HYBRID MODE coloring
 	else if (isHybrid)
 	{
 		// orbit trap
@@ -310,7 +308,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		colorIndex = (minimumR * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 	}
 
-	// NORMAL MODE Coloring
+	// NORMAL MODE Coloring (single fractal)
 	else
 	{
 
@@ -318,10 +316,11 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0														 // folds part
-					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // abs z part
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0
-																																						 : 0.0);
+					extendedAux.color * 100.0 // folds part
+					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // r or abs z part
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? minimumR * 1000.0 : 0.0);
+					// ABOX if fractalColoring_Standard)  minimumR = 0.0
+					// ABOX r and minimumR  changed in V215 by bailout update
 				break;
 			case coloringFunctionIFS: colorIndex = minimumR * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = minimumR * 200.0; break;

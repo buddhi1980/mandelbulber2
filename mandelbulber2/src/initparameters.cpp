@@ -1191,7 +1191,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
-		int(fractalColoring_Standard), 0, 4, morphNone, paramStandard);
+		int(fractalColoring_Standard), 0, 4, morphNone, paramStandard); // = 0,0,4
+
 	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),
@@ -1199,7 +1200,13 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,
 		morphNone, paramStandard);
 
-	// trial
+	par->addParam(cMaterial::Name("fractal_coloring_max_color_iter", materialId), 5, 0, 100000,
+		morphAkima, paramStandard);
+
+	par->addParam(cMaterial::Name("fractal_coloring_color_preV215_false", materialId), false,
+		morphNone, paramStandard);
+
+	// color_by_numbers
 
 	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,
 		morphNone, paramStandard);

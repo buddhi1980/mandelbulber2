@@ -84,9 +84,11 @@ struct sFractalColoring
 	bool xyzZSqrdFalse;
 
 	bool tempLimitFalse;
+	bool colorPreV215False;
 
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
+	int maxColorIter;
 
 	CVector4 lineDirection;
 	CVector3 xyz000;
