@@ -102,7 +102,7 @@ typedef struct
 
 	cl_int colorPreV215False;
 	cl_int hybridColorPreV215False;
-	cl_intcl_int tempLimitFalse; // temp
+	cl_int tempLimitFalse; // temp
 
 	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
