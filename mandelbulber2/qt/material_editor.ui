@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-826</y>
+        <y>0</y>
         <width>583</width>
         <height>3961</height>
        </rect>
@@ -499,7 +499,7 @@ sphere radius:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin.  The value is the value at the &lt;span style=&quot; text-decoration: underline;&quot;&gt;end&lt;/span&gt; of orbit trap iterations&lt;/p&gt;&lt;p&gt;The rest of the algorithms use the minimum value recorded &lt;span style=&quot; text-decoration: underline;&quot;&gt;during&lt;/span&gt; the orbit trap iterations.&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <item>
                <property name="text">

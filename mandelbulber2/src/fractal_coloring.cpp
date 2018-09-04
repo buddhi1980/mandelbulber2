@@ -296,6 +296,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 	else if (isHybrid)
 	{
 		// orbit trap
+		//if (!coloringFunctionABox) colorMin = min(100.0, colorMin);          TODO
+		//else colorMin = 0.0;
 		colorMin = min(100.0, colorMin);
 
 		// aux.color (init cond = 1.0)
