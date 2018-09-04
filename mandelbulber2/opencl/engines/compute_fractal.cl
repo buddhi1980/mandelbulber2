@@ -133,7 +133,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	out.maxiter = consts->params.iterThreshMode;
 	out.orbitTrapR = 0.0f;
 
-	float colorMin = fractalColoring->initialMinimumR;
+	float colorMin = 1000.0;
+	//float colorMin = fractalColoring->initialMinimumR;
 	float orbitTrapTotal = 0.0f;
 
 	int fractalIndex = 0;

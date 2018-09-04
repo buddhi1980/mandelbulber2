@@ -105,7 +105,7 @@ struct sFractalColoring
 	double cosStartValue;
 	double icRadWeight;
 	double initialColorValue;
-	double initialMinimumR;
+	//double initialMinimumR;
 	double iterAddScale;
 	double iterScale;
 	double maxColorValue;
@@ -122,7 +122,7 @@ struct sFractalColoring
 	sFractalColoring();
 };
 
-double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double minimumR,
+double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 	const sExtendedAux &extendedAux, const sFractalColoring &fractalColoring,
 	fractal::enumColoringFunction coloringFunction, const sFractal *defaultFractal);
 

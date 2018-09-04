@@ -1236,8 +1236,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, -1e20, 1e20,
 		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
-		morphAkima, paramStandard);
+	//par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
+		//morphAkima, paramStandard);
 
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphNone,
 		paramStandard);

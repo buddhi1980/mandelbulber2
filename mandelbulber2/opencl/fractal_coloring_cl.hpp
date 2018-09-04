@@ -98,7 +98,11 @@ typedef struct
 	cl_int xyzXSqrdFalse;
 	cl_int xyzYSqrdFalse;
 	cl_int xyzZSqrdFalse;
-        cl_int tempLimitFalse; // temp
+
+
+	cl_int colorPreV215False;
+	cl_int hybridColorPreV215False;
+	cl_intcl_int tempLimitFalse; // temp
 
 	enumFractalColoringCl coloringAlgorithm;
 	cl_int iStartValue;
@@ -117,7 +121,7 @@ typedef struct
 	cl_float cosStartValue;
 	cl_float icRadWeight;
 	cl_float initialColorValue;
-	cl_float initialMinimumR;
+	//cl_float initialMinimumR;
 	cl_float iterAddScale;
 	cl_float iterScale;
 	cl_float maxColorValue;
@@ -165,7 +169,10 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.xyzXSqrdFalse = source.xyzXSqrdFalse;
 	target.xyzYSqrdFalse = source.xyzYSqrdFalse;
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
-        target.tempLimitFalse = source.tempLimitFalse; // temp
+
+	target.colorPreV215False = source.colorPreV215False;
+	target.hybridColorPreV215False = source.hybridColorPreV215False;
+	target.tempLimitFalse = source.tempLimitFalse; // temp
 
 	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
 	target.iStartValue = source.iStartValue;
@@ -182,7 +189,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.cosStartValue = source.cosStartValue;
 	target.icRadWeight = source.icRadWeight;
 	target.initialColorValue = source.initialColorValue;
-	target.initialMinimumR = source.initialMinimumR;
+	//target.initialMinimumR = source.initialMinimumR;
 	target.iterAddScale = source.iterAddScale;
 	target.iterScale = source.iterScale;
 	target.maxColorValue = source.maxColorValue;
