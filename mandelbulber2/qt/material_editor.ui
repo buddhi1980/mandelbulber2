@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>583</width>
-        <height>3961</height>
+        <y>-2593</y>
+        <width>582</width>
+        <height>3820</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -687,21 +687,21 @@ direction vector:</string>
            </layout>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
             <property name="text">
              <string notr="true">pre V2.15 orbit trap color</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
             <property name="text">
              <string notr="true">temp testing</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
             <property name="text">
              <string notr="true">4D orbit trap color</string>
             </property>
@@ -834,7 +834,7 @@ direction vector:</string>
                    </widget>
                   </item>
                   <item row="0" column="1" colspan="3">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
+                   <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_rad_enabled_false">
                     <property name="text">
                      <string notr="true"> c_radius</string>
                     </property>
@@ -883,7 +883,7 @@ direction vector:</string>
                    </widget>
                   </item>
                   <item row="2" column="1" colspan="3">
-                   <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
+                   <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_xyz_enabled_false">
                     <property name="text">
                      <string notr="true"> c_xyz</string>
                     </property>
@@ -962,7 +962,7 @@ direction vector:</string>
                  </layout>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
+                 <widget class="MyCheckBox" name="checkBox_fractal_coloring_ic_fabs_enabled_false">
                   <property name="text">
                    <string notr="true">disable abs(). May need to increase initial colorValue.</string>
                   </property>
@@ -1268,14 +1268,14 @@ direction vector:</string>
                     <number>2</number>
                    </property>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_1e13_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_rad_div_1e13_false">
                      <property name="text">
                       <string notr="true">radius / 1e13</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_rad_squared_enabled_false">
                      <property name="text">
                       <string notr="true">radius squared</string>
                      </property>
@@ -1367,14 +1367,14 @@ direction vector:</string>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_1e13_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_rad_div_de_1e13_false">
                      <property name="text">
                       <string notr="true">radius / 1e13</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_rad_div_de_squared_false">
                      <property name="text">
                       <string notr="true">radius squared</string>
                      </property>
@@ -1453,7 +1453,7 @@ direction vector:</string>
                     <number>2</number>
                    </property>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_div_1e13_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_div_1e13_false">
                      <property name="text">
                       <string notr="true">xyz / 1e13</string>
                      </property>
@@ -1647,7 +1647,7 @@ direction vector:</string>
                     </layout>
                    </item>
                    <item>
-                    <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
+                    <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_fabs_enabled_false">
                      <property name="text">
                       <string notr="true">disable abs(). May need to increase initial colorValue.</string>
                      </property>
@@ -2391,7 +2391,7 @@ direction vector:</string>
                  </layout>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="checkBox_fractal_coloring_hybrid_color_preV215_false">
+                 <widget class="MyCheckBox" name="checkBox_fractal_coloring_hybrid_color_preV215_false">
                   <property name="text">
                    <string notr="true">pre V2.15 Hybrid Mode Color</string>
                   </property>
