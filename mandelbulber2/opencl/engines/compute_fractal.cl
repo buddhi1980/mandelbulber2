@@ -380,7 +380,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				len = aux.r;
 #endif // USE_COLORING_MODES
 
-				if (fractal->formula != 8) // not mandelbox
+				if (fractal->formula != 8) // mandelbox has no orbit trap component
 				{
 					if (len < colorMin) colorMin = len;
 					if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)

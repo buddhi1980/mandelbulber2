@@ -309,12 +309,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				if (!in.material->fractalColoring.colorPreV215False)
 				{
 					double len = 0.0;
-					if (extendedAux.i < in.material->fractalColoring.maxColorIter)
+					//if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 					{
 						switch (in.material->fractalColoring.coloringAlgorithm)
 						{
 							case fractalColoring_Standard:
 							{
+							//if (fractal->formula != mandelbox // colorMin = 100 default in color calc for Mbox and standard
+							//		|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 								len = colorZ.Length();
 								if (!in.material->fractalColoring.tempLimitFalse)
 								{
@@ -322,7 +324,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 								}
 								else
 								{
-									colorMin = len;
+									len = colorMin;
 								}
 								break;
 							}
@@ -360,8 +362,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							}
 						}
 					}
-					//if (fractal->formula == mandelbox) colorMin = 100;
-					if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
+					if (fractal->formula != mandelbox // colorMin = 100 default in color calc for Mbox and standard
+							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+					{
+						if (len < colorMin) colorMin = len;
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
+					}
+					else
+					{
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+					}
 				}
 				else
 				{
