@@ -1907,7 +1907,7 @@ void AboxModKaliV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z += fractal->transformCommon.offsetA111;
 	}
 
-
+	// TODO add the options
 
 }
 
