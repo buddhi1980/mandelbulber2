@@ -1884,6 +1884,34 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 }
 
 /**
+ * ABoxModKali V3, a formula from Mandelbulb3D
+ * @reference http://www.fractalforums.com/new-theories-and-research/aboxmodkali-the-2d-version/
+ */
+void AboxModKaliV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterations15)
+	{
+		z = fractal->transformCommon.offset111 - fabs(z);
+		double rr = z.Dot(z);
+		double MinR = fractal->transformCommon.minR0;
+		double dividend = rr < MinR ? MinR : min(rr, 1.0);
+		double m = -fractal->transformCommon.scale015 / dividend;
+		z = z * m;
+		aux.DE = aux.DE * fabs(m) + 1.0;
+	}
+
+	if (aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		z += fractal->transformCommon.offsetA111;
+	}
+
+
+
+}
+
+/**
  * ABoxVS_icen1, a formula from Mandelbulb3D.
  * Inspired from a 2D formula proposed by Kali at Fractal Forums
  * @reference

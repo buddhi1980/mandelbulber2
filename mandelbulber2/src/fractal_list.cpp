@@ -89,6 +89,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		AboxModKaliV2Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionIFS));
 
+	fractalList->append(sFractalDescription("Abox - Mod Kali-V3", "abox_mod_kali_v3", aboxModKaliV3,
+		AboxModKaliV3Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionIFS));
+
 	fractalList->append(sFractalDescription("Abox - VS icen1", "abox_vs_icen1", aboxVSIcen1,
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));

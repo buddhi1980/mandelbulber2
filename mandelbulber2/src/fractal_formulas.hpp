@@ -87,6 +87,7 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void AboxModKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxModKaliEiffieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void AboxModKaliV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AexionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AexionOctopusModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
