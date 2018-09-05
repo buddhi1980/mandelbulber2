@@ -310,28 +310,37 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					case fractalColoring_Standard:
 					{
+					//if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 						len = colorZ.Length();
 						break;
 					}
 					case fractalColoring_ZDotPoint:
 					{
+					//if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 						len = fabs(colorZ.Dot(CVector4(pointTransformed, initialWAxisColor)));
 						break;
 					}
 					case fractalColoring_Sphere:
 					{
+					//if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 						len = fabs((colorZ - CVector4(pointTransformed, initialWAxisColor)).Length()
 											 - in.material->fractalColoring.sphereRadius);
 						break;
 					}
 					case fractalColoring_Cross:
 					{
+					/*if (extendedAux.i < in.material->fractalColoring.maxColorIter)
+					{
+						len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
+						if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
+					}*/
 						len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
 						if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
 						break;
 					}
 					case fractalColoring_Line:
 					{
+					//if (extendedAux.i < in.material->fractalColoring.maxColorIter)
 						len = fabs(colorZ.Dot(in.material->fractalColoring.lineDirection));
 						break;
 					}
@@ -357,6 +366,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else
 				{
+					// colorMin = len;
 					if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
 				}
 			}
