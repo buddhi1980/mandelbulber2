@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2593</y>
-        <width>582</width>
-        <height>3820</height>
+        <y>0</y>
+        <width>583</width>
+        <height>3961</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -664,7 +664,7 @@ direction vector:</string>
                <number>0</number>
               </property>
               <property name="maximum">
-               <number>999</number>
+               <number>999999999</number>
               </property>
               <property name="value">
                <number>0</number>

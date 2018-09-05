@@ -325,10 +325,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 				colorIndex =
 					extendedAux.color * 100.0														 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // r or abs z part
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? colorMin * 1000.0
-																																						 : 0.0);
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? colorMin * 1000.0 : 0.0);
 				// ABOX if fractalColoring_Standard)  minimumR = 0.0
 				// ABOX r and minimumR values changed in V215 by bailout update
+				// ABOX extendedAux.color is f(i), change bailout = change value
 				break;
 			case coloringFunctionIFS: colorIndex = colorMin * 1000.0; break;
 			case coloringFunctionAmazingSurf: colorIndex = colorMin * 200.0; break;
