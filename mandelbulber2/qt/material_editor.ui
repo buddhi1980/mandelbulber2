@@ -81,9 +81,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-1552</y>
         <width>583</width>
-        <height>3961</height>
+        <height>3970</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -651,52 +651,9 @@ direction vector:</string>
            </layout>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,1">
-            <item row="0" column="1">
-             <widget class="MySpinBox" name="spinboxInt_fractal_coloring_max_color_iter">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>999999999</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_63">
-              <property name="font">
-               <font>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;max orbit trap iters:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
            <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
             <property name="text">
              <string notr="true">pre V2.15 orbit trap color</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="MyCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
-            <property name="text">
-             <string notr="true">temp testing</string>
             </property>
            </widget>
           </item>
@@ -2391,10 +2348,91 @@ direction vector:</string>
                  </layout>
                 </item>
                 <item>
-                 <widget class="MyCheckBox" name="checkBox_fractal_coloring_hybrid_color_preV215_false">
-                  <property name="text">
-                   <string notr="true">pre V2.15 Hybrid Mode Color</string>
+                 <widget class="MyGroupBox" name="groupCheck_fractal_coloring_hybrid_color_preV215_false">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Function produces an addition to the ColorValues based on its current value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
+                  <property name="title">
+                   <string>pre V2.15 H&amp;ybrid Mode Color</string>
+                  </property>
+                  <property name="checkable">
+                   <bool>true</bool>
+                  </property>
+                  <layout class="QVBoxLayout" name="verticalLayout_44" stretch="0">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <property name="leftMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>2</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>2</number>
+                   </property>
+                   <item>
+                    <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,1">
+                     <property name="topMargin">
+                      <number>0</number>
+                     </property>
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="label_63">
+                       <property name="font">
+                        <font>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;radDivDe scale:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+                       <property name="text">
+                        <string notr="true">temp testing</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="0" column="1">
+                      <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_scale">
+                       <property name="sizePolicy">
+                        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                         <horstretch>0</horstretch>
+                         <verstretch>0</verstretch>
+                        </sizepolicy>
+                       </property>
+                       <property name="toolTip">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit of minimum colorValue (units are still 1.0 = 256 colorValue units).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                       <property name="prefix">
+                        <string/>
+                       </property>
+                       <property name="suffix">
+                        <string/>
+                       </property>
+                       <property name="decimals">
+                        <number>6</number>
+                       </property>
+                       <property name="minimum">
+                        <double>0.000000000000000</double>
+                       </property>
+                       <property name="maximum">
+                        <double>2.000000000000000</double>
+                       </property>
+                       <property name="singleStep">
+                        <double>0.100000000000000</double>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </item>
+                  </layout>
                  </widget>
                 </item>
                </layout>
@@ -4264,22 +4302,6 @@ object size)</string>
     <hint type="destinationlabel">
      <x>562</x>
      <y>1373</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_fractal_coloring_color_preV215_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinboxInt_fractal_coloring_max_color_iter</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>23</x>
-     <y>220</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>291</x>
-     <y>200</y>
     </hint>
    </hints>
   </connection>

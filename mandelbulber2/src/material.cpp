@@ -114,10 +114,10 @@ QStringList cMaterial::paramsList = {
 
 
 
-	"fractal_coloring_max_color_iter",
+
 	"fractal_coloring_color_preV215_false", "fractal_coloring_hybrid_color_preV215_false",
-
-
+	"fractal_coloring_rad_div_de_scale", // TODO TESTING
+	"fractal_coloring_temp_limit_false", // TODO TESTING
 
 
 	"fractal_coloring_extra_color_enabled_false", "fractal_coloring_init_cond_enabled_false",
@@ -161,7 +161,7 @@ QStringList cMaterial::paramsList = {
 
 	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
 
-	"fractal_coloring_temp_limit_false"
+
 };
 
 void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -240,20 +240,18 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.color4dEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_color_4D_enabled_false", id));
 
-
-
-
 	fractalColoring.colorPreV215False =
 		materialParam->Get<bool>(Name("fractal_coloring_color_preV215_false", id));
-
 	fractalColoring.hybridColorPreV215False =
 		materialParam->Get<bool>(Name("fractal_coloring_hybrid_color_preV215_false", id));
 
-	fractalColoring.maxColorIter =
-		materialParam->Get<int>(Name("fractal_coloring_max_color_iter", id));
+	fractalColoring.tempLimitFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id)); // tempLimit
 
+	fractalColoring.radDivDeWScale =
+		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_scale", id)); // testing
 
-	// trial
+	// color by numbers
 	fractalColoring.extraColorEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_extra_color_enabled_false", id));
 
@@ -364,9 +362,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.minColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_min_color_value", id));
 
-	fractalColoring.tempLimitFalse =
-		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id));
-	// tempLimit
+
 
 
 	if (gNetRender->IsClient())

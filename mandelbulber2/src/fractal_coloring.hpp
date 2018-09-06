@@ -89,7 +89,6 @@ struct sFractalColoring
 
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
-	int maxColorIter;
 
 	CVector4 lineDirection;
 	CVector3 xyz000;
@@ -114,6 +113,7 @@ struct sFractalColoring
 	double parabScale;
 	double parabStartValue;
 	double radDivDeWeight;
+	double radDivDeWScale;
 	double radWeight;
 	double roundScale;
 	double sphereRadius;

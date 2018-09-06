@@ -64,7 +64,7 @@ sFractalColoring::sFractalColoring()
 	radFalse = false;
 	radSquaredFalse = false;
 	roundEnabledFalse = false;
-	tempLimitFalse = false;
+	tempLimitFalse = false; // temporary parameter
 	xyzBiasEnabledFalse = false;
 	xyzDiv1e13False = false;
 	xyzFabsFalse = false;
@@ -74,7 +74,6 @@ sFractalColoring::sFractalColoring()
 
 	coloringAlgorithm = fractalColoring_None;
 	iStartValue = 0;
-	maxColorIter = 0;
 
 	CVector3 lineDirection;
 	CVector3 xyz000;
@@ -290,8 +289,15 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		if (fractalColoring.hybridColorPreV215False)
 		{
 			colorMin = min(100.0, colorMin);
-			double mboxColor = min(extendedAux.color, 1000.0);
-			double r2 = min(r / fabs(extendedAux.DE), 20.0);
+			double mboxColor = extendedAux.color;
+			if (fractalColoring.tempLimitFalse && extendedAux.i == 0) mboxColor += 1.0;
+			mboxColor = min(mboxColor, 1000.0);
+
+
+			//double mboxColor = min(extendedAux.color, 1000.0);
+
+			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.radDivDeWScale;
+
 			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 		}
 	}
