@@ -286,20 +286,23 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		colorIndex = colorValue * 256.0; // convert to colorValue units
 
 		// pre ver2.15 historic hybrid mode
-		if (fractalColoring.hybridColorPreV215False)
+		/*if (fractalColoring.hybridColorPreV215False)
 		{
 			colorMin = min(100.0, colorMin);
-			double mboxColor = extendedAux.color;
-			if (fractalColoring.tempLimitFalse && extendedAux.i == 0) mboxColor += 1.0;
-			mboxColor = min(mboxColor, 1000.0);
+
+			// Testing
+			//double mboxColor = extendedAux.color;
+			//if (fractalColoring.tempLimitFalse && extendedAux.i == 0) mboxColor += 1.0;
+			//if (fractalColoring.tempLimitFalse && mboxColor < 0.000001) mboxColor += 1.0;
+			//mboxColor = min(mboxColor, 1000.0);
 
 
-			//double mboxColor = min(extendedAux.color, 1000.0);
+			double mboxColor = min(extendedAux.color, 1000.0); // EXISTING CODE
 
 			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.radDivDeWScale;
 
 			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
-		}
+		}*/
 	}
 
 	//  HYBRID MODE coloring
@@ -315,7 +318,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		// double mboxColor = min(extendedAux.color, 1000.0);
 
 		// aux.DE
-		double r2 = min(r / fabs(extendedAux.DE), 20.0);
+		 double r2 = min(r / fabs(extendedAux.DE), 20.0); // TODO this now needs a scale
+		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeWScale1;
 
 		// summation
 		colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
@@ -329,7 +333,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0														 // folds part
+					extendedAux.color * 100.0 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // r or abs z part
 					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? colorMin * 1000.0 : 0.0);
 				// ABOX if fractalColoring_Standard)  minimumR = 0.0

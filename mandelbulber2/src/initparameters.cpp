@@ -1211,7 +1211,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,
 		morphNone, paramStandard); // TODO remove when finished
 
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_scale", materialId), 1.0, 0.0, 2.0,
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_scale1", materialId), 1.0, 0.0, 2.0,
 		morphAkima, paramStandard); // TODO test range
 
 
