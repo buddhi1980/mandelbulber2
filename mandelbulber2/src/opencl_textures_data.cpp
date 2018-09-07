@@ -180,8 +180,8 @@ void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureI
 		int y = i / textureWidth;
 
 		sRGBA16 pixel = texture->FastPixel(x, y);
-		cl_char4 clpixel = {cl_char(pixel.R / 256), cl_char(pixel.G / 256), cl_char(pixel.B / 256),
-			cl_char(pixel.A / 256)};
+		cl_uchar4 clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
+			cl_uchar(pixel.A / 256)};
 
 		data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));
 		totalDataOffset += sizeof(clpixel);

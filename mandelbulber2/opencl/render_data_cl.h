@@ -53,7 +53,7 @@ typedef struct
 #endif
 
 #ifdef USE_TEXTURES
-	__global char4 **textures;
+	__global uchar4 **textures;
 	int2 *textureSizes;
 #endif
 

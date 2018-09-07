@@ -540,9 +540,20 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 			if (rayMarchingOut.found)
 			{
+
+				// color texture
+#if USE_TEXTURES
+				shaderInputData.texColor = TextureShader(&shaderInputData, renderData, objectData);
+#else
+				shaderInputData.texColor = 1.0f;
+#endif
+
 				specular = 0.0f;
 				objectShader = ObjectShader(
 					consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
+
+				// temp code to test texture mapping
+				objectShader *= shaderInputData.texColor;
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(

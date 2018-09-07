@@ -155,7 +155,7 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		int textureHeight = GetInteger(textureMainOffset + 2 * sizeof(int), inTextureBuff);
 		textureSizes[i] = (int2){textureWidth, textureHeight};
 
-		__global char4 *texture = (__global char4 *)&inTextureBuff[textureDataOffset];
+		__global uchar4 *texture = (__global uchar4 *)&inTextureBuff[textureDataOffset];
 		textures[i] = texture;
 	}
 #endif
