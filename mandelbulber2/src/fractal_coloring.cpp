@@ -315,10 +315,13 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		double mboxColor = extendedAux.color;
 		// double mboxColor = min(extendedAux.color, 1000.0);
 
-		// aux.DE
-		 double r2 = min(r / fabs(extendedAux.DE), 20.0); // TODO this now needs a scale
-		//if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
-		if (fractalColoring.hybridColorPreV215False) r2 = r *fractalColoring.radDivDeScale1;
+		// aux.DE TESTING CODE
+		double  deAux = fabs(extendedAux.DE); // fabs may be no longer required??
+		if (fractalColoring.tempLimitFalse) deAux = 1.0;
+		double r2 = min(r / deAux, 20.0);
+		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
+
+		 //double r2 = min(r / fabs(extendedAux.DE), 20.0); // EXISTING CODE
 
 
 		// summation

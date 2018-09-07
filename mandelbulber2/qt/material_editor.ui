@@ -83,7 +83,7 @@
         <x>0</x>
         <y>0</y>
         <width>583</width>
-        <height>3954</height>
+        <height>3953</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -651,17 +651,24 @@ direction vector:</string>
            </layout>
           </item>
           <item>
-           <widget class="MyGroupBox" name="groupCheck_fractal_coloring_color_preV215_false">
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+            <property name="text">
+             <string notr="true">pre V2.15 orbit trap color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="MyGroupBox" name="groupCheck_fractal_coloring_hybrid_color_preV215_false">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Function produces an addition to the ColorValues based on its current value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
-             <string>pre V2.15 or&amp;bit trap color</string>
+             <string>pre V2.15 hybr&amp;id mode color \nBETA location to be confirmed</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_49" stretch="0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_49" stretch="0">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -678,56 +685,11 @@ direction vector:</string>
               <number>2</number>
              </property>
              <item>
-              <widget class="MyCheckBox" name="checkBox_fractal_coloring_hybrid_color_preV215_false">
-               <property name="text">
-                <string notr="true">pre V2.15 hybrid mode color 
-BETA location to be confirmed</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <layout class="QGridLayout" name="gridLayout_32" columnstretch="0,1">
-               <property name="topMargin">
-                <number>0</number>
-               </property>
+              <layout class="QGridLayout" name="gridLayout" columnstretch="0">
                <item row="0" column="0">
-                <widget class="QLabel" name="label_88">
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
+                <widget class="QLabel" name="label_60">
                  <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;radDivDe scale:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_scale1">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="prefix">
-                  <string/>
-                 </property>
-                 <property name="suffix">
-                  <string/>
-                 </property>
-                 <property name="decimals">
-                  <number>6</number>
-                 </property>
-                 <property name="minimum">
-                  <double>-9999.999900000000707</double>
-                 </property>
-                 <property name="maximum">
-                  <double>9999.999900000000707</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>1.000000000000000</double>
+                  <string>testing</string>
                  </property>
                 </widget>
                </item>
@@ -735,6 +697,61 @@ BETA location to be confirmed</string>
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_temp_limit_false">
+            <property name="text">
+             <string notr="true">testing hybrid change</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_32" columnstretch="0,0">
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_88">
+              <property name="font">
+               <font>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:400;&quot;&gt;TESTING radDivDe scale:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_rad_div_de_scale1">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="prefix">
+               <string/>
+              </property>
+              <property name="suffix">
+               <string/>
+              </property>
+              <property name="decimals">
+               <number>6</number>
+              </property>
+              <property name="minimum">
+               <double>-9999.999900000000707</double>
+              </property>
+              <property name="maximum">
+               <double>9999.999900000000707</double>
+              </property>
+              <property name="singleStep">
+               <double>1.000000000000000</double>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item>
            <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
@@ -754,7 +771,7 @@ BETA location to be confirmed</string>
             <property name="checkable">
              <bool>true</bool>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0,0">
+            <layout class="QVBoxLayout" name="verticalLayout_29" stretch="0,0,0">
              <property name="spacing">
               <number>2</number>
              </property>
@@ -770,45 +787,6 @@ BETA location to be confirmed</string>
              <property name="bottomMargin">
               <number>2</number>
              </property>
-             <item>
-              <layout class="QGridLayout" name="gridLayout" columnstretch="0,1">
-               <item row="0" column="1">
-                <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_initial_color_value">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="prefix">
-                  <string/>
-                 </property>
-                 <property name="suffix">
-                  <string/>
-                 </property>
-                 <property name="decimals">
-                  <number>6</number>
-                 </property>
-                 <property name="minimum">
-                  <double>-9999.999900000000707</double>
-                 </property>
-                 <property name="maximum">
-                  <double>9999.999900000000707</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>1.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_60">
-                 <property name="text">
-                  <string>initial colorValue</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
              <item>
               <widget class="MyGroupBox" name="groupCheck_fractal_coloring_init_cond_enabled_false">
                <property name="toolTip">
