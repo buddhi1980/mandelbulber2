@@ -317,7 +317,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 
 		// aux.DE
 		 double r2 = min(r / fabs(extendedAux.DE), 20.0); // TODO this now needs a scale
-		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
+		//if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
+		if (fractalColoring.hybridColorPreV215False) r2 = r *fractalColoring.radDivDeScale1;
+
 
 		// summation
 		colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);

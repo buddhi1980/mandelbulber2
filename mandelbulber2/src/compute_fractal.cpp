@@ -297,7 +297,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 			{
 				CVector4 colorZ = z;
 				if (!in.material->fractalColoring.color4dEnabledFalse) colorZ.w = 0.0;
-				//if (extendedAux.i < in.material->fractalColoring.maxColorIter) // temp for testing
 				double len = 0.0;
 				switch (in.material->fractalColoring.coloringAlgorithm)
 				{
@@ -336,21 +335,27 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						break;
 					}
 				}
-
 				if (!in.material->fractalColoring.colorPreV215False)
-				{
-					if (fractal->formula != mandelbox
-							&& in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+				{ // V2.15 code
+					if (fractal->formula != mandelbox)
 					{
 						if (len < colorMin) colorMin = len;
-						if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
+						if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break;
 					}
-					else // for mandbox with fractalColoring_Standard
+					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
 					{
-						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+						if (in.material->fractalColoring.coloringAlgorithm == fractalColoring_Standard)
+						{
+							if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+						}
+						else
+						{
+							if (len < colorMin) colorMin = len; // colorMin for Mbox in hybrid mode ??
+							if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break;
+						}
 					}
 				}
-				else
+				else  // pre-v2.15 mode
 				{
 					if (fractal->formula != mandelbox
 							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)

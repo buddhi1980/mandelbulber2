@@ -134,7 +134,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	out.orbitTrapR = 0.0f;
 
 	float colorMin = 1000.0;
-	//float colorMin = fractalColoring->initialMinimumR;
 	float orbitTrapTotal = 0.0f;
 
 	int fractalIndex = 0;
@@ -379,18 +378,42 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #else
 				len = aux.r;
 #endif // USE_COLORING_MODES
-
-				if (fractal->formula != 8) // mandelbox has no orbit trap component
+				if (!fractalColoring->colorPreV215False)
 				{
-					if (len < colorMin) colorMin = len;
-					if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
-						break;
+					if (fractal->formula != 8)
+					{
+						if (len < colorMin) colorMin = len;
+						if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+							break;
+					}
+					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
+					{
+						if (fractalColoring->coloringAlgorithm == fractalColoringCl_Standard)
+						{
+							if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+						}
+						else
+						{
+							if (len < colorMin) colorMin = len; // colorMin for hybrid mode ??
+							if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+								break;
+						}
+					}
 				}
-				else
+				else // pre-2.15
 				{
-					if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+					if (fractal->formula != 8)
+					{
+						if (len < colorMin) colorMin = len;
+						if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+							break;
+					}
+					else
+					{
+						if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+					}
+					// if (aux.r > 1e15f) break; // old
 				}
-				// if (aux.r > 1e15f) break;
 			}
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
