@@ -390,7 +390,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					{
 						if (fractalColoring->coloringAlgorithm == fractalColoringCl_Standard)
 						{
-							if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+							if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
 						}
 						else
 						{
@@ -402,15 +402,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				}
 				else // pre-2.15
 				{
-					if (fractal->formula != 8)
+					if (fractal->formula != 8) // if not mandelbox
 					{
 						if (len < colorMin) colorMin = len;
-						if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
-							break;
+						if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
+						break;
 					}
 					else
 					{
-						if (aux.r > 1e15 || length(z - lastZ) / aux.r < 1e-15f) break;
+						if (aux.r > 1e15f || length(z - lastZ) / aux.r < 1e-15f) break;
 					}
 					// if (aux.r > 1e15f) break; // old
 				}
