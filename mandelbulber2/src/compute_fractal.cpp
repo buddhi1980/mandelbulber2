@@ -337,23 +337,31 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}
 				}
 
-				if (fractal->formula != mandelbox
-						|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+				if (!in.material->fractalColoring.colorPreV215False)
 				{
-					if (len < colorMin) colorMin = len;
-
-					if (!in.material->fractalColoring.colorPreV215False)
+					if (fractal->formula != mandelbox
+							&& in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
 					{
-						if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
+						if (len < colorMin) colorMin = len;
+						if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
 					}
-					else
+					else // for mandbox with fractalColoring_Standard
 					{
-						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
 					}
 				}
-				else // for mandbox and fractalColoring_Standard)
+				else
 				{
-					if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+					if (fractal->formula != mandelbox
+							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
+					{
+						if (len < colorMin) colorMin = len;
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break; // old, is updated v2.15
+					}
+					else // for mandbox and fractalColoring_Standard
+					{
+						if (r > 1e15 || (z - lastZ).Length() / r < 1e-15) break;
+					}
 				}
 			}
 

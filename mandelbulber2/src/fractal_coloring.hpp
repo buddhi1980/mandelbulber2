@@ -113,7 +113,7 @@ struct sFractalColoring
 	double parabScale;
 	double parabStartValue;
 	double radDivDeWeight;
-	double radDivDeWScale1;
+	double radDivDeScale1;
 	double radWeight;
 	double roundScale;
 	double sphereRadius;

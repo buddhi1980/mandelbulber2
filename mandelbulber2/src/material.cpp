@@ -248,7 +248,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.tempLimitFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id)); // tempLimit
 
-	fractalColoring.radDivDeWScale1 =
+	fractalColoring.radDivDeScale1 =
 		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_scale1", id)); // testing
 
 	// color by numbers

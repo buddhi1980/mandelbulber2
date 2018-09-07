@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-183</y>
+        <y>0</y>
         <width>583</width>
         <height>3954</height>
        </rect>
@@ -4271,12 +4271,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>115</x>
-     <y>1517</y>
+     <x>138</x>
+     <y>1717</y>
     </hint>
     <hint type="destinationlabel">
      <x>562</x>
-     <y>1519</y>
+     <y>1719</y>
     </hint>
    </hints>
   </connection>
@@ -4287,28 +4287,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>139</x>
-     <y>1545</y>
+     <x>162</x>
+     <y>1745</y>
     </hint>
     <hint type="destinationlabel">
      <x>562</x>
-     <y>1547</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_fractal_coloring_hybrid_color_preV215_false</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox_fractal_coloring_rad_div_de_scale1</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>20</x>
-     <y>393</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>255</x>
-     <y>423</y>
+     <y>1747</y>
     </hint>
    </hints>
   </connection>

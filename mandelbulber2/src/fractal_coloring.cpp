@@ -299,7 +299,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 
 			double mboxColor = min(extendedAux.color, 1000.0); // EXISTING CODE
 
-			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.radDivDeWScale;
+			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.radDivDeScale1;
 
 			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 		}*/
@@ -309,8 +309,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 	else if (isHybrid)
 	{
 		// orbit trap
-		// if (!coloringFunctionABox) colorMin = min(100.0, colorMin);          TODO
-		// else colorMin = 0.0;
 		colorMin = min(100.0, colorMin);
 
 		// aux.color (init cond = 1.0)
@@ -319,7 +317,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 
 		// aux.DE
 		 double r2 = min(r / fabs(extendedAux.DE), 20.0); // TODO this now needs a scale
-		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeWScale1;
+		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
 
 		// summation
 		colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
