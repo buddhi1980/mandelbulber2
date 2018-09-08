@@ -41,7 +41,12 @@ typedef struct
 	float3 viewVectorNotRotated;
 	float3 normal;
 	float3 lightVect;
+
+#ifdef USE_TEXTURES
 	float3 texColor;
+	float3 texDiffuse;
+	float3 texLuminosity;
+#endif
 	float distThresh; // distance threshold depend on 'detailLevel'
 	float lastDist;
 	float delta; // initial step distance for shaders based on distance form camera
@@ -334,7 +339,18 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 	halfVector = fast_normalize(halfVector);
 	float specular = dot(input->normal, halfVector);
 	if (specular < 0.0f) specular = 0.0f;
+
+#ifdef USE_TEXTURES
+	float diffuse =
+		10.0f
+		* (1.1f
+				- input->material->diffusionTextureIntensity
+						* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
+	specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
+#else
 	specular = pow(specular, 30.0f / specularWidth);
+#endif
+
 	if (roughness > 0.0f)
 	{
 		specular *= (1.0f + Random(1000, &calcParam->randomSeed) / 1000.0f * roughness);
@@ -860,31 +876,32 @@ float3 IridescenceShader(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 
 #ifdef USE_TEXTURES
-float3 TextureShader(
-	sShaderInputDataCl *input, sRenderData *renderData, __global sObjectDataCl *objectData)
+float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
+	__global sObjectDataCl *objectData, int textureIndex, float3 substituteColor)
 {
-	float3 texOut = 0.0f;
+	float3 texOut = substituteColor;
 
-	float3 textureVectorX = 0.0f;
-	float3 textureVectorY = 0.0f;
-	float2 texturePoint = TextureMapping(
-		input->point, input->normal, objectData, input->material, &textureVectorX, &textureVectorY);
-
-	int textureIndex = input->material->colorTextureIndex;
 	if (textureIndex >= 0)
 	{
+		float3 textureVectorX = 0.0f;
+		float3 textureVectorY = 0.0f;
+		float2 texturePoint = TextureMapping(
+			input->point, input->normal, objectData, input->material, &textureVectorX, &textureVectorY);
+
+		texturePoint += (float2){0.5f, 0.5f};
+
 		int2 textureSize = renderData->textureSizes[textureIndex];
 		__global uchar4 *texture = renderData->textures[textureIndex];
 
-		if (texturePoint.x > 0)
-			texturePoint.x = fmod(texturePoint.x, 1.0);
+		if (texturePoint.x > 0.0f)
+			texturePoint.x = fmod(texturePoint.x, 1.0f);
 		else
-			texturePoint.x = 1.0 + fmod(texturePoint.x, 1.0);
+			texturePoint.x = 1.0f + fmod(texturePoint.x, 1.0f);
 
-		if (texturePoint.y > 0)
-			texturePoint.y = fmod(texturePoint.y, 1.0);
+		if (texturePoint.y > 0.0f)
+			texturePoint.y = fmod(texturePoint.y, 1.f);
 		else
-			texturePoint.y = 1.0 + fmod(texturePoint.y, 1.0);
+			texturePoint.y = 1.0f + fmod(texturePoint.y, 1.0f);
 
 		int2 texturePointInt = (int2){texturePoint.x * textureSize.x, texturePoint.y * textureSize.y};
 
@@ -923,6 +940,12 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam);
+
+#ifdef USE_TEXTURES
+	float texColInt = input->material->colorTextureIntensity;
+	float texColIntN = 1.0f - texColInt;
+	surfaceColor *= input->texColor * texColInt + texColIntN;
+#endif
 
 	if (consts->params.mainLightEnable)
 	{
@@ -967,6 +990,10 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
 	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
+
+#ifdef USE_TEXTURES
+	luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
+#endif
 
 	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular
 					+ luminosity;
@@ -1040,6 +1067,17 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			inputCopy.material = renderData->materials[objectData->materialId];
 			inputCopy.palette = renderData->palettes[objectData->materialId];
 			inputCopy.paletteSize = renderData->paletteLengths[objectData->materialId];
+
+#if USE_TEXTURES
+			inputCopy.texColor = TextureShader(
+				&inputCopy, renderData, objectData, inputCopy.material->colorTextureIndex, 1.0f);
+
+			inputCopy.texDiffuse = TextureShader(
+				&inputCopy, renderData, objectData, inputCopy.material->diffusionTextureIndex, 1.0f);
+
+			inputCopy.texLuminosity = TextureShader(
+				&inputCopy, renderData, objectData, inputCopy.material->luminosityTextureIndex, 0.0f);
+#endif
 
 			float3 objectShader = ObjectShader(
 				consts, renderData, &inputCopy, calcParam, &objectColor, &specular, &iridescence);
