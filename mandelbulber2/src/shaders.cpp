@@ -1662,6 +1662,25 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			cObjectData objectData = data->objectData[inputCopy.objectId];
 			inputCopy.material = &data->materials[objectData.materialId];
 
+			// letting colors from textures (before normal map shader)
+			if (inputCopy.material->colorTexture.IsLoaded())
+			{
+				inputCopy.texColor = TextureShader(inputCopy, texture::texColor, inputCopy.material);
+			}
+			else
+				inputCopy.texColor = sRGBFloat(1.0, 1.0, 1.0);
+
+			if (inputCopy.material->luminosityTexture.IsLoaded())
+				inputCopy.texLuminosity =
+					TextureShader(inputCopy, texture::texLuminosity, inputCopy.material);
+			else
+				inputCopy.texLuminosity = sRGBFloat(0.0, 0.0, 0.0);
+
+			if (inputCopy.material->diffusionTexture.IsLoaded())
+				inputCopy.texDiffuse = TextureShader(inputCopy, texture::texDiffuse, inputCopy.material);
+			else
+				inputCopy.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
+
 			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence);
 			out.R += (objectShader.R + specular.R) * objectColorTemp.R;
 			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
