@@ -323,6 +323,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						shaderInputData.distThresh, shaderInputData.invertMode, &calcParam);
 				shaderInputData.normal = normal;
 
+#ifdef USE_TEXTURES
+				normal = NormalMapShader(&shaderInputData, renderData, objectData,
+					shaderInputData.material->normalMapTextureIndex);
+				shaderInputData.normal = normal;
+#endif
+
 				rayStack[rayIndex].out.normal = normal;
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)

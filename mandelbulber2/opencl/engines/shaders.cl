@@ -876,6 +876,23 @@ float3 IridescenceShader(__constant sClInConstants *consts, sRenderData *renderD
 #endif
 
 #ifdef USE_TEXTURES
+
+int TexturePixelAddress(float2 texturePoint, int2 textureSize)
+{
+	if (texturePoint.x > 0.0f)
+		texturePoint.x = fmod(texturePoint.x, 1.0f);
+	else
+		texturePoint.x = 1.0f + fmod(texturePoint.x, 1.0f);
+
+	if (texturePoint.y > 0.0f)
+		texturePoint.y = fmod(texturePoint.y, 1.f);
+	else
+		texturePoint.y = 1.0f + fmod(texturePoint.y, 1.0f);
+
+	int2 texturePointInt = (int2){texturePoint.x * textureSize.x, texturePoint.y * textureSize.y};
+	return texturePointInt.x + texturePointInt.y * textureSize.x;
+}
+
 float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
 	__global sObjectDataCl *objectData, int textureIndex, float3 substituteColor)
 {
@@ -893,23 +910,58 @@ float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
 		int2 textureSize = renderData->textureSizes[textureIndex];
 		__global uchar4 *texture = renderData->textures[textureIndex];
 
-		if (texturePoint.x > 0.0f)
-			texturePoint.x = fmod(texturePoint.x, 1.0f);
-		else
-			texturePoint.x = 1.0f + fmod(texturePoint.x, 1.0f);
+		int texturePointAddress = TexturePixelAddress(texturePoint, textureSize);
 
-		if (texturePoint.y > 0.0f)
-			texturePoint.y = fmod(texturePoint.y, 1.f);
-		else
-			texturePoint.y = 1.0f + fmod(texturePoint.y, 1.0f);
-
-		int2 texturePointInt = (int2){texturePoint.x * textureSize.x, texturePoint.y * textureSize.y};
-
-		uchar4 pixel = texture[texturePointInt.x + texturePointInt.y * textureSize.x];
+		uchar4 pixel = texture[texturePointAddress];
 		texOut = (float3){pixel.s0 / 256.0f, pixel.s1 / 256.0f, pixel.s2 / 256.0f};
 	}
 
 	return texOut;
+}
+
+float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
+	__global sObjectDataCl *objectData, int textureIndex)
+{
+	if (textureIndex >= 0)
+	{
+		float3 textureVectorX = 0.0f;
+		float3 textureVectorY = 0.0f;
+		float2 texturePoint = TextureMapping(
+			input->point, input->normal, objectData, input->material, &textureVectorX, &textureVectorY);
+
+		texturePoint += (float2){0.5f, 0.5f};
+
+		float3 n = input->normal;
+		// tangent vectors:
+		float3 t = normalize(cross(n, textureVectorX));
+		float3 b = normalize(cross(n, textureVectorY));
+		matrix33 tbn;
+		tbn.m1 = b;
+		tbn.m2 = t;
+		tbn.m3 = n;
+		tbn = TransposeMatrix(tbn);
+
+		int2 textureSize = renderData->textureSizes[textureIndex];
+		__global uchar4 *texture = renderData->textures[textureIndex];
+
+		int texturePointAddress = TexturePixelAddress(texturePoint, textureSize);
+		uchar4 pixel = texture[texturePointAddress];
+		float3 texNormal =
+			(float3){pixel.s0 / 128.0f - 1.0f, pixel.s1 / 128.0f - 1.0f, pixel.s2 / 256.0f};
+		texNormal.x *= -input->material->normalMapTextureHeight;
+		texNormal.y *= -input->material->normalMapTextureHeight;
+
+		// TODO: invert green mode
+
+		texNormal = normalize(texNormal);
+
+		float3 normal = Matrix33MulFloat3(tbn, texNormal);
+		return normalize(normal);
+	}
+	else
+	{
+		return input->normal;
+	}
 }
 #endif // USE_TEXTURES
 
