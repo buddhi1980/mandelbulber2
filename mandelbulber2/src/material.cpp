@@ -88,79 +88,138 @@ cMaterial::~cMaterial() = default;
 
 // this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {
-	"is_defined", "name", "shading",
+	"is_defined",
+	"name",
+	"shading",
 
-	"specular_color", "specular_plastic_enable", "metallic", "specular", "specular_width",
-	"specular_metallic", "specular_metallic_width", "specular_metallic_roughness",
+	"specular_color",
+	"specular_plastic_enable",
+	"metallic",
+	"specular",
+	"specular_width",
+	"specular_metallic",
+	"specular_metallic_width",
+	"specular_metallic_roughness",
 
-	"reflectance", "luminosity", "transparency_of_surface", "transparency_of_interior",
-	"transparency_index_of_refraction", "surface_color", "transparency_interior_color",
-	"luminosity_color", "fresnel_reflectance", "texture_center", "texture_rotation", "texture_scale",
-	"coloring_random_seed", "coloring_saturation", "coloring_speed", "coloring_palette_size",
-	"coloring_palette_offset", "texture_mapping_type", "use_colors_from_palette",
-	"file_color_texture", "file_diffusion_texture", "file_luminosity_texture",
-	"file_displacement_texture", "surface_color_palette", "use_color_texture",
-	"use_diffusion_texture", "use_luminosity_texture", "use_displacement_texture",
-	"use_normal_map_texture", "color_texture_intensity", "luminosity_texture_intensity",
-	"diffusion_texture_intensity", "displacement_texture_height", "fractal_coloring_algorithm",
-	"fractal_coloring_sphere_radius", "fractal_coloring_line_direction",
-	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"file_normal_map_texture", "texture_fractalize", "texture_fractalize_cube_size",
+	"reflectance",
+	"luminosity",
+	"transparency_of_surface",
+	"transparency_of_interior",
+	"transparency_index_of_refraction",
+	"surface_color",
+	"transparency_interior_color",
+	"luminosity_color",
+	"fresnel_reflectance",
+	"texture_center",
+	"texture_rotation",
+	"texture_scale",
+	"coloring_random_seed",
+	"coloring_saturation",
+	"coloring_speed",
+	"coloring_palette_size",
+	"coloring_palette_offset",
+	"texture_mapping_type",
+	"use_colors_from_palette",
+	"file_color_texture",
+	"file_diffusion_texture",
+	"file_luminosity_texture",
+	"file_displacement_texture",
+	"surface_color_palette",
+	"use_color_texture",
+	"use_diffusion_texture",
+	"use_luminosity_texture",
+	"use_displacement_texture",
+	"use_normal_map_texture",
+	"color_texture_intensity",
+	"luminosity_texture_intensity",
+	"diffusion_texture_intensity",
+	"displacement_texture_height",
+	"fractal_coloring_algorithm",
+	"fractal_coloring_sphere_radius",
+	"fractal_coloring_line_direction",
+	"normal_map_texture_from_bumpmap",
+	"normal_map_texture_height",
+	"normal_map_texture_invert_green",
+	"file_normal_map_texture",
+	"texture_fractalize",
+	"texture_fractalize_cube_size",
 	"texture_fractalize_start_iteration",
 
-	"fractal_coloring_color_4D_enabled_false", "metallic", "iridescence_enabled",
-	"iridescence_intensity", "iridescence_subsurface_thickness",
+	"fractal_coloring_color_4D_enabled_false",
+	"metallic",
+	"iridescence_enabled",
+	"iridescence_intensity",
+	"iridescence_subsurface_thickness",
 
-
-
-
-
-	"fractal_coloring_color_preV215_false", "fractal_coloring_hybrid_color_preV215_false",
+	"fractal_coloring_color_preV215_false",
+	"fractal_coloring_hybrid_color_preV215_false",
 	"fractal_coloring_rad_div_de_scale1", // TODO TESTING
-	"fractal_coloring_temp_limit_false", // TODO TESTING
+	"fractal_coloring_temp_limit_false",	// TODO TESTING
 
+	"fractal_coloring_extra_color_enabled_false",
+	"fractal_coloring_init_cond_enabled_false",
+	"fractal_coloring_ic_rad_enabled_false",
+	"fractal_coloring_ic_xyz_enabled_false",
+	"fractal_coloring_ic_rad_weight",
+	"fractal_coloring_xyzC_111",
+	"fractal_coloring_initial_color_value",
+	"fractal_coloring_ic_fabs_enabled_false",
 
-	"fractal_coloring_extra_color_enabled_false", "fractal_coloring_init_cond_enabled_false",
-	"fractal_coloring_ic_rad_enabled_false", "fractal_coloring_ic_xyz_enabled_false",
-	"fractal_coloring_ic_rad_weight", "fractal_coloring_xyzC_111",
-	"fractal_coloring_initial_color_value", "fractal_coloring_ic_fabs_enabled_false",
-
-	"fractal_coloring_orbit_trap_true", "fractal_coloring_orbit_trap_weight",
+	"fractal_coloring_orbit_trap_true",
+	"fractal_coloring_orbit_trap_weight",
 	//"fractal_coloring_initial_minimumR",
 
-	"fractal_coloring_aux_color_false", "fractal_coloring_aux_color_weight",
+	"fractal_coloring_aux_color_false",
+	"fractal_coloring_aux_color_weight",
 	"fractal_coloring_aux_color_hybrid_weight",
 
-	"fractal_coloring_rad_enabled_false", "fractal_coloring_rad_weight",
-	"fractal_coloring_rad_squared_enabled_false", "fractal_coloring_rad_div_1e13_false",
+	"fractal_coloring_rad_enabled_false",
+	"fractal_coloring_rad_weight",
+	"fractal_coloring_rad_squared_enabled_false",
+	"fractal_coloring_rad_div_1e13_false",
 
-	"fractal_coloring_rad_div_de_enabled_false", "fractal_coloring_rad_div_de_weight",
-	"fractal_coloring_rad_div_de_squared_false", "fractal_coloring_rad_div_de_1e13_false",
+	"fractal_coloring_rad_div_de_enabled_false",
+	"fractal_coloring_rad_div_de_weight",
+	"fractal_coloring_rad_div_de_squared_false",
+	"fractal_coloring_rad_div_de_1e13_false",
 
-	"fractal_coloring_xyz_bias_enabled_false", "fractal_coloring_xyz_000",
-	"fractal_coloring_xyz_iter_scale", "fractal_coloring_xyz_x_sqrd_enabled_false",
-	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
-	"fractal_coloring_xyz_fabs_enabled_false", "fractal_coloring_xyz_div_1e13_false",
+	"fractal_coloring_xyz_bias_enabled_false",
+	"fractal_coloring_xyz_000",
+	"fractal_coloring_xyz_iter_scale",
+	"fractal_coloring_xyz_x_sqrd_enabled_false",
+	"fractal_coloring_xyz_y_sqrd_enabled_false",
+	"fractal_coloring_xyz_z_sqrd_enabled_false",
+	"fractal_coloring_xyz_fabs_enabled_false",
+	"fractal_coloring_xyz_div_1e13_false",
 
-	"fractal_coloring_iter_scale_enabled_false", "fractal_coloring_iter_add_scale_enabled_true",
-	"fractal_coloring_iter_scale", "fractal_coloring_iter_add_scale",
-	"fractal_coloring_i_start_value", "fractal_coloring_iter_group_enabled_false",
+	"fractal_coloring_iter_scale_enabled_false",
+	"fractal_coloring_iter_add_scale_enabled_true",
+	"fractal_coloring_iter_scale",
+	"fractal_coloring_iter_add_scale",
+	"fractal_coloring_i_start_value",
+	"fractal_coloring_iter_group_enabled_false",
 
 	"fractal_coloring_global_palette_false",
 
-	"fractal_coloring_add_enabled_false", "fractal_coloring_add_max", "fractal_coloring_add_spread",
+	"fractal_coloring_add_enabled_false",
+	"fractal_coloring_add_max",
+	"fractal_coloring_add_spread",
 	"fractal_coloring_add_start_value",
 
-	"fractal_coloring_parab_enabled_false", "fractal_coloring_parab_scale",
+	"fractal_coloring_parab_enabled_false",
+	"fractal_coloring_parab_scale",
 	"fractal_coloring_parab_start_value",
 
-	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period", "fractal_coloring_cos_add",
+	"fractal_coloring_cos_enabled_false",
+	"fractal_coloring_cos_period",
+	"fractal_coloring_cos_add",
 	"fractal_coloring_cos_start_value",
 
-	"fractal_coloring_round_enabled_false", "fractal_coloring_round_scale",
+	"fractal_coloring_round_enabled_false",
+	"fractal_coloring_round_scale",
 
-	"fractal_coloring_max_color_value", "fractal_coloring_min_color_value",
-
+	"fractal_coloring_max_color_value",
+	"fractal_coloring_min_color_value",
 
 };
 
@@ -214,6 +273,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	useNormalMapTexture = materialParam->Get<bool>(Name("use_normal_map_texture", id));
 	normalMapTextureFromBumpmap =
 		materialParam->Get<bool>(Name("normal_map_texture_from_bumpmap", id));
+	normalMapTextureInvertGreen =
+		materialParam->Get<bool>(Name("normal_map_texture_invert_green", id));
 
 	colorTextureIntensity = materialParam->Get<double>(Name("color_texture_intensity", id));
 	diffusionTextureIntensity = materialParam->Get<double>(Name("diffusion_texture_intensity", id));
@@ -275,8 +336,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
-	//fractalColoring.initialMinimumR =
-		//materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+	// fractalColoring.initialMinimumR =
+	// materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
 	// aux.color
 	fractalColoring.auxColorFalse =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_false", id));
@@ -362,9 +423,6 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.minColorValue =
 		materialParam->Get<double>(Name("fractal_coloring_min_color_value", id));
 
-
-
-
 	if (gNetRender->IsClient())
 	{
 		if (useColorTexture)
@@ -392,15 +450,10 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 				cTexture::doNotUseMipmaps);
 
 		if (useNormalMapTexture)
-		{
 			normalMapTexture.FromQByteArray(
 				gNetRender->GetTexture(
 					materialParam->Get<QString>(Name("file_normal_map_texture", id)), frameNo),
 				cTexture::doNotUseMipmaps);
-
-			if (materialParam->Get<bool>(Name("normal_map_texture_invert_green", id)))
-				normalMapTexture.SetInvertGreen(true);
-		}
 	}
 	else
 	{
@@ -422,12 +475,8 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 					cTexture::doNotUseMipmaps, frameNo, quiet);
 
 		if (useNormalMapTexture)
-		{
 			normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
 				cTexture::useMipmaps, frameNo, quiet);
-			if (materialParam->Get<bool>(Name("normal_map_texture_invert_green", id)))
-				normalMapTexture.SetInvertGreen(true);
-		}
 	}
 
 	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
@@ -440,7 +489,7 @@ void CreateMaterialsMap(
 	QList<QString> listOfParameters = params->GetListOfParameters();
 	for (auto parameterName : listOfParameters)
 	{
-			if (parameterName.left(3) == "mat")
+		if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
 			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();

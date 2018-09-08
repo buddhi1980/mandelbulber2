@@ -73,8 +73,8 @@ public:
 	QString GetFileName() const { return originalFileName; }
 	void FromQByteArray(QByteArray *buffer, enumUseMipmaps mode);
 	CVector3 NormalMapFromBumpMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
-	CVector3 NormalMap(CVector2<double> point, double bump, double pixelSize = 0.0) const;
-	void SetInvertGreen(bool invert) { invertGreen = invert; }
+	CVector3 NormalMap(
+		CVector2<double> point, double bump, bool invertGreen, double pixelSize = 0.0) const;
 
 private:
 	sRGBA16 LinearInterpolation(double x, double y) const;
@@ -89,7 +89,6 @@ private:
 	QString originalFileName;
 	QList<QVector<sRGBA16>> mipmaps;
 	QList<CVector2<int>> mipmapSizes;
-	bool invertGreen;
 };
 
 #endif /* MANDELBULBER2_SRC_TEXTURE_HPP_ */

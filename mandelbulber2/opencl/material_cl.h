@@ -91,6 +91,7 @@ typedef struct
 	cl_int useDisplacementTexture;
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
+	cl_int normalMapTextureInvertGreen;
 	cl_int iridescenceEnabled;
 
 	cl_int colorTextureIndex;
@@ -153,6 +154,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useDisplacementTexture = source.useDisplacementTexture;
 	target.useNormalMapTexture = source.useNormalMapTexture;
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
+	target.normalMapTextureInvertGreen = source.normalMapTextureInvertGreen;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 
 	target.fractalColoring = clCopySFractalColoringCl(source.fractalColoring);

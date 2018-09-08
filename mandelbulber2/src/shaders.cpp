@@ -1573,8 +1573,9 @@ CVector3 cRenderWorker::NormalMapShader(const sShaderInputData &input) const
 	}
 	else
 	{
-		tex = input.material->normalMapTexture.NormalMap(
-			texPoint, input.material->normalMapTextureHeight, texturePixelSize);
+		tex =
+			input.material->normalMapTexture.NormalMap(texPoint, input.material->normalMapTextureHeight,
+				input.material->normalMapTextureInvertGreen, texturePixelSize);
 	}
 
 	CVector3 result = tbn * tex;

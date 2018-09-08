@@ -106,7 +106,6 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 		bitmap = new sRGBA16[100 * 100];
 		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
 	}
-	invertGreen = false;
 }
 
 // copy constructor
@@ -120,7 +119,6 @@ cTexture::cTexture(const cTexture &tex)
 	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
-	invertGreen = tex.invertGreen;
 }
 
 cTexture &cTexture::operator=(const cTexture &tex)
@@ -138,7 +136,6 @@ cTexture &cTexture::operator=(const cTexture &tex)
 	memcpy(bitmap, tex.bitmap, sizeof(sRGBA16) * width * height);
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
-	invertGreen = tex.invertGreen;
 
 	return *this;
 }
@@ -156,7 +153,6 @@ cTexture &cTexture::operator=(cTexture &&tex)
 	originalFileName = tex.originalFileName;
 	mipmaps = tex.mipmaps;
 	mipmapSizes = tex.mipmapSizes;
-	invertGreen = tex.invertGreen;
 
 	// move
 	bitmap = tex.bitmap;
@@ -221,7 +217,6 @@ cTexture::cTexture()
 	loaded = false;
 	bitmap = new sRGBA16[100 * 100];
 	memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
-	invertGreen = false;
 }
 
 // destructor
@@ -352,7 +347,8 @@ CVector3 cTexture::NormalMapFromBumpMap(CVector2<double> point, double bump, dou
 	return normal;
 }
 
-CVector3 cTexture::NormalMap(CVector2<double> point, double bump, double pixelSize) const
+CVector3 cTexture::NormalMap(
+	CVector2<double> point, double bump, bool invertGreen, double pixelSize) const
 {
 	const int intX = int(point.x);
 	const int intY = int(point.y);

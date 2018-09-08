@@ -950,8 +950,7 @@ float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
 			(float3){pixel.s0 / 128.0f - 1.0f, pixel.s1 / 128.0f - 1.0f, pixel.s2 / 256.0f};
 		texNormal.x *= -input->material->normalMapTextureHeight;
 		texNormal.y *= -input->material->normalMapTextureHeight;
-
-		// TODO: invert green mode
+		if (input->material->normalMapTextureInvertGreen) texNormal.y *= -1.0f;
 
 		texNormal = normalize(texNormal);
 

@@ -117,6 +117,7 @@ public:
 	bool useDisplacementTexture;
 	bool useNormalMapTexture;
 	bool normalMapTextureFromBumpmap;
+	bool normalMapTextureInvertGreen;
 	bool iridescenceEnabled;
 	bool textureFractalize;
 
