@@ -324,9 +324,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				shaderInputData.normal = normal;
 
 #ifdef USE_TEXTURES
+#ifdef USE_NORMAL_MAP_TEXTURE
 				normal = NormalMapShader(&shaderInputData, renderData, objectData,
 					shaderInputData.material->normalMapTextureIndex);
 				shaderInputData.normal = normal;
+#endif
 #endif
 
 				rayStack[rayIndex].out.normal = normal;
@@ -548,15 +550,21 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			{
 
 				// color texture
-#if USE_TEXTURES
+#ifdef USE_TEXTURES
+#ifdef USE_COLOR_TEXTURE
 				shaderInputData.texColor = TextureShader(&shaderInputData, renderData, objectData,
 					shaderInputData.material->colorTextureIndex, 1.0f);
+#endif
 
+#ifdef USE_DIFFUSION_TEXTURE
 				shaderInputData.texDiffuse = TextureShader(&shaderInputData, renderData, objectData,
 					shaderInputData.material->diffusionTextureIndex, 1.0f);
+#endif
 
+#ifdef USE_LUMINOSITY_TEXTURE
 				shaderInputData.texLuminosity = TextureShader(&shaderInputData, renderData, objectData,
 					shaderInputData.material->luminosityTextureIndex, 0.0f);
+#endif
 #endif
 
 				specular = 0.0f;

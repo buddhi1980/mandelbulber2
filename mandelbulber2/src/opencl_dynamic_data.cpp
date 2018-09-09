@@ -323,7 +323,7 @@ void cOpenClDynamicData::BuildLightsData(const cLights *lights)
 		sizeof(arrayOffset));
 }
 
-void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContainer)
+QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContainer)
 {
 	/* use __attribute__((aligned(16))) in kernel code for array
 	 *
@@ -374,6 +374,16 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 	data.replace(globalPositionOffsetAddress, sizeof(globalPositionOffset),
 		reinterpret_cast<char *>(&globalPositionOffset), sizeof(globalPositionOffset));
 
+	bool usePrimitivePlane = false;
+	bool usePrimitiveBox = false;
+	bool usePrimitiveSphere = false;
+	bool usePrimitiveRectangle = false;
+	bool usePrimitiveCylinder = false;
+	bool usePrimitiveCircle = false;
+	bool usePrimitiveCone = false;
+	bool usePrimitiveWater = false;
+	bool usePrimitiveTorus = false;
+
 	// copy primitives data aligned to 16
 	for (int i = 0; i < numberOfPrimitives; i++)
 	{
@@ -403,6 +413,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 					if (plane)
 					{
 						primitiveCl.data.plane.empty = plane->empty;
+						usePrimitivePlane = true;
 					}
 					else
 						throw QString("sPrimitivePlane");
@@ -417,6 +428,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 						primitiveCl.data.box.empty = box->empty;
 						primitiveCl.data.box.rounding = box->rounding;
 						primitiveCl.data.box.repeat = toClFloat3(box->repeat);
+						usePrimitiveBox = true;
 					}
 					else
 						throw QString("sPrimitivePlane");
@@ -431,6 +443,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 						primitiveCl.data.sphere.empty = sphere->empty;
 						primitiveCl.data.sphere.radius = sphere->radius;
 						primitiveCl.data.sphere.repeat = toClFloat3(sphere->repeat);
+						usePrimitiveSphere = true;
 					}
 					else
 						throw QString("sPrimitiveSphere");
@@ -451,6 +464,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 							water->waveFromObjectsRelativeAmplitude;
 						primitiveCl.data.water.iterations = water->iterations;
 						primitiveCl.data.water.animFrame = water->animFrame;
+						usePrimitiveWater = true;
 					}
 					else
 						throw QString("sPrimitiveWater");
@@ -468,6 +482,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 						primitiveCl.data.cone.height = cone->height;
 						primitiveCl.data.cone.wallNormal = toClFloat2(cone->wallNormal);
 						primitiveCl.data.cone.repeat = toClFloat3(cone->repeat);
+						usePrimitiveCone = true;
 					}
 					else
 						throw QString("sPrimitiveCone");
@@ -484,6 +499,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 						primitiveCl.data.cylinder.radius = cylinder->radius;
 						primitiveCl.data.cylinder.height = cylinder->height;
 						primitiveCl.data.cylinder.repeat = toClFloat3(cylinder->repeat);
+						usePrimitiveCylinder = true;
 					}
 					else
 						throw QString("sPrimitiveCylinder");
@@ -501,6 +517,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 						primitiveCl.data.torus.tubeRadius = torus->tubeRadius;
 						primitiveCl.data.torus.tubeRadiusLPow = torus->tubeRadiusLPow;
 						primitiveCl.data.torus.repeat = toClFloat3(torus->repeat);
+						usePrimitiveTorus = true;
 					}
 					else
 						throw QString("sPrimitiveTorus");
@@ -513,6 +530,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 					if (circle)
 					{
 						primitiveCl.data.circle.radius = circle->radius;
+						usePrimitiveCircle = true;
 					}
 					else
 						throw QString("sPrimitiveCircle");
@@ -527,6 +545,7 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 					{
 						primitiveCl.data.rectangle.height = rectangle->height;
 						primitiveCl.data.rectangle.width = rectangle->width;
+						usePrimitiveRectangle = true;
 					}
 					else
 						throw QString("sPrimitiveRectangle");
@@ -555,6 +574,19 @@ void cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesContai
 	// replace arrayOffset:
 	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
 		sizeof(arrayOffset));
+
+	QString definesCollector;
+	if (usePrimitiveBox) definesCollector += " -DUSE_PRIMITIVE_BOX";
+	if (usePrimitiveCircle) definesCollector += " -DUSE_PRIMITIVE_CIRCLE";
+	if (usePrimitiveCone) definesCollector += " -DUSE_PRIMITIVE_CONE";
+	if (usePrimitiveCylinder) definesCollector += " -DUSE_PRIMITIVE_CYLINDER";
+	if (usePrimitivePlane) definesCollector += " -DUSE_PRIMITIVE_PLANE";
+	if (usePrimitiveRectangle) definesCollector += " -DUSE_PRIMITIVE_RECTANGLE";
+	if (usePrimitiveSphere) definesCollector += " -DUSE_PRIMITIVE_SPHERE";
+	if (usePrimitiveTorus) definesCollector += " -DUSE_PRIMITIVE_TORUS";
+	if (usePrimitiveWater) definesCollector += " -DUSE_PRIMITIVE_WATER";
+
+	return definesCollector;
 }
 
 void cOpenClDynamicData::BuildObjectsData(const QVector<cObjectData> *objectData)

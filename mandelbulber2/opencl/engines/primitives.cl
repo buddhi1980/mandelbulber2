@@ -33,6 +33,8 @@
  */
 
 #ifdef USE_PRIMITIVES
+
+#ifdef USE_PRIMITIVE_PLANE
 float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -40,7 +42,9 @@ float PrimitivePlane(__global sPrimitiveCl *primitive, float3 _point)
 	float dist = point.z;
 	return primitive->data.plane.empty ? fabs(dist) : dist;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_BOX
 float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -64,7 +68,9 @@ float PrimitiveBox(__global sPrimitiveCl *primitive, float3 _point)
 		return length(boxTemp) - primitive->data.box.rounding;
 	}
 }
+#endif
 
+#ifdef USE_PRIMITIVE_SPHERE
 float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -73,7 +79,9 @@ float PrimitiveSphere(__global sPrimitiveCl *primitive, float3 _point)
 	float dist = length(point) - primitive->data.sphere.radius;
 	return primitive->data.sphere.empty ? fabs(dist) : dist;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_RECTANGLE
 float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -84,7 +92,9 @@ float PrimitiveRectangle(__global sPrimitiveCl *primitive, float3 _point)
 	boxTemp.z = fabs(point.z);
 	return length(boxTemp);
 }
+#endif
 
+#ifdef USE_PRIMITIVE_CYLINDER
 float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -96,7 +106,9 @@ float PrimitiveCylinder(__global sPrimitiveCl *primitive, float3 _point)
 	dist = max(fabs(point.z) - primitive->data.cylinder.height * 0.5f, dist);
 	return primitive->data.cylinder.empty ? fabs(dist) : dist;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_CIRCLE
 float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -106,7 +118,9 @@ float PrimitiveCircle(__global sPrimitiveCl *primitive, float3 _point)
 	distTemp = max(fabs(point.z), distTemp);
 	return distTemp;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_CONE
 float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -120,7 +134,9 @@ float PrimitiveCone(__global sPrimitiveCl *primitive, float3 _point)
 	dist = max(-point.z - primitive->data.cone.height, dist);
 	return primitive->data.cone.empty ? fabs(dist) : dist;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_WATER
 float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float distanceFromAnother)
 {
 	float3 point = _point - primitive->object.position;
@@ -175,7 +191,9 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 	}
 	return primitive->data.water.empty ? fabs(planeDistance) : planeDistance;
 }
+#endif
 
+#ifdef USE_PRIMITIVE_TORUS
 float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 {
 	float3 point = _point - primitive->object.position;
@@ -191,6 +209,7 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 							 - primitive->data.torus.tubeRadius;
 	return primitive->data.torus.empty ? fabs(dist) : dist;
 }
+#endif
 
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 point, float fractalDistance, int *closestObjectId)
@@ -212,51 +231,77 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 			float distTemp = 0.0f;
 			switch (primitive->object.objectType)
 			{
+#ifdef USE_PRIMITIVE_PLANE
 				case clObjPlane:
 				{
 					distTemp = PrimitivePlane(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_BOX
 				case clObjBox:
 				{
 					distTemp = PrimitiveBox(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_SPHERE
 				case clObjSphere:
 				{
 					distTemp = PrimitiveSphere(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_RECTANGLE
 				case clObjRectangle:
 				{
 					distTemp = PrimitiveRectangle(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_CYLINDER
 				case clObjCylinder:
 				{
 					distTemp = PrimitiveCylinder(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_CIRCLE
 				case clObjCircle:
 				{
 					distTemp = PrimitiveCircle(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_CONE
 				case clObjCone:
 				{
 					distTemp = PrimitiveCone(primitive, point2);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_WATER
 				case clObjWater:
 				{
 					distTemp = PrimitiveWater(primitive, point2, dist);
 					break;
 				}
+#endif
+
+#ifdef USE_PRIMITIVE_TORUS
 				case clObjTorus:
 				{
 					distTemp = PrimitiveTorus(primitive, point2);
 					break;
 				}
+#endif
 				default: break;
 			}
 

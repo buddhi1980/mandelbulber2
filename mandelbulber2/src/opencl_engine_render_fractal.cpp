@@ -522,6 +522,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
 		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
+
+		definesCollector += texturesData->GetDefinesCollector();
 	}
 
 	//----------- create dynamic data -----------
@@ -576,7 +578,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
 	dynamicData->BuildLightsData(&renderData->lights);
 
-	dynamicData->BuildPrimitivesData(&paramRender->primitives);
+	definesCollector += dynamicData->BuildPrimitivesData(&paramRender->primitives);
 	if (paramRender->primitives.GetListOfPrimitives()->size() > 0)
 		definesCollector += " -DUSE_PRIMITIVES";
 
@@ -723,7 +725,9 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 		cProgressText progressText;
 		progressText.ResetTimer();
 
-		emit updateProgressAndStatus(tr("OpenCl - rendering image"), progressText.getText(0.0), 0.0);
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
+			progressText.getText(0.0), 0.0);
 
 		QElapsedTimer timer;
 		timer.start();
@@ -940,7 +944,8 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								percentDone = percentDone * (1.0 - doneMC) + doneMC;
 							}
 							emit updateProgressAndStatus(
-								tr("OpenCl - rendering image"), progressText.getText(percentDone), percentDone);
+								tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
+								progressText.getText(percentDone), percentDone);
 
 							emit updateStatistics(renderData->statistics);
 

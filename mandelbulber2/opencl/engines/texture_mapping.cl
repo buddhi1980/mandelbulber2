@@ -45,6 +45,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 
 	switch (material->textureMappingType)
 	{
+#ifdef USE_PLANAR_MAPPING
 		case clTextureMappingPlanar:
 		{
 			textureCoordinates = (float2){point.x, point.y};
@@ -53,6 +54,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			textureCoordinates.x -= material->textureCenter.x;
 			textureCoordinates.y -= material->textureCenter.y;
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 			if (textureVectorX && textureVectorY)
 			{
 				float3 texX = (float3){1.0f, 0.0f, 0.0f};
@@ -65,8 +67,12 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
 				*textureVectorY = texY;
 			}
+#endif
 			break;
 		}
+#endif
+
+#ifdef USE_CYLINDRICAL_MAPPING
 		case clTextureMappingCylindrical:
 		{
 			float alphaTexture = fmod(GetAlpha(point) + 2.0f * M_PI_F, 2.0f * M_PI_F);
@@ -77,6 +83,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			textureCoordinates.x -= material->textureCenter.x;
 			textureCoordinates.y -= material->textureCenter.y;
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 			if (textureVectorX && textureVectorY)
 			{
 				float3 texY = (float3){0.0f, 0.0f, 1.0f};
@@ -88,9 +95,13 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
 				*textureVectorY = texY;
 			}
+#endif
 
 			break;
 		}
+#endif
+
+#ifdef USE_SPHERICAL_MAPPING
 		case clTextureMappingSpherical:
 		{
 			float alphaTexture = fmod(GetAlpha(point) + 2.0f * M_PI_F, 2.0f * M_PI_F);
@@ -102,6 +113,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 			textureCoordinates.x -= material->textureCenter.x;
 			textureCoordinates.y -= material->textureCenter.y;
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 			if (textureVectorX && textureVectorY)
 			{
 				float3 texY = (float3){0.0f, 0.0f, -1.0f};
@@ -116,10 +128,13 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
 				*textureVectorY = texY;
 			}
+#endif
 
 			break;
 		}
+#endif
 
+#ifdef USE_CUBIC_MAPPING
 		case clTextureMappingCubic:
 		{
 			point /= material->textureScale;
@@ -136,6 +151,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 					else
 						textureCoordinates = (float2){-point.y, -point.z};
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 					if (textureVectorX && textureVectorY)
 					{
 						if (normalVector.x > 0.0f)
@@ -149,6 +165,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 							texY = (float3)(0.0f, 0.0f, 1.0f);
 						}
 					}
+#endif
 				}
 				else
 				{
@@ -158,6 +175,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 					else
 						textureCoordinates = (float2){point.x, point.y};
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 					if (textureVectorX && textureVectorY)
 					{
 						if (normalVector.z > 0.0f)
@@ -171,6 +189,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 							texY = (float3){0.0f, -1.0f, 0.0f};
 						}
 					}
+#endif
 				}
 			}
 			else
@@ -183,6 +202,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 					else
 						textureCoordinates = (float2){point.x, -point.z};
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 					if (textureVectorX && textureVectorY)
 					{
 						if (normalVector.y > 0.0f)
@@ -196,6 +216,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 							texY = (float3){0.0f, 0.0f, 1.0f};
 						}
 					}
+#endif
 				}
 				else
 				{
@@ -205,6 +226,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 					else
 						textureCoordinates = (float2){point.x, point.y};
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 					if (textureVectorX && textureVectorY)
 					{
 						if (normalVector.z > 0.0f)
@@ -218,9 +240,11 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 							texY = (float3){0.0f, -1.0f, 0.0f};
 						}
 					}
+#endif
 				}
 			}
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 			if (textureVectorX && textureVectorY)
 			{
 				texX = Matrix33MulFloat3(TransposeMatrix(objectData->rotationMatrix), texX);
@@ -230,9 +254,11 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 				texY = Matrix33MulFloat3(TransposeMatrix(material->rotMatrix), texY);
 				*textureVectorY = texY;
 			}
+#endif
 
 			break;
 		}
+#endif
 	}
 	return textureCoordinates;
 }

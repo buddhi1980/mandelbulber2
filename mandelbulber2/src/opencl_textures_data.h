@@ -53,12 +53,24 @@ public:
 		const sTextures &textures, const QMap<int, cMaterial> &materials);
 	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials,
 		QMap<QString, int> *textureIndexes);
+	QString GetDefinesCollector(void) const;
 
 private:
 	static bool CountTexture(const cTexture *texture, QSet<QString> *listOfTextures, int *counter);
 	void BuildTextureData(const cTexture *texture, int textureIndex);
 
 	int numberOfTextures;
+	bool useColorTexture;
+	bool useDiffussionTexture;
+	bool useLuminosityTexture;
+	bool useNormalMapTexture;
+	bool useNormalMapTextureFromBumpmap;
+	bool useDisplacementMap;
+
+	bool usePlanarMapping;
+	bool useCylindicalMapping;
+	bool useSphericalMapping;
+	bool useCubicMapping;
 };
 
 #endif // USE_OPENCL

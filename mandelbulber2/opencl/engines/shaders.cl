@@ -340,7 +340,7 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 	float specular = dot(input->normal, halfVector);
 	if (specular < 0.0f) specular = 0.0f;
 
-#ifdef USE_TEXTURES
+#if defined(USE_TEXTURES) && defined(USE_DIFFUSION_TEXTURE)
 	float diffuse =
 		10.0f
 		* (1.1f
@@ -893,6 +893,7 @@ int TexturePixelAddress(float2 texturePoint, int2 textureSize)
 	return texturePointInt.x + texturePointInt.y * textureSize.x;
 }
 
+#if defined(USE_COLOR_TEXTURE) || defined(USE_DIFFUSION_TEXTURE) || defined(USE_LUMINOSITY_TEXTURE)
 float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
 	__global sObjectDataCl *objectData, int textureIndex, float3 substituteColor)
 {
@@ -918,7 +919,9 @@ float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
 
 	return texOut;
 }
+#endif
 
+#ifdef USE_NORMAL_MAP_TEXTURE
 float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
 	__global sObjectDataCl *objectData, int textureIndex)
 {
@@ -962,6 +965,7 @@ float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
 		return input->normal;
 	}
 }
+#endif // USE_NORMAL_MAP_TEXTURE
 #endif // USE_TEXTURES
 
 //------------ Object shader ----------------
@@ -993,9 +997,11 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam);
 
 #ifdef USE_TEXTURES
+#ifdef USE_COLOR_TEXTURE
 	float texColInt = input->material->colorTextureIntensity;
 	float texColIntN = 1.0f - texColInt;
 	surfaceColor *= input->texColor * texColInt + texColIntN;
+#endif
 #endif
 
 	if (consts->params.mainLightEnable)
@@ -1043,7 +1049,9 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
 
 #ifdef USE_TEXTURES
+#ifdef USE_LUMINOSITY_TEXTURE
 	luminosity += input->texLuminosity * input->material->luminosityTextureIntensity;
+#endif
 #endif
 
 	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular
@@ -1120,14 +1128,20 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			inputCopy.paletteSize = renderData->paletteLengths[objectData->materialId];
 
 #if USE_TEXTURES
+#ifdef USE_COLOR_TEXTURE
 			inputCopy.texColor = TextureShader(
 				&inputCopy, renderData, objectData, inputCopy.material->colorTextureIndex, 1.0f);
+#endif
 
+#ifdef USE_DIFFUSION_TEXTURE
 			inputCopy.texDiffuse = TextureShader(
 				&inputCopy, renderData, objectData, inputCopy.material->diffusionTextureIndex, 1.0f);
+#endif
 
+#ifdef USE_LUMINOSITY_TEXTURE
 			inputCopy.texLuminosity = TextureShader(
 				&inputCopy, renderData, objectData, inputCopy.material->luminosityTextureIndex, 0.0f);
+#endif
 #endif
 
 			float3 objectShader = ObjectShader(

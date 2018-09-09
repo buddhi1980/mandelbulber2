@@ -57,7 +57,7 @@ public:
 		const QMap<QString, int> &textureIndexes); // returns array size
 	void BuildAOVectorsData(const sVectorsAround *AOVectors, int verctorsCount);
 	void BuildLightsData(const cLights *lights);
-	void BuildPrimitivesData(const cPrimitives *primitives);
+	QString BuildPrimitivesData(const cPrimitives *primitives); // return definesCollector;
 	void BuildObjectsData(const QVector<cObjectData> *objectData);
 
 private:

@@ -43,6 +43,18 @@ cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 		: cOpenClAbstractDynamicData(_numberOfTextures)
 {
 	numberOfTextures = _numberOfTextures;
+
+	useColorTexture = false;
+	useDiffussionTexture = false;
+	useLuminosityTexture = false;
+	useNormalMapTexture = false;
+	useNormalMapTextureFromBumpmap = false;
+	useDisplacementMap = false;
+
+	usePlanarMapping = false;
+	useCylindicalMapping = false;
+	useSphericalMapping = false;
+	useCubicMapping = false;
 }
 
 cOpenClTexturesData::~cOpenClTexturesData()
@@ -99,36 +111,62 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 		textureIndexes->insert(textures.envmapTexture.GetFileName(), textureIndex);
 	}
 
+	useColorTexture = false;
+	useDiffussionTexture = false;
+	useLuminosityTexture = false;
+	useNormalMapTexture = false;
+	useNormalMapTextureFromBumpmap = false;
+	useDisplacementMap = false;
+
+	usePlanarMapping = false;
+	useCylindicalMapping = false;
+	useSphericalMapping = false;
+	useCubicMapping = false;
+
 	for (const cMaterial &material : materials) // for each material from materials
 	{
 		if (CountTexture(&material.colorTexture, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.colorTexture, textureIndex);
 			textureIndexes->insert(material.colorTexture.GetFileName(), textureIndex);
+			useColorTexture = true;
 		}
 
 		if (CountTexture(&material.diffusionTexture, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.diffusionTexture, textureIndex);
 			textureIndexes->insert(material.diffusionTexture.GetFileName(), textureIndex);
+			useDiffussionTexture = true;
 		}
 
 		if (CountTexture(&material.displacementTexture, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.displacementTexture, textureIndex);
 			textureIndexes->insert(material.displacementTexture.GetFileName(), textureIndex);
+			useDisplacementMap = true;
 		}
 
 		if (CountTexture(&material.luminosityTexture, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.luminosityTexture, textureIndex);
 			textureIndexes->insert(material.luminosityTexture.GetFileName(), textureIndex);
+			useLuminosityTexture = true;
 		}
 
 		if (CountTexture(&material.normalMapTexture, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.normalMapTexture, textureIndex);
 			textureIndexes->insert(material.normalMapTexture.GetFileName(), textureIndex);
+			useNormalMapTexture = true;
+			if (material.normalMapTextureFromBumpmap) useNormalMapTextureFromBumpmap = true;
+		}
+
+		switch (material.textureMappingType)
+		{
+			case texture::mappingPlanar: usePlanarMapping = true; break;
+			case texture::mappingCylindrical: useCylindicalMapping = true; break;
+			case texture::mappingSpherical: useSphericalMapping = true; break;
+			case texture::mappingCubic: useCubicMapping = true; break;
 		}
 	}
 
@@ -190,6 +228,22 @@ void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureI
 	// replace arrayOffset:
 	data.replace(arrayOffsetAddress, sizeof(arrayOffset), reinterpret_cast<char *>(&arrayOffset),
 		sizeof(arrayOffset));
+}
+
+QString cOpenClTexturesData::GetDefinesCollector(void) const
+{
+	QString definesCollector;
+	if (useColorTexture) definesCollector += " -DUSE_COLOR_TEXTURE";
+	if (useDiffussionTexture) definesCollector += " -DUSE_DIFFUSION_TEXTURE";
+	if (useLuminosityTexture) definesCollector += " -DUSE_LUMINOSITY_TEXTURE";
+	if (useNormalMapTexture) definesCollector += " -DUSE_NORMAL_MAP_TEXTURE";
+	if (useNormalMapTextureFromBumpmap) definesCollector += " -DUSE_NORMAL_MAP_BUMP_TEXTURE";
+	if (useDisplacementMap) definesCollector += " -DUSE_DISPLACEMENT_TEXTURE";
+	if (usePlanarMapping) definesCollector += " -DUSE_PLANAR_MAPPING";
+	if (useCylindicalMapping) definesCollector += " -DUSE_CYLINDRICAL_MAPPING";
+	if (useSphericalMapping) definesCollector += " -DUSE_SPHERICAL_MAPPING";
+	if (useCubicMapping) definesCollector += " -DUSE_CUBIC_MAPPING";
+	return definesCollector;
 }
 
 #endif // USE_OPENCL
