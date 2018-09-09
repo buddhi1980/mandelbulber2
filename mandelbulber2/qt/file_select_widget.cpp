@@ -35,6 +35,7 @@
 
 #include "file_select_widget.h"
 
+#include "../src/resource_http_provider.hpp"
 #include "preview_file_dialog.h"
 
 #include "src/animation_flight.hpp"
@@ -145,6 +146,11 @@ void FileSelectWidget::slotChangedFile()
 	{
 		actualText = lineEdit->text();
 		QString filename = AnimatedFileName(actualText, 0);
+
+		cResourceHttpProvider httpProvider(filename);
+		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+		qDebug() << filename;
+
 		QPixmap pixmap(filename);
 
 		if (pixmap.isNull())
