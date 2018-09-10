@@ -149,7 +149,6 @@ void FileSelectWidget::slotChangedFile()
 
 		cResourceHttpProvider httpProvider(filename);
 		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
-		qDebug() << filename;
 
 		QPixmap pixmap(filename);
 

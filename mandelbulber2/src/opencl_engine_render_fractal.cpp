@@ -138,6 +138,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		clHeaderFiles.append("fractal_sequence_cl.h");
 		clHeaderFiles.append("texture_enums_cl.h");
 		clHeaderFiles.append("material_cl.h");
+		clHeaderFiles.append("shader_input_data_cl.h");
 		clHeaderFiles.append("object_type_cl.h");
 		clHeaderFiles.append("object_data_cl.h");
 		clHeaderFiles.append("primitives_cl.h");
@@ -208,7 +209,31 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			if (renderEngineMode != clRenderEngineTypeFast)
 			{
 				// shaders
-				programEngine.append("#include \"" + openclEnginePath + "shaders.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_iter_opacity.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_hsv2rgb.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_background.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_surface_color.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_main_shading.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_specular_highlight.cl\"\n");
+				programEngine.append(
+					"#include \"" + openclEnginePath + "shader_specular_highlight_combined.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_main_shadow.cl\"\n");
+				programEngine.append(
+					"#include \"" + openclEnginePath + "shader_fast_ambient_occlusion.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_ambient_occlusion.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_aux_shadow.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_light_shading.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_aux_lights_shader.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_fake_lights.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
+				programEngine.append(
+					"#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_texture.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_object.cl\"\n");
+				programEngine.append(
+					"#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
+				programEngine.append("#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
 			}
 
 			if (renderEngineMode == clRenderEngineTypeFull)
