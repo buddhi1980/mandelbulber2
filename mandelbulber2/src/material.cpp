@@ -151,9 +151,12 @@ QStringList cMaterial::paramsList = {
 	"iridescence_intensity",
 	"iridescence_subsurface_thickness",
 
+	"fractal_coloring_extra_color_options_false",
 	"fractal_coloring_color_preV215_false",
-	"fractal_coloring_hybrid_color_preV215_false",
-	"fractal_coloring_rad_div_de_scale1", // TODO TESTING
+	"fractal_coloring_aux_color_scale1",
+	"fractal_coloring_orbit_trap_scale1",
+	"fractal_coloring_hybrid_div_de_scale1",
+
 	"fractal_coloring_temp_limit_false",	// TODO TESTING
 
 	"fractal_coloring_extra_color_enabled_false",
@@ -301,16 +304,23 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.color4dEnabledFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_color_4D_enabled_false", id));
 
+	fractalColoring.extraColorOptionsEnabledFalse =
+		materialParam->Get<bool>(Name("fractal_coloring_extra_color_options_false", id));
 	fractalColoring.colorPreV215False =
 		materialParam->Get<bool>(Name("fractal_coloring_color_preV215_false", id));
-	fractalColoring.hybridColorPreV215False =
-		materialParam->Get<bool>(Name("fractal_coloring_hybrid_color_preV215_false", id));
+	fractalColoring.hybridAuxColorScale1 =
+		materialParam->Get<double>(Name("fractal_coloring_aux_color_scale1", id));
+	fractalColoring.hybridOrbitTrapScale1 =
+		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_scale1", id));
+	fractalColoring.hybridRadDivDeScale1 =
+		materialParam->Get<double>(Name("fractal_coloring_hybrid_div_de_scale1", id));
 
 	fractalColoring.tempLimitFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id)); // tempLimit
 
-	fractalColoring.radDivDeScale1 =
-		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_scale1", id)); // testing
+
+
+
 
 	// color by numbers
 	fractalColoring.extraColorEnabledFalse =
@@ -338,6 +348,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	// fractalColoring.initialMinimumR =
 	// materialParam->Get<double>(Name("fractal_coloring_initial_minimumR", id));
+
 	// aux.color
 	fractalColoring.auxColorFalse =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_false", id));

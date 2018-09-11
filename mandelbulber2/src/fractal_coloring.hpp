@@ -56,9 +56,10 @@ struct sFractalColoring
 	bool addEnabledFalse;
 	bool auxColorFalse;
 	bool color4dEnabledFalse;
+	bool colorPreV215False;
 	bool cosEnabledFalse;
+	bool extraColorOptionsEnabledFalse;
 	bool extraColorEnabledFalse;
-	// global palette controls
 	bool globalPaletteFalse;
 	bool icFabsFalse;
 	bool icRadFalse;
@@ -83,9 +84,9 @@ struct sFractalColoring
 	bool xyzYSqrdFalse;
 	bool xyzZSqrdFalse;
 
-	bool tempLimitFalse;
-	bool colorPreV215False;
-	bool hybridColorPreV215False;
+	bool tempLimitFalse; // tempoary
+
+
 
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
@@ -113,7 +114,9 @@ struct sFractalColoring
 	double parabScale;
 	double parabStartValue;
 	double radDivDeWeight;
-	double radDivDeScale1;
+	double hybridAuxColorScale1;
+	double hybridOrbitTrapScale1;
+	double hybridRadDivDeScale1;
 	double radWeight;
 	double roundScale;
 	double sphereRadius;

@@ -209,25 +209,12 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 		colorIndex = colorValue * 256.0f; // convert to colorValue units
 
 
-		// pre ver2.15 historic hybrid mode
-		if (fractalColoring->hybridColorPreV215False)
-		{
-			colorMin = min(100.0, colorMin);
-			float mboxColor = min(extendedAux->color, 1000.0);
-			float  r2 = min(r / fabs(extendedAux->DE), 20.0);
-			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
-		}
-
-
 #endif
 	}
 
 	// Historic HYBRID MODE coloring
 	else if (isHybrid)
 	{
-		// aux.DE
-		float r2 = min(r / fabs(extendedAux->DE), 20.0f);
-
 		// orbit trap
 		colorMin = min(100.0f, colorMin);
 
@@ -235,7 +222,20 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 		float mboxColor = extendedAux->color;
 		//float mboxColor = min(extendedAux->color, 1000.0f);
 
-		colorIndex = (colorMin * 1000.0f + mboxColor * 100.0f + r2 * 5000.0f);
+		// rad/DE
+		float r2 = min(r / fabs(extendedAux->DE), 20.0f);
+
+		// summation
+		if (!fractalColoring->extraColorOptionsEnabledFalse)
+		{
+			colorIndex = (colorMin * 1000.0f + mboxColor * 100.0f + r2 * 5000.0f);
+		}
+		else
+		{
+			colorIndex = (colorMin * 1000.0f * fractalColoring->hybridOrbitTrapScale1
+						  + mboxColor * 100.0f * fractalColoring.hybridAuxColorScale1
+							+ r2 * 5000.0f * fractalColoring.hybridAuxColorScale1);
+		}
 	}
 
 	// NORMAL MODE Coloring

@@ -54,7 +54,6 @@ sFractalColoring::sFractalColoring()
 	iterAddScaleTrue = false;
 	iterGroupFalse = false;
 	iterScaleFalse = false;
-	hybridColorPreV215False = false;
 	orbitTrapTrue = false;
 	parabEnabledFalse = false;
 	radDiv1e13False = false;
@@ -284,25 +283,6 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		if (colorValue > maxCV) colorValue = maxCV;
 
 		colorIndex = colorValue * 256.0; // convert to colorValue units
-
-		// pre ver2.15 historic hybrid mode
-		/*if (fractalColoring.hybridColorPreV215False)
-		{
-			colorMin = min(100.0, colorMin);
-
-			// Testing
-			//double mboxColor = extendedAux.color;
-			//if (fractalColoring.tempLimitFalse && extendedAux.i == 0) mboxColor += 1.0;
-			//if (fractalColoring.tempLimitFalse && mboxColor < 0.000001) mboxColor += 1.0;
-			//mboxColor = min(mboxColor, 1000.0);
-
-
-			double mboxColor = min(extendedAux.color, 1000.0); // EXISTING CODE
-
-			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.radDivDeScale1;
-
-			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
-		}*/
 	}
 
 	//  HYBRID MODE coloring
@@ -315,17 +295,20 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		double mboxColor = extendedAux.color;
 		// double mboxColor = min(extendedAux.color, 1000.0);
 
-		// aux.DE TESTING CODE
-		double  deAux = fabs(extendedAux.DE); // fabs may be no longer required??
-		if (fractalColoring.tempLimitFalse) deAux = 1.0;
-		double r2 = min(r / deAux, 20.0);
-		if (fractalColoring.hybridColorPreV215False) r2 *= fractalColoring.radDivDeScale1;
-
-		 //double r2 = min(r / fabs(extendedAux.DE), 20.0); // EXISTING CODE
-
+		// rad/DE
+		double r2 = min(r / fabs(extendedAux.DE), 20.0);
 
 		// summation
-		colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
+		if (!fractalColoring.extraColorOptionsEnabledFalse)
+		{
+			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
+		}
+		else
+		{
+			colorIndex = (colorMin * 1000.0 * fractalColoring.hybridOrbitTrapScale1
+						  + mboxColor * 100.0 * fractalColoring.hybridAuxColorScale1
+							+ r2 * 5000.0 * fractalColoring.hybridAuxColorScale1);
+		}
 	}
 
 	// NORMAL MODE Coloring (single fractal)
