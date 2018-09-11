@@ -72,7 +72,9 @@ typedef struct
 	cl_int addEnabledFalse;
 	cl_int auxColorFalse;
 	cl_int color4dEnabledFalse;
+	cl_int colorPreV215False;
 	cl_int cosEnabledFalse;
+	cl_int extraColorOptionsEnabledFalse;
 	cl_int extraColorEnabledFalse;
 	// global palette controls
 	cl_int globalPaletteFalse;
@@ -100,8 +102,8 @@ typedef struct
 	cl_int xyzZSqrdFalse;
 
 
-	cl_int colorPreV215False;
-	cl_int hybridColorPreV215False;
+
+
 	cl_int tempLimitFalse; // temp
 
 	enumFractalColoringCl coloringAlgorithm;
@@ -119,6 +121,10 @@ typedef struct
 	cl_float cosAdd;
 	cl_float cosPeriod;
 	cl_float cosStartValue;
+	cl_float hybridAuxColorScale1;
+	cl_float hybridOrbitTrapScale1;
+	cl_float hybridRadDivDeScale1;
+
 	cl_float icRadWeight;
 	cl_float initialColorValue;
 	//cl_float initialMinimumR;
@@ -144,7 +150,9 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.addEnabledFalse = source.addEnabledFalse;
 	target.auxColorFalse = source.auxColorFalse;
 	target.color4dEnabledFalse = source.color4dEnabledFalse;
+	target.colorPreV215False = source.colorPreV215False;
 	target.cosEnabledFalse = source.cosEnabledFalse;
+	target.extraColorOptionsEnabledFalse = source.extraColorOptionsEnabledFalse;
 	target.extraColorEnabledFalse = source.extraColorEnabledFalse;
 	target.globalPaletteFalse = source.globalPaletteFalse;
 	target.icFabsFalse = source.icFabsFalse;
@@ -170,8 +178,7 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.xyzYSqrdFalse = source.xyzYSqrdFalse;
 	target.xyzZSqrdFalse = source.xyzZSqrdFalse;
 
-	target.colorPreV215False = source.colorPreV215False;
-	target.hybridColorPreV215False = source.hybridColorPreV215False;
+
 	target.tempLimitFalse = source.tempLimitFalse; // temp
 
 	target.coloringAlgorithm = enumFractalColoringCl(source.coloringAlgorithm);
@@ -187,6 +194,11 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.cosAdd = source.cosAdd;
 	target.cosPeriod = source.cosPeriod;
 	target.cosStartValue = source.cosStartValue;
+	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
+
+
+
+
 	target.icRadWeight = source.icRadWeight;
 	target.initialColorValue = source.initialColorValue;
 	//target.initialMinimumR = source.initialMinimumR;

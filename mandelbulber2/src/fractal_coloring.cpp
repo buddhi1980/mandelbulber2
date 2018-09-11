@@ -288,35 +288,26 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 	//  HYBRID MODE coloring
 	else if (isHybrid)
 	{
+		// orbit trap
+		colorMin = min(100.0, colorMin);
+
+		// aux.color (init cond = 1.0)
+		double mboxColor = extendedAux.color;
+		// double mboxColor = min(extendedAux.color, 1000.0);
+
+		// rad/DE
+		double r2 = min(r / fabs(extendedAux.DE), 20.0);
+
+		// summation
 		if (!fractalColoring.extraColorOptionsEnabledFalse)
 		{
-			// orbit trap
-			colorMin = min(100.0, colorMin);
-
-			// aux.color (init cond = 1.0)
-			double mboxColor = extendedAux.color;
-			// double mboxColor = min(extendedAux.color, 1000.0);
-
-			// rad/DE
-			double r2 = min(r / fabs(extendedAux.DE), 20.0);
-
-			// summation
 			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
 		}
 		else
 		{
-			// orbit trap
-			colorMin = min(100.0, colorMin) * fractalColoring.hybridOrbitTrapScale1;
-
-			// aux.color (init cond = 1.0)
-			double mboxColor = extendedAux.color * fractalColoring.hybridOrbitTrapScale1;
-			// double mboxColor = min(extendedAux.color, 1000.0);
-
-			// rad/DE
-			double r2 = min(r / fabs(extendedAux.DE), 20.0) * fractalColoring.hybridAuxColorScale1;
-
-			// summation
-			colorIndex = (colorMin * 1000.0 + mboxColor * 100.0 + r2 * 5000.0);
+			colorIndex = (colorMin * 1000.0  * fractalColoring.hybridOrbitTrapScale1
+						  + mboxColor * 100.0  * fractalColoring.hybridAuxColorScale1
+							+ r2 * 5000.0  * fractalColoring.hybridAuxColorScale1);
 		}
 	}
 

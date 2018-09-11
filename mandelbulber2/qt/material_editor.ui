@@ -81,7 +81,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-120</y>
+        <y>0</y>
         <width>583</width>
         <height>4019</height>
        </rect>
@@ -744,7 +744,7 @@ direction vector:</string>
                   <double>9999.999900000000707</double>
                  </property>
                  <property name="singleStep">
-                  <double>1.000000000000000</double>
+                  <double>0.100000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -785,7 +785,7 @@ direction vector:</string>
                   <double>9999.999900000000707</double>
                  </property>
                  <property name="singleStep">
-                  <double>1.000000000000000</double>
+                  <double>0.100000000000000</double>
                  </property>
                 </widget>
                </item>
@@ -813,7 +813,7 @@ direction vector:</string>
                   <double>9999.999900000000707</double>
                  </property>
                  <property name="singleStep">
-                  <double>1.000000000000000</double>
+                  <double>0.100000000000000</double>
                  </property>
                 </widget>
                </item>
