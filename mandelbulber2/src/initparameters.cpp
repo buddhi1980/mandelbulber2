@@ -1096,286 +1096,123 @@ void InitPrimitiveParams(
 
 void InitMaterialParams(int materialId, cParameterContainer *par)
 {
+	par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima,		paramStandard);
+	par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0,	morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("coloring_random_seed", materialId), 269259, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("coloring_saturation", materialId), 1.0, 0.0, 1000.0, morphLinear,		paramStandard);
+	par->addParam(cMaterial::Name("coloring_speed", materialId), 1.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1e10,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("displacement_texture_height", materialId), 0.1, 1e-12, 1e4,	morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("file_color_texture", materialId),		QDir::toNativeSeparators(			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),		QDir::toNativeSeparators(			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_displacement_texture", materialId),		QDir::toNativeSeparators(			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),		QDir::toNativeSeparators(			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),		QDir::toNativeSeparators(			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_add_max", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_add_spread", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_add_start_value", materialId), 0.0, 0.0, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),	int(fractalColoring_Standard), 0, 4, morphNone, paramStandard); // = 0,0,4
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, -1e20,		1e20, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,	morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_color_preV215_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_add", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_enabled_false", materialId), false, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_period", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_cos_start_value", materialId), 0.0, 0.0, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_extra_color_options_false", materialId), false,	morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_global_palette_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_hybrid_div_de_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_i_start_value", materialId), 0, 0, 9999,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_fabs_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_ic_xyz_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_init_cond_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_initial_color_value", materialId), 0.0, -1e20,		1e20, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_iter_add_scale_enabled_true", materialId), true,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_iter_add_scale", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_iter_group_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_iter_scale_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_iter_scale", materialId), 0.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),	CVector4(1.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e6, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_true", materialId), true, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_parab_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_parab_scale", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_parab_start_value", materialId), 0.0, 0.0, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_1e13_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_1e13_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_squared_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_enabled_false", materialId), false, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_squared_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_round_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_round_scale", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,	morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,		morphNone, paramStandard); // TODO remove when finished
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId), CVector3(1.0, 1.0, 1.0),		morphAkima, paramStandard); // vec4??
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_div_1e13_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_fabs_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 0.0, -1e20, 1e20,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_x_sqrd_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_y_sqrd_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyz_z_sqrd_enabled_false", materialId), false,		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_xyzC_111", materialId), CVector3(1.0, 1.0, 1.0),		morphAkima, paramStandard); // vec4??
+	par->addParam(cMaterial::Name("fresnel_reflectance", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("iridescence_enabled", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("iridescence_intensity", materialId), 1.0, 1e-10, 1e15, morphAkima,		paramStandard);
+	par->addParam(cMaterial::Name("iridescence_subsurface_thickness", materialId), 1.0, 1e-10, 1e15,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("is_defined", materialId), false, morphNone, paramStandard);
-	par->addParam(cMaterial::Name("name", materialId), QString("material %1").arg(materialId),
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
-		morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("specular_plastic_enable", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("luminosity_color", materialId), sRGB(65535, 65535, 65535),		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("luminosity", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("metallic", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("name", materialId), QString("material %1").arg(materialId),		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("normal_map_texture_from_bumpmap", materialId), false, morphLinear,	paramStandard);
+	par->addParam(cMaterial::Name("normal_map_texture_height", materialId), 1.0, 1e-4, 1e4,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone,		paramStandard);
+	par->addParam(cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_metallic_roughness", materialId), 0.1, 0.0, 1e4,morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_metallic_width", materialId), 1.0, 1e-10, 1e15,	morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_metallic", materialId), 2.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("specular_plastic_enable", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("specular_width", materialId), 0.05, 1e-10, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular", materialId), 5.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("specular_width", materialId), 0.05, 1e-10, 1e15, morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("specular_metallic", materialId), 2.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("specular_metallic_width", materialId), 1.0, 1e-10, 1e15,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("specular_metallic_roughness", materialId), 0.1, 0.0, 1e4,
-		morphAkima, paramStandard);
-
-	par->addParam(
-		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("luminosity", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("transparency_of_surface", materialId), 0.0, 0.0, 1.0, morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("transparency_of_interior", materialId), 1.0, 0.0, 1.0, morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("transparency_index_of_refraction", materialId), 1.5, 0.0, 100.0,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("surface_color", materialId), sRGB(50000, 50000, 50000), morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("transparency_interior_color", materialId),
-		sRGB(65535, 65535, 65535), morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("luminosity_color", materialId), sRGB(65535, 65535, 65535),
-		morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("fresnel_reflectance", materialId), false, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("texture_center", materialId), CVector3(0.0, 0.0, 0.0), morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("texture_rotation", materialId), CVector3(0.0, 0.0, 0.0),
-		morphAkimaAngle, paramStandard);
-	par->addParam(cMaterial::Name("texture_scale", materialId), CVector3(1.0, 1.0, 1.0), morphAkima,
-		paramStandard);
-	par->addParam(
-		cMaterial::Name("coloring_random_seed", materialId), 269259, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("coloring_saturation", materialId), 1.0, 0.0, 1000.0, morphLinear,
-		paramStandard);
-	par->addParam(
-		cMaterial::Name("coloring_speed", materialId), 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0,
-		morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("texture_mapping_type", materialId), int(texture::mappingPlanar),
-		morphNone, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_diffusion_texture", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_luminosity_texture", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_displacement_texture", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("use_normal_map_texture", materialId), false, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("normal_map_texture_from_bumpmap", materialId), false, morphLinear,
-		paramStandard);
-	par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1e10,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("displacement_texture_height", materialId), 0.1, 1e-12, 1e4,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("normal_map_texture_height", materialId), 1.0, 1e-4, 1e4,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("normal_map_texture_invert_green", materialId), false, morphNone,
-		paramStandard);
+	par->addParam(cMaterial::Name("surface_color", materialId), sRGB(50000, 50000, 50000), morphAkima,		paramStandard);
+	par->addParam(cMaterial::Name("texture_center", materialId), CVector3(0.0, 0.0, 0.0), morphAkima,		paramStandard);
+	par->addParam(cMaterial::Name("texture_fractalize_cube_size", materialId), 2.0, 1e-15, 1e5,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("texture_fractalize_start_iteration", materialId), 0, 0, 250,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("texture_fractalize", materialId), false, morphNone, paramStandard);
-	par->addParam(cMaterial::Name("texture_fractalize_cube_size", materialId), 2.0, 1e-15, 1e5,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("texture_fractalize_start_iteration", materialId), 0, 0, 250,
-		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("texture_mapping_type", materialId), int(texture::mappingPlanar),	morphNone, paramStandard);
+	par->addParam(cMaterial::Name("texture_rotation", materialId), CVector3(0.0, 0.0, 0.0),		morphAkimaAngle, paramStandard);
+	par->addParam(cMaterial::Name("texture_scale", materialId), CVector3(1.0, 1.0, 1.0), morphAkima,		paramStandard);
+	par->addParam(cMaterial::Name("transparency_index_of_refraction", materialId), 1.5, 0.0, 100.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("transparency_interior_color", materialId),		sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("transparency_of_interior", materialId), 1.0, 0.0, 1.0, morphAkima,	paramStandard);
+	par->addParam(cMaterial::Name("transparency_of_surface", materialId), 0.0, 0.0, 1.0, morphAkima,	paramStandard);
+	par->addParam(cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_colors_from_palette", materialId), true, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_diffusion_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_displacement_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_luminosity_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("use_normal_map_texture", materialId), false, morphLinear, paramStandard);
 
-	par->addParam(
-		cMaterial::Name("iridescence_enabled", materialId), false, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("iridescence_intensity", materialId), 1.0, 1e-10, 1e15, morphAkima,
-		paramStandard);
-	par->addParam(cMaterial::Name("iridescence_subsurface_thickness", materialId), 1.0, 1e-10, 1e15,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),
-		int(fractalColoring_Standard), 0, 4, morphNone, paramStandard); // = 0,0,4
-
-	par->addParam(cMaterial::Name("fractal_coloring_sphere_radius", materialId), 1.0, 0.0, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),
-		CVector4(1.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,
-		morphNone, paramStandard);
-
-
-	par->addParam(cMaterial::Name("fractal_coloring_extra_color_options_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_color_preV215_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_scale1", materialId), 1.0, 0.0, 5.0,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_scale1", materialId), 1.0, 0.0, 5.0,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_hybrid_div_de_scale1", materialId), 1.0, 0.0, 5.0,
-		morphAkima, paramStandard);
-
-
-
-	// temp parameter
-	par->addParam(cMaterial::Name("fractal_coloring_temp_limit_false", materialId), false,
-		morphNone, paramStandard); // TODO remove when finished
-
-
-
-
-	// color_by_numbers
-
-	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_initial_color_value", materialId), 0.0, -1e20,
-		1e20, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_init_cond_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_ic_xyz_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_ic_fabs_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_weight", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyzC_111", materialId), CVector3(1.0, 1.0, 1.0),
-		morphAkima, paramStandard); // vec4??
-
-	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_true", materialId), true, morphNone,
-		paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	//par->addParam(cMaterial::Name("fractal_coloring_initial_minimumR", materialId), 100.0, 0.0, 1e20,
-		//morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphNone,
-		paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, -1e20,
-		1e20, morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_rad_enabled_false", materialId), false, morphNone,
-		paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_weight", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_squared_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_1e13_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_weight", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_squared_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_1e13_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_bias_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_000", materialId), CVector3(1.0, 1.0, 1.0),
-		morphAkima, paramStandard); // vec4??
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_iter_scale", materialId), 0.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_x_sqrd_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_y_sqrd_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_z_sqrd_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_fabs_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_xyz_div_1e13_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_iter_group_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_iter_scale_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_iter_add_scale_enabled_true", materialId), true,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_iter_scale", materialId), 0.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_iter_add_scale", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_i_start_value", materialId), 0, 0, 9999,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_global_palette_false", materialId), false,
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,
-		paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_add_max", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_add_spread", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_add_start_value", materialId), 0.0, 0.0, 1e20,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_parab_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_parab_scale", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_parab_start_value", materialId), 0.0, 0.0, 1e20,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_cos_enabled_false", materialId), false, morphNone,
-		paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_cos_period", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_cos_add", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_cos_start_value", materialId), 0.0, 0.0, 1e20,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_round_enabled_false", materialId), false,
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_round_scale", materialId), 1.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-
-	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e6, -1e20, 1e20,
-		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, -1e20, 1e20,
-		morphAkima, paramStandard);
-
-
-
-
-
-	par->addParam(cMaterial::Name("file_color_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
-		morphNone, paramStandard);
-
-	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
-		QDir::toNativeSeparators(
-			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
-		morphNone, paramStandard);
-
-	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
-		par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)), 1.0);
-	par->addParam(
-		cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
+	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),		par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)), 1.0);
+	par->addParam(	cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
 }
 
 void DeletePrimitiveParams(
