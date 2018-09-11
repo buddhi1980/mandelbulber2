@@ -69,6 +69,7 @@ cMaterial::cMaterial()
 	luminosityTextureIntensity = 0.0;
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
+	normalMapTextureInvertGreen = false;
 	normalMapTextureHeight = 0.0;
 	metallic = false;
 	iridescenceEnabled = false;
@@ -146,7 +147,6 @@ QStringList cMaterial::paramsList = {
 	"texture_fractalize_start_iteration",
 
 	"fractal_coloring_color_4D_enabled_false",
-	"metallic",
 	"iridescence_enabled",
 	"iridescence_intensity",
 	"iridescence_subsurface_thickness",
