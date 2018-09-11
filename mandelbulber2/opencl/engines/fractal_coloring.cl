@@ -232,9 +232,9 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 		}
 		else
 		{
-			colorIndex = (colorMin * 1000.0f  * fractalColoring->hybridOrbitTrapScale1
-						  + mboxColor * 100.0f  * fractalColoring.hybridAuxColorScale1
-							+ r2 * 5000.0f  * fractalColoring.hybridAuxColorScale1);
+			colorIndex = (colorMin * 1000.0f * fractalColoring->hybridOrbitTrapScale1
+						  + mboxColor * 100.0f * fractalColoring.hybridAuxColorScale1
+							+ r2 * 5000.0f * fractalColoring.hybridAuxColorScale1);
 		}
 	}
 

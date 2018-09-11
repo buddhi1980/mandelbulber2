@@ -350,7 +350,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						}
 						else
 						{
-							if (len < colorMin) colorMin = len; // colorMin for Mbox in hybrid mode ??
+							if (len < colorMin) colorMin = len;
 							if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break;
 						}
 					}

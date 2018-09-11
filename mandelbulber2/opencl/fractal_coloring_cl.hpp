@@ -195,8 +195,8 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.cosPeriod = source.cosPeriod;
 	target.cosStartValue = source.cosStartValue;
 	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
-
-
+	target.hybridOrbitTrapScale1 = source.hybridOrbitTrapScale1;
+	target.hybridRadDivDeScale1 = source.hybridRadDivDeScale1;
 
 
 	target.icRadWeight = source.icRadWeight;
