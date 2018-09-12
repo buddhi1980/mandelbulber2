@@ -35,8 +35,9 @@
 
 #include "resource_http_provider.hpp"
 
-#include "QNetworkReply"
-#include "QNetworkRequest"
+#include <QSslConfiguration>
+#include <QNetworkReply>
+#include <QNetworkRequest>
 #include "global_data.hpp"
 #include "system.hpp"
 
@@ -71,22 +72,47 @@ QString cResourceHttpProvider::cacheAndGetFilename()
 
 void cResourceHttpProvider::loadOverInternet()
 {
+	QSslConfiguration defaultSSLConfig = QSslConfiguration::defaultConfiguration();
+	QList<QSslCertificate> certificates = defaultSSLConfig.caCertificates();
+	qDebug() << certificates;
+
 	QFile *tempFile = new QFile(cachedFilename);
 	QNetworkAccessManager network;
-	QNetworkReply *reply = network.get(QNetworkRequest(QUrl(filename)));
-	if (!tempFile->open(QIODevice::WriteOnly))
+	QUrl url(filename);
+	QNetworkRequest request(url);
+	request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+	QNetworkReply *reply = network.get(request);
+
+	QEventLoop loop;
+	connect(reply, SIGNAL(readyRead()), &loop, SLOT(quit()));
+	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), &loop, SLOT(quit()));
+	reply->ignoreSslErrors();
+
+	loop.exec();
+
+	if (reply->isFinished())
 	{
-		qCritical() << "could not open file for writing!";
+		QNetworkReply::NetworkError error = reply->error();
+		if (error == QNetworkReply::NoError)
+		{
+			if (!tempFile->open(QIODevice::WriteOnly))
+			{
+				qCritical() << "could not open file for writing!";
+			}
+			else
+			{
+				tempFile->write(reply->readAll());
+				tempFile->flush();
+				tempFile->close();
+			}
+		}
+		else
+		{
+			qCritical() << "Error when downloaded file!" << reply->errorString() << filename;
+		}
 	}
 	else
 	{
-		while (!reply->isFinished())
-		{
-			Wait(10);
-			gApplication->processEvents();
-		}
-		tempFile->write(reply->readAll());
-		tempFile->flush();
-		tempFile->close();
+		qCritical() << "Error when downloaded file!" << reply->errorString() << filename;
 	}
 }
