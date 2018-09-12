@@ -307,7 +307,7 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		{
 			colorIndex = (colorMin * 1000.0 * fractalColoring.hybridOrbitTrapScale1
 						  + mboxColor * 100.0 * fractalColoring.hybridAuxColorScale1
-							+ r2 * 5000.0 * fractalColoring.hybridAuxColorScale1);
+							+ r2 * 5000.0 * fractalColoring.hybridRadDivDeScale1);
 		}
 	}
 

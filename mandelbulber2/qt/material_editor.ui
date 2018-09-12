@@ -83,7 +83,7 @@
         <x>0</x>
         <y>0</y>
         <width>583</width>
-        <height>4019</height>
+        <height>3996</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -679,14 +679,7 @@ direction vector:</string>
              </property>
              <item>
               <layout class="QGridLayout" name="gridLayout" columnstretch="0">
-               <item row="1" column="0">
-                <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
-                 <property name="text">
-                  <string notr="true">pre V2.15 orbit trap color</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
+               <item row="2" column="0">
                 <widget class="QLabel" name="label_63">
                  <property name="text">
                   <string>Hybrid Mode Color</string>
@@ -694,9 +687,9 @@ direction vector:</string>
                 </widget>
                </item>
                <item row="0" column="0">
-                <widget class="QLabel" name="label_61">
+                <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
                  <property name="text">
-                  <string>Normal Mode Color </string>
+                  <string notr="true">pre V2.15 orbit trap color</string>
                  </property>
                 </widget>
                </item>
