@@ -36,6 +36,8 @@
 #ifndef MANDELBULBER2_SRC_RESOURCE_HTTP_PROVIDER_HPP_
 #define MANDELBULBER2_SRC_RESOURCE_HTTP_PROVIDER_HPP_
 
+#include <QFile>
+#include <QNetworkReply>
 #include <QObject>
 
 class cResourceHttpProvider : public QObject
@@ -43,7 +45,7 @@ class cResourceHttpProvider : public QObject
 	Q_OBJECT
 public:
 	cResourceHttpProvider(QString &filename);
-	~cResourceHttpProvider() override;
+	~cResourceHttpProvider() override = default;
 	bool IsUrl();
 	QString cacheAndGetFilename();
 
@@ -54,6 +56,12 @@ private:
 
 	QString cachedFilename;
 	QString filename;
+	QNetworkReply *reply;
+	QFile *outFile;
+
+private slots:
+	void moreData();
+	void closeFile();
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);

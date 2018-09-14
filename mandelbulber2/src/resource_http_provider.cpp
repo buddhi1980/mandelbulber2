@@ -49,8 +49,9 @@ cResourceHttpProvider::cResourceHttpProvider(QString &_filename)
 	QByteArray hash = hashCrypt.result();
 	this->cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "."
 												 + QFileInfo(filename).suffix();
+	reply = nullptr;
+	outFile = nullptr;
 }
-cResourceHttpProvider::~cResourceHttpProvider() = default;
 
 bool cResourceHttpProvider::IsUrl()
 {
@@ -72,42 +73,41 @@ QString cResourceHttpProvider::cacheAndGetFilename()
 
 void cResourceHttpProvider::loadOverInternet()
 {
-	QSslConfiguration defaultSSLConfig = QSslConfiguration::defaultConfiguration();
-	QList<QSslCertificate> certificates = defaultSSLConfig.caCertificates();
-	qDebug() << certificates;
+	outFile = new QFile(cachedFilename);
+	if (!outFile->open(QIODevice::WriteOnly))
+	{
+		qCritical() << "could not open file for writing!";
+	}
 
-	QFile *tempFile = new QFile(cachedFilename);
 	QNetworkAccessManager network;
 	QUrl url(filename);
 	QNetworkRequest request(url);
-	request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
-	QNetworkReply *reply = network.get(request);
+
+	reply = network.get(request);
 
 	QEventLoop loop;
-	connect(reply, SIGNAL(readyRead()), &loop, SLOT(quit()));
+	connect(reply, SIGNAL(readyRead()), this, SLOT(moreData()));
+	connect(reply, SIGNAL(finished()), this, SLOT(closeFile()));
+	connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
 	connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), &loop, SLOT(quit()));
+
+	// ssl error checking is disabled, otherwise throws error"SSL handshake failed"
+	// watch out: disabling of ssl errors means that the site identity is not checked,
+	// possibly allowing mitm attacks!
+	// TODO: find a way to re-enable ssl error checking
 	reply->ignoreSslErrors();
 
 	loop.exec();
 
+	outFile->close();
+	outFile->flush();
+
 	if (reply->isFinished())
 	{
 		QNetworkReply::NetworkError error = reply->error();
-		if (error == QNetworkReply::NoError)
+		if (error != QNetworkReply::NoError)
 		{
-			if (!tempFile->open(QIODevice::WriteOnly))
-			{
-				qCritical() << "could not open file for writing!";
-			}
-			else
-			{
-				tempFile->write(reply->readAll());
-				tempFile->flush();
-				tempFile->close();
-			}
-		}
-		else
-		{
+
 			qCritical() << "Error when downloaded file!" << reply->errorString() << filename;
 		}
 	}
@@ -115,4 +115,13 @@ void cResourceHttpProvider::loadOverInternet()
 	{
 		qCritical() << "Error when downloaded file!" << reply->errorString() << filename;
 	}
+}
+
+void cResourceHttpProvider::moreData()
+{
+	outFile->write(reply->readAll());
+}
+
+void cResourceHttpProvider::closeFile()
+{
 }
