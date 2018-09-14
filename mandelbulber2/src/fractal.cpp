@@ -555,7 +555,7 @@ void sFractal::RecalculateFractalParams()
 	transformCommon.rotationMatrixVary.SetRotation2(transformCommon.rotationVary * M_PI_180);
 
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
-	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // hmmm??
+	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // for orig. abox asurf
 
 	transformCommon.maxMinR2factor = transformCommon.maxR2d1 / transformCommon.minR2p25;
 

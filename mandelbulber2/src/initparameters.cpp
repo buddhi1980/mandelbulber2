@@ -1116,7 +1116,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_algorithm", materialId),	int(fractalColoring_Standard), 0, 4, morphNone, paramStandard); // = 0,0,4
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_false", materialId), false, morphNone,		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_hybrid_weight", materialId), 0.0, -1e20,		1e20, morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_aux_color_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_aux_color_scale1", materialId), 1.0, 0.0, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_aux_color_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_color_4D_enabled_false", materialId), false,	morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_color_preV215_false", materialId), false,		morphNone, paramStandard);
@@ -1127,7 +1127,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_extra_color_enabled_false", materialId), false,		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_extra_color_options_false", materialId), false,	morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_global_palette_false", materialId), false,		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_hybrid_div_de_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_rad_div_de_scale1", materialId), 1.0, 0.0, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_i_start_value", materialId), 0, 0, 9999,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_ic_fabs_enabled_false", materialId), false,		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_ic_rad_enabled_false", materialId), false,		morphNone, paramStandard);
@@ -1143,7 +1143,7 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("fractal_coloring_line_direction", materialId),	CVector4(1.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_max_color_value", materialId), 1e6, -1e20, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_min_color_value", materialId), 0.0, -1e20, 1e20,		morphAkima, paramStandard);
-	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_scale1", materialId), 1.0, 0.0, 5.0,		morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_scale1", materialId), 1.0, 0.0, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_true", materialId), true, morphNone,		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_orbit_trap_weight", materialId), 1.0, -1e20, 1e20,		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_parab_enabled_false", materialId), false,		morphNone, paramStandard);

@@ -455,19 +455,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				}*/
 
-				// out->distance = = max(fabs(z.z), max(fabs(z.y), fabs(z.x)));
-				// CVector4 zz = z * z;
-				// out->distance = = sqrt(max(zz.x + zz.y, max(zz.y + zz.z, zz.x + zz.z)))
-				// out->distance = abs(length(z)-0.0 ) * pow(Scale, float(-n));
-				// Use this to crop to a sphere:
-				//  float e = clamp(length(z)-2.0, 0.0,100.0);
-				//  out->distance = max(d,e);// distance estimate
-				//
-				// #if 1
-				// 	out->distance = (sqrt(r2)-sr)/dd;//bounding volume is a sphere
-				// #else
-				// 	p=abs(p); out->distance = (max(p.x,max(p.y,p.z))-sc)/dd;//bounding volume is a cube
-				// #endif
 			}
 			else
 			{

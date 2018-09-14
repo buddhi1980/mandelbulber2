@@ -120,7 +120,6 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_extra_color_enabled_false",
 	"fractal_coloring_extra_color_options_false",
 	"fractal_coloring_global_palette_false",
-	"fractal_coloring_hybrid_div_de_scale1",
 	"fractal_coloring_i_start_value",
 	"fractal_coloring_ic_fabs_enabled_false",
 	"fractal_coloring_ic_rad_enabled_false",
@@ -146,6 +145,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_rad_div_de_1e13_false",
 	"fractal_coloring_rad_div_de_enabled_false",
 	"fractal_coloring_rad_div_de_squared_false",
+	"fractal_coloring_rad_div_de_scale1",
 	"fractal_coloring_rad_div_de_weight",
 	"fractal_coloring_rad_enabled_false",
 	"fractal_coloring_rad_squared_enabled_false",
@@ -294,7 +294,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	fractalColoring.hybridOrbitTrapScale1 =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_scale1", id));
 	fractalColoring.hybridRadDivDeScale1 =
-		materialParam->Get<double>(Name("fractal_coloring_hybrid_div_de_scale1", id));
+		materialParam->Get<double>(Name("fractal_coloring_rad_div_de_scale1", id));
 
 	fractalColoring.tempLimitFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id)); // tempLimit

@@ -383,7 +383,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					if (fractal->formula != 8)
 					{
 						if (len < colorMin) colorMin = len;
-						if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+						if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-15f)
 							break;
 					}
 					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
@@ -395,7 +395,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 						else
 						{
 							if (len < colorMin) colorMin = len; // colorMin for hybrid mode ??
-							if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-6f)
+							if (aux.r > consts->sequence.bailout[sequence] || length(z - lastZ) / aux.r < 1e-15f)
 								break;
 						}
 					}
