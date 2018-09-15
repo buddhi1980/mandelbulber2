@@ -32,54 +32,37 @@
  * Bump Map displacement by adding effect to existing distance
  */
 
-#include "displacement_map.hpp"
+#ifdef USE_TEXTURES
+#ifdef USE_DISPLACEMENT_TEXTURE
 
-#include "compute_fractal.hpp"
-#include "fractparams.hpp"
-#include "render_data.hpp"
-#include "texture_mapping.hpp"
-
-double DisplacementMap(
-	double oldDistance, CVector3 point, int objectId, sRenderData *data, double reduce)
+float DisplacementMap(
+	float oldDistance, float3 point, int objectId, sRenderData *renderData, float reduce)
 {
-	double distance = oldDistance;
-	if (data)
-	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
+	float distance = oldDistance;
 
-		if (mat->displacementTexture.IsLoaded())
-		{
-			CVector2<double> textureCoordinates;
-			textureCoordinates =
-				TextureMapping(point, CVector3(0.0, 0.0, 1.0), data->objectData[objectId], mat)
-				+ CVector2<double>(0.5, 0.5);
-			sRGBFloat bump3 = mat->displacementTexture.Pixel(textureCoordinates);
-			double bump = bump3.R;
-			distance -= bump * mat->displacementTextureHeight / reduce;
-			if (distance < 0.0) distance = 0.0;
-		}
+	__global sObjectDataCl *objectData = &renderData->objectsData[objectId];
+	__global sMaterialCl *mat = renderData->materials[objectData->materialId];
+	int textureIndex = mat->displacementTextureIndex;
+
+	if (textureIndex >= 0)
+	{
+		float2 texturePoint = TextureMapping(point, (float3){0.0f, 0.0f, 1.0f}, objectData, mat, 0, 0);
+
+		texturePoint += (float2){0.5f, 0.5f};
+
+		int2 textureSize = renderData->textureSizes[textureIndex];
+		__global uchar4 *texture = renderData->textures[textureIndex];
+
+		int texturePointAddress = TexturePixelAddress(texturePoint, textureSize, 0);
+		uchar4 pixel = texture[texturePointAddress];
+
+		float bump = pixel.s0 / 256.0f;
+		distance -= bump * mat->displacementTextureHeight / reduce;
+		if (distance < 0.0f) distance = 0.0f;
 	}
+
 	return distance;
 }
 
-CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sParamRender &params,
-	const cNineFractals &fractals, int objectId, double *reduceDisplacement)
-{
-	int forcedFormulaIndex = objectId;
-	if (objectId < 0) objectId = 0;
-
-	CVector3 pointFractalized = point;
-	if (data)
-	{
-		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
-		if (mat->textureFractalize)
-		{
-			sFractalIn fractIn(point, 0, params.N, params.common, forcedFormulaIndex, mat);
-			sFractalOut fractOut;
-			Compute<fractal::calcModeCubeOrbitTrap>(fractals, fractIn, &fractOut);
-			pointFractalized = fractOut.z;
-			*reduceDisplacement = pow(2.0, fractOut.iters);
-		}
-	}
-	return pointFractalized;
-}
+#endif
+#endif

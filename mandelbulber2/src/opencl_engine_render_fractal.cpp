@@ -189,6 +189,22 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
+		if (!meshExportMode)
+		{
+			// texture mapping
+			programEngine.append("#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
+
+			if (renderEngineMode != clRenderEngineTypeFast)
+			{
+				// calculation of texture pixel address
+				programEngine.append(
+					"#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
+
+				// calculate displacement from textures
+				programEngine.append("#include \"" + openclEnginePath + "displacement_map.cl\"\n");
+			}
+		}
+
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "primitives.cl\"\n");
 
@@ -202,9 +218,6 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 
 			// 3D projections (3point, equirectagular, fisheye)
 			programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
-
-			// texture mapping
-			programEngine.append("#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
 
 			if (renderEngineMode != clRenderEngineTypeFast)
 			{
@@ -226,8 +239,6 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 				programEngine.append("#include \"" + openclEnginePath + "shader_aux_lights_shader.cl\"\n");
 				programEngine.append("#include \"" + openclEnginePath + "shader_fake_lights.cl\"\n");
 				programEngine.append("#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
-				programEngine.append(
-					"#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
 				programEngine.append("#include \"" + openclEnginePath + "shader_texture.cl\"\n");
 				programEngine.append("#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
 				programEngine.append("#include \"" + openclEnginePath + "shader_object.cl\"\n");

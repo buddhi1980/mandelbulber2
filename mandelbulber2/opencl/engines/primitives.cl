@@ -305,6 +305,10 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 				default: break;
 			}
 
+#ifdef USE_DISPLACEMENT_TEXTURE
+			distTemp = DisplacementMap(distTemp, point2, primitive->object.objectId, renderData, 1.0f);
+#endif
+
 			if (distTemp < dist)
 			{
 				closestObject = primitive->object.objectId;

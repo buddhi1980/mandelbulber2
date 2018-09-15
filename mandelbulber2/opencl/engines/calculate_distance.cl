@@ -35,7 +35,8 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
-typedef enum {
+typedef enum
+{
 	clBooleanOperatorAND = 0,
 	clBooleanOperatorOR = 1,
 	clBooleanOperatorSUB = 2
@@ -173,25 +174,25 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		float r = length(out.z);
 		float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
 		float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
 		float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
-			calcModeDeltaDE2, NULL,
-			forcedFormulaIndex).z);
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
+												 .z);
 		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 		float d = length(dr);
 
@@ -251,6 +252,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	int closestObjectId = 0;
 
 #ifndef BOOLEAN_OPERATORS
+#ifdef USE_DISPLACEMENT_TEXTURE
+	out.distance = DisplacementMap(out.distance, point, out.objectId, renderData, 1.0f);
+#endif
+	
 #ifdef USE_PRIMITIVES
 	out.distance = min(out.distance,
 		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
@@ -318,6 +323,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, 0);
 		dist = out.distance / consts->params.formulaScale[0];
 		out.objectId = 0;
+
+#ifdef USE_DISPLACEMENT_TEXTURE
+		dist = DisplacementMap(dist, pointTemp, out.objectId, renderData, 1.0f);
+#endif
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
@@ -333,6 +342,10 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 			outTemp = CalculateDistanceSimple(consts, pointTemp, calcParam, renderData, i + 1);
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
+
+#ifdef USE_DISPLACEMENT_TEXTURE
+			distTemp = DisplacementMap(distTemp, pointTemp, out.objectId, renderData, 1.0f);
+#endif
 
 			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];
 
