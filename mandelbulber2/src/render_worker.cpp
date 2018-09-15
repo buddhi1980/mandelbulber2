@@ -43,6 +43,7 @@
 #include "common_math.h"
 #include "compute_fractal.hpp"
 #include "fractparams.hpp"
+#include "hsv2rgb.h"
 #include "material.h"
 #include "projection_3d.hpp"
 #include "region.hpp"
@@ -70,6 +71,7 @@ cRenderWorker::cRenderWorker(const sParamRender *_params, const cNineFractals *_
 	baseZ = CVector3(0.0, 0.0, 1.0);
 	maxRaymarchingSteps = 10000;
 	reflectionsMax = 0;
+	actualHue = 0.0;
 	stopRequest = false;
 }
 
@@ -227,6 +229,18 @@ void cRenderWorker::doWork()
 					startRay = start;
 				}
 
+				sRGBFloat rgbFromHsv;
+				if (params->DOFMonteCarloChromaticAberration)
+				{
+					actualHue = Random(3600) / 10.0;
+					rgbFromHsv = Hsv2rgb(fmod(360.0f + actualHue - 60.0f, 360.0f), 1.0f, 2.0f);
+					CVector3 randVector(
+						0.0, actualHue / 20000.0 * params->DOFMonteCarloCACameraDispersion, 0.0);
+					CVector3 randVectorRot = mRot.RotateVector(randVector);
+					viewVector -= randVectorRot;
+					viewVector.Normalize();
+				}
+
 				if (data->stereo.isEnabled())
 				{
 					data->stereo.WhichEyeForAnaglyph(&stereoEye, repeat);
@@ -308,6 +322,13 @@ void cRenderWorker::doWork()
 				finalPixel.R = resultShader.R;
 				finalPixel.G = resultShader.G;
 				finalPixel.B = resultShader.B;
+
+				if (params->DOFMonteCarloChromaticAberration)
+				{
+					finalPixel.R *= rgbFromHsv.R;
+					finalPixel.G *= rgbFromHsv.G;
+					finalPixel.B *= rgbFromHsv.B;
+				}
 
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
@@ -787,18 +808,25 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					vn = NormalMapShader(shaderInputData);
 				}
 
+				double hueEffect = 1.0;
+				if (params->DOFMonteCarloChromaticAberration)
+				{
+					double aberrationStrength = params->DOFMonteCarloCADispersionGain * 0.01;
+					hueEffect = 1.0f - aberrationStrength + aberrationStrength * actualHue / 180.0;
+				}
+
 				// prepare refraction values
 				double n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
 				{
-					n1 =
-						shaderInputData.material->transparencyIndexOfRefraction; // reverse refractive indices
+					n1 = shaderInputData.material->transparencyIndexOfRefraction
+							 / hueEffect; // reverse refractive indices
 					n2 = 1.0;
 				}
 				else
 				{
 					n1 = 1.0;
-					n2 = shaderInputData.material->transparencyIndexOfRefraction;
+					n2 = shaderInputData.material->transparencyIndexOfRefraction / hueEffect;
 				}
 
 				rayStack[rayIndex].out.normal = vn;

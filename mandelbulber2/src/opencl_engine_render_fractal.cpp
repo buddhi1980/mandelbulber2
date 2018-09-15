@@ -521,6 +521,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		{
 			definesCollector += " -DMONTE_CARLO_DOF_GLOBAL_ILLUMINATION";
 		}
+		if (paramRender->DOFMonteCarloChromaticAberration)
+		{
+			definesCollector += " -DCHROMATIC_ABERRATION";
+		}
 	}
 
 	if (paramRender->texturedBackground)

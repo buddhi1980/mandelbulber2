@@ -91,6 +91,9 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DOFMinSamples = container->Get<int>("DOF_min_samples");
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	DOFMaxNoise = container->Get<double>("DOF_max_noise");
+	DOFMonteCarloChromaticAberration = container->Get<bool>("DOF_MC_CA_enable");
+	DOFMonteCarloCADispersionGain = container->Get<double>("DOF_MC_CA_dispersion_gain");
+	DOFMonteCarloCACameraDispersion = container->Get<double>("DOF_MC_CA_camera_dispersion");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsColor = container->Get<sRGB>("fake_lights_color");
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");

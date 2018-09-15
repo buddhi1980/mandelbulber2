@@ -97,6 +97,7 @@ typedef struct
 	cl_int DOFHDRMode;
 	cl_int DOFMonteCarlo;
 	cl_int DOFMonteCarloGlobalIllumination;
+	cl_int DOFMonteCarloChromaticAberration;
 	cl_int envMappingEnable;
 	cl_int fakeLightsEnabled;
 	cl_int fogEnabled;
@@ -161,6 +162,8 @@ typedef struct
 	cl_float DOFMaxRadius;
 	cl_float DOFBlurOpacity;
 	cl_float DOFMaxNoise;
+	cl_float DOFMonteCarloCADispersionGain;
+	cl_float DOFMonteCarloCACameraDispersion;
 	cl_float fakeLightsIntensity;
 	cl_float fakeLightsVisibility;
 	cl_float fakeLightsVisibilitySize;
@@ -266,6 +269,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFHDRMode = source.DOFHDRMode;
 	target.DOFMonteCarlo = source.DOFMonteCarlo;
 	target.DOFMonteCarloGlobalIllumination = source.DOFMonteCarloGlobalIllumination;
+	target.DOFMonteCarloChromaticAberration = source.DOFMonteCarloChromaticAberration;
 	target.envMappingEnable = source.envMappingEnable;
 	target.fakeLightsEnabled = source.fakeLightsEnabled;
 	target.fogEnabled = source.fogEnabled;
@@ -337,6 +341,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.DOFMaxRadius = source.DOFMaxRadius;
 	target.DOFBlurOpacity = source.DOFBlurOpacity;
 	target.DOFMaxNoise = source.DOFMaxNoise;
+	target.DOFMonteCarloCADispersionGain = source.DOFMonteCarloCADispersionGain;
+	target.DOFMonteCarloCACameraDispersion = source.DOFMonteCarloCACameraDispersion;
 	target.fakeLightsIntensity = source.fakeLightsIntensity;
 	target.fakeLightsVisibility = source.fakeLightsVisibility;
 	target.fakeLightsVisibilitySize = source.fakeLightsVisibilitySize;

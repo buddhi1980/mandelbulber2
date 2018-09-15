@@ -42,6 +42,10 @@ typedef struct
 	float3 viewVectorNotRotated;
 #endif
 
+#ifdef CHROMATIC_ABERRATION
+	float hue;
+#endif
+
 #if defined(FULL_ENGINE) || defined(MESH_EXPORT)
 	__global sMaterialCl **materials;
 	__global float4 **palettes;

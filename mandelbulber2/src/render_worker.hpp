@@ -251,6 +251,7 @@ private:
 	CVector3 baseZ;
 	CVector3 viewAngle;
 	CVector3 shadowVector;
+	double actualHue;
 	int AOVectorsCount;
 	int reflectionsMax;
 	bool stopRequest;

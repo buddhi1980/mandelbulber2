@@ -61,7 +61,7 @@ enum enumBooleanOperator
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
 };
-}
+} // namespace params
 
 struct sParamRender
 {
@@ -103,6 +103,7 @@ struct sParamRender
 	bool DOFHDRMode;
 	bool DOFMonteCarlo;
 	bool DOFMonteCarloGlobalIllumination;
+	bool DOFMonteCarloChromaticAberration;
 	bool envMappingEnable;
 	bool fakeLightsEnabled;
 	bool fogEnabled;
@@ -167,6 +168,8 @@ struct sParamRender
 	double DOFMaxRadius;
 	double DOFBlurOpacity;
 	double DOFMaxNoise;
+	double DOFMonteCarloCADispersionGain;
+	double DOFMonteCarloCACameraDispersion;
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;

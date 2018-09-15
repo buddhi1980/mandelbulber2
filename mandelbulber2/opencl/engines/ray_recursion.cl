@@ -336,16 +336,24 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
 				float n1, n2;
+
+#ifdef CHROMATIC_ABERRATION
+				float aberrationStrength = consts->params.DOFMonteCarloCADispersionGain * 0.01f;
+				float hueEffect = 1.0f - aberrationStrength + aberrationStrength * renderData->hue / 180.0f;
+#else
+				float hueEffect = 1.0f;
+#endif
+
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
 				{
-					n1 =
-						shaderInputData.material->transparencyIndexOfRefraction; // reverse refractive indices
+					n1 = shaderInputData.material->transparencyIndexOfRefraction
+							 / hueEffect; // reverse refractive indices
 					n2 = 1.0f;
 				}
 				else
 				{
 					n1 = 1.0f;
-					n2 = shaderInputData.material->transparencyIndexOfRefraction;
+					n2 = shaderInputData.material->transparencyIndexOfRefraction / hueEffect;
 				}
 
 				if (rayIndex < renderData->reflectionsMax)

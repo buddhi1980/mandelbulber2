@@ -32,7 +32,7 @@
  * converts HSV color space to RGB
  */
 
-#ifdef USE_IRIDESCENCE
+#if defined(USE_IRIDESCENCE) || defined(CHROMATIC_ABERRATION)
 float3 Hsv2rgb(float hue, float sat, float val)
 {
 	float3 rgb;
