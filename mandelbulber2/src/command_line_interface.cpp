@@ -46,6 +46,7 @@
 #include "interface.hpp"
 #include "keyframes.hpp"
 #include "netrender.hpp"
+#include "old_settings.hpp"
 #include "opencl_global.h"
 #include "opencl_hardware.h"
 #include "queue.hpp"
@@ -824,8 +825,24 @@ void cCommandLineInterface::handleArgs()
 			}
 			if (QFile::exists(filename))
 			{
-				parSettings.LoadFromFile(filename);
-				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				QFile inputFile(filename);
+				inputFile.open(QIODevice::ReadOnly);
+				if (!inputFile.isOpen())
+						return;
+				QTextStream stream(&inputFile);
+				QString line = stream.readLine();
+				bool isV1 = line.contains("Mandelbulber 1\.");
+				if(isV1)
+				{
+					oldSettings::cOldSettings oldSettings;
+					oldSettings.LoadSettings(filename);
+					oldSettings.ConvertToNewContainer(gPar, gParFractal);
+				}
+				else
+				{
+					parSettings.LoadFromFile(filename);
+					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+				}
 				settingsSpecified = true;
 				systemData.lastSettingsFile = filename;
 				systemData.settingsLoadedFromCLI = true;
