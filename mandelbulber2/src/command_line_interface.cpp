@@ -825,24 +825,9 @@ void cCommandLineInterface::handleArgs()
 			}
 			if (QFile::exists(filename))
 			{
-				QFile inputFile(filename);
-				inputFile.open(QIODevice::ReadOnly);
-				if (!inputFile.isOpen())
-						return;
-				QTextStream stream(&inputFile);
-				QString line = stream.readLine();
-				bool isV1 = line.contains("Mandelbulber 1\.");
-				if(isV1)
-				{
-					oldSettings::cOldSettings oldSettings;
-					oldSettings.LoadSettings(filename);
-					oldSettings.ConvertToNewContainer(gPar, gParFractal);
-				}
-				else
-				{
-					parSettings.LoadFromFile(filename);
-					parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-				}
+				// hint: do not use auto loading of v1 files in batch mode
+				parSettings.LoadFromFile(filename);
+				parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 				settingsSpecified = true;
 				systemData.lastSettingsFile = filename;
 				systemData.settingsLoadedFromCLI = true;
