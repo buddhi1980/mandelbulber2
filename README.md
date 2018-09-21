@@ -71,9 +71,9 @@ In render window:
 
 ## Building and Deploying 
 
-Download latest stable version from [Releases](https://github.com/buddhi1980/mandelbulber2/releases)
+Download the latest stable version from [Releases](https://github.com/buddhi1980/mandelbulber2/releases)
 
-After downloading, Unpack the file and follow our instructions from README file.
+After downloading, unpack the file and follow our instructions from the README file.
 Please see information in [mandelbulber2/deploy](mandelbulber2/deploy) folder.
 
 ## Easy Preparation for Development
