@@ -38,6 +38,6 @@
 #define MANDELBULBER2_SRC_TRACE_BEHIND_H_
 
 double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
-	CVector3 viewVector, double startingDepth, double resolution);
+	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit);
 
 #endif /* MANDELBULBER2_SRC_TRACE_BEHIND_H_ */

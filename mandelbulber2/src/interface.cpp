@@ -1281,6 +1281,7 @@ void cInterface::SetByMouse(
 				{
 					double frontDist = gPar->Get<double>("aux_light_manual_placement_dist");
 					bool placeBehind = gPar->Get<bool>("aux_light_place_behind");
+					double distanceLimit = gPar->Get<double>("view_distance_max");
 					CVector3 pointCorrected;
 					if (!placeBehind)
 					{
@@ -1288,8 +1289,8 @@ void cInterface::SetByMouse(
 					}
 					else
 					{
-						double distanceBehind = traceBehindFractal(
-							gPar, gParFractal, frontDist, viewVector, depth, 1.0 / mainImage->GetHeight());
+						double distanceBehind = traceBehindFractal(gPar, gParFractal, frontDist, viewVector,
+							depth, 1.0 / mainImage->GetHeight(), distanceLimit);
 						pointCorrected = point + viewVector * distanceBehind;
 					}
 					double estDistance = GetDistanceForPoint(pointCorrected, gPar, gParFractal);
@@ -1651,10 +1652,9 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 		{
 			newId++;
 			occupied = false;
-			for (const auto & primitiveItem : listOfPrimitives)
+			for (const auto &primitiveItem : listOfPrimitives)
 			{
-				if (objectType == primitiveItem.type && newId == primitiveItem.id)
-					occupied = true;
+				if (objectType == primitiveItem.type && newId == primitiveItem.id) occupied = true;
 			}
 		}
 	}
@@ -1723,7 +1723,7 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 
 		// rename widgets
 		QList<QWidget *> listOfWidgets = primitiveWidget->findChildren<QWidget *>();
-		for (auto & widget : listOfWidgets)
+		for (auto &widget : listOfWidgets)
 		{
 			QString name = widget->objectName();
 			int firstDash = name.indexOf('_');
@@ -1791,7 +1791,7 @@ void cInterface::DeletePrimitive(const QString &primitiveName)
 void cInterface::RebuildPrimitives(cParameterContainer *par)
 {
 	// clear all widgets
-	for (const auto & primitiveItem : listOfPrimitives)
+	for (const auto &primitiveItem : listOfPrimitives)
 	{
 		QString widgetName = QString("widgetmain_") + primitiveItem.name;
 		QWidget *widget =
@@ -1804,7 +1804,7 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	QList<QString> listOfParameters = par->GetListOfParameters();
 	for (auto parameterName : listOfParameters)
 	{
-			if (parameterName.left(parameterName.indexOf('_')) == "primitive")
+		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{
 			QStringList split = parameterName.split('_');
 			QString primitiveName = split.at(0) + "_" + split.at(1) + "_" + split.at(2);
@@ -1812,7 +1812,7 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 			int index = split.at(2).toInt();
 
 			bool found = false;
-			for (const auto & listOfPrimitive : listOfPrimitives)
+			for (const auto &listOfPrimitive : listOfPrimitives)
 			{
 				if (listOfPrimitive.name == primitiveName)
 				{
@@ -1891,7 +1891,7 @@ void cInterface::ComboMouseClickUpdate() const
 
 	if (listOfPrimitives.size() > 0)
 	{
-		for (const auto & primitiveItem : listOfPrimitives)
+		for (const auto &primitiveItem : listOfPrimitives)
 		{
 			QString primitiveName = PrimitiveNames(primitiveItem.type);
 			int index = primitiveItem.id;
@@ -2352,18 +2352,22 @@ void cInterface::DisableJuliaPointMode() const
 
 void cInterface::ConnectProgressAndStatisticsSignals() const
 {
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																			 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																				 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),

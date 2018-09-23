@@ -41,7 +41,7 @@
 #include "parameters.hpp"
 
 double traceBehindFractal(cParameterContainer *params, cFractalContainer *fractals, double maxDist,
-	CVector3 viewVector, double startingDepth, double resolution)
+	CVector3 viewVector, double startingDepth, double resolution, double distanceLimit)
 {
 	sParamRender *paramRender = new sParamRender(params);
 	cNineFractals *nineFractals = new cNineFractals(fractals, params);
@@ -83,6 +83,8 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 		distanceBehind += step;
 		point = paramRender->camera + viewVector * (startingDepth + distanceBehind);
 		// qDebug() << distanceBehind << totalDistanceBehind << distThresh << step << point.Debug();
+
+		if ((paramRender->camera - point).Length() > distanceLimit) break;
 	}
 	return distanceBehind;
 }

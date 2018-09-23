@@ -312,6 +312,7 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		anaglyphMode = stereoMode == cStereo::stereoRedCyan && stereoEnabled;
 		double stereoEyeDistance = params->Get<double>("stereo_eye_distance");
 		double stereoInfiniteCorrection = params->Get<double>("stereo_infinite_correction");
+		double distanceLimit = params->Get<double>("view_distance_max");
 
 		params::enumPerspectiveType perspType =
 			params::enumPerspectiveType(params->Get<int>("perspective_type"));
@@ -348,8 +349,8 @@ void RenderedImage::Display3DCursor(CVector2<int> screenPoint, double z)
 		{
 			if (placeLightBehind)
 			{
-				double distanceBehind =
-					traceBehindFractal(params, fractals, frontDist, viewVector, z, 1.0 / image->GetHeight());
+				double distanceBehind = traceBehindFractal(
+					params, fractals, frontDist, viewVector, z, 1.0 / image->GetHeight(), distanceLimit);
 				z += distanceBehind;
 			}
 		}
