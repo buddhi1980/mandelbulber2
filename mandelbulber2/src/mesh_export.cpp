@@ -86,6 +86,8 @@ void cMeshExport::ProcessVolume()
 
 	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
 
+	renderData->ValidateObjects();
+
 	params->N = maxIter;
 
 	// calculate uniform mesh step

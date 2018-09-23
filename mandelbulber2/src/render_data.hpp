@@ -78,6 +78,27 @@ struct sRenderData
 	QMap<int, cMaterial> materials; // 'int' is an ID
 	QVector<cObjectData> objectData;
 	cStereo stereo;
+
+	void ValidateObjects()
+	{
+
+		for (cObjectData &object : objectData)
+		{
+			// check if material assigned to the object is defined
+			int materialId = object.materialId;
+
+			if (!materials.contains(materialId))
+			{
+				QList<int> keys = materials.keys();
+				std::sort(keys.begin(), keys.end());
+				int substituteMaterialId = keys.first();
+				qCritical() << QString("Material #%1 is not defined. Will be substitubed by material #%2")
+												 .arg(materialId)
+												 .arg(substituteMaterialId);
+				object.materialId = substituteMaterialId;
+			}
+		}
+	}
 };
 
 #endif /* MANDELBULBER2_SRC_RENDER_DATA_HPP_ */

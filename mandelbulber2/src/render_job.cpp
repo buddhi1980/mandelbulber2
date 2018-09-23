@@ -34,6 +34,7 @@
 
 #include "render_job.hpp"
 
+#include <algorithm>
 #include <QWidget>
 
 #include "ao_modes.h"
@@ -441,6 +442,8 @@ bool cRenderJob::Execute()
 			sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 			cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
 
+			renderData->ValidateObjects();
+
 			// recalculation of some parameters;
 			params->resolution = 1.0 / image->GetHeight();
 			ReduceDetail();
@@ -522,6 +525,8 @@ bool cRenderJob::Execute()
 		// move parameters from containers to structures
 		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
 		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+
+		renderData->ValidateObjects();
 
 		image->SetImageParameters(params->imageAdjustments);
 
@@ -722,7 +727,7 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 		QList<int> keys = renderData->materials.keys();
 		for (int matIndex : keys)
 		{
-				if (renderData->materials[matIndex].colorTexture.IsLoaded())
+			if (renderData->materials[matIndex].colorTexture.IsLoaded())
 				listOfTextures.insert(renderData->materials[matIndex].colorTexture.GetFileName());
 
 			if (renderData->materials[matIndex].diffusionTexture.IsLoaded())
@@ -738,10 +743,9 @@ QStringList cRenderJob::CreateListOfUsedTextures() const
 				listOfTextures.insert(renderData->materials[matIndex].luminosityTexture.GetFileName());
 		}
 
-		for (auto & texture : renderData->textures.textureList)
+		for (auto &texture : renderData->textures.textureList)
 		{
-			if (texture->IsLoaded())
-				listOfTextures.insert(texture->GetFileName());
+			if (texture->IsLoaded()) listOfTextures.insert(texture->GetFileName());
 		}
 
 		return listOfTextures.toList();

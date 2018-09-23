@@ -86,6 +86,8 @@ void cVoxelExport::ProcessVolume()
 
 	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
 
+	renderData->ValidateObjects();
+
 	params->N = maxIter;
 
 	const double stepX = (limitMax.x - limitMin.x) * (1.0 / w);

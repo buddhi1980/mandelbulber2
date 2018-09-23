@@ -544,19 +544,20 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
 
-	QMap<int, cMaterial> materials;
-	CreateMaterialsMap(paramContainer, &materials, true);
+	renderData->ValidateObjects();
+
 	QMap<QString, int> textureIndexes;
 
 	// --------------- textures dynamic data -----------------
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
 		int numberOfTextures =
-			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, materials);
+			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, renderData->materials);
 
 		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
 		texturesData->ReserveHeader();
-		texturesData->BuildAllTexturesData(renderData->textures, materials, &textureIndexes);
+		texturesData->BuildAllTexturesData(
+			renderData->textures, renderData->materials, &textureIndexes);
 		texturesData->FillHeader();
 		inTextureBuffer = texturesData->GetData();
 
@@ -571,7 +572,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->ReserveHeader();
 
 	// materials
-	int materialsArraySize = dynamicData->BuildMaterialsData(materials, textureIndexes);
+	int materialsArraySize = dynamicData->BuildMaterialsData(renderData->materials, textureIndexes);
 	definesCollector += " -DMAT_ARRAY_SIZE=" + QString::number(materialsArraySize);
 
 	bool anyMaterialIsReflective = false;
@@ -580,7 +581,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool anyMaterialHasIridescence = false;
 	bool anyMaterialHasColoringEnabled = false;
 	bool anyMaterialHasExtraColoringEnabled = false;
-	foreach (cMaterial material, materials)
+	foreach (cMaterial material, renderData->materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
 		if (material.transparencyOfSurface > 0.0) anyMaterialIsRefractive = true;
