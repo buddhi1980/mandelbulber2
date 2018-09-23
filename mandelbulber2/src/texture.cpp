@@ -51,19 +51,26 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 {
 	bitmap = nullptr;
 
+	WriteLogString("Loading texture", filename, 2);
+
+	WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
 	filename = AnimatedFileName(filename, frameNo);
 
+	WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
 	filename = FilePathHelperTextures(filename);
 
+	WriteLogString("Loading texture - httpProvider()", filename, 3);
 	cResourceHttpProvider httpProvider(filename);
 	if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
 
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
+	WriteLogString("Loading texture - LoadPNG()", filename, 3);
 	bitmap = LoadPNG(filename, width, height);
 
 	// if not, try to use Qt image loader
 	if (!bitmap)
 	{
+		WriteLogString("Loading texture - loading using QImage", filename, 3);
 		QImage qImage;
 		qImage.load(filename);
 		qImage = qImage.convertToFormat(QImage::Format_RGB888);
@@ -92,6 +99,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 		originalFileName = filename;
 		if (mode == useMipmaps)
 		{
+			WriteLogString("Loading texture - CreateMipMaps()", filename, 3);
 			CreateMipMaps();
 		}
 	}
@@ -106,6 +114,8 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 		bitmap = new sRGBA16[100 * 100];
 		memset(bitmap, 255, sizeof(sRGBA16) * 100 * 100);
 	}
+
+	WriteLogString("Loading texture - finished", filename, 3);
 }
 
 // copy constructor

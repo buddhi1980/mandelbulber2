@@ -42,7 +42,8 @@
 #include "initparameters.hpp"
 
 // custom includes
-extern "C" {
+extern "C"
+{
 #include <png.h>
 }
 
@@ -444,7 +445,7 @@ QString FilePathHelper(const QString &path, const QStringList &pathList)
 		}
 	}
 
-	qWarning() << "File not found anywhere";
+	qWarning() << QString("Substitute path for %1 not found anywhere").arg(path);
 	return path;
 }
 

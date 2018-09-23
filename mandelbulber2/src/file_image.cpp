@@ -879,17 +879,17 @@ void ImageFileSaveEXR::SaveEXR(
 				uint64_t ptr = x + y * width;
 				if (imfQuality == Imf::FLOAT)
 				{
-					sRGB16 pixel = image->GetPixelImage16(x, y);
-					floatPointer[ptr].R = (1.0 / 65536.0) * pixel.R;
-					floatPointer[ptr].G = (1.0 / 65536.0) * pixel.G;
-					floatPointer[ptr].B = (1.0 / 65536.0) * pixel.B;
+					sRGBFloat pixel = image->GetPixelImage(x, y);
+					floatPointer[ptr].R = pixel.R;
+					floatPointer[ptr].G = pixel.G;
+					floatPointer[ptr].B = pixel.B;
 				}
 				else
 				{
-					sRGB16 pixel = image->GetPixelImage16(x, y);
-					halfPointer[ptr].R = (1.0 / 65536.0) * pixel.R;
-					halfPointer[ptr].G = (1.0 / 65536.0) * pixel.G;
-					halfPointer[ptr].B = (1.0 / 65536.0) * pixel.B;
+					sRGBFloat pixel = image->GetPixelImage(x, y);
+					halfPointer[ptr].R = pixel.R;
+					halfPointer[ptr].G = pixel.G;
+					halfPointer[ptr].B = pixel.B;
 				}
 			}
 		}

@@ -31,6 +31,7 @@
  *
  * TODO: description
  */
+#include "system.hpp"
 
 #ifdef USE_OPENCL
 
@@ -101,6 +102,8 @@ bool cOpenClTexturesData::CountTexture(
 void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	const QMap<int, cMaterial> &materials, QMap<QString, int> *textureIndexes)
 {
+	WriteLog("OpenCL - BuildAllTexturesData()", 2);
+
 	int textureIndex = -1;
 	QSet<QString> listOfTextures;
 	textureIndexes->clear();
@@ -176,6 +179,8 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 		data.append(reinterpret_cast<char *>(&dummy), sizeof(dummy));
 		totalDataOffset += sizeof(dummy);
 	}
+
+	WriteLog("OpenCL - BuildAllTexturesData() finished", 3);
 }
 
 void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureIndex)
@@ -190,6 +195,8 @@ void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureI
 	//+16 cl_char4 pixel[1]
 	//    ...
 	//    cl_char4 pixel[width*height]
+
+	WriteLogString("OpenCL - BuildTextureData()", texture->GetFileName(), 3);
 
 	totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
 	itemOffsets[textureIndex].itemOffset = totalDataOffset;

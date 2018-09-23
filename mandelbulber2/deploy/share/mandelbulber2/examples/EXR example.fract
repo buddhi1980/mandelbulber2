@@ -1,0 +1,68 @@
+# Mandelbulber settings file
+# version 2.15
+# only modified parameters
+[description]
+This is example of HDR image which can be saved in 32-bit EXR format to use full dynamic range of image in another image processing or 3D applications
+[main_parameters]
+ambient_occlusion 0,66;
+ambient_occlusion_mode 0;
+ambient_occlusion_quality 6;
+aux_light_colour_1 e800 9500 4200;
+aux_light_enabled_1 true;
+aux_light_intensity_1 0,0007466032;
+aux_light_position_1 5,532331132296927 1,456237487525709 -1,39693261395967;
+aux_light_visibility 6,0256;
+aux_light_visibility_size 0,562341;
+background_color_1 0000 0000 0000;
+background_color_2 0000 0000 0000;
+background_color_3 0000 0000 0000;
+bailout 20,893;
+brightness 1,45;
+camera 5,557109284734602 1,484099428252363 -1,398417870763199;
+camera_distance_to_target 0,002074549743998615;
+camera_rotation 118,0699536685941 4,797531081424072 0;
+camera_top 0,07379724327492267 0,03935433888230559 0,9964964640660591;
+check_for_bailout_2 false;
+DE_factor 0,7;
+DE_thresh 1,34896e-08;
+flight_last_to_render 0;
+fog_color_1 7500 7500 7500;
+fog_color_3 5a00 5800 5400;
+formula_1 103;
+formula_2 1020;
+gamma 0,42;
+hdr true;
+image_height 1024;
+image_proportion 6;
+image_width 2048;
+keyframe_last_to_render 0;
+limit_max 10 10 0;
+limits_enabled true;
+mat1_coloring_palette_size 5;
+mat1_coloring_random_seed 583650;
+mat1_fractal_coloring_line_direction 1 1 1 0;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_reflectance 1;
+mat1_specular 2,27;
+mat1_specular_color ff00 e000 ac00;
+mat1_specular_width 0,437;
+mat1_surface_color_palette 9e8e5d 4f2744 ed4852 380091 fcbe3d;
+mat1_transparency_index_of_refraction 7,83;
+penetrating_lights false;
+perspective_type equirectangular;
+raytraced_reflections true;
+SSAO_random_mode true;
+target 5,555285169825431 1,483126670556952 -1,398244365995301;
+use_default_bailout false;
+view_distance_max 12;
+volumetric_fog_colour_1_distance 0,001081842138138319;
+volumetric_fog_colour_2_distance 0,002163684276276637;
+volumetric_fog_distance_factor 0,002163684276276637;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_tweak_005 0;
+transf_addition_constant_0555 0,6 0,7 0,8;
+transf_scale_1 0,567823;
+transf_stop_iterations_A 3;
