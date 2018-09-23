@@ -83,6 +83,8 @@ void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
 	paramsSSAO.random_mode = paramRender->SSAO_random_mode;
 	numberOfPixels = paramsSSAO.width * paramsSSAO.height;
 	intensity = paramRender->ambientOcclusion;
+
+	definesCollector.clear();
 }
 
 bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *params)

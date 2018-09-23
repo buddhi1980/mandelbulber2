@@ -83,6 +83,8 @@ void cOpenClEngineRenderDOFPhase2::SetParameters(const sParamRender *paramRender
 	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
 	numberOfPixels = paramsDOF.width * paramsDOF.height;
+
+	definesCollector.clear();
 }
 
 bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContainer *params)
