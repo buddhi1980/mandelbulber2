@@ -248,7 +248,7 @@ enum enumFractalFormula
 	// V2.09
 	transfInvCylindrical = 1053,
 	transfRpow3 = 1054,
-	transfSphericalInv = 1055,
+	transfSphericalInv = 1055, // fixed modesRadius1 v2.15
 	transfFoldingTetra3d = 1056,
 	transfBoxFoldVaryV1 = 1057,
 	// 2.10

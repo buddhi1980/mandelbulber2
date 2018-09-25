@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_sin_or_cos</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>759</height>
+    <height>1019</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -232,6 +232,13 @@ pre-transform, slot#1 for 1 iteration</string>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+     <property name="text">
+      <string>diminish z</string>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
