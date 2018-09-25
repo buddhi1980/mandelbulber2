@@ -11106,13 +11106,13 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 			double mode = 0.0;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
-				if ( rr < fractal->transformCommon.minRNeg1)
-					mode = fractal->transformCommon.minRNeg1;
+				if ( rr < fractal->transformCommon. minR0)
+					mode = fractal->transformCommon. minR0;
 			}
 			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 			{
-				if ( rr < fractal->transformCommon.minRNeg1)
-					mode = 2.0 * fractal->transformCommon.minRNeg1 - rr;
+				if ( rr < fractal->transformCommon. minR0)
+					mode = 2.0 * fractal->transformCommon. minR0 - rr;
 			}
 			mode = 1.0 / mode;
 			z *= mode;

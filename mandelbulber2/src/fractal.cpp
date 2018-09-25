@@ -271,7 +271,6 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.foldingValue = container->Get<double>("transf_folding_value");
 	transformCommon.foldingLimit = container->Get<double>("transf_folding_limit");
 	transformCommon.multiplication = container->Get<double>("transf_multiplication");
-	transformCommon.minRNeg1 = container->Get<double>("transf_minimum_radius_neg1");
 	transformCommon.minR0 = container->Get<double>("transf_minimum_radius_0");
 	transformCommon.minR05 = container->Get<double>("transf_minimum_radius_05");
 	transformCommon.minR2p25 = container->Get<double>("transf_minR2_p25");

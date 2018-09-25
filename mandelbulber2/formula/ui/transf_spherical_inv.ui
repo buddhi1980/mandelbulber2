@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>853</width>
-    <height>1221</height>
+    <height>1287</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -297,7 +297,7 @@ offset:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-999.999000000000024</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>999.999000000000024</double>
@@ -354,7 +354,7 @@ if ( z &gt; MinumumR) z *= 1/  rrMode </string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-999.999000000000024</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>999.999000000000024</double>

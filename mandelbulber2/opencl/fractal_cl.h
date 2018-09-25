@@ -472,7 +472,6 @@ typedef struct
 	cl_float offset2;
 	cl_float offset4;
 	cl_float multiplication;
-	cl_float minRNeg1;
 	cl_float minR0;
 	cl_float minR05;
 	cl_float minR06;
@@ -1118,7 +1117,6 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset2 = source.offset2;
 	target.offset4 = source.offset4;
 	target.multiplication = source.multiplication;
-	target.minRNeg1 = source.minRNeg1;
 	target.minR0 = source.minR0;
 	target.minR05 = source.minR05;
 	target.minR06 = source.minR06;
