@@ -63,9 +63,10 @@ float3 NormalMapShader(sShaderInputDataCl *input, sRenderData *renderData,
 
 		if (!input->material->normalMapTextureFromBumpmap)
 		{
-			int texturePointAddress = TexturePixelAddress(texturePoint, textureSize, 0);
-			uchar4 pixel = texture[texturePointAddress];
-			texNormal = (float3){pixel.s0 / 128.0f - 1.0f, pixel.s1 / 128.0f - 1.0f, pixel.s2 / 256.0f};
+			float3 pixel =
+				BicubicInterpolation(texturePoint.x, texturePoint.y, texture, textureSize.x, textureSize.y);
+
+			texNormal = (float3){pixel.s0 * 2.0f - 1.0f, pixel.s1 * 2.0f - 1.0f, pixel.s2};
 			texNormal.x *= -input->material->normalMapTextureHeight;
 			texNormal.y *= -input->material->normalMapTextureHeight;
 			if (input->material->normalMapTextureInvertGreen) texNormal.y *= -1.0f;

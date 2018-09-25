@@ -29,44 +29,69 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * calculation of adress of pixel in repeated texture
+ * bicubic interpolation used for texture mapping
  */
 
 #ifdef USE_TEXTURES
 
-int TexturePixelAddress(float2 texturePoint, int2 textureSize, int2 pixelOffset)
+inline float3 cubicInterpolate(float3 p[4], float x)
 {
-	int2 texturePointInt = (int2){texturePoint.x * textureSize.x, texturePoint.y * textureSize.y};
-	texturePointInt += pixelOffset;
-
-	if (texturePointInt.x >= 0)
-		texturePointInt.x = texturePointInt.x % textureSize.x;
-	else
-		texturePointInt.x = textureSize.x + (texturePointInt.x % textureSize.x) - 1;
-
-	if (texturePointInt.y >= 0)
-		texturePointInt.y = texturePointInt.y % textureSize.y;
-	else
-		texturePointInt.y = textureSize.y + (texturePointInt.y % textureSize.y) - 1;
-
-	return texturePointInt.x + texturePointInt.y * textureSize.x;
+	return p[1]
+				 + 0.5f * x
+						 * (p[2] - p[0]
+								 + x
+										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
-int TexturePixelAddressInt(int2 texturePoint, int2 textureSize, int2 pixelOffset)
+float3 bicubicInterpolate(float3 p[4][4], float x, float y)
 {
-	int2 texturePointInt = texturePoint + pixelOffset;
+	float3 yy[4];
+	yy[0] = cubicInterpolate(p[0], y);
+	yy[1] = cubicInterpolate(p[1], y);
+	yy[2] = cubicInterpolate(p[2], y);
+	yy[3] = cubicInterpolate(p[3], y);
+	return cubicInterpolate(yy, x);
+}
 
-	if (texturePointInt.x >= 0)
-		texturePointInt.x = texturePointInt.x % textureSize.x;
+float3 BicubicInterpolation(float x, float y, __global uchar4 *texture, int w, int h)
+{
+	if (x > 0.0f)
+		x = fmod(x, 1.0f);
 	else
-		texturePointInt.x = textureSize.x + (texturePointInt.x % textureSize.x) - 1;
+		x = 1.0f + fmod(x, 1.0f);
 
-	if (texturePointInt.y >= 0)
-		texturePointInt.y = texturePointInt.y % textureSize.y;
+	if (y > 0.0f)
+		y = fmod(y, 1.0f);
 	else
-		texturePointInt.y = textureSize.y + (texturePointInt.y % textureSize.y) - 1;
+		y = 1.0f + fmod(y, 1.0f);
 
-	return texturePointInt.x + texturePointInt.y * textureSize.x;
+	float textureCordX = x * w;
+	float textureCordY = y * h;
+
+	int ix = (int)textureCordX;
+	int iy = (int)textureCordY;
+	float rx = textureCordX - ix;
+	float ry = textureCordY - iy;
+
+	float3 color[4][4];
+
+	for (int yy = 0; yy < 4; yy++)
+	{
+		for (int xx = 0; xx < 4; xx++)
+		{
+			int texturePointAddress =
+				TexturePixelAddressInt((int2){ix, iy}, (int2){w, h}, (int2){xx - 1, yy - 1});
+			uchar4 pixel = texture[texturePointAddress];
+
+			color[xx][yy] = (float3){pixel.s0 / 256.0f, pixel.s1 / 256.0f, pixel.s2 / 256.0f};
+		}
+	}
+
+	float3 dColor = bicubicInterpolate(color, rx, ry);
+	dColor = clamp(dColor, (float3){0.0f, 0.0f, 0.0f}, (float3){1.0f, 1.0f, 1.0f});
+
+	return dColor;
 }
 
 #endif

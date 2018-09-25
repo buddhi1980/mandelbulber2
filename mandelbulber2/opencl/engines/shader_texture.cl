@@ -51,10 +51,8 @@ float3 TextureShader(sShaderInputDataCl *input, sRenderData *renderData,
 		int2 textureSize = renderData->textureSizes[textureIndex];
 		__global uchar4 *texture = renderData->textures[textureIndex];
 
-		int texturePointAddress = TexturePixelAddress(texturePoint, textureSize, 0);
-
-		uchar4 pixel = texture[texturePointAddress];
-		texOut = (float3){pixel.s0 / 256.0f, pixel.s1 / 256.0f, pixel.s2 / 256.0f};
+		texOut =
+			BicubicInterpolation(texturePoint.x, texturePoint.y, texture, textureSize.x, textureSize.y);
 	}
 
 	return texOut;

@@ -200,6 +200,9 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 				programEngine.append(
 					"#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
 
+				// calculation of bicubic interpolation for textures
+				programEngine.append("#include \"" + openclEnginePath + "bicubic_interpolation.cl\"\n");
+
 				// calculate displacement from textures
 				programEngine.append("#include \"" + openclEnginePath + "displacement_map.cl\"\n");
 			}
