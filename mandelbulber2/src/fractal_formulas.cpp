@@ -11081,7 +11081,7 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
- * spherical invert
+ * spherical invert (modes updated v2.15)
  * from M3D. Formula by Luca GN 2011, updated May 2012.
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/

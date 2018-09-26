@@ -268,7 +268,7 @@ offset:</string>
         <item row="4" column="1">
          <widget class="QLabel" name="label_47">
           <property name="text">
-           <string>MinimumR</string>
+           <string>MinimumR:</string>
           </property>
          </widget>
         </item>

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>1019</height>
+    <height>1044</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -171,21 +171,23 @@ pre-transform, slot#1 for 1 iteration</string>
      <item row="0" column="1">
       <widget class="QLabel" name="label_122">
        <property name="text">
-        <string>cosine</string>
+        <string>switch to
+cosine</string>
        </property>
       </widget>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_123">
        <property name="text">
-        <string>axis</string>
+        <string>axis 
+(sine default)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
       <widget class="QLabel" name="label_124">
        <property name="text">
-        <string>scale</string>
+        <string>                scale</string>
        </property>
       </widget>
      </item>
