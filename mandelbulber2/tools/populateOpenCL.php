@@ -16,21 +16,18 @@ require_once(dirname(__FILE__) . '/common.inc.php');
 
 printStart();
 
-$copyFiles['fractal_h']['path'] = PROJECT_PATH . 'src/fractal.h';
-$copyFiles['fractal_h']['pathTarget'] = PROJECT_PATH . 'opencl/fractal_cl.h';
-$copyFiles['fractparams_h']['path'] = PROJECT_PATH . 'src/fractparams.hpp';
-$copyFiles['fractparams_h']['pathTarget'] = PROJECT_PATH . 'opencl/fractparams_cl.hpp';
-$copyFiles['image_adjustments_h']['path'] = PROJECT_PATH . 'src/image_adjustments.h';
-$copyFiles['image_adjustments_h']['pathTarget'] = PROJECT_PATH . 'opencl/image_adjustments_cl.h';
-$copyFiles['common_params_hpp']['path'] = PROJECT_PATH . 'src/common_params.hpp';
-$copyFiles['common_params_hpp']['pathTarget'] = PROJECT_PATH . 'opencl/common_params_cl.hpp';
-$copyFiles['fractal_coloring_hpp']['path'] = PROJECT_PATH . 'src/fractal_coloring.hpp';
-$copyFiles['fractal_coloring_hpp']['pathTarget'] = PROJECT_PATH . 'opencl/fractal_coloring_cl.hpp';
-//$copyFiles['fractal_coloring_cpp']['path'] = PROJECT_PATH . 'src/fractal_coloring.cpp';
-//$copyFiles['fractal_coloring_cpp']['pathTarget'] = PROJECT_PATH . 'opencl/fractal_coloring_cl.cpp';
+$copyFiles = array();
+$copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
+$copyFiles[] = array('src' => 'fractparams.hpp', 'opencl' => 'fractparams_cl.hpp');
+$copyFiles[] = array('src' => 'image_adjustments.h', 'opencl' => 'image_adjustments_cl.h');
+$copyFiles[] = array('src' => 'common_params.hpp', 'opencl' => 'common_params_cl.hpp');
+$copyFiles[] = array('src' => 'fractal_coloring.hpp', 'opencl' => 'fractal_coloring_cl.hpp');
+$copyFiles[] = array('src' => 'texture_enums.hpp', 'opencl' => 'texture_enums_cl.h');
 
 printStartGroup('RUNNING OPENCL AUTOGENERATION');
 foreach ($copyFiles as $type => $copyFile) {
+	$copyFile['path'] = PROJECT_PATH . 'src/' . $copyFile['src'];
+	$copyFile['pathTarget'] = PROJECT_PATH . 'opencl/' . $copyFile['opencl'];
 	$status = array();
 	$success = autogenOpenCLFile($copyFile, $status);
 	printResultLine(basename($copyFile['pathTarget']), $success, $status);
@@ -128,7 +125,7 @@ function autogenOpenCLFile($copyFile, &$status)
 
 		// TODO rework these regexes
 		array('find' => '/using namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
-		array('find' => '/namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
+		array('find' => '/namespace[\s\S]*?{([\s\S]*?\n)}\n/', 'replace' => "$1"), // no namespace support -> TODO fix files with namespaces
 		array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor
@@ -205,10 +202,12 @@ function autogenOpenCLFile($copyFile, &$status)
 		}
 		$copyStructs[] = getCopyStruct($structName, $props);
 	}
-	$content = preg_replace('/(#endif \/\* MANDELBULBER2_OPENCL.*)/',
-		PHP_EOL . '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL
-		. implode(PHP_EOL, $copyStructs) . '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL . PHP_EOL . '$1', $content);
-
+	if(count($copyStructs) > 0){
+        $content = preg_replace('/(#endif \/\* MANDELBULBER2_OPENCL.*)/',
+            PHP_EOL . '#ifndef OPENCL_KERNEL_CODE' . PHP_EOL
+            . implode(PHP_EOL, $copyStructs) . '#endif /* OPENCL_KERNEL_CODE */' . PHP_EOL . PHP_EOL . '$1', $content);
+	}
+	
 	// clang-format
 	$filepathTemp = PROJECT_PATH . '/tools/.tmp.c';
 	file_put_contents($filepathTemp, $content);
