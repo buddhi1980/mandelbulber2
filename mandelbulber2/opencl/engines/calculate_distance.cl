@@ -248,7 +248,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #ifdef USE_DISPLACEMENT_TEXTURE
 	out.distance = DisplacementMap(out.distance, point, out.objectId, renderData, 1.0f);
 #endif
-	
+
 #ifdef USE_PRIMITIVES
 	out.distance = min(out.distance,
 		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
@@ -344,7 +344,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 			switch (boolOperator)
 			{
-				case clBooleanOperatorOR:
+				case booleanOperatorOR:
 					if (distTemp < dist)
 					{
 						outTemp.objectId = 1 + i;
@@ -358,7 +358,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					}
 					dist = min(distTemp, dist);
 					break;
-				case clBooleanOperatorAND:
+				case booleanOperatorAND:
 					if (distTemp > dist)
 					{
 						outTemp.objectId = 1 + i;
@@ -372,7 +372,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					}
 					dist = max(distTemp, dist);
 					break;
-				case clBooleanOperatorSUB:
+				case booleanOperatorSUB:
 				{
 					float limit = 1.5f;
 					if (dist < calcParam->detailSize) // if inside 1st
