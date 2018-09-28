@@ -65,8 +65,9 @@
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
 
-typedef enum
-{
+typedef enum { ocl_DECalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } enumOCLDEModeCl;
+
+typedef enum {
 	generalizedFoldBoxTypeCl_foldTet = 0,
 	generalizedFoldBoxTypeCl_foldCube = 1,
 	generalizedFoldBoxTypeCl_foldOct = 2,
@@ -252,20 +253,11 @@ typedef struct
 } sFractalPlatonicSolidCl;
 
 // mandelbulb multi
-typedef enum
-{
-	multi_acosOrAsinCl_acos,
-	multi_acosOrAsinCl_asin
-} enumMulti_acosOrAsinCl;
+typedef enum { multi_acosOrAsinCl_acos, multi_acosOrAsinCl_asin } enumMulti_acosOrAsinCl;
 
-typedef enum
-{
-	multi_atanOrAtan2Cl_atan,
-	multi_atanOrAtan2Cl_atan2
-} enumMulti_atanOrAtan2Cl;
+typedef enum { multi_atanOrAtan2Cl_atan, multi_atanOrAtan2Cl_atan2 } enumMulti_atanOrAtan2Cl;
 
-typedef enum
-{
+typedef enum {
 	multi_OrderOfXYZCl_xyz,
 	multi_OrderOfXYZCl_xzy,
 	multi_OrderOfXYZCl_yxz,
@@ -286,20 +278,11 @@ typedef struct
 } sFractalMandelbulbMultiCl;
 
 // sinTan2Trig
-typedef enum
-{
-	multi_asinOrAcosCl_asin,
-	multi_asinOrAcosCl_acos
-} enumMulti_asinOrAcosCl;
+typedef enum { multi_asinOrAcosCl_asin, multi_asinOrAcosCl_acos } enumMulti_asinOrAcosCl;
 
-typedef enum
-{
-	multi_atan2OrAtanCl_atan2,
-	multi_atan2OrAtanCl_atan
-} enumMulti_atan2OrAtanCl;
+typedef enum { multi_atan2OrAtanCl_atan2, multi_atan2OrAtanCl_atan } enumMulti_atan2OrAtanCl;
 
-typedef enum
-{
+typedef enum {
 	multi_OrderOfZYXCl_zyx,
 	multi_OrderOfZYXCl_zxy,
 	multi_OrderOfZYXCl_yzx,
@@ -315,8 +298,7 @@ typedef struct
 } sFractalSinTan2TrigCl;
 
 // surf fold box
-typedef enum
-{
+typedef enum {
 	multi_orderOfFoldsCl_type1,
 	multi_orderOfFoldsCl_type2,
 	multi_orderOfFoldsCl_type3,
@@ -333,8 +315,7 @@ typedef struct
 } sFractalSurfFoldsCl;
 
 // asurf mod2
-typedef enum
-{
+typedef enum {
 	multi_orderOf3FoldsCl_type1,
 	multi_orderOf3FoldsCl_type2,
 	multi_orderOf3FoldsCl_type3
@@ -347,8 +328,7 @@ typedef struct
 } sFractalASurf3FoldsCl;
 
 // benesi mag transforms
-typedef enum
-{
+typedef enum {
 	multi_orderOfTransfCl_typeT1,
 	multi_orderOfTransfCl_typeT1Mod,
 	multi_orderOfTransfCl_typeT2,
@@ -366,8 +346,7 @@ typedef struct
 } sFractalMagTransformsCl;
 
 // basic combo
-typedef enum
-{
+typedef enum {
 	comboCl_mode0,
 	comboCl_mode1,
 	comboCl_mode2,

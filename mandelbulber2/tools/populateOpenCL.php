@@ -17,12 +17,13 @@ require_once(dirname(__FILE__) . '/common.inc.php');
 printStart();
 
 $copyFiles = array();
-$copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
+/*$copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
 $copyFiles[] = array('src' => 'fractparams.hpp', 'opencl' => 'fractparams_cl.hpp');
 $copyFiles[] = array('src' => 'image_adjustments.h', 'opencl' => 'image_adjustments_cl.h');
 $copyFiles[] = array('src' => 'common_params.hpp', 'opencl' => 'common_params_cl.hpp');
 $copyFiles[] = array('src' => 'fractal_coloring.hpp', 'opencl' => 'fractal_coloring_cl.hpp');
-$copyFiles[] = array('src' => 'texture_enums.hpp', 'opencl' => 'texture_enums_cl.h');
+$copyFiles[] = array('src' => 'texture_enums.hpp', 'opencl' => 'texture_enums_cl.h');*/
+$copyFiles[] = array('src' => 'object_types.hpp', 'opencl' => 'object_type_cl.h');
 
 printStartGroup('RUNNING OPENCL AUTOGENERATION');
 foreach ($copyFiles as $type => $copyFile) {
@@ -77,7 +78,7 @@ function autogenOpenCLFile($copyFile, &$status)
 	$noChangeComment[] = 'from the file ' . str_replace(PROJECT_PATH, '', $copyFile['path']);
 	$noChangeComment[] = 'D O    N O T    E D I T    T H I S    F I L E !';
 	$fileHeader = str_replace('*/', '* ' . implode(PHP_EOL . ' * ', $noChangeComment) . PHP_EOL . ' */', $fileHeader);
-
+	
 	$content = $fileHeader . $fileSourceCode;
 
 	// replace opencl specific tokens (and replace all matches)
@@ -125,7 +126,7 @@ function autogenOpenCLFile($copyFile, &$status)
 
 		// TODO rework these regexes
 		array('find' => '/using namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
-		array('find' => '/namespace[\s\S]*?{([\s\S]*?\n)}\n/', 'replace' => "$1"), // no namespace support -> TODO fix files with namespaces
+		array('find' => '/\nnamespace[\s\S]*?{([\s\S]*?\n)}\n/', 'replace' => "\n$1"), // no namespace support -> TODO fix files with namespaces
 		array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor

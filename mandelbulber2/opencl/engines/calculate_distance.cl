@@ -35,13 +35,6 @@
 #ifndef MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 #define MANDELBULBER2_OPENCL_ENGINES_CALCULATE_DISTANCE_CL_
 
-typedef enum
-{
-	clBooleanOperatorAND = 0,
-	clBooleanOperatorOR = 1,
-	clBooleanOperatorSUB = 2
-} enumBooleanOperatorCl;
-
 // calculation of distance where ray-marching stops
 float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 {

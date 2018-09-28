@@ -58,6 +58,14 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
+typedef enum { mapEquirectangular = 0, mapDoubleHemisphere = 1, mapFlat = 2 } enumTextureMapTypeCl;
+
+typedef enum {
+	booleanOperatorAND = 0,
+	booleanOperatorOR = 1,
+	booleanOperatorSUB = 2
+} enumBooleanOperatorCl;
+
 typedef struct
 {
 	// constructor with init

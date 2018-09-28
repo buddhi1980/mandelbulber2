@@ -61,7 +61,7 @@ enum enumBooleanOperator
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
 };
-} // namespace params
+}
 
 struct sParamRender
 {

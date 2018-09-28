@@ -76,7 +76,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
 	switch (objectType)
 	{
-		case clObjFractal: {
+                case objFractal: {
 #endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
 
 			if (input->material->useColorsFromPalette)
@@ -110,20 +110,20 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)) && defined(FULL_ENGINE)
 			break;
 		}
-		case clObjPlane:
-		case clObjWater:
-		case clObjSphere:
-		case clObjBox:
-		case clObjRectangle:
-		case clObjCircle:
-		case clObjCone:
-		case clObjTorus:
-		case clObjCylinder:
+                case objPlane:
+                case objWater:
+                case objSphere:
+                case objBox:
+                case objRectangle:
+                case objCircle:
+                case objCone:
+                case objTorus:
+                case objCylinder:
 		{
 			color = input->material->color;
 			break;
 		}
-		case clObjNone: { color = 0.0f;
+                case objNone: { color = 0.0f;
 		}
 	}
 #endif

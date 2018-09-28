@@ -58,8 +58,7 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum
-{
+typedef enum {
 	fractalColoringCl_None = -1,
 	fractalColoringCl_Standard = 0,
 	fractalColoringCl_ZDotPoint = 1,

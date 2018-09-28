@@ -232,7 +232,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 			switch (primitive->object.objectType)
 			{
 #ifdef USE_PRIMITIVE_PLANE
-				case clObjPlane:
+                                case objPlane:
 				{
 					distTemp = PrimitivePlane(primitive, point2);
 					break;
@@ -240,7 +240,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_BOX
-				case clObjBox:
+                                case objBox:
 				{
 					distTemp = PrimitiveBox(primitive, point2);
 					break;
@@ -248,7 +248,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_SPHERE
-				case clObjSphere:
+                                case objSphere:
 				{
 					distTemp = PrimitiveSphere(primitive, point2);
 					break;
@@ -256,7 +256,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_RECTANGLE
-				case clObjRectangle:
+                                case objRectangle:
 				{
 					distTemp = PrimitiveRectangle(primitive, point2);
 					break;
@@ -264,7 +264,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_CYLINDER
-				case clObjCylinder:
+                                case objCylinder:
 				{
 					distTemp = PrimitiveCylinder(primitive, point2);
 					break;
@@ -272,7 +272,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_CIRCLE
-				case clObjCircle:
+                                case objCircle:
 				{
 					distTemp = PrimitiveCircle(primitive, point2);
 					break;
@@ -280,7 +280,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_CONE
-				case clObjCone:
+                                case objCone:
 				{
 					distTemp = PrimitiveCone(primitive, point2);
 					break;
@@ -288,7 +288,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_WATER
-				case clObjWater:
+                                case objWater:
 				{
 					distTemp = PrimitiveWater(primitive, point2, dist);
 					break;
@@ -296,7 +296,7 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 #endif
 
 #ifdef USE_PRIMITIVE_TORUS
-				case clObjTorus:
+                                case objTorus:
 				{
 					distTemp = PrimitiveTorus(primitive, point2);
 					break;
