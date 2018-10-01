@@ -69,30 +69,36 @@ int cOpenClTexturesData::CheckNumberOfTextures(
 	int numberOfTextures = 0;
 	QSet<QString> listOfTextures;
 
-	CountTexture(&textures.envmapTexture, &listOfTextures, &numberOfTextures);
+	CountTexture(&textures.envmapTexture, false, &listOfTextures, &numberOfTextures);
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
-		CountTexture(&material.colorTexture, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.diffusionTexture, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.displacementTexture, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.luminosityTexture, &listOfTextures, &numberOfTextures);
-		CountTexture(&material.normalMapTexture, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.colorTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.diffusionTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.displacementTexture, true, &listOfTextures,
+			&numberOfTextures); // will be stored as 16bit grey texture
+		CountTexture(&material.luminosityTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.normalMapTexture, false, &listOfTextures, &numberOfTextures);
 	}
 
 	return numberOfTextures;
 }
 
 bool cOpenClTexturesData::CountTexture(
-	const cTexture *texture, QSet<QString> *listOfTextures, int *counter)
+	const cTexture *texture, bool grey16bit, QSet<QString> *listOfTextures, int *counter)
 {
 	bool added = false;
 	if (texture->IsLoaded())
 	{
-		if (!listOfTextures->contains(texture->GetFileName()))
+		QString filename = texture->GetFileName();
+		if (grey16bit)
+			filename += "grey16bit"; // it is needed to separate 16bit texture if the same file is used
+															 // for standard textures
+
+		if (!listOfTextures->contains(filename))
 		{
 			(*counter)++;
-			listOfTextures->insert(texture->GetFileName());
+			listOfTextures->insert(filename);
 			added = true;
 		}
 	}
@@ -108,9 +114,9 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	QSet<QString> listOfTextures;
 	textureIndexes->clear();
 
-	if (CountTexture(&textures.envmapTexture, &listOfTextures, &textureIndex))
+	if (CountTexture(&textures.envmapTexture, false, &listOfTextures, &textureIndex))
 	{
-		BuildTextureData(&textures.envmapTexture, textureIndex);
+		BuildTextureData(&textures.envmapTexture, textureIndex, false);
 		textureIndexes->insert(textures.envmapTexture.GetFileName(), textureIndex);
 	}
 
@@ -128,37 +134,38 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
-		if (CountTexture(&material.colorTexture, &listOfTextures, &textureIndex))
+		if (CountTexture(&material.colorTexture, false, &listOfTextures, &textureIndex))
 		{
-			BuildTextureData(&material.colorTexture, textureIndex);
+			BuildTextureData(&material.colorTexture, textureIndex, false);
 			textureIndexes->insert(material.colorTexture.GetFileName(), textureIndex);
 			useColorTexture = true;
 		}
 
-		if (CountTexture(&material.diffusionTexture, &listOfTextures, &textureIndex))
+		if (CountTexture(&material.diffusionTexture, false, &listOfTextures, &textureIndex))
 		{
-			BuildTextureData(&material.diffusionTexture, textureIndex);
+			BuildTextureData(&material.diffusionTexture, textureIndex, false);
 			textureIndexes->insert(material.diffusionTexture.GetFileName(), textureIndex);
 			useDiffussionTexture = true;
 		}
 
-		if (CountTexture(&material.displacementTexture, &listOfTextures, &textureIndex))
+		if (CountTexture(&material.displacementTexture, true, &listOfTextures, &textureIndex))
 		{
-			BuildTextureData(&material.displacementTexture, textureIndex);
+			// will be stored as 16bit grey texture
+			BuildTextureData(&material.displacementTexture, textureIndex, true);
 			textureIndexes->insert(material.displacementTexture.GetFileName(), textureIndex);
 			useDisplacementMap = true;
 		}
 
-		if (CountTexture(&material.luminosityTexture, &listOfTextures, &textureIndex))
+		if (CountTexture(&material.luminosityTexture, false, &listOfTextures, &textureIndex))
 		{
-			BuildTextureData(&material.luminosityTexture, textureIndex);
+			BuildTextureData(&material.luminosityTexture, textureIndex, false);
 			textureIndexes->insert(material.luminosityTexture.GetFileName(), textureIndex);
 			useLuminosityTexture = true;
 		}
 
-		if (CountTexture(&material.normalMapTexture, &listOfTextures, &textureIndex))
+		if (CountTexture(&material.normalMapTexture, false, &listOfTextures, &textureIndex))
 		{
-			BuildTextureData(&material.normalMapTexture, textureIndex);
+			BuildTextureData(&material.normalMapTexture, textureIndex, false);
 			textureIndexes->insert(material.normalMapTexture.GetFileName(), textureIndex);
 			useNormalMapTexture = true;
 			if (material.normalMapTextureFromBumpmap) useNormalMapTextureFromBumpmap = true;
@@ -183,7 +190,8 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	WriteLog("OpenCL - BuildAllTexturesData() finished", 3);
 }
 
-void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureIndex)
+void cOpenClTexturesData::BuildTextureData(
+	const cTexture *texture, int textureIndex, bool grey16bit)
 {
 	// header:
 	//+0 cl_int textureDataOffset
@@ -225,8 +233,18 @@ void cOpenClTexturesData::BuildTextureData(const cTexture *texture, int textureI
 		int y = i / textureWidth;
 
 		sRGBA16 pixel = texture->FastPixel(x, y);
-		cl_uchar4 clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
-			cl_uchar(pixel.A / 256)};
+
+		cl_uchar4 clpixel;
+		if (!grey16bit)
+		{
+			clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.G / 256), cl_uchar(pixel.B / 256),
+				cl_uchar(pixel.A / 256)};
+		}
+		else
+		{
+			// greyscale 16bit texture is coded using first two bytes
+			clpixel = {cl_uchar(pixel.R / 256), cl_uchar(pixel.R % 256), 0, 0};
+		}
 
 		data.append(reinterpret_cast<char *>(&clpixel), sizeof(clpixel));
 		totalDataOffset += sizeof(clpixel);

@@ -56,8 +56,9 @@ public:
 	QString GetDefinesCollector(void) const;
 
 private:
-	static bool CountTexture(const cTexture *texture, QSet<QString> *listOfTextures, int *counter);
-	void BuildTextureData(const cTexture *texture, int textureIndex);
+	static bool CountTexture(
+		const cTexture *texture, bool grey16bit, QSet<QString> *listOfTextures, int *counter);
+	void BuildTextureData(const cTexture *texture, int textureIndex, bool grey16bit);
 
 	int numberOfTextures;
 	bool useColorTexture;

@@ -44,6 +44,18 @@ inline float3 cubicInterpolate(float3 p[4], float x)
 												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
+#ifdef USE_DISPLACEMENT_TEXTURE
+inline float cubicInterpolateGrey(float p[4], float x)
+{
+	return p[1]
+				 + 0.5f * x
+						 * (p[2] - p[0]
+								 + x
+										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+}
+#endif
+
 float3 bicubicInterpolate(float3 p[4][4], float x, float y)
 {
 	float3 yy[4];
@@ -53,6 +65,18 @@ float3 bicubicInterpolate(float3 p[4][4], float x, float y)
 	yy[3] = cubicInterpolate(p[3], y);
 	return cubicInterpolate(yy, x);
 }
+
+#ifdef USE_DISPLACEMENT_TEXTURE
+float bicubicInterpolateGrey(float p[4][4], float x, float y)
+{
+	float yy[4];
+	yy[0] = cubicInterpolateGrey(p[0], y);
+	yy[1] = cubicInterpolateGrey(p[1], y);
+	yy[2] = cubicInterpolateGrey(p[2], y);
+	yy[3] = cubicInterpolateGrey(p[3], y);
+	return cubicInterpolateGrey(yy, x);
+}
+#endif
 
 float3 BicubicInterpolation(float x, float y, __global uchar4 *texture, int w, int h)
 {
@@ -93,5 +117,47 @@ float3 BicubicInterpolation(float x, float y, __global uchar4 *texture, int w, i
 
 	return dColor;
 }
+
+#ifdef USE_DISPLACEMENT_TEXTURE
+float BicubicInterpolationGrey16(float x, float y, __global uchar4 *texture, int w, int h)
+{
+	if (x > 0.0f)
+		x = fmod(x, 1.0f);
+	else
+		x = 1.0f + fmod(x, 1.0f);
+
+	if (y > 0.0f)
+		y = fmod(y, 1.0f);
+	else
+		y = 1.0f + fmod(y, 1.0f);
+
+	float textureCordX = x * w;
+	float textureCordY = y * h;
+
+	int ix = (int)textureCordX;
+	int iy = (int)textureCordY;
+	float rx = textureCordX - ix;
+	float ry = textureCordY - iy;
+
+	float grey[4][4];
+
+	for (int yy = 0; yy < 4; yy++)
+	{
+		for (int xx = 0; xx < 4; xx++)
+		{
+			int texturePointAddress =
+				TexturePixelAddressInt((int2){ix, iy}, (int2){w, h}, (int2){xx - 1, yy - 1});
+			uchar4 pixel = texture[texturePointAddress];
+
+			grey[xx][yy] = (pixel.s0 * 256 + pixel.s1) / 65536.0f;
+		}
+	}
+
+	float dGrey = bicubicInterpolateGrey(grey, rx, ry);
+	dGrey = clamp(dGrey, 0.0f, 1.0f);
+
+	return dGrey;
+}
+#endif
 
 #endif

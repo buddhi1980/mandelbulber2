@@ -53,10 +53,10 @@ float DisplacementMap(
 		int2 textureSize = renderData->textureSizes[textureIndex];
 		__global uchar4 *texture = renderData->textures[textureIndex];
 
-		float3 pixel =
-			BicubicInterpolation(texturePoint.x, texturePoint.y, texture, textureSize.x, textureSize.y);
+		float pixel = BicubicInterpolationGrey16(
+			texturePoint.x, texturePoint.y, texture, textureSize.x, textureSize.y);
 
-		float bump = pixel.s0;
+		float bump = pixel;
 		distance -= bump * mat->displacementTextureHeight / reduce;
 		if (distance < 0.0f) distance = 0.0f;
 	}
