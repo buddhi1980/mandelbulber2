@@ -337,7 +337,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
 
 #ifdef USE_DISPLACEMENT_TEXTURE
-			distTemp = DisplacementMap(distTemp, pointTemp, out.objectId, renderData, 1.0f);
+			distTemp = DisplacementMap(distTemp, pointTemp, out.objectId + 1, renderData, 1.0f);
 #endif
 
 			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];
