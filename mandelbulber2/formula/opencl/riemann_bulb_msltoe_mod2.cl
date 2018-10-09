@@ -21,13 +21,13 @@ REAL4 RiemannBulbMsltoeMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	Q_UNUSED(aux);
 
 	REAL radius2 = fractal->transformCommon.minR05;
-	REAL r2 = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // r2 or point radius squared
-	if (r2 < radius2 * radius2)
+	REAL rr = mad(z.z, z.z, mad(z.x, z.x, z.y * z.y)); // r2 or point radius squared
+	if (rr < radius2 * radius2)
 	{
 		if (fractal->transformCommon.functionEnabled)
 			// smooth inside
-			z *= radius2 * ((r2 * 0.1f) + 0.4f) * 1.18f
-					 * native_divide(fractal->transformCommon.scaleA1, r2);
+			z *= radius2 * ((rr * 0.1f) + 0.4f) * 1.18f
+					 * native_divide(fractal->transformCommon.scaleA1, rr);
 		else
 		{
 			z *= fractal->transformCommon.constantMultiplier111;

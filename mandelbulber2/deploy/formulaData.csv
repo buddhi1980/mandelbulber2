@@ -7,6 +7,7 @@ aboxMod13,"Abox - Mod 13",analyticDEType,linearDEFunction,cpixelEnabledByDefault
 aboxModKali,"Abox - Mod Kali",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxModKaliEiffie,"Abox - Mod Kali-Eiffie",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 aboxModKaliV2,"Abox - Mod Kali-V2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
+aboxModKaliV3,"Abox - Mod Kali-V3",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxVSIcen1,"Abox - VS icen1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 aexion,Aexion,deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10000,analyticFunctionNone,coloringFunctionDefault
 aexionOctopusMod,"Aexion Octopus Mod",deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionNone,coloringFunctionDefault
@@ -76,10 +77,8 @@ eiffieMsltoe,"Msltoe - Julia Bulb Eiffie",analyticDEType,logarithmicDEFunction,c
 msltoeSym3Mod2,"Msltoe - Julia Bulb Mod2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym3Mod3,"Msltoe - Julia Bulb Mod3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 msltoeSym4Mod,"Msltoe - Sym4 Mod",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
-msltoeToroidal,"Msltoe - Toroidal Bulb",analyticDEType,"// TODO fix??
-		logarithmicDEFunction",cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
-msltoeToroidalMulti,"Msltoe - Toroidal Multi",analyticDEType,"// TODO fix??
-		logarithmicDEFunction",cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeToroidal,"Msltoe - Toroidal Bulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+msltoeToroidalMulti,"Msltoe - Toroidal Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 pseudoKleinianStdDE,"Pseudo Kleinian - stdDE",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 pseudoKleinian,"Pseudo Kleinian",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100,analyticFunctionPseudoKleinian,coloringFunctionDefault
 pseudoKleinianMod1,"Pseudo Kleinian - Mod 1",analyticDEType,pseudoKleinianDEFunction,cpixelDisabledByDefault,100,analyticFunctionPseudoKleinian,coloringFunctionDefault
@@ -121,6 +120,7 @@ transfAddCpixelAxisSwap,"T>Add Cpixel - Axis Swap",analyticDEType,withoutDEFunct
 transfAddCpixelRotated,"T>Add Cpixel - Rotated",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelCxCyAxisSwap,"T>Add Cpixel - CxCy Axis Swap",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelScator,"T>Add Cpixel - Scator",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
+transfAddCpixelSinOrCos,"T>Add Cpixel - Sin Or Cos",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelSymmetrical,"T>Add Cpixel - Symmetrical",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelVaryV1,"T>Add Cpixel - VaryV1",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfBenesiT1,"T>Benesi T1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault

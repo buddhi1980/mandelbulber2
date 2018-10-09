@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * spherical invert
+ * spherical invert (modes updated v2.15)
  * from M3D. Formula by Luca GN 2011, updated May 2012.
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -18,34 +18,40 @@
 
 REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL r2Temp = dot(z, z);
 	z += fractal->mandelbox.offset;
 	z *= fractal->transformCommon.scale;
 	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
 
-	REAL r2 = dot(z, z);
-	if (fractal->transformCommon.functionEnabledyFalse) r2 = r2Temp;
-	REAL mode = r2;
-	if (fractal->transformCommon.functionEnabledFalse) // Mode 1
+	if (!fractal->transformCommon.functionEnabledzFalse)
 	{
-		if (r2 > fractal->transformCommon.minRNeg1) mode = 1.0f;
-		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRNeg1)
-			mode = fractal->transformCommon.minRNeg1;
-		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRNeg1)
-			mode = fractal->transformCommon.minRNeg1;
+		REAL r2Inv = native_recip(dot(z, z));
+		z *= r2Inv;
+		aux->DE *= r2Inv;
 	}
-	if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
+	else // conditional
 	{
-		if (r2 > fractal->transformCommon.minRNeg1) mode = 1.0f;
-		if (r2 < fractal->mandelbox.fR2 && r2 > fractal->transformCommon.minRNeg1)
-			mode = fractal->transformCommon.minRNeg1;
-		if (r2 < fractal->mandelbox.fR2 && r2 < fractal->transformCommon.minRNeg1)
-			mode = mad(2.0f, fractal->transformCommon.minRNeg1, -r2);
+		REAL rr = dot(z, z);
+		if (rr < fractal->mandelbox.foldingSphericalFixed)
+		{
+			REAL mode = 0.0f;
+			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
+			{
+				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
+			{
+				if (rr < fractal->transformCommon.minR0)
+					mode = mad(2.0f, fractal->transformCommon.minR0, -rr);
+			}
+			mode = native_recip(mode);
+			z *= mode;
+			aux->DE *= fabs(mode);
+		}
 	}
-	mode = native_recip(mode);
-	z *= mode;
-	aux->DE *= mode;
-
 	z -= fractal->mandelbox.offset + fractal->transformCommon.additionConstant000;
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+	}
 	return z;
 }

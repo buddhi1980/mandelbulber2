@@ -100,23 +100,9 @@ REAL4 TransfSphericalOffsetVCLIteration(
 
 	// post scale
 	z *= fractal->transformCommon.scale;
-	aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
-	aux->DE *= fabs(fractal->transformCommon.scale);
+	aux->DE = mad(aux->DE, fractal->transformCommon.scale, 1.0f);
 
 	// DE tweak
-	if (fractal->analyticDE.enabled)
-		aux->DE = mad(aux->DE, fabs(fractal->analyticDE.scale1), fractal->analyticDE.offset0);
-	else
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
-
-	if (fractal->transformCommon.functionEnabledxFalse)
-	{
-		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0); // DE tweak
-	}
-	else
-	{
-		aux->DE = mad(aux->DE, fabs(fractal->analyticDE.scale1),
-			fractal->analyticDE.offset0); // DE tweak  or aux->DE +=
-	}
+	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

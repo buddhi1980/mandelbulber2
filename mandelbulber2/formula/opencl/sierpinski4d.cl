@@ -61,7 +61,7 @@ REAL4 Sierpinski4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		z.w = -temp;
 	}
 
-	z = z * fractal->transformCommon.scaleA2;
+	z *= fractal->transformCommon.scaleA2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
@@ -120,9 +120,9 @@ REAL4 Sierpinski4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	}
 
 	if (!fractal->analyticDE.enabledFalse) // testing
-		aux->DE *= fractal->transformCommon.scaleA2;
+		aux->DE *= fabs(fractal->transformCommon.scaleA2);
 	else
-		aux->DE = mad(aux->DE * fractal->transformCommon.scaleA2, fractal->analyticDE.scale1,
+		aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scaleA2), fractal->analyticDE.scale1,
 			fractal->analyticDE.offset0);
 	return z;
 }

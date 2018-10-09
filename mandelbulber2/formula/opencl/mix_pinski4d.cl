@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -65,7 +65,7 @@ REAL4 MixPinski4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 			z.w = -temp;
 		}
 		z *= fractal->transformCommon.scale1;
-		aux->DE *= fractal->transformCommon.scale1;
+		aux->DE *= fabs(fractal->transformCommon.scale1);
 	}
 
 	if (aux->i >= fractal->transformCommon.startIterationsC
@@ -134,7 +134,7 @@ REAL4 MixPinski4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z.z = -fabs(-z.z);
 		z.z += 0.5f * offsetM.z * native_divide((scaleM - 1.0f), scaleM);
 		z.z = scaleM * z.z;
-		aux->DE *= scaleM * fractal->analyticDE.scale1;
+		aux->DE *= fabs(scaleM) * fractal->analyticDE.scale1;
 	}
 	return z;
 }

@@ -22,7 +22,7 @@ REAL4 RiemannSphereMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	if (fractal->transformCommon.rotationEnabled)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 
-	REAL r = length(z);
+	REAL r = aux->r; // length(z);
 	// if (r < 1e-21f) r = 1e-21f;
 	z *= native_divide(fractal->transformCommon.scale, r);
 

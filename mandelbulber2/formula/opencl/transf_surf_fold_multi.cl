@@ -74,9 +74,6 @@ REAL4 TransfSurfFoldMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 								 - fractal->transformCommon.offset2)
 					- fractal->transformCommon.additionConstant111.y;
 	}
-	if (fractal->analyticDE.enabled)
-		aux->DE *= fractal->analyticDE.scale1; // tweak
-	else
-		aux->DE *= fractal->analyticDE.scale1; // tweak
+	aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0); // tweak
 	return z;
 }

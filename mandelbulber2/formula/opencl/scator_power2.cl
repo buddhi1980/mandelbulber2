@@ -25,7 +25,6 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	// Scator real enabled by default
 	REAL4 zz = z * z;
-
 	REAL4 newZ = z;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{ // scator imaginary
@@ -89,14 +88,11 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 
 	if (fractal->analyticDE.enabled)
 	{
+		REAL r = aux->r; // r = native_sqrt(zz.x + zz.y + zz.z + native_divide((zz.y * zz.z), zz.x));
+		REAL vecDE = 0.0f;
 		if (!fractal->analyticDE.enabledFalse)
 		{
-			REAL r = 0.0f;
-			if (!fractal->transformCommon.functionEnabledXFalse)
-			{
-				r = aux->r; // r = native_sqrt(zz.x + zz.y + zz.z + native_divide((zz.y * zz.z), zz.x));
-			}
-			else
+			if (fractal->transformCommon.functionEnabledXFalse)
 			{
 				r = length(oldZ);
 			}
@@ -104,9 +100,9 @@ REAL4 ScatorPower2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 		}
 		else
 		{
-			REAL vecDE = native_divide(length(z), length(oldZ));
-			aux->DE =
-				mad(aux->DE * vecDE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+			vecDE = fractal->transformCommon.scaleA1 * native_divide(length(z), length(oldZ));
+			aux->DE = mad(
+				max(r, vecDE) * aux->DE * 2.0f, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 		}
 	}
 	return z;

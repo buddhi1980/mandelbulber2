@@ -15,9 +15,7 @@
 
 REAL4 TransfSinOrCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// Q_UNUSED(aux);
-
-	// REAL4 oldZ = z;
+	REAL4 oldZ = z;
 	REAL4 trigZ = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 	REAL4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
 
@@ -44,6 +42,13 @@ REAL4 TransfSinOrCosIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 	z = trigZ * fractal->transformCommon.scale;
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		z.x = z.x * native_divide(fractal->transformCommon.scale, (fabs(oldZ.x) + 1.0f));
+		z.y = z.y * native_divide(fractal->transformCommon.scale, (fabs(oldZ.y) + 1.0f));
+		z.z = z.z * native_divide(fractal->transformCommon.scale, (fabs(oldZ.z) + 1.0f));
+		// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
+	}
 	//   if z == oldZ    z = oldZ * fractal->transformCommon.scale;
 	if (!fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);

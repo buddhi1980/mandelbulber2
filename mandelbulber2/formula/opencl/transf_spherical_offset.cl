@@ -19,9 +19,6 @@ REAL4 TransfSphericalOffsetIteration(REAL4 z, __constant sFractalCl *fractal, sE
 	// if (-length(z) > -1e-21f) -length(z) = -1e-21f;   //  z is neg.)
 	z *= 1.0f + native_divide(fractal->transformCommon.offset, -length(z));
 	z *= fractal->transformCommon.scale;
-	if (fractal->analyticDE.enabled)
-		aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), fractal->analyticDE.offset1);
-	else
-		aux->DE *= fractal->transformCommon.scale;
+	aux->DE = mad(aux->DE, fractal->transformCommon.scale, fractal->analyticDE.offset1);
 	return z;
 }

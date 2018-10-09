@@ -17,7 +17,7 @@
 
 REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// REAL4 oldZ = z;
+	REAL4 oldZ = z;
 	REAL master = native_divide(fractal->transformCommon.scale, 100.0f);
 	REAL4 bSize = fractal->transformCommon.constantMultiplier111 * master;
 	// bsize maybe shortened to a REAL??
@@ -26,12 +26,27 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
+			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(native_divide(z.x, bSize.x)) *
+			// bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(native_divide(z.y, bSize.y)) *
+			// bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(native_divide(z.z, bSize.z)) *
+			// bSize.z;
 			if (fractal->transformCommon.functionEnabledCx)
-				z.x = floor(native_divide(z.x, bSize.x)) * bSize.x;
+				z.x = (floor(native_divide(z.x, bSize.x)) + 0.5f) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy)
-				z.y = floor(native_divide(z.y, bSize.y)) * bSize.y;
+				z.y = (floor(native_divide(z.y, bSize.y)) + 0.5f) * bSize.y;
 			if (fractal->transformCommon.functionEnabledCz)
-				z.z = floor(native_divide(z.z, bSize.z)) * bSize.z;
+				z.z = (floor(native_divide(z.z, bSize.z)) + 0.5f) * bSize.z;
+			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(native_divide(z.x, bSize.x)) +
+			// sign(z.x) *
+			// 0.5f) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(native_divide(z.y, bSize.y)) +
+			// sign(z.y) *
+			// 0.5f) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(native_divide(z.z, bSize.z)) +
+			// sign(z.z) *
+			// 0.5f) * bSize.z;
 		}
 		else // normalize
 		{
@@ -60,11 +75,11 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	}
 
 	// DE thing that has no effect, too small diff?
-	/*if (fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabled)
 	{
-		REAL AN = length(z)/ length(oldZ);
-		aux->DE *= AN;
-	}*/
+		REAL AN = native_divide(length(z), length(oldZ));
+		aux->DE = aux->DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 
 	// post scale
 	z *= fractal->transformCommon.scale1;

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -1908,7 +1908,6 @@ void AboxModKaliV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	}
 
 	// TODO add the options
-
 }
 
 /**
@@ -7867,7 +7866,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
-	double r = aux.r; //z.Length();
+	double r = aux.r; // z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 
@@ -8120,7 +8119,8 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		else
 		{
 			vecDE = fractal->transformCommon.scaleA1 * z.Length() / oldZ.Length();
-			aux.DE = max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+			aux.DE =
+				max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	}
 }
@@ -8179,7 +8179,8 @@ void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		else
 		{
 			vecDE = fractal->transformCommon.scaleA1 * z.Length() / oldZ.Length();
-			aux.DE = max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+			aux.DE =
+				max(r, vecDE) * aux.DE * 2.0 * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 		}
 	}
 }
@@ -8953,8 +8954,7 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	CVector4 oldZ = z;
 	CVector4 tempC = aux.const_c;
-	if (fractal->transformCommon.functionEnabledSwFalse)
-		swap(tempC.x, tempC.z);
+	if (fractal->transformCommon.functionEnabledSwFalse) swap(tempC.x, tempC.z);
 
 	CVector4 cc = tempC * tempC;
 	CVector4 newC = tempC;
@@ -8966,20 +8966,19 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 	// scator algebra
-	if ( cc.x < limitA)
+	if (cc.x < limitA)
 	{
-		double temp = 1.0 /cc.x - 1.0;
-		cc.x =temp;
+		double temp = 1.0 / cc.x - 1.0;
+		cc.x = temp;
 	}
 
 	if (!fractal->transformCommon.functionEnabledFalse)
-	{ // real
+	{																	// real
 		newC.x += (cc.y * cc.z) / cc.x; // all pos
 		newC.y *= (1.0 + cc.z / cc.x);
 		newC.z *= (1.0 + cc.y / cc.x);
 		newC *= fractal->transformCommon.constantMultiplier111;
-		if (fractal->transformCommon.functionEnabledSwFalse)
-			 swap(newC.x, newC.z);
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(newC.x, newC.z);
 
 		if (!fractal->transformCommon.functionEnabledSFalse)
 		{
@@ -8993,16 +8992,15 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 		}
 	}
 	else
-	{ // imaginary
+	{																	// imaginary
 		newC.x += (cc.y * cc.z) / cc.x; // pos
-		newC.y *= (1.0 - cc.z / cc.x); //pos  neg
-		newC.z *= (1.0 - cc.y / cc.x); //pos  neg
+		newC.y *= (1.0 - cc.z / cc.x);	// pos  neg
+		newC.z *= (1.0 - cc.y / cc.x);	// pos  neg
 		newC *= fractal->transformCommon.constantMultiplier111;
 		if (fractal->transformCommon.functionEnabledy) newC.y = fabs(newC.y);
 		if (fractal->transformCommon.functionEnabledz) newC.z = fabs(newC.z);
 
-		if (fractal->transformCommon.functionEnabledSwFalse)
-			 swap(newC.x, newC.z);
+		if (fractal->transformCommon.functionEnabledSwFalse) swap(newC.x, newC.z);
 
 		// add Cpixel
 		if (!fractal->transformCommon.functionEnabledSFalse)
@@ -9019,9 +9017,8 @@ void TransfAddCpixelScatorIteration(CVector4 &z, const sFractal *fractal, sExten
 	// DE calculations
 	if (fractal->analyticDE.enabledFalse)
 	{
-		double vecDE = z.Length() /  oldZ.Length();
-		aux.DE =
-			aux.DE * vecDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		double vecDE = z.Length() / oldZ.Length();
+		aux.DE = aux.DE * vecDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
 
@@ -9047,18 +9044,24 @@ void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExt
 	else
 	{
 		// mode2
-		if (fractal->transformCommon.functionEnabledAx) trigC.x = (1.0 + sin(trigC0.x)) * sign(trigC.x) / 2.0;
-		if (fractal->transformCommon.functionEnabledAxFalse) trigC.x = (1.0 + cos(trigC0.x)) * sign(trigC.x) / 2.0;
-		if (fractal->transformCommon.functionEnabledAy) trigC.y = (1.0 + sin(trigC0.y)) * sign(trigC.y) / 2.0;
-		if (fractal->transformCommon.functionEnabledAyFalse) trigC.y = (1.0 + cos(trigC0.y)) * sign(trigC.y) / 2.0;
-		if (fractal->transformCommon.functionEnabledAz) trigC.z = (1.0 + sin(trigC0.z)) * sign(trigC.z) / 2.0;
-		if (fractal->transformCommon.functionEnabledAzFalse) trigC.z = (1.0 + cos(trigC0.z)) * sign(trigC.z) / 2.0;
+		if (fractal->transformCommon.functionEnabledAx)
+			trigC.x = (1.0 + sin(trigC0.x)) * sign(trigC.x) / 2.0;
+		if (fractal->transformCommon.functionEnabledAxFalse)
+			trigC.x = (1.0 + cos(trigC0.x)) * sign(trigC.x) / 2.0;
+		if (fractal->transformCommon.functionEnabledAy)
+			trigC.y = (1.0 + sin(trigC0.y)) * sign(trigC.y) / 2.0;
+		if (fractal->transformCommon.functionEnabledAyFalse)
+			trigC.y = (1.0 + cos(trigC0.y)) * sign(trigC.y) / 2.0;
+		if (fractal->transformCommon.functionEnabledAz)
+			trigC.z = (1.0 + sin(trigC0.z)) * sign(trigC.z) / 2.0;
+		if (fractal->transformCommon.functionEnabledAzFalse)
+			trigC.z = (1.0 + cos(trigC0.z)) * sign(trigC.z) / 2.0;
 		// mode3
 		if (fractal->transformCommon.functionEnabledByFalse) trigC *= trigC0;
 	}
 	trigC *= fractal->transformCommon.constantMultiplier111; // ampl
 
-		// add cPixel
+	// add cPixel
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		z += trigC;
@@ -9075,9 +9078,8 @@ void TransfAddCpixelSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExt
 	// DE tweak (sometimes hepls)
 	if (fractal->analyticDE.enabledFalse)
 	{
-		double tweakDE = z.Length()/oldZ.Length();
-		aux.DE = aux.DE * tweakDE * fractal->analyticDE.scale1
-						 + fractal->analyticDE.offset0;
+		double tweakDE = z.Length() / oldZ.Length();
+		aux.DE = aux.DE * tweakDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 }
 
@@ -9546,15 +9548,18 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	{
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
-			//if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
-			//if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
-			//if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
+			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(z.x / bSize.x) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(z.y / bSize.y) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(z.z / bSize.z) * bSize.z;
 			if (fractal->transformCommon.functionEnabledCx) z.x = (floor(z.x / bSize.x) + 0.5) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy) z.y = (floor(z.y / bSize.y) + 0.5) * bSize.y;
 			if (fractal->transformCommon.functionEnabledCz) z.z = (floor(z.z / bSize.z) + 0.5) * bSize.z;
-			//if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) * 0.5) * bSize.x;
-			//if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) * 0.5) * bSize.y;
-			//if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) * 0.5) * bSize.z;
+			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(z.x / bSize.x) + sign(z.x) *
+			// 0.5) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(z.y / bSize.y) + sign(z.y) *
+			// 0.5) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(z.z / bSize.z) + sign(z.z) *
+			// 0.5) * bSize.z;
 		}
 		else // normalize
 		{
@@ -9582,7 +9587,7 @@ void TransfBlockifyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	// DE thing that has no effect, too small diff?
 	if (fractal->transformCommon.functionEnabled)
 	{
-		double AN = z.Length()/ oldZ.Length();
+		double AN = z.Length() / oldZ.Length();
 		aux.DE = aux.DE * AN; // * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 	}
 
@@ -10952,10 +10957,10 @@ void TransfSinOrCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	z = trigZ * fractal->transformCommon.scale;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
-		z.x = z.x * fractal->transformCommon.scale  / (fabs(oldZ.x) + 1.0);
-		z.y = z.y * fractal->transformCommon.scale  / (fabs(oldZ.y) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale  / (fabs(oldZ.z) + 1.0);
-		//aux.DE = aux.DE * z.Length() / oldZ.Length();
+		z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0);
+		z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0);
+		z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0);
+		// aux.DE = aux.DE * z.Length() / oldZ.Length();
 	}
 	//   if z == oldZ    z = oldZ * fractal->transformCommon.scale;
 	if (!fractal->analyticDE.enabledFalse)
@@ -11063,10 +11068,10 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 		else
 		{
-			//z = maxZ * fractal->transformCommon.scale  / (fabs(z) + 1.0);
-			z.x = maxZ.x * fractal->transformCommon.scale  / (fabs(z.x) + 1.0);
-			z.y = maxZ.y * fractal->transformCommon.scale  / (fabs(z.y) + 1.0);
-			z.z = maxZ.z * fractal->transformCommon.scale  / (fabs(z.z) + 1.0);
+			// z = maxZ * fractal->transformCommon.scale  / (fabs(z) + 1.0);
+			z.x = maxZ.x * fractal->transformCommon.scale / (fabs(z.x) + 1.0);
+			z.y = maxZ.y * fractal->transformCommon.scale / (fabs(z.y) + 1.0);
+			z.z = maxZ.z * fractal->transformCommon.scale / (fabs(z.z) + 1.0);
 		}
 	}
 
@@ -11106,13 +11111,11 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 			double mode = 0.0;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
-				if ( rr < fractal->transformCommon. minR0)
-					mode = fractal->transformCommon. minR0;
+				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
 			}
 			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
 			{
-				if ( rr < fractal->transformCommon. minR0)
-					mode = 2.0 * fractal->transformCommon. minR0 - rr;
+				if (rr < fractal->transformCommon.minR0) mode = 2.0 * fractal->transformCommon.minR0 - rr;
 			}
 			mode = 1.0 / mode;
 			z *= mode;

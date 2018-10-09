@@ -20,7 +20,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
-
+	// prism shape
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
 			&& aux->i < fractal->transformCommon.stopIterationsP1)
@@ -52,7 +52,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			z.z = max(0.0f, z.z);
 		}
 	}
-
+	// box fold
 	if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -75,7 +75,7 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			aux->color += fractal->mandelbox.color.factor.z;
 		}
 	}
-
+	// PseudoKleinian
 	REAL4 cSize = fractal->transformCommon.additionConstant0777;
 	REAL4 tempZ = z; //  correct c++ version.
 	if (z.x > cSize.x) tempZ.x = cSize.x;
@@ -89,14 +89,13 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 	REAL k = max(native_divide(fractal->transformCommon.minR05, dot(z, z)), 1.0f);
 	z *= k;
 	aux->DE *= k + fractal->analyticDE.tweak005;
-
+	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux->i >= fractal->transformCommon.startIterationsR
 			&& aux->i < fractal->transformCommon.stopIterationsR)
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
-
+	// offset
 	z += fractal->transformCommon.additionConstant000;
-	// no bailout
 
 	aux->pseudoKleinianDE = fractal->analyticDE.scale1;
 	return z;

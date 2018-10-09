@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>abox_mod11</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -2293,7 +2293,7 @@ offset:</string>
 &lt;a href=&quot;This formula contains aux.color and aux.actualScale&quot;&gt;This formula contains aux.color and aux.actualScale&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_002.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_003.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_for8cA.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_hybrid.fract&lt;br&gt;...&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_002.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_003.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_addCpixelRotate.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/aboxMod11_for8cA.fract&lt;br&gt;...&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -2459,7 +2459,7 @@ offset:</string>
     z &lt;span style=&quot;color:#676767&quot;&gt;-=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// scale, incl DarkBeam&amp;apos;s Scale vary&lt;/span&gt;
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// scale, incl DarkBeam's Scale vary&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsA
       &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsA&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
