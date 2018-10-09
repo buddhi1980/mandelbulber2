@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -76,7 +76,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
 	switch (objectType)
 	{
-                case objFractal: {
+		case objFractal: {
 #endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
 
 			if (input->material->useColorsFromPalette)
@@ -90,7 +90,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 				pointTemp *= consts->params.formulaScale[formulaIndex];
 
 #else
-		int formulaIndex = -1;
+				int formulaIndex = -1;
 #endif
 				__global sFractalColoringCl *fractalColoring = &input->material->fractalColoring;
 				fout =
@@ -110,20 +110,20 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)) && defined(FULL_ENGINE)
 			break;
 		}
-                case objPlane:
-                case objWater:
-                case objSphere:
-                case objBox:
-                case objRectangle:
-                case objCircle:
-                case objCone:
-                case objTorus:
-                case objCylinder:
+		case objPlane:
+		case objWater:
+		case objSphere:
+		case objBox:
+		case objRectangle:
+		case objCircle:
+		case objCone:
+		case objTorus:
+		case objCylinder:
 		{
 			color = input->material->color;
 			break;
 		}
-                case objNone: { color = 0.0f;
+		case objNone: { color = 0.0f;
 		}
 	}
 #endif
