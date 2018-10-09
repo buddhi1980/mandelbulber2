@@ -33,10 +33,10 @@
  */
 
 #include "opencl_dynamic_data.hpp"
-#include "opencl_textures_data.h"
 
 #include "lights.hpp"
 #include "material.h"
+#include "opencl_textures_data.h"
 #include "primitives.h"
 #include "render_worker.hpp"
 

@@ -77,8 +77,7 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
-typedef enum
-{
+typedef enum {
 	calcModeNormal = 0,
 	calcModeColouring = 1,
 	calcModeFake_AO = 2,
@@ -421,10 +420,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				float4 delta = z
-											 - (float4){consts->params.common.fakeLightsOrbitTrap.x,
-													 consts->params.common.fakeLightsOrbitTrap.y,
-													 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
+				float4 delta = z - (float4){consts->params.common.fakeLightsOrbitTrap.x,
+														 consts->params.common.fakeLightsOrbitTrap.y,
+														 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
 				float distance = length(delta);
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
@@ -464,7 +462,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 	}
 
-	// calculate estimated distance
+// calculate estimated distance
 
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE

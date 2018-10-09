@@ -77,7 +77,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 	// standard parameters
 	QList<QString> parameterList = par->GetListOfParameters();
-	for (auto & parameterNameFromList : parameterList)
+	for (auto &parameterNameFromList : parameterList)
 	{
 		if (parameterNameFromList == "description") continue;
 		settingsText += CreateOneLine(par, parameterNameFromList);
@@ -91,7 +91,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 			{
 				QList<QString> parameterListFractal = fractPar->at(f).GetListOfParameters();
 				QString fractalSettingsText = "";
-				for (const auto & parameterNameFromFractal : parameterListFractal)
+				for (const auto &parameterNameFromFractal : parameterListFractal)
 				{
 					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterNameFromFractal);
 				}
@@ -602,7 +602,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		if (keyframes && linesWithSoundParameters.length() > 0)
 		{
 			foundAnimSoundParameters = true;
-			for (const auto & linesWithSoundParameter : linesWithSoundParameters)
+			for (const auto &linesWithSoundParameter : linesWithSoundParameters)
 			{
 				bool result;
 				result = DecodeOneLine(par, linesWithSoundParameter);
@@ -648,7 +648,7 @@ bool cSettings::CheckIfMaterialsAreDefined(cParameterContainer *par)
 	QList<QString> list = par->GetListOfParameters();
 	for (auto parameterName : list)
 	{
-			if (parameterName.left(3) == "mat")
+		if (parameterName.left(3) == "mat")
 		{
 			matParameterFound = true;
 			break;
@@ -1109,7 +1109,7 @@ bool cSettings::DecodeFramesLine(
 			if (frameCount == frames->GetNumberOfFrames())
 			{
 				column++;
-				for (auto & parameterDescription : parameterList)
+				for (auto &parameterDescription : parameterList)
 				{
 					using namespace parameterContainer;
 					enumVarType type = parameterDescription.varType;

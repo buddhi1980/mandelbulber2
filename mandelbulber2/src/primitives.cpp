@@ -97,7 +97,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 	// generating fresh list of primitives based of parameter list
 	for (auto parameterName : listOfParameters)
 	{
-			if (parameterName.left(9) == "primitive")
+		if (parameterName.left(9) == "primitive")
 		{
 			isAnyPrimitive = true;
 
@@ -109,7 +109,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 
 			// check if item is already on the list
 			bool found = false;
-			for (const auto & listOfPrimitive : listOfPrimitives)
+			for (const auto &listOfPrimitive : listOfPrimitives)
 			{
 				if (listOfPrimitive.id == index && listOfPrimitive.type == type)
 				{
@@ -126,7 +126,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 
 	for (auto item : listOfPrimitives)
 	{
-			using namespace fractal;
+		using namespace fractal;
 		sPrimitiveBasic *primitive;
 
 		switch (item.type)
@@ -445,7 +445,7 @@ double cPrimitives::TotalDistance(
 
 		for (auto primitive : allPrimitives)
 		{
-				if (primitive->enable)
+			if (primitive->enable)
 			{
 				sPrimitiveWater *water = dynamic_cast<sPrimitiveWater *>(primitive);
 				double distTemp;

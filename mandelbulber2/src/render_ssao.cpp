@@ -87,10 +87,10 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 	QList<int> *lists = nullptr;
 	if (list)
 	{
-		lists = new QList<int>[ numberOfThreads ];
+		lists = new QList<int>[numberOfThreads];
 		for (int y : *list)
 		{
-				int mod = (y - startLine) % numberOfThreads;
+			int mod = (y - startLine) % numberOfThreads;
 			lists[mod].append(y);
 		}
 	}

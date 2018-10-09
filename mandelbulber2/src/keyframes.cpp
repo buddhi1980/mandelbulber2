@@ -127,7 +127,7 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 	{
 		sAnimationFrame frame = GetInterpolatedFrame(index, params, fractal);
 
-		for (auto & listOfParameter : listOfParameters)
+		for (auto &listOfParameter : listOfParameters)
 		{
 			cParameterContainer *container =
 				ContainerSelector(listOfParameter.containerName, params, fractal);
@@ -183,7 +183,7 @@ void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMor
 		QString fullParameterName = listOfParameters[parameterIndex].containerName + "_"
 																+ listOfParameters[parameterIndex].parameterName;
 
-		for (auto & frame : frames)
+		for (auto &frame : frames)
 		{
 			cOneParameter parameter = frame.parameters.GetAsOneParameter(fullParameterName);
 			parameter.SetMorphType(morphType);

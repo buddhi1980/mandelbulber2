@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -37,22 +37,18 @@
 inline float3 cubicInterpolate(float3 p[4], float x)
 {
 	return p[1]
-				 + 0.5f * x
-						 * (p[2] - p[0]
-								 + x
-										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
-												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+				 + 0.5f * x * (p[2] - p[0]
+												+ x * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+																+ x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 
 #ifdef USE_DISPLACEMENT_TEXTURE
 inline float cubicInterpolateGrey(float p[4], float x)
 {
 	return p[1]
-				 + 0.5f * x
-						 * (p[2] - p[0]
-								 + x
-										 * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
-												 + x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
+				 + 0.5f * x * (p[2] - p[0]
+												+ x * (2.0f * p[0] - 5.0f * p[1] + 4.0f * p[2] - p[3]
+																+ x * (3.0f * (p[1] - p[2]) + p[3] - p[0])));
 }
 #endif
 

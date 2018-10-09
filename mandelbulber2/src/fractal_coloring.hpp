@@ -86,8 +86,6 @@ struct sFractalColoring
 
 	bool tempLimitFalse; // tempoary
 
-
-
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
 
@@ -105,7 +103,7 @@ struct sFractalColoring
 	double cosStartValue;
 	double icRadWeight;
 	double initialColorValue;
-	//double initialMinimumR;
+	// double initialMinimumR;
 	double iterAddScale;
 	double iterScale;
 	double maxColorValue;

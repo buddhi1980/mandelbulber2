@@ -444,7 +444,7 @@ void cAutomatedWidgets::slotLogVect3Changed(const QString &text) const
 void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 {
 	QList<QSlider *> widgetList = window->findChildren<QSlider *>();
-	for (auto & it : widgetList)
+	for (auto &it : widgetList)
 	{
 		QString name = it->objectName();
 		if (name.length() > 1 && it->metaObject()->className() == QString("QSlider"))
@@ -561,7 +561,7 @@ void cAutomatedWidgets::ConnectSignalsForSlidersInWindow(QWidget *window) const
 	}
 
 	QList<QDial *> widgetList2 = window->findChildren<QDial *>(QString());
-	for (auto & it2 : widgetList2)
+	for (auto &it2 : widgetList2)
 	{
 		QString name = it2->objectName();
 		if (name.length() > 1 && it2->metaObject()->className() == QString("QDial"))

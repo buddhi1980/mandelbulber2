@@ -99,7 +99,7 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 void SynchronizeInterfaceQLineEdit(
 	QList<QLineEdit *> widgets, cParameterContainer *par, enumReadWrite mode)
 {
-	for (auto & widget : widgets)
+	for (auto &widget : widgets)
 	{
 		widgetProperties props = parseWidgetProperties(widget, {"MyLineEdit", "QLineEdit"});
 		if (props.allowed)

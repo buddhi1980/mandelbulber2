@@ -482,7 +482,7 @@ void Test::renderImageSave() const
 	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
 	for (auto fileType : fileTypes)
 	{
-			for (int appendAlphaIndex = 0; appendAlphaIndex < 2; appendAlphaIndex++)
+		for (int appendAlphaIndex = 0; appendAlphaIndex < 2; appendAlphaIndex++)
 		{
 			bool isPngOrTiff = fileType == ImageFileSave::IMAGE_FILE_TYPE_PNG;
 #ifdef USE_EXR

@@ -425,7 +425,7 @@ QString cHeadless::formatLine(const QString &text)
 											 ")(voraussichtlich noch: )(.*)"));
 
 	QRegularExpressionMatch matchType;
-	for (const auto & i : reType)
+	for (const auto &i : reType)
 	{
 		matchType = i.match(text);
 		if (matchType.hasMatch()) break;

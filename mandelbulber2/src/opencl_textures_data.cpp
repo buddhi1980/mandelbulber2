@@ -31,12 +31,12 @@
  *
  * TODO: description
  */
+
 #include "system.hpp"
 
+// custom includes
 #ifdef USE_OPENCL
-
 #include "opencl_textures_data.h"
-
 #include "material.h"
 #include "render_data.hpp"
 

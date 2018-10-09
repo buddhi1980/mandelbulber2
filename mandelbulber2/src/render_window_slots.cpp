@@ -354,7 +354,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
 	for (auto action : actions)
 	{
-			if (action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
+		if (action->objectName() == "actionAdd_Settings_to_Toolbar") continue;
 		if (!toolbarFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
@@ -499,7 +499,7 @@ void RenderWindow::slotPopulateCustomWindowStates(bool completeRefresh)
 	QStringList customWindowActions;
 	for (auto action : actions)
 	{
-			if (!action->objectName().startsWith("window_")) continue;
+		if (!action->objectName().startsWith("window_")) continue;
 		if (!customWindowStateFiles.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
@@ -665,7 +665,7 @@ void RenderWindow::slotPopulateRecentSettings(bool completeRefresh)
 	QStringList recentFileInActions;
 	for (auto action : actions)
 	{
-			if (!action->objectName().startsWith("recent_")) continue;
+		if (!action->objectName().startsWith("recent_")) continue;
 		if (!recentFileInActions.contains(action->objectName()) || completeRefresh)
 		{
 			// preset has been removed
