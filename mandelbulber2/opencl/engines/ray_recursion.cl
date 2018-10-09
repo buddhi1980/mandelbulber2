@@ -560,18 +560,18 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				// color texture
 #ifdef USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE
-				shaderInputData.texColor = TextureShader(&shaderInputData, renderData, objectData,
-					shaderInputData.material->colorTextureIndex, 1.0f);
+				shaderInputData.texColor = TextureShader(consts, &calcParam, &shaderInputData, renderData,
+					objectData, shaderInputData.material->colorTextureIndex, 1.0f);
 #endif
 
 #ifdef USE_DIFFUSION_TEXTURE
-				shaderInputData.texDiffuse = TextureShader(&shaderInputData, renderData, objectData,
-					shaderInputData.material->diffusionTextureIndex, 1.0f);
+				shaderInputData.texDiffuse = TextureShader(consts, &calcParam, &shaderInputData, renderData,
+					objectData, shaderInputData.material->diffusionTextureIndex, 1.0f);
 #endif
 
 #ifdef USE_LUMINOSITY_TEXTURE
-				shaderInputData.texLuminosity = TextureShader(&shaderInputData, renderData, objectData,
-					shaderInputData.material->luminosityTextureIndex, 0.0f);
+				shaderInputData.texLuminosity = TextureShader(consts, &calcParam, &shaderInputData,
+					renderData, objectData, shaderInputData.material->luminosityTextureIndex, 0.0f);
 #endif
 #endif
 

@@ -52,7 +52,7 @@ sRGBFloat cRenderWorker::TextureShader(
 
 	if (mat->textureFractalize)
 	{
-		sFractalIn fractIn(input.point, 0, params->N, params->common, 0, input.material);
+		sFractalIn fractIn(input.point, 0, params->N, params->common, -1, input.material);
 		sFractalOut fractOut;
 		Compute<fractal::calcModeCubeOrbitTrap>(*fractal, fractIn, &fractOut);
 		pointFractalized = fractOut.z;

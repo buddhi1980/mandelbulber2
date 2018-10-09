@@ -153,7 +153,7 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_round_enabled_false",
 	"fractal_coloring_round_scale",
 	"fractal_coloring_sphere_radius",
-	"fractal_coloring_temp_limit_false",	// TODO TESTING
+	"fractal_coloring_temp_limit_false", // TODO TESTING
 	"fractal_coloring_xyz_000",
 	"fractal_coloring_xyz_bias_enabled_false",
 	"fractal_coloring_xyz_div_1e13_false",
@@ -298,10 +298,6 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 
 	fractalColoring.tempLimitFalse =
 		materialParam->Get<bool>(Name("fractal_coloring_temp_limit_false", id)); // tempLimit
-
-
-
-
 
 	// color by numbers
 	fractalColoring.extraColorEnabledFalse =

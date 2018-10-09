@@ -584,6 +584,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool anyMaterialHasIridescence = false;
 	bool anyMaterialHasColoringEnabled = false;
 	bool anyMaterialHasExtraColoringEnabled = false;
+	bool anyMaterialHasTextureFractalize = false;
 	foreach (cMaterial material, renderData->materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
@@ -593,6 +594,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		if (material.iridescenceEnabled) anyMaterialHasIridescence = true;
 		if (material.useColorsFromPalette) anyMaterialHasColoringEnabled = true;
 		if (material.fractalColoring.extraColorEnabledFalse) anyMaterialHasExtraColoringEnabled = true;
+		if (material.textureFractalize) anyMaterialHasTextureFractalize = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
@@ -612,6 +614,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		paramRender->reflectionsMax = 0;
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
+	if (anyMaterialHasTextureFractalize) definesCollector += " -DFRACTALIZE_TEXTURE";
 
 	// AO colored vectors
 	cRenderWorker *tempRenderWorker =

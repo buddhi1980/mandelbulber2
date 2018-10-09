@@ -84,7 +84,8 @@ typedef enum
 	calcModeFake_AO = 2,
 	calcModeDeltaDE1 = 3,
 	calcModeDeltaDE2 = 4,
-	calcModeOrbitTrap = 5
+	calcModeOrbitTrap = 5,
+	calcModeCubeOrbitTrap = 6
 } enumCalculationModeCl;
 
 float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
@@ -94,7 +95,7 @@ float4 DummyIteration(float4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 }
 
 formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParams *calcParam,
-	enumCalculationModeCl mode, __global sFractalColoringCl *fractalColoring, int forcedFormulaIndex)
+	enumCalculationModeCl mode, __global sMaterialCl *material, int forcedFormulaIndex)
 {
 	// begin
 	float dist = 0.0f;
@@ -167,6 +168,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	__constant sFractalCl *fractal;
 
 	__constant sFractalCl *defaultFractal = &consts->fractal[fractalIndex];
+
+	__global sFractalColoringCl *fractalColoring = (material) ? &material->fractalColoring : NULL;
 
 	float4 lastZ = 0.0f;
 	float4 lastLastZ = 0.0f;
@@ -433,6 +436,31 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				}
 			}
 #endif // FAKE_LIGHTS
+#ifdef FRACTALIZE_TEXTURE
+			else if (mode == calcModeCubeOrbitTrap)
+			{
+				if (i >= material->textureFractalizeStartIteration)
+				{
+					float size = material->textureFractalizeCubeSize;
+					float3 zz = z.xyz - pointTransformed;
+					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
+							&& zz.z < size)
+					{
+						out.colorIndex = (fabs(z.x - size) + fabs(z.y - size) + fabs(z.z - size)) * 100.0f;
+						out.iters = i + 1;
+						out.z = z;
+						return out;
+					}
+				}
+				if (aux.r > material->textureFractalizeCubeSize * 100.0f)
+				{
+					out.colorIndex = 0.0f;
+					out.iters = i + 1;
+					out.z = z / length(z);
+					return out;
+				}
+			}
+#endif // FRACTALIZE_TEXTURE
 		}
 	}
 

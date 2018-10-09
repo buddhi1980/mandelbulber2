@@ -46,6 +46,7 @@
 typedef struct
 {
 	cl_int id;
+	cl_int textureFractalizeStartIteration;
 
 	cl_float shading;
 	cl_float specular;
@@ -67,6 +68,7 @@ typedef struct
 	cl_float normalMapTextureHeight;
 	cl_float iridescenceIntensity;
 	cl_float iridescenceSubsurfaceThickness;
+	cl_float textureFractalizeCubeSize;
 
 	cl_float3 color;
 	cl_float3 luminosityColor;
@@ -93,6 +95,7 @@ typedef struct
 	cl_int normalMapTextureFromBumpmap;
 	cl_int normalMapTextureInvertGreen;
 	cl_int iridescenceEnabled;
+	cl_int textureFractalize;
 
 	cl_int colorTextureIndex;
 	cl_int diffusionTextureIndex;
@@ -109,7 +112,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	sMaterialCl target;
 
 	target.id = source.id;
-
+	target.textureFractalizeStartIteration = source.textureFractalizeStartIteration;
 	target.shading = source.shading;
 	target.specular = source.specular;
 	target.specularWidth = source.specularWidth;
@@ -130,6 +133,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.normalMapTextureHeight = source.normalMapTextureHeight;
 	target.iridescenceIntensity = source.iridescenceIntensity;
 	target.iridescenceSubsurfaceThickness = source.iridescenceSubsurfaceThickness;
+	target.textureFractalizeCubeSize = source.textureFractalizeCubeSize;
 
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
@@ -156,6 +160,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
 	target.normalMapTextureInvertGreen = source.normalMapTextureInvertGreen;
 	target.iridescenceEnabled = source.iridescenceEnabled;
+	target.textureFractalize = source.textureFractalize;
 
 	target.fractalColoring = clCopySFractalColoringCl(source.fractalColoring);
 

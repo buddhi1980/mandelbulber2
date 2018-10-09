@@ -126,8 +126,7 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 #ifdef MESH_EXPORT_COLOR
 	int formulaIndex = -1;
 
-	__global sFractalColoringCl *fractalColoring = &material->fractalColoring;
-	outF = Fractal(consts, point, &calcParam, calcModeColouring, fractalColoring, formulaIndex);
+	outF = Fractal(consts, point, &calcParam, calcModeColouring, material, formulaIndex);
 	float color = outF.colorIndex;
 #else
 	float color = 0.0f;

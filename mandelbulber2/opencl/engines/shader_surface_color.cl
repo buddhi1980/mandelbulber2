@@ -76,7 +76,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	enumObjectTypeCl objectType = renderData->objectsData[input->objectId].objectType;
 	switch (objectType)
 	{
-                case objFractal: {
+		case objFractal: {
 #endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
 
 			if (input->material->useColorsFromPalette)
@@ -92,9 +92,8 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #else
 		int formulaIndex = -1;
 #endif
-				__global sFractalColoringCl *fractalColoring = &input->material->fractalColoring;
 				fout =
-					Fractal(consts, pointTemp, calcParams, calcModeColouring, fractalColoring, formulaIndex);
+					Fractal(consts, pointTemp, calcParams, calcModeColouring, input->material, formulaIndex);
 				int nCol = floor(fout.colorIndex);
 				nCol = abs(nCol) % (248 * 256);
 				int color_number =
@@ -110,20 +109,20 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #if (defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)) && defined(FULL_ENGINE)
 			break;
 		}
-                case objPlane:
-                case objWater:
-                case objSphere:
-                case objBox:
-                case objRectangle:
-                case objCircle:
-                case objCone:
-                case objTorus:
-                case objCylinder:
+		case objPlane:
+		case objWater:
+		case objSphere:
+		case objBox:
+		case objRectangle:
+		case objCircle:
+		case objCone:
+		case objTorus:
+		case objCylinder:
 		{
 			color = input->material->color;
 			break;
 		}
-                case objNone: { color = 0.0f;
+		case objNone: { color = 0.0f;
 		}
 	}
 #endif

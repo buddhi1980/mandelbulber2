@@ -82,8 +82,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>583</width>
-        <height>3996</height>
+        <width>577</width>
+        <height>3470</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -686,13 +686,6 @@ direction vector:</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
-                 <property name="text">
-                  <string notr="true">pre V2.15 orbit trap color</string>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </item>
              <item>
@@ -826,6 +819,13 @@ direction vector:</string>
               </layout>
              </item>
             </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+            <property name="text">
+             <string notr="true">pre V2.15 orbit trap color</string>
+            </property>
            </widget>
           </item>
           <item>

@@ -302,7 +302,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					case fractalColoring_Standard:
 					{
-						 len = colorZ.Length();
+						len = colorZ.Length();
 						break;
 					}
 					case fractalColoring_ZDotPoint:
@@ -319,7 +319,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					case fractalColoring_Cross:
 					{
 
-						 len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
+						len = dMin(fabs(colorZ.x), fabs(colorZ.y), fabs(colorZ.z));
 						if (in.material->fractalColoring.color4dEnabledFalse) len = min(len, fabs(colorZ.w));
 						break;
 					}
@@ -340,7 +340,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractal->formula != mandelbox)
 					{
 						if (len < colorMin) colorMin = len;
-						if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break;
+						if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
 					}
 					else // for Mandelbox. Note in Normal Mode (abox_color) colorMin = 0, else has a value
 					{
@@ -351,11 +351,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						else
 						{
 							if (len < colorMin) colorMin = len;
-							if (r > fractals.GetBailout(sequence)|| (z - lastZ).Length() / r < 1e-15) break;
+							if (r > fractals.GetBailout(sequence) || (z - lastZ).Length() / r < 1e-15) break;
 						}
 					}
 				}
-				else  // pre-v2.15 mode
+				else // pre-v2.15 mode
 				{
 					if (fractal->formula != mandelbox
 							|| in.material->fractalColoring.coloringAlgorithm != fractalColoring_Standard)
@@ -391,7 +391,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (zz.x > -size && zz.x < size && zz.y > -size && zz.y < size && zz.z > -size
 							&& zz.z < size)
 					{
-						out->colorIndex = (abs(z.x - size) + abs(z.y - size) + abs(z.z - size)) * 100.0;
+						out->colorIndex = (fabs(z.x - size) + fabs(z.y - size) + fabs(z.z - size)) * 100.0;
 						out->iters = i + 1;
 						out->z = z.GetXYZ();
 						return;
@@ -454,7 +454,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				aux.
 
 				}*/
-
 			}
 			else
 			{
