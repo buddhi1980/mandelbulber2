@@ -6,6 +6,7 @@
 # - generates formula thumbnails
 #
 # requires packages: highlight, clang-format, git and php (apt-get install highlight clang-format git php5-cli)
+# clang-format is required in version 3.8.1, get executable from here: http://releases.llvm.org/download.html
 #
 # on default this script runs dry,
 # it will try to parse all formulas and show which ui files would be modified

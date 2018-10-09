@@ -3,6 +3,7 @@
 # this file autogenerates misc files from cpp to opencl
 #
 # requires clang-format and php (apt-get install clang-format php5-cli)
+# clang-format is required in version 3.8.1, get executable from here: http://releases.llvm.org/download.html
 #
 # on default this script runs dry,
 # it will try to generate the needed files and show which files would be modified

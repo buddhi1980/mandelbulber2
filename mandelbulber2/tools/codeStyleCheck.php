@@ -2,6 +2,8 @@
 #
 # this file checks the source and header files
 # requires clang-format, git and php (apt-get install clang-format php5-cli git)
+# clang-format is required in version 3.8.1, get executable from here: http://releases.llvm.org/download.html
+# highlight package is required in version 3.39
 #
 # on default this script runs dry,
 # it will try to parse all files and prints problems inside the files
