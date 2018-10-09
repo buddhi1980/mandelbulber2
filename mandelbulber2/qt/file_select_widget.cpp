@@ -35,11 +35,11 @@
 
 #include "file_select_widget.h"
 
-#include "../src/resource_http_provider.hpp"
 #include "preview_file_dialog.h"
 
 #include "src/animation_flight.hpp"
 #include "src/files.h"
+#include "src/resource_http_provider.hpp"
 
 FileSelectWidget::FileSelectWidget(QWidget *parent) : QWidget(parent), CommonMyWidgetWrapper(this)
 {

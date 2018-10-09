@@ -35,6 +35,7 @@
 #include "render_job.hpp"
 
 #include <algorithm>
+
 #include <QWidget>
 
 #include "ao_modes.h"

@@ -327,13 +327,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		MsltoeSym4ModIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Msltoe - Toroidal Bulb", "msltoe_toroidal",
-		msltoeToroidal, MsltoeToroidalIteration, analyticDEType,
-		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+		msltoeToroidal, MsltoeToroidalIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Msltoe - Toroidal Multi", "msltoe_toroidal_multi",
-		msltoeToroidalMulti, MsltoeToroidalMultiIteration, analyticDEType,
-		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
+		msltoeToroidalMulti, MsltoeToroidalMultiIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	// Pseudo Kleinian formulas
 	fractalList->append(sFractalDescription("Pseudo Kleinian - stdDE", "pseudo_kleinian_std_de",
@@ -485,13 +483,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfAddCpixelScator, TransfAddCpixelScatorIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 
-
-	fractalList->append(sFractalDescription("T>Add Cpixel - Sin Or Cos", "transf_add_cpixel_sin_or_cos",
-		transfAddCpixelSinOrCos, TransfAddCpixelSinOrCosIteration, analyticDEType, withoutDEFunction,
-		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
-
-
-
+	fractalList->append(
+		sFractalDescription("T>Add Cpixel - Sin Or Cos", "transf_add_cpixel_sin_or_cos",
+			transfAddCpixelSinOrCos, TransfAddCpixelSinOrCosIteration, analyticDEType, withoutDEFunction,
+			cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(
 		sFractalDescription("T>Add Cpixel - Symmetrical", "transf_add_cpixel_symmetrical",

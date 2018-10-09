@@ -73,7 +73,7 @@ void cTabFractal::InitWidgetNames() const
 
 	for (auto widget : widgetList)
 	{
-			QString oldName = widget->objectName();
+		QString oldName = widget->objectName();
 		if (oldName.size() > 0)
 		{
 			QString lastTwoLetters = oldName.right(2);

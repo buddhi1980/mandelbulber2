@@ -235,9 +235,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 				{
 					colorValue +=
 						(1.0
-							- 1.0
-									/ (1.0
-											+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+							- 1.0 / (1.0
+												+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
 						* fractalColoring.addMax;
 				}
 			}
@@ -259,9 +258,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 				if (colorValue > fractalColoring.cosStartValue)
 				{
 					double trig = (0.5
-													- 0.5
-															* cos((colorValue - fractalColoring.cosStartValue) * M_PI
-																		/ (fractalColoring.cosPeriod * 2.0)))
+													- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
+																			/ (fractalColoring.cosPeriod * 2.0)))
 												* fractalColoring.cosAdd;
 					colorValue += trig;
 				}
@@ -306,8 +304,8 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		else
 		{
 			colorIndex = (colorMin * 1000.0 * fractalColoring.hybridOrbitTrapScale1
-						  + mboxColor * 100.0 * fractalColoring.hybridAuxColorScale1
-							+ r2 * 5000.0 * fractalColoring.hybridRadDivDeScale1);
+										+ mboxColor * 100.0 * fractalColoring.hybridAuxColorScale1
+										+ r2 * 5000.0 * fractalColoring.hybridRadDivDeScale1);
 		}
 	}
 
@@ -319,9 +317,10 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 		{
 			case coloringFunctionABox:
 				colorIndex =
-					extendedAux.color * 100.0 // folds part
+					extendedAux.color * 100.0														 // folds part
 					+ r * defaultFractal->mandelbox.color.factorR / 1e13 // r or abs z part
-					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? colorMin * 1000.0 : 0.0);
+					+ ((fractalColoring.coloringAlgorithm != fractalColoring_Standard) ? colorMin * 1000.0
+																																						 : 0.0);
 				// ABOX if fractalColoring_Standard)  minimumR = 0.0
 				// ABOX r and minimumR values changed in V215 by bailout update
 				// ABOX extendedAux.color is f(i), change bailout = change value

@@ -1102,7 +1102,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-			std::placeholders::_2, gridWidth, gridHeight));
+					std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 

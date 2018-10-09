@@ -276,7 +276,7 @@ void cImage::CompileImage(const QList<QRect> *list)
 	{
 		for (auto rect : *list)
 		{
-				for (int y = rect.top(); y <= rect.bottom(); y++)
+			for (int y = rect.top(); y <= rect.bottom(); y++)
 			{
 				for (int x = rect.left(); x <= rect.right(); x++)
 				{
@@ -338,7 +338,7 @@ quint8 *cImage::ConvertTo8bit(const QList<QRect> *list)
 {
 	for (auto rect : *list)
 	{
-			{
+		{
 			for (int y = rect.top(); y <= rect.bottom(); y++)
 			{
 				for (int x = rect.left(); x <= rect.right(); x++)
@@ -552,7 +552,7 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 		{
 			for (auto rect : *list)
 			{
-					float scaleX = float(width) / w;
+				float scaleX = float(width) / w;
 				float scaleY = float(height) / h;
 
 				// number of pixels to sum
@@ -1001,7 +1001,7 @@ void cImage::NullPostEffect(const QList<QRect> *list)
 	{
 		for (auto rect : *list)
 		{
-				for (int y = rect.top(); y <= rect.bottom(); y++)
+			for (int y = rect.top(); y <= rect.bottom(); y++)
 			{
 				memcpy(&postImageFloat[y * width + rect.left()], &imageFloat[y * width + rect.left()],
 					sizeof(sRGBFloat) * quint64(rect.width()));

@@ -298,7 +298,7 @@ void cScheduler::MarkReceivedLines(const QList<int> &lineNumbers) const
 {
 	for (int line : lineNumbers)
 	{
-			lineDone[line] = true;
+		lineDone[line] = true;
 		lastLinesDone[line] = true;
 		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}
@@ -323,7 +323,7 @@ void cScheduler::UpdateDoneLines(const QList<int> &done)
 	mutex.lock();
 	for (int line : done)
 	{
-			lastLinesDone[line] = false;
+		lastLinesDone[line] = false;
 		lineDone[line] = true;
 		linePendingThreadId[line] = LINE_DONE_BY_SERVER;
 	}

@@ -35,9 +35,10 @@
 
 #include "resource_http_provider.hpp"
 
-#include <QSslConfiguration>
 #include <QNetworkReply>
 #include <QNetworkRequest>
+#include <QSslConfiguration>
+
 #include "global_data.hpp"
 #include "system.hpp"
 
