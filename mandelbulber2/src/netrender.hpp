@@ -56,47 +56,31 @@ public:
 public:
 	enum netCommand
 	{
-		netRender_NONE,
-		netRender_VERSION,
-		netRender_WORKER,
-		netRender_RENDER,
-		netRender_DATA,
-		netRender_BAD,
-		netRender_JOB,
-		netRender_STOP,
-		netRender_STATUS,
-		netRender_SETUP,
-		netRender_ACK,
-		netRender_KICK_AND_KILL
+		netRender_NONE, // used for invalidating the message buffer after a message has been processed
+		netRender_VERSION, // ask for server version (server to clients)
+		netRender_WORKER,	// ask for number of client CPU count (client to server)
+		netRender_RENDER,	// list of lines needed to be rendered,
+											 // and suggestion which lines should be rendered first (server to clients)
+		netRender_DATA,		 // data of rendered lines (client to server)
+		netRender_BAD,		 // answer about wrong server version (client to server)
+		netRender_JOB,		 // sending of settings and textures
+											 // Receiving of job will start rendering on client (server to clients)
+		netRender_STOP,		 // terminate rendering request (server to clients)
+		netRender_STATUS,	// ask for status (server to clients)
+		netRender_SETUP,	 // send setup job id and starting positions (server to clients)
+		netRender_ACK,		 // acknowledge receiving of rendered lines (server to clients)
+		netRender_KICK_AND_KILL // command to kill the client (program exit) (server to clients)
 	};
-	// VERSION - ask for server version
-	// WORKER - ask for number of client CPU count
-	// RENDER - list of lines needed to be rendered (to Client), and suggestion which lines should be
-	// rendered first
-	// DATA - data of rendered lines (to Server)
-	// BAD - answer about wrong server version
-	// JOB - settings and textures for clients (to clients). Receiving of job will start rendering
-	// STOP - terminate rendering request (to clients)
-	// STATUS - ask for status (to client)
-	// SETUP - setup job id and starting positions
-	// ACK - acknowledge after receive rendered lines
-	// KICK_AND_KILL - command to kill the client
 
 	enum netRenderStatus
 	{
-		netRender_DISABLED,
-		netRender_READY,
-		netRender_WORKING,
-		netRender_NEW,
-		netRender_CONNECTING,
-		netRender_ERROR
+		netRender_DISABLED,		// no slot configured - netrendering disabled in the program
+		netRender_READY,			// client is ready and able to receive jobs
+		netRender_WORKING,		// during rendering
+		netRender_NEW,				// just connected
+		netRender_CONNECTING, // connecting in progress
+		netRender_ERROR				// error occurred
 	};
-	// DISABLED - no slot configured
-	// READY - ready for receiving jobs
-	// WORKING - during rendering
-	// NEW - just connected
-	// CONNECTING - connecting in progress
-	// ERROR - error occurred
 
 	enum typeOfDevice
 	{
