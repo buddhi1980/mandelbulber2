@@ -475,6 +475,9 @@ per pixel:</string>
                    <property name="title">
                     <string>Calculate chromatic aberration</string>
                    </property>
+                   <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of chromatic aberration. This effect simulates the way an actual lens refracts light slightly differently based on wavelength.&lt;/p&gt;&lt;p&gt;It will give a "rainbow" type effect that gets stronger closer to the edges of the image. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="checkable">
                     <bool>true</bool>
                    </property>
