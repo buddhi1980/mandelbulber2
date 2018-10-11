@@ -99,18 +99,18 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 
 #if USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE
-			inputCopy.texColor = TextureShader(
-				&inputCopy, renderData, objectData, inputCopy.material->colorTextureIndex, 1.0f);
+			inputCopy.texColor = TextureShader(consts, calcParam, &inputCopy, renderData, objectData,
+				inputCopy.material->colorTextureIndex, 1.0f);
 #endif
 
 #ifdef USE_DIFFUSION_TEXTURE
-			inputCopy.texDiffuse = TextureShader(
-				&inputCopy, renderData, objectData, inputCopy.material->diffusionTextureIndex, 1.0f);
+			inputCopy.texDiffuse = TextureShader(consts, calcParam, &inputCopy, renderData, objectData,
+				inputCopy.material->diffusionTextureIndex, 1.0f);
 #endif
 
 #ifdef USE_LUMINOSITY_TEXTURE
-			inputCopy.texLuminosity = TextureShader(
-				&inputCopy, renderData, objectData, inputCopy.material->luminosityTextureIndex, 0.0f);
+			inputCopy.texLuminosity = TextureShader(consts, calcParam, &inputCopy, renderData, objectData,
+				inputCopy.material->luminosityTextureIndex, 0.0f);
 #endif
 #endif
 
