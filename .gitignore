@@ -113,3 +113,10 @@ $RECYCLE.BIN/
 
 # Linux KDE
 *.directory
+
+mandelbulber2/tools/customConfig.php
+mandelbulber2/tools/clang-tidy.log
+mandelbulber2/tools/clang-format-*
+mandelbulber2/tools/.tmp*
+mandelbulber2/cmake/CMakeCache.txt
+mandelbulber2/cmake/CMakeFiles/*
