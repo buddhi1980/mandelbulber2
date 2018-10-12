@@ -27,7 +27,7 @@
 
 ## Universal Idea
 
-In summary, Mandelbulber generates three-dimensional fractals.
+In short, Mandelbulber generates three-dimensional fractals.
 
 Explore trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals.
 
