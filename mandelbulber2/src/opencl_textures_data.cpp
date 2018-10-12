@@ -255,7 +255,7 @@ void cOpenClTexturesData::BuildTextureData(
 		sizeof(arrayOffset));
 }
 
-QString cOpenClTexturesData::GetDefinesCollector(void) const
+QString cOpenClTexturesData::GetDefinesCollector() const
 {
 	QString definesCollector;
 	if (useColorTexture) definesCollector += " -DUSE_COLOR_TEXTURE";

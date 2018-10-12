@@ -53,7 +53,7 @@ public:
 		const sTextures &textures, const QMap<int, cMaterial> &materials);
 	void BuildAllTexturesData(const sTextures &textures, const QMap<int, cMaterial> &materials,
 		QMap<QString, int> *textureIndexes);
-	QString GetDefinesCollector(void) const;
+	QString GetDefinesCollector() const;
 
 private:
 	static bool CountTexture(
