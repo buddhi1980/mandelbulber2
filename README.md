@@ -27,7 +27,7 @@
 
 ## Universal Idea
 
-In short, Mandelbulber generates three-dimensional fractals.
+Mandelbulber is a program that generates three-dimensional fractals.
 
 Explore trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals.
 
