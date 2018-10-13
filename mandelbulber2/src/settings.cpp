@@ -506,7 +506,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				}
 				else if (section.contains("fractal"))
 				{
-					int i = section.right(1).toInt() - 1;
+					int i = section.rightRef(1).toInt() - 1;
 					if (fractPar) result = DecodeOneLine(&fractPar->at(i), line);
 				}
 				else if (section == QString("frames"))
@@ -777,7 +777,7 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 bool cSettings::CheckSection(QString text, QString &section)
 {
-	if (text.left(1) == "[" && text.right(1) == "]")
+	if (text.left(1) == "[" && text.rightRef(1) == "]")
 	{
 		section = text.mid(1, text.length() - 2);
 		return true;

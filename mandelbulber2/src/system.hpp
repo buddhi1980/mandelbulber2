@@ -91,7 +91,7 @@ private:
 	QString dataDirectoryHidden;
 
 public:
-	bool IsUpgraded() const { return QFileInfo(dataDirectoryPublic + "settings").exists(); }
+	bool IsUpgraded() const { return QFileInfo::exists(dataDirectoryPublic + "settings"); }
 	void Upgrade() const
 	{
 		QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
@@ -101,7 +101,7 @@ public:
 			QString folderSource = moveFolders.at(i);
 			QString folderTarget = folderSource;
 			folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
-			if (QFileInfo(folderTarget).exists())
+			if (QFileInfo::exists(folderTarget))
 			{
 				qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
 			}

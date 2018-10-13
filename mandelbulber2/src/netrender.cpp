@@ -152,7 +152,7 @@ void CNetRender::DeleteClient()
 		clientSocket = nullptr;
 	}
 	status = netRender_DISABLED;
-	emit NotifyStatus();
+	NotifyStatus();
 }
 
 int CNetRender::getTotalWorkerCount()
@@ -257,7 +257,7 @@ void CNetRender::SetClient(QString address, int portNo)
 	WriteLog(
 		"NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo),
 		2);
-	emit NotifyStatus();
+	NotifyStatus();
 
 	if (systemData.noGui)
 	{
@@ -271,7 +271,7 @@ void CNetRender::ServerDisconnected()
 {
 	if (deviceType != netRender_CLIENT) return;
 	status = netRender_ERROR;
-	emit NotifyStatus();
+	NotifyStatus();
 
 	gMainInterface->stopRequest = true;
 
@@ -308,7 +308,7 @@ void CNetRender::TryServerConnect()
 		else
 		{
 			status = netRender_CONNECTING;
-			emit NotifyStatus();
+			NotifyStatus();
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
 		}
@@ -509,14 +509,14 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			{
 				// status = netRender_READY;
 				gMainInterface->stopRequest = true;
-				// emit NotifyStatus();
+				// NotifyStatus();
 				WriteLog("NetRender - ProcessData(), command STOP", 2);
 				break;
 			}
 			case netRender_STATUS:
 			{
 				WriteLog("NetRender - ProcessData(), command STATUS", 3);
-				emit NotifyStatus();
+				NotifyStatus();
 				break;
 			}
 			case netRender_JOB:
@@ -528,7 +528,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					QByteArray buffer;
 					qint32 size;
 					status = netRender_WORKING;
-					emit NotifyStatus();
+					NotifyStatus();
 
 					// read settings
 					stream >> size;

@@ -161,7 +161,7 @@ void ImageFileSave::updateProgressAndStatusFinished()
 
 void ImageFileSavePNG::SaveImage()
 {
-	emit updateProgressAndStatusStarted();
+	updateProgressAndStatusStarted();
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
@@ -509,7 +509,7 @@ void ImageFileSavePNG::SavePNG(
 		{
 			uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
 			png_write_rows(png_ptr, png_bytepp(&row_pointers[r]), currentChunkSize);
-			emit updateProgressAndStatusChannel(1.0 * r / height);
+			updateProgressAndStatusChannel(1.0 * r / height);
 		}
 
 		/* end write */
@@ -1264,7 +1264,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		char *buf = static_cast<char *>(colorPtr) + r * pixelSize * width;
 		tsize_t size = tsize_t(currentChunkSize * pixelSize * width);
 		TIFFWriteEncodedStrip(tiff, r / SAVE_CHUNK_SIZE, buf, size);
-		emit updateProgressAndStatusChannel(1.0 * r / height);
+		updateProgressAndStatusChannel(1.0 * r / height);
 	}
 	TIFFClose(tiff);
 	delete[] colorPtr;

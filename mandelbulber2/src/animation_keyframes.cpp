@@ -1205,7 +1205,7 @@ void cKeyframeAnimation::slotExportKeyframesToFlight()
 		}
 		if (index % 10 == 0)
 		{
-			updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"),
+			emit updateProgressAndStatus(QObject::tr("Exporting"), tr("Exporting keyframes to flight"),
 				double(index) / keyframes->GetNumberOfFrames(), cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
@@ -1256,7 +1256,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 
 	for (int key = 0; key < keyframes->GetNumberOfFrames() - 1; key++)
 	{
-		updateProgressAndStatus(QObject::tr("Checking for collisions"),
+		emit updateProgressAndStatus(QObject::tr("Checking for collisions"),
 			QObject::tr("Checking for collisions on keyframe # %1").arg(key),
 			double(key) / (keyframes->GetNumberOfFrames() - 1.0), cProgressText::progress_ANIMATION);
 
@@ -1276,7 +1276,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 		}
 	}
 
-	updateProgressAndStatus(QObject::tr("Checking for collisions"),
+	emit updateProgressAndStatus(QObject::tr("Checking for collisions"),
 		QObject::tr("Checking for collisions finished"), 1.0, cProgressText::progress_ANIMATION);
 
 	return listOfCollisions;
