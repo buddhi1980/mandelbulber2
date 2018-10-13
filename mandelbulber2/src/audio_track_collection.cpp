@@ -49,14 +49,14 @@ cAudioTrackCollection::~cAudioTrackCollection() = default;
 cAudioTrackCollection::cAudioTrackCollection(const cAudioTrackCollection &collection)
 {
 	Q_UNUSED(collection);
-	this->audioTracks.clear();
+	audioTracks.clear();
 }
 
 /* Warning! this is fake operator to avoid copying audio data to cUndo buffers */
 cAudioTrackCollection &cAudioTrackCollection::operator=(const cAudioTrackCollection &collection)
 {
 	Q_UNUSED(collection);
-	this->audioTracks.clear();
+	audioTracks.clear();
 	return *this;
 }
 

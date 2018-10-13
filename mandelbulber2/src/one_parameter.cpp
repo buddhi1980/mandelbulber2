@@ -239,7 +239,7 @@ QString cOneParameter::GetValueByEnumeration() const
 	{
 		qWarning() << "Enumeration not found, cannot find index: " << index << " in QStringList "
 							 << enumLookup;
-		return this->Get<QString>(valueActual);
+		return Get<QString>(valueActual);
 	}
 }
 

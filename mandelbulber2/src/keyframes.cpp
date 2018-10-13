@@ -65,13 +65,13 @@ cKeyframes &cKeyframes::operator=(const cKeyframes &source)
 		morph.clear();
 		for (auto i : source.morph)
 		{
-			this->morph.append(new cMorph(*i));
+			morph.append(new cMorph(*i));
 		}
 	}
-	this->frames = source.frames;
-	this->listOfParameters = source.listOfParameters;
-	this->framesPerKeyframe = source.framesPerKeyframe;
-	this->audioTracks = source.audioTracks;
+	frames = source.frames;
+	listOfParameters = source.listOfParameters;
+	framesPerKeyframe = source.framesPerKeyframe;
+	audioTracks = source.audioTracks;
 	return *this;
 }
 

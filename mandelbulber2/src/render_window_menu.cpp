@@ -76,7 +76,7 @@ void RenderWindow::slotImportOldSettings()
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = filename;
-		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+		setWindowTitle(QString("Mandelbulber (") + filename + ")");
 	}
 }
 
@@ -396,7 +396,7 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	gMainInterface->ComboMouseClickUpdate();
 	systemData.lastSettingsFile = fileName;
 	SaveSettingsToRecent(fileName);
-	this->setWindowTitle(QString("Mandelbulber (") + fileName + ")");
+	setWindowTitle(QString("Mandelbulber (") + fileName + ")");
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
 	gMainInterface->ReEnablePeriodicRefresh();
@@ -421,7 +421,7 @@ void RenderWindow::slotMenuLoadSettingsFromClipboard()
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();
 		systemData.lastSettingsFile = "from clipboard";
-		this->setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
+		setWindowTitle(QString("Mandelbulber (") + "from clipboard" + ")");
 		gFlightAnimation->RefreshTable();
 		gKeyframeAnimation->RefreshTable();
 		gMainInterface->ReEnablePeriodicRefresh();
@@ -622,7 +622,7 @@ void RenderWindow::slotMenuSaveSettings()
 		parSettings.SaveToFile(filename);
 		systemData.lastSettingsFile = filename;
 		SaveSettingsToRecent(filename);
-		this->setWindowTitle(QString("Mandelbulber (") + filename + ")");
+		setWindowTitle(QString("Mandelbulber (") + filename + ")");
 
 		// QString hash = parSettings.GetHashCode();
 		// cThumbnail thumbnail(gPar, gParFractal, 200, 200);

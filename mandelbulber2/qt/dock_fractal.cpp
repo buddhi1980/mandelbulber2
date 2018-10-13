@@ -57,7 +57,7 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 	fractalTabs = new cTabFractal *[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fractalTabs[i] = this->ui->tabWidget_fractals->findChild<cTabFractal *>(
+		fractalTabs[i] = ui->tabWidget_fractals->findChild<cTabFractal *>(
 			QString("widgetTabFractal_%1").arg(i + 1));
 	}
 
@@ -207,7 +207,7 @@ void cDockFractal::InitializeFractalUi() const
 	//{
 	//		uiFile.open(QFile::ReadOnly);
 	//		fractalWidgets[0] = loader.load(&uiFile);
-	//		ui->verticalLayout_fractal_1->addWidget(this->fractalWidgets[0]);
+	//		ui->verticalLayout_fractal_1->addWidget(fractalWidgets[0]);
 	//		fractalWidgets[0]->show();
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
@@ -391,7 +391,7 @@ void cDockFractal::slotPressedButtonGetJuliaConstant()
 
 void cDockFractal::slotPressedButtonNewPrimitive() const
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.lastIndexOf('_') + 1);
 	gMainInterface->NewPrimitive(primitiveName);
 }

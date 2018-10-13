@@ -619,25 +619,25 @@ void cQueue::slotQueueRemoveOrphaned()
 
 void cQueue::slotQueueRemoveItem()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	RemoveQueueItem(buttonName.toInt());
 }
 
 void cQueue::slotQueueMoveItemUp()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	SwapQueueItem(buttonName.toInt(), buttonName.toInt() - 1);
 }
 
 void cQueue::slotQueueMoveItemDown()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	SwapQueueItem(buttonName.toInt(), buttonName.toInt() + 1);
 }
 
 void cQueue::slotQueueTypeChanged(int index)
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	UpdateQueueItemType(buttonName.toInt(), cQueue::enumRenderType(index));
 }
 

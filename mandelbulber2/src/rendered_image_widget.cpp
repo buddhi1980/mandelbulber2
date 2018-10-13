@@ -86,7 +86,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	// timer to refresh image
 	timerRefreshImage = new QTimer(this);
 	timerRefreshImage->setInterval(40);
-	this->connect(timerRefreshImage, SIGNAL(timeout()), this, SLOT(update()));
+	connect(timerRefreshImage, SIGNAL(timeout()), this, SLOT(update()));
 }
 
 void RenderedImage::paintEvent(QPaintEvent *event)

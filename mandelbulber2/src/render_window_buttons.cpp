@@ -47,14 +47,14 @@
 
 void RenderWindow::slotPressedButtonDeletePrimitive() const
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	gMainInterface->DeletePrimitive(primitiveName);
 }
 
 void RenderWindow::slotPressedButtonSetPositionPrimitive() const
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 	QStringList split = primitiveName.split('_');
 	QList<QVariant> item;
@@ -106,7 +106,7 @@ void RenderWindow::slotPressedButtonAlignPrimitiveAngle() const
 
 	CVector3 rotationAligned(alpha * 180.0 / M_PI, beta * 180.0 / M_PI, gamma * 180.0 / M_PI);
 
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	QString primitiveName = buttonName.mid(buttonName.indexOf('_') + 1);
 
 	gPar->Set(primitiveName + "_rotation", rotationAligned);

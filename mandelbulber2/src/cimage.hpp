@@ -223,7 +223,7 @@ public:
 	int GetUsedMB() const;
 	void SetImageParameters(sImageAdjustments adjustments);
 	sImageAdjustments *GetImageAdjustments() { return &adj; }
-	void SetImageOptional(sImageOptional optInput) { this->opt = optInput; }
+	void SetImageOptional(sImageOptional optInput) { opt = optInput; }
 	sImageOptional *GetImageOptional() { return &opt; }
 
 	quint8 *ConvertTo8bit();
@@ -253,7 +253,7 @@ public:
 	bool IsStereoLeftRight() const { return isStereoLeftRight; }
 	void SetStereoLeftRight(bool isStereoLeftRightInput)
 	{
-		this->isStereoLeftRight = isStereoLeftRightInput;
+		isStereoLeftRight = isStereoLeftRightInput;
 	}
 	void GetStereoLeftRightImages(cImage *left, cImage *right);
 

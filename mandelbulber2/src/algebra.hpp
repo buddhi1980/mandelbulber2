@@ -397,7 +397,7 @@ public:
 		v.x = x;
 		v.y = y;
 		v.z = z;
-		wOutput = this->w;
+		wOutput = w;
 	}
 	inline CVector3 GetXYZ() const { return CVector3(x, y, z); }
 

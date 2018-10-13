@@ -49,7 +49,7 @@ CVector3 CVector3::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 
 CVector4 CVector4::RotateAroundVectorByAngle(CVector3 axis, double angle) const
 {
-	const CVector3 oldVector = this->GetXYZ();
+	const CVector3 oldVector = GetXYZ();
 	CVector3 vector = oldVector * cos(angle);
 	vector += (axis.Cross(oldVector)) * sin(angle);
 	vector += axis * axis.Dot(oldVector) * (1 - cos(angle));

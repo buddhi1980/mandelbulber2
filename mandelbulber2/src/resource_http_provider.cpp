@@ -48,8 +48,8 @@ cResourceHttpProvider::cResourceHttpProvider(QString &_filename)
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 	hashCrypt.addData(filename.toLocal8Bit());
 	QByteArray hash = hashCrypt.result();
-	this->cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "."
-												 + QFileInfo(filename).suffix();
+	cachedFilename = systemData.GetHttpCacheFolder() + QDir::separator() + hash.toHex() + "."
+									 + QFileInfo(filename).suffix();
 	reply = nullptr;
 	outFile = nullptr;
 }

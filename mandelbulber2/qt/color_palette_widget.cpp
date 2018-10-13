@@ -42,7 +42,7 @@
 ColorPaletteWidget::ColorPaletteWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)
 {
-	this->setFixedHeight(50);
+	setFixedHeight(50);
 	paletteOffset = 0.0;
 }
 
@@ -66,7 +66,7 @@ void ColorPaletteWidget::paintEvent(QPaintEvent *event)
 	{
 		QPainter painter(this);
 
-		for (int x = 0; x < this->width(); x++)
+		for (int x = 0; x < width(); x++)
 		{
 			sRGB color = palette.IndexToColour(x * 16 + paletteOffset * 256);
 			const int offset = paletteOffset * 16;
@@ -97,7 +97,7 @@ void ColorPaletteWidget::paintEvent(QPaintEvent *event)
 			}
 
 			painter.setPen(QColor(color.R, color.G, color.B));
-			painter.drawLine(x, 0, x, this->height());
+			painter.drawLine(x, 0, x, height());
 		}
 	}
 }

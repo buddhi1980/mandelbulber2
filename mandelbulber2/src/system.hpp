@@ -155,19 +155,19 @@ public:
 	int GetPreferredFontSize() const { return preferredFontSize; }
 	void SetPreferredFontSize(int preferredFontSizeInput)
 	{
-		this->preferredFontSize = preferredFontSizeInput;
+		preferredFontSize = preferredFontSizeInput;
 	}
 	int GetPreferredThumbnailSize() const { return preferredThumbnailSize; }
 	void SetPreferredThumbnailSize(int preferredThumbnailSizeInput)
 	{
-		this->preferredThumbnailSize = preferredThumbnailSizeInput;
+		preferredThumbnailSize = preferredThumbnailSizeInput;
 	}
 	int GetPreferredFontPointSize() const { return preferredFontPointSize; }
 	void SetPreferredFontPointSize(int preferredFontPointSizeInput)
 	{
-		this->preferredFontPointSize = preferredFontPointSizeInput;
+		preferredFontPointSize = preferredFontPointSizeInput;
 	}
-	void SetLogfileName(QString logfileNameInput) { this->logfileName = logfileNameInput; }
+	void SetLogfileName(QString logfileNameInput) { logfileName = logfileNameInput; }
 
 	QString homeDir;
 	QString sharedDir;

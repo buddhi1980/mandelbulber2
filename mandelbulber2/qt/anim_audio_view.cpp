@@ -53,7 +53,7 @@ void cAnimAudioView::UpdateChart(const QSharedPointer<cAudioTrack> audioTrack)
 	{
 		const int numberOfFrames = audioTrack->getNumberOfFrames();
 		framesPerSecond = audioTrack->getFramesPerSecond();
-		this->setFixedWidth(numberOfFrames);
+		setFixedWidth(numberOfFrames);
 
 		animAudioImage = QImage(QSize(numberOfFrames, height()), QImage::Format_RGB32);
 		animAudioImage.fill(Qt::black);

@@ -137,7 +137,7 @@ void RenderWindow::slotChangedComboMouseClickFunction(int index) const
 {
 	if (index >= 0) // if list is empty, then index = -1
 	{
-		QComboBox *comboBox = static_cast<QComboBox *>(this->sender());
+		QComboBox *comboBox = static_cast<QComboBox *>(sender());
 		QList<QVariant> item = comboBox->itemData(index).toList();
 		gMainInterface->renderedImage->setClickMode(item);
 	}
@@ -473,7 +473,7 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 	gKeyframeAnimation->RefreshTable();
 	gMainInterface->ReEnablePeriodicRefresh();
 	showDescriptionPopup();
-	this->setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
+	setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }
 
 void RenderWindow::slotMenuRemovePreset(QString filename)
@@ -601,8 +601,8 @@ void RenderWindow::slotMenuLoadCustomWindowState(QString filename)
 		qWarning() << "Could not open input files: " << filename << ".[geometry,state]";
 		return;
 	}
-	// this->restoreGeometry(fileGeometry.readAll());
-	this->restoreState(fileState.readAll());
+	// restoreGeometry(fileGeometry.readAll());
+	restoreState(fileState.readAll());
 }
 
 void RenderWindow::slotCustomWindowRemovePopup()
@@ -736,7 +736,7 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 {
 	ui->statusbar->showMessage(text, 0);
 	MyProgressBar *progressBar = nullptr;
-	bool isQueue = this->sender() && this->sender()->objectName() == "Queue";
+	bool isQueue = sender() && sender()->objectName() == "Queue";
 	switch (progressType)
 	{
 		case cProgressText::progress_IMAGE:
