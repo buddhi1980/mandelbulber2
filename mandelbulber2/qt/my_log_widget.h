@@ -53,12 +53,13 @@ public:
 public slots:
 	void appendMessage(const QString &text);
 	void initFromLogFile();
-	QString formatLine(const QString &text) const;
 
 private:
 	bool initializedFromLogFile;
 	QRegularExpression *reBasic;
 	QRegularExpression *reInnerType;
+
+	QString formatLine(const QString &text) const;
 };
 
 #endif /* MANDELBULBER2_QT_MY_LOG_WIDGET_H_ */

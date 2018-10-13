@@ -105,6 +105,7 @@ private:
 
 	struct sRayMarchingIn
 	{
+		inline sRayMarchingIn &operator=(const sRayMarchingIn &assign) = default;
 		CVector3 start;
 		CVector3 direction;
 		double minScan;
@@ -115,6 +116,7 @@ private:
 
 	struct sRayMarchingInOut
 	{
+		inline sRayMarchingInOut &operator=(const sRayMarchingInOut &assign) = default;
 		sStep *stepBuff;
 		int *buffCount;
 	};

@@ -1444,6 +1444,7 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int s
 	bool *stopRequest, sRenderData *renderData, size_t dataOffset)
 {
 	Q_UNUSED(renderData);
+	Q_UNUSED(stopRequest);
 
 	constantInMeshExportBuffer->sliceIndex = sliceIndex;
 

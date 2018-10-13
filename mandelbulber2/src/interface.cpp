@@ -1802,7 +1802,7 @@ void cInterface::RebuildPrimitives(cParameterContainer *par)
 	listOfPrimitives.clear();
 
 	QList<QString> listOfParameters = par->GetListOfParameters();
-	for (auto parameterName : listOfParameters)
+	for (auto &parameterName : listOfParameters)
 	{
 		if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 		{

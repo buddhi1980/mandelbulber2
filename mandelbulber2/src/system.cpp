@@ -234,7 +234,7 @@ void WriteLog(QString text, int verbosityLevel)
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != nullptr)
 		{
-			gMainInterface->mainWindow->AppendToLog(logText);
+			emit gMainInterface->mainWindow->AppendToLog(logText);
 		}
 	}
 }

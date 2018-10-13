@@ -58,7 +58,7 @@ QString Test::testFolder()
 
 void Test::init()
 {
-	if (QFileInfo(testFolder()).exists()) cleanup();
+	if (QFileInfo::exists(testFolder())) cleanup();
 	CreateFolder(testFolder());
 }
 

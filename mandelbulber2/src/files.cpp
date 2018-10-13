@@ -427,7 +427,7 @@ bool FileExists(const QString &path)
 
 QString FilePathHelper(const QString &path, const QStringList &pathList)
 {
-	QString newPath;
+	// QString newPath;
 
 	// original file was found
 	if (FileExists(path)) return path;

@@ -86,10 +86,9 @@ QString cProgressText::getText(double progress)
 
 	if (progressLim < 1.0)
 	{
-		text = QObject::tr("Done %1%, elapsed: %2, estimated to end: %3")
-						 .arg(QString::number(progressLim * 100.0, 'f', 2))
-						 .arg(TimeString(time))
-						 .arg(TimeString(timeToEnd));
+		text =
+			QObject::tr("Done %1%, elapsed: %2, estimated to end: %3")
+				.arg(QString::number(progressLim * 100.0, 'f', 2), TimeString(time), TimeString(timeToEnd));
 	}
 	else
 	{

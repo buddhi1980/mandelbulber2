@@ -190,12 +190,12 @@ void ImageFileSavePNG::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatusFinished();
+	updateProgressAndStatusFinished();
 }
 
 void ImageFileSaveJPG::SaveImage()
 {
-	emit updateProgressAndStatusStarted();
+	updateProgressAndStatusStarted();
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -228,13 +228,13 @@ void ImageFileSaveJPG::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatusFinished();
+	updateProgressAndStatusFinished();
 }
 
 #ifdef USE_TIFF
 void ImageFileSaveTIFF::SaveImage()
 {
-	emit updateProgressAndStatusStarted();
+	updateProgressAndStatusStarted();
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
@@ -262,17 +262,17 @@ void ImageFileSaveTIFF::SaveImage()
 		}
 		currentChannel++;
 	}
-	emit updateProgressAndStatusFinished();
+	updateProgressAndStatusFinished();
 }
 #endif /* USE_TIFF */
 
 #ifdef USE_EXR
 void ImageFileSaveEXR::SaveImage()
 {
-	emit updateProgressAndStatusStarted();
+	updateProgressAndStatusStarted();
 	QString fullFilename = filename + ".exr";
 	SaveEXR(fullFilename, image, imageConfig);
-	emit updateProgressAndStatusFinished();
+	updateProgressAndStatusFinished();
 }
 #endif /* USE_EXR */
 

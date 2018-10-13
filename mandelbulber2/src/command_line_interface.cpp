@@ -606,7 +606,7 @@ void cCommandLineInterface::printParametersAndExit()
 	out << cHeadless::colorize(
 		"\nList of main parameters:\n", cHeadless::ansiYellow, cHeadless::noExplicitColor, true);
 	out << "KEY=VALUE\n";
-	for (auto parameterName : listOfParameters)
+	for (auto &parameterName : listOfParameters)
 	{
 		const QString defaultValue = gPar->GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";
@@ -616,7 +616,7 @@ void cCommandLineInterface::printParametersAndExit()
 	out << cHeadless::colorize(QObject::tr("\nList of fractal parameters:\n"), cHeadless::ansiYellow,
 		cHeadless::noExplicitColor, true);
 
-	for (auto parameterName : listOfFractalParameters)
+	for (auto &parameterName : listOfFractalParameters)
 	{
 		const QString defaultValue = gParFractal->at(0).GetDefault<QString>(parameterName);
 		out << parameterName + "=" + defaultValue + "\n";

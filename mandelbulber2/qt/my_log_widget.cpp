@@ -58,13 +58,13 @@ void MyLogWidget::appendMessage(const QString &text)
 {
 	if (!initializedFromLogFile)
 	{
-		this->initFromLogFile();
+		initFromLogFile();
 		initializedFromLogFile = true;
 	}
 	else
 	{
 		moveCursor(QTextCursor::End);
-		this->appendHtml(formatLine(text));
+		appendHtml(formatLine(text));
 	}
 }
 
@@ -75,9 +75,9 @@ void MyLogWidget::initFromLogFile()
 	QTextStream logTextStream(&logFile);
 	while (!logTextStream.atEnd())
 	{
-		this->appendHtml(formatLine(logTextStream.readLine()));
+		appendHtml(formatLine(logTextStream.readLine()));
 	}
-	this->ensureCursorVisible();
+	ensureCursorVisible();
 }
 
 QString MyLogWidget::formatLine(const QString &text) const

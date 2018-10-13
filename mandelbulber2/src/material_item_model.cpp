@@ -187,12 +187,12 @@ void cMaterialItemModel::Regenerate()
 	endRemoveRows();
 
 	QList<QString> list = container->GetListOfParameters();
-	for (auto parameterName : list)
+	for (auto &parameterName : list)
 	{
 		if (parameterName.left(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
+			int matIndex = parameterName.midRef(3, positionOfDash - 3).toInt();
 			if (materialIndexes.indexOf(matIndex) < 0)
 			{
 				materialIndexes.append(matIndex);

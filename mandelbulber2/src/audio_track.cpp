@@ -92,7 +92,7 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 
 	Clear();
 
-	QString suffix = QFileInfo(filename).suffix();
+	// QString suffix = QFileInfo(filename).suffix();
 	loaded = false;
 
 #ifdef USE_SNDFILE

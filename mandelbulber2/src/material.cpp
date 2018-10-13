@@ -407,14 +407,13 @@ void CreateMaterialsMap(
 {
 	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();
-	for (auto parameterName : listOfParameters)
+	for (auto &parameterName : listOfParameters)
 	{
-		if (parameterName.left(3) == "mat")
+		if (parameterName.leftRef(3) == "mat")
 		{
 			int positionOfDash = parameterName.indexOf('_');
-			int matIndex = parameterName.mid(3, positionOfDash - 3).toInt();
-			QString shortName = parameterName.mid(positionOfDash + 1);
-			if (shortName == "is_defined")
+			int matIndex = parameterName.midRef(3, positionOfDash - 3).toInt();
+			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
 			{
 				materials->insert(matIndex, cMaterial(matIndex, params, quiet));
 			}
