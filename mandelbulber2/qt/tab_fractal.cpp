@@ -132,8 +132,8 @@ void cTabFractal::Init(bool firstTab, int _tabIndex)
 
 void cTabFractal::slotChangedComboFractal(int indexInComboBox)
 {
-	QString comboName = this->sender()->objectName();
-	int index = qobject_cast<QComboBox *>(this->sender())->itemData(indexInComboBox).toInt();
+	QString comboName = sender()->objectName();
+	int index = qobject_cast<QComboBox *>(sender())->itemData(indexInComboBox).toInt();
 
 	QString fullFormulaName = fractalList[index].nameInComboBox;
 	if (fractalList[index].internalID > 0)

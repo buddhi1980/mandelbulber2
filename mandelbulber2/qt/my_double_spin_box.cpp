@@ -132,7 +132,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 	{
 		if (!slider)
 		{
-			QWidget *topWidget = this->window();
+			QWidget *topWidget = window();
 			slider = new cFrameSliderPopup(topWidget);
 			slider->setFocusPolicy(Qt::NoFocus);
 
@@ -147,10 +147,10 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 			slider->hide();
 		}
 
-		QWidget *topWidget = this->window();
-		QPoint windowPoint = this->mapTo(topWidget, QPoint());
+		QWidget *topWidget = window();
+		QPoint windowPoint = mapTo(topWidget, QPoint());
 		int width = this->width();
-		int hOffset = this->height();
+		int hOffset = height();
 		slider->adjustSize();
 		slider->setFixedWidth(width);
 

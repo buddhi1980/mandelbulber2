@@ -140,13 +140,13 @@ void cDockNavigation::ConnectSignals() const
 
 void cDockNavigation::slotCameraMove() const
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	gMainInterface->MoveCamera(buttonName, true);
 }
 
 void cDockNavigation::slotCameraRotation() const
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 
 	gMainInterface->RotateCamera(buttonName, true);
 }

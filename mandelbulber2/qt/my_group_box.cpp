@@ -104,7 +104,7 @@ bool MyGroupBox::GetDefault()
 
 void MyGroupBox::slotToggled(bool on) const
 {
-	QList<QWidget *> list = this->findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
+	QList<QWidget *> list = findChildren<QWidget *>(QString(), Qt::FindDirectChildrenOnly);
 	for (auto &widget : list)
 	{
 		if (on)
@@ -132,7 +132,7 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 
 void MyGroupBox::slotResetAllToDefault()
 {
-	QList<QWidget *> listOfWidgets = this->findChildren<QWidget *>();
+	QList<QWidget *> listOfWidgets = findChildren<QWidget *>();
 
 	foreach (QWidget *widget, listOfWidgets)
 	{

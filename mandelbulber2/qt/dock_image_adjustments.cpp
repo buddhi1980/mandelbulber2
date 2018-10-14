@@ -165,7 +165,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 {
 	int width = 0, height = 0;
 	enumImageProportion proportion = proportionFree;
-	const QString buttonName = this->sender()->objectName();
+	const QString buttonName = sender()->objectName();
 
 	int lastDash = buttonName.lastIndexOf('_');
 	QString indexText = buttonName.mid(lastDash + 1);
@@ -241,7 +241,7 @@ void cDockImageAdjustments::slotCheckedDetailLevelLock(int state) const
 			CVector2<int>(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 	}
 
-	if (this->sender()->objectName() == "checkBox_connect_detail_level")
+	if (sender()->objectName() == "checkBox_connect_detail_level")
 	{
 		gMainInterface->mainWindow->GetWidgetDockRenderingEngine()
 			->CheckboxConnectDetailLevelSetCheckState(Qt::CheckState(state));
@@ -380,7 +380,7 @@ int cDockImageAdjustments::PresetButtonIndex(const QString &name) const
 
 void cDockImageAdjustments::slotChangeResolutionPreset()
 {
-	int index = PresetButtonIndex(this->sender()->objectName());
+	int index = PresetButtonIndex(sender()->objectName());
 	QString oldPreset = resolutionPresets->Get<QString>("resolution_preset", index);
 	QString newPreset = QInputDialog::getText(this, tr("Edit resolution preset"),
 		tr("Type new preset in format WIDTHxHEIGHT"), QLineEdit::Normal, oldPreset);

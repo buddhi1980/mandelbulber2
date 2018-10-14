@@ -90,7 +90,7 @@ sRGB MyColorButton::GetColor() const
 
 void MyColorButton::SetColor(sRGB newColor)
 {
-	this->currentValue = newColor;
+	currentValue = newColor;
 	UpdateColor();
 }
 

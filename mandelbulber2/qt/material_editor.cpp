@@ -97,7 +97,7 @@ void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
 		ui->widget_material_preview->AssignMaterial(parameterContainer, index, this);
 		isMaterialAssigned = true;
 
-		QList<QWidget *> materialWidgets = this->findChildren<QWidget *>();
+		QList<QWidget *> materialWidgets = findChildren<QWidget *>();
 		for (auto &materialWidget : materialWidgets)
 		{
 			if (!materialWidget->objectName().isEmpty())

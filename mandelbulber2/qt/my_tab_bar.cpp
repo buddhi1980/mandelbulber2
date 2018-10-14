@@ -61,7 +61,7 @@ void MyTabBar::setupMoveButtons()
 		if (i > 0)
 		{
 			QToolButton *tbMoveLeft = new QToolButton(this);
-			QIcon arrowLeft = this->style()->standardIcon(QStyle::SP_ArrowLeft);
+			QIcon arrowLeft = style()->standardIcon(QStyle::SP_ArrowLeft);
 			tbMoveLeft->setIcon(arrowLeft);
 			tbMoveLeft->setIconSize(QSize(10, 10));
 			tbMoveLeft->setObjectName(QString::number(i));
@@ -74,7 +74,7 @@ void MyTabBar::setupMoveButtons()
 		if (i < count() - 1)
 		{
 			QToolButton *tbMoveRight = new QToolButton(this);
-			QIcon arrowRight = this->style()->standardIcon(QStyle::SP_ArrowRight);
+			QIcon arrowRight = style()->standardIcon(QStyle::SP_ArrowRight);
 			tbMoveRight->setIcon(arrowRight);
 			tbMoveRight->setIconSize(QSize(10, 10));
 			tbMoveRight->setObjectName(QString::number(i));
@@ -86,7 +86,7 @@ void MyTabBar::setupMoveButtons()
 
 void MyTabBar::slotMoveLeft()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	int index = buttonName.toInt();
 	if (index == 0) return;
 	emit swapTabs(index - 1, index);
@@ -94,7 +94,7 @@ void MyTabBar::slotMoveLeft()
 
 void MyTabBar::slotMoveRight()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	int index = buttonName.toInt();
 	if (index == count() - 1) return;
 	emit swapTabs(index, index + 1);
@@ -103,7 +103,7 @@ void MyTabBar::slotMoveRight()
 void MyTabBar::slotToggleActive(int state)
 {
 
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	int index = buttonName.right(1).toInt() - 1;
 	QPalette palette = QApplication::palette();
 	setTabTextColor(index, state == Qt::Checked ? palette.text().color() : palette.dark().color());

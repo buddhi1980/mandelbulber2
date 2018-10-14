@@ -296,7 +296,7 @@ void cDockRenderingEngine::slotCheckBoxDisableNetRender(bool on)
 
 void cDockRenderingEngine::slotNetRenderKickAndKill()
 {
-	QString buttonName = this->sender()->objectName();
+	QString buttonName = sender()->objectName();
 	gNetRender->KickAndKillClient(buttonName.toInt());
 }
 

@@ -65,7 +65,7 @@ void cFFTView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
 		framesPerSecond = audiotrack->getFramesPerSecond();
 		sampleRate = audiotrack->getSampleRate();
 
-		this->setFixedWidth(numberOfFrames);
+		setFixedWidth(numberOfFrames);
 
 		const int height = cAudioFFTData::fftSize / 2;
 
@@ -98,7 +98,7 @@ void cFFTView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
 		QPainter painter(&fftImage);
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
 		scaledFftImage =
-			fftImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+			fftImage.scaled(width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 		WriteLog("FFTView created", 2);
 	}

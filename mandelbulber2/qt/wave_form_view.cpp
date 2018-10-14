@@ -64,7 +64,7 @@ void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrac
 		framesPerSecond = audiotrack->getFramesPerSecond();
 		audioFrame *audioBuffer = new audioFrame[numberOfFrames + 1];
 
-		this->setFixedWidth(numberOfFrames);
+		setFixedWidth(numberOfFrames);
 
 		for (int i = 0; i < numberOfSamples; i++)
 		{
@@ -103,7 +103,7 @@ void cWaveFormView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrac
 
 		painter.setRenderHint(QPainter::SmoothPixmapTransform);
 		scaledWaveImage =
-			waveImage.scaled(this->width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+			waveImage.scaled(width(), height, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		update();
 
 		delete[] audioBuffer;
@@ -127,7 +127,7 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 			QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, progressText);
 			textRect.setHeight(textRect.height() + 2);
 			textRect.moveTopLeft(QPoint(5, 5));
-			this->setFixedWidth(textRect.width() + 5);
+			setFixedWidth(textRect.width() + 5);
 			painter.drawText(textRect, Qt::AlignTop | Qt::AlignLeft, progressText);
 		}
 		else
@@ -143,7 +143,7 @@ void cWaveFormView::paintEvent(QPaintEvent *event)
 		QRect textRect = painter.boundingRect(QRect(), Qt::AlignTop | Qt::AlignLeft, progressText);
 		textRect.setHeight(textRect.height() + 2);
 		textRect.moveTopLeft(QPoint(5, 5));
-		this->setFixedWidth(textRect.width() + 5);
+		setFixedWidth(textRect.width() + 5);
 
 		const QBrush brush(QColor(255, 0, 0));
 		painter.fillRect(textRect, brush);

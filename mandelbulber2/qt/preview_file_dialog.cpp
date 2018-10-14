@@ -90,7 +90,7 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	vBoxLayout->addStretch();
 
 	// add to existing layout
-	QGridLayout *gridLayout = static_cast<QGridLayout *>(this->layout());
+	QGridLayout *gridLayout = static_cast<QGridLayout *>(layout());
 	gridLayout->addLayout(vBoxLayout, 1, 3, 3, 1);
 
 	connect(

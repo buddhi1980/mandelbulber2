@@ -47,11 +47,11 @@ MyTableWidgetKeyframes::MyTableWidgetKeyframes(QWidget *parent) : QTableWidget(p
 	connect(this, SIGNAL(customContextMenuRequested(QPoint)), SLOT(tableContextMenuRequest(QPoint)));
 
 	horizontalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+	connect(horizontalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
 		SLOT(columnContextMenuRequest(QPoint)));
 
 	verticalHeader()->setContextMenuPolicy(Qt::CustomContextMenu);
-	connect(this->verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
+	connect(verticalHeader(), SIGNAL(customContextMenuRequested(QPoint)),
 		SLOT(rowContextMenuRequest(QPoint)));
 }
 

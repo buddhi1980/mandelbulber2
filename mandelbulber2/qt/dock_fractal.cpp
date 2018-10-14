@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -57,8 +57,8 @@ cDockFractal::cDockFractal(QWidget *parent) : QWidget(parent), ui(new Ui::cDockF
 	fractalTabs = new cTabFractal *[NUMBER_OF_FRACTALS];
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
-		fractalTabs[i] = ui->tabWidget_fractals->findChild<cTabFractal *>(
-			QString("widgetTabFractal_%1").arg(i + 1));
+		fractalTabs[i] =
+			ui->tabWidget_fractals->findChild<cTabFractal *>(QString("widgetTabFractal_%1").arg(i + 1));
 	}
 
 	automatedWidgets = new cAutomatedWidgets(this);

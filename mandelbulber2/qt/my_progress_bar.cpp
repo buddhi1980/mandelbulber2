@@ -65,6 +65,6 @@ void MyProgressBar::setFormat(const QString &format)
 void MyProgressBar::progressLabelUpdate()
 {
 	setTextVisible(false); // prevent default text
-	QString text = this->format();
+	QString text = format();
 	if (textLabel) textLabel->setText(text);
 }
