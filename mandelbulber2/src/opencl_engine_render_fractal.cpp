@@ -189,7 +189,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
-		if (!meshExportMode)
+		if (!meshExportMode || true)
 		{
 			// texture mapping
 			programEngine.append("#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
@@ -214,7 +214,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		// calculate distance
 		programEngine.append("#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
 
-		if (!meshExportMode)
+		if (!meshExportMode || true)
 		{
 			// normal vector calculation
 			programEngine.append("#include \"" + openclEnginePath + "normal_vector.cl\"\n");

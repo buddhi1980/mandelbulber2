@@ -37,7 +37,7 @@
 
 typedef struct
 {
-#ifndef MESH_EXPORT
+#if !defined(MESH_EXPORT) || 1
 	float3 lightVector;
 	float3 viewVectorNotRotated;
 #endif
@@ -61,14 +61,14 @@ typedef struct
 	int2 *textureSizes;
 #endif
 
-#ifndef MESH_EXPORT
+#if !defined(MESH_EXPORT) || 1
 	__global sVectorsAroundCl *AOVectors;
 	__global sLightCl *lights;
 #endif
 	__global sPrimitiveCl *primitives;
 	__global sPrimitiveGlobalPositionCl *primitivesGlobalPosition;
 
-#ifndef MESH_EXPORT
+#if !defined(MESH_EXPORT) || 1
 	__global sObjectDataCl *objectsData;
 
 	int reflectionsMax;
@@ -78,7 +78,7 @@ typedef struct
 
 	int numberOfPrimitives;
 
-#ifndef MESH_EXPORT
+#if !defined(MESH_EXPORT) || 1
 	matrix33 mRot;
 	matrix33 mRotInv;
 #endif
