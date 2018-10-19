@@ -328,6 +328,13 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="0" colspan="3">
+                 <widget class="QCheckBox" name="checkBox_linear_colorspace">
+                  <property name="text">
+                   <string>Use linear colorspace (only EXR)</string>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
              </layout>

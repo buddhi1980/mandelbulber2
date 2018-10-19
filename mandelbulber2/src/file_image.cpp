@@ -854,6 +854,7 @@ void ImageFileSaveEXR::SaveEXR(
 	Imf::FrameBuffer frameBuffer;
 
 	header.compression() = Imf::ZIP_COMPRESSION;
+	bool linear = gPar->Get<bool>("linear_colorspace");
 
 	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
 	{
@@ -862,9 +863,9 @@ void ImageFileSaveEXR::SaveEXR(
 			imageConfig[IMAGE_CONTENT_COLOR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																									: Imf::HALF;
 
-		header.channels().insert("R", Imf::Channel(imfQuality));
-		header.channels().insert("G", Imf::Channel(imfQuality));
-		header.channels().insert("B", Imf::Channel(imfQuality));
+		header.channels().insert("R", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("G", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("B", Imf::Channel(imfQuality, 1, 1, linear));
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
@@ -911,7 +912,7 @@ void ImageFileSaveEXR::SaveEXR(
 			imageConfig[IMAGE_CONTENT_ALPHA].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																									: Imf::HALF;
 
-		header.channels().insert("A", Imf::Channel(imfQuality));
+		header.channels().insert("A", Imf::Channel(imfQuality, 1, 1, linear));
 
 		int pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
@@ -948,7 +949,7 @@ void ImageFileSaveEXR::SaveEXR(
 			imageConfig[IMAGE_CONTENT_ZBUFFER].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																										: Imf::HALF;
 
-		header.channels().insert("Z", Imf::Channel(imfQuality));
+		header.channels().insert("Z", Imf::Channel(imfQuality, 1, 1, linear));
 
 		// point EXR frame buffer to z buffer
 		if (imfQuality == Imf::FLOAT)
@@ -984,9 +985,9 @@ void ImageFileSaveEXR::SaveEXR(
 			imageConfig[IMAGE_CONTENT_NORMAL].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																									 : Imf::HALF;
 
-		header.channels().insert("n.X", Imf::Channel(imfQuality));
-		header.channels().insert("n.Y", Imf::Channel(imfQuality));
-		header.channels().insert("n.Z", Imf::Channel(imfQuality));
+		header.channels().insert("n.X", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("n.Y", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("n.Z", Imf::Channel(imfQuality, 1, 1, linear));
 
 		int pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);

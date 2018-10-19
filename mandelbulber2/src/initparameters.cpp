@@ -511,6 +511,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("normal_postfix", QString("_normal"), morphNone, paramApp);
 
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
+	par->addParam("linear_colorspace", true, morphNone, paramApp);
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 	par->addParam("stereoscopic_in_separate_files", false, morphNone, paramApp);
 

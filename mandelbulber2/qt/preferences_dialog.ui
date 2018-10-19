@@ -862,6 +862,13 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="2" column="0" colspan="2">
+                 <widget class="QCheckBox" name="checkBox_linear_colorspace">
+                  <property name="text">
+                   <string>Use linear colorspace (only EXR)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
                  <widget class="QCheckBox" name="checkBox_stereoscopic_in_separate_files">
                   <property name="text">
                    <string>Save stereoscopic left and right images in separate files
