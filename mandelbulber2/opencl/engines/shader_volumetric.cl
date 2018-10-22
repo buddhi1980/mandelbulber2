@@ -117,43 +117,28 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef VISIBLE_AUX_LIGHTS
 		//------------------ visible light
 		{
-			float miniStep = 0.0f;
-			float lastMiniSteps = -1.0f;
 
-			for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
+			for (int i = 0; i < numberOfLights; ++i)
 			{
-				float lowestLightSize = 1e10f;
-				float lowestLightDist = 1e10f;
-				for (int i = 0; i < numberOfLights; ++i)
+				__global sLightCl *light = &renderData->lights[i];
+				if (light->enabled && light->intensity > 0.0f)
 				{
-					__global sLightCl *light = &renderData->lights[i];
-					if (light->enabled)
+					float lastMiniSteps = -1.0f;
+					float miniStep = 0.0f;
+					for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
 					{
+
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
 						float lightDist = fast_length(lightDistVect);
 						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
+
 						float distToLightSurface = lightDist - lightSize;
 						distToLightSurface = max(distToLightSurface, 0.0f);
-						if (distToLightSurface <= lowestLightDist)
-						{
-							lowestLightSize = min(lowestLightSize, lightSize);
-							lowestLightDist = distToLightSurface;
-						}
-					}
-				}
 
-				miniStep = 0.1f * (lowestLightDist + 0.1f * lowestLightSize);
-				miniStep = clamp(miniStep, step * 0.01f, step - miniSteps);
-				miniStep = max(miniStep, 1e-6f);
+						miniStep = 0.1f * (distToLightSurface + 0.1f * distToLightSurface);
+						miniStep = clamp(miniStep, step * 0.01f, step - miniSteps);
+						miniStep = max(miniStep, 1e-6f);
 
-				for (int i = 0; i < numberOfLights; ++i)
-				{
-					__global sLightCl *light = &renderData->lights[i];
-					if (light->enabled && light->intensity > 0.0f)
-					{
-						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
-						float lightDist = fast_length(lightDistVect);
-						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;
 						float r2 = native_divide(lightDist, lightSize);
 						float bellFunction = native_divide(1.0f, (1.0f + native_powr(r2, 4.0f)));
 						float lightDensity =
@@ -161,14 +146,15 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 						output += lightDensity * light->colour;
 						out4.s3 += lightDensity;
+
+						if (miniSteps == lastMiniSteps)
+						{
+							// Dead computation
+							break;
+						}
+						lastMiniSteps = miniSteps;
 					}
 				}
-				if (miniSteps == lastMiniSteps)
-				{
-					// Dead computation
-					break;
-				}
-				lastMiniSteps = miniSteps;
 			}
 		}
 #endif
@@ -180,9 +166,10 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1);
 			float r = outF.orbitTrapR;
 			r = sqrt(1.0f / (r + 1.0e-20f));
-			float fakeLight = 1.0f / (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
-																	 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
-																 + 1e-20f);
+			float fakeLight = 1.0f
+												/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
+															* pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+														+ 1e-20f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 			output += light * consts->params.fakeLightsColor;
 			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
