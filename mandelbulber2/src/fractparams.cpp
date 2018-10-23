@@ -56,6 +56,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 		container->Get<double>("random_lights_max_distance_from_fractal");
 	auxLightRandomIntensity = container->Get<double>("random_lights_intensity");
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
+	auxLightRandomInOneColor = container->Get<bool>("random_lights_one_color_enable");
+	auxLightRandomColor = container->Get<sRGB>("random_lights_color");
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");

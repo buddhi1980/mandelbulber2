@@ -61,7 +61,7 @@ enum enumBooleanOperator
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
 };
-}
+} // namespace params
 
 struct sParamRender
 {
@@ -96,6 +96,7 @@ struct sParamRender
 	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
 	bool auxLightRandomEnabled;
+	bool auxLightRandomInOneColor;
 	bool background3ColorsEnable;
 	bool booleanOperatorsEnabled;
 	bool constantDEThreshold;
@@ -130,6 +131,7 @@ struct sParamRender
 	bool volFogEnabled;
 
 	sRGB auxLightPreColour[4];
+	sRGB auxLightRandomColor;
 	sRGB background_color1; // background colour
 	sRGB background_color2;
 	sRGB background_color3;

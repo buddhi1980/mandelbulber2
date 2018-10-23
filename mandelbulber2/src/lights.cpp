@@ -148,12 +148,20 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 				if (trialNumber > 100000) break;
 			}
 
-			sRGB colour(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1),
-				random.Random(20000, 100000, 1));
-			double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
-			colour.R *= convertColorRatio;
-			colour.G *= convertColorRatio;
-			colour.B *= convertColorRatio;
+			sRGB colour;
+			if (params->auxLightRandomInOneColor)
+			{
+				colour = params->auxLightRandomColor;
+			}
+			else
+			{
+				colour = sRGB(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1),
+					random.Random(20000, 100000, 1));
+				double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
+				colour.R *= convertColorRatio;
+				colour.G *= convertColorRatio;
+				colour.B *= convertColorRatio;
+			}
 
 			double distanceLimited = max(0.1 * params->auxLightRandomMaxDistanceFromFractal, distance);
 			double intensity = params->auxLightRandomIntensity * distanceLimited * distanceLimited;
