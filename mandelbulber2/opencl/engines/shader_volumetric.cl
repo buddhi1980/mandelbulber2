@@ -125,9 +125,9 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				{
 					float lastMiniSteps = -1.0f;
 					float miniStep = 0.0f;
+					
 					for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
 					{
-
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
 						float lightDist = fast_length(lightDistVect);
 						float lightSize = native_sqrt(light->intensity) * consts->params.auxLightVisibilitySize;

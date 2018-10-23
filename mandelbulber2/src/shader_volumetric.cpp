@@ -105,48 +105,27 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		//------------------ visible light
 		if (data->lights.IsAnyLightEnabled() && params->auxLightVisibility > 0)
 		{
-			double miniStep;
-			double lastMiniSteps = -1.0;
-
-			for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
+			for (int i = 0; i < numberOfLights; ++i)
 			{
-				double lowestLightSize = 1e10;
-				double lowestLightDist = 1e10;
-				for (int i = 0; i < numberOfLights; ++i)
+				const sLight *light = data->lights.GetLight(i);
+				if (light->enabled && light->intensity > 0)
 				{
-					const sLight *light = data->lights.GetLight(i);
-					if (light->enabled)
+					double lastMiniSteps = -1.0;
+					double miniStep;
+
+					for (double miniSteps = 0.0; miniSteps < step; miniSteps += miniStep)
 					{
 						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
 						double lightDist = lightDistVect.Length();
 						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
+
 						double distToLightSurface = lightDist - lightSize;
 						if (distToLightSurface < 0.0) distToLightSurface = 0.0;
-						if (distToLightSurface <= lowestLightDist)
-						{
-							if (lightSize < lowestLightSize)
-							{
-								lowestLightSize = lightSize;
-							}
-							lowestLightDist = distToLightSurface;
-						}
-					}
-				}
 
-				miniStep = 0.1 * (lowestLightDist + 0.1 * lowestLightSize);
-				if (miniStep > step - miniSteps) miniStep = step - miniSteps;
-				if (miniStep < step * 0.001) miniStep = step * 0.001;
-				// qDebug() << "lowDist:" << lowestLightDist << "lowSize" << lowestLightSize << "miniStep"
-				// << miniStep;
+						miniStep = 0.1 * (distToLightSurface + 0.1 * distToLightSurface);
+						if (miniStep > step - miniSteps) miniStep = step - miniSteps;
+						if (miniStep < step * 0.001) miniStep = step * 0.001;
 
-				for (int i = 0; i < numberOfLights; ++i)
-				{
-					const sLight *light = data->lights.GetLight(i);
-					if (light->enabled && light->intensity > 0)
-					{
-						CVector3 lightDistVect = point - input.viewVector * miniSteps - light->position;
-						double lightDist = lightDistVect.Length();
-						double lightSize = sqrt(light->intensity) * params->auxLightVisibilitySize;
 						double r2 = lightDist / lightSize;
 						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
 						double lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
@@ -155,15 +134,16 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						output.G += lightDensity * light->colour.G / 65536.0;
 						output.B += lightDensity * light->colour.B / 65536.0;
 						output.A += lightDensity;
+
+						if (miniSteps == lastMiniSteps)
+						{
+							// qWarning() << "Dead computation\n"
+							//		<< "\pointN:" << (point - input.viewVector * miniSteps).Debug();
+							break;
+						}
+						lastMiniSteps = miniSteps;
 					}
 				}
-				if (miniSteps == lastMiniSteps)
-				{
-					// qWarning() << "Dead computation\n"
-					//		<< "\pointN:" << (point - input.viewVector * miniSteps).Debug();
-					break;
-				}
-				lastMiniSteps = miniSteps;
 			}
 		}
 
@@ -175,9 +155,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-																 + 1e-100);
+			double fakeLight = 1.0
+												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+														 + 1e-100);
 			output.R +=
 				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
 			output.G +=
