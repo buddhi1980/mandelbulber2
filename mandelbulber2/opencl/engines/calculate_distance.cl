@@ -167,24 +167,24 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		float r = length(out.z);
 		float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
 		float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
 		float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
+			calcModeDeltaDE2, NULL, forcedFormulaIndex)
 												 .z);
 		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
 		float d = length(dr);
@@ -245,9 +245,19 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	int closestObjectId = 0;
 
 #ifndef BOOLEAN_OPERATORS
+
 #ifdef USE_DISPLACEMENT_TEXTURE
-	out.distance = DisplacementMap(out.distance, point, out.objectId, renderData, 1.0f);
-#endif
+	float3 pointFractalized = point;
+	float reduceDisplacement = 1.0f;
+
+#ifdef FRACTALIZE_TEXTURE
+	pointFractalized =
+		FractalizeTexture(point, consts, calcParam, renderData, closestObjectId, &reduceDisplacement);
+#endif // FRACTALIZE_TEXTURE
+
+	out.distance =
+		DisplacementMap(out.distance, pointFractalized, out.objectId, renderData, reduceDisplacement);
+#endif // USE_DISPLACEMENT_TEXTURE
 
 #ifdef USE_PRIMITIVES
 	out.distance = min(out.distance,
@@ -318,8 +328,16 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out.objectId = 0;
 
 #ifdef USE_DISPLACEMENT_TEXTURE
-		dist = DisplacementMap(dist, pointTemp, out.objectId, renderData, 1.0f);
-#endif
+		float3 pointFractalized = pointTemp;
+		double reduceDisplacement = 1.0f;
+
+#ifdef FRACTALIZE_TEXTURE
+		pointFractalized =
+			FractalizeTexture(pointTemp, consts, calcParam, renderData, 0, &reduceDisplacement);
+#endif // FRACTALIZE_TEXTURE
+
+		dist = DisplacementMap(dist, pointFractalized, out.objectId, renderData, reduceDisplacement);
+#endif // USE_DISPLACEMENT_TEXTURE
 	}
 
 	for (int i = 0; i < NUMBER_OF_FRACTALS - 1; i++)
@@ -337,7 +355,15 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 			float distTemp = outTemp.distance / consts->params.formulaScale[i + 1];
 
 #ifdef USE_DISPLACEMENT_TEXTURE
-			distTemp = DisplacementMap(distTemp, pointTemp, out.objectId + 1, renderData, 1.0f);
+			float3 pointFractalized = pointTemp;
+			double reduceDisplacement = 1.0f;
+
+#ifdef FRACTALIZE_TEXTURE
+			pointFractalized =
+				FractalizeTexture(pointTemp, consts, calcParam, renderData, i + 1, &reduceDisplacement);
+#endif // FRACTALIZE_TEXTURE
+
+			distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, renderData, reduceDisplacement);
 #endif
 
 			enumBooleanOperatorCl boolOperator = consts->params.booleanOperator[i];

@@ -92,9 +92,9 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 
 		distance = CalculateDistanceSimple(params, fractals, inTemp, out, 0) / params.formulaScale[0];
 
-		CVector3 pointFractalized = in.point;
+		CVector3 pointFractalized = inTemp.point;
 		double reduceDisplacement = 1.0;
-		pointFractalized = FractalizeTexture(in.point, data, params, fractals, 0, &reduceDisplacement);
+		pointFractalized = FractalizeTexture(inTemp.point, data, params, fractals, 0, &reduceDisplacement);
 
 		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
 
@@ -113,10 +113,10 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 				double distTemp = CalculateDistanceSimple(params, fractals, inTemp, &outTemp, i + 1)
 													/ params.formulaScale[i + 1];
 
-				CVector3 pointFractalized = in.point;
+				CVector3 pointFractalized = inTemp.point;
 				double reduceDisplacement = 1.0;
 				pointFractalized =
-					FractalizeTexture(in.point, data, params, fractals, i + 1, &reduceDisplacement);
+					FractalizeTexture(inTemp.point, data, params, fractals, i + 1, &reduceDisplacement);
 
 				distTemp = DisplacementMap(distTemp, pointFractalized, i + 1, data);
 

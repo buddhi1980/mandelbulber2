@@ -64,5 +64,29 @@ float DisplacementMap(
 	return distance;
 }
 
-#endif
-#endif
+#ifdef FRACTALIZE_TEXTURE
+float3 FractalizeTexture(float3 point, __constant sClInConstants *consts, sClCalcParams *calcParams,
+	sRenderData *renderData, int objectId, float *reduceDisplacement)
+{
+	int forcedFormulaIndex = objectId;
+	if (objectId < 0) objectId = 0;
+
+	__global sObjectDataCl *objectData = &renderData->objectsData[objectId];
+	__global sMaterialCl *mat = renderData->materials[objectData->materialId];
+
+	float3 pointFractalized = point;
+
+	if (mat->textureFractalize)
+	{
+		formulaOut outF;
+		outF = Fractal(consts, point, calcParams, calcModeCubeOrbitTrap, mat, -1);
+		pointFractalized = outF.z.xyz;
+		*reduceDisplacement = pow(2.0f, outF.iters);
+	}
+
+	return pointFractalized;
+}
+#endif // FRACTALIZE_TEXTURE
+
+#endif // USE_DISPLACEMENT_TEXTURE
+#endif // USE_TEXTURES
