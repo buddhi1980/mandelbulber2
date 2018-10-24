@@ -152,7 +152,8 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 		{
 			// will be stored as 16bit grey texture
 			BuildTextureData(&material.displacementTexture, textureIndex, true);
-			textureIndexes->insert(material.displacementTexture.GetFileName(), textureIndex);
+			textureIndexes->insert(
+				material.displacementTexture.GetFileName() + "grey16bit", textureIndex);
 			useDisplacementMap = true;
 		}
 
