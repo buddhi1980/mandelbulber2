@@ -48,8 +48,9 @@
 #endif
 
 #ifdef USE_OPENCL
-cOpenClDynamicData::cOpenClDynamicData() : cOpenClAbstractDynamicData(5) // this container has 5
-																																				 // items
+cOpenClDynamicData::cOpenClDynamicData()
+		: cOpenClAbstractDynamicData(5) // this container has 5
+																		// items
 {
 }
 
@@ -137,7 +138,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 			materialCl.luminosityTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
-			textureName = material.displacementTexture.GetFileName();
+			textureName = material.displacementTexture.GetFileName() + "grey16bit";
 			materialCl.displacementTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
