@@ -80,7 +80,7 @@ void cDockStatistics::slotUpdateStatistics(cStatistics stat) const
 	gMainInterface->mainWindow->GetWidgetDockRenderingEngine()->UpdateLabelUsedDistanceEstimation(
 		tr("Used distance estimation algorithm: %1").arg(stat.GetDETypeString()));
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFSamples(
-		tr("Average number of DOF samples: %1").arg(stat.GetAverageDOFSamples()));
+		tr("Average number of MC samples: %1").arg(stat.GetAverageDOFSamples()));
 	gMainInterface->mainWindow->GetWidgetDockEffects()->UpdateLabelAverageDOFNoise(
 		tr("Average noise [%]: %1").arg(stat.GetAverageDOFNoise() * 100.0));
 }

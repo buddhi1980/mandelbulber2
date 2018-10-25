@@ -202,6 +202,11 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
 	if (consts->params.legacyCoordinateSystem) normalizedScreenPoint.y *= -1.0f;
 
+#ifdef MONTE_CARLO_ANTI_ALIASING
+	normalizedScreenPoint.x += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
+	normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
+#endif
+
 	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
 	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
 

@@ -517,9 +517,17 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
-	if (paramRender->DOFMonteCarlo && paramRender->DOFEnabled)
+	if (paramRender->DOFMonteCarlo)
 	{
-		definesCollector += " -DMONTE_CARLO_DOF";
+		if (paramRender->DOFEnabled)
+		{
+			definesCollector += " -DMONTE_CARLO_DOF";
+		}
+		else
+		{
+			definesCollector += " -DMONTE_CARLO_ANTI_ALIASING";
+		}
+
 		if (paramRender->DOFMonteCarloGlobalIllumination)
 		{
 			definesCollector += " -DMONTE_CARLO_DOF_GLOBAL_ILLUMINATION";
@@ -638,8 +646,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
-	monteCarlo = paramRender->DOFMonteCarlo && paramRender->DOFEnabled
-							 && renderEngineMode != clRenderEngineTypeFast;
+	monteCarlo = paramRender->DOFMonteCarlo && renderEngineMode != clRenderEngineTypeFast;
 
 	// copy all cl parameters to constant buffer
 	constantInBuffer->params = clCopySParamRenderCl(*paramRender);

@@ -351,192 +351,6 @@
                </layout>
               </item>
               <item>
-               <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithm for rendering the depth of field (DOF) effect. This effect is extremely slow for rendering, but gives a very realistic DOF appearance. &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="title">
-                 <string>&amp;Monte carlo algorithm</string>
-                </property>
-                <property name="checkable">
-                 <bool>true</bool>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_152">
-                 <property name="spacing">
-                  <number>2</number>
-                 </property>
-                 <property name="leftMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="topMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="rightMargin">
-                  <number>2</number>
-                 </property>
-                 <property name="bottomMargin">
-                  <number>2</number>
-                 </property>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_97">
-                   <property name="spacing">
-                    <number>2</number>
-                   </property>
-                   <item row="1" column="1">
-                    <widget class="MySpinBox" name="spinboxInt_DOF_min_samples">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="maximum">
-                      <number>10000</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="MySpinBox" name="spinboxInt_DOF_samples">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of rays calculated for each image pixel. Higher values reduce the noise on the image but increase rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="maximum">
-                      <number>10000</number>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_358">
-                     <property name="text">
-                      <string>Max number of samples
-per pixel:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="label_359">
-                     <property name="text">
-                      <string>Min number of samples
-per pixel:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="2" column="1">
-                    <widget class="MyLineEdit" name="logedit_DOF_max_noise"/>
-                   </item>
-                   <item row="2" column="0">
-                    <widget class="QLabel" name="label_360">
-                     <property name="text">
-                      <string>Max noise level
-(percentage)</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="3" column="0" colspan="2">
-                    <widget class="QLabel" name="label_average_DOF_samples">
-                     <property name="text">
-                      <string>Average number of DOF samples:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="4" column="0" colspan="2">
-                    <widget class="QLabel" name="label_average_DOF_noise">
-                     <property name="text">
-                      <string>Average noise:</string>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <widget class="MyCheckBox" name="checkBox_DOF_MC_global_illumination">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="text">
-                    <string>Calculate MC Global Illumination</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="MyGroupBox" name="groupCheck_DOF_MC_CA_enable">
-                   <property name="toolTip">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of chromatic aberration. This effect simulates the way an actual lens refracts light slightly differently based on wavelength.&lt;/p&gt;&lt;p&gt;It will give a &quot;rainbow&quot; type effect that gets stronger closer to the edges of the image. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="title">
-                    <string>Calculate chromatic aberration</string>
-                   </property>
-                   <property name="checkable">
-                    <bool>true</bool>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_75">
-                    <property name="spacing">
-                     <number>2</number>
-                    </property>
-                    <property name="leftMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>2</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>2</number>
-                    </property>
-                    <item>
-                     <layout class="QGridLayout" name="gridLayout_11">
-                      <property name="spacing">
-                       <number>2</number>
-                      </property>
-                      <item row="0" column="1">
-                       <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain"/>
-                      </item>
-                      <item row="0" column="0">
-                       <widget class="QLabel" name="label_69">
-                        <property name="text">
-                         <string>Dispersion gain of light refraction:</string>
-                        </property>
-                        <property name="wordWrap">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="0">
-                       <widget class="QLabel" name="label_70">
-                        <property name="text">
-                         <string>Camera lenses dispersion:</string>
-                        </property>
-                        <property name="wordWrap">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="1" column="1">
-                       <widget class="MyLineEdit" name="logedit_DOF_MC_CA_camera_dispersion"/>
-                      </item>
-                     </layout>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-              <item>
                <widget class="QPushButton" name="pushButton_DOF_update">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -566,6 +380,208 @@ per pixel:</string>
                 <property name="text">
                  <string>Set focus distance by mouse</string>
                 </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithm for rendering the depth of field (DOF) effect. This effect is extremely slow for rendering, but gives a very realistic DOF appearance. &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="title">
+              <string>&amp;Monte Carlo algorithm</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_152">
+              <property name="spacing">
+               <number>2</number>
+              </property>
+              <property name="leftMargin">
+               <number>2</number>
+              </property>
+              <property name="topMargin">
+               <number>2</number>
+              </property>
+              <property name="rightMargin">
+               <number>2</number>
+              </property>
+              <property name="bottomMargin">
+               <number>2</number>
+              </property>
+              <item>
+               <layout class="QGridLayout" name="gridLayout_97">
+                <property name="spacing">
+                 <number>2</number>
+                </property>
+                <item row="1" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_DOF_min_samples">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="MySpinBox" name="spinboxInt_DOF_samples">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of rays calculated for each image pixel. Higher values reduce the noise on the image but increase rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_358">
+                  <property name="text">
+                   <string>Max number of samples
+per pixel:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_359">
+                  <property name="text">
+                   <string>Min number of samples
+per pixel:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="MyLineEdit" name="logedit_DOF_max_noise"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_360">
+                  <property name="text">
+                   <string>Max noise level
+(percentage)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="QLabel" name="label_average_DOF_samples">
+                  <property name="text">
+                   <string>Average number of MC samples:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="QLabel" name="label_average_DOF_noise">
+                  <property name="text">
+                   <string>Average noise:</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="MyCheckBox" name="checkBox_DOF_MC_global_illumination">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Calculate MC global illumination</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="MyCheckBox" name="checkBox_DOF_MC_soft_shadows">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Calculate MC soft shadows</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="MyGroupBox" name="groupCheck_DOF_MC_CA_enable">
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of chromatic aberration. This effect simulates the way an actual lens refracts light slightly differently based on wavelength.&lt;/p&gt;&lt;p&gt;It will give a &quot;rainbow&quot; type effect that gets stronger closer to the edges of the image. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="title">
+                 <string>Calculate chromatic aberration</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_75">
+                 <property name="spacing">
+                  <number>2</number>
+                 </property>
+                 <property name="leftMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="topMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="rightMargin">
+                  <number>2</number>
+                 </property>
+                 <property name="bottomMargin">
+                  <number>2</number>
+                 </property>
+                 <item>
+                  <layout class="QGridLayout" name="gridLayout_11">
+                   <property name="spacing">
+                    <number>2</number>
+                   </property>
+                   <item row="0" column="1">
+                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain"/>
+                   </item>
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="label_69">
+                     <property name="text">
+                      <string>Dispersion gain of light refraction:</string>
+                     </property>
+                     <property name="wordWrap">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="label_70">
+                     <property name="text">
+                      <string>Camera lenses dispersion:</string>
+                     </property>
+                     <property name="wordWrap">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_camera_dispersion"/>
+                   </item>
+                  </layout>
+                 </item>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -2455,7 +2471,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-386</y>
+            <y>0</y>
             <width>527</width>
             <height>1707</height>
            </rect>
@@ -4371,7 +4387,6 @@ of lights:</string>
   <tabstop>spinbox_DOF_radius</tabstop>
   <tabstop>spinboxInt_DOF_number_of_passes</tabstop>
   <tabstop>spinbox_DOF_blur_opacity</tabstop>
-  <tabstop>groupCheck_DOF_monte_carlo</tabstop>
   <tabstop>spinboxInt_DOF_samples</tabstop>
   <tabstop>pushButton_DOF_update</tabstop>
   <tabstop>pushButton_DOF_set_focus</tabstop>

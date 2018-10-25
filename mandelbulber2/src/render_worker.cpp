@@ -111,7 +111,7 @@ void cRenderWorker::doWork()
 
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
 
-	bool monteCarloDOF = params->DOFMonteCarlo && params->DOFEnabled;
+	bool monteCarlo = params->DOFMonteCarlo;
 	bool antiAliasing = params->antialiasingEnabled;
 	int antiAliasingSize = params->antialiasingSize;
 
@@ -188,7 +188,7 @@ void cRenderWorker::doWork()
 			sRGBFloat normalFloat;
 			double depth = 1e20;
 
-			if (monteCarloDOF) repeats = params->DOFSamples;
+			if (monteCarlo) repeats = params->DOFSamples;
 			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
 
 			sRGBFloat finalPixelDOF;
@@ -211,16 +211,32 @@ void cRenderWorker::doWork()
 				{
 					int xStep = repeat / antiAliasingSize;
 					int yStep = repeat % antiAliasingSize;
-					double xOffset = double(xStep) / antiAliasingSize / image->GetWidth();
+					double xOffset = double(xStep) / antiAliasingSize / image->GetWidth() * aspectRatio;
 					double yOffset = double(yStep) / antiAliasingSize / image->GetHeight();
 					imagePoint.x = originalImagePoint.x + xOffset;
 					imagePoint.y = originalImagePoint.y + yOffset;
 				}
 
-				if (monteCarloDOF)
+				if (monteCarlo)
 				{
-					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
-					MonteCarloDOF(&startRay, &viewVector);
+					if (params->DOFEnabled)
+					{
+						viewVector =
+							CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+						MonteCarloDOF(&startRay, &viewVector);
+					}
+					else if (!antiAliasing)
+					{
+						// MC anti-aliasing
+						imagePoint.x =
+							originalImagePoint.x
+							+ (double(Random(1000)) / 1000.0 - 0.5) / image->GetWidth() * aspectRatio;
+						imagePoint.y =
+							originalImagePoint.y + (double(Random(1000)) / 1000.0 - 0.5) / image->GetHeight();
+						viewVector =
+							CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+						startRay = start;
+					}
 				}
 				else
 				{
@@ -371,7 +387,7 @@ void cRenderWorker::doWork()
 				finalColourDOF.B += colour.B;
 
 				// noise estimation
-				if (monteCarloDOF)
+				if (monteCarlo)
 				{
 					monteCarloNoise =
 						MonteCarloDOFNoiseEstimation(finalPixel, repeat, finalPixelDOF, monteCarloDOFStdDevSum);
@@ -385,7 +401,7 @@ void cRenderWorker::doWork()
 
 			} // next repeat
 
-			if (monteCarloDOF || antiAliasing)
+			if (monteCarlo || antiAliasing)
 			{
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{

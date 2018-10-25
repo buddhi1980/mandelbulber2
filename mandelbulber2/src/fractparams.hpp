@@ -119,6 +119,7 @@ struct sParamRender
 	bool limitsEnabled; // enable limits (intersections)
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
+	bool monteCarloSoftShadows;
 	bool penetratingLights;
 	bool raytracedReflections;
 	bool shadow;			// enable shadows
