@@ -536,6 +536,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		{
 			definesCollector += " -DCHROMATIC_ABERRATION";
 		}
+		if (paramRender->monteCarloSoftShadows)
+		{
+			definesCollector += " -DMC_SOFT_SHADOWS";
+		}
 	}
 
 	if (paramRender->texturedBackground)

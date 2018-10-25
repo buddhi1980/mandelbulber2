@@ -58,9 +58,15 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum { mapEquirectangular = 0, mapDoubleHemisphere = 1, mapFlat = 2 } enumTextureMapTypeCl;
+typedef enum
+{
+	mapEquirectangular = 0,
+	mapDoubleHemisphere = 1,
+	mapFlat = 2
+} enumTextureMapTypeCl;
 
-typedef enum {
+typedef enum
+{
 	booleanOperatorAND = 0,
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
@@ -120,6 +126,7 @@ typedef struct
 	cl_int limitsEnabled; // enable limits (intersections)
 	cl_int mainLightEnable;
 	cl_int mainLightPositionAsRelative;
+	cl_int monteCarloSoftShadows;
 	cl_int penetratingLights;
 	cl_int raytracedReflections;
 	cl_int shadow;			// enable shadows
@@ -292,6 +299,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.limitsEnabled = source.limitsEnabled;
 	target.mainLightEnable = source.mainLightEnable;
 	target.mainLightPositionAsRelative = source.mainLightPositionAsRelative;
+	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
 	target.penetratingLights = source.penetratingLights;
 	target.raytracedReflections = source.raytracedReflections;
 	target.shadow = source.shadow;

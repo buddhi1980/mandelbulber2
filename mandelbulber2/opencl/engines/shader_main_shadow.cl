@@ -60,13 +60,26 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 	float maxSoft = 0.0f;
 
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.common.iterThreshMode
-										 && !consts->params.interiorMode && softRange > 0.0f;
+										 && !consts->params.interiorMode && softRange > 0.0f
+										 && !consts->params.monteCarloSoftShadows;
+
+	float3 shadowVect = input->lightVect;
+
+#ifdef MC_SOFT_SHADOWS
+	float3 randomVector;
+	randomVector.x = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	randomVector.y = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	randomVector.z = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
+	float3 randomSphere = randomVector * (softRange * randomSphereRadius / length(randomVector));
+	shadowVect += randomSphere;
+#endif // MC_SOFT_SHADOWS
 
 	int count = 0;
 	float step = 0.0f;
 	for (float i = start; i < factor; i += step)
 	{
-		point2 = input->point + input->lightVect * i;
+		point2 = input->point + shadowVect * i;
 
 		float dist_thresh;
 		if (consts->params.iterFogEnabled || consts->params.volumetricLightEnabled[0])

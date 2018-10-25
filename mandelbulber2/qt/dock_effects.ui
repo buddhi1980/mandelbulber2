@@ -506,7 +506,7 @@ per pixel:</string>
                </widget>
               </item>
               <item>
-               <widget class="MyCheckBox" name="checkBox_DOF_MC_soft_shadows">
+               <widget class="MyCheckBox" name="checkBox_MC_soft_shadows_enable">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
                   <horstretch>0</horstretch>

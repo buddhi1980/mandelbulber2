@@ -63,11 +63,23 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double maxSoft = 0.0;
 
 	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode
-										 && !params->interiorMode && softRange > 0.0;
+										 && !params->interiorMode && softRange > 0.0 && !params->monteCarloSoftShadows;
+
+	CVector3 shadowVect = input.lightVect;
+	if (params->monteCarloSoftShadows)
+	{
+		CVector3 randomVector;
+		randomVector.x = Random(10000) / 5000.0 - 1.0;
+		randomVector.y = Random(10000) / 5000.0 - 1.0;
+		randomVector.z = Random(10000) / 5000.0 - 1.0;
+		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
+		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
+		shadowVect += randomSphere;
+	}
 
 	for (double i = start; i < factor; i += dist * DEFactor)
 	{
-		point2 = input.point + input.lightVect * i;
+		point2 = input.point + shadowVect * i;
 
 		double dist_thresh;
 		if (params->iterFogEnabled || params->volumetricLightEnabled[0])
