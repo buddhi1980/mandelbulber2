@@ -35,7 +35,7 @@
 #ifdef AUX_LIGHTS
 #if defined(SHADOWS) || defined(VOLUMETRIC_LIGHTS)
 float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShaderInputDataCl *input,
-	float distance, float3 lightVector, sClCalcParams *calcParam)
+	float distance, float3 lightVector, sClCalcParams *calcParam, float intensity)
 {
 	// float step = input.delta;
 	float dist;
@@ -47,11 +47,27 @@ float AuxShadow(constant sClInConstants *consts, sRenderData *renderData, sShade
 	float DE_factor = consts->params.DEFactor;
 	if (consts->params.iterFogEnabled || consts->params.volumetricLightAnyEnabled) DE_factor = 1.0f;
 
+#ifdef MC_SOFT_SHADOWS
+	float lightSize = sqrt(intensity) * consts->params.auxLightVisibilitySize;
+	float softRange = lightSize / distance;
+#else
 	float softRange = tan(consts->params.shadowConeAngle / 180.0f * M_PI_F);
+#endif
+
 	float maxSoft = 0.0f;
 
-	const bool bSoft =
-		!consts->params.iterFogEnabled && !consts->params.common.iterThreshMode && softRange > 0.0f;
+	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.common.iterThreshMode
+										 && softRange > 0.0f && !consts->params.monteCarloSoftShadows;
+
+#ifdef MC_SOFT_SHADOWS
+	float3 randomVector;
+	randomVector.x = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	randomVector.y = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	randomVector.z = Random(10000, &input->randomSeed) / 5000.0f - 1.0f;
+	float randomSphereRadius = pow(Random(10000, &input->randomSeed) / 10000.0f, 1.0f / 3.0f);
+	float3 randomSphere = randomVector * (softRange * randomSphereRadius / length(randomVector));
+	lightVector += randomSphere;
+#endif // MC_SOFT_SHADOWS
 
 	int count = 0;
 	float step = 0.0f;

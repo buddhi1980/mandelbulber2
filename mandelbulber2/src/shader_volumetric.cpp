@@ -193,7 +193,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					double distanceLight = lightVectorTemp.Length();
 					double distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
-					double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
+					double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 					output.R += lightShadow * light->colour.R / 65536.0 * params->volumetricLightIntensity[i]
 											* step / distanceLight2;
 					output.G += lightShadow * light->colour.G / 65536.0 * params->volumetricLightIntensity[i]
@@ -321,7 +321,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 							double lightShadow = 1.0;
 							if (params->iterFogShadows)
 							{
-								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp);
+								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 							}
 							double intensity = light->intensity * params->iterFogBrightnessBoost;
 							newColour.R += lightShadow * light->colour.R / 65536.0 / distanceLight2 * intensity;

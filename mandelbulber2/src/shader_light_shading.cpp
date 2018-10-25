@@ -70,7 +70,7 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 	// calculate shadow
 	if ((shade > 0.01f || specularMax > 0.01f) && params->shadow)
 	{
-		double auxShadow = AuxShadow(input, distance, lightVector);
+		double auxShadow = AuxShadow(input, distance, lightVector, light->intensity);
 		shade *= auxShadow;
 		specular.R *= auxShadow;
 		specular.G *= auxShadow;

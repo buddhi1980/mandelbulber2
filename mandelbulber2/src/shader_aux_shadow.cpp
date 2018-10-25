@@ -37,7 +37,7 @@
 #include "render_worker.hpp"
 
 double cRenderWorker::AuxShadow(
-	const sShaderInputData &input, double distance, CVector3 lightVector) const
+	const sShaderInputData &input, double distance, CVector3 lightVector, double intensity) const
 {
 	// double step = input.delta;
 	double dist;
@@ -51,10 +51,32 @@ double cRenderWorker::AuxShadow(
 	double volumetricLightDEFactor = params->volumetricLightDEFactor;
 	if (params->iterFogEnabled || params->volumetricLightAnyEnabled) DE_factor = 1.0;
 
-	double softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
+	double softRange;
+	if (params->monteCarloSoftShadows)
+	{
+		double lightSize = sqrt(intensity) * params->auxLightVisibilitySize;
+		softRange = lightSize / distance;
+	}
+	else
+	{
+		softRange = tan(params->shadowConeAngle / 180.0 * M_PI);
+	}
+
 	double maxSoft = 0.0;
 
-	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0;
+	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0
+										 && !params->monteCarloSoftShadows;
+
+	if (params->monteCarloSoftShadows)
+	{
+		CVector3 randomVector;
+		randomVector.x = Random(10000) / 5000.0 - 1.0;
+		randomVector.y = Random(10000) / 5000.0 - 1.0;
+		randomVector.z = Random(10000) / 5000.0 - 1.0;
+		double randomSphereRadius = pow(Random(10000) / 10000.0, 1.0 / 3.0);
+		CVector3 randomSphere = randomVector * (softRange * randomSphereRadius / randomVector.Length());
+		lightVector += randomSphere;
+	}
 
 	for (double i = input.delta; i < distance; i += dist * DE_factor * volumetricLightDEFactor)
 	{

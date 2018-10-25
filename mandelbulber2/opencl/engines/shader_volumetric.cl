@@ -125,7 +125,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 				{
 					float lastMiniSteps = -1.0f;
 					float miniStep = 0.0f;
-					
+
 					for (float miniSteps = 0.0f; miniSteps < step; miniSteps += miniStep)
 					{
 						float3 lightDistVect = point - input->viewVector * miniSteps - light->position;
@@ -197,8 +197,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 					float distanceLight = length(lightVectorTemp);
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp = normalize(lightVectorTemp);
-					float lightShadow =
-						AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp, calcParam);
+					float lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
+						calcParam, light->intensity);
 
 					output += lightShadow * light->colour * consts->params.volumetricLightIntensity[i] * step
 										/ distanceLight2;
@@ -320,8 +320,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							float lightShadow = 1.0f;
 							if (consts->params.iterFogShadows)
 							{
-								lightShadow =
-									AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp, calcParam);
+								lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
+									calcParam, light->intensity);
 							}
 							float intensity = light->intensity * consts->params.iterFogBrightnessBoost;
 							newColour += lightShadow * light->colour / distanceLight2 * intensity;

@@ -69,7 +69,8 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 	{
 		float auxShadow = 1.0f;
 #ifdef SHADOWS
-		auxShadow = AuxShadow(consts, renderData, input, distance, lightVector, calcParam);
+		auxShadow =
+			AuxShadow(consts, renderData, input, distance, lightVector, calcParam, light->intensity);
 #endif
 		shade *= auxShadow;
 		specular *= auxShadow;
