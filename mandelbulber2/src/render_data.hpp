@@ -86,10 +86,10 @@ struct sRenderData
 			// check if material assigned to the object is defined
 			int materialId = object.materialId;
 
-			if (materials.size() > 0)
+			if (materials.size() == 0)
 			{
 				qCritical() << "No materials defined! Adding empty material";
-				materials.insert(0, cMaterial());
+				materials.insert(1, cMaterial());
 			}
 
 			if (!materials.contains(materialId))
