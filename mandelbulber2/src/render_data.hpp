@@ -81,11 +81,16 @@ struct sRenderData
 
 	void ValidateObjects()
 	{
-
 		for (cObjectData &object : objectData)
 		{
 			// check if material assigned to the object is defined
 			int materialId = object.materialId;
+
+			if (materials.size() > 0)
+			{
+				qCritical() << "No materials defined! Adding empty material";
+				materials.insert(0, cMaterial());
+			}
 
 			if (!materials.contains(materialId))
 			{
