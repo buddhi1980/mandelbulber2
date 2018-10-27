@@ -59,8 +59,6 @@ cGlobalOpenCl::cGlobalOpenCl()
 			openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
 				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
 
-			// TODO hardcoded device index
-			// TODO: support dialogue box for selection of individual hardware devices
 			openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
 		}
 	}

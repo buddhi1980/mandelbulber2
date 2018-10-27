@@ -75,17 +75,30 @@ public:
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
-	const cl::Device &getEnabledDevices() const
+	QList<cl::Device> &getEnabledDevices()
 	{
-		return clDeviceWorkers[selectedDeviceIndex].getDevice();
+		enabledDevices = QList<cl::Device>();
+		for (auto i : selectedDevicesIndices)
+		{
+			enabledDevices.append(clDeviceWorkers[i].getDevice());
+		}
+
+		return enabledDevices;
 	}
 	cl::Context *getContext() const { return context; }
-	const cOpenClDevice::sDeviceInformation &getSelectedDeviceInformation() const
+	QList<cOpenClDevice::sDeviceInformation> &getSelectedDevicesInformation()
 	{
-		return clDeviceWorkers[selectedDeviceIndex].getDeviceInformation();
+		selectedDevicesInformation = QList<cOpenClDevice::sDeviceInformation>();
+		for (auto i : selectedDevicesIndices)
+		{
+			selectedDevicesInformation.append(clDeviceWorkers[i].getDeviceInformation());
+		}
+
+		return selectedDevicesInformation;
 	}
 	int getSelectedPlatformIndex() { return selectedPlatformIndex; }
-	int getSelectedDeviceIndex() { return selectedDeviceIndex; }
+
+	QList<int> getSelectedDevicesIndices() { return selectedDevicesIndices; }
 	bool ContextCreated() const { return contextReady; }
 
 	bool IsNVidia() const { return isNVidia; }
@@ -102,8 +115,10 @@ protected:
 	QList<cOpenClDevice> clDeviceWorkers;
 	QList<sPlatformInformation> platformsInformation;
 	QList<cOpenClDevice::sDeviceInformation> devicesInformation;
+	QList<cOpenClDevice::sDeviceInformation> selectedDevicesInformation;
+	QList<cl::Device> enabledDevices;
 
-	// TODO: The System only supports (1) platform
+	// The Multi-GPU System only supports (1) platform
 	// 1 context == 1 platform
 	cl::Context *context;
 	bool isNVidia;
@@ -118,7 +133,7 @@ protected:
 	bool openClAvailable;
 	bool contextReady;
 	int selectedPlatformIndex;
-	int selectedDeviceIndex;
+	QList<int> selectedDevicesIndices;
 	bool missingOpenClDLL;
 };
 
