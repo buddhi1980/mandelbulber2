@@ -42,7 +42,9 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
 	openClAvailable = false;
 	contextReady = false;
-	selectedDeviceIndex = 0;
+	// TODO: confirm initial value
+	// initialize multi-gpu devices' indices list with empty QList
+	selectedDevicesIndices = QList<int>();
 	missingOpenClDLL = false;
 	selectedPlatformIndex = 0;
 
@@ -147,6 +149,8 @@ void cOpenClHardware::CreateContext(
 
 			cl_int err = 0;
 
+			// Constructs a context including all or a subset of devices of a specified type.
+			// supports multiple devices
 			switch (deviceType)
 			{
 				case cOpenClDevice::openClDeviceTypeACC:
@@ -306,7 +310,8 @@ void cOpenClHardware::EnableDevice(int index)
 	{
 		if (devicesInformation[index].compilerAvailable)
 		{
-			selectedDeviceIndex = index;
+			selectedDevicesIndices.removeAll(index);
+			selectedDevicesIndices.append(index);
 			clDeviceWorkers[index].Enable();
 		}
 		else

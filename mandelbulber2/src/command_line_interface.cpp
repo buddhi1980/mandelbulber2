@@ -27,7 +27,8 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com), 
+ * Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * cCommandLineInterface - CLI Input handler
  */
@@ -578,7 +579,10 @@ void cCommandLineInterface::printOpenCLHelpAndExit()
 	for (int i = 0; i < devices.size(); i++)
 	{
 		cOpenClDevice::sDeviceInformation device = devices[i];
-		out << (gOpenCl->openClHardware->getSelectedDeviceIndex() == i ? "> " : "  ");
+		if (gOpenCl->openClHardware->getSelectedDevicesIndices().contains(i))
+			out << "> ";
+		else
+			out << "  ";
 		out << "index: " << i << " | hash: " << device.hash.toHex() << " | name: " << device.deviceName
 				<< "\n";
 	}

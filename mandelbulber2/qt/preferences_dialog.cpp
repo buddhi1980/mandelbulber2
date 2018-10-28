@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Sebastian Jennen (jenzebas@gmail.com)
+ * Authors: Sebastian Jennen (jenzebas@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
  * cPreferencesDialog - dialog to configure and maintain application Preferences
  */
@@ -131,6 +131,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 #ifdef USE_OPENCL
+	// OpenCL preference dialogue supports (1) platform
 	int selectedPlatform = ui->listWidget_opencl_platform_list->currentIndex().row();
 	gPar->Set("opencl_platform", selectedPlatform);
 
@@ -143,6 +144,8 @@ void cPreferencesDialog::on_buttonBox_accepted()
 		activeDevices.append(selectedDevicesItem->data(1).toString());
 	}
 	QString listString = activeDevices.join("|");
+
+	// OpenCL preference dialogue supports multiple devices
 	gPar->Set("opencl_device_list", listString);
 	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
 #endif
@@ -481,12 +484,22 @@ void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int 
 
 void cPreferencesDialog::UpdateOpenCLMemoryLimits()
 {
+	// TODO: support multi-GPU
 	if (gOpenCl->openClHardware->getDevicesInformation().size() > 0)
 	{
 		cOpenClDevice::sDeviceInformation deviceInformation =
-			gOpenCl->openClHardware->getSelectedDeviceInformation();
+			gOpenCl->openClHardware->getSelectedDevicesInformation().at(0);
+
+		// TODO: Review here:
+		for (auto i : gOpenCl->openClHardware->getSelectedDevicesInformation())
+		{
+			// Select device with lowest memory for symmetrical allocation limit
+			if (i.globalMemSize < deviceInformation.globalMemSize) deviceInformation = i;
+		}
+
 		cl_ulong globalMemSize = deviceInformation.globalMemSize / 1024 / 1024;
 		cl_ulong maxMemAllocSize = deviceInformation.maxMemAllocSize / 1024 / 1024;
+
 		ui->spinboxInt_opencl_memory_limit->setMaximum(globalMemSize);
 		ui->sliderInt_opencl_memory_limit->setMaximum(globalMemSize);
 		ui->label_opencl_suggested_memory_limit->setText(

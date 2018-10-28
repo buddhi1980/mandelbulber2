@@ -27,7 +27,7 @@
  *
  * ###########################################################################
  *
- * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
+ * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Robert Pancoast (RobertPancoast77@gmail.com)
  *
  *  Created on: 3 maj 2017
  *      Author: krzysztof
@@ -109,6 +109,10 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			// creating cl::Program
 			cl_int err;
 
+			// Creates a program from source strings and Context.
+			// Context initialized with support for multiple devices.
+			// Therefore cl::Program initialized with device vector
+			// Does not compile or link the program.
 			program.reset(new cl::Program(*hardware->getContext(), sources, &err));
 
 			if (checkErr(err, "cl::Program()"))
@@ -123,6 +127,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				buildParams += definesCollector.toUtf8().constData();
 
 				WriteLogString("Build parameters", buildParams.c_str(), 2);
+
+				// cl::Program::Build (compiles and links) a multi-device program executable
+				// compiles and links for multiple devices simultaneously
 				err = program->build(hardware->getClDevices(), buildParams.c_str());
 
 				if (checkErr(err, "program->build()"))
@@ -133,9 +140,10 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				else
 				{
 					std::stringstream errorMessageStream;
+					// TODO: update this error message to support multi-GPU
 					errorMessageStream << "OpenCL Build log:\n"
 														 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
-																	hardware->getEnabledDevices())
+																	hardware->getEnabledDevices().at(0))
 														 << std::endl;
 
 					std::string buildLogText = errorMessageStream.str();
@@ -177,6 +185,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (programsLoaded)
 	{
+		// TODO: kernel
 		if (CreateKernel(program.data()))
 		{
 			InitOptimalJob(params);
@@ -193,12 +202,21 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 	if (checkErr(err, "cl::Kernel()"))
 	{
 		size_t workGroupSize = 0;
+
+		// sets values for optimalJob
+		// TODO: support multiple devices
+		// TODO: create a optimalJob per device
+		// iterate through getEnabledDevices
+		// kernel->getWorkGroupInfo  workGroupSize
 		kernel->getWorkGroupInfo(
-			hardware->getEnabledDevices(), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
+			hardware->getEnabledDevices().at(0), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 		WriteLogSizeT("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
 
 		size_t workGroupSizeOptimalMultiplier = 0;
-		kernel->getWorkGroupInfo(hardware->getEnabledDevices(),
+
+		// TODO: support multiple devices
+		// kernel->getWorkGroupInfo  workGroupSizeOptimalMultiplier
+		kernel->getWorkGroupInfo(hardware->getEnabledDevices().at(0),
 			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
 		WriteLogSizeT(
 			"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
@@ -224,7 +242,15 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t height = params->Get<int>("image_height");
 	size_t memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024 * 1024;
 	size_t pixelCnt = width * height;
-	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDeviceInformation();
+	
+	// TODO: support multi-GPU
+	// TODO: create a optimalJob per device
+	// iterate through getSelectedDevicesInformation
+	// requires deviceInfo.maxMemAllocSize for each device
+	// for now, we use the same optimal job for all GPU
+	// we will enable multi-gpu, but require the exact same gpu model
+	// *this requires update*
+	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDevicesInformation().at(0);
 
 	optimalJob.stepSize = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
 
@@ -266,9 +292,9 @@ bool cOpenClEngine::CreateCommandQueue()
 		cl_int err;
 		// TODO: support multiple devices
 		// TODO: create a separate queue per device
-		// iterate through getDevicesInformation[s]
+		// iterate through getEnabledDevices
 		queue.reset(
-			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices(), 0, &err));
+			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices().at(0), 0, &err));
 
 		if (checkErr(err, "CommandQueue::CommandQueue()"))
 		{

@@ -154,10 +154,13 @@ on_finish:
   - ECHO %APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL%
 # APPVEYOR_REPO_COMMIT_TIMESTAMP - commit date/time;
   - ECHO %APPVEYOR_REPO_COMMIT_TIMESTAMP%
+#
+# commit message disabled; can cause false failure
+#
 # APPVEYOR_REPO_COMMIT_MESSAGE - commit message;
-  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE%
+#  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE%
 # APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED - the rest of commit message after line break (if exists);
-  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED%
+#  - ECHO %APPVEYOR_REPO_COMMIT_MESSAGE_EXTENDED%
 # APPVEYOR_SCHEDULED_BUILD - True if the build runs by scheduler;
   - ECHO %APPVEYOR_SCHEDULED_BUILD%
 # APPVEYOR_FORCED_BUILD (True or undefined) - builds started by “New build” button or from the same API;
