@@ -39,6 +39,9 @@
 
 #include "include_header_wrapper.hpp"
 #include "opencl_device.h"
+#include "opencl_kernel.h"
+#include "opencl_queue.h"
+#include "opencl_context.h"
 
 class cOpenClHardware : public QObject
 {
