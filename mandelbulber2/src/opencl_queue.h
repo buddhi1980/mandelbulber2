@@ -44,7 +44,6 @@ class cOpenClQueue
 
 #ifdef USE_OPENCL
 protected:
-
 public:
 	cOpenClQueue(int index);
 #endif
