@@ -98,12 +98,7 @@ bool cImage::AllocMem()
 				alphaBuffer16.reset(new quint16[quint64(width) * quint64(height)]);
 				opacityBuffer.reset(new quint16[quint64(width) * quint64(height)]);
 				colourBuffer.reset(new sRGB8[quint64(width) * quint64(height)]);
-				if (opt.optionalNormal)
-				{
-					normalFloat.reset(new sRGBFloat[quint64(width) * quint64(height)]);
-					normal16.reset(new sRGB16[quint64(width) * quint64(height)]);
-					normal8.reset(new sRGB8[quint64(width) * quint64(height)]);
-				}
+				if (opt.optionalNormal) AllocRGB(normalFloat, normal16, normal8);
 				ClearImage();
 			}
 			catch (std::bad_alloc &ba)
@@ -128,6 +123,14 @@ bool cImage::AllocMem()
 
 	isAllocated = true;
 	return true;
+}
+
+void cImage::AllocRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+	QScopedArrayPointer<sRGB8> &rgb8)
+{
+	rgbFloat.reset(new sRGBFloat[quint64(width) * quint64(height)]);
+	rgb16.reset(new sRGB16[quint64(width) * quint64(height)]);
+	rgb8.reset(new sRGB8[quint64(width) * quint64(height)]);
 }
 
 bool cImage::ChangeSize(int w, int h, sImageOptional optional)
@@ -157,15 +160,19 @@ void cImage::ClearImage()
 	memset(alphaBuffer16.data(), 0, sizeof(quint16) * quint64(width) * quint64(height));
 	memset(opacityBuffer.data(), 0, sizeof(quint16) * quint64(width) * quint64(height));
 	memset(colourBuffer.data(), 0, sizeof(sRGB8) * quint64(width) * quint64(height));
-	if (opt.optionalNormal)
-	{
-		if (normalFloat)
-			memset(normalFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
-		if (normal16) memset(normal16.data(), 0, sizeof(sRGB16) * quint64(width) * quint64(height));
-		if (normal8) memset(normal8.data(), 0, sizeof(sRGB8) * quint64(width) * quint64(height));
-	}
+
+	if (opt.optionalNormal) ClearRGB(normalFloat, normal16, normal8);
+
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
 		zBuffer[i] = float(1e20);
+}
+
+void cImage::ClearRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+	QScopedArrayPointer<sRGB8> &rgb8)
+{
+	if (rgbFloat) memset(rgbFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	if (rgb16) memset(rgb16.data(), 0, sizeof(sRGB16) * quint64(width) * quint64(height));
+	if (rgb8) memset(rgb8.data(), 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 }
 
 void cImage::FreeImage()
@@ -173,19 +180,26 @@ void cImage::FreeImage()
 	isAllocated = false;
 	// qDebug() << "void cImage::FreeImage(void)";
 	imageFloat.reset();
-	postImageFloat.reset();
 	image16.reset();
 	image8.reset();
+	postImageFloat.reset();
 	alphaBuffer8.reset();
 	alphaBuffer16.reset();
 	opacityBuffer.reset();
 	colourBuffer.reset();
 	zBuffer.reset();
-	normalFloat.reset();
-	normal16.reset();
-	normal8.reset();
+	FreeRGB(normalFloat, normal16, normal8);
+
 	gammaTable.reset();
 	gammaTablePrepared = false;
+}
+
+void cImage::FreeRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+	QScopedArrayPointer<sRGB8> &rgb8)
+{
+	rgbFloat.reset();
+	rgb16.reset();
+	rgb8.reset();
 }
 
 sRGB16 cImage::CalculatePixel(sRGBFloat pixel)
@@ -304,11 +318,9 @@ int cImage::GetUsedMB() const
 	quint64 opacitySize = quint64(width) * quint64(height) * sizeof(quint16);
 	quint64 optionalSize = 0;
 	if (opt.optionalNormal)
-	{
-		optionalSize += quint64(width) * quint64(height) * sizeof(sRGBFloat);
-		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB16);
-		optionalSize += quint64(width) * quint64(height) * sizeof(sRGB8);
-	}
+		optionalSize +=
+			quint64(width) * quint64(height) * (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
+
 	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize * 2
 				 + colorSize + opacitySize + optionalSize)
 			 / 1024 / 1024;
@@ -363,28 +375,40 @@ quint8 *cImage::ConvertAlphaTo8bit()
 	return alphaBuffer8.data();
 }
 
+quint8 *cImage::ConvertGenericRGBTo8bit(
+	QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB8> &to)
+{
+	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
+	{
+		to[i].R = quint8(from[i].R * 255.0f);
+		to[i].G = quint8(from[i].G * 255.0f);
+		to[i].B = quint8(from[i].B * 255.0f);
+	}
+	return reinterpret_cast<quint8 *>(to.data());
+}
+
+quint8 *cImage::ConvertGenericRGBTo16bit(
+	QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB16> &to)
+{
+	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
+	{
+		to[i].R = quint16(from[i].R * 65535.0f);
+		to[i].G = quint16(from[i].G * 65535.0f);
+		to[i].B = quint16(from[i].B * 65535.0f);
+	}
+	return reinterpret_cast<quint8 *>(to.data());
+}
+
 quint8 *cImage::ConvertNormalTo16Bit()
 {
 	if (!opt.optionalNormal) return nullptr;
-	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
-	{
-		normal16[i].R = quint16(normalFloat[i].R * 65535.0f);
-		normal16[i].G = quint16(normalFloat[i].G * 65535.0f);
-		normal16[i].B = quint16(normalFloat[i].B * 65535.0f);
-	}
-	return reinterpret_cast<quint8 *>(normal16.data());
+	return ConvertGenericRGBTo16bit(normalFloat, normal16);
 }
 
 quint8 *cImage::ConvertNormalTo8Bit()
 {
 	if (!opt.optionalNormal) return nullptr;
-	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
-	{
-		normal8[i].R = quint8(normalFloat[i].R * 255.0f);
-		normal8[i].G = quint8(normalFloat[i].G * 255.0f);
-		normal8[i].B = quint8(normalFloat[i].B * 255.0f);
-	}
-	return reinterpret_cast<quint8 *>(normal8.data());
+	return ConvertGenericRGBTo8bit(normalFloat, normal8);
 }
 
 sRGB8 cImage::Interpolation(float x, float y) const

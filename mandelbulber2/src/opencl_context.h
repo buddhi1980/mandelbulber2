@@ -44,7 +44,6 @@ class cOpenClContext
 
 #ifdef USE_OPENCL
 protected:
-
 public:
 	cOpenClContext(int index);
 #endif

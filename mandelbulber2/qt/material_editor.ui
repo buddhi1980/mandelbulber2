@@ -82,8 +82,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>577</width>
-        <height>3470</height>
+        <width>583</width>
+        <height>3992</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -651,12 +651,26 @@ direction vector:</string>
            </layout>
           </item>
           <item>
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+            <property name="text">
+             <string notr="true">pre V2.15 orbit trap color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
+            <property name="text">
+             <string notr="true">4D orbit trap color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="MyGroupBox" name="groupCheck_fractal_coloring_extra_color_options_false">
             <property name="toolTip">
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Function produces an addition to the ColorValues based on its current value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
-             <string>Extra Co&amp;lor Options</string>
+             <string>Extra Hybrid Mode Co&amp;lor Options</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -819,20 +833,6 @@ direction vector:</string>
               </layout>
              </item>
             </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
-            <property name="text">
-             <string notr="true">pre V2.15 orbit trap color</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_4D_enabled_false">
-            <property name="text">
-             <string notr="true">4D orbit trap color</string>
-            </property>
            </widget>
           </item>
           <item>

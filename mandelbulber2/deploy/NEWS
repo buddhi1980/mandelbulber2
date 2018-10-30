@@ -1,5 +1,23 @@
 Version history
 
+v2.15
+- Added new fractal formulas
+   aboxModKaliV3
+   scatorPower2Real
+   scatorPower2
+   scatorPower2StdR
+   transfSinOrCos
+   transfSinAndCos
+   transfSinAndCosMax
+   transfBlockify BETA
+   transfAddCpixelScator
+   transfAddCpixelSinOrCos
+
+- Color: improved color compatibility between c++ and openCL
+- Distance Estimation: restructured analytic functions to provide flexibility in Hybrid Mode.
+
+
+
 v2.14
 - Added new fractal formulas:
    mandelboxVariable

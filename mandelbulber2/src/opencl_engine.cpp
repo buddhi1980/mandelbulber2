@@ -242,7 +242,7 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t height = params->Get<int>("image_height");
 	size_t memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024 * 1024;
 	size_t pixelCnt = width * height;
-	
+
 	// TODO: support multi-GPU
 	// TODO: create a optimalJob per device
 	// iterate through getSelectedDevicesInformation
