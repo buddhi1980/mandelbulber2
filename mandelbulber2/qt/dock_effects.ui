@@ -76,8 +76,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>543</width>
+            <height>1089</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -934,8 +934,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>272</width>
+            <height>1159</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1840,8 +1840,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>296</width>
+            <height>433</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2471,9 +2471,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>527</width>
-            <height>1707</height>
+            <y>-836</y>
+            <width>529</width>
+            <height>1925</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3841,7 +3841,7 @@ of lights:</string>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_random_lights_one_color_enable">
                    <property name="title">
-                    <string>One color for all random lights</string>
+                    <string>Single color random lights</string>
                    </property>
                    <property name="checkable">
                     <bool>true</bool>
@@ -3864,7 +3864,7 @@ of lights:</string>
                       <item row="0" column="0">
                        <widget class="QLabel" name="label_random_lights_color">
                         <property name="text">
-                         <string>Color of all random lights:</string>
+                         <string>Single color:</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -4174,8 +4174,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1083</height>
+            <width>181</width>
+            <height>123</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
