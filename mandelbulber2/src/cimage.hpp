@@ -76,6 +76,12 @@ public:
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
 	void ClearImage();
+	void ClearRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+		QScopedArrayPointer<sRGB8> &rgb8);
+	void AllocRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+		QScopedArrayPointer<sRGB8> &rgb8);
+	void FreeRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
+		QScopedArrayPointer<sRGB8> &rgb8);
 
 	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
@@ -226,11 +232,16 @@ public:
 	void SetImageOptional(sImageOptional optInput) { opt = optInput; }
 	sImageOptional *GetImageOptional() { return &opt; }
 
+	quint8 *ConvertGenericRGBTo8bit(
+		QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB8> &to);
+	quint8 *ConvertGenericRGBTo16bit(
+		QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB16> &to);
 	quint8 *ConvertTo8bit();
 	quint8 *ConvertTo8bit(const QList<QRect> *list);
 	quint8 *ConvertAlphaTo8bit();
 	quint8 *ConvertNormalTo16Bit();
 	quint8 *ConvertNormalTo8Bit();
+
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
 	void UpdatePreview(const QList<QRect> *list);
