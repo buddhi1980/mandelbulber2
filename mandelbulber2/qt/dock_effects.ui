@@ -137,7 +137,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for a given pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for a given pixel.&lt;/p&gt;&lt;p&gt;This value affects reflections, refraction and MC Global Illumination &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
                    <number>9</number>
@@ -258,6 +258,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of passes of rendering DOF effect. One pass is enough for most of cases. But for more realistic blur it can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -282,7 +285,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of blur effect used during second phase of rendering DOF effect. 4.0 is correct for most of cases. But for more realistic blur number of passes can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -388,7 +391,7 @@
            <item>
             <widget class="MyGroupBox" name="groupCheck_DOF_monte_carlo">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithm for rendering the depth of field (DOF) effect. This effect is extremely slow for rendering, but gives a very realistic DOF appearance. &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithms for rendering the depth of field (DOF), global illumination, ambient occlusion (with multiple rays) and soft shadows effects. This mode is extremely slow for rendering, but gives a very realistic appearance of effects.&lt;/p&gt;&lt;p&gt;Every pixed (or tile) of the image is rendered multiple times with randomly changed parameters. Every repeat reduces noise. Sampling of each pixel (or tile) is stopped when noise is reduced to defined level (defined by &amp;quot;Max noise level&amp;quot; parameter&amp;quot;) or when maximum number of repeats is reached (defined by &amp;quot;Max number of samples&amp;quot;). &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>&amp;Monte Carlo algorithm</string>
@@ -425,6 +428,9 @@
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum number of samples calculates for each image pixel. Increasing of this parameter can reduce visible noise by improving calculation of noise level estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="maximum">
                    <number>10000</number>
                   </property>
@@ -439,7 +445,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of rays calculated for each image pixel. Higher values reduce the noise on the image but increase rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of samples calculated for each image pixel. Higher values reduce the noise on the image but increase rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
                    <number>10000</number>
@@ -463,7 +469,11 @@ per pixel:</string>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="MyLineEdit" name="logedit_DOF_max_noise"/>
+                 <widget class="MyLineEdit" name="logedit_DOF_max_noise">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Goal for noise level of each emage pixel. Every pixel is calculated multiple times until estimated noise reaches demanded noise level.&lt;/p&gt;&lt;p&gt;Lower value reduces visible noise on final image, but increases rendering time. Decrease noise level by half increases rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_360">
@@ -475,6 +485,9 @@ per pixel:</string>
                 </item>
                 <item row="3" column="0" colspan="2">
                  <widget class="QLabel" name="label_average_DOF_samples">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of already calculated samples for each image pixel. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Average number of MC samples:</string>
                   </property>
@@ -482,6 +495,9 @@ per pixel:</string>
                 </item>
                 <item row="4" column="0" colspan="2">
                  <widget class="QLabel" name="label_average_DOF_noise">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Average noise:</string>
                   </property>
@@ -498,7 +514,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by &amp;quot;reflections depth&amp;quot; parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Calculate MC global illumination</string>
@@ -514,7 +530,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow code angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by C&lt;span style=&quot; font-style:italic;&quot;&gt;ustom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Calculate MC soft shadows</string>
@@ -554,7 +570,11 @@ per pixel:</string>
                     <number>2</number>
                    </property>
                    <item row="0" column="1">
-                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain"/>
+                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refrated light (on trasparent objects) more vsible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                    <item row="0" column="0">
                     <widget class="QLabel" name="label_69">
@@ -577,7 +597,11 @@ per pixel:</string>
                     </widget>
                    </item>
                    <item row="1" column="1">
-                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_camera_dispersion"/>
+                    <widget class="MyLineEdit" name="logedit_DOF_MC_CA_camera_dispersion">
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes simulated dispersion of camera lenses more visible.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </item>
