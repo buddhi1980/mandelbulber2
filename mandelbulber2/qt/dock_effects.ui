@@ -76,8 +76,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>543</width>
-            <height>1089</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -958,8 +958,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>272</width>
-            <height>1159</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1598,6 +1598,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls if fog will cast receive shadows. When disabled, then rendering is much fatser, but effect is much less realistic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
                   </property>
@@ -1864,8 +1867,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>296</width>
-            <height>433</height>
+            <width>545</width>
+            <height>1087</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2495,9 +2498,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-836</y>
-            <width>529</width>
-            <height>1925</height>
+            <y>-600</y>
+            <width>527</width>
+            <height>1707</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -3864,6 +3867,9 @@ of lights:</string>
                  </item>
                  <item>
                   <widget class="MyGroupBox" name="groupCheck_random_lights_one_color_enable">
+                   <property name="toolTip">
+                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If enabled then all random light sources have the same color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   </property>
                    <property name="title">
                     <string>Single color random lights</string>
                    </property>
@@ -4198,8 +4204,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>181</width>
-            <height>123</height>
+            <width>545</width>
+            <height>1083</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
