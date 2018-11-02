@@ -134,42 +134,43 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 
 	for (const cMaterial &material : materials) // for each material from materials
 	{
+		if (material.colorTexture.IsLoaded()) useColorTexture = true;
 		if (CountTexture(&material.colorTexture, false, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.colorTexture, textureIndex, false);
 			textureIndexes->insert(material.colorTexture.GetFileName(), textureIndex);
-			useColorTexture = true;
 		}
 
+		if (material.diffusionTexture.IsLoaded()) useDiffussionTexture = true;
 		if (CountTexture(&material.diffusionTexture, false, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.diffusionTexture, textureIndex, false);
 			textureIndexes->insert(material.diffusionTexture.GetFileName(), textureIndex);
-			useDiffussionTexture = true;
 		}
 
+		if (material.displacementTexture.IsLoaded()) useDisplacementMap = true;
 		if (CountTexture(&material.displacementTexture, true, &listOfTextures, &textureIndex))
 		{
 			// will be stored as 16bit grey texture
 			BuildTextureData(&material.displacementTexture, textureIndex, true);
 			textureIndexes->insert(
 				material.displacementTexture.GetFileName() + "grey16bit", textureIndex);
-			useDisplacementMap = true;
 		}
 
+		if (material.luminosityTexture.IsLoaded()) useLuminosityTexture = true;
 		if (CountTexture(&material.luminosityTexture, false, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.luminosityTexture, textureIndex, false);
 			textureIndexes->insert(material.luminosityTexture.GetFileName(), textureIndex);
-			useLuminosityTexture = true;
 		}
+
+		if (material.normalMapTexture.IsLoaded()) useNormalMapTexture = true;
+		if (material.normalMapTextureFromBumpmap) useNormalMapTextureFromBumpmap = true;
 
 		if (CountTexture(&material.normalMapTexture, false, &listOfTextures, &textureIndex))
 		{
 			BuildTextureData(&material.normalMapTexture, textureIndex, false);
 			textureIndexes->insert(material.normalMapTexture.GetFileName(), textureIndex);
-			useNormalMapTexture = true;
-			if (material.normalMapTextureFromBumpmap) useNormalMapTextureFromBumpmap = true;
 		}
 
 		switch (material.textureMappingType)
