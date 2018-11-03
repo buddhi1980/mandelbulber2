@@ -54,7 +54,8 @@ typedef struct
 	int count;
 } sRayMarchingOut;
 
-typedef enum {
+typedef enum
+{
 	rayBranchReflection = 0,
 	rayBranchRefraction = 1,
 	rayBranchDone = 2,
@@ -584,7 +585,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader += globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
-// calculate reflectance according to Fresnel equations
+				// calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
@@ -633,25 +634,29 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					float3 reflectDiffused = reflect * shaderInputData.texDiffuse * diffusionIntensity
 																	 + reflect * diffusionIntensityN;
 
-#else
+#else // not USE_DIFFUSION_TEXTURE
+#ifdef USE_REFLECTANCE
 					float3 reflectDiffused = reflect;
-#endif
+#else
+					float3 reflectDiffused = 0.0f;
+#endif // USE_REFLECTANCE
+#endif // USE_DIFFUSION_TEXTURE
 
 					reflectDiffused *= iridescence;
 
 #ifdef USE_REFRACTION
 					resultShader = transparentShader * transparent * reflectanceN
 												 + (1.0f - transparent * reflectanceN) * resultShader;
-#endif
+#endif // USE_REFRACTION
 
 #ifdef USE_REFLECTANCE
 					float4 reflectDiffused4 =
 						(float4){reflectDiffused.s0, reflectDiffused.s1, reflectDiffused.s2, 1.0};
 					resultShader = reflectShader * reflectDiffused4 * reflectance
 												 + (1.0f - reflectDiffused4 * reflectance) * resultShader;
-#endif
+#endif // USE_REFLECTANCE
 				}
-#endif
+#endif // USE_REFRACTION || USE_REFLECTANCE
 				resultShader = max(resultShader, 0.0f);
 				resultShader.w = 1.0f;
 			}
