@@ -76,8 +76,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>543</width>
+            <height>1089</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -285,7 +285,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of blur effect used during second phase of rendering DOF effect. 4.0 is correct for most of cases. But for more realistic blur number of passes can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of blur effect used during second phase of rendering the DOF effect. 4.0 is correct for most of cases. But for more realistic blur the number of passes can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
@@ -429,7 +429,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum number of samples calculates for each image pixel. Increasing of this parameter can reduce visible noise by improving calculation of noise level estimation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum number of MC samples calculated for each image pixel. Increasing this parameter can reduce visible noise, ( by improving calculation of noise level estimation).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
                    <number>10000</number>
@@ -445,7 +445,7 @@
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of samples calculated for each image pixel. Higher values reduce the noise on the image but increase rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="maximum">
                    <number>10000</number>
@@ -471,7 +471,7 @@ per pixel:</string>
                 <item row="2" column="1">
                  <widget class="MyLineEdit" name="logedit_DOF_max_noise">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Goal for noise level of each emage pixel. Every pixel is calculated multiple times until estimated noise reaches demanded noise level.&lt;/p&gt;&lt;p&gt;Lower value reduces visible noise on final image, but increases rendering time. Decrease noise level by half increases rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit of noise level for each image pixel. Every pixel is calculated multiple times until estimated noise reaches maximum noise level percentage.&lt;/p&gt;&lt;p&gt;A lower value reduces visible noise on the final image, but increases rendering time. Decreasing the maximum noise level by half, increases the rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -486,7 +486,7 @@ per pixel:</string>
                 <item row="3" column="0" colspan="2">
                  <widget class="QLabel" name="label_average_DOF_samples">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of already calculated samples for each image pixel. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of MC samples that have been calculated  for each image pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Average number of MC samples:</string>
@@ -514,7 +514,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by &amp;quot;reflections depth&amp;quot; parameter.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by  the &amp;quot;reflections depth&amp;quot; parameter at the topf of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Calculate MC global illumination</string>
@@ -572,7 +572,7 @@ per pixel:</string>
                    <item row="0" column="1">
                     <widget class="MyLineEdit" name="logedit_DOF_MC_CA_dispersion_gain">
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refrated light (on trasparent objects) more vsible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Higher value makes dispersion of refracted light more vsible on transparent objects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                     </widget>
                    </item>
@@ -958,8 +958,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>529</width>
+            <height>1125</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1599,7 +1599,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls if fog will cast receive shadows. When disabled, then rendering is much fatser, but effect is much less realistic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, the fog will cast and receive shadows, producing a more realistic effect, (but rendering will be much slower.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="text">
                    <string>Cast/receive shadows</string>
@@ -1867,8 +1867,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1087</height>
+            <width>543</width>
+            <height>1089</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2498,9 +2498,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-600</y>
-            <width>527</width>
-            <height>1707</height>
+            <y>0</y>
+            <width>529</width>
+            <height>1925</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4204,8 +4204,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1083</height>
+            <width>543</width>
+            <height>1082</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
