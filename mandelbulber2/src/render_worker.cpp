@@ -219,13 +219,7 @@ void cRenderWorker::doWork()
 
 				if (monteCarlo)
 				{
-					if (params->DOFEnabled)
-					{
-						viewVector =
-							CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
-						MonteCarloDOF(&startRay, &viewVector);
-					}
-					else if (!antiAliasing)
+					if (!antiAliasing)
 					{
 						// MC anti-aliasing
 						imagePoint.x =
@@ -233,9 +227,14 @@ void cRenderWorker::doWork()
 							+ (double(Random(1000)) / 1000.0 - 0.5) / image->GetWidth() * aspectRatio;
 						imagePoint.y =
 							originalImagePoint.y + (double(Random(1000)) / 1000.0 - 0.5) / image->GetHeight();
-						viewVector =
-							CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
-						startRay = start;
+					}
+
+					viewVector = CalculateViewVector(imagePoint, params->fov, params->perspectiveType, mRot);
+					startRay = start;
+
+					if (params->DOFEnabled)
+					{
+						MonteCarloDOF(&startRay, &viewVector);
 					}
 				}
 				else

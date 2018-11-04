@@ -523,10 +523,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		{
 			definesCollector += " -DMONTE_CARLO_DOF";
 		}
-		else
-		{
-			definesCollector += " -DMONTE_CARLO_ANTI_ALIASING";
-		}
+
+		definesCollector += " -DMONTE_CARLO_ANTI_ALIASING";
 
 		if (paramRender->DOFMonteCarloGlobalIllumination)
 		{
