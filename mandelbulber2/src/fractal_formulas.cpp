@@ -485,7 +485,7 @@ void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	{
 		z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0);
 	}
-	aux.DE *= fractal->IFS.scale;
+	aux.DE *= fabs(fractal->IFS.scale);
 }
 
 /**
