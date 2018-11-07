@@ -79,7 +79,7 @@ bool cOpenClEngine::checkErr(cl_int err, QString functionName)
 
 bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 {
-	if (hardware->getClDevices().size() > 0)
+	if (hardware->getClDevices().size() > 0 && hardware->getEnabledDevices().size() > 0)
 	{
 		// calculating hash code of the program
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
@@ -177,6 +177,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 	}
 	else
 	{
+		cErrorMessage::showMessage(
+			QObject::tr("No devices to use for OpenCL! Check program preferences."),
+			cErrorMessage::errorMessage);
 		return false;
 	}
 }

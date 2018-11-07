@@ -125,9 +125,6 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	QString key = systemData.supportedLanguages.key(value);
 	gPar->Set<QString>("language", key);
 
-	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
-	gMainInterface->mainWindow->slotPopulateToolbar(true);
-
 	systemData.loggingVerbosity = gPar->Get<int>("logging_verbosity");
 
 #ifdef USE_OPENCL
@@ -148,6 +145,9 @@ void cPreferencesDialog::on_buttonBox_accepted()
 	// OpenCL preference dialogue supports multiple devices
 	gPar->Set("opencl_device_list", listString);
 	gOpenCl->openClHardware->EnableDevicesByHashList(listString);
+
+	gPar->Set<int>("toolbar_icon_size", gPar->Get<int>("toolbar_icon_size"));
+	gMainInterface->mainWindow->slotPopulateToolbar(true);
 #endif
 }
 
@@ -485,7 +485,8 @@ void cPreferencesDialog::on_comboBox_opencl_device_type_currentIndexChanged(int 
 void cPreferencesDialog::UpdateOpenCLMemoryLimits()
 {
 	// TODO: support multi-GPU
-	if (gOpenCl->openClHardware->getDevicesInformation().size() > 0)
+	if (gOpenCl->openClHardware->getDevicesInformation().size() > 0
+			and gOpenCl->openClHardware->getSelectedDevicesInformation().size() > 0)
 	{
 		cOpenClDevice::sDeviceInformation deviceInformation =
 			gOpenCl->openClHardware->getSelectedDevicesInformation().at(0);
