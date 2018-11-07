@@ -245,7 +245,7 @@ void cRenderWorker::doWork()
 				}
 
 				sRGBFloat rgbFromHsv;
-				if (params->DOFMonteCarloChromaticAberration)
+				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
 					actualHue = Random(3600) / 10.0;
 					rgbFromHsv = Hsv2rgb(fmod(360.0f + actualHue - 60.0f, 360.0f), 1.0f, 2.0f);
@@ -338,7 +338,7 @@ void cRenderWorker::doWork()
 				finalPixel.G = resultShader.G;
 				finalPixel.B = resultShader.B;
 
-				if (params->DOFMonteCarloChromaticAberration)
+				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
 					finalPixel.R *= rgbFromHsv.R;
 					finalPixel.G *= rgbFromHsv.G;
@@ -824,7 +824,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				}
 
 				double hueEffect = 1.0;
-				if (params->DOFMonteCarloChromaticAberration)
+				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
 					double aberrationStrength = params->DOFMonteCarloCADispersionGain * 0.01;
 					hueEffect = 1.0f - aberrationStrength + aberrationStrength * actualHue / 180.0;
@@ -1056,7 +1056,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate effects for object surface
 				objectShader = ObjectShader(shaderInputData, &objectColour, &specular, &iridescence);
 
-				if (params->DOFMonteCarloGlobalIllumination)
+				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
 					// calculate global illumination
 					sRGBFloat globalIlumination = GlobalIlumination(shaderInputData, objectColour);

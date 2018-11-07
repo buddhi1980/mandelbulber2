@@ -66,7 +66,7 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 										 && !params->interiorMode && softRange > 0.0 && !params->monteCarloSoftShadows;
 
 	CVector3 shadowVect = input.lightVect;
-	if (params->monteCarloSoftShadows)
+	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
 	{
 		CVector3 randomVector;
 		randomVector.x = Random(10000) / 5000.0 - 1.0;

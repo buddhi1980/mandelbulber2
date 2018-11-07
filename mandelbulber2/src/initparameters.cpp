@@ -303,7 +303,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("basic_fog_visibility", 20.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), morphLinear, paramStandard);
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
-	par->addParam("DOF_focus", 6.0, 0.0, 200.0, morphLinear, paramStandard);
+	par->addParam("DOF_focus", 6.0, 0.0, 10000.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
 	par->addParam("DOF_max_radius", 250.0, 2.0, 1000.0, morphLinear, paramStandard);
 	par->addParam("DOF_HDR", false, morphLinear, paramStandard);
