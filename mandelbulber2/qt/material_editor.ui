@@ -652,6 +652,9 @@ direction vector:</string>
           </item>
           <item>
            <widget class="MyCheckBox" name="checkBox_fractal_coloring_color_preV215_false">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For backwards compatibity.  If enabled, OpenCL and Non-OpenCL modes will sometimes render differrent coloring.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="text">
              <string notr="true">pre V2.15 orbit trap color</string>
             </property>
@@ -667,7 +670,7 @@ direction vector:</string>
           <item>
            <widget class="MyGroupBox" name="groupCheck_fractal_coloring_extra_color_options_false">
             <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Function produces an addition to the ColorValues based on its current value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can be used for controlling the relative size of the three color components in the Hybrid Mode.&lt;/p&gt;&lt;p&gt;These controls can also be used for pre-V2.15 backwards compatibility&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
              <string>Extra Hybrid Mode Co&amp;lor Options</string>
