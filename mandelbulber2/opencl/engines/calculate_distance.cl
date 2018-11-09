@@ -329,7 +329,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #ifdef USE_DISPLACEMENT_TEXTURE
 		float3 pointFractalized = pointTemp;
-		double reduceDisplacement = 1.0f;
+		float reduceDisplacement = 1.0f;
 
 #ifdef FRACTALIZE_TEXTURE
 		pointFractalized =
@@ -356,7 +356,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 #ifdef USE_DISPLACEMENT_TEXTURE
 			float3 pointFractalized = pointTemp;
-			double reduceDisplacement = 1.0f;
+			float reduceDisplacement = 1.0f;
 
 #ifdef FRACTALIZE_TEXTURE
 			pointFractalized =

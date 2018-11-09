@@ -49,9 +49,9 @@ float3 BackgroundShader(__constant sClInConstants *consts, sRenderData *renderDa
 	float3 rotatedViewVector =
 		Matrix33MulFloat3(consts->params.mRotBackgroundRotation, input->viewVector);
 
-	double alphaTexture =
+	float alphaTexture =
 		fmod(-atan2(rotatedViewVector.y, rotatedViewVector.x) + 3.5f * M_PI_F, 2.0f * M_PI_F);
-	double betaTexture = -atan2(rotatedViewVector.z, length(rotatedViewVector.xy));
+	float betaTexture = -atan2(rotatedViewVector.z, length(rotatedViewVector.xy));
 	if (betaTexture > 0.5f * M_PI_F) betaTexture = 0.5f * M_PI_F - betaTexture;
 	if (betaTexture < -0.5f * M_PI_F) betaTexture = -0.5f * M_PI_F + betaTexture;
 	float2 texCord;
