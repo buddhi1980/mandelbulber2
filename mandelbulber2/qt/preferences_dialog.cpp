@@ -486,7 +486,7 @@ void cPreferencesDialog::UpdateOpenCLMemoryLimits()
 {
 	// TODO: support multi-GPU
 	if (gOpenCl->openClHardware->getDevicesInformation().size() > 0
-			and gOpenCl->openClHardware->getSelectedDevicesInformation().size() > 0)
+			&& gOpenCl->openClHardware->getSelectedDevicesInformation().size() > 0)
 	{
 		cOpenClDevice::sDeviceInformation deviceInformation =
 			gOpenCl->openClHardware->getSelectedDevicesInformation().at(0);
