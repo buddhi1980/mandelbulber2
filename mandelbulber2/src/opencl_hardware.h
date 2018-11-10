@@ -78,9 +78,9 @@ public:
 
 	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
-	QList<cl::Device> &getEnabledDevices()
+	QList<cl::Device> getEnabledDevices() const
 	{
-		enabledDevices = QList<cl::Device>();
+		QList<cl::Device> enabledDevices;
 		for (auto i : selectedDevicesIndices)
 		{
 			enabledDevices.append(clDeviceWorkers[i].getDevice());
