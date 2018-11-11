@@ -1,6 +1,6 @@
 Version history
 
-v2.15
+v2.15 (November 2018)
 - Added new fractal formulas
    aboxModKaliV3
    scatorPower2Real
@@ -12,13 +12,62 @@ v2.15
    transfBlockify BETA
    transfAddCpixelScator
    transfAddCpixelSinOrCos
+- OpenCL: Changed default OpenCL mode to "full"
+- OpenCL: implemented texture mapping color
+- OpenCL: implemented texture mapping luminosity
+- OpenCL: implemented texture mapping diffusion
+- OpenCL: implemented normal maps
+- OpenCL: Implemented normal maps based on greyscale bump maps
+- OpenCL: Implemented displacement maps (also 16-bit depth)
+- OpenCL: added bicubic interpolation for textures
+- OpenCL: added Fractalize Texture effect.
+- OpenCL: implemented GPU accelerated mesh export.
+- OpenCL: implemented GPU accelerated voxel export.
+- OpenCL: added suggestion for memory limit in OpenCL tab. Information is based on CL_DEVICE_MAX_MEM_ALLOC_SIZE
+- OpenCL: fixed bug in background shader. Background brightness parameter was not used
+- OpenCL: eliminated differences in shadow calculation between CPU ond OpenCL code. There was a difference in brightness when detailLevel <> 1.0
+- OpenCL: optimized compilation of OpenCL programs when textures or primitives are used. It can increase available OpenCL max workgroup size
+- OpenCL: fixed bug: There was difference in background brightness OpenCL versus CPU
+- Fractals: improved color compatibility between c++ and openCL
+- Fractals: restructured analytic functions to provide flexibility in Hybrid Mode.
+- Fractals: improved calculation of mixed type hybrid fractals. Rendering is much faster and better quality. Now there is used analytic distance estimation if all used formulas have analytic DE functions. 
+- Fractals: fixed bug in repeat function used in boolean mode
+- Shaders: added Monte Carlo Global Illumination effect
+- Shaders: added Monte Carlo Chromatic Aberration effect for camera lenses and transparent objects
+- Shaders: added Monte Carlo soft shadows
+- Shaders: added Monte Carlo anti-aliasing (enabled when Monte Carlo effects are used)
+- Shaders: optimized noise estimation for MC algorithms. Noise is not overestimated in very bright spots
+- Shaders: added option to have all random lights in one color
+- Shaders: added maxIterationTrim parameter for iter fog
+- Shaders: added option to disable shadows for iter fog
+- Shaders: added option to change distance of volumetric fog from fractal surface
+- Shaders: implemented improved specullar reflections which allows to rendered metallic surfaces covered with lacquer
+- Shaders: corrected texture mapping in Global Illumination algorithm
+- Shaders: optimized rendering of random lights (about 10 times faster)
+- Shaders: fixed bug: Program crashed when post effects were updated just after image size change
+- Shaders: fixed bug: main light source was visible when was disabled
+- UI: added loading of textures directly from Internet (by providing URL instead of local file path)
+- UI: corrected FileSelectWidget to show textures loaded from Internet
+- UI: corrected refreshing of PreviewFileDialog (button Add to presets was visible only after preview was rendered)
+- UI: increased initial progressiveSteps for faster previews
+- UI: fixed issue of pressing "M"-button causing alert dialog loop
+- UI: changed Generate button in preferences dialog to recreate cache for all examples files and all files from settings folder.
+- UI: reduced quality of MC effects in thumbnails to speed up rendering of previews
+- UI: fixed bug: program hanged when light was placed behind floor object
+- UI: fixed bug: program hanged when 'render' was clicked while random lights were being placed.
+- UI: fixed bug: program crashed when non-existing material was assigned to any object
+- UI: fixed problems with loading textures from https pages
+- UI: cleaned up MC effects - possible to enable without DOF
+- Image: corrected interpolation of image preview - shifted by half of pixel
+- Settings: save image_proportion to fract-settings file
+- Mesh export: corrected calculation of limits in Mesh Export. The object had holes on the sides (on cutting planes). It caused problems with slicing on 3D printing software.
+- Mesh export: Fixed problems with saving extremely big meshes
+- Files: Corrected saving of EXR images (was used 16-bit buffer instead of floating point
+- Compilation: program checked and cleaned up with clang-tidy
+- Compilation: Used QScopedPointer and QSharedPointer in many classes
+- fixed compile problems on older qt versions
 
-- Color: improved color compatibility between c++ and openCL
-- Distance Estimation: restructured analytic functions to provide flexibility in Hybrid Mode.
-
-
-
-v2.14
+v2.14 (June 2018)
 - Added new fractal formulas:
    mandelboxVariable
    boxFold4dBulbPow2
