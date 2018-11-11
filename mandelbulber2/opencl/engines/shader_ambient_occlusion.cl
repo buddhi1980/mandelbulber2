@@ -42,7 +42,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 	float end_dist = input->delta / consts->params.resolution;
 	float intense;
 
-#ifndef MONTE_CARLO_DOF
+#ifndef MONTE_CARLO
 	for (int i = 0; i < renderData->AOVectorsCount; i++)
 	{
 #else
@@ -94,7 +94,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 
 		AO += intense * v.color;
 
-#ifndef MONTE_CARLO_DOF
+#ifndef MONTE_CARLO
 	}
 	AO /= renderData->AOVectorsCount;
 #endif

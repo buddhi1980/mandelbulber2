@@ -519,6 +519,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	if (paramRender->DOFMonteCarlo)
 	{
+		definesCollector += " -DMONTE_CARLO";
+
 		if (paramRender->DOFEnabled)
 		{
 			definesCollector += " -DMONTE_CARLO_DOF";
