@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.13
+# version 2.15
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -38,7 +38,13 @@ mat1_coloring_random_seed 292734;
 mat1_coloring_speed 2;
 mat1_diffusion_texture_intensity 0.04;
 mat1_fractal_coloring_algorithm 2;
+mat1_fractal_coloring_extra_color_options_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_rad_div_de_scale1 0;
 mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
 mat1_surface_color_palette aa00b7 005fb8 6b7668 ab0035 988568 5f0d61 c3890a 4e279d 3aff30 008175 c77126 b756c8 2cffff a10051 ff1269 31ca8c dbffe5 5630a4 d1ef22 ffbeff 07791b 78ec44 f267c2 9cffc4 6dffff dc7db4 7456f4 4627de 8d2cd3 58afb3 9bd4ff 2db5ff 78ad53 cd00ba d5bdff bd9d91 ffffe9 c6460b 7600b7 5b96c5 36103b 21c2e9 06edb5 00b300 00009f e0e491 c90e5f 9772ff bf23ff ebffff 198438 8000c0;
 target 2.086443737415206 1.6977164929252 -0.2661011153435816;
 textured_background_map_type 2;
