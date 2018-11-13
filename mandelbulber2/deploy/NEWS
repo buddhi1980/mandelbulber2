@@ -62,7 +62,7 @@ v2.15 (November 2018)
 - Settings: save image_proportion to fract-settings file
 - Mesh export: corrected calculation of limits in Mesh Export. The object had holes on the sides (on cutting planes). It caused problems with slicing on 3D printing software.
 - Mesh export: Fixed problems with saving extremely big meshes
-- Files: Corrected saving of EXR images (was used 16-bit buffer instead of floating point
+- Files: Corrected saving of EXR images (was used 16-bit buffer instead of floating point)
 - Compilation: program checked and cleaned up with clang-tidy
 - Compilation: Used QScopedPointer and QSharedPointer in many classes
 - fixed compile problems on older qt versions
