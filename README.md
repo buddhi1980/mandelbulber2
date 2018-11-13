@@ -97,6 +97,12 @@ In addition, there exists an MSVC Solution located in this git package. The solu
 
 The system requires the QT5 framework in conjunction with LZO for real-time data compression and GSL for scientific resources.
 
+## Official partners
+
+[I-love-chaos](http://ilc.fractalforums.com)
+
+[![I-love-chaos](http://ilc.fractalforums.com/img/thumbnail/img/ilc-128x128.png)](http://ilc.fractalforums.com)
+
 ## Resources
 [Video tutorials](https://www.youtube.com/playlist?list=PLOwamUnstvZF0Y9sjxvwHNvrHHF1ZzFql)
 
