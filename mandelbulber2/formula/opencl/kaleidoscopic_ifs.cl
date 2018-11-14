@@ -55,6 +55,6 @@ REAL4 KaleidoscopicIfsIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	{
 		z -= fractal->IFS.offset * (fractal->IFS.scale - 1.0f);
 	}
-	aux->DE *= fractal->IFS.scale;
+	aux->DE *= fabs(fractal->IFS.scale);
 	return z;
 }

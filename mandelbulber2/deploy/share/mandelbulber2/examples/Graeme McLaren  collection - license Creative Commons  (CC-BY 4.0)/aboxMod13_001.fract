@@ -1,0 +1,60 @@
+# Mandelbulber settings file
+# version 2.15
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
+aux_light_position_1 0 0 6.93;
+background_color_1 0000 2800 4300;
+background_color_2 0000 2700 0100;
+background_color_3 0000 2700 0100;
+brightness 1.2;
+camera 1.678229760564039 -2.364301420180383 1.625670710182153;
+camera_distance_to_target 0.4570152163505554;
+camera_rotation -18.03769597711308 19.37937643436901 0;
+camera_top -0.1027461175089561 -0.3155135628960883 0.9433421579498352;
+DE_factor 0.9;
+detail_level 0.78125;
+flight_last_to_render 0;
+fog_color_2 0000 5500 0000;
+formula_1 127;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+julia_c 3.735883605677726 3.065243588788415 -0.03327908835604317;
+keyframe_last_to_render 0;
+limit_min -10 0 -10;
+main_light_alpha 10.3;
+main_light_beta 90;
+main_light_intensity 0.96;
+mat1_coloring_palette_size 32;
+mat1_coloring_random_seed 593507;
+mat1_coloring_speed 0.1;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_palette b7c95a f4ff75 e3a85d 51dc25 c44dcb 36008a 2f7dff d022c8 3d30ff 059d8c 0abfd8 93aa3e 444a1d 7d8b37 f5e53f f5e53f a6b141 005500 a6aa53 c2f4d9 e1ff41 3cb300 40d1ff 005500 1ec11f ebef22 00097b 882ec7 79bc1d 7e3fe2 76aacd 8f9600;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_metallic false;
+mat2_name black stone;
+mat2_reflectance 1;
+mat2_specular 1;
+mat2_specular_width 0.578;
+mat2_surface_color 0000 0000 0000;
+mat2_transparency_index_of_refraction 2;
+mat2_use_colors_from_palette false;
+shadows_cone_angle 0;
+target 1.811723430612898 -1.954368037952883 1.777318229675067;
+view_distance_max 22.97248106592983;
+volumetric_fog_colour_1_distance 0.007532026116410144;
+volumetric_fog_colour_2_distance 0.01506405223282029;
+volumetric_fog_density 0.3;
+volumetric_fog_distance_factor 1.01506405223282;
+[fractal_1]
+mandelbox_scale -1.1;
+transf_function_enabledAz_false true;
+transf_rotation 6 -3 7;
+transf_rotation_enabled true;
+transf_scale3D_111 1.086957 0.697941 3.215103;
