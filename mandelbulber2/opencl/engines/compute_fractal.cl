@@ -339,9 +339,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			else if (mode == calcModeColouring)
 			{
 				float len = 0.0f;
-#ifdef USE_COLORING_MODES
 				float4 colorZ = z;
 				if (!fractalColoring->color4dEnabledFalse) colorZ.w = 0.0f;
+#ifdef USE_COLORING_MODES
 				switch (fractalColoring->coloringAlgorithm)
 				{
 					case fractalColoringCl_Standard:
@@ -378,7 +378,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 					}
 				}
 #else
-				len = aux.r;
+				len = length(colorZ);
 #endif // USE_COLORING_MODES
 				if (!fractalColoring->colorPreV215False)
 				{
