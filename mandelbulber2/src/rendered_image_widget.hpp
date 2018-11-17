@@ -152,12 +152,16 @@ private:
 	bool placeLightBehind;
 	bool redrawed;
 	bool clickModesEnables;
+	bool draggingStarted;
+	bool draggingInitStarted;
 	cFractalContainer *fractals;
 	cImage *image;
 	cParameterContainer *params;
 	CVector2<double> keyArrows;
 	CVector2<int> lastMousePosition;
+	CVector2<int> dragStartPosition;
 	CVector3 lastCoordinates;
+	Qt::MouseButton dragButton;
 	double flightRotationDirection;
 	double frontDist;
 	double lastDepth;
@@ -176,6 +180,9 @@ signals:
 	void keyPress(QKeyEvent *event);
 	void keyRelease(QKeyEvent *event);
 	void mouseWheelRotatedWithCtrl(int x, int y, int delta);
+	void mouseDragStart(int x, int y, Qt::MouseButton button);
+	void mouseDragFinish();
+	void mouseDragDelta(int dx, int dy);
 };
 
 #endif /* MANDELBULBER2_SRC_RENDERED_IMAGE_WIDGET_HPP_ */

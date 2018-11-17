@@ -133,6 +133,38 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 	}
 }
 
+void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButton button)
+{
+	int index = ui->comboBox_mouse_click_function->currentIndex();
+	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
+
+	switch (clickMode)
+	{
+		case RenderedImage::clickMoveCamera:
+		{
+			if (gMainInterface->renderedImage->GetEnableClickModes())
+			{
+				gMainInterface->MouseDragStart(CVector2<double>(x, y), button, mode);
+			}
+			break;
+		}
+		default:
+			// nothing
+			break;
+	}
+}
+
+void RenderWindow::slotMouseDragFinish()
+{
+	gMainInterface->MouseDragFinish();
+}
+
+void RenderWindow::slotMouseDragDelta(int dx, int dy)
+{
+	gMainInterface->MouseDragDelta(dx, dy);
+}
+
 void RenderWindow::slotChangedComboMouseClickFunction(int index) const
 {
 	if (index >= 0) // if list is empty, then index = -1

@@ -85,6 +85,10 @@ public:
 		CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);
 	void SetByMouse(
 		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
+	void MouseDragStart(
+		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
+	void MouseDragFinish();
+	void MouseDragDelta(int dx, int dy);
 	void MovementStepModeChanged(int mode) const;
 	void CameraMovementModeChanged(int index);
 	void Undo();
@@ -145,6 +149,19 @@ public:
 
 	bool stopRequest;
 	bool repeatRequest; // request to repeat start loop
+
+	struct sCameraDragData
+	{
+		bool cameraDraggingStarted;
+		CVector2<double> startScreenPoint;
+		double startZ;
+		CVector3 startCamera;
+		CVector3 startTarget;
+		CVector3 startTopVector;
+		CVector3 startIndicatedPoint;
+		Qt::MouseButton button;
+		QElapsedTimer lastRefreshTime;
+	} cameraDragData;
 };
 
 extern cInterface *gMainInterface;

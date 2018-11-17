@@ -399,6 +399,11 @@ void cInterface::ConnectSignals() const
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(mouseWheelRotatedWithCtrl(int, int, int)), mainWindow,
 		SLOT(slotMouseWheelRotatedWithCtrlOnImage(int, int, int)));
+	connect(renderedImage, SIGNAL(mouseDragStart(int, int, Qt::MouseButton)), mainWindow,
+		SLOT(slotMouseDragStart(int, int, Qt::MouseButton)));
+	connect(renderedImage, SIGNAL(mouseDragFinish()), mainWindow, SLOT(slotMouseDragFinish()));
+	connect(renderedImage, SIGNAL(mouseDragDelta(int, int)), mainWindow,
+		SLOT(slotMouseDragDelta(int, int)));
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
 		gMainInterface->mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
@@ -1376,6 +1381,185 @@ void cInterface::SetByMouse(
 	}
 }
 
+void cInterface::MouseDragStart(
+	CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
+{
+	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
+
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	CVector3 camera = gPar->Get<CVector3>("camera");
+	CVector3 target = gPar->Get<CVector3>("target");
+	CVector3 topVector = gPar->Get<CVector3>("camera_top");
+	cCameraTarget cameraTarget(camera, target, topVector);
+
+	params::enumPerspectiveType perspType =
+		params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
+	double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+	double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+	double fov = gPar->Get<double>("fov");
+	bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+	double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
+
+	CVector2<double> imagePoint;
+	imagePoint = screenPoint / mainImage->GetPreviewScale();
+
+	int width = mainImage->GetWidth();
+	int height = mainImage->GetHeight();
+
+	if (imagePoint.x >= 0 && imagePoint.x < mainImage->GetWidth() && imagePoint.y >= 0
+			&& imagePoint.y < mainImage->GetHeight())
+	{
+		double depth = mainImage->GetPixelZBuffer(imagePoint.x, imagePoint.y);
+		if (depth < 1e10)
+		{
+			CVector3 viewVector;
+			double aspectRatio = double(width) / height;
+
+			if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
+
+			CVector3 angles = cameraTarget.GetRotation();
+			CRotationMatrix mRot;
+			mRot.SetRotation(angles);
+			mRot.RotateZ(-sweetSpotHAngle);
+			mRot.RotateX(sweetSpotVAngle);
+
+			CVector2<double> normalizedPoint;
+			normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
+			normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
+
+			viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
+
+			CVector3 point = camera + viewVector * depth;
+
+			cameraDragData.startCamera = camera;
+			cameraDragData.startTarget = target;
+			cameraDragData.startTopVector = topVector;
+			cameraDragData.startIndicatedPoint = point;
+			cameraDragData.button = button;
+			cameraDragData.startScreenPoint = screenPoint;
+			cameraDragData.startZ = depth;
+			cameraDragData.lastRefreshTime.restart();
+
+			if (clickMode == RenderedImage::clickMoveCamera)
+			{
+				cameraDragData.cameraDraggingStarted = true;
+			}
+		}
+	}
+}
+
+void cInterface::MouseDragFinish() {}
+
+void cInterface::MouseDragDelta(int dx, int dy)
+{
+	if (cameraDragData.lastRefreshTime.elapsed() > gPar->Get<double>("auto_refresh_period") * 1000)
+	{
+		cameraDragData.lastRefreshTime.restart();
+		params::enumPerspectiveType perspType =
+			params::enumPerspectiveType(gPar->Get<int>("perspective_type"));
+		double sweetSpotHAngle = gPar->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
+		double sweetSpotVAngle = gPar->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
+		bool legacyCoordinateSystem = gPar->Get<bool>("legacy_coordinate_system");
+		double reverse = legacyCoordinateSystem ? -1.0 : 1.0;
+		double fov = gPar->Get<double>("fov");
+		cCameraTarget::enumRotationMode rollMode =
+			cCameraTarget::enumRotationMode(gPar->Get<int>("camera_straight_rotation"));
+
+		CVector2<double> newScreenPoint(
+			cameraDragData.startScreenPoint.x - dx, cameraDragData.startScreenPoint.y - dy);
+		CVector2<double> imagePoint = newScreenPoint / mainImage->GetPreviewScale();
+
+		int width = mainImage->GetWidth();
+		int height = mainImage->GetHeight();
+		double aspectRatio = double(width) / height;
+		if (perspType == params::perspEquirectangular) aspectRatio = 2.0;
+
+		switch (cameraDragData.button)
+		{
+			case Qt::LeftButton:
+			{
+				CVector3 camera = cameraDragData.startCamera;
+
+				cCameraTarget cameraTarget(
+					camera, cameraDragData.startTarget, cameraDragData.startTopVector);
+
+				CVector3 angles = cameraTarget.GetRotation();
+				CRotationMatrix mRot;
+				mRot.SetRotation(angles);
+				mRot.RotateZ(-sweetSpotHAngle);
+				mRot.RotateX(sweetSpotVAngle);
+
+				CVector2<double> normalizedPoint;
+				normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
+				normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
+
+				CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
+
+				CVector3 point = camera + viewVector * cameraDragData.startZ;
+				CVector3 deltaPoint = point - cameraDragData.startIndicatedPoint;
+
+				double ratio = (camera - cameraDragData.startTarget).Length() / (camera - point).Length();
+				CVector3 newTarget = cameraDragData.startTarget + deltaPoint * ratio;
+				cameraTarget.SetTarget(newTarget, rollMode);
+
+				gPar->Set("camera", camera);
+				gPar->Set("target", newTarget);
+
+				CVector3 topVector = cameraTarget.GetTopVector();
+				gPar->Set("camera_top", topVector);
+				CVector3 rotation = cameraTarget.GetRotation();
+				gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+				double dist = cameraTarget.GetDistance();
+				gPar->Set("camera_distance_to_target", dist);
+				break;
+			}
+			case Qt::RightButton:
+			{
+				cCameraTarget cameraTarget(
+					cameraDragData.startCamera, cameraDragData.startTarget, cameraDragData.startTopVector);
+
+				CVector3 shiftedCamera = cameraDragData.startCamera - cameraDragData.startIndicatedPoint;
+				CVector3 shiftedTarget = cameraDragData.startTarget - cameraDragData.startIndicatedPoint;
+
+				shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
+					cameraTarget.GetTopVector(), (double)dx / mainImage->GetPreviewWidth() * M_PI_2);
+				shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
+					cameraTarget.GetTopVector(), (double)dx / mainImage->GetPreviewWidth() * M_PI_2);
+
+				CVector3 newCamera = shiftedCamera + cameraDragData.startIndicatedPoint;
+				CVector3 newTarget = shiftedTarget + cameraDragData.startIndicatedPoint;
+				cameraTarget.SetCamera(newCamera, rollMode);
+				cameraTarget.SetTarget(newTarget, rollMode);
+
+				shiftedCamera = shiftedCamera.RotateAroundVectorByAngle(
+					cameraTarget.GetRightVector(), (double)dy / mainImage->GetPreviewHeight() * M_PI_2);
+				shiftedTarget = shiftedTarget.RotateAroundVectorByAngle(
+					cameraTarget.GetRightVector(), (double)dy / mainImage->GetPreviewHeight() * M_PI_2);
+
+				newCamera = shiftedCamera + cameraDragData.startIndicatedPoint;
+				newTarget = shiftedTarget + cameraDragData.startIndicatedPoint;
+				cameraTarget.SetCamera(newCamera, rollMode);
+				cameraTarget.SetTarget(newTarget, rollMode);
+
+				gPar->Set("camera", cameraTarget.GetCamera());
+				gPar->Set("target", cameraTarget.GetTarget());
+
+				CVector3 topVector = cameraTarget.GetTopVector();
+				gPar->Set("camera_top", topVector);
+				CVector3 rotation = cameraTarget.GetRotation();
+				gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+				double dist = cameraTarget.GetDistance();
+				gPar->Set("camera_distance_to_target", dist);
+				break;
+			}
+			default: break;
+		}
+
+		SynchronizeInterface(gPar, gParFractal, qInterface::write);
+		StartRender();
+	}
+}
+
 void cInterface::MovementStepModeChanged(int mode) const
 {
 	using namespace cameraMovementEnums;
@@ -1993,8 +2177,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2358,18 +2541,22 @@ void cInterface::DisableJuliaPointMode() const
 
 void cInterface::ConnectProgressAndStatisticsSignals() const
 {
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																			 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																				 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),

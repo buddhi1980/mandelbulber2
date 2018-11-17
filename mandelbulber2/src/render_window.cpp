@@ -119,3 +119,4 @@ QComboBox *RenderWindow::GetComboBoxMouseClickFunction() const
 {
 	return ui->comboBox_mouse_click_function;
 }
+
