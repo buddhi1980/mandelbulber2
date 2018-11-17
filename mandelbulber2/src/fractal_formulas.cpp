@@ -7879,8 +7879,8 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	double p = 1.0 + s * s + t * t;
 
-	s = fabs(sin(M_PI * s));
-	t = fabs(sin(M_PI * t));
+	s = fabs(sin(M_PI * s + fractal->transformCommon.offsetA0));
+	t = fabs(sin(M_PI * t + fractal->transformCommon.offsetB0));
 
 	r *= r;
 	// if (r < 1e-21)
