@@ -291,13 +291,13 @@ void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	if (z.x - z.z < 0.0) swap(z.x, z.z);
 	if (z.y - z.z < 0.0) swap(z.y, z.z);
 
-	z *= 3.0;
+	z *= fractal->transformCommon.scale3;
 
 	z.x -= 2.0;
 	z.y -= 2.0;
 	if (z.z > 1.0) z.z -= 2.0;
 
-	aux.DE *= 3.0;
+	aux.DE *= fractal->transformCommon.scale3;
 }
 
 /**
@@ -318,14 +318,14 @@ void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (z.x - z.z < 0.0) swap(z.x, z.z);
 	if (z.y - z.z < 0.0) swap(z.y, z.z);
 
-	z *= 3.0;
+	z *= fractal->transformCommon.scale3;
 
 	z.x -= 2.0;
 	z.y -= 2.0;
 
 	if (fmod(z.z, M_PI) > 2.0) z.z -= 2.0;
 
-	aux.DE *= 3.0;
+	aux.DE *= fractal->transformCommon.scale3;
 }
 
 /**
@@ -525,8 +525,10 @@ void AexionIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 /**
  * 3D Mandelbrot formula invented by David Makin
+ * http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235
+
  */
 void HypercomplexIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -757,6 +759,7 @@ void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 /**
  * Makin3D-2 found through the another shot at the holy grail topic at ff
+ * http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  */
 void Makin3d2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
