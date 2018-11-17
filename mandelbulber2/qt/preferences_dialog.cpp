@@ -465,12 +465,18 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	ui->listWidget_opencl_device_list->clear();
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
+	bool noDeviceSelected = selectedDevices.first().isEmpty();
 	for (auto device : devices)
 	{
 		QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
 		bool selected = selectedDevices.contains(device.first);
 		ui->listWidget_opencl_device_list->addItem(item);
+		if (noDeviceSelected)
+		{
+			noDeviceSelected = false;
+			selected = true;
+		}
 		item->setSelected(selected);
 	}
 }
