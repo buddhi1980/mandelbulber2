@@ -1578,6 +1578,20 @@ void cInterface::MouseDragDelta(int dx, int dy)
 					gPar->Set("camera_distance_to_target", dist);
 					break;
 				}
+				case Qt::MiddleButton:
+				{
+					double angle = -(double)dx / mainImage->GetPreviewHeight() * M_PI_2;
+					cCameraTarget cameraTarget(
+						cameraDragData.startCamera, cameraDragData.startTarget, cameraDragData.startTopVector);
+					CVector3 newTopVector = cameraDragData.startTopVector.RotateAroundVectorByAngle(
+						cameraTarget.GetForwardVector(), angle);
+					cameraTarget.SetCameraTargetTop(
+						cameraDragData.startCamera, cameraDragData.startTarget, newTopVector);
+					gPar->Set("camera_top", newTopVector);
+					CVector3 rotation = cameraTarget.GetRotation();
+					gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+					break;
+				}
 				default: break;
 			}
 
