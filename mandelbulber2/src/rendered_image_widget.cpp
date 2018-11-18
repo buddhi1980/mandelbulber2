@@ -584,7 +584,6 @@ void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 		int dx = screenPoint.x - dragStartPosition.x;
 		int dy = screenPoint.y - dragStartPosition.y;
 		emit mouseDragDelta(dx, dy);
-		qDebug() << dx << dy;
 	}
 }
 

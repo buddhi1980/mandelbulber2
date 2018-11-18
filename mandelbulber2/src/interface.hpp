@@ -154,6 +154,7 @@ public:
 	{
 		bool cameraDraggingStarted;
 		CVector2<double> startScreenPoint;
+		CVector2<double> startNormalizedPoint;
 		double startZ;
 		CVector3 startCamera;
 		CVector3 startTarget;
