@@ -152,7 +152,7 @@ private:
 	bool placeLightBehind;
 	bool redrawed;
 	bool clickModesEnables;
-	bool draggingStarted;
+	int draggingStarted;
 	bool draggingInitStarted;
 	cFractalContainer *fractals;
 	cImage *image;
@@ -160,8 +160,9 @@ private:
 	CVector2<double> keyArrows;
 	CVector2<int> lastMousePosition;
 	CVector2<int> dragStartPosition;
+	int buttonsPressed;
 	CVector3 lastCoordinates;
-	Qt::MouseButton dragButton;
+	Qt::MouseButtons dragButtons;
 	double flightRotationDirection;
 	double frontDist;
 	double lastDepth;
@@ -180,7 +181,7 @@ signals:
 	void keyPress(QKeyEvent *event);
 	void keyRelease(QKeyEvent *event);
 	void mouseWheelRotatedWithCtrl(int x, int y, int delta);
-	void mouseDragStart(int x, int y, Qt::MouseButton button);
+	void mouseDragStart(int x, int y, Qt::MouseButtons button);
 	void mouseDragFinish();
 	void mouseDragDelta(int dx, int dy);
 };

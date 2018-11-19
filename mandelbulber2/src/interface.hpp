@@ -86,7 +86,7 @@ public:
 	void SetByMouse(
 		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
 	void MouseDragStart(
-		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
+		CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
 	void MovementStepModeChanged(int mode) const;
@@ -160,7 +160,7 @@ public:
 		CVector3 startTarget;
 		CVector3 startTopVector;
 		CVector3 startIndicatedPoint;
-		Qt::MouseButton button;
+		Qt::MouseButtons button;
 		QElapsedTimer lastRefreshTime;
 	} cameraDragData;
 };

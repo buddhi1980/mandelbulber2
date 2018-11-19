@@ -79,6 +79,7 @@ RenderedImage::RenderedImage(QWidget *parent) : QWidget(parent)
 	clickModesEnables = true;
 	draggingStarted = false;
 	draggingInitStarted = false;
+	buttonsPressed = 0;
 
 	QList<QVariant> mode;
 	mode.append(int(RenderedImage::clickDoNothing));
@@ -575,7 +576,7 @@ void RenderedImage::mouseMoveEvent(QMouseEvent *event)
 		{
 			draggingInitStarted = false;
 			draggingStarted = true;
-			emit mouseDragStart(dragStartPosition.x, dragStartPosition.y, dragButton);
+			emit mouseDragStart(dragStartPosition.x, dragStartPosition.y, dragButtons);
 		}
 	}
 
@@ -606,9 +607,10 @@ void RenderedImage::mousePressEvent(QMouseEvent *event)
 		{
 			draggingInitStarted = true;
 			dragStartPosition = CVector2<int>(event->x(), event->y());
-			dragButton = event->button();
+			dragButtons = event->buttons();
 		}
 	}
+	buttonsPressed++;
 }
 
 void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
@@ -620,9 +622,14 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 			emit singleClick(event->x(), event->y(), event->button());
 		}
 	}
-	draggingStarted = false;
-	draggingInitStarted = false;
-	emit mouseDragFinish();
+
+	if (buttonsPressed == 1)
+	{
+		draggingStarted = false;
+		draggingInitStarted = false;
+		emit mouseDragFinish();
+	}
+	buttonsPressed--;
 }
 
 void RenderedImage::enterEvent(QEvent *event)

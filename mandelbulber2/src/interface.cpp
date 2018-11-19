@@ -399,8 +399,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotKeyReleaseOnImage(QKeyEvent *)));
 	connect(renderedImage, SIGNAL(mouseWheelRotatedWithCtrl(int, int, int)), mainWindow,
 		SLOT(slotMouseWheelRotatedWithCtrlOnImage(int, int, int)));
-	connect(renderedImage, SIGNAL(mouseDragStart(int, int, Qt::MouseButton)), mainWindow,
-		SLOT(slotMouseDragStart(int, int, Qt::MouseButton)));
+	connect(renderedImage, SIGNAL(mouseDragStart(int, int, Qt::MouseButtons)), mainWindow,
+		SLOT(slotMouseDragStart(int, int, Qt::MouseButtons)));
 	connect(renderedImage, SIGNAL(mouseDragFinish()), mainWindow, SLOT(slotMouseDragFinish()));
 	connect(renderedImage, SIGNAL(mouseDragDelta(int, int)), mainWindow,
 		SLOT(slotMouseDragDelta(int, int)));
@@ -1382,7 +1382,7 @@ void cInterface::SetByMouse(
 }
 
 void cInterface::MouseDragStart(
-	CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode)
+	CVector2<double> screenPoint, Qt::MouseButtons button, const QList<QVariant> &mode)
 {
 	RenderedImage::enumClickMode clickMode = RenderedImage::enumClickMode(mode.at(0).toInt());
 
@@ -1524,10 +1524,6 @@ void cInterface::MouseDragDelta(int dx, int dy)
 					newTarget += relativeVector.z * cameraTarget.GetForwardVector();
 					cameraTarget.SetTarget(newTarget, rollMode);
 
-					// double ratio = (camera - cameraDragData.startTarget).Length() / (camera -
-					// point).Length(); CVector3 newTarget = cameraDragData.startTarget + deltaPoint * ratio;
-					// cameraTarget.SetTarget(newTarget, rollMode);
-
 					gPar->Set("camera", camera);
 					gPar->Set("target", newTarget);
 
@@ -1592,6 +1588,46 @@ void cInterface::MouseDragDelta(int dx, int dy)
 					gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
 					break;
 				}
+
+				case (Qt::LeftButton | Qt::RightButton):
+				{
+					CVector3 camera = cameraDragData.startCamera;
+
+					cCameraTarget cameraTarget(
+						camera, cameraDragData.startTarget, cameraDragData.startTopVector);
+
+					CVector3 angles = cameraTarget.GetRotation();
+					CRotationMatrix mRot;
+					mRot.SetRotation(angles);
+					mRot.RotateZ(-sweetSpotHAngle);
+					mRot.RotateX(sweetSpotVAngle);
+
+					CVector2<double> normalizedPoint;
+					normalizedPoint.x = (imagePoint.x / width - 0.5) * aspectRatio;
+					normalizedPoint.y = (imagePoint.y / height - 0.5) * (-1.0) * reverse;
+
+					CVector3 viewVector = CalculateViewVector(normalizedPoint, fov, perspType, mRot);
+
+					CVector3 point = camera + viewVector * cameraDragData.startZ;
+					CVector3 deltaPoint = point - cameraDragData.startIndicatedPoint;
+
+					CVector3 newTarget = cameraDragData.startTarget + deltaPoint;
+					CVector3 newCamera = cameraDragData.startCamera + deltaPoint;
+
+					cameraTarget.SetCameraTargetTop(newCamera, newTarget, cameraTarget.GetTopVector());
+
+					gPar->Set("camera", newCamera);
+					gPar->Set("target", newTarget);
+
+					CVector3 topVector = cameraTarget.GetTopVector();
+					gPar->Set("camera_top", topVector);
+					CVector3 rotation = cameraTarget.GetRotation();
+					gPar->Set("camera_rotation", rotation * (180.0 / M_PI));
+					double dist = cameraTarget.GetDistance();
+					gPar->Set("camera_distance_to_target", dist);
+					break;
+				}
+
 				default: break;
 			}
 

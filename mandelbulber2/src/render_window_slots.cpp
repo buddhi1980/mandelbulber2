@@ -133,7 +133,7 @@ void RenderWindow::slotMouseClickOnImage(int x, int y, Qt::MouseButton button) c
 	}
 }
 
-void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButton button)
+void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButtons buttons)
 {
 	int index = ui->comboBox_mouse_click_function->currentIndex();
 	QList<QVariant> mode = ui->comboBox_mouse_click_function->itemData(index).toList();
@@ -145,7 +145,7 @@ void RenderWindow::slotMouseDragStart(int x, int y, Qt::MouseButton button)
 		{
 			if (gMainInterface->renderedImage->GetEnableClickModes())
 			{
-				gMainInterface->MouseDragStart(CVector2<double>(x, y), button, mode);
+				gMainInterface->MouseDragStart(CVector2<double>(x, y), buttons, mode);
 			}
 			break;
 		}
