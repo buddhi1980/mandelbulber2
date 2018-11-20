@@ -1059,7 +1059,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			{
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
-				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular, &iridescence);
+				objectShader =
+					ObjectShader(shaderInputData, &objectColour, &recursionOut.specular, &iridescence);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{

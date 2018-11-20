@@ -85,8 +85,7 @@ public:
 		CVector3 point, cParameterContainer *par, cFractalContainer *parFractal);
 	void SetByMouse(
 		CVector2<double> screenPoint, Qt::MouseButton button, const QList<QVariant> &mode);
-	void MouseDragStart(
-		CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
+	void MouseDragStart(CVector2<double> screenPoint, Qt::MouseButtons, const QList<QVariant> &mode);
 	void MouseDragFinish();
 	void MouseDragDelta(int dx, int dy);
 	void MovementStepModeChanged(int mode) const;

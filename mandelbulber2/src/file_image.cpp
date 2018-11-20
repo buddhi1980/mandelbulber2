@@ -1055,7 +1055,7 @@ void ImageFileSaveEXR::SaveEXR(
 		// add rgb channel header
 		Imf::PixelType imfQuality =
 			imageConfig[IMAGE_CONTENT_SPECULAR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
-																																									 : Imf::HALF;
+																																										 : Imf::HALF;
 
 		header.channels().insert("s.R", Imf::Channel(imfQuality, 1, 1, linear));
 		header.channels().insert("s.G", Imf::Channel(imfQuality, 1, 1, linear));

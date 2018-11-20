@@ -195,17 +195,20 @@ public:
 		return GetPixelGeneric8(specular8, opt.optionalSpecular, x, y);
 	}
 
-	inline sRGBFloat GetPixelGeneric(QScopedArrayPointer<sRGBFloat> &from, bool available, qint64 x, qint64 y)
+	inline sRGBFloat GetPixelGeneric(
+		QScopedArrayPointer<sRGBFloat> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return BlackFloat();
 		return from[getImageIndex(x, y)];
 	}
-	inline sRGB16 GetPixelGeneric16(QScopedArrayPointer<sRGB16> &from, bool available, qint64 x, qint64 y)
+	inline sRGB16 GetPixelGeneric16(
+		QScopedArrayPointer<sRGB16> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return Black16();
 		return from[getImageIndex(x, y)];
 	}
-	inline sRGB8 GetPixelGeneric8(QScopedArrayPointer<sRGB8> &from, bool available, qint64 x, qint64 y)
+	inline sRGB8 GetPixelGeneric8(
+		QScopedArrayPointer<sRGB8> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return Black8();
 		return from[getImageIndex(x, y)];

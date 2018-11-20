@@ -325,8 +325,8 @@ int cImage::GetUsedMB() const
 	quint64 optionalChannels = 0;
 	if (opt.optionalNormal) optionalChannels++;
 	if (opt.optionalSpecular) optionalChannels++;
-	optionalSize += optionalChannels *
-			quint64(width) * quint64(height) * (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
+	optionalSize += optionalChannels * quint64(width) * quint64(height)
+									* (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
 
 	mb = (zBufferSize + alphaSize16 + alphaSize8 + image16Size + image8Size + imageFloatSize * 2
 				 + colorSize + opacitySize + optionalSize)
