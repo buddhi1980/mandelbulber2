@@ -500,6 +500,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("alpha_enabled", false, morphNone, paramApp);
 	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 	par->addParam("normal_enabled", false, morphNone, paramApp);
+	par->addParam("specular_enabled", false, morphNone, paramApp);
 
 	par->addParam("color_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
 	par->addParam("alpha_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_8), morphNone, paramApp);
@@ -507,11 +508,14 @@ void InitParams(cParameterContainer *par)
 		"zbuffer_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
 		"normal_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam(
+		"specular_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 
 	par->addParam("color_postfix", QString(""), morphNone, paramApp);
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
 	par->addParam("zbuffer_postfix", QString("_zbuffer"), morphNone, paramApp);
 	par->addParam("normal_postfix", QString("_normal"), morphNone, paramApp);
+	par->addParam("specular_postfix", QString("_specular"), morphNone, paramApp);
 
 	par->addParam("append_alpha_png", true, morphNone, paramApp);
 	par->addParam("linear_colorspace", true, morphNone, paramApp);

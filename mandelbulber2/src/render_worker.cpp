@@ -186,6 +186,7 @@ void cRenderWorker::doWork()
 			unsigned short alpha = 65535;
 			unsigned short opacity16 = 65535;
 			sRGBFloat normalFloat;
+			sRGBFloat specularFloat;
 			double depth = 1e20;
 
 			if (monteCarlo) repeats = params->DOFSamples;
@@ -332,6 +333,9 @@ void cRenderWorker::doWork()
 					if (!recursionOut.found) depth = 1e20;
 					opacity = recursionOut.fogOpacity;
 					normal = recursionOut.normal;
+					specularFloat.R = recursionOut.specular.R;
+					specularFloat.G = recursionOut.specular.G;
+					specularFloat.B = recursionOut.specular.B;
 				}
 
 				finalPixel.R = resultShader.R;
@@ -445,6 +449,8 @@ void cRenderWorker::doWork()
 							image->PutPixelOpacity(xxx, yyy, opacity16);
 							if (image->GetImageOptional()->optionalNormal)
 								image->PutPixelNormal(xxx, yyy, normalFloat);
+							if (image->GetImageOptional()->optionalSpecular)
+								image->PutPixelSpecular(xxx, yyy, specularFloat);
 						}
 					}
 				}
@@ -1047,14 +1053,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			sRGBAfloat objectShader;
 			sRGBAfloat backgroundShader;
 			sRGBAfloat volumetricShader;
-			sRGBAfloat specular;
 			sRGBFloat iridescence;
 
 			if (rayMarchingOut.found)
 			{
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
-				objectShader = ObjectShader(shaderInputData, &objectColour, &specular, &iridescence);
+				objectShader = ObjectShader(shaderInputData, &objectColour, &recursionOut.specular, &iridescence);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
@@ -1100,9 +1105,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				}
 
 				// combine all results
-				resultShader.R = (objectShader.R + specular.R);
-				resultShader.G = (objectShader.G + specular.G);
-				resultShader.B = (objectShader.B + specular.B);
+				resultShader.R = (objectShader.R + recursionOut.specular.R);
+				resultShader.G = (objectShader.G + recursionOut.specular.G);
+				resultShader.B = (objectShader.B + recursionOut.specular.B);
 
 				if (reflectionsMax > 0)
 				{

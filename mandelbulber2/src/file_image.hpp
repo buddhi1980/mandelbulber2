@@ -86,7 +86,9 @@ public:
 		// x E[-1,1], y E[-1,1], z E[0,1] and rgb channels xyz mapped to full range of selected quality
 		// see reference Normal maps at
 		// https://www.blender.org/manual/render/blender_render/textures/influence/material/bump_and_normal.html
-		IMAGE_CONTENT_NORMAL = 3
+		IMAGE_CONTENT_NORMAL = 3,
+
+		IMAGE_CONTENT_SPECULAR = 4
 	};
 
 	enum enumImageChannelQualityType

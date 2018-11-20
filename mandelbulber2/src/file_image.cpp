@@ -109,13 +109,14 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_ALPHA: return "alpha";
 		case IMAGE_CONTENT_ZBUFFER: return "zbuffer";
 		case IMAGE_CONTENT_NORMAL: return "normal";
+		case IMAGE_CONTENT_SPECULAR: return "specular";
 	}
 	return "";
 }
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha", "zbuffer", "normal"});
+	return QStringList({"color", "alpha", "zbuffer", "normal", "specular"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -186,6 +187,7 @@ void ImageFileSavePNG::SaveImage()
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_SPECULAR:
 			default: SavePNG(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -224,6 +226,10 @@ void ImageFileSaveJPG::SaveImage()
 				SaveJPEGQt(fullFilename, image->ConvertNormalTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
 				break;
+			case IMAGE_CONTENT_SPECULAR:
+				SaveJPEGQt(fullFilename, image->ConvertSpecularTo8Bit(), image->GetWidth(),
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
 		}
 		currentChannel++;
@@ -258,6 +264,7 @@ void ImageFileSaveTIFF::SaveImage()
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_SPECULAR:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -333,6 +340,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ALPHA:
 			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_SPECULAR: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
 
@@ -355,6 +363,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ALPHA: pixelSize *= 1; break;
 			case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
 			case IMAGE_CONTENT_NORMAL: pixelSize *= 3; break;
+			case IMAGE_CONTENT_SPECULAR: pixelSize *= 3; break;
 		}
 
 		bool directOnBuffer = false;
@@ -392,6 +401,7 @@ void ImageFileSavePNG::SavePNG(
 				break;
 				case IMAGE_CONTENT_ZBUFFER:
 				case IMAGE_CONTENT_NORMAL:
+				case IMAGE_CONTENT_SPECULAR:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
 			}
@@ -495,6 +505,22 @@ void ImageFileSavePNG::SavePNG(
 								if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
 								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
+							}
+						}
+						break;
+						case IMAGE_CONTENT_SPECULAR:
+						{
+							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+							{
+								if (x == 0 && y == 0) image->ConvertSpecularTo16Bit();
+								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB16(image->GetPixelSpecular16(x, y));
+							}
+							else
+							{
+								if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
+								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
 							}
 						}
 						break;
@@ -1024,6 +1050,52 @@ void ImageFileSaveEXR::SaveEXR(
 																3 * compSize, 3 * width * compSize));
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))
+	{
+		// add rgb channel header
+		Imf::PixelType imfQuality =
+			imageConfig[IMAGE_CONTENT_SPECULAR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
+																																									 : Imf::HALF;
+
+		header.channels().insert("s.R", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("s.G", Imf::Channel(imfQuality, 1, 1, linear));
+		header.channels().insert("s.B", Imf::Channel(imfQuality, 1, 1, linear));
+
+		int pixelSize = sizeof(tsRGB<half>);
+		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
+		char *buffer = new char[uint64_t(width) * height * pixelSize];
+		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
+		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
+
+		for (uint64_t y = 0; y < height; y++)
+		{
+			for (uint64_t x = 0; x < width; x++)
+			{
+				uint64_t ptr = (x + y * width);
+				sRGBFloat pixel = image->GetPixelSpecular(x, y);
+				if (imfQuality == Imf::FLOAT)
+				{
+					floatPointer[ptr] = pixel;
+				}
+				else
+				{
+					halfPointer[ptr].R = pixel.R;
+					halfPointer[ptr].G = pixel.G;
+					halfPointer[ptr].B = pixel.B;
+				}
+			}
+		}
+
+		// point EXR frame buffer to rgb
+		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
+		frameBuffer.insert("s.R", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+																3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("s.G", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+																3 * compSize, 3 * width * compSize));
+		frameBuffer.insert("s.B", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+																3 * compSize, 3 * width * compSize));
+	}
+
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
 	file.setFrameBuffer(frameBuffer);
 
@@ -1076,6 +1148,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ALPHA:
 		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_SPECULAR: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
 
@@ -1086,6 +1159,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ALPHA: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_ZBUFFER: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_NORMAL: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_SPECULAR: samplesPerPixel = 3; break;
 	}
 
 	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, width);
@@ -1249,6 +1323,27 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
 						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
+					}
+				}
+				break;
+				case IMAGE_CONTENT_SPECULAR:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGBFloat(image->GetPixelSpecular(x, y));
+					}
+					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						if (x == 0 && y == 0) image->ConvertSpecularTo16Bit();
+						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB16(image->GetPixelSpecular16(x, y));
+					}
+					else
+					{
+						if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
+						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
 					}
 				}
 				break;

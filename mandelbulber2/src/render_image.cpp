@@ -501,6 +501,8 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 			lineOfImage[x].opacityBuffer = image->GetPixelOpacity(x, y);
 			if (image->GetImageOptional()->optionalNormal)
 				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
+			if (image->GetImageOptional()->optionalSpecular)
+				lineOfImage[x].normalSpecular = image->GetPixelSpecular(x, y);
 		}
 		lineData->append(reinterpret_cast<char *>(lineOfImage), CastSizeToInt(dataSize));
 		delete[] lineOfImage;
@@ -529,6 +531,8 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 				image->PutPixelOpacity(x, y, lineOfImage[x].opacityBuffer);
 				if (image->GetImageOptional()->optionalNormal)
 					image->PutPixelNormal(x, y, lineOfImage[x].normalFloat);
+				if (image->GetImageOptional()->optionalSpecular)
+					image->PutPixelSpecular(x, y, lineOfImage[x].normalSpecular);
 			}
 		}
 		else

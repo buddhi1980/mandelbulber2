@@ -47,13 +47,15 @@
 
 struct sImageOptional
 {
-	sImageOptional() : optionalNormal(false) {}
+	sImageOptional() : optionalNormal(false), optionalSpecular(false) {}
 	inline bool operator==(sImageOptional other) const
 	{
 		return other.optionalNormal == optionalNormal;
+		return other.optionalSpecular == optionalSpecular;
 	}
 
 	bool optionalNormal;
+	bool optionalSpecular;
 };
 
 struct sAllImageData
@@ -62,6 +64,7 @@ struct sAllImageData
 	quint16 alphaBuffer;
 	quint16 opacityBuffer;
 	sRGBFloat normalFloat;
+	sRGBFloat normalSpecular;
 	sRGB8 colourBuffer;
 	float zBuffer;
 };
@@ -135,9 +138,13 @@ public:
 	{
 		opacityBuffer[getImageIndex(x, y)] = pixel;
 	}
-	inline void PutPixelNormal(qint64 x, qint64 y, sRGBFloat normal)
+	inline void PutPixelNormal(qint64 x, qint64 y, sRGBFloat pixel)
 	{
-		normalFloat[getImageIndex(x, y)] = normal;
+		normalFloat[getImageIndex(x, y)] = pixel;
+	}
+	inline void PutPixelSpecular(qint64 x, qint64 y, sRGBFloat pixel)
+	{
+		specularFloat[getImageIndex(x, y)] = pixel;
 	}
 	inline sRGBFloat GetPixelImage(qint64 x, qint64 y) const
 	{
@@ -163,20 +170,45 @@ public:
 	}
 	inline sRGB8 GetPixelColor(qint64 x, qint64 y) const { return colourBuffer[getImageIndex(x, y)]; }
 	inline float GetPixelZBuffer(qint64 x, qint64 y) const { return zBuffer[getImageIndex(x, y)]; }
-	inline sRGBFloat GetPixelNormal(qint64 x, qint64 y) const
+	inline sRGBFloat GetPixelNormal(qint64 x, qint64 y)
 	{
-		if (!opt.optionalNormal) return BlackFloat();
-		return normalFloat[getImageIndex(x, y)];
+		return GetPixelGeneric(normalFloat, opt.optionalNormal, x, y);
 	}
-	inline sRGB16 GetPixelNormal16(qint64 x, qint64 y) const
+	inline sRGB16 GetPixelNormal16(qint64 x, qint64 y)
 	{
-		if (!opt.optionalNormal) return Black16();
-		return normal16[getImageIndex(x, y)];
+		return GetPixelGeneric16(normal16, opt.optionalNormal, x, y);
 	}
-	inline sRGB8 GetPixelNormal8(qint64 x, qint64 y) const
+	inline sRGB8 GetPixelNormal8(qint64 x, qint64 y)
 	{
-		if (!opt.optionalNormal) return Black8();
-		return normal8[getImageIndex(x, y)];
+		return GetPixelGeneric8(normal8, opt.optionalNormal, x, y);
+	}
+	inline sRGBFloat GetPixelSpecular(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric(specularFloat, opt.optionalSpecular, x, y);
+	}
+	inline sRGB16 GetPixelSpecular16(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric16(specular16, opt.optionalSpecular, x, y);
+	}
+	inline sRGB8 GetPixelSpecular8(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric8(specular8, opt.optionalSpecular, x, y);
+	}
+
+	inline sRGBFloat GetPixelGeneric(QScopedArrayPointer<sRGBFloat> &from, bool available, qint64 x, qint64 y)
+	{
+		if (!available) return BlackFloat();
+		return from[getImageIndex(x, y)];
+	}
+	inline sRGB16 GetPixelGeneric16(QScopedArrayPointer<sRGB16> &from, bool available, qint64 x, qint64 y)
+	{
+		if (!available) return Black16();
+		return from[getImageIndex(x, y)];
+	}
+	inline sRGB8 GetPixelGeneric8(QScopedArrayPointer<sRGB8> &from, bool available, qint64 x, qint64 y)
+	{
+		if (!available) return Black8();
+		return from[getImageIndex(x, y)];
 	}
 	inline void BlendPixelImage16(qint64 x, qint64 y, float factor, sRGB16 other)
 	{
@@ -241,6 +273,8 @@ public:
 	quint8 *ConvertAlphaTo8bit();
 	quint8 *ConvertNormalTo16Bit();
 	quint8 *ConvertNormalTo8Bit();
+	quint8 *ConvertSpecularTo16Bit();
+	quint8 *ConvertSpecularTo8Bit();
 
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
@@ -294,6 +328,10 @@ private:
 	QScopedArrayPointer<sRGBFloat> normalFloat;
 	QScopedArrayPointer<sRGB8> normal8;
 	QScopedArrayPointer<sRGB16> normal16;
+
+	QScopedArrayPointer<sRGBFloat> specularFloat;
+	QScopedArrayPointer<sRGB8> specular8;
+	QScopedArrayPointer<sRGB16> specular16;
 
 	QScopedArrayPointer<sRGB8> preview;
 	QScopedArrayPointer<sRGB8> preview2;
