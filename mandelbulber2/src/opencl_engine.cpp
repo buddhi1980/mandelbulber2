@@ -163,9 +163,9 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			}
 			else
 			{
-				cErrorMessage::showMessage(
+				emit showErrorMessage(
 					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("program")),
-					cErrorMessage::errorMessage);
+					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
 		}
@@ -177,9 +177,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 	}
 	else
 	{
-		cErrorMessage::showMessage(
-			QObject::tr("No devices to use for OpenCL! Check program preferences."),
-			cErrorMessage::errorMessage);
+		emit showErrorMessage(QObject::tr("No devices to use for OpenCL! Check program preferences."),
+			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
 }
