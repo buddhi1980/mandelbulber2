@@ -185,6 +185,8 @@ enum enumFractalFormula
 	aboxModKaliV2 = 135,
 	// 2.15
 	aboxModKaliV3 = 136,
+	// 2.16
+	buffaloMod1 = 137,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14

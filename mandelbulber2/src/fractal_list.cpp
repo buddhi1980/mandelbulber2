@@ -155,6 +155,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Buffalo", "buffalo", buffalo, BuffaloIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Buffalo - Mod1", "buffalo_mod1", buffaloMod1, BuffaloMod1Iteration,
+		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
+		coloringFunctionDefault));
 
 	// Nested sin() formulas
 	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot,

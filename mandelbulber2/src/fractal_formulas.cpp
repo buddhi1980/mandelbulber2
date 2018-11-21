@@ -1,4 +1,4 @@
-/**
+		/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -674,6 +674,61 @@ void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	z.x = fractal->buffalo.absx ? fabs(newx) : newx;
 	z.y = fractal->buffalo.absy ? fabs(newy) : newy;
 	z.z = fractal->buffalo.absz ? fabs(newz) : newz;
+}
+
+/**
+ * Buffalo fractal mod1
+ */
+void BuffaloMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// pre rotation
+	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	// pre-offset
+	if (fractal->transformCommon.functionEnabledDFalse && aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		z += fractal->transformCommon.offsetA000;;
+	}
+
+	aux.DE = aux.DE * 2.0 * aux.r;
+
+	if (fractal->buffalo.preabsx) z.x = fabs(z.x);
+	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
+	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
+
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+	double temp = 1.0 - z2 / (x2 + y2);
+	double newx = (x2 - y2) * temp;
+	double newy = 2.0 * z.x * z.y * temp;
+	double newz = (fractal->buffalo.posz ? 2.0 : -2.0) * z.z * sqrt(x2 + y2);
+
+	z.x = fractal->buffalo.absx ? fabs(newx) : newx;
+	z.y = fractal->buffalo.absy ? fabs(newy) : newy;
+	z.z = fractal->buffalo.absz ? fabs(newz) : newz;
+
+	// offset
+	z += fractal->transformCommon.offset000;
+
+	// rotation
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		z = fractal->mandelbox.mainRot.RotateVector(z);
+	}
+
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 }
 
 /**
