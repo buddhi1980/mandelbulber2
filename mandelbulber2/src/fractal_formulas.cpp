@@ -714,7 +714,11 @@ void BuffaloMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z.z = fractal->buffalo.absz ? fabs(newz) : newz;
 
 	// offset
+	if (aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+	{
 	z += fractal->transformCommon.offset000;
+	}
 
 	// rotation
 	if (aux.i >= fractal->transformCommon.startIterationsS
