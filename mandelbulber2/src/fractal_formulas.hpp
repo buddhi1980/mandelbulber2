@@ -106,7 +106,6 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void BuffaloMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -136,7 +135,7 @@ void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void ModulusMandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
+void MandelbulbAbsPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbBermarteIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

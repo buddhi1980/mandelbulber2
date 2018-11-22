@@ -155,9 +155,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Buffalo", "buffalo", buffalo, BuffaloIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Buffalo - Mod1", "buffalo_mod1", buffaloMod1, BuffaloMod1Iteration,
-		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
-		coloringFunctionDefault));
 
 	// Nested sin() formulas
 	fractalList->append(sFractalDescription("Coastalbrot", "coastalbrot", coastalbrot,
@@ -243,6 +240,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4,
 		Mandelbulb4Iteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Abs Power 2", "mandelbulb_abs_power2", mandelbulbAbsPower2,
+		MandelbulbAbsPower2Iteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Bermarte", "mandelbulb_bermarte",
 		mandelbulbBermarte, MandelbulbBermarteIteration, analyticDEType, logarithmicDEFunction,
