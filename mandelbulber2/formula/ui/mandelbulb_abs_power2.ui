@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>736</width>
-    <height>1324</height>
+    <height>1557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1222,21 +1222,21 @@
         <item row="0" column="1">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
           <property name="text">
-           <string notr="true">abs(z.x + c.x)</string>
+           <string notr="true">abs(z.x)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
           <property name="text">
-           <string notr="true">abs(z.y + c.y)</string>
+           <string notr="true">abs(z.y)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
          <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
           <property name="text">
-           <string notr="true">abs(z.z + c.z)</string>
+           <string notr="true">abs(z.z)</string>
           </property>
          </widget>
         </item>

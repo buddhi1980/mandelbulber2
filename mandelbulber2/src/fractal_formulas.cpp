@@ -4374,6 +4374,7 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void MandelbulbAbsPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+
 	// pre rotation
 	if (fractal->transformCommon.rotationEnabled && aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
@@ -4388,22 +4389,23 @@ void MandelbulbAbsPower2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 
 	aux.DE = aux.DE * 2.0 * aux.r;
+
 	// pre abs. abs(z.x) and abs(z.y) effect newy. abs(z.z) effects newz
 	if (fractal->buffalo.preabsx) z.x = fabs(z.x);
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
 
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
-	double temp = 1.0 - z2 / (x2 + y2);
-	double newx = (x2 - y2) * temp;
-	double newy = 2.0 * z.x * z.y * temp;
-	double newz = (fractal->buffalo.posz ? 2.0 : -2.0) * z.z * sqrt(x2 + y2);
+	CVector4 zz = z * z;
+	CVector4 newZ = z;
+	double temp = 1.0 - zz.z / (zz.x + zz.y);
+	newZ.x = (zz.x - zz.y) * temp;
+	newZ.y = 2.0 * z.x * z.y * temp;
+	newZ.z = (fractal->buffalo.posz ? 2.0 : -2.0) * z.z * sqrt(zz.x + zz.y);
+	z = newZ;
 
-	z.x = fractal->buffalo.absx ? fabs(newx) : newx;
-	z.y = fractal->buffalo.absy ? fabs(newy) : newy;
-	z.z = fractal->buffalo.absz ? fabs(newz) : newz;
+	z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
+	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
+	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;
 
 	// offset
 	if (fractal->transformCommon.functionEnabledM && aux.i >= fractal->transformCommon.startIterationsM
@@ -11289,8 +11291,8 @@ void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtende
 {
 	double r2 = z.Dot(z);
 	z += fractal->mandelbox.offset;
-	z *= fractal->transformCommon.scale;													// beta
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0; // beta
+	z *= fractal->transformCommon.scale;
+
 	// if (r2 < 1e-21) r2 = 1e-21;
 	if (r2 < fractal->mandelbox.mR2)
 	{
@@ -11312,6 +11314,13 @@ void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtende
 		}
 	}
 	z -= fractal->mandelbox.offset;
+	// Analytic DE tweak
+	if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE =
+			aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+				+ fractal->analyticDE.offset0;
 }
 
 /**
