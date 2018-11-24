@@ -3088,22 +3088,20 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-	{											// Benesi original pwr2
-		aux.r = z.Length(); // needed when alternating pwr2s
+	{ // Benesi original pwr2
+		CVector4 zz = z * z;
+		double rrYZ = zz.y + zz.z;
+		double lenYZ = sqrt(rrYZ);
+		double temp = zz.x + rrYZ;
+		aux.r = sqrt(temp); // aux.r needed when alternating pwr2s
 		aux.DE = aux.DE * 2.0 * aux.r;
-		double r1 = z.y * z.y + z.z * z.z;
-		CVector4 newZ = CVector4(0.0, 0.0, 0.0, z.w);
-		if (c.x < 0.0 || z.x < sqrt(r1))
-		{
-			newZ.x = z.x * z.x - r1;
-		}
-		else
-		{
-			newZ.x = -z.x * z.x + r1;
-		}
-		r1 = -1.0 / sqrt(r1) * 2.0 * fabs(z.x);
-		newZ.y = r1 * (z.y * z.y - z.z * z.z);
-		newZ.z = r1 * 2.0 * z.y * z.z;
+		CVector4 newZ = z;
+		temp = zz.x - rrYZ;
+		newZ.x = -sign(c.x) * temp;
+		if ( z.x < lenYZ) newZ.x = temp;
+		rrYZ = -1.0 / lenYZ * 2.0 * fabs(z.x);
+		newZ.y = rrYZ * (zz.y - zz.z);
+		newZ.z = rrYZ * 2.0 * z.y * z.z;
 		z = newZ + (c * fractal->transformCommon.constantMultiplierA100);
 	}
 
@@ -3111,14 +3109,19 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{ // pine tree
-		CVector4 temp = z;
-		aux.r = z.Length(); // needed when alternating pwr2s
-		z *= z;
-		double t = 2.0 * temp.x;
-		if (z.y + z.z > 0.0)
-			t = t / sqrt(z.y + z.z);
-		else
-			t = 1.0;
+		CVector4 zz = z * z;
+		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+
+		double t = 1.0;
+		double temp = zz.y + zz.z;
+		if (temp > 0.0)
+			t = 2.0 * z.x / sqrt(temp);
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0 * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+
 		CVector4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
@@ -3130,10 +3133,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 		{
 			tempC = CVector4(c.x, c.z, c.y, c.w);
 		}
-		z.x = (z.x - z.y - z.z) + tempC.x * fractal->transformCommon.constantMultiplier100.x;
-		z.z = (t * (z.y - z.z)) + tempC.z * fractal->transformCommon.constantMultiplier100.y;
-		z.y = (2.0 * t * temp.y * temp.z) + tempC.y * fractal->transformCommon.constantMultiplier100.z;
-		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+		z += tempC * fractal->transformCommon.constantMultiplier100;
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse
