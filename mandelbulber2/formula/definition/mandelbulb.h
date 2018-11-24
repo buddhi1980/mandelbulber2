@@ -21,21 +21,22 @@ namespace fractal
 class cFractalMandelbulb : public cAbstractFractal
 {
 public:
-	~cFractalMandelbulb();
-	cFractalMandelbulb()
+	const fractal::enumColoringFunction getColoringFunction() override
 	{
-		nameInComboBox = "Mandelbulb";
-		internalName = "mandelbulb";
-		internalID = 2;
-		DEType = analyticDEType;
-		DEFunctionType = logarithmicDEFunction;
-		cpixelAddition = cpixelEnabledByDefault;
-		defaultBailout = 10.0;
-		DEAnalyticFunction = analyticFunctionLogarithmic;
-		coloringFunction = coloringFunctionDefault;
+		return coloringFunctionDefault;
 	}
+	const fractal::enumCPixelAddition getCpixelAddition() override { return cpixelEnabledByDefault; }
+	const fractal::enumDEAnalyticFunction getDeAnalyticFunction() override
+	{
+		return analyticFunctionLogarithmic;
+	}
+	const double getDefaultBailout() override { return 10.0; }
+	const fractal::enumDEFunctionType getDeFunctionType() override { return logarithmicDEFunction; }
+	const fractal::enumDEType getDeType() override { return analyticDEType; }
+	const QString &getInternalName() override { return "mandelbulb"; }
+	const QString &getNameInComboBox() override { return "Mandelbulb"; }
 
-	void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
+	const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
 	{
 		// if (aux.r < 1e-21) aux.r = 1e-21;
 		const double th0 = asin(z.z / aux.r) + fractal->bulb.betaAngleOffset;

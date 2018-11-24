@@ -22,21 +22,22 @@ namespace fractal
 class cFractalXenodreambuie : public cAbstractFractal
 {
 public:
-	~cFractalXenodreambuie();
-	cFractalXenodreambuie()
+	const fractal::enumColoringFunction getColoringFunction() override
 	{
-		nameInComboBox = "Xenodreambuie";
-		internalName = "xenodreambuie";
-		internalID = 11;
-		DEType = analyticDEType;
-		DEFunctionType = logarithmicDEFunction;
-		cpixelAddition = cpixelEnabledByDefault;
-		defaultBailout = 10.0;
-		DEAnalyticFunction = analyticFunctionLogarithmic;
-		coloringFunction = coloringFunctionDefault;
+		return coloringFunctionDefault;
 	}
+	const fractal::enumCPixelAddition getCpixelAddition() override { return cpixelEnabledByDefault; }
+	const fractal::enumDEAnalyticFunction getDeAnalyticFunction() override
+	{
+		return analyticFunctionLogarithmic;
+	}
+	const double getDefaultBailout() override { return 10.0; }
+	const fractal::enumDEFunctionType getDeFunctionType() override { return logarithmicDEFunction; }
+	const fractal::enumDEType getDeType() override { return analyticDEType; }
+	const QString &getInternalName() override { return "xenodreambuie"; }
+	const QString &getNameInComboBox() override { return "Xenodreambuie"; }
 
-	void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
+	const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
 	{
 		double rp = pow(aux.r, fractal->bulb.power - 1.0);
 		aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;

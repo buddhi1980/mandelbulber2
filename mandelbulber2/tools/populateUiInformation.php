@@ -160,21 +160,17 @@ namespace fractal
 class ' . $className . ' : public cAbstractFractal
 {
 public:
-        ~' . $className . '();
-        ' . $className . '()
-        {
-								nameInComboBox = "' . $formula['nameInComboBox'] . '";
-								internalName = "' . $formula['internalName'] . '";
-								internalID = ' . $formula['id'] . ';
-                DEType = ' . $formula['deType'] . ';
-                DEFunctionType = ' . $formula['deFunctionType'] . ';
-                cpixelAddition = ' . $formula['pixelAddition'] . ';
-								defaultBailout = ' . number_format($formula['defaultBailout'], 1) . ';
-                DEAnalyticFunction = ' . $formula['analyticFunction'] . ';
-                coloringFunction = ' . $formula['coloringFunction'] . ';
-        }
+        
+        const fractal::enumColoringFunction getColoringFunction() override { return ' . $formula['coloringFunction'] . '; }
+        const fractal::enumCPixelAddition getCpixelAddition() override { return ' . $formula['pixelAddition'] . '; }
+        const fractal::enumDEAnalyticFunction getDeAnalyticFunction() override { return ' . $formula['analyticFunction'] . '; }
+        const double getDefaultBailout() override { return ' . number_format($formula['defaultBailout'], 1) . '; }
+        const fractal::enumDEFunctionType getDeFunctionType() override { return ' . $formula['deFunctionType'] . '; }
+        const fractal::enumDEType getDeType() override { return ' . $formula['deType'] . '; }
+        const QString &getInternalName()  override { return "' . $formula['internalName'] . '"; }
+        const QString &getNameInComboBox() override { return "' . $formula['nameInComboBox'] . '"; }
 
-        void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
+        const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
         {
                ' . trim(substr(trim($formula['code']), strpos($formula['code'], '{') + 1, -1)) . '
         }
