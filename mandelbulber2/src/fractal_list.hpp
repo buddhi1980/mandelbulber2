@@ -187,6 +187,10 @@ enum enumFractalFormula
 	aboxModKaliV3 = 136,
 	// 2.16
 	mandelbulbAbsPower2 = 137,
+	mandelbulbPow2Combo = 138,
+
+
+
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14

@@ -2586,8 +2586,8 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	{
 		double rr;
 		rr = z.Dot(z);
-		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
-			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight  ;
+		if (fractal->transformCommon.functionEnabledFalse) // force cylinder fold
+			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight;
 
 		if (fractal->transformCommon.functionEnabledAz
 				&& aux.i >= fractal->transformCommon.startIterationsT
@@ -5155,6 +5155,70 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 }
+
+/**
+ * MandelbulbPow2Combo
+ * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ */
+void MandelbulbPow2ComboIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	//Q_UNUSED(aux);
+
+	aux.DE = aux.DE * aux.r * 2.0 + 1.0;
+
+	//  abs
+	if (fractal->transformCommon.functionEnabledPFalse && aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+	{
+		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
+	}
+
+	CVector4 oldZ = z;
+
+	CVector4 zz = z * z;
+	CVector4 Scale1 = fractal->transformCommon.constantMultiplier111;
+	zz *= Scale1;
+	aux.DE *= z.Length() / oldZ.Length(); //mmmmmmmmmmmmmm
+
+	CVector4 Scale2 = fractal->transformCommon.constantMultiplier222;
+
+	if (!fractal->transformCommon.functionEnabledDFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+	{
+	// lkmitch/quick dudley
+	z.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
+	z.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
+	z.z = zz.y - Scale2.z  * oldZ.x * oldZ.z;
+	}
+	else // makin 3D-2 type
+	{
+		z.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
+		z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
+		z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
+
+	}
+
+
+
+
+
+
+	// offset
+	if (fractal->transformCommon.functionEnabledM && aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+	z += fractal->transformCommon.offset000;
+	}
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+}
+
 
 /**
  * mandelbulb Quaternion

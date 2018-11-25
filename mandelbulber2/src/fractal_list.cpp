@@ -250,6 +250,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb - Power 2", "mandelbulb_power2",
 		mandelbulbPower2, MandelbulbPower2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Pow2 Combo", "mandelbulb_pow2_combo",
+		mandelbulbPow2Combo, MandelbulbPow2ComboIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Juliabulb", "mandelbulb_juliabulb",
 		mandelbulbJuliabulb, MandelbulbJuliabulbIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
