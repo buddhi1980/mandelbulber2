@@ -3030,35 +3030,32 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	// Prism shape
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux.i >= fractal->transformCommon.startIterationsP
+			&& aux.i < fractal->transformCommon.stopIterationsP1)
 	{
 		CVector4 gap = fractal->transformCommon.constantMultiplier000;
 		double t;
 		double dot1;
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
+		dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
+		t = max(0.0, dot1);
+		z.x -= t * -SQRT_3;
+		z.y = fabs(z.y - t);
 
-		if (fractal->transformCommon.functionEnabledPFalse
-				&& aux.i >= fractal->transformCommon.startIterationsP
-				&& aux.i < fractal->transformCommon.stopIterationsP1)
+		if (z.y > z.z) swap(z.y, z.z);
+		z -= gap * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
+
+		if (z.z > z.x) swap(z.z, z.x);
+		if (z.x > 0.0)
 		{
-			z.y = fabs(z.y);
-			z.z = fabs(z.z);
-			dot1 = (z.x * -SQRT_3_4 + z.y * 0.5) * fractal->transformCommon.scale;
-			t = max(0.0, dot1);
-			z.x -= t * -SQRT_3;
-			z.y = fabs(z.y - t);
-
-			if (z.y > z.z) swap(z.y, z.z);
-			z -= gap * CVector4(SQRT_3_4, 1.5, 1.5, 0.0);
-
-			if (z.z > z.x) swap(z.z, z.x);
-			if (z.x > 0.0)
-			{
-				z.y = max(0.0, z.y);
-				z.z = max(0.0, z.z);
-			}
+			z.y = max(0.0, z.y);
+			z.z = max(0.0, z.z);
 		}
 	}
-
+	// Benesi mag transform T1
 	if (fractal->transformCommon.benesiT1Enabled && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
@@ -3066,8 +3063,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 		z = CVector4(
 			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w);
 
-		CVector4 temp = z;
-		double tempL = temp.Length();
+		double tempL = z.Length();
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21) tempL = 1e-21;
 		double avgScale = z.Length() / tempL;
@@ -3108,7 +3104,7 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{ // pine tree
+	{ //  Benesi pine tree pwr2
 		CVector4 zz = z * z;
 		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
@@ -3141,22 +3137,20 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
 		z = CVector4(z.x * cos(z.y * fractal->transformCommon.scale1),
-					z.x * sin(z.y * fractal->transformCommon.scale1), z.z * fractal->transformCommon.scaleC1,
-					z.w)
+				z.x * sin(z.y * fractal->transformCommon.scale1),
+					z.z * fractal->transformCommon.scaleC1,
+						z.w)
 				* fractal->transformCommon.scaleA1;
 		aux.DE *= fabs(fractal->transformCommon.scaleA1);
 	}
 
-	if (fractal->transformCommon.juliaMode)
-	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += fractal->transformCommon.offset000.y;
-		z.z += fractal->transformCommon.offset000.z;
-	}
+	if (fractal->transformCommon.juliaMode
+		&& aux.i >= fractal->transformCommon.startIterationsE
+		&& aux.i < fractal->transformCommon.stopIterationsE)
+			z += fractal->transformCommon.offset000;
+
 	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
-	}
 }
 
 /**
