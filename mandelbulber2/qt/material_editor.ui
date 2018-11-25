@@ -844,7 +844,7 @@ direction vector:</string>
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;At Default Color_Speed the distance between two colors is 256. With these functions this distance = 1.0, e.g. a radius of 1.0 is one color step from the color at the origin. Similarly an addition of 1.0 = 256, cos period 1 =256.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;At the end of these functions, the colorValue is then multiplied by * 256.&lt;/p&gt;&lt;p&gt;Settings vary widely depending on such factors as fractal type &amp;amp; size, location and number of iterations.&lt;/p&gt;&lt;p&gt;Adjusting the color speed may be required.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="title">
-             <string>C&amp;olor by numbers BETA</string>
+             <string>C&amp;olor by numbers</string>
             </property>
             <property name="checkable">
              <bool>true</bool>
@@ -4238,15 +4238,15 @@ object size)</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -4327,12 +4327,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>138</x>
-     <y>1717</y>
+     <x>161</x>
+     <y>1755</y>
     </hint>
     <hint type="destinationlabel">
      <x>562</x>
-     <y>1719</y>
+     <y>1757</y>
     </hint>
    </hints>
   </connection>
@@ -4343,12 +4343,28 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>162</x>
-     <y>1745</y>
+     <x>185</x>
+     <y>1783</y>
     </hint>
     <hint type="destinationlabel">
      <x>562</x>
-     <y>1747</y>
+     <y>1785</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>groupCheck_fractal_coloring_extra_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>groupCheck_fractal_coloring_extra_color_options_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>69</x>
+     <y>738</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>597</y>
     </hint>
    </hints>
   </connection>

@@ -2691,21 +2691,23 @@ void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
  */
 void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+		CVector4 c = aux.const_c * fractal->transformCommon.constantMultiplier100;
+		CVector4 zz = z * z;
+		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
 
-	CVector4 c = aux.const_c;
-	CVector4 temp = z;
-
-	z *= z;
-	double t = 2.0 * temp.x;
-	if (z.y + z.z > 0.0)
-		t = t / sqrt(z.y + z.z);
-	else
-		t = 1.0;
-
-	z.x = (z.x - z.y - z.z) + c.x * fractal->transformCommon.constantMultiplier100.x;
-	z.z = (t * (z.y - z.z)) + c.y * fractal->transformCommon.constantMultiplier100.y;
-	z.y = (2.0 * t * temp.y * temp.z) + c.z * fractal->transformCommon.constantMultiplier100.z;
+		double t = 1.0;
+		double temp = zz.y + zz.z;
+		if (temp > 0.0)
+			t = 2.0 * z.x / sqrt(temp);
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0 * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+		// c.yz swap
+		z.x += c.x;
+		z.z += c.y;
+		z.y += c.z;
 
 	if (fractal->transformCommon.angle0 != 0)
 	{
@@ -2724,60 +2726,68 @@ void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  */
 void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
-
 	if (fractal->transformCommon.benesiT1Enabled && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
-		z = CVector4(
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w);
 
-		CVector4 temp = z;
-		double tempL = temp.Length();
-		z = fabs(z) * fractal->transformCommon.scale3D222;
-		// if (tempL < 1e-21) tempL = 1e-21;
-		double avgScale = z.Length() / tempL;
-		aux.DE *= avgScale; // pos
-
-		if (fractal->transformCommon.rotationEnabled)
+		// Benesi mag transform T1
+		if (fractal->transformCommon.benesiT1Enabled && aux.i >= fractal->transformCommon.startIterations
+				&& aux.i < fractal->transformCommon.stopIterations)
 		{
-			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+			double tempXZ = z.x * SQRT_2_3 - z.z * SQRT_1_3;
+			z = CVector4(
+				(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w);
+
+			double tempL = z.Length();
+			z = fabs(z) * fractal->transformCommon.scale3D222;
+			// if (tempL < 1e-21) tempL = 1e-21;
+			double avgScale = z.Length() / tempL;
+			aux.DE = aux.DE * avgScale + 1.0;
+
+			if (fractal->transformCommon.rotationEnabled)
+			{ // rotation inside T1
+				z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+			}
+
+			tempXZ = (z.y + z.x) * SQRT_1_2;
+
+			z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
+				z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
+			z = z - fractal->transformCommon.offset200;
 		}
-
-		tempXZ = (z.y + z.x) * SQRT_1_2;
-
-		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
-		z = z - fractal->transformCommon.offset200;
 	}
-
+		//  Benesi pine tree pwr2
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		CVector4 temp = z;
-		aux.r = z.Length();
-		z *= z;
-		double t = 2.0 * temp.x;
-		if (z.y + z.z > 0.0)
-			t = t / sqrt(z.y + z.z);
-		else
-			t = 1.0;
-		CVector4 tempC = c;
+		CVector4 zz = z * z;
+		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+
+		double t = 1.0;
+		double temp = zz.y + zz.z;
+		if (temp > 0.0)
+			t = 2.0 * z.x / sqrt(temp);
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0 * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+
+		// swap c.yz then add cPixel
+		CVector4 tempC = aux.const_c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
-			tempC = CVector4(aux.c.x, aux.c.z, aux.c.y, aux.c.w);
+			tempC = aux.c * fractal->transformCommon.constantMultiplier100;
+			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
 			aux.c = tempC;
 		}
 		else
 		{
-			tempC = CVector4(c.x, c.z, c.y, c.w);
+			tempC *= fractal->transformCommon.constantMultiplier100;
+			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
 		}
-		z.x = (z.x - z.y - z.z) + tempC.x * fractal->transformCommon.constantMultiplier100.x;
-		z.z = (t * (z.y - z.z)) + tempC.z * fractal->transformCommon.constantMultiplier100.y;
-		z.y = (2.0 * t * temp.y * temp.z) + tempC.y * fractal->transformCommon.constantMultiplier100.z;
-		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+		z += tempC;
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -2812,6 +2822,7 @@ void BenesiT1PineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
+	// benesi T1
 	if (fractal->transformCommon.benesiT1Enabled && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
@@ -2819,55 +2830,55 @@ void BenesiMagTransformsIteration(CVector4 &z, const sFractal *fractal, sExtende
 		z = CVector4(
 			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w);
 
-		CVector4 temp = z;
-		double tempL = temp.Length();
+		double tempL = z.Length();
 		z = fabs(z) * fractal->transformCommon.scale3D222;
-		// if (tempL < 1e-21) tempL =  1e-21;
-		double avgScale = z.Length() / tempL; // pos
-
+		// if (tempL < 1e-21) tempL = 1e-21;
+		double avgScale = z.Length() / tempL;
 		aux.DE = aux.DE * avgScale + 1.0;
 
 		tempXZ = (z.y + z.x) * SQRT_1_2;
-
 		z = CVector4(z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
 			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w);
 		z = z - fractal->transformCommon.offset200;
 	}
-
+	// rotation
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
+	//  Benesi pine tree pwr2
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		CVector4 temp = z;
-		aux.r = z.Length();
-		z *= z;
-		double t = 2.0 * temp.x;
-		if (z.y + z.z > 0.0)
-			t = t / sqrt(z.y + z.z);
-		else
-			t = 1.0;
-		if (fractal->transformCommon.addCpixelEnabled)
-		{
-			CVector4 tempC = c;
-			if (fractal->transformCommon.alternateEnabledFalse) // alternate
-			{
-				tempC = CVector4(aux.c.x, aux.c.z, aux.c.y, aux.c.w);
-				aux.c = tempC;
-			}
-			else
-			{
-				tempC = CVector4(c.x, c.z, c.y, c.w);
-			}
-			z.x = (z.x - z.y - z.z) + tempC.x * fractal->transformCommon.constantMultiplier100.x;
-			z.z = (t * (z.y - z.z)) + tempC.z * fractal->transformCommon.constantMultiplier100.y;
-			z.y =
-				(2.0 * t * temp.y * temp.z) + tempC.y * fractal->transformCommon.constantMultiplier100.z;
-		}
+		CVector4 zz = z * z;
+		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
+
+		double t = 1.0;
+		double temp = zz.y + zz.z;
+		if (temp > 0.0)
+			t = 2.0 * z.x / sqrt(temp);
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0 * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+
+		// swap c.yz then add cPixel
+		CVector4 tempC = c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux.c * fractal->transformCommon.constantMultiplier100;
+			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
+			aux.c = tempC;
+		}
+		else
+		{
+			tempC *= fractal->transformCommon.constantMultiplier100;
+			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
+		}
+		z += tempC;
 	}
+
 	if (fractal->transformCommon.juliaMode)
 	{
 		z.x += fractal->transformCommon.juliaC.x * fractal->transformCommon.constantMultiplier100.x;
@@ -3100,11 +3111,11 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 		newZ.z = rrYZ * 2.0 * z.y * z.z;
 		z = newZ + (c * fractal->transformCommon.constantMultiplierA100);
 	}
-
+	//  Benesi pine tree pwr2
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
-	{ //  Benesi pine tree pwr2
+	{
 		CVector4 zz = z * z;
 		aux.r = sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 		aux.DE = aux.r * aux.DE * 2.0 + 1.0;
@@ -3118,18 +3129,20 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 		z.y = (2.0 * t * z.y * temp);
 		z.z = (t * (zz.y - zz.z));
 
+		// swap c.yz then add cPixel
 		CVector4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
-			tempC = aux.c;
+			tempC = aux.c * fractal->transformCommon.constantMultiplier100;
 			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
 			aux.c = tempC;
 		}
 		else
 		{
-			tempC = CVector4(c.x, c.z, c.y, c.w);
+			tempC *= fractal->transformCommon.constantMultiplier100;
+			tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w);
 		}
-		z += tempC * fractal->transformCommon.constantMultiplier100;
+		z += tempC;
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -3234,7 +3247,7 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 							 / SQRT_3
 						 + fractal->analyticDE.offset1;
 
-		z = z * 2.0;
+		z *= 2.0;
 		double x2 = z.x * z.x;
 		double y2 = z.y * z.y;
 		double z2 = z.z * z.z;
@@ -3436,7 +3449,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 							 + fractal->analyticDE.offset1;
 		}
 
-		z = z * 2.0;
+		z *= 2.0;
 		double x2 = z.x * z.x;
 		double y2 = z.y * z.y;
 		double z2 = z.z * z.z;

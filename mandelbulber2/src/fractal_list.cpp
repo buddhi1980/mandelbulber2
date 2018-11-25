@@ -119,7 +119,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelEnabledByDefault, 100, analyticFunctionLinear, coloringFunctionABox));
 
 	// Benesi formulas
-	fractalList->append(sFractalDescription("Benesi", "benesi", benesi, BenesiIteration,
+	fractalList->append(sFractalDescription("Benesi - Pwr2", "benesi", benesi, BenesiIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Benesi - Pine Tree", "benesi_pine_tree", benesiPineTree,
