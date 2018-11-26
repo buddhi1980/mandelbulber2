@@ -187,7 +187,7 @@ enum enumFractalFormula
 	aboxModKaliV3 = 136,
 	// 2.16
 	mandelbulbAbsPower2 = 137,
-	mandelbulbPow2Combo = 138,
+	mandelbulbPow2V2 = 138,
 
 
 

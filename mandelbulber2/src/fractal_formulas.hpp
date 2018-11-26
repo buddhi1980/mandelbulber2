@@ -143,7 +143,7 @@ void MandelbulbKaliMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void MandelbulbPow2ComboIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

@@ -5157,15 +5157,16 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 }
 
 /**
- * MandelbulbPow2Combo
+ * MandelbulbPow2 v2 Quick Dudley types and makin3D-2
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
+ * and http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  */
-void MandelbulbPow2ComboIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	//Q_UNUSED(aux);
 
 	aux.DE = aux.DE * aux.r * 2.0 + 1.0;
-
+	CVector4 c = aux.const_c;
 	//  abs
 	if (fractal->transformCommon.functionEnabledPFalse && aux.i >= fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
@@ -5178,45 +5179,83 @@ void MandelbulbPow2ComboIteration(CVector4 &z, const sFractal *fractal, sExtende
 	CVector4 oldZ = z;
 
 	CVector4 zz = z * z;
-	CVector4 Scale1 = fractal->transformCommon.constantMultiplier111;
+	CVector4 Scale1 = fractal->transformCommon.constantMultiplierA111;
 	zz *= Scale1;
-	aux.DE *= z.Length() / oldZ.Length(); //mmmmmmmmmmmmmm
+
 
 	CVector4 Scale2 = fractal->transformCommon.constantMultiplier222;
 
-	if (!fractal->transformCommon.functionEnabledDFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
+	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
-	// lkmitch/quick dudley
-	z.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
-	z.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
-	z.z = zz.y - Scale2.z  * oldZ.x * oldZ.z;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{ // lkmitch/quick dudley type
+			z.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
+			z.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
+			z.z = zz.y - Scale2.z  * oldZ.x * oldZ.z;
+		}
+		else
+		{ // makin 3D-2 type
+			z.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
+			z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
+			z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
+		}
 	}
-	else // makin 3D-2 type
-	{
-		z.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
-		z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
-		z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
 
-	}
-
-
-
-
-
-
-	// offset
-	if (fractal->transformCommon.functionEnabledM && aux.i >= fractal->transformCommon.startIterationsM
+	// offset or juliaC
+	if ( aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-	z += fractal->transformCommon.offset000;
+			z += fractal->transformCommon.offset000;
 	}
+
+	// addCpixel
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector4 tempC = c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux.c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
+	// rotation
+	if (fractal->transformCommon.functionEnabledFalse && aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		z = fractal->mandelbox.mainRot.RotateVector(z);
+	}
+
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE =
 			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 }
 
 
