@@ -188,6 +188,7 @@ enum enumFractalFormula
 	// 2.16
 	mandelbulbAbsPower2 = 137,
 	mandelbulbPow2V2 = 138,
+	riemannSphereMsltoeV2 = 139,
 
 
 

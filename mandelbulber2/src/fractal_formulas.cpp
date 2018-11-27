@@ -8142,7 +8142,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
- * RiemannSphereMsltoe Variation1
+ * RiemannSphereMsltoe Version1
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * revisiting-the-riemann-sphere-%28again%29/
@@ -8151,7 +8151,7 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	/*double r = aux.r; // z.Length();
+	double r = aux.r; // z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 	double q = 1.0 / (1.0 - z.z);
@@ -8170,7 +8170,18 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	z = t3 * fractal->transformCommon.constantMultiplier441;
 
-	z += fractal->transformCommon.additionConstant000;*/
+	z += fractal->transformCommon.additionConstant000;
+
+
+}
+/**
+ * RiemannSphereMsltoe Version2
+ * @reference
+ * http://www.fractalforums.com/theory/alternate-co-ordinate-systems/msg11688/#msg11688
+ */
+void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
 
 	double theta;
 	double phi;
@@ -8178,7 +8189,8 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	double rz;
 	double rr = z.Dot(z);
 	double r= sqrt(rr);
-
+	if (fractal->transformCommon.rotationEnabled)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	//invert and scale
 	z *= fractal->transformCommon.scale / r;
 
@@ -8196,8 +8208,8 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	}
 
 
-	theta *= fractal->transformCommon.constantMultiplier441.x;
-	theta *= fractal->transformCommon.constantMultiplier441.y;
+	theta *= fractal->transformCommon.scaleA1;
+	phi *= fractal->transformCommon.scaleB1;
 
 	rx = sin(theta) / (1.0 + cos(theta));
 	rz = sin(phi) / (1.0 + cos(phi));
@@ -8208,12 +8220,16 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	double b1 = (rx * rx + rz * rz - 1.0) * 0.5 * d;
 	double c1 = rz * d;
 
+
+
 	z.x = a1 *r*r*r*r;
 	z.y = b1*r*r*r*r;
 	z.z = c1*r*r*r*r;
+
+
+
 	z += fractal->transformCommon.additionConstant000;
 }
-
 /**
  * RiemannBulbMsltoe Mod2
  * @reference

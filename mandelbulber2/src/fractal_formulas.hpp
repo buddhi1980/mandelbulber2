@@ -178,6 +178,7 @@ void QuickDudleyModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void ScatorPower2ImaginaryIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
