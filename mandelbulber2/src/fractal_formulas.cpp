@@ -3164,6 +3164,11 @@ void BenesiPwr2MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtend
 
 	if (fractal->transformCommon.rotation2EnabledFalse)
 		z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
@@ -5200,6 +5205,27 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
 			z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
 		}
+		/*{
+			z.x = fabs( zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
+			z.y = fabs( oldZ.x *  oldZ.y) * -Scale2.y;
+			z.z = fabs( oldZ.x *  oldZ.z) * -Scale2.z;
+		}*/
+
+
+
+		/*{
+			z.x = (zz.x - zz.y - zz.z) * Scale2.x * 0.5;
+			z.y = fabs( oldZ.x * oldZ.y) * Scale2.y;
+			z.z = fabs( oldZ.x * oldZ.z) * Scale2.z;
+			z -= fabs(oldZ);
+			//z.x += c.x;
+			//z.y -= c.y;
+			//z.z -= c.z;
+
+		}*/
+
+
+
 	}
 
 	// offset or juliaC
@@ -8125,7 +8151,7 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	double r = aux.r; // z.Length();
+	/*double r = aux.r; // z.Length();
 	// if (r < 1e-21) r = 1e-21;
 	z *= fractal->transformCommon.scale / r;
 	double q = 1.0 / (1.0 - z.z);
@@ -8144,6 +8170,47 @@ void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	z = t3 * fractal->transformCommon.constantMultiplier441;
 
+	z += fractal->transformCommon.additionConstant000;*/
+
+	double theta;
+	double phi;
+	double rx;
+	double rz;
+	double rr = z.Dot(z);
+	double r= sqrt(rr);
+
+	//invert and scale
+	z *= fractal->transformCommon.scale / r;
+
+	if ((z.x == 0.0) && (z.z == 0.0))
+	{
+		theta = 0.0;
+	 phi = 0.0;
+	}
+	 else
+	{
+		rx = z.x / (z.y - 1.0);
+		theta = 8.0 * atan2(2.0 * rx, rx * rx - 1.0);
+		rz = z.z / (z.y - 1.0);
+		phi = 8.0 * atan2(2.0 * rz, rz * rz - 1.0);
+	}
+
+
+	theta *= fractal->transformCommon.constantMultiplier441.x;
+	theta *= fractal->transformCommon.constantMultiplier441.y;
+
+	rx = sin(theta) / (1.0 + cos(theta));
+	rz = sin(phi) / (1.0 + cos(phi));
+
+	double d = 2.0 / (rx * rx + rz * rz + 1.0);
+
+	double a1 = rx * d;
+	double b1 = (rx * rx + rz * rz - 1.0) * 0.5 * d;
+	double c1 = rz * d;
+
+	z.x = a1 *r*r*r*r;
+	z.y = b1*r*r*r*r;
+	z.z = c1*r*r*r*r;
 	z += fractal->transformCommon.additionConstant000;
 }
 
