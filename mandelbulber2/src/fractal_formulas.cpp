@@ -8183,52 +8183,55 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	double theta;
-	double phi;
+	double theta = 0.0;
+	double phi = 0.0;
 	double rx;
 	double rz;
-	double rr = z.Dot(z);
-	double r= sqrt(rr);
+	double r = aux.r;
+
+	//rotate
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	//invert and scale
-	z *= fractal->transformCommon.scale / r;
+	z *= fractal->transformCommon.scale08 / r;
+	aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) / r  + 1.0; //  /r
 
-	if ((z.x == 0.0) && (z.z == 0.0))
-	{
-		theta = 0.0;
-	 phi = 0.0;
-	}
-	 else
+	if ((z.x != 0.0) && (z.z != 0.0))
 	{
 		rx = z.x / (z.y - 1.0);
 		theta = 8.0 * atan2(2.0 * rx, rx * rx - 1.0);
+
 		rz = z.z / (z.y - 1.0);
 		phi = 8.0 * atan2(2.0 * rz, rz * rz - 1.0);
 	}
-
 
 	theta *= fractal->transformCommon.scaleA1;
 	phi *= fractal->transformCommon.scaleB1;
 
 	rx = sin(theta) / (1.0 + cos(theta));
 	rz = sin(phi) / (1.0 + cos(phi));
-
-	double d = 2.0 / (rx * rx + rz * rz + 1.0);
+	double rXZ = rx * rx + rz * rz;
+	double d = 2.0 / (rXZ + 1.0);
 
 	double a1 = rx * d;
-	double b1 = (rx * rx + rz * rz - 1.0) * 0.5 * d;
+	double b1 = (rXZ - 1.0) * 0.5 * d;
 	double c1 = rz * d;
 
 
+	double rrrr = r*r*r*r;
 
-	z.x = a1 *r*r*r*r;
-	z.y = b1*r*r*r*r;
-	z.z = c1*r*r*r*r;
-
-
+	z.x = a1 * rrrr;
+	z.y = b1 * rrrr;
+	z.z = c1 * rrrr;
 
 	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE =
+			aux.DE * 8.0 * fractal->analyticDE.scale1 * z.Length() / r + fractal->analyticDE.offset1;
+	}
+
 }
 /**
  * RiemannBulbMsltoe Mod2
