@@ -2254,8 +2254,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2619,18 +2618,22 @@ void cInterface::DisableJuliaPointMode() const
 
 void cInterface::ConnectProgressAndStatisticsSignals() const
 {
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																			 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																				 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
@@ -2731,4 +2734,58 @@ void cInterface::ColorizeGroupBoxes(QWidget *window, int randomSeed)
 		groupbox->setPalette(newPalette);
 		groupbox->setAutoFillBackground(true);
 	}
+}
+
+// selective saving of settings (from selected widget)
+void cInterface::SaveLocalSettings(const QWidget *widget)
+{
+	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
+
+	cSettings parSettings(cSettings::formatCondensedText);
+	parSettings.SetListOfParametersToProcess(listOfParameters);
+
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
+
+	QString proposedFilename = widget->objectName();
+
+	QFileDialog dialog(gMainInterface->mainWindow);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::AnyFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(proposedFilename));
+	dialog.setAcceptMode(QFileDialog::AcceptSave);
+	dialog.setWindowTitle(tr("Save settings from widget..."));
+	dialog.setDefaultSuffix("fract");
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		parSettings.SaveToFile(filename);
+	}
+}
+
+void cInterface::LoadLocalSettings(const QWidget *widget) {}
+
+void cInterface::ResetLocalSettings(const QWidget *widget) {}
+
+QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
+{
+	QList<QWidget *> listOfWidgets = widget->findChildren<QWidget *>();
+	QSet<QString> listOfParameters;
+
+	foreach (QWidget *widget, listOfWidgets)
+	{
+		CommonMyWidgetWrapper *myWidget = dynamic_cast<CommonMyWidgetWrapper *>(widget);
+		if (myWidget)
+		{
+			QString parameterName = myWidget->getFullParameterName();
+			listOfParameters.insert(parameterName);
+		}
+	}
+	QStringList list(listOfParameters.toList());
+	return list;
 }

@@ -80,6 +80,11 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 	for (auto &parameterNameFromList : parameterList)
 	{
 		if (parameterNameFromList == "description") continue;
+
+		if (!listOfParametersToProcess.isEmpty()) // selective saving
+		{
+			if (!listOfParametersToProcess.contains(parameterNameFromList)) continue;
+		}
 		settingsText += CreateOneLine(par, parameterNameFromList);
 	}
 

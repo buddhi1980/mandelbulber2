@@ -70,6 +70,7 @@ public:
 	QString GetHashCode() const { return hash.toHex(); }
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;
+	void SetListOfParametersToProcess(const QStringList &list) { listOfParametersToProcess = list; }
 
 private:
 	QString CreateHeader() const;
@@ -102,6 +103,7 @@ private:
 	QByteArray hash;
 	int csvNoOfColumns;
 	QStringList listOfLoadedPrimitives;
+	QStringList listOfParametersToProcess;
 
 	QList<QString> linesWithSoundParameters;
 	bool foundAnimSoundParameters;

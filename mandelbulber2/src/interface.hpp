@@ -115,6 +115,10 @@ public:
 	void DetachMainImageWidget();
 	void AttachMainImageWidget();
 	static void ColorizeGroupBoxes(QWidget *window, int randomSeed);
+	void SaveLocalSettings(const QWidget *widget);
+	void LoadLocalSettings(const QWidget *widget);
+	void ResetLocalSettings(const QWidget *widget);
+	QStringList CreateListOfParametersInWidget(const QWidget *widget);
 
 	bool QuitApplicationDialog();
 
