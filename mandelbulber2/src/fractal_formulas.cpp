@@ -8195,15 +8195,14 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 	//invert and scale
 	z *= fractal->transformCommon.scale08 / r;
 	aux.DE = aux.DE * fabs(fractal->transformCommon.scale08) / r  + 1.0; //  /r
+	//if (fabs(z.x) < 1e-21) z.x = 1e-21;
+	//if (fabs(z.z) < 1e-21) z.z = 1e-21;
 
-	if ((z.x != 0.0) && (z.z != 0.0))
-	{
-		rx = z.x / (z.y - 1.0);
-		theta = 8.0 * atan2(2.0 * rx, rx * rx - 1.0);
+	rx = z.x / (z.y - 1.0);
+	theta = 8.0 * atan2(2.0 * rx, rx * rx - 1.0);
+	rz = z.z / (z.y - 1.0);
+	phi = 8.0 * atan2(2.0 * rz, rz * rz - 1.0);
 
-		rz = z.z / (z.y - 1.0);
-		phi = 8.0 * atan2(2.0 * rz, rz * rz - 1.0);
-	}
 
 	theta *= fractal->transformCommon.scaleA1;
 	phi *= fractal->transformCommon.scaleB1;
@@ -8224,7 +8223,7 @@ void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExten
 	z.y = b1 * rrrr;
 	z.z = c1 * rrrr;
 
-	z += fractal->transformCommon.additionConstant000;
+	z += fractal->transformCommon.offset010;
 
 	if (fractal->analyticDE.enabled)
 	{

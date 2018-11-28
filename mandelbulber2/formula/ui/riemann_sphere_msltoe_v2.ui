@@ -195,7 +195,7 @@ but there is also an anayticDE option,</string>
       <number>2</number>
      </property>
      <item row="6" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_010_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -286,7 +286,7 @@ but there is also an anayticDE option,</string>
       </widget>
      </item>
      <item row="5" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_010_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -377,7 +377,7 @@ but there is also an anayticDE option,</string>
       </widget>
      </item>
      <item row="7" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_010_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -663,9 +663,9 @@ but there is also an anayticDE option,</string>
   <tabstop>spinbox_transf_scale_08</tabstop>
   <tabstop>spinbox_transf_scaleA_1</tabstop>
   <tabstop>spinbox_transf_scaleB_1</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_x</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_y</tabstop>
-  <tabstop>spinbox3_transf_addition_constant_z</tabstop>
+  <tabstop>spinbox3_transf_offset_010_x</tabstop>
+  <tabstop>spinbox3_transf_offset_010_y</tabstop>
+  <tabstop>spinbox3_transf_offset_010_z</tabstop>
   <tabstop>spinboxd3_transf_rotation_y</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
