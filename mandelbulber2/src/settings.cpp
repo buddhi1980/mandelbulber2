@@ -455,27 +455,30 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 	QString section;
 	if (textPrepared)
 	{
-		// clear settings
-		par->ResetAllToDefault();
-		if (fractPar)
+		if (listOfParametersToProcess.isEmpty()) // if not selective load
 		{
-			for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-				fractPar->at(i).ResetAllToDefault();
-		}
-		DeleteAllPrimitiveParams(par);
-		listOfLoadedPrimitives.clear();
-		DeleteAllMaterialParams(par);
+			// clear settings
+			par->ResetAllToDefault();
+			if (fractPar)
+			{
+				for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+					fractPar->at(i).ResetAllToDefault();
+			}
+			DeleteAllPrimitiveParams(par);
+			listOfLoadedPrimitives.clear();
+			DeleteAllMaterialParams(par);
 
-		if (frames)
-		{
-			frames->ClearAll();
-			frames->RemoveAllAudioParameters(par);
-		}
-		if (keyframes)
-		{
-			keyframes->ClearAll();
-			keyframes->ClearMorphCache();
-			keyframes->RemoveAllAudioParameters(par);
+			if (frames)
+			{
+				frames->ClearAll();
+				frames->RemoveAllAudioParameters(par);
+			}
+			if (keyframes)
+			{
+				keyframes->ClearAll();
+				keyframes->ClearMorphCache();
+				keyframes->RemoveAllAudioParameters(par);
+			}
 		}
 		// temporary containers to decode frames
 		cParameterContainer parTemp;
@@ -507,6 +510,13 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				bool result = false;
 				if (section == QString("main_parameters"))
 				{
+					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					{
+						int firstSpace = line.indexOf(' ');
+						QString parameterName = line.left(firstSpace);
+						if (!listOfParametersToProcess.contains(parameterName)) continue;
+					}
+
 					result = DecodeOneLine(par, line);
 				}
 				else if (section.contains("fractal"))
@@ -516,6 +526,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				}
 				else if (section == QString("frames"))
 				{
+
 					if (frames)
 					{
 						if (csvLine == 0)

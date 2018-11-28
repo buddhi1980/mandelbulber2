@@ -34,6 +34,7 @@
 
 #include "interface.hpp"
 
+#include "../qt/preview_file_dialog.h"
 #include "ui_render_window.h"
 
 #include "animation_flight.hpp"
@@ -2749,7 +2750,7 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 
 	QString proposedFilename = widget->objectName();
 
-	QFileDialog dialog(gMainInterface->mainWindow);
+	QFileDialog dialog(mainWindow);
 	dialog.setOption(QFileDialog::DontUseNativeDialog);
 	dialog.setFileMode(QFileDialog::AnyFile);
 	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
@@ -2757,7 +2758,7 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
 	dialog.selectFile(QDir::toNativeSeparators(proposedFilename));
 	dialog.setAcceptMode(QFileDialog::AcceptSave);
-	dialog.setWindowTitle(tr("Save settings from widget..."));
+	dialog.setWindowTitle(tr("Save settings from %1").arg(widget->objectName()));
 	dialog.setDefaultSuffix("fract");
 	QStringList filenames;
 	if (dialog.exec())
@@ -2768,9 +2769,56 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 	}
 }
 
-void cInterface::LoadLocalSettings(const QWidget *widget) {}
+void cInterface::LoadLocalSettings(const QWidget *widget)
+{
+	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
 
-void cInterface::ResetLocalSettings(const QWidget *widget) {}
+	gMainInterface->SynchronizeInterface(
+		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+
+	QString proposedFilename = widget->objectName();
+
+	PreviewFileDialog dialog(mainWindow);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.txt *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(proposedFilename));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Load settings to %1").arg(widget->objectName()));
+	QStringList filenames;
+
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+
+		cSettings parSettings(cSettings::formatFullText);
+		parSettings.SetListOfParametersToProcess(listOfParameters);
+
+		gMainInterface->DisablePeriodicRefresh();
+		gInterfaceReadyForSynchronization = false;
+		parSettings.LoadFromFile(filename);
+		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+		gInterfaceReadyForSynchronization = true;
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
+		gMainInterface->ReEnablePeriodicRefresh();
+	}
+}
+
+void cInterface::ResetLocalSettings(const QWidget *widget)
+{
+	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
+	for(QString parameter : listOfParameters)
+	{
+		cOneParameter oneParam = gPar->GetAsOneParameter(parameter);
+		oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
+		gPar->SetFromOneParameter(parameter, oneParam);
+	}
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+}
 
 QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
 {
