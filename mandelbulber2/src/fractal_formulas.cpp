@@ -5383,7 +5383,7 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 {
 	//Q_UNUSED(aux);
 
-	aux.DE = aux.DE * aux.r * 2.0 + 1.0;
+	aux.DE = aux.DE * aux.r * 2.0;
 	CVector4 c = aux.const_c;
 	//  abs
 	if (fractal->transformCommon.functionEnabledPFalse && aux.i >= fractal->transformCommon.startIterationsH
@@ -5406,27 +5406,57 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
-		if (!fractal->transformCommon.functionEnabledSwFalse)
+
+
+		/*CVector3 v;
+		switch (fractal->combo4.combo4)
+		{
+			case multi_combo4_type1:
+			default: v = CVector3(z.z, z.y, z.x); break;
+
+
+			case multi_combo4_type2: v = CVector3(z.z, z.x, z.y); break;
+
+
+			case multi_combo4_type3: v = CVector3(z.y, z.z, z.x); break;
+
+
+
+
+			case multi_combo4_type4: v = CVector3(z.y, z.x, z.z); break;
+		}
+
+
+		 z.x  = v.x;*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		if (fractal->transformCommon.functionEnabledAxFalse)
 		{ // lkmitch/quick dudley type
 			z.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
 			z.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
 			z.z = zz.y - Scale2.z  * oldZ.x * oldZ.z;
 		}
-		else
+		else if (fractal->transformCommon.functionEnabledAyFalse)
 		{ // makin 3D-2 type
 			z.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
 			z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
 			z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
 		}
-		/*{
-			z.x = fabs( zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
-			z.y = fabs( oldZ.x *  oldZ.y) * -Scale2.y;
-			z.z = fabs( oldZ.x *  oldZ.z) * -Scale2.z;
-		}*/
-
-
-
-		/*{
+		else if (fractal->transformCommon.functionEnabledAzFalse)
+		{ // buffalo V2
 			z.x = (zz.x - zz.y - zz.z) * Scale2.x * 0.5;
 			z.y = fabs( oldZ.x * oldZ.y) * Scale2.y;
 			z.z = fabs( oldZ.x * oldZ.z) * Scale2.z;
@@ -5434,11 +5464,13 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			//z.x += c.x;
 			//z.y -= c.y;
 			//z.z -= c.z;
-
-		}*/
-
-
-
+		}
+		else
+		{
+			z.x = fabs( zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
+			z.y = fabs( oldZ.x *  oldZ.y) * -Scale2.y;
+			z.z = fabs( oldZ.x *  oldZ.z) * -Scale2.z;
+		}
 	}
 
 	// offset or juliaC

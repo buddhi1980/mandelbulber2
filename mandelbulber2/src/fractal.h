@@ -359,6 +359,21 @@ struct sFractalMagTransforms
 	enumMulti_orderOfTransf orderOfTransf5;
 };
 
+// combo4
+enum enumMulti_combo4
+{
+	multi_combo4_type1,
+	multi_combo4_type2,
+	multi_combo4_type3,
+	multi_combo4_type4,
+};
+struct sFractalCombo4
+{
+	enumMulti_combo4 combo4;
+};
+
+
+
 // basic combo
 enum enumCombo
 {
@@ -704,6 +719,7 @@ struct sFractal
 	sFractalCpara Cpara;
 	sFractalCombo combo;
 	sFractalASurf3Folds aSurf3Folds;
+	sFractalCombo4 combo4;
 
 #ifdef USE_OPENCL
 //	double customParameters[15];

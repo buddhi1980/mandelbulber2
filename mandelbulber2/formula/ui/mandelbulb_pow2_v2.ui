@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">quick_dudley_mod</string>
+   <string notr="true">what</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -132,21 +132,73 @@
     </widget>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_75" columnstretch="0,0">
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="comboBox_combo4">
+       <item>
+        <property name="text">
+         <string>default</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>quick dudley</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>makin3d-2</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>buffaloV2</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Formula TODO figure out combo box</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout_72">
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="1" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+     <item row="4" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
-        <string notr="true">Enable Makin3D-2 type</string>
+        <string notr="true">Enable BuffaloV2</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_265">
        <property name="text">
-        <string>Quick Dudley type is default.</string>
+        <string>??? is default.</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+       <property name="text">
+        <string notr="true">Enable Makin3D-2 type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+       <property name="text">
+        <string notr="true">Enable Quick Dudley type</string>
        </property>
       </widget>
      </item>

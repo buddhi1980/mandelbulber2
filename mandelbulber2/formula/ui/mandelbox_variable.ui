@@ -170,7 +170,7 @@
        </layout>
       </item>
       <item>
-       <widget class="MyGroupBox" name="checkBox_transf_function_enabled_false">
+       <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
         <property name="enabled">
          <bool>true</bool>
         </property>
