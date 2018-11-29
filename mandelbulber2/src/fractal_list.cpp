@@ -97,6 +97,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		AboxVSIcen1Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Abox - Surf Box", "abox_surf_box", aboxSurfBox,
+		AboxSurfBoxIteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionABox));
+
 	// Aexion formulas
 	fractalList->append(sFractalDescription("Aexion", "aexion", aexion, AexionIteration, deltaDEType,
 		logarithmicDEFunction, cpixelAlreadyHas, 10000, analyticFunctionNone, coloringFunctionDefault));
