@@ -273,6 +273,7 @@ void TransfSphericalPwrFoldIteration(CVector4 &z, const sFractal *fractal, sExte
 void TransfSphericalOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalOffsetVCLIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSurfFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfZvectorAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 

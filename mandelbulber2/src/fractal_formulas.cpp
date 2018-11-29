@@ -1986,12 +1986,11 @@ void AboxVSIcen1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 /**
  * ABoxSurfBox,
- * The Mandelbox fractal known as AmazingBox or ABox, invented by Tom Lowe in 2010
  * based on DarkBeam's code "Mixed fold by Luca 2016".
  * @reference
  * http:// http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/
  * httpwww-shaperich-comproshred-elite-review/
- * This formula contains aux.color and aux.actualScale
+ * This formula contains aux.color and aux.actualScaleA
  */
 void AboxSurfBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -1999,34 +1998,47 @@ void AboxSurfBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	aux.actualScale =
 		fractal->mandelbox.scale + fractal->mandelboxVary4D.scaleVary * (fabs(aux.actualScale) - 1.0);
 	CVector4 c = aux.const_c;
+	if (aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		// tglad fold
+		CVector4 oldZ = z;
+		CVector4 foldMod = fractal->transformCommon.offset222;
+		CVector4 fold = fractal->transformCommon.additionConstant111;
+		CVector4 sg = z;
+		sg.x = sign(z.x);
+		sg.y = sign(z.y);
+		sg.z = sign(z.z);
 
-	// tglad fold
-	CVector4 oldZ = z;
-	CVector4 foldMod = fractal->transformCommon.offset222;
-	CVector4 fold = fractal->transformCommon.additionConstant111;
-	CVector4 sg = z;
-	sg.x = sign(z.x);
-	sg.y = sign(z.y);
-	sg.z = sign(z.z);
+		CVector4 folder = z;
+		CVector4 Tglad =  z;
 
-	CVector4 folder = z;
-	CVector4 Tglad = fabs(z + fold) - fabs(z - fold) - z;
+		Tglad.x = fabs(z.x + fold.x) - fabs(z.x - fold.x) - z.x;
+		Tglad.y = fabs(z.y + fold.y) - fabs(z.y - fold.y) - z.y;
 
-	folder.x = sg.x * (z.x - Tglad.x);
-	folder.y = sg.y * (z.y - Tglad.y);
-	folder.z = sg.z * (z.z - Tglad.z);
+		folder.x = sg.x * (z.x - Tglad.x);
+		folder.y = sg.y * (z.y - Tglad.y);
+		folder.x = fabs(folder.x);
+		folder.y = fabs(folder.y);
+		folder.x = min(folder.x, foldMod.x);
+		folder.y = min(folder.y, foldMod.y);
+		z.x -= sg.x * folder.x;
+		z.y -= sg.y * folder.y;
 
-	folder = fabs(folder);
+		if (fractal->transformCommon.functionEnabled)
+		{
+			Tglad.z = fabs(z.z + fold.z) - fabs(z.z - fold.z) - z.z;
+			folder.z = sg.z * (z.z - Tglad.z);
+			folder.z = fabs(folder.z);
+			folder.z = min(folder.z, foldMod.z);
+			z.z -= sg.z * folder.z;
 
-	folder.x = min(folder.x, foldMod.x); // and Y,Z,W
-	folder.y = min(folder.y, foldMod.y);
-	folder.z = min(folder.z, foldMod.z);
+		}
+		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+		if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
 
-	z.x -= sg.x * folder.x;
-	z.y -= sg.y * folder.y;
-	z.z -= sg.z * folder.z;
-
-
+	}
 
 	/*if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
@@ -2039,35 +2051,9 @@ void AboxSurfBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		{
 			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
-		}
+		}*/
 
-		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-		if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-		if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
-	}
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		CVector4 limit = fractal->transformCommon.additionConstant111;
-		CVector4 length = 2.0 * limit;
-		CVector4 tgladS = 1.0 / length;
-		CVector4 Add;
-		Add.w = 0.0;
-		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
-		if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-			Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-		if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-			Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-		if (fabs(z.z) > limit.z && fabs(z.z) < length.z)
-			Add.z = (length.z - fabs(z.z)) * (length.z - fabs(z.z)) * tgladS.z;
-		Add *= fractal->transformCommon.scale3D000;
-		z.x = (z.x - (sign(z.x) * (Add.x)));
-		z.y = (z.y - (sign(z.y) * (Add.y)));
-		z.z = (z.z - (sign(z.z) * (Add.z)));
-	}*/
+
 	// swap
 	if (fractal->transformCommon.functionEnabledSwFalse)
 	{
@@ -12501,6 +12487,63 @@ void TransfSurfBoxFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 					- fractal->surfBox.offset3A111.z;
 	}
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // tweak
+}
+
+/**
+ * Surf Box Fold v2
+ * based on DarkBeam's code "Mixed fold by Luca 2016".
+ * @reference
+ * http:// http://www.fractalforums.com/amazing-box-amazing-surf-and-variations/
+ * httpwww-shaperich-comproshred-elite-review
+ * This formula contains aux.color,
+ */
+void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	 Q_UNUSED(aux);
+
+	double colorAdd = 0.0;
+	CVector4 oldZ = z;
+	CVector4 foldMod = fractal->transformCommon.offset222;
+	CVector4 fold = fractal->transformCommon.additionConstant111;
+	CVector4 sg = z;
+	sg.x = sign(z.x);
+	sg.y = sign(z.y);
+	sg.z = sign(z.z);
+
+	CVector4 folder = z;
+	CVector4 Tglad =  z;
+
+	Tglad.x = fabs(z.x + fold.x) - fabs(z.x - fold.x) - z.x;
+	Tglad.y = fabs(z.y + fold.y) - fabs(z.y - fold.y) - z.y;
+
+	folder.x = sg.x * (z.x - Tglad.x);
+	folder.y = sg.y * (z.y - Tglad.y);
+	folder.x = fabs(folder.x);
+	folder.y = fabs(folder.y);
+	folder.x = min(folder.x, foldMod.x);
+	folder.y = min(folder.y, foldMod.y);
+	z.x -= sg.x * folder.x;
+	z.y -= sg.y * folder.y;
+
+	if (fractal->transformCommon.functionEnabled)
+	{
+		Tglad.z = fabs(z.z + fold.z) - fabs(z.z - fold.z) - z.z;
+		folder.z = sg.z * (z.z - Tglad.z);
+		folder.z = fabs(folder.z);
+		folder.z = min(folder.z, foldMod.z);
+		z.z -= sg.z * folder.z;
+	}
+	// color
+	if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+	if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+	if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+
+	// analyic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
 }
 
 /**

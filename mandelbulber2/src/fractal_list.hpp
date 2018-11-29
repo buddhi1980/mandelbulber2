@@ -294,6 +294,8 @@ enum enumFractalFormula
 	transfBlockify = 1085,
 	transfAddCpixelScator = 1086,
 	transfAddCpixelSinOrCos = 1087,
+	// 2.16
+	transfSurfBoxFoldV2 = 1088,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
