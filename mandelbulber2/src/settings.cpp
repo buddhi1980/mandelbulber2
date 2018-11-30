@@ -98,6 +98,11 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 				QString fractalSettingsText = "";
 				for (const auto &parameterNameFromFractal : parameterListFractal)
 				{
+					if (!listOfParametersToProcess.isEmpty()) // selective saving
+					{
+						// TODO: to create correct parameter name to compare with list
+						if (!listOfParametersToProcess.contains(parameterNameFromFractal)) continue;
+					}
 					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterNameFromFractal);
 				}
 				if (fractalSettingsText.length() > 0)

@@ -96,10 +96,6 @@ void cDockEffects::ConnectSignals() const
 
 	connect(ui->groupCheck_DOF_monte_carlo, SIGNAL(toggled(bool)), this,
 		SLOT(slotChangedEnableMCDOF(bool)));
-
-	connect(ui->pushButton_local_load, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
-	connect(ui->pushButton_local_save, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalSave()));
-	connect(ui->pushButton_local_reset, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalReset()));
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
@@ -250,19 +246,4 @@ void cDockEffects::slotChangedEnableMCDOF(bool state)
 			ui->groupCheck_ambient_occlusion_enabled->setChecked(false);
 		}
 	}
-}
-
-void cDockEffects::slotPressedButtonLocalLoad()
-{
-	gMainInterface->LoadLocalSettings(this);
-}
-
-void cDockEffects::slotPressedButtonLocalSave()
-{
-	gMainInterface->SaveLocalSettings(this);
-}
-
-void cDockEffects::slotPressedButtonLocalReset()
-{
-	gMainInterface->ResetLocalSettings(this);
 }

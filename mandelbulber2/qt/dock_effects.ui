@@ -29,21 +29,21 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton_local_load">
+      <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load">
        <property name="text">
         <string>Load</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_local_save">
+      <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save">
        <property name="text">
         <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_local_reset">
+      <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset">
        <property name="text">
         <string>Reset</string>
        </property>
@@ -71,7 +71,7 @@
      <property name="movable">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tab_raytracing">
       <attribute name="title">
        <string>Ray-tracing</string>
       </attribute>
@@ -92,6 +92,31 @@
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_7">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -102,7 +127,7 @@
             <x>0</x>
             <y>0</y>
             <width>545</width>
-            <height>1054</height>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -953,7 +978,7 @@ per pixel:</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="tab_volumetric">
       <attribute name="title">
        <string>Volumetric</string>
       </attribute>
@@ -974,6 +999,31 @@ per pixel:</string>
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_3">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_3">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_3">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_8">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -984,7 +1034,7 @@ per pixel:</string>
             <x>0</x>
             <y>0</y>
             <width>545</width>
-            <height>1054</height>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1862,11 +1912,11 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_4">
+     <widget class="QWidget" name="tab_background">
       <attribute name="title">
        <string>Background</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_66" stretch="0">
+      <layout class="QVBoxLayout" name="verticalLayout_66" stretch="0,0">
        <property name="spacing">
         <number>2</number>
        </property>
@@ -1883,6 +1933,31 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_5">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_5">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_5">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_9">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -1893,7 +1968,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
             <x>0</x>
             <y>0</y>
             <width>545</width>
-            <height>1054</height>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2494,7 +2569,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_5">
+     <widget class="QWidget" name="tab_lights">
       <attribute name="title">
        <string>Lights</string>
       </attribute>
@@ -2514,6 +2589,31 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
        <property name="bottomMargin">
         <number>2</number>
        </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_6">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_6">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_6">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
        <item>
         <widget class="QScrollArea" name="scrollArea_10">
          <property name="widgetResizable">
@@ -4205,7 +4305,7 @@ of lights:</string>
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab_postEffects">
       <attribute name="title">
        <string>Post effects</string>
       </attribute>
@@ -4220,6 +4320,31 @@ of lights:</string>
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_7">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_7">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_7">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -4230,7 +4355,7 @@ of lights:</string>
             <x>0</x>
             <y>0</y>
             <width>545</width>
-            <height>1050</height>
+            <height>1017</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -4431,6 +4556,21 @@ of lights:</string>
    <class>FileSelectWidget</class>
    <extends>QWidget</extends>
    <header>file_select_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonLoadSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_load_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonSaveSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_save_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonResetSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
