@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>amazing_surf_mod2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -3200,15 +3200,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -3248,11 +3248,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>470</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
-     <y>1021</y>
+     <y>993</y>
     </hint>
    </hints>
   </connection>
@@ -3264,11 +3264,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>470</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
-     <y>1053</y>
+     <y>1025</y>
     </hint>
    </hints>
   </connection>
@@ -3280,11 +3280,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>470</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>470</x>
-     <y>1085</y>
+     <y>1057</y>
     </hint>
    </hints>
   </connection>
@@ -3296,11 +3296,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>706</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>706</x>
-     <y>1021</y>
+     <y>993</y>
     </hint>
    </hints>
   </connection>
@@ -3312,11 +3312,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>706</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>706</x>
-     <y>1053</y>
+     <y>1025</y>
     </hint>
    </hints>
   </connection>
@@ -3328,11 +3328,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>706</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>706</x>
-     <y>1085</y>
+     <y>1057</y>
     </hint>
    </hints>
   </connection>
@@ -3344,11 +3344,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>942</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>942</x>
-     <y>1021</y>
+     <y>993</y>
     </hint>
    </hints>
   </connection>
@@ -3360,11 +3360,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>942</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>942</x>
-     <y>1053</y>
+     <y>1025</y>
     </hint>
    </hints>
   </connection>
@@ -3376,11 +3376,11 @@ offset:</string>
    <hints>
     <hint type="sourcelabel">
      <x>942</x>
-     <y>990</y>
+     <y>962</y>
     </hint>
     <hint type="destinationlabel">
      <x>942</x>
-     <y>1085</y>
+     <y>1057</y>
     </hint>
    </hints>
   </connection>
@@ -3391,12 +3391,12 @@ offset:</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>15</x>
-     <y>1109</y>
+     <x>19</x>
+     <y>1089</y>
     </hint>
     <hint type="destinationlabel">
-     <x>291</x>
-     <y>1104</y>
+     <x>456</x>
+     <y>1091</y>
     </hint>
    </hints>
   </connection>

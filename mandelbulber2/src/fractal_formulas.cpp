@@ -5394,84 +5394,68 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 	}
 
+	if (aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		CVector4 v = z;
+		switch (fractal->mandelbulbMulti.orderOfXYZ2)
+		{
+			case multi_OrderOfXYZ_xyz:
+			default: v = CVector4(z.x, z.y, z.z, z.w); break;
+			case multi_OrderOfXYZ_xzy: v = CVector4(z.x, z.z, z.y, z.w); break;
+			case multi_OrderOfXYZ_yxz: v = CVector4(z.y, z.x, z.z, z.w); break;
+			case multi_OrderOfXYZ_yzx: v = CVector4(z.y, z.z, z.x, z.w); break;
+			case multi_OrderOfXYZ_zxy: v = CVector4(z.z, z.x, z.y, z.w); break;
+			case multi_OrderOfXYZ_zyx: v = CVector4(z.z, z.y, z.x, z.w); break;
+		}
+		z = v;
+	}
 	CVector4 oldZ = z;
-
 	CVector4 zz = z * z;
 	CVector4 Scale1 = fractal->transformCommon.constantMultiplierA111;
 	zz *= Scale1;
-
-
 	CVector4 Scale2 = fractal->transformCommon.constantMultiplier222;
 
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 	{
-
-
-		/*CVector3 v;
+		CVector4 v4 = z;
 		switch (fractal->combo4.combo4)
 		{
 			case multi_combo4_type1:
-			default: v = CVector3(z.z, z.y, z.x); break;
-
-
-			case multi_combo4_type2: v = CVector3(z.z, z.x, z.y); break;
-
-
-			case multi_combo4_type3: v = CVector3(z.y, z.z, z.x); break;
-
-
-
-
-			case multi_combo4_type4: v = CVector3(z.y, z.x, z.z); break;
+			default:
+			v4.x = ( zz.x - zz.y - zz.z) * -Scale2.x * 0.5; // removed fabs
+			oldZ = fabs(oldZ);
+			v4.y = oldZ.x *  oldZ.y * -Scale2.y;
+			v4.z = oldZ.x *  oldZ.z * -Scale2.z;
+			break;
+			// lkmitch/quick dudley type
+			case multi_combo4_type2:
+			v4.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
+			v4.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
+			v4.z = zz.y - Scale2.z * oldZ.x * oldZ.z;
+			break;
+			// makin 3D-2 type
+			case multi_combo4_type3:
+			v4.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
+			v4.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
+			v4.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
+			aux.DE += 1.0;
+			break;
+			// buffalo V2
+			case multi_combo4_type4:
+			oldZ = fabs(oldZ);
+			v4.x = (zz.x - zz.y - zz.z) * Scale2.x * 0.5 - oldZ.x;
+			v4.y =  oldZ.x * oldZ.y * Scale2.y - oldZ.y;
+			v4.z =  oldZ.x * oldZ.z * Scale2.z - oldZ.z;
+			break;
 		}
-
-
-		 z.x  = v.x;*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		if (fractal->transformCommon.functionEnabledAxFalse)
-		{ // lkmitch/quick dudley type
-			z.x = zz.x - Scale2.x * oldZ.y * oldZ.z;
-			z.y = zz.z + Scale2.y * oldZ.x * oldZ.y;
-			z.z = zz.y - Scale2.z  * oldZ.x * oldZ.z;
-		}
-		else if (fractal->transformCommon.functionEnabledAyFalse)
-		{ // makin 3D-2 type
-			z.x = zz.x + Scale2.x * oldZ.y * oldZ.z;
-			z.y = -zz.y - Scale2.y * oldZ.x * oldZ.z;
-			z.z = -zz.z + Scale2.z * oldZ.x * oldZ.y;
-		}
-		else if (fractal->transformCommon.functionEnabledAzFalse)
-		{ // buffalo V2
-			z.x = (zz.x - zz.y - zz.z) * Scale2.x * 0.5;
-			z.y = fabs( oldZ.x * oldZ.y) * Scale2.y;
-			z.z = fabs( oldZ.x * oldZ.z) * Scale2.z;
-			z -= fabs(oldZ);
-			//z.x += c.x;
-			//z.y -= c.y;
-			//z.z -= c.z;
-		}
-		else
-		{
-			z.x = fabs( zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
-			z.y = fabs( oldZ.x *  oldZ.y) * -Scale2.y;
-			z.z = fabs( oldZ.x *  oldZ.z) * -Scale2.z;
-		}
+		z = v4;
 	}
+		if (fractal->transformCommon.functionEnabledBxFalse)
+			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledBzFalse)
+			z -= oldZ;
 
 	// offset or juliaC
 	if ( aux.i >= fractal->transformCommon.startIterationsM
@@ -5489,7 +5473,7 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
 			tempC = aux.c;
-			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case multi_OrderOfXYZ_xyz:
 				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
@@ -5503,7 +5487,7 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 		else
 		{
-			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			switch (fractal->mandelbulbMulti.orderOfXYZC)
 			{
 				case multi_OrderOfXYZ_xyz:
 				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
