@@ -5385,17 +5385,17 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 	aux.DE = aux.DE * aux.r * 2.0;
 	CVector4 c = aux.const_c;
-	//  abs
-	if (fractal->transformCommon.functionEnabledPFalse && aux.i >= fractal->transformCommon.startIterationsH
-			&& aux.i < fractal->transformCommon.stopIterationsH)
+	//  pre-abs
+	if (fractal->transformCommon.functionEnabledAxFalse && aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		if (fractal->transformCommon.functionEnabledCxFalse) z.x = fabs(z.x);
 		if (fractal->transformCommon.functionEnabledCyFalse) z.y = fabs(z.y);
 		if (fractal->transformCommon.functionEnabledCzFalse) z.z = fabs(z.z);
 	}
-
-	if (aux.i >= fractal->transformCommon.startIterationsG
-			&& aux.i < fractal->transformCommon.stopIterationsG)
+	// swap axis
+	if (aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		CVector4 v = z;
 		switch (fractal->mandelbulbMulti.orderOfXYZ2)
@@ -5410,15 +5410,22 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 		z = v;
 	}
-	CVector4 oldZ = z;
-	CVector4 zz = z * z;
-	CVector4 Scale1 = fractal->transformCommon.constantMultiplierA111;
-	zz *= Scale1;
-	CVector4 Scale2 = fractal->transformCommon.constantMultiplier222;
 
-	if (aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD)
+	// Pow2
+	CVector4 oldZ = z;
+
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
+		CVector4 zz = z * z;
+		if (fractal->transformCommon.functionEnabledDFalse && aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD)
+			zz *= fractal->transformCommon.constantMultiplierA111;
+		CVector4 Scale2 = CVector4(2.0, 2.0, 2.0, 1.0);
+		if (fractal->transformCommon.functionEnabledEFalse && aux.i >= fractal->transformCommon.startIterationsE
+				&& aux.i < fractal->transformCommon.stopIterationsE)
+			Scale2 = fractal->transformCommon.constantMultiplier222;
+
 		CVector4 v4 = z;
 		switch (fractal->combo4.combo4)
 		{
@@ -5452,22 +5459,27 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 		z = v4;
 	}
-		if (fractal->transformCommon.functionEnabledBxFalse)
-			z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledBzFalse)
-			z -= oldZ;
+
+		//  post abs
+		if (fractal->transformCommon.functionEnabledFFalse && aux.i >= fractal->transformCommon.startIterationsF
+				&& aux.i < fractal->transformCommon.stopIterationsF)
+		{
+			if (fractal->transformCommon.functionEnabledBxFalse) z.x = fabs(z.x);
+			if (fractal->transformCommon.functionEnabledByFalse) z.y = fabs(z.y);
+			if (fractal->transformCommon.functionEnabledBzFalse) z.z = fabs(z.z);
+		}
 
 	// offset or juliaC
-	if ( aux.i >= fractal->transformCommon.startIterationsM
-			&& aux.i < fractal->transformCommon.stopIterationsM)
+	if ( aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
 	{
 			z += fractal->transformCommon.offset000;
 	}
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsE
-			&& aux.i < fractal->transformCommon.stopIterationsE)
+			&& aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
 	{
 		CVector4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
