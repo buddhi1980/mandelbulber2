@@ -12527,7 +12527,7 @@ void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	z.x -= sg.x * folder.x;
 	z.y -= sg.y * folder.y;
 
-	if (fractal->transformCommon.functionEnabled)
+	if (!fractal->transformCommon.functionEnabled)
 	{
 		Tglad.z = fabs(z.z + fold.z) - fabs(z.z - fold.z) - z.z;
 		folder.z = sg.z * (z.z - Tglad.z);
@@ -12535,16 +12535,37 @@ void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		folder.z = min(folder.z, foldMod.z);
 		z.z -= sg.z * folder.z;
 	}
-	// color
-	if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
-	if (z.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
-	if (z.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+
 
 	// analyic DE tweak
 	if (fractal->analyticDE.enabledFalse)
 	{
 		aux.DE =
 			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+	// color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		CVector4 zCol = z;
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (zCol.x != oldZ.x)
+				colorAdd += fractal->mandelbox.color.factor.x
+										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+			if (zCol.y != oldZ.y)
+				colorAdd += fractal->mandelbox.color.factor.y
+										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+			if (zCol.z != oldZ.z)
+				colorAdd += fractal->mandelbox.color.factor.z
+										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+		}
+		else
+		{
+			if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (zCol.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (zCol.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+		}
+		aux.color += colorAdd;
 	}
 }
 
