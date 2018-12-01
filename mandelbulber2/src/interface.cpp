@@ -2771,11 +2771,6 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 
 void cInterface::LoadLocalSettings(const QWidget *widget)
 {
-	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
-
-	gMainInterface->SynchronizeInterface(
-		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
-
 	QString proposedFilename = widget->objectName();
 
 	PreviewFileDialog dialog(mainWindow);
@@ -2794,17 +2789,25 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 
-		cSettings parSettings(cSettings::formatFullText);
-		parSettings.SetListOfParametersToProcess(listOfParameters);
+		for (int i = 0; i < 2; i++) // repeat twice to refresh comboboxes and get new list of widgets
+		{
+			QStringList listOfParameters = CreateListOfParametersInWidget(widget);
 
-		gMainInterface->DisablePeriodicRefresh();
-		gInterfaceReadyForSynchronization = false;
-		parSettings.LoadFromFile(filename);
-		parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
-		gInterfaceReadyForSynchronization = true;
-		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-		gMainInterface->ComboMouseClickUpdate();
-		gMainInterface->ReEnablePeriodicRefresh();
+			gMainInterface->SynchronizeInterface(
+				gPar, gParFractal, qInterface::read); // update appParam before loading new settings
+
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.SetListOfParametersToProcess(listOfParameters);
+
+			gMainInterface->DisablePeriodicRefresh();
+			gInterfaceReadyForSynchronization = false;
+			parSettings.LoadFromFile(filename);
+			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
+			gInterfaceReadyForSynchronization = true;
+			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			gMainInterface->ComboMouseClickUpdate();
+			gMainInterface->ReEnablePeriodicRefresh();
+		}
 	}
 }
 

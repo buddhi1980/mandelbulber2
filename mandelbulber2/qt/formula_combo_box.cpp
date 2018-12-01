@@ -41,9 +41,10 @@
 
 #include <QStandardItemModel>
 
+#include "../src/parameters.hpp"
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
-cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent)
+cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapper(this)
 {
 	QFontMetrics fm(font());
 	int pixelFontSize = fm.height();
@@ -145,6 +146,29 @@ void cFormulaComboBox::populateItemsFromFractalList(
 	}
 }
 
+int cFormulaComboBox::GetDefault()
+{
+	if (parameterContainer && !gotDefault)
+	{
+		int val = parameterContainer->GetDefault<int>(parameterName);
+		defaultValue = val;
+		gotDefault = true;
+		setToolTipText();
+	}
+	return defaultValue;
+}
+
+void cFormulaComboBox::paintEvent(QPaintEvent *event)
+{
+	GetDefault();
+	QComboBox::paintEvent(event);
+}
+
+void cFormulaComboBox::contextMenuEvent(QContextMenuEvent *event)
+{
+	CommonMyWidgetWrapper::contextMenuEvent(event);
+}
+
 QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
 {
 	if (!iconCache.contains(filename))
@@ -152,4 +176,31 @@ QIcon cFormulaComboBox::GetIconFromCache(const QString &filename)
 		iconCache.insert(filename, QIcon(filename));
 	}
 	return iconCache[filename];
+}
+
+void cFormulaComboBox::resetToDefault()
+{
+	int selection = defaultValue;
+	if (parameterName == QString("formula"))
+	{
+		for (int i = 0; i < fractalList.size(); i++)
+		{
+			if (fractalList[i].internalID == selection)
+			{
+				selection = findData(i);
+				break;
+			}
+		}
+	}
+	setCurrentIndex(selection);
+}
+
+QString cFormulaComboBox::getDefaultAsString()
+{
+	return QString::number(defaultValue);
+}
+
+QString cFormulaComboBox::getFullParameterName()
+{
+	return parameterName;
 }

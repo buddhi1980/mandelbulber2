@@ -45,8 +45,9 @@
 #include <QSortFilterProxyModel>
 
 #include "src/fractal_list.hpp"
+#include "common_my_widget_wrapper.h"
 
-class cFormulaComboBox : public QComboBox
+class cFormulaComboBox : public QComboBox, public CommonMyWidgetWrapper
 {
 	Q_OBJECT
 
@@ -58,14 +59,24 @@ public:
 	void populateItemsFromFractalList(
 		QList<sFractalDescription> fractalList, QList<QPair<int, QString> /* */> insertHeader);
 
+	void resetToDefault() override;
+	QString getDefaultAsString() override;
+	QString getFullParameterName() override;
+
+protected:
+	void paintEvent(QPaintEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
+
 private slots:
 	void onCompleterActivated(QString text);
 
 private:
 	QIcon GetIconFromCache(const QString &filename);
+	int GetDefault();
 
 	QSortFilterProxyModel *pFilterModel;
 	QCompleter *completer;
+	int defaultValue;
 
 	static QMap<QString, QIcon> iconCache;
 };

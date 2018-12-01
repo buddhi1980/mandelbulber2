@@ -37,6 +37,7 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
 
+#include "../qt/formula_combo_box.h"
 #include "algebra.hpp"
 #include "fractal_list.hpp"
 #include "global_data.hpp"
@@ -464,12 +465,18 @@ void SynchronizeInterfaceQComboBox(
 					int selection = par->Get<int>(props.paramName);
 					if (props.paramName.left(7) == QString("formula"))
 					{
-						for (int i = 0; i < fractalList.size(); i++)
+						cFormulaComboBox *formulaComboBox = dynamic_cast<cFormulaComboBox *>(comboBox);
+						if (formulaComboBox)
 						{
-							if (fractalList[i].internalID == selection)
+							formulaComboBox->AssignParameterContainer(par);
+							formulaComboBox->AssignParameterName(props.paramName);
+							for (int i = 0; i < fractalList.size(); i++)
 							{
-								selection = comboBox->findData(i);
-								break;
+								if (fractalList[i].internalID == selection)
+								{
+									selection = comboBox->findData(i);
+									break;
+								}
 							}
 						}
 					}
