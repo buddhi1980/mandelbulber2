@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>buffalo</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
+    <width>733</width>
     <height>845</height>
    </rect>
   </property>
@@ -32,42 +32,42 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_buffalo_preabs_x">
+      <widget class="MyCheckBox" name="checkBox_buffalo_preabs_x">
        <property name="text">
         <string>PreAbs(x)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="checkBox_buffalo_preabs_y">
+      <widget class="MyCheckBox" name="checkBox_buffalo_preabs_y">
        <property name="text">
         <string>PreAbs(y)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QCheckBox" name="checkBox_buffalo_preabs_z">
+      <widget class="MyCheckBox" name="checkBox_buffalo_preabs_z">
        <property name="text">
         <string>PreAbs(z)</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QCheckBox" name="checkBox_buffalo_abs_x">
+      <widget class="MyCheckBox" name="checkBox_buffalo_abs_x">
        <property name="text">
         <string notr="true">abs(x)</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QCheckBox" name="checkBox_buffalo_abs_y">
+      <widget class="MyCheckBox" name="checkBox_buffalo_abs_y">
        <property name="text">
         <string notr="true">abs(y)</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QCheckBox" name="checkBox_buffalo_abs_z">
+      <widget class="MyCheckBox" name="checkBox_buffalo_abs_z">
        <property name="text">
         <string notr="true">abs(z)</string>
        </property>
@@ -91,7 +91,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
-      <string>I&amp;nformation</string>
+      <string>&amp;Information</string>
      </property>
      <property name="flat">
       <bool>false</bool>
@@ -198,6 +198,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

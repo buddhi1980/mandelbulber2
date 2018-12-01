@@ -154,3 +154,8 @@ QString CommonMyWidgetWrapper::GetType(const QString &name)
 	int firstDashPosition = name.indexOf("_");
 	return name.left(firstDashPosition);
 }
+
+QString CommonMyWidgetWrapper::getParameterContainerName()
+{
+	return parameterContainer->GetContainerName();
+}

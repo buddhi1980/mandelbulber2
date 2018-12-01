@@ -2811,7 +2811,7 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 void cInterface::ResetLocalSettings(const QWidget *widget)
 {
 	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
-	for(QString parameter : listOfParameters)
+	for (QString parameter : listOfParameters)
 	{
 		cOneParameter oneParam = gPar->GetAsOneParameter(parameter);
 		oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
@@ -2831,7 +2831,9 @@ QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
 		if (myWidget)
 		{
 			QString parameterName = myWidget->getFullParameterName();
-			listOfParameters.insert(parameterName);
+			QString containerName = myWidget->getParameterContainerName();
+			QString fullParameterName = containerName + "_" + parameterName;
+			listOfParameters.insert(fullParameterName);
 		}
 	}
 	QStringList list(listOfParameters.toList());

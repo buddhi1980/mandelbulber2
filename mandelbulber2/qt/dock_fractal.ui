@@ -61,6 +61,31 @@
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QLabel" name="label_fractals_remark_julia">
          <property name="text">
           <string>Remark: Julia mode is enabled</string>
@@ -108,8 +133,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_1" stretch="1,0">
@@ -177,8 +202,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -236,8 +261,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -295,8 +320,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -354,8 +379,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -413,8 +438,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -472,8 +497,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -531,8 +556,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -590,8 +615,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>370</width>
-                <height>828</height>
+                <width>372</width>
+                <height>802</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -644,6 +669,31 @@
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_5">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_5">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_5">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_5">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QScrollArea" name="scrollArea_11">
          <property name="widgetResizable">
           <bool>true</bool>
@@ -653,8 +703,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>364</width>
-            <height>912</height>
+            <width>380</width>
+            <height>851</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_68">
@@ -1428,6 +1478,31 @@ for 4D fractals</string>
         <number>2</number>
        </property>
        <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_6">
+         <item>
+          <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_6">
+           <property name="text">
+            <string>Load</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_6">
+           <property name="text">
+            <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_6">
+           <property name="text">
+            <string>Reset</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
           <string>Hybrid</string>
@@ -2093,8 +2168,8 @@ distance estimation)</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>378</width>
-            <height>882</height>
+            <width>380</width>
+            <height>880</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_74">
@@ -2647,6 +2722,21 @@ and water):</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonLoadSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_load_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonSaveSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_save_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonResetSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>

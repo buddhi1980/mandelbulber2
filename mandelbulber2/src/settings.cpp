@@ -83,7 +83,7 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 
 		if (!listOfParametersToProcess.isEmpty()) // selective saving
 		{
-			if (!listOfParametersToProcess.contains(parameterNameFromList)) continue;
+			if (!listOfParametersToProcess.contains(QString("main_") + parameterNameFromList)) continue;
 		}
 		settingsText += CreateOneLine(par, parameterNameFromList);
 	}
@@ -100,8 +100,9 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 				{
 					if (!listOfParametersToProcess.isEmpty()) // selective saving
 					{
-						// TODO: to create correct parameter name to compare with list
-						if (!listOfParametersToProcess.contains(parameterNameFromFractal)) continue;
+						if (!listOfParametersToProcess.contains(
+									QString("fractal%1_").arg(f) + parameterNameFromFractal))
+							continue;
 					}
 					fractalSettingsText += CreateOneLine(&fractPar->at(f), parameterNameFromFractal);
 				}
@@ -519,7 +520,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 					{
 						int firstSpace = line.indexOf(' ');
 						QString parameterName = line.left(firstSpace);
-						if (!listOfParametersToProcess.contains(parameterName)) continue;
+						if (!listOfParametersToProcess.contains(QString("main_") + parameterName)) continue;
 					}
 
 					result = DecodeOneLine(par, line);
@@ -527,6 +528,15 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				else if (section.contains("fractal"))
 				{
 					int i = section.rightRef(1).toInt() - 1;
+
+					if (!listOfParametersToProcess.isEmpty()) // selective loading
+					{
+						int firstSpace = line.indexOf(' ');
+						QString parameterName = line.left(firstSpace);
+						if (!listOfParametersToProcess.contains(QString("fractal%1_").arg(i) + parameterName))
+							continue;
+					}
+
 					if (fractPar) result = DecodeOneLine(&fractPar->at(i), line);
 				}
 				else if (section == QString("frames"))
