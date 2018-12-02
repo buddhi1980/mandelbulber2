@@ -11578,48 +11578,98 @@ void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  */
 void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// Q_UNUSED(aux);
-
-	CVector4 sinZ = z * fractal->transformCommon.constantMultiplierA111;
-	CVector4 cosZ = z * fractal->transformCommon.constantMultiplierB111;
-	sinZ.x = sin(sinZ.x);
-	sinZ.y = sin(sinZ.y);
-	sinZ.z = sin(sinZ.z);
-	cosZ.x = cos(cosZ.x);
-	cosZ.y = cos(cosZ.y);
-	cosZ.z = cos(cosZ.z);
-	CVector4 sinCosZ = sinZ * cosZ;
+	CVector4 oldZ = z;
 	CVector4 maxZ = z;
-	maxZ.x = max(max(sinZ.x, cosZ.x), sinCosZ.x);
-	maxZ.y = max(max(sinZ.y, cosZ.y), sinCosZ.y);
-	maxZ.z = max(max(sinZ.z, cosZ.z), sinCosZ.z);
+	CVector4 sinZ = z;
+	CVector4 cosZ = z;
+	CVector4 sinCosZ = z;
 
-	if (!fractal->transformCommon.functionEnabledFalse)
+
+	if (fractal->transformCommon.functionEnabledAx)
 	{
-		z = maxZ * fractal->transformCommon.scale;
-	}
-	else
-	{
-		if (fractal->transformCommon.functionEnabled)
-		{
-			z += maxZ * fractal->transformCommon.scale;
-		}
-		else
-		{
-			// z = maxZ * fractal->transformCommon.scale  / (fabs(z) + 1.0);
-			z.x = maxZ.x * fractal->transformCommon.scale / (fabs(z.x) + 1.0);
-			z.y = maxZ.y * fractal->transformCommon.scale / (fabs(z.y) + 1.0);
-			z.z = maxZ.z * fractal->transformCommon.scale / (fabs(z.z) + 1.0);
-		}
+		sinZ.x = sin(oldZ.x * fractal->transformCommon.constantMultiplierA111.x * M_PI_2)
+				* fractal->transformCommon.scaleA1; // freq
+		cosZ.x = cos(oldZ.x * fractal->transformCommon.constantMultiplierB111.x * M_PI_2)
+				* fractal->transformCommon.scaleB1;
+		sinCosZ.x = sinZ.x * cosZ.x * fractal->transformCommon.scaleC1;
+		maxZ.x = max(max(sinZ.x, cosZ.x), sinCosZ.x);
+
+
+		if (fractal->transformCommon.functionEnabledFalse)
+			maxZ.x /= (fabs(oldZ.x) + 1.0);
+		//sinCosZ.x *= fractal->transformCommon.constantMultiplierC111.x;
 	}
 
-	if (fractal->analyticDE.enabled) // temp
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-		else
-			aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
-							 + fractal->analyticDE.offset1;
+		sinZ.y = sin(oldZ.y * fractal->transformCommon.constantMultiplierA111.y * M_PI_2)
+				* fractal->transformCommon.scaleA1; // freq
+		cosZ.y = cos(oldZ.y * fractal->transformCommon.constantMultiplierB111.y * M_PI_2)
+				* fractal->transformCommon.scaleB1;
+		sinCosZ.y = sinZ.y * cosZ.y * fractal->transformCommon.scaleC1;
+		maxZ.y = max(max(sinZ.y, cosZ.y), sinCosZ.y);
+
+		if (fractal->transformCommon.functionEnabledFalse)
+			maxZ.y /= (fabs(oldZ.y) + 1.0);
+
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		sinZ.z = sin(oldZ.z * fractal->transformCommon.constantMultiplierA111.z * M_PI_2)
+				* fractal->transformCommon.scaleA1; // freq
+		cosZ.z = cos(oldZ.z * fractal->transformCommon.constantMultiplierB111.z * M_PI_2)
+				* fractal->transformCommon.scaleB1;
+		sinCosZ.z = sinZ.z * cosZ.z * fractal->transformCommon.scaleC1;
+
+		maxZ.z = max(max(sinZ.z, cosZ.z), sinCosZ.z);
+
+		if (fractal->transformCommon.functionEnabledFalse)
+			maxZ.z /= (fabs(oldZ.z) + 1.0);
+	}
+
+	// post scale
+	maxZ *= fractal->transformCommon.scale;
+	aux.DE *= fabs(fractal->transformCommon.scale);
+
+
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		switch (fractal->combo4.combo4)
+		{
+			case multi_combo4_type1:
+			default:
+				maxZ += oldZ; break;
+			case multi_combo4_type2:
+				maxZ *=oldZ; break;
+
+
+
+			case multi_combo4_type3:
+				maxZ +=fabs(oldZ); break;
+			case multi_combo4_type4:
+				maxZ *=fabs(oldZ); break;
+		}
+	}
+
+
+
+
+
+	// diminish
+	/*if (fractal->transformCommon.functionEnabledFalse)
+	{
+		maxZ.x = maxZ.x / (fabs(oldZ.x) + 1.0);
+		maxZ.y = maxZ.y / (fabs(oldZ.y) + 1.0);
+		maxZ.z = maxZ.z / (fabs(oldZ.z) + 1.0);
+	}*/
+
+	z = maxZ;
+
+	// analytic tweaks
+	if (fractal->analyticDE.enabledFalse) // temp
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1  + fractal->analyticDE.offset1;
 	}
 }
 
