@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>1405</height>
+    <height>1517</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,7 +111,7 @@ pre-transform, slot#1 for 1 iteration</string>
       <widget class="QLabel" name="label_109">
        <property name="text">
         <string>sine
-frequency:</string>
+period:</string>
        </property>
       </widget>
      </item>
@@ -259,7 +259,7 @@ frequency:</string>
       <widget class="QLabel" name="label_111">
        <property name="text">
         <string>cosine
-frequency:</string>
+period:</string>
        </property>
       </widget>
      </item>
@@ -600,13 +600,6 @@ frequency:</string>
        </layout>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QCheckBox" name="checkBox_analyticDE_enabled">
-     <property name="text">
-      <string>temp de disable</string>
-     </property>
     </widget>
    </item>
    <item>
