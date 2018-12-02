@@ -1033,8 +1033,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>249</width>
-            <height>1037</height>
+            <width>545</width>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1967,8 +1967,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>379</height>
+            <width>545</width>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2204,7 +2204,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                  </widget>
                 </item>
                 <item row="1" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_textured_background_map_type">
+                 <widget class="MyComboBox" name="comboBox_textured_background_map_type">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                     <horstretch>0</horstretch>
@@ -2624,7 +2624,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>295</width>
+            <width>527</width>
             <height>1707</height>
            </rect>
           </property>
@@ -4354,8 +4354,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>167</width>
-            <height>109</height>
+            <width>545</width>
+            <height>1017</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -4522,11 +4522,6 @@ of lights:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -4548,16 +4543,6 @@ of lights:</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>MyColorButton</class>
-   <extends>QWidget</extends>
-   <header>my_color_button.h</header>
-  </customwidget>
-  <customwidget>
-   <class>FileSelectWidget</class>
-   <extends>QWidget</extends>
-   <header>file_select_widget.h</header>
-  </customwidget>
-  <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_load_settings_from_widget.h</header>
@@ -4571,6 +4556,26 @@ of lights:</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyColorButton</class>
+   <extends>QWidget</extends>
+   <header>my_color_button.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FileSelectWidget</class>
+   <extends>QWidget</extends>
+   <header>file_select_widget.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

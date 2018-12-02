@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>255</width>
+    <width>258</width>
     <height>931</height>
    </rect>
   </property>
@@ -105,7 +105,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_opencl_mode">
+      <widget class="MyComboBox" name="comboBox_opencl_mode">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes for OpenCL computation (GPU support):&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;no OpenCL&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - use only CPU&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;fast&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - very fast rendering on GPU. Fractal has visible shape, but colors and effects are not calculated. It is very good mode for fast camera navigation and looking for interesting fractal shapes in auto-refresh mode.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;medium&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - medium rendering speed on GPU. There is calculated color of the fractal, light sources with shadows are used. There is used only first defined material. Reflections and volumetric effects are not calculated.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;full&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - the most accurate and the the slowest rendering. Uses more GPU resources. All effects are calculated (except texture mapping which is not implemented yet in OpenCL rendering engine) &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -184,7 +184,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>229</width>
+        <width>232</width>
         <height>810</height>
        </rect>
       </property>
@@ -486,7 +486,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_camera_movement_mode">
+             <widget class="MyComboBox" name="comboBox_camera_movement_mode">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -732,7 +732,7 @@ to target:</string>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_camera_absolute_distance_mode">
+             <widget class="MyComboBox" name="comboBox_camera_absolute_distance_mode">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1020,7 +1020,7 @@ to target:</string>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_camera_rotation_mode">
+             <widget class="MyComboBox" name="comboBox_camera_rotation_mode">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1043,7 +1043,7 @@ to target:</string>
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_camera_straight_rotation">
+             <widget class="MyComboBox" name="comboBox_camera_straight_rotation">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1304,11 +1304,6 @@ to target:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
@@ -1332,6 +1327,16 @@ to target:</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

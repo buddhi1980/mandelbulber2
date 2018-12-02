@@ -212,7 +212,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_ui_style_type"/>
+                 <widget class="MyComboBox" name="comboBox_ui_style_type"/>
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_11">
@@ -229,7 +229,7 @@
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox_ui_skin">
+                 <widget class="MyComboBox" name="comboBox_ui_skin">
                   <item>
                    <property name="text">
                     <string>normal</string>
@@ -310,7 +310,7 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="comboboxLanguage">
+                 <widget class="MyComboBox" name="comboboxLanguage">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -443,7 +443,7 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="comboBox_threads_priority">
+                 <widget class="MyComboBox" name="comboBox_threads_priority">
                   <property name="frame">
                    <bool>true</bool>
                   </property>
@@ -674,7 +674,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_color_quality">
+                 <widget class="MyComboBox" name="comboBox_color_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -707,7 +707,7 @@
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox_alpha_quality">
+                 <widget class="MyComboBox" name="comboBox_alpha_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -740,7 +740,7 @@
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QComboBox" name="comboBox_zbuffer_quality">
+                 <widget class="MyComboBox" name="comboBox_zbuffer_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -781,7 +781,7 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="5" column="1">
-                 <widget class="QComboBox" name="comboBox_normal_quality">
+                 <widget class="MyComboBox" name="comboBox_normal_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -814,7 +814,7 @@ and will only be present after enabling and re-render.</string>
                  </widget>
                 </item>
                 <item row="6" column="1">
-                 <widget class="QComboBox" name="comboBox_specular_quality">
+                 <widget class="MyComboBox" name="comboBox_specular_quality">
                   <item>
                    <property name="text">
                     <string>8 bit</string>
@@ -1073,7 +1073,7 @@ and will only be present after enabling and re-render.</string>
                  <number>2</number>
                 </property>
                 <item row="2" column="1" colspan="2">
-                 <widget class="QComboBox" name="comboBox_opencl_precision">
+                 <widget class="MyComboBox" name="comboBox_opencl_precision">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -1148,7 +1148,7 @@ and will only be present after enabling and re-render.</string>
                 <item row="1" column="1" colspan="2">
                  <layout class="QVBoxLayout" name="verticalLayout_opencl_device">
                   <item>
-                   <widget class="QComboBox" name="comboBox_opencl_device_type">
+                   <widget class="MyComboBox" name="comboBox_opencl_device_type">
                     <item>
                      <property name="text">
                       <string>All GPU devices</string>
@@ -1291,11 +1291,6 @@ and will only be present after enabling and re-render.</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1310,6 +1305,16 @@ and will only be present after enabling and re-render.</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1345,7 +1350,7 @@ and will only be present after enabling and re-render.</string>
   <tabstop>text_zbuffer_postfix</tabstop>
   <tabstop>checkBox_normal_enabled</tabstop>
   <tabstop>comboBox_normal_quality</tabstop>
-  <tabstop>text_normal_postfix</tabstop>>
+  <tabstop>text_normal_postfix</tabstop>
   <tabstop>checkBox_specular_enabled</tabstop>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>

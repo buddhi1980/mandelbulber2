@@ -37,7 +37,6 @@
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QPlainTextEdit>
 
-#include "../qt/formula_combo_box.h"
 #include "algebra.hpp"
 #include "fractal_list.hpp"
 #include "global_data.hpp"
@@ -47,6 +46,8 @@
 #include "qt/file_select_widget.h"
 #include "qt/material_selector.h"
 #include "qt/my_check_box.h"
+#include "qt/formula_combo_box.h"
+#include "qt/my_combo_box.h"
 #include "qt/my_color_button.h"
 #include "qt/my_double_spin_box.h"
 #include "qt/my_group_box.h"
@@ -444,10 +445,18 @@ void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *>::iterator it;
 	for (it = widgets.begin(); it != widgets.end(); ++it)
 	{
-		widgetProperties props = parseWidgetProperties((*it), {"QComboBox", "cFormulaComboBox"});
+		widgetProperties props =
+			parseWidgetProperties((*it), {"QComboBox", "MyComboBox", "cFormulaComboBox"});
 		if (props.allowed)
 		{
 			QComboBox *comboBox = *it;
+
+			if (props.className == QString("MyComboBox"))
+			{
+				MyComboBox *myComboBox = static_cast<MyComboBox *>(*it);
+				myComboBox->AssignParameterContainer(par);
+				myComboBox->AssignParameterName(props.paramName);
+			}
 
 			if (props.typeName == QString("comboBox"))
 			{

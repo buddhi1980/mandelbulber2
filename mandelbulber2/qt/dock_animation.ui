@@ -288,7 +288,7 @@
                 </widget>
                </item>
                <item row="4" column="1" colspan="2">
-                <widget class="QComboBox" name="comboBox_flight_speed_control">
+                <widget class="MyComboBox" name="comboBox_flight_speed_control">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -385,7 +385,7 @@
                 </widget>
                </item>
                <item row="7" column="1" colspan="2">
-                <widget class="QComboBox" name="comboBox_flight_animation_image_type">
+                <widget class="MyComboBox" name="comboBox_flight_animation_image_type">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                    <horstretch>0</horstretch>
@@ -998,7 +998,7 @@
                    </widget>
                   </item>
                   <item row="3" column="1" colspan="2">
-                   <widget class="QComboBox" name="comboBox_keyframe_animation_image_type">
+                   <widget class="MyComboBox" name="comboBox_keyframe_animation_image_type">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                       <horstretch>0</horstretch>
@@ -1421,9 +1421,9 @@ keyframes</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
@@ -1431,14 +1431,19 @@ keyframes</string>
    <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyTableWidgetAnim</class>

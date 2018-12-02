@@ -117,7 +117,7 @@
          </layout>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="comboBox_image_proportion">
+         <widget class="MyComboBox" name="comboBox_image_proportion">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -213,7 +213,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_antialiasing_enabled">
         <property name="title">
-         <string>Anti-a&amp;liasing</string>
+         <string>Anti-aliasin&amp;g</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -477,7 +477,7 @@
          </widget>
         </item>
         <item row="0" column="1" colspan="2">
-         <widget class="QComboBox" name="comboBox_stereo_mode">
+         <widget class="MyComboBox" name="comboBox_stereo_mode">
           <property name="toolTip">
            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as an anaglyph dedicated for red/cyan 3D glasses. Using this option it is possible to edit the fractal with 3D view directly in the application window using regular display.  Cheap 3D glasses are all that is required. For fractal exploration it is recommended to not use SSAO ambient occlusion, because it is rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>
@@ -906,7 +906,7 @@ no ambient occlusion)</string>
          </widget>
         </item>
         <item row="1" column="1" colspan="2">
-         <widget class="QComboBox" name="comboBox_perspective_type">
+         <widget class="MyComboBox" name="comboBox_perspective_type">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -1011,11 +1011,6 @@ no ambient occlusion)</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1050,6 +1045,16 @@ no ambient occlusion)</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

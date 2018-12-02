@@ -122,7 +122,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="comboBox_mesh_file_mode">
+             <widget class="MyComboBox" name="comboBox_mesh_file_mode">
               <item>
                <property name="text">
                 <string>binary</string>
@@ -147,7 +147,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QCheckBox" name="checkBox_mesh_color">
+             <widget class="MyCheckBox" name="checkBox_mesh_color">
               <property name="text">
                <string>Color</string>
               </property>
@@ -260,7 +260,7 @@
        <item>
         <widget class="MyGroupBox" name="groupCheck_voxel_custom_limit_enabled">
          <property name="title">
-          <string>Custom &amp;Limits (leave untoggled to use global limits)</string>
+          <string>Custom Limits (leave &amp;untoggled to use global limits)</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -541,9 +541,10 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>my_line_edit.h</header>
+   <class>MyGroupBox</class>
+   <extends>QGroupBox</extends>
+   <header>my_group_box.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -551,15 +552,25 @@
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MyGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>my_group_box.h</header>
-   <container>1</container>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyProgressBar</class>
    <extends>QProgressBar</extends>
    <header>my_progress_bar.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

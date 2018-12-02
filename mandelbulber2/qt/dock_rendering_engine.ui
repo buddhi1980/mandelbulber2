@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>382</width>
-    <height>1624</height>
+    <height>1657</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -185,7 +185,7 @@ each fractal formula</string>
          </widget>
         </item>
         <item row="5" column="1" colspan="2">
-         <widget class="QComboBox" name="comboBox_delta_DE_method">
+         <widget class="MyComboBox" name="comboBox_delta_DE_method">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -278,7 +278,7 @@ function:</string>
          </widget>
         </item>
         <item row="6" column="1" colspan="2">
-         <widget class="QComboBox" name="comboBox_delta_DE_function">
+         <widget class="MyComboBox" name="comboBox_delta_DE_function">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -623,7 +623,7 @@ with image resolution</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of fractal cross sections.&lt;/p&gt;&lt;p&gt;Example cross sections of Buffalo fractal:&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;x = {-10; 10}, y = {-10, 10}, z = {-10, 0}&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;x = {-10, 0}, y = {0, 10}, z = {-0.1; 0.1}&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - limits x, y, z.jpeg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>&amp;Limits (bounding box)</string>
+      <string>Limits (bounding bo&amp;x)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1175,7 +1175,7 @@ with image resolution</string>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox_netrender_mode">
+         <widget class="MyComboBox" name="comboBox_netrender_mode">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1571,6 +1571,11 @@ border-radius: 3px; background: white; text-align: center; qproperty-alignment: 
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -202,8 +202,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_3">
@@ -261,8 +261,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_4">
@@ -320,8 +320,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_5">
@@ -379,8 +379,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_6">
@@ -438,8 +438,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_7">
@@ -497,8 +497,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_8">
@@ -556,8 +556,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_9">
@@ -615,8 +615,8 @@
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>372</width>
-                <height>802</height>
+                <width>96</width>
+                <height>26</height>
                </rect>
               </property>
               <layout class="QVBoxLayout" name="verticalLayoutScroll_fractal_10">
@@ -1649,7 +1649,7 @@ distance estimation)</string>
              <number>2</number>
             </property>
             <item row="1" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_1">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_1">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1681,7 +1681,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="2" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_2">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_2">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1706,7 +1706,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="3" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_3">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_3">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1780,7 +1780,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="4" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_4">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_4">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1805,7 +1805,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="5" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_5">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_5">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1830,7 +1830,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="6" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_6">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_6">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1855,7 +1855,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="7" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_7">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_7">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -1880,7 +1880,7 @@ distance estimation)</string>
              </widget>
             </item>
             <item row="8" column="1">
-             <widget class="QComboBox" name="comboBox_boolean_operator_8">
+             <widget class="MyComboBox" name="comboBox_boolean_operator_8">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
                 <horstretch>0</horstretch>
@@ -2698,11 +2698,6 @@ and water):</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -2737,6 +2732,16 @@ and water):</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>cMaterialSelector</class>

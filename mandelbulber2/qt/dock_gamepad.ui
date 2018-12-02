@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>197</width>
+    <width>289</width>
     <height>458</height>
    </rect>
   </property>
@@ -17,7 +17,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_gamepad_enabled">
      <property name="title">
-      <string>Gamepad activate</string>
+      <string>&amp;Gamepad activate</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -54,7 +54,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox_gamepad_device">
+         <widget class="MyComboBox" name="comboBox_gamepad_device">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -350,6 +350,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
