@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_sin_and_cos</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>862</width>
-    <height>759</height>
+    <width>925</width>
+    <height>1622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,10 +92,10 @@ checkBox disabled,  result = no change</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_119">
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_112">
        <property name="text">
-        <string>scale z.x:</string>
+        <string>scale z.y:</string>
        </property>
       </widget>
      </item>
@@ -127,10 +127,10 @@ checkBox disabled,  result = no change</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_112">
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_119">
        <property name="text">
-        <string>scale z.y:</string>
+        <string>scale z.x:</string>
        </property>
       </widget>
      </item>
@@ -197,14 +197,68 @@ checkBox disabled,  result = no change</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_121">
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_75">
+     <property name="topMargin">
+      <number>5</number>
+     </property>
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_7">
        <property name="text">
-        <string>post scale z</string>
+        <string>Addition and multiplication modes</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
+     <item row="1" column="0">
+      <widget class="QComboBox" name="comboBox_combo6">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <item>
+        <property name="text">
+         <string>z = sinZ + cosZ </string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z = sinZ * cosZ</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z = oldZ + (sinZ + cosZ)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z = oldZ + (sinZ * cosZ)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z = oldZ * (sinZ + cosZ)</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>z = oldZ * (sinZ * cosZ)</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout_4" columnstretch="0,0,1">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -232,124 +286,20 @@ checkBox disabled,  result = no change</string>
        </property>
       </widget>
      </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_124">
+       <property name="text">
+        <string>post scale z</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
-     <property name="title">
-      <string>enable ex&amp;tra options</string>
+    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+     <property name="text">
+      <string>diminish z</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_75">
-        <property name="topMargin">
-         <number>5</number>
-        </property>
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_7">
-          <property name="text">
-           <string>Addition and multiplication modes</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_1">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <item>
-           <property name="text">
-            <string>z = sinZ * cosZ * postScale;</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>z = oldZ + (sinZ + cosZ) * postScale;</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>z = oldZ + (sinZ * cosZ) * postScale;</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>z = oldZ * (sinZ + cosZ) * postScale;</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>z = oldZ * (sinZ * cosZ) * postScale;</string>
-           </property>
-          </item>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_30" columnstretch="0,0,0">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled">
-          <property name="text">
-           <string>z = sinZ * cosZ * postScale;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
-          <property name="text">
-           <string>z = oldZ + (sinZ + cosZ) * postScale;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
-          <property name="text">
-           <string>z = oldZ + (sinZ * cosZ) * postScale;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
-          <property name="text">
-           <string>z = oldZ * (sinZ + cosZ) * postScale;</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
-          <property name="text">
-           <string>z = oldZ * (sinZ * cosZ) * postScale;</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
     </widget>
    </item>
    <item>
@@ -384,10 +334,10 @@ checkBox disabled,  result = no change</string>
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_177">
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_182">
           <property name="text">
-           <string>offset1:</string>
+           <string>scale1:</string>
           </property>
          </widget>
         </item>
@@ -419,6 +369,13 @@ checkBox disabled,  result = no change</string>
           </property>
          </widget>
         </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_177">
+          <property name="text">
+           <string>offset1:</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
@@ -444,13 +401,6 @@ checkBox disabled,  result = no change</string>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_182">
-          <property name="text">
-           <string>scale1:</string>
           </property>
          </widget>
         </item>
@@ -606,15 +556,15 @@ checkBox disabled,  result = no change</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

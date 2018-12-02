@@ -197,9 +197,17 @@ sFractal::sFractal(const cParameterContainer *container)
 	aSurf3Folds.orderOf3Folds3 =
 		enumMulti_orderOf3Folds(container->Get<int>("aSurf3Folds_order_of_folds_3"));
 
-	// combo4 multi_combo4_type1,
+	// combo4 multi
 	combo4.combo4 =
 		enumMulti_combo4(container->Get<int>("combo4"));
+
+	// combo5 multi
+	combo5.combo5 =
+		enumMulti_combo5(container->Get<int>("combo5"));
+
+	// combo6 multi
+	combo6.combo6 =
+		enumMulti_combo6(container->Get<int>("combo6"));
 
 
 	// benesi mag transforms

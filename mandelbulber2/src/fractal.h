@@ -372,6 +372,34 @@ struct sFractalCombo4
 	enumMulti_combo4 combo4;
 };
 
+// combo5
+enum enumMulti_combo5
+{
+	multi_combo5_type1,
+	multi_combo5_type2,
+	multi_combo5_type3,
+	multi_combo5_type4,
+	multi_combo5_type5,
+};
+struct sFractalCombo5
+{
+	enumMulti_combo5 combo5;
+};
+
+// combo6
+enum enumMulti_combo6
+{
+	multi_combo6_type1,
+	multi_combo6_type2,
+	multi_combo6_type3,
+	multi_combo6_type4,
+	multi_combo6_type5,
+	multi_combo6_type6,
+};
+struct sFractalCombo6
+{
+	enumMulti_combo6 combo6;
+};
 
 
 // basic combo
@@ -720,6 +748,8 @@ struct sFractal
 	sFractalCombo combo;
 	sFractalASurf3Folds aSurf3Folds;
 	sFractalCombo4 combo4;
+	sFractalCombo5 combo5;
+	sFractalCombo6 combo6;
 
 #ifdef USE_OPENCL
 //	double customParameters[15];

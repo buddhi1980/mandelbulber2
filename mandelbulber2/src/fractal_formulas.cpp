@@ -11526,6 +11526,7 @@ void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	CVector4 oldZ = z;
 	CVector4 sinZ = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 cosZ = CVector4(0.0, 0.0, 0.0, 0.0);
+
 	CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
 
 	if (fractal->transformCommon.functionEnabledAx) sinZ.x = sin(scaleZ.x); // scale =0, sin = 0
@@ -11536,43 +11537,33 @@ void TransfSinAndCosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	if (fractal->transformCommon.functionEnabledAyFalse) cosZ.y = cos(scaleZ.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) cosZ.z = cos(scaleZ.z);
 
-	double postScale = fractal->transformCommon.scale;
 
+	switch (fractal->combo6.combo6)
+	{
+		case multi_combo6_type1:
+		default:
+			z = (sinZ + cosZ); break;
+		case multi_combo6_type2:
+			z = sinZ * cosZ; break;
+		case multi_combo6_type3:
+			z = oldZ + (sinZ + cosZ); break;
+		case multi_combo6_type4:
+			z = oldZ + (sinZ * cosZ); break;
+		case multi_combo6_type5:
+			z = oldZ * (sinZ + cosZ); break;
+		case multi_combo6_type6:
+			z = oldZ * (sinZ * cosZ); break;
+	}
+
+	// post scale
 	if (!fractal->transformCommon.functionEnabledFalse)
-		z = (sinZ + cosZ) * postScale;
+				z *= fractal->transformCommon.scale;
 	else
 	{
-		/*enumMulti_orderOfFolds foldN[5] = {fractal->surfFolds.orderOfFolds1,
-			fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
-			fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
-
-		for (int f = 0; f < 5; f++)
-		{
-			switch (foldN[f])
-			{
-				case multi_orderOfFolds_type1:
-				default:
-					z = sinZ * cosZ * postScale;
-					break;
-				case multi_orderOfFolds_type2:
-					z = oldZ + (sinZ + cosZ) * postScale;
-					break;
-				case multi_orderOfFolds_type3:
-					z = oldZ + (sinZ * cosZ) * postScale;
-					break;
-				case multi_orderOfFolds_type4:
-					z = oldZ * (sinZ + cosZ) * postScale;
-					break;
-				case multi_orderOfFolds_type5:
-					z = oldZ * (sinZ * cosZ) * postScale;
-					break;
-			}
-		}*/
-		if (fractal->transformCommon.functionEnabled) z = sinZ * cosZ * postScale;
-		if (fractal->transformCommon.functionEnabledBxFalse) z = oldZ + (sinZ + cosZ) * postScale;
-		if (fractal->transformCommon.functionEnabledByFalse) z = oldZ + (sinZ * cosZ) * postScale;
-		if (fractal->transformCommon.functionEnabledCxFalse) z = oldZ * (sinZ + cosZ) * postScale;
-		if (fractal->transformCommon.functionEnabledCyFalse) z = oldZ * (sinZ * cosZ) * postScale;
+		z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0);
+		z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0);
+		z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0);
+		// aux.DE = aux.DE * z.Length() / oldZ.Length();
 	}
 
 	if (!fractal->analyticDE.enabledFalse)
@@ -12527,7 +12518,7 @@ void TransfSurfBoxFoldV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	z.x -= sg.x * folder.x;
 	z.y -= sg.y * folder.y;
 
-	if (!fractal->transformCommon.functionEnabled)
+	if (fractal->transformCommon.functionEnabled)
 	{
 		Tglad.z = fabs(z.z + fold.z) - fabs(z.z - fold.z) - z.z;
 		folder.z = sg.z * (z.z - Tglad.z);

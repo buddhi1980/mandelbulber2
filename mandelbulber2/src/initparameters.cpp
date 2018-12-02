@@ -555,7 +555,8 @@ void InitFractalParams(cParameterContainer *par)
 	QStringList qslOrderOfTransf({"typeT1", "typeT1Mod", "typeT2", "typeT3", "typeT4", "typeT5b"});
 	QStringList qslOrderOf3Folds({"type1", "type2", "type3"});
 	QStringList qslCombo4({"type1", "type2", "type3", "type4"});
-	// hmmm?? comboBoxes
+	QStringList qslCombo5({"type1", "type2", "type3", "type4","type5"});
+	QStringList qslCombo6({"type1", "type2", "type3", "type4","type5", "type6"});
 
 	par->addParam("power", 9.0, morphAkima, paramStandard);
 	par->addParam("alpha_angle_offset", 0.0, morphAkimaAngle, paramStandard);
@@ -669,7 +670,11 @@ void InitFractalParams(cParameterContainer *par)
 	// Combo4
 	par->addParam("combo4", 0, morphNone, paramStandard, qslCombo4);
 
+	// Combo5
+	par->addParam("combo5", 0, morphNone, paramStandard, qslCombo5);
 
+	// Combo6
+	par->addParam("combo6", 0, morphNone, paramStandard, qslCombo6);
 
 	// asurf3Folds
 	par->addParam("aSurf3Folds_order_of_folds_1", 0, morphNone, paramStandard, qslOrderOf3Folds);
