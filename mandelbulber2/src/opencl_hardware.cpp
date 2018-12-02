@@ -270,8 +270,8 @@ void cOpenClHardware::ListOpenClDevices()
 					QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 					hashCrypt.addData(deviceInformation.deviceName.toLocal8Bit());
 					hashCrypt.addData(deviceInformation.deviceVersion.toLocal8Bit());
-					char index = char(i);
-					hashCrypt.addData(&index);
+					QString indexString = QString::number(i);
+					hashCrypt.addData(indexString.toLocal8Bit());
 					deviceInformation.hash = hashCrypt.result().left(3);
 
 					devicesInformation.append(deviceInformation);

@@ -388,7 +388,7 @@ QList<QPair<QString, QString>> cPreferencesDialog::GetOpenCLDevices()
 #ifdef USE_OPENCL
 	QList<cOpenClDevice::sDeviceInformation> openclDevs =
 		gOpenCl->openClHardware->getDevicesInformation();
-	for (auto openclDev : openclDevs)
+	for (cOpenClDevice::sDeviceInformation openclDev : openclDevs)
 	{
 		QByteArray hash = openclDev.hash;
 		devices << QPair<QString, QString>(hash.toHex(), openclDev.deviceName);
@@ -466,7 +466,8 @@ void cPreferencesDialog::UpdateOpenCLListBoxes()
 	QList<QPair<QString, QString>> devices = GetOpenCLDevices();
 	QStringList selectedDevices = gPar->Get<QString>("opencl_device_list").split("|");
 	bool noDeviceSelected = selectedDevices.first().isEmpty();
-	for (auto device : devices)
+
+	for (QPair<QString, QString> device : devices)
 	{
 		QListWidgetItem *item = new QListWidgetItem(device.second);
 		item->setData(1, device.first);
