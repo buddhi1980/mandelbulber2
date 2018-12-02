@@ -630,7 +630,7 @@
     <Import Project="..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets" Condition="Exists('..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" />
     <Import Project="..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets" Condition="Exists('..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" />
     <Import Project="..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets" Condition="Exists('..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" />
-    <Import Project="..\..\packages\opencl-nug.0.777.12\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.12\build\native\opencl-nug.targets')" />
+    <Import Project="..\..\packages\opencl-nug.0.777.77\build\native\opencl-nug.targets" Condition="Exists('..\..\packages\opencl-nug.0.777.77\build\native\opencl-nug.targets')" />
     <Import Project="..\..\packages\openexr-msvc-x64.2.3.0.8788\build\native\OpenEXR-msvc-x64.targets" Condition="Exists('..\..\packages\openexr-msvc-x64.2.3.0.8788\build\native\OpenEXR-msvc-x64.targets')" />
     <Import Project="..\..\packages\openexr-msvc-x86.2.3.0.8788\build\native\OpenEXR-msvc-x86.targets" Condition="Exists('..\..\packages\openexr-msvc-x86.2.3.0.8788\build\native\OpenEXR-msvc-x86.targets')" />
     <Import Project="..\..\packages\vorbis-msvc-x64.1.3.5.8787\build\native\vorbis-msvc-x64.targets" Condition="Exists('..\..\packages\vorbis-msvc-x64.1.3.5.8787\build\native\vorbis-msvc-x64.targets')" />
@@ -662,7 +662,7 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Gsl.0.1.2.1\build\native\Microsoft.Gsl.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc-x64.1.3.2.8787\build\native\ogg-msvc-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ogg-msvc-x86.1.3.2.8787\build\native\ogg-msvc-x86.targets'))" />
-    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.12\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.12\build\native\opencl-nug.targets'))" />
+    <Error Condition="!Exists('..\..\packages\opencl-nug.0.777.77\build\native\opencl-nug.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\opencl-nug.0.777.77\build\native\opencl-nug.targets'))" />
     <Error Condition="!Exists('..\..\packages\openexr-msvc-x64.2.3.0.8788\build\native\OpenEXR-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\openexr-msvc-x64.2.3.0.8788\build\native\OpenEXR-msvc-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\openexr-msvc-x86.2.3.0.8788\build\native\OpenEXR-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\openexr-msvc-x86.2.3.0.8788\build\native\OpenEXR-msvc-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\vorbis-msvc-x64.1.3.5.8787\build\native\vorbis-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\vorbis-msvc-x64.1.3.5.8787\build\native\vorbis-msvc-x64.targets'))" />
