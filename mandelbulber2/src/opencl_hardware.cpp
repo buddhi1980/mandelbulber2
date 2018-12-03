@@ -336,6 +336,7 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 	QStringList stringList = list.split("|");
 
 	// disable all devices
+	selectedDevicesIndices.clear();
 	for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
 	{
 		DisableDevice(dev);
