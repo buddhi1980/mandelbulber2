@@ -190,7 +190,7 @@ enum enumFractalFormula
 	mandelbulbPow2V2 = 138,
 	riemannSphereMsltoeV2 = 139,
 	aboxSurfBox = 140,
-
+	boxFoldBulbMenger = 141,
 
 
 	// 152 to 172 reserved for scator

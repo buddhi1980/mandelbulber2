@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_118">
      <property name="text">
-      <string>default  z = maxZ,  where =  max ( sin , cos , sin * cos);
+      <string>default  z = maxZ,  where maxZ =  max ( sin , cos , sin * cos);
 pre-transform, slot#1 for 1 iteration</string>
      </property>
     </widget>
@@ -358,7 +358,7 @@ period:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -386,7 +386,7 @@ period:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -435,7 +435,7 @@ period:</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.989999999999995</double>
@@ -507,7 +507,7 @@ period:</string>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -556,44 +556,6 @@ period:</string>
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>function </string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_30" columnstretch="0,0,0">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_124">
-          <property name="text">
-           <string>todo</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_125">
-          <property name="text">
-           <string>todo</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_126">
-          <property name="text">
-           <string>todo</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
