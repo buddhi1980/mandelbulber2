@@ -342,21 +342,32 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 		DisableDevice(dev);
 	}
 
-	// enable only devices from list
-	for (int i = 0; i < stringList.size(); i++)
+	if (clDeviceWorkers.size() > 0)
 	{
-		QByteArray hashFromList = QByteArray::fromHex(stringList.at(i).toLocal8Bit());
-
-		for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
+		// enable only devices from list
+		for (int i = 0; i < stringList.size(); i++)
 		{
-			QByteArray hashFromDevice = clDeviceWorkers[dev].getDeviceInformation().hash;
-			if (hashFromDevice.left(3) == hashFromList.left(3))
+			QByteArray hashFromList = QByteArray::fromHex(stringList.at(i).toLocal8Bit());
+
+			for (int dev = 0; dev < clDeviceWorkers.size(); dev++)
 			{
-				EnableDevice(dev);
-				WriteLog(
-					QString("Device ") + clDeviceWorkers[dev].getDeviceInformation().deviceName + " enabled",
-					3);
+				QByteArray hashFromDevice = clDeviceWorkers[dev].getDeviceInformation().hash;
+				if (hashFromDevice.left(3) == hashFromList.left(3))
+				{
+					EnableDevice(dev);
+					WriteLog(QString("Device ") + clDeviceWorkers[dev].getDeviceInformation().deviceName
+										 + " enabled",
+						3);
+				}
 			}
+		}
+
+		if (selectedDevicesIndices.isEmpty())
+		{
+			qCritical() << "No OpenCL devices selected or selection or selected unknown devices!\n"
+									<< "Selected first available GPU device\n"
+									<< "Check program preferences to select correct GPU device";
+			EnableDevice(0);
 		}
 	}
 }
