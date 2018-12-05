@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.15
+                              MANDELBULBER 2.16-dev
 
 1. What is Mandelbulber
 -----------------------
