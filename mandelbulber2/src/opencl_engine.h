@@ -58,6 +58,7 @@ class cOpenClEngine : public QObject
 					stepSizeX(0),
 					stepSizeY(0),
 					workGroupSizeMultiplier(1),
+					jobSizeMultiplier(1),
 					lastProcessingTime(1.0),
 					sizeOfPixel(0),
 					jobSizeLimit(0),
@@ -70,6 +71,7 @@ class cOpenClEngine : public QObject
 		qint64 stepSizeX;
 		qint64 stepSizeY;
 		qint64 workGroupSizeMultiplier;
+		qint64 jobSizeMultiplier;
 		QElapsedTimer timer;
 		double lastProcessingTime;
 		qint64 sizeOfPixel;

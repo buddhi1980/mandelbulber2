@@ -187,6 +187,8 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (programsLoaded)
 	{
+		optimalJob.jobSizeMultiplier = params->Get<int>("opencl_job_size_multiplier");
+
 		// TODO: kernel
 		if (CreateKernel(program.data()))
 		{
@@ -224,7 +226,8 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 			"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
 
 		optimalJob.workGroupSize = workGroupSize;
-		optimalJob.workGroupSizeOptimalMultiplier = workGroupSizeOptimalMultiplier;
+		optimalJob.workGroupSizeOptimalMultiplier =
+			workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier;
 
 		kernelCreated = true;
 		return true;
@@ -392,7 +395,7 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 			inputAndOutputBuffer.ptr.reset(
 				new char[inputAndOutputBuffer.size()], sClInputOutputBuffer::Deleter);
 			inputAndOutputBuffer.clPtr.reset(
-				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_USE_HOST_PTR,
+				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
 					inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data(), &err));
 			if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffer.name))
 			{
