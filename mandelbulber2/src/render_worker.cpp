@@ -1150,6 +1150,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				backgroundShader = BackgroundShader(shaderInputData);
 				resultShader = backgroundShader;
 				rayMarchingOut.depth = 1e20;
+				recursionOut.specular = sRGBAfloat();
 				shaderInputData.normal = mRot.RotateVector(CVector3(0.0, -1.0, 0.0));
 				// rayStack[rayIndex].goDeeper = false;
 			}
