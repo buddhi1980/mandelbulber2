@@ -44,13 +44,13 @@ REAL4 ModulusMengerSpongeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		z.z = temp;
 	}
 
-	z *= 3.0f;
+	z *= fractal->transformCommon.scale3;
 
 	z.x -= 2.0f;
 	z.y -= 2.0f;
 
 	if (fmod(z.z, M_PI_F) > 2.0f) z.z -= 2.0f;
 
-	aux->DE *= 3.0f;
+	aux->DE *= fractal->transformCommon.scale3;
 	return z;
 }

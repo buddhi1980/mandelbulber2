@@ -18,61 +18,68 @@
 
 REAL4 BenesiT1PineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 c = aux->const_c;
-
 	if (fractal->transformCommon.benesiT1Enabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
-		z = (REAL4){
-			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
 
-		REAL4 temp = z;
-		REAL tempL = length(temp);
-		z = fabs(z) * fractal->transformCommon.scale3D222;
-		// if (tempL < 1e-21f) tempL = 1e-21f;
-		REAL avgScale = native_divide(length(z), tempL);
-		aux->DE *= avgScale; // pos
-
-		if (fractal->transformCommon.rotationEnabled)
+		// Benesi mag transform T1
+		if (fractal->transformCommon.benesiT1Enabled
+				&& aux->i >= fractal->transformCommon.startIterations
+				&& aux->i < fractal->transformCommon.stopIterations)
 		{
-			z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+			REAL tempXZ = mad(z.x, SQRT_2_3, -z.z * SQRT_1_3);
+			z = (REAL4){
+				(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
+
+			REAL tempL = length(z);
+			z = fabs(z) * fractal->transformCommon.scale3D222;
+			// if (tempL < 1e-21f) tempL = 1e-21f;
+			REAL avgScale = native_divide(length(z), tempL);
+			aux->DE = mad(aux->DE, avgScale, 1.0f);
+
+			if (fractal->transformCommon.rotationEnabled)
+			{ // rotation inside T1
+				z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
+			}
+
+			tempXZ = (z.y + z.x) * SQRT_1_2;
+
+			z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
+				z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
+			z = z - fractal->transformCommon.offset200;
 		}
-
-		tempXZ = (z.y + z.x) * SQRT_1_2;
-
-		z = (REAL4){z.z * SQRT_1_3 + tempXZ * SQRT_2_3, (z.y - z.x) * SQRT_1_2,
-			z.z * SQRT_2_3 - tempXZ * SQRT_1_3, z.w};
-		z = z - fractal->transformCommon.offset200;
 	}
-
+	//  Benesi pine tree pwr2
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL4 temp = z;
-		aux->r = length(z);
-		z *= z;
-		REAL t = 2.0f * temp.x;
-		if (z.y + z.z > 0.0f)
-			t = native_divide(t, native_sqrt(z.y + z.z));
-		else
-			t = 1.0f;
-		REAL4 tempC = c;
+		REAL4 zz = z * z;
+		aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+
+		REAL t = 1.0f;
+		REAL temp = zz.y + zz.z;
+		if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0f * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+
+		// swap c.yz then add cPixel
+		REAL4 tempC = aux->const_c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
-			tempC = (REAL4){aux->c.x, aux->c.z, aux->c.y, aux->c.w};
+			tempC = aux->c * fractal->transformCommon.constantMultiplier100;
+			tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w};
 			aux->c = tempC;
 		}
 		else
 		{
-			tempC = (REAL4){c.x, c.z, c.y, c.w};
+			tempC *= fractal->transformCommon.constantMultiplier100;
+			tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w};
 		}
-		z.x = mad(fractal->transformCommon.constantMultiplier100.x, tempC.x, (z.x - z.y - z.z));
-		z.z = mad(fractal->transformCommon.constantMultiplier100.y, tempC.z, (t * (z.y - z.z)));
-		z.y =
-			mad(fractal->transformCommon.constantMultiplier100.z, tempC.y, (2.0f * t * temp.y * temp.z));
-		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+		z += tempC;
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse

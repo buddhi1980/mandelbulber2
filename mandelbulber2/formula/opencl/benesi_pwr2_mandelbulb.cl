@@ -19,45 +19,42 @@
 REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-
+	// Prism shape
+	if (fractal->transformCommon.functionEnabledPFalse
+			&& aux->i >= fractal->transformCommon.startIterationsP
+			&& aux->i < fractal->transformCommon.stopIterationsP1)
 	{
 		REAL4 gap = fractal->transformCommon.constantMultiplier000;
 		REAL t;
 		REAL dot1;
+		z.y = fabs(z.y);
+		z.z = fabs(z.z);
+		dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
+		t = max(0.0f, dot1);
+		z.x -= t * -SQRT_3;
+		z.y = fabs(z.y - t);
 
-		if (fractal->transformCommon.functionEnabledPFalse
-				&& aux->i >= fractal->transformCommon.startIterationsP
-				&& aux->i < fractal->transformCommon.stopIterationsP1)
+		if (z.y > z.z)
 		{
-			z.y = fabs(z.y);
-			z.z = fabs(z.z);
-			dot1 = (mad(z.x, -SQRT_3_4, z.y * 0.5f)) * fractal->transformCommon.scale;
-			t = max(0.0f, dot1);
-			z.x -= t * -SQRT_3;
-			z.y = fabs(z.y - t);
+			REAL temp = z.y;
+			z.y = z.z;
+			z.z = temp;
+		}
+		z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
 
-			if (z.y > z.z)
-			{
-				REAL temp = z.y;
-				z.y = z.z;
-				z.z = temp;
-			}
-			z -= gap * (REAL4){SQRT_3_4, 1.5f, 1.5f, 0.0f};
-
-			if (z.z > z.x)
-			{
-				REAL temp = z.z;
-				z.z = z.x;
-				z.x = temp;
-			}
-			if (z.x > 0.0f)
-			{
-				z.y = max(0.0f, z.y);
-				z.z = max(0.0f, z.z);
-			}
+		if (z.z > z.x)
+		{
+			REAL temp = z.z;
+			z.z = z.x;
+			z.x = temp;
+		}
+		if (z.x > 0.0f)
+		{
+			z.y = max(0.0f, z.y);
+			z.z = max(0.0f, z.z);
 		}
 	}
-
+	// Benesi mag transform T1
 	if (fractal->transformCommon.benesiT1Enabled && aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
@@ -65,8 +62,7 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		z = (REAL4){
 			(tempXZ - z.y) * SQRT_1_2, (tempXZ + z.y) * SQRT_1_2, z.x * SQRT_1_3 + z.z * SQRT_2_3, z.w};
 
-		REAL4 temp = z;
-		REAL tempL = length(temp);
+		REAL tempL = length(z);
 		z = fabs(z) * fractal->transformCommon.scale3D222;
 		// if (tempL < 1e-21f) tempL = 1e-21f;
 		REAL avgScale = native_divide(length(z), tempL);
@@ -87,53 +83,53 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	if (fractal->transformCommon.addCpixelEnabled
 			&& aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
-	{											// Benesi original pwr2
-		aux->r = length(z); // needed when alternating pwr2s
+	{ // Benesi original pwr2
+		REAL4 zz = z * z;
+		REAL rrYZ = zz.y + zz.z;
+		REAL lenYZ = native_sqrt(rrYZ);
+		REAL temp = zz.x + rrYZ;
+		aux->r = native_sqrt(temp); // aux->r needed when alternating pwr2s
 		aux->DE = aux->DE * 2.0f * aux->r;
-		REAL r1 = mad(z.y, z.y, z.z * z.z);
-		REAL4 newZ = (REAL4){0.0f, 0.0f, 0.0f, z.w};
-		if (c.x < 0.0f || z.x < native_sqrt(r1))
-		{
-			newZ.x = mad(z.x, z.x, -r1);
-		}
-		else
-		{
-			newZ.x = mad(-z.x, z.x, r1);
-		}
-		r1 = -native_rsqrt(r1) * 2.0f * fabs(z.x);
-		newZ.y = r1 * (mad(z.y, z.y, -z.z * z.z));
-		newZ.z = r1 * 2.0f * z.y * z.z;
+		REAL4 newZ = z;
+		temp = zz.x - rrYZ;
+		newZ.x = -sign(c.x) * temp;
+		if (z.x < lenYZ) newZ.x = temp;
+		rrYZ = -native_recip(lenYZ) * 2.0f * fabs(z.x);
+		newZ.y = rrYZ * (zz.y - zz.z);
+		newZ.z = rrYZ * 2.0f * z.y * z.z;
 		z = newZ + (c * fractal->transformCommon.constantMultiplierA100);
 	}
-
+	//  Benesi pine tree pwr2
 	if (fractal->transformCommon.addCpixelEnabledFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
-	{ // pine tree
-		REAL4 temp = z;
-		aux->r = length(z); // needed when alternating pwr2s
-		z *= z;
-		REAL t = 2.0f * temp.x;
-		if (z.y + z.z > 0.0f)
-			t = native_divide(t, native_sqrt(z.y + z.z));
-		else
-			t = 1.0f;
+	{
+		REAL4 zz = z * z;
+		aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
+		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+
+		REAL t = 1.0f;
+		REAL temp = zz.y + zz.z;
+		if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+		temp = z.z;
+		z.x = (zz.x - zz.y - zz.z);
+		z.y = (2.0f * t * z.y * temp);
+		z.z = (t * (zz.y - zz.z));
+
+		// swap c.yz then add cPixel
 		REAL4 tempC = c;
 		if (fractal->transformCommon.alternateEnabledFalse) // alternate
 		{
-			tempC = aux->c;
+			tempC = aux->c * fractal->transformCommon.constantMultiplier100;
 			tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w};
 			aux->c = tempC;
 		}
 		else
 		{
-			tempC = (REAL4){c.x, c.z, c.y, c.w};
+			tempC *= fractal->transformCommon.constantMultiplier100;
+			tempC = (REAL4){tempC.x, tempC.z, tempC.y, tempC.w};
 		}
-		z.x = mad(fractal->transformCommon.constantMultiplier100.x, tempC.x, (z.x - z.y - z.z));
-		z.z = mad(fractal->transformCommon.constantMultiplier100.y, tempC.z, (t * (z.y - z.z)));
-		z.y =
-			mad(fractal->transformCommon.constantMultiplier100.z, tempC.y, (2.0f * t * temp.y * temp.z));
-		aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
+		z += tempC;
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -147,15 +143,15 @@ REAL4 BenesiPwr2MandelbulbIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		aux->DE *= fabs(fractal->transformCommon.scaleA1);
 	}
 
-	if (fractal->transformCommon.juliaMode)
-	{
-		z.x += fractal->transformCommon.offset000.x;
-		z.y += fractal->transformCommon.offset000.y;
-		z.z += fractal->transformCommon.offset000.z;
-	}
+	if (fractal->transformCommon.juliaMode && aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+		z += fractal->transformCommon.offset000;
+
 	if (fractal->transformCommon.rotation2EnabledFalse)
-	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix2, z);
-	}
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

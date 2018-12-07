@@ -62,7 +62,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else
 	{
-
+		// TODO recode the following
 		if (z.x > limit4.x)
 		{
 			z.x = value4.x - z.x;
@@ -100,8 +100,9 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			maxR2use *=
 				(1.0f
-					- native_recip((1.0f + native_divide((aux->i - fractal->transformCommon.startIterationsB),
-																	 fractal->transformCommon.offsetA0))))
+					- native_recip((1.0f
+													+ native_divide((aux->i - fractal->transformCommon.startIterationsB),
+															fractal->transformCommon.offsetA0))))
 				* fractal->transformCommon.scaleA1;
 		}
 	}
@@ -112,8 +113,9 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			minR2use *=
 				(1.0f
-					- native_recip((1.0f + native_divide((aux->i - fractal->transformCommon.startIterationsA),
-																	 fractal->transformCommon.offset0))))
+					- native_recip((1.0f
+													+ native_divide((aux->i - fractal->transformCommon.startIterationsA),
+															fractal->transformCommon.offset0))))
 				* fractal->transformCommon.scale1;
 		}
 	}

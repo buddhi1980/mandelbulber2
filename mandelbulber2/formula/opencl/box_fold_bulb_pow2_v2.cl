@@ -93,7 +93,7 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						SQRT_3)
 			+ fractal->analyticDE.offset1;
 
-		z = z * 2.0f;
+		z *= 2.0f;
 		REAL x2 = z.x * z.x;
 		REAL y2 = z.y * z.y;
 		REAL z2 = z.z * z.z;

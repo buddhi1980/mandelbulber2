@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * RiemannSphereMsltoe Variation1
+ * RiemannSphereMsltoe Version1
  * @reference
  * http://www.fractalforums.com/new-theories-and-research/
  * revisiting-the-riemann-sphere-%28again%29/
@@ -40,5 +40,6 @@ REAL4 RiemannSphereMsltoeV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	z = t3 * fractal->transformCommon.constantMultiplier441;
 
 	z += fractal->transformCommon.additionConstant000;
+
 	return z;
 }

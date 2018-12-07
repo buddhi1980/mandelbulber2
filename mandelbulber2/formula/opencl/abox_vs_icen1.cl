@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -43,18 +43,18 @@ REAL4 AboxVSIcen1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		z += fractal->transformCommon.juliaC;
 	}
 
-	REAL r2 = dot(z, z);
+	REAL rr = dot(z, z);
 	// if (r2 < 1e-21f && r2 > -1e-21f)
 	//	r2 = (r2 > 0) ? 1e-21f : -1e-21f;
-	if (r2 < fractal->mandelbox.mR2)
+	if (rr < fractal->mandelbox.mR2)
 	{
 		z *= fractal->mandelbox.mboxFactor1;
 		aux->DE *= fractal->mandelbox.mboxFactor1;
 		aux->color += fractal->mandelbox.color.factorSp1;
 	}
-	else if (r2 < fractal->mandelbox.fR2)
+	else if (rr < fractal->mandelbox.fR2)
 	{
-		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, r2);
+		REAL tglad_factor2 = native_divide(fractal->mandelbox.fR2, rr);
 		z *= tglad_factor2;
 		aux->DE *= tglad_factor2;
 		aux->color += fractal->mandelbox.color.factorSp2;

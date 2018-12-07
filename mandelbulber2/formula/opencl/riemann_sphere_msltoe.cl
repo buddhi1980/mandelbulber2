@@ -32,8 +32,8 @@ REAL4 RiemannSphereMsltoeIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL p = 1.0f + mad(s, s, t * t);
 
-	s = fabs(native_sin(M_PI_F * s));
-	t = fabs(native_sin(M_PI_F * t));
+	s = fabs(native_sin(mad(M_PI_F, s, fractal->transformCommon.offsetA0)));
+	t = fabs(native_sin(mad(M_PI_F, t, fractal->transformCommon.offsetB0)));
 
 	r *= r;
 	// if (r < 1e-21f)

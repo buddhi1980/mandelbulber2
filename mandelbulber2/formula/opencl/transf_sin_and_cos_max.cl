@@ -15,48 +15,76 @@
 
 REAL4 TransfSinAndCosMaxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// Q_UNUSED(aux);
-
-	REAL4 sinZ = z * fractal->transformCommon.constantMultiplierA111;
-	REAL4 cosZ = z * fractal->transformCommon.constantMultiplierB111;
-	sinZ.x = native_sin(sinZ.x);
-	sinZ.y = native_sin(sinZ.y);
-	sinZ.z = native_sin(sinZ.z);
-	cosZ.x = native_cos(cosZ.x);
-	cosZ.y = native_cos(cosZ.y);
-	cosZ.z = native_cos(cosZ.z);
-	REAL4 sinCosZ = sinZ * cosZ;
+	REAL4 oldZ = z;
 	REAL4 maxZ = z;
-	maxZ.x = max(max(sinZ.x, cosZ.x), sinCosZ.x);
-	maxZ.y = max(max(sinZ.y, cosZ.y), sinCosZ.y);
-	maxZ.z = max(max(sinZ.z, cosZ.z), sinCosZ.z);
+	REAL4 sinZ = z;
+	REAL4 cosZ = z;
+	REAL4 sinCosZ = z;
 
-	if (!fractal->transformCommon.functionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledAx)
 	{
-		z = maxZ * fractal->transformCommon.scale;
-	}
-	else
-	{
-		if (fractal->transformCommon.functionEnabled)
-		{
-			z += maxZ * fractal->transformCommon.scale;
-		}
-		else
-		{
-			// z = maxZ * native_divide(fractal->transformCommon.scale, (fabs(z) + 1.0f));
-			z.x = maxZ.x * native_divide(fractal->transformCommon.scale, (fabs(z.x) + 1.0f));
-			z.y = maxZ.y * native_divide(fractal->transformCommon.scale, (fabs(z.y) + 1.0f));
-			z.z = maxZ.z * native_divide(fractal->transformCommon.scale, (fabs(z.z) + 1.0f));
-		}
+		sinZ.x =
+			native_sin(oldZ.x * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierA111.x))
+			* fractal->transformCommon.scaleA1; // freq
+		cosZ.x =
+			native_cos(oldZ.x * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierB111.x))
+			* fractal->transformCommon.scaleB1;
+		sinCosZ.x = sinZ.x * cosZ.x * fractal->transformCommon.scaleC1;
+		maxZ.x = max(max(sinZ.x, cosZ.x), sinCosZ.x);
+
+		if (fractal->transformCommon.functionEnabledFalse) maxZ.x /= (fabs(oldZ.x) + 1.0f);
 	}
 
-	if (fractal->analyticDE.enabled) // temp
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
-		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = mad(aux->DE, fabs(fractal->transformCommon.scale), 1.0f);
-		else
-			aux->DE = mad(aux->DE * fabs(fractal->transformCommon.scale), fractal->analyticDE.scale1,
-				fractal->analyticDE.offset1);
+		sinZ.y =
+			native_sin(oldZ.y * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierA111.y))
+			* fractal->transformCommon.scaleA1; // freq
+		cosZ.y =
+			native_cos(oldZ.y * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierB111.y))
+			* fractal->transformCommon.scaleB1;
+		sinCosZ.y = sinZ.y * cosZ.y * fractal->transformCommon.scaleC1;
+		maxZ.y = max(max(sinZ.y, cosZ.y), sinCosZ.y);
+
+		if (fractal->transformCommon.functionEnabledFalse) maxZ.y /= (fabs(oldZ.y) + 1.0f);
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		sinZ.z =
+			native_sin(oldZ.z * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierA111.z))
+			* fractal->transformCommon.scaleA1; // freq
+		cosZ.z =
+			native_cos(oldZ.z * native_divide(M_PI_2x, fractal->transformCommon.constantMultiplierB111.z))
+			* fractal->transformCommon.scaleB1;
+		sinCosZ.z = sinZ.z * cosZ.z * fractal->transformCommon.scaleC1;
+		maxZ.z = max(max(sinZ.z, cosZ.z), sinCosZ.z);
+
+		if (fractal->transformCommon.functionEnabledFalse) maxZ.z /= (fabs(oldZ.z) + 1.0f);
+	}
+
+	// post scale
+	maxZ *= fractal->transformCommon.scale;
+	aux->DE *= fabs(fractal->transformCommon.scale);
+
+	if (fractal->transformCommon.functionEnabledMFalse)
+	{
+		switch (fractal->combo4.combo4)
+		{
+			case multi_combo4Cl_type1:
+			default: maxZ += oldZ; break;
+			case multi_combo4Cl_type2: maxZ *= oldZ; break;
+			case multi_combo4Cl_type3: maxZ += fabs(oldZ); break;
+			case multi_combo4Cl_type4: maxZ *= fabs(oldZ); break;
+		}
+	}
+
+	z = maxZ;
+
+	// analytic tweaks
+	if (fractal->analyticDE.enabledFalse) // temp
+	{
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	}
 	return z;
 }

@@ -18,21 +18,22 @@
 
 REAL4 BenesiPineTreeIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL4 c = aux->const_c * fractal->transformCommon.constantMultiplier100;
+	REAL4 zz = z * z;
+	aux->r = native_sqrt(zz.x + zz.y + zz.z); // needed when alternating pwr2s
 	aux->DE = mad(aux->r * aux->DE, 2.0f, 1.0f);
 
-	REAL4 c = aux->const_c;
-	REAL4 temp = z;
-
-	z *= z;
-	REAL t = 2.0f * temp.x;
-	if (z.y + z.z > 0.0f)
-		t = native_divide(t, native_sqrt(z.y + z.z));
-	else
-		t = 1.0f;
-
-	z.x = mad(fractal->transformCommon.constantMultiplier100.x, c.x, (z.x - z.y - z.z));
-	z.z = mad(fractal->transformCommon.constantMultiplier100.y, c.y, (t * (z.y - z.z)));
-	z.y = mad(fractal->transformCommon.constantMultiplier100.z, c.z, (2.0f * t * temp.y * temp.z));
+	REAL t = 1.0f;
+	REAL temp = zz.y + zz.z;
+	if (temp > 0.0f) t = 2.0f * native_divide(z.x, native_sqrt(temp));
+	temp = z.z;
+	z.x = (zz.x - zz.y - zz.z);
+	z.y = (2.0f * t * z.y * temp);
+	z.z = (t * (zz.y - zz.z));
+	// c.yz swap
+	z.x += c.x;
+	z.z += c.y;
+	z.y += c.z;
 
 	if (fractal->transformCommon.angle0 != 0)
 	{

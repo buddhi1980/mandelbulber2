@@ -9,13 +9,14 @@ aboxModKaliEiffie,"Abox - Mod Kali-Eiffie",analyticDEType,linearDEFunction,cpixe
 aboxModKaliV2,"Abox - Mod Kali-V2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxModKaliV3,"Abox - Mod Kali-V3",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionIFS
 aboxVSIcen1,"Abox - VS icen1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+aboxSurfBox,"Abox - Surf Box",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 aexion,Aexion,deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10000,analyticFunctionNone,coloringFunctionDefault
 aexionOctopusMod,"Aexion Octopus Mod",deltaDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionNone,coloringFunctionDefault
 amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionAmazingSurf
 amazingSurfMod1,"Amazing Surf - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod2,"Amazing Surf - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMulti,"Amazing Surf - Multi",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
-benesi,Benesi,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
+benesi,"Benesi - Pwr2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 benesiPineTree,"Benesi - Pine Tree",analyticDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionLogarithmic,coloringFunctionDefault
 benesiT1PineTree,"Benesi - T1 Pine Tree",analyticDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionLogarithmic,coloringFunctionDefault
 benesiMagTransforms,"Benesi - Mag Transforms",deltaDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
@@ -23,6 +24,7 @@ benesiPwr2Mandelbulb,"Benesi - Pwr2 Mandelbulb",analyticDEType,logarithmicDEFunc
 boxFoldBulbPow2,"Box Fold Bulb Pow 2",deltaDEType,linearDEFunction,cpixelEnabledByDefault,10000,analyticFunctionNone,coloringFunctionDefault
 boxFoldBulbPow2V2,"Box Fold Bulb Pow 2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 boxFoldBulbPow2V3,"Box Fold Bulb Pow 2 V3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
+boxFoldBulbMenger,"Box Fold Bulb Menger",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 boxFoldQuat,"Box Fold Quat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 bristorbrot,Bristorbrot,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 buffalo,Buffalo,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -50,8 +52,10 @@ mandelbulb,Mandelbulb,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefaul
 mandelbulb2,"Mandelbulb 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulb3,"Mandelbulb 3",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulb4,"Mandelbulb 4",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbAbsPower2,"Mandelbulb - Abs Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbBermarte,"Mandelbulb - Bermarte",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbJuliabulb,"Mandelbulb - Juliabulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbKali,"Mandelbulb - Kali",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbKaliMulti,"Mandelbulb - Kali Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -89,6 +93,7 @@ quickDudley,"Quick Dudley",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefa
 quickDudleyMod,"Quick Dudley - Mod",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 riemannSphereMsltoe,"Riemann - Sphere Msltoe",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,1.5,analyticFunctionNone,coloringFunctionDefault
 riemannSphereMsltoeV1,"Riemann - Sphere Msltoe V1",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
+riemannSphereMsltoeV2,"Riemann - Sphere Msltoe V2",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 riemannBulbMsltoeMod2,"Riemann - Bulb Msltoe Mod2",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,1.5,analyticFunctionNone,coloringFunctionDefault
 scatorPower2Real,"Scator Power 2 Real",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 scatorPower2Imaginary,"Scator Power 2 Imaginary",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
@@ -180,6 +185,7 @@ transfSphericalPwrFold,"T>Spherical Pwr Fold",analyticDEType,linearDEFunction,cp
 transfSphericalOffset,"T>Spherical Offset",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfSphericalOffsetVCL,"T>Spherical OffsetVCL",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfSurfBoxFold,"T>Surf Box_Fold",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+transfSurfBoxFoldV2,"T>Surf Box_Fold V2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfSurfFoldMulti,"T>Surf Fold Multi",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfZvectorAxisSwap,"T>Zvector Axis Swap",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAddConstant4d,"T>Add Constant 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
