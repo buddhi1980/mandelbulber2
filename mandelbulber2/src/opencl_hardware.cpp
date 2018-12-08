@@ -364,9 +364,13 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 
 		if (selectedDevicesIndices.isEmpty())
 		{
-			qCritical() << "No OpenCL devices selected or selection or selected unknown devices!\n"
-									<< "Selected first available GPU device\n"
-									<< "Check program preferences to select correct GPU device";
+			QString errorMessage =
+				"No OpenCL devices selected or selected unknown devices!\n"
+				"Selected first available GPU device\n"
+				"Check program preferences to select correct OpenCL device"
+				"from list of vailable GPU devices";
+			cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage, nullptr);
+
 			EnableDevice(0);
 		}
 	}
