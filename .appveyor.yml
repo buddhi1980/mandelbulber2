@@ -24,7 +24,6 @@ init:
 
 # add several platforms to build matrix:
 platform:
-  - Win32
   - x64
   - ARM
 # add several configurations to build matrix:
