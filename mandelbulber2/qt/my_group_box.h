@@ -59,10 +59,14 @@ private:
 	QString getFullParameterName() override;
 
 	QAction *actionResetAllToDefault;
+	QAction *actionLoadToThisGroupbox;
+	QAction *actionSaveFromThisGroupbox;
 
 private slots:
 	void slotToggled(bool on) const;
 	void slotResetAllToDefault();
+	void slotLoadToThisGroupbox();
+	void slotSaveFromThisGroupbox();
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;

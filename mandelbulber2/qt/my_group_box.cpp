@@ -43,6 +43,7 @@
 #include <qobjectdefs.h>
 #include <qstring.h>
 
+#include "../src/interface.hpp"
 #include "src/parameters.hpp"
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
@@ -50,6 +51,8 @@ MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapp
 	defaultValue = false;
 	firstDisplay = true;
 	actionResetAllToDefault = nullptr;
+	actionLoadToThisGroupbox = nullptr;
+	actionSaveFromThisGroupbox = nullptr;
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(slotToggled(bool)));
 }
 
@@ -122,11 +125,22 @@ void MyGroupBox::contextMenuEvent(QContextMenuEvent *event)
 {
 	QMenu *menu = new QMenu;
 	QIcon iconReset = QIcon(":system/icons/edit-undo.png");
+	QIcon iconLoad = QIcon(":system/icons/document-open.svg");
+	QIcon iconSave = QIcon(":system/icons/document-save.svg");
+
+	actionLoadToThisGroupbox = menu->addAction(tr("Load to this groupbox"));
+	actionLoadToThisGroupbox->setIcon(iconLoad);
+
+	actionSaveFromThisGroupbox = menu->addAction(tr("Save from this groupbox"));
+	actionSaveFromThisGroupbox->setIcon(iconSave);
 
 	actionResetAllToDefault = menu->addAction(tr("Reset all to default"));
 	actionResetAllToDefault->setIcon(iconReset);
 
+	connect(actionLoadToThisGroupbox, SIGNAL(triggered()), this, SLOT(slotLoadToThisGroupbox()));
+	connect(actionSaveFromThisGroupbox, SIGNAL(triggered()), this, SLOT(slotSaveFromThisGroupbox()));
 	connect(actionResetAllToDefault, SIGNAL(triggered()), this, SLOT(slotResetAllToDefault()));
+
 	CommonMyWidgetWrapper::contextMenuEvent(event, menu);
 }
 
@@ -143,3 +157,14 @@ void MyGroupBox::slotResetAllToDefault()
 		}
 	}
 }
+
+void MyGroupBox::slotLoadToThisGroupbox()
+{
+	gMainInterface->LoadLocalSettings(this);
+}
+void MyGroupBox::slotSaveFromThisGroupbox()
+{
+	gMainInterface->SaveLocalSettings(this);
+}
+
+
