@@ -9,9 +9,16 @@
 
 #include "src/interface.hpp"
 
-cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *parent) : QPushButton(parent)
+cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
+		: QPushButton(_parent)
 {
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
+
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget)
+	{
+		setToolTip(tr("Load settings only to %1 widget").arg(parentWidget->objectName()));
+	}
 }
 
 cButtonLoadSettingsFromWidget::~cButtonLoadSettingsFromWidget()

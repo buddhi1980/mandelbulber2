@@ -9,10 +9,16 @@
 
 #include "src/interface.hpp"
 
-cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *parent)
-		: QPushButton(parent)
+cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
+		: QPushButton(_parent)
 {
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalReset()));
+
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget)
+	{
+		setToolTip(tr("Reset settings only in %1 widget").arg(parentWidget->objectName()));
+	}
 }
 
 cButtonResetSettingsFromWidget::~cButtonResetSettingsFromWidget()

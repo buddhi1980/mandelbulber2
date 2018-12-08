@@ -9,9 +9,15 @@
 
 #include "src/interface.hpp"
 
-cButtonSaveSettingsFromWidget::cButtonSaveSettingsFromWidget(QWidget *parent) : QPushButton(parent)
+cButtonSaveSettingsFromWidget::cButtonSaveSettingsFromWidget(QWidget *_parent) : QPushButton(_parent)
 {
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalSave()));
+
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget)
+	{
+		setToolTip(tr("Save settings only from %1 widget").arg(parentWidget->objectName()));
+	}
 }
 
 cButtonSaveSettingsFromWidget::~cButtonSaveSettingsFromWidget()
