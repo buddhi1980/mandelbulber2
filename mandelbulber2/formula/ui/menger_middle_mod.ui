@@ -667,14 +667,14 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
           <property name="text">
            <string/>
           </property>
@@ -864,7 +864,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string/>
           </property>
@@ -896,7 +896,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string/>
           </property>
@@ -977,14 +977,14 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
           <property name="text">
            <string/>
           </property>
@@ -1269,7 +1269,7 @@
          </widget>
         </item>
         <item row="1" column="1" colspan="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
           <property name="text">
            <string>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</string>
           </property>
@@ -1675,6 +1675,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

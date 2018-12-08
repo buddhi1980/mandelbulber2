@@ -142,7 +142,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_constant_julia_mode">
+    <widget class="MyCheckBox" name="checkBox_transf_constant_julia_mode">
      <property name="text">
       <string>Enable internal addCpixel constant / Julia constant swap</string>
      </property>
@@ -1203,6 +1203,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

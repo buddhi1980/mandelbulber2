@@ -206,14 +206,14 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
      <property name="text">
       <string>enable abs(actualScale)</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
      <property name="text">
       <string>enable baseScale after stopVary iterations
 (instead of final actualScale)</string>
@@ -462,6 +462,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -91,21 +91,21 @@ pre-transform, slot#1 for 1 iteration</string>
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,0,0">
      <item row="1" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx">
        <property name="text">
         <string notr="true">x</string>
        </property>
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz">
        <property name="text">
         <string notr="true">z</string>
        </property>
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy">
        <property name="text">
         <string notr="true">y</string>
        </property>
@@ -243,7 +243,7 @@ pre-transform, slot#1 for 1 iteration</string>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledD_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
        <property name="text">
         <string>normalized before rounding??</string>
        </property>
@@ -278,28 +278,28 @@ pre-transform, slot#1 for 1 iteration</string>
       <item>
        <layout class="QGridLayout" name="gridLayout_2" columnstretch="0,0,0,0">
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledR_false">
           <property name="text">
            <string>radius</string>
           </property>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
           <property name="text">
            <string>zzxx</string>
           </property>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
            <string>yyzz</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
           <property name="text">
            <string>xxyy</string>
           </property>
@@ -380,7 +380,7 @@ pre-transform, slot#1 for 1 iteration</string>
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
         <property name="text">
          <string>de thing t</string>
         </property>
@@ -653,6 +653,11 @@ pre-transform, slot#1 for 1 iteration</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

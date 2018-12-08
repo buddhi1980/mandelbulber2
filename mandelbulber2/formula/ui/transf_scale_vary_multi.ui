@@ -85,7 +85,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
      <property name="layoutDirection">
       <enum>Qt::LeftToRight</enum>
      </property>
@@ -185,7 +185,7 @@
       </widget>
      </item>
      <item row="9" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
        <property name="text">
         <string>mix mode 1 2</string>
        </property>
@@ -276,7 +276,7 @@
       </widget>
      </item>
      <item row="3" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
         <string>mode1 scale base</string>
        </property>
@@ -346,7 +346,7 @@
       </widget>
      </item>
      <item row="12" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
        <property name="text">
         <string>enable actualScale limits</string>
        </property>
@@ -381,21 +381,21 @@
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
        <property name="text">
         <string>enable abs(actualScale),</string>
        </property>
       </widget>
      </item>
      <item row="10" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
        <property name="text">
         <string>mix mode 2 1</string>
        </property>
       </widget>
      </item>
      <item row="6" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
        <property name="text">
         <string>mode2 actualScale base</string>
        </property>
@@ -583,6 +583,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

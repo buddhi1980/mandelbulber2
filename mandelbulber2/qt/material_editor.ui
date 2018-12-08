@@ -1582,14 +1582,14 @@ direction vector:</string>
                       <number>2</number>
                      </property>
                      <item row="1" column="2">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_x_sqrd_enabled_false">
                        <property name="text">
                         <string notr="true"/>
                        </property>
                       </widget>
                      </item>
                      <item row="3" column="2">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_z_sqrd_enabled_false">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_z_sqrd_enabled_false">
                        <property name="text">
                         <string notr="true"/>
                        </property>
@@ -1665,7 +1665,7 @@ direction vector:</string>
                       </widget>
                      </item>
                      <item row="2" column="2">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_xyz_y_sqrd_enabled_false">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_xyz_y_sqrd_enabled_false">
                        <property name="text">
                         <string notr="true"/>
                        </property>
@@ -1806,7 +1806,7 @@ direction vector:</string>
                       <number>2</number>
                      </property>
                      <item row="1" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_true">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_iter_add_scale_enabled_true">
                        <property name="text">
                         <string notr="true">addition value:</string>
                        </property>
@@ -1844,7 +1844,7 @@ direction vector:</string>
                       </widget>
                      </item>
                      <item row="2" column="0">
-                      <widget class="QCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
+                      <widget class="MyCheckBox" name="checkBox_fractal_coloring_iter_scale_enabled_false">
                        <property name="text">
                         <string notr="true"> scale (needs an input value):</string>
                        </property>

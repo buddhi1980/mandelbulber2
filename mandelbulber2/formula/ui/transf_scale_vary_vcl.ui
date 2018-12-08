@@ -272,14 +272,14 @@
       </widget>
      </item>
      <item row="2" column="0" colspan="4">
-      <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
+      <widget class="MyCheckBox" name="checkBox_Cpara_enabledCurves">
        <property name="text">
         <string>Curvi function ( disable to use linear slopes only)</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0" colspan="4">
-      <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
+      <widget class="MyCheckBox" name="checkBox_Cpara_enabledLinear">
        <property name="text">
         <string>Curvilinear</string>
        </property>
@@ -310,7 +310,7 @@
       <number>2</number>
      </property>
      <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_Cpara_enabledParab_false">
+      <widget class="MyCheckBox" name="checkBox_Cpara_enabledParab_false">
        <property name="text">
         <string>Parabolic</string>
        </property>
@@ -597,6 +597,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

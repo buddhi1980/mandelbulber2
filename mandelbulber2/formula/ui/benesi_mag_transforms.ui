@@ -478,7 +478,7 @@
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
            <string>alternate swap</string>
           </property>
@@ -761,14 +761,14 @@ to find which works best with selected transforms</string>
          <number>5</number>
         </property>
         <item row="0" column="5">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
            <string>Slot 5</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
           <property name="text">
            <string>Slot 2</string>
           </property>
@@ -924,7 +924,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
           <property name="text">
            <string>Slot 1</string>
           </property>
@@ -1111,7 +1111,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledBx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
           <property name="text">
            <string>Slot 4</string>
           </property>
@@ -1165,7 +1165,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="text">
            <string>Slot 3</string>
           </property>
@@ -2872,6 +2872,11 @@ to find which works best with selected transforms</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

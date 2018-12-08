@@ -298,7 +298,7 @@ offset:</string>
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+      <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
         <string notr="true">aux.color components</string>
        </property>
@@ -453,6 +453,11 @@ offset:</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

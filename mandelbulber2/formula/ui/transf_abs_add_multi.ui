@@ -81,7 +81,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -91,7 +91,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -133,7 +133,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -214,7 +214,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -253,7 +253,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -310,7 +310,7 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
       </widget>
      </item>
      <item row="7" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
@@ -697,6 +697,11 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

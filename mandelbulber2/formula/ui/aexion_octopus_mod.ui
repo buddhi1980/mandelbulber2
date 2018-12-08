@@ -166,21 +166,21 @@
         <number>2</number>
        </property>
        <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
          <property name="text">
           <string notr="true">abs(z.x)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="3">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
          <property name="text">
           <string notr="true">abs(z.z)</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
          <property name="text">
           <string notr="true">abs(z.y)</string>
          </property>
@@ -467,14 +467,14 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
            <string notr="true">abs</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -495,7 +495,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -701,6 +701,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

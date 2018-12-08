@@ -32,28 +32,28 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
         <string notr="true">abs(x)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledw_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
        <property name="text">
         <string>abs(w)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
         <string notr="true">abs(y)</string>
        </property>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string notr="true">abs(z)</string>
        </property>
@@ -1093,6 +1093,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

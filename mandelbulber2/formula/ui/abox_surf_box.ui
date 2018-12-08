@@ -104,7 +104,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
         <property name="text">
          <string notr="true">disable for aSurf mode</string>
         </property>
@@ -321,7 +321,7 @@ Limit:</string>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -839,7 +839,7 @@ offset:</string>
               </widget>
              </item>
              <item row="0" column="0" colspan="2">
-              <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+              <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
                <property name="text">
                 <string>mode 1</string>
                </property>
@@ -1081,7 +1081,7 @@ offset:</string>
          <number>2</number>
         </property>
         <item row="0" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
            <string>alternate swap</string>
           </property>
@@ -1839,7 +1839,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
         <property name="text">
          <string>enable aux.color mode 2</string>
         </property>
@@ -2156,6 +2156,11 @@ offset:</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

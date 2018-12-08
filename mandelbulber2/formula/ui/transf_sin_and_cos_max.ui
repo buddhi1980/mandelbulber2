@@ -43,7 +43,7 @@ pre-transform, slot#1 for 1 iteration</string>
       <number>2</number>
      </property>
      <item row="0" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -56,7 +56,7 @@ pre-transform, slot#1 for 1 iteration</string>
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
        <property name="text">
         <string>z.y axis</string>
        </property>
@@ -66,7 +66,7 @@ pre-transform, slot#1 for 1 iteration</string>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="text">
         <string>z.x axis</string>
        </property>
@@ -451,7 +451,7 @@ period:</string>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
       <string>diminish z</string>
      </property>
@@ -842,6 +842,11 @@ period:</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

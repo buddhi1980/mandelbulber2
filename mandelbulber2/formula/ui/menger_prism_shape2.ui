@@ -455,14 +455,14 @@
          <number>2</number>
         </property>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
           <property name="text">
            <string>Apply yz floor</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
           <property name="text">
            <string>z.x &gt;= 0 conditional</string>
           </property>
@@ -702,7 +702,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
         <property name="layoutDirection">
          <enum>Qt::LeftToRight</enum>
         </property>
@@ -724,7 +724,7 @@
          <number>2</number>
         </property>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
           </property>
@@ -2038,7 +2038,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -2077,7 +2077,7 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -2201,7 +2201,7 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -2301,7 +2301,7 @@
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -2311,7 +2311,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>
@@ -2321,7 +2321,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
           <property name="layoutDirection">
            <enum>Qt::RightToLeft</enum>
           </property>

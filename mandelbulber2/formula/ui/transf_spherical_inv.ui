@@ -273,7 +273,7 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
           <property name="text">
            <string>Mode 2</string>
           </property>
@@ -315,7 +315,7 @@ offset:</string>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
           <property name="text">
            <string>Mode 1</string>
           </property>
@@ -749,6 +749,11 @@ if ( z &gt; MinumumR) z *= 1/  rrMode</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

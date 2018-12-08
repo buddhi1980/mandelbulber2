@@ -147,7 +147,7 @@
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
         <string>Smooth Inside</string>
        </property>
@@ -224,7 +224,7 @@
       </widget>
      </item>
      <item row="20" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
         <string>Periodic Cubic Tiling</string>
        </property>
@@ -553,7 +553,7 @@
       </widget>
      </item>
      <item row="21" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
        <property name="text">
         <string>Sine function</string>
        </property>
@@ -709,6 +709,11 @@
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

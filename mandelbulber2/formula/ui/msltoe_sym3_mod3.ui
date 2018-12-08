@@ -359,14 +359,14 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string notr="true">abs</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -478,7 +478,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -567,7 +567,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled_false">
+       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
         <property name="text">
          <string>Enable Analytic DE Vector tweak</string>
         </property>
@@ -753,6 +753,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

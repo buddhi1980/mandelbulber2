@@ -429,42 +429,42 @@
       <item>
        <layout class="QGridLayout" name="gridLayout">
         <item row="1" column="2">
-         <widget class="QCheckBox" name="checkBox_buffalo_abs_z">
+         <widget class="MyCheckBox" name="checkBox_buffalo_abs_z">
           <property name="text">
            <string notr="true">PostAbs(z)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBox_buffalo_preabs_z">
+         <widget class="MyCheckBox" name="checkBox_buffalo_preabs_z">
           <property name="text">
            <string>PreAbs(z)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_buffalo_preabs_y">
+         <widget class="MyCheckBox" name="checkBox_buffalo_preabs_y">
           <property name="text">
            <string>PreAbs(y)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_buffalo_abs_y">
+         <widget class="MyCheckBox" name="checkBox_buffalo_abs_y">
           <property name="text">
            <string notr="true">PostAbs(y)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_buffalo_preabs_x">
+         <widget class="MyCheckBox" name="checkBox_buffalo_preabs_x">
           <property name="text">
            <string>PreAbs(x)</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_buffalo_abs_x">
+         <widget class="MyCheckBox" name="checkBox_buffalo_abs_x">
           <property name="text">
            <string notr="true">PostAbs(x)</string>
           </property>
@@ -473,7 +473,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_buffalo_pos_z">
+       <widget class="MyCheckBox" name="checkBox_buffalo_pos_z">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
           <horstretch>0</horstretch>
@@ -971,7 +971,7 @@
          <number>2</number>
         </property>
         <item row="0" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
            <string>alternate swap</string>
           </property>
@@ -1220,21 +1220,21 @@
          <number>2</number>
         </property>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
           <property name="text">
            <string notr="true">abs(z.x)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
           <property name="text">
            <string notr="true">abs(z.y)</string>
           </property>
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
           <property name="text">
            <string notr="true">abs(z.z)</string>
           </property>
@@ -1551,6 +1551,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

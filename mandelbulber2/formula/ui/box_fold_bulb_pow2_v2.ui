@@ -692,7 +692,7 @@ offset:</string>
             <number>2</number>
            </property>
            <item row="3" column="0" colspan="2">
-            <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
              <property name="text">
               <string>enable vary scale mode B</string>
              </property>
@@ -1428,6 +1428,11 @@ offset:</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

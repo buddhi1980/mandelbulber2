@@ -451,21 +451,21 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
      <property name="text">
       <string notr="true">enable aux.color mode 1</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
      <property name="text">
       <string notr="true">enable aux.color mode 2</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
      <property name="text">
       <string notr="true">enable aux.color mode 3</string>
      </property>
@@ -660,6 +660,11 @@ z = abs( z + constant) - abs( z - constant) - z;</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

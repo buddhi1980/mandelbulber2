@@ -349,7 +349,7 @@
          </widget>
         </item>
         <item row="1" column="0" colspan="4">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
           <property name="text">
            <string>Conditional mode: if ( z.z &lt; limit ) z.z = z.z;</string>
           </property>
@@ -622,6 +622,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -160,14 +160,14 @@
       </widget>
      </item>
      <item row="2" column="0" colspan="3">
-      <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+      <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
        <property name="text">
         <string>alternate c.x c.y swap</string>
        </property>
       </widget>
      </item>
      <item row="1" column="0" colspan="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
         <string>c.x c.y swap</string>
        </property>
@@ -290,6 +290,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

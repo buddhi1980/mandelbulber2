@@ -401,7 +401,7 @@
      <item row="8" column="1" colspan="3">
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="2">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
          <property name="toolTip">
           <string/>
          </property>
@@ -411,7 +411,7 @@
         </widget>
        </item>
        <item row="0" column="0">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
          <property name="toolTip">
           <string/>
          </property>
@@ -421,7 +421,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+        <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
          <property name="toolTip">
           <string/>
          </property>
@@ -536,7 +536,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled_false">
+       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
@@ -753,6 +753,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

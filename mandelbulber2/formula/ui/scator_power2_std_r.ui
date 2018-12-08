@@ -40,7 +40,7 @@ r = length(z);</string>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
       <string notr="true">enable to switch to imaginary scator power 2</string>
      </property>
@@ -270,14 +270,14 @@ r = length(z);</string>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledX_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
         <property name="text">
          <string notr="true">switch to  r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_analyticDE_enabled_false">
+       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
         <property name="text">
          <string notr="true">enable vec3 DE influence</string>
         </property>
@@ -479,6 +479,11 @@ This formula contains aux.DE&lt;br&gt;
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

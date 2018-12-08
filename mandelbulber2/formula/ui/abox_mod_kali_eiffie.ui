@@ -48,7 +48,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledM">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
         <property name="text">
          <string notr="true">disable for aSurf mode (Swap z.x z.z below, must be disabled)</string>
         </property>
@@ -365,7 +365,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
      <property name="text">
       <string>Swap z.x z.z</string>
      </property>
@@ -634,7 +634,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+       <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
         <property name="text">
          <string>alternate swap</string>
         </property>
@@ -1411,6 +1411,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+    <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

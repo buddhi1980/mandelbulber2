@@ -64,7 +64,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCx">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -77,7 +77,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCy_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCy_false">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -90,7 +90,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledCz_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
      <property name="font">
       <font>
        <weight>50</weight>
@@ -248,6 +248,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

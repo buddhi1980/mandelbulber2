@@ -1066,7 +1066,7 @@
             <number>2</number>
            </property>
            <item row="3" column="0" colspan="2">
-            <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
              <property name="text">
               <string>enable vary scale mode B</string>
              </property>
@@ -2162,7 +2162,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
         <property name="text">
          <string>enable aux.color mode 2</string>
         </property>
@@ -2520,6 +2520,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

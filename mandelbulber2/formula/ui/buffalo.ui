@@ -76,7 +76,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_buffalo_pos_z">
+    <widget class="MyCheckBox" name="checkBox_buffalo_pos_z">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
        <horstretch>0</horstretch>

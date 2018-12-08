@@ -40,21 +40,21 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
       <string notr="true">enable to switch to imaginary scator power 2</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledS_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
      <property name="text">
       <string notr="true">test reverse</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledD_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
      <property name="text">
       <string notr="true">testc after quat</string>
      </property>
@@ -451,7 +451,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_addCpixel_enabled">
+       <widget class="MyCheckBox" name="checkBox_transf_addCpixel_enabled">
         <property name="text">
          <string notr="true">scalar algebra cPixel, enable to switch to imaginary scator power 2</string>
         </property>
@@ -516,7 +516,7 @@
          <number>2</number>
         </property>
         <item row="0" column="0" colspan="2">
-         <widget class="QCheckBox" name="checkBox_transf_alternate_enabled_false">
+         <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
           <property name="text">
            <string>alternate swap</string>
           </property>
@@ -711,21 +711,21 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledX_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
         <property name="text">
          <string notr="true">enable r = aux.r;   ( texture surface )</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
         <property name="text">
          <string notr="true">enable r =  ( texture surface )</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
         <property name="text">
          <string notr="true">enable r = .r;   ( texture surface )</string>
         </property>
@@ -1140,6 +1140,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

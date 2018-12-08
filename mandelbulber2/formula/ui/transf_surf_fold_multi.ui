@@ -144,21 +144,21 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
           <property name="text">
            <string>Type 4</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
           <property name="text">
            <string>Type 2</string>
           </property>
          </widget>
         </item>
         <item row="7" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
           <property name="text">
            <string>Type 5</string>
           </property>
@@ -175,14 +175,14 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="text">
            <string>Type 3</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
           <property name="text">
            <string>Type 1</string>
           </property>
@@ -518,6 +518,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

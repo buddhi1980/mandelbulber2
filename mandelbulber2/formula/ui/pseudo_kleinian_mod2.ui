@@ -468,14 +468,14 @@ offset:</string>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_Cpara_enabledLinear">
+          <widget class="MyCheckBox" name="checkBox_Cpara_enabledLinear">
            <property name="text">
             <string>Curvilinear</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_Cpara_enabledCurves">
+          <widget class="MyCheckBox" name="checkBox_Cpara_enabledCurves">
            <property name="text">
             <string>Curvi function (disable to use linear slopes only)</string>
            </property>
@@ -713,7 +713,7 @@ offset:</string>
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_Cpara_enabledParab_false">
+          <widget class="MyCheckBox" name="checkBox_Cpara_enabledParab_false">
            <property name="text">
             <string>Parabolic</string>
            </property>
@@ -3406,21 +3406,21 @@ offset:</string>
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string notr="true">abs</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="text">
            <string notr="true">abs</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -3655,7 +3655,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
         <property name="text">
          <string>enable aux.color mode 2</string>
         </property>
@@ -4077,6 +4077,11 @@ offset:</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

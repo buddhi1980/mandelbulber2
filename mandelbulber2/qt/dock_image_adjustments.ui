@@ -271,7 +271,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_connect_detail_level">
+       <widget class="MyCheckBox" name="checkBox_connect_detail_level">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>

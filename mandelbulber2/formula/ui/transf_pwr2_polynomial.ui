@@ -55,7 +55,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
         <property name="text">
          <string notr="true">abs(z)</string>
         </property>
@@ -198,7 +198,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
         <property name="text">
          <string>Power3</string>
         </property>
@@ -223,7 +223,7 @@
           <number>2</number>
          </property>
          <item>
-          <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
            <property name="text">
             <string notr="true">fabs(fn(z))</string>
            </property>
@@ -547,7 +547,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
         <property name="text">
          <string notr="true">fabs(z)</string>
         </property>
@@ -962,6 +962,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

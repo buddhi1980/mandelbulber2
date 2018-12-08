@@ -39,14 +39,14 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
        <property name="text">
         <string>1st half</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
        <property name="text">
         <string>2nd half</string>
        </property>
@@ -180,6 +180,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

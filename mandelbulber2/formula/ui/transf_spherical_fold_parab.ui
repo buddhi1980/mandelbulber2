@@ -210,7 +210,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
           <property name="text">
            <string>Enable Limit:</string>
           </property>
@@ -403,7 +403,7 @@
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
           <property name="text">
            <string>Enable Limit:</string>
           </property>
@@ -790,7 +790,7 @@ offset:</string>
           </layout>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+          <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
            <property name="text">
             <string>mode 1</string>
            </property>
@@ -1043,7 +1043,7 @@ offset:</string>
       </widget>
      </item>
      <item row="0" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+      <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
        <property name="text">
         <string notr="true">aux.color components</string>
        </property>
@@ -1253,6 +1253,11 @@ offset:</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

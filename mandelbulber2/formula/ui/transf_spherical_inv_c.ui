@@ -149,14 +149,14 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabledAw_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
      <property name="text">
       <string>invZ enabled</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+    <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
      <property name="text">
       <string>alternate invC mode</string>
      </property>
@@ -309,6 +309,11 @@ Cut off at Z=0 to see the inside.</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

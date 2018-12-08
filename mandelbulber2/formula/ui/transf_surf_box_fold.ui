@@ -82,14 +82,14 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledX4_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledX4_false">
           <property name="text">
            <string>Type 4</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledX2_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledX2_false">
           <property name="text">
            <string>Type 2</string>
           </property>
@@ -118,7 +118,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledX1">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledX1">
           <property name="text">
            <string>Type 1</string>
           </property>
@@ -198,14 +198,14 @@
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledX5_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledX5_false">
           <property name="text">
            <string>Type 5</string>
           </property>
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledX3_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledX3_false">
           <property name="text">
            <string>Type 3</string>
           </property>
@@ -284,7 +284,7 @@
          <number>2</number>
         </property>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledY3_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY3_false">
           <property name="text">
            <string>Type 3</string>
           </property>
@@ -349,21 +349,21 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledY4_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY4_false">
           <property name="text">
            <string>Type 4</string>
           </property>
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledY5_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY5_false">
           <property name="text">
            <string>Type 5</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledY1">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY1">
           <property name="text">
            <string>Type 1</string>
           </property>
@@ -436,7 +436,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledY2_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY2_false">
           <property name="text">
            <string>Type 2</string>
           </property>
@@ -537,7 +537,7 @@
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledZ4_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ4_false">
           <property name="text">
            <string>Type 4</string>
           </property>
@@ -681,7 +681,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledZ3_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ3_false">
           <property name="text">
            <string>Type 3</string>
           </property>
@@ -732,21 +732,21 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledZ2_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ2_false">
           <property name="text">
            <string>Type 2</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledZ1">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ1">
           <property name="text">
            <string>Type 1</string>
           </property>
          </widget>
         </item>
         <item row="7" column="0">
-         <widget class="QCheckBox" name="checkBox_surfBox_enabledZ5_false">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledZ5_false">
           <property name="text">
            <string>Type 5</string>
           </property>
@@ -1055,6 +1055,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -32,14 +32,14 @@
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0">
      <item row="3" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledSw_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
        <property name="text">
         <string notr="true">switch division  from c.x  to  c.z</string>
        </property>
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
         <string notr="true">switch from real to imaginary scator algebra</string>
        </property>
@@ -53,7 +53,7 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledR_false">
        <property name="text">
         <string notr="true">switch from  c^2 to abs(c)</string>
        </property>
@@ -191,7 +191,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
           <property name="text">
            <string notr="true">abs</string>
           </property>
@@ -240,14 +240,14 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
           <property name="text">
            <string notr="true">abs</string>
           </property>
          </widget>
         </item>
         <item row="4" column="3">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledS_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
           <property name="text">
            <string notr="true">symmetrical addition  sign(z)</string>
           </property>
@@ -532,6 +532,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

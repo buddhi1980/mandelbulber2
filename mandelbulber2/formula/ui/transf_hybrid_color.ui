@@ -190,7 +190,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="38" column="3">
-      <widget class="QCheckBox" name="checkBox_surfBox_enabledY1">
+      <widget class="MyCheckBox" name="checkBox_surfBox_enabledY1">
        <property name="text">
         <string notr="true">abs(c)</string>
        </property>
@@ -344,7 +344,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="22" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
        <property name="text">
         <string>DE /( aux.i +1.0) mode</string>
        </property>
@@ -373,7 +373,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="42" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAx">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="text">
         <string notr="true">abs( R2 - r2)</string>
        </property>
@@ -387,7 +387,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="25" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledM">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
        <property name="text">
         <string notr="true">abs(z)</string>
        </property>
@@ -430,21 +430,21 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="28" column="0">
-      <widget class="QCheckBox" name="checkBox_surfBox_enabledX2_false">
+      <widget class="MyCheckBox" name="checkBox_surfBox_enabledX2_false">
        <property name="text">
         <string notr="true">BoxTrap</string>
        </property>
       </widget>
      </item>
      <item row="46" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
         <string notr="true">enable sqrd &gt; R2</string>
        </property>
       </widget>
      </item>
      <item row="20" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledD_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledD_false">
        <property name="text">
         <string>DE ( default linear DE)</string>
        </property>
@@ -486,7 +486,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="28" column="3">
-      <widget class="QCheckBox" name="checkBox_surfBox_enabledX1">
+      <widget class="MyCheckBox" name="checkBox_surfBox_enabledX1">
        <property name="text">
         <string notr="true">abs(z)</string>
        </property>
@@ -510,7 +510,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="38" column="0">
-      <widget class="QCheckBox" name="checkBox_surfBox_enabledY2_false">
+      <widget class="MyCheckBox" name="checkBox_surfBox_enabledY2_false">
        <property name="text">
         <string notr="true">add c</string>
        </property>
@@ -674,7 +674,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="54" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledE_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledE_false">
        <property name="text">
         <string/>
        </property>
@@ -731,7 +731,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="55" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledF_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
        <property name="text">
         <string/>
        </property>
@@ -745,14 +745,14 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="56" column="1">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledK_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledK_false">
        <property name="text">
         <string/>
        </property>
       </widget>
      </item>
      <item row="52" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
         <string>Plane bias</string>
        </property>
@@ -845,7 +845,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="42" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
        <property name="text">
         <string notr="true">Sphere Trap</string>
        </property>
@@ -859,7 +859,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="14" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledR_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledR_false">
        <property name="text">
         <string>Radius squared</string>
        </property>
@@ -883,7 +883,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="22" column="3">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledBz_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBz_false">
        <property name="text">
         <string>DE /( aux.i ^2 +1.0) mode</string>
        </property>
@@ -897,7 +897,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="25" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledM_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledM_false">
        <property name="text">
         <string>Max linear offset</string>
        </property>
@@ -918,7 +918,7 @@ condition only enabled on this transform.</string>
       </widget>
      </item>
      <item row="47" column="0">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabledP_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledP_false">
        <property name="text">
         <string notr="true">enable sqrd &lt; R2</string>
        </property>
@@ -1198,6 +1198,11 @@ condition only enabled on this transform.</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

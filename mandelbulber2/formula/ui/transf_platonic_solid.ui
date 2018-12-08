@@ -168,7 +168,7 @@
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
           <property name="toolTip">
            <string/>
           </property>
@@ -178,7 +178,7 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
           <property name="toolTip">
            <string/>
           </property>
@@ -188,7 +188,7 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
           <property name="toolTip">
            <string/>
           </property>
@@ -198,7 +198,7 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="toolTip">
            <string/>
           </property>
@@ -208,7 +208,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
           <property name="toolTip">
            <string/>
           </property>
@@ -218,7 +218,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QCheckBox" name="checkBox_transf_function_enabledAy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
           <property name="toolTip">
            <string/>
           </property>
@@ -527,6 +527,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

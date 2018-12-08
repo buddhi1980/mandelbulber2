@@ -72,7 +72,7 @@
       <number>2</number>
      </property>
      <item row="7" column="0" colspan="2">
-      <widget class="QCheckBox" name="checkBox_transf_function_enabled">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled">
        <property name="text">
         <string>Spheres</string>
        </property>
@@ -561,6 +561,11 @@
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
