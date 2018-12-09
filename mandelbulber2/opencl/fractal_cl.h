@@ -345,6 +345,45 @@ typedef struct
 	enumMulti_orderOfTransfCl orderOfTransf5;
 } sFractalMagTransformsCl;
 
+// combo4
+typedef enum {
+	multi_combo4_type1,
+	multi_combo4_type2,
+	multi_combo4_type3,
+	multi_combo4_type4,
+} enumMulti_combo4;
+typedef struct
+{
+	enumMulti_combo4 combo4;
+} sFractalCombo4;
+
+// combo5
+typedef enum {
+	multi_combo5_type1,
+	multi_combo5_type2,
+	multi_combo5_type3,
+	multi_combo5_type4,
+	multi_combo5_type5,
+} enumMulti_combo5;
+typedef struct
+{
+	enumMulti_combo5 combo5;
+} sFractalCombo5;
+
+// combo6
+typedef enum {
+	multi_combo6_type1,
+	multi_combo6_type2,
+	multi_combo6_type3,
+	multi_combo6_type4,
+	multi_combo6_type5,
+	multi_combo6_type6,
+} enumMulti_combo6;
+typedef struct
+{
+	enumMulti_combo6 combo6;
+} sFractalCombo6;
+
 // basic combo
 typedef enum {
 	comboCl_mode0,
@@ -686,6 +725,9 @@ typedef struct
 	sFractalCparaCl Cpara;
 	sFractalComboCl combo;
 	sFractalASurf3FoldsCl aSurf3Folds;
+	sFractalCombo4 combo4;
+	sFractalCombo5 combo5;
+	sFractalCombo6 combo6;
 
 #ifdef USE_OPENCL
 //	cl_float customParameters[15];
