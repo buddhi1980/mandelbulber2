@@ -98,6 +98,7 @@ typedef struct
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
 	cl_int auxLightRandomEnabled;
+	cl_int auxLightRandomInOneColor;
 	cl_int background3ColorsEnable;
 	cl_int booleanOperatorsEnabled;
 	cl_int constantDEThreshold;
@@ -133,6 +134,7 @@ typedef struct
 	cl_int volFogEnabled;
 
 	cl_float3 auxLightPreColour[4];
+	cl_float3 auxLightRandomColor;
 	cl_float3 background_color1; // background colour
 	cl_float3 background_color2;
 	cl_float3 background_color3;
@@ -271,6 +273,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 		target.auxLightPreEnabled[i] = source.auxLightPreEnabled[i];
 	}
 	target.auxLightRandomEnabled = source.auxLightRandomEnabled;
+	target.auxLightRandomInOneColor = source.auxLightRandomInOneColor;
 	target.background3ColorsEnable = source.background3ColorsEnable;
 	target.booleanOperatorsEnabled = source.booleanOperatorsEnabled;
 	target.constantDEThreshold = source.constantDEThreshold;
@@ -311,6 +314,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	{
 		target.auxLightPreColour[i] = toClFloat3(source.auxLightPreColour[i]);
 	}
+	target.auxLightRandomColor = toClFloat3(source.auxLightRandomColor);
 	target.background_color1 = toClFloat3(source.background_color1);
 	target.background_color2 = toClFloat3(source.background_color2);
 	target.background_color3 = toClFloat3(source.background_color3);

@@ -19,12 +19,11 @@ printStart();
 
 $copyFiles = array();
 $copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
-/*
 $copyFiles[] = array('src' => 'fractparams.hpp', 'opencl' => 'fractparams_cl.hpp');
 $copyFiles[] = array('src' => 'image_adjustments.h', 'opencl' => 'image_adjustments_cl.h');
 $copyFiles[] = array('src' => 'common_params.hpp', 'opencl' => 'common_params_cl.hpp');
 $copyFiles[] = array('src' => 'fractal_coloring.hpp', 'opencl' => 'fractal_coloring_cl.hpp');
-$copyFiles[] = array('src' => 'texture_enums.hpp', 'opencl' => 'texture_enums_cl.h');*/
+$copyFiles[] = array('src' => 'texture_enums.hpp', 'opencl' => 'texture_enums_cl.h');
 $copyFiles[] = array('src' => 'object_types.hpp', 'opencl' => 'object_type_cl.h');
 
 printStartGroup('RUNNING OPENCL AUTOGENERATION');

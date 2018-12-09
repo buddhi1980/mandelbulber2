@@ -119,7 +119,7 @@ typedef struct
 	cl_float cosStartValue;
 	cl_float icRadWeight;
 	cl_float initialColorValue;
-	// double initialMinimumR;
+	// cl_float initialMinimumR;
 	cl_float iterAddScale;
 	cl_float iterScale;
 	cl_float maxColorValue;
