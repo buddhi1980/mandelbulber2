@@ -217,6 +217,5 @@ REAL4 AboxSurfBoxIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		}
 		aux->color += colorAdd;
 	}
-
 	return z;
 }

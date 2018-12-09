@@ -67,7 +67,8 @@
        <widget class="QLabel" name="label_information_general">
         <property name="text">
          <string notr="true">&lt;p&gt;3D Mandelbrot formula invented by David Makin&lt;br&gt;http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7&lt;/p&gt;&lt;table&gt;
-&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235&quot;&gt;http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/msg7235/#msg7235&lt;br&gt;
+&lt;tr&gt;&lt;th&gt;Reference&lt;/th&gt;&lt;td&gt;&lt;a href=&quot;&quot;&gt;&lt;br&gt;
+&lt;a href=&quot;&quot;&gt;&lt;br&gt;
 &lt;a href=&quot;&quot;&gt;&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;

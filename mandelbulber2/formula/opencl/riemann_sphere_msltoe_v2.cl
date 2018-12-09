@@ -64,6 +64,5 @@ REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 		aux->DE = aux->DE * 8.0f * fractal->analyticDE.scale1 * native_divide(length(z), r)
 							+ fractal->analyticDE.offset1;
 	}
-
 	return z;
 }
