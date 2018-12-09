@@ -322,6 +322,7 @@ function updateInfoBoxes($index, $formula, &$status)
 		array('find' => '/>DE Tweak<\/string>/', 'replace' => '>DE Tweak:</string>'),
 		array('find' => '/>Post_scale<\/string>/', 'replace' => '>Post Scale:</string>'),
 		array('find' => '/>Pre_scale<\/string>/', 'replace' => '>Pre Scale:</string>'),
+		array('find' => '/class="QCheckBox"/', 'replace' => 'class="MyCheckBox"'),
 	);
 	foreach ($replaceFormulaLookup as $item) {
 		$newUiFileContent = preg_replace($item['find'], $item['replace'], $newUiFileContent);

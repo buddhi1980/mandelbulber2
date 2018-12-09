@@ -387,7 +387,7 @@ Limit:</string>
        </layout>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
         <property name="text">
          <string>enable aux.color mode 2</string>
         </property>
