@@ -178,7 +178,7 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float rDelta[6];
 		for (int i = 0; i < 6; i++)
 		{
-			float rDelta[i] = length(
+			rDelta[i] = length(
 				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, forcedFormulaIndex)
 					.z);
 		}
