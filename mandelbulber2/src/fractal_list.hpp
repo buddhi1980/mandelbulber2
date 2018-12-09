@@ -104,9 +104,9 @@ enum enumFractalFormula
 	mengerMod1 = 61, // fix V2.10
 	quaternion3d = 62,
 	aexionOctopusMod = 63,
-	aboxMod1 = 64, // fix scale v2.11 v2.12
-	mandelbulbMulti = 65, // updated V2.08
-	benesiPineTree = 66, // updated addCpixel V2.16
+	aboxMod1 = 64,				 // fix scale v2.11 v2.12
+	mandelbulbMulti = 65,	// updated V2.08
+	benesiPineTree = 66,	 // updated addCpixel V2.16
 	benesiT1PineTree = 67, // updated V2.09, rot2 v2.14
 	msltoeSym3Mod = 68,
 	msltoeSym4Mod = 69,
@@ -127,11 +127,11 @@ enum enumFractalFormula
 	quickDudleyMod = 84,
 	// V2.08
 	riemannBulbMsltoeMod2 = 85,
-	msltoeToroidal = 86, // update DE v2.15
+	msltoeToroidal = 86,		// update DE v2.15
 	aboxModKaliEiffie = 87, // updated z.z scale V2.09
 	collatz = 88,
 	collatzMod = 89,
-	mengerPwr2Poly = 90, // DE v2.15
+	mengerPwr2Poly = 90,	// DE v2.15
 	mandelboxMenger = 91, // DE v2.15
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
@@ -141,21 +141,21 @@ enum enumFractalFormula
 	amazingSurfMulti = 97,
 	// V2.09
 	mengerCrossKIFS = 98,
-	mengerPrismShape = 99, // fix T1 T1M V2.10. DE v2.15
+	mengerPrismShape = 99,		 // fix T1 T1M V2.10. DE v2.15
 	benesiMagTransforms = 100, // updated addCpixel V2.16
 	pseudoKleinianStdDE = 101, // fix T1 T1M V2.10
 	bristorbrot4d = 102,
-	pseudoKleinian = 103, // fix DE V2.10
-	pseudoKleinianMod1 = 104, // fix T1 T1M V2.10 & DE
+	pseudoKleinian = 103,				// fix DE V2.10
+	pseudoKleinianMod1 = 104,		// fix T1 T1M V2.10 & DE
 	benesiPwr2Mandelbulb = 105, // rot2 v2.14, updated addCpixel V2.16
 	mengerCrossMod1 = 106,
 	// V2.10
 	mengerPrismShape2 = 107, // DE v2.15
-	mixPinski4d = 108, // fixed V2.11
-	sierpinski4d = 109, // update DE v2.15
-	sierpinski3d = 110, // update DE v2.15
-	menger4d = 111, // fixed V2.11
-	menger4dMod1 = 112, // fixed V2.11
+	mixPinski4d = 108,			 // fixed V2.11
+	sierpinski4d = 109,			 // update DE v2.15
+	sierpinski3d = 110,			 // update DE v2.15
+	menger4d = 111,					 // fixed V2.11
+	menger4dMod1 = 112,			 // fixed V2.11
 	mengerSmooth = 113,
 	mengerSmoothMod1 = 114,
 	mengerOcto = 115,
@@ -163,7 +163,7 @@ enum enumFractalFormula
 	// V2.11
 	pseudoKleinianMod2 = 117,
 	mandelbulbMulti2 = 118, // mbulb default changed V2.12
-	aboxMod11 = 119, // fixed varyscale v2.12
+	aboxMod11 = 119,				// fixed varyscale v2.12
 	// V2.12
 	mandelbulbQuat = 120, // DE 2.15
 	mandelbulbJuliabulb = 121,
@@ -192,12 +192,11 @@ enum enumFractalFormula
 	aboxSurfBox = 140,
 	boxFoldBulbMenger = 141,
 
-
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
-	scatorPower2Real = 156, // added V2.15
-	scatorPower2 = 173, // added V2.15
-	scatorPower2StdR = 174, // added V2.15
+	scatorPower2Real = 156,			 // added V2.15
+	scatorPower2 = 173,					 // added V2.15
+	scatorPower2StdR = 174,			 // added V2.15
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,
@@ -240,7 +239,7 @@ enum enumFractalFormula
 	transfAddConstant4d = 1039,
 	transfBoxFold4d = 1040,
 	transfIterationWeight4d = 1041, // fixed V2.10
-	transfSphericalFold4d = 1042, // updated V2.11
+	transfSphericalFold4d = 1042,		// updated V2.11
 	transfScale4d = 1043,
 	transfAbsAddConstant4d = 1044,
 	transfAbsAddTgladFold4d = 1045,
@@ -251,7 +250,7 @@ enum enumFractalFormula
 	transfSphericalFoldAbox = 1049,
 	transfSphericalFoldVaryV1 = 1050,
 	transfQuaternionFold = 1051, // changed DE v2.15
-	transfMengerFold = 1052, // fixed  v2.15
+	transfMengerFold = 1052,		 // fixed  v2.15
 	// V2.09
 	transfInvCylindrical = 1053,
 	transfRpow3 = 1054,

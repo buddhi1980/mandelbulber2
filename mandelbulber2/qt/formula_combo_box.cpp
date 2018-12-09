@@ -41,7 +41,7 @@
 
 #include <QStandardItemModel>
 
-#include "../src/parameters.hpp"
+#include "src/parameters.hpp"
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapper(this)

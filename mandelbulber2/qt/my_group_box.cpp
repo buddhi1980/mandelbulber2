@@ -43,7 +43,7 @@
 #include <qobjectdefs.h>
 #include <qstring.h>
 
-#include "../src/interface.hpp"
+#include "src/interface.hpp"
 #include "src/parameters.hpp"
 
 MyGroupBox::MyGroupBox(QWidget *parent) : QGroupBox(parent), CommonMyWidgetWrapper(this)
@@ -166,5 +166,3 @@ void MyGroupBox::slotSaveFromThisGroupbox()
 {
 	gMainInterface->SaveLocalSettings(this);
 }
-
-

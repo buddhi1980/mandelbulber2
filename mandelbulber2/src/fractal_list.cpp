@@ -153,12 +153,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		boxFoldBulbMenger, BoxFoldBulbMengerIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 100, analyticFunctionLogarithmic, coloringFunctionDefault));
 
-
 	fractalList->append(sFractalDescription("Box Fold Quat", "box_fold_quat", boxFoldQuat,
 		BoxFoldQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
-
-
 
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -252,9 +249,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb 4", "mandelbulb4", mandelbulb4,
 		Mandelbulb4Iteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Mandelbulb - Abs Power 2", "mandelbulb_abs_power2", mandelbulbAbsPower2,
-		MandelbulbAbsPower2Iteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Abs Power 2", "mandelbulb_abs_power2",
+		mandelbulbAbsPower2, MandelbulbAbsPower2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Bermarte", "mandelbulb_bermarte",
 		mandelbulbBermarte, MandelbulbBermarteIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -393,7 +390,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, RiemannBulbMsltoeMod2Iteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
-
 
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",

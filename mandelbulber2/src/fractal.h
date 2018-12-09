@@ -401,7 +401,6 @@ struct sFractalCombo6
 	enumMulti_combo6 combo6;
 };
 
-
 // basic combo
 enum enumCombo
 {
