@@ -65,9 +65,15 @@
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
 
-typedef enum { ocl_DECalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } enumOCLDEModeCl;
+typedef enum
+{
+	ocl_DECalculated = 0,
+	ocl_deltaDE = 1,
+	ocl_noDE = 2
+} enumOCLDEModeCl;
 
-typedef enum {
+typedef enum
+{
 	generalizedFoldBoxTypeCl_foldTet = 0,
 	generalizedFoldBoxTypeCl_foldCube = 1,
 	generalizedFoldBoxTypeCl_foldOct = 2,
@@ -253,11 +259,20 @@ typedef struct
 } sFractalPlatonicSolidCl;
 
 // mandelbulb multi
-typedef enum { multi_acosOrAsinCl_acos, multi_acosOrAsinCl_asin } enumMulti_acosOrAsinCl;
+typedef enum
+{
+	multi_acosOrAsinCl_acos,
+	multi_acosOrAsinCl_asin
+} enumMulti_acosOrAsinCl;
 
-typedef enum { multi_atanOrAtan2Cl_atan, multi_atanOrAtan2Cl_atan2 } enumMulti_atanOrAtan2Cl;
+typedef enum
+{
+	multi_atanOrAtan2Cl_atan,
+	multi_atanOrAtan2Cl_atan2
+} enumMulti_atanOrAtan2Cl;
 
-typedef enum {
+typedef enum
+{
 	multi_OrderOfXYZCl_xyz,
 	multi_OrderOfXYZCl_xzy,
 	multi_OrderOfXYZCl_yxz,
@@ -278,11 +293,20 @@ typedef struct
 } sFractalMandelbulbMultiCl;
 
 // sinTan2Trig
-typedef enum { multi_asinOrAcosCl_asin, multi_asinOrAcosCl_acos } enumMulti_asinOrAcosCl;
+typedef enum
+{
+	multi_asinOrAcosCl_asin,
+	multi_asinOrAcosCl_acos
+} enumMulti_asinOrAcosCl;
 
-typedef enum { multi_atan2OrAtanCl_atan2, multi_atan2OrAtanCl_atan } enumMulti_atan2OrAtanCl;
+typedef enum
+{
+	multi_atan2OrAtanCl_atan2,
+	multi_atan2OrAtanCl_atan
+} enumMulti_atan2OrAtanCl;
 
-typedef enum {
+typedef enum
+{
 	multi_OrderOfZYXCl_zyx,
 	multi_OrderOfZYXCl_zxy,
 	multi_OrderOfZYXCl_yzx,
@@ -298,7 +322,8 @@ typedef struct
 } sFractalSinTan2TrigCl;
 
 // surf fold box
-typedef enum {
+typedef enum
+{
 	multi_orderOfFoldsCl_type1,
 	multi_orderOfFoldsCl_type2,
 	multi_orderOfFoldsCl_type3,
@@ -315,7 +340,8 @@ typedef struct
 } sFractalSurfFoldsCl;
 
 // asurf mod2
-typedef enum {
+typedef enum
+{
 	multi_orderOf3FoldsCl_type1,
 	multi_orderOf3FoldsCl_type2,
 	multi_orderOf3FoldsCl_type3
@@ -328,7 +354,8 @@ typedef struct
 } sFractalASurf3FoldsCl;
 
 // benesi mag transforms
-typedef enum {
+typedef enum
+{
 	multi_orderOfTransfCl_typeT1,
 	multi_orderOfTransfCl_typeT1Mod,
 	multi_orderOfTransfCl_typeT2,
@@ -346,7 +373,8 @@ typedef struct
 } sFractalMagTransformsCl;
 
 // combo4
-typedef enum {
+typedef enum
+{
 	multi_combo4Cl_type1,
 	multi_combo4Cl_type2,
 	multi_combo4Cl_type3,
@@ -358,7 +386,8 @@ typedef struct
 } sFractalCombo4Cl;
 
 // combo5
-typedef enum {
+typedef enum
+{
 	multi_combo5Cl_type1,
 	multi_combo5Cl_type2,
 	multi_combo5Cl_type3,
@@ -371,7 +400,8 @@ typedef struct
 } sFractalCombo5Cl;
 
 // combo6
-typedef enum {
+typedef enum
+{
 	multi_combo6Cl_type1,
 	multi_combo6Cl_type2,
 	multi_combo6Cl_type3,
@@ -385,7 +415,8 @@ typedef struct
 } sFractalCombo6Cl;
 
 // basic combo
-typedef enum {
+typedef enum
+{
 	comboCl_mode0,
 	comboCl_mode1,
 	comboCl_mode2,
@@ -607,6 +638,7 @@ typedef struct
 	cl_float4 offset000;
 	cl_float4 offsetA000;
 	cl_float4 offsetF000;
+	cl_float4 offset010;
 	cl_float4 offset100;
 	cl_float4 offset1105;
 	cl_float4 offset111;
@@ -1049,7 +1081,6 @@ inline sFractalCombo4Cl clCopySFractalCombo4Cl(const sFractalCombo4 &source)
 	return target;
 }
 
-
 inline sFractalCombo5Cl clCopySFractalCombo5Cl(const sFractalCombo5 &source)
 {
 	sFractalCombo5Cl target;
@@ -1063,7 +1094,6 @@ inline sFractalCombo6Cl clCopySFractalCombo6Cl(const sFractalCombo6 &source)
 	target.combo6 = enumMulti_combo6Cl(source.combo6);
 	return target;
 }
-
 
 inline sFractalComboCl clCopySFractalComboCl(const sFractalCombo &source)
 {
@@ -1272,6 +1302,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset000 = toClFloat4(source.offset000);
 	target.offsetA000 = toClFloat4(source.offsetA000);
 	target.offsetF000 = toClFloat4(source.offsetF000);
+	target.offset010 = toClFloat4(source.offset010);
 	target.offset100 = toClFloat4(source.offset100);
 	target.offset1105 = toClFloat4(source.offset1105);
 	target.offset111 = toClFloat4(source.offset111);
@@ -1385,6 +1416,9 @@ inline sFractalCl clCopySFractalCl(const sFractal &source)
 	target.Cpara = clCopySFractalCparaCl(source.Cpara);
 	target.combo = clCopySFractalComboCl(source.combo);
 	target.aSurf3Folds = clCopySFractalASurf3FoldsCl(source.aSurf3Folds);
+	target.combo4 = clCopySFractalCombo4Cl(source.combo4);
+	target.combo5 = clCopySFractalCombo5Cl(source.combo5);
+	target.combo6 = clCopySFractalCombo6Cl(source.combo6);
 	return target;
 }
 #endif /* OPENCL_KERNEL_CODE */

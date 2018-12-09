@@ -18,7 +18,8 @@ require_once(dirname(__FILE__) . '/common.inc.php');
 printStart();
 
 $copyFiles = array();
-/*$copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
+$copyFiles[] = array('src' => 'fractal.h', 'opencl' => 'fractal_cl.h');
+/*
 $copyFiles[] = array('src' => 'fractparams.hpp', 'opencl' => 'fractparams_cl.hpp');
 $copyFiles[] = array('src' => 'image_adjustments.h', 'opencl' => 'image_adjustments_cl.h');
 $copyFiles[] = array('src' => 'common_params.hpp', 'opencl' => 'common_params_cl.hpp');

@@ -368,7 +368,7 @@ void cOpenClHardware::EnableDevicesByHashList(const QString &list)
 				"No OpenCL devices selected or selected unknown devices!\n"
 				"Selected first available GPU device\n"
 				"Check program preferences to select correct OpenCL device"
-				"from list of vailable GPU devices";
+				"from list of available GPU devices";
 			cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage, nullptr);
 
 			EnableDevice(0);
