@@ -163,30 +163,29 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 
 		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
 		calcParam->deltaDEMaxN = out.iters - 1;
+		float r = length(out.z);
+
 		bool maxiter = out.maxiter;
 
-		float r = length(out.z);
-		float r11 = length(Fractal(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		float r12 = length(Fractal(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		dr.x = min(fabs(r11 - r), fabs(r12 - r)) / delta;
-		float r21 = length(Fractal(consts, point + (float3){0.0f, delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		float r22 = length(Fractal(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		dr.y = min(fabs(r21 - r), fabs(r22 - r)) / delta;
-		float r31 = length(Fractal(consts, point + (float3){0.0f, 0.0f, delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		float r32 = length(Fractal(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam,
-												 calcModeDeltaDE2, NULL, forcedFormulaIndex)
-												 .z);
-		dr.z = min(fabs(r31 - r), fabs(r32 - r)) / delta;
+		float3 deltas[6];
+		deltas[0] = (float3){delta, 0.0f, 0.0f};
+		deltas[1] = (float3){-delta, 0.0f, 0.0f};
+		deltas[2] = (float3){0.0f, delta, 0.0f};
+		deltas[3] = (float3){0.0f, -delta, 0.0f};
+		deltas[4] = (float3){0.0f, 0.0f, delta};
+		deltas[5] = (float3){0.0f, 0.0f, -delta};
+
+		float rDelta[6];
+		for (int i = 0; i < 6; i++)
+		{
+			float rDelta[i] = length(
+				Fractal(consts, point + deltas[i], calcParam, calcModeDeltaDE2, NULL, forcedFormulaIndex)
+					.z);
+		}
+		dr.x = min(fabs(rDelta[0] - r), fabs(rDelta[1] - r)) / delta;
+		dr.y = min(fabs(rDelta[2] - r), fabs(rDelta[3] - r)) / delta;
+		dr.z = min(fabs(rDelta[4] - r), fabs(rDelta[5] - r)) / delta;
+
 		float d = length(dr);
 
 		if (isinf(r) || isinf(d) || d == 0.0f)

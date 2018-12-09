@@ -43,22 +43,22 @@ float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, 
 
 	calcParam->distThresh = distThresh;
 	calcParam->normalCalculationMode = true;
-	float sx1 =
-		CalculateDistance(consts, point + (float3){delta, 0.0f, 0.0f}, calcParam, renderData).distance;
-	float sx2 =
-		CalculateDistance(consts, point + (float3){-delta, 0.0f, 0.0f}, calcParam, renderData).distance;
 
-	float sy1 =
-		CalculateDistance(consts, point + (float3){0.0f, delta, 0.0f}, calcParam, renderData).distance;
-	float sy2 =
-		CalculateDistance(consts, point + (float3){0.0f, -delta, 0.0f}, calcParam, renderData).distance;
+	float3 deltas[6];
+	deltas[0] = (float3){delta, 0.0f, 0.0f};
+	deltas[1] = (float3){-delta, 0.0f, 0.0f};
+	deltas[2] = (float3){0.0f, delta, 0.0f};
+	deltas[3] = (float3){0.0f, -delta, 0.0f};
+	deltas[4] = (float3){0.0f, 0.0f, delta};
+	deltas[5] = (float3){0.0f, 0.0f, -delta};
 
-	float sz1 =
-		CalculateDistance(consts, point + (float3){0.0f, 0.0f, delta}, calcParam, renderData).distance;
-	float sz2 =
-		CalculateDistance(consts, point + (float3){0.0f, 0.0f, -delta}, calcParam, renderData).distance;
+	float s[6];
+	for (int i = 0; i < 6; i++)
+	{
+		s[i] = CalculateDistance(consts, point + deltas[i], calcParam, renderData).distance;
+	}
 
-	float3 normal = (float3){sx1 - sx2, sy1 - sy2, sz1 - sz2};
+	float3 normal = (float3){s[0] - s[1], s[2] - s[3], s[4] - s[5]};
 	normal = normalize(normal);
 	calcParam->normalCalculationMode = false;
 
