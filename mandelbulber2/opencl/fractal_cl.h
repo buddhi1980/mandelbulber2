@@ -347,42 +347,42 @@ typedef struct
 
 // combo4
 typedef enum {
-	multi_combo4_type1,
-	multi_combo4_type2,
-	multi_combo4_type3,
-	multi_combo4_type4,
-} enumMulti_combo4;
+	multi_combo4Cl_type1,
+	multi_combo4Cl_type2,
+	multi_combo4Cl_type3,
+	multi_combo4Cl_type4,
+} enumMulti_combo4Cl;
 typedef struct
 {
-	enumMulti_combo4 combo4;
-} sFractalCombo4;
+	enumMulti_combo4Cl combo4;
+} sFractalCombo4Cl;
 
 // combo5
 typedef enum {
-	multi_combo5_type1,
-	multi_combo5_type2,
-	multi_combo5_type3,
-	multi_combo5_type4,
-	multi_combo5_type5,
-} enumMulti_combo5;
+	multi_combo5Cl_type1,
+	multi_combo5Cl_type2,
+	multi_combo5Cl_type3,
+	multi_combo5Cl_type4,
+	multi_combo5Cl_type5,
+} enumMulti_combo5Cl;
 typedef struct
 {
-	enumMulti_combo5 combo5;
-} sFractalCombo5;
+	enumMulti_combo5Cl combo5;
+} sFractalCombo5Cl;
 
 // combo6
 typedef enum {
-	multi_combo6_type1,
-	multi_combo6_type2,
-	multi_combo6_type3,
-	multi_combo6_type4,
-	multi_combo6_type5,
-	multi_combo6_type6,
-} enumMulti_combo6;
+	multi_combo6Cl_type1,
+	multi_combo6Cl_type2,
+	multi_combo6Cl_type3,
+	multi_combo6Cl_type4,
+	multi_combo6Cl_type5,
+	multi_combo6Cl_type6,
+} enumMulti_combo6Cl;
 typedef struct
 {
-	enumMulti_combo6 combo6;
-} sFractalCombo6;
+	enumMulti_combo6Cl combo6;
+} sFractalCombo6Cl;
 
 // basic combo
 typedef enum {
@@ -725,9 +725,9 @@ typedef struct
 	sFractalCparaCl Cpara;
 	sFractalComboCl combo;
 	sFractalASurf3FoldsCl aSurf3Folds;
-	sFractalCombo4 combo4;
-	sFractalCombo5 combo5;
-	sFractalCombo6 combo6;
+	sFractalCombo4Cl combo4;
+	sFractalCombo5Cl combo5;
+	sFractalCombo6Cl combo6;
 
 #ifdef USE_OPENCL
 //	cl_float customParameters[15];
@@ -1041,6 +1041,31 @@ inline sFractalMagTransformsCl clCopySFractalMagTransformsCl(const sFractalMagTr
 	target.orderOfTransf5 = enumMulti_orderOfTransfCl(source.orderOfTransf5);
 	return target;
 }
+
+inline sFractalCombo4Cl clCopySFractalCombo4Cl(const sFractalCombo4 &source)
+{
+	sFractalCombo4Cl target;
+	target.combo4 = enumMulti_combo4Cl(source.combo4);
+	return target;
+}
+
+
+inline sFractalCombo5Cl clCopySFractalCombo5Cl(const sFractalCombo5 &source)
+{
+	sFractalCombo5Cl target;
+	target.combo5 = enumMulti_combo5Cl(source.combo5);
+	return target;
+}
+
+inline sFractalCombo6Cl clCopySFractalCombo6Cl(const sFractalCombo6 &source)
+{
+	sFractalCombo6Cl target;
+	target.combo6 = enumMulti_combo6Cl(source.combo6);
+	return target;
+}
+
+
+
 
 inline sFractalComboCl clCopySFractalComboCl(const sFractalCombo &source)
 {
