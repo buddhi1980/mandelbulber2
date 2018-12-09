@@ -1065,8 +1065,6 @@ inline sFractalCombo6Cl clCopySFractalCombo6Cl(const sFractalCombo6 &source)
 }
 
 
-
-
 inline sFractalComboCl clCopySFractalComboCl(const sFractalCombo &source)
 {
 	sFractalComboCl target;
