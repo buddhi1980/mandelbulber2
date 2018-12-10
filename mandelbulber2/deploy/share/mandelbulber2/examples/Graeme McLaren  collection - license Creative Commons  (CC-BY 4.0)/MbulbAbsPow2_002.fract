@@ -1,0 +1,57 @@
+# Mandelbulber settings file
+# version 2.16
+# only modified parameters
+[description]
+Deep zoom. Do not render in OpenCL.
+[main_parameters]
+ambient_occlusion_enabled true;
+bailout 12;
+camera 0.7157000905174878 -0.9327116031093511 -0.08005375477385776;
+camera_distance_to_target 2e-11;
+camera_rotation 132.9154149525916 48.8397419736211 -81.64371584576773;
+camera_top 0.7538172044995765 -0.6500846989152761 0.0956530524169429;
+constant_DE_threshold true;
+DE_thresh 1e-15;
+delta_DE_method 2;
+detail_level 0.5;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 137;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 2;
+image_width 1600;
+keyframe_last_to_render 0;
+mat1_coloring_speed 12.5;
+mat1_fractal_coloring_aux_color_scale1 0;
+mat1_fractal_coloring_extra_color_options_false true;
+mat1_fractal_coloring_ic_rad_enabled_false true;
+mat1_fractal_coloring_ic_rad_weight 16;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0.8;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_rad_div_de_scale1 10000;
+mat1_is_defined true;
+mat1_specular_metallic 1;
+mat1_specular_plastic_enable false;
+mat1_surface_color_palette eaeaea 405539 345539 542a00 871b12 3f553b ffff00 2d552a d4ffd4 aba53c;
+raytraced_reflections true;
+target 0.7157000905078474 -0.9327116031183142 -0.08005375475880039;
+use_default_bailout false;
+view_distance_max 5;
+volumetric_fog_colour_1_distance 0.0004481214046343948;
+volumetric_fog_colour_2_distance 0.001792485618537579;
+volumetric_fog_distance_factor 0.003584971237075157;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_enabled_false true;
+analyticDE_offset_0 -0.5;
+buffalo_abs_x true;
+buffalo_preabs_z true;
+transf_function_enabled false;
+transf_function_enabledCx_false true;
+transf_function_enabledP_false true;
+transf_offset_000 -0.3 0.2 -0.1;
+transf_rotation 0 -24 -40;
+transf_rotation_enabled true;
