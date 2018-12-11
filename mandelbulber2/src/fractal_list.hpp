@@ -191,6 +191,9 @@ enum enumFractalFormula
 	riemannSphereMsltoeV2 = 139,
 	aboxSurfBox = 140,
 	boxFoldBulbMenger = 141,
+	vicsek = 142,
+
+
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14

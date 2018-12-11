@@ -189,9 +189,10 @@ void ScatorPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void ScatorPower2StdRIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void CollatzModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+
 
 // transforming formulas
 void TransfAddCpixelAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

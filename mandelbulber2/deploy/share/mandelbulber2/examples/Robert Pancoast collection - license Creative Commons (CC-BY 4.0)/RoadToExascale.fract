@@ -43,7 +43,6 @@ volumetric_fog_density 0,251189;
 mandelbox_folding_fixed_radius 0,163613;
 transf_function_enabled_false true;
 transf_minimum_radius_05 0,6;
-transf_minimum_radius_neg1 -0,1;
 transf_offsetA_000 1 1 0,9;
 transf_scale3D_000 1 0 0;
 transf_scale_2 0,9999999999999992;

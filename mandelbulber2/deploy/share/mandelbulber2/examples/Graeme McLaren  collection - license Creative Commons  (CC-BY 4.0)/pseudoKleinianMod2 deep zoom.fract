@@ -43,7 +43,6 @@ transf_function_enabledAy_false true;
 transf_function_enabledF_false true;
 transf_function_enabledx_false true;
 transf_minimum_radius_05 0,55;
-transf_minimum_radius_neg1 -0,1;
 transf_offsetA_000 0,6 0,6 0,7;
 transf_scale3D_000 2,7 2 2,4;
 transf_scale3D_333 2,6 3 3;
