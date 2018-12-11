@@ -215,7 +215,7 @@ checkBox disabled,  result = no change</string>
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QComboBox" name="comboBox_combo6">
+      <widget class="MyComboBox" name="comboBox_combo6">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -554,6 +554,11 @@ checkBox disabled,  result = no change</string>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item row="7" column="2">
-      <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+      <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
        <item>
         <property name="text">
          <string notr="true">xyz</string>
@@ -517,6 +517,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

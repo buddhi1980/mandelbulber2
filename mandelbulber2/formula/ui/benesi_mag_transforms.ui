@@ -963,7 +963,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_3">
+         <widget class="MyComboBox" name="comboBox_magTransf_order_of_transf_3">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1000,7 +1000,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="1" column="5">
-         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_5">
+         <widget class="MyComboBox" name="comboBox_magTransf_order_of_transf_5">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1037,7 +1037,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="1" column="4">
-         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_4">
+         <widget class="MyComboBox" name="comboBox_magTransf_order_of_transf_4">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1074,7 +1074,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_2">
+         <widget class="MyComboBox" name="comboBox_magTransf_order_of_transf_2">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -1118,7 +1118,7 @@ to find which works best with selected transforms</string>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox_magTransf_order_of_transf_1">
+         <widget class="MyComboBox" name="comboBox_magTransf_order_of_transf_1">
           <property name="enabled">
            <bool>false</bool>
           </property>
@@ -2876,6 +2876,11 @@ to find which works best with selected transforms</string>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

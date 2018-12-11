@@ -516,7 +516,7 @@ sphere radius:</string>
              </widget>
             </item>
             <item row="11" column="1" colspan="2">
-             <widget class="QComboBox" name="comboBox_fractal_coloring_algorithm">
+             <widget class="MyComboBox" name="comboBox_fractal_coloring_algorithm">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -3923,7 +3923,7 @@ object size)</string>
              </widget>
             </item>
             <item row="0" column="1" colspan="3">
-             <widget class="QComboBox" name="comboBox_texture_mapping_type">
+             <widget class="MyComboBox" name="comboBox_texture_mapping_type">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -4324,6 +4324,11 @@ object size)</string>
    <extends>QWidget</extends>
    <header>material_widget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

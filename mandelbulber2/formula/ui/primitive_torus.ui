@@ -322,7 +322,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="QComboBox" name="comboBox_radius_lpow">
+      <widget class="MyComboBox" name="comboBox_radius_lpow">
        <item>
         <property name="text">
          <string notr="true">1</string>
@@ -363,7 +363,7 @@
       </widget>
      </item>
      <item row="6" column="2">
-      <widget class="QComboBox" name="comboBox_tube_radius_lpow">
+      <widget class="MyComboBox" name="comboBox_tube_radius_lpow">
        <item>
         <property name="text">
          <string notr="true">1</string>
@@ -457,6 +457,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

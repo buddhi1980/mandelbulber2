@@ -554,7 +554,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
+         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
           <item>
            <property name="text">
             <string notr="true">xyz</string>
@@ -767,6 +767,11 @@ You can use it for example as a pre-transform for bulbs or boxes.</string>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

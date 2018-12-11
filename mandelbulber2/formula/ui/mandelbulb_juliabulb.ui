@@ -168,7 +168,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox_sinTan2Trig_asin_or_acos">
+         <widget class="MyComboBox" name="comboBox_sinTan2Trig_asin_or_acos">
           <item>
            <property name="text">
             <string notr="true">asin</string>
@@ -189,7 +189,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QComboBox" name="comboBox_sinTan2Trig_order_of_zyx">
+         <widget class="MyComboBox" name="comboBox_sinTan2Trig_order_of_zyx">
           <item>
            <property name="text">
             <string notr="true">zyx</string>
@@ -223,7 +223,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QComboBox" name="comboBox_sinTan2Trig_atan2_or_atan">
+         <widget class="MyComboBox" name="comboBox_sinTan2Trig_atan2_or_atan">
           <item>
            <property name="text">
             <string notr="true">atan2</string>
@@ -1070,7 +1070,7 @@
          </widget>
         </item>
         <item row="1" column="2">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
+         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz_C">
           <item>
            <property name="text">
             <string notr="true">xyz</string>
@@ -1554,6 +1554,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

@@ -370,7 +370,7 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
          </widget>
         </item>
         <item row="1" column="3">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
           <item>
            <property name="text">
             <string notr="true">xyz</string>
@@ -780,6 +780,11 @@ This formula contains aux.DE&lt;br&gt;
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

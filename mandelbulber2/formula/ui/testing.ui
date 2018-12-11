@@ -304,7 +304,7 @@
          <number>2</number>
         </property>
         <item row="0" column="3">
-         <widget class="QComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
+         <widget class="MyComboBox" name="comboBox_mandelbulbMulti_order_of_xyz">
           <item>
            <property name="text">
             <string notr="true">xyz</string>
@@ -1059,7 +1059,7 @@
         </widget>
        </item>
        <item row="2" column="3">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_3">
+        <widget class="MyComboBox" name="comboBox_surfFolds_order_of_folds_3">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1160,7 +1160,7 @@
         </widget>
        </item>
        <item row="2" column="2">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_2">
+        <widget class="MyComboBox" name="comboBox_surfFolds_order_of_folds_2">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1192,7 +1192,7 @@
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_1">
+        <widget class="MyComboBox" name="comboBox_surfFolds_order_of_folds_1">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1240,7 +1240,7 @@
         </widget>
        </item>
        <item row="2" column="4">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_4">
+        <widget class="MyComboBox" name="comboBox_surfFolds_order_of_folds_4">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -1272,7 +1272,7 @@
         </widget>
        </item>
        <item row="2" column="5">
-        <widget class="QComboBox" name="comboBox_surfFolds_order_of_folds_5">
+        <widget class="MyComboBox" name="comboBox_surfFolds_order_of_folds_5">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -3180,6 +3180,11 @@ offset:</string>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

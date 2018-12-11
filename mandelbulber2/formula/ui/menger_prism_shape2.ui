@@ -404,7 +404,7 @@
          </widget>
         </item>
         <item row="0" column="3">
-         <widget class="QComboBox" name="comboBox_combo_mode_A">
+         <widget class="MyComboBox" name="comboBox_combo_mode_A">
           <item>
            <property name="text">
             <string>mode 0</string>
@@ -3700,6 +3700,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
