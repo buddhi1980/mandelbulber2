@@ -2811,11 +2811,30 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 void cInterface::ResetLocalSettings(const QWidget *widget)
 {
 	QStringList listOfParameters = CreateListOfParametersInWidget(widget);
-	for (QString parameter : listOfParameters)
+
+	for (QString fullParameterName : listOfParameters)
 	{
-		cOneParameter oneParam = gPar->GetAsOneParameter(parameter);
-		oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
-		gPar->SetFromOneParameter(parameter, oneParam);
+		const int firstUnderscore = fullParameterName.indexOf('_');
+		const QString containerName = fullParameterName.left(firstUnderscore);
+		const QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+
+		const cParameterContainer *container = nullptr;
+		if (containerName == "main")
+		{
+			container = gPar;
+		}
+		else if (containerName.indexOf("fractal") >= 0)
+		{
+			const int index = containerName.rightRef(1).toInt();
+			if (index < 4)
+			{
+				container = &gParFractal->at(index);
+
+				cOneParameter oneParam = container->GetAsOneParameter(parameterName);
+				oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
+				gPar->SetFromOneParameter(parameterName, oneParam);
+			}
+		}
 	}
 	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
