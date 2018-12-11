@@ -9006,7 +9006,8 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		z.x = fabs(z.x);
 		z = z * fractal->transformCommon.scale2
-				- fractal->transformCommon.offset100 * (fractal->transformCommon.scale2 - 1.0);
+				- fractal->transformCommon.offset100
+				* (fractal->transformCommon.scale2 - 1.0);
 
 		aux.DE *= fractal->transformCommon.scale2;
 	}
@@ -9020,8 +9021,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr <fractal->transformCommon.minR2p25)
 		{
-			double tglad_factor1 = fractal->transformCommon.maxR2d1
-					/ fractal->transformCommon.minR2p25;
+			double tglad_factor1 = fractal->transformCommon.maxMinR2factor;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.color += fractal->mandelbox.color.factorSp1;
@@ -9049,33 +9049,14 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z *= fractal->transformCommon.scale3;
 		aux.DE *= fractal->transformCommon.scale3;
 
-		/*if (z.x > 0.5) z.x -= 1.0 * fractal->transformCommon.scaleA1;
-		if (z.y > 0.5) z.y -= 1.0;
-		if (z.z > 1.0) z.z -= 2.0;
-		z.x += fractal->transformCommon.offset0;*/
-
-		CVector4 limit = fractal->transformCommon.additionConstant111;
-
+		CVector4 limit = fractal->transformCommon.offset111;
 		if (z.x > limit.x * 0.5) z.x -= limit.x * fractal->transformCommon.scaleA1;
 		if (z.y > limit.y * 0.5) z.y -= limit.y;
 		if (z.z > limit.z) z.z -= 2.0 * limit.z;
 		z.x += fractal->transformCommon.offset0;
-
 	}
 
-	/*{
-		z = fabs(z);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
-		z *= fractal->transformCommon.scale3;
-		z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
-		z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
-		aux.DE *= fractal->transformCommon.scale3;
-		z += fractal->transformCommon.additionConstant000;
-	}*/
-
+	// 45 rot XY
 	if (fractal->transformCommon.functionEnabledXFalse
 			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
@@ -9095,6 +9076,10 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				+ (zB * fractal->transformCommon.offsetB0);
 		aux.DE *= fractal->transformCommon.scale1;
 	}
+
+	// Analytic DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 
