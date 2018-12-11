@@ -9017,13 +9017,11 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		double rr = z.Dot(z);
-
-		z += fractal->mandelbox.offset;
-
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr <fractal->transformCommon.minR2p25)
 		{
-			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+			double tglad_factor1 = fractal->transformCommon.maxR2d1
+					/ fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.color += fractal->mandelbox.color.factorSp1;
@@ -9035,17 +9033,10 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE *= tglad_factor2;
 			aux.color += fractal->mandelbox.color.factorSp2;
 		}
-		z -= fractal->mandelbox.offset;
 		z *= fractal->transformCommon.scale08;
 		aux.DE = aux.DE * fabs(fractal->transformCommon.scale08);
 	}
-	// rotation
-	if (fractal->transformCommon.functionEnabledRFalse
-			&& aux.i >= fractal->transformCommon.startIterationsR
-			&& aux.i < fractal->transformCommon.stopIterationsR)
-	{
-		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+
 	// Vicsek
 	if (fractal->transformCommon.functionEnabledM
 			&& aux.i >= fractal->transformCommon.startIterationsM
@@ -9058,18 +9049,16 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z *= fractal->transformCommon.scale3;
 		aux.DE *= fractal->transformCommon.scale3;
 
-		if (z.x > 0.5) z.x -= 1.0 * fractal->transformCommon.constantMultiplier111.x;
-		if (z.y > 0.5) z.y -= 1.0 * fractal->transformCommon.constantMultiplier111.y;
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
-
+		if (z.x > 0.5) z.x -= 1.0 * fractal->transformCommon.scaleA1;
+		if (z.y > 0.5) z.y -= 1.0;
+		if (z.z > 1.0) z.z -= 2.0;
+		z.x += fractal->transformCommon.offset0;
 
 		/*if (z.x > factal->swapThresh.x) z.x -= factal->swapVal.x;
 		if (z.y > factal->swapThresh.y) z.y -= factal->swapVal.y;
 		if (z.z > factal->swapThresh.z) z.z -= factal->swapVal.z;*/
 
 
-
-		z += fractal->transformCommon.additionConstant000;
 	}
 
 	/*{
@@ -9085,7 +9074,14 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z += fractal->transformCommon.additionConstant000;
 	}*/
 
-
+	if (fractal->transformCommon.functionEnabledXFalse
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		double xTemp = SQRT_1_2 * (z.x - z.y);
+		z.y = SQRT_1_2 * (z.y + z.x);
+		z.x = xTemp;
+	}
 
 	// iter weight
 	if (fractal->transformCommon.functionEnabledFalse)
