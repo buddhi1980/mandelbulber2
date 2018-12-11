@@ -9049,15 +9049,17 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z *= fractal->transformCommon.scale3;
 		aux.DE *= fractal->transformCommon.scale3;
 
-		if (z.x > 0.5) z.x -= 1.0 * fractal->transformCommon.scaleA1;
+		/*if (z.x > 0.5) z.x -= 1.0 * fractal->transformCommon.scaleA1;
 		if (z.y > 0.5) z.y -= 1.0;
 		if (z.z > 1.0) z.z -= 2.0;
+		z.x += fractal->transformCommon.offset0;*/
+
+		CVector4 limit = fractal->transformCommon.additionConstant111;
+
+		if (z.x > limit.x * 0.5) z.x -= limit.x * fractal->transformCommon.scaleA1;
+		if (z.y > limit.y * 0.5) z.y -= limit.y;
+		if (z.z > limit.z) z.z -= 2.0 * limit.z;
 		z.x += fractal->transformCommon.offset0;
-
-		/*if (z.x > factal->swapThresh.x) z.x -= factal->swapVal.x;
-		if (z.y > factal->swapThresh.y) z.y -= factal->swapVal.y;
-		if (z.z > factal->swapThresh.z) z.z -= factal->swapVal.z;*/
-
 
 	}
 
