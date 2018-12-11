@@ -8988,7 +8988,17 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  * Vicsek
  */
 void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{ // octo
+{
+	double colorAdd = 0.0;
+	double rrCol = 0.0;
+	CVector4 zCol = z;
+	CVector4 oldZ = z;
+
+
+
+
+
+	// octo
 		if (fractal->transformCommon.functionEnabledxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
@@ -9018,6 +9028,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
 		double rr = z.Dot(z);
+		rrCol = rr; // test ooooooooooooooooooooooooooooooooo
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr <fractal->transformCommon.minR2p25)
 		{
@@ -9042,6 +9053,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
+				zCol = z; // test ooooooooooooooooooooooooooooooooo
 		z = fabs(z);
 		if (z.x - z.y < 0.0) swap(z.y, z.x);
 		if (z.x - z.z < 0.0) swap(z.z, z.x);
@@ -9054,6 +9066,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (z.y > limit.y * 0.5) z.y -= limit.y;
 		if (z.z > limit.z) z.z -= 2.0 * limit.z;
 		z.x += fractal->transformCommon.offset0;
+				zCol = z; // test ooooooooooooooooooooooooooooooooo
 	}
 
 	// 45 rot XY
@@ -9080,6 +9093,47 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// Analytic DE tweak
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+	// aux color
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (zCol.x != oldZ.x)
+				colorAdd += fractal->mandelbox.color.factor.x
+										* (fabs(zCol.x) - fractal->transformCommon.additionConstant111.x);
+			if (zCol.y != oldZ.y)
+				colorAdd += fractal->mandelbox.color.factor.y
+										* (fabs(zCol.y) - fractal->transformCommon.additionConstant111.y);
+			if (zCol.z != oldZ.z)
+				colorAdd += fractal->mandelbox.color.factor.z
+										* (fabs(zCol.z) - fractal->transformCommon.additionConstant111.z);
+
+			if (rrCol < fractal->transformCommon.maxR2d1)
+			{
+				if (rrCol < fractal->transformCommon.minR2p25)
+					colorAdd +=
+						fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
+						+ fractal->mandelbox.color.factorSp2
+								* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
+				else
+					colorAdd +=
+						fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
+			}
+		}
+		else
+		{
+			if (zCol.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
+			if (zCol.y != oldZ.y) colorAdd += fractal->mandelbox.color.factor.y;
+			if (zCol.z != oldZ.z) colorAdd += fractal->mandelbox.color.factor.z;
+
+			if (rrCol < fractal->transformCommon.minR2p25)
+				colorAdd += fractal->mandelbox.color.factorSp1;
+			else if (rrCol < fractal->transformCommon.maxR2d1)
+				colorAdd += fractal->mandelbox.color.factorSp2;
+		}
+		aux.color += colorAdd;
+	}
 }
 
 
