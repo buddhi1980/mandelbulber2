@@ -38,6 +38,7 @@
 #include "qt/material_selector.h"
 #include "qt/my_check_box.h"
 #include "qt/my_color_button.h"
+#include "qt/my_combo_box.h"
 #include "qt/my_double_spin_box.h"
 #include "qt/my_group_box.h"
 #include "qt/my_line_edit.h"
@@ -87,6 +88,11 @@ QWidget *MyUiLoader::createWidget(const QString &className, QWidget *parent, con
 	else if (className == QString("cMaterialSelector"))
 	{
 		widget = new cMaterialSelector(parent);
+		widget->setObjectName(name);
+	}
+	else if (className == QString("MyComboBox"))
+	{
+		widget = new MyComboBox(parent);
 		widget->setObjectName(name);
 	}
 	else
