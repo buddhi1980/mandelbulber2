@@ -1,0 +1,48 @@
+# Mandelbulber settings file
+# version 2.16
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 4.206652609935289 -8.793722612636072 5.096520031485957;
+camera_distance_to_target 11.00092109933545;
+camera_rotation 29.28700456632918 -30.55727052344661 1.725875076038914;
+camera_top -0.2223203205354674 0.4579478186707275 0.8607307769864683;
+DE_factor 0.1;
+flight_last_to_render 0;
+formula_1 1089;
+formula_2 7;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+initial_waxis 0.8;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+target -0.4274564894447915 -0.5314468282312066 -0.4963411996982716;
+view_distance_max 38.93328080981213;
+[fractal_1]
+Cpara_enabledParab_false true;
+Cpara_iterB 3;
+Cpara_paraA0 -0.107034;
+Cpara_paraB0 0.471125;
+Cpara_parab_offset0 1.861314;
+Cpara_parab_scale 60;
+Cpara_parab_slope -0.525672;
+transf_function_enabled_false true;
+transf_offset_0 -0.430622;
+transf_offset_1111 1 1.9 0.6 0.4;
+transf_offset_2222 0.9 2 1.4 1.7;
+transf_scale 1.856436;
+[fractal_2]
+Cpara_enabledParab_false true;
+Cpara_iterB 3;
+Cpara_paraA 1.932515;
+Cpara_paraA0 -0.107034;
+Cpara_paraB0 0.471125;
+Cpara_parab_offset0 1.861314;
+Cpara_parab_scale 60;
+Cpara_parab_slope -0.525672;
+mandelbox_offset 0 0.786802 0;
+transf_function_enabled_false true;
+transf_offset_0 -0.430622;
+transf_scale 1.856436;

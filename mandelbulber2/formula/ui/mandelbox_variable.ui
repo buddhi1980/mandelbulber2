@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbox_variable</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -2196,7 +2196,7 @@ offset:</string>
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0,0">
+       <layout class="QGridLayout" name="gridLayout_25" columnstretch="0,0,0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2423,17 +2423,31 @@ offset:</string>
            <property name="spacing">
             <number>2</number>
            </property>
-           <item row="4" column="0">
-            <widget class="QLabel" name="label_52">
-             <property name="text">
-              <string notr="true">gamma</string>
+           <item row="3" column="1">
+            <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_53">
-             <property name="text">
-              <string notr="true">beta</string>
+             <property name="prefix">
+              <string/>
+             </property>
+             <property name="suffix">
+              <string/>
+             </property>
+             <property name="decimals">
+              <number>6</number>
+             </property>
+             <property name="minimum">
+              <double>-36000.000000000000000</double>
+             </property>
+             <property name="maximum">
+              <double>36000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
              </property>
             </widget>
            </item>
@@ -2472,31 +2486,10 @@ offset:</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1">
-            <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_y">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="prefix">
-              <string/>
-             </property>
-             <property name="suffix">
-              <string/>
-             </property>
-             <property name="decimals">
-              <number>6</number>
-             </property>
-             <property name="minimum">
-              <double>-36000.000000000000000</double>
-             </property>
-             <property name="maximum">
-              <double>36000.000000000000000</double>
-             </property>
-             <property name="singleStep">
-              <double>1.000000000000000</double>
+           <item row="4" column="0">
+            <widget class="QLabel" name="label_52">
+             <property name="text">
+              <string notr="true">gamma</string>
              </property>
             </widget>
            </item>
@@ -2525,6 +2518,13 @@ offset:</string>
              </property>
              <property name="singleStep">
               <double>1.000000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_53">
+             <property name="text">
+              <string notr="true">beta</string>
              </property>
             </widget>
            </item>
@@ -3104,15 +3104,15 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>

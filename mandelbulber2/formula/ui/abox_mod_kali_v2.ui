@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>abox_mod_kali_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -140,7 +140,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Spherical Fold, Scale and Offset</string>
+      <string>Spherical Fold and Scale</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_10">
       <property name="leftMargin">

@@ -16,7 +16,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_5">
+	<widget class="QGroupBox" name="groupBox_5">
      <property name="toolTip">
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;If foldMod = 0, you disable the fold of the corresponding axis. &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; color:#008000;&quot;&gt;Nice to create curly surfaces aka amazing surf&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;/&gt;&lt;img src=&quot;http://www.fractalforums.com/Smileys/default/grin.gif&quot;/&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;&lt;br/&gt;Conversely if foldMod tends to infinity, you get &lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; color:#ff0000;&quot;&gt;Tglad's fold&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;. I found that 2000 can be enough.&lt;br/&gt;If foldMod = 2*fold, you get&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic; color:#0000ff;&quot;&gt; the perfect Mixed Folding&lt;/span&gt;&lt;span style=&quot; font-weight:600; font-style:italic;&quot;&gt;, simulating abs() and fold at the same time.&lt;br/&gt;If foldMod = 4*fold, you get a double folding just like doing fold twice.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
@@ -66,7 +66,7 @@ Limit:</string>
         <item row="1" column="1" rowspan="3">
          <widget class="QLabel" name="label_257">
           <property name="text">
-           <string>Tglad
+		   <string>Tglad
 Limit:</string>
           </property>
          </widget>
