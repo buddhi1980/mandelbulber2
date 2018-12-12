@@ -35,6 +35,7 @@
 #include "my_spin_box.h"
 
 #include <QMenu>
+#include <QtCore>
 #include <QtWidgets/QtWidgets>
 
 #include "frame_slider_popup.h"
@@ -114,6 +115,10 @@ void MySpinBox::focusInEvent(QFocusEvent *event)
 		QPoint windowPoint = mapTo(topWidget, QPoint());
 		int width = this->width();
 		int hOffset = height();
+
+		QSize minimumSize = slider->minimumSizeHint();
+		width = qMax(width, int(minimumSize.width() * 0.6));
+
 		slider->adjustSize();
 		slider->setFixedWidth(width);
 

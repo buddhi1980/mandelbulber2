@@ -152,6 +152,8 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		int width = this->width();
 		int hOffset = height();
 		slider->adjustSize();
+		QSize minimumSize = slider->minimumSizeHint();
+		width = max(width, int(minimumSize.width()*0.6));
 		slider->setFixedWidth(width);
 
 		if (windowPoint.y() + slider->height() + hOffset > topWidget->height())
@@ -178,6 +180,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 			connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
 			connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 			connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
+			connect(slider, SIGNAL(minusPressed()), this, SLOT(slotInvertSign()));
 		}
 	}
 }
@@ -230,6 +233,12 @@ void MyDoubleSpinBox::slotHalfValue()
 {
 	const double val = value();
 	setValue(val * 0.5);
+}
+
+void MyDoubleSpinBox::slotInvertSign()
+{
+	const double val = value();
+	setValue(-val);
 }
 
 void MyDoubleSpinBox::slot180Value()

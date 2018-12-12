@@ -52,6 +52,7 @@ cFrameSliderPopup::cFrameSliderPopup(QWidget *parent)
 	connect(ui->buInteger, SIGNAL(pressed()), this, SIGNAL(intPressed()));
 	connect(ui->buReset, SIGNAL(pressed()), this, SIGNAL(resetPressed()));
 	connect(ui->buZero, SIGNAL(pressed()), this, SIGNAL(zeroPressed()));
+	connect(ui->buMinus, SIGNAL(pressed()), this, SIGNAL(minusPressed()));
 
 	sliderTimer = new QTimer();
 	sliderTimer->setSingleShot(true);
@@ -115,6 +116,7 @@ void cFrameSliderPopup::SetIntegerMode(int min, int max, int val)
 		integerMode = true;
 		ui->buInteger->hide();
 		ui->buZero->hide();
+		ui->buMinus->hide();
 		sliderTimer->stop();
 		connect(ui->slider, SIGNAL(valueChanged(int)), this, SIGNAL(valueChanged(int)));
 	}
@@ -130,6 +132,7 @@ void cFrameSliderPopup::SetDialMode(int scale, double val)
 	ui->buZero->hide();
 	ui->buDouble->hide();
 	ui->buHalf->hide();
+	ui->buMinus->hide();
 	ui->slider->hide();
 	ui->dial->setMaximum(scale * 180);
 	ui->dial->setMinimum(-scale * 180);

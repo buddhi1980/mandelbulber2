@@ -85,6 +85,7 @@ private slots:
 	void slotDoubleValue();
 	void slotHalfValue();
 	void slotRoundValue();
+	void slotInvertSign();
 };
 
 #endif /* MANDELBULBER2_QT_MY_LINE_EDIT_H_ */

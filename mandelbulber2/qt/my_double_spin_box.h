@@ -77,6 +77,7 @@ private slots:
 	void slotDoubleValue();
 	void slotHalfValue();
 	void slotRoundValue();
+	void slotInvertSign();
 };
 
 #endif /* MANDELBULBER2_QT_MY_DOUBLE_SPIN_BOX_H_ */

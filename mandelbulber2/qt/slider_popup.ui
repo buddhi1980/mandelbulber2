@@ -131,6 +131,19 @@
       </widget>
      </item>
      <item>
+      <widget class="QToolButton" name="buMinus">
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="toolTip">
+        <string>Inversion of sign</string>
+       </property>
+       <property name="text">
+        <string>-</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QToolButton" name="buDouble">
        <property name="focusPolicy">
         <enum>Qt::NoFocus</enum>

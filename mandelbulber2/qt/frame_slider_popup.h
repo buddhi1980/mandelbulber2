@@ -75,6 +75,7 @@ private slots:
 signals:
 	void resetPressed();
 	void zeroPressed();
+	void minusPressed();
 	void halfPressed();
 	void doublePressed();
 	void intPressed();

@@ -303,6 +303,9 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		int width = this->width();
 		int hOffset = height();
 
+		QSize minimumSize = slider->minimumSizeHint();
+		width = max(width, int(minimumSize.width()*0.6));
+
 		slider->adjustSize();
 		slider->setFixedWidth(width);
 
@@ -315,6 +318,7 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		connect(slider, SIGNAL(timerTrigger()), this, SLOT(slotSliderTimerUpdateValue()));
 		connect(slider, SIGNAL(resetPressed()), this, SLOT(slotResetToDefault()));
 		connect(slider, SIGNAL(zeroPressed()), this, SLOT(slotZeroValue()));
+		connect(slider, SIGNAL(minusPressed()), this, SLOT(slotInvertSign()));
 		connect(slider, SIGNAL(halfPressed()), this, SLOT(slotHalfValue()));
 		connect(slider, SIGNAL(doublePressed()), this, SLOT(slotDoubleValue()));
 		connect(slider, SIGNAL(intPressed()), this, SLOT(slotRoundValue()));
@@ -336,7 +340,7 @@ void MyLineEdit::focusOutEvent(QFocusEvent *event)
 
 void MyLineEdit::slotSliderTimerUpdateValue()
 {
-	const double value = systemData.locale.toDouble(text());
+	double value = systemData.locale.toDouble(text());
 	int iDiff = slider->value() - 500;
 	if (iDiff != 0)
 	{
@@ -396,13 +400,28 @@ void MyLineEdit::slotRoundValue()
 	emit returnPressed();
 }
 
+void MyLineEdit::slotInvertSign()
+{
+	const double value = systemData.locale.toDouble(text());
+	const QString text = QString("%L1").arg(value * (-1.0), 0, 'g', 16);
+	setText(text);
+	emit returnPressed();
+}
+
 void MyLineEdit::wheelEvent(QWheelEvent *event)
 {
 	if (slider) // if it's edit field with slider (not text)
 	{
+		double value = systemData.locale.toDouble(text());
+
 		double change = event->delta() / 360.0;
+
+		if (qIsNull(value)) value = (change > 0.0) ? 0.1 : -0.1;
+
+		if (value < 0.0) change *= -1.0;
+
 		double multiplier = (1.0 + change / 10.0);
-		const double value = systemData.locale.toDouble(text());
+
 		const QString text = QString("%L1").arg(value * multiplier, 0, 'g', 16);
 		setText(text);
 		emit returnPressed();
