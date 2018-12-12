@@ -612,7 +612,7 @@ offset:</string>
       <item>
        <widget class="QGroupBox" name="groupBox_4">
         <property name="title">
-         <string>Viariable scale</string>
+         <string>Variable scale</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <property name="leftMargin">
@@ -1692,7 +1692,7 @@ offset:</string>
       <item>
        <widget class="QGroupBox" name="groupBox_5">
         <property name="title">
-         <string>Menger Sponge Start Function</string>
+         <string>abs function z = abs( z + const.A)</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <property name="leftMargin">
@@ -1707,13 +1707,6 @@ offset:</string>
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item>
-          <widget class="QLabel" name="label">
-           <property name="text">
-            <string>abs function z = abs( z + const.A)</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_33" columnstretch="0,1">
            <property name="spacing">
@@ -1823,7 +1816,7 @@ offset:</string>
       <item>
        <widget class="QGroupBox" name="groupBox_6">
         <property name="title">
-         <string>Menger Sponge End Function</string>
+         <string>Apply Constants</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_9">
          <property name="leftMargin">
@@ -1838,13 +1831,6 @@ offset:</string>
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item>
-          <widget class="QLabel" name="label_7">
-           <property name="text">
-            <string>Apply Constants</string>
-           </property>
-          </widget>
-         </item>
          <item>
           <layout class="QGridLayout" name="gridLayout_63" columnstretch="0,0,0,1">
            <property name="spacing">

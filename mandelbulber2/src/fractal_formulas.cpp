@@ -3695,7 +3695,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 /**
  * BoxBulb power 2  menger with scaling of z axis
- * This formula contains aux.color and aux.actualScaleA
+ * This formula contains aux.color
  */
 void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
