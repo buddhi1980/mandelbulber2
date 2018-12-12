@@ -615,7 +615,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_addCpixel_enabled_false">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;p&gt;This transform allows the swapping of the order of the &amp;quot;CVector3 c&amp;quot; components before being multiplied by &amp;quot;CVector3 z&amp;quot; components.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cpixel is CVector3 c = ( c.x, c.y, c.z). It is each original point (pixel) in 3D space where the iteration starts from, ( c = original z for each point .) It is commonly found in formula structures z = f(z) + c.&lt;/p&gt;&lt;p&gt;The Cpixel multiplier effectively scales this point &amp;quot;c&amp;quot;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
       <string>addCpixel Axis Swap ConstantM&amp;ultiplier</string>
@@ -890,16 +890,6 @@ offset:</string>
          <widget class="QLabel" name="label_141">
           <property name="text">
            <string>Note: Default = 1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QFrame" name="frame">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
           </property>
          </widget>
         </item>
@@ -1669,7 +1659,7 @@ offset:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_7">
      <property name="title">
-      <string>Pow2 Bulb with Z Scale</string>
+      <string>Pow2 Bulb with z.z  scale</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_10">
       <property name="leftMargin">
@@ -1732,6 +1722,48 @@ offset:</string>
          <widget class="QLabel" name="label_52">
           <property name="text">
            <string>Stop at iteration:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_84" columnstretch="0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_77">
+          <property name="text">
+           <string>Bulb scale:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleG_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>99.998999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
           </property>
          </widget>
         </item>
@@ -1875,7 +1907,7 @@ Offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>Z scale:</string>
+           <string>z.z scale:</string>
           </property>
          </widget>
         </item>
@@ -1958,7 +1990,7 @@ Offset:</string>
          <item>
           <widget class="QGroupBox" name="groupBox_5">
            <property name="title">
-            <string>Menger Sponge Start Function</string>
+            <string>abs function z = abs( z + const.A)</string>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_8">
             <property name="leftMargin">
@@ -2329,10 +2361,10 @@ Offset:</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>0.000000000000000</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -2357,10 +2389,10 @@ Offset:</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -2385,10 +2417,10 @@ Offset:</string>
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>-36000.000000000000000</double>
+           <double>-99.989999999999995</double>
           </property>
           <property name="maximum">
-           <double>36000.000000000000000</double>
+           <double>99.989999999999995</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>

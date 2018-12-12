@@ -3728,7 +3728,7 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// if (r2 < 1e-21) r2 = 1e-21;
 		if (rr < fractal->transformCommon.minR2p25)
 		{
-			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+			double tglad_factor1 = fractal->transformCommon.maxMinR2factor;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 		}
@@ -3799,11 +3799,13 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		aux.DE *= fabs(fractal->transformCommon.scaleA2);
 	}
 
+		//rotation
 	if (fractal->transformCommon.functionEnabledRFalse
 			&& aux.i >= fractal->transformCommon.startIterationsR
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 
+		// pow2 bulb
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
@@ -3811,21 +3813,20 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux.DE = aux.r * aux.DE * 10.0 * fractal->analyticDE.scale1
+			aux.DE = aux.r * aux.DE * 10.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
 								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
 												+ fractal->analyticDE.offset2)
 							 + fractal->analyticDE.offset1;
 		}
 		else
 		{
-			aux.DE = aux.r * aux.DE * 16.0 * fractal->analyticDE.scale1
+			aux.DE = aux.r * aux.DE * 16.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
 								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
 												+ fractal->analyticDE.offset2)
 								 / SQRT_3
 							 + fractal->analyticDE.offset1;
 		}
-
-		z *= 2.0;
+		z *= fractal->transformCommon.scaleG1;
 		double x2 = z.x * z.x;
 		double y2 = z.y * z.y;
 		double z2 = z.z * z.z;
@@ -3839,11 +3840,11 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z += fractal->transformCommon.offset000;
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
-
+		// menger sponge
 	if (fractal->transformCommon.functionEnabledM
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
-	{ // fabs() and menger fold
+	{
 		z = fabs(z + fractal->transformCommon.additionConstantA000);
 		if (z.x - z.y < 0.0) swap(z.y, z.x);
 		if (z.x - z.z < 0.0) swap(z.z, z.x);
