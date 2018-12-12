@@ -3699,7 +3699,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// CVector4 c = aux.const_c;
+	CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
 	CVector4 zCol = z;
@@ -3715,8 +3715,12 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
 					- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		zCol = z;
+	}
 
-		// spherical fold
+	// spherical fold
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
 		double rr = z.Dot(z);
 		rrCol = rr;
 		z += fractal->mandelbox.offset;
@@ -3735,10 +3739,21 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			aux.DE *= tglad_factor2;
 		}
 		z -= fractal->mandelbox.offset;
-
-		// scale
+	}
+	// scale
+	if (aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
 		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale);
+		aux.DE *= fabs(fractal->transformCommon.scale);
+	}
+
+	// addCpixel
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		z += c * fractal->transformCommon.constantMultiplierC111;
 	}
 
 	if (fractal->transformCommon.functionEnabledXFalse
@@ -3821,10 +3836,11 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		zTemp.z = -2.0 * z.z * sqrt(x2 + y2);
 		zTemp.w = z.w;
 		z = zTemp;
+		z += fractal->transformCommon.offset000;
 		z.z *= fractal->foldingIntPow.zFactor;
 	}
 
-	if (fractal->transformCommon.functionEnabledFFalse
+	if (fractal->transformCommon.functionEnabledM
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{ // fabs() and menger fold
