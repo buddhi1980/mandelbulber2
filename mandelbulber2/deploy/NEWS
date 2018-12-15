@@ -1,5 +1,18 @@
 Version history
 
+v2.16 (December 2018)
+- Added new fractal formulas
+   mandelbulbAbsPower2
+   mandelbulbPow2V2
+   riemannSphereMsltoeV2
+   aboxSurfBox
+   boxFoldBulbMenger
+   vicsek
+   transfSurfBoxFoldV2
+   transfSurfBoxFoldV24d
+
+
+
 v2.15 (November 2018)
 - Added new fractal formulas
    aboxModKaliV3

@@ -2469,23 +2469,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	}
 
 	oldZ = z;
-	/*bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
-		fractal->transformCommon.functionEnabledAyFalse,
-		fractal->transformCommon.functionEnabledAzFalse};
 
-	// fractal->transformCommon.functionEnabledBxFalse,
-	// fractal->transformCommon.functionEnabledByFalse};
-	int startIterationN[5] = {fractal->transformCommon.startIterationsA,
-		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC,
-		fractal->transformCommon.startIterationsD, fractal->transformCommon.startIterationsE};
-	int stopIterationN[5] = {fractal->transformCommon.stopIterationsA,
-		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC,
-		fractal->transformCommon.stopIterationsD, fractal->transformCommon.stopIterationsE};
-	enumMulti_orderOfFolds foldN[5] = {fractal->surfFolds.orderOfFolds1,
-		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
-		fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
-
-	for (int f = 0; f < 5; f++)*/
 	bool functionEnabledN[3] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse};
@@ -2676,13 +2660,6 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 		if (rrCol < fractal->transformCommon.maxR2d1)
 		{
-			/*if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
-										+ fractal->mandelbox.color.factorSp2
-												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25);
-			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 -
-			rrCol);*/
 			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
 				colorAdd += fractal->mandelbox.color.factorSp1 * (fractal->transformCommon.minR2p25 - rrCol)
@@ -3813,14 +3790,14 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 		if (fractal->analyticDE.enabledFalse)
 		{
-			aux.DE = aux.r * aux.DE * 10.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
+			aux.DE = aux.r * aux.DE * 5.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
 								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
 												+ fractal->analyticDE.offset2)
 							 + fractal->analyticDE.offset1;
 		}
 		else
 		{
-			aux.DE = aux.r * aux.DE * 16.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
+			aux.DE = aux.r * aux.DE * 8.0 * fractal->analyticDE.scale1 * fractal->transformCommon.scaleG1
 								 * sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0
 												+ fractal->analyticDE.offset2)
 								 / SQRT_3

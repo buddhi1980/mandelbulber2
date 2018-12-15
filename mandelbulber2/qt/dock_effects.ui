@@ -126,8 +126,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>543</width>
+            <height>1027</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -564,7 +564,7 @@ per pixel:</string>
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by  the &amp;quot;reflections depth&amp;quot; parameter at the topf of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Calculate MC global illumination</string>
@@ -1033,8 +1033,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>529</width>
+            <height>1125</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -1967,8 +1967,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>543</width>
+            <height>1027</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2624,8 +2624,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>527</width>
-            <height>1707</height>
+            <width>529</width>
+            <height>1925</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4354,8 +4354,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1017</height>
+            <width>543</width>
+            <height>1016</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
