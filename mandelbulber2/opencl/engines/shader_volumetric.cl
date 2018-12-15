@@ -166,9 +166,10 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 			outF = Fractal(consts, input2.point, calcParam, calcModeOrbitTrap, NULL, -1);
 			float r = outF.orbitTrapR;
 			r = sqrt(1.0f / (r + 1.0e-20f));
-			float fakeLight = 1.0f / (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
-																	 * pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
-																 + 1e-20f);
+			float fakeLight = 1.0f
+												/ (pow(r, 10.0f / consts->params.fakeLightsVisibilitySize)
+															* pow(10.0f, 10.0f / consts->params.fakeLightsVisibilitySize)
+														+ 1e-20f);
 			float3 light = fakeLight * step * consts->params.fakeLightsVisibility;
 			output += light * consts->params.fakeLightsColor;
 			out4.s3 += fakeLight * step * consts->params.fakeLightsVisibility;
@@ -178,7 +179,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 #ifdef VOLUMETRIC_LIGHTS
 		for (int i = 0; i < 5; i++)
 		{
-			if (i == 0 && consts->params.volumetricLightEnabled[0])
+			if (i == 0 && consts->params.volumetricLightEnabled[0] && consts->params.mainLightEnable)
 			{
 				float3 shadowOutputTemp = MainShadow(consts, renderData, &input2, calcParam);
 				output += shadowOutputTemp.s0 * step * consts->params.volumetricLightIntensity[0]

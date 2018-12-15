@@ -171,7 +171,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		for (int i = 0; i < 5; i++)
 		{
-			if (i == 0 && params->volumetricLightEnabled[0])
+			if (i == 0 && params->volumetricLightEnabled[0] && params->mainLightEnable)
 			{
 				sRGBAfloat shadowOutputTemp = MainShadow(input2);
 				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0]
