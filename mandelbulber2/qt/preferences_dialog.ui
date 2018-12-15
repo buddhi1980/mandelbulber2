@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
-            <height>628</height>
+            <width>542</width>
+            <height>622</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -585,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>546</width>
-            <height>628</height>
+            <width>542</width>
+            <height>622</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1015,9 +1015,9 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>528</width>
-            <height>833</height>
+            <y>-256</y>
+            <width>565</width>
+            <height>864</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1247,7 +1247,7 @@ and will only be present after enabling and re-render.</string>
                 <item row="3" column="2">
                  <widget class="MySpinBox" name="spinboxInt_opencl_job_size_multiplier">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Job size multiplier increases size of OpenCL jobs (size of tiles).&lt;/p&gt;&lt;p&gt;Higher value can increase rendering speed, but too high can it slow down rendering.&lt;/p&gt;&lt;p&gt;Too high value can cause higher GPU memory usage and make program unstable. It also increases time of rendering single tile, which can cause GPU driver timouts.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Job size multiplier increases size of OpenCL jobs (size of tiles).&lt;/p&gt;&lt;p&gt;Higher value can increase rendering speed, but too high can slow down rendering.&lt;/p&gt;&lt;p&gt;Too high value can cause higher GPU memory usage makeing the program unstable. It also increases the time of rendering a single tile, which can cause GPU driver timeouts.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="minimum">
                    <number>1</number>
@@ -1322,6 +1322,11 @@ and will only be present after enabling and re-render.</string>
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
@@ -1335,11 +1340,6 @@ and will only be present after enabling and re-render.</string>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

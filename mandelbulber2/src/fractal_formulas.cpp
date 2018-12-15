@@ -5538,7 +5538,7 @@ void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 }
 
 /**
- * MandelbulbPow2 v2 Quick Dudley types and makin3D-2
+ * MandelbulbPow2 v2  buffalo , Quick Dudley types and makin3D-2
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  * and http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
  */
@@ -5597,7 +5597,9 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		{
 			case multi_combo4_type1:
 			default:
-				v4.x = (zz.x - zz.y - zz.z) * -Scale2.x * 0.5; // removed fabs
+				if (fractal->transformCommon.functionEnabledXFalse)
+					v4.x = fabs(zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
+				else v4.x = (zz.x - zz.y - zz.z) * -Scale2.x * 0.5;
 				oldZ = fabs(oldZ);
 				v4.y = oldZ.x * oldZ.y * -Scale2.y;
 				v4.z = oldZ.x * oldZ.z * -Scale2.z;
