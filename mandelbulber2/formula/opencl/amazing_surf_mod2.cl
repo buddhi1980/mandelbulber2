@@ -94,23 +94,7 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	}
 
 	oldZ = z;
-	/*bool functionEnabledN[5] = {fractal->transformCommon.functionEnabledAx,
-		fractal->transformCommon.functionEnabledAyFalse,
-		fractal->transformCommon.functionEnabledAzFalse};
 
-	// fractal->transformCommon.functionEnabledBxFalse,
-	// fractal->transformCommon.functionEnabledByFalse};
-	int startIterationN[5] = {fractal->transformCommon.startIterationsA,
-		fractal->transformCommon.startIterationsB, fractal->transformCommon.startIterationsC,
-		fractal->transformCommon.startIterationsD, fractal->transformCommon.startIterationsE};
-	int stopIterationN[5] = {fractal->transformCommon.stopIterationsA,
-		fractal->transformCommon.stopIterationsB, fractal->transformCommon.stopIterationsC,
-		fractal->transformCommon.stopIterationsD, fractal->transformCommon.stopIterationsE};
-	enumMulti_orderOfFoldsCl foldN[5] = {fractal->surfFolds.orderOfFolds1,
-		fractal->surfFolds.orderOfFolds2, fractal->surfFolds.orderOfFolds3,
-		fractal->surfFolds.orderOfFolds4, fractal->surfFolds.orderOfFolds5};
-
-	for (int f = 0; f < 5; f++)*/
 	bool functionEnabledN[3] = {fractal->transformCommon.functionEnabledAx,
 		fractal->transformCommon.functionEnabledAyFalse,
 		fractal->transformCommon.functionEnabledAzFalse};
@@ -303,13 +287,6 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 
 		if (rrCol < fractal->transformCommon.maxR2d1)
 		{
-			/*if (rrCol < fractal->transformCommon.minR2p25)
-				colorAdd += mad(fractal->mandelbox.color.factorSp1, (fractal->transformCommon.minR2p25 -
-			rrCol), fractal->mandelbox.color.factorSp2
-												* (fractal->transformCommon.maxR2d1 - fractal->transformCommon.minR2p25));
-			else
-				colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 -
-			rrCol);*/
 			colorAdd += fractal->mandelbox.color.factorSp2 * (fractal->transformCommon.maxR2d1 - rrCol);
 			if (rrCol < fractal->transformCommon.minR2p25)
 				colorAdd +=

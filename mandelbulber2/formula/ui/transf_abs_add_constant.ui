@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>transf_abs_add_constant</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -350,7 +350,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;abs add  constant,  z = abs( z + pre-offset) + Offset&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;abs add  constant,  z = abs( z + pre-offset) + post-offset&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

@@ -176,7 +176,7 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			aux->DE = mad(aux->r * aux->DE * 10.0f * fractal->analyticDE.scale1,
 				native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor + 2.0f
-											+ fractal->analyticDE.offset2),
+										+ fractal->analyticDE.offset2),
 				fractal->analyticDE.offset1);
 		}
 		else

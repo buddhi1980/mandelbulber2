@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * MandelbulbPow2 v2 Quick Dudley types and makin3D-2
+ * MandelbulbPow2 v2  buffalo , Quick Dudley types and makin3D-2
  * @reference http://www.fractalforums.com/3d-fractal-generation/another-shot-at-the-holy-grail/
  * and http://www.fractalgallery.co.uk/ and https://www.facebook.com/david.makin.7
 
@@ -70,7 +70,10 @@ REAL4 MandelbulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		{
 			case multi_combo4Cl_type1:
 			default:
-				v4.x = (zz.x - zz.y - zz.z) * -Scale2.x * 0.5f; // removed fabs
+				if (fractal->transformCommon.functionEnabledXFalse)
+					v4.x = fabs(zz.x - zz.y - zz.z) * -Scale2.x * 0.5f;
+				else
+					v4.x = (zz.x - zz.y - zz.z) * -Scale2.x * 0.5f;
 				oldZ = fabs(oldZ);
 				v4.y = oldZ.x * oldZ.y * -Scale2.y;
 				v4.z = oldZ.x * oldZ.z * -Scale2.z;

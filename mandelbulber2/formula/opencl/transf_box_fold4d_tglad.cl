@@ -25,12 +25,31 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				- fabs(z.z - fractal->transformCommon.offset1111.z) - z.z;
 	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
 				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
+
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
-		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
-		if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
+		if (!fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x;
+			if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y;
+			if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z;
+			if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w;
+		}
+		else
+		{
+			if (z.x != oldZ.x)
+				aux->color +=
+					fractal->mandelbox.color.factor4D.x * (fabs(z.x) - fractal->transformCommon.offset1111.x);
+			if (z.y != oldZ.y)
+				aux->color +=
+					fractal->mandelbox.color.factor4D.y * (fabs(z.y) - fractal->transformCommon.offset1111.y);
+			if (z.z != oldZ.z)
+				aux->color +=
+					fractal->mandelbox.color.factor4D.z * (fabs(z.z) - fractal->transformCommon.offset1111.z);
+			if (z.w != oldZ.w)
+				aux->color +=
+					fractal->mandelbox.color.factor4D.w * (fabs(z.w) - fractal->transformCommon.offset1111.w);
+		}
 	}
 	return z;
 }

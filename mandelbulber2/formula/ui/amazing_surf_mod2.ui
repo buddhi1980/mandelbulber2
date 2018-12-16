@@ -2943,23 +2943,7 @@ offset:</string>
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   oldZ &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;/*bool functionEnabledN[5] = {fractal-&amp;gt;transformCommon.functionEnabledAx,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.functionEnabledAyFalse,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.functionEnabledAzFalse};&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  // fractal-&amp;gt;transformCommon.functionEnabledBxFalse,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  // fractal-&amp;gt;transformCommon.functionEnabledByFalse};&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  int startIterationN[5] = {fractal-&amp;gt;transformCommon.startIterationsA,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.startIterationsB, fractal-&amp;gt;transformCommon.startIterationsC,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.startIterationsD, fractal-&amp;gt;transformCommon.startIterationsE};&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  int stopIterationN[5] = {fractal-&amp;gt;transformCommon.stopIterationsA,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.stopIterationsB, fractal-&amp;gt;transformCommon.stopIterationsC,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;transformCommon.stopIterationsD, fractal-&amp;gt;transformCommon.stopIterationsE};&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  enumMulti_orderOfFolds foldN[5] = {fractal-&amp;gt;surfFolds.orderOfFolds1,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;surfFolds.orderOfFolds2, fractal-&amp;gt;surfFolds.orderOfFolds3,&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    fractal-&amp;gt;surfFolds.orderOfFolds4, fractal-&amp;gt;surfFolds.orderOfFolds5};&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  for (int f = 0; f &amp;lt; 5; f++)*/&lt;/span&gt;
+
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;bool&lt;/span&gt; functionEnabledN&lt;span style=&quot;color:#676767&quot;&gt;[&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;3&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;] = {&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAx&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt;
     fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAyFalse&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt;
     fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAzFalse&lt;span style=&quot;color:#676767&quot;&gt;};&lt;/span&gt;
@@ -3150,13 +3134,6 @@ offset:</string>
 
     &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;rrCol &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;maxR2d1&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
     &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2929cc&quot;&gt;/*if (rrCol &amp;lt; fractal-&amp;gt;transformCommon.minR2p25)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        colorAdd += fractal-&amp;gt;mandelbox.color.factorSp1 * (fractal-&amp;gt;transformCommon.minR2p25 - rrCol)&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;                    + fractal-&amp;gt;mandelbox.color.factorSp2&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;                        * (fractal-&amp;gt;transformCommon.maxR2d1 - fractal-&amp;gt;transformCommon.minR2p25);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      else&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;        colorAdd += fractal-&amp;gt;mandelbox.color.factorSp2 * (fractal-&amp;gt;transformCommon.maxR2d1 -&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;      rrCol);*/&lt;/span&gt;
       colorAdd &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;factorSp2 &lt;span style=&quot;color:#676767&quot;&gt;* (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;maxR2d1 &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; rrCol&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
       &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;rrCol &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;minR2p25&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
         colorAdd &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;mandelbox&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;color&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;factorSp1 &lt;span style=&quot;color:#676767&quot;&gt;* (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;minR2p25 &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; rrCol&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;

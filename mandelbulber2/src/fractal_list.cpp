@@ -408,10 +408,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		Sierpinski3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Vicsek", "vicsek", vicsek,
-		VicsekIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionIFS, coloringFunctionIFS));
-
+	fractalList->append(
+		sFractalDescription("Vicsek", "vicsek", vicsek, VicsekIteration, analyticDEType,
+			linearDEFunction, cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
 
 	fractalList->append(sFractalDescription("Xenodreambuie", "xenodreambuie", xenodreambuie,
 		XenodreambuieIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
@@ -762,10 +761,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Spherical Fold 4D", "transf_spherical_fold4d",
 		transfSphericalFold4d, TransfSphericalFold4dIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Surf Box_Fold V2 4D", "transf_surf_box_fold_v2_4d",
+	fractalList->append(sFractalDescription("T>Surf Box_Fold V2 4D", "transf_surf_box_fold_v24d",
 		transfSurfBoxFoldV24d, TransfSurfBoxFoldV24dIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
 
 	// ------------------ hybrid color trial -----------------------
 
