@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_constant</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_26">
      <property name="text">
-      <string>ABS Add Constant z = abs( z + pre-offset) + offset)</string>
+      <string>ABS Add Constant z = abs( z + pre-offset) + post-offset)</string>
      </property>
     </widget>
    </item>
@@ -144,6 +144,27 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string notr="true">abs</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="text">
+        <string notr="true">abs</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+       <property name="text">
+        <string notr="true">abs</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
@@ -182,7 +203,7 @@
      <item row="2" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>Offset:</string>
+        <string>post-offset:</string>
        </property>
       </widget>
      </item>
@@ -246,20 +267,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="text">
-        <string notr="true">abs</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-       <property name="text">
-        <string notr="true">abs</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0" colspan="4">
       <widget class="Line" name="line_53">
        <property name="orientation">
@@ -280,13 +287,6 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="text">
-        <string notr="true">abs</string>
        </property>
       </widget>
      </item>
@@ -420,11 +420,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -434,6 +429,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

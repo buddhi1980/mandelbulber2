@@ -9413,7 +9413,7 @@ void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAu
 
 // NEW TRANSFORM FORMULAS-----------------------------------------------------------------
 /**
- * abs add  constant,  z = abs( z + pre-offset) + Offset
+ * abs add  constant,  z = abs( z + pre-offset) + post-offset
  */
 void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -14157,17 +14157,36 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
 				- fabs(z.z - fractal->transformCommon.offset1111.z) - z.z;
 	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
 				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
+
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-		if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
-		if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
-		if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
-		if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
+		if (!fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+			if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+			if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+			if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
+		}
+		else
+		{
+			if (z.x != oldZ.x)
+				aux.color  += fractal->mandelbox.color.factor4D.x
+										* (fabs(z.x) - fractal->transformCommon.offset1111.x);
+			if (z.y != oldZ.y)
+				aux.color  += fractal->mandelbox.color.factor4D.y
+										* (fabs(z.y) - fractal->transformCommon.offset1111.y);
+			if (z.z != oldZ.z)
+				aux.color  += fractal->mandelbox.color.factor4D.z
+										* (fabs(z.z) - fractal->transformCommon.offset1111.z);
+			if (z.w != oldZ.w)
+				aux.color  += fractal->mandelbox.color.factor4D.w
+										* (fabs(z.w) - fractal->transformCommon.offset1111.w);
+		}
 	}
 }
 
 /**
- * abs add  constant,  z = abs( z + constant)
+ * abs add  constant,  z = abs( z + pre-offset) + post-offset
  */
 void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -14179,6 +14198,8 @@ void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
 	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
 	if (fractal->transformCommon.functionEnabled) z.w = fabs(z.w);
+
+	z += fractal->transformCommon.offset0000;
 }
 
 /**
