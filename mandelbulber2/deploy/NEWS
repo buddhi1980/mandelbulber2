@@ -10,8 +10,24 @@ v2.16 (December 2018)
    vicsek
    transfSurfBoxFoldV2
    transfSurfBoxFoldV24d
-
-
+- UI: Added rotation of the camera by mouse dragging (left mouse button)
+- UI: Added rotation of the camera around indicated point by mouse dragging (right mouse button)
+- UI: Added roll of the camera by mouse dragging (middle mouse button)
+- UI: Added moving of the camera by mouse dragging (left+right mouse buttons)
+- UI: Added selective loading and saving of settings. Each dock and tab has own load/save buttons
+- UI: Several improvements of popup sliders (addded "-" button, corrected handling of negative numbers and zeros)
+- OpenCL: fixed problem with loading OpenCL ICD under Windows with newest NVidia drivers (missing OpenCL platforms)
+- OpenCL: Preselect 1st GPU device in preferences when open for the first time
+- OpenCL: corrected loading of setting for selected OpenCL device
+- OpenCL: corrected changing of active GPU device during runtime
+- OpenCL: added error handling for missing or wrong selection of GPU device
+- OpenCL: added "Job size multiplier" option which can speed up rendering
+- OpenCL: Reduced inlining of CalculateFractal and CalculateDistance. Calculation of fractals with DeltaDE is about twice faster. Compilation of OpenCL kernels with DeltaDE is also much faster.
+- File: Implemented optional specular image channel and saving in separate image file
+- UI: fixed bug: Corrected error messages which could cause program crashes
+- UI: added context menu for all comboBoxes
+- Shaders: Volumetric light from maim light source was visible when this light was disabled
+- Compilation: win32 platform is no longer supported
 
 v2.15 (November 2018)
 - Added new fractal formulas
