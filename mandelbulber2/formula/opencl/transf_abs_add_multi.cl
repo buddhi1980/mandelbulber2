@@ -17,7 +17,8 @@ REAL4 TransfAbsAddMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 {
 	Q_UNUSED(aux);
 
-	REAL4 tempA, tempB;
+	REAL4 tempA = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
+	REAL4 tempB = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};
 
 	if (fractal->transformCommon.functionEnabledAx)
 		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
