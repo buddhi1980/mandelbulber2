@@ -9584,7 +9584,8 @@ void TransfAbsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 {
 	Q_UNUSED(aux);
 
-	CVector4 tempA, tempB;
+	CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);
 
 	if (fractal->transformCommon.functionEnabledAx)
 		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant000.x);
