@@ -246,3 +246,39 @@ double MagicRound(double val, double maxError)
 		return val;
 	}
 }
+
+
+CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2)
+{
+    double r = std::sqrt(std::pow(vec1.x, 2) + std::pow(vec1.y, 2) + std::pow(vec1.z, 2));
+    double theta = std::atan2(std::sqrt(std::pow(vec1.x, 2) + std::pow(vec1.y, 2)), vec1.z);
+    double phi = std::atan2(vec1.y, vec1.x);
+
+    double r2 = std::sqrt(std::pow(vec2.x, 2) + std::pow(vec2.y, 2) + std::pow(vec2.z, 2));
+    double theta2 = std::atan2(std::sqrt(std::pow(vec2.x, 2) + std::pow(vec2.y, 2)), vec2.z);
+    double phi2 = std::atan2(vec2.y, vec2.x);
+
+    double new_x = (r * r2) * std::sin(theta + theta2) * std::cos(phi + phi2);
+    double new_y = (r * r2) * std::sin(theta + theta2) * std::sin(phi + phi2);
+    double new_z = (r * r2) * std::cos(theta + theta2);
+
+    return CVector4(new_x, new_y, new_z, vec1.w);
+}
+
+CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n)
+{
+    double r = std::sqrt(std::pow(vec1.x, 2) + std::pow(vec1.y, 2) + std::pow(vec1.z, 2));
+    double theta = std::atan2(std::sqrt(std::pow(vec1.x, 2) + std::pow(vec1.y, 2)), vec1.z);
+    double phi = std::atan2(vec1.y, vec1.x);
+
+    double new_x = std::pow(r, n) * std::sin(theta * n) * std::cos(phi * n);
+    double new_y = std::pow(r, n) * std::sin(theta * n) * std::sin(phi * n);
+    double new_z = std::pow(r, n) * std::cos(theta * n);
+
+    return CVector4(new_x, new_y, new_z, vec1.w);
+}
+
+CVector4 hypercomplex_conj(const CVector4 &vec1)
+{
+    return CVector4(vec1.x, -vec1.y, -vec1.z,-vec1.w);
+}

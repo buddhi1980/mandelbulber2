@@ -119,4 +119,14 @@ CVector3 wrap(CVector3 x, CVector3 a, CVector3 s);
 
 double MagicRound(double val, double maxError);
 
+//hypercomplex multiplication taken from:
+//https://www.physicsforums.com/threads/16-different-spherical-coordinate-systems.331883/
+CVector4 hypercomplex_mult(const CVector4& vec1, const CVector4& vec2);
+CVector4 hypercomplex_pow_constant(const CVector4& vec1, const int n);
+
+//3D analogon to the 2D complex conjugate
+//mirroring a point on the x-axis
+CVector4 hypercomplex_conj(const CVector4& vec1);
+
+
 #endif /* MANDELBULBER2_SRC_COMMON_MATH_H_ */
