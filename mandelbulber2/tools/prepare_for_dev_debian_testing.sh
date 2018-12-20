@@ -22,6 +22,7 @@ installing all needed packages
 sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 libpng-dev qttools5-dev qttools5-dev-tools \
 	libgomp1 libgsl-dev qtmultimedia5-dev libsndfile1-dev libqt5multimedia5-plugins liblzo2-2 liblzo2-dev
 sudo apt-get install qtcreator git
+sudo apt-get install opencl-headers ocl-icd-libopencl1
 
 echo "
 getting fresh source files from git repository
@@ -43,7 +44,7 @@ compiling the program
 "
 
 cd qmake
-qmake mandelbulber.pro
+qmake mandelbulber-opencl.pro
 make -j4
 
 echo "
@@ -77,7 +78,7 @@ sudo ln -s ${PWD}/deploy/share/mandelbulber2/sounds $MANDELBULBER_SHARE/sounds
 sudo ln -s ${PWD}/opencl $MANDELBULBER_SHARE/opencl
 
 echo "To start development of Mandelbulber you can open
-mandelbulber2/mandelbulber2/qmake/mandelbulber.pro
+mandelbulber2/mandelbulber2/qmake/mandelbulber-opencl.pro
 with QtCreator which is already in your system"
 
 echo "To run the program you need to launch folowing file:
