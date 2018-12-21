@@ -61,7 +61,7 @@ float3 MainShadow(__constant sClInConstants *consts, sRenderData *renderData,
 
 	const bool bSoft = !consts->params.iterFogEnabled && !consts->params.common.iterThreshMode
 										 && !consts->params.interiorMode && softRange > 0.0f
-										 && !consts->params.monteCarloSoftShadows;
+										 && !(consts->params.monteCarloSoftShadows && consts->params.DOFMonteCarlo);
 
 	float3 shadowVect = input->lightVect;
 

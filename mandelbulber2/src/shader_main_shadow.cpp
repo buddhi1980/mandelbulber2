@@ -63,7 +63,8 @@ sRGBAfloat cRenderWorker::MainShadow(const sShaderInputData &input) const
 	double maxSoft = 0.0;
 
 	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode
-										 && !params->interiorMode && softRange > 0.0 && !params->monteCarloSoftShadows;
+										 && !params->interiorMode && softRange > 0.0
+										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	CVector3 shadowVect = input.lightVect;
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
