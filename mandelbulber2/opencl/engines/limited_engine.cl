@@ -32,6 +32,9 @@
  * Fast kernel for rendering opencl with missing effects
  */
 
+// defined to force recompilation of kernels on NVidia cards with new releases
+#define MANDELBULBER_VERSION 2.16
+
 int GetInteger(int byte, __global char *array)
 {
 	__global int *intPointer = (__global int *)&array[byte];
