@@ -1,0 +1,45 @@
+# Mandelbulber settings file
+# version 2.16
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1,183333533527499 -2,382969111543107 3,274684863960664;
+camera_distance_to_target 1,481517553329468;
+camera_rotation 25,99611160392772 -32,73355648044346 90;
+camera_top 0,8988237944249177 0,4383101488393732 5,150829133792441e-17;
+flight_last_to_render 0;
+formula_1 800;
+formula_material_id 4;
+keyframe_last_to_render 0;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_name copper;
+mat1_reflectance 0,4;
+mat1_specular 6,97;
+mat1_specular_color ff00 c700 a600;
+mat1_surface_color 7400 4800 3a00;
+mat1_transparency_index_of_refraction 8,960000000000001;
+mat1_use_colors_from_palette false;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_metallic false;
+mat2_name water;
+mat2_reflectance 1;
+mat2_specular 1;
+mat2_specular_width 0,161;
+mat2_surface_color 2300 4800 6800;
+mat2_use_colors_from_palette false;
+mat3_is_defined true;
+mat3_metallic false;
+mat3_name green plastic;
+mat3_specular 1;
+mat3_specular_width 1;
+mat3_surface_color 0000 ff00 0000;
+mat3_use_colors_from_palette false;
+mat4_coloring_random_seed 269255;
+mat4_is_defined true;
+mat4_surface_color 0400 7000 aa00;
+mat4_use_colors_from_palette false;
+N 50;
+raytraced_reflections true;
+target 0,6370921297938634 -1,262815328939758 2,473579319734531;
