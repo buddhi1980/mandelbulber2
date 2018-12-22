@@ -65,7 +65,7 @@ double cRenderWorker::AuxShadow(
 	double maxSoft = 0.0;
 
 	const bool bSoft = !params->iterFogEnabled && !params->common.iterThreshMode && softRange > 0.0
-										 && !params->monteCarloSoftShadows;
+										 && !(params->monteCarloSoftShadows && params->DOFMonteCarlo);
 
 	if (params->DOFMonteCarlo && params->monteCarloSoftShadows)
 	{
