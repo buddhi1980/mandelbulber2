@@ -52,6 +52,10 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 	locked = false;
 	useBuildCache = true;
 	useFastRelaxedMath = false;
+
+	clKernel.append(QSharedPointer<cl::Kernel>());
+	clQueue.append(QSharedPointer<cl::CommandQueue>());
+
 #endif
 
 	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
@@ -113,7 +117,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			// Context initialized with support for multiple devices.
 			// Therefore cl::Program initialized with device vector
 			// Does not compile or link the program.
-			program.reset(new cl::Program(*hardware->getContext(), sources, &err));
+			clProgram.reset(new cl::Program(*hardware->getContext(), sources, &err));
 
 			if (checkErr(err, "cl::Program()"))
 			{
@@ -130,7 +134,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 				// cl::Program::Build (compiles and links) a multi-device program executable
 				// compiles and links for multiple devices simultaneously
-				err = program->build(hardware->getClDevices(), buildParams.c_str());
+				err = clProgram->build(hardware->getClDevices(), buildParams.c_str());
 
 				if (checkErr(err, "program->build()"))
 				{
@@ -140,12 +144,13 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				else
 				{
 					std::stringstream errorMessageStream;
-					// TODO: update this error message to support multi-GPU
-					errorMessageStream << "OpenCL Build log:\n"
-														 << program->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
-																	hardware->getEnabledDevices().at(0))
-														 << std::endl;
-
+					for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+					{
+						errorMessageStream << "Device #" << d << "\nOpenCL Build log:\n"
+															 << clProgram->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
+																		hardware->getEnabledDevices().at(d))
+															 << std::endl;
+					}
 					std::string buildLogText = errorMessageStream.str();
 
 					*errorText = QString::fromStdString(errorMessageStream.str());
@@ -158,6 +163,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 
 					lastBuildParametersHash.clear();
 					lastProgramHash.clear();
+
 					return false;
 				}
 			}
@@ -190,7 +196,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 		optimalJob.jobSizeMultiplier = params->Get<int>("opencl_job_size_multiplier");
 
 		// TODO: kernel
-		if (CreateKernel(program.data()))
+		if (CreateKernel(clProgram.data()))
 		{
 			InitOptimalJob(params);
 			return true;
@@ -202,7 +208,14 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 bool cOpenClEngine::CreateKernel(cl::Program *program)
 {
 	cl_int err;
-	kernel.reset(new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err));
+	clKernel.clear();
+
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	{
+		clKernel.append(QSharedPointer<cl::Kernel>(
+			new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err)));
+	}
+
 	if (checkErr(err, "cl::Kernel()"))
 	{
 		size_t workGroupSize = 0;
@@ -212,22 +225,39 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 		// TODO: create a optimalJob per device
 		// iterate through getEnabledDevices
 		// kernel->getWorkGroupInfo  workGroupSize
-		kernel->getWorkGroupInfo(
-			hardware->getEnabledDevices().at(0), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
-		WriteLogSizeT("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
 
-		size_t workGroupSizeOptimalMultiplier = 0;
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			clKernel[d]->getWorkGroupInfo(
+				hardware->getEnabledDevices().at(d), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 
-		// TODO: support multiple devices
-		// kernel->getWorkGroupInfo  workGroupSizeOptimalMultiplier
-		kernel->getWorkGroupInfo(hardware->getEnabledDevices().at(0),
-			CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
-		WriteLogSizeT(
-			"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
+			WriteLogInt("Get info for device", d, 2);
+			WriteLogSizeT("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
 
-		optimalJob.workGroupSize = workGroupSize;
-		optimalJob.workGroupSizeOptimalMultiplier =
-			workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier;
+			size_t workGroupSizeOptimalMultiplier = 0;
+
+			// TODO: support multiple devices
+			// kernel->getWorkGroupInfo  workGroupSizeOptimalMultiplier
+			clKernel[d]->getWorkGroupInfo(hardware->getEnabledDevices().at(d),
+				CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
+			WriteLogSizeT(
+				"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
+
+			if (d == 0)
+			{
+				optimalJob.workGroupSize = workGroupSize;
+				optimalJob.workGroupSizeOptimalMultiplier =
+					workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier;
+			}
+			else
+			{
+				optimalJob.workGroupSize = min(qint64(workGroupSize), optimalJob.workGroupSize);
+				optimalJob.workGroupSizeOptimalMultiplier =
+					max(qint64(workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier),
+						optimalJob.workGroupSizeOptimalMultiplier);
+				;
+			}
+		}
 
 		kernelCreated = true;
 		return true;
@@ -298,7 +328,7 @@ bool cOpenClEngine::CreateCommandQueue()
 		// TODO: support multiple devices
 		// TODO: create a separate queue per device
 		// iterate through getEnabledDevices
-		queue.reset(
+		clQueue[0].reset(
 			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices().at(0), 0, &err));
 
 		if (checkErr(err, "CommandQueue::CommandQueue()"))
@@ -469,7 +499,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 {
 	for (auto &inputBuffer : inputBuffers)
 	{
-		cl_int err = queue->enqueueWriteBuffer(
+		cl_int err = clQueue[0]->enqueueWriteBuffer(
 			*inputBuffer.clPtr, CL_TRUE, 0, inputBuffer.size(), inputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputBuffer.name))
 		{
@@ -480,7 +510,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 	}
 	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
 	{
-		cl_int err = queue->enqueueWriteBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
+		cl_int err = clQueue[0]->enqueueWriteBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 			inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputAndOutputBuffer.name))
 		{
@@ -491,7 +521,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 		}
 	}
 
-	int err = queue->finish();
+	int err = clQueue[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - write buffers"))
 	{
 		emit showErrorMessage(
@@ -506,7 +536,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 {
 	for (auto &outputBuffer : outputBuffers)
 	{
-		cl_int err = queue->enqueueReadBuffer(
+		cl_int err = clQueue[0]->enqueueReadBuffer(
 			*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
@@ -518,7 +548,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 	}
 	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
 	{
-		cl_int err = queue->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
+		cl_int err = clQueue[0]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 			inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 		{
@@ -529,7 +559,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 		}
 	}
 
-	int err = queue->finish();
+	int err = clQueue[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
@@ -545,7 +575,7 @@ bool cOpenClEngine::AssignParametersToKernel()
 	int argIterator = 0;
 	for (auto &inputBuffer : inputBuffers)
 	{
-		int err = kernel->setArg(argIterator++, *inputBuffer.clPtr);
+		int err = clKernel[0]->setArg(argIterator++, *inputBuffer.clPtr);
 		if (!checkErr(
 					err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputBuffer.name))
 		{
@@ -556,7 +586,7 @@ bool cOpenClEngine::AssignParametersToKernel()
 	}
 	for (auto &outputBuffer : outputBuffers)
 	{
-		int err = kernel->setArg(argIterator++, *outputBuffer.clPtr);
+		int err = clKernel[0]->setArg(argIterator++, *outputBuffer.clPtr);
 		if (!checkErr(
 					err, "kernel->setArg(" + QString::number(argIterator) + ") for " + outputBuffer.name))
 		{
@@ -567,7 +597,7 @@ bool cOpenClEngine::AssignParametersToKernel()
 	}
 	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
 	{
-		int err = kernel->setArg(argIterator++, *inputAndOutputBuffer.clPtr);
+		int err = clKernel[0]->setArg(argIterator++, *inputAndOutputBuffer.clPtr);
 		if (!checkErr(err,
 					"kernel->setArg(" + QString::number(argIterator) + ") for " + inputAndOutputBuffer.name))
 		{

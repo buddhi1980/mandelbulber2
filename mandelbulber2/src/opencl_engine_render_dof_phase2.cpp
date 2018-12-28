@@ -146,7 +146,7 @@ void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterCo
 
 bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(int argIterator)
 {
-	int err = kernel->setArg(argIterator++, paramsDOF); // pixel offset
+	int err = clKernel.at(0)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(
@@ -179,8 +179,8 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 	}
 	optimalJob.stepSize = stepSize;
 
-	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+	cl_int err = clQueue.at(0)->enqueueNDRangeKernel(
+		*clKernel.at(0), cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -188,7 +188,7 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 		return false;
 	}
 
-	err = queue->finish();
+	err = clQueue.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
 		emit showErrorMessage(

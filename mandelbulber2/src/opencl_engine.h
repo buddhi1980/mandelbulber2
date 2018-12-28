@@ -107,9 +107,6 @@ public:
 	}
 
 protected:
-	QList<sClInputOutputBuffer> inputBuffers;
-	QList<sClInputOutputBuffer> outputBuffers;
-	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);
@@ -119,9 +116,13 @@ protected:
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
-	QScopedPointer<cl::Program> program;
-	QScopedPointer<cl::Kernel> kernel;
-	QScopedPointer<cl::CommandQueue> queue;
+	QList<sClInputOutputBuffer> inputBuffers;
+	QList<sClInputOutputBuffer> outputBuffers;
+	QList<sClInputOutputBuffer> inputAndOutputBuffers;
+
+	QSharedPointer<cl::Program> clProgram;
+	QList<QSharedPointer<cl::Kernel>> clKernel;
+	QList<QSharedPointer<cl::CommandQueue>> clQueue;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;
