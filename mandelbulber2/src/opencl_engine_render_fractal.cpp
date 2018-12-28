@@ -1275,7 +1275,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cOpenClEngine::WriteBuffersToQueue();
 
-	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
+	cl_int err = queues[0]->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1284,7 +1284,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		return false;
 	}
 
-	err = queue->finish();
+	err = queues[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 	{
 		emit showErrorMessage(
@@ -1295,7 +1295,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
-		err = queue->enqueueWriteBuffer(
+		err = queues[0]->enqueueWriteBuffer(
 			*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
 		{
@@ -1305,7 +1305,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			return false;
 		}
 
-		err = queue->finish();
+		err = queues[0]->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
 		{
 			emit showErrorMessage(
@@ -1315,7 +1315,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		}
 	}
 
-	err = queue->enqueueWriteBuffer(
+	err = queues[0]->enqueueWriteBuffer(
 		*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 	{
@@ -1325,7 +1325,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		return false;
 	}
 
-	err = queue->finish();
+	err = queues[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
 	{
 		emit showErrorMessage(
@@ -1336,7 +1336,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (meshExportMode)
 	{
-		err = queue->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
+		err = queues[0]->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
 			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
@@ -1346,7 +1346,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			return false;
 		}
 
-		err = queue->finish();
+		err = queues[0]->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLConstMeshExportBuffer"))
 		{
 			emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1")
@@ -1386,7 +1386,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
 	// optimalJob.stepSize = stepSize;
-	cl_int err = queue->enqueueNDRangeKernel(
+	cl_int err = queues[0]->enqueueNDRangeKernel(
 		*kernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{

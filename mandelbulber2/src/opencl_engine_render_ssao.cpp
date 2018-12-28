@@ -179,7 +179,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 	}
 	optimalJob.stepSize = stepSize;
 
-	cl_int err = queue->enqueueNDRangeKernel(
+	cl_int err = queues[0]->enqueueNDRangeKernel(
 		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
@@ -188,7 +188,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 		return false;
 	}
 
-	err = queue->finish();
+	err = queues[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
 		emit showErrorMessage(

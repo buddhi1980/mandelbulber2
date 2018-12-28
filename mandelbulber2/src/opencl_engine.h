@@ -121,7 +121,7 @@ protected:
 
 	QScopedPointer<cl::Program> program;
 	QScopedPointer<cl::Kernel> kernel;
-	QScopedPointer<cl::CommandQueue> queue;
+	QList<cl::CommandQueue*> queues;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;

@@ -295,24 +295,23 @@ bool cOpenClEngine::CreateCommandQueue()
 	if (hardware->ContextCreated())
 	{
 		cl_int err;
-		// TODO: support multiple devices
-		// TODO: create a separate queue per device
-		// iterate through getEnabledDevices
-		queue.reset(
-			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices().at(0), 0, &err));
-
-		if (checkErr(err, "CommandQueue::CommandQueue()"))
-		{
-			readyForRendering = true;
-			return true;
-		}
-		else
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("command queue")),
-				cErrorMessage::errorMessage, nullptr);
-			readyForRendering = false;
-			return false;
+		queues.clear();
+		for(int i = 0; i < hardware->getEnabledDevices().size(); i++){
+			const cl::Device device = hardware->getEnabledDevices().at(i);
+			queues.push_back(new cl::CommandQueue(*hardware->getContext(), device, 0, &err));
+			if (checkErr(err, "CommandQueue::CommandQueue()"))
+			{
+				readyForRendering = true;
+				return true;
+			}
+			else
+			{
+				emit showErrorMessage(
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("command queue")),
+					cErrorMessage::errorMessage, nullptr);
+				readyForRendering = false;
+				return false;
+			}
 		}
 	}
 	return false;
@@ -469,7 +468,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 {
 	for (auto &inputBuffer : inputBuffers)
 	{
-		cl_int err = queue->enqueueWriteBuffer(
+		cl_int err = queues[0]->enqueueWriteBuffer(
 			*inputBuffer.clPtr, CL_TRUE, 0, inputBuffer.size(), inputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputBuffer.name))
 		{
@@ -480,7 +479,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 	}
 	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
 	{
-		cl_int err = queue->enqueueWriteBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
+		cl_int err = queues[0]->enqueueWriteBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 			inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(...) for " + inputAndOutputBuffer.name))
 		{
@@ -491,7 +490,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 		}
 	}
 
-	int err = queue->finish();
+	int err = queues[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - write buffers"))
 	{
 		emit showErrorMessage(
@@ -506,7 +505,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 {
 	for (auto &outputBuffer : outputBuffers)
 	{
-		cl_int err = queue->enqueueReadBuffer(
+		cl_int err = queues[0]->enqueueReadBuffer(
 			*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
@@ -518,7 +517,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 	}
 	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
 	{
-		cl_int err = queue->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
+		cl_int err = queues[0]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 			inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 		{
@@ -529,7 +528,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 		}
 	}
 
-	int err = queue->finish();
+	int err = queues[0]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
 		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
