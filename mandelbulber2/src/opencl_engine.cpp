@@ -209,14 +209,17 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 {
 	cl_int err;
 	clKernels.clear();
+	bool wasNoError = true;
 
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
 		clKernels.append(QSharedPointer<cl::Kernel>(
 			new cl::Kernel(*program, GetKernelName().toLatin1().constData(), &err)));
+
+		if (!checkErr(err, QString("Device #%1: cl::Kernel()").arg(d))) wasNoError = false;
 	}
 
-	if (checkErr(err, "cl::Kernel()"))
+	if (wasNoError)
 	{
 		size_t workGroupSize = 0;
 
@@ -325,13 +328,21 @@ bool cOpenClEngine::CreateCommandQueue()
 	if (hardware->ContextCreated())
 	{
 		cl_int err;
+		bool wasNoError = true;
 		// TODO: support multiple devices
 		// TODO: create a separate queue per device
 		// iterate through getEnabledDevices
-		clQueues[0].reset(
-			new cl::CommandQueue(*hardware->getContext(), hardware->getEnabledDevices().at(0), 0, &err));
+		clQueues.clear();
 
-		if (checkErr(err, "CommandQueue::CommandQueue()"))
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			clQueues.append(QSharedPointer<cl::CommandQueue>(new cl::CommandQueue(
+				*hardware->getContext(), hardware->getEnabledDevices().at(d), 0, &err)));
+
+			if (!checkErr(err, QString("Device #%1: cl::CommandQueue()").arg(d))) wasNoError = false;
+		}
+
+		if (wasNoError)
 		{
 			readyForRendering = true;
 			return true;

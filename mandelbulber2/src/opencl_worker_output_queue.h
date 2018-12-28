@@ -36,16 +36,16 @@ public:
 		QList<sClDataBuffer> outputBuffers;
 	};
 
+	cOpenCLWorkerOutputQueue();
+	~cOpenCLWorkerOutputQueue();
 	void AddToQueue(const sClSingleOutput *data);
 	sClSingleOutput GetFromQueue();
 	bool isEmpty() { return queue.isEmpty(); }
 
 private:
 	QQueue<sClSingleOutput> queue;
-
-	cOpenCLWorkerOutputQueue();
-	~cOpenCLWorkerOutputQueue();
+	QMutex lock;
 };
-#endif //USE_OPENCL
+#endif // USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_WORKER_OUTPUT_QUEUE_H_ */

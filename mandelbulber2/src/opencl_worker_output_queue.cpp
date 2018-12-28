@@ -15,12 +15,15 @@ cOpenCLWorkerOutputQueue::cOpenCLWorkerOutputQueue()
 
 void cOpenCLWorkerOutputQueue::AddToQueue(const sClSingleOutput *data)
 {
+	lock.lock();
 	queue.enqueue(*data);
 	qDebug() << "Queue size after add" << queue.size();
+	lock.unlock();
 }
 
 cOpenCLWorkerOutputQueue::sClSingleOutput cOpenCLWorkerOutputQueue::GetFromQueue()
 {
+	lock.lock();
 	if (!queue.isEmpty())
 	{
 		return queue.dequeue();
@@ -30,6 +33,7 @@ cOpenCLWorkerOutputQueue::sClSingleOutput cOpenCLWorkerOutputQueue::GetFromQueue
 		qCritical() << "cOpenCLWorkerOutputQueue::GetFromQueue(): queue is empty!";
 		return sClSingleOutput();
 	}
+	lock.unlock();
 }
 
 #endif // USE_OPENCL
