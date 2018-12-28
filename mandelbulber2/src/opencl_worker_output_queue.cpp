@@ -5,6 +5,7 @@
  *      Author: krzysztof
  */
 
+#ifdef USE_OPENCL
 #include "opencl_worker_output_queue.h"
 
 cOpenCLWorkerOutputQueue::cOpenCLWorkerOutputQueue()
@@ -30,3 +31,5 @@ cOpenCLWorkerOutputQueue::sClSingleOutput cOpenCLWorkerOutputQueue::GetFromQueue
 		return sClSingleOutput();
 	}
 }
+
+#endif // USE_OPENCL

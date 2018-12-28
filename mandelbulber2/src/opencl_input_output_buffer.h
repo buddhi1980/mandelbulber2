@@ -8,6 +8,7 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_INPUT_OUTPUT_BUFFER_H_
 #define MANDELBULBER2_SRC_OPENCL_INPUT_OUTPUT_BUFFER_H_
 
+#ifdef USE_OPENCL
 #include "include_header_wrapper.hpp"
 #include <QtCore>
 
@@ -27,5 +28,6 @@ struct sClInputOutputBuffer
 	QSharedPointer<char> ptr;
 	QSharedPointer<cl::Buffer> clPtr;
 };
+#endif // USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_INPUT_OUTPUT_BUFFER_H_ */

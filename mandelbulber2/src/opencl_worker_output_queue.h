@@ -10,6 +10,7 @@
 
 #include <QtCore>
 
+#ifdef USE_OPENCL
 class cOpenCLWorkerOutputQueue
 {
 public:
@@ -45,5 +46,6 @@ private:
 	cOpenCLWorkerOutputQueue();
 	~cOpenCLWorkerOutputQueue();
 };
+#endif //USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_WORKER_OUTPUT_QUEUE_H_ */
