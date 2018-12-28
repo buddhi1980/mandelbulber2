@@ -41,6 +41,7 @@
 
 #include "error_message.hpp"
 #include "include_header_wrapper.hpp"
+#include "opencl_input_output_buffer.h"
 
 class cOpenClHardware;
 class cParameterContainer;
@@ -84,23 +85,6 @@ public:
 	~cOpenClEngine() override;
 
 #ifdef USE_OPENCL
-	struct sClInputOutputBuffer
-	{
-		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
-				: itemSize(itemSize), length(length), name(std::move(name))
-		{
-		}
-
-		static void Deleter(char *charArray) { delete[] charArray; }
-
-		qint64 size() const { return itemSize * length; }
-		qint64 itemSize;
-		qint64 length;
-		QString name;
-		QSharedPointer<char> ptr;
-		QSharedPointer<cl::Buffer> clPtr;
-	};
-
 	void Lock();
 	void Unlock();
 	static void DeleteKernelCache();
@@ -123,9 +107,6 @@ public:
 	}
 
 protected:
-	QList<sClInputOutputBuffer> inputBuffers;
-	QList<sClInputOutputBuffer> outputBuffers;
-	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);
@@ -135,9 +116,13 @@ protected:
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
-	QScopedPointer<cl::Program> program;
-	QScopedPointer<cl::Kernel> kernel;
-	QScopedPointer<cl::CommandQueue> queue;
+	QList<sClInputOutputBuffer> inputBuffers;
+	QList<sClInputOutputBuffer> outputBuffers;
+	QList<sClInputOutputBuffer> inputAndOutputBuffers;
+
+	QSharedPointer<cl::Program> clProgram;
+	QList<QSharedPointer<cl::Kernel>> clKernels;
+	QList<QSharedPointer<cl::CommandQueue>> clQueues;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;

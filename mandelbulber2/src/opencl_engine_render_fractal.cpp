@@ -1116,7 +1116,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 
@@ -1199,7 +1199,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argIterator)
 {
-	int err = kernel->setArg(argIterator++, *inCLBuffer); // input data in global memory
+	int err = clKernels.at(0)->setArg(argIterator++, *inCLBuffer); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1210,7 +1210,8 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 
 	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		int err = kernel->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
+		int err =
+			clKernels.at(0)->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1220,7 +1221,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		}
 	}
 
-	err = kernel->setArg(
+	err = clKernels.at(0)->setArg(
 		argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
@@ -1232,7 +1233,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 
 	if (meshExportMode)
 	{
-		err = kernel->setArg(argIterator++,
+		err = clKernels.at(0)->setArg(argIterator++,
 			*inCLConstMeshExportBuffer); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
@@ -1245,7 +1246,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 
 	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
 	{
-		err = kernel->setArg(
+		err = clKernels.at(0)->setArg(
 			argIterator++, *backgroundImage2D); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
 		{
@@ -1258,7 +1259,7 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 
 	if (!meshExportMode)
 	{
-		err = kernel->setArg(argIterator++, Random(1000000)); // random seed
+		err = clKernels.at(0)->setArg(argIterator++, Random(1000000)); // random seed
 		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1275,7 +1276,8 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cOpenClEngine::WriteBuffersToQueue();
 
-	cl_int err = queue->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
+	cl_int err =
+		clQueues.at(0)->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1284,7 +1286,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		return false;
 	}
 
-	err = queue->finish();
+	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 	{
 		emit showErrorMessage(
@@ -1295,7 +1297,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
-		err = queue->enqueueWriteBuffer(
+		err = clQueues.at(0)->enqueueWriteBuffer(
 			*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
 		{
@@ -1305,7 +1307,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			return false;
 		}
 
-		err = queue->finish();
+		err = clQueues.at(0)->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
 		{
 			emit showErrorMessage(
@@ -1315,7 +1317,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		}
 	}
 
-	err = queue->enqueueWriteBuffer(
+	err = clQueues.at(0)->enqueueWriteBuffer(
 		*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
 	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 	{
@@ -1325,7 +1327,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		return false;
 	}
 
-	err = queue->finish();
+	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
 	{
 		emit showErrorMessage(
@@ -1336,7 +1338,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (meshExportMode)
 	{
-		err = queue->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
+		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
 			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
@@ -1346,7 +1348,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			return false;
 		}
 
-		err = queue->finish();
+		err = clQueues.at(0)->finish();
 		if (!checkErr(err, "CommandQueue::finish() - inCLConstMeshExportBuffer"))
 		{
 			emit showErrorMessage(QObject::tr("Cannot finish writing OpenCL %1")
@@ -1386,8 +1388,8 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
 	// optimalJob.stepSize = stepSize;
-	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
+		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
