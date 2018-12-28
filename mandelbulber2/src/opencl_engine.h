@@ -121,8 +121,8 @@ protected:
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 
 	QSharedPointer<cl::Program> clProgram;
-	QList<QSharedPointer<cl::Kernel>> clKernel;
-	QList<QSharedPointer<cl::CommandQueue>> clQueue;
+	QList<QSharedPointer<cl::Kernel>> clKernels;
+	QList<QSharedPointer<cl::CommandQueue>> clQueues;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;
