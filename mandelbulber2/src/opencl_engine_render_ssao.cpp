@@ -242,7 +242,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			UpdateOptimalJobStart(pixelsLeft);
 
 			// assign parameters to kernel
-			if (!AssignParametersToKernel()) return false;
+			if (!AssignParametersToKernel(0)) return false;
 
 			// processing queue
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;

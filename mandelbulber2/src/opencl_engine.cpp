@@ -585,55 +585,46 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 	return true;
 }
 
-bool cOpenClEngine::AssignParametersToKernel()
+bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 {
 	bool result = false;
-	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+
+	int argIterator = 0;
+	for (auto &inputBuffer : inputBuffers)
 	{
-		int argIterator = 0;
-		qDebug() << argIterator;
-		for (auto &inputBuffer : inputBuffers)
+		int err = clKernels[deviceIndex]->setArg(argIterator++, *inputBuffer.clPtr);
+		if (!checkErr(
+					err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputBuffer.name))
 		{
-			int err = clKernels[d]->setArg(argIterator++, *inputBuffer.clPtr);
-			if (!checkErr(
-						err, "kernel->setArg(" + QString::number(argIterator) + ") for " + inputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot set OpenCL argument for %1").arg(inputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
+			emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(inputBuffer.name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
 		}
-		for (auto &outputBuffer : outputBuffers)
-		{
-			qDebug() << argIterator;
-			int err = clKernels[d]->setArg(argIterator++, *outputBuffer.clPtr);
-			if (!checkErr(
-						err, "kernel->setArg(" + QString::number(argIterator) + ") for " + outputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-		}
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
-		{
-			qDebug() << argIterator;
-			int err = clKernels[d]->setArg(argIterator++, *inputAndOutputBuffer.clPtr);
-			if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ") for "
-													 + inputAndOutputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-		}
-		result =  AssignParametersToKernelAdditional(argIterator, d);
-		if(!result) return false;
 	}
-	return result;
+	for (auto &outputBuffer : outputBuffers)
+	{
+		int err = clKernels[deviceIndex]->setArg(argIterator++, *outputBuffer.clPtr);
+		if (!checkErr(
+					err, "kernel->setArg(" + QString::number(argIterator) + ") for " + outputBuffer.name))
+		{
+			emit showErrorMessage(QObject::tr("Cannot set OpenCL argument for %1").arg(outputBuffer.name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
+	{
+		int err = clKernels[deviceIndex]->setArg(argIterator++, *inputAndOutputBuffer.clPtr);
+		if (!checkErr(err,
+					"kernel->setArg(" + QString::number(argIterator) + ") for " + inputAndOutputBuffer.name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot set OpenCL argument for %1").arg(inputAndOutputBuffer.name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+	return AssignParametersToKernelAdditional(argIterator, deviceIndex);
 }
 
 #endif

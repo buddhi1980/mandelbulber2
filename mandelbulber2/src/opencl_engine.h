@@ -99,7 +99,7 @@ public:
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
 	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }
 	void ReleaseMemory();
-	bool AssignParametersToKernel();
+	bool AssignParametersToKernel(int deviceIndex);
 	virtual bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 	{
 		Q_UNUSED(argIterator);

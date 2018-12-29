@@ -873,7 +873,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 						if (bigNoise)
 						{
 							// assign parameters to kernel
-							if (!AssignParametersToKernel()) throw;
+							if (!AssignParametersToKernel(0)) throw;
 
 							//							if (!autoRefreshMode && !monteCarlo && progressRefreshTimer.elapsed()
 							//> 1000)
@@ -1199,7 +1199,6 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	int argIterator, int deviceIndex)
 {
-	qDebug() << argIterator;
 	int err =
 		clKernels.at(deviceIndex)->setArg(argIterator++, *inCLBuffer); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
@@ -1212,7 +1211,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 
 	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		qDebug() << argIterator;
 		int err = clKernels.at(deviceIndex)
 								->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
@@ -1224,7 +1222,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
-	qDebug() << argIterator;
 	err = clKernels.at(deviceIndex)
 					->setArg(
 						argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
@@ -1236,7 +1233,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		return false;
 	}
 
-	qDebug() << argIterator;
 	if (meshExportMode)
 	{
 		err = clKernels.at(deviceIndex)
@@ -1251,7 +1247,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
-	qDebug() << argIterator;
 	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
 	{
 		err = clKernels.at(deviceIndex)
@@ -1266,7 +1261,6 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 		}
 	}
 
-	qDebug() << argIterator;
 	if (!meshExportMode)
 	{
 		err = clKernels.at(deviceIndex)->setArg(argIterator++, Random(1000000)); // random seed
@@ -1403,7 +1397,6 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		qDebug() << "device" << d;
 		// optimalJob.stepSize = stepSize;
 		cl_int err = clQueues.at(d)->enqueueNDRangeKernel(
 			*clKernels.at(d), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
@@ -1483,7 +1476,7 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int s
 	if (!WriteBuffersToQueue()) return false;
 
 	// assign parameters to kernel
-	if (!AssignParametersToKernel()) return false;
+	if (!AssignParametersToKernel(0)) return false;
 
 	optimalJob.stepSizeX = constantInMeshExportBuffer->sliceWidth;
 	size_t pixelsLeftX = optimalJob.stepSizeX;

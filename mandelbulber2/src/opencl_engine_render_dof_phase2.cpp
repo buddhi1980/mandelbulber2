@@ -246,7 +246,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			size_t pixelsLeft = width * height - pixelIndex;
 
 			// assign parameters to kernel
-			if (!AssignParametersToKernel()) return false;
+			if (!AssignParametersToKernel(0)) return false;
 
 			// processing queue
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
