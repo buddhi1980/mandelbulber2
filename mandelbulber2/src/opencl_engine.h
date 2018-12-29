@@ -100,9 +100,10 @@ public:
 	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }
 	void ReleaseMemory();
 	bool AssignParametersToKernel();
-	virtual bool AssignParametersToKernelAdditional(int argIterator)
+	virtual bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 	{
 		Q_UNUSED(argIterator);
+		Q_UNUSED(deviceIndex);
 		return true;
 	}
 

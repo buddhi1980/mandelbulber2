@@ -145,9 +145,9 @@ void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContain
 	outputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
 
-bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator)
+bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 {
-	int err = clKernels.at(0)->setArg(argIterator++, paramsSSAO); // pixel offset
+	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsSSAO); // pixel offset
 	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsSSAO)"))
 	{
 		emit showErrorMessage(
@@ -179,8 +179,8 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 	}
 	optimalJob.stepSize = stepSize;
 
-	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
-		*clKernels.at(0), cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(*clKernels.at(0), cl::NDRange(pixelIndex),
+		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(

@@ -142,9 +142,9 @@ void cOpenClEngineRenderDOFPhase1::RegisterInputOutputBuffers(const cParameterCo
 	outputBuffers << sClInputOutputBuffer(sizeof(cl_float4), optimalJob.stepSize, "output buffer");
 }
 
-bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(int argIterator)
+bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 {
-	int err = clKernels.at(0)->setArg(argIterator++, paramsDOF); // pixel offset
+	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(

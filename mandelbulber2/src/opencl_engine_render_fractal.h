@@ -79,7 +79,7 @@ public:
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
-	bool AssignParametersToKernelAdditional(int argIterator) override;
+	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool ReadBuffersFromQueue();

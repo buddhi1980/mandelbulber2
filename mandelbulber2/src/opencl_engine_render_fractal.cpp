@@ -829,7 +829,6 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 
 		try
 		{
-
 			for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
 			{
 				// TODO:
@@ -1197,9 +1196,12 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 	return parts.join("");
 }
 
-bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argIterator)
+bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
+	int argIterator, int deviceIndex)
 {
-	int err = clKernels.at(0)->setArg(argIterator++, *inCLBuffer); // input data in global memory
+	qDebug() << argIterator;
+	int err =
+		clKernels.at(deviceIndex)->setArg(argIterator++, *inCLBuffer); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1210,8 +1212,9 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 
 	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		int err =
-			clKernels.at(0)->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
+		qDebug() << argIterator;
+		int err = clKernels.at(deviceIndex)
+								->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1221,8 +1224,10 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		}
 	}
 
-	err = clKernels.at(0)->setArg(
-		argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
+	qDebug() << argIterator;
+	err = clKernels.at(deviceIndex)
+					->setArg(
+						argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1231,10 +1236,12 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		return false;
 	}
 
+	qDebug() << argIterator;
 	if (meshExportMode)
 	{
-		err = clKernels.at(0)->setArg(argIterator++,
-			*inCLConstMeshExportBuffer); // input data in constant memory (faster than global)
+		err = clKernels.at(deviceIndex)
+						->setArg(argIterator++,
+							*inCLConstMeshExportBuffer); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1244,10 +1251,12 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		}
 	}
 
+	qDebug() << argIterator;
 	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
 	{
-		err = clKernels.at(0)->setArg(
-			argIterator++, *backgroundImage2D); // input data in constant memory (faster than global)
+		err = clKernels.at(deviceIndex)
+						->setArg(argIterator++,
+							*backgroundImage2D); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
 		{
 			emit showErrorMessage(
@@ -1257,9 +1266,10 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 		}
 	}
 
+	qDebug() << argIterator;
 	if (!meshExportMode)
 	{
-		err = clKernels.at(0)->setArg(argIterator++, Random(1000000)); // random seed
+		err = clKernels.at(deviceIndex)->setArg(argIterator++, Random(1000000)); // random seed
 		if (!checkErr(err, "kernel->setArg(4, *inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1275,65 +1285,69 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(int argItera
 bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 {
 	cOpenClEngine::WriteBuffersToQueue();
+	cl_int err = 0;
 
-	cl_int err =
-		clQueues.at(0)->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	err = clQueues.at(0)->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
-	if (renderEngineMode == clRenderEngineTypeFull)
-	{
-		err = clQueues.at(0)->enqueueWriteBuffer(
-			*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
-		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
+		err =
+			clQueues.at(d)->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
 
-		err = clQueues.at(0)->finish();
-		if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
+		err = clQueues.at(d)->finish();
+		if (!checkErr(err, "CommandQueue::finish() - inCLBuffer"))
 		{
 			emit showErrorMessage(
-				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input buffers")),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
-	}
 
-	err = clQueues.at(0)->enqueueWriteBuffer(
-		*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
-	if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("constant buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
+		if (renderEngineMode == clRenderEngineTypeFull)
+		{
+			err = clQueues.at(d)->enqueueWriteBuffer(
+				*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
+			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
+			{
+				emit showErrorMessage(
+					QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
 
-	err = clQueues.at(0)->finish();
-	if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
-	{
-		emit showErrorMessage(
-			QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("constant buffers")),
-			cErrorMessage::errorMessage, nullptr);
-		return false;
+			err = clQueues.at(d)->finish();
+			if (!checkErr(err, "CommandQueue::finish() - inCLTextureBuffer"))
+			{
+				emit showErrorMessage(
+					QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("input texture buffers")),
+					cErrorMessage::errorMessage, nullptr);
+				return false;
+			}
+		}
+
+		err = clQueues.at(d)->enqueueWriteBuffer(
+			*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
+		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue writing OpenCL %1").arg(QObject::tr("constant buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+
+		err = clQueues.at(d)->finish();
+		if (!checkErr(err, "CommandQueue::finish() - inCLConstBuffer"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot finish writing OpenCL %1").arg(QObject::tr("constant buffers")),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
 	if (meshExportMode)
@@ -1387,14 +1401,18 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 	size_t stepSizeY = optimalJob.stepSizeY;
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
-	// optimalJob.stepSize = stepSize;
-	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
-		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
-	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		emit showErrorMessage(
-			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
-		return false;
+		qDebug() << "device" << d;
+		// optimalJob.stepSize = stepSize;
+		cl_int err = clQueues.at(d)->enqueueNDRangeKernel(
+			*clKernels.at(d), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+		if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
 	}
 
 	return true;
