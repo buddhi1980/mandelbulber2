@@ -245,7 +245,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 
 				pixelsRendered += jobWidth2 * jobHeight2;
 
-				if (!ReadBuffersFromQueue()) return false;
+				if (!ReadBuffersFromQueue(0)) return false;
 
 				for (int y = 0; y < jobHeight2; y++)
 				{

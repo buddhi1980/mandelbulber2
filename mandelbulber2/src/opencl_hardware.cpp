@@ -275,7 +275,7 @@ void cOpenClHardware::ListOpenClDevices()
 					deviceInformation.hash = hashCrypt.result().left(3);
 
 					devicesInformation.append(deviceInformation);
-					clDeviceWorkers.append(cOpenClDevice(clDevices[i], deviceInformation));
+					clDeviceWorkers.append(cOpenClDevice(&clDevices[i], deviceInformation));
 				}
 			}
 			else

@@ -262,7 +262,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 		if (!*stopRequest)
 		{
-			if (!ReadBuffersFromQueue()) return false;
+			if (!ReadBuffersFromQueue(0)) return false;
 
 			for (int y = 0; y < height; y++)
 			{

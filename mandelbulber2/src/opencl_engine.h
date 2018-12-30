@@ -94,7 +94,7 @@ public:
 	virtual bool PreAllocateBuffers(const cParameterContainer *params);
 	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;
 	bool WriteBuffersToQueue();
-	bool ReadBuffersFromQueue();
+	bool ReadBuffersFromQueue(int deviceIndex);
 	bool CreateCommandQueue();
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
 	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }

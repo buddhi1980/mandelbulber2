@@ -150,7 +150,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 					{
 						errorMessageStream << "Device #" << d << "\nOpenCL Build log:\n"
 															 << clProgram->getBuildInfo<CL_PROGRAM_BUILD_LOG>(
-																		hardware->getEnabledDevices().at(d))
+																		*hardware->getEnabledDevices().at(d))
 															 << std::endl;
 					}
 					std::string buildLogText = errorMessageStream.str();
@@ -234,7 +234,7 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
 			clKernels[d]->getWorkGroupInfo(
-				hardware->getEnabledDevices().at(d), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
+				*hardware->getEnabledDevices().at(d), CL_KERNEL_WORK_GROUP_SIZE, &workGroupSize);
 
 			WriteLogInt("Get info for device", d, 2);
 			WriteLogSizeT("CL_KERNEL_WORK_GROUP_SIZE", workGroupSize, 2);
@@ -243,7 +243,7 @@ bool cOpenClEngine::CreateKernel(cl::Program *program)
 
 			// TODO: support multiple devices
 			// kernel->getWorkGroupInfo  workGroupSizeOptimalMultiplier
-			clKernels[d]->getWorkGroupInfo(hardware->getEnabledDevices().at(d),
+			clKernels[d]->getWorkGroupInfo(*hardware->getEnabledDevices().at(d),
 				CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
 			WriteLogSizeT(
 				"CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE", workGroupSizeOptimalMultiplier, 2);
@@ -339,7 +339,7 @@ bool cOpenClEngine::CreateCommandQueue()
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
 			clQueues.append(QSharedPointer<cl::CommandQueue>(new cl::CommandQueue(
-				*hardware->getContext(), hardware->getEnabledDevices().at(d), 0, &err)));
+				*hardware->getContext(), *hardware->getEnabledDevices().at(d), 0, &err)));
 
 			if (!checkErr(err, QString("Device #%1: cl::CommandQueue()").arg(d))) wasNoError = false;
 		}
@@ -559,42 +559,39 @@ bool cOpenClEngine::WriteBuffersToQueue()
 	return true;
 }
 
-bool cOpenClEngine::ReadBuffersFromQueue()
+bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 {
-	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	for (auto &outputBuffer : outputBuffers[deviceIndex])
 	{
-		for (auto &outputBuffer : outputBuffers[d])
+		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(
+			*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
+		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
-			cl_int err = clQueues[d]->enqueueReadBuffer(
-				*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
-			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(outputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-		}
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[d])
-		{
-			cl_int err = clQueues[d]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
-				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
-			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(inputAndOutputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-		}
-
-		int err = clQueues[d]->finish();
-		if (!checkErr(err, "CommandQueue::finish() - read buffers"))
-		{
-			emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(outputBuffer.name),
 				cErrorMessage::errorMessage, nullptr);
 			return false;
 		}
+	}
+	for (auto &inputAndOutputBuffer : inputAndOutputBuffers[deviceIndex])
+	{
+		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
+			inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
+		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
+		{
+			emit showErrorMessage(
+				QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(inputAndOutputBuffer.name),
+				cErrorMessage::errorMessage, nullptr);
+			return false;
+		}
+	}
+
+	int err = clQueues[deviceIndex]->finish();
+	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
+	{
+		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
+			cErrorMessage::errorMessage, nullptr);
+		return false;
 	}
 	return true;
 }

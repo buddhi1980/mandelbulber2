@@ -141,10 +141,12 @@ void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterCo
 	Q_UNUSED(params);
 	inputBuffers << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
-	inputAndOutputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputAndOutputBuffers[0] << sClInputOutputBuffer(
+		sizeof(cl_float4), numberOfPixels, "image buffer");
 }
 
-bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
+bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(
+	int argIterator, int deviceIndex)
 {
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
@@ -264,7 +266,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 
 		if (!*stopRequest)
 		{
-			if (!ReadBuffersFromQueue()) return false;
+			if (!ReadBuffersFromQueue(0)) return false;
 
 			for (int y = 0; y < height; y++)
 			{

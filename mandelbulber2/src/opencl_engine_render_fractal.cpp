@@ -1420,7 +1420,11 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 
 bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 {
-	return cOpenClEngine::ReadBuffersFromQueue();
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	{
+		if (!cOpenClEngine::ReadBuffersFromQueue(d)) return false;
+	}
+	return true;
 }
 
 size_t cOpenClEngineRenderFractal::CalcNeededMemory()
