@@ -142,7 +142,7 @@ void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContain
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
 	inputBuffers << sClInputOutputBuffer(
 		sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
-	outputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
+	outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
 
 bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
@@ -269,7 +269,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 				for (int x = 0; x < width; x++)
 				{
 					cl_float total_ambient =
-						((cl_float *)outputBuffers[outputIndex].ptr.data())[x + y * width];
+						((cl_float *)outputBuffers[0][outputIndex].ptr.data())[x + y * width];
 					unsigned short opacity16 = image->GetPixelOpacity(x, y);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(x, y);

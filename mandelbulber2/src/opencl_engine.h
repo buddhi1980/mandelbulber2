@@ -117,9 +117,10 @@ protected:
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
-	QList<sClInputOutputBuffer> inputBuffers;
-	QList<sClInputOutputBuffer> outputBuffers;
-	QList<sClInputOutputBuffer> inputAndOutputBuffers;
+	typedef QList<sClInputOutputBuffer> listOfBuffers;
+	listOfBuffers inputBuffers;
+	QList<listOfBuffers> outputBuffers;					// separate output buffer for each OpenCL device
+	QList<listOfBuffers> inputAndOutputBuffers; // separate input/output buffer for each OpenCL device
 
 	QSharedPointer<cl::Program> clProgram;
 	QList<QSharedPointer<cl::Kernel>> clKernels;

@@ -139,7 +139,7 @@ void cOpenClEngineRenderDOFPhase1::RegisterInputOutputBuffers(const cParameterCo
 	Q_UNUSED(params);
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
-	outputBuffers << sClInputOutputBuffer(sizeof(cl_float4), optimalJob.stepSize, "output buffer");
+	outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), optimalJob.stepSize, "output buffer");
 }
 
 bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(
@@ -252,7 +252,7 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 					for (int x = 0; x < jobWidth2; x++)
 					{
 						cl_float4 pixelCl =
-							((cl_float4 *)outputBuffers[outputIndex].ptr.data())[x + y * jobWidth2];
+							((cl_float4 *)outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						quint16 alpha = pixelCl.s[3] * 65535;
 

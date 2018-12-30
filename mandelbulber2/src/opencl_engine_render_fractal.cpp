@@ -670,19 +670,26 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
+
 	if (!meshExportMode)
 	{
-		outputBuffers << sClInputOutputBuffer(sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+		outputBuffers.clear();
+		outputBuffers.append(listOfBuffers());
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			outputBuffers[d] << sClInputOutputBuffer(
+				sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
+		}
 	}
 	else
 	{
 		// buffer for distances
-		outputBuffers << sClInputOutputBuffer(sizeof(float),
+		outputBuffers[0] << sClInputOutputBuffer(sizeof(float),
 			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
 			"mesh-distances-buffer");
 
 		// buffer for colors
-		outputBuffers << sClInputOutputBuffer(sizeof(float),
+		outputBuffers[0] << sClInputOutputBuffer(sizeof(float),
 			constantInMeshExportBuffer->sliceHeight * constantInMeshExportBuffer->sliceWidth,
 			"mesh-colors-buffer");
 	}
@@ -920,7 +927,7 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 								for (int y = 0; y < jobHeight2; y++)
 								{
 									sClPixel pixelCl =
-										((sClPixel *)outputBuffers[outputIndex].ptr.data())[x + y * jobWidth2];
+										((sClPixel *)outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
 									sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
 									sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
 									unsigned short opacity = pixelCl.opacity;
@@ -1494,14 +1501,14 @@ bool cOpenClEngineRenderFractal::Render(double *distances, double *colors, int s
 		for (int x = 0; x < constantInMeshExportBuffer->sliceWidth; x++)
 		{
 			size_t address = x + y * constantInMeshExportBuffer->sliceWidth;
-			double distance =
-				(reinterpret_cast<cl_float *>(outputBuffers[outputMeshDistancesIndex].ptr.data()))[address];
+			double distance = (reinterpret_cast<cl_float *>(
+				outputBuffers[0][outputMeshDistancesIndex].ptr.data()))[address];
 			distances[address + dataOffset] = distance;
 
 			if (colors)
 			{
-				double color =
-					(reinterpret_cast<cl_float *>(outputBuffers[outputMeshColorsIndex].ptr.data()))[address];
+				double color = (reinterpret_cast<cl_float *>(
+					outputBuffers[0][outputMeshColorsIndex].ptr.data()))[address];
 				colors[address + dataOffset] = color;
 			}
 		}

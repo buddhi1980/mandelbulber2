@@ -7,6 +7,9 @@
 
 #ifndef MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_
 #define MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_
+#include "opencl_input_output_buffer.h"
+
+#ifdef USE_OPENCL
 
 #include <QObject>
 
@@ -41,6 +44,8 @@ private:
 
 	QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue;
 	QSharedPointer<cOpenClScheduler> scheduler;
+	QList<sClInputOutputBuffer> outputBuffers;
+	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 
 	cOpenClEngine *engine;
 
@@ -55,8 +60,8 @@ private:
 
 signals:
 	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);
-
-
 };
+
+#endif // USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_ */

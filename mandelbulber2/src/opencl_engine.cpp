@@ -55,6 +55,8 @@ cOpenClEngine::cOpenClEngine(cOpenClHardware *_hardware) : QObject(_hardware), h
 
 	clKernels.append(QSharedPointer<cl::Kernel>());
 	clQueues.append(QSharedPointer<cl::CommandQueue>());
+	outputBuffers.append(listOfBuffers());
+	inputAndOutputBuffers.append(listOfBuffers());
 
 #endif
 
@@ -431,33 +433,37 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 	if (hardware->ContextCreated())
 	{
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
-		{
-			inputAndOutputBuffer.ptr.reset(
-				new char[inputAndOutputBuffer.size()], sClInputOutputBuffer::Deleter);
-			inputAndOutputBuffer.clPtr.reset(
-				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
-					inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data(), &err));
-			if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffer.name))
-			{
-				emit showErrorMessage(
-					QObject::tr("OpenCL %1 cannot be created!").arg(inputAndOutputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
-			}
-		}
 
-		for (auto &outputBuffer : outputBuffers)
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
-			outputBuffer.ptr.reset(new char[outputBuffer.size()], sClInputOutputBuffer::Deleter);
-			outputBuffer.clPtr.reset(
-				new cl::Buffer(*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR,
-					outputBuffer.size(), outputBuffer.ptr.data(), &err));
-			if (!checkErr(err, "new cl::Buffer(...) for " + outputBuffer.name))
+			for (auto &inputAndOutputBuffer : inputAndOutputBuffers[d])
 			{
-				emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(outputBuffer.name),
-					cErrorMessage::errorMessage, nullptr);
-				return false;
+				inputAndOutputBuffer.ptr.reset(
+					new char[inputAndOutputBuffer.size()], sClInputOutputBuffer::Deleter);
+				inputAndOutputBuffer.clPtr.reset(
+					new cl::Buffer(*hardware->getContext(), CL_MEM_READ_WRITE | CL_MEM_COPY_HOST_PTR,
+						inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data(), &err));
+				if (!checkErr(err, "new cl::Buffer(...) for " + inputAndOutputBuffer.name))
+				{
+					emit showErrorMessage(
+						QObject::tr("OpenCL %1 cannot be created!").arg(inputAndOutputBuffer.name),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
+			}
+
+			for (auto &outputBuffer : outputBuffers[d])
+			{
+				outputBuffer.ptr.reset(new char[outputBuffer.size()], sClInputOutputBuffer::Deleter);
+				outputBuffer.clPtr.reset(
+					new cl::Buffer(*hardware->getContext(), CL_MEM_WRITE_ONLY | CL_MEM_USE_HOST_PTR,
+						outputBuffer.size(), outputBuffer.ptr.data(), &err));
+				if (!checkErr(err, "new cl::Buffer(...) for " + outputBuffer.name))
+				{
+					emit showErrorMessage(QObject::tr("OpenCL %1 cannot be created!").arg(outputBuffer.name),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
 			}
 		}
 
@@ -486,24 +492,32 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 void cOpenClEngine::ReleaseMemory()
 {
-	for (auto &outputBuffer : outputBuffers)
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		outputBuffer.ptr.reset();
-		outputBuffer.clPtr.reset();
+		for (auto &outputBuffer : outputBuffers[d])
+		{
+			outputBuffer.ptr.reset();
+			outputBuffer.clPtr.reset();
+		}
+		outputBuffers[d].clear();
 	}
+
 	for (auto &inputBuffer : inputBuffers)
 	{
 		inputBuffer.ptr.reset();
 		inputBuffer.clPtr.reset();
 	}
-	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
-	{
-		inputAndOutputBuffer.ptr.reset();
-		inputAndOutputBuffer.clPtr.reset();
-	}
 	inputBuffers.clear();
-	outputBuffers.clear();
-	inputAndOutputBuffers.clear();
+
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	{
+		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[d])
+		{
+			inputAndOutputBuffer.ptr.reset();
+			inputAndOutputBuffer.clPtr.reset();
+		}
+		inputAndOutputBuffers[d].clear();
+	}
 }
 
 bool cOpenClEngine::WriteBuffersToQueue()
@@ -521,7 +535,7 @@ bool cOpenClEngine::WriteBuffersToQueue()
 				return false;
 			}
 		}
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
+		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[d])
 		{
 			cl_int err = clQueues[d]->enqueueWriteBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
@@ -549,7 +563,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 {
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		for (auto &outputBuffer : outputBuffers)
+		for (auto &outputBuffer : outputBuffers[d])
 		{
 			cl_int err = clQueues[d]->enqueueReadBuffer(
 				*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
@@ -561,7 +575,7 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 				return false;
 			}
 		}
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
+		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[d])
 		{
 			cl_int err = clQueues[d]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
 				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
@@ -587,8 +601,6 @@ bool cOpenClEngine::ReadBuffersFromQueue()
 
 bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 {
-	bool result = false;
-
 	int argIterator = 0;
 	for (auto &inputBuffer : inputBuffers)
 	{
@@ -601,7 +613,7 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 			return false;
 		}
 	}
-	for (auto &outputBuffer : outputBuffers)
+	for (auto &outputBuffer : outputBuffers[deviceIndex])
 	{
 		int err = clKernels[deviceIndex]->setArg(argIterator++, *outputBuffer.clPtr);
 		if (!checkErr(
@@ -612,7 +624,7 @@ bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 			return false;
 		}
 	}
-	for (auto &inputAndOutputBuffer : inputAndOutputBuffers)
+	for (auto &inputAndOutputBuffer : inputAndOutputBuffers[deviceIndex])
 	{
 		int err = clKernels[deviceIndex]->setArg(argIterator++, *inputAndOutputBuffer.clPtr);
 		if (!checkErr(err,

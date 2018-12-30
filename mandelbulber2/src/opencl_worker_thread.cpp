@@ -5,6 +5,8 @@
  *      Author: krzysztof
  */
 
+#ifdef USE_OPENCL
+
 #include <algorithm>
 #include <QtCore>
 
@@ -93,3 +95,5 @@ bool cOpenClWorkerThread::ProcessClQueue(
 
 	return true;
 }
+
+#endif // USE_OPENCL

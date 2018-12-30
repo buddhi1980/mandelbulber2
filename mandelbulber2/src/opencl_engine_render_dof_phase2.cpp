@@ -141,7 +141,7 @@ void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterCo
 	Q_UNUSED(params);
 	inputBuffers << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
 	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
-	inputAndOutputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputAndOutputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
 }
 
 bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
@@ -228,7 +228,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
 			((cl_float4 *)inputBuffers[imageIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
-			((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr.data())[i] =
+			((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
@@ -271,7 +271,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 				for (int x = 0; x < width; x++)
 				{
 					cl_float4 imagePixelCl =
-						((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr.data())[x + y * width];
+						((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];
 
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
 					unsigned short alpha = imagePixelCl.s[3] * 65535.0;
