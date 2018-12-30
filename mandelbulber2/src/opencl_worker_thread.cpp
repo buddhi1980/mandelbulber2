@@ -4,6 +4,7 @@
  *  Created on: 29 gru 2018
  *      Author: krzysztof
  */
+#include "opencl_worker_output_queue.h"
 
 #ifdef USE_OPENCL
 
@@ -50,7 +51,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	int startTile = deviceIndex;
 	if (startTile >= scheduler->getTileSequence()->length()) return;
 
-	while (repeatMCLoop)
+	qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
+	qint64 outputItemlength = outputBuffers.at(outputIndex).length;
+	cOpenCLWorkerOutputQueue::sClDataBuffer dataBuffer(outputItemSize, outputItemlength);
+
+	do
 	{
 		for (int tile = startTile; !scheduler->AllDone(); scheduler->GetNextTileToRender(tile))
 		{
@@ -64,16 +69,29 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			qint64 pixelsLeftX = imageWidth - jobX;
 			qint64 pixelsLeftY = imageHeight - jobY;
-			qint64 jobWidth2 = min(optimalStepX, pixelsLeftX);
-			qint64 jobHeight2 = min(optimalStepY, pixelsLeftY);
+			qint64 jobWidth = min(optimalStepX, pixelsLeftX);
+			qint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
 			int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
-			// TODO: add error handling
 
-			// TODO: add reading buffers and transfer to output queue
+			engine->ReadBuffersFromQueue(deviceIndex);
+
+			char *startPtr = outputBuffers.at(outputIndex).ptr.data();
+			char *endPtr = startPtr + outputBuffers.at(outputIndex).size();
+			dataBuffer.data.assign(startPtr, endPtr);
+
+			cOpenCLWorkerOutputQueue::sClSingleOutput outputDataForQueue;
+			outputDataForQueue.jobX = jobX;
+			outputDataForQueue.jobY = jobY;
+			outputDataForQueue.jobWidth = jobWidth;
+			outputDataForQueue.jobHeight = jobHeight;
+			outputDataForQueue.outputBuffers.append(dataBuffer);
+
+			outputQueue->AddToQueue(&outputDataForQueue);
+
 			// TODO: write code for scheduler;
 		}
-	}
+	} while (repeatMCLoop);
 }
 
 bool cOpenClWorkerThread::ProcessClQueue(

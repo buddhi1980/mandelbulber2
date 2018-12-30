@@ -47,6 +47,8 @@ private:
 	QList<sClInputOutputBuffer> outputBuffers;
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 
+	const int outputIndex = 0;
+
 	cOpenClEngine *engine;
 
 	qint64 optimalStepX;
