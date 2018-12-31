@@ -555,7 +555,7 @@ bool cRenderJob::Execute()
 			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
 			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
 			result =
-				gOpenCl->openClEngineRenderFractal->Render(image, renderData->stopRequest, renderData);
+				gOpenCl->openClEngineRenderFractal->RenderMulti(image, renderData->stopRequest, renderData);
 		}
 		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
 		gOpenCl->openClEngineRenderFractal->Unlock();

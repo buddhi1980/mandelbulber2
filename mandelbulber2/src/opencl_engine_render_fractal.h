@@ -86,6 +86,8 @@ public:
 
 	// render 3D fractal
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
+	// render 3D fractal
+	bool RenderMulti(cImage *image, bool *stopRequest, sRenderData *renderData);
 
 	// render 2D slice with fractal
 	bool Render(double *distances, double *colors, int sliceIndex, bool *stopRequest,

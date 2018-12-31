@@ -28,13 +28,27 @@ public:
 	cOpenClWorkerThread(
 		cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int deviceIndex);
 	~cOpenClWorkerThread();
-	void ProcessRenderingLoop();
 	bool ProcessClQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 
 	void setImageHeight(qint64 imageHeight) { this->imageHeight = imageHeight; }
 	void setImageWidth(qint64 imageWidth) { this->imageWidth = imageWidth; }
 	void setOptimalStepX(qint64 optimalStepX) { this->optimalStepX = optimalStepX; }
 	void setOptimalStepY(qint64 optimalStepY) { this->optimalStepY = optimalStepY; }
+	void setClKernel(const QSharedPointer<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
+	void setClQueue(const QSharedPointer<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
+	void setInputAndOutputBuffers(const QList<sClInputOutputBuffer> &inputAndOutputBuffers)
+	{
+		this->inputAndOutputBuffers = inputAndOutputBuffers;
+	}
+	void setOutputBuffers(const QList<sClInputOutputBuffer> &outputBuffers)
+	{
+		this->outputBuffers = outputBuffers;
+	}
+	void setOutputQueue(const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue)
+	{
+		this->outputQueue = outputQueue;
+	}
+	void setRepeatMcLoop(bool repeatMcLoop) { repeatMCLoop = repeatMcLoop; }
 
 private:
 	static bool checkErr(cl_int err, QString functionName);
@@ -60,8 +74,14 @@ private:
 
 	bool repeatMCLoop;
 
+public slots:
+	void ProcessRenderingLoop();
+
 signals:
 	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);
+	void finished();
+
+
 };
 
 #endif // USE_OPENCL

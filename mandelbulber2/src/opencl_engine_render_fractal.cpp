@@ -52,7 +52,10 @@
 #include "nine_fractals.hpp"
 #include "opencl_dynamic_data.hpp"
 #include "opencl_hardware.h"
+#include "opencl_scheduler.h"
 #include "opencl_textures_data.h"
+#include "opencl_worker_output_queue.h"
+#include "opencl_worker_therad.h"
 #include "parameters.hpp"
 #include "progress_text.hpp"
 #include "rectangle.hpp"
@@ -674,9 +677,9 @@ void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterCont
 	if (!meshExportMode)
 	{
 		outputBuffers.clear();
-		outputBuffers.append(listOfBuffers());
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
+			outputBuffers.append(listOfBuffers());
 			outputBuffers[d] << sClInputOutputBuffer(
 				sizeof(sClPixel), optimalJob.stepSize, "output-buffer");
 		}
@@ -1109,6 +1112,113 @@ bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRende
 	else
 	{
 		return false;
+	}
+}
+
+// Multi-threaded version of OpenCL render function
+bool cOpenClEngineRenderFractal::RenderMulti(
+	cImage *image, bool *stopRequest, sRenderData *renderData)
+{
+	if (programsLoaded)
+	{
+		// The image resolution determines the total amount of work
+		int width = image->GetWidth();
+		int height = image->GetHeight();
+
+		cProgressText progressText;
+		progressText.ResetTimer();
+
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
+			progressText.getText(0.0), 0.0);
+
+		QElapsedTimer timer;
+		timer.start();
+
+		QElapsedTimer progressRefreshTimer;
+		progressRefreshTimer.start();
+
+		QElapsedTimer timerImageRefresh;
+		timerImageRefresh.start();
+		int lastRefreshTime = 1;
+
+		qint64 numberOfPixels = qint64(width) * qint64(height);
+		qint64 gridWidth = width / optimalJob.stepSizeX;
+		qint64 gridHeight = height / optimalJob.stepSizeY;
+
+		const qint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
+		double *noiseTable = new double[noiseTableSize];
+		for (qint64 i = 0; i < noiseTableSize; i++)
+		{
+			noiseTable[i] = 0.0;
+		}
+
+		int numberOfSamples = 1;
+		if (monteCarlo)
+		{
+			numberOfSamples = constantInBuffer->params.DOFSamples;
+		}
+
+		QList<QRect> lastRenderedRects;
+
+		double doneMC = 0.0f;
+		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
+
+		// writing data to queue
+		if (!WriteBuffersToQueue()) throw;
+
+		if (renderEngineMode != clRenderEngineTypeFast)
+		{
+			if (!PrepareBufferForBackground(renderData)) throw;
+		}
+
+		int numberOfOpenCLWorkers = hardware->getEnabledDevices().size();
+		// prepare multiple threads
+		QList<QSharedPointer<QThread>> threads;
+		QList<QSharedPointer<cOpenClWorkerThread>> workers;
+
+		QSharedPointer<cOpenClScheduler> scheduler(new cOpenClScheduler(&tileSequence));
+		QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
+
+		for (int d = 0; d < numberOfOpenCLWorkers; d++)
+		{
+			WriteLog(QString("Thread for OpenCL worker") + QString::number(d) + " create", 3);
+			threads.append(QSharedPointer<QThread>(new QThread));
+			workers.append(
+				QSharedPointer<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
+
+			workers[d]->setImageWidth(width);
+			workers[d]->setImageHeight(height);
+			workers[d]->setOptimalStepX(optimalJob.stepSizeX);
+			workers[d]->setOptimalStepY(optimalJob.stepSizeY);
+			workers[d]->setRepeatMcLoop(monteCarlo);
+			workers[d]->setClKernel(clKernels[d]);
+			workers[d]->setClQueue(clQueues[d]);
+			workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); //0 because not used
+			workers[d]->setOutputBuffers(outputBuffers[d]);
+			workers[d]->setOutputQueue(outputQueue);
+
+			workers[d]->moveToThread(threads[d].data());
+			QObject::connect(
+				threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
+			QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
+			QObject::connect(
+				workers[d].data(), SIGNAL(finished()), workers[d].data(), SLOT(deleteLater()));
+			threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
+			threads[d]->start();
+			threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
+			WriteLog(QString("Thread ") + QString::number(d) + " started", 3);
+		}
+
+		for (int d = 0; d < numberOfOpenCLWorkers; d++)
+		{
+			while (threads[d]->isRunning())
+			{
+				gApplication->processEvents();
+			};
+			WriteLog(QString("Thread ") + QString::number(d) + " finished", 2);
+			threads[d].reset();
+		}
 	}
 }
 

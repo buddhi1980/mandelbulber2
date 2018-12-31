@@ -67,12 +67,16 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			qint64 jobX = gridX * optimalStepX;
 			qint64 jobY = gridY * optimalStepY;
 
+			qDebug() << jobX << jobY;
+
 			qint64 pixelsLeftX = imageWidth - jobX;
 			qint64 pixelsLeftY = imageHeight - jobY;
 			qint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			qint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
 			int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
+
+			qDebug() << "processClQueue";
 
 			engine->ReadBuffersFromQueue(deviceIndex);
 
@@ -92,6 +96,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			// TODO: write code for scheduler;
 		}
 	} while (repeatMCLoop);
+	emit finished();
 }
 
 bool cOpenClWorkerThread::ProcessClQueue(

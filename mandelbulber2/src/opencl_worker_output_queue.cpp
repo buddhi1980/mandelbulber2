@@ -13,6 +13,11 @@ cOpenCLWorkerOutputQueue::cOpenCLWorkerOutputQueue()
 	// nothing to initialize
 }
 
+cOpenCLWorkerOutputQueue::~cOpenCLWorkerOutputQueue()
+{
+	// nothing to delete
+}
+
 void cOpenCLWorkerOutputQueue::AddToQueue(const sClSingleOutput *data)
 {
 	lock.lock();
