@@ -57,8 +57,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 	do
 	{
-		for (int tile = startTile; !scheduler->AllDone(); scheduler->GetNextTileToRender(tile))
+		for (int tile = startTile; !scheduler->AllDone(); tile = scheduler->GetNextTileToRender(tile))
 		{
+			if (tile < 0) break;
 			// refresh parameters (needed to update random seed)
 			engine->AssignParametersToKernel(deviceIndex);
 
@@ -74,24 +75,29 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			qint64 jobWidth = min(optimalStepX, pixelsLeftX);
 			qint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
-			int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
+			if (jobX >= 0 && jobX < imageWidth && jobY >= 0 && jobY < imageHeight)
+			{
 
-			qDebug() << "processClQueue";
+				qDebug() << "start processClQueue" << deviceIndex;
+				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
+				qDebug() << "after processClQueue" << deviceIndex;
 
-			engine->ReadBuffersFromQueue(deviceIndex);
+				engine->ReadBuffersFromQueue(deviceIndex);
+				qDebug() << "buffer read" << deviceIndex;
 
-			char *startPtr = outputBuffers.at(outputIndex).ptr.data();
-			char *endPtr = startPtr + outputBuffers.at(outputIndex).size();
-			dataBuffer.data.assign(startPtr, endPtr);
+				char *startPtr = outputBuffers.at(outputIndex).ptr.data();
+				char *endPtr = startPtr + outputBuffers.at(outputIndex).size();
+				dataBuffer.data.assign(startPtr, endPtr);
 
-			cOpenCLWorkerOutputQueue::sClSingleOutput outputDataForQueue;
-			outputDataForQueue.jobX = jobX;
-			outputDataForQueue.jobY = jobY;
-			outputDataForQueue.jobWidth = jobWidth;
-			outputDataForQueue.jobHeight = jobHeight;
-			outputDataForQueue.outputBuffers.append(dataBuffer);
+				cOpenCLWorkerOutputQueue::sClSingleOutput outputDataForQueue;
+				outputDataForQueue.jobX = jobX;
+				outputDataForQueue.jobY = jobY;
+				outputDataForQueue.jobWidth = jobWidth;
+				outputDataForQueue.jobHeight = jobHeight;
+				outputDataForQueue.outputBuffers.append(dataBuffer);
 
-			outputQueue->AddToQueue(&outputDataForQueue);
+				outputQueue->AddToQueue(&outputDataForQueue);
+			}
 
 			// TODO: write code for scheduler;
 		}

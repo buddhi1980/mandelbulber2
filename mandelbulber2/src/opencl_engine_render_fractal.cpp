@@ -1194,7 +1194,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			workers[d]->setRepeatMcLoop(monteCarlo);
 			workers[d]->setClKernel(clKernels[d]);
 			workers[d]->setClQueue(clQueues[d]);
-			workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); //0 because not used
+			workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); // 0 because not used
 			workers[d]->setOutputBuffers(outputBuffers[d]);
 			workers[d]->setOutputQueue(outputQueue);
 
@@ -1202,8 +1202,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			QObject::connect(
 				threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
 			QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
-			QObject::connect(
-				workers[d].data(), SIGNAL(finished()), workers[d].data(), SLOT(deleteLater()));
+			//			QObject::connect(
+			//				workers[d].data(), SIGNAL(finished()), workers[d].data(), SLOT(deleteLater()));
 			threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
 			threads[d]->start();
 			threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));

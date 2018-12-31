@@ -453,7 +453,7 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 			}
 		}
 
-		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		for (int d = 0; d < inputAndOutputBuffers.size(); d++)
 		{
 			for (auto &outputBuffer : outputBuffers[d])
 			{
@@ -575,10 +575,11 @@ bool cOpenClEngine::WriteBuffersToQueue()
 
 bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 {
+	qDebug() << "readStart" << deviceIndex;
 	for (auto &outputBuffer : outputBuffers[deviceIndex])
 	{
-		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(
-			*outputBuffer.clPtr, CL_TRUE, 0, outputBuffer.size(), outputBuffer.ptr.data());
+		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(*outputBuffer.clPtr, CL_FALSE, 0,
+			outputBuffer.size(), outputBuffer.ptr.data());
 		if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + outputBuffer.name))
 		{
 			emit showErrorMessage(
@@ -592,8 +593,8 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 	{
 		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[deviceIndex])
 		{
-			cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_TRUE, 0,
-				inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
+			cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(*inputAndOutputBuffer.clPtr, CL_FALSE,
+				0, inputAndOutputBuffer.size(), inputAndOutputBuffer.ptr.data());
 			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 			{
 				emit showErrorMessage(
@@ -603,6 +604,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			}
 		}
 	}
+	qDebug() << "readEnd" << deviceIndex;
 
 	int err = clQueues[deviceIndex]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
@@ -611,6 +613,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
+	qDebug() << "readFinished" << deviceIndex;
 	return true;
 }
 

@@ -13,11 +13,19 @@
 
 class cOpenClScheduler
 {
+	struct sTileStatus
+	{
+		bool enabled;
+		bool reserved;
+		bool done;
+	};
+
 public:
 	cOpenClScheduler(const QList<QPoint> *tileSequence);
 	~cOpenClScheduler();
 	void EnableAllTiles();
 	void DisableTile(int tileIndex);
+	void Clear();
 	int GetNextTileToRender(int lastTile);
 	bool AllDone();
 
@@ -25,8 +33,9 @@ public:
 
 private:
 	const QList<QPoint> *tileSequence;
-	QList<bool> renderedTiles;
-	QList<bool> enabledTiles;
+	QList<sTileStatus> tiles;
+
+	QMutex lock;
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_SCHEDULER_H_ */
