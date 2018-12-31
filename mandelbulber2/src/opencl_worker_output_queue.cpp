@@ -31,14 +31,25 @@ cOpenCLWorkerOutputQueue::sClSingleOutput cOpenCLWorkerOutputQueue::GetFromQueue
 	lock.lock();
 	if (!queue.isEmpty())
 	{
-		return queue.dequeue();
+		sClSingleOutput output = queue.dequeue();
+		lock.unlock();
+		return output;
 	}
 	else
 	{
 		qCritical() << "cOpenCLWorkerOutputQueue::GetFromQueue(): queue is empty!";
+		lock.unlock();
 		return sClSingleOutput();
 	}
+}
+
+bool cOpenCLWorkerOutputQueue::isEmpty()
+{
+	lock.lock();
+	bool isempty = queue.isEmpty();
 	lock.unlock();
+
+	return isempty;
 }
 
 #endif // USE_OPENCL

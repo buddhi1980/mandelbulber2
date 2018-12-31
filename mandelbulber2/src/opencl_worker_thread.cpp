@@ -51,10 +51,6 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	int startTile = deviceIndex;
 	if (startTile >= scheduler->getTileSequence()->length()) return;
 
-	qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
-	qint64 outputItemlength = outputBuffers.at(outputIndex).length;
-	cOpenCLWorkerOutputQueue::sClDataBuffer dataBuffer(outputItemSize, outputItemlength);
-
 	do
 	{
 		for (int tile = startTile; !scheduler->AllDone(); tile = scheduler->GetNextTileToRender(tile))
@@ -84,6 +80,10 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 				engine->ReadBuffersFromQueue(deviceIndex);
 				qDebug() << "buffer read" << deviceIndex;
+
+				qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
+				qint64 outputItemlength = outputBuffers.at(outputIndex).length;
+				cOpenCLWorkerOutputQueue::sClDataBuffer dataBuffer(outputItemSize, outputItemlength);
 
 				char *startPtr = outputBuffers.at(outputIndex).ptr.data();
 				char *endPtr = startPtr + outputBuffers.at(outputIndex).size();

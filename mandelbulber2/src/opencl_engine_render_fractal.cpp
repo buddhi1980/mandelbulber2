@@ -1212,8 +1212,54 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		for (int d = 0; d < numberOfOpenCLWorkers; d++)
 		{
-			while (threads[d]->isRunning())
+			while (threads[d]->isRunning()) // TODO check all threads if finished
 			{
+				while (!outputQueue->isEmpty())
+				{
+					cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
+
+					qint64 jobWidth = output.jobWidth;
+					qint64 jobHeight = output.jobHeight;
+					qint64 jobX = output.jobX;
+					qint64 jobY = output.jobY;
+
+					for (int x = 0; x < jobWidth; x++)
+					{
+						for (int y = 0; y < jobHeight; y++)
+						{
+							sClPixel pixelCl =
+								((sClPixel *)output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
+							sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
+							sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
+							unsigned short opacity = pixelCl.opacity;
+							unsigned short alpha = pixelCl.alpha;
+							size_t xx = x + jobX;
+							size_t yy = y + jobY;
+
+							image->PutPixelImage(xx, yy, pixel);
+							image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
+							image->PutPixelColor(xx, yy, color);
+							image->PutPixelOpacity(xx, yy, opacity);
+							image->PutPixelAlpha(xx, yy, alpha);
+						}
+					}
+
+					lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+
+					if (lastRenderedRects.size() > 0)
+					{
+						image->NullPostEffect(&lastRenderedRects);
+						image->CompileImage(&lastRenderedRects);
+						if (image->IsPreview())
+						{
+							image->ConvertTo8bit(&lastRenderedRects);
+							image->UpdatePreview(&lastRenderedRects);
+							emit updateImage();
+						}
+						lastRenderedRects.clear();
+					}
+				}
+
 				gApplication->processEvents();
 			};
 			WriteLog(QString("Thread ") + QString::number(d) + " finished", 2);

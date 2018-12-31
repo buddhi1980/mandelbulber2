@@ -25,6 +25,7 @@ public:
 		qint64 itemSize;
 		qint64 length;
 		std::vector<char> data;
+
 	};
 
 	struct sClSingleOutput
@@ -40,7 +41,7 @@ public:
 	~cOpenCLWorkerOutputQueue();
 	void AddToQueue(const sClSingleOutput *data);
 	sClSingleOutput GetFromQueue();
-	bool isEmpty() { return queue.isEmpty(); }
+	bool isEmpty();
 
 private:
 	QQueue<sClSingleOutput> queue;
