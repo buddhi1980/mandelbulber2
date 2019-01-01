@@ -121,6 +121,7 @@ void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
