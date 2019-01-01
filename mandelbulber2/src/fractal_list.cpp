@@ -208,6 +208,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("JosLeys-Kleinian", "jos_kleinian", josKleinian,
 		JosKleinianIteration, analyticDEType, josKleinianDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionJosKleinian, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("JosLeys-Kleinian V2", "jos_kleinian_v2", josKleinianV2,
+		JosKleinianV2Iteration, analyticDEType, josKleinianDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionJosKleinian, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Kaleidoscopic IFS", "kaleidoscopic_ifs",
 		kaleidoscopicIfs, KaleidoscopicIfsIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionIFS, coloringFunctionIFS));
@@ -563,6 +566,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfBoxOffsetIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 
+
+
+
 	fractalList->append(sFractalDescription("T>Folding Tetra 3D", "transf_folding_tetra3d",
 		transfFoldingTetra3d, TransfFoldingTetra3dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -745,6 +751,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Box Fold 4D Tglad", "transf_box_fold4d_tglad",
 		transfBoxFold4dTglad, TransfBoxFold4dTgladIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Box Wrap 4D", "transf_box_wrap_4d", transfBoxWrap4d,
+		TransfBoxWrap4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Iteration Weight 4D", "transf_iteration_weight4d",
 		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, linearDEFunction,

@@ -662,6 +662,7 @@ struct sFractalTransformCommon
 	CVector4 offsetA1111;
 	CVector4 additionConstant111d5;
 	CVector4 constantMultiplier1220;
+	CVector4 scale0000;
 
 	CRotationMatrix rotationMatrix;
 	CRotationMatrix rotationMatrix2;
@@ -718,6 +719,8 @@ struct sFractalTransformCommon
 	bool juliaMode;
 	bool rotationEnabled;
 	bool rotation2EnabledFalse;
+	bool sphereInversionEnabledFalse;
+	bool spheresEnabled;
 };
 
 struct sFractal

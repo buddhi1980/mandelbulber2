@@ -121,6 +121,7 @@ void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void KaleidoscopicIfsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Kalisets1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void LkmitchIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -293,6 +294,7 @@ void Quaternion4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void TransfAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
