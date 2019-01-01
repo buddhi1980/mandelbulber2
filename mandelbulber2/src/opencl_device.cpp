@@ -32,19 +32,22 @@
  * These objects enable an OpenCL backend definition.
  */
 
+#ifdef USE_OPENCL
+
 #include "opencl_device.h"
 
 cOpenClDevice::cOpenClDevice()
 {
 	deviceIndex = 0;
 	enabled = false;
+	clDevice = nullptr;
 }
 
 #ifdef USE_OPENCL
-cOpenClDevice::cOpenClDevice(cl::Device device, sDeviceInformation info)
+cOpenClDevice::cOpenClDevice(const cl::Device *device, sDeviceInformation info)
 {
-	deviceIndex = 0;
 	clDevice = device;
+	deviceIndex = 0;
 	deviceInformation = info;
 	enabled = false;
 }
@@ -64,3 +67,5 @@ void cOpenClDevice::Disable()
 {
 	enabled = false;
 }
+
+#endif // USE_OPENCL

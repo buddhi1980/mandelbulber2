@@ -41,6 +41,7 @@
 
 #include "error_message.hpp"
 #include "include_header_wrapper.hpp"
+#include "opencl_input_output_buffer.h"
 
 class cOpenClHardware;
 class cParameterContainer;
@@ -84,23 +85,6 @@ public:
 	~cOpenClEngine() override;
 
 #ifdef USE_OPENCL
-	struct sClInputOutputBuffer
-	{
-		sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
-				: itemSize(itemSize), length(length), name(std::move(name))
-		{
-		}
-
-		static void Deleter(char *charArray) { delete[] charArray; }
-
-		qint64 size() const { return itemSize * length; }
-		qint64 itemSize;
-		qint64 length;
-		QString name;
-		QSharedPointer<char> ptr;
-		QSharedPointer<cl::Buffer> clPtr;
-	};
-
 	void Lock();
 	void Unlock();
 	static void DeleteKernelCache();
@@ -110,34 +94,37 @@ public:
 	virtual bool PreAllocateBuffers(const cParameterContainer *params);
 	virtual void RegisterInputOutputBuffers(const cParameterContainer *params) = 0;
 	bool WriteBuffersToQueue();
-	bool ReadBuffersFromQueue();
+	bool ReadBuffersFromQueue(int deviceIndex);
 	bool CreateCommandQueue();
 	void SetUseBuildCache(bool useCache) { useBuildCache = useCache; }
 	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }
 	void ReleaseMemory();
-	bool AssignParametersToKernel();
-	virtual bool AssignParametersToKernelAdditional(int argIterator)
+	bool AssignParametersToKernel(int deviceIndex);
+	virtual bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 	{
 		Q_UNUSED(argIterator);
+		Q_UNUSED(deviceIndex);
 		return true;
 	}
 
 protected:
-	QList<sClInputOutputBuffer> inputBuffers;
-	QList<sClInputOutputBuffer> outputBuffers;
-	QList<sClInputOutputBuffer> inputAndOutputBuffers;
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);
-	bool CreateKernel(cl::Program *program);
+	bool CreateKernels();
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(size_t pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
-	QScopedPointer<cl::Program> program;
-	QScopedPointer<cl::Kernel> kernel;
-	QScopedPointer<cl::CommandQueue> queue;
+	typedef QList<sClInputOutputBuffer> listOfBuffers;
+	QList<listOfBuffers> inputBuffers;
+	QList<listOfBuffers> outputBuffers;					// separate output buffer for each OpenCL device
+	QList<listOfBuffers> inputAndOutputBuffers; // separate input/output buffer for each OpenCL device
+
+	QList<QSharedPointer<cl::Program>> clPrograms;
+	QList<QSharedPointer<cl::Kernel>> clKernels;
+	QList<QSharedPointer<cl::CommandQueue>> clQueues;
 
 	sOptimalJob optimalJob;
 	bool programsLoaded;

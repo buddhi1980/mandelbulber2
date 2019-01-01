@@ -139,14 +139,16 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-	inputBuffers << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
-	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
-	inputAndOutputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputAndOutputBuffers[0] << sClInputOutputBuffer(
+		sizeof(cl_float4), numberOfPixels, "image buffer");
 }
 
-bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(int argIterator)
+bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(
+	int argIterator, int deviceIndex)
 {
-	int err = kernel->setArg(argIterator++, paramsDOF); // pixel offset
+	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
 	{
 		emit showErrorMessage(
@@ -179,8 +181,8 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 	}
 	optimalJob.stepSize = stepSize;
 
-	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(*clKernels.at(0), cl::NDRange(pixelIndex),
+		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -188,7 +190,7 @@ bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelI
 		return false;
 	}
 
-	err = queue->finish();
+	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
 		emit showErrorMessage(
@@ -222,13 +224,13 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// copy zBuffer and image to input and output buffers
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr.data())[i].i = sortedZBuffer[i].i;
-			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr.data())[i].z = sortedZBuffer[i].z;
+			((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].i = sortedZBuffer[i].i;
+			((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].z = sortedZBuffer[i].z;
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4 *)inputBuffers[imageIndex].ptr.data())[i] =
+			((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
-			((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr.data())[i] =
+			((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 		}
 
@@ -246,7 +248,7 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			size_t pixelsLeft = width * height - pixelIndex;
 
 			// assign parameters to kernel
-			if (!AssignParametersToKernel()) return false;
+			if (!AssignParametersToKernel(0)) return false;
 
 			// processing queue
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
@@ -264,14 +266,14 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 
 		if (!*stopRequest)
 		{
-			if (!ReadBuffersFromQueue()) return false;
+			if (!ReadBuffersFromQueue(0)) return false;
 
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
 					cl_float4 imagePixelCl =
-						((cl_float4 *)inputAndOutputBuffers[outputIndex].ptr.data())[x + y * width];
+						((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];
 
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
 					unsigned short alpha = imagePixelCl.s[3] * 65535.0;

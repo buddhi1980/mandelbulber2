@@ -79,13 +79,15 @@ public:
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
-	bool AssignParametersToKernelAdditional(int argIterator) override;
+	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
 	bool WriteBuffersToQueue();
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool ReadBuffersFromQueue();
 
 	// render 3D fractal
 	bool Render(cImage *image, bool *stopRequest, sRenderData *renderData);
+	// render 3D fractal
+	bool RenderMulti(cImage *image, bool *stopRequest, sRenderData *renderData);
 
 	// render 2D slice with fractal
 	bool Render(double *distances, double *colors, int sliceIndex, bool *stopRequest,
@@ -110,18 +112,18 @@ private:
 	static QString toCamelCase(const QString &s);
 
 	QScopedPointer<sClInConstants> constantInBuffer;
-	QScopedPointer<cl::Buffer> inCLConstBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLConstBuffer;
 
 	QScopedPointer<sClMeshExport> constantInMeshExportBuffer;
-	QScopedPointer<cl::Buffer> inCLConstMeshExportBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLConstMeshExportBuffer;
 
 	QByteArray inBuffer;
-	QScopedPointer<cl::Buffer> inCLBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLBuffer;
 
 	QByteArray inTextureBuffer;
-	QScopedPointer<cl::Buffer> inCLTextureBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLTextureBuffer;
 
-	QScopedPointer<cl::Image2D> backgroundImage2D;
+	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
 	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
 
 	QScopedPointer<cOpenClDynamicData> dynamicData;

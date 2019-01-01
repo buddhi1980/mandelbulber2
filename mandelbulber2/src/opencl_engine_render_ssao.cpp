@@ -139,15 +139,15 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
-	inputBuffers << sClInputOutputBuffer(
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
+	inputBuffers[0] << sClInputOutputBuffer(
 		sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
-	outputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
+	outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
 
-bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator)
+bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
 {
-	int err = kernel->setArg(argIterator++, paramsSSAO); // pixel offset
+	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsSSAO); // pixel offset
 	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsSSAO)"))
 	{
 		emit showErrorMessage(
@@ -179,8 +179,8 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 	}
 	optimalJob.stepSize = stepSize;
 
-	cl_int err = queue->enqueueNDRangeKernel(
-		*kernel, cl::NDRange(pixelIndex), cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(*clKernels.at(0), cl::NDRange(pixelIndex),
+		cl::NDRange(stepSize), cl::NDRange(limitedWorkgroupSize));
 	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
 		emit showErrorMessage(
@@ -188,7 +188,7 @@ bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
 		return false;
 	}
 
-	err = queue->finish();
+	err = clQueues.at(0)->finish();
 	if (!checkErr(err, "CommandQueue::finish() - enqueueNDRangeKernel"))
 	{
 		emit showErrorMessage(
@@ -218,13 +218,13 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer to input buffer
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float *)inputBuffers[zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
 		}
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i] =
+			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i] =
 				sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
+			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
 				cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
 		}
 
@@ -242,7 +242,7 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			UpdateOptimalJobStart(pixelsLeft);
 
 			// assign parameters to kernel
-			if (!AssignParametersToKernel()) return false;
+			if (!AssignParametersToKernel(0)) return false;
 
 			// processing queue
 			if (!ProcessQueue(pixelsLeft, pixelIndex)) return false;
@@ -262,14 +262,14 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 		if (!*stopRequest)
 		{
-			if (!ReadBuffersFromQueue()) return false;
+			if (!ReadBuffersFromQueue(0)) return false;
 
 			for (int y = 0; y < height; y++)
 			{
 				for (int x = 0; x < width; x++)
 				{
 					cl_float total_ambient =
-						((cl_float *)outputBuffers[outputIndex].ptr.data())[x + y * width];
+						((cl_float *)outputBuffers[0][outputIndex].ptr.data())[x + y * width];
 					unsigned short opacity16 = image->GetPixelOpacity(x, y);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(x, y);

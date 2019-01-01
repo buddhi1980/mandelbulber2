@@ -192,8 +192,8 @@ enum enumFractalFormula
 	aboxSurfBox = 140,
 	boxFoldBulbMenger = 141,
 	vicsek = 142,
-
-
+	// 2.17
+	josKleinianV2 = 143,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
@@ -271,9 +271,9 @@ enum enumFractalFormula
 	transfAddExp2Z = 1062, // updated V2.12
 	transfReciprocal3 = 1063,
 	transfRotationFolding = 1064,
-	transfAbsAddConditional = 1065,
+	transfAbsAddConditional = 1065, // scale fixed v2.17
 	transfReciprocal4d = 1066,
-	transfAbsAddConditional4d = 1067,
+	transfAbsAddConditional4d = 1067, // scale fixed v2.17
 	transfSphericalOffsetVCL = 1068, // fixed v2.14
 	transfRotation4d = 1069,
 	// 2.11
@@ -302,8 +302,8 @@ enum enumFractalFormula
 	// 2.16
 	transfSurfBoxFoldV2 = 1088,
 	transfSurfBoxFoldV24d = 1089,
-
-
+	// 2.17
+	transfBoxWrap4d = 1089,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

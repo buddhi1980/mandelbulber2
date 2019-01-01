@@ -35,8 +35,9 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 #define MANDELBULBER2_SRC_OPENCL_DEVICE_H_
 
-#include <QtCore>
+#ifdef USE_OPENCL
 
+#include <QtCore>
 #include "include_header_wrapper.hpp"
 
 class cOpenClDevice
@@ -75,15 +76,15 @@ public:
 	};
 
 protected:
-	cl::Device clDevice;
+	const cl::Device *clDevice;
 	sDeviceInformation deviceInformation;
 
 public:
-	cOpenClDevice(cl::Device device, sDeviceInformation info);
+	cOpenClDevice(const cl::Device *device, sDeviceInformation info);
 
 	const sDeviceInformation &getDeviceInformation() const { return deviceInformation; }
 
-	const cl::Device &getDevice() const { return clDevice; }
+	const cl::Device *getDevice() const { return clDevice; }
 
 #endif
 
@@ -97,5 +98,7 @@ protected:
 	int deviceIndex;
 	bool enabled;
 };
+
+#endif // USE_OPENCL
 
 #endif /* MANDELBULBER2_SRC_OPENCL_DEVICE_H_ */

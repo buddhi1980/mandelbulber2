@@ -438,7 +438,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{
-					if (fractals.GetFractal(0)->transformCommon.functionEnabled)
+					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
 					out->distance =
@@ -496,7 +496,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				case analyticFunctionJosKleinian:
 				{
-					if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
+					if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
 					out->distance =
@@ -525,7 +525,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// needed for JosKleinian fractal to calculate spheres in deltaDE mode
 		if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 		{
-			if (fractals.GetFractal(sequence)->transformCommon.functionEnabled)
+			if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
 				z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 		}
 	}

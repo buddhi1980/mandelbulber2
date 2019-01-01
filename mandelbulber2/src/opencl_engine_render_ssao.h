@@ -58,7 +58,7 @@ public:
 	void SetParameters(const sParamRender *paramRender);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
-	bool AssignParametersToKernelAdditional(int argIterator) override;
+	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
 	bool ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex);
 	bool Render(cImage *image, bool *stopRequest);
 	size_t CalcNeededMemory() override;
