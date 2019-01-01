@@ -523,6 +523,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 	transformCommon.rotation2EnabledFalse = container->Get<bool>("transf_rotation2_enabled_false");
+	transformCommon.sphereInversionEnabledFalse = container->Get<bool>("transf_sphere_inversion_enabled_false");
 	transformCommon.spheresEnabled = container->Get<bool>("transf_spheres_enabled");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);

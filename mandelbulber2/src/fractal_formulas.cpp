@@ -14278,6 +14278,37 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
+ * box wrap 4d
+ */
+void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 box_size = fractal->transformCommon.offset1111;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		z.x += box_size.x;
+		z.x = fmod(z.x, 2.0 * box_size.x) - box_size.x;
+	}
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		z.y += box_size.y;
+		z.y = fmod(z.y, 2.0 * box_size.y) - box_size.y;
+	}
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		z.z += box_size.z;
+		z.z = fmod(z.z, 2.0 * box_size.z) - box_size.z;
+	}
+
+	if (fractal->transformCommon.functionEnabledw)
+	{
+		z.w += box_size.w;
+		z.w = fmod(z.w, 2.0 * box_size.w) - box_size.w;
+	}
+	aux.DE *= fractal->analyticDE.scale1;
+}
+
+/**
  * abs add  constant,  z = abs( z + pre-offset) + post-offset
  */
 void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -14313,25 +14344,25 @@ void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sE
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		z.x = sign(z.x) * (fractal->transformCommon.offset1111.x - fabs(z.x)
-												+ fabs(z.x) * fractal->transformCommon.additionConstant0000.x);
+												+ fabs(z.x) * fractal->transformCommon.scale0000.x);
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		z.y = sign(z.y) * (fractal->transformCommon.offset1111.y - fabs(z.y)
-												+ fabs(z.y) * fractal->transformCommon.additionConstant0000.y);
+												+ fabs(z.y) * fractal->transformCommon.scale0000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z = sign(z.z) * (fractal->transformCommon.offset1111.z - fabs(z.z)
-												+ fabs(z.z) * fractal->transformCommon.additionConstant0000.z);
+												+ fabs(z.z) * fractal->transformCommon.scale0000.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
 		z.w = sign(z.w) * (fractal->transformCommon.offset1111.w - fabs(z.w)
-												+ fabs(z.w) * fractal->transformCommon.additionConstant0000.w);
+												+ fabs(z.w) * fractal->transformCommon.scale0000.w);
 	}
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }

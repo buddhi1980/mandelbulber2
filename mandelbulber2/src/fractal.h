@@ -719,6 +719,7 @@ struct sFractalTransformCommon
 	bool juliaMode;
 	bool rotationEnabled;
 	bool rotation2EnabledFalse;
+	bool sphereInversionEnabledFalse;
 	bool spheresEnabled;
 };
 
