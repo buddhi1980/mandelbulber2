@@ -111,18 +111,18 @@ protected:
 	virtual QString GetKernelName() = 0;
 	static bool checkErr(cl_int err, QString functionName);
 	bool Build(const QByteArray &programString, QString *errorText);
-	bool CreateKernel(cl::Program *program);
+	bool CreateKernels();
 	void InitOptimalJob(const cParameterContainer *params);
 	void UpdateOptimalJobStart(size_t pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 
 	typedef QList<sClInputOutputBuffer> listOfBuffers;
-	listOfBuffers inputBuffers;
+	QList<listOfBuffers> inputBuffers;
 	QList<listOfBuffers> outputBuffers;					// separate output buffer for each OpenCL device
 	QList<listOfBuffers> inputAndOutputBuffers; // separate input/output buffer for each OpenCL device
 
-	QSharedPointer<cl::Program> clProgram;
+	QList<QSharedPointer<cl::Program>> clPrograms;
 	QList<QSharedPointer<cl::Kernel>> clKernels;
 	QList<QSharedPointer<cl::CommandQueue>> clQueues;
 

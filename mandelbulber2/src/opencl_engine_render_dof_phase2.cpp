@@ -139,8 +139,8 @@ bool cOpenClEngineRenderDOFPhase2::LoadSourcesAndCompile(const cParameterContain
 void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-	inputBuffers << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
-	inputBuffers << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(sSortedZBufferCl), numberOfPixels, "z-buffer");
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float4), numberOfPixels, "image buffer");
 	inputAndOutputBuffers[0] << sClInputOutputBuffer(
 		sizeof(cl_float4), numberOfPixels, "image buffer");
 }
@@ -224,11 +224,11 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// copy zBuffer and image to input and output buffers
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr.data())[i].i = sortedZBuffer[i].i;
-			((sSortedZBufferCl *)inputBuffers[zBufferIndex].ptr.data())[i].z = sortedZBuffer[i].z;
+			((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].i = sortedZBuffer[i].i;
+			((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].z = sortedZBuffer[i].z;
 			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
 			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4 *)inputBuffers[imageIndex].ptr.data())[i] =
+			((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
 			((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
 				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};

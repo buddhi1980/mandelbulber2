@@ -96,12 +96,12 @@ cOpenClEngineRenderFractal::~cOpenClEngineRenderFractal()
 void cOpenClEngineRenderFractal::ReleaseMemory()
 {
 	constantInBuffer.reset();
-	inCLConstBuffer.reset();
+	inCLConstBuffer.clear();
 	constantInMeshExportBuffer.reset();
-	inCLConstMeshExportBuffer.reset();
-	inCLBuffer.reset();
-	inCLTextureBuffer.reset();
-	backgroundImage2D.reset();
+	inCLConstMeshExportBuffer.clear();
+	inCLBuffer.clear();
+	inCLTextureBuffer.clear();
+	backgroundImage2D.clear();
 	backgroungImageBuffer.reset();
 	dynamicData.reset();
 	texturesData.reset();
@@ -706,76 +706,77 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 	cl_int err;
 
-	if (hardware->ContextCreated())
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-
-		inCLConstBuffer.reset(
-			new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-				sizeof(sClInConstants), constantInBuffer.data(), &err));
-		if (!checkErr(err,
-					"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
-					"sizeof(sClInConstants), constantInBuffer, &err)"))
+		if (hardware->ContextCreated())
 		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
 
-		if (meshExportMode)
-		{
-			inCLConstMeshExportBuffer.reset(
-				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-					sizeof(sClMeshExport), constantInMeshExportBuffer.data(), &err));
+			inCLConstBuffer.append(QSharedPointer<cl::Buffer>(
+				new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+					sizeof(sClInConstants), constantInBuffer.data(), &err)));
 			if (!checkErr(err,
 						"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
-						"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
+						"sizeof(sClInConstants), constantInBuffer, &err)"))
 			{
 				emit showErrorMessage(
 					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
-		}
 
-		// this buffer will be used for color palettes, lights, etc...
-		inCLBuffer.reset(new cl::Buffer(*hardware->getContext(),
-			CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err));
-		if (!checkErr(err,
-					"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
-					"sizeof(sClInBuff), inBuffer, &err)"))
-		{
-			emit showErrorMessage(
-				QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
-				cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
+			if (meshExportMode)
+			{
+				inCLConstMeshExportBuffer.append(QSharedPointer<cl::Buffer>(
+					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+						sizeof(sClMeshExport), constantInMeshExportBuffer.data(), &err)));
+				if (!checkErr(err,
+							"cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, "
+							"sizeof(inCLConstMeshExportBuffer), constantInBuffer, &err)"))
+				{
+					emit showErrorMessage(
+						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for constants")),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
+			}
 
-		if (renderEngineMode == clRenderEngineTypeFull)
-		{
-			// this buffer will be used for textures
-			inCLTextureBuffer.reset(
-				new cl::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-					size_t(inTextureBuffer.size()), inTextureBuffer.data(), &err));
+			// this buffer will be used for color palettes, lights, etc...
+			inCLBuffer.append(QSharedPointer<cl::Buffer>(new cl::Buffer(*hardware->getContext(d),
+				CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err)));
 			if (!checkErr(err,
 						"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
 						"sizeof(sClInBuff), inBuffer, &err)"))
 			{
 				emit showErrorMessage(
-					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for texture data")),
+					QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for variable data")),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
+
+			if (renderEngineMode == clRenderEngineTypeFull)
+			{
+				// this buffer will be used for textures
+				inCLTextureBuffer.append(QSharedPointer<cl::Buffer>(
+					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+						size_t(inTextureBuffer.size()), inTextureBuffer.data(), &err)));
+				if (!checkErr(err,
+							"Buffer::Buffer(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_USE_HOST_PTR, "
+							"sizeof(sClInBuff), inBuffer, &err)"))
+				{
+					emit showErrorMessage(
+						QObject::tr("OpenCL %1 cannot be created!").arg(QObject::tr("buffer for texture data")),
+						cErrorMessage::errorMessage, nullptr);
+					return false;
+				}
+			}
+		}
+		else
+		{
+			emit showErrorMessage(
+				QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
+			return false;
 		}
 	}
-
-	else
-	{
-		emit showErrorMessage(
-			QObject::tr("OpenCL context is not ready"), cErrorMessage::errorMessage, nullptr);
-		return false;
-	}
-
 	return true;
 }
 
@@ -1362,8 +1363,8 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	int argIterator, int deviceIndex)
 {
-	int err =
-		clKernels.at(deviceIndex)->setArg(argIterator++, *inCLBuffer); // input data in global memory
+	int err = clKernels.at(deviceIndex)
+							->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1374,8 +1375,9 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 
 	if (!meshExportMode && renderEngineMode == clRenderEngineTypeFull)
 	{
-		int err = clKernels.at(deviceIndex)
-								->setArg(argIterator++, *inCLTextureBuffer); // input data in global memory
+		int err =
+			clKernels.at(deviceIndex)
+				->setArg(argIterator++, *inCLTextureBuffer[deviceIndex]); // input data in global memory
 		if (!checkErr(err, "kernel->setArg(1, *inCLTextureBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1386,8 +1388,8 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	}
 
 	err = clKernels.at(deviceIndex)
-					->setArg(
-						argIterator++, *inCLConstBuffer); // input data in constant memory (faster than global)
+					->setArg(argIterator++,
+						*inCLConstBuffer[deviceIndex]); // input data in constant memory (faster than global)
 	if (!checkErr(err, "kernel->setArg(2, *inCLConstBuffer)"))
 	{
 		emit showErrorMessage(
@@ -1400,7 +1402,8 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	{
 		err = clKernels.at(deviceIndex)
 						->setArg(argIterator++,
-							*inCLConstMeshExportBuffer); // input data in constant memory (faster than global)
+							*inCLConstMeshExportBuffer[deviceIndex]); // input data in constant memory (faster
+																												// than global)
 		if (!checkErr(err, "kernel->setArg(3, *inCLConstMeshExportBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1412,9 +1415,10 @@ bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 
 	if (renderEngineMode != clRenderEngineTypeFast && !meshExportMode)
 	{
-		err = clKernels.at(deviceIndex)
-						->setArg(argIterator++,
-							*backgroundImage2D); // input data in constant memory (faster than global)
+		err =
+			clKernels.at(deviceIndex)
+				->setArg(argIterator++,
+					*backgroundImage2D[deviceIndex]); // input data in constant memory (faster than global)
 		if (!checkErr(err, "kernel->setArg(3, *backgroundImage2D)"))
 		{
 			emit showErrorMessage(
@@ -1446,8 +1450,8 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
-		err =
-			clQueues.at(d)->enqueueWriteBuffer(*inCLBuffer, CL_TRUE, 0, inBuffer.size(), inBuffer.data());
+		err = clQueues.at(d)->enqueueWriteBuffer(
+			*inCLBuffer[d], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1468,7 +1472,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		if (renderEngineMode == clRenderEngineTypeFull)
 		{
 			err = clQueues.at(d)->enqueueWriteBuffer(
-				*inCLTextureBuffer, CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
+				*inCLTextureBuffer[d], CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
 			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
 			{
 				emit showErrorMessage(
@@ -1488,7 +1492,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 		}
 
 		err = clQueues.at(d)->enqueueWriteBuffer(
-			*inCLConstBuffer.data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
+			*inCLConstBuffer[d].data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
 		{
 			emit showErrorMessage(
@@ -1509,7 +1513,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (meshExportMode)
 	{
-		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer.data(), CL_TRUE, 0,
+		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer[0].data(), CL_TRUE, 0,
 			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
 		{
@@ -1621,13 +1625,15 @@ bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderD
 		}
 	}
 
-	cl_int err;
-	backgroundImage2D.reset(
-		new cl::Image2D(*hardware->getContext(), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
-			cl::ImageFormat(CL_RGBA, CL_UNORM_INT8), backgroundImage2DWidth, backgroundImage2DHeight,
-			backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer.data(), &err));
-	if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
-
+	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	{
+		cl_int err;
+		backgroundImage2D.append(QSharedPointer<cl::Image2D>(
+			new cl::Image2D(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
+				cl::ImageFormat(CL_RGBA, CL_UNORM_INT8), backgroundImage2DWidth, backgroundImage2DHeight,
+				backgroundImage2DWidth * sizeof(cl_uchar4), backgroungImageBuffer.data(), &err)));
+		if (!checkErr(err, "cl::Image2D(...backgroundImage...)")) return false;
+	}
 	return true;
 }
 

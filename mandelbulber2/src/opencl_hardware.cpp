@@ -62,14 +62,18 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 #endif
 	isNVidia = false;
 	isAMD = false;
-	context = nullptr;
+
+	contexts.resize(2);
+	contexts[0] = nullptr;
+	contexts[1] = nullptr;
 #endif
 }
 
 cOpenClHardware::~cOpenClHardware()
 {
 #ifdef USE_OPENCL
-	if (context) delete context;
+	if (contexts[0]) delete contexts[0];
+	if (contexts[1]) delete contexts[1];
 #endif
 }
 
@@ -144,30 +148,36 @@ void cOpenClHardware::CreateContext(
 			cl_context_properties cProps[3] = {
 				CL_CONTEXT_PLATFORM, cl_context_properties((clPlatforms[platformIndex])()), 0};
 
-			if (context) delete context;
+			if (contexts[0]) delete contexts[0];
+			if (contexts[1]) delete contexts[1];
 			contextReady = false;
 
 			cl_int err = 0;
 
 			// Constructs a context including all or a subset of devices of a specified type.
 			// supports multiple devices
-			switch (deviceType)
+
+			for (int d = 0; d < 2; d++)
 			{
-				case cOpenClDevice::openClDeviceTypeACC:
-					context = new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cProps, nullptr, nullptr, &err);
-					break;
-				case cOpenClDevice::openClDeviceTypeALL:
-					context = new cl::Context(CL_DEVICE_TYPE_ALL, cProps, nullptr, nullptr, &err);
-					break;
-				case cOpenClDevice::openClDeviceTypeCPU:
-					context = new cl::Context(CL_DEVICE_TYPE_CPU, cProps, nullptr, nullptr, &err);
-					break;
-				case cOpenClDevice::openClDeviceTypeDEF:
-					context = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cProps, nullptr, nullptr, &err);
-					break;
-				case cOpenClDevice::openClDeviceTypeGPU:
-					context = new cl::Context(CL_DEVICE_TYPE_GPU, cProps, nullptr, nullptr, &err);
-					break;
+				switch (deviceType)
+				{
+					case cOpenClDevice::openClDeviceTypeACC:
+						contexts[d] =
+							new cl::Context(CL_DEVICE_TYPE_ACCELERATOR, cProps, nullptr, nullptr, &err);
+						break;
+					case cOpenClDevice::openClDeviceTypeALL:
+						contexts[d] = new cl::Context(CL_DEVICE_TYPE_ALL, cProps, nullptr, nullptr, &err);
+						break;
+					case cOpenClDevice::openClDeviceTypeCPU:
+						contexts[d] = new cl::Context(CL_DEVICE_TYPE_CPU, cProps, nullptr, nullptr, &err);
+						break;
+					case cOpenClDevice::openClDeviceTypeDEF:
+						contexts[d] = new cl::Context(CL_DEVICE_TYPE_DEFAULT, cProps, nullptr, nullptr, &err);
+						break;
+					case cOpenClDevice::openClDeviceTypeGPU:
+						contexts[d] = new cl::Context(CL_DEVICE_TYPE_GPU, cProps, nullptr, nullptr, &err);
+						break;
+				}
 			}
 
 			if (checkErr(err, "Context::Context()"))
@@ -208,7 +218,8 @@ void cOpenClHardware::ListOpenClDevices()
 
 	if (contextReady)
 	{
-		clDevices = context->getInfo<CL_CONTEXT_DEVICES>(&err);
+		clDevices.append(contexts[0]->getInfo<CL_CONTEXT_DEVICES>(&err));
+		clDevices.append(contexts[1]->getInfo<CL_CONTEXT_DEVICES>(&err));
 
 		if (checkErr(err, "Context::getInfo()"))
 		{
@@ -217,33 +228,37 @@ void cOpenClHardware::ListOpenClDevices()
 				for (unsigned int i = 0; i < clDevices.size(); i++)
 				{
 					cOpenClDevice::sDeviceInformation deviceInformation;
-					clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.deviceAvailable);
-					clDevices[i].getInfo(CL_DEVICE_COMPILER_AVAILABLE, &deviceInformation.compilerAvailable);
-					clDevices[i].getInfo(CL_DEVICE_DOUBLE_FP_CONFIG, &deviceInformation.doubleFpConfig);
-					clDevices[i].getInfo(
+					clDevices[i][i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.deviceAvailable);
+					clDevices[i][i].getInfo(
+						CL_DEVICE_COMPILER_AVAILABLE, &deviceInformation.compilerAvailable);
+					clDevices[i][i].getInfo(CL_DEVICE_DOUBLE_FP_CONFIG, &deviceInformation.doubleFpConfig);
+					clDevices[i][i].getInfo(
 						CL_DEVICE_GLOBAL_MEM_CACHE_SIZE, &deviceInformation.globalMemCacheSize);
-					clDevices[i].getInfo(
+					clDevices[i][i].getInfo(
 						CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE, &deviceInformation.globalMemCachelineSize);
-					clDevices[i].getInfo(CL_DEVICE_GLOBAL_MEM_SIZE, &deviceInformation.globalMemSize);
-					clDevices[i].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &deviceInformation.localMemSize);
-					clDevices[i].getInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY, &deviceInformation.maxClockFrequency);
-					clDevices[i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.maxComputeUnits);
-					clDevices[i].getInfo(
+					clDevices[i][i].getInfo(CL_DEVICE_GLOBAL_MEM_SIZE, &deviceInformation.globalMemSize);
+					clDevices[i][i].getInfo(CL_DEVICE_LOCAL_MEM_SIZE, &deviceInformation.localMemSize);
+					clDevices[i][i].getInfo(
+						CL_DEVICE_MAX_CLOCK_FREQUENCY, &deviceInformation.maxClockFrequency);
+					clDevices[i][i].getInfo(CL_DEVICE_MAX_COMPUTE_UNITS, &deviceInformation.maxComputeUnits);
+					clDevices[i][i].getInfo(
 						CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE, &deviceInformation.maxConstantBufferSize);
-					clDevices[i].getInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE, &deviceInformation.maxMemAllocSize);
-					clDevices[i].getInfo(CL_DEVICE_MAX_PARAMETER_SIZE, &deviceInformation.maxParameterSize);
-					clDevices[i].getInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE, &deviceInformation.maxWorkGroupSize);
+					clDevices[i][i].getInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE, &deviceInformation.maxMemAllocSize);
+					clDevices[i][i].getInfo(
+						CL_DEVICE_MAX_PARAMETER_SIZE, &deviceInformation.maxParameterSize);
+					clDevices[i][i].getInfo(
+						CL_DEVICE_MAX_WORK_GROUP_SIZE, &deviceInformation.maxWorkGroupSize);
 
 					std::string deviceName;
-					clDevices[i].getInfo(CL_DEVICE_NAME, &deviceName);
+					clDevices[i][i].getInfo(CL_DEVICE_NAME, &deviceName);
 					deviceInformation.deviceName = QString(deviceName.c_str());
 
 					std::string deviceVersion;
-					clDevices[i].getInfo(CL_DEVICE_VERSION, &deviceVersion);
+					clDevices[i][i].getInfo(CL_DEVICE_VERSION, &deviceVersion);
 					deviceInformation.deviceVersion = QString(deviceVersion.c_str());
 
 					std::string driverVersion;
-					clDevices[i].getInfo(CL_DRIVER_VERSION, &driverVersion);
+					clDevices[i][i].getInfo(CL_DRIVER_VERSION, &driverVersion);
 					deviceInformation.driverVersion = QString(driverVersion.c_str());
 
 					WriteLogInt("OpenCL Device # ", i, 2);
@@ -275,7 +290,7 @@ void cOpenClHardware::ListOpenClDevices()
 					deviceInformation.hash = hashCrypt.result().left(3);
 
 					devicesInformation.append(deviceInformation);
-					clDeviceWorkers.append(cOpenClDevice(&clDevices[i], deviceInformation));
+					clDeviceWorkers.append(cOpenClDevice(&clDevices[i][i], deviceInformation));
 				}
 			}
 			else

@@ -139,8 +139,8 @@ bool cOpenClEngineRenderSSAO::LoadSourcesAndCompile(const cParameterContainer *p
 void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContainer *params)
 {
 	Q_UNUSED(params);
-	inputBuffers << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
-	inputBuffers << sClInputOutputBuffer(
+	inputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "z-buffer");
+	inputBuffers[0] << sClInputOutputBuffer(
 		sizeof(cl_float), 2 * paramsSSAO.quality, "sine-cosine buffer");
 	outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
@@ -218,13 +218,13 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// copy zBuffer to input buffer
 		for (int i = 0; i < numberOfPixels; i++)
 		{
-			((cl_float *)inputBuffers[zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
+			((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
 		}
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i] =
+			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i] =
 				sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			((cl_float *)inputBuffers[sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
+			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
 				cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
 		}
 

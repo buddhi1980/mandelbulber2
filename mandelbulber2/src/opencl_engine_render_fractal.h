@@ -112,18 +112,18 @@ private:
 	static QString toCamelCase(const QString &s);
 
 	QScopedPointer<sClInConstants> constantInBuffer;
-	QScopedPointer<cl::Buffer> inCLConstBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLConstBuffer;
 
 	QScopedPointer<sClMeshExport> constantInMeshExportBuffer;
-	QScopedPointer<cl::Buffer> inCLConstMeshExportBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLConstMeshExportBuffer;
 
 	QByteArray inBuffer;
-	QScopedPointer<cl::Buffer> inCLBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLBuffer;
 
 	QByteArray inTextureBuffer;
-	QScopedPointer<cl::Buffer> inCLTextureBuffer;
+	QList<QSharedPointer<cl::Buffer>> inCLTextureBuffer;
 
-	QScopedPointer<cl::Image2D> backgroundImage2D;
+	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
 	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
 
 	QScopedPointer<cOpenClDynamicData> dynamicData;

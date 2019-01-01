@@ -76,8 +76,13 @@ public:
 	void DisableDevice(int index);
 	void EnableDevicesByHashList(const QString &list);
 
-	const std::vector<cl::Device> &getClDevices() const { return clDevices; }
+	const std::vector<cl::Device> &getClDevices(int contextIndex) const
+	{
+		return clDevices[contextIndex];
+	}
 	const QList<cOpenClDevice> &getClWorkers() const { return clDeviceWorkers; }
+	cl::Context *getContext(int d) const { return contexts[d]; }
+
 	QList<const cl::Device *> getEnabledDevices() const
 	{
 		QList<const cl::Device *> enabledDevices;
@@ -88,7 +93,7 @@ public:
 
 		return enabledDevices;
 	}
-	cl::Context *getContext() const { return context; }
+
 	QList<cOpenClDevice::sDeviceInformation> &getSelectedDevicesInformation()
 	{
 		selectedDevicesInformation = QList<cOpenClDevice::sDeviceInformation>();
@@ -99,6 +104,7 @@ public:
 
 		return selectedDevicesInformation;
 	}
+
 	int getSelectedPlatformIndex() { return selectedPlatformIndex; }
 
 	QList<int> getSelectedDevicesIndices() { return selectedDevicesIndices; }
@@ -114,7 +120,7 @@ private:
 	void ListOpenClDevices();
 
 protected:
-	std::vector<cl::Device> clDevices;
+	QList<std::vector<cl::Device>> clDevices;
 	QList<cOpenClDevice> clDeviceWorkers;
 	QList<sPlatformInformation> platformsInformation;
 	QList<cOpenClDevice::sDeviceInformation> devicesInformation;
@@ -123,7 +129,7 @@ protected:
 
 	// The Multi-GPU System only supports (1) platform
 	// 1 context == 1 platform
-	cl::Context *context;
+	QVector<cl::Context *> contexts;
 	bool isNVidia;
 	bool isAMD;
 
