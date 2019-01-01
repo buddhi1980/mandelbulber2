@@ -439,7 +439,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-          name="checkBox_transf_function_enabledBx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
           <property name="text">
            <string>Slot 4</string>
           </property>
@@ -485,21 +485,21 @@
          </widget>
         </item>
         <item row="0" column="3">
-          name="checkBox_transf_function_enabledAz_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
           <property name="text">
            <string>Slot 3</string>
           </property>
          </widget>
         </item>
         <item row="0" column="5">
-          name="checkBox_transf_function_enabledBy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
            <string>Slot 5</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-          name="checkBox_transf_function_enabledAy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
           <property name="text">
            <string>Slot 2</string>
           </property>
@@ -671,7 +671,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-          name="checkBox_transf_function_enabledAx">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
           <property name="text">
            <string>Slot 1</string>
           </property>
@@ -1626,7 +1626,7 @@ offset:</string>
             </widget>
            </item>
            <item row="0" column="0" colspan="2">
-             name="checkBox_transf_alternate_enabled_false">
+            <widget class="MyCheckBox" name="checkBox_transf_alternate_enabled_false">
              <property name="text">
               <string>alternate swap</string>
              </property>
