@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_conditional</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>898</width>
-    <height>928</height>
+    <height>945</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,41 @@
     </widget>
    </item>
    <item>
+    <layout class="QGridLayout" name="gridLayout_81">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item row="3" column="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+       <property name="text">
+        <string notr="true">z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="text">
+        <string notr="true">z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_72">
+       <property name="text">
+        <string>Enable Axis</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1">
      <property name="spacing">
       <number>2</number>
@@ -56,7 +91,7 @@
       </widget>
      </item>
      <item row="9" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -125,13 +160,6 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="text">
-        <string notr="true">z.z</string>
-       </property>
-      </widget>
-     </item>
      <item row="3" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_111_x">
        <property name="sizePolicy">
@@ -164,13 +192,6 @@
       <widget class="Line" name="line_7">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-       <property name="text">
-        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
@@ -210,7 +231,7 @@
       </widget>
      </item>
      <item row="8" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -238,7 +259,7 @@
       </widget>
      </item>
      <item row="10" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -262,13 +283,6 @@
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="text">
-        <string notr="true">z.x</string>
        </property>
       </widget>
      </item>
@@ -311,6 +325,27 @@
       <widget class="QLabel" name="label_112">
        <property name="text">
         <string>Analytic DE Tweak:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_120">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLabel" name="label_121">
+       <property name="text">
+        <string notr="true">z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_122">
+       <property name="text">
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -452,15 +487,12 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>checkBox_transf_function_enabledx</tabstop>
   <tabstop>spinbox3_transf_offset_111_x</tabstop>
-  <tabstop>checkBox_transf_function_enabledy</tabstop>
   <tabstop>spinbox3_transf_offset_111_y</tabstop>
-  <tabstop>checkBox_transf_function_enabledz</tabstop>
   <tabstop>spinbox3_transf_offset_111_z</tabstop>
-  <tabstop>spinbox3_transf_offset_000_x</tabstop>
-  <tabstop>spinbox3_transf_offset_000_y</tabstop>
-  <tabstop>spinbox3_transf_offset_000_z</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_x</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_y</tabstop>
+  <tabstop>spinbox3_transf_scale3D_000_z</tabstop>
   <tabstop>spinbox_analyticDE_scale_1</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
@@ -485,7 +517,7 @@
   <connection>
    <sender>checkBox_transf_function_enabledx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_offset_000_x</receiver>
+   <receiver>spinbox3_transf_scale3D_000_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -517,7 +549,7 @@
   <connection>
    <sender>checkBox_transf_function_enabledy</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_offset_000_y</receiver>
+   <receiver>spinbox3_transf_scale3D_000_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -549,7 +581,7 @@
   <connection>
    <sender>checkBox_transf_function_enabledz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_offset_000_z</receiver>
+   <receiver>spinbox3_transf_scale3D_000_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">

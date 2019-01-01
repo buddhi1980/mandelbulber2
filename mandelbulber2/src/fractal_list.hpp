@@ -268,9 +268,9 @@ enum enumFractalFormula
 	transfAddExp2Z = 1062, // updated V2.12
 	transfReciprocal3 = 1063,
 	transfRotationFolding = 1064,
-	transfAbsAddConditional = 1065,
+	transfAbsAddConditional = 1065, // scale fixed v2.17
 	transfReciprocal4d = 1066,
-	transfAbsAddConditional4d = 1067,
+	transfAbsAddConditional4d = 1067, // scale fixed v2.17
 	transfSphericalOffsetVCL = 1068, // fixed v2.14
 	transfRotation4d = 1069,
 	// 2.11

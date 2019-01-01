@@ -968,6 +968,7 @@ void InitFractalParams(cParameterContainer *par)
 		"transf_addition_constant_111d5", CVector4(1.0, 1.0, 1.0, 0.5), morphAkima, paramStandard);
 	par->addParam(
 		"transf_constant_multiplier_1220", CVector4(1.0, 2.0, 2.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_scale_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 
 	par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);
@@ -1020,6 +1021,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation2_enabled_false", false, morphLinear, paramStandard);
+	par->addParam("transf_spheres_enabled", true, morphLinear, paramStandard);
 
 	// platonic_solid
 
