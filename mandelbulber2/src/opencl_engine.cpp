@@ -594,7 +594,6 @@ bool cOpenClEngine::WriteBuffersToQueue()
 
 bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 {
-	qDebug() << "readStart" << deviceIndex;
 	for (auto &outputBuffer : outputBuffers[deviceIndex])
 	{
 		cl_int err = clQueues[deviceIndex]->enqueueReadBuffer(
@@ -623,7 +622,6 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			}
 		}
 	}
-	qDebug() << "readEnd" << deviceIndex;
 
 	int err = clQueues[deviceIndex]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
@@ -632,7 +630,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}
-	qDebug() << "readFinished" << deviceIndex;
+
 	return true;
 }
 

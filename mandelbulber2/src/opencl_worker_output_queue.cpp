@@ -22,7 +22,7 @@ void cOpenCLWorkerOutputQueue::AddToQueue(const sClSingleOutput *data)
 {
 	lock.lock();
 	queue.enqueue(*data);
-	qDebug() << "Queue size after add" << queue.size();
+	// qDebug() << "Queue size after add" << queue.size();
 	lock.unlock();
 }
 

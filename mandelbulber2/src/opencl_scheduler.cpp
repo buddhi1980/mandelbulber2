@@ -73,7 +73,6 @@ int cOpenClScheduler::GetNextTileToRender(int lastTile)
 		}
 	}
 	lock.unlock();
-	qDebug() << nextTile;
 	return nextTile;
 }
 

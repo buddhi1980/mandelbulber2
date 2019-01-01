@@ -12,7 +12,7 @@
 #include <QtCore>
 
 #include "opencl_engine.h"
-#include "opencl_worker_therad.h"
+#include "opencl_worker_thread.h"
 #include "opencl_scheduler.h"
 
 using std::min;
@@ -63,9 +63,6 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			int gridY = scheduler->getTileSequence()->at(tile).y();
 			qint64 jobX = gridX * optimalStepX;
 			qint64 jobY = gridY * optimalStepY;
-
-			qDebug() << jobX << jobY;
-
 			qint64 pixelsLeftX = imageWidth - jobX;
 			qint64 pixelsLeftY = imageHeight - jobY;
 			qint64 jobWidth = min(optimalStepX, pixelsLeftX);
@@ -73,13 +70,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			if (jobX >= 0 && jobX < imageWidth && jobY >= 0 && jobY < imageHeight)
 			{
-
-				qDebug() << "start processClQueue" << deviceIndex;
 				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
-				qDebug() << "after processClQueue" << deviceIndex;
 
 				engine->ReadBuffersFromQueue(deviceIndex);
-				qDebug() << "buffer read" << deviceIndex;
 
 				qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
 				qint64 outputItemlength = outputBuffers.at(outputIndex).length;

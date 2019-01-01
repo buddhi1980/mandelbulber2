@@ -557,7 +557,9 @@ bool cRenderJob::Execute()
 			result =
 				gOpenCl->openClEngineRenderFractal->RenderMulti(image, renderData->stopRequest, renderData);
 		}
+		WriteLog("OpenCL RenderMulti exited", 2);
 		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+		WriteLog("OpenCL memory released", 2);
 		gOpenCl->openClEngineRenderFractal->Unlock();
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);

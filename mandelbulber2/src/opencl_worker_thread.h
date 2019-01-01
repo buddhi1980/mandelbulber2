@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_
-#define MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_
+#ifndef MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_
+#define MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_
 #include "opencl_input_output_buffer.h"
 
 #ifdef USE_OPENCL
@@ -86,4 +86,4 @@ signals:
 
 #endif // USE_OPENCL
 
-#endif /* MANDELBULBER2_SRC_OPENCL_WORKER_THERAD_H_ */
+#endif /* MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_ */
