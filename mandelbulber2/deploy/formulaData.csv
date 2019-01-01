@@ -40,6 +40,7 @@ ides,Ides,deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFu
 ides2,"Ides 2",deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 iqBulb,"IQ Bulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 josKleinian,JosLeys-Kleinian,analyticDEType,josKleinianDEFunction,cpixelDisabledByDefault,10,analyticFunctionJosKleinian,coloringFunctionDefault
+josKleinianV2,"JosLeys-Kleinian V2",analyticDEType,josKleinianDEFunction,cpixelDisabledByDefault,10,analyticFunctionJosKleinian,coloringFunctionDefault
 kaleidoscopicIfs,"Kaleidoscopic IFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionIFS,coloringFunctionIFS
 kalisets1,"Kalisets1 Mod",analyticDEType,linearDEFunction,cpixelEnabledByDefault,10,analyticFunctionLinear,coloringFunctionDefault
 lkmitch,Lkmitch,deltaDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
@@ -195,6 +196,7 @@ transfAbsAddConstant4d,"T>Abs Add Constant 4D",analyticDEType,withoutDEFunction,
 transfAbsAddTgladFold4d,"T>Abs Add Tglad Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4d,"T>Box Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4dTglad,"T>Box Fold 4D Tglad",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfBoxWrap4d,"T>Box Wrap 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfIterationWeight4d,"T>Iteration Weight 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfReciprocal4d,"T>Reciprocal 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotation4d,"T>Rotation 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault

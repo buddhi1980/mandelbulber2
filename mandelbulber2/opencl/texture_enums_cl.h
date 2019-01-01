@@ -58,14 +58,16 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum {
+typedef enum
+{
 	mappingSpherical = 0,
 	mappingCubic = 1,
 	mappingCylindrical = 2,
 	mappingPlanar = 3
 } enumTextureMappingCl;
 
-typedef enum {
+typedef enum
+{
 	texColor = 0,
 	texDiffuse = 1,
 	texLuminosity = 2,

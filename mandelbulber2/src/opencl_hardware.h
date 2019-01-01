@@ -117,7 +117,7 @@ protected:
 	static bool checkErr(cl_int err, QString functionName);
 
 private:
-	void ListOpenClDevices();
+	void ListOpenClDevices(int contextIndex);
 
 protected:
 	QList<std::vector<cl::Device>> clDevices;
@@ -127,7 +127,8 @@ protected:
 	QList<cOpenClDevice::sDeviceInformation> selectedDevicesInformation;
 	QList<cl::Device> enabledDevices;
 
-	// The Multi-GPU System only supports (1) platform
+	// The Multi-GPU System only supports (1) platform - separate cotexts for each device
+	//because even when used different therads, the devices blocked each other.
 	// 1 context == 1 platform
 	QVector<cl::Context *> contexts;
 	bool isNVidia;
