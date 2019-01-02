@@ -25,7 +25,6 @@ public:
 		qint64 itemSize;
 		qint64 length;
 		std::vector<char> data;
-
 	};
 
 	struct sClSingleOutput
@@ -34,6 +33,10 @@ public:
 		qint64 jobY;
 		qint64 jobWidth;
 		qint64 jobHeight;
+		int gridX;
+		int gridY;
+		int tileIndex;
+		int monteCarloLoop;
 		QList<sClDataBuffer> outputBuffers;
 	};
 

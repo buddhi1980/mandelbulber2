@@ -48,7 +48,11 @@ public:
 	{
 		this->outputQueue = outputQueue;
 	}
-	void setRepeatMcLoop(bool repeatMcLoop) { repeatMCLoop = repeatMcLoop; }
+	void setMaxMonteCarloSamples(int maxMonteCarloSamples)
+	{
+		this->maxMonteCarloSamples = maxMonteCarloSamples;
+	}
+	void setStopRequest(bool *stopRequest) { this->stopRequest = stopRequest; }
 
 private:
 	static bool checkErr(cl_int err, QString functionName);
@@ -60,6 +64,7 @@ private:
 	QSharedPointer<cOpenClScheduler> scheduler;
 	QList<sClInputOutputBuffer> outputBuffers;
 	QList<sClInputOutputBuffer> inputAndOutputBuffers;
+	bool *stopRequest;
 
 	const int outputIndex = 0;
 
@@ -69,10 +74,9 @@ private:
 	qint64 optimalStepY;
 	qint64 imageWidth;
 	qint64 imageHeight;
+	int maxMonteCarloSamples;
 
 	const int deviceIndex;
-
-	bool repeatMCLoop;
 
 public slots:
 	void ProcessRenderingLoop();
@@ -80,8 +84,6 @@ public slots:
 signals:
 	void showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *);
 	void finished();
-
-
 };
 
 #endif // USE_OPENCL

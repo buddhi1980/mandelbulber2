@@ -22,12 +22,13 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 		: QObject(), deviceIndex(_deviceIndex)
 {
 	this->scheduler = scheduler;
-	repeatMCLoop = false;
 	optimalStepX = 0;
 	optimalStepY = 0;
 	this->engine = engine;
 	imageWidth = 0;
 	imageHeight = 0;
+	maxMonteCarloSamples = 1;
+	stopRequest = nullptr;
 }
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
@@ -51,11 +52,14 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	int startTile = deviceIndex;
 	if (startTile >= scheduler->getTileSequence()->length()) return;
 
-	do
+	for (int monteCarloLoop = 1; monteCarloLoop <= maxMonteCarloSamples; monteCarloLoop++)
 	{
-		for (int tile = startTile; !scheduler->AllDone(); tile = scheduler->GetNextTileToRender(tile))
+		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
+				 tile = scheduler->GetNextTileToRender(tile, monteCarloLoop))
 		{
 			if (tile < 0) break;
+			if (!scheduler->IsTileEnabled(tile)) continue;
+
 			// refresh parameters (needed to update random seed)
 			engine->AssignParametersToKernel(deviceIndex);
 
@@ -85,16 +89,23 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				cOpenCLWorkerOutputQueue::sClSingleOutput outputDataForQueue;
 				outputDataForQueue.jobX = jobX;
 				outputDataForQueue.jobY = jobY;
+				outputDataForQueue.gridX = gridX;
+				outputDataForQueue.gridY = gridY;
+				outputDataForQueue.tileIndex = tile;
 				outputDataForQueue.jobWidth = jobWidth;
 				outputDataForQueue.jobHeight = jobHeight;
+				outputDataForQueue.monteCarloLoop = monteCarloLoop;
 				outputDataForQueue.outputBuffers.append(dataBuffer);
 
 				outputQueue->AddToQueue(&outputDataForQueue);
 			}
 
-			// TODO: write code for scheduler;
-		}
-	} while (repeatMCLoop);
+			if (*stopRequest) break;
+		} // next tile
+
+		if (*stopRequest) break;
+	} // next monteCarloLoop
+
 	emit finished();
 }
 

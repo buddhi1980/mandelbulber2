@@ -37,11 +37,13 @@ void cOpenClScheduler::EnableAllTiles()
 
 void cOpenClScheduler::Clear()
 {
+	lock.lock();
 	for (sTileStatus &status : tiles)
 	{
-		status.done = false;
-		status.reserved = false;
+		status.done = 0;
+		status.reserved = 0;
 	}
+	lock.unlock();
 }
 
 void cOpenClScheduler::DisableTile(int tileIndex)
@@ -51,24 +53,24 @@ void cOpenClScheduler::DisableTile(int tileIndex)
 	}
 }
 
-int cOpenClScheduler::GetNextTileToRender(int lastTile)
+int cOpenClScheduler::GetNextTileToRender(int lastTile, int monteCarloIteration)
 {
 	lock.lock();
 
-	tiles[lastTile].done = true;
+	tiles[lastTile].done = monteCarloIteration; // done at n MC iteration
 
 	int nextTile = -1; //-1 if nothing more to do
 
 	for (int i = lastTile + 1; i < tileSequence->size(); i++)
 	{
-		if (tiles[i].reserved)
+		if (tiles[i].reserved >= monteCarloIteration || !tiles[i].enabled)
 		{
 			continue;
 		}
 		else
 		{
 			nextTile = i;
-			tiles[i].reserved = true;
+			tiles[i].reserved = monteCarloIteration; // reserve for n MC iterartion
 			break;
 		}
 	}
@@ -76,11 +78,13 @@ int cOpenClScheduler::GetNextTileToRender(int lastTile)
 	return nextTile;
 }
 
-bool cOpenClScheduler::AllDone()
+bool cOpenClScheduler::AllDone(int monteCarloIteration)
 {
 	for (sTileStatus &status : tiles)
 	{
-		if (!status.done) return false;
+		if (status.done < monteCarloIteration)
+			return false; // if tile was only done for lower MC iteration
+										// then something is still to to for actual iteration
 	}
 	return true;
 }

@@ -16,8 +16,8 @@ class cOpenClScheduler
 	struct sTileStatus
 	{
 		bool enabled;
-		bool reserved;
-		bool done;
+		int reserved; // MC iteration number where was reserved
+		int done;			// MC iteration number where was done
 	};
 
 public:
@@ -25,9 +25,10 @@ public:
 	~cOpenClScheduler();
 	void EnableAllTiles();
 	void DisableTile(int tileIndex);
+	int IsTileEnabled(int tileIndex) {return tiles[tileIndex].enabled;}
 	void Clear();
-	int GetNextTileToRender(int lastTile);
-	bool AllDone();
+	int GetNextTileToRender(int lastTile, int monteCarloIteration);
+	bool AllDone(int monteCarloIteration);
 
 	const QList<QPoint> *getTileSequence() const { return tileSequence; }
 
