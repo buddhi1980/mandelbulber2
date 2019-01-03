@@ -91,6 +91,11 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		// calculating hash code of the program
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
 		hashCryptProgram.addData(programString);
+		// recompile also if selected devices changed
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			hashCryptProgram.addData((char *)&hardware->getSelectedDevicesIndices()[d], sizeof(int));
+		}
 		QByteArray hashProgram = hashCryptProgram.result();
 
 		// calculating hash code of build parameters

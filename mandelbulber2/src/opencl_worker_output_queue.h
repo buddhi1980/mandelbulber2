@@ -45,6 +45,7 @@ public:
 	void AddToQueue(const sClSingleOutput *data);
 	sClSingleOutput GetFromQueue();
 	bool isEmpty();
+	int getQueueLength();
 
 private:
 	QQueue<sClSingleOutput> queue;

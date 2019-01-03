@@ -1218,7 +1218,6 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		qint64 pixelsRendered = 0;
 		int lastMonteCarloLoop = 1;
 
-
 		do
 		{
 			while (!outputQueue->isEmpty())
@@ -1251,17 +1250,17 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						{
 							sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 							sRGBFloat newPixel;
-							newPixel.R =
-								oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop) + pixel.R * (1.0 / output.monteCarloLoop);
-							newPixel.G =
-								oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop) + pixel.G * (1.0 / output.monteCarloLoop);
-							newPixel.B =
-								oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop) + pixel.B * (1.0 / output.monteCarloLoop);
+							newPixel.R = oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop)
+													 + pixel.R * (1.0 / output.monteCarloLoop);
+							newPixel.G = oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop)
+													 + pixel.G * (1.0 / output.monteCarloLoop);
+							newPixel.B = oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop)
+													 + pixel.B * (1.0 / output.monteCarloLoop);
 							image->PutPixelImage(xx, yy, newPixel);
 							image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
 							unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
-							unsigned short newAlpha =
-								(double)oldAlpha * (1.0 - 1.0 / output.monteCarloLoop) + alpha * (1.0 / output.monteCarloLoop);
+							unsigned short newAlpha = (double)oldAlpha * (1.0 - 1.0 / output.monteCarloLoop)
+																				+ alpha * (1.0 / output.monteCarloLoop);
 							image->PutPixelAlpha(xx, yy, newAlpha);
 							image->PutPixelColor(xx, yy, color);
 							image->PutPixelOpacity(xx, yy, opacity);
@@ -1305,11 +1304,15 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						doneMCpixels += jobWidth * jobHeight;
 						doneMC = double(doneMCpixels) / double(numberOfPixels);
 					}
-					lastMonteCarloLoop = output.monteCarloLoop; //needed for progress bar
+					lastMonteCarloLoop = output.monteCarloLoop; // needed for progress bar
+
+					if (lastMonteCarloLoop == 1)
+						renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
+					renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
 				}
 
 				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
-			}//while something in queue
+			} // while something in queue
 
 			if (lastRenderedRects.size() > 0 && progressRefreshTimer.elapsed() > 100)
 			{
@@ -1320,14 +1323,21 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				}
 				else
 				{
-					percentDone = double(lastMonteCarloLoop - 1) / numberOfSamples
-												+ double(pixelsRendered) / numberOfPixels / numberOfSamples;
+					percentDone = double(pixelsRendered) / numberOfPixels / numberOfSamples;
 
 					percentDone = percentDone * (1.0 - doneMC) + doneMC;
 				}
 				emit updateProgressAndStatus(
 					tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
 					progressText.getText(percentDone), percentDone);
+
+				double totalNoise = 0.0;
+				for (qint64 i = 0; i < noiseTableSize; i++)
+				{
+					totalNoise += noiseTable[i];
+				}
+				totalNoise /= noiseTableSize;
+				renderData->statistics.totalNoise = totalNoise * width * height;
 
 				emit updateStatistics(renderData->statistics);
 

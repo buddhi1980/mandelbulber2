@@ -22,7 +22,8 @@ void cOpenCLWorkerOutputQueue::AddToQueue(const sClSingleOutput *data)
 {
 	lock.lock();
 	queue.enqueue(*data);
-	// qDebug() << "Queue size after add" << queue.size();
+	//qDebug() << "Queue size after add" << queue.size();
+	//qDebug() << data->gridX << data->gridY << data->tileIndex;
 	lock.unlock();
 }
 
@@ -50,6 +51,14 @@ bool cOpenCLWorkerOutputQueue::isEmpty()
 	lock.unlock();
 
 	return isempty;
+}
+
+int cOpenCLWorkerOutputQueue::getQueueLength()
+{
+	lock.lock();
+	int queueLength = queue.length();
+	lock.unlock();
+	return queueLength;
 }
 
 #endif // USE_OPENCL

@@ -5,6 +5,7 @@
  *      Author: krzysztof
  */
 #include "opencl_worker_output_queue.h"
+#include "system.hpp"
 
 #ifdef USE_OPENCL
 
@@ -101,6 +102,13 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			}
 
 			if (*stopRequest) break;
+
+			// slow down to reduce length of queue
+			int queueLength = outputQueue->getQueueLength();
+			if (queueLength > 10)
+			{
+				Wait((queueLength - 10));
+			}
 		} // next tile
 
 		if (*stopRequest) break;
