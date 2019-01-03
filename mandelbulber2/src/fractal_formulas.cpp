@@ -4337,16 +4337,13 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
 	CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
 	CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+
 	z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-	{
 		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
 
-		//z.x = -b - z.x;
-		//z.y = a - z.y;
-	}
 
 	double z2 = z.Dot(z);
 
@@ -4360,7 +4357,40 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	aux.pseudoKleinianDE *= iR;
 
 
-	if ( aux.i >= fractal->transformCommon.startIterationsE
+	if (fractal->transformCommon.functionEnabledDFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		double rSqrL;
+		CVector4 tempC;
+		if (fractal->transformCommon.functionEnabledSwFalse)
+		{
+			tempC = aux.c;
+			tempC *= fractal->transformCommon.constantMultiplier000;
+			rSqrL = tempC.Dot(tempC);
+			// if (rSqrL < 1e-21) rSqrL = 1e-21;
+			rSqrL = 1.0 / rSqrL;
+			tempC *= rSqrL;
+			aux.c = tempC;
+
+		}
+		else
+		{
+			tempC = aux.const_c;
+			tempC *= fractal->transformCommon.constantMultiplier000;
+			rSqrL = tempC.Dot(tempC);
+			// if (rSqrL < 1e-21) rSqrL = 1e-21;
+			rSqrL = 1.0 / rSqrL;
+			tempC *= rSqrL;
+		}
+		z +=tempC;
+	}
+
+
+
+
+	if ( fractal->transformCommon.functionEnabledEFalse
+		 && aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
 		z.z = sign(z.z) * (fractal->transformCommon.offset1 - fabs(z.z)
