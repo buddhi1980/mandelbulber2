@@ -4253,6 +4253,18 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		z -= fractal->transformCommon.offset000;
+		double rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1/rr;
+		z += fractal->transformCommon.offset000;
+		//aux.DE = fractal->transformCommon.maxR2d1/rr;
+
+	}
+
 	double a = fractal->transformCommon.foldingValue;
 	double b = fractal->transformCommon.offset;
 	double f = sign(b);
@@ -4289,33 +4301,16 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledDFalse
+	if (fractal->transformCommon.sphereInversionEnabledFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		double rSqrL;
-		CVector4 tempC;
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			tempC = aux.c;
-			tempC *= fractal->transformCommon.constantMultiplier000;
-			rSqrL = tempC.Dot(tempC);
-			// if (rSqrL < 1e-21) rSqrL = 1e-21;
-			rSqrL = 1.0 / rSqrL;
-			tempC *= rSqrL;
-			aux.c = tempC;
+		z -= fractal->transformCommon.offset000;
+		double rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1/rr;
+		z += fractal->transformCommon.offset000;
+		//aux.DE = fractal->transformCommon.maxR2d1/rr;
 
-		}
-		else
-		{
-			tempC = aux.const_c;
-			tempC *= fractal->transformCommon.constantMultiplier000;
-			rSqrL = tempC.Dot(tempC);
-			// if (rSqrL < 1e-21) rSqrL = 1e-21;
-			rSqrL = 1.0 / rSqrL;
-			tempC *= rSqrL;
-		}
-		z +=tempC;
 	}
 
 
@@ -14208,6 +14203,65 @@ void QuaternionCubic4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 }
 
 /**
+ * abs add  constant,  z = abs( z + pre-offset) + post-offset
+ */
+void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	z += fractal->transformCommon.additionConstant0000;
+
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabled) z.w = fabs(z.w);
+
+	z += fractal->transformCommon.offset0000;
+}
+
+/**
+ * abs.  Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
+ */
+void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	z = fabs(z + fractal->transformCommon.additionConstant0000)
+			- fabs(z - fractal->transformCommon.additionConstant0000) - z;
+}
+
+/**
+ * abs add conditional4D
+ */
+void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		z.x = sign(z.x) * (fractal->transformCommon.offset1111.x - fabs(z.x)
+												+ fabs(z.x) * fractal->transformCommon.scale0000.x);
+	}
+
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		z.y = sign(z.y) * (fractal->transformCommon.offset1111.y - fabs(z.y)
+												+ fabs(z.y) * fractal->transformCommon.scale0000.y);
+	}
+
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		z.z = sign(z.z) * (fractal->transformCommon.offset1111.z - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.scale0000.z);
+	}
+
+	if (fractal->transformCommon.functionEnabledw)
+	{
+		z.w = sign(z.w) * (fractal->transformCommon.offset1111.w - fabs(z.w)
+												+ fabs(z.w) * fractal->transformCommon.scale0000.w);
+	}
+	aux.DE *= fractal->analyticDE.scale1; // DE tweak
+}
+
+/**
  * Adds c constant to z vector 4D
  */
 void TransfAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -14338,64 +14392,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	aux.DE *= fractal->analyticDE.scale1;
 }
 
-/**
- * abs add  constant,  z = abs( z + pre-offset) + post-offset
- */
-void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
 
-	z += fractal->transformCommon.additionConstant0000;
-
-	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
-	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
-	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
-	if (fractal->transformCommon.functionEnabled) z.w = fabs(z.w);
-
-	z += fractal->transformCommon.offset0000;
-}
-
-/**
- * abs.  Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
- */
-void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
-
-	z = fabs(z + fractal->transformCommon.additionConstant0000)
-			- fabs(z - fractal->transformCommon.additionConstant0000) - z;
-}
-
-/**
- * abs add conditional4D
- */
-void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	if (fractal->transformCommon.functionEnabledx)
-	{
-		z.x = sign(z.x) * (fractal->transformCommon.offset1111.x - fabs(z.x)
-												+ fabs(z.x) * fractal->transformCommon.scale0000.x);
-	}
-
-	if (fractal->transformCommon.functionEnabledy)
-	{
-		z.y = sign(z.y) * (fractal->transformCommon.offset1111.y - fabs(z.y)
-												+ fabs(z.y) * fractal->transformCommon.scale0000.y);
-	}
-
-	if (fractal->transformCommon.functionEnabledz)
-	{
-		z.z = sign(z.z) * (fractal->transformCommon.offset1111.z - fabs(z.z)
-												+ fabs(z.z) * fractal->transformCommon.scale0000.z);
-	}
-
-	if (fractal->transformCommon.functionEnabledw)
-	{
-		z.w = sign(z.w) * (fractal->transformCommon.offset1111.w - fabs(z.w)
-												+ fabs(z.w) * fractal->transformCommon.scale0000.w);
-	}
-	aux.DE *= fractal->analyticDE.scale1; // DE tweak
-}
 
 /**
  * iteration weight 4D
