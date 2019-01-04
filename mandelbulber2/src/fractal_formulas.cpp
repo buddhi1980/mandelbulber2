@@ -232,6 +232,18 @@ void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z = rotM.RotateVector(z) * rp;
 }
 
+
+//3D Version of the 2D Eye Fractal
+
+void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(fractal);
+
+	//aux.DE = aux.DE * 2.0 * aux.r;
+	aux.DE = aux.r;
+	z = hypercomplex_mult(z,hypercomplex_conj(z));
+}
+
 /**
  * Classic Mandelbulb Power 2 fractal
  * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/

@@ -26,6 +26,10 @@ mandelbulber2.VC.VC.opendb
 x64/
 *.vcxproj.filters
 
+# VSCode
+
+.vscode
+
 # IntelliJ
 .idea/
 

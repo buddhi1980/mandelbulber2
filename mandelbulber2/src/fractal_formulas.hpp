@@ -134,6 +134,8 @@ void Mandelbulb2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 void Mandelbulb3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
+void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

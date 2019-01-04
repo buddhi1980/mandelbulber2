@@ -201,6 +201,9 @@ enum enumFractalFormula
 	scatorPower2 = 173,					 // added V2.15
 	scatorPower2StdR = 174,			 // added V2.15
 
+
+	mandelbulbEye = 800,
+
 	transfAddConstant = 1001,
 	transfRotation = 1002,
 	transfScale = 1003,
