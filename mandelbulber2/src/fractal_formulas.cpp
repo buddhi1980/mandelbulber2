@@ -244,6 +244,54 @@ void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	z = hypercomplex_mult(z,hypercomplex_conj(z));
 }
 
+
+
+void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// testing power2 thing, covert to non trig?
+
+	aux.DE = aux.DE * 2.0 * aux.r;
+
+	if (fractal->buffalo.preabsx) z.x = fabs(z.x);
+	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
+	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
+	// bitwise ??
+	CVector4 zz = z * z;
+	double lenXY = sqrt(zz.x + zz.y);
+	double theta1 = atan2(lenXY, z.z);
+	double theta2 = -atan2(lenXY, -z.z);
+	double phi = atan2(z.y, z.x) * fractal->transformCommon.scale1;
+
+	double rr = z.Dot(z);
+	double sinth = sin(2.0 * theta1);
+	z.x = sinth * cos(2.0 * phi);
+	z.y = sinth * sin(2.0 * phi);
+	z.z = -cos(theta1 + theta2);
+	z *= rr;
+
+	z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
+	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
+	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;
+
+	z +=  fractal->transformCommon.additionConstantA000;
+
+
+
+	/*CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n)
+	{
+		double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
+		double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
+		double phi = atan2(vec1.y, vec1.x);
+
+		double new_x = pow(r, n) * sin(theta * n) * cos(phi * n);
+		double new_y = pow(r, n) * sin(theta * n) * sin(phi * n);
+		double new_z = pow(r, n) * cos(theta * n);
+
+		return CVector4(new_x, new_y, new_z, vec1.w);
+	}*/
+}
+
+
 /**
  * Classic Mandelbulb Power 2 fractal
  * @reference http://www.fractalforums.com/3d-fractal-generation/true-3d-mandlebrot-type-fractal/

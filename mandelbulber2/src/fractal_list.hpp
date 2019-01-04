@@ -203,6 +203,7 @@ enum enumFractalFormula
 
 
 	mandelbulbEye = 800,
+	mandelbulbEyeTest = 810,
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,

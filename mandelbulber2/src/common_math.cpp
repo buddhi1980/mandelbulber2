@@ -250,35 +250,35 @@ double MagicRound(double val, double maxError)
 
 CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2)
 {
-    double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
-    double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
-    double phi = atan2(vec1.y, vec1.x);
+	double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
+	double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
+	double phi = atan2(vec1.y, vec1.x);
 
-    double r2 = sqrt(pow(vec2.x, 2) + pow(vec2.y, 2) + pow(vec2.z, 2));
-    double theta2 = atan2(sqrt(pow(vec2.x, 2) + pow(vec2.y, 2)), vec2.z);
-    double phi2 = atan2(vec2.y, vec2.x);
+	double r2 = sqrt(pow(vec2.x, 2) + pow(vec2.y, 2) + pow(vec2.z, 2));
+	double theta2 = atan2(sqrt(pow(vec2.x, 2) + pow(vec2.y, 2)), vec2.z);
+	double phi2 = atan2(vec2.y, vec2.x);
 
-    double new_x = (r * r2) * sin(theta + theta2) * cos(phi + phi2);
-    double new_y = (r * r2) * sin(theta + theta2) * sin(phi + phi2);
-    double new_z = (r * r2) * cos(theta + theta2);
+	double new_x = (r * r2) * sin(theta + theta2) * cos(phi + phi2);
+	double new_y = (r * r2) * sin(theta + theta2) * sin(phi + phi2);
+	double new_z = (r * r2) * cos(theta + theta2);
 
-    return CVector4(new_x, new_y, new_z, vec1.w);
+	return CVector4(new_x, new_y, new_z, vec1.w);
 }
 
 CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n)
 {
-    double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
-    double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
-    double phi = atan2(vec1.y, vec1.x);
+	double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
+	double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
+	double phi = atan2(vec1.y, vec1.x);
 
-    double new_x = pow(r, n) * sin(theta * n) * cos(phi * n);
-    double new_y = pow(r, n) * sin(theta * n) * sin(phi * n);
-    double new_z = pow(r, n) * cos(theta * n);
+	double new_x = pow(r, n) * sin(theta * n) * cos(phi * n);
+	double new_y = pow(r, n) * sin(theta * n) * sin(phi * n);
+	double new_z = pow(r, n) * cos(theta * n);
 
-    return CVector4(new_x, new_y, new_z, vec1.w);
+	return CVector4(new_x, new_y, new_z, vec1.w);
 }
 
 CVector4 hypercomplex_conj(const CVector4 &vec1)
 {
-    return CVector4(vec1.x, -vec1.y, -vec1.z,-vec1.w);
+	return CVector4(vec1.x, -vec1.y, -vec1.z,-vec1.w);
 }

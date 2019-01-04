@@ -254,6 +254,14 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb Eye", "mandelbulb_eye", mandelbulbEye,
 		MandelbulbEyeIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Mandelbulb Eye Test", "mandelbulb_eye_test", mandelbulbEyeTest,
+		MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
+
+
+
+
 	fractalList->append(sFractalDescription("Mandelbulb - Abs Power 2", "mandelbulb_abs_power2",
 		mandelbulbAbsPower2, MandelbulbAbsPower2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
