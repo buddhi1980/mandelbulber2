@@ -89,7 +89,9 @@ public:
 	sRGB color;
 	sRGB luminosityColor;
 	sRGB transparencyInteriorColor;
+	sRGB reflectionsColor;
 	sRGB specularColor;
+	sRGB transparencyColor;
 
 	cColorPalette palette;
 
@@ -110,6 +112,9 @@ public:
 	bool useColorsFromPalette;
 	bool specularPlasticEnable;
 	bool metallic;
+	bool luminosityColorTheSame;
+	bool reflectionsColorTheSame;
+	bool transparencyColorTheSame;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

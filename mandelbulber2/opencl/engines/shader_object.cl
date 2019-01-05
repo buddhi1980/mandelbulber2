@@ -109,7 +109,15 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 totalSpecular =
 		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
-	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
+	float3 luminosity;
+	if (input->material->luminosityColorTheSame)
+	{
+		luminosity = input->material->luminosity * surfaceColor;
+	}
+	else
+	{
+		luminosity = input->material->luminosity * input->material->luminosityColor;
+	}
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE

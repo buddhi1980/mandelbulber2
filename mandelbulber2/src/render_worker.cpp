@@ -1110,6 +1110,19 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader.G = (objectShader.G + recursionOut.specular.G);
 				resultShader.B = (objectShader.B + recursionOut.specular.B);
 
+				if(shaderInputData.material->transparencyColorTheSame)
+				{
+					transparentShader.R *= objectColour.R;
+					transparentShader.G *= objectColour.G;
+					transparentShader.B *= objectColour.B;
+				}
+				else
+				{
+					transparentShader.R *= shaderInputData.material->transparencyColor.R / 65536.0;
+					transparentShader.G *= shaderInputData.material->transparencyColor.G / 65536.0;
+					transparentShader.B *= shaderInputData.material->transparencyColor.B / 65536.0;
+				}
+
 				if (reflectionsMax > 0)
 				{
 					sRGBFloat reflectDiffused;
@@ -1121,10 +1134,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 															+ reflect * diffusionIntensityN;
 					reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffusionIntensity
 															+ reflect * diffusionIntensityN;
+					double reflectDiffusedAvg = (reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0;
 
 					reflectDiffused.R *= iridescence.R;
 					reflectDiffused.G *= iridescence.G;
 					reflectDiffused.B *= iridescence.B;
+
+					if (shaderInputData.material->reflectionsColorTheSame)
+					{
+						reflectDiffused.R *= objectColour.R;
+						reflectDiffused.G *= objectColour.G;
+						reflectDiffused.B *= objectColour.B;
+					}
+					else
+					{
+						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R / 65536.0;
+						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G / 65536.0;
+						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B / 65536.0;
+					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN
 													 + (1.0 - transparent * reflectanceN) * resultShader.R;
@@ -1134,11 +1161,11 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 													 + (1.0 - transparent * reflectanceN) * resultShader.B;
 
 					resultShader.R = reflectShader.R * reflectDiffused.R * reflectance
-													 + (1.0 - reflectDiffused.R * reflectance) * resultShader.R;
+													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.R;
 					resultShader.G = reflectShader.G * reflectDiffused.G * reflectance
-													 + (1.0 - reflectDiffused.G * reflectance) * resultShader.G;
+													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.G;
 					resultShader.B = reflectShader.B * reflectDiffused.B * reflectance
-													 + (1.0 - reflectDiffused.B * reflectance) * resultShader.B;
+													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.B;
 				}
 				if (resultShader.R < 0.0) resultShader.R = 0.0;
 				if (resultShader.G < 0.0) resultShader.G = 0.0;

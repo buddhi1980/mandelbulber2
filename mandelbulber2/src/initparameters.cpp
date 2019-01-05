@@ -408,14 +408,16 @@ void InitParams(cParameterContainer *par)
 	par->addParam("file_destination",
 		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"), morphNone,
 		paramStandard);
-	par->addParam("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
-																														+ QDir::separator() + "background.jpg"),
+	par->addParam("file_background",
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "background.jpg"),
 		morphNone, paramStandard);
 	par->addParam("file_envmap",
 		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg"),
 		morphNone, paramStandard);
-	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures"
-																													+ QDir::separator() + "lightmap.jpg"),
+	par->addParam("file_lightmap",
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
 	/* unused in Mandelbulber v2
 	par->addParam("file_animation_path",
@@ -1122,6 +1124,9 @@ void InitPrimitiveParams(
 
 void InitMaterialParams(int materialId, cParameterContainer *par)
 {
+	//*********** NOTE: every material parameter have to be listed in QStringList
+	// cMaterial::paramsList in material.cpp file
+
 	par->addParam(cMaterial::Name("color_texture_intensity", materialId), 1.0, 0.0, 1e10, morphAkima,
 		paramStandard);
 	par->addParam(cMaterial::Name("coloring_palette_offset", materialId), 0.0, 0.0, 256.0,
@@ -1140,23 +1145,23 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,
 		paramStandard);
@@ -1291,6 +1296,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("is_defined", materialId), false, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("luminosity_color", materialId), sRGB(65535, 65535, 65535),
 		morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("luminosity_color_thesame", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
 	par->addParam(
@@ -1306,6 +1313,10 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		paramStandard);
 	par->addParam(
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
+	par->addParam(cMaterial::Name("reflections_color", materialId), sRGB(65535, 65535, 65535),
+		morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("reflections_color_thesame", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
@@ -1335,6 +1346,10 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkimaAngle, paramStandard);
 	par->addParam(cMaterial::Name("texture_scale", materialId), CVector3(1.0, 1.0, 1.0), morphAkima,
 		paramStandard);
+	par->addParam(cMaterial::Name("transparency_color", materialId), sRGB(65535, 65535, 65535),
+		morphAkima, paramStandard);
+	par->addParam(
+		cMaterial::Name("transparency_color_thesame", materialId), false, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("transparency_index_of_refraction", materialId), 1.5, 0.0, 100.0,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("transparency_interior_color", materialId),

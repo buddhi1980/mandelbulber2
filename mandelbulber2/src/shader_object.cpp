@@ -127,12 +127,24 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	// luminosity
 	sRGBAfloat luminosity;
-	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.R / 65536.0f;
-	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.G / 65536.0f;
-	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
+	if (mat->luminosityColorTheSame)
+	{
+		luminosity.R =
+			input.texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * colour.R;
+		luminosity.G =
+			input.texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * colour.G;
+		luminosity.B =
+			input.texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * colour.B;
+	}
+	else
+	{
+		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.R / 65536.0f;
+		luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.G / 65536.0f;
+		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
+	}
 
 	sRGBFloat iridescence(1.0, 1.0, 1.0);
 	if (input.material->iridescenceEnabled)
