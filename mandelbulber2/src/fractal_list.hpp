@@ -194,6 +194,7 @@ enum enumFractalFormula
 	vicsek = 142,
 	// 2.17
 	josKleinianV2 = 143,
+	mandelbulbAtan2Power2 = 144,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
