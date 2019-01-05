@@ -499,9 +499,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
-					out->distance =
-						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+					double JosDE = min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
+					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
+						out->distance = JosDE;
+					else
+					{
+						double initRad2 = extendedAux.r * extendedAux.r;
+						out->distance = JosDE *= initRad2 / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + extendedAux.r * JosDE);
+					}
+					/*out->distance =
+						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);*/
+
 					break;
 				}
 

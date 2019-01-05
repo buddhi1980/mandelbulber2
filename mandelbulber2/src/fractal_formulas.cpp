@@ -4367,7 +4367,9 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		z -= fractal->transformCommon.offset000;
 		double rr = z.Dot(z);
+		aux.r = sqrt(rr);
 		z *= fractal->transformCommon.maxR2d1/rr;
+
 		z += fractal->transformCommon.offset000;
 		//aux.DE = fractal->transformCommon.maxR2d1/rr;
 
@@ -4399,20 +4401,22 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
 
-
 	double z2 = z.Dot(z);
 
 	CVector4 colorVector = CVector4(z.x, z.y, z.z, z2);
 	aux.color = min(aux.color, colorVector.Length()); // For coloring
 
 	double iR = 1.0 / z2;
-	z *= -iR;
+	z *= -iR; //invert and mirror
 	z.x = -b - z.x;
 	z.y = a + z.y;
 	aux.pseudoKleinianDE *= iR;
 
-
-	if (fractal->transformCommon.functionEnabledDFalse
+	if (fractal->analyticDE.enabledFalse)
+	{ // analytic DE adjustment
+	aux.pseudoKleinianDE = aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+	/*if (fractal->transformCommon.functionEnabledDFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
@@ -4439,7 +4443,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			tempC *= rSqrL;
 		}
 		z +=tempC;
-	}
+	}*/
 
 
 
