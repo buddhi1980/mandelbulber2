@@ -52,6 +52,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 {
 	int startTile = deviceIndex;
 	if (startTile >= scheduler->getTileSequence()->length()) return;
+	scheduler->ReserveTile(startTile);
 
 	for (int monteCarloLoop = 1; monteCarloLoop <= maxMonteCarloSamples; monteCarloLoop++)
 	{
@@ -105,9 +106,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			// slow down to reduce length of queue
 			int queueLength = outputQueue->getQueueLength();
-			if (queueLength > 10)
+			if (queueLength > 100)
 			{
-				Wait((queueLength - 10));
+				Wait((queueLength - 100));
 			}
 		} // next tile
 

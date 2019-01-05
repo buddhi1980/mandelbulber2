@@ -111,6 +111,7 @@ void cOpenClEngineRenderFractal::ReleaseMemory()
 	cOpenClEngine::ReleaseMemory();
 }
 
+// name of main kernel function used by build function
 QString cOpenClEngineRenderFractal::GetKernelName()
 {
 	return QString("fractal3D");
@@ -780,342 +781,6 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	return true;
 }
 
-// TODO:
-// This is the hot spot for heterogeneous execution
-// requires opencl for all compute resources
-bool cOpenClEngineRenderFractal::Render(cImage *image, bool *stopRequest, sRenderData *renderData)
-{
-	if (programsLoaded)
-	{
-		// The image resolution determines the total amount of work
-		int width = image->GetWidth();
-		int height = image->GetHeight();
-
-		cProgressText progressText;
-		progressText.ResetTimer();
-
-		emit updateProgressAndStatus(
-			tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
-			progressText.getText(0.0), 0.0);
-
-		QElapsedTimer timer;
-		timer.start();
-
-		QElapsedTimer progressRefreshTimer;
-		progressRefreshTimer.start();
-
-		QElapsedTimer timerImageRefresh;
-		timerImageRefresh.start();
-		int lastRefreshTime = 1;
-
-		qint64 numberOfPixels = qint64(width) * qint64(height);
-		qint64 gridWidth = width / optimalJob.stepSizeX;
-		qint64 gridHeight = height / optimalJob.stepSizeY;
-
-		const qint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
-		double *noiseTable = new double[noiseTableSize];
-		for (qint64 i = 0; i < noiseTableSize; i++)
-		{
-			noiseTable[i] = 0.0;
-		}
-
-		int numberOfSamples = 1;
-		if (monteCarlo)
-		{
-			numberOfSamples = constantInBuffer->params.DOFSamples;
-		}
-
-		QList<QRect> lastRenderedRects;
-
-		double doneMC = 0.0f;
-		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
-
-		// writing data to queue
-		if (!WriteBuffersToQueue()) throw;
-
-		if (renderEngineMode != clRenderEngineTypeFast)
-		{
-			if (!PrepareBufferForBackground(renderData)) throw;
-		}
-
-		try
-		{
-			for (int monteCarloLoop = 1; monteCarloLoop <= numberOfSamples; monteCarloLoop++)
-			{
-				// TODO:
-				// insert device for loop here
-				// requires initialization for all opencl devices
-				// requires optimalJob for all opencl devices
-
-				lastRenderedRects.clear();
-
-				qint64 pixelsRendered = 0;
-				qint64 pixelsRenderedMC = 0;
-				int gridStep = 0;
-
-				while (pixelsRendered < numberOfPixels)
-				{
-					int gridX = tileSequence.at(gridStep).x();
-					int gridY = tileSequence.at(gridStep).y();
-					gridStep++;
-					const qint64 jobX = gridX * optimalJob.stepSizeX;
-					const qint64 jobY = gridY * optimalJob.stepSizeY;
-
-					// check if noise is still too high
-					bool bigNoise = true;
-					if (monteCarlo)
-					{
-						if (noiseTable[gridX + gridY * (gridWidth + 1)]
-									< constantInBuffer->params.DOFMaxNoise / 100.0
-								&& monteCarloLoop > constantInBuffer->params.DOFMinSamples)
-							bigNoise = false;
-					}
-
-					if (jobX >= 0 && jobX < width && jobY >= 0 && jobY < height)
-					{
-						qint64 pixelsLeftX = width - jobX;
-						qint64 pixelsLeftY = height - jobY;
-						qint64 jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-						qint64 jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
-
-						if (monteCarloLoop == 1)
-							renderData->statistics.numberOfRenderedPixels += jobHeight2 * jobWidth2;
-
-						if (bigNoise)
-						{
-							// assign parameters to kernel
-							if (!AssignParametersToKernel(0)) throw;
-
-							//							if (!autoRefreshMode && !monteCarlo && progressRefreshTimer.elapsed()
-							//> 1000)
-							//							{
-							//								const QRect currentCorners = SizedRectangle(jobX, jobY, jobWidth2,
-							// jobHeight2);
-							//								MarkCurrentPendingTile(image, currentCorners);
-							//							}
-
-							// processing queue
-							if (!ProcessQueue(jobX, jobY, pixelsLeftX, pixelsLeftY)) throw;
-
-							// update image when OpenCl kernel is working
-							if (lastRenderedRects.size() > 0
-									&& timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
-							{
-								timerImageRefresh.restart();
-
-								image->NullPostEffect(&lastRenderedRects);
-								image->CompileImage(&lastRenderedRects);
-								if (image->IsPreview())
-								{
-									image->ConvertTo8bit(&lastRenderedRects);
-									image->UpdatePreview(&lastRenderedRects);
-									emit updateImage();
-								}
-								lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
-
-								lastRenderedRects.clear();
-								timerImageRefresh.restart();
-							}
-
-							if (!ReadBuffersFromQueue()) throw;
-
-							// Collect Pixel information from the rgbBuffer
-							// Populate the data into image->Put
-
-							pixelsRenderedMC += jobWidth2 * jobHeight2;
-
-							double monteCarloNoiseSum = 0.0;
-							double maxNoise = 0.0;
-							for (int x = 0; x < jobWidth2; x++)
-							{
-								for (int y = 0; y < jobHeight2; y++)
-								{
-									sClPixel pixelCl =
-										((sClPixel *)outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
-									sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
-									sRGB8 color = {pixelCl.colR, pixelCl.colG, pixelCl.colB};
-									unsigned short opacity = pixelCl.opacity;
-									unsigned short alpha = pixelCl.alpha;
-									size_t xx = x + jobX;
-									size_t yy = y + jobY;
-
-									if (monteCarlo)
-									{
-										sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
-										sRGBFloat newPixel;
-										newPixel.R =
-											oldPixel.R * (1.0 - 1.0 / monteCarloLoop) + pixel.R * (1.0 / monteCarloLoop);
-										newPixel.G =
-											oldPixel.G * (1.0 - 1.0 / monteCarloLoop) + pixel.G * (1.0 / monteCarloLoop);
-										newPixel.B =
-											oldPixel.B * (1.0 - 1.0 / monteCarloLoop) + pixel.B * (1.0 / monteCarloLoop);
-										image->PutPixelImage(xx, yy, newPixel);
-										image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
-										unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
-										unsigned short newAlpha = (double)oldAlpha * (1.0 - 1.0 / monteCarloLoop)
-																							+ alpha * (1.0 / monteCarloLoop);
-										image->PutPixelAlpha(xx, yy, newAlpha);
-										image->PutPixelColor(xx, yy, color);
-										image->PutPixelOpacity(xx, yy, opacity);
-
-										// noise estimation
-										double noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
-																	 + (newPixel.G - oldPixel.G) * (newPixel.G - oldPixel.G)
-																	 + (newPixel.B - oldPixel.B) * (newPixel.B - oldPixel.B);
-										noise *= 0.3333;
-
-										double sumBrightness = newPixel.R + newPixel.G + newPixel.B;
-										if (sumBrightness > 1.0) noise /= (sumBrightness * sumBrightness);
-
-										monteCarloNoiseSum += noise;
-										if (noise > maxNoise) maxNoise = noise;
-									}
-									else
-									{
-										image->PutPixelImage(xx, yy, pixel);
-										image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
-										image->PutPixelColor(xx, yy, color);
-										image->PutPixelOpacity(xx, yy, opacity);
-										image->PutPixelAlpha(xx, yy, alpha);
-									}
-								}
-							}
-
-							renderData->statistics.totalNumberOfDOFRepeats += jobWidth2 * jobHeight2;
-
-							// total noise in last rectangle
-							if (monteCarlo)
-							{
-								double weight = 0.2;
-								double totalNoiseRect = sqrt(
-									(1.0 - weight) * monteCarloNoiseSum / jobWidth2 / jobHeight2 + weight * maxNoise);
-								noiseTable[gridX + gridY * (gridWidth + 1)] = totalNoiseRect;
-							}
-
-							lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth2, jobHeight2));
-						} // bigNoise
-
-						pixelsRendered += jobWidth2 * jobHeight2;
-
-						if (progressRefreshTimer.elapsed() > 100)
-						{
-							double percentDone;
-							if (!monteCarlo)
-							{
-								percentDone = double(pixelsRendered) / numberOfPixels;
-							}
-							else
-							{
-								percentDone = double(monteCarloLoop - 1) / numberOfSamples
-															+ double(pixelsRendered) / numberOfPixels / numberOfSamples;
-
-								percentDone = percentDone * (1.0 - doneMC) + doneMC;
-							}
-							emit updateProgressAndStatus(
-								tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
-								progressText.getText(percentDone), percentDone);
-
-							emit updateStatistics(renderData->statistics);
-
-							gApplication->processEvents();
-							progressRefreshTimer.restart();
-						}
-
-						if (*stopRequest)
-						{
-							image->NullPostEffect(&lastRenderedRects);
-							image->CompileImage(&lastRenderedRects);
-							if (image->IsPreview())
-							{
-								image->ConvertTo8bit(&lastRenderedRects);
-								image->UpdatePreview(&lastRenderedRects);
-								emit updateImage();
-							}
-							lastRenderedRects.clear();
-
-							delete[] noiseTable;
-							return false;
-						}
-					}
-				}
-
-				// update last rectangle
-				if (monteCarlo)
-				{
-					if (lastRenderedRects.size() > 0)
-					{
-						QElapsedTimer timerImageRefresh;
-						timerImageRefresh.start();
-						image->NullPostEffect(&lastRenderedRects);
-						image->CompileImage(&lastRenderedRects);
-						if (image->IsPreview())
-						{
-							image->ConvertTo8bit(&lastRenderedRects);
-							image->UpdatePreview(&lastRenderedRects);
-							emit updateImage();
-						}
-						lastRenderedRects.clear();
-					}
-
-					if (pixelsRendered > 0)
-						doneMC = 1.0 - double(pixelsRenderedMC) / pixelsRendered;
-					else
-						doneMC = 0.0;
-
-					gApplication->processEvents();
-				}
-
-				double totalNoise = 0.0;
-				for (qint64 i = 0; i < noiseTableSize; i++)
-				{
-					totalNoise += noiseTable[i];
-				}
-				totalNoise /= noiseTableSize;
-				renderData->statistics.totalNoise = totalNoise * width * height;
-
-				emit updateStatistics(renderData->statistics);
-
-			} // monte carlo loop
-		}
-
-		catch (...)
-		{
-			delete[] noiseTable;
-			emit updateProgressAndStatus(tr("OpenCl - rendering failed"), progressText.getText(1.0), 1.0);
-			return false;
-		}
-
-		delete[] noiseTable;
-
-		WriteLogDouble(
-			"cOpenClEngineRenderFractal: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);
-
-		// refresh image at end
-		image->NullPostEffect(&lastRenderedRects);
-
-		WriteLog("image->CompileImage()", 2);
-		image->CompileImage(&lastRenderedRects);
-
-		if (image->IsPreview())
-		{
-			WriteLog("image->ConvertTo8bit()", 2);
-			image->ConvertTo8bit(&lastRenderedRects);
-			//			WriteLog("image->UpdatePreview()", 2);
-			//			image->UpdatePreview(&lastRenderedRects);
-			//			WriteLog("image->GetImageWidget()->update()", 2);
-			//			emit updateImage();
-		}
-
-		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
-
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
 // Multi-threaded version of OpenCL render function
 bool cOpenClEngineRenderFractal::RenderMulti(
 	cImage *image, bool *stopRequest, sRenderData *renderData)
@@ -1126,27 +791,31 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		int width = image->GetWidth();
 		int height = image->GetHeight();
 
+		// progress bat text
 		cProgressText progressText;
 		progressText.ResetTimer();
 
+		// initialize status bar
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering image (workgroup %1 pixels)").arg(optimalJob.workGroupSize),
 			progressText.getText(0.0), 0.0);
+		gApplication->processEvents(); // needed to process events to quit threads
 
-		QElapsedTimer timer;
-		timer.start();
-
+		// timer for rereshing progress bar
 		QElapsedTimer progressRefreshTimer;
 		progressRefreshTimer.start();
 
+		// timer for refreshing image
 		QElapsedTimer timerImageRefresh;
 		timerImageRefresh.start();
 		int lastRefreshTime = 1;
 
+		// calculation of tile grid size
 		qint64 numberOfPixels = qint64(width) * qint64(height);
 		qint64 gridWidth = width / optimalJob.stepSizeX;
 		qint64 gridHeight = height / optimalJob.stepSizeY;
 
+		// preparation of table for noise statistics used in MC method
 		const qint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
 		double *noiseTable = new double[noiseTableSize];
 		for (qint64 i = 0; i < noiseTableSize; i++)
@@ -1154,42 +823,55 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			noiseTable[i] = 0.0;
 		}
 
+		// maximum count of rendering loop
 		int numberOfSamples = 1;
 		if (monteCarlo)
 		{
 			numberOfSamples = constantInBuffer->params.DOFSamples;
 		}
 
+		// list of latest rendered tiles - needed for image refreshing
 		QList<QRect> lastRenderedRects;
 
+		// counters for MC statistins
 		double doneMC = 0.0f;
 		qint64 doneMCpixels = 0;
 
+		// calculation of tile sequence (growing ellipse)
 		QList<QPoint> tileSequence = calculateOptimalTileSequence(gridWidth + 1, gridHeight + 1);
 
-		// writing data to queue
+		// writing all data to OpenCL queue
 		if (!WriteBuffersToQueue()) throw;
 
+		// writing background texture data to OpenCL queue
 		if (renderEngineMode != clRenderEngineTypeFast)
 		{
 			if (!PrepareBufferForBackground(renderData)) throw;
 		}
 
+		// number of openCL workers equals to number of selected OpenCL devices
 		int numberOfOpenCLWorkers = hardware->getEnabledDevices().size();
-		// prepare multiple threads
+
+		// prepare list of threads
 		QList<QSharedPointer<QThread>> threads;
+		// prepare list of workers
 		QList<QSharedPointer<cOpenClWorkerThread>> workers;
 
+		// create scheduler
 		QSharedPointer<cOpenClScheduler> scheduler(new cOpenClScheduler(&tileSequence));
+		// create output FIFO buffer
 		QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
+		// initializing and starting of all workers
 		for (int d = 0; d < numberOfOpenCLWorkers; d++)
 		{
+			// allocating memory for threads and workers
 			WriteLog(QString("Thread for OpenCL worker") + QString::number(d) + " create", 3);
 			threads.append(QSharedPointer<QThread>(new QThread));
 			workers.append(
 				QSharedPointer<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
 
+			// pushing data to workers
 			workers[d]->setImageWidth(width);
 			workers[d]->setImageHeight(height);
 			workers[d]->setOptimalStepX(optimalJob.stepSizeX);
@@ -1202,28 +884,34 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			workers[d]->setMaxMonteCarloSamples(numberOfSamples);
 			workers[d]->setStopRequest(stopRequest);
 
+			// stating threads
 			workers[d]->moveToThread(threads[d].data());
 			QObject::connect(
 				threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
 			QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
-			//			QObject::connect(
-			//				workers[d].data(), SIGNAL(finished()), workers[d].data(), SLOT(deleteLater()));
 			threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
 			threads[d]->start();
 			threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
 			WriteLog(QString("Thread ") + QString::number(d) + " started", 3);
 		}
 
+		// while loop continue condition
 		bool continueWhileLoop = false;
-		qint64 pixelsRendered = 0;
+
+		// counters for MC statistics
+		qint64 pixelsRendered = 0; // number of
 		int lastMonteCarloLoop = 1;
 
+		// main image data collection loop
 		do
 		{
+			// repeat loop until there is something in output queue
 			while (!outputQueue->isEmpty())
 			{
+				// getting image data from queue
 				cOpenCLWorkerOutputQueue::sClSingleOutput output = outputQueue->GetFromQueue();
 
+				// information about tile coordinates
 				qint64 jobWidth = output.jobWidth;
 				qint64 jobHeight = output.jobHeight;
 				qint64 jobX = output.jobX;
@@ -1233,10 +921,13 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 				double monteCarloNoiseSum = 0.0;
 				double maxNoise = 0.0;
+
+				// processing pixels of tile
 				for (int x = 0; x < jobWidth; x++)
 				{
 					for (int y = 0; y < jobHeight; y++)
 					{
+						// getting pixel from output buffer
 						sClPixel pixelCl =
 							((sClPixel *)output.outputBuffers.at(outputIndex).data.data())[x + y * jobWidth];
 						sRGBFloat pixel = {pixelCl.R, pixelCl.G, pixelCl.B};
@@ -1246,8 +937,10 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						size_t xx = x + jobX;
 						size_t yy = y + jobY;
 
+						// if MC then paint pixels and calculate noise statistics
 						if (monteCarlo)
 						{
+							// painting pixels with reduced opacity (averaging of MC samples)
 							sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 							sRGBFloat newPixel;
 							newPixel.R = oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop)
@@ -1277,6 +970,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							monteCarloNoiseSum += noise;
 							if (noise > maxNoise) maxNoise = noise;
 						}
+						// if not MC then just paint pixels
 						else
 						{
 							image->PutPixelImage(xx, yy, pixel);
@@ -1285,8 +979,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							image->PutPixelOpacity(xx, yy, opacity);
 							image->PutPixelAlpha(xx, yy, alpha);
 						}
-					}
-				}
+					} // next y
+				}		// next x
 
 				// total noise in last rectangle
 				if (monteCarlo)
@@ -1309,11 +1003,12 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					if (lastMonteCarloLoop == 1)
 						renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
 					renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
-				}
+				} // endif montecarlo
 
 				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
 			} // while something in queue
 
+			// refreshing progress bar and statistics (not more than once per 100ms)
 			if (lastRenderedRects.size() > 0 && progressRefreshTimer.elapsed() > 100)
 			{
 				double percentDone;
@@ -1344,6 +1039,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				progressRefreshTimer.restart();
 			}
 
+			// refreshing image (refreshing period depends on refreshing speed)
 			if (lastRenderedRects.size() > 0 && timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
 			{
 				timerImageRefresh.restart();
@@ -1362,7 +1058,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				timerImageRefresh.restart();
 			}
 
+			// processing application events
 			gApplication->processEvents();
+
+			// waiting 10ms to reduce CPU usage by main thread (no impact on rendering speed)
+			Wait(10);
 
 			// checking if continue do-while loop
 			continueWhileLoop = false;
@@ -1381,6 +1081,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		} while (continueWhileLoop);
 
+		// finall refresh of image
 		if (lastRenderedRects.size() > 0)
 		{
 			QElapsedTimer timerImageRefresh;
@@ -1397,6 +1098,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		}
 	}
 	gApplication->processEvents(); // needed to process events to quit threads
+
 	WriteLog(QString("OpenCL rendering done"), 2);
 	return true;
 }
@@ -1668,43 +1370,24 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 	return true;
 }
 
+// process queue used by Mesh Export
 bool cOpenClEngineRenderFractal::ProcessQueue(
 	size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY)
 {
-	//	size_t limitedWorkgroupSize = optimalJob.workGroupSize;
-	//	int stepSize = optimalJob.stepSize;
-	//
-	//	if (optimalJob.stepSize > pixelsLeft)
-	//	{
-	//		int mul = pixelsLeft / optimalJob.workGroupSize;
-	//		if (mul > 0)
-	//		{
-	//			stepSize = mul * optimalJob.workGroupSize;
-	//		}
-	//		else
-	//		{
-	//			// in this case will be limited workGroupSize
-	//			stepSize = pixelsLeft;
-	//			limitedWorkgroupSize = pixelsLeft;
-	//		}
-	//	}
 
 	size_t stepSizeX = optimalJob.stepSizeX;
 	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
 	size_t stepSizeY = optimalJob.stepSizeY;
 	if (pixelsLeftY < stepSizeY) stepSizeY = pixelsLeftY;
 
-	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+	// optimalJob.stepSize = stepSize;
+	cl_int err = clQueues.at(0)->enqueueNDRangeKernel(
+		*clKernels.at(0), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
+	if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
 	{
-		// optimalJob.stepSize = stepSize;
-		cl_int err = clQueues.at(d)->enqueueNDRangeKernel(
-			*clKernels.at(d), cl::NDRange(jobX, jobY), cl::NDRange(stepSizeX, stepSizeY), cl::NullRange);
-		if (!checkErr(err, "CommandQueue::enqueueNDRangeKernel()"))
-		{
-			emit showErrorMessage(
-				QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
-			return false;
-		}
+		emit showErrorMessage(
+			QObject::tr("Cannot enqueue OpenCL rendering jobs"), cErrorMessage::errorMessage, nullptr);
+		return false;
 	}
 
 	return true;
