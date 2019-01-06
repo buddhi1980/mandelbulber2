@@ -4365,10 +4365,18 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		z -= fractal->transformCommon.offset000;
-		double rr = z.Dot(z);
+		double rr;
+		if (!fractal->transformCommon.functionEnabledPFalse)
+		{
+			z -= fractal->transformCommon.offset000;
+			rr = z.Dot(z);
+		}
+		else
+		{
+			rr = z.Dot(z);
+			z -= fractal->transformCommon.offset000;
+		}
 		z *= fractal->transformCommon.maxR2d1/rr;
-
 		z += fractal->transformCommon.offset000;
 		//aux.DE = fractal->transformCommon.maxR2d1/rr;
 	}
