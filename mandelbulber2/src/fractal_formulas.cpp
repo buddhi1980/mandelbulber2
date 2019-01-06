@@ -4309,7 +4309,7 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  * JosLeys-Kleinian formula
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
- * This formula contains aux.color
+ * This formula contains aux.color and aux.pseudoKleinianDE
  */
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -4357,7 +4357,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  * JosLeys-Kleinian V2 formula
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
- * This formula contains aux.color
+ * This formula contains aux.color and aux.pseudoKleinianDE
  */
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -4367,14 +4367,11 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		z -= fractal->transformCommon.offset000;
 		double rr = z.Dot(z);
-		aux.r = sqrt(rr);
 		z *= fractal->transformCommon.maxR2d1/rr;
 
 		z += fractal->transformCommon.offset000;
 		//aux.DE = fractal->transformCommon.maxR2d1/rr;
-
 	}
-
 
 	double a = fractal->transformCommon.foldingValue;
 	double b = fractal->transformCommon.offset;
