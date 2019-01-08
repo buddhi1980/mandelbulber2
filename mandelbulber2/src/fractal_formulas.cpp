@@ -4387,21 +4387,30 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 	CVector4 box_size = fractal->transformCommon.offset111;
 
-	/*z.x += box_size.x;
-	z.y += box_size.y - 1.0;
-	z.z += box_size.z;
+	if (!fractal->transformCommon.functionEnabledByFalse) // && box_size.y != 1.0
+	{
+		CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
+		CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
+		CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+		z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+	}
+	else
+	{
 
-	z.x = fmod(z.x, 2.0 * box_size.x) - box_size.x;
-	z.y = fmod(z.y, a);
-	//z.y = fmod(z.y, a * box_size.y) - box_size.y;
-	z.z = fmod(z.z, 2.0 * box_size.z) - box_size.z;*/
+		//x -= s;
+		//CVector3 out(x.x - a.x * floor(x.x / a.x) + s.x, x.y - a.y * floor(x.y / a.y) + s.y,
+		//	x.z - a.z * floor(x.z / a.z) + s.z)
 
-	CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-	CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-	CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
+		z.x += box_size.x;
+		z.z += box_size.z;
+		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+		z.z = z.z - 2.0 * box_size.z * floor(z.z / 2.0 * box_size.z) - box_size.z;
 
-	z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+		//z.y += box_size.y - 1.0;
+		//z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
+		//z.y += -box_size.y + 1.0;
 
+	}
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;

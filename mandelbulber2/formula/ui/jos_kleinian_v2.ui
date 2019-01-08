@@ -355,7 +355,7 @@ offset</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="7" column="0" colspan="2">
+     <item row="8" column="0" colspan="2">
       <widget class="MyCheckBox" name="checkBox_transf_spheres_enabled">
        <property name="text">
         <string>Spheres</string>
@@ -639,7 +639,7 @@ offset</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
+     <item row="8" column="2">
       <widget class="QLabel" name="label_263">
        <property name="text">
         <string>(only disables if in slot #1)</string>
@@ -653,6 +653,13 @@ offset</string>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+       <property name="text">
+        <string> no y</string>
        </property>
       </widget>
      </item>
