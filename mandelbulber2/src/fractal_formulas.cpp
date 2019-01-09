@@ -249,14 +249,17 @@ void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// testing power2 thing, covert to non trig?
-
+	CVector4 c = aux.const_c;
 	aux.DE = aux.DE * 2.0 * aux.r;
 
 	if (fractal->buffalo.preabsx) z.x = fabs(z.x);
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
-	// bitwise ??
-	CVector4 zz = z * z;
+
+	z = hypercomplex_mult(z,hypercomplex_conj(z));
+
+
+/*	CVector4 zz = z * z;
 	double lenXY = sqrt(zz.x + zz.y);
 	double theta1 = atan2(lenXY, z.z);
 	double theta2 = -atan2(lenXY, -z.z);
@@ -267,12 +270,52 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	z.x = sinth * cos(2.0 * phi);
 	z.y = sinth * sin(2.0 * phi);
 	z.z = -cos(theta1 + theta2);
-	z *= rr;
+	z *= rr;*/
 
+	/*z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
+	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
+	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;*/
+
+
+	// addCpixel
+	if (fractal->transformCommon.addCpixelEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		CVector4 tempC = c;
+		if (fractal->transformCommon.alternateEnabledFalse) // alternate
+		{
+			tempC = aux.c;
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(tempC.x, tempC.y, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(tempC.x, tempC.z, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(tempC.y, tempC.x, tempC.z, tempC.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(tempC.y, tempC.z, tempC.x, tempC.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(tempC.z, tempC.x, tempC.y, tempC.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(tempC.z, tempC.y, tempC.x, tempC.w); break;
+			}
+			aux.c = tempC;
+		}
+		else
+		{
+			switch (fractal->mandelbulbMulti.orderOfXYZ)
+			{
+				case multi_OrderOfXYZ_xyz:
+				default: tempC = CVector4(c.x, c.y, c.z, c.w); break;
+				case multi_OrderOfXYZ_xzy: tempC = CVector4(c.x, c.z, c.y, c.w); break;
+				case multi_OrderOfXYZ_yxz: tempC = CVector4(c.y, c.x, c.z, c.w); break;
+				case multi_OrderOfXYZ_yzx: tempC = CVector4(c.y, c.z, c.x, c.w); break;
+				case multi_OrderOfXYZ_zxy: tempC = CVector4(c.z, c.x, c.y, c.w); break;
+				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
+			}
+		}
+		z += tempC * fractal->transformCommon.constantMultiplier111;
+	}
 	z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
 	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
 	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;
-
 	z +=  fractal->transformCommon.additionConstantA000;
 
 
