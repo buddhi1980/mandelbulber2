@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.17
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -25,6 +25,8 @@ mat1_coloring_palette_size 4;
 mat1_coloring_random_seed 357342;
 mat1_coloring_saturation 3,33;
 mat1_is_defined true;
+mat1_specular_metallic 4;
+mat1_specular_metallic_roughness 0,4;
 mat1_surface_color_palette ffffff fe3d1f 000000 6125f7;
 raytraced_reflections true;
 target 1,608873967970146 -0,09669458000944116 0,2582693298426714;

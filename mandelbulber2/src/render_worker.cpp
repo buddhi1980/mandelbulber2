@@ -1110,7 +1110,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader.G = (objectShader.G + recursionOut.specular.G);
 				resultShader.B = (objectShader.B + recursionOut.specular.B);
 
-				if(shaderInputData.material->transparencyColorTheSame)
+				if (shaderInputData.material->transparencyColorTheSame)
 				{
 					transparentShader.R *= objectColour.R;
 					transparentShader.G *= objectColour.G;
@@ -1134,7 +1134,6 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 															+ reflect * diffusionIntensityN;
 					reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffusionIntensity
 															+ reflect * diffusionIntensityN;
-					double reflectDiffusedAvg = (reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0;
 
 					reflectDiffused.R *= iridescence.R;
 					reflectDiffused.G *= iridescence.G;
@@ -1159,6 +1158,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 													 + (1.0 - transparent * reflectanceN) * resultShader.G;
 					resultShader.B = transparentShader.B * transparent * reflectanceN
 													 + (1.0 - transparent * reflectanceN) * resultShader.B;
+
+					double reflectDiffusedAvg =
+						(reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0;
 
 					resultShader.R = reflectShader.R * reflectDiffused.R * reflectance
 													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.R;

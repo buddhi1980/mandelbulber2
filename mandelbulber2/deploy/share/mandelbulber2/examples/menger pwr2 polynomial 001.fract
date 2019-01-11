@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.17
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -19,6 +19,7 @@ fog_color_1 7500 6600 3f00;
 fog_color_2 ff00 e100 ac00;
 fog_color_3 ff00 ea00 b300;
 formula_1 90;
+gamma 0,7000000000000001;
 image_height 1080;
 image_width 1920;
 keyframe_last_to_render 0;
@@ -26,12 +27,11 @@ main_light_alpha -70,34999999999999;
 main_light_beta -32,91;
 mat1_coloring_palette_size 3;
 mat1_coloring_random_seed 441786;
-mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1;
-mat1_specular_width 0,553;
+mat1_reflections_color_thesame true;
+mat1_specular_metallic 4;
 mat1_surface_color_palette 500021 0000be b04127;
-mat1_transparency_index_of_refraction 4,43;
 raytraced_reflections true;
 target 2,336152042713682 -1,104260409460914 0,2282456226077765;
 view_distance_max 414,7951161894839;

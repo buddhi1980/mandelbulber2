@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.17
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -28,6 +28,8 @@ mat1_fractal_coloring_sphere_radius 1,8667;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1,05;
+mat1_reflections_color_thesame true;
+mat1_specular_metallic_roughness 0,4;
 mat1_surface_color_palette 6a7088 dfffff 367a64 870a18 bb008d 4fd746 570448 0ced81 705990 4d2071;
 mat1_transparency_index_of_refraction 3,25;
 raytraced_reflections true;
@@ -44,9 +46,9 @@ IFS_rotation_enabled true;
 mandelbox_main_rotation_enabled true;
 mandelbox_rotation_main 2,79 -4,45 1,19;
 mandelbox_scale -1,178862;
-surfFolds_order_of_folds_2 1;
-surfFolds_order_of_folds_3 2;
-surfFolds_order_of_folds_4 4;
+surfFolds_order_of_folds_2 type2;
+surfFolds_order_of_folds_3 type3;
+surfFolds_order_of_folds_4 type5;
 transf_function_enabledAy_false true;
 transf_function_enabledAz_false true;
 transf_function_enabledBx_false true;

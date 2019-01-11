@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.12
+# version 2.17
 # only modified parameters
 [description]
 This settings file uses Monte Carlo Depth Of Field effect.
@@ -46,9 +46,10 @@ mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1,34;
 mat1_specular 9,59;
-mat1_specular_width 0,136;
+mat1_specular_metallic_roughness 0,4;
 mat1_surface_color_palette 000000 ff0000;
 mat1_transparency_index_of_refraction 3,77;
+MC_soft_shadows_enable true;
 raytraced_reflections true;
 reflections_max 1;
 target 2,666796269356724 -4,288610522532904 1,40854595975007;
