@@ -136,6 +136,7 @@ private:
 	bool autoRefreshMode;
 	bool monteCarlo;
 	bool meshExportMode;
+	double reservedGpuTime;
 
 #endif
 

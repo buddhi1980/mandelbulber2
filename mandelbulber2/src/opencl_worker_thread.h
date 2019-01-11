@@ -53,6 +53,7 @@ public:
 		this->maxMonteCarloSamples = maxMonteCarloSamples;
 	}
 	void setStopRequest(bool *stopRequest) { this->stopRequest = stopRequest; }
+	void setReservedGpuTime(double reservedGpuTime) { this->reservedGpuTime = reservedGpuTime; }
 
 private:
 	static bool checkErr(cl_int err, QString functionName);
@@ -74,6 +75,7 @@ private:
 	qint64 optimalStepY;
 	qint64 imageWidth;
 	qint64 imageHeight;
+	double reservedGpuTime;
 	int maxMonteCarloSamples;
 
 	const int deviceIndex;

@@ -30,6 +30,7 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 	imageHeight = 0;
 	maxMonteCarloSamples = 1;
 	stopRequest = nullptr;
+	reservedGpuTime = 0.0;
 }
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
@@ -54,6 +55,9 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 	if (startTile >= scheduler->getTileSequence()->length()) return;
 	scheduler->ReserveTile(startTile);
 
+	QElapsedTimer openclProcessingTime;
+	qint64 openclprocessingTimeNanoSeconds = 0;
+
 	for (int monteCarloLoop = 1; monteCarloLoop <= maxMonteCarloSamples; monteCarloLoop++)
 	{
 		for (int tile = startTile; !scheduler->AllDone(monteCarloLoop);
@@ -76,9 +80,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 			if (jobX >= 0 && jobX < imageWidth && jobY >= 0 && jobY < imageHeight)
 			{
+				openclProcessingTime.restart();
 				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
 
 				engine->ReadBuffersFromQueue(deviceIndex);
+				openclprocessingTimeNanoSeconds = openclProcessingTime.nsecsElapsed();
 
 				qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
 				qint64 outputItemlength = outputBuffers.at(outputIndex).length;
@@ -100,6 +106,15 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				outputDataForQueue.outputBuffers.append(dataBuffer);
 
 				outputQueue->AddToQueue(&outputDataForQueue);
+
+				// reserve GPU time for the system
+				if (reservedGpuTime > 0.0)
+				{
+					unsigned long int waitTime =
+						reservedGpuTime * openclprocessingTimeNanoSeconds / 1000.0 / 100.0;
+					if (waitTime == 0) waitTime = 1;
+					thread()->usleep(waitTime);
+				}
 			}
 
 			if (*stopRequest) break;

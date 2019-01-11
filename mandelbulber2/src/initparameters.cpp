@@ -539,6 +539,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("opencl_disable_build_cache", false, morphNone, paramApp);
 	par->addParam("opencl_use_fast_relaxed_math", true, morphNone, paramApp);
 	par->addParam("opencl_job_size_multiplier", 2, morphNone, paramApp);
+	par->addParam("opencl_reserved_gpu_time", 0.1, morphNone, paramApp);
 
 	WriteLog("Parameters initialization finished", 3);
 }

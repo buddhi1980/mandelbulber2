@@ -106,7 +106,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1949</y>
+        <y>-2003</y>
         <width>466</width>
         <height>3584</height>
        </rect>
@@ -4457,12 +4457,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>1755</y>
+     <x>180</x>
+     <y>-423</y>
     </hint>
     <hint type="destinationlabel">
-     <x>562</x>
-     <y>1757</y>
+     <x>450</x>
+     <y>-422</y>
     </hint>
    </hints>
   </connection>
@@ -4473,12 +4473,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>1783</y>
+     <x>204</x>
+     <y>-399</y>
     </hint>
     <hint type="destinationlabel">
-     <x>562</x>
-     <y>1785</y>
+     <x>450</x>
+     <y>-398</y>
     </hint>
    </hints>
   </connection>
@@ -4490,11 +4490,59 @@ object size)</string>
    <hints>
     <hint type="sourcelabel">
      <x>69</x>
-     <y>738</y>
+     <y>-1265</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
-     <y>597</y>
+     <y>-1406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_luminosity_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_luminosity_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>575</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reflections_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_reflections_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>846</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>821</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transparency_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_transparency_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>941</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>920</y>
     </hint>
    </hints>
   </connection>

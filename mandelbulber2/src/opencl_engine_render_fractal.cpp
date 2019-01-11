@@ -80,6 +80,7 @@ cOpenClEngineRenderFractal::cOpenClEngineRenderFractal(cOpenClHardware *_hardwar
 
 	renderEngineMode = clRenderEngineTypeNone;
 	meshExportMode = false;
+	reservedGpuTime = 0.0;
 
 #endif
 }
@@ -322,6 +323,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	Q_UNUSED(fractalContainer);
 
 	meshExportMode = meshExportModeEnable;
+	reservedGpuTime = paramContainer->Get<double>("opencl_reserved_gpu_time");
 
 	constantInBuffer.reset(new sClInConstants);
 
@@ -883,6 +885,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			workers[d]->setOutputQueue(outputQueue);
 			workers[d]->setMaxMonteCarloSamples(numberOfSamples);
 			workers[d]->setStopRequest(stopRequest);
+			workers[d]->setReservedGpuTime(reservedGpuTime);
 
 			// stating threads
 			workers[d]->moveToThread(threads[d].data());
