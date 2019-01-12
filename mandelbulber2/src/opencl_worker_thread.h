@@ -54,6 +54,7 @@ public:
 	}
 	void setStopRequest(bool *stopRequest) { this->stopRequest = stopRequest; }
 	void setReservedGpuTime(double reservedGpuTime) { this->reservedGpuTime = reservedGpuTime; }
+	bool wasFishedWithSuccess() { return finishedWithSuccess; }
 
 private:
 	static bool checkErr(cl_int err, QString functionName);
@@ -77,6 +78,7 @@ private:
 	qint64 imageHeight;
 	double reservedGpuTime;
 	int maxMonteCarloSamples;
+	bool finishedWithSuccess;
 
 	const int deviceIndex;
 

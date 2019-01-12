@@ -31,6 +31,7 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 	maxMonteCarloSamples = 1;
 	stopRequest = nullptr;
 	reservedGpuTime = 0.0;
+	finishedWithSuccess = false;
 }
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
@@ -82,8 +83,21 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			{
 				openclProcessingTime.restart();
 				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
+				if (!result)
+				{
+					emit finished();
+					finishedWithSuccess = false;
+					return;
+				}
 
-				engine->ReadBuffersFromQueue(deviceIndex);
+				result = engine->ReadBuffersFromQueue(deviceIndex);
+				if (!result)
+				{
+					emit finished();
+					finishedWithSuccess = false;
+					return;
+				}
+
 				openclprocessingTimeNanoSeconds = openclProcessingTime.nsecsElapsed();
 
 				qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
@@ -117,7 +131,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				}
 			}
 
-			if (*stopRequest) break;
+			if (*stopRequest)
+			{
+				finishedWithSuccess = false;
+				break;
+			}
 
 			// slow down to reduce length of queue
 			int queueLength = outputQueue->getQueueLength();
@@ -130,6 +148,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 		if (*stopRequest) break;
 	} // next monteCarloLoop
 
+	finishedWithSuccess = true;
 	emit finished();
 }
 

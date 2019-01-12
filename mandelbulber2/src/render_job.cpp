@@ -564,7 +564,7 @@ bool cRenderJob::Execute()
 
 		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
 
-		if (!*renderData->stopRequest)
+		if (!*renderData->stopRequest && result == true)
 		{
 			if (params->ambientOcclusionEnabled
 					&& params->ambientOcclusionMode == params::AOModeScreenSpace

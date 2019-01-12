@@ -787,6 +787,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 bool cOpenClEngineRenderFractal::RenderMulti(
 	cImage *image, bool *stopRequest, sRenderData *renderData)
 {
+	bool finallResult = true; // true if rendering was compiled successfully
+
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
@@ -892,6 +894,9 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			QObject::connect(
 				threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
 			QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
+			connect(workers[d].data(),
+				SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)), gErrorMessage,
+				SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
 			threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
 			threads[d]->start();
 			threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
@@ -1078,6 +1083,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				else
 				{
 					WriteLog(QString("Thread ") + QString::number(d) + " finished", 2);
+					if (!workers[d]->wasFishedWithSuccess()) finallResult = false;
 				}
 			}
 			if (!outputQueue->isEmpty()) continueWhileLoop = true;
@@ -1100,10 +1106,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			lastRenderedRects.clear();
 		}
 	}
+	else
+	{
+		finallResult = false;
+	}
 	gApplication->processEvents(); // needed to process events to quit threads
 
 	WriteLog(QString("OpenCL rendering done"), 2);
-	return true;
+	return finallResult;
 }
 
 QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
