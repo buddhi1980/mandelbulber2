@@ -42,6 +42,7 @@
 #include "algebra.hpp"
 #include "animation_path_data.hpp"
 #include "stereo.h"
+#include "rendered_tile_data.hpp"
 
 // forward declarations
 class cImage;
@@ -114,6 +115,7 @@ public:
 
 public slots:
 	void slotSetMinimumSize(int width, int height);
+	void showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles);
 
 signals:
 	void SpeedChanged(double amount);
@@ -144,6 +146,7 @@ private:
 		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
 	static QPointF CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 	void DrawAnimationPath();
+	void PaintLastRenderedTilesInfo();
 
 	bool anaglyphMode;
 	bool cursorVisible;
@@ -174,6 +177,7 @@ private:
 	QTimer *timerRefreshImage;
 	sFlightData flightData;
 	sAnimationPathData animationPathData;
+	QList<sRenderedTileData> listOfRenderedTilesData;
 
 signals:
 	void mouseMoved(int x, int y);

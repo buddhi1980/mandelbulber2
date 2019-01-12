@@ -40,6 +40,7 @@
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"
 #include "statistics.h"
+#include "rendered_tile_data.hpp"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -144,6 +145,7 @@ signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateImage();
 	void updateStatistics(cStatistics);
+	void sendRenderedTilesList(QList<sRenderedTileData>);
 };
 
 #endif /* MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_FRACTAL_H_ */

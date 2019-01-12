@@ -102,6 +102,7 @@ int main(int argc, char *argv[])
 	qRegisterMetaType<QMessageBox::StandardButtons>("QMessageBox::StandardButtons");
 	qRegisterMetaType<QMessageBox::StandardButtons *>("QMessageBox::StandardButtons*");
 	qRegisterMetaType<cErrorMessage::enumMessageType>("cErrorMessage::enumMessageType");
+	qRegisterMetaType<QList<sRenderedTileData> /* */>("QList<sRenderedTileData>");
 
 	CalcPreferredFontSize(commandLineInterface.isNoGUI());
 

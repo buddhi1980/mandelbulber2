@@ -45,6 +45,7 @@
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 #include "statistics.h"
+#include "rendered_tile_data.hpp"
 
 // forward declarations
 class cImage;
@@ -117,6 +118,7 @@ signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics statistics);
 	void updateImage();
+	void sendRenderedTilesList(QList<sRenderedTileData>);
 	void SendNetRenderJob(
 		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);

@@ -836,6 +836,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 		// list of latest rendered tiles - needed for image refreshing
 		QList<QRect> lastRenderedRects;
+		QList<sRenderedTileData> listOfRenderedTilesData;
 
 		// counters for MC statistins
 		double doneMC = 0.0f;
@@ -1011,9 +1012,17 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 					if (lastMonteCarloLoop == 1)
 						renderData->statistics.numberOfRenderedPixels += jobHeight * jobWidth;
 					renderData->statistics.totalNumberOfDOFRepeats += jobWidth * jobHeight;
+
+					listOfRenderedTilesData.append(
+						sRenderedTileData(jobX, jobY, jobWidth, jobHeight, totalNoiseRect));
 				} // endif montecarlo
+				else
+				{
+					listOfRenderedTilesData.append(sRenderedTileData(jobX, jobY, jobWidth, jobHeight, 0.0));
+				}
 
 				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+
 			} // while something in queue
 
 			// refreshing progress bar and statistics (not more than once per 100ms)
@@ -1058,11 +1067,13 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				{
 					image->ConvertTo8bit(&lastRenderedRects);
 					image->UpdatePreview(&lastRenderedRects);
+					emit sendRenderedTilesList(listOfRenderedTilesData);
 					emit updateImage();
 				}
 				lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
 
 				lastRenderedRects.clear();
+				listOfRenderedTilesData.clear();
 				timerImageRefresh.restart();
 			}
 

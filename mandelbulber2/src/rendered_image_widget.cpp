@@ -169,6 +169,8 @@ void RenderedImage::paintEvent(QPaintEvent *event)
 			}
 		}
 
+		PaintLastRenderedTilesInfo();
+
 		redrawed = true;
 	}
 	else
@@ -1002,7 +1004,7 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	QStaticText textZ("Z");
 	point1 = CalcPointPersp(CVector3(0.0, 0.0, 1.2), mRotInv, persp) * size + center;
 	point2 =
-		QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textZ.size().height() * 0.5);
+		QPointF(point1.x() - textZ.size().width() * 0.5, point1.y() - textZ.size().height() * 0.5);
 	painter.drawStaticText(point2, textZ);
 
 	point1 = CalcPointPersp(CVector3(0.05, 0.0, 0.9), mRotInv, persp) * size + center;
@@ -1027,7 +1029,7 @@ void RenderedImage::Compass(CVector3 rotation, QPointF center, float size)
 	QStaticText textY("Y");
 	point1 = CalcPointPersp(CVector3(0.0, 1.2, 0.0), mRotInv, persp) * size + center;
 	point2 =
-		QPointF(point1.x() - textX.size().width() * 0.5, point1.y() - textY.size().height() * 0.5);
+		QPointF(point1.x() - textY.size().width() * 0.5, point1.y() - textY.size().height() * 0.5);
 	painter.drawStaticText(point2, textY);
 
 	point1 = CalcPointPersp(CVector3(0.05, 0.9, 0.0), mRotInv, persp) * size + center;
@@ -1200,4 +1202,59 @@ void RenderedImage::DrawAnimationPath()
 			}
 		}
 	}
+}
+
+void RenderedImage::showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles)
+{
+	listOfRenderedTilesData.append(listOfRenderedTiles);
+}
+
+void RenderedImage::PaintLastRenderedTilesInfo()
+{
+	QPainter painter(this);
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+	QPen penRed(Qt::red, 1.0, Qt::SolidLine);
+	QPen penGreen(Qt::green, 1.0, Qt::SolidLine);
+	painter.setOpacity(0.5);
+
+	QList<QPair<int, int>> listOfPaintedTiles;
+
+	for (sRenderedTileData &tile : listOfRenderedTilesData)
+	{
+		if (!listOfPaintedTiles.contains(QPair<int, int>(tile.x, tile.y)))
+		{
+			listOfPaintedTiles.append(QPair<int, int>(tile.x, tile.y));
+
+			QRect r(tile.x * image->GetPreviewScale(), tile.y * image->GetPreviewScale(),
+				tile.width * image->GetPreviewScale(), tile.height * image->GetPreviewScale());
+
+			painter.setOpacity(0.5);
+			painter.setPen(penRed);
+
+			painter.drawLine(r.x(), r.y(), r.x() + r.width() / 4, r.y());
+			painter.drawLine(r.x(), r.y(), r.x(), r.y() + r.height() / 4);
+			painter.drawLine(r.right(), r.bottom(), r.right() - r.width() / 4, r.bottom());
+			painter.drawLine(r.right(), r.bottom(), r.right(), r.bottom() - r.height() / 4);
+
+			painter.setPen(penGreen);
+
+			painter.drawLine(r.right(), r.y(), r.right() - r.width() / 4, r.y());
+			painter.drawLine(r.right(), r.y(), r.right(), r.y() + r.height() / 4);
+			painter.drawLine(r.left(), r.bottom(), r.left() + r.width() / 4, r.bottom());
+			painter.drawLine(r.left(), r.bottom(), r.left(), r.bottom() - r.height() / 4);
+
+			QPoint center = r.center();
+
+			painter.setOpacity(1.0);
+			if (tile.noiseLevel > 0)
+			{
+				QStaticText text(QString("%1").arg(tile.noiseLevel * 100.0, 0, 'f', 1));
+				QPointF point =
+					QPointF(center.x() - text.size().width() * 0.5, center.y() - text.size().height() * 0.5);
+				painter.drawStaticText(point, text);
+			}
+		}
+	}
+	listOfRenderedTilesData.clear();
 }

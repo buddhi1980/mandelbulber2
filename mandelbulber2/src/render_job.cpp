@@ -543,6 +543,9 @@ bool cRenderJob::Execute()
 		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
 			SIGNAL(updateStatistics(cStatistics)));
 		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+		connect(gOpenCl->openClEngineRenderFractal,
+			SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), this,
+			SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)));
 
 		gOpenCl->openClEngineRenderFractal->Lock();
 		gOpenCl->openClEngineRenderFractal->SetParameters(
