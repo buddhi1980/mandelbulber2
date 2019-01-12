@@ -68,7 +68,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 #else // not SIMPLE_GLOW
 	float totalStep = 0.0f;
-	float scan = CalcDelta(input->point, consts);
+	float scan = CalcDistThresh(input->point, consts);
 
 	sShaderInputDataCl input2 = *input;
 
@@ -90,7 +90,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
 
-		step = max(step, input2.delta);
+		step = max(step, input2.distThresh);
 
 		bool end = false;
 		if (step > input->depth - scan)

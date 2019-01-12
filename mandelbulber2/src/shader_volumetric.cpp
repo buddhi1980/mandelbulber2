@@ -84,7 +84,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
 		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
 
-		if (totalStep < CalcDelta(point))
+		if (totalStep < CalcDistThresh(point))
 		{
 			continue;
 		}
@@ -155,9 +155,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-																 + 1e-100);
+			double fakeLight = 1.0
+												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+														 + 1e-100);
 			output.R +=
 				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
 			output.G +=
