@@ -76,17 +76,19 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 	{
 		float3 point = input->point - input->viewVector * scan;
 
-		calcParam->distThresh = input->distThresh;
+		input2.point = point;
+		input2.distThresh = CalcDistThresh(point, consts);
+		input2.delta = CalcDelta(point, consts);
+
+		calcParam->distThresh = input2.distThresh;
+		calcParam->detailSize = input2.distThresh;
 
 		formulaOut outF;
 		outF = CalculateDistance(consts, point, calcParam, renderData);
 		float distance = outF.distance;
 
-		input2.point = point;
-		input2.distThresh = CalcDistThresh(point, consts);
-		input2.delta = CalcDelta(point, consts);
-
-		float step = distance * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
+		float step = (distance - 0.5f * input2.distThresh) * consts->params.DEFactor
+								 * consts->params.volumetricLightDEFactor;
 
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
 
