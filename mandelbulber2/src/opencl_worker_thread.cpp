@@ -4,10 +4,11 @@
  *  Created on: 29 gru 2018
  *      Author: krzysztof
  */
-#include "opencl_worker_output_queue.h"
-#include "system.hpp"
 
 #ifdef USE_OPENCL
+
+#include "opencl_worker_output_queue.h"
+#include "system.hpp"
 
 #include <algorithm>
 #include <QtCore>

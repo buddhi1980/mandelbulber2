@@ -7,10 +7,10 @@
 
 #ifndef MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_
 #define MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_
-#include "opencl_input_output_buffer.h"
 
 #ifdef USE_OPENCL
 
+#include "opencl_input_output_buffer.h"
 #include <QObject>
 
 #include "error_message.hpp"
