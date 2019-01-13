@@ -431,8 +431,19 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::pseudoKleinianDEFunction)
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
-					out->distance =
-						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / fabs(extendedAux.DE);
+
+					/*out->distance =
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);*/
+
+					double PK_DE =
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
+
+					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
+						out->distance = PK_DE;
+					else
+					{
+						out->distance = PK_DE * initR * initR / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * PK_DE);
+					}
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{
