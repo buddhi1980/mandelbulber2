@@ -622,7 +622,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			{
 				emit showErrorMessage(
 					QObject::tr("Cannot enqueue reading OpenCL buffers %1. \nCalculation probably took too "
-											"long time and triggered timeout error in graphics driver.")
+											"long and triggered timeout error in graphics driver.")
 						.arg(inputAndOutputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
@@ -635,7 +635,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 	{
 		emit showErrorMessage(
 			QObject::tr("Cannot finish reading OpenCL output buffers\nCalculation probably took too "
-									"long time and triggered timeout error in graphics driver."),
+									"long and triggered timeout error in graphics driver."),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

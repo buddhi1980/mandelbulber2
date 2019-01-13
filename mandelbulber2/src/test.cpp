@@ -151,37 +151,74 @@ void Test::renderExamples() const
 	}
 #endif
 
+	int loopRepeats = 1;
+#ifdef USE_OPENCL
+	if (gPar->Get<bool>("opencl_enabled"))
+	{
+		loopRepeats = 2;
+	}
+#endif
+
 	while (it.hasNext())
 	{
-		QElapsedTimer timer;
-		timer.start();
 		const QString filename = it.next();
-		if (!IsBenchmarking()) WriteLogCout("trying file: " + filename + "\n", 2);
-		cSettings parSettings(cSettings::formatFullText);
-		parSettings.BeQuiet(true);
-		parSettings.LoadFromFile(filename);
-		parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-		testPar->Set("image_width", IsBenchmarking() ? difficulty * 2 : 5);
-		testPar->Set("image_height", IsBenchmarking() ? difficulty * 2 : 5);
-		cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
-		renderJob->Init(cRenderJob::still, config);
 
-		if (IsBenchmarking())
-			renderJob->Execute();
-		else
-			QVERIFY2(renderJob->Execute(), "example render failed.");
-
-		if (exampleOutputPath != "")
+		for (int repeat = 0; repeat < loopRepeats; repeat++)
 		{
-			const QString imgFileName =
-				QDir(exampleOutputPath).absolutePath() + QDir::separator() + QFileInfo(filename).baseName();
-			SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
-		}
-		delete renderJob;
+			QString cpuGpuString;
 
-		WriteLog(
-			QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(timer.elapsed()), 1);
-		testPar->PrintListOfParameters();
+			QElapsedTimer timer;
+			timer.start();
+			if (!IsBenchmarking()) WriteLogCout(cpuGpuString + " trying file: " + filename + "\n", 1);
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			parSettings.LoadFromFile(filename);
+			parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+
+			switch (repeat)
+			{
+				case 0: // CPU mode
+				{
+#ifdef USE_OPENCL
+					testPar->Set("opencl_mode", 0);
+#endif
+					cpuGpuString = "CPU";
+					break;
+				}
+				case 1: // GPU mode
+				{
+#ifdef USE_OPENCL
+					testPar->Set("opencl_mode", 3);
+#endif
+					cpuGpuString = "GPU";
+					break;
+				}
+			}
+
+			testPar->Set("image_width", IsBenchmarking() ? difficulty * 2 : 5);
+			testPar->Set("image_height", IsBenchmarking() ? difficulty * 2 : 5);
+			cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
+			renderJob->Init(cRenderJob::still, config);
+
+			if (IsBenchmarking())
+				renderJob->Execute();
+			else
+				QVERIFY2(renderJob->Execute(), "example render failed.");
+
+			qint64 elapsedTime = timer.elapsed();
+			if (exampleOutputPath != "")
+			{
+				const QString imgFileName = QDir(exampleOutputPath).absolutePath() + QDir::separator()
+																		+ QFileInfo(filename).baseName()
+																		+ QString(" %1 %2ms").arg(cpuGpuString).arg(elapsedTime);
+				SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
+			}
+			delete renderJob;
+
+			WriteLog(
+				QString("example: %1 rendered in %2 Milliseconds").arg(filename).arg(elapsedTime), 1);
+			testPar->PrintListOfParameters();
+		}
 	}
 
 	delete image;
