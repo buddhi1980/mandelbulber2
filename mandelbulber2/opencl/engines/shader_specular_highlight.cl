@@ -41,11 +41,19 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 	if (specular < 0.0f) specular = 0.0f;
 
 #if defined(USE_TEXTURES) && defined(USE_DIFFUSION_TEXTURE)
-	float diffuse =
-		10.0f * (1.1f
-							- input->material->diffusionTextureIntensity
-									* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
-	specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
+	if (input->material->useDiffusionTexture)
+	{
+		float diffuse =
+			10.0f
+			* (1.1f
+					- input->material->diffusionTextureIntensity
+							* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
+		specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
+	}
+	else
+	{
+		specular = pow(specular, 30.0f / specularWidth);
+	}
 #else
 	specular = pow(specular, 30.0f / specularWidth);
 #endif

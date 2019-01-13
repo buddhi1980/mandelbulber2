@@ -167,14 +167,6 @@ void Test::renderExamples() const
 		{
 			QString cpuGpuString;
 
-			QElapsedTimer timer;
-			timer.start();
-			if (!IsBenchmarking()) WriteLogCout(cpuGpuString + " trying file: " + filename + "\n", 1);
-			cSettings parSettings(cSettings::formatFullText);
-			parSettings.BeQuiet(true);
-			parSettings.LoadFromFile(filename);
-			parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
-
 			switch (repeat)
 			{
 				case 0: // CPU mode
@@ -195,8 +187,19 @@ void Test::renderExamples() const
 				}
 			}
 
+			QElapsedTimer timer;
+			timer.start();
+			WriteLogCout(cpuGpuString + " trying file: " + filename + "\n", 1);
+			cSettings parSettings(cSettings::formatFullText);
+			parSettings.BeQuiet(true);
+			parSettings.LoadFromFile(filename);
+			parSettings.Decode(testPar, testParFractal, testAnimFrames, testKeyframes);
+
 			testPar->Set("image_width", IsBenchmarking() ? difficulty * 2 : 5);
 			testPar->Set("image_height", IsBenchmarking() ? difficulty * 2 : 5);
+			testPar->Set("DOF_max_noise", testPar->Get<double>("DOF_max_noise") * 10.0);
+			testPar->Set("DOF_min_samples", 5);
+
 			cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 			renderJob->Init(cRenderJob::still, config);
 

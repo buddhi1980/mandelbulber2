@@ -43,11 +43,20 @@ sRGBAfloat cRenderWorker::SpecularHighlight(
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0f) shade2 = 0.0f;
-	float diffuse =
-		10.0f * (1.1f
-							- input.material->diffusionTextureIntensity
-									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+	if (input.material->useDiffusionTexture)
+	{
+		float diffuse =
+			10.0f
+			* (1.1f
+					- input.material->diffusionTextureIntensity
+							* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+		shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+	}
+	else
+	{
+		shade2 = pow(shade2, 30.0f / specularWidth);
+	}
+
 	if (roughness > 0.0f)
 	{
 		shade2 *= (1.0 + Random(1000) / 1000.0f * roughness);
