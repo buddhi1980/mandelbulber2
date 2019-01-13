@@ -268,6 +268,7 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 
 void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

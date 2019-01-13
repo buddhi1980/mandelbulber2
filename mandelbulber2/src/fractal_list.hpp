@@ -306,6 +306,7 @@ enum enumFractalFormula
 	transfSurfBoxFoldV24d = 1089,
 	// 2.17
 	transfBoxWrap4d = 1089,
+	transfSphericalInvV2 = 1090,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

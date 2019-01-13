@@ -12254,6 +12254,44 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
+ * spherical invert ( v2.17)
+ * from M3D. Formula by Luca GN 2011, updated May 2012.
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+
+
+	if (fractal->transformCommon.sphereInversionEnabledFalse && aux.i < 1)
+	{
+		double rr;
+		if (!fractal->transformCommon.functionEnabledPFalse)
+		{
+			z -= fractal->transformCommon.offset000;
+			rr = z.Dot(z);
+		}
+		else
+		{
+			rr = z.Dot(z);
+			z -= fractal->transformCommon.offset000;
+		}
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.offset000
+				+ fractal->transformCommon.additionConstant000;
+
+		// aux.DE = fractal->transformCommon.maxR2d1/rr;
+	}
+
+
+
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+}
+
+/**
  * inverted sphere z & c- A transform from M3D
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
