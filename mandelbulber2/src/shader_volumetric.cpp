@@ -84,7 +84,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
 		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
 
-		if (totalStep < CalcDistThresh(point))
+		if (totalStep < 1e-10 * CalcDistThresh(point)) // if two steps are the same
 		{
 			continue;
 		}
