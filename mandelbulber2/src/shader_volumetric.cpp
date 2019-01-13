@@ -150,7 +150,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// fake lights (orbit trap)
 		if (params->fakeLightsEnabled)
 		{
-			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
+			sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;

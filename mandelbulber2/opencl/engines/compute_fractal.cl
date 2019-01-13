@@ -320,15 +320,14 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 				if (consts->sequence.useAdditionalBailoutCond[sequence])
 				{
+					out.maxiter = false; // maxiter flag has to be always disabled for pseudo klienian
 					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
-						out.maxiter = false;
 						break;
 					}
 
 					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
-						out.maxiter = false;
 						break;
 					}
 				}

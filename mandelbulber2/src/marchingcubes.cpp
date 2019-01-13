@@ -448,7 +448,7 @@ __declspec(target(mic))
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
 	cMaterial *material = &renderData->materials[objectData.materialId];
 
-	sFractalIn fractIn(point, params->minN, params->N, params->common, -1, material);
+	sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false, material);
 	sFractalOut fractOut;
 
 	Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);

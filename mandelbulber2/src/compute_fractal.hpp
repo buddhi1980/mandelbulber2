@@ -52,15 +52,17 @@ struct sFractalIn
 	int maxN;
 	sCommonParams common;
 	int forcedFormulaIndex;
+	bool normalCalculationMode;
 	const cMaterial *material;
 
 	sFractalIn(CVector3 _point, int _minN, int _maxN, sCommonParams _common, int _forcedFormulaIndex,
-		const cMaterial *_material = nullptr)
+		bool _normalCalculationMode, const cMaterial *_material = nullptr)
 			: point(_point),
 				minN(_minN),
 				maxN(_maxN),
 				common(std::move(_common)),
 				forcedFormulaIndex(_forcedFormulaIndex),
+				normalCalculationMode(_normalCalculationMode),
 				material(_material)
 	{
 	}

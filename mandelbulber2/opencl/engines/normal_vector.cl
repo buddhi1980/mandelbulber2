@@ -42,6 +42,7 @@ float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, 
 #endif
 
 	calcParam->distThresh = distThresh;
+	calcParam->detailSize = distThresh;
 	calcParam->normalCalculationMode = true;
 
 	float3 deltas[6];

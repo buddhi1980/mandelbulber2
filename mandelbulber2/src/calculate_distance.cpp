@@ -234,7 +234,8 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 	const int N =
 		(in.normalCalculationMode && params.common.iterThreshMode) ? params.N * 5 : params.N;
 
-	sFractalIn fractIn(in.point, params.minN, N, params.common, forcedFormulaIndex);
+	sFractalIn fractIn(
+		in.point, params.minN, N, params.common, forcedFormulaIndex, in.normalCalculationMode);
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 

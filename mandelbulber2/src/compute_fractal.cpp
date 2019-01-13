@@ -75,10 +75,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	enumFractalFormula formula = fractal::none;
 
-	if (in.common.iterThreshMode)
-		out->maxiter = true;
-	else
-		out->maxiter = false;
+	out->maxiter = in.common.iterThreshMode || !in.normalCalculationMode;
 
 	int fractalIndex = 0;
 	if (in.forcedFormulaIndex >= 0) fractalIndex = in.forcedFormulaIndex;
@@ -279,14 +276,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 				if (fractals.UseAdditionalBailoutCond(sequence))
 				{
+					out->maxiter = false; // maxiter flag has to be always disabled for pseudo klienian
 					if ((z - lastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
 					{
-						out->maxiter = false;
 						break;
 					}
 					if ((z - lastLastZ).Length() / r < 0.1 / fractals.GetBailout(sequence))
 					{
-						out->maxiter = false;
 						break;
 					}
 				}
@@ -443,13 +439,16 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
-					double JosDE = min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+					double JosDE =
+						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
 						out->distance = JosDE;
 					else
 					{
-						out->distance = JosDE * initR * initR / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
+						out->distance =
+							JosDE * initR * initR
+							/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
 					}
 					/*out->distance =
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
@@ -506,7 +505,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							out->distance = PK_DE;
 						else
 						{
-							out->distance = PK_DE * initR * initR / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * PK_DE);
+							out->distance =
+								PK_DE * initR * initR
+								/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * PK_DE);
 						}
 					}
 					else
@@ -518,18 +519,22 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
-					double JosDE = min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+					double JosDE =
+						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 
 					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
 						out->distance = JosDE;
 					else
 					{
-						out->distance = JosDE * initR * initR / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
+						out->distance =
+							JosDE * initR * initR
+							/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
 					}
 					/*out->distance =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
-						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);*/
+						/ max(extendedAux.pseudoKleinianDE,
+						fractals.GetFractal(sequence)->analyticDE.offset1);*/
 
 					break;
 				}
