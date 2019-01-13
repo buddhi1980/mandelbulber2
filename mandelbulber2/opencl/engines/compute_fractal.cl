@@ -131,7 +131,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int i;
 
 	formulaOut out;
-	out.maxiter = consts->params.iterThreshMode || !calcParam->normalCalculationMode;
+	out.maxiter = true;
 	out.orbitTrapR = 0.0f;
 
 	float colorMin = 1000.0;
@@ -320,14 +320,15 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 				if (consts->sequence.useAdditionalBailoutCond[sequence])
 				{
-					out.maxiter = false; // maxiter flag has to be always disabled for pseudo klienian
 					if (length(z - lastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
+						out.maxiter = false;
 						break;
 					}
 
 					if (length(z - lastLastZ) / aux.r < 0.1f / consts->sequence.bailout[sequence])
 					{
+						out.maxiter = false;
 						break;
 					}
 				}
