@@ -432,10 +432,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				{
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
 
-					/*out->distance =
-						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);*/
+					out->distance =
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 
-					double PK_DE =
+					/*double PK_DE =
 						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 
 					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
@@ -443,14 +443,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					else
 					{
 						out->distance = PK_DE * initR * initR / (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * PK_DE);
-					}
+					}*/
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{
 					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
-					double JosDE =
+					/*double JosDE =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 					if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
@@ -460,10 +460,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance =
 							JosDE * initR * initR
 							/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
-					}
-					/*out->distance =
+					}*/
+					out->distance =
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
-						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);*/
+						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
 				/*case testingDEFunction:
 				{
@@ -507,9 +507,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (extendedAux.DE > 0)
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
-						/*out->distance =
-							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);*/
-						double PK_DE =
+						out->distance =
+							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
+						/*double PK_DE =
 							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
 
 						if (!fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
@@ -519,7 +519,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 							out->distance =
 								PK_DE * initR * initR
 								/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * PK_DE);
-						}
+						}*/
 					}
 					else
 						out->distance = r;
@@ -530,7 +530,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
-					double JosDE =
+					/*double JosDE =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(sequence)->analyticDE.offset1);
 
@@ -541,11 +541,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance =
 							JosDE * initR * initR
 							/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * JosDE);
-					}
-					/*out->distance =
+					}*/
+					out->distance =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 						/ max(extendedAux.pseudoKleinianDE,
-						fractals.GetFractal(sequence)->analyticDE.offset1);*/
+						fractals.GetFractal(sequence)->analyticDE.offset1);
 
 					break;
 				}
@@ -554,6 +554,14 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				case analyticFunctionUndefined: out->distance = r; break;
 			}
 		}
+
+		if (fractals.GetFractal(sequence)->transformCommon.sphereInversionEnabledFalse)
+		{
+			out->distance =
+				out->distance * initR * initR
+				/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * out->distance);
+		}
+
 	}
 
 	// color calculation
