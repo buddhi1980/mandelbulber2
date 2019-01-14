@@ -14583,28 +14583,46 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 box_size = fractal->transformCommon.offset1111;
+	CVector4 wrap_mode = z;
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
 		z.x += box_size.x;
-		z.x = fmod(z.x, 2.0 * box_size.x) - box_size.x;
+		if (!fractal->transformCommon.functionEnabledFalse)
+			wrap_mode.x = fmod(z.x, 2.0 * box_size.x);
+		else
+			wrap_mode.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x);
+		z.x = wrap_mode.x - box_size.x;
 	}
 	if (fractal->transformCommon.functionEnabledy)
 	{
 		z.y += box_size.y;
-		z.y = fmod(z.y, 2.0 * box_size.y) - box_size.y;
+		if (!fractal->transformCommon.functionEnabledFalse)
+			wrap_mode.y = fmod(z.y, 2.0 * box_size.y);
+		else
+			wrap_mode.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y);
+		z.y = wrap_mode.y - box_size.y;
 	}
 	if (fractal->transformCommon.functionEnabledz)
 	{
 		z.z += box_size.z;
-		z.z = fmod(z.z, 2.0 * box_size.z) - box_size.z;
+		if (!fractal->transformCommon.functionEnabledFalse)
+			wrap_mode.z = fmod(z.z, 2.0 * box_size.z);
+		else
+			wrap_mode.z = z.z - 2.0 * box_size.z * floor(z.z / 2.0 * box_size.z);
+		z.z = wrap_mode.z - box_size.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
 		z.w += box_size.w;
-		z.w = fmod(z.w, 2.0 * box_size.w) - box_size.w;
+		if (!fractal->transformCommon.functionEnabledFalse)
+			wrap_mode.w = fmod(z.w, 2.0 * box_size.w);
+		else
+			wrap_mode.w = z.w - 2.0 * box_size.w * floor(z.w / 2.0 * box_size.w);
+		z.w = wrap_mode.w - box_size.w;
 	}
+
 	aux.DE *= fractal->analyticDE.scale1;
 }
 

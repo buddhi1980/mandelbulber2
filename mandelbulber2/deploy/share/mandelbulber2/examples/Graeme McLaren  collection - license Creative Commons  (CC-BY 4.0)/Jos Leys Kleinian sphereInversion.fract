@@ -2,7 +2,7 @@
 # version 2.17
 # only modified parameters
 [description]
-DeltaDE is often best with spherical inversion. If using AnalyticDE then try adjusting the AnalyticDE clamps. Increasing Clamp_y may improve the DE but will increase the render time.
+DeltaDE is often best with spherical inversion. If using AnalyticDE then try adjusting the AnalyticDE controls.
 [main_parameters]
 ambient_occlusion_enabled true;
 background_3_colors_enable false;
@@ -45,5 +45,5 @@ view_distance_max 7;
 [fractal_1]
 transf_folding_value 1.98;
 transf_maxR2_1 0.3;
-transf_offset_000 -0.2 1.2 0;
+transf_offset_000 0.2 -1.2 0;
 transf_sphere_inversion_enabled_false true;
