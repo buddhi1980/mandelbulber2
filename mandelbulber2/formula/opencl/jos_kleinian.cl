@@ -58,6 +58,6 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	aux->pseudoKleinianDE *= iR;
+	aux->DE *= iR; // testing
 	return z;
 }

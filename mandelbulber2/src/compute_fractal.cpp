@@ -463,7 +463,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}*/
 					out->distance =
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
-						/ max(extendedAux.pseudoKleinianDE, fractals.GetFractal(0)->analyticDE.offset1);
+						/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
 				/*case testingDEFunction:
 				{
@@ -544,7 +544,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					}*/
 					out->distance =
 						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
-						/ max(extendedAux.pseudoKleinianDE,
+						/ max(extendedAux.DE, //extendedAux.pseudoKleinianDE
 						fractals.GetFractal(sequence)->analyticDE.offset1);
 
 					break;

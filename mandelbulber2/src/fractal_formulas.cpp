@@ -4388,7 +4388,8 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	aux.pseudoKleinianDE *= iR;
+	aux.pseudoKleinianDE *= iR; // TODO remove after testing
+	aux.DE *= iR;
 }
 
 /**
@@ -4457,12 +4458,18 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	z *= -iR; // invert and mirror
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	aux.pseudoKleinianDE *= iR;
+	aux.pseudoKleinianDE *= iR; // TODO remove after testing
+	aux.DE *= iR;
+
 
 	if (fractal->analyticDE.enabledFalse)
 	{ // analytic DE adjustment
 		aux.pseudoKleinianDE =
-			aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // TODO remove after testing
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+
 	}
 	/*if (fractal->transformCommon.functionEnabledDFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
