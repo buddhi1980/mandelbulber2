@@ -4352,6 +4352,7 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// sphere inversion slot#1 iter == 0
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
 		if (aux.i < 1 )
@@ -4360,34 +4361,14 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000
-					- fractal->transformCommon.offset000;
+			z -= fractal->transformCommon.offset000;
 			//double r = sqrt(rr);
-			 aux.DE = (fractal->transformCommon.maxR2d1) /rr;
-		}
-		if (fractal->analyticDE.enabledFalse)
-		{
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
+					 * fractal->analyticDE.scale1;
 		}
 	}
 
-
-
-
-
-
-
-	/*if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		z -= fractal->transformCommon.offset000;
-		double rr = z.Dot(z);
-		z *= fractal->transformCommon.maxR2d1 / rr;
-		z += fractal->transformCommon.offset000;
-		// aux.DE = fractal->transformCommon.maxR2d1/rr;
-	}*/
-
+	// kleinian
 	double a = fractal->transformCommon.foldingValue;
 	double b = fractal->transformCommon.offset;
 	double f = sign(b);
@@ -4425,6 +4406,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// sphere inversion slot#1 iter == 0
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
 		if (aux.i < 1 )
@@ -4436,14 +4418,12 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			z += fractal->transformCommon.additionConstant000
 					- fractal->transformCommon.offset000;
 			//double r = sqrt(rr);
-			 aux.DE = (fractal->transformCommon.maxR2d1) /rr;
-		}
-		if (fractal->analyticDE.enabledFalse)
-		{
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
+					 * fractal->analyticDE.scale1;
 		}
 	}
 
+	// kleinian
 	double a = fractal->transformCommon.foldingValue;
 	double b = fractal->transformCommon.offset;
 	double f = sign(b);
