@@ -8011,6 +8011,25 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// sphere inversion slot#1 iter == 0
+	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	{
+		if (aux.i < 1 )
+		{
+			double rr = 1.0;
+			z += fractal->transformCommon.offset000;
+			rr = z.Dot(z);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			z += fractal->transformCommon.additionConstantA000
+					- fractal->transformCommon.offset000;
+			//double r = sqrt(rr);
+			 aux.DE = aux.DE *(fractal->transformCommon.maxR2d1 /rr)
+					 + fractal->analyticDE.offset0;
+		}
+	}
+
+
+
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
 	double dot1;
