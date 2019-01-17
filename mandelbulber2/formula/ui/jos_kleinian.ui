@@ -60,6 +60,13 @@
     </widget>
    </item>
    <item>
+    <widget class="Line" name="line_62">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="Line" name="line_67">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -74,7 +81,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -301,6 +308,126 @@ offset</string>
        </layout>
       </item>
       <item>
+       <layout class="QGridLayout" name="gridLayout_35" columnstretch="0,0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_122">
+          <property name="text">
+           <string notr="true">y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_121">
+          <property name="text">
+           <string notr="true">x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_y">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_127">
+          <property name="text">
+           <string notr="true">z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" rowspan="3">
+         <widget class="QLabel" name="label_259">
+          <property name="text">
+           <string>Post
+Offset:</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,0,1">
         <property name="spacing">
          <number>2</number>
@@ -417,13 +544,6 @@ offset</string>
        </property>
        <property name="text">
         <string>Klein R</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0" colspan="3">
-      <widget class="Line" name="line_62">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>

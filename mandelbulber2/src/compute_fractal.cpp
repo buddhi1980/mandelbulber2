@@ -418,11 +418,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		// if (extendedAux.DE > 0.0); //maybe?
 		if (fractals.IsHybrid())
 		{
-			if (extendedAux.DE != 0.0)
+			if (extendedAux.DE > 0.0)
+			//if (extendedAux.DE != 0.0)
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
-					out->distance = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
+					out->distance = (r - in.common.linearDEOffset) / extendedAux.DE;
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::logarithmicDEFunction)
 				{
@@ -433,7 +434,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					double rxy = sqrt(z.x * z.x + z.y * z.y);
 
 					out->distance =
-						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
+						max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / extendedAux.DE;
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{

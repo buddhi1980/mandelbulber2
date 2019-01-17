@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -4361,8 +4361,8 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z -= fractal->transformCommon.offset000;
-			//double r = sqrt(rr);
+			z += fractal->transformCommon.additionConstant000
+					- fractal->transformCommon.offset000;
 			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
 					 * fractal->analyticDE.scale1;
 		}
@@ -4385,12 +4385,12 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
 
-	double z2 = z.Dot(z);
+	double rr = z.Dot(z);
 
-	CVector4 colorVector = CVector4(z.x, z.y, z.z, z2);
+	CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
 	aux.color = min(aux.color, colorVector.Length()); // For coloring
 
-	double iR = 1.0 / z2;
+	double iR = 1.0 / rr;
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
@@ -4417,53 +4417,77 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			z *= fractal->transformCommon.maxR2d1 / rr;
 			z += fractal->transformCommon.additionConstant000
 					- fractal->transformCommon.offset000;
+			z *= fractal->transformCommon.scaleA1;
 			//double r = sqrt(rr);
 			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
-					 * fractal->analyticDE.scale1;
+					 * fractal->analyticDE.scale1
+					 * fractal->transformCommon.scaleA1;
 		}
 	}
 
 	// kleinian
-	double a = fractal->transformCommon.foldingValue;
-	double b = fractal->transformCommon.offset;
-	double f = sign(b);
-
-	CVector4 box_size = fractal->transformCommon.offset111;
-
-	if (!fractal->transformCommon.functionEnabledByFalse)
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
 	{
-		CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
-		CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
-		CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
-		z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+		double a = fractal->transformCommon.foldingValue;
+		double b = fractal->transformCommon.offset;
+		double c = fractal->transformCommon.offsetA0;
+		double f = sign(b);
+
+		// wrap
+		CVector4 box_size = fractal->transformCommon.offset111;
+
+		{
+			z.x += box_size.x;
+			z.z += box_size.z;
+			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
+			z.z = z.z - 2.0 * box_size.z * floor(z.z / 2.0 * box_size.z) - box_size.z;
+			z.y += box_size.y - 1.0;
+			z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
+			z.y -= (box_size.y - 1.0);
+		}
+		//double perc = fractal->transformCommon.scaleG1 * 0.2;
+		double perc = fractal->transformCommon.scaleG1;
+
+		// double tempY = perc * sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
+
+		if (!fractal->transformCommon.functionEnabledByFalse)
+		{
+			if (z.y >= a * (0.5 + perc * 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+			{//z = CVector4(-b, a, 0.0, z.w) - z;
+				z.x = -z.x - b;
+				z.y = -z.y + a;
+				z.z = -z.z - c;
+			}
+		}
+		else
+		{
+			//double tempY = sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
+
+			//if (z.y >= a * (0.5)) // + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+			if (z.y >= a / 2.0)
+			{//z = CVector4(-b, a, 0.0, z.w) - z;
+				z.x = -z.x - b;
+				z.y = -z.y + a;
+				z.z = -z.z - c;
+			}
+		}
+
+		double rr = z.Dot(z);
+
+		CVector4 colorVector = CVector4(z.x, z.y, z.z, rr);
+		aux.color = min(aux.color, colorVector.Length()); // For coloring
+
+		double iR = 1.0 / rr;
+		z *= -iR; // invert and mirror
+		z.x = -z.x - b;
+		z.y = a + z.y;
+		z.z = -z.z - c;
+
+
+		aux.pseudoKleinianDE *= iR; // TODO remove after testing
+		aux.DE *= iR;
 	}
-	else
-	{
-		z.x += box_size.x;
-		z.z += box_size.z;
-		z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
-		z.z = z.z - 2.0 * box_size.z * floor(z.z / 2.0 * box_size.z) - box_size.z;
-		// z.y += box_size.y - 1.0;
-		// z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
-		// z.y += -box_size.y + 1.0;
-	}
-	double perc = fractal->transformCommon.scaleG1 * 0.2;
-
-	// If above the separation line, rotate by 180deg about (-b/2, a/2)
-	if (z.y >= a * (0.5 + perc * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-		z = CVector4(-b, a, 0., z.w) - z; // z.xy = vec2(-b, a) - z.xy;
-
-	double z2 = z.Dot(z);
-
-	CVector4 colorVector = CVector4(z.x, z.y, z.z, z2);
-	aux.color = min(aux.color, colorVector.Length()); // For coloring
-
-	double iR = 1.0 / z2;
-	z *= -iR; // invert and mirror
-	z.x = -b - z.x;
-	z.y = a + z.y;
-	aux.pseudoKleinianDE *= iR; // TODO remove after testing
-	aux.DE *= iR;
 
 
 	/*if (fractal->analyticDE.enabledFalse)
@@ -8023,12 +8047,10 @@ void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z += fractal->transformCommon.additionConstantA000
 					- fractal->transformCommon.offset000;
 			//double r = sqrt(rr);
-			 aux.DE = aux.DE *(fractal->transformCommon.maxR2d1 /rr)
+			 aux.DE = aux.DE *(fractal->transformCommon.maxR2d1 / rr)
 					 + fractal->analyticDE.offset0;
 		}
 	}
-
-
 
 	CVector4 gap = fractal->transformCommon.constantMultiplier000;
 	double t;
