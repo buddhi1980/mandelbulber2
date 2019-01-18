@@ -200,6 +200,9 @@ void Test::renderExamples() const
 			testPar->Set("DOF_max_noise", testPar->Get<double>("DOF_max_noise") * 10.0);
 			testPar->Set("DOF_min_samples", 5);
 
+			double distance = gMainInterface->GetDistanceForPoint(
+				testPar->Get<CVector3>("camera"), testPar, testParFractal);
+
 			cRenderJob *renderJob = new cRenderJob(testPar, testParFractal, image, &stopRequest);
 			renderJob->Init(cRenderJob::still, config);
 
@@ -211,9 +214,11 @@ void Test::renderExamples() const
 			qint64 elapsedTime = timer.elapsed();
 			if (exampleOutputPath != "")
 			{
-				const QString imgFileName = QDir(exampleOutputPath).absolutePath() + QDir::separator()
-																		+ QFileInfo(filename).baseName()
-																		+ QString(" %1 %2ms").arg(cpuGpuString).arg(elapsedTime);
+				QString imgFileName = QDir(exampleOutputPath).absolutePath() + QDir::separator()
+															+ QFileInfo(filename).baseName()
+															+ QString(" %1 %2ms").arg(cpuGpuString).arg(elapsedTime);
+				if (distance < 1e-5) imgFileName += " LOWDIST";
+
 				SaveImage(imgFileName, ImageFileSave::IMAGE_FILE_TYPE_PNG, image, nullptr);
 			}
 			delete renderJob;

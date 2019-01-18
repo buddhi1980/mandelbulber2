@@ -177,6 +177,8 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 				((i + 1.0) / params->auxLightRandomNumber));
 			// qDebug() << QString("Light no. %1: pos: %2, distance=%3").arg(QString::number(i),
 			// position.Debug(), QString::number(distance));
+
+			if(systemData.globalStopRequest) break;
 		}
 	}
 

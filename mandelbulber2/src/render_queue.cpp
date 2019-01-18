@@ -120,7 +120,7 @@ void cRenderQueue::slotRenderQueue()
 	WriteLog("cRenderQueue::slotRenderQueue()", 2);
 	gQueue->stopRequest = false;
 
-	while (!gQueue->stopRequest)
+	while (!gQueue->stopRequest && !systemData.globalStopRequest)
 	{
 		int queueTotalLeft = gQueue->GetQueueSize();
 		cQueue::structQueueItem queueItem = gQueue->GetNextFromList();

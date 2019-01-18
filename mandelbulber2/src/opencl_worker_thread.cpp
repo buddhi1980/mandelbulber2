@@ -132,10 +132,11 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 				}
 			}
 
-			if (*stopRequest)
+			if (*stopRequest || systemData.globalStopRequest)
 			{
+				emit finished();
 				finishedWithSuccess = false;
-				break;
+				return;
 			}
 
 			// slow down to reduce length of queue
@@ -146,7 +147,12 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			}
 		} // next tile
 
-		if (*stopRequest) break;
+		if (*stopRequest || systemData.globalStopRequest)
+		{
+			emit finished();
+			finishedWithSuccess = false;
+			return;
+		}
 	} // next monteCarloLoop
 
 	finishedWithSuccess = true;

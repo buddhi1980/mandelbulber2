@@ -225,6 +225,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 		if (!*stopRequest)
 		{
+			connect(dofEnginePhase2.data(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 			dofEnginePhase2->Lock();
 			dofEnginePhase2->SetParameters(paramRender);
 			if (dofEnginePhase2->LoadSourcesAndCompile(params))

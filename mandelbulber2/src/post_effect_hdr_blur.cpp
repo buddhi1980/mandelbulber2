@@ -39,6 +39,7 @@
 #include "cimage.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "system.hpp"
 
 cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
 {
@@ -75,7 +76,7 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 
 	for (int y = 0; y < image->GetHeight(); y++)
 	{
-		if (*stopRequest) break;
+		if (*stopRequest || systemData.globalStopRequest) break;
 
 #pragma omp parallel for
 		for (int x = 0; x < image->GetWidth(); x++)

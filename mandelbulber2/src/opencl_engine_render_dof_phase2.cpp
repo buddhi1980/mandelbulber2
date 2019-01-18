@@ -237,11 +237,6 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		// TODO:
-		// insert device for loop here
-		// requires initialization for all opencl devices
-		// requires optimalJob for all opencl devices
-
 		for (qint64 pixelIndex = 0; pixelIndex < qint64(width) * qint64(height);
 				 pixelIndex += optimalJob.stepSize)
 		{
@@ -258,13 +253,13 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 				tr("OpenCL - rendering DOF - phase 2"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
 
-			if (*stopRequest)
+			if (*stopRequest || systemData.globalStopRequest)
 			{
 				return false;
 			}
 		}
 
-		if (!*stopRequest)
+		if (!*stopRequest || systemData.globalStopRequest)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 

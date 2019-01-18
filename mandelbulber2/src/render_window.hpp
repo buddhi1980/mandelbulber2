@@ -89,6 +89,7 @@ public:
 private:
 	void closeEvent(QCloseEvent *event) override;
 	void changeEvent(QEvent *event) override;
+	void keyPressEvent(QKeyEvent *event) override; //global shortcuts
 
 public slots:
 	void slotUpdateProgressAndStatus(const QString &text, const QString &progressText,
@@ -127,6 +128,7 @@ private slots:
 	void slotMaterialSelected(int matIndex) const;
 	static void slotMaterialEdited();
 	void ResetDocksPositions();
+	void ResetGlobalStopRequest();
 
 	// pull down menu
 	void slotImportOldSettings();

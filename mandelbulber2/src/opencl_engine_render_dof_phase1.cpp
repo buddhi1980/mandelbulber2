@@ -214,11 +214,6 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		// TODO:
-		// insert device for loop here
-		// requires initialization for all opencl devices
-		// requires optimalJob for all opencl devices
-
 		for (int gridY = 0; gridY <= gridHeight; gridY++)
 		{
 			for (int gridX = 0; gridX <= gridWidth; gridX++)
@@ -261,14 +256,14 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 					}
 				}
 
-				if (*stopRequest)
+				if (*stopRequest || systemData.globalStopRequest)
 				{
 					return false;
 				}
 			}
 		}
 
-		if (!*stopRequest)
+		if (!*stopRequest || systemData.globalStopRequest)
 		{
 			WriteLogDouble(
 				"cOpenClEngineRenderDOFPhase1: OpenCL Rendering time [s]", timer.nsecsElapsed() / 1.0e9, 2);

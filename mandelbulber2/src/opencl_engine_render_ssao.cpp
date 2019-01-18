@@ -254,13 +254,13 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 			UpdateOptimalJobEnd();
 
-			if (*stopRequest)
+			if (*stopRequest || systemData.globalStopRequest)
 			{
 				return false;
 			}
 		}
 
-		if (!*stopRequest)
+		if (!*stopRequest || systemData.globalStopRequest)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 

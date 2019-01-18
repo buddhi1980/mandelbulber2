@@ -39,13 +39,12 @@
 #include "common_math.h"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "system.hpp"
 
 using std::max;
 using std::min;
 
-cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
-{
-}
+cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image) {}
 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
 	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest)
@@ -96,7 +95,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		// preprocessing (1-st phase)
 		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 		{
-			if (*stopRequest) throw tr("DOF terminated");
+			if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 
 #pragma omp parallel for schedule(dynamic, 1)
 
@@ -224,7 +223,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			for (qint64 i = sortBufferSize - 1; i >= 0; i--)
 			{
-				if (*stopRequest) throw tr("DOF terminated");
+				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 				sSortZ<float> temp;
 				temp = temp_sort[i];
 				float z1 = temp.z;
@@ -279,7 +278,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			for (int i = 0; i < screenRegion.width; i++)
 			{
-				if (*stopRequest) throw tr("DOF terminated");
+				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 #pragma omp parallel for schedule(dynamic, 1)
 				for (int j = 0; j < screenRegion.height; j++)
 				{

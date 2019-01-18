@@ -201,7 +201,7 @@ void MarchingCubes::RunMarchingCube()
 		{
 			calculateEdges(i);
 		}
-		if (*stop) break;
+		if (*stop || systemData.globalStopRequest) break;
 	}
 
 #ifdef USE_OPENCL

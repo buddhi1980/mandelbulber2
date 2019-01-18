@@ -102,6 +102,7 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	progressBarFrame = nullptr;
 	progressBarLayout = nullptr;
 	autoRefreshTimer = nullptr;
+	stopRequestPulseTimer = nullptr;
 	materialListModel = nullptr;
 	materialEditor = nullptr;
 	scrollAreaMaterialEditor = nullptr;
@@ -199,14 +200,13 @@ void cInterface::ShowUi()
 	// setup main image
 	WriteLog("Setup of main image", 2);
 	mainImage = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
-	mainImage->CreatePreview(1.0, 800, 600, gMainInterface->renderedImage);
+	mainImage->CreatePreview(1.0, 800, 600, renderedImage);
 	mainImage->CompileImage();
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->SetAsMainImage();
-	renderedImage->setMinimumSize(
-		gMainInterface->mainImage->GetPreviewWidth(), gMainInterface->mainImage->GetPreviewHeight());
-	renderedImage->AssignImage(gMainInterface->mainImage);
+	renderedImage->setMinimumSize(mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
+	renderedImage->AssignImage(mainImage);
 	renderedImage->AssignParameters(gPar, gParFractal);
 
 	WriteLog("Prepare progress and status bar", 2);
@@ -407,7 +407,7 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMouseDragDelta(int, int)));
 
 	connect(mainWindow->ui->widgetDockRenderingEngine, SIGNAL(stateChangedConnectDetailLevel(int)),
-		gMainInterface->mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
+		mainWindow->ui->widgetImageAdjustments, SLOT(slotCheckedDetailLevelLock(int)));
 
 	// DockWidgets and Toolbar
 
@@ -1024,8 +1024,7 @@ void cInterface::RefreshPostEffects()
 				data.screenRegion = cRegion<int>(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 				cRenderSSAO rendererSSAO(&params, &data, mainImage);
 				QObject::connect(&rendererSSAO,
-					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-					gMainInterface->mainWindow,
+					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&rendererSSAO, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 
@@ -1057,8 +1056,7 @@ void cInterface::RefreshPostEffects()
 				// cRenderingConfiguration config;
 				cPostRenderingDOF dof(mainImage);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-					gMainInterface->mainWindow,
-					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
+					mainWindow, SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&dof, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 				cRegion<int> screenRegion(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
 				dof.Render(screenRegion,
@@ -1075,8 +1073,7 @@ void cInterface::RefreshPostEffects()
 			double blurIntensity = gPar->Get<double>("hdr_blur_intensity");
 			hdrBlur->SetParameters(blurRadius, blurIntensity);
 			QObject::connect(hdrBlur,
-				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-				gMainInterface->mainWindow,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			hdrBlur->Render(&stopRequest);
 			delete hdrBlur;
@@ -1275,7 +1272,7 @@ void cInterface::SetByMouse(
 				{
 					double fogDepth = depth;
 					gPar->Set("basic_fog_visibility", fogDepth);
-					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceBasicFogEnabled(gPar);
+					mainWindow->ui->widgetEffects->SynchronizeInterfaceBasicFogEnabled(gPar);
 					StartRender();
 					break;
 				}
@@ -1284,7 +1281,7 @@ void cInterface::SetByMouse(
 					DisablePeriodicRefresh();
 					double DOF = depth;
 					gPar->Set("DOF_focus", DOF);
-					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
+					mainWindow->ui->widgetEffects->SynchronizeInterfaceDOFEnabled(gPar);
 					gUndo.Store(gPar, gParFractal);
 					RefreshPostEffects();
 					ReEnablePeriodicRefresh();
@@ -1311,7 +1308,7 @@ void cInterface::SetByMouse(
 					int lightNumber = mode.at(1).toInt();
 					gPar->Set("aux_light_position", lightNumber, pointCorrected);
 					gPar->Set("aux_light_intensity", lightNumber, intensity);
-					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
+					mainWindow->ui->widgetEffects->SynchronizeInterfaceLights(gPar);
 					StartRender();
 					break;
 				}
@@ -1343,7 +1340,7 @@ void cInterface::SetByMouse(
 					gPar->Set("random_lights_distribution_center", point);
 					gPar->Set("random_lights_distribution_radius", 0.5 * distanceCameraToCenter);
 					gPar->Set("random_lights_max_distance_from_fractal", 0.1 * distanceCameraToCenter);
-					gMainInterface->mainWindow->ui->widgetEffects->SynchronizeInterfaceRandomLights(gPar);
+					mainWindow->ui->widgetEffects->SynchronizeInterfaceRandomLights(gPar);
 					StartRender();
 					break;
 				}
@@ -1667,12 +1664,12 @@ void cInterface::Undo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
-	gMainInterface->DisablePeriodicRefresh();
+	DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Undo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->materialListModel->Regenerate();
+		RebuildPrimitives(gPar);
+		materialListModel->Regenerate();
 		gInterfaceReadyForSynchronization = false;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -1680,19 +1677,19 @@ void cInterface::Undo()
 		StartRender(true);
 	}
 	gInterfaceReadyForSynchronization = true;
-	gMainInterface->ReEnablePeriodicRefresh();
+	ReEnablePeriodicRefresh();
 }
 
 void cInterface::Redo()
 {
 	bool refreshFrames = false;
 	bool refreshKeyframes = false;
-	gMainInterface->DisablePeriodicRefresh();
+	DisablePeriodicRefresh();
 	gInterfaceReadyForSynchronization = false;
 	if (gUndo.Redo(gPar, gParFractal, gAnimFrames, gKeyframes, &refreshFrames, &refreshKeyframes))
 	{
-		gMainInterface->RebuildPrimitives(gPar);
-		gMainInterface->materialListModel->Regenerate();
+		RebuildPrimitives(gPar);
+		materialListModel->Regenerate();
 		gInterfaceReadyForSynchronization = true;
 		SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		if (refreshFrames) gFlightAnimation->RefreshTable();
@@ -1700,7 +1697,7 @@ void cInterface::Redo()
 		StartRender(true);
 	}
 	gInterfaceReadyForSynchronization = true;
-	gMainInterface->ReEnablePeriodicRefresh();
+	ReEnablePeriodicRefresh();
 }
 
 void cInterface::ResetView()
@@ -2226,7 +2223,7 @@ bool cInterface::QuitApplicationDialog()
 			WriteLog("Quit application", 2);
 			// save applications settings
 			cSettings parSettings(cSettings::formatAppSettings);
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+			SynchronizeInterface(gPar, gParFractal, qInterface::read);
 			parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 			parSettings.SaveToFile(systemData.GetIniFile());
 
@@ -2269,9 +2266,9 @@ void cInterface::AutoRecovery() const
 			parSettings.LoadFromFile(systemData.GetAutosaveFile());
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gMainInterface->RebuildPrimitives(gPar);
-			gMainInterface->materialListModel->Regenerate();
+			materialListModel->Regenerate();
 			gInterfaceReadyForSynchronization = true;
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			SynchronizeInterface(gPar, gParFractal, qInterface::write);
 			gFlightAnimation->RefreshTable();
 			gKeyframeAnimation->RefreshTable();
 		}
@@ -2387,6 +2384,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 		new cRenderJob(&tempParam, &tempFractal, mainImage, &stopRequest, renderedImage);
 	QObject::connect(renderJob, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
+	connect(renderJob, SIGNAL(updateImage()), renderedImage, SLOT(update()));
 
 	cRenderingConfiguration config;
 	config.DisableRefresh();
@@ -2406,7 +2404,7 @@ void cInterface::OptimizeStepFactor(double qualityTarget)
 
 	for (int i = 0; i < 100; i++)
 	{
-		if (stopRequest) return;
+		if (stopRequest || systemData.globalStopRequest) return;
 		scanCount++;
 		tempParam.Set("DE_factor", DEFactor);
 
@@ -2614,7 +2612,7 @@ void cInterface::DisableJuliaPointMode() const
 	{
 		int index = mainWindow->ui->comboBox_mouse_click_function->findData(itemMouseMove);
 		mainWindow->ui->comboBox_mouse_click_function->setCurrentIndex(index);
-		gMainInterface->renderedImage->setClickMode(itemMouseMove);
+		renderedImage->setClickMode(itemMouseMove);
 	}
 }
 // function to create icons with actual color in ColorButtons
@@ -2638,7 +2636,7 @@ void cInterface::ConnectProgressAndStatisticsSignals() const
 		SLOT(slotUpdateProgressAndStatus(
 			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
-		gMainInterface->mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
+		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
 }
@@ -2747,7 +2745,7 @@ void cInterface::SaveLocalSettings(const QWidget *widget)
 	cSettings parSettings(cSettings::formatCondensedText);
 	parSettings.SetListOfParametersToProcess(listOfParameters);
 
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	SynchronizeInterface(gPar, gParFractal, qInterface::read);
 	parSettings.CreateText(gPar, gParFractal, gAnimFrames, gKeyframes);
 
 	QString proposedFilename = widget->objectName();
@@ -2795,20 +2793,20 @@ void cInterface::LoadLocalSettings(const QWidget *widget)
 		{
 			QStringList listOfParameters = CreateListOfParametersInWidget(widget);
 
-			gMainInterface->SynchronizeInterface(
+			SynchronizeInterface(
 				gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.SetListOfParametersToProcess(listOfParameters);
 
-			gMainInterface->DisablePeriodicRefresh();
+			DisablePeriodicRefresh();
 			gInterfaceReadyForSynchronization = false;
 			parSettings.LoadFromFile(filename);
 			parSettings.Decode(gPar, gParFractal, gAnimFrames, gKeyframes);
 			gInterfaceReadyForSynchronization = true;
-			gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-			gMainInterface->ComboMouseClickUpdate();
-			gMainInterface->ReEnablePeriodicRefresh();
+			SynchronizeInterface(gPar, gParFractal, qInterface::write);
+			ComboMouseClickUpdate();
+			ReEnablePeriodicRefresh();
 		}
 	}
 }
@@ -2841,7 +2839,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 			}
 		}
 	}
-	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+	SynchronizeInterface(gPar, gParFractal, qInterface::write);
 }
 
 QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
@@ -2862,4 +2860,27 @@ QStringList cInterface::CreateListOfParametersInWidget(const QWidget *widget)
 	}
 	QStringList list(listOfParameters.toList());
 	return list;
+}
+
+void cInterface::GlobalStopRequest()
+{
+	systemData.globalStopRequest = true;
+	if (!stopRequestPulseTimer)
+	{
+		stopRequestPulseTimer = new QTimer(mainWindow); // will be deleted with parent
+		connect(stopRequestPulseTimer, SIGNAL(timeout()), mainWindow, SLOT(ResetGlobalStopRequest()));
+		stopRequestPulseTimer->setSingleShot(true);
+	}
+
+	stopRequestPulseTimer->start(1000);
+}
+
+void cInterface::ResetGlobalStopRequest()
+{
+	while (cRenderJob::GetRunningJobCount() > 0)
+	{
+		gApplication->processEvents();
+	}
+
+	systemData.globalStopRequest = false;
 }

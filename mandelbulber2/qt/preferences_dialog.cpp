@@ -294,6 +294,8 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 		}
 		for (int i = 0; i < listOfFiles.size(); i++)
 		{
+			if (systemData.globalStopRequest) break;
+
 			QString filename = listOfFiles.at(i);
 			gMainInterface->mainWindow->slotUpdateProgressAndStatus(QString("Rendering examples"),
 				tr("rendering %1, %2 of %3")

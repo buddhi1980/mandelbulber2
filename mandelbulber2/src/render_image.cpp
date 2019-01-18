@@ -370,8 +370,9 @@ bool cRenderer::RenderImage()
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
-				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
-																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled()
+						&& (data->stereo.GetMode() == cStereo::stereoLeftRight
+								 || data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
 					region = data->stereo.GetRegion(
@@ -388,15 +389,17 @@ bool cRenderer::RenderImage()
 					rendererSSAO.RenderSSAO();
 				}
 			}
-			if (params->DOFEnabled && !*data->stopRequest && !params->DOFMonteCarlo)
+			if (params->DOFEnabled && !*data->stopRequest && !params->DOFMonteCarlo
+					&& !systemData.globalStopRequest)
 			{
 				cPostRenderingDOF dof(image);
 				connect(&dof, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
-				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
-																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled()
+						&& (data->stereo.GetMode() == cStereo::stereoLeftRight
+								 || data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
 					region = data->stereo.GetRegion(

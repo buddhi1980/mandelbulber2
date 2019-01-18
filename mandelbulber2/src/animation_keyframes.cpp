@@ -123,10 +123,12 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		connect(this, SIGNAL(notifyRenderKeyframeRenderStatus(QString, QString)),
 			mainInterface->systemTray, SLOT(showMessage(QString, QString)));
 
-		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
-										QMessageBox::StandardButton *)),
-			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
-																	 QMessageBox::StandardButtons, QMessageBox::StandardButton *)));
+		connect(this,
+			SIGNAL(QuestionMessage(
+				const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
+			mainInterface->mainWindow,
+			SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
+				QMessageBox::StandardButton *)));
 
 		connect(ui->checkBox_show_camera_path, SIGNAL(stateChanged(int)), this,
 			SLOT(slotUpdateAnimationPathSelection()));
@@ -558,6 +560,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+		mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -736,7 +740,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						+ progressTxt,
 					percentDoneFrame, cProgressText::progress_ANIMATION);
 
-				if (*stopRequest) throw false;
+				if (*stopRequest || systemData.globalStopRequest) throw false;
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 				// recalculation of camera rotation and distance (just for display purposes)
@@ -846,6 +850,8 @@ void cKeyframeAnimation::RefreshTable()
 				cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
+
+		if(systemData.globalStopRequest) break;
 	}
 
 	UpdateLimitsForFrameRange();
@@ -1151,8 +1157,9 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 										 + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
-	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-											params->Get<int>("keyframe_animation_image_type")));
+	filename += "."
+							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+									params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 
@@ -1263,7 +1270,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
 			gApplication->processEvents();
-			if (*stopRequest) return listOfCollisions;
+			if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
 			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
 			tempPar.Set("frame_no", frameIndex);

@@ -119,8 +119,9 @@ public:
 	void LoadLocalSettings(const QWidget *widget);
 	void ResetLocalSettings(const QWidget *widget);
 	QStringList CreateListOfParametersInWidget(const QWidget *widget);
-
 	bool QuitApplicationDialog();
+	void GlobalStopRequest();
+	void ResetGlobalStopRequest();
 
 	QSettings settings;
 
@@ -139,6 +140,7 @@ public:
 	cImage *mainImage;
 	QList<sPrimitiveItem> listOfPrimitives;
 	QTimer *autoRefreshTimer;
+	QTimer *stopRequestPulseTimer;
 	QString autoRefreshLastHash;
 	bool autoRefreshLastState;
 	cMaterialItemModel *materialListModel;

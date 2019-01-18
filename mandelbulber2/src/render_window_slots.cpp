@@ -332,6 +332,22 @@ void RenderWindow::slotKeyHandle()
 	}
 }
 
+// global shortcuts
+void RenderWindow::keyPressEvent(QKeyEvent *event)
+{
+	int key = event->key();
+	Qt::KeyboardModifiers modifiers = event->modifiers();
+
+	if (modifiers & Qt::ShiftModifier)
+	{
+		switch (key)
+		{
+			case Qt::Key_Escape: gMainInterface->GlobalStopRequest(); break;
+			default: break;
+		}
+	}
+}
+
 void RenderWindow::slotMouseWheelRotatedWithCtrlOnImage(int x, int y, int delta) const
 {
 	if (gMainInterface->renderedImage->GetEnableClickModes())
@@ -400,6 +416,8 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
 	for (int i = 0; i < toolbarFiles.size(); i++)
 	{
+		if(systemData.globalStopRequest) break;
+
 		if (toolbarInActions.contains(toolbarFiles.at(i)))
 		{
 			// already present
@@ -880,4 +898,9 @@ void RenderWindow::slotMaterialEdited()
 void RenderWindow::slotChangedComboGridType(int index)
 {
 	gMainInterface->renderedImage->SetGridType(RenderedImage::enumGridType(index));
+}
+
+void RenderWindow::ResetGlobalStopRequest()
+{
+	gMainInterface->ResetGlobalStopRequest();
 }

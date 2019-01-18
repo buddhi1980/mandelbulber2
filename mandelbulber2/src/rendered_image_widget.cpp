@@ -713,6 +713,7 @@ void RenderedImage::keyPressEvent(QKeyEvent *event)
 			emit keyPress(event);
 		}
 	}
+	event->ignore(); // pass pressed key event to parents
 }
 
 void RenderedImage::keyReleaseEvent(QKeyEvent *event)

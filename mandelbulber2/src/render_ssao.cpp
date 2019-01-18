@@ -162,7 +162,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 
 		Wait(10);
 
-		if (*data->stopRequest)
+		if (*data->stopRequest || systemData.globalStopRequest)
 		{
 			for (int i = 0; i < numberOfThreads; i++)
 				threadData[i].stopRequest = true;

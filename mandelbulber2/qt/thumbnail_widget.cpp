@@ -221,7 +221,7 @@ void cThumbnailWidget::AssignParameters(
 					// render thumbnail after random time. It forces rendering of widgets when they are not
 					// visible. It makes rendering of widgets when they are idle.
 
-					timer->start(Random(100000) * 10 + 1);
+					timer->start(Random(1000000) * 10 + 60000);
 				}
 			}
 		}
