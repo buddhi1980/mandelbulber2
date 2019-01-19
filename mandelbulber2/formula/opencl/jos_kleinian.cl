@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -19,17 +19,21 @@
 
 REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& aux->i >= fractal->transformCommon.startIterationsD
-			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	// sphere inversion slot#1 iter == 0
+	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
-		z -= fractal->transformCommon.offset000;
-		REAL rr = dot(z, z);
-		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-		z += fractal->transformCommon.offset000;
-		// aux->DE = fractal->transformCommon.maxR2d1/rr;
+		if (aux->i < 1)
+		{
+			REAL rr = 1.0f;
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1;
+		}
 	}
 
+	// kleinian
 	REAL a = fractal->transformCommon.foldingValue;
 	REAL b = fractal->transformCommon.offset;
 	REAL f = sign(b);
@@ -49,15 +53,16 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 							 + 0.2f * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
 		z = (REAL4){-b, a, 0.f, z.w} - z; // z.xy = vec2(-b, a) - z.xy;
 
-	REAL z2 = dot(z, z);
+	REAL rr = dot(z, z);
 
-	REAL4 colorVector = (REAL4){z.x, z.y, z.z, z2};
+	REAL4 colorVector = (REAL4){z.x, z.y, z.z, rr};
 	aux->color = min(aux->color, length(colorVector)); // For coloring
 
-	REAL iR = native_recip(z2);
+	REAL iR = native_recip(rr);
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	aux->DE *= iR; // testing
+	aux->pseudoKleinianDE *= iR; // TODO remove after testing
+	aux->DE *= iR;
 	return z;
 }

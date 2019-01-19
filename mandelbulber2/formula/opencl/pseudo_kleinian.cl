@@ -17,6 +17,22 @@
 
 REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// sphere inversion slot#1 iter == 0
+	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	{
+		if (aux->i < 1)
+		{
+			REAL rr = 1.0f;
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
+			// REAL r = native_sqrt(rr);
+			aux->DE = mad(aux->DE, (native_divide(fractal->transformCommon.maxR2d1, rr)),
+				fractal->analyticDE.offset0);
+		}
+	}
+
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
