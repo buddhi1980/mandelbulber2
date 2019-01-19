@@ -195,13 +195,13 @@ enum enumFractalFormula
 	// 2.17
 	josKleinianV2 = 143,
 	mandelbulbAtan2Power2 = 144,
+	bristorbrot2 = 145,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
 	scatorPower2Real = 156,			 // added V2.15
 	scatorPower2 = 173,					 // added V2.15
 	scatorPower2StdR = 174,			 // added V2.15
-
 
 	mandelbulbEye = 800,
 	mandelbulbEyeTest = 810,
@@ -276,7 +276,7 @@ enum enumFractalFormula
 	transfAbsAddConditional = 1065, // scale fixed v2.17
 	transfReciprocal4d = 1066,
 	transfAbsAddConditional4d = 1067, // scale fixed v2.17
-	transfSphericalOffsetVCL = 1068, // fixed v2.14
+	transfSphericalOffsetVCL = 1068,	// fixed v2.14
 	transfRotation4d = 1069,
 	// 2.11
 	transfParabFold = 1070,

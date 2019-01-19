@@ -712,6 +712,35 @@ void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
+ * Bristorbrot V2 formula
+ * @reference http://www.fractalforums.com/theory/bristorbrot-3d/
+ * by Doug Bristor
+ */
+void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	int dofabs = fractal->transformCommon.functionEnabled;
+
+	aux.DE = aux.DE * 2.0 * aux.r;
+	double x2 = z.x * z.x;
+	double y2 = z.y * z.y;
+	double z2 = z.z * z.z;
+
+	double sign = (z2 >= y2) ? -1.0 : 1.0; // creates fractal surface modification 2019
+	sign = (z.x >= 0.0) ? sign : -sign;
+
+	double tmpy = (dofabs) ? fabs(z.y) * sign : z.y;
+	double tmpz = (dofabs) ? fabs(z.z) * sign : z.z;
+
+	double newx = x2 - y2 - z2;
+	double newy = z.y * (z.x * 2.0 - tmpz);
+	double newz = z.z * (z.x * 2.0 + tmpy);
+
+	z.x = newx;
+	z.y = newy;
+	z.z = newz;
+}
+
+/**
  * From M3D. A formula made by Trafassel, the original Ide's Formula thread
  * @reference http://www.fractalforums.com/videos/formula-21-%28julia-set-interpretation%29/
  */
@@ -4355,16 +4384,14 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	// sphere inversion slot#1 iter == 0
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
-		if (aux.i < 1 )
+		if (aux.i < 1)
 		{
 			double rr = 1.0;
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000
-					- fractal->transformCommon.offset000;
-			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
-					 * fractal->analyticDE.scale1;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1;
 		}
 	}
 
@@ -4409,19 +4436,17 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	// sphere inversion slot#1 iter == 0
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
-		if (aux.i < 1 )
+		if (aux.i < 1)
 		{
 			double rr = 1.0;
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000
-					- fractal->transformCommon.offset000;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 			z *= fractal->transformCommon.scaleA1;
-			//double r = sqrt(rr);
-			 aux.DE *= (fractal->transformCommon.maxR2d1 /rr)
-					 * fractal->analyticDE.scale1
-					 * fractal->transformCommon.scaleA1;
+			// double r = sqrt(rr);
+			aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+								* fractal->transformCommon.scaleA1;
 		}
 	}
 
@@ -4446,7 +4471,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
 			z.y -= (box_size.y - 1.0);
 		}
-		//double perc = fractal->transformCommon.scaleG1 * 0.2;
+		// double perc = fractal->transformCommon.scaleG1 * 0.2;
 		double perc = fractal->transformCommon.scaleG1;
 
 		// double tempY = perc * sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
@@ -4454,7 +4479,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		if (!fractal->transformCommon.functionEnabledByFalse)
 		{
 			if (z.y >= a * (0.5 + perc * 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-			{//z = CVector4(-b, a, 0.0, z.w) - z;
+			{ // z = CVector4(-b, a, 0.0, z.w) - z;
 				z.x = -z.x - b;
 				z.y = -z.y + a;
 				z.z = -z.z - c;
@@ -4462,11 +4487,11 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		}
 		else
 		{
-			//double tempY = sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
+			// double tempY = sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
 
-			//if (z.y >= a * (0.5)) // + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
+			// if (z.y >= a * (0.5)) // + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 			if (z.y >= a / 2.0)
-			{//z = CVector4(-b, a, 0.0, z.w) - z;
+			{ // z = CVector4(-b, a, 0.0, z.w) - z;
 				z.x = -z.x - b;
 				z.y = -z.y + a;
 				z.z = -z.z - c;
@@ -4484,18 +4509,15 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.y = a + z.y;
 		z.z = -z.z - c;
 
-
 		aux.pseudoKleinianDE *= iR; // TODO remove after testing
 		aux.DE *= iR;
 	}
 
-
 	/*if (fractal->analyticDE.enabledFalse)
 	{ // analytic DE adjustment
 		aux.pseudoKleinianDE =
-			aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // TODO remove after testing
-		aux.DE =
-			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // TODO
+	remove after testing aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 
 	}*/
@@ -8038,17 +8060,15 @@ void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	// sphere inversion slot#1 iter == 0
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
-		if (aux.i < 1 )
+		if (aux.i < 1)
 		{
 			double rr = 1.0;
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstantA000
-					- fractal->transformCommon.offset000;
-			//double r = sqrt(rr);
-			 aux.DE = aux.DE *(fractal->transformCommon.maxR2d1 / rr)
-					 + fractal->analyticDE.offset0;
+			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
+			// double r = sqrt(rr);
+			aux.DE = aux.DE * (fractal->transformCommon.maxR2d1 / rr) + fractal->analyticDE.offset0;
 		}
 	}
 
@@ -12321,10 +12341,8 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000
-					- fractal->transformCommon.offset000;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		}
-
 	}
 	else
 	{
@@ -12335,10 +12353,9 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			z += fractal->transformCommon.offset000;
 			rr = z.Dot(z);
 			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000
-					- fractal->transformCommon.offset000;
-			//double r = sqrt(rr);
-			 aux.DE = (fractal->transformCommon.maxR2d1) /rr;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			// double r = sqrt(rr);
+			aux.DE = (fractal->transformCommon.maxR2d1) / rr;
 		}
 	}
 

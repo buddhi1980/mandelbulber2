@@ -107,6 +107,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -196,8 +197,6 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
-
 
 // transforming formulas
 void TransfAddCpixelAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

@@ -159,6 +159,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Bristorbrot", "bristorbrot", bristorbrot,
 		BristorbrotIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Bristorbrot V2", "bristorbrot2", bristorbrot2,
+		Bristorbrot2Iteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Buffalo", "buffalo", buffalo, BuffaloIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
@@ -255,12 +258,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		MandelbulbEyeIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Mandelbulb Eye Test", "mandelbulb_eye_test", mandelbulbEyeTest,
-		MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
-
-
-
+	fractalList->append(sFractalDescription("Mandelbulb Eye Test", "mandelbulb_eye_test",
+		mandelbulbEyeTest, MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Mandelbulb - Abs Power 2", "mandelbulb_abs_power2",
 		mandelbulbAbsPower2, MandelbulbAbsPower2Iteration, analyticDEType, logarithmicDEFunction,
