@@ -448,10 +448,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				/*case testingDEFunction:
 				{
 					double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
-					double linDE = (r - in.common.linearDEOffset) / fabs(extendedAux.DE);
+					double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 
-					out->distance = "mix function"  (logDE, linDE, extendedAux.temp100 / 100)); // temp use of
-				aux.
+					out->distance = linDE + (logDE - linDE) * extendedAux.temp100 / 100;
+				// (logDE, linDE, extendedAux.temp100 / 100)); // temp use of auxtemp100.
 
 				}*/
 			}
@@ -488,7 +488,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
 						out->distance =
-							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / (extendedAux.DE);
+							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / extendedAux.DE;
 					}
 					else
 						out->distance = r;

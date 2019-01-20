@@ -4422,7 +4422,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z.x = -b - z.x;
 	z.y = a + z.y;
 	aux.pseudoKleinianDE *= iR; // TODO remove after testing
-	aux.DE *= iR;
+	aux.DE *= fabs(iR);
 }
 
 /**
@@ -4433,21 +4433,20 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// sphere inversion slot#1 iter == 0
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& 	aux.i >= fractal->transformCommon.startIterationsD
+					&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
-		if (aux.i < 1)
-		{
-			double rr = 1.0;
-			z += fractal->transformCommon.offset000;
-			rr = z.Dot(z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			z *= fractal->transformCommon.scaleA1;
-			// double r = sqrt(rr);
-			aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
-								* fractal->transformCommon.scaleA1;
-		}
+		double rr = 1.0;
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		// double r = sqrt(rr);
+		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							* fractal->transformCommon.scaleA1;
 	}
 
 	// kleinian
@@ -4510,7 +4509,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z = -z.z - c;
 
 		aux.pseudoKleinianDE *= iR; // TODO remove after testing
-		aux.DE *= iR;
+		aux.DE *= fabs(iR);
 	}
 
 	/*if (fractal->analyticDE.enabledFalse)
