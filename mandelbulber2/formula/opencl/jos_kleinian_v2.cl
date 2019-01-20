@@ -101,7 +101,7 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = -z.z - c;
 
 		aux->pseudoKleinianDE *= iR; // TODO remove after testing
-		aux->DE *= iR;
+		aux->DE *= fabs(iR);
 	}
 
 	/*if (fractal->analyticDE.enabledFalse)
