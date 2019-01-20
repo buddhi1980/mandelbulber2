@@ -2821,7 +2821,7 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 		const QString containerName = fullParameterName.left(firstUnderscore);
 		const QString parameterName = fullParameterName.mid(firstUnderscore + 1);
 
-		const cParameterContainer *container = nullptr;
+		cParameterContainer *container = nullptr;
 		if (containerName == "main")
 		{
 			container = gPar;
@@ -2832,11 +2832,14 @@ void cInterface::ResetLocalSettings(const QWidget *widget)
 			if (index < 4)
 			{
 				container = &gParFractal->at(index);
-
-				cOneParameter oneParam = container->GetAsOneParameter(parameterName);
-				oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
-				gPar->SetFromOneParameter(parameterName, oneParam);
 			}
+		}
+
+		if (container)
+		{
+			cOneParameter oneParam = container->GetAsOneParameter(parameterName);
+			oneParam.SetMultiVal(oneParam.GetMultiVal(valueDefault), valueActual);
+			container->SetFromOneParameter(parameterName, oneParam);
 		}
 	}
 	SynchronizeInterface(gPar, gParFractal, qInterface::write);
