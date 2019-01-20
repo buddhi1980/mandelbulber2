@@ -46,7 +46,8 @@
 #include "color_structures.hpp"
 
 // custom includes
-extern "C" {
+extern "C"
+{
 #include <png.h>
 }
 
@@ -128,6 +129,8 @@ public:
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
 	static const uint64_t SAVE_CHUNK_SIZE = 64;
+	QString CreateFullFileNameAndMakeDir(const QString &filename, enumImageContentType contentType,
+		const QString &postfix, const QString extension);
 
 protected:
 	QString filename;

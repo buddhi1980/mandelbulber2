@@ -585,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>455</width>
-            <height>628</height>
+            <width>555</width>
+            <height>581</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -887,25 +887,32 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                <item row="2" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
                   <property name="text">
-                   <string>Append alpha to image (only PNG and TIFF)</string>
+                   <string>Save each channel in separate folder</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0" colspan="2">
+                <item row="3" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_linear_colorspace">
                   <property name="text">
                    <string>Use linear colorspace (only EXR)</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0" colspan="2">
+                <item row="4" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
                   <property name="text">
                    <string>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                  <property name="text">
+                   <string>Append alpha to image (only PNG and TIFF)</string>
                   </property>
                  </widget>
                 </item>
@@ -1015,9 +1022,9 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-228</y>
-            <width>437</width>
-            <height>856</height>
+            <y>0</y>
+            <width>537</width>
+            <height>841</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1430,7 +1437,7 @@ and will only be present after enabling and re-render.</string>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
-  <tabstop>checkBox_append_alpha_png</tabstop>
+  <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_load_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>

@@ -160,6 +160,61 @@ void ImageFileSave::updateProgressAndStatusFinished()
 	emit updateProgressAndStatus(getJobName(), QObject::tr("Finished"), 1.0);
 }
 
+QString ImageFileSave::CreateFullFileNameAndMakeDir(const QString &filename,
+	enumImageContentType contentType, const QString &postfix, const QString extension)
+{
+	QString fullFilename;
+	if (gPar->Get<bool>("save_channels_in_separate_folders") && contentType != IMAGE_CONTENT_COLOR)
+	{
+		if (contentType != IMAGE_CONTENT_COLOR)
+		{
+			QFileInfo fileInfo(filename);
+			QDir dir = fileInfo.absoluteDir();
+			QString onlyFileName = fileInfo.fileName();
+
+			if (dir.exists())
+			{
+				QString newDirName =
+					QDir::toNativeSeparators(dir.absolutePath() + QDir::separator() + postfix);
+				if (QDir(newDirName).exists())
+				{
+					fullFilename = QDir::toNativeSeparators(
+						newDirName + QDir::separator() + onlyFileName + "." + extension);
+				}
+				else
+				{
+					if (dir.mkdir(newDirName))
+					{
+						fullFilename = QDir::toNativeSeparators(
+							newDirName + QDir::separator() + onlyFileName + "." + extension);
+					}
+					else
+					{
+						cErrorMessage::showMessage(
+							QObject::tr("Cannot create directory for image!\n") + newDirName,
+							cErrorMessage::errorMessage);
+					}
+				}
+			}
+			else
+			{
+				cErrorMessage::showMessage(
+					QObject::tr("Directory for new image is not accessible!\n") + dir.absolutePath(),
+					cErrorMessage::errorMessage);
+			}
+		}
+		else
+		{
+			fullFilename = filename + "." + extension;
+		}
+	}
+	else
+	{
+		fullFilename = filename + postfix + "." + extension;
+	}
+	return fullFilename;
+}
+
 void ImageFileSavePNG::SaveImage()
 {
 	updateProgressAndStatusStarted();
@@ -174,7 +229,10 @@ void ImageFileSavePNG::SaveImage()
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
 		currentChannelKey = channel.key();
-		QString fullFilename = filename + channel.value().postfix + ".png";
+
+		QString fullFilename =
+			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "png");
+
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
@@ -204,7 +262,10 @@ void ImageFileSaveJPG::SaveImage()
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
 		currentChannelKey = channel.key();
-		QString fullFilename = filename + channel.value().postfix + ".jpg";
+
+		QString fullFilename =
+			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "jpg");
+
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
@@ -251,7 +312,10 @@ void ImageFileSaveTIFF::SaveImage()
 	for (ImageConfig::iterator channel = imageConfig.begin(); channel != imageConfig.end(); ++channel)
 	{
 		currentChannelKey = channel.key();
-		QString fullFilename = filename + channel.value().postfix + ".tiff";
+
+		QString fullFilename =
+			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "tiff");
+
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);

@@ -180,6 +180,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th>" + ctrlBadge + " + Y</th><td>" + tr("Redo") + "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + H</th><td>" + tr("Show User Manual") + "</td></tr>";
 	text += " <tr><th>" + altBadge + " + H</th><td>" + tr("Show (these) Hotkeys") + "</td></tr>";
+	text += " <tr><th>" + shiftBadge + " + ESC</th><td>" + tr("Terminate all calculations") + "</td></tr>";
 	text += "</table>";
 	text += "</td>";
 
