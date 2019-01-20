@@ -4422,7 +4422,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z.x = -b - z.x;
 	z.y = a + z.y;
 	aux.pseudoKleinianDE *= iR; // TODO remove after testing
-	aux.DE *= iR;
+	aux.DE *= fabs(iR);
 }
 
 /**
@@ -4510,7 +4510,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z = -z.z - c;
 
 		aux.pseudoKleinianDE *= iR; // TODO remove after testing
-		aux.DE *= iR;
+		aux.DE *= fabs(iR);
 	}
 
 	/*if (fractal->analyticDE.enabledFalse)
