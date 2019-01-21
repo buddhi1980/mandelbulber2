@@ -239,9 +239,50 @@ void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 {
 	Q_UNUSED(fractal);
 
-	// aux.DE = aux.DE * 2.0 * aux.r;
+	//aux.DE = aux.DE * 2.0 * aux.r;
 	aux.DE = aux.r;
-	z = hypercomplex_mult(z, hypercomplex_conj(z));
+
+	CVector4 zA = z;
+	CVector4 zzA = zA * zA;
+	double rrA = zzA.x + zzA.y + zzA.z;
+	double rA = sqrt(rrA);
+	double thetaA = atan2(sqrt(zzA.x + zzA.y), zA.z);
+	double phiA = atan2(zA.y, zA.x);
+
+	CVector4 zB = CVector4(z.x, -z.y, -z.z, -z.w); // conj
+	CVector4 zzB = zB * zB;
+	double rrB = zzB.x +zzB.y + zzB.z;
+	double rB = sqrt(rrB);
+	double thetaB = atan2(sqrt(zzB.x +  zzB.y), zB.z);
+	double phiB = atan2(zB.y, zB.x);
+
+	double rAB = rA * rB;
+
+	z.x = (rAB) * sin(thetaA + thetaB) * cos(phiA + phiB);
+	z.y = (rAB) * sin(thetaA + thetaB) * sin(phiA + phiB);
+	z.z = (rAB) * cos(thetaA + thetaB);
+
+	/*CVector4 zz = z * z;
+	double rr = zz.x + zz.y + zz.z;
+	double temp = sqrt(zz.x + zz.y);
+	double theta1 = atan2(temp, z.z);
+	double theta2 = atan2(temp, -z.z);
+
+	double phi1 = atan2(z.y, z.x);
+	double phi2 = atan2(-z.y, z.x);
+
+	z.x = (rr) * sin(theta1 + theta2) * cos(phi1 + phi2); // phi1 + phi2 = M_PI
+	z.y = (rr) * sin(theta1 + theta2) * sin(phi1 + phi2); // theta1 + theta2 = 0.0
+	z.z = (rr) * cos(theta1 + theta2);*/
+
+	/*
+	// optomised orig code
+	CVector4 zz = z * z;
+	double rr = zz.x + zz.y + zz.z;
+	z.x = 0.0;
+	z.y = 0.0;
+	z.z = rr * -1.0;*/
+
 }
 
 /**
@@ -257,20 +298,20 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
 
-	z = hypercomplex_mult(z, hypercomplex_conj(z));
+	CVector4 zz = z * z;
+	double rr = zz.x + zz.y + zz.z;
+	double temp = sqrt(zz.x + zz.y);
+	double theta1 = atan2(temp, z.z) * fractal->transformCommon.scaleB1;
+	double theta2 = atan2(temp, -z.z) * fractal->transformCommon.scaleC1;
 
-	/*	CVector4 zz = z * z;
-		double lenXY = sqrt(zz.x + zz.y);
-		double theta1 = atan2(lenXY, z.z);
-		double theta2 = -atan2(lenXY, -z.z);
-		double phi = atan2(z.y, z.x) * fractal->transformCommon.scale1;
+	double phi1 = atan2(z.y, z.x) * fractal->transformCommon.scale1;
+	double phi2 = atan2(-z.y, z.x) * fractal->transformCommon.scaleA1;
 
-		double rr = z.Dot(z);
-		double sinth = sin(2.0 * theta1);
-		z.x = sinth * cos(2.0 * phi);
-		z.y = sinth * sin(2.0 * phi);
-		z.z = -cos(theta1 + theta2);
-		z *= rr;*/
+	z.x = (rr) * sin(theta1 + theta2) * cos(phi1 + phi2); // phi1 + phi2 = M_PI
+	z.y = (rr) * sin(theta1 + theta2) * sin(phi1 + phi2); // theta1 + theta2 = 0.0
+	z.z = (rr) * cos(theta1 + theta2);
+
+
 
 	/*z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
 	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;

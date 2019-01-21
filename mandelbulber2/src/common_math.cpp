@@ -248,7 +248,7 @@ double MagicRound(double val, double maxError)
 }
 
 
-CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2)
+/*CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2)
 {
 	double r = sqrt(pow(vec1.x, 2) + pow(vec1.y, 2) + pow(vec1.z, 2));
 	double theta = atan2(sqrt(pow(vec1.x, 2) + pow(vec1.y, 2)), vec1.z);
@@ -263,7 +263,7 @@ CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2)
 	double new_z = (r * r2) * cos(theta + theta2);
 
 	return CVector4(new_x, new_y, new_z, vec1.w);
-}
+}*/
 
 CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n)
 {
@@ -278,7 +278,7 @@ CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n)
 	return CVector4(new_x, new_y, new_z, vec1.w);
 }
 
-CVector4 hypercomplex_conj(const CVector4 &vec1)
+/*CVector4 hypercomplex_conj(const CVector4 &vec1)
 {
 	return CVector4(vec1.x, -vec1.y, -vec1.z,-vec1.w);
-}
+}*/

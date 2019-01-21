@@ -1006,7 +1006,9 @@ offset:</string>
          </font>
         </property>
         <property name="text">
-         <string>Analytic DE clamps</string>
+         <string>Analytic DE clamps
+clamps are only variable in slot#1
+in other slots they are set to default</string>
         </property>
        </widget>
       </item>
