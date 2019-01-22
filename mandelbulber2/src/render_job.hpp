@@ -101,10 +101,13 @@ private:
 	void InitStatistics(const cNineFractals *fractals);
 	void ConnectUpdateSinalsSlots(const cRenderer *renderer);
 	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
+
+#ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(
 		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
 	void RenderSSAOWithOpenCl(sParamRender *params, cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
+#endif
 
 	bool hasQWidget;
 	bool inProgress;

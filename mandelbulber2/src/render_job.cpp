@@ -582,6 +582,7 @@ void cRenderJob::InitStatistics(const cNineFractals *fractals)
 	renderData->statistics.usedDEType = fractals->GetDETypeString();
 }
 
+#ifdef USE_OPENCL
 bool cRenderJob::RenderFractalWithOpenCl(
 	sParamRender *params, cNineFractals *fractals, cProgressText *progressText)
 {
@@ -612,7 +613,6 @@ bool cRenderJob::RenderFractalWithOpenCl(
 	gOpenCl->openClEngineRenderFractal->Unlock();
 
 	emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText->getText(1.0), 1.0);
-
 	return result;
 }
 
@@ -694,6 +694,7 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 		}
 	}
 }
+#endif //USE_OPENCL
 
 void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
 {
