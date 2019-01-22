@@ -97,7 +97,7 @@ public:
 	static int GetIndexOnFractalList(fractal::enumFractalFormula formula);
 
 #ifdef USE_OPENCL
-	void CopyToOpenclData(sClFractalSequence *sequence);
+	void CopyToOpenclData(sClFractalSequence *sequence) const;
 #endif
 
 private:

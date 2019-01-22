@@ -52,6 +52,10 @@ class cImage;
 struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
+class cNineFractals;
+class cRenderer;
+class cProgressText;
+struct sParamRender;
 
 class cRenderJob : public QObject
 {
@@ -91,6 +95,16 @@ private:
 	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail() const;
 	QStringList CreateListOfUsedTextures() const;
+	int GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo);
+	void SetupStereoEyes(int repeat, bool twoPassStereo);
+	void InitNetRender();
+	void InitStatistics(const cNineFractals *fractals);
+	void ConnectUpdateSinalsSlots(const cRenderer *renderer);
+	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
+	bool RenderFractalWithOpenCl(
+		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
+	void RenderSSAOWithOpenCl(sParamRender *params, cProgressText *progressText, bool *result);
+	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
 
 	bool hasQWidget;
 	bool inProgress;

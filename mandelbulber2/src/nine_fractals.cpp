@@ -400,9 +400,7 @@ QString cNineFractals::GetDETypeString() const
 			case fractal::logarithmicDEFunction: text += " logarithmic"; break;
 			case fractal::linearDEFunction: text += " linear"; break;
 			case fractal::pseudoKleinianDEFunction: text += " pseudo kleinian"; break;
-			case fractal::josKleinianDEFunction:
-				text += " jos kleinian";
-				break;
+			case fractal::josKleinianDEFunction: text += " jos kleinian"; break;
 			// case fractal::testingDEFunction: text += " testing DE"; break;
 			default: text += "unknown"; break;
 		}
@@ -424,7 +422,7 @@ int cNineFractals::GetIndexOnFractalList(fractal::enumFractalFormula formula)
 }
 
 #ifdef USE_OPENCL
-void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence)
+void cNineFractals::CopyToOpenclData(sClFractalSequence *sequence) const
 {
 	sequence->isHybrid = isHybrid;
 
