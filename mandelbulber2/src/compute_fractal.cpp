@@ -415,11 +415,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	// final calculations
 	if (Mode == calcModeNormal) // analytic
 	{
-		// if (extendedAux.DE > 0.0); //maybe?
-		if (fractals.IsHybrid())
+		if (extendedAux.DE > 0.0)
 		{
-			if (extendedAux.DE > 0.0)
-			//if (extendedAux.DE != 0.0)
+			if (fractals.IsHybrid())
 			{
 				if (fractals.GetDEFunctionType(0) == fractal::linearDEFunction)
 				{
@@ -445,79 +443,66 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 						/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
-				/*case testingDEFunction:
+				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
 					double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
 					double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 
-					out->distance = linDE + (logDE - linDE) * extendedAux.temp100 / 100;
+					out->distance = linDE + (logDE - linDE) * extendedAux.temp100;
 				// (logDE, linDE, extendedAux.temp100 / 100)); // temp use of auxtemp100.
-
 				}*/
 			}
 			else
 			{
-				out->distance = r;
-			}
-		}
-		else
-		{
-			switch (fractals.GetDEAnalyticFunction(sequence))
-			{
-				case analyticFunctionLogarithmic:
+				switch (fractals.GetDEAnalyticFunction(sequence))
 				{
-					if (extendedAux.DE > 0)
+					case analyticFunctionLogarithmic:
+					{
 						out->distance = 0.5 * r * log(r) / extendedAux.DE;
-					else
-						out->distance = r;
-					break;
-				}
-				case analyticFunctionLinear:
-				{
-					out->distance = r / fabs(extendedAux.DE);
-					break;
-				}
-				case analyticFunctionIFS:
-				{
-					out->distance = (r - 2.0) / fabs(extendedAux.DE);
-					break;
-				}
-				case analyticFunctionPseudoKleinian:
-				{
-					if (extendedAux.DE > 0)
+						break;
+					}
+					case analyticFunctionLinear:
+					{
+						out->distance = r / extendedAux.DE;
+						break;
+					}
+					case analyticFunctionIFS:
+					{
+						out->distance = (r - 2.0) / extendedAux.DE;
+						break;
+					}
+					case analyticFunctionPseudoKleinian:
 					{
 						double rxy = sqrt(z.x * z.x + z.y * z.y);
 						out->distance =
 							max(rxy - extendedAux.pseudoKleinianDE, fabs(rxy * z.z) / r) / extendedAux.DE;
+						break;
 					}
-					else
-						out->distance = r;
-					break;
-				}
-				case analyticFunctionJosKleinian:
-				{
-					if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
-						z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
+					case analyticFunctionJosKleinian:
+					{
+						if (fractals.GetFractal(sequence)->transformCommon.spheresEnabled)
+							z.y = min(z.y, fractals.GetFractal(sequence)->transformCommon.foldingValue - z.y);
 
-					out->distance =
-						min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
-						/ max(extendedAux.DE, //extendedAux.pseudoKleinianDE
-						fractals.GetFractal(sequence)->analyticDE.offset1);
-					break;
-				}
+						out->distance =
+							min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
+							/ max(extendedAux.DE,
+							fractals.GetFractal(sequence)->analyticDE.offset1);
+						break;
+					}
 
-				case analyticFunctionNone: out->distance = -1.0; break;
-				case analyticFunctionUndefined: out->distance = r; break;
+					case analyticFunctionNone: out->distance = -1.0; break;
+					case analyticFunctionUndefined: out->distance = r; break;
+				}
+			}
+			// TEMPORARY CODE.  To be removed afer testing
+			if (fractals.GetFractal(sequence)->transformCommon.functionEnabledSFalse)
+			{
+				out->distance =
+					out->distance * initR * initR
+					/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * out->distance);
 			}
 		}
-		// TEMPORARY CODE.  To be removed afer testing
-		if (fractals.GetFractal(sequence)->transformCommon.functionEnabledSFalse)
-		{
-			out->distance =
-				out->distance * initR * initR
-				/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * out->distance);
-		}
-
+		else out->distance = r;
 	}
 
 	// color calculation
