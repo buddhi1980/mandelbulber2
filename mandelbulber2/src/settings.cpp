@@ -115,11 +115,14 @@ size_t cSettings::CreateText(const cParameterContainer *par, const cFractalConta
 			}
 		}
 
-		// flight animation
-		CreateAnimationString(settingsText, QString("frames"), frames);
+		if (listOfParametersToProcess.isEmpty())
+		{
+			// flight animation
+			CreateAnimationString(settingsText, QString("frames"), frames);
 
-		// keyframe animation
-		CreateAnimationString(settingsText, QString("keyframes"), keyframes);
+			// keyframe animation
+			CreateAnimationString(settingsText, QString("keyframes"), keyframes);
+		}
 	}
 	textPrepared = true;
 
@@ -541,49 +544,62 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 				}
 				else if (section == QString("frames"))
 				{
-
-					if (frames)
+					if (listOfParametersToProcess.isEmpty())
 					{
-						if (csvLine == 0)
+						if (frames)
 						{
-							CheckIfMaterialsAreDefined(par);
-							parTemp = *par;
-							if (fractPar) fractTemp = *fractPar;
+							if (csvLine == 0)
+							{
+								CheckIfMaterialsAreDefined(par);
+								parTemp = *par;
+								if (fractPar) fractTemp = *fractPar;
 
-							result = DecodeFramesHeader(line, par, fractPar, frames);
-							csvLine++;
+								result = DecodeFramesHeader(line, par, fractPar, frames);
+								csvLine++;
+							}
+							else
+							{
+								result = DecodeFramesLine(line, &parTemp, &fractTemp, frames);
+								csvLine++;
+							}
 						}
 						else
 						{
-							result = DecodeFramesLine(line, &parTemp, &fractTemp, frames);
-							csvLine++;
+							result = true;
 						}
 					}
-					else
+					else // if listOfParametersToProcess is not empty
 					{
 						result = true;
 					}
 				}
 				else if (section == QString("keyframes"))
 				{
-					if (keyframes)
+					if (listOfParametersToProcess.isEmpty())
 					{
-						if (csvLine == 0)
+						if (keyframes)
 						{
-							CheckIfMaterialsAreDefined(par);
-							parTemp = *par;
-							if (fractPar) fractTemp = *fractPar;
+							if (csvLine == 0)
+							{
+								CheckIfMaterialsAreDefined(par);
+								parTemp = *par;
+								if (fractPar) fractTemp = *fractPar;
 
-							result = DecodeFramesHeader(line, par, fractPar, keyframes);
-							csvLine++;
+								result = DecodeFramesHeader(line, par, fractPar, keyframes);
+								csvLine++;
+							}
+							else
+							{
+								result = DecodeFramesLine(line, &parTemp, &fractTemp, keyframes);
+								csvLine++;
+							}
 						}
 						else
 						{
-							result = DecodeFramesLine(line, &parTemp, &fractTemp, keyframes);
-							csvLine++;
+							result = true;
 						}
 					}
-					else
+					else // if listOfParametersToProcess is not empty
 					{
 						result = true;
 					}
@@ -612,7 +628,7 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 		}
 
 		// add default parameters for animation
-		if (keyframes)
+		if (keyframes && listOfParametersToProcess.isEmpty())
 		{
 			if (keyframes->GetListOfUsedParameters().size() == 0)
 			{
@@ -628,33 +644,36 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 			CheckIfMaterialsAreDefined(par);
 		}
 
-		// now when anim sound parameters are already prepared by animation, all animsound parameters
-		// can be processed
-		if (keyframes && linesWithSoundParameters.length() > 0)
+		if (listOfParametersToProcess.isEmpty())
 		{
-			foundAnimSoundParameters = true;
-			for (const auto &linesWithSoundParameter : linesWithSoundParameters)
+			// now when anim sound parameters are already prepared by animation, all animsound parameters
+			// can be processed
+			if (keyframes && linesWithSoundParameters.length() > 0)
 			{
-				bool result;
-				result = DecodeOneLine(par, linesWithSoundParameter);
-
-				if (!result)
+				foundAnimSoundParameters = true;
+				for (const auto &linesWithSoundParameter : linesWithSoundParameters)
 				{
-					if (!quiet)
-					{
-						QString errorMessage =
-							QObject::tr("Error in settings file. Line: ") + linesWithSoundParameter;
-						cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
-					}
-					errorCount++;
-					if (errorCount > 3)
+					bool result;
+					result = DecodeOneLine(par, linesWithSoundParameter);
+
+					if (!result)
 					{
 						if (!quiet)
 						{
-							cErrorMessage::showMessage(
-								QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+							QString errorMessage =
+								QObject::tr("Error in settings file. Line: ") + linesWithSoundParameter;
+							cErrorMessage::showMessage(errorMessage, cErrorMessage::errorMessage);
 						}
-						return false;
+						errorCount++;
+						if (errorCount > 3)
+						{
+							if (!quiet)
+							{
+								cErrorMessage::showMessage(
+									QObject::tr("Too many errors in settings file"), cErrorMessage::errorMessage);
+							}
+							return false;
+						}
 					}
 				}
 			}
@@ -662,8 +681,11 @@ bool cSettings::Decode(cParameterContainer *par, cFractalContainer *fractPar,
 
 		Compatibility2(par, fractPar);
 
-		if (frames) frames->LoadAllAudioFiles(par);
-		if (keyframes) keyframes->LoadAllAudioFiles(par);
+		if (listOfParametersToProcess.isEmpty())
+		{
+			if (frames) frames->LoadAllAudioFiles(par);
+			if (keyframes) keyframes->LoadAllAudioFiles(par);
+		}
 
 		return true;
 	}
