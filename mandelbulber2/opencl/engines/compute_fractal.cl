@@ -484,7 +484,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #else //  IS_NOT HYBRID
-	if (extendedAux.DE > 0.0)
+	if (aux.DE > 0.0)
 	{
 		switch (consts->sequence.DEAnalyticFunction[sequence])
 		{
