@@ -675,9 +675,9 @@ void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	// pre abs
 	CVector4 zFabs = fabs(z);
-	if (fractal->buffalo.preabsx) z.x = zFabs.x;
-	if (fractal->buffalo.preabsy) z.y = zFabs.y;
-	if (fractal->buffalo.preabsz) z.z = zFabs.z;
+	if (fractal->buffalo.preabsx) zOrig.x = zFabs.x;
+	if (fractal->buffalo.preabsy) zOrig.y = zFabs.y;
+	if (fractal->buffalo.preabsz) zOrig.z = zFabs.z;
 
 	// Bristorbrot V2 formula
 	double signT = 1.0;
