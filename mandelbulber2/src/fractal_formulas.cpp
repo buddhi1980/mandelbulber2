@@ -680,14 +680,20 @@ void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	if (fractal->buffalo.preabsz) zOrig.z = zFabs.z;
 
 	// Bristorbrot V2 formula
-	double signT = 1.0;
+	double signT = 1.0; // signT as "sign" is an operation   sign()
+
+	// conditional operation which can create cuts
 	if (fractal->transformCommon.functionEnabledFalse && zz.z >= zz.y) signT = -1.0; // creates fractal surface modification 2019
-	if (fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0) signT = -signT;
+
+	// is preabs is used on z.x, it will be !< 0.0
+	if (!fractal->buffalo.preabsy && fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0) signT = -signT;
+
+	// flips signT but same as using -1.0 scales
 	if (fractal->transformCommon.functionEnabledAwFalse) signT = -signT;
 
-	double tmpy = zOrig.y;
+	double tmpy = z.y;
 	if (fractal->transformCommon.functionEnabledyFalse) tmpy = zFabs.y;
-	double tmpz = zOrig.z;
+	double tmpz = z.z;
 	if (fractal->transformCommon.functionEnabledzFalse) tmpz = zFabs.z;
 
 	zNew.x = zz.x - zz.y - zz.z;
