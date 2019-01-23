@@ -667,26 +667,46 @@ void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  */
 void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	int dofabs = fractal->transformCommon.functionEnabled;
-
 	aux.DE = aux.DE * 2.0 * aux.r;
-	double x2 = z.x * z.x;
-	double y2 = z.y * z.y;
-	double z2 = z.z * z.z;
 
-	double sign = (z2 >= y2) ? -1.0 : 1.0; // creates fractal surface modification 2019
-	sign = (z.x >= 0.0) ? sign : -sign;
+	CVector4 zOrig = z;
+	CVector4 zz = z * z;
+	CVector4 zNew = z;
 
-	double tmpy = (dofabs) ? fabs(z.y) * sign : z.y;
-	double tmpz = (dofabs) ? fabs(z.z) * sign : z.z;
+	// pre abs
+	CVector4 zFabs = fabs(z);
+	if (fractal->buffalo.preabsx) z.x = zFabs.x;
+	if (fractal->buffalo.preabsy) z.y = zFabs.y;
+	if (fractal->buffalo.preabsz) z.z = zFabs.z;
 
-	double newx = x2 - y2 - z2;
-	double newy = z.y * (z.x * 2.0 - tmpz);
-	double newz = z.z * (z.x * 2.0 + tmpy);
+	// Bristorbrot V2 formula
+	double signT = 1.0;
+	if (fractal->transformCommon.functionEnabledFalse && zz.z >= zz.y) signT = -1.0; // creates fractal surface modification 2019
+	if (fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0) signT = -signT;
+	if (fractal->transformCommon.functionEnabledAwFalse) signT = -signT;
 
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+	double tmpy = zOrig.y;
+	if (fractal->transformCommon.functionEnabledyFalse) tmpy = zFabs.y;
+	double tmpz = zOrig.z;
+	if (fractal->transformCommon.functionEnabledzFalse) tmpz = zFabs.z;
+
+	zNew.x = zz.x - zz.y - zz.z;
+	zNew.y = zOrig.y * (zOrig.x * 2.0 - tmpz * signT * fractal->transformCommon.scaleB1);
+	zNew.z = zOrig.z * (zOrig.x * 2.0 + tmpy * signT * fractal->transformCommon.scaleC1);
+	z = zNew;
+
+	// post abs
+	z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
+	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
+	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;
+
+	// offset
+	z += fractal->transformCommon.additionConstantA000;
+
+	// analyticDE controls
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
