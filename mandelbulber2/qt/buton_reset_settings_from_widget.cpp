@@ -61,3 +61,13 @@ void cButtonResetSettingsFromWidget::slotPressedButtonLocalReset()
 		gMainInterface->ResetLocalSettings(parentWidget);
 	}
 }
+
+void cButtonResetSettingsFromWidget::showEvent(QShowEvent *event)
+{
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget)
+	{
+		setToolTip(tr("Reset settings only in %1").arg(parentWidget->objectName()));
+	}
+	QPushButton::showEvent(event);
+}

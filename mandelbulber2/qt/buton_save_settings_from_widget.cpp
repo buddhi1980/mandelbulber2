@@ -61,3 +61,13 @@ void cButtonSaveSettingsFromWidget::slotPressedButtonLocalSave()
 		gMainInterface->SaveLocalSettings(parentWidget);
 	}
 }
+
+void cButtonSaveSettingsFromWidget::showEvent(QShowEvent *event)
+{
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget)
+	{
+		setToolTip(tr("Save settings only from %1").arg(parentWidget->objectName()));
+	}
+	QPushButton::showEvent(event);
+}

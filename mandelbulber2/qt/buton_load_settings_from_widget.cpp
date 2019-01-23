@@ -40,12 +40,6 @@ cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 		: QPushButton(_parent)
 {
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
-
-	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
-	if (parentWidget)
-	{
-		setToolTip(tr("Load settings only to %1 widget").arg(parentWidget->objectName()));
-	}
 }
 
 cButtonLoadSettingsFromWidget::~cButtonLoadSettingsFromWidget()
@@ -60,4 +54,14 @@ void cButtonLoadSettingsFromWidget::slotPressedButtonLocalLoad()
 	{
 		gMainInterface->LoadLocalSettings(parentWidget);
 	}
+}
+
+void cButtonLoadSettingsFromWidget::showEvent(QShowEvent *event)
+{
+	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
+	if (parentWidget && toolTip().isEmpty())
+	{
+		setToolTip(tr("Load settings only to %1").arg(parentWidget->objectName()));
+	}
+	QPushButton::showEvent(event);
 }

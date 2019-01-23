@@ -45,6 +45,9 @@ public:
 	cButtonLoadSettingsFromWidget(QWidget *parent = nullptr);
 	~cButtonLoadSettingsFromWidget() override;
 
+protected:
+	void showEvent(QShowEvent *event) override;
+
 private slots:
 	void slotPressedButtonLocalLoad();
 };

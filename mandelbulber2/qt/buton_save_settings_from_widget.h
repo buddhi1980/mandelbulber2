@@ -45,6 +45,9 @@ public:
 	cButtonSaveSettingsFromWidget(QWidget *parent = nullptr);
 	~cButtonSaveSettingsFromWidget() override;
 
+protected:
+	void showEvent(QShowEvent *event) override;
+
 private slots:
 	void slotPressedButtonLocalSave();
 };

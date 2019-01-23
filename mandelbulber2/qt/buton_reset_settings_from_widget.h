@@ -45,6 +45,9 @@ public:
 	cButtonResetSettingsFromWidget(QWidget *parent = nullptr);
 	~cButtonResetSettingsFromWidget() override;
 
+protected:
+	void showEvent(QShowEvent *event) override;
+
 private slots:
 	void slotPressedButtonLocalReset();
 };
