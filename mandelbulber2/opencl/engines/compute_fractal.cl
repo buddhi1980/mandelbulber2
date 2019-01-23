@@ -484,52 +484,45 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #endif
 
 #else //  IS_NOT HYBRID
-	switch (consts->sequence.DEAnalyticFunction[sequence])
+	if (extendedAux.DE > 0.0)
 	{
-		case clAnalyticFunctionLogarithmic:
+		switch (consts->sequence.DEAnalyticFunction[sequence])
 		{
-			if (aux.DE > 0.0f)
+			case clAnalyticFunctionLogarithmic:
 			{
 				dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
+				break;
 			}
-			else
-				dist = aux.r;
-			break;
-		}
-		case clAnalyticFunctionLinear:
-		{
-			dist = aux.r / fabs(aux.DE);
-			break;
-		}
-		case clAnalyticFunctionIFS:
-		{
-			dist = (aux.r - 2.0) / fabs(aux.DE);
-			break;
-		}
-		case clAnalyticFunctionPseudoKleinian:
-		{
-			if (aux.DE > 0.0f)
+			case clAnalyticFunctionLinear:
+			{
+				dist = aux.r / aux.DE;
+				break;
+			}
+			case clAnalyticFunctionIFS:
+			{
+				dist = (aux.r - 2.0) / aux.DE;
+				break;
+			}
+			case clAnalyticFunctionPseudoKleinian:
 			{
 				float rxy = length(z.xy);
-				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
+				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / aux.DE;
+				break;
 			}
-			else
-				dist = aux.r;
-			break;
+			case clAnalyticFunctionJosKleinian:
+			{
+				if (fractal->transformCommon.spheresEnabled)
+					z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
+				dist = min(z.y, fractal->analyticDE.tweak005)
+							 / max(aux.DE, fractal->analyticDE.offset1);
+				break;
+			}
+			case clAnalyticFunctionNone: dist = -1.0; break;
+			case clAnalyticFunctionUndefined: dist = aux.r; break;
 		}
-		case clAnalyticFunctionJosKleinian:
-		{
-			if (fractal->transformCommon.spheresEnabled)
-				z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
-
-			dist = min(z.y, fractal->analyticDE.tweak005)
-						 / max(aux.DE, fractal->analyticDE.offset1);
-			break;
-		}
-
-		case clAnalyticFunctionNone: dist = -1.0; break;
-		case clAnalyticFunctionUndefined: dist = aux.r; break;
 	}
+	else
+		dist = aux.r;
 
 #endif // IS_HYBRID
 

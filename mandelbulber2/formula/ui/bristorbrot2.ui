@@ -528,5 +528,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_buffalo_preabs_y</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledx_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>311</x>
+     <y>13</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>308</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
