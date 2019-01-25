@@ -1028,6 +1028,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_sphere_inversion_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_spheres_enabled", true, morphLinear, paramStandard);
 
+	par->addParam("transf_function_enabled_temp_false", false, morphLinear, paramStandard);
+
 	// platonic_solid
 
 	par->addParam("platonic_solid_frequency", 1.0, morphAkima, paramStandard);

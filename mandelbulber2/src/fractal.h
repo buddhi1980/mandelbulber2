@@ -721,6 +721,8 @@ struct sFractalTransformCommon
 	bool rotation2EnabledFalse;
 	bool sphereInversionEnabledFalse;
 	bool spheresEnabled;
+
+	bool functionEnabledTempFalse;
 };
 
 struct sFractal

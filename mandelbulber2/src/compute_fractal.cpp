@@ -495,7 +495,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 			}
 			// TEMPORARY CODE.  To be removed afer testing
-			if (fractals.GetFractal(sequence)->transformCommon.functionEnabledSFalse)
+			if (fractals.GetFractal(sequence)->transformCommon.functionEnabledTempFalse)
 			{
 				out->distance =
 					out->distance * initR * initR

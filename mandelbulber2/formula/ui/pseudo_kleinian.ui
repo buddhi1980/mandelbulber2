@@ -929,7 +929,7 @@ offset</string>
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Pseudo Kleinian</string>
+      <string>Pseudo Kleinian  (DE parameters only works in slot #1)</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
       <property name="leftMargin">

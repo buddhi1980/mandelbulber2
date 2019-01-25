@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_inv_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -48,7 +48,7 @@
        <number>2</number>
       </property>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledS_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_temp_false">
         <property name="text">
          <string notr="true">Temp   Sphere Inversion Pre_Transform (only works in slot #1)</string>
         </property>
@@ -677,6 +677,11 @@ offset</string>
    <container>1</container>
   </customwidget>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
@@ -685,11 +690,6 @@ offset</string>
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -701,7 +701,7 @@ offset</string>
  <resources/>
  <connections>
   <connection>
-   <sender>checkBox_transf_function_enabledS_false</sender>
+   <sender>checkBox_transf_function_enabled_temp_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinboxInt_transf_start_iterations_D</receiver>
    <slot>setDisabled(bool)</slot>
@@ -717,7 +717,7 @@ offset</string>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledS_false</sender>
+   <sender>checkBox_transf_function_enabled_temp_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinboxInt_transf_stop_iterations_D1</receiver>
    <slot>setDisabled(bool)</slot>

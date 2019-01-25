@@ -9326,6 +9326,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			double tglad_factor1 = fractal->transformCommon.maxMinR2factor;
+			//double tglad_factor1 = fractal->transformCommon.maxR2d1 /fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.color += fractal->mandelbox.color.factorSp1;
