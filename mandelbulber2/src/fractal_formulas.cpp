@@ -12308,31 +12308,59 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (aux.i < 1)
+		if (fractal->transformCommon.sphereInversionEnabledFalse)
 		{
-			double rr;
-			z += fractal->transformCommon.offset000;
-			rr = z.Dot(z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			if (aux.i < 1)
+			{
+				double rr;
+				z += fractal->transformCommon.offset000;
+				rr = z.Dot(z);
+				z *= fractal->transformCommon.maxR2d1 / rr;
+				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			}
+		}
+		else
+		{
+			if (aux.i >= fractal->transformCommon.startIterationsD
+					&& aux.i < fractal->transformCommon.stopIterationsD1)
+			{
+				double rr = 1.0;
+				z += fractal->transformCommon.offset000;
+				rr = z.Dot(z);
+				z *= fractal->transformCommon.maxR2d1 / rr;
+				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+				// double r = sqrt(rr);
+				aux.DE = (fractal->transformCommon.maxR2d1) / rr;
+			}
 		}
 	}
-	else
+			//double minR2 = fractal->transformCommon.minR2p25;
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		if (aux.i >= fractal->transformCommon.startIterationsD
-				&& aux.i < fractal->transformCommon.stopIterationsD1)
+		double rr = z.Dot(z);
+
+		z += fractal->mandelbox.offset;
+		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
-			double rr = 1.0;
-			z += fractal->transformCommon.offset000;
-			rr = z.Dot(z);
-			z *= fractal->transformCommon.maxR2d1 / rr;
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			// double r = sqrt(rr);
-			aux.DE = (fractal->transformCommon.maxR2d1) / rr;
+			double mode = 0.0;
+			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
+			{
+				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
+			{
+				if (rr < fractal->transformCommon.minR0) mode = 2.0 * fractal->transformCommon.minR0 - rr;
+			}
+			mode = 1.0 / mode;
+			z *= mode;
+			aux.DE *= fabs(mode);
 		}
 	}
+
 
 	if (fractal->analyticDE.enabledFalse)
 	{
