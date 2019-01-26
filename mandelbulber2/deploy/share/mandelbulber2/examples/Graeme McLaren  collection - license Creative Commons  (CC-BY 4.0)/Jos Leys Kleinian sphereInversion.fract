@@ -14,7 +14,7 @@ camera_rotation -109.2786341870297 -63.40028950966381 69.66698083211317;
 camera_top -0.01631427228639287 -0.9876879369613946 0.1555840084992987;
 check_for_bailout_3 false;
 DE_factor 0.5;
-delta_DE_method 1;
+delta_DE_method 2;
 detail_level 1.5;
 flight_last_to_render 0;
 formula_1 122;
