@@ -96,7 +96,7 @@ public:
 	QString GetContainerName() const { return containerName; }
 	bool IfExists(const QString &name) const;
 	void DeleteParameter(const QString &name);
-
+	QMap<QString, QString> getImageMeta();
 private:
 	static QString nameWithIndex(QString *str, int index);
 

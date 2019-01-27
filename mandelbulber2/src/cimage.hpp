@@ -304,7 +304,8 @@ public:
 		isStereoLeftRight = isStereoLeftRightInput;
 	}
 	void GetStereoLeftRightImages(cImage *left, cImage *right);
-
+	void setMeta(QMap<QString, QString> meta){ this->meta = meta; }
+	QMap<QString, QString>& getMeta(){ return meta; }
 	int progressiveFactor;
 
 private:
@@ -356,6 +357,7 @@ private:
 	bool allocLater;
 	bool isStereoLeftRight;
 	bool fastPreview;
+	QMap<QString, QString> meta;
 
 	QMutex previewMutex;
 

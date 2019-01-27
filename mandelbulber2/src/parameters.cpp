@@ -627,3 +627,14 @@ void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParam
 		myMap.insert(name, parameter);
 	}
 }
+
+QMap<QString, QString> cParameterContainer::getImageMeta()
+{
+	QMap<QString, QString> map;
+	CVector3 camera = Get<CVector3>("camera");
+	map.insert(QString("p.X"), QString::number(camera.x));
+	map.insert(QString("p.Y"), QString::number(camera.y));
+	map.insert(QString("p.Z"), QString::number(camera.z));
+
+	return map;
+}
