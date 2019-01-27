@@ -1164,7 +1164,7 @@ void ImageFileSaveEXR::SaveEXR(
 	QMapIterator<QString, QString> i(image->getMeta());
 	while (i.hasNext()) {
 			i.next();
-			header.insert(i.key().toStdString(), Imf_2_2::StringAttribute(i.value().toStdString()));
+			header.insert(i.key().toStdString(), Imf::StringAttribute(i.value().toStdString()));
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
