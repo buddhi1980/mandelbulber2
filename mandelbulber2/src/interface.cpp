@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -2238,7 +2238,8 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(
+			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2603,22 +2604,18 @@ void cInterface::DisableJuliaPointMode() const
 
 void cInterface::ConnectProgressAndStatisticsSignals() const
 {
-	QObject::connect(gFlightAnimation,
-		SIGNAL(updateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)),
-		mainWindow,
-		SLOT(slotUpdateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																			 const QString &, double, cProgressText::enumProgressType)),
+		mainWindow, SLOT(slotUpdateProgressAndStatus(
+									const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation,
-		SIGNAL(updateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)),
-		mainWindow,
-		SLOT(slotUpdateProgressAndStatus(
-			const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
+																				 const QString &, double, cProgressText::enumProgressType)),
+		mainWindow, SLOT(slotUpdateProgressAndStatus(
+									const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),

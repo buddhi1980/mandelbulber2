@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -42,10 +42,10 @@
 #include <QImage>
 #include <QPaintEvent>
 
-#include "../src/interface.hpp"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
 #include "src/global_data.hpp"
+#include "src/interface.hpp"
 #include "src/render_job.hpp"
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
@@ -155,8 +155,9 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 		params->Set("DOF_min_samples", 5);
 
-		double distance = cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
-		if(distance < 1e-5)
+		double distance =
+			cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
+		if (distance < 1e-5)
 		{
 			params->Set("opencl_mode", 0);
 		}

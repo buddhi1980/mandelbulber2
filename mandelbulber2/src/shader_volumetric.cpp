@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -155,10 +155,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0
-												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-														 + 1e-100);
+			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+																 + 1e-100);
 			output.R +=
 				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
 			output.G +=

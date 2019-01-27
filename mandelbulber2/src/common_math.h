@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -119,14 +119,13 @@ CVector3 wrap(CVector3 x, CVector3 a, CVector3 s);
 
 double MagicRound(double val, double maxError);
 
-//hypercomplex multiplication taken from:
-//https://www.physicsforums.com/threads/16-different-spherical-coordinate-systems.331883/
-CVector4 hypercomplex_mult(const CVector4& vec1, const CVector4& vec2);
-CVector4 hypercomplex_pow_constant(const CVector4& vec1, const int n);
+// hypercomplex multiplication taken from:
+// https://www.physicsforums.com/threads/16-different-spherical-coordinate-systems.331883/
+CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2);
+CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n);
 
-//3D analogon to the 2D complex conjugate
-//mirroring a point on the x-axis
-CVector4 hypercomplex_conj(const CVector4& vec1);
-
+// 3D analogon to the 2D complex conjugate
+// mirroring a point on the x-axis
+CVector4 hypercomplex_conj(const CVector4 &vec1);
 
 #endif /* MANDELBULBER2_SRC_COMMON_MATH_H_ */

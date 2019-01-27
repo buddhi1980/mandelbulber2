@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -370,9 +370,8 @@ bool cRenderer::RenderImage()
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
-				if (data->stereo.isEnabled()
-						&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-								 || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
+																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
 					region = data->stereo.GetRegion(
@@ -397,9 +396,8 @@ bool cRenderer::RenderImage()
 					this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 				connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
-				if (data->stereo.isEnabled()
-						&& (data->stereo.GetMode() == cStereo::stereoLeftRight
-								 || data->stereo.GetMode() == cStereo::stereoTopBottom))
+				if (data->stereo.isEnabled() && (data->stereo.GetMode() == cStereo::stereoLeftRight
+																					|| data->stereo.GetMode() == cStereo::stereoTopBottom))
 				{
 					cRegion<int> region;
 					region = data->stereo.GetRegion(

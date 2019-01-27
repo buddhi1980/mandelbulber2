@@ -153,7 +153,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 		int hOffset = height();
 		slider->adjustSize();
 		QSize minimumSize = slider->minimumSizeHint();
-		width = max(width, int(minimumSize.width()*0.6));
+		width = max(width, int(minimumSize.width() * 0.6));
 		slider->setFixedWidth(width);
 
 		if (windowPoint.y() + slider->height() + hOffset > topWidget->height())

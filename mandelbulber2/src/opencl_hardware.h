@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -128,7 +128,7 @@ protected:
 	QList<cl::Device> enabledDevices;
 
 	// The Multi-GPU System only supports (1) platform - separate cotexts for each device
-	//because even when used different therads, the devices blocked each other.
+	// because even when used different therads, the devices blocked each other.
 	// 1 context == 1 platform
 	QVector<cl::Context *> contexts;
 	bool isNVidia;

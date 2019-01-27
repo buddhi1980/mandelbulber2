@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -77,8 +77,7 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
-typedef enum
-{
+typedef enum {
 	calcModeNormal = 0,
 	calcModeColouring = 1,
 	calcModeFake_AO = 2,
@@ -421,10 +420,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				float4 delta = z
-											 - (float4){consts->params.common.fakeLightsOrbitTrap.x,
-													 consts->params.common.fakeLightsOrbitTrap.y,
-													 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
+				float4 delta = z - (float4){consts->params.common.fakeLightsOrbitTrap.x,
+														 consts->params.common.fakeLightsOrbitTrap.y,
+														 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
 				float distance = length(delta);
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
@@ -464,7 +462,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 	}
 
-	// calculate estimated distance
+// calculate estimated distance
 
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
@@ -513,8 +511,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			{
 				if (fractal->transformCommon.spheresEnabled)
 					z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
-				dist = min(z.y, fractal->analyticDE.tweak005)
-							 / max(aux.DE, fractal->analyticDE.offset1);
+				dist = min(z.y, fractal->analyticDE.tweak005) / max(aux.DE, fractal->analyticDE.offset1);
 				break;
 			}
 			case clAnalyticFunctionNone: dist = -1.0; break;
