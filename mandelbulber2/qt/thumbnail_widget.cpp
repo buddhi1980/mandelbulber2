@@ -255,10 +255,11 @@ void cThumbnailWidget::slotRender()
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
 
-		while (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+		if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
 		{
-			Wait(100);
-			gApplication->processEvents();
+			// try again after some random time
+			timer->start(Random(5000) + 1);
+			return;
 		}
 
 		stopRequest = false;
@@ -324,7 +325,7 @@ void cThumbnailWidget::slotRandomRender()
 	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
 	{
 		// if it's to busy, render later
-		timer->start(Random(100000) * 10 + 1);
+		timer->start(Random(1000) * 10 + 1);
 	}
 	else
 	{
