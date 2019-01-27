@@ -1,7 +1,7 @@
-﻿/**
+/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -276,8 +276,7 @@ void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 	// analyticDE controls
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE =
-			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
@@ -683,10 +682,12 @@ void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	double signT = 1.0; // signT as "sign" is an operation   sign()
 
 	// conditional operation which can create cuts
-	if (fractal->transformCommon.functionEnabledFalse && zz.z >= zz.y) signT = -1.0; // creates fractal surface modification 2019
+	if (fractal->transformCommon.functionEnabledFalse && zz.z >= zz.y)
+		signT = -1.0; // creates fractal surface modification 2019
 
 	// is preabs is used on z.x, it will be !< 0.0
-	if (!fractal->buffalo.preabsy && fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0) signT = -signT;
+	if (!fractal->buffalo.preabsy && fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0)
+		signT = -signT;
 
 	// flips signT but same as using -1.0 scales
 	if (fractal->transformCommon.functionEnabledAwFalse) signT = -signT;
@@ -711,8 +712,7 @@ void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	// analyticDE controls
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE =
-			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
@@ -4410,8 +4410,8 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 {
 	// sphere inversion
 	if (fractal->transformCommon.sphereInversionEnabledFalse
-			&& 	aux.i >= fractal->transformCommon.startIterationsD
-					&& aux.i < fractal->transformCommon.stopIterationsD1)
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		double rr = 1.0;
 		z += fractal->transformCommon.offset000;
@@ -4528,9 +4528,8 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
-		z.z = sign(z.z)
-					* (fractal->transformCommon.offset1 - fabs(z.z)
-							+ fabs(z.z) * fractal->transformCommon.scale0);
+		z.z = sign(z.z) * (fractal->transformCommon.offset1 - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.scale0);
 	}
 }
 
@@ -4830,10 +4829,9 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		if (aux.i > fractal->transformCommon.startIterationsA)
 		{
 			maxR2use *= (1.0
-										- 1.0
-												/ (1.0
-														+ (aux.i - fractal->transformCommon.startIterationsB)
-																/ fractal->transformCommon.offsetA0))
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsB)
+																	/ fractal->transformCommon.offsetA0))
 									* fractal->transformCommon.scaleA1;
 		}
 	}
@@ -4843,10 +4841,9 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		if (aux.i > fractal->transformCommon.startIterationsA)
 		{
 			minR2use *= (1.0
-										- 1.0
-												/ (1.0
-														+ (aux.i - fractal->transformCommon.startIterationsA)
-																/ fractal->transformCommon.offset0))
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsA)
+																	/ fractal->transformCommon.offset0))
 									* fractal->transformCommon.scale1;
 		}
 	}
@@ -7876,11 +7873,11 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
 
 	// convert back to cartesian coordinates
-	double rpCosPhi =  rp * cos(phi);
+	double rpCosPhi = rp * cos(phi);
 	z.x = (r1 + rpCosPhi) * cos(theta);
 	z.y = (r1 + rpCosPhi) * sin(theta);
-	//z.x = r1 + rpCosPhi * cos(theta);
-	//z.y = r1 + rpCosPhi * sin(theta);
+	// z.x = r1 + rpCosPhi * cos(theta);
+	// z.y = r1 + rpCosPhi * sin(theta);
 	z.z = -rp * sin(phi);
 
 	if (!fractal->analyticDE.enabledFalse)
@@ -8077,7 +8074,8 @@ void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	}
 
 	// box fold abs() tglad fold added v2.17
-		if (fractal->transformCommon.functionEnabledByFalse && aux.i >= fractal->transformCommon.startIterationsE
+	if (fractal->transformCommon.functionEnabledByFalse
+			&& aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 	{
 		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
@@ -8090,7 +8088,6 @@ void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
 		}
 	}
-
 
 	// box fold
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -9347,7 +9344,7 @@ void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			double tglad_factor1 = fractal->transformCommon.maxMinR2factor;
-			//double tglad_factor1 = fractal->transformCommon.maxR2d1 /fractal->transformCommon.minR2p25;
+			// double tglad_factor1 = fractal->transformCommon.maxR2d1 /fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux.DE *= tglad_factor1;
 			aux.color += fractal->mandelbox.color.factorSp1;
@@ -9850,9 +9847,8 @@ void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExt
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
-		z.x = sign(z.x)
-					* (fractal->transformCommon.offset111.x - fabs(z.x)
-							+ fabs(z.x) * fractal->transformCommon.scale3D000.x);
+		z.x = sign(z.x) * (fractal->transformCommon.offset111.x - fabs(z.x)
+												+ fabs(z.x) * fractal->transformCommon.scale3D000.x);
 	}
 	/*{
 		double signZx = sign(z.x);
@@ -9867,16 +9863,14 @@ void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExt
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		z.y = sign(z.y)
-					* (fractal->transformCommon.offset111.y - fabs(z.y)
-							+ fabs(z.y) * fractal->transformCommon.offset000.y);
+		z.y = sign(z.y) * (fractal->transformCommon.offset111.y - fabs(z.y)
+												+ fabs(z.y) * fractal->transformCommon.offset000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
-		z.z = sign(z.z)
-					* (fractal->transformCommon.offset111.z - fabs(z.z)
-							+ fabs(z.z) * fractal->transformCommon.offset000.z);
+		z.z = sign(z.z) * (fractal->transformCommon.offset111.z - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.offset000.z);
 	}
 	// aux.DE = aux.DE * l/L;
 
@@ -12357,7 +12351,7 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			}
 		}
 	}
-			//double minR2 = fractal->transformCommon.minR2p25;
+	// double minR2 = fractal->transformCommon.minR2p25;
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -12381,7 +12375,6 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			aux.DE *= fabs(mode);
 		}
 	}
-
 
 	if (fractal->analyticDE.enabledFalse)
 	{
@@ -14511,30 +14504,26 @@ void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sE
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
-		z.x = sign(z.x)
-					* (fractal->transformCommon.offset1111.x - fabs(z.x)
-							+ fabs(z.x) * fractal->transformCommon.scale0000.x);
+		z.x = sign(z.x) * (fractal->transformCommon.offset1111.x - fabs(z.x)
+												+ fabs(z.x) * fractal->transformCommon.scale0000.x);
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		z.y = sign(z.y)
-					* (fractal->transformCommon.offset1111.y - fabs(z.y)
-							+ fabs(z.y) * fractal->transformCommon.scale0000.y);
+		z.y = sign(z.y) * (fractal->transformCommon.offset1111.y - fabs(z.y)
+												+ fabs(z.y) * fractal->transformCommon.scale0000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
-		z.z = sign(z.z)
-					* (fractal->transformCommon.offset1111.z - fabs(z.z)
-							+ fabs(z.z) * fractal->transformCommon.scale0000.z);
+		z.z = sign(z.z) * (fractal->transformCommon.offset1111.z - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.scale0000.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
-		z.w = sign(z.w)
-					* (fractal->transformCommon.offset1111.w - fabs(z.w)
-							+ fabs(z.w) * fractal->transformCommon.scale0000.w);
+		z.w = sign(z.w) * (fractal->transformCommon.offset1111.w - fabs(z.w)
+												+ fabs(z.w) * fractal->transformCommon.scale0000.w);
 	}
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
@@ -16119,12 +16108,9 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double phi1 = atan2(z.y, z.x) * fractal->transformCommon.scale1;
 	double phi2 = atan2(-z.y, z.x) * fractal->transformCommon.scaleA1;
 
-	z.x = (rr) * sin(theta1 + theta2) * cos(phi1 + phi2);
-	z.y = (rr) * sin(theta1 + theta2) * sin(phi1 + phi2);
-	z.z = (rr) * cos(theta1 + theta2);
-
-
-
+	z.x = rr * sin(theta1 + theta2) * cos(phi1 + phi2);
+	z.y = rr * sin(theta1 + theta2) * sin(phi1 + phi2);
+	z.z = rr * cos(theta1 + theta2);
 
 	/*CVector4 zzA = z * z;
 	CVector4 zzB = zzA; // * fractal->transformCommon.scaleD1;
@@ -16147,8 +16133,6 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	z.x = (rrAB) * sin(theta1 + theta2) * cos(phi1 + phi2);
 	z.y = (rrAB) * sin(theta1 + theta2) * sin(phi1 + phi2);
 	z.z = (rrAB) * cos(theta1 + theta2);*/
-
-
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -16205,8 +16189,5 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}*/
 
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE =
-			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-
-
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }

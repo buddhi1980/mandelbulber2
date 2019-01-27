@@ -47,12 +47,16 @@ REAL4 Testing4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 		REAL4 temp2 = temp * temp;
 
 		z.x += (native_divide((8.0f * temp.x * temp2.x), ((z.x * z.x) + (4.0f * temp2.x))) - 2.0f *
-		temp.x) * sign(z.x) * fractal->transformCommon.scale1; z.y += (native_divide((8.0f * temp.y *
-		temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f * temp.y) * sign(z.y) *
+		temp.x) * sign(z.x) *
+		fractal->transformCommon.scale1;
+		z.y += (native_divide((8.0f * temp.y * temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f *
+		temp.y) * sign(z.y) *
 		fractal->transformCommon.scale1;
 		z.z += (native_divide((8.0f * temp.z * temp2.z), ((z.z * z.z) + (4.0f * temp2.z))) - 2.0f *
-		temp.z) * sign(z.z) * fractal->transformCommon.scale1; z.w += (native_divide((8.0f * temp.w *
-		temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w) * sign(z.w) *
+		temp.z) * sign(z.z) *
+		fractal->transformCommon.scale1;
+		z.w += (native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f *
+		temp.w) * sign(z.w) *
 		fractal->transformCommon.scale1*/
 
 	if (aux->i >= fractal->transformCommon.startIterationsB

@@ -63,11 +63,9 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 
 		if (!fractal->transformCommon.functionEnabledByFalse)
 		{
-			if (z.y
-					>= a
-							 * (0.5f
-									 + perc * 0.2f
-											 * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
+			if (z.y >= a * (0.5f
+											 + perc * 0.2f * native_sin(f * M_PI_F * native_divide(
+																																 (mad(b, 0.5f, z.x)), box_size.x))))
 			{ // z = (REAL4) {-b, a, 0.0f, z.w} - z;
 				z.x = -z.x - b;
 				z.y = -z.y + a;
@@ -145,9 +143,8 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
 	{
-		z.z = sign(z.z)
-					* (fractal->transformCommon.offset1 - fabs(z.z)
-							+ fabs(z.z) * fractal->transformCommon.scale0);
+		z.z = sign(z.z) * (fractal->transformCommon.offset1 - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.scale0);
 	}
 	return z;
 }
