@@ -7874,9 +7874,13 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 	phi *= fractal->transformCommon.pwr8; // default 8
 	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
+
 	// convert back to cartesian coordinates
-	z.x = (r1 + rp * cos(phi)) * cos(theta);
-	z.y = (r1 + rp * cos(phi)) * sin(theta);
+	double rpCosPhi =  rp * cos(phi);
+	z.x = (r1 + rpCosPhi) * cos(theta);
+	z.y = (r1 + rpCosPhi) * sin(theta);
+	//z.x = r1 + rpCosPhi * cos(theta);
+	//z.y = r1 + rpCosPhi * sin(theta);
 	z.z = -rp * sin(phi);
 
 	if (!fractal->analyticDE.enabledFalse)

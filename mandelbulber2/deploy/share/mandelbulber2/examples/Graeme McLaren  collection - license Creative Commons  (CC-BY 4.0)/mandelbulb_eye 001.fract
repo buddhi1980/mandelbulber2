@@ -1,0 +1,50 @@
+# Mandelbulber settings file
+# version 2.17
+# only modified parameters
+[main_parameters]
+ambient_occlusion 0.5;
+ambient_occlusion_enabled true;
+anim_keyframe_dir D:\mandelbulber\mbulbEye\mbulbEye\;
+aux_light_colour_1 ff00 5500 0000;
+aux_light_enabled_1 true;
+aux_light_position_1 0 0 0;
+aux_light_visibility 0.5547572670659736;
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+camera 0 -3.53829522804051 1.699742047450429;
+camera_distance_to_target 3.925386544618938;
+camera_rotation 0.1169496780758513 -25.12944998447902 0.05064282935623899;
+camera_top 1.707553675740141e-05 0.4246655819371147 0.9053502875828989;
+detail_level 0.6000000000000001;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+fog_color_3 0000 1700 4700;
+formula_1 800;
+frames_per_keyframe 120;
+glow_enabled false;
+glow_intensity 0.4;
+image_height 1200;
+image_proportion 1;
+image_width 1200;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_beta 0;
+main_light_colour ff00 ff00 7f00;
+main_light_intensity 0.5;
+mat1_coloring_palette_offset 8.210000000000001;
+mat1_is_defined true;
+mat1_specular 4;
+mat1_specular_color ff00 5500 7f00;
+mat1_specular_plastic_enable false;
+mat1_specular_width 0.063;
+mat1_surface_color_palette 550000 550000 fff59c f5bd22 cebe42 000000 550000 550000 550000 550000;
+raytraced_reflections true;
+target -0.007253963060710417 0.01554859398823926 0.03276844438305827;
+view_distance_max 10.62643936959219;
+volumetric_fog_enabled true;
+[fractal_1]
+analyticDE_enabled_false true;
+buffalo_preabs_z true;
+transf_addition_constantA_000 1.3 0.1 -0.1;
+transf_scaleB_1 0.2;
+transf_scaleC_1 1.6;
