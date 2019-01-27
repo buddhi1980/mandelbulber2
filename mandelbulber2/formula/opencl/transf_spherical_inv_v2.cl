@@ -18,29 +18,57 @@
 
 REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (aux->i < 1)
+		if (fractal->transformCommon.sphereInversionEnabledFalse)
 		{
-			REAL rr;
-			z += fractal->transformCommon.offset000;
-			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			if (aux->i < 1)
+			{
+				REAL rr;
+				z += fractal->transformCommon.offset000;
+				rr = dot(z, z);
+				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			}
+		}
+		else
+		{
+			if (aux->i >= fractal->transformCommon.startIterationsD
+					&& aux->i < fractal->transformCommon.stopIterationsD1)
+			{
+				REAL rr = 1.0f;
+				z += fractal->transformCommon.offset000;
+				rr = dot(z, z);
+				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+				// REAL r = native_sqrt(rr);
+				aux->DE = native_divide((fractal->transformCommon.maxR2d1), rr);
+			}
 		}
 	}
-	else
+	// REAL minR2 = fractal->transformCommon.minR2p25;
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsC
+			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		if (aux->i >= fractal->transformCommon.startIterationsD
-				&& aux->i < fractal->transformCommon.stopIterationsD1)
+		REAL rr = dot(z, z);
+
+		z += fractal->mandelbox.offset;
+		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
-			REAL rr = 1.0f;
-			z += fractal->transformCommon.offset000;
-			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			// REAL r = native_sqrt(rr);
-			aux->DE = native_divide((fractal->transformCommon.maxR2d1), rr);
+			REAL mode = 0.0f;
+			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
+			{
+				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
+			}
+			if (fractal->transformCommon.functionEnabledxFalse) // Mode 2
+			{
+				if (rr < fractal->transformCommon.minR0)
+					mode = mad(2.0f, fractal->transformCommon.minR0, -rr);
+			}
+			mode = native_recip(mode);
+			z *= mode;
+			aux->DE *= fabs(mode);
 		}
 	}
 

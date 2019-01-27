@@ -734,6 +734,8 @@ typedef struct
 	cl_int rotation2EnabledFalse;
 	cl_int sphereInversionEnabledFalse;
 	cl_int spheresEnabled;
+
+	cl_int functionEnabledTempFalse;
 } sFractalTransformCommonCl;
 
 typedef struct
@@ -1396,6 +1398,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.rotation2EnabledFalse = source.rotation2EnabledFalse;
 	target.sphereInversionEnabledFalse = source.sphereInversionEnabledFalse;
 	target.spheresEnabled = source.spheresEnabled;
+	target.functionEnabledTempFalse = source.functionEnabledTempFalse;
 	return target;
 }
 

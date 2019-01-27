@@ -23,24 +23,40 @@ REAL4 MandelbulbEyeTestIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	if (fractal->buffalo.preabsy) z.y = fabs(z.y);
 	if (fractal->buffalo.preabsz) z.z = fabs(z.z);
 
-	z = hypercomplex_mult(z, hypercomplex_conj(z));
+	REAL4 zz = z * z;
+	REAL rr = zz.x + zz.y + zz.z;
+	REAL temp = native_sqrt(zz.x + zz.y);
+	REAL theta1 = atan2(temp, z.z) * fractal->transformCommon.scaleB1;
+	REAL theta2 = atan2(temp, -z.z) * fractal->transformCommon.scaleC1;
 
-	/*	REAL4 zz = z * z;
-		REAL lenXY = native_sqrt(zz.x + zz.y);
-		REAL theta1 = atan2(lenXY, z.z);
-		REAL theta2 = -atan2(lenXY, -z.z);
-		REAL phi = atan2(z.y, z.x) * fractal->transformCommon.scale1;
+	REAL phi1 = atan2(z.y, z.x) * fractal->transformCommon.scale1;
+	REAL phi2 = atan2(-z.y, z.x) * fractal->transformCommon.scaleA1;
 
-		REAL rr = dot(z, z);
-		REAL sinth = native_sin(2.0f * theta1);
-		z.x = sinth * native_cos(2.0f * phi);
-		z.y = sinth * native_sin(2.0f * phi);
-		z.z = -native_cos(theta1 + theta2);
-		z *= rr;*/
+	z.x = (rr)*native_sin(theta1 + theta2) * native_cos(phi1 + phi2);
+	z.y = (rr)*native_sin(theta1 + theta2) * native_sin(phi1 + phi2);
+	z.z = (rr)*native_cos(theta1 + theta2);
 
-	/*z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
-	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
-	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;*/
+	/*REAL4 zzA = z * z;
+	REAL4 zzB = zzA; // * fractal->transformCommon.scaleD1;
+
+	REAL rrA = zzA.x + zzA.y + zzA.z;
+	REAL rrB = zzB.x + zzB.y + zzB.z;
+
+
+	REAL tempA = native_sqrt(zzA.x + zzA.y);
+	REAL tempB = native_sqrt(zzB.x + zzB.y);
+
+	REAL theta1 = atan2(tempA, zzA.z) * fractal->transformCommon.scaleB1;
+	REAL theta2 = atan2(tempB, -zzB.z) * fractal->transformCommon.scaleC1;
+
+	REAL phi1 = atan2(zzA.y, zzA.x) * fractal->transformCommon.scale1;
+	REAL phi2 = atan2(-zzB.y, zzB.x) * fractal->transformCommon.scaleA1;
+
+	REAL rrAB = rrA * rrB;
+
+	z.x = (rrAB) * native_sin(theta1 + theta2) * native_cos(phi1 + phi2);
+	z.y = (rrAB) * native_sin(theta1 + theta2) * native_sin(phi1 + phi2);
+	z.z = (rrAB) * native_cos(theta1 + theta2);*/
 
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -95,5 +111,9 @@ REAL4 MandelbulbEyeTestIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 		return (REAL4) {new_x, new_y, new_z, vec1.w};
 	}*/
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+
 	return z;
 }

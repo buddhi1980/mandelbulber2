@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>mandelbulb_eye_test</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -756,24 +756,45 @@
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;buffalo&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;preabsy&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;buffalo&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;preabsz&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
 
-  z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;hypercomplex_mult&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;hypercomplex_conj&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
+  CVector4 zz &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; rr &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; zz&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zz&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zz&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; temp &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zz&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zz&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; theta1 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;atan2&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleB1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; theta2 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;atan2&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;temp&lt;span style=&quot;color:#676767&quot;&gt;, -&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleC1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;/*  CVector4 zz = z * z;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double lenXY = sqrt(zz.x + zz.y);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double theta1 = atan2(lenXY, z.z);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double theta2 = -atan2(lenXY, -z.z);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double phi = atan2(z.y, z.x) * fractal-&amp;gt;transformCommon.scale1;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; phi1 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;atan2&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; phi2 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;atan2&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(-&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;rr&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;theta1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; theta2&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;cos&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;phi1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; phi2&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;rr&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;theta1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; theta2&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;phi1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; phi2&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+  z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;= (&lt;/span&gt;rr&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;cos&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;theta1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; theta2&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+
+
+
+
+  &lt;span style=&quot;color:#2929cc&quot;&gt;/*CVector4 zzA = z * z;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  CVector4 zzB = zzA; // * fractal-&amp;gt;transformCommon.scaleD1;&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double rr = z.Dot(z);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    double sinth = sin(2.0 * theta1);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    z.x = sinth * cos(2.0 * phi);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    z.y = sinth * sin(2.0 * phi);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    z.z = -cos(theta1 + theta2);&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;    z *= rr;*/&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double rrA = zzA.x + zzA.y + zzA.z;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double rrB = zzB.x + zzB.y + zzB.z;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double tempA = sqrt(zzA.x + zzA.y);&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double tempB = sqrt(zzB.x + zzB.y);&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double theta1 = atan2(tempA, zzA.z) * fractal-&amp;gt;transformCommon.scaleB1;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double theta2 = atan2(tempB, -zzB.z) * fractal-&amp;gt;transformCommon.scaleC1;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double phi1 = atan2(zzA.y, zzA.x) * fractal-&amp;gt;transformCommon.scale1;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double phi2 = atan2(-zzB.y, zzB.x) * fractal-&amp;gt;transformCommon.scaleA1;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  double rrAB = rrA * rrB;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  z.x = (rrAB) * sin(theta1 + theta2) * cos(phi1 + phi2);&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  z.y = (rrAB) * sin(theta1 + theta2) * sin(phi1 + phi2);&lt;/span&gt;
+&lt;span style=&quot;color:#2929cc&quot;&gt;  z.z = (rrAB) * cos(theta1 + theta2);*/&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;/*z.x = fractal-&amp;gt;buffalo.absx ? fabs(z.x) : z.x;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  z.y = fractal-&amp;gt;buffalo.absy ? fabs(z.y) : z.y;&lt;/span&gt;
-&lt;span style=&quot;color:#2929cc&quot;&gt;  z.z = fractal-&amp;gt;buffalo.absz ? fabs(z.z) : z.z;*/&lt;/span&gt;
+
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// addCpixel&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;addCpixelEnabledFalse
@@ -828,6 +849,12 @@
 &lt;span style=&quot;color:#2929cc&quot;&gt;&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;    return CVector4(new_x, new_y, new_z, vec1.w);&lt;/span&gt;
 &lt;span style=&quot;color:#2929cc&quot;&gt;  }*/&lt;/span&gt;
+
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;enabledFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt;
+      aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;analyticDE&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+
+
 &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 &lt;/pre&gt;
 &lt;/body&gt;</string>

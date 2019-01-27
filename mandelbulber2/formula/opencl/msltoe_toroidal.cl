@@ -33,9 +33,13 @@ REAL4 MsltoeToroidalIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 
 	phi *= fractal->transformCommon.pwr8; // default 8
 	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
+
 	// convert back to cartesian coordinates
-	z.x = (mad(rp, native_cos(phi), r1)) * native_cos(theta);
-	z.y = (mad(rp, native_cos(phi), r1)) * native_sin(theta);
+	REAL rpCosPhi = rp * native_cos(phi);
+	z.x = (r1 + rpCosPhi) * native_cos(theta);
+	z.y = (r1 + rpCosPhi) * native_sin(theta);
+	// z.x = mad(native_cos(theta), rpCosPhi, r1);
+	// z.y = mad(native_sin(theta), rpCosPhi, r1);
 	z.z = -rp * native_sin(phi);
 
 	if (!fractal->analyticDE.enabledFalse)

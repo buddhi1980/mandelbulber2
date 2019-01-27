@@ -19,21 +19,20 @@
 
 REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// sphere inversion slot#1 iter == 0
-	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
 	{
-		if (aux->i < 1)
-		{
-			REAL rr = 1.0f;
-			z += fractal->transformCommon.offset000;
-			rr = dot(z, z);
-			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			z *= fractal->transformCommon.scaleA1;
-			// REAL r = native_sqrt(rr);
-			aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1
-								 * fractal->transformCommon.scaleA1;
-		}
+		REAL rr = 1.0f;
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		// REAL r = native_sqrt(rr);
+		aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1
+							 * fractal->transformCommon.scaleA1;
 	}
 
 	// kleinian

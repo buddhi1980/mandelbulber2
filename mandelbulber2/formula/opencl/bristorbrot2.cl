@@ -17,25 +17,52 @@
 
 REAL4 Bristorbrot2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	int dofabs = fractal->transformCommon.functionEnabled;
-
 	aux->DE = aux->DE * 2.0f * aux->r;
-	REAL x2 = z.x * z.x;
-	REAL y2 = z.y * z.y;
-	REAL z2 = z.z * z.z;
 
-	REAL sign = (z2 >= y2) ? -1.0f : 1.0f; // creates fractal surface modification 2019
-	sign = (z.x >= 0.0f) ? sign : -sign;
+	REAL4 zOrig = z;
+	REAL4 zz = z * z;
+	REAL4 zNew = z;
 
-	REAL tmpy = (dofabs) ? fabs(z.y) * sign : z.y;
-	REAL tmpz = (dofabs) ? fabs(z.z) * sign : z.z;
+	// pre abs
+	REAL4 zFabs = fabs(z);
+	if (fractal->buffalo.preabsx) zOrig.x = zFabs.x;
+	if (fractal->buffalo.preabsy) zOrig.y = zFabs.y;
+	if (fractal->buffalo.preabsz) zOrig.z = zFabs.z;
 
-	REAL newx = x2 - y2 - z2;
-	REAL newy = z.y * (mad(z.x, 2.0f, -tmpz));
-	REAL newz = z.z * (mad(z.x, 2.0f, tmpy));
+	// Bristorbrot V2 formula
+	REAL signT = 1.0f; // signT as "sign" is an operation   sign()
 
-	z.x = newx;
-	z.y = newy;
-	z.z = newz;
+	// conditional operation which can create cuts
+	if (fractal->transformCommon.functionEnabledFalse && zz.z >= zz.y)
+		signT = -1.0f; // creates fractal surface modification 2019
+
+	// is preabs is used on z.x, it will be !< 0.0f
+	if (!fractal->buffalo.preabsy && fractal->transformCommon.functionEnabledxFalse && zOrig.x < 0.0f)
+		signT = -signT;
+
+	// flips signT but same as using -1.0f scales
+	if (fractal->transformCommon.functionEnabledAwFalse) signT = -signT;
+
+	REAL tmpy = z.y;
+	if (fractal->transformCommon.functionEnabledyFalse) tmpy = zFabs.y;
+	REAL tmpz = z.z;
+	if (fractal->transformCommon.functionEnabledzFalse) tmpz = zFabs.z;
+
+	zNew.x = zz.x - zz.y - zz.z;
+	zNew.y = zOrig.y * (mad(zOrig.x, 2.0f, -tmpz * signT * fractal->transformCommon.scaleB1));
+	zNew.z = zOrig.z * (mad(zOrig.x, 2.0f, tmpy * signT * fractal->transformCommon.scaleC1));
+	z = zNew;
+
+	// post abs
+	z.x = fractal->buffalo.absx ? fabs(z.x) : z.x;
+	z.y = fractal->buffalo.absy ? fabs(z.y) : z.y;
+	z.z = fractal->buffalo.absz ? fabs(z.z) : z.z;
+
+	// offset
+	z += fractal->transformCommon.additionConstantA000;
+
+	// analyticDE controls
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 	return z;
 }
