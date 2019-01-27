@@ -467,6 +467,7 @@ bool cRenderJob::Execute()
 
 	WriteLog("cRenderJob::Execute(void): finished", 2);
 
+	image->setMeta(paramsContainer->getImageMeta());
 	image->ReleaseImage();
 
 	runningJobs--;

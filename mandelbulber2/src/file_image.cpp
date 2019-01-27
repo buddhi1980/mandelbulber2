@@ -54,6 +54,7 @@
 #include <ImfFrameBuffer.h>
 #include <ImfInputFile.h>
 #include <ImfOutputFile.h>
+#include <ImfStringAttribute.h>
 #include <half.h>
 #endif // USE_EXR
 
@@ -1158,6 +1159,12 @@ void ImageFileSaveEXR::SaveEXR(
 																3 * compSize, 3 * width * compSize));
 		frameBuffer.insert("s.B", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
 																3 * compSize, 3 * width * compSize));
+	}
+
+	QMapIterator<QString, QString> i(image->getMeta());
+	while (i.hasNext()) {
+			i.next();
+			header.insert(i.key().toStdString(), Imf_2_2::StringAttribute(i.value().toStdString()));
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
