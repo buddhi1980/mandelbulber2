@@ -294,7 +294,7 @@ void MarchingCubes::calculateEdges(int i)
 			unsigned int cubeindex = 0;
 
 			for (int m = 0; m < 8; ++m)
-				if (v[m] <= dist_thresh) cubeindex |= 1 << m;
+				if (v[m] < dist_thresh) cubeindex |= 1 << m;
 
 			// Generate vertices AVOIDING DUPLICATES.
 

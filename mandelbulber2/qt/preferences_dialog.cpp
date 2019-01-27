@@ -308,6 +308,9 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 			if (parSettings.Decode(examplePar, exampleParFractal))
 			{
+				examplePar->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+				examplePar->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+
 				thumbWidget->DisableTimer();
 				thumbWidget->AssignParameters(*examplePar, *exampleParFractal);
 				if (!thumbWidget->IsRendered())

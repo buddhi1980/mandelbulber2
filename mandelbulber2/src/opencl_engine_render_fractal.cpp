@@ -1117,6 +1117,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			lastRenderedRects.clear();
 		}
 
+		delete[] noiseTable;
+
 		emit updateProgressAndStatus(
 			tr("OpenCL - rendering umage finished"), progressText.getText(1.0), 1.0);
 	}

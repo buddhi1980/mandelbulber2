@@ -593,6 +593,9 @@ bool cRenderJob::RenderFractalWithOpenCl(
 	connect(gOpenCl->openClEngineRenderFractal,
 		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), this,
 		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)));
+	connect(gOpenCl->openClEngineRenderFractal,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 	gOpenCl->openClEngineRenderFractal->Lock();
 	gOpenCl->openClEngineRenderFractal->SetParameters(
@@ -627,6 +630,9 @@ void cRenderJob::RenderSSAOWithOpenCl(
 						 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
 		{
 			connect(gOpenCl->openClEngineRenderSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			connect(gOpenCl->openClEngineRenderSSAO,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 			gOpenCl->openClEngineRenderSSAO->Lock();
 			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
@@ -688,13 +694,16 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 		if (params->DOFEnabled && !params->DOFMonteCarlo)
 		{
 			connect(gOpenCl->openclEngineRenderDOF, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			connect(gOpenCl->openclEngineRenderDOF,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 			*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
 				params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
 		}
 	}
 }
-#endif //USE_OPENCL
+#endif // USE_OPENCL
 
 void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
 {

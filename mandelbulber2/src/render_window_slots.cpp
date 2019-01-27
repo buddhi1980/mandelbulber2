@@ -416,7 +416,7 @@ void RenderWindow::slotPopulateToolbar(bool completeRefresh)
 
 	for (int i = 0; i < toolbarFiles.size(); i++)
 	{
-		if(systemData.globalStopRequest) break;
+		if (systemData.globalStopRequest) break;
 
 		if (toolbarInActions.contains(toolbarFiles.at(i)))
 		{

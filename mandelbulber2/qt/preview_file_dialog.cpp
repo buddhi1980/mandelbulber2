@@ -65,6 +65,8 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	description->setAlignment(Qt::AlignCenter);
 	description->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	info = new QLabel("");
+	info->setWordWrap(true);
+	info->setMaximumWidth(200);
 
 	progressBar = new MyProgressBar;
 	progressBar->setMaximum(1000);
@@ -152,6 +154,8 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 
 			if (parSettings.Decode(par, parFractal))
 			{
+				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
 				description->setText(par->Get<QString>("description"));
 				thumbWidget->AssignParameters(*par, *parFractal);
 				thumbWidget->update();

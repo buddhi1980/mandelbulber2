@@ -435,22 +435,6 @@ void cInterface::ConnectSignals() const
 	connect(mainWindow->ui->actionRemove_Window_settings, SIGNAL(triggered()), mainWindow,
 		SLOT(slotCustomWindowRemovePopup()));
 
-#ifdef USE_OPENCL
-	// connect signal for progress bar update
-	connect(gOpenCl->openClEngineRenderFractal,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-
-	connect(gOpenCl->openClEngineRenderSSAO,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-
-	connect(gOpenCl->openclEngineRenderDOF,
-		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), mainWindow,
-		SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
-
-#endif
-
 	//------------------------------------------------
 	mainWindow->slotUpdateDocksAndToolbarByView();
 }

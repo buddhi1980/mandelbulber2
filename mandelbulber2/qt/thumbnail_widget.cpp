@@ -42,6 +42,7 @@
 #include <QImage>
 #include <QPaintEvent>
 
+#include "../src/interface.hpp"
 #include "src/cimage.hpp"
 #include "src/common_math.h"
 #include "src/global_data.hpp"
@@ -153,6 +154,13 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
 		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 		params->Set("DOF_min_samples", 5);
+
+		double distance = cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
+		if(distance < 1e-5)
+		{
+			params->Set("opencl_mode", 0);
+		}
+
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
 		oldHash = hash;
@@ -245,6 +253,13 @@ void cThumbnailWidget::slotRender()
 
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
+
+		while (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+		{
+			Wait(100);
+			gApplication->processEvents();
+		}
+
 		stopRequest = false;
 
 		cRenderJob *renderJob =
@@ -267,9 +282,6 @@ void cThumbnailWidget::slotRender()
 		renderJob->moveToThread(thread);
 		QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
 
-		//		while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
-		//		{
-		//		}
 		thread->setObjectName("ThumbnailWorker");
 		thread->start();
 
