@@ -8031,7 +8031,7 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// sphere inversion slot#1 iter == 0
+	// sphere inversion slot#1 iter == 0 added v2.17
 	if (fractal->transformCommon.sphereInversionEnabledFalse)
 	{
 		if (aux.i < 1)
@@ -8071,6 +8071,23 @@ void PseudoKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 			z.z = max(0.0, z.z);
 		}
 	}
+
+	// box fold abs() tglad fold added v2.17
+		if (fractal->transformCommon.functionEnabledByFalse && aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabledBy)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+	}
+
+
 	// box fold
 	if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsA
