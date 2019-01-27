@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -54,8 +54,7 @@ typedef struct
 	int count;
 } sRayMarchingOut;
 
-typedef enum
-{
+typedef enum {
 	rayBranchReflection = 0,
 	rayBranchRefraction = 1,
 	rayBranchDone = 2,
@@ -585,7 +584,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader += globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
-				// calculate reflectance according to Fresnel equations
+// calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values

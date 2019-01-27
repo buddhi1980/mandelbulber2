@@ -58,8 +58,7 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum
-{
+typedef enum {
 	objNone = -1,
 	objFractal = 0,
 	objPlane = 1,

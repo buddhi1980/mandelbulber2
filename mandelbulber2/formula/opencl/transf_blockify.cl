@@ -27,9 +27,11 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		if (!fractal->transformCommon.functionEnabledDFalse)
 		{
 			// if (fractal->transformCommon.functionEnabledCx) z.x = floor(native_divide(z.x, bSize.x)) *
-			// bSize.x; if (fractal->transformCommon.functionEnabledCy) z.y = floor(native_divide(z.y,
-			// bSize.y)) * bSize.y; if (fractal->transformCommon.functionEnabledCz) z.z =
-			// floor(native_divide(z.z, bSize.z)) * bSize.z;
+			// bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = floor(native_divide(z.y, bSize.y)) *
+			// bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = floor(native_divide(z.z, bSize.z)) *
+			// bSize.z;
 			if (fractal->transformCommon.functionEnabledCx)
 				z.x = (floor(native_divide(z.x, bSize.x)) + 0.5f) * bSize.x;
 			if (fractal->transformCommon.functionEnabledCy)
@@ -37,10 +39,14 @@ REAL4 TransfBlockifyIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			if (fractal->transformCommon.functionEnabledCz)
 				z.z = (floor(native_divide(z.z, bSize.z)) + 0.5f) * bSize.z;
 			// if (fractal->transformCommon.functionEnabledCx) z.x = (trunc(native_divide(z.x, bSize.x)) +
-			// sign(z.x) * 0.5f) * bSize.x; if (fractal->transformCommon.functionEnabledCy) z.y =
-			// (trunc(native_divide(z.y, bSize.y)) + sign(z.y) * 0.5f) * bSize.y; if
-			// (fractal->transformCommon.functionEnabledCz) z.z = (trunc(native_divide(z.z, bSize.z)) +
-			// sign(z.z) * 0.5f) * bSize.z;
+			// sign(z.x) *
+			// 0.5f) * bSize.x;
+			// if (fractal->transformCommon.functionEnabledCy) z.y = (trunc(native_divide(z.y, bSize.y)) +
+			// sign(z.y) *
+			// 0.5f) * bSize.y;
+			// if (fractal->transformCommon.functionEnabledCz) z.z = (trunc(native_divide(z.z, bSize.z)) +
+			// sign(z.z) *
+			// 0.5f) * bSize.z;
 		}
 		else // normalize
 		{

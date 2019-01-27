@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -123,12 +123,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		connect(this, SIGNAL(notifyRenderKeyframeRenderStatus(QString, QString)),
 			mainInterface->systemTray, SLOT(showMessage(QString, QString)));
 
-		connect(this,
-			SIGNAL(QuestionMessage(
-				const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
-			mainInterface->mainWindow,
-			SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
-				QMessageBox::StandardButton *)));
+		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
+										QMessageBox::StandardButton *)),
+			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
+																	 QMessageBox::StandardButtons, QMessageBox::StandardButton *)));
 
 		connect(ui->checkBox_show_camera_path, SIGNAL(stateChanged(int)), this,
 			SLOT(slotUpdateAnimationPathSelection()));
@@ -851,7 +849,7 @@ void cKeyframeAnimation::RefreshTable()
 			gApplication->processEvents();
 		}
 
-		if(systemData.globalStopRequest) break;
+		if (systemData.globalStopRequest) break;
 	}
 
 	UpdateLimitsForFrameRange();
@@ -1157,9 +1155,8 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
 	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
 										 + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
-	filename += "."
-							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-									params->Get<int>("keyframe_animation_image_type")));
+	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+											params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 

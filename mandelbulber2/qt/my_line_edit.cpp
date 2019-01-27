@@ -304,7 +304,7 @@ void MyLineEdit::focusInEvent(QFocusEvent *event)
 		int hOffset = height();
 
 		QSize minimumSize = slider->minimumSizeHint();
-		width = max(width, int(minimumSize.width()*0.6));
+		width = max(width, int(minimumSize.width() * 0.6));
 
 		slider->adjustSize();
 		slider->setFixedWidth(width);

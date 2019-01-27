@@ -32,9 +32,9 @@ REAL4 MandelbulbEyeTestIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	REAL phi1 = atan2(z.y, z.x) * fractal->transformCommon.scale1;
 	REAL phi2 = atan2(-z.y, z.x) * fractal->transformCommon.scaleA1;
 
-	z.x = (rr)*native_sin(theta1 + theta2) * native_cos(phi1 + phi2);
-	z.y = (rr)*native_sin(theta1 + theta2) * native_sin(phi1 + phi2);
-	z.z = (rr)*native_cos(theta1 + theta2);
+	z.x = rr * native_sin(theta1 + theta2) * native_cos(phi1 + phi2);
+	z.y = rr * native_sin(theta1 + theta2) * native_sin(phi1 + phi2);
+	z.z = rr * native_cos(theta1 + theta2);
 
 	/*REAL4 zzA = z * z;
 	REAL4 zzB = zzA; // * fractal->transformCommon.scaleD1;
@@ -114,6 +114,5 @@ REAL4 MandelbulbEyeTestIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 
 	if (fractal->analyticDE.enabledFalse)
 		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset1);
-
 	return z;
 }

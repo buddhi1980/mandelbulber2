@@ -48,8 +48,7 @@ REAL4 JosKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	// If above the separation line, rotate by 180deg about (-b/2, a/2)
 	if (z.y
-			>= a
-					 * (0.5f
+			>= a * (0.5f
 							 + 0.2f * native_sin(f * M_PI_F * native_divide((mad(b, 0.5f, z.x)), box_size.x))))
 		z = (REAL4){-b, a, 0.f, z.w} - z; // z.xy = vec2(-b, a) - z.xy;
 

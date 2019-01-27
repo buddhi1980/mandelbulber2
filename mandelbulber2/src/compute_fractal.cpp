@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -439,9 +439,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
-					out->distance =
-						min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
-						/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
+					out->distance = min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
+													/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
@@ -485,8 +484,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 						out->distance =
 							min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
-							/ max(extendedAux.DE,
-							fractals.GetFractal(sequence)->analyticDE.offset1);
+							/ max(extendedAux.DE, fractals.GetFractal(sequence)->analyticDE.offset1);
 						break;
 					}
 
@@ -502,7 +500,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * out->distance);
 			}
 		}
-		else out->distance = r;
+		else
+			out->distance = r;
 	}
 
 	// color calculation

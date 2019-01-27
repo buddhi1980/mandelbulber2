@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -180,7 +180,8 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th>" + ctrlBadge + " + Y</th><td>" + tr("Redo") + "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + H</th><td>" + tr("Show User Manual") + "</td></tr>";
 	text += " <tr><th>" + altBadge + " + H</th><td>" + tr("Show (these) Hotkeys") + "</td></tr>";
-	text += " <tr><th>" + shiftBadge + " + ESC</th><td>" + tr("Terminate all calculations") + "</td></tr>";
+	text +=
+		" <tr><th>" + shiftBadge + " + ESC</th><td>" + tr("Terminate all calculations") + "</td></tr>";
 	text += "</table>";
 	text += "</td>";
 
