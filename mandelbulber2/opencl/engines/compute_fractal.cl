@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -130,7 +130,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	int i;
 
 	formulaOut out;
-	out.maxiter = consts->params.iterThreshMode;
+	out.maxiter = true;
 	out.orbitTrapR = 0.0f;
 
 	float colorMin = 1000.0;
@@ -476,58 +476,50 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	if (consts->fractal[0].transformCommon.spheresEnabled)
 		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
 	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
-				 / max(aux.pseudoKleinianDE, consts->fractal[0].analyticDE.offset1);
+				 / max(aux.DE, consts->fractal[0].analyticDE.offset1);
 #else
 	dist = length(z);
 #endif
 
 #else //  IS_NOT HYBRID
-	switch (consts->sequence.DEAnalyticFunction[sequence])
+	if (aux.DE > 0.0)
 	{
-		case clAnalyticFunctionLogarithmic:
+		switch (consts->sequence.DEAnalyticFunction[sequence])
 		{
-			if (aux.DE > 0.0f)
+			case clAnalyticFunctionLogarithmic:
 			{
 				dist = 0.5f * aux.r * native_log(aux.r) / aux.DE;
+				break;
 			}
-			else
-				dist = aux.r;
-			break;
-		}
-		case clAnalyticFunctionLinear:
-		{
-			dist = aux.r / fabs(aux.DE);
-			break;
-		}
-		case clAnalyticFunctionIFS:
-		{
-			dist = (aux.r - 2.0) / fabs(aux.DE);
-			break;
-		}
-		case clAnalyticFunctionPseudoKleinian:
-		{
-			if (aux.DE > 0.0f)
+			case clAnalyticFunctionLinear:
+			{
+				dist = aux.r / aux.DE;
+				break;
+			}
+			case clAnalyticFunctionIFS:
+			{
+				dist = (aux.r - 2.0) / aux.DE;
+				break;
+			}
+			case clAnalyticFunctionPseudoKleinian:
 			{
 				float rxy = length(z.xy);
-				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / (aux.DE);
+				dist = max(rxy - aux.pseudoKleinianDE, fabs(rxy * z.z) / aux.r) / aux.DE;
+				break;
 			}
-			else
-				dist = aux.r;
-			break;
+			case clAnalyticFunctionJosKleinian:
+			{
+				if (fractal->transformCommon.spheresEnabled)
+					z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
+				dist = min(z.y, fractal->analyticDE.tweak005) / max(aux.DE, fractal->analyticDE.offset1);
+				break;
+			}
+			case clAnalyticFunctionNone: dist = -1.0; break;
+			case clAnalyticFunctionUndefined: dist = aux.r; break;
 		}
-		case clAnalyticFunctionJosKleinian:
-		{
-			if (fractal->transformCommon.spheresEnabled)
-				z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
-
-			dist = min(z.y, fractal->analyticDE.tweak005)
-						 / max(aux.pseudoKleinianDE, fractal->analyticDE.offset1);
-			break;
-		}
-
-		case clAnalyticFunctionNone: dist = -1.0; break;
-		case clAnalyticFunctionUndefined: dist = aux.r; break;
 	}
+	else
+		dist = aux.r;
 
 #endif // IS_HYBRID
 

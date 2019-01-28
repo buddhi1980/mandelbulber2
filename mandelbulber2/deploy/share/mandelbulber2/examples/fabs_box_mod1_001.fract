@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.07
+# version 2.17
 # only modified parameters
 [main_parameters]
 ambient_occlusion 0,28;
@@ -21,21 +21,24 @@ camera 0,9898035309767299 1,920033602162017 0,1348490280744856;
 camera_distance_to_target 0,03794947647080582;
 camera_rotation -132,0319313744914 59,52791803986489 -8,55112822052817;
 camera_top -0,5335050962113964 0,6810939738189269 0,5014811174351551;
-coloring_random_seed 500714;
 DOF_enabled true;
 DOF_focus 0,03964325413107872;
 DOF_HDR true;
 DOF_radius 12,8;
 flight_last_to_render 0;
 formula_1 59;
-fractal_coloring_algorithm 2;
 hdr true;
 hybrid_fractal_enable true;
 image_height 1200;
 image_width 1600;
 keyframe_last_to_render 0;
 main_light_intensity 0,1;
-surface_color_palette 4d5d18 101cce 00afa2 ff41be 973a5c ffff60 ff3eef 4d9aa8 60b055 ffb868;
+mat1_coloring_random_seed 500714;
+mat1_fractal_coloring_algorithm 2;
+mat1_is_defined true;
+mat1_specular_metallic 4;
+mat1_specular_metallic_roughness 0,4;
+mat1_surface_color_palette 4d5d18 101cce 00afa2 ff41be 973a5c ffff60 ff3eef 4d9aa8 60b055 ffb868;
 target 1,004098085262867 1,907148295332645 0,1675567848010156;
 view_distance_max 34,46668161954264;
 [fractal_1]
@@ -49,11 +52,3 @@ transf_scale3D_111 0,7 0,7 0,7;
 transf_scale_1 0,51;
 transf_start_iterations_A 5;
 transf_stop_iterations 5;
-[fractal_2]
-[fractal_3]
-[fractal_4]
-[fractal_5]
-[fractal_6]
-[fractal_7]
-[fractal_8]
-[fractal_9]

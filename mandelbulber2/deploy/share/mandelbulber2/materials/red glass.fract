@@ -1,0 +1,18 @@
+# Mandelbulber settings file
+# version 2.17
+# only modified parameters
+[main_parameters]
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_name red glass;
+mat1_reflectance 1;
+mat1_specular 30;
+mat1_specular_color ff00 ff00 ff00;
+mat1_specular_metallic_roughness 0,05;
+mat1_specular_width 0,081;
+mat1_surface_color ff00 0000 0000;
+mat1_transparency_color ff00 0000 0000;
+mat1_transparency_interior_color ff00 0000 0000;
+mat1_transparency_of_interior 0,9743553477846678;
+mat1_transparency_of_surface 1;
+mat1_use_colors_from_palette false;

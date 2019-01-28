@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -523,8 +523,12 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 	transformCommon.rotation2EnabledFalse = container->Get<bool>("transf_rotation2_enabled_false");
-	transformCommon.sphereInversionEnabledFalse = container->Get<bool>("transf_sphere_inversion_enabled_false");
+	transformCommon.sphereInversionEnabledFalse =
+		container->Get<bool>("transf_sphere_inversion_enabled_false");
 	transformCommon.spheresEnabled = container->Get<bool>("transf_spheres_enabled");
+
+	transformCommon.functionEnabledTempFalse =
+		container->Get<bool>("transf_function_enabled_temp_false");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);
 

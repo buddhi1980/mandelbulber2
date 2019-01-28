@@ -1,0 +1,52 @@
+# Mandelbulber settings file
+# version 2.17
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_color_1 8300 7f00 4500;
+camera 10.02412411839366 -4.410953032324073 7.004315027586185;
+camera_distance_to_target 11.98542690277099;
+camera_rotation 65.67606676630997 -33.20752431195623 -15.39201287972038;
+camera_top -0.5904827981366351 -0.02436789604220296 0.8066822613316884;
+constant_DE_threshold true;
+DE_factor 0.04;
+delta_DE_function 2;
+flight_last_to_render 0;
+formula_1 173;
+fov 0.5;
+hybrid_fractal_enable true;
+image_height 800;
+image_proportion 1;
+keyframe_last_to_render 0;
+limit_min -10 -1 -10;
+main_light_alpha 0;
+main_light_beta 0;
+mat1_coloring_palette_size 121;
+mat1_coloring_random_seed 72211;
+mat1_fractal_coloring_algorithm 3;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_max_color_value 12;
+mat1_fractal_coloring_orbit_trap_weight 19.5;
+mat1_fractal_coloring_xyz_000 0.001 0.001 0.001;
+mat1_fractal_coloring_xyz_div_1e13_false true;
+mat1_fractal_coloring_xyz_iter_scale 1.8;
+mat1_is_defined true;
+mat1_surface_color_palette 000000 aa180e ffff00 ac86ff abc496 083800 893788 40572a c694c5 c8592d 21254f 98b5f4 000000 8483b4 2930a6 c07c53 fb4cbc abd3bd ff3a37 000000 00b754 34b7d8 070010 9283d8 d8826c e458a4 69ffb1 72de38 4730be b692bc 708b1a c3b04c 135d41 46fff9 23d01d 379d32 64e0c6 db7031 040857 b43ed9 fefb98 ffdaa1 323524 00872b 307886 3e3f22 c6ff3f 539cff ac7686 c882ad 243880 8a52f8 ffe1ff 007898 a65016 31a36f b96ae3 8145ff 70b973 e44758 41608c ffde3e 8471c2 ffffe1 26768d ff5bff d137d5 5fa8d4 d0274c 8a107a ffffac 2968c6 12d800 3a0081 00b993 379fa7 1d0088 1b9394 54c3b3 1ee53c 2f5154 da7bff 533477 fd9b8a 71af62 2e469c eb8c4f 964a69 9ad514 29408b ff9e2b 4d0018 952b00 920a00 1d648e a19b00 ffff4d afaed5 ccf582 b63670 ffa2ec 66ff88 6aaecb 198f7e 5060a3 558800 d0ba47 8dddff 10456b e75a8e 31ffba 3b7dbd a80031 a1b963 cd28cf 45e99e ffc29c 350c6b ffff7e 9d7577 621e6f;
+mat2_is_defined true;
+mat2_name circle 2;
+mat2_specular_metallic 0;
+mat2_specular_plastic_enable false;
+mat2_surface_color aa00 0000 0000;
+mat2_use_colors_from_palette false;
+N 5;
+raytraced_reflections true;
+target 0.8861913054116002 -0.2804220824746331 0.4402190487458153;
+view_distance_max 23;
+volumetric_fog_colour_1_distance 2.421650090853643;
+volumetric_fog_colour_2_distance 4.843300181707287;
+volumetric_fog_distance_factor 4.843300181707287;
+[fractal_1]
+analyticDE_enabled_false true;
+analyticDE_offset_1 0;
+transf_function_enabled_false true;

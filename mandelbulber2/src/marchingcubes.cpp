@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -201,7 +201,7 @@ void MarchingCubes::RunMarchingCube()
 		{
 			calculateEdges(i);
 		}
-		if (*stop) break;
+		if (*stop || systemData.globalStopRequest) break;
 	}
 
 #ifdef USE_OPENCL
@@ -294,7 +294,7 @@ void MarchingCubes::calculateEdges(int i)
 			unsigned int cubeindex = 0;
 
 			for (int m = 0; m < 8; ++m)
-				if (v[m] <= dist_thresh) cubeindex |= 1 << m;
+				if (v[m] < dist_thresh) cubeindex |= 1 << m;
 
 			// Generate vertices AVOIDING DUPLICATES.
 
@@ -448,7 +448,7 @@ __declspec(target(mic))
 	cObjectData objectData = renderData->objectData[distanceOut.objectId];
 	cMaterial *material = &renderData->materials[objectData.materialId];
 
-	sFractalIn fractIn(point, params->minN, params->N, params->common, -1, material);
+	sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false, material);
 	sFractalOut fractOut;
 
 	Compute<fractal::calcModeColouring>(*fractals, fractIn, &fractOut);

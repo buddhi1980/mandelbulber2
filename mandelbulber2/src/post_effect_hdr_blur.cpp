@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -39,6 +39,7 @@
 #include "cimage.hpp"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "system.hpp"
 
 cPostEffectHdrBlur::cPostEffectHdrBlur(cImage *_image) : QObject(), image(_image)
 {
@@ -75,7 +76,7 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 
 	for (int y = 0; y < image->GetHeight(); y++)
 	{
-		if (*stopRequest) break;
+		if (*stopRequest || systemData.globalStopRequest) break;
 
 #pragma omp parallel for
 		for (int x = 0; x < image->GetWidth(); x++)

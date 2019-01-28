@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -234,7 +234,8 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 	const int N =
 		(in.normalCalculationMode && params.common.iterThreshMode) ? params.N * 5 : params.N;
 
-	sFractalIn fractIn(in.point, params.minN, N, params.common, forcedFormulaIndex);
+	sFractalIn fractIn(
+		in.point, params.minN, N, params.common, forcedFormulaIndex, in.normalCalculationMode);
 	sFractalOut fractOut;
 	fractOut.colorIndex = 0;
 
@@ -248,7 +249,16 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 		out->colorIndex = fractOut.colorIndex;
 		out->totalIters += fractOut.iters;
 
-		// if (distance < 1e-20) distance = 1e-20;
+		// don't use maxiter when limits are disabled and iterThresh mode is not used
+		if (!params.limitsEnabled)
+		{
+			if (!params.common.iterThreshMode) out->maxiter = false;
+		}
+		else
+		{
+			// never use maxiter if normal vectors are calculated
+			if (in.normalCalculationMode) out->maxiter = false;
+		}
 
 		if (out->maxiter) distance = 0.0;
 
@@ -290,6 +300,17 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 		out->iters = fractOut.iters;
 		out->colorIndex = fractOut.colorIndex;
 		out->totalIters += fractOut.iters;
+
+		// don't use maxiter when limits are disabled and iterThresh mode is not used
+		if (!params.limitsEnabled)
+		{
+			if (!params.common.iterThreshMode) maxiter = false;
+		}
+		else
+		{
+			// never use maxiter if normal vectors are calculated
+			if (in.normalCalculationMode) maxiter = false;
+		}
 
 		fractIn.maxN = fractOut.iters; // for other directions must be the same number of iterations
 

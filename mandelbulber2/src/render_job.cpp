@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -317,31 +317,14 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 
 bool cRenderJob::Execute()
 {
-	// if(image->IsUsed())
-	//{
-	//	//cErrorMessage::showMessage(QObject::tr("Rendering engine is busy. Stop unfinished rendering
-	// before starting new one"), cErrorMessage::errorMessage);
-	//	return false;
-	//}
-
 	image->BlockImage();
 
 	runningJobs++;
 
 	bool result = false;
-	bool twoPassStereo = false;
 
-	int noOfRepeats = 1;
-	if (!gNetRender->IsClient() && paramsContainer->Get<bool>("stereo_enabled")
-			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
-			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
-						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
-					 || (paramsContainer->Get<bool>("DOF_enabled")
-								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
-	{
-		noOfRepeats = 2;
-		twoPassStereo = true;
-	}
+	bool twoPassStereo = false;
+	int noOfRepeats = GetNumberOfRepeatsOfStereoLoop(&twoPassStereo);
 
 	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl
 			|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
@@ -353,84 +336,12 @@ bool cRenderJob::Execute()
 			emit updateProgressAndStatus(
 				QObject::tr("Rendering image"), QObject::tr("Starting rendering of image"), 0.0);
 
-			// stereo rendering with SSAO or DOF (2 passes)
-			if (twoPassStereo)
-			{
-				cStereo::enumEye eye;
-				if (repeat == 0)
-					eye = cStereo::eyeLeft;
-				else
-					eye = cStereo::eyeRight;
-
-				renderData->stereo.ForceEye(eye);
-				paramsContainer->Set("stereo_actual_eye", int(eye));
-			}
-			else if (!gNetRender->IsClient())
-			{
-				paramsContainer->Set("stereo_actual_eye", int(cStereo::eyeNone));
-			}
-
-			if (gNetRender->IsClient())
-			{
-				cStereo::enumEye eye = cStereo::enumEye(paramsContainer->Get<int>("stereo_actual_eye"));
-				if (eye != cStereo::eyeNone)
-				{
-					renderData->stereo.ForceEye(eye);
-				}
-			}
+			SetupStereoEyes(repeat, twoPassStereo);
 
 			// send settings to all NetRender clients
 			if (renderData->configuration.UseNetRender())
 			{
-				if (gNetRender->IsServer())
-				{
-					// new id
-					qint32 identification = rand();
-
-					// calculation of starting positions list and sending id to clients
-					renderData->netRenderStartingPositions.clear();
-
-					int clientIndex = 0;
-					int clientWorkerIndex = 0;
-
-					int workersCount =
-						gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
-
-					QList<int> startingPositionsToSend;
-
-					for (int i = 0; i < workersCount; i++)
-					{
-						// FIXME to correct starting positions considering region data
-						if (i < renderData->configuration.GetNumberOfThreads())
-						{
-							renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
-						}
-						else
-						{
-							startingPositionsToSend.append(i * image->GetHeight() / workersCount);
-							clientWorkerIndex++;
-
-							if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
-							{
-								emit SendNetRenderSetup(clientIndex, identification, startingPositionsToSend);
-								clientIndex++;
-								clientWorkerIndex = 0;
-								startingPositionsToSend.clear();
-							}
-						}
-					}
-
-					QStringList listOfUsedTextures = CreateListOfUsedTextures();
-
-					// send settings to all clients
-					emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
-				}
-
-				// get starting positions received from server
-				if (gNetRender->IsClient())
-				{
-					renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
-				}
+				InitNetRender();
 			}
 
 			// qDebug() << "runningJobs" << runningJobs;
@@ -450,6 +361,8 @@ bool cRenderJob::Execute()
 			params->resolution = 1.0 / image->GetHeight();
 			ReduceDetail();
 
+			InitStatistics(fractals);
+
 			// initialize histograms
 			renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
 			renderData->statistics.histogramStepCount.Resize(1000);
@@ -459,34 +372,11 @@ bool cRenderJob::Execute()
 			// create and execute renderer
 			cRenderer *renderer = new cRenderer(params, fractals, renderData, image);
 
-			// connect signal for progress bar update
-			connect(renderer, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)),
-				this, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-			connect(renderer, SIGNAL(updateStatistics(cStatistics)), this,
-				SIGNAL(updateStatistics(cStatistics)));
-			connect(renderer, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			ConnectUpdateSinalsSlots(renderer);
 
 			if (renderData->configuration.UseNetRender())
 			{
-				if (gNetRender->IsClient())
-				{
-					QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)),
-						gNetRender, SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-					QObject::connect(gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer,
-						SLOT(ToDoListArrived(QList<int>)));
-					QObject::connect(
-						renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
-					QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
-				}
-
-				if (gNetRender->IsServer())
-				{
-					QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)),
-						renderer, SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-					QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
-						SLOT(SendToDoList(int, QList<int>)));
-					QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
-				}
+				ConnectNetRenderSignalsSlots(renderer);
 			}
 
 			result = renderer->RenderImage();
@@ -532,109 +422,14 @@ bool cRenderJob::Execute()
 
 		image->SetImageParameters(params->imageAdjustments);
 
-		// initialize statistics (limited for OpenCL)
-		renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
-		renderData->statistics.histogramStepCount.Resize(1000);
-		renderData->statistics.Reset();
-		renderData->statistics.usedDEType = fractals->GetDETypeString();
+		InitStatistics(fractals);
 
 		image->SetFastPreview(true);
 
-		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
-			SIGNAL(updateStatistics(cStatistics)));
-		connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
-
-		gOpenCl->openClEngineRenderFractal->Lock();
-		gOpenCl->openClEngineRenderFractal->SetParameters(
-			paramsContainer, fractalContainer, params, fractals, renderData, false);
-		if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
-		{
-			gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
-			WriteLogDouble("OpenCl render fractal - needed mem:",
-				gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
-			gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
-			gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
-			result =
-				gOpenCl->openClEngineRenderFractal->RenderMulti(image, renderData->stopRequest, renderData);
-		}
-		WriteLog("OpenCL RenderMulti exited", 2);
-		gOpenCl->openClEngineRenderFractal->ReleaseMemory();
-		WriteLog("OpenCL memory released", 2);
-		gOpenCl->openClEngineRenderFractal->Unlock();
-
-		emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText.getText(1.0), 1.0);
-
-		if (!*renderData->stopRequest)
-		{
-			if (params->ambientOcclusionEnabled
-					&& params->ambientOcclusionMode == params::AOModeScreenSpace
-					&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
-							 paramsContainer->Get<int>("opencl_mode"))
-							 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
-			{
-				connect(
-					gOpenCl->openClEngineRenderSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
-
-				gOpenCl->openClEngineRenderSSAO->Lock();
-				gOpenCl->openClEngineRenderSSAO->SetParameters(params);
-				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
-				{
-					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
-					qint64 neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
-					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
-					if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
-					{
-						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
-						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
-						result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
-					}
-					else
-					{
-						qCritical() << "Not enough GPU mem!";
-						result = false;
-					}
-
-					if (!result)
-					{
-						cRenderSSAO rendererSSAO(params, renderData, image);
-						connect(&rendererSSAO,
-							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
-							SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
-						connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
-						rendererSSAO.RenderSSAO();
-
-						// refresh image at end
-						WriteLog("image->CompileImage()", 2);
-						image->CompileImage();
-
-						if (image->IsPreview())
-						{
-							WriteLog("image->ConvertTo8bit()", 2);
-							image->ConvertTo8bit();
-							WriteLog("image->UpdatePreview()", 2);
-							image->UpdatePreview();
-							WriteLog("image->GetImageWidget()->update()", 2);
-							emit updateImage();
-						}
-						result = true;
-					}
-				}
-				gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
-				gOpenCl->openClEngineRenderSSAO->Unlock();
-
-				emit updateProgressAndStatus(
-					tr("OpenCl - rendering SSAO finished"), progressText.getText(1.0), 1.0);
-			}
-		}
-
-		if (!*renderData->stopRequest)
-		{
-			if (params->DOFEnabled && !params->DOFMonteCarlo)
-			{
-				gOpenCl->openclEngineRenderDOF->RenderDOF(
-					params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
-			}
-		}
+		// render all with OpenCL
+		result = RenderFractalWithOpenCl(params, fractals, &progressText);
+		RenderSSAOWithOpenCl(params, &progressText, &result);
+		RenderDOFWithOpenCl(params, &result);
 
 		if (!*renderData->stopRequest)
 		{
@@ -672,12 +467,275 @@ bool cRenderJob::Execute()
 
 	WriteLog("cRenderJob::Execute(void): finished", 2);
 
+	image->setMeta(paramsContainer->getImageMeta());
 	image->ReleaseImage();
 
 	runningJobs--;
 	// qDebug() << "runningJobs" << runningJobs;
 
 	return result;
+}
+
+int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
+{
+	int noOfRepeats = 1;
+	if (!gNetRender->IsClient() && paramsContainer->Get<bool>("stereo_enabled")
+			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
+			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
+						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
+					 || (paramsContainer->Get<bool>("DOF_enabled")
+								&& !paramsContainer->Get<bool>("DOF_monte_carlo"))))
+	{
+		noOfRepeats = 2;
+		*twoPassStereo = true;
+	}
+	return noOfRepeats;
+}
+
+void cRenderJob::SetupStereoEyes(int repeat, bool twoPassStereo)
+{
+	// stereo rendering with SSAO or DOF (2 passes)
+	if (twoPassStereo)
+	{
+		cStereo::enumEye eye;
+		if (repeat == 0)
+			eye = cStereo::eyeLeft;
+		else
+			eye = cStereo::eyeRight;
+
+		renderData->stereo.ForceEye(eye);
+		paramsContainer->Set("stereo_actual_eye", int(eye));
+	}
+	else if (!gNetRender->IsClient())
+	{
+		paramsContainer->Set("stereo_actual_eye", int(cStereo::eyeNone));
+	}
+
+	if (gNetRender->IsClient())
+	{
+		cStereo::enumEye eye = cStereo::enumEye(paramsContainer->Get<int>("stereo_actual_eye"));
+		if (eye != cStereo::eyeNone)
+		{
+			renderData->stereo.ForceEye(eye);
+		}
+	}
+}
+
+void cRenderJob::InitNetRender()
+{
+	if (gNetRender->IsServer())
+	{
+		// new random id for NetRender
+		qint32 identification = rand();
+
+		// calculation of starting positions list and sending id to clients
+		renderData->netRenderStartingPositions.clear();
+
+		int clientIndex = 0;
+		int clientWorkerIndex = 0;
+
+		int workersCount =
+			gNetRender->getTotalWorkerCount() + renderData->configuration.GetNumberOfThreads();
+
+		QList<int> startingPositionsToSend;
+
+		for (int i = 0; i < workersCount; i++)
+		{
+			// FIXME to correct starting positions considering region data
+			if (i < renderData->configuration.GetNumberOfThreads())
+			{
+				renderData->netRenderStartingPositions.append(i * image->GetHeight() / workersCount);
+			}
+			else
+			{
+				startingPositionsToSend.append(i * image->GetHeight() / workersCount);
+				clientWorkerIndex++;
+
+				if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
+				{
+					emit SendNetRenderSetup(clientIndex, identification, startingPositionsToSend);
+					clientIndex++;
+					clientWorkerIndex = 0;
+					startingPositionsToSend.clear();
+				}
+			}
+		}
+
+		QStringList listOfUsedTextures = CreateListOfUsedTextures();
+
+		// send settings to all clients
+		emit SendNetRenderJob(*paramsContainer, *fractalContainer, listOfUsedTextures);
+	}
+
+	// get starting positions received from server
+	if (gNetRender->IsClient())
+	{
+		renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
+	}
+}
+
+void cRenderJob::InitStatistics(const cNineFractals *fractals)
+{
+	// initialize histograms
+	renderData->statistics.histogramIterations.Resize(paramsContainer->Get<int>("N"));
+	renderData->statistics.histogramStepCount.Resize(1000);
+	renderData->statistics.Reset();
+	renderData->statistics.usedDEType = fractals->GetDETypeString();
+}
+
+#ifdef USE_OPENCL
+bool cRenderJob::RenderFractalWithOpenCl(
+	sParamRender *params, cNineFractals *fractals, cProgressText *progressText)
+{
+	bool result = false;
+	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateStatistics(cStatistics)), this,
+		SIGNAL(updateStatistics(cStatistics)));
+	connect(gOpenCl->openClEngineRenderFractal, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+	connect(gOpenCl->openClEngineRenderFractal,
+		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)), this,
+		SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)));
+	connect(gOpenCl->openClEngineRenderFractal,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+	gOpenCl->openClEngineRenderFractal->Lock();
+	gOpenCl->openClEngineRenderFractal->SetParameters(
+		paramsContainer, fractalContainer, params, fractals, renderData, false);
+	if (gOpenCl->openClEngineRenderFractal->LoadSourcesAndCompile(paramsContainer))
+	{
+		gOpenCl->openClEngineRenderFractal->CreateKernel4Program(paramsContainer);
+		WriteLogDouble("OpenCl render fractal - needed mem:",
+			gOpenCl->openClEngineRenderFractal->CalcNeededMemory() / 1048576.0, 2);
+		gOpenCl->openClEngineRenderFractal->PreAllocateBuffers(paramsContainer);
+		gOpenCl->openClEngineRenderFractal->CreateCommandQueue();
+		result =
+			gOpenCl->openClEngineRenderFractal->RenderMulti(image, renderData->stopRequest, renderData);
+	}
+	WriteLog("OpenCL RenderMulti exited", 2);
+	gOpenCl->openClEngineRenderFractal->ReleaseMemory();
+	WriteLog("OpenCL memory released", 2);
+	gOpenCl->openClEngineRenderFractal->Unlock();
+
+	emit updateProgressAndStatus(tr("OpenCl - rendering finished"), progressText->getText(1.0), 1.0);
+	return result;
+}
+
+void cRenderJob::RenderSSAOWithOpenCl(
+	sParamRender *params, cProgressText *progressText, bool *result)
+{
+	if (!*renderData->stopRequest && *result == true)
+	{
+		if (params->ambientOcclusionEnabled && params->ambientOcclusionMode == params::AOModeScreenSpace
+				&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+						 paramsContainer->Get<int>("opencl_mode"))
+						 != cOpenClEngineRenderFractal::clRenderEngineTypeFast)
+		{
+			connect(gOpenCl->openClEngineRenderSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			connect(gOpenCl->openClEngineRenderSSAO,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+			gOpenCl->openClEngineRenderSSAO->Lock();
+			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
+			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
+			{
+				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
+				qint64 neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+				WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
+				if (neededMem / 1048576 < paramsContainer->Get<int>("opencl_memory_limit"))
+				{
+					gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(paramsContainer);
+					gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();
+					*result = gOpenCl->openClEngineRenderSSAO->Render(image, renderData->stopRequest);
+				}
+				else
+				{
+					qCritical() << "Not enough GPU mem!";
+					*result = false;
+				}
+
+				if (!*result)
+				{
+					cRenderSSAO rendererSSAO(params, renderData, image);
+					connect(&rendererSSAO,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+					connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+					rendererSSAO.RenderSSAO();
+
+					// refresh image at end
+					WriteLog("image->CompileImage()", 2);
+					image->CompileImage();
+
+					if (image->IsPreview())
+					{
+						WriteLog("image->ConvertTo8bit()", 2);
+						image->ConvertTo8bit();
+						WriteLog("image->UpdatePreview()", 2);
+						image->UpdatePreview();
+						WriteLog("image->GetImageWidget()->update()", 2);
+						emit updateImage();
+					}
+					*result = true;
+				}
+			}
+			gOpenCl->openClEngineRenderSSAO->ReleaseMemory();
+			gOpenCl->openClEngineRenderSSAO->Unlock();
+
+			emit updateProgressAndStatus(
+				tr("OpenCl - rendering SSAO finished"), progressText->getText(1.0), 1.0);
+		}
+	}
+}
+
+void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
+{
+	if (!*renderData->stopRequest)
+	{
+		if (params->DOFEnabled && !params->DOFMonteCarlo)
+		{
+			connect(gOpenCl->openclEngineRenderDOF, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+			connect(gOpenCl->openclEngineRenderDOF,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+
+			*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
+				params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
+		}
+	}
+}
+#endif // USE_OPENCL
+
+void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
+{
+	// connect signal for progress bar update
+	connect(renderer, SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
+		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
+	connect(
+		renderer, SIGNAL(updateStatistics(cStatistics)), this, SIGNAL(updateStatistics(cStatistics)));
+	connect(renderer, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+}
+
+void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)
+{
+	if (gNetRender->IsClient())
+	{
+		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender,
+			SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
+		QObject::connect(
+			gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
+		QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
+		QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
+	}
+
+	if (gNetRender->IsServer())
+	{
+		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer,
+			SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
+		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
+			SLOT(SendToDoList(int, QList<int>)));
+		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+	}
 }
 
 void cRenderJob::ChangeCameraTargetPosition(cCameraTarget &cameraTarget) const

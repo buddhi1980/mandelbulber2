@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -43,11 +43,19 @@ sRGBAfloat cRenderWorker::SpecularHighlight(
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0f) shade2 = 0.0f;
-	float diffuse =
-		10.0f * (1.1f
-							- input.material->diffusionTextureIntensity
-									* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+	if (input.material->useDiffusionTexture)
+	{
+		float diffuse =
+			10.0f * (1.1f
+								- input.material->diffusionTextureIntensity
+										* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+		shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+	}
+	else
+	{
+		shade2 = pow(shade2, 30.0f / specularWidth);
+	}
+
 	if (roughness > 0.0f)
 	{
 		shade2 *= (1.0 + Random(1000) / 1000.0f * roughness);

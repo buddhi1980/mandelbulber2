@@ -620,7 +620,7 @@ r = sqrt(z2.x + z2.y + z2.z + (z2.y * z2.z) / z2.x);</string>
 This formula contains aux.DE&lt;br&gt;
 &lt;/td&gt;&lt;/tr&gt;
 &lt;/table&gt;
-&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;scator real pow2 menger sponge hybrid.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/Scator Spikey Imaginary Pow2.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

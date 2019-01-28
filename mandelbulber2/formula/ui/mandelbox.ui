@@ -1266,7 +1266,7 @@ fixed radius:</string>
    <item>
     <widget class="QGroupBox" name="groupBox_4">
      <property name="title">
-      <string>Coloring parameters</string>
+      <string>aux.color coloring parameters</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <property name="leftMargin">
@@ -1670,15 +1670,15 @@ fixed radius:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

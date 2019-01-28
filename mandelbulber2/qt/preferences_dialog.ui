@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>704</height>
+    <width>579</width>
+    <height>657</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
-            <height>622</height>
+            <width>555</width>
+            <height>581</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -585,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>542</width>
-            <height>622</height>
+            <width>555</width>
+            <height>581</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -887,25 +887,32 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0" colspan="2">
-                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                <item row="2" column="0" colspan="2">
+                 <widget class="MyCheckBox" name="checkBox_save_channels_in_separate_folders">
                   <property name="text">
-                   <string>Append alpha to image (only PNG and TIFF)</string>
+                   <string>Save each channel in separate folder</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0" colspan="2">
+                <item row="3" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_linear_colorspace">
                   <property name="text">
                    <string>Use linear colorspace (only EXR)</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0" colspan="2">
+                <item row="4" column="0" colspan="2">
                  <widget class="MyCheckBox" name="checkBox_stereoscopic_in_separate_files">
                   <property name="text">
                    <string>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="MyCheckBox" name="checkBox_append_alpha_png">
+                  <property name="text">
+                   <string>Append alpha to image (only PNG and TIFF)</string>
                   </property>
                  </widget>
                 </item>
@@ -1015,9 +1022,9 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-256</y>
-            <width>565</width>
-            <height>864</height>
+            <y>0</y>
+            <width>537</width>
+            <height>841</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1065,6 +1072,9 @@ and will only be present after enabling and re-render.</string>
                 <property name="text">
                  <string>This will offload the rendering to an OpenCL device (GPU, CPU, Accelerator Card).</string>
                 </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
                </widget>
               </item>
               <item>
@@ -1092,14 +1102,14 @@ and will only be present after enabling and re-render.</string>
                   </item>
                  </widget>
                 </item>
-                <item row="4" column="0">
+                <item row="5" column="0">
                  <widget class="QLabel" name="label_opencl_memory_limit">
                   <property name="text">
                    <string>Memory Limit:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
+                <item row="5" column="1">
                  <widget class="QSlider" name="sliderInt_opencl_memory_limit">
                   <property name="minimum">
                    <number>1</number>
@@ -1118,7 +1128,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="2">
+                <item row="5" column="2">
                  <widget class="MySpinBox" name="spinboxInt_opencl_memory_limit">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Memory limit for single memory buffer used by OpenCL programs.&lt;/p&gt;&lt;p&gt;It should be set not higher than suggested memory limit showed below.&lt;/p&gt;&lt;p&gt;If SSAO or DOF effects need more memory than limit, they will be rendered using CPU.&lt;/p&gt;&lt;p&gt;Higher memory limit can allow rendering SSAO and DOF effects using GPU at higher resolution, but program can produce errors or be unstable.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1214,7 +1224,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="0" colspan="3">
+                <item row="8" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_opencl_disable_build_cache">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It disables 'compute cache' used by NVidia driver. It is sometimes needed to use this option to refresh precompiled OpenCL programs after changing OpenCL source files (e.g. after upgrade of the program).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1224,7 +1234,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0" colspan="3">
+                <item row="7" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_opencl_use_fast_relaxed_math">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides additional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1234,7 +1244,7 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0" colspan="3">
+                <item row="6" column="0" colspan="3">
                  <widget class="QLabel" name="label_opencl_suggested_memory_limit">
                   <property name="text">
                    <string>Suggested memory limit:</string>
@@ -1264,12 +1274,59 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="QLabel" name="label_opencl_memory_limit_3">
+                  <property name="text">
+                   <string>Percentage of reserved GPU time for a system</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
+                 <widget class="MyDoubleSpinBox" name="spinbox_opencl_reserved_gpu_time">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of GPU time which will be reserved for another processes like a system.&lt;/p&gt;&lt;p&gt;Higher value will generate longer wairs between launching next OpenCL jobs. During this time the system will have opportunity to update UI. It will cause reduction of rendering speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="decimals">
+                   <number>3</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>100.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>0.100000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>0.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </item>
               <item>
                <widget class="QLabel" name="label_explanation_opencl_missing_features">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;support for multiple GPUs&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -1380,7 +1437,7 @@ and will only be present after enabling and re-render.</string>
   <tabstop>comboBox_specular_quality</tabstop>
   <tabstop>text_specular_postfix</tabstop>
   <tabstop>spinboxInt_jpeg_quality</tabstop>
-  <tabstop>checkBox_append_alpha_png</tabstop>
+  <tabstop>checkBox_save_channels_in_separate_folders</tabstop>
   <tabstop>pushButton_clear_thumbnail_cache</tabstop>
   <tabstop>pushButton_load_thumbnail_cache</tabstop>
   <tabstop>pushButton_generate_thumbnail_cache</tabstop>

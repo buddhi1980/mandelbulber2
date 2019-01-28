@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -80,11 +80,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		input2.point = point;
 		input2.distThresh = input.stepBuff[index].distThresh;
+		input2.delta = CalcDelta(point);
 
 		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
 		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
 
-		if (totalStep < CalcDelta(point))
+		if (totalStep < 1e-10 * CalcDistThresh(point)) // if two steps are the same
 		{
 			continue;
 		}
@@ -150,7 +151,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		// fake lights (orbit trap)
 		if (params->fakeLightsEnabled)
 		{
-			sFractalIn fractIn(point, params->minN, params->N, params->common, -1);
+			sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;

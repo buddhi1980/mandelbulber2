@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -41,6 +41,7 @@
 #include "QVariant"
 #include "algebra.hpp"
 #include "animation_path_data.hpp"
+#include "rendered_tile_data.hpp"
 #include "stereo.h"
 
 // forward declarations
@@ -114,6 +115,7 @@ public:
 
 public slots:
 	void slotSetMinimumSize(int width, int height);
+	void showRenderedTilesList(QList<sRenderedTileData> listOfRenderedTiles);
 
 signals:
 	void SpeedChanged(double amount);
@@ -144,6 +146,7 @@ private:
 		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
 	static QPointF CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 	void DrawAnimationPath();
+	void PaintLastRenderedTilesInfo();
 
 	bool anaglyphMode;
 	bool cursorVisible;
@@ -174,6 +177,7 @@ private:
 	QTimer *timerRefreshImage;
 	sFlightData flightData;
 	sAnimationPathData animationPathData;
+	QList<sRenderedTileData> listOfRenderedTilesData;
 
 signals:
 	void mouseMoved(int x, int y);

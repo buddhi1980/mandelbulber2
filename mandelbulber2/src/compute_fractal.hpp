@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -52,15 +52,17 @@ struct sFractalIn
 	int maxN;
 	sCommonParams common;
 	int forcedFormulaIndex;
+	bool normalCalculationMode;
 	const cMaterial *material;
 
 	sFractalIn(CVector3 _point, int _minN, int _maxN, sCommonParams _common, int _forcedFormulaIndex,
-		const cMaterial *_material = nullptr)
+		bool _normalCalculationMode, const cMaterial *_material = nullptr)
 			: point(_point),
 				minN(_minN),
 				maxN(_maxN),
 				common(std::move(_common)),
 				forcedFormulaIndex(_forcedFormulaIndex),
+				normalCalculationMode(_normalCalculationMode),
 				material(_material)
 	{
 	}

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -107,6 +107,7 @@ void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BristorbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void Bristorbrot2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BuffaloIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CoastalbrotIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void CollatzIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -135,12 +136,14 @@ void Mandelbulb3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void ModulusMengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void ModulusMandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbAbsPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelbulbAtan2Power2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbBermarteIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbJuliabulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -152,6 +155,8 @@ void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void MengerSpongeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerCrossMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerCrossKIFSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -194,8 +199,6 @@ void Sierpinski3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void VicsekIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void XenodreambuieIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
-
 
 // transforming formulas
 void TransfAddCpixelAxisSwapIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -266,6 +269,7 @@ void TransfSinAndCosMaxIteration(CVector4 &z, const sFractal *fractal, sExtended
 
 void TransfSphericalInvCIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldAboxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFoldCHSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

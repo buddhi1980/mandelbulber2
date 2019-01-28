@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -41,11 +41,18 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 	if (specular < 0.0f) specular = 0.0f;
 
 #if defined(USE_TEXTURES) && defined(USE_DIFFUSION_TEXTURE)
-	float diffuse =
-		10.0f * (1.1f
-							- input->material->diffusionTextureIntensity
-									* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
-	specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
+	if (input->material->useDiffusionTexture)
+	{
+		float diffuse =
+			10.0f * (1.1f
+								- input->material->diffusionTextureIntensity
+										* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
+		specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
+	}
+	else
+	{
+		specular = pow(specular, 30.0f / specularWidth);
+	}
 #else
 	specular = pow(specular, 30.0f / specularWidth);
 #endif

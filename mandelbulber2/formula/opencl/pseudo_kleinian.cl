@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,6 +17,22 @@
 
 REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// sphere inversion slot#1 iter == 0 added v2.17
+	if (fractal->transformCommon.sphereInversionEnabledFalse)
+	{
+		if (aux->i < 1)
+		{
+			REAL rr = 1.0f;
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z += fractal->transformCommon.additionConstantA000 - fractal->transformCommon.offset000;
+			// REAL r = native_sqrt(rr);
+			aux->DE = mad(aux->DE, (native_divide(fractal->transformCommon.maxR2d1, rr)),
+				fractal->analyticDE.offset0);
+		}
+	}
+
 	REAL4 gap = fractal->transformCommon.constantMultiplier000;
 	REAL t;
 	REAL dot1;
@@ -52,6 +68,23 @@ REAL4 PseudoKleinianIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 			z.z = max(0.0f, z.z);
 		}
 	}
+
+	// box fold abs() tglad fold added v2.17
+	if (fractal->transformCommon.functionEnabledByFalse
+			&& aux->i >= fractal->transformCommon.startIterationsE
+			&& aux->i < fractal->transformCommon.stopIterationsE)
+	{
+		z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+					- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+		z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+					- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+		if (fractal->transformCommon.functionEnabledBy)
+		{
+			z.z = fabs(z.z + fractal->transformCommon.additionConstant111.z)
+						- fabs(z.z - fractal->transformCommon.additionConstant111.z) - z.z;
+		}
+	}
+
 	// box fold
 	if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA

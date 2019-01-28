@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -39,6 +39,7 @@
 #include "common_math.h"
 #include "global_data.hpp"
 #include "progress_text.hpp"
+#include "system.hpp"
 
 using std::max;
 using std::min;
@@ -96,7 +97,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 		// preprocessing (1-st phase)
 		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
 		{
-			if (*stopRequest) throw tr("DOF terminated");
+			if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 
 #pragma omp parallel for schedule(dynamic, 1)
 
@@ -224,7 +225,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			for (qint64 i = sortBufferSize - 1; i >= 0; i--)
 			{
-				if (*stopRequest) throw tr("DOF terminated");
+				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 				sSortZ<float> temp;
 				temp = temp_sort[i];
 				float z1 = temp.z;
@@ -279,7 +280,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			for (int i = 0; i < screenRegion.width; i++)
 			{
-				if (*stopRequest) throw tr("DOF terminated");
+				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 #pragma omp parallel for schedule(dynamic, 1)
 				for (int j = 0; j < screenRegion.height; j++)
 				{

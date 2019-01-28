@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -74,7 +74,7 @@ CVector3 FractalizeTexture(const CVector3 &point, sRenderData *data, const sPara
 		const cMaterial *mat = &data->materials[data->objectData[objectId].materialId];
 		if (mat->textureFractalize)
 		{
-			sFractalIn fractIn(point, 0, params.N, params.common, forcedFormulaIndex, mat);
+			sFractalIn fractIn(point, 0, params.N, params.common, forcedFormulaIndex, false, mat);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeCubeOrbitTrap>(fractals, fractIn, &fractOut);
 			pointFractalized = fractOut.z;

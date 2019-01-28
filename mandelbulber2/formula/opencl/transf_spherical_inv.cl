@@ -31,6 +31,7 @@ REAL4 TransfSphericalInvIteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	else // conditional
 	{
 		REAL rr = dot(z, z);
+		z += fractal->mandelbox.offset;
 		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
 			REAL mode = 0.0f;

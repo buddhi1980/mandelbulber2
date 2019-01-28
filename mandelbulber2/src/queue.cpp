@@ -34,12 +34,14 @@
 
 #include "queue.hpp"
 
+#include <QApplication>
 #include "ui_dock_queue.h"
 
 #include "animation_frames.hpp"
 #include "cimage.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
+#include "global_data.hpp"
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
@@ -124,6 +126,9 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
 		renderedImageWidget->setMinimumSize(image->GetPreviewWidth(), image->GetPreviewHeight());
 		renderedImageWidget->AssignImage(image);
+
+		//		connect(ui->tableWidget_queue_list, SIGNAL(cellChanged(int, int)), this,
+		//			SLOT(slotQueueListUpdate(int, int)));
 
 		emit queueChanged();
 	}
@@ -670,7 +675,8 @@ void cQueue::slotQueueListUpdate()
 	// update table
 	for (int i = 0; i < table->rowCount(); i++)
 	{
-		slotQueueListUpdate(i);
+		emit queueChanged(i);
+		gApplication->processEvents();
 	}
 }
 
@@ -681,7 +687,7 @@ void cQueue::slotQueueListUpdate(int i)
 	table->setRowHeight(i, 70);
 	for (int j = 0; j < table->columnCount(); j++)
 	{
-		slotQueueListUpdate(i, j);
+		emit queueChanged(i, j);
 	}
 }
 
@@ -704,24 +710,29 @@ void cQueue::slotQueueListUpdate(int i, int j)
 		{
 			if (ui->checkBox_show_queue_thumbnails->isChecked())
 			{
-				cParameterContainer tempPar = *gPar;
-				cFractalContainer tempFract = *gParFractal;
+				cParameterContainer *tempPar = new cParameterContainer;
+				cFractalContainer *tempFract = new cFractalContainer;
+				InitParams(tempPar);
+				for (int j = 0; j < NUMBER_OF_FRACTALS; j++)
+					InitFractalParams(&tempFract->at(j));
+				InitMaterialParams(1, tempPar);
+
 				cSettings parSettings(cSettings::formatFullText);
 				parSettings.BeQuiet(true);
 				if (parSettings.LoadFromFile(queueList.at(i).filename)
-						&& parSettings.Decode(&tempPar, &tempFract))
+						&& parSettings.Decode(tempPar, tempFract))
 				{
 					cThumbnailWidget *thumbWidget = static_cast<cThumbnailWidget *>(table->cellWidget(i, j));
 					if (!thumbWidget)
 					{
 						thumbWidget = new cThumbnailWidget(100, 70, 1, table);
 						thumbWidget->UseOneCPUCore(true);
-						thumbWidget->AssignParameters(tempPar, tempFract);
+						thumbWidget->AssignParameters(*tempPar, *tempFract);
 						table->setCellWidget(i, j, thumbWidget);
 					}
 					else
 					{
-						thumbWidget->AssignParameters(tempPar, tempFract);
+						thumbWidget->AssignParameters(*tempPar, *tempFract);
 						thumbWidget->update();
 					}
 				}

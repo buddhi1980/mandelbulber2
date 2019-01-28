@@ -1,14 +1,15 @@
 # Mandelbulber settings file
-# version 2.08
+# version 2.17
 # only modified parameters
 [main_parameters]
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
+mat1_metallic false;
 mat1_name diamond;
 mat1_reflectance 1;
 mat1_specular 20;
 mat1_specular_width 0,108;
-mat1_transparency_index_of_refraction 3,52;
+mat1_transparency_index_of_refraction 2,41;
 mat1_transparency_interior_color c100 c100 c100;
 mat1_transparency_of_surface 1;
 mat1_use_colors_from_palette false;

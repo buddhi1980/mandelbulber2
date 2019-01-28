@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -18,30 +18,26 @@ REAL4 TransfAbsAddConditional4dIteration(
 {
 	if (fractal->transformCommon.functionEnabledx)
 	{
-		z.x = sign(z.x)
-					* (fractal->transformCommon.offset1111.x - fabs(z.x)
-							+ fabs(z.x) * fractal->transformCommon.additionConstant0000.x);
+		z.x = sign(z.x) * (fractal->transformCommon.offset1111.x - fabs(z.x)
+												+ fabs(z.x) * fractal->transformCommon.scale0000.x);
 	}
 
 	if (fractal->transformCommon.functionEnabledy)
 	{
-		z.y = sign(z.y)
-					* (fractal->transformCommon.offset1111.y - fabs(z.y)
-							+ fabs(z.y) * fractal->transformCommon.additionConstant0000.y);
+		z.y = sign(z.y) * (fractal->transformCommon.offset1111.y - fabs(z.y)
+												+ fabs(z.y) * fractal->transformCommon.scale0000.y);
 	}
 
 	if (fractal->transformCommon.functionEnabledz)
 	{
-		z.z = sign(z.z)
-					* (fractal->transformCommon.offset1111.z - fabs(z.z)
-							+ fabs(z.z) * fractal->transformCommon.additionConstant0000.z);
+		z.z = sign(z.z) * (fractal->transformCommon.offset1111.z - fabs(z.z)
+												+ fabs(z.z) * fractal->transformCommon.scale0000.z);
 	}
 
 	if (fractal->transformCommon.functionEnabledw)
 	{
-		z.w = sign(z.w)
-					* (fractal->transformCommon.offset1111.w - fabs(z.w)
-							+ fabs(z.w) * fractal->transformCommon.additionConstant0000.w);
+		z.w = sign(z.w) * (fractal->transformCommon.offset1111.w - fabs(z.w)
+												+ fabs(z.w) * fractal->transformCommon.scale0000.w);
 	}
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;

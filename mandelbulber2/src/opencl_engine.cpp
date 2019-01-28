@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -91,6 +91,11 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		// calculating hash code of the program
 		QCryptographicHash hashCryptProgram(QCryptographicHash::Md4);
 		hashCryptProgram.addData(programString);
+		// recompile also if selected devices changed
+		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+		{
+			hashCryptProgram.addData((char *)&hardware->getSelectedDevicesIndices()[d], sizeof(int));
+		}
 		QByteArray hashProgram = hashCryptProgram.result();
 
 		// calculating hash code of build parameters
@@ -616,7 +621,9 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 			if (!checkErr(err, "CommandQueue::enqueueReadBuffer() for " + inputAndOutputBuffer.name))
 			{
 				emit showErrorMessage(
-					QObject::tr("Cannot enqueue reading OpenCL buffers %1").arg(inputAndOutputBuffer.name),
+					QObject::tr("Cannot enqueue reading OpenCL buffers %1. \nCalculation probably took too "
+											"long and triggered timeout error in graphics driver.")
+						.arg(inputAndOutputBuffer.name),
 					cErrorMessage::errorMessage, nullptr);
 				return false;
 			}
@@ -626,7 +633,9 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 	int err = clQueues[deviceIndex]->finish();
 	if (!checkErr(err, "CommandQueue::finish() - read buffers"))
 	{
-		emit showErrorMessage(QObject::tr("Cannot finish reading OpenCL output buffers"),
+		emit showErrorMessage(
+			QObject::tr("Cannot finish reading OpenCL output buffers\nCalculation probably took too "
+									"long and triggered timeout error in graphics driver."),
 			cErrorMessage::errorMessage, nullptr);
 		return false;
 	}

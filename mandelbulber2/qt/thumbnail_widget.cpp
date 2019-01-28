@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -45,6 +45,7 @@
 #include "src/cimage.hpp"
 #include "src/common_math.h"
 #include "src/global_data.hpp"
+#include "src/interface.hpp"
 #include "src/render_job.hpp"
 #include "src/rendering_configuration.hpp"
 #include "src/settings.hpp"
@@ -153,6 +154,14 @@ void cThumbnailWidget::AssignParameters(
 		params->Set("stereo_mode", int(cStereo::stereoRedCyan));
 		params->Set("DOF_max_noise", params->Get<double>("DOF_max_noise") * 10.0);
 		params->Set("DOF_min_samples", 5);
+
+		double distance =
+			cInterface::GetDistanceForPoint(params->Get<CVector3>("camera"), params, fractal);
+		if (distance < 1e-5)
+		{
+			params->Set("opencl_mode", 0);
+		}
+
 		cSettings tempSettings(cSettings::formatCondensedText);
 		tempSettings.CreateText(params, fractal);
 		oldHash = hash;
@@ -221,7 +230,7 @@ void cThumbnailWidget::AssignParameters(
 					// render thumbnail after random time. It forces rendering of widgets when they are not
 					// visible. It makes rendering of widgets when they are idle.
 
-					timer->start(Random(100000) * 10 + 1);
+					timer->start(Random(1000000) * 10 + 60000);
 				}
 			}
 		}
@@ -245,6 +254,14 @@ void cThumbnailWidget::slotRender()
 
 		// random wait to not generate to many events at exactly the same time
 		Wait(Random(100) + 50);
+
+		if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
+		{
+			// try again after some random time
+			timer->start(Random(5000) + 1);
+			return;
+		}
+
 		stopRequest = false;
 
 		cRenderJob *renderJob =
@@ -267,9 +284,6 @@ void cThumbnailWidget::slotRender()
 		renderJob->moveToThread(thread);
 		QObject::connect(thread, SIGNAL(started()), renderJob, SLOT(slotExecute()));
 
-		//		while (renderJob->GetRunningJobCount() > systemData.numberOfThreads * 5)
-		//		{
-		//		}
 		thread->setObjectName("ThumbnailWorker");
 		thread->start();
 
@@ -311,7 +325,7 @@ void cThumbnailWidget::slotRandomRender()
 	if (cRenderJob::GetRunningJobCount() > systemData.numberOfThreads)
 	{
 		// if it's to busy, render later
-		timer->start(Random(100000) * 10 + 1);
+		timer->start(Random(1000) * 10 + 1);
 	}
 	else
 	{

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -294,6 +294,8 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 		}
 		for (int i = 0; i < listOfFiles.size(); i++)
 		{
+			if (systemData.globalStopRequest) break;
+
 			QString filename = listOfFiles.at(i);
 			gMainInterface->mainWindow->slotUpdateProgressAndStatus(QString("Rendering examples"),
 				tr("rendering %1, %2 of %3")
@@ -306,6 +308,9 @@ void cPreferencesDialog::on_pushButton_generate_thumbnail_cache_clicked()
 
 			if (parSettings.Decode(examplePar, exampleParFractal))
 			{
+				examplePar->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+				examplePar->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
+
 				thumbWidget->DisableTimer();
 				thumbWidget->AssignParameters(*examplePar, *exampleParFractal);
 				if (!thumbWidget->IsRendered())

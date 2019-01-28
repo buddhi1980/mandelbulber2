@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -128,6 +128,8 @@ public:
 	virtual void SaveImage() = 0;
 	virtual QString getJobName() = 0;
 	static const uint64_t SAVE_CHUNK_SIZE = 64;
+	QString CreateFullFileNameAndMakeDir(const QString &filename, enumImageContentType contentType,
+		const QString &postfix, const QString extension);
 
 protected:
 	QString filename;

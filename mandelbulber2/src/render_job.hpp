@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-17 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -44,6 +44,7 @@
 #include "camera_target.hpp"
 #include "fractal_container.hpp"
 #include "parameters.hpp"
+#include "rendered_tile_data.hpp"
 #include "statistics.h"
 
 // forward declarations
@@ -51,6 +52,10 @@ class cImage;
 struct sRenderData;
 class cRenderingConfiguration;
 struct sImageOptional;
+class cNineFractals;
+class cRenderer;
+class cProgressText;
+struct sParamRender;
 
 class cRenderJob : public QObject
 {
@@ -90,6 +95,19 @@ private:
 	void PrepareData(const cRenderingConfiguration &config);
 	void ReduceDetail() const;
 	QStringList CreateListOfUsedTextures() const;
+	int GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo);
+	void SetupStereoEyes(int repeat, bool twoPassStereo);
+	void InitNetRender();
+	void InitStatistics(const cNineFractals *fractals);
+	void ConnectUpdateSinalsSlots(const cRenderer *renderer);
+	void ConnectNetRenderSignalsSlots(const cRenderer *renderer);
+
+#ifdef USE_OPENCL
+	bool RenderFractalWithOpenCl(
+		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
+	void RenderSSAOWithOpenCl(sParamRender *params, cProgressText *progressText, bool *result);
+	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
+#endif
 
 	bool hasQWidget;
 	bool inProgress;
@@ -117,6 +135,7 @@ signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress);
 	void updateStatistics(cStatistics statistics);
 	void updateImage();
+	void sendRenderedTilesList(QList<sRenderedTileData>);
 	void SendNetRenderJob(
 		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
 	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);

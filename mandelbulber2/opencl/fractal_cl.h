@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -65,15 +65,9 @@
 #define HYBRID_COUNTCl 5
 #define MANDELBOX_FOLDSCl 2
 
-typedef enum
-{
-	ocl_DECalculated = 0,
-	ocl_deltaDE = 1,
-	ocl_noDE = 2
-} enumOCLDEModeCl;
+typedef enum { ocl_DECalculated = 0, ocl_deltaDE = 1, ocl_noDE = 2 } enumOCLDEModeCl;
 
-typedef enum
-{
+typedef enum {
 	generalizedFoldBoxTypeCl_foldTet = 0,
 	generalizedFoldBoxTypeCl_foldCube = 1,
 	generalizedFoldBoxTypeCl_foldOct = 2,
@@ -259,20 +253,11 @@ typedef struct
 } sFractalPlatonicSolidCl;
 
 // mandelbulb multi
-typedef enum
-{
-	multi_acosOrAsinCl_acos,
-	multi_acosOrAsinCl_asin
-} enumMulti_acosOrAsinCl;
+typedef enum { multi_acosOrAsinCl_acos, multi_acosOrAsinCl_asin } enumMulti_acosOrAsinCl;
 
-typedef enum
-{
-	multi_atanOrAtan2Cl_atan,
-	multi_atanOrAtan2Cl_atan2
-} enumMulti_atanOrAtan2Cl;
+typedef enum { multi_atanOrAtan2Cl_atan, multi_atanOrAtan2Cl_atan2 } enumMulti_atanOrAtan2Cl;
 
-typedef enum
-{
+typedef enum {
 	multi_OrderOfXYZCl_xyz,
 	multi_OrderOfXYZCl_xzy,
 	multi_OrderOfXYZCl_yxz,
@@ -293,20 +278,11 @@ typedef struct
 } sFractalMandelbulbMultiCl;
 
 // sinTan2Trig
-typedef enum
-{
-	multi_asinOrAcosCl_asin,
-	multi_asinOrAcosCl_acos
-} enumMulti_asinOrAcosCl;
+typedef enum { multi_asinOrAcosCl_asin, multi_asinOrAcosCl_acos } enumMulti_asinOrAcosCl;
 
-typedef enum
-{
-	multi_atan2OrAtanCl_atan2,
-	multi_atan2OrAtanCl_atan
-} enumMulti_atan2OrAtanCl;
+typedef enum { multi_atan2OrAtanCl_atan2, multi_atan2OrAtanCl_atan } enumMulti_atan2OrAtanCl;
 
-typedef enum
-{
+typedef enum {
 	multi_OrderOfZYXCl_zyx,
 	multi_OrderOfZYXCl_zxy,
 	multi_OrderOfZYXCl_yzx,
@@ -322,8 +298,7 @@ typedef struct
 } sFractalSinTan2TrigCl;
 
 // surf fold box
-typedef enum
-{
+typedef enum {
 	multi_orderOfFoldsCl_type1,
 	multi_orderOfFoldsCl_type2,
 	multi_orderOfFoldsCl_type3,
@@ -340,8 +315,7 @@ typedef struct
 } sFractalSurfFoldsCl;
 
 // asurf mod2
-typedef enum
-{
+typedef enum {
 	multi_orderOf3FoldsCl_type1,
 	multi_orderOf3FoldsCl_type2,
 	multi_orderOf3FoldsCl_type3
@@ -354,8 +328,7 @@ typedef struct
 } sFractalASurf3FoldsCl;
 
 // benesi mag transforms
-typedef enum
-{
+typedef enum {
 	multi_orderOfTransfCl_typeT1,
 	multi_orderOfTransfCl_typeT1Mod,
 	multi_orderOfTransfCl_typeT2,
@@ -373,8 +346,7 @@ typedef struct
 } sFractalMagTransformsCl;
 
 // combo4
-typedef enum
-{
+typedef enum {
 	multi_combo4Cl_type1,
 	multi_combo4Cl_type2,
 	multi_combo4Cl_type3,
@@ -386,8 +358,7 @@ typedef struct
 } sFractalCombo4Cl;
 
 // combo5
-typedef enum
-{
+typedef enum {
 	multi_combo5Cl_type1,
 	multi_combo5Cl_type2,
 	multi_combo5Cl_type3,
@@ -400,8 +371,7 @@ typedef struct
 } sFractalCombo5Cl;
 
 // combo6
-typedef enum
-{
+typedef enum {
 	multi_combo6Cl_type1,
 	multi_combo6Cl_type2,
 	multi_combo6Cl_type3,
@@ -415,8 +385,7 @@ typedef struct
 } sFractalCombo6Cl;
 
 // basic combo
-typedef enum
-{
+typedef enum {
 	comboCl_mode0,
 	comboCl_mode1,
 	comboCl_mode2,
@@ -734,6 +703,8 @@ typedef struct
 	cl_int rotation2EnabledFalse;
 	cl_int sphereInversionEnabledFalse;
 	cl_int spheresEnabled;
+
+	cl_int functionEnabledTempFalse;
 } sFractalTransformCommonCl;
 
 typedef struct
@@ -1396,6 +1367,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.rotation2EnabledFalse = source.rotation2EnabledFalse;
 	target.sphereInversionEnabledFalse = source.sphereInversionEnabledFalse;
 	target.spheresEnabled = source.spheresEnabled;
+	target.functionEnabledTempFalse = source.functionEnabledTempFalse;
 	return target;
 }
 

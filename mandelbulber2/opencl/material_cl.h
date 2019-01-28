@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -73,7 +73,9 @@ typedef struct
 	cl_float3 color;
 	cl_float3 luminosityColor;
 	cl_float3 transparencyInteriorColor;
+	cl_float3 reflectionsColor;
 	cl_float3 specularColor;
+	cl_float3 transparencyColor;
 
 	cl_float3 textureCenter;
 	cl_float3 textureRotation;
@@ -86,6 +88,9 @@ typedef struct
 	cl_int useColorsFromPalette;
 	cl_int specularPlasticEnable;
 	cl_int metallic;
+	cl_int luminosityColorTheSame;
+	cl_int reflectionsColorTheSame;
+	cl_int transparencyColorTheSame;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -138,7 +143,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.color = toClFloat3(source.color);
 	target.luminosityColor = toClFloat3(source.luminosityColor);
 	target.transparencyInteriorColor = toClFloat3(source.transparencyInteriorColor);
+	target.reflectionsColor = toClFloat3(source.reflectionsColor);
 	target.specularColor = toClFloat3(source.specularColor);
+	target.transparencyColor = toClFloat3(source.transparencyColor);
 
 	target.textureCenter = toClFloat3(source.textureCenter);
 	target.textureRotation = toClFloat3(source.textureRotation);
@@ -151,6 +158,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useColorsFromPalette = source.useColorsFromPalette;
 	target.specularPlasticEnable = source.specularPlasticEnable;
 	target.metallic = source.metallic;
+	target.reflectionsColorTheSame = source.reflectionsColorTheSame;
+	target.luminosityColorTheSame = source.luminosityColorTheSame;
+	target.transparencyColorTheSame = source.transparencyColorTheSame;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

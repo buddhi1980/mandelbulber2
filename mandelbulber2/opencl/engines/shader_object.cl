@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -109,7 +109,15 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 totalSpecular =
 		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
-	float3 luminosity = input->material->luminosity * input->material->luminosityColor;
+	float3 luminosity;
+	if (input->material->luminosityColorTheSame)
+	{
+		luminosity = input->material->luminosity * surfaceColor;
+	}
+	else
+	{
+		luminosity = input->material->luminosity * input->material->luminosityColor;
+	}
 
 #ifdef USE_TEXTURES
 #ifdef USE_LUMINOSITY_TEXTURE

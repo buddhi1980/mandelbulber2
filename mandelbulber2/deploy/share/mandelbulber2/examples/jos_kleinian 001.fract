@@ -1,9 +1,9 @@
 # Mandelbulber settings file
-# version 2.11
+# version 2.17
 # only modified parameters
 [main_parameters]
 aux_light_enabled_1 true;
-aux_light_intensity_1 0,251189;
+aux_light_intensity_1 0,1255945;
 aux_light_position_1 0,7235588625406182 0,3540244095376709 0,2252483575354898;
 aux_light_visibility 11,2202;
 aux_light_visibility_size 0,0331131;
@@ -31,7 +31,8 @@ mat1_coloring_speed 0,09130000000000001;
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_reflectance 1;
-mat1_specular_width 0,149;
+mat1_reflections_color_thesame true;
+mat1_specular_metallic 4;
 mat1_surface_color_palette bea82c d99d34 6b4900;
 mat1_transparency_index_of_refraction 7,96;
 N 200;

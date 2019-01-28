@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -35,8 +35,8 @@
 #ifndef MANDELBULBER2_SRC_SYSTEM_HPP_
 #define MANDELBULBER2_SRC_SYSTEM_HPP_
 
-#define MANDELBULBER_VERSION 2.16
-#define MANDELBULBER_VERSION_STRING "2.16"
+#define MANDELBULBER_VERSION 2.17
+#define MANDELBULBER_VERSION_STRING "2.17-dev"
 #define TO_STRING(a) #a
 
 #ifdef _WIN32 /* WINDOWS */

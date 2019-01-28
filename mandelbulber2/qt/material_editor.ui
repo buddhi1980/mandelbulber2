@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
+    <width>492</width>
     <height>1042</height>
    </rect>
   </property>
@@ -106,9 +106,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>577</width>
-        <height>3470</height>
+        <y>-2003</y>
+        <width>466</width>
+        <height>3584</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3163,6 +3163,19 @@ direction vector:</string>
               </property>
              </widget>
             </item>
+            <item row="2" column="0" colspan="2">
+             <widget class="MyCheckBox" name="checkBox_luminosity_color_thesame">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Use the same color as main color</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -3353,6 +3366,22 @@ direction vector:</string>
              </property>
              <item>
               <layout class="QGridLayout" name="gridLayout_13" columnstretch="0,1">
+               <item row="1" column="1">
+                <widget class="MyColorButton" name="colorButton_reflections_color" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect does not illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text" stdset="0">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="0">
                 <widget class="QLabel" name="label_70">
                  <property name="text">
@@ -3388,6 +3417,26 @@ direction vector:</string>
                  </property>
                 </widget>
                </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_91">
+                 <property name="text">
+                  <string>Color of reflections:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="2">
+                <widget class="MyCheckBox" name="checkBox_reflections_color_thesame">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Use the same color as main color</string>
+                 </property>
+                </widget>
+               </item>
               </layout>
              </item>
             </layout>
@@ -3404,7 +3453,23 @@ direction vector:</string>
                <property name="verticalSpacing">
                 <number>2</number>
                </property>
-               <item row="1" column="0">
+               <item row="1" column="1">
+                <widget class="MyColorButton" name="colorButton_transparency_color" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect does not illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="text" stdset="0">
+                  <string>PushButton</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
                 <widget class="QLabel" name="label_351">
                  <property name="text">
                   <string>Transparency of volume:</string>
@@ -3418,7 +3483,7 @@ direction vector:</string>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
+               <item row="3" column="1">
                 <widget class="MyLineEdit" name="logedit_transparency_of_interior">
                  <property name="toolTip">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Transparency of the fractal interior. Thicker parts of the object will appear less transparent than thinner parts.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;p&gt;Examples for yellow color of volume&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;transparency 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 0.8&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;transparency 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of volume 0.8.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - transparency of surface 1.0.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3453,7 +3518,7 @@ direction vector:</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="1">
+               <item row="4" column="1">
                 <widget class="MyColorButton" name="colorButton_transparency_interior_color" native="true">
                  <property name="toolTip">
                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of interior of transparent objects.&lt;/p&gt;&lt;p&gt;To apply this effect, enable ray-traced reflections in &lt;span style=&quot; font-style:italic;&quot;&gt;Raytracing&lt;/span&gt; tab&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3463,10 +3528,30 @@ direction vector:</string>
                  </property>
                 </widget>
                </item>
-               <item row="2" column="0">
+               <item row="4" column="0">
                 <widget class="QLabel" name="label_353">
                  <property name="text">
                   <string>Color of volume:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_92">
+                 <property name="text">
+                  <string>Color of transparency:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="2">
+                <widget class="MyCheckBox" name="checkBox_transparency_color_thesame">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="text">
+                  <string>Use the same color for transparency as main</string>
                  </property>
                 </widget>
                </item>
@@ -4372,12 +4457,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>161</x>
-     <y>1755</y>
+     <x>180</x>
+     <y>-423</y>
     </hint>
     <hint type="destinationlabel">
-     <x>562</x>
-     <y>1757</y>
+     <x>450</x>
+     <y>-422</y>
     </hint>
    </hints>
   </connection>
@@ -4388,12 +4473,12 @@ object size)</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>185</x>
-     <y>1783</y>
+     <x>204</x>
+     <y>-399</y>
     </hint>
     <hint type="destinationlabel">
-     <x>562</x>
-     <y>1785</y>
+     <x>450</x>
+     <y>-398</y>
     </hint>
    </hints>
   </connection>
@@ -4405,11 +4490,59 @@ object size)</string>
    <hints>
     <hint type="sourcelabel">
      <x>69</x>
-     <y>738</y>
+     <y>-1265</y>
     </hint>
     <hint type="destinationlabel">
      <x>176</x>
-     <y>597</y>
+     <y>-1406</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_luminosity_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_luminosity_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>195</x>
+     <y>575</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_reflections_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_reflections_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>846</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>197</x>
+     <y>821</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transparency_color_thesame</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>colorButton_transparency_color</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>153</x>
+     <y>941</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>920</y>
     </hint>
    </hints>
   </connection>

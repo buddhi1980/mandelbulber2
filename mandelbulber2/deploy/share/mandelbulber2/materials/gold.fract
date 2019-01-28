@@ -1,14 +1,15 @@
 # Mandelbulber settings file
-# version 2.08
+# version 2.17
 # only modified parameters
 [main_parameters]
 mat1_fresnel_reflectance true;
 mat1_is_defined true;
 mat1_name gold;
 mat1_reflectance 0,72;
-mat1_specular 5;
-mat1_specular_color ff00 e100 3400;
-mat1_specular_width 0,215;
-mat1_surface_color ff00 cc00 1000;
+mat1_reflections_color ff00 da00 9000;
+mat1_specular_color ff00 ed00 d700;
+mat1_specular_metallic_roughness 0,2;
+mat1_specular_width 0,053;
+mat1_surface_color ff00 b200 1700;
 mat1_transparency_index_of_refraction 10;
 mat1_use_colors_from_palette false;

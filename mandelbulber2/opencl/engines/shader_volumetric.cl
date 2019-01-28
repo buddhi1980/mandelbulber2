@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -68,7 +68,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 
 #else // not SIMPLE_GLOW
 	float totalStep = 0.0f;
-	float scan = CalcDelta(input->point, consts);
+	float scan = CalcDistThresh(input->point, consts);
 
 	sShaderInputDataCl input2 = *input;
 
@@ -76,21 +76,23 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 	{
 		float3 point = input->point - input->viewVector * scan;
 
-		calcParam->distThresh = input->distThresh;
+		input2.point = point;
+		input2.distThresh = CalcDistThresh(point, consts);
+		input2.delta = CalcDelta(point, consts);
+
+		calcParam->distThresh = input2.distThresh;
+		calcParam->detailSize = input2.distThresh;
 
 		formulaOut outF;
 		outF = CalculateDistance(consts, point, calcParam, renderData);
 		float distance = outF.distance;
 
-		input2.point = point;
-		input2.distThresh = CalcDistThresh(point, consts);
-		input2.delta = CalcDelta(point, consts);
-
-		float step = distance * consts->params.DEFactor * consts->params.volumetricLightDEFactor;
+		float step = (distance - 0.5f * input2.distThresh) * consts->params.DEFactor
+								 * consts->params.volumetricLightDEFactor;
 
 		step *= (1.0f - Random(1000, &input->randomSeed) / 10000.0f);
 
-		step = max(step, input2.delta);
+		step = max(step, input2.distThresh);
 
 		bool end = false;
 		if (step > input->depth - scan)
@@ -320,6 +322,8 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 							float lightShadow = 1.0f;
 							if (consts->params.iterFogShadows)
 							{
+								calcParam->distThresh = input2.distThresh;
+								calcParam->detailSize = input2.distThresh;
 								lightShadow = AuxShadow(consts, renderData, &input2, distanceLight, lightVectorTemp,
 									calcParam, light->intensity);
 							}

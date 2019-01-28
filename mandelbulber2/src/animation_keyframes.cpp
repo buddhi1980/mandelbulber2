@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -558,6 +558,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+		mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -736,7 +738,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						+ progressTxt,
 					percentDoneFrame, cProgressText::progress_ANIMATION);
 
-				if (*stopRequest) throw false;
+				if (*stopRequest || systemData.globalStopRequest) throw false;
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 				// recalculation of camera rotation and distance (just for display purposes)
@@ -846,6 +848,8 @@ void cKeyframeAnimation::RefreshTable()
 				cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
+
+		if (systemData.globalStopRequest) break;
 	}
 
 	UpdateLimitsForFrameRange();
@@ -1263,7 +1267,7 @@ QList<int> cKeyframeAnimation::CheckForCollisions(double minDist, bool *stopRequ
 		for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 		{
 			gApplication->processEvents();
-			if (*stopRequest) return listOfCollisions;
+			if (*stopRequest || systemData.globalStopRequest) return listOfCollisions;
 			int frameIndex = key * keyframes->GetFramesPerKeyframe() + subIndex;
 			keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, &tempPar, &tempFractPar);
 			tempPar.Set("frame_no", frameIndex);

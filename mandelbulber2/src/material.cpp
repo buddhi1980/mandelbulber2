@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -78,6 +78,9 @@ cMaterial::cMaterial()
 	textureFractalizeStartIteration = 0;
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
+	luminosityColorTheSame = false;
+	reflectionsColorTheSame = false;
+	transparencyColorTheSame = false;
 }
 
 cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool quiet)
@@ -125,16 +128,17 @@ QStringList cMaterial::paramsList = {
 	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
 	"fractal_coloring_xyzC_111", "fresnel_reflectance", "iridescence_enabled",
 	"iridescence_intensity", "iridescence_subsurface_thickness", "is_defined", "luminosity_color",
-	"luminosity_texture_intensity", "luminosity", "metallic", "name",
+	"luminosity_color_thesame", "luminosity_texture_intensity", "luminosity", "metallic", "name",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"reflectance", "shading", "specular_color", "specular_metallic_roughness",
-	"specular_metallic_width", "specular_metallic", "specular_plastic_enable", "specular_width",
-	"specular", "surface_color", "texture_center", "texture_fractalize_cube_size",
-	"texture_fractalize_start_iteration", "texture_fractalize", "texture_mapping_type",
-	"texture_rotation", "texture_scale", "transparency_index_of_refraction",
-	"transparency_interior_color", "transparency_of_interior", "transparency_of_surface",
-	"use_color_texture", "use_colors_from_palette", "use_diffusion_texture",
-	"use_displacement_texture", "use_luminosity_texture", "use_normal_map_texture",
+	"reflectance", "reflections_color", "reflections_color_thesame", "shading", "specular_color",
+	"specular_metallic_roughness", "specular_metallic_width", "specular_metallic",
+	"specular_plastic_enable", "specular_width", "specular", "surface_color", "texture_center",
+	"texture_fractalize_cube_size", "texture_fractalize_start_iteration", "texture_fractalize",
+	"texture_mapping_type", "texture_rotation", "texture_scale", "transparency_color",
+	"transparency_color_thesame", "transparency_index_of_refraction", "transparency_interior_color",
+	"transparency_of_interior", "transparency_of_surface", "use_color_texture",
+	"use_colors_from_palette", "use_diffusion_texture", "use_displacement_texture",
+	"use_luminosity_texture", "use_normal_map_texture",
 
 	"surface_color_palette",
 };
@@ -166,6 +170,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	color = materialParam->Get<sRGB>(Name("surface_color", id));
 	luminosityColor = materialParam->Get<sRGB>(Name("luminosity_color", id));
 	transparencyInteriorColor = materialParam->Get<sRGB>(Name("transparency_interior_color", id));
+	reflectionsColor = materialParam->Get<sRGB>(Name("reflections_color", id));
+	transparencyColor = materialParam->Get<sRGB>(Name("transparency_color", id));
+
+	luminosityColorTheSame = materialParam->Get<bool>(Name("luminosity_color_thesame", id));
+	reflectionsColorTheSame = materialParam->Get<bool>(Name("reflections_color_thesame", id));
+	transparencyColorTheSame = materialParam->Get<bool>(Name("transparency_color_thesame", id));
 
 	palette = materialParam->Get<cColorPalette>(Name("surface_color_palette", id));
 

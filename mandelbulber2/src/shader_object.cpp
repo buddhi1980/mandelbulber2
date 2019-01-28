@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -127,12 +127,24 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 
 	// luminosity
 	sRGBAfloat luminosity;
-	luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.R / 65536.0f;
-	luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.G / 65536.0f;
-	luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
-								 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
+	if (mat->luminosityColorTheSame)
+	{
+		luminosity.R =
+			input.texLuminosity.R * mat->luminosityTextureIntensity + mat->luminosity * colour.R;
+		luminosity.G =
+			input.texLuminosity.G * mat->luminosityTextureIntensity + mat->luminosity * colour.G;
+		luminosity.B =
+			input.texLuminosity.B * mat->luminosityTextureIntensity + mat->luminosity * colour.B;
+	}
+	else
+	{
+		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.R / 65536.0f;
+		luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.G / 65536.0f;
+		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
+									 + mat->luminosity * mat->luminosityColor.B / 65536.0f;
+	}
 
 	sRGBFloat iridescence(1.0, 1.0, 1.0);
 	if (input.material->iridescenceEnabled)

@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.10
+# version 2.17
 # only modified parameters
 [main_parameters]
 ambient_occlusion_enabled true;
@@ -27,6 +27,7 @@ mat1_coloring_palette_size 5;
 mat1_coloring_random_seed 343719;
 mat1_is_defined true;
 mat1_specular 0,13;
+mat1_specular_plastic_enable false;
 mat1_specular_width 2,155;
 mat1_surface_color_palette b79839 006c40 b4c581 1e150d 4e8133;
 random_lights_distribution_center 0,8937183464932488 -0,5357990642539026 -0,2456067733219439;

@@ -54,6 +54,7 @@ REAL4 VicsekIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *a
 		if (rr < fractal->transformCommon.minR2p25)
 		{
 			REAL tglad_factor1 = fractal->transformCommon.maxMinR2factor;
+			// REAL tglad_factor1 = fractal->transformCommon.maxR2d1 /fractal->transformCommon.minR2p25;
 			z *= tglad_factor1;
 			aux->DE *= tglad_factor1;
 			aux->color += fractal->mandelbox.color.factorSp1;

@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -113,6 +113,14 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		out = Fractal(consts, point, calcParam, calcModeNormal, NULL, forcedFormulaIndex);
 		bool maxiter = out.maxiter;
 
+// don't use maxiter when limits are disabled and iterThresh mode is not used
+#ifndef LIMITS_ENABLED
+		if (!consts->params.iterThreshMode) maxiter = false;
+#else
+		// never use maxiter if normal vectors are calculated
+		if (calcParam->normalCalculationMode) maxiter = false;
+#endif
+
 		if (maxiter) out.distance = 0.0f;
 
 		if (out.iters < consts->params.minN && out.distance < calcParam->detailSize)
@@ -166,6 +174,14 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 		float r = length(out.z);
 
 		bool maxiter = out.maxiter;
+
+// don't use maxiter when limits are disabled and iterThresh mode is not used
+#ifndef LIMITS_ENABLED
+		if (!consts->params.iterThreshMode) maxiter = false;
+#else
+		// never use maxiter if normal vectors are calculated
+		if (calcParam->normalCalculationMode) maxiter = false;
+#endif
 
 		float3 deltas[6];
 		deltas[0] = (float3){delta, 0.0f, 0.0f};

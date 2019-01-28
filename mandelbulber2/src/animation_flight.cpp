@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -259,7 +259,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 	mainInterface->stopRequest = false;
 	for (int i = 0; i < 30; i++)
 	{
-		if (mainInterface->stopRequest)
+		if (mainInterface->stopRequest || systemData.globalStopRequest)
 		{
 			emit updateProgressHide();
 			return;
@@ -741,6 +741,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
 	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+	connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+		mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
 
 	cRenderingConfiguration config;
 	config.EnableNetRender();
@@ -861,7 +863,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 					+ progressTxt,
 				percentDoneFrame, cProgressText::progress_ANIMATION);
 
-			if (*stopRequest) throw false;
+			if (*stopRequest || systemData.globalStopRequest) throw false;
 
 			frames->GetFrameAndConsolidate(index, params, fractalParams);
 
@@ -962,6 +964,8 @@ void cFlightAnimation::RefreshTable()
 				cProgressText::progress_ANIMATION);
 			gApplication->processEvents();
 		}
+
+		if (systemData.globalStopRequest) break;
 	}
 	UpdateLimitsForFrameRange();
 	emit updateProgressHide();

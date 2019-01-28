@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -237,11 +237,6 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		// TODO:
-		// insert device for loop here
-		// requires initialization for all opencl devices
-		// requires optimalJob for all opencl devices
-
 		for (qint64 pixelIndex = 0; pixelIndex < qint64(width) * qint64(height);
 				 pixelIndex += optimalJob.stepSize)
 		{
@@ -258,13 +253,13 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 				tr("OpenCL - rendering DOF - phase 2"), progressText.getText(percentDone), percentDone);
 			gApplication->processEvents();
 
-			if (*stopRequest)
+			if (*stopRequest || systemData.globalStopRequest)
 			{
 				return false;
 			}
 		}
 
-		if (!*stopRequest)
+		if (!*stopRequest || systemData.globalStopRequest)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 

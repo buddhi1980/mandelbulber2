@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2016-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -65,6 +65,8 @@ PreviewFileDialog::PreviewFileDialog(QWidget *parent) : QFileDialog(parent)
 	description->setAlignment(Qt::AlignCenter);
 	description->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 	info = new QLabel("");
+	info->setWordWrap(true);
+	info->setMaximumWidth(200);
 
 	progressBar = new MyProgressBar;
 	progressBar->setMaximum(1000);
@@ -152,6 +154,8 @@ void PreviewFileDialog::OnCurrentChanged(const QString &_filename)
 
 			if (parSettings.Decode(par, parFractal))
 			{
+				par->Set("opencl_mode", gPar->Get<int>("opencl_mode"));
+				par->Set("opencl_enabled", gPar->Get<bool>("opencl_enabled"));
 				description->setText(par->Get<QString>("description"));
 				thumbWidget->AssignParameters(*par, *parFractal);
 				thumbWidget->update();
