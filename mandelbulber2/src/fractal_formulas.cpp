@@ -7854,10 +7854,12 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
  */
 void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse) // pre-scale
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux.DE *= z.Length() / aux.r + 1.0;
+		aux.DE *= z.Length() / aux.r;
 	}
 
 	// Toroidal bulb
@@ -7870,27 +7872,23 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	double rp = pow(aux.r, fractal->transformCommon.pwr4); // default 4.0
 
 	phi *= fractal->transformCommon.pwr8; // default 8
-	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
+	theta *= fractal->bulb.power; // default 9 gives 8 symmetry
 
 	// convert back to cartesian coordinates
-	double rpCosPhi = rp * cos(phi);
-	z.x = (r1 + rpCosPhi) * cos(theta);
-	z.y = (r1 + rpCosPhi) * sin(theta);
-	// z.x = r1 + rpCosPhi * cos(theta);
-	// z.y = r1 + rpCosPhi * sin(theta);
+	double r1RpCosPhi = r1 + rp * cos(phi);
+	z.x = r1RpCosPhi * cos(theta);
+	z.y = r1RpCosPhi * sin(theta);
 	z.z = -rp * sin(phi);
 
+	// DEcalc
 	if (!fractal->analyticDE.enabledFalse)
-	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-							 * fractal->transformCommon.pwr4
-						 + 1.0;
+	{
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
 	}
 	else
 	{
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE * aux.DE
-						 + fractal->analyticDE.offset2;
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
+				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
@@ -7910,10 +7908,12 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  */
 void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse) // pre-scale
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
 	{
 		z *= fractal->transformCommon.scale3D111;
-		aux.DE = aux.DE * z.Length() / aux.r + 1.0;
+		aux.DE = aux.DE * z.Length() / aux.r;
 	}
 	// Toroidal bulb multi
 	double th0 = fractal->bulb.betaAngleOffset;
@@ -7985,33 +7985,32 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	double costh = cos(th0);
 	double sinth = sin(th0);
+	double r1RpCosTh  = r1 + rp * costh;
+	double r1RpSinTh  = r1 + rp * sinth;
 
 	if (fractal->transformCommon.functionEnabledzFalse)
 	{ // cosine mode
-		z.x = (r1 + rp * sinth) * sin(ph0);
-		z.y = (r1 + rp * sinth) * cos(ph0);
+		z.x = r1RpSinTh * sin(ph0);
+		z.y = r1RpSinTh * cos(ph0);
 		z.z = -rp * costh;
 	}
 	else
 	{ // sine mode default
-		z.x = (r1 + rp * costh) * cos(ph0);
-		z.y = (r1 + rp * costh) * sin(ph0);
+
+		z.x = r1RpCosTh * cos(ph0);
+		z.y = r1RpCosTh * sin(ph0);
 		z.z = -rp * sinth;
 	}
 
 	// DEcalc
 	if (!fractal->analyticDE.enabledFalse)
-	{ // analytic DE adjustment,default is,  scale1 & offset1 & offset2 = 1.0
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - 1.0) * aux.DE * aux.DE
-							 * fractal->transformCommon.pwr4
-						 + 1.0;
+	{
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
 	}
 	else
 	{
-		if (!fractal->transformCommon.functionEnabledAyFalse) aux.DE *= aux.DE;
-		aux.DE = pow(aux.r, fractal->transformCommon.pwr4 - fractal->analyticDE.offset1)
-							 * fractal->transformCommon.pwr4 * fractal->analyticDE.scale1 * aux.DE
-						 + fractal->analyticDE.offset2;
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
+				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
