@@ -80,6 +80,7 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 		input2.point = point;
 		input2.distThresh = input.stepBuff[index].distThresh;
+		input2.delta = CalcDelta(point);
 
 		// qDebug() << "i" << index << "dist" << distance << "iters" << input.stepBuff[index].iters <<
 		// "distThresh" << input2.distThresh << "step" << step << "point" << point.Debug();
