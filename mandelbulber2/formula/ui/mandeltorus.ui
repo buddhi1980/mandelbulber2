@@ -30,7 +30,7 @@
     <number>2</number>
    </property>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabled_false">
+    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledz_false">
      <property name="toolTip">
       <string/>
      </property>
@@ -218,15 +218,8 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_129">
-       <property name="text">
-        <string>Phi power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_4">
+     <item row="2" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8a">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -243,7 +236,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <double>-99.989999999999995</double>
        </property>
        <property name="maximum">
         <double>99.989999999999995</double>
@@ -253,7 +246,7 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
+     <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox_transf_pwr_8">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -281,80 +274,24 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_power">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="label_130">
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_129">
        <property name="text">
-        <string>Theta power:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_minimum_radius_05">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>0.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>10.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+        <string>Power 1:</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_253">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
-        <string>Minimum Radius:</string>
+        <string>Enable mode2</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_127">
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_130">
        <property name="text">
-        <string>Radius power:</string>
+        <string>Power 2:</string>
        </property>
       </widget>
      </item>
@@ -390,7 +327,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>( may need to force Delta DE method)</string>
+         <string>(beta version only, may need to force Delta DE method)</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>
@@ -506,7 +443,7 @@
            <number>2</number>
           </property>
           <property name="minimum">
-           <double>0.000000000000000</double>
+           <double>-99.000000000000000</double>
           </property>
           <property name="maximum">
            <double>99.000000000000000</double>
@@ -770,16 +707,19 @@
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
   </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>groupCheck_transf_function_enabled_false</tabstop>
+  <tabstop>groupCheck_transf_function_enabledz_false</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_z</tabstop>
-  <tabstop>spinbox_transf_minimum_radius_05</tabstop>
-  <tabstop>spinbox_transf_pwr_4</tabstop>
   <tabstop>spinbox_transf_pwr_8</tabstop>
-  <tabstop>spinbox_power</tabstop>
+  <tabstop>spinbox_transf_pwr_8a</tabstop>
   <tabstop>groupCheck_analyticDE_enabled_false</tabstop>
   <tabstop>groupCheck_transf_function_enabledAx_false</tabstop>
   <tabstop>spinbox_transf_offset</tabstop>

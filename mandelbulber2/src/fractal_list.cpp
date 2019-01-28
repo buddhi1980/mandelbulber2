@@ -294,6 +294,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		mandelbulbVaryPowerV1, MandelbulbVaryPowerV1Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Mandeltorus", "mandeltorus",
+		mandeltorus, MandeltorusIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+
 	// Menger formulas
 	fractalList->append(sFractalDescription("Menger sponge", "menger_sponge", mengerSponge,
 		MengerSpongeIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,

@@ -615,7 +615,7 @@
       <item>
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>(beta version only, may need to force Delta DE method)</string>
+         <string>(may need to force Delta DE method)</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

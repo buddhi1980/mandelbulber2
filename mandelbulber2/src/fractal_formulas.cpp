@@ -16190,3 +16190,109 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
+
+
+/**
+ * Mandeltorus by Aexion
+ * @reference http://www.fractalforums.com/the-3d-mandelbulb/mandeldonuts/
+ */
+void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
+	{
+		z *= fractal->transformCommon.scale3D111;
+		aux.DE *= z.Length() / aux.r;
+	}
+
+
+	const double power1 = fractal->transformCommon.pwr8; //Longitude power, symmetry
+	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
+
+	const double rh = sqrt(z.x * z.x + z.z * z.z);
+	double rh2 = 0;
+	const double phi = atan2(z.z, z.x);
+	const double phipow = phi * power1;
+
+	const double theta = atan2(rh, z.y);
+
+	if (!fractal->transformCommon.functionEnabledzFalse) // mode 1
+	{
+		const double thetapow = theta * power2; // mode1
+
+		const double px = z.x - cos(phi) * 1.5;
+		const double pz = z.z - sin(phi) * 1.5;
+
+		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
+
+		const double rh1 = pow(rhrad, power2);
+		rh2 = pow(rhrad, power1);
+
+		const double sintheta = sin(thetapow) * rh2; // mode1
+
+		z.x = sintheta * cos(phipow);
+		z.z = sintheta * sin(phipow);
+		z.y = cos(thetapow) * rh1; // mode 1
+	}
+	else // mode 2
+	{
+		const double px = z.x - cos(phi) * 1.5;
+		const double pz = z.z - sin(phi) * 1.5;
+
+		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
+
+		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2; // mode2
+
+		const double rh1 = pow(rhrad, power2);
+		rh2 = pow(rhrad, power1);
+
+		const float sintheta = (1.5 + cos(tangle)) * rh2; // mode2
+		z.x = sintheta * cos(phipow);
+		z.z = sintheta * sin(phipow);
+		z.y = sin(tangle) * rh1; // mode 2
+	}
+
+
+
+
+
+
+		// DEcalc
+	double temp = rh2 * double(power1 - fractal->analyticDE.offset2);
+
+	if (!fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = temp * aux.DE + 1.0;
+	}
+	else
+	{
+		aux.DE = temp * aux.DE
+				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+
+
+	/*// DEcalc
+	if (!fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
+	}
+	else
+	{
+		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
+				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}*/
+
+	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
+	{
+		double lengthTempZ = -z.Length();
+		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
+		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
+		z *= fractal->transformCommon.scale;
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	}
+	// then add Cpixel constant vector
+}
+
+
+
