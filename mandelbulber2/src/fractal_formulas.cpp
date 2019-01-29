@@ -16211,7 +16211,8 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
 
 	const double rh = sqrt(z.x * z.x + z.z * z.z);
-	double rh2 = 0;
+	double rh1 = 0.0;
+	double rh2 = 0.0;
 	const double phi = atan2(z.z, z.x);
 	const double phipow = phi * power1;
 
@@ -16226,7 +16227,7 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
 
-		const double rh1 = pow(rhrad, power2);
+		rh1 = pow(rhrad, power2);
 		rh2 = pow(rhrad, power1);
 
 		const double sintheta = sin(thetapow) * rh2; // mode1
@@ -16244,7 +16245,7 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2; // mode2
 
-		const double rh1 = pow(rhrad, power2);
+		rh1 = pow(rhrad, power2);
 		rh2 = pow(rhrad, power1);
 
 		const float sintheta = (1.5 + cos(tangle)) * rh2; // mode2
@@ -16253,13 +16254,10 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		z.y = sin(tangle) * rh1; // mode 2
 	}
 
-
-
-
-
-
 		// DEcalc
-	double temp = rh2 * double(power1 - fractal->analyticDE.offset2);
+	double temp = rh2 * (power1 - fractal->analyticDE.offset2);
+	if (fractal->transformCommon.functionEnabledAyFalse)
+		temp = min(temp,  rh1 * (power2 - fractal->analyticDE.offset2));
 
 	if (!fractal->analyticDE.enabledFalse)
 	{
@@ -16272,26 +16270,6 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	}
 
 
-	/*// DEcalc
-	if (!fractal->analyticDE.enabledFalse)
-	{
-		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
-	}
-	else
-	{
-		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-	}*/
-
-	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
-	{
-		double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-	}
-	// then add Cpixel constant vector
 }
 
 
