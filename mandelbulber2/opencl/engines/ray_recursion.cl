@@ -324,7 +324,6 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				shaderInputData.normal = normal;
 
 #ifdef USE_ROUGH_SURFACE
-				// Future code to generate rough surfaces
 				if (shaderInputData.material->roughSurface)
 				{
 					float roughness = shaderInputData.material->surfaceRoughness;
@@ -336,7 +335,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					normal.y += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
 					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
 					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal = normalize(normal);
+					shaderInputData.normal = normal = normalize(normal);
 				}
 #endif // USE_ROUGH_SURFACE
 
