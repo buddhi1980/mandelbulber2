@@ -72,6 +72,7 @@ public:
 	float specularMetallicWidth;
 	float reflectance;
 	float luminosity;
+	float surfaceRoughness;
 	double transparencyIndexOfRefraction;
 	double transparencyOfInterior;
 	double transparencyOfSurface;
@@ -115,6 +116,7 @@ public:
 	bool luminosityColorTheSame;
 	bool reflectionsColorTheSame;
 	bool transparencyColorTheSame;
+	bool roughSurface;
 
 	bool useColorTexture;
 	bool useDiffusionTexture;

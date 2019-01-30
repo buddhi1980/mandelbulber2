@@ -822,6 +822,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			{
 				// calculate normal vector
 				vn = CalculateNormals(shaderInputData);
+
+				if (shaderInputData.material->roughSurface)
+				{
+					vn.x += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
+					vn.y += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
+					vn.z += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
+					vn.Normalize();
+				}
 				shaderInputData.normal = vn;
 
 				if (shaderInputData.material->normalMapTexture.IsLoaded())

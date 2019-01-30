@@ -54,7 +54,8 @@ typedef struct
 	int count;
 } sRayMarchingOut;
 
-typedef enum {
+typedef enum
+{
 	rayBranchReflection = 0,
 	rayBranchRefraction = 1,
 	rayBranchDone = 2,
@@ -322,6 +323,23 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 						shaderInputData.distThresh, shaderInputData.invertMode, &calcParam);
 				shaderInputData.normal = normal;
 
+#ifdef USE_ROUGH_SURFACE
+				// Future code to generate rough surfaces
+				if (shaderInputData.material->roughSurface)
+				{
+					float roughness = shaderInputData.material->surfaceRoughness;
+					// every axis is calculated twice because of simple Random() function (increase
+					// randomness)
+					normal.x += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.x += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.y += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.y += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal = normalize(normal);
+				}
+#endif // USE_ROUGH_SURFACE
+
 #ifdef USE_TEXTURES
 #ifdef USE_NORMAL_MAP_TEXTURE
 				normal = NormalMapShader(&shaderInputData, renderData, objectData,
@@ -584,7 +602,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader += globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
-// calculate reflectance according to Fresnel equations
+				// calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values
