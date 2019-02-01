@@ -106,7 +106,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-1897</y>
+        <y>0</y>
         <width>466</width>
         <height>3634</height>
        </rect>
@@ -3207,7 +3207,7 @@ direction vector:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of the luminosity of the selected color.&lt;/p&gt;&lt;p&gt;Note: luminosity effect does not illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of the luminosity of the selected color.&lt;/p&gt;&lt;p&gt;Note: luminosity effect illuminates near objects only when Global Illumination is enabled.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="prefix">
                <string/>
@@ -3467,9 +3467,6 @@ direction vector:</string>
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect does not illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
                  <property name="text" stdset="0">
                   <string>PushButton</string>
                  </property>
@@ -3553,9 +3550,6 @@ direction vector:</string>
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
-                 </property>
-                 <property name="toolTip">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the luminosity effect.&lt;/p&gt;&lt;p&gt;Note: luminosity effect does not illuminate near objects.&lt;/p&gt;&lt;p&gt;Example of luminosity effect:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - luminosity.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                  <property name="text" stdset="0">
                   <string>PushButton</string>
