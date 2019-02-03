@@ -1123,7 +1123,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		delete[] noiseTable;
 
 		emit updateProgressAndStatus(
-			tr("OpenCL - rendering umage finished"), progressText.getText(1.0), 1.0);
+			tr("OpenCL - rendering image finished"), progressText.getText(1.0), 1.0);
 	}
 	else
 	{
