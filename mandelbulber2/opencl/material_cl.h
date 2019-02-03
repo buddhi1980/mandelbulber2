@@ -56,6 +56,7 @@ typedef struct
 	cl_float specularMetallicWidth;
 	cl_float reflectance;
 	cl_float luminosity;
+	cl_float surfaceRoughness;
 	cl_float transparencyIndexOfRefraction;
 	cl_float transparencyOfInterior;
 	cl_float transparencyOfSurface;
@@ -91,6 +92,7 @@ typedef struct
 	cl_int luminosityColorTheSame;
 	cl_int reflectionsColorTheSame;
 	cl_int transparencyColorTheSame;
+	cl_int roughSurface;
 
 	cl_int useColorTexture;
 	cl_int useDiffusionTexture;
@@ -126,6 +128,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.specularMetallicWidth = source.specularMetallicWidth;
 	target.reflectance = source.reflectance;
 	target.luminosity = source.luminosity;
+	target.surfaceRoughness = source.surfaceRoughness;
 	target.transparencyIndexOfRefraction = source.transparencyIndexOfRefraction;
 	target.transparencyOfInterior = source.transparencyOfInterior;
 	target.transparencyOfSurface = source.transparencyOfSurface;
@@ -161,6 +164,7 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.reflectionsColorTheSame = source.reflectionsColorTheSame;
 	target.luminosityColorTheSame = source.luminosityColorTheSame;
 	target.transparencyColorTheSame = source.transparencyColorTheSame;
+	target.roughSurface = source.roughSurface;
 
 	target.useColorTexture = source.useColorTexture;
 	target.useDiffusionTexture = source.useDiffusionTexture;

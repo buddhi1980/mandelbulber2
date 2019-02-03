@@ -79,7 +79,7 @@ To compile Mandelbulber with OpenCL support, the headers need to be present.
 To use an OpenCL device you need to install a current driver for the CPU/GPU.
 
 required packages:
-    opencl-headers ocl-icd-libopencl1
+    opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev
 
 Compiling from source:
 cd makefiles
@@ -102,11 +102,11 @@ Run the install script:
 - Debian Stretch x64
 - Ubuntu 17
 
-- gcc 7.3
-- clang 4.0.1-10
+- gcc 8.2
+- clang 7.0
 - msvc17
 
-- Qt 5.9.2
+- Qt 5.11.3
 
 7. USAGE
 --------

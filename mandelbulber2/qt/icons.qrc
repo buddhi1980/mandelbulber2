@@ -29,6 +29,14 @@
     <file>icons/help-contents.svg</file>
   </qresource>
   <qresource prefix="/tooltips">
+    <file>tooltips_images/material - iridescence on.jpg</file>
+    <file>tooltips_images/material - iridescence off.jpg</file>
+    <file>tooltips_images/material - roughness 0.jpg</file>
+    <file>tooltips_images/material - roughness 0,05.jpg</file>
+    <file>tooltips_images/image - shader - specular metallic 5.jpg</file>
+    <file>tooltips_images/image - shader - specular metallic width 02.jpg</file>
+    <file>tooltips_images/image - shader - specular metallic width 2.jpg</file>
+    <file>tooltips_images/image - shader - specular metallic roughness 10.jpg</file>
     <file>tooltips_images/normal_map_texture_g_inv.jpg</file>
     <file>tooltips_images/displacement_texture.jpg</file>
     <file>tooltips_images/normal_map_texture.jpg</file>

@@ -1165,7 +1165,8 @@ void ImageFileSaveEXR::SaveEXR(
 	while (i.hasNext())
 	{
 		i.next();
-		header.insert(i.key().toStdString(), Imf::StringAttribute(i.value().toStdString()));
+		header.insert(
+			i.key().toStdString().c_str(), Imf::StringAttribute(i.value().toStdString().c_str()));
 	}
 
 	Imf::OutputFile file(filename.toStdString().c_str(), header);

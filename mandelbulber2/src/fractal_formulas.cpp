@@ -14634,6 +14634,12 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 {
 	CVector4 box_size = fractal->transformCommon.offset1111;
 	CVector4 wrap_mode = z;
+	CVector4 oldZ = z;
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
@@ -14672,6 +14678,21 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			wrap_mode.w = z.w - 2.0 * box_size.w * floor(z.w / 2.0 * box_size.w);
 		z.w = wrap_mode.w - box_size.w;
 	}
+	if (fractal->transformCommon.functionEnabledBxFalse
+		&& aux.i >= fractal->transformCommon.startIterationsD
+		&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
+		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
+		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+		// aux.DE = aux.DE * z.Length() / oldZ.Length();
+	}
+	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
+	if (fractal->transformCommon.functionEnabledAwFalse) z.w *= sign(oldZ.w);
+
 
 	aux.DE *= fractal->analyticDE.scale1;
 }
@@ -16211,7 +16232,8 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
 
 	const double rh = sqrt(z.x * z.x + z.z * z.z);
-	double rh2 = 0;
+	double rh1 = 0.0;
+	double rh2 = 0.0;
 	const double phi = atan2(z.z, z.x);
 	const double phipow = phi * power1;
 
@@ -16226,7 +16248,7 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
 
-		const double rh1 = pow(rhrad, power2);
+		rh1 = pow(rhrad, power2);
 		rh2 = pow(rhrad, power1);
 
 		const double sintheta = sin(thetapow) * rh2; // mode1
@@ -16244,7 +16266,7 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2; // mode2
 
-		const double rh1 = pow(rhrad, power2);
+		rh1 = pow(rhrad, power2);
 		rh2 = pow(rhrad, power1);
 
 		const float sintheta = (1.5 + cos(tangle)) * rh2; // mode2
@@ -16253,13 +16275,10 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		z.y = sin(tangle) * rh1; // mode 2
 	}
 
-
-
-
-
-
 		// DEcalc
-	double temp = rh2 * double(power1 - fractal->analyticDE.offset2);
+	double temp = rh2 * (power1 - fractal->analyticDE.offset2);
+	if (fractal->transformCommon.functionEnabledAyFalse)
+		temp = min(temp,  rh1 * (power2 - fractal->analyticDE.offset2));
 
 	if (!fractal->analyticDE.enabledFalse)
 	{
@@ -16272,26 +16291,6 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	}
 
 
-	/*// DEcalc
-	if (!fractal->analyticDE.enabledFalse)
-	{
-		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + 1.0) + 1.0;
-	}
-	else
-	{
-		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-	}*/
-
-	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
-	{
-		double lengthTempZ = -z.Length();
-		// if (lengthTempZ > -1e-21) lengthTempZ = -1e-21;   //  z is neg.)
-		z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-		z *= fractal->transformCommon.scale;
-		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
-	}
-	// then add Cpixel constant vector
 }
 
 

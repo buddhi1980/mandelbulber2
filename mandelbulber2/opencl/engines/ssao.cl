@@ -49,7 +49,7 @@ kernel void SSAO(
 
 	// printf("width %d", p.width);
 
-	if (z < 1.0e2f)
+	if (z < 1.0e5f)
 	{
 		float2 scr2;
 		scr2.x = ((float)scr.x / p.width - 0.5f) * aspectRatio;

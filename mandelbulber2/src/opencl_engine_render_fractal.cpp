@@ -603,6 +603,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool anyMaterialHasColoringEnabled = false;
 	bool anyMaterialHasExtraColoringEnabled = false;
 	bool anyMaterialHasTextureFractalize = false;
+	bool anyMaterialHasRoughSurface = false;
 	foreach (cMaterial material, renderData->materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
@@ -613,6 +614,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		if (material.useColorsFromPalette) anyMaterialHasColoringEnabled = true;
 		if (material.fractalColoring.extraColorEnabledFalse) anyMaterialHasExtraColoringEnabled = true;
 		if (material.textureFractalize) anyMaterialHasTextureFractalize = true;
+		if (material.roughSurface) anyMaterialHasRoughSurface = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
@@ -621,6 +623,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (renderEngineMode != clRenderEngineTypeFast && anyMaterialHasColoringEnabled)
 		definesCollector += " -DUSE_FRACTAL_COLORING";
 	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
+	if (anyMaterialHasRoughSurface) definesCollector += " -DUSE_ROUGH_SURFACE";
 
 	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
 			|| paramRender->DOFMonteCarloGlobalIllumination)
@@ -1143,7 +1146,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 

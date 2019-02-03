@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>258</width>
+    <width>245</width>
     <height>931</height>
    </rect>
   </property>
@@ -34,20 +34,6 @@
      <property name="horizontalSpacing">
       <number>2</number>
      </property>
-     <item row="0" column="0">
-      <widget class="QPushButton" name="pushButton_render">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of image based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>RENDER</string>
-       </property>
-       <property name="icon">
-        <iconset theme="applications-graphics" resource="icons.qrc">
-         <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0">
       <widget class="QPushButton" name="pushButton_undo">
        <property name="toolTip">
@@ -87,6 +73,20 @@
        <property name="icon">
         <iconset theme="process-stop" resource="icons.qrc">
          <normaloff>:/system/icons/process-stop.svg</normaloff>:/system/icons/process-stop.svg</iconset>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="pushButton_render">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start rendering of image based on actual settings&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="text">
+        <string>RENDER</string>
+       </property>
+       <property name="icon">
+        <iconset theme="applications-graphics" resource="icons.qrc">
+         <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
        </property>
       </widget>
      </item>
@@ -149,21 +149,39 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
+      <widget class="QToolButton" name="pushButton_local_load_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Load</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
+      <widget class="QToolButton" name="pushButton_local_save_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Save</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
+      <widget class="QToolButton" name="pushButton_local_reset_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
        <property name="text">
         <string>Reset</string>
        </property>
@@ -183,9 +201,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>232</width>
-        <height>810</height>
+        <y>-38</y>
+        <width>219</width>
+        <height>806</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">
@@ -555,68 +573,14 @@ to target:</string>
               <property name="spacing">
                <number>1</number>
               </property>
-              <item row="2" column="3">
-               <widget class="QPushButton" name="bu_move_right">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the right by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-next" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="bu_move_left">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the left by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-previous" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QPushButton" name="bu_move_up">
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target up by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-up" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
               <item row="1" column="0">
-               <widget class="QPushButton" name="bu_move_forward">
+               <widget class="QToolButton" name="bu_move_forward">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target forward by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -636,7 +600,13 @@ to target:</string>
                </widget>
               </item>
               <item row="2" column="0">
-               <widget class="QPushButton" name="bu_move_backward">
+               <widget class="QToolButton" name="bu_move_backward">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target backwards by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -655,8 +625,66 @@ to target:</string>
                 </property>
                </widget>
               </item>
+              <item row="2" column="1">
+               <widget class="QToolButton" name="bu_move_left">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the left by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-previous" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QToolButton" name="bu_move_up">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target up by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-up" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
               <item row="2" column="2">
-               <widget class="QPushButton" name="bu_move_down">
+               <widget class="QToolButton" name="bu_move_down">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="toolTip">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target down by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -666,6 +694,32 @@ to target:</string>
                 <property name="icon">
                  <iconset theme="go-down" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QToolButton" name="bu_move_right">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Moves the camera or the target to the right by distance set by &lt;span style=&quot; font-style:italic;&quot;&gt;step&lt;/span&gt; parameter&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-next" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -786,112 +840,14 @@ to target:</string>
               <property name="spacing">
                <number>1</number>
               </property>
-              <item row="3" column="1">
-               <widget class="QPushButton" name="bu_rotate_left">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-previous" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QPushButton" name="bu_rotate_up">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch up&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-up" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="3">
-               <widget class="QPushButton" name="bu_rotate_right">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="go-next" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="3">
-               <widget class="QPushButton" name="bu_rotate_roll_right">
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="icon">
-                 <iconset theme="object-rotate-right" resource="icons.qrc">
-                  <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-               </widget>
-              </item>
               <item row="2" column="1">
-               <widget class="QPushButton" name="bu_rotate_roll_left">
+               <widget class="QToolButton" name="bu_rotate_roll_left">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -916,8 +872,110 @@ to target:</string>
                 </property>
                </widget>
               </item>
+              <item row="2" column="2">
+               <widget class="QToolButton" name="bu_rotate_up">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pitch up&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-up" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-up.png</normaloff>:/navigation/icons/go-up.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="3">
+               <widget class="QToolButton" name="bu_rotate_roll_right">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Roll right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="object-rotate-right" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/object-rotate-right.png</normaloff>:/navigation/icons/object-rotate-right.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QToolButton" name="bu_rotate_left">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw left&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-previous" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-previous.png</normaloff>:/navigation/icons/go-previous.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
               <item row="3" column="2">
-               <widget class="QPushButton" name="bu_rotate_down">
+               <widget class="QToolButton" name="bu_rotate_down">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
@@ -933,6 +991,38 @@ to target:</string>
                 <property name="icon">
                  <iconset theme="go-down" resource="icons.qrc">
                   <normaloff>:/navigation/icons/go-down.png</normaloff>:/navigation/icons/go-down.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="3">
+               <widget class="QToolButton" name="bu_rotate_right">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Yaw right&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset theme="go-next" resource="icons.qrc">
+                  <normaloff>:/navigation/icons/go-next.png</normaloff>:/navigation/icons/go-next.png</iconset>
                 </property>
                 <property name="iconSize">
                  <size>
@@ -1312,21 +1402,6 @@ to target:</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonLoadSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_load_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonSaveSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_save_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>cButtonResetSettingsFromWidget</class>
-   <extends>QPushButton</extends>
-   <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>MyComboBox</class>
