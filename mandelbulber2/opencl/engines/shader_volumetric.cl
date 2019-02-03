@@ -107,7 +107,7 @@ float4 VolumetricShader(__constant sClInConstants *consts, sRenderData *renderDa
 		{
 			if (input->stepCount > 0)
 			{
-				float glowOpacity = glow / input->stepCount;
+				float glowOpacity = glow / input->stepCount * consts->params.volumetricLightDEFactor;
 				if (glowOpacity > 1.0f) glowOpacity = 1.0f;
 
 				output = glowOpacity * glowColor + (1.0f - glowOpacity) * output;
