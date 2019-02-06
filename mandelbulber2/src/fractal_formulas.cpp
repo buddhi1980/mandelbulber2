@@ -2617,9 +2617,9 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 					zCol = z;
 					break;
 				case multi_orderOf3Folds_type2: // z = fold - fabs( fabs(z) - fold)
-					z.x = fractal->transformCommon.additionConstant111.x
+					z.x = fractal->transformCommon.offset111.x
 								- fabs(fabs(z.x) - fractal->transformCommon.offset111.x);
-					z.y = fractal->transformCommon.additionConstant111.y
+					z.y = fractal->transformCommon.offset111.y
 								- fabs(fabs(z.y) - fractal->transformCommon.offset111.y);
 					zCol = z;
 					break;

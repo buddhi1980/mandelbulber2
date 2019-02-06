@@ -9,6 +9,9 @@ v2.17 (February 2019)
    mandelbulbEye
    transfBoxWrap4d
    transfSphericalInvV2 BETA
+   added sphere inversion to PseudoKleinian and Jos Kleinian
+   fixed scale in transfAbsAddConditional 3d & 4d
+   fixed type2 fold in amazingSurfMod2
 
 
 v2.16 (December 2018)
