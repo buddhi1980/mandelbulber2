@@ -1,5 +1,16 @@
 Version history
 
+v2.17 (February 2019)
+- Added new fractal formulas
+   josKleinianV2 BETA
+   mandelbulbAtan2Power2
+   bristorbrot2
+   mandeltorus
+   mandelbulbEye
+   transfBoxWrap4d
+   transfSphericalInvV2 BETA
+
+
 v2.16 (December 2018)
 - Added new fractal formulas
    mandelbulbAbsPower2

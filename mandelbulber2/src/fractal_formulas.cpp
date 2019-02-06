@@ -4423,6 +4423,45 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							* fractal->transformCommon.scaleA1;
 	}
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		CVector4 oldZ = z;
+		CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
+		CVector4 scaleZ = z * fractal->transformCommon.constantMultiplierC111;
+
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			if (!fractal->transformCommon.functionEnabledAxFalse)
+				trigZ.x = sin(scaleZ.x);
+			else
+				trigZ.x = cos(scaleZ.x); // scale =0, cos = 1
+		}
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			if (!fractal->transformCommon.functionEnabledAyFalse)
+				trigZ.y = sin(scaleZ.y);
+			else
+				trigZ.y = cos(scaleZ.y);
+		}
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			if (!fractal->transformCommon.functionEnabledAzFalse)
+				trigZ.z = sin(scaleZ.z);
+			else
+				trigZ.z = cos(scaleZ.z);
+		}
+
+		z = trigZ * fractal->transformCommon.scale;
+		if (fractal->transformCommon.functionEnabledFalse)
+		{
+			z.x = z.x * fractal->transformCommon.scale / (fabs(oldZ.x) + 1.0);
+			z.y = z.y * fractal->transformCommon.scale / (fabs(oldZ.y) + 1.0);
+			z.z = z.z * fractal->transformCommon.scale / (fabs(oldZ.z) + 1.0);
+			// aux.DE = aux.DE * z.Length() / oldZ.Length();
+		}
+	}
+
+
 
 	// kleinian
 	if (aux.i >= fractal->transformCommon.startIterationsF
@@ -6202,6 +6241,85 @@ void MandelbulbVaryPowerV1Iteration(CVector4 &z, const sFractal *fractal, sExten
 	rp *= aux.r;
 	z = CVector4(cth * cos(ph), cth * sin(ph), sin(th), 0.0) * rp;
 }
+
+/**
+ * Mandeltorus by Aexion
+ * @reference http://www.fractalforums.com/the-3d-mandelbulb/mandeldonuts/
+ */
+void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
+	{
+		z *= fractal->transformCommon.scale3D111;
+		aux.DE *= z.Length() / aux.r;
+	}
+
+
+	const double power1 = fractal->transformCommon.pwr8; //Longitude power, symmetry
+	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
+
+	const double rh = sqrt(z.x * z.x + z.z * z.z);
+	double rh1 = 0.0;
+	double rh2 = 0.0;
+	const double phi = atan2(z.z, z.x);
+	const double phipow = phi * power1;
+
+	const double theta = atan2(rh, z.y);
+
+	if (!fractal->transformCommon.functionEnabledzFalse) // mode 1
+	{
+		const double thetapow = theta * power2; // mode1
+
+		const double px = z.x - cos(phi) * 1.5;
+		const double pz = z.z - sin(phi) * 1.5;
+
+		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
+
+		rh1 = pow(rhrad, power2);
+		rh2 = pow(rhrad, power1);
+
+		const double sintheta = sin(thetapow) * rh2; // mode1
+
+		z.x = sintheta * cos(phipow);
+		z.z = sintheta * sin(phipow);
+		z.y = cos(thetapow) * rh1; // mode 1
+	}
+	else // mode 2
+	{
+		const double px = z.x - cos(phi) * 1.5;
+		const double pz = z.z - sin(phi) * 1.5;
+
+		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
+
+		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2; // mode2
+
+		rh1 = pow(rhrad, power2);
+		rh2 = pow(rhrad, power1);
+
+		const float sintheta = (1.5 + cos(tangle)) * rh2; // mode2
+		z.x = sintheta * cos(phipow);
+		z.z = sintheta * sin(phipow);
+		z.y = sin(tangle) * rh1; // mode 2
+	}
+
+		// DEcalc
+	double temp = rh2 * (power1 - fractal->analyticDE.offset2);
+	if (fractal->transformCommon.functionEnabledAyFalse)
+		temp = min(temp,  rh1 * (power2 - fractal->analyticDE.offset2));
+
+	if (!fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = temp * aux.DE + 1.0;
+	}
+	else
+	{
+		aux.DE = temp * aux.DE
+				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+	}
+}
+
 /**
  * Menger Cross KIFS
  * from code by Knighty
@@ -16210,87 +16328,6 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-}
-
-
-/**
- * Mandeltorus by Aexion
- * @reference http://www.fractalforums.com/the-3d-mandelbulb/mandeldonuts/
- */
-void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	if (fractal->transformCommon.functionEnabledFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1) // pre-scale
-	{
-		z *= fractal->transformCommon.scale3D111;
-		aux.DE *= z.Length() / aux.r;
-	}
-
-
-	const double power1 = fractal->transformCommon.pwr8; //Longitude power, symmetry
-	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
-
-	const double rh = sqrt(z.x * z.x + z.z * z.z);
-	double rh1 = 0.0;
-	double rh2 = 0.0;
-	const double phi = atan2(z.z, z.x);
-	const double phipow = phi * power1;
-
-	const double theta = atan2(rh, z.y);
-
-	if (!fractal->transformCommon.functionEnabledzFalse) // mode 1
-	{
-		const double thetapow = theta * power2; // mode1
-
-		const double px = z.x - cos(phi) * 1.5;
-		const double pz = z.z - sin(phi) * 1.5;
-
-		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
-
-		rh1 = pow(rhrad, power2);
-		rh2 = pow(rhrad, power1);
-
-		const double sintheta = sin(thetapow) * rh2; // mode1
-
-		z.x = sintheta * cos(phipow);
-		z.z = sintheta * sin(phipow);
-		z.y = cos(thetapow) * rh1; // mode 1
-	}
-	else // mode 2
-	{
-		const double px = z.x - cos(phi) * 1.5;
-		const double pz = z.z - sin(phi) * 1.5;
-
-		const double rhrad = sqrt(px * px + pz * pz + z.y * z.y);
-
-		const double tangle = atan2(sqrt(px * px + pz * pz), z.y) * power2; // mode2
-
-		rh1 = pow(rhrad, power2);
-		rh2 = pow(rhrad, power1);
-
-		const float sintheta = (1.5 + cos(tangle)) * rh2; // mode2
-		z.x = sintheta * cos(phipow);
-		z.z = sintheta * sin(phipow);
-		z.y = sin(tangle) * rh1; // mode 2
-	}
-
-		// DEcalc
-	double temp = rh2 * (power1 - fractal->analyticDE.offset2);
-	if (fractal->transformCommon.functionEnabledAyFalse)
-		temp = min(temp,  rh1 * (power2 - fractal->analyticDE.offset2));
-
-	if (!fractal->analyticDE.enabledFalse)
-	{
-		aux.DE = temp * aux.DE + 1.0;
-	}
-	else
-	{
-		aux.DE = temp * aux.DE
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
-	}
-
-
 }
 
 
