@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_sin_or_cos</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>862</width>
-    <height>1044</height>
+    <height>1181</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -498,5 +498,102 @@ cosine</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>12</x>
+     <y>83</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>85</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>86</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>346</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>135</x>
+     <y>115</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>382</x>
+     <y>117</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>8</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>136</x>
+     <y>148</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>34</x>
+     <y>144</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>343</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

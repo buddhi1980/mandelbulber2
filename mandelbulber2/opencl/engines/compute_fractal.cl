@@ -464,10 +464,9 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 // calculate estimated distance
 
-//#if (aux.DE > 0.0); //DE check
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
-	dist = 0.5f * aux.r * native_log(aux.r) / (aux.DE);
+	dist = 0.5f * aux.r * native_log(aux.r) / fabs(aux.DE);
 #elif ANALYTIC_LINEAR_DE
 	dist = (aux.r - consts->params.common.linearDEOffset) / fabs(aux.DE);
 #elif ANALYTIC_PSEUDO_KLEINIAN_DE
@@ -477,7 +476,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	if (consts->fractal[0].transformCommon.spheresEnabled)
 		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
 	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
-				 / max(aux.DE, consts->fractal[0].analyticDE.offset1);
+				 / max(fabs(aux.DE), consts->fractal[0].analyticDE.offset1);
 #else
 	dist = length(z);
 #endif
@@ -523,8 +522,6 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		dist = aux.r;
 
 #endif // IS_HYBRID
-//#else dist = aux.r;
-//#endif // DE check
 
 #ifdef USE_FRACTAL_COLORING
 	if (mode == calcModeColouring)

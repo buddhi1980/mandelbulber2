@@ -896,30 +896,6 @@ cosine</string>
           </property>
          </widget>
         </item>
-        <item row="7" column="0">
-         <widget class="QFrame" name="frame_2">
-          <property name="frameShape">
-           <enum>QFrame::StyledPanel</enum>
-          </property>
-          <property name="frameShadow">
-           <enum>QFrame::Raised</enum>
-          </property>
-          <widget class="QLabel" name="label_113">
-           <property name="geometry">
-            <rect>
-             <x>30</x>
-             <y>20</y>
-             <width>858</width>
-             <height>34</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>z = sin(z*scale)  * postScale;
-pre-transform, slot#1 for 1 iteration</string>
-           </property>
-          </widget>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_257">
           <property name="font">
@@ -1235,7 +1211,7 @@ pre-transform, slot#1 for 1 iteration</string>
            </font>
           </property>
           <property name="text">
-           <string>temp</string>
+           <string>test</string>
           </property>
          </widget>
         </item>
@@ -1786,5 +1762,102 @@ in other slots they are set to default</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>510</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>514</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>511</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>334</x>
+     <y>513</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>534</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>143</x>
+     <y>538</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>537</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>432</x>
+     <y>539</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>22</x>
+     <y>565</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>135</x>
+     <y>569</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_constant_multiplierC_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>563</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>313</x>
+     <y>567</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
