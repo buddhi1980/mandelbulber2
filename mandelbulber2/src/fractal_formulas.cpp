@@ -4423,7 +4423,10 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
 							* fractal->transformCommon.scaleA1;
 	}
-	if (fractal->transformCommon.functionEnabledCyFalse)
+
+	if (fractal->transformCommon.functionEnabledCyFalse
+		&& aux.i >= fractal->transformCommon.startIterationsC
+		&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		CVector4 oldZ = z;
 		CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
