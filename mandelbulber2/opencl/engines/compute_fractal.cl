@@ -464,6 +464,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 // calculate estimated distance
 
+#if (aux.DE > 0.0); //DE check
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE
 	dist = 0.5f * aux.r * native_log(aux.r) / (aux.DE);
@@ -522,6 +523,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		dist = aux.r;
 
 #endif // IS_HYBRID
+#else dist = aux.r;
+#endif // DE check
 
 #ifdef USE_FRACTAL_COLORING
 	if (mode == calcModeColouring)
