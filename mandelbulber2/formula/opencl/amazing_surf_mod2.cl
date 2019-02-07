@@ -124,8 +124,8 @@ REAL4 AmazingSurfMod2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 						REAL4 limit = fractal->transformCommon.additionConstant111;
 						REAL4 length = 2.0f * limit;
 						REAL4 tgladS = native_recip(length);
-						REAL4 Add;
-						Add.w = 0.0f;
+						REAL4 Add = (REAL4){0.0, 0.0, 0.0, 0.0};
+						//Add.w = 0.0f;
 						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)

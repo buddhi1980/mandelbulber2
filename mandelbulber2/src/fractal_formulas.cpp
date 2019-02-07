@@ -2595,6 +2595,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
 					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
 								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+
 					if (fractal->transformCommon.functionEnabledCzFalse
 							&& aux.i >= fractal->transformCommon.startIterationsT
 							&& aux.i < fractal->transformCommon.stopIterationsT1)
@@ -2602,8 +2603,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 						CVector4 limit = fractal->transformCommon.additionConstant111;
 						CVector4 length = 2.0 * limit;
 						CVector4 tgladS = 1.0 / length;
-						CVector4 Add;
-						Add.w = 0.0;
+						CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
 						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
