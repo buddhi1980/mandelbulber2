@@ -4352,7 +4352,7 @@ void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  * JosLeys-Kleinian formula
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
- * This formula contains aux.color and aux.pseudoKleinianDE
+ * This formula contains aux.color and aux.DE
  */
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -4396,7 +4396,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	aux.pseudoKleinianDE *= iR; // TODO remove after testing
+	//aux.pseudoKleinianDE *= iR; // TODO remove after testing
 	aux.DE *= fabs(iR);
 }
 
@@ -4404,7 +4404,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
  * JosLeys-Kleinian V2 formula
  * @reference
  * http://www.fractalforums.com/3d-fractal-generation/an-escape-tim-algorithm-for-kleinian-group-limit-sets/msg98248/#msg98248
- * This formula contains aux.color and aux.pseudoKleinianDE
+ * This formula contains aux.color and aux.DE
  */
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -4464,8 +4464,6 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		}
 	}
 
-
-
 	// kleinian
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
@@ -4477,8 +4475,12 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 		// wrap
 		CVector4 box_size = fractal->transformCommon.offset111;
+		CVector3 box1 = CVector3(2.0 * box_size.x, a * box_size.y, 2.0 * box_size.z);
+		CVector3 box2 = CVector3(-box_size.x, -box_size.y + 1.0, -box_size.z);
+		CVector3 wrapped = wrap(z.GetXYZ(), box1, box2);
 
-		{
+		z = CVector4(wrapped.x, wrapped.y, wrapped.z, z.w);
+		/*{
 			z.x += box_size.x;
 			z.z += box_size.z;
 			z.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x) - box_size.x;
@@ -4486,32 +4488,13 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			z.y += box_size.y - 1.0;
 			z.y = z.y - a * box_size.y * floor(z.y / a * box_size.y);
 			z.y -= (box_size.y - 1.0);
-		}
-		// double perc = fractal->transformCommon.scaleG1 * 0.2;
-		double perc = fractal->transformCommon.scaleG1;
+		}*/
 
-		// double tempY = perc * sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
-
-		if (!fractal->transformCommon.functionEnabledByFalse)
+		if (z.y >= a * (0.5 + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
 		{
-			if (z.y >= a * (0.5 + perc * 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-			{ // z = CVector4(-b, a, 0.0, z.w) - z;
-				z.x = -z.x - b;
-				z.y = -z.y + a;
-				z.z = -z.z - c;
-			}
-		}
-		else
-		{
-			// double tempY = sin(f * M_PI * (z.x + b * 0.5) / box_size.x);
-
-			// if (z.y >= a * (0.5)) // + 0.2 * sin(f * M_PI * (z.x + b * 0.5) / box_size.x)))
-			if (z.y >= a / 2.0)
-			{ // z = CVector4(-b, a, 0.0, z.w) - z;
-				z.x = -z.x - b;
-				z.y = -z.y + a;
-				z.z = -z.z - c;
-			}
+			z.x = -z.x - b;
+			z.y = -z.y + a;
+			z.z = -z.z - c;
 		}
 
 		double rr = z.Dot(z);
@@ -4525,46 +4508,9 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.y = a + z.y;
 		z.z = -z.z - c;
 
-		aux.pseudoKleinianDE *= iR; // TODO remove after testing
+		//aux.pseudoKleinianDE *= iR; // TODO remove after testing
 		aux.DE *= fabs(iR);
 	}
-
-	/*if (fractal->analyticDE.enabledFalse)
-	{ // analytic DE adjustment
-		aux.pseudoKleinianDE =
-			aux.pseudoKleinianDE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0; // TODO
-	remove after testing aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-
-	}*/
-	/*if (fractal->transformCommon.functionEnabledDFalse
-			&& aux.i >= fractal->transformCommon.startIterationsD
-			&& aux.i < fractal->transformCommon.stopIterationsD1)
-	{
-		double rSqrL;
-		CVector4 tempC;
-		if (fractal->transformCommon.functionEnabledSwFalse)
-		{
-			tempC = aux.c;
-			tempC *= fractal->transformCommon.constantMultiplier000;
-			rSqrL = tempC.Dot(tempC);
-			// if (rSqrL < 1e-21) rSqrL = 1e-21;
-			rSqrL = 1.0 / rSqrL;
-			tempC *= rSqrL;
-			aux.c = tempC;
-
-		}
-		else
-		{
-			tempC = aux.const_c;
-			tempC *= fractal->transformCommon.constantMultiplier000;
-			rSqrL = tempC.Dot(tempC);
-			// if (rSqrL < 1e-21) rSqrL = 1e-21;
-			rSqrL = 1.0 / rSqrL;
-			tempC *= rSqrL;
-		}
-		z +=tempC;
-	}*/
 
 	if (fractal->transformCommon.functionEnabledEFalse
 			&& aux.i >= fractal->transformCommon.startIterationsE

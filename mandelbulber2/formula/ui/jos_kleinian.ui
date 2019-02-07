@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>jos_kleinian</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_267">
      <property name="text">
-      <string>Note 1): The termination condition is reached when iteration reaches Maxiter.</string>
+      <string>Note 1): Each additional iteration adds more detail.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -42,7 +42,7 @@
    <item>
     <widget class="QLabel" name="label_252">
      <property name="text">
-      <string>Note 2): Each additional iteration adds more detail.</string>
+      <string>Note 2): The termination condition is reached when iteration reaches Maxiter.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>
@@ -755,9 +755,7 @@ Offset:</string>
       </font>
      </property>
      <property name="text">
-      <string>Analytic DE clamps
-clamps are only variable in slot#1
-in other slots they are set to default</string>
+      <string>Analytic DE clamps (only variable in slot#1)</string>
      </property>
     </widget>
    </item>
@@ -778,6 +776,9 @@ in other slots they are set to default</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clamps are only variable in slot#1,&lt;/p&gt;&lt;p&gt;in other slots they are set to default&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="prefix">
           <string/>
@@ -806,6 +807,9 @@ in other slots they are set to default</string>
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="toolTip">
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Clamps are only variable in slot#1,&lt;/p&gt;&lt;p&gt;in other slots they are set to default&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="prefix">
           <string/>
@@ -979,15 +983,15 @@ in other slots they are set to default</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
