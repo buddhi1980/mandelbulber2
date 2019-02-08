@@ -12386,7 +12386,7 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 {
 	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (fractal->transformCommon.sphereInversionEnabledFalse)
+		if (fractal->transformCommon.functionEnabledTempFalse)
 		{
 			if (aux.i < 1)
 			{
