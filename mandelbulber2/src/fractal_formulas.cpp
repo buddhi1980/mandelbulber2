@@ -2494,7 +2494,7 @@ void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
  *
- * This formula contains aux.color and aux.actualScale
+ * This formula contains aux.color and aux.actualScaleA
  */
 void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -12412,7 +12412,7 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			}
 		}
 	}
-	// double minR2 = fractal->transformCommon.minR2p25;
+
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
@@ -12431,10 +12431,25 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				if (rr < fractal->transformCommon.minR0) mode = 2.0 * fractal->transformCommon.minR0 - rr;
 			}
+			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3
+			{
+				/*mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
+				if (rr < fractal->transformCommon.minR0)
+					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.minR0 - rr)
+							+ fractal->transformCommon.offset0
+								* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0);*/
+
+				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
+				if (rr < fractal->transformCommon.minR0)
+					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.minR0 - rr)
+							+ fractal->transformCommon.offset0
+								* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0);
+			}
 			mode = 1.0 / mode;
 			z *= mode;
 			aux.DE *= fabs(mode);
 		}
+		z -= fractal->mandelbox.offset;
 	}
 
 	if (fractal->analyticDE.enabledFalse)
