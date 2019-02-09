@@ -585,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>581</height>
+            <width>367</width>
+            <height>455</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1022,7 +1022,7 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-73</y>
             <width>537</width>
             <height>841</height>
            </rect>
@@ -1293,7 +1293,7 @@ and will only be present after enabling and re-render.</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of GPU time which will be reserved for another processes like a system.&lt;/p&gt;&lt;p&gt;Higher value will generate longer wairs between launching next OpenCL jobs. During this time the system will have opportunity to update UI. It will cause reduction of rendering speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of GPU time which will be reserved for another processes like a system.&lt;/p&gt;&lt;p&gt;Higher value will generate longer waits between launching next OpenCL jobs. During this time the system will have opportunity to update UI. It will cause reduction of rendering speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="prefix">
                    <string/>
