@@ -12447,12 +12447,12 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 	{
 		rr = z.Dot(z);
 		double mode = rr;
-		if (rr < fractal->transformCommon.scaleE1)
+		if (rr < fractal->transformCommon.scaleE1) // < maxRR
 		{
 			double lengthAB = fractal->transformCommon.scaleE1 - fractal->transformCommon.offsetC0;
 
-			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a linear
-			{
+			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a
+			{ // linear addition 0.0 at Max,
 				if (rr < fractal->transformCommon.offsetC0)
 					mode += rr * (fractal->transformCommon.offset0 / fractal->transformCommon.offsetC0);
 				else
@@ -12461,6 +12461,16 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			}
 
 			if (fractal->transformCommon.functionEnabledzFalse) // Mode 3b
+			{
+
+				if (rr > fractal->transformCommon.offsetC0)
+					mode += fractal->transformCommon.offsetB0 * (fractal->transformCommon.scaleE1 - rr);
+				else
+					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.offsetC0 - rr)
+							+ fractal->transformCommon.offsetB0 * lengthAB;
+			}
+
+			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c
 			{ // basic parabolic curve
 
 				double halfLen = fractal->transformCommon.scaleE1 / 2.0;
@@ -12481,25 +12491,18 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 				}
 			}
 
-			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c
+			/*if (fractal->transformCommon.functionEnabledwFalse) // Mode 3d
 			{
-				mode = rr + fractal->transformCommon.offset0 * (fractal->transformCommon.scaleE1 - rr);
-				if (rr < fractal->transformCommon.offsetC0)
-					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.offsetC0 - rr)
-							+ fractal->transformCommon.offset0 * lengthAB;
-
-
-				/*mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
+				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
 				if (rr < fractal->transformCommon.minR0)
 					mode -= rr * (fractal->transformCommon.offset0
 									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0))
-							/ fractal->transformCommon.minR0;*/
-			}
+							/ fractal->transformCommon.minR0;
+			}*/
 			mode = 1.0 / mode;
 			z *= mode;
 			aux.DE *= fabs(mode);
 		}
-
 	}
 
 	if (fractal->analyticDE.enabledFalse)
