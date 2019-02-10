@@ -12384,25 +12384,25 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double rr = 0.0;
+		// unconditional mode
 	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (fractal->transformCommon.functionEnabledTempFalse)
+		if (fractal->transformCommon.functionEnabledTempFalse) // start temp code
 		{
 			if (aux.i < 1)
 			{
-				double rr;
 				z += fractal->transformCommon.offset000;
 				rr = z.Dot(z);
 				z *= fractal->transformCommon.maxR2d1 / rr;
 				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 			}
 		}
-		else
+		else // end temp code
 		{
 			if (aux.i >= fractal->transformCommon.startIterationsD
 					&& aux.i < fractal->transformCommon.stopIterationsD1)
 			{
-				double rr = 1.0;
 				z += fractal->transformCommon.offset000;
 				rr = z.Dot(z);
 				z *= fractal->transformCommon.maxR2d1 / rr;
@@ -12413,16 +12413,18 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 		}
 	}
 
+	// conditional modes
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
-		double rr = z.Dot(z);
-
+		rr = z.Dot(z);
+		double mode = rr;
 		z += fractal->mandelbox.offset;
+
 		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
-			double mode = 0.0;
+			mode = 0.0;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
 				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
@@ -12431,25 +12433,73 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			{
 				if (rr < fractal->transformCommon.minR0) mode = 2.0 * fractal->transformCommon.minR0 - rr;
 			}
-			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3
-			{
-				/*mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
-				if (rr < fractal->transformCommon.minR0)
-					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.minR0 - rr)
-							+ fractal->transformCommon.offset0
-								* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0);*/
-
-				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
-				if (rr < fractal->transformCommon.minR0)
-					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.minR0 - rr)
-							+ fractal->transformCommon.offset0
-								* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0);
-			}
 			mode = 1.0 / mode;
 			z *= mode;
 			aux.DE *= fabs(mode);
 		}
 		z -= fractal->mandelbox.offset;
+	}
+
+	// other modes
+	if (fractal->transformCommon.functionEnabledCyFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		rr = z.Dot(z);
+		double mode = rr;
+		if (rr < fractal->transformCommon.scaleE1)
+		{
+			double lengthAB = fractal->transformCommon.scaleE1 - fractal->transformCommon.offsetC0;
+
+			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a linear
+			{
+				if (rr < fractal->transformCommon.offsetC0)
+					mode += rr * (fractal->transformCommon.offset0 / fractal->transformCommon.offsetC0);
+				else
+					mode += (fractal->transformCommon.scaleE1 - rr)
+								* fractal->transformCommon.offset0 / lengthAB;
+			}
+
+			if (fractal->transformCommon.functionEnabledzFalse) // Mode 3b
+			{ // basic parabolic curve
+
+				double halfLen = fractal->transformCommon.scaleE1 / 2.0;
+				double slope = 2.0 / fractal->transformCommon.scaleE1;
+				double factor = slope / fractal->transformCommon.scaleE1;
+				double parab = 0.0;
+
+				if (rr < halfLen)
+				{
+					parab = rr * rr * factor * fractal->transformCommon.scaleG1;
+					mode += rr * slope * fractal->transformCommon.scaleF1 - parab;
+				}
+				else
+				{
+					double temp = fractal->transformCommon.scaleE1 - rr;
+					parab = temp * temp * factor * fractal->transformCommon.scaleG1;
+					mode += temp * slope * fractal->transformCommon.scaleF1 - parab;
+				}
+			}
+
+			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c
+			{
+				mode = rr + fractal->transformCommon.offset0 * (fractal->transformCommon.scaleE1 - rr);
+				if (rr < fractal->transformCommon.offsetC0)
+					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.offsetC0 - rr)
+							+ fractal->transformCommon.offset0 * lengthAB;
+
+
+				/*mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
+				if (rr < fractal->transformCommon.minR0)
+					mode -= rr * (fractal->transformCommon.offset0
+									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0))
+							/ fractal->transformCommon.minR0;*/
+			}
+			mode = 1.0 / mode;
+			z *= mode;
+			aux.DE *= fabs(mode);
+		}
+
 	}
 
 	if (fractal->analyticDE.enabledFalse)
