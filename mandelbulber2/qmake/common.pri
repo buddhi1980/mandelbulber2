@@ -76,7 +76,8 @@ TRANSLATIONS = $$ROOT/language/en.ts\
                $$ROOT/language/de.ts\
                $$ROOT/language/pl.ts\
                $$ROOT/language/it.ts\
-               $$ROOT/language/nl.ts
+               $$ROOT/language/nl.ts\
+               $$ROOT/language/es.ts
 
 # copy all system flags
 QMAKE_CXXFLAGS += $$(CXXFLAGS)
