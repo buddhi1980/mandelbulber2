@@ -13,11 +13,11 @@ v2.17 (February 2019)
    fixed scale in transfAbsAddConditional 3d & 4d
    fixed type2 fold in amazingSurfMod2
 - OpenCL: Added support for multi-GPU rendering
-- OpenCL: Rendering by GPUs moved to separate thread. Image processing and refreshing doesn't slow down rendering and GPUs can be utilized in 100%
+- OpenCL: Rendering by GPUs moved to separate thread. Image processing and refreshing doesn't slow down rendering and GPUs can be utilized to 100%
 - OpenCL: Added reservation of GPU time for the system
-- OpenCL: Improved quality of volumetric effects in OpenCL mode (when there is high variety of distance from camera)
-- OpenCL: improved error handing
-- OpenCL: Thumbnails in PreviewFileDialog now are rendered using OpenCL (or using CPU if distance to fractal is lower than 1e-5)
+- OpenCL: Improved quality of volumetric effects in OpenCL mode (when the distance from camera varies greatly)
+- OpenCL: improved error handling
+- OpenCL: Thumbnails in PreviewFileDialog are now rendered using OpenCL (or using CPU if distance to fractal is less than 1e-5)
 - Fractals: Corrected rendering of fractal cross-sections
 - Fractals: 
 - Fixed problem with Pseudo Kleinian fractal which don't use maxiter and interior mode
@@ -28,19 +28,19 @@ v2.17 (February 2019)
     color of transparency
     color of transparency the same as object color
 - Shaders: Added roughness property to materials
-- Shaders: Fixed problem with differences brightness between different image resolutions when "connect detail level with image resolution" was enabled.
+- Shaders: Fixed variation in brightness between different image resolutions when "connect detail level with image resolution" was enabled.
 - Shaders: Fixed bug causing wrong appearance of specular highlights when diffusionTextureIntensity was low and texture mapping was disabled.
 - Shaders: Fixed bug: glow was not calculated on CPU with interior mode
 - Shaders: There was missing updating input.delta in volumetric shader (CPU code) - issue #614
 = Shaders: Fixed bug #618. Max distance for SSAO was limited to 100.0
 - UI: Added displaying of last rendered tiles with noise statistics when MC is used.
 - UI: Fixed not working Reset (local reset) buttons
-- UI: Local Load/Save buttons now doesn't load/save animation data (caused problems with loading partial settings)
+- UI: Local Load/Save buttons now do not load/save animation data (caused problems with loading partial settings)
 - UI: Corrected tooltips in Load/Save/Reset buttons
 - UI: Refreshing of thumbnails can occupy not more threads than total number of CPU cores
 - UI: Reduced minimum width of navigation dock
 - Queue: Fixed problem with locking rendering engine by updating of Queue thumbnails
-- Files: Added option to save each image channel is separate directory
+- Files: Added option to save each image channel in a separate directory
     
 v2.16 (December 2018)
 - Added new fractal formulas
