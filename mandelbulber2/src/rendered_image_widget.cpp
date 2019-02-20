@@ -632,6 +632,14 @@ void RenderedImage::mouseReleaseEvent(QMouseEvent *event)
 		emit mouseDragFinish();
 	}
 	buttonsPressed--;
+
+	// in case if some release event was missed
+	if (event->buttons() == Qt::NoButton)
+	{
+		buttonsPressed = 0;
+		draggingStarted = false;
+		draggingInitStarted = false;
+	}
 }
 
 void RenderedImage::enterEvent(QEvent *event)
