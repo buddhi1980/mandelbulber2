@@ -4393,7 +4393,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	//aux.pseudoKleinianDE *= iR; // TODO remove after testing
+	// aux.pseudoKleinianDE *= iR; // TODO remove after testing
 	aux.DE *= fabs(iR);
 }
 
@@ -4422,8 +4422,8 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	}
 
 	if (fractal->transformCommon.functionEnabledCyFalse
-		&& aux.i >= fractal->transformCommon.startIterationsC
-		&& aux.i < fractal->transformCommon.stopIterationsC1)
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC1)
 	{
 		CVector4 oldZ = z;
 		CVector4 trigZ = CVector4(0.0, 0.0, 0.0, 0.0);
@@ -4505,7 +4505,7 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.y = a + z.y;
 		z.z = -z.z - c;
 
-		//aux.pseudoKleinianDE *= iR; // TODO remove after testing
+		// aux.pseudoKleinianDE *= iR; // TODO remove after testing
 		aux.DE *= fabs(iR);
 	}
 
@@ -6202,9 +6202,8 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.DE *= z.Length() / aux.r;
 	}
 
-
-	const double power1 = fractal->transformCommon.pwr8; //Longitude power, symmetry
-	const double power2 = fractal->transformCommon.pwr8a; //Latitude power
+	const double power1 = fractal->transformCommon.pwr8;	// Longitude power, symmetry
+	const double power2 = fractal->transformCommon.pwr8a; // Latitude power
 
 	const double rh = sqrt(z.x * z.x + z.z * z.z);
 	double rh1 = 0.0;
@@ -6250,10 +6249,10 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		z.y = sin(tangle) * rh1; // mode 2
 	}
 
-		// DEcalc
+	// DEcalc
 	double temp = rh2 * (power1 - fractal->analyticDE.offset2);
 	if (fractal->transformCommon.functionEnabledAyFalse)
-		temp = min(temp,  rh1 * (power2 - fractal->analyticDE.offset2));
+		temp = min(temp, rh1 * (power2 - fractal->analyticDE.offset2));
 
 	if (!fractal->analyticDE.enabledFalse)
 	{
@@ -6261,8 +6260,7 @@ void MandeltorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	}
 	else
 	{
-		aux.DE = temp * aux.DE
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+		aux.DE = temp * aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	}
 }
 
@@ -7936,7 +7934,7 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	double rp = pow(aux.r, fractal->transformCommon.pwr4); // default 4.0
 
 	phi *= fractal->transformCommon.pwr8; // default 8
-	theta *= fractal->bulb.power; // default 9 gives 8 symmetry
+	theta *= fractal->bulb.power;					// default 9 gives 8 symmetry
 
 	// convert back to cartesian coordinates
 	double r1RpCosPhi = r1 + rp * cos(phi);
@@ -7952,7 +7950,8 @@ void MsltoeToroidalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 	else
 	{
 		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+							 * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
@@ -8049,8 +8048,8 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	double costh = cos(th0);
 	double sinth = sin(th0);
-	double r1RpCosTh  = r1 + rp * costh;
-	double r1RpSinTh  = r1 + rp * sinth;
+	double r1RpCosTh = r1 + rp * costh;
+	double r1RpSinTh = r1 + rp * sinth;
 
 	if (fractal->transformCommon.functionEnabledzFalse)
 	{ // cosine mode
@@ -8074,7 +8073,8 @@ void MsltoeToroidalMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 	else
 	{
 		aux.DE = rp * aux.DE * (fractal->transformCommon.pwr4 + fractal->analyticDE.offset2)
-				* fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+							 * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse) // spherical offset
@@ -8618,7 +8618,8 @@ void PseudoKleinianMod2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			CVector4 limit = fractal->transformCommon.offsetA000;
 			CVector4 length = 2.0 * limit;
 			CVector4 tgladS = 1.0 / length;
-			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);;
+			CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+			;
 			if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 			if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 			if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
@@ -9826,7 +9827,8 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 		// CVector4 limit = fractal->transformCommon.additionConstant000;
 		CVector4 length = 2.0 * limit;
 		CVector4 tgladS = 1.0 / length;
-		CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);;
+		CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
+		;
 		if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
 		if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
 		if (fabs(z.z) < limit.z) Add.z = z.z * z.z * tgladS.z;
@@ -12385,7 +12387,7 @@ void TransfSphericalInvIteration(CVector4 &z, const sFractal *fractal, sExtended
 void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double rr = 0.0;
-		// unconditional mode
+	// unconditional mode
 	if (fractal->transformCommon.functionEnabledCz)
 	{
 		if (fractal->transformCommon.functionEnabledTempFalse) // start temp code
@@ -12452,12 +12454,12 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 			double lengthAB = fractal->transformCommon.scaleE1 - fractal->transformCommon.offsetC0;
 
 			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a
-			{ // linear addition 0.0 at Max,
+			{																										// linear addition 0.0 at Max,
 				if (rr < fractal->transformCommon.offsetC0)
 					mode += rr * (fractal->transformCommon.offset0 / fractal->transformCommon.offsetC0);
 				else
-					mode += (fractal->transformCommon.scaleE1 - rr)
-								* fractal->transformCommon.offset0 / lengthAB;
+					mode +=
+						(fractal->transformCommon.scaleE1 - rr) * fractal->transformCommon.offset0 / lengthAB;
 			}
 
 			if (fractal->transformCommon.functionEnabledzFalse) // Mode 3b
@@ -12467,11 +12469,11 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 					mode += fractal->transformCommon.offsetB0 * (fractal->transformCommon.scaleE1 - rr);
 				else
 					mode += fractal->transformCommon.offsetA0 * (fractal->transformCommon.offsetC0 - rr)
-							+ fractal->transformCommon.offsetB0 * lengthAB;
+									+ fractal->transformCommon.offsetB0 * lengthAB;
 			}
 
 			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c
-			{ // basic parabolic curve
+			{																										// basic parabolic curve
 
 				double halfLen = fractal->transformCommon.scaleE1 / 2.0;
 				double slope = 2.0 / fractal->transformCommon.scaleE1;
@@ -12493,7 +12495,8 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 
 			/*if (fractal->transformCommon.functionEnabledwFalse) // Mode 3d
 			{
-				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed - rr);
+				mode = rr + fractal->transformCommon.offset0 * (fractal->mandelbox.foldingSphericalFixed -
+			rr);
 				if (rr < fractal->transformCommon.minR0)
 					mode -= rr * (fractal->transformCommon.offset0
 									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0))
@@ -14809,8 +14812,8 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z.w = wrap_mode.w - box_size.w;
 	}
 	if (fractal->transformCommon.functionEnabledBxFalse
-		&& aux.i >= fractal->transformCommon.startIterationsD
-		&& aux.i < fractal->transformCommon.stopIterationsD1)
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
 	{
 		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
 		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
@@ -14822,7 +14825,6 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
 	if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
 	if (fractal->transformCommon.functionEnabledAwFalse) z.w *= sign(oldZ.w);
-
 
 	aux.DE *= fractal->analyticDE.scale1;
 }
@@ -15756,10 +15758,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	}
 }
 
-
-
-
-
 /**
  * 4D boxbulb, Formula based on Mandelbox (ABox). Extended to 4 dimensions and with variable scale
  * parameter.
@@ -16354,6 +16352,3 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
-
-
-

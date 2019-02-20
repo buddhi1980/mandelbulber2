@@ -37,8 +37,11 @@
 #include "src/interface.hpp"
 
 cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
-		: QPushButton(_parent)
+		: QToolButton(_parent)
 {
+	QVBoxLayout *layout = new QVBoxLayout;
+	layout->setContentsMargins(3, 3, 3, 3);
+	setLayout(layout);
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
 }
 
@@ -63,5 +66,5 @@ void cButtonLoadSettingsFromWidget::showEvent(QShowEvent *event)
 	{
 		setToolTip(tr("Load settings only to %1").arg(parentWidget->objectName()));
 	}
-	QPushButton::showEvent(event);
+	QToolButton::showEvent(event);
 }

@@ -35,9 +35,9 @@
 #ifndef MANDELBULBER2_QT_BUTON_LOAD_SETTINGS_FROM_WIDGET_H_
 #define MANDELBULBER2_QT_BUTON_LOAD_SETTINGS_FROM_WIDGET_H_
 
-#include <QPushButton>
+#include <QToolButton>
 
-class cButtonLoadSettingsFromWidget : public QPushButton
+class cButtonLoadSettingsFromWidget : public QToolButton
 {
 	Q_OBJECT
 

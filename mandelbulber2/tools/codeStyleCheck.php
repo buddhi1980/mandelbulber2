@@ -128,7 +128,7 @@ function checkFileHeader($filePath, &$fileContent, &$status)
 				$status[] = errorString('header unknown!');
 			}
 		} else {
-			$regexParseHeader = '/^[\s\S]+#{50}?[\S\s]+Authors:\s([\s\S]*?)\*\n([\s\S]*?)\*\/([\s\S]*)$/';
+                        $regexParseHeader = '/^[\s\S]+?#{50}?[\S\s]+?Authors:\s([\s\S]*?)\*\n([\s\S]*?)\*\/([\s\S]*)$/';
 			if (preg_match($regexParseHeader, $fileContent, $matchHeaderNew)) {
 				$newFileContent = getFileHeader($matchHeaderNew[1], $matchHeaderNew[2], $modificationString) . $matchHeaderNew[3];
 				if ($newFileContent != $fileContent) {
@@ -137,7 +137,7 @@ function checkFileHeader($filePath, &$fileContent, &$status)
 				}
 				return true;
 			} else {
-				$status[] = errorString('header unknown!');
+                                $status[] = errorString('header unknown2!');
 			}
 		}
 

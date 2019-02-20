@@ -198,7 +198,6 @@ enum enumFractalFormula
 	bristorbrot2 = 145,
 	mandeltorus = 146,
 
-
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
 	scatorPower2Real = 156,			 // added V2.15
