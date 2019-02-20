@@ -18,25 +18,25 @@
 
 REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	REAL rr = 0.0f;
+	// unconditional mode
 	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (fractal->transformCommon.sphereInversionEnabledFalse)
+		if (fractal->transformCommon.functionEnabledTempFalse) // start temp code
 		{
 			if (aux->i < 1)
 			{
-				REAL rr;
 				z += fractal->transformCommon.offset000;
 				rr = dot(z, z);
 				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
 				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 			}
 		}
-		else
+		else // end temp code
 		{
 			if (aux->i >= fractal->transformCommon.startIterationsD
 					&& aux->i < fractal->transformCommon.stopIterationsD1)
 			{
-				REAL rr = 1.0f;
 				z += fractal->transformCommon.offset000;
 				rr = dot(z, z);
 				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
@@ -46,17 +46,19 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			}
 		}
 	}
-	// REAL minR2 = fractal->transformCommon.minR2p25;
+
+	// conditional modes
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
-		REAL rr = dot(z, z);
-
+		rr = dot(z, z);
+		REAL mode = rr;
 		z += fractal->mandelbox.offset;
+
 		if (rr < fractal->mandelbox.foldingSphericalFixed)
 		{
-			REAL mode = 0.0f;
+			mode = 0.0f;
 			if (fractal->transformCommon.functionEnabledFalse) // Mode 1 minR0
 			{
 				if (rr < fractal->transformCommon.minR0) mode = fractal->transformCommon.minR0;
@@ -66,6 +68,74 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 				if (rr < fractal->transformCommon.minR0)
 					mode = mad(2.0f, fractal->transformCommon.minR0, -rr);
 			}
+			mode = native_recip(mode);
+			z *= mode;
+			aux->DE *= fabs(mode);
+		}
+		z -= fractal->mandelbox.offset;
+	}
+
+	// other modes
+	if (fractal->transformCommon.functionEnabledCyFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+	{
+		rr = dot(z, z);
+		REAL mode = rr;
+		if (rr < fractal->transformCommon.scaleE1) // < maxRR
+		{
+			REAL lengthAB = fractal->transformCommon.scaleE1 - fractal->transformCommon.offsetC0;
+
+			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a
+			{																										// linear addition 0.0f at Max,
+				if (rr < fractal->transformCommon.offsetC0)
+					mode += rr * (native_divide(
+												 fractal->transformCommon.offset0, fractal->transformCommon.offsetC0));
+				else
+					mode += (fractal->transformCommon.scaleE1 - rr)
+									* native_divide(fractal->transformCommon.offset0, lengthAB);
+			}
+
+			if (fractal->transformCommon.functionEnabledzFalse) // Mode 3b
+			{
+
+				if (rr > fractal->transformCommon.offsetC0)
+					mode += fractal->transformCommon.offsetB0 * (fractal->transformCommon.scaleE1 - rr);
+				else
+					mode += mad(fractal->transformCommon.offsetA0, (fractal->transformCommon.offsetC0 - rr),
+						fractal->transformCommon.offsetB0 * lengthAB);
+			}
+
+			if (fractal->transformCommon.functionEnabledwFalse) // Mode 3c
+			{																										// basic parabolic curve
+
+				REAL halfLen = native_divide(fractal->transformCommon.scaleE1, 2.0f);
+				REAL slope = native_divide(2.0f, fractal->transformCommon.scaleE1);
+				REAL factor = native_divide(slope, fractal->transformCommon.scaleE1);
+				REAL parab = 0.0f;
+
+				if (rr < halfLen)
+				{
+					parab = rr * rr * factor * fractal->transformCommon.scaleG1;
+					mode += mad(rr * slope, fractal->transformCommon.scaleF1, -parab);
+				}
+				else
+				{
+					REAL temp = fractal->transformCommon.scaleE1 - rr;
+					parab = temp * temp * factor * fractal->transformCommon.scaleG1;
+					mode += mad(temp * slope, fractal->transformCommon.scaleF1, -parab);
+				}
+			}
+
+			/*if (fractal->transformCommon.functionEnabledwFalse) // Mode 3d
+			{
+				mode = mad((fractal->mandelbox.foldingSphericalFixed -
+			rr), fractal->transformCommon.offset0, rr);
+				if (rr < fractal->transformCommon.minR0)
+					mode -= rr * native_divide((fractal->transformCommon.offset0
+									* (fractal->mandelbox.foldingSphericalFixed - fractal->transformCommon.minR0)),
+			fractal->transformCommon.minR0);
+			}*/
 			mode = native_recip(mode);
 			z *= mode;
 			aux->DE *= fabs(mode);

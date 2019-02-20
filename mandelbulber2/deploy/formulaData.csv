@@ -67,6 +67,7 @@ mandelbulbMulti,"Mandelbulb - Multi",analyticDEType,logarithmicDEFunction,cpixel
 mandelbulbMulti2,"Mandelbulb - Multi2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbQuat,"Mandelbulb - Quat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbVaryPowerV1,"Mandelbulb - Vary Power V1",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandeltorus,Mandeltorus,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mengerSponge,"Menger sponge",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
 mengerCrossKIFS,"Menger - Cross KIFS",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 mengerCrossMod1,"Menger - Cross Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault

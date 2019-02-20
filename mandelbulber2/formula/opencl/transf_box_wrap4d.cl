@@ -17,6 +17,12 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 {
 	REAL4 box_size = fractal->transformCommon.offset1111;
 	REAL4 wrap_mode = z;
+	REAL4 oldZ = z;
+
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+	if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 
 	if (fractal->transformCommon.functionEnabledx)
 	{
@@ -55,6 +61,20 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			wrap_mode.w = z.w - 2.0f * box_size.w * floor(native_divide(z.w, 2.0f) * box_size.w);
 		z.w = wrap_mode.w - box_size.w;
 	}
+	if (fractal->transformCommon.functionEnabledBxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		z.x = z.x * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.x) + 1.0f));
+		z.y = z.y * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.y) + 1.0f));
+		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
+		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
+		// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
+	}
+	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
+	if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
+	if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
+	if (fractal->transformCommon.functionEnabledAwFalse) z.w *= sign(oldZ.w);
 
 	aux->DE *= fractal->analyticDE.scale1;
 	return z;
