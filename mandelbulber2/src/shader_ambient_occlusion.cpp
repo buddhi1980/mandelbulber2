@@ -93,7 +93,7 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 			else
 				dist_thresh = input.distThresh;
 
-			if (dist < dist_thresh || distanceOut.maxiter || shadowTemp < 0.0)
+			if (dist < dist_thresh || shadowTemp < 0.0)
 			{
 				shadowTemp -= (end_dist - r) / end_dist;
 				if (shadowTemp < 0.0) shadowTemp = 0.0;

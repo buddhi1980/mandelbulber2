@@ -82,7 +82,7 @@ float3 AmbientOcclusion(__constant sClInConstants *consts, sRenderData *renderDa
 			else
 				dist_thresh = input->distThresh;
 
-			if (dist < dist_thresh || outF.maxiter || shadowTemp < 0.0f)
+			if (dist < dist_thresh || shadowTemp < 0.0f)
 			{
 				shadowTemp -= (end_dist - r) / end_dist;
 				if (shadowTemp < 0.0f) shadowTemp = 0.0f;
