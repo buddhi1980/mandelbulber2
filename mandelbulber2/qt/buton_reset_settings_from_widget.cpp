@@ -37,8 +37,15 @@
 #include "src/interface.hpp"
 
 cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
-		: QPushButton(_parent)
+		: QToolButton(_parent)
 {
+	QVBoxLayout *layout = new QVBoxLayout;
+	layout->setContentsMargins(3, 3, 3, 3);
+	setLayout(layout);
+	setIcon(QIcon(":system/icons/edit-undo.png"));
+	setIconSize(QSize(10, 10));
+	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
+
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalReset()));
 
 	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
@@ -69,5 +76,5 @@ void cButtonResetSettingsFromWidget::showEvent(QShowEvent *event)
 	{
 		setToolTip(tr("Reset settings only in %1").arg(parentWidget->objectName()));
 	}
-	QPushButton::showEvent(event);
+	QToolButton::showEvent(event);
 }

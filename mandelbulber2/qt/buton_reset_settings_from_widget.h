@@ -35,9 +35,9 @@
 #ifndef MANDELBULBER2_QT_BUTON_RESET_SETTINGS_FROM_WIDGET_H_
 #define MANDELBULBER2_QT_BUTON_RESET_SETTINGS_FROM_WIDGET_H_
 
-#include <QPushButton>
+#include <QToolButton>
 
-class cButtonResetSettingsFromWidget : public QPushButton
+class cButtonResetSettingsFromWidget : public QToolButton
 {
 	Q_OBJECT
 

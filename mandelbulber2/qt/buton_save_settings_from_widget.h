@@ -35,9 +35,9 @@
 #ifndef MANDELBULBER2_QT_BUTON_SAVE_SETTINGS_FROM_WIDGET_H_
 #define MANDELBULBER2_QT_BUTON_SAVE_SETTINGS_FROM_WIDGET_H_
 
-#include <QPushButton>
+#include <QToolButton>
 
-class cButtonSaveSettingsFromWidget : public QPushButton
+class cButtonSaveSettingsFromWidget : public QToolButton
 {
 	Q_OBJECT
 

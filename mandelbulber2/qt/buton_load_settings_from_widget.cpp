@@ -42,6 +42,8 @@ cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 	QVBoxLayout *layout = new QVBoxLayout;
 	layout->setContentsMargins(3, 3, 3, 3);
 	setLayout(layout);
+	setIcon(QIcon(":system/icons/document-open.svg"));
+	setIconSize(QSize(10, 10));
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
 }
 
