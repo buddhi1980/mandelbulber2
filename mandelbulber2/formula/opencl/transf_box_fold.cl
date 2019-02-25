@@ -50,8 +50,9 @@ REAL4 TransfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		else
 		{
 			colorAdd += fractal->mandelbox.color.factor.x
-									* (1.0f - native_divide((fractal->mandelbox.foldingLimit - fabs(z.x)),
-															fractal->mandelbox.foldingLimit));
+									* (1.0f
+											- native_divide((fractal->mandelbox.foldingLimit - fabs(z.x)),
+													fractal->mandelbox.foldingLimit));
 		}
 
 		if (fabs(z.y) > fractal->mandelbox.foldingLimit)
@@ -61,8 +62,9 @@ REAL4 TransfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		else
 		{
 			colorAdd += fractal->mandelbox.color.factor.y
-									* (1.0f - native_divide((fractal->mandelbox.foldingLimit - fabs(z.y)),
-															fractal->mandelbox.foldingLimit));
+									* (1.0f
+											- native_divide((fractal->mandelbox.foldingLimit - fabs(z.y)),
+													fractal->mandelbox.foldingLimit));
 		}
 
 		if (fabs(z.z) > fractal->mandelbox.foldingLimit)
@@ -72,8 +74,9 @@ REAL4 TransfBoxFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		else
 		{
 			colorAdd += fractal->mandelbox.color.factor.z
-									* (1.0f - native_divide((fractal->mandelbox.foldingLimit - fabs(z.z)),
-															fractal->mandelbox.foldingLimit));
+									* (1.0f
+											- native_divide((fractal->mandelbox.foldingLimit - fabs(z.z)),
+													fractal->mandelbox.foldingLimit));
 		}
 		aux->color += colorAdd;
 	}

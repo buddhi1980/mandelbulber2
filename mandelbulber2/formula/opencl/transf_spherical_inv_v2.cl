@@ -89,8 +89,9 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 			if (fractal->transformCommon.functionEnabledyFalse) // Mode 3a
 			{																										// linear addition 0.0f at Max,
 				if (rr < fractal->transformCommon.offsetC0)
-					mode += rr * (native_divide(
-												 fractal->transformCommon.offset0, fractal->transformCommon.offsetC0));
+					mode +=
+						rr
+						* (native_divide(fractal->transformCommon.offset0, fractal->transformCommon.offsetC0));
 				else
 					mode += (fractal->transformCommon.scaleE1 - rr)
 									* native_divide(fractal->transformCommon.offset0, lengthAB);

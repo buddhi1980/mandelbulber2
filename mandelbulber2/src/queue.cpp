@@ -737,6 +737,8 @@ void cQueue::slotQueueListUpdate(int i, int j)
 						thumbWidget->update();
 					}
 				}
+				delete tempPar;
+				delete tempFract;
 			}
 			break;
 		}

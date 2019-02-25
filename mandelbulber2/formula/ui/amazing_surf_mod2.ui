@@ -646,7 +646,7 @@
      <item row="1" column="0">
       <widget class="QGroupBox" name="groupBox_6">
        <property name="title">
-        <string>Fold Type 1, z = abs(z + fold) - abs(z - fold) - z   Tglad fold</string>
+        <string>Fold Type 1, z = abs(z + fold) - abs(z - fold) - z Tglad fold</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
@@ -1241,7 +1241,7 @@
      <item row="7" column="0">
       <widget class="QGroupBox" name="groupBox_8">
        <property name="title">
-        <string>Fold Type 3, z = fold2 - abs( abs(z + fold) - fold2) - abs(fold)    a darkbeam fold</string>
+        <string>Fold Type 3, z = fold2 - abs( abs(z + fold) - fold2) - abs(fold) a darkbeam fold</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_17">
         <item>
