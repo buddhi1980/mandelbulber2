@@ -321,7 +321,7 @@ void cOpenClHardware::ListOpenClDevices(int contextIndex)
 						devicesInformation.append(deviceInformation);
 					}
 
-					if (i == contextIndex)
+					if (int(i) == contextIndex)
 					{
 						// context n will use device n
 						clDeviceWorkers.append(cOpenClDevice(&clDevices[i][i], deviceInformation));

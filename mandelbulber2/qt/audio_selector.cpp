@@ -229,6 +229,7 @@ void cAudioSelector::slotPlaybackStart() const
 				SetStartStopButtonsPlayingStatus(QAudio::ActiveState);
 				break;
 			case QAudio::IdleState: qWarning() << "audio not loaded yet!"; break;
+			default: break;
 		}
 	}
 }

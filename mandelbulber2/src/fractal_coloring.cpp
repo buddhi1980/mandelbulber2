@@ -45,6 +45,7 @@ sFractalColoring::sFractalColoring()
 	color4dEnabledFalse = false;
 	colorPreV215False = false;
 	cosEnabledFalse = false;
+	extraColorOptionsEnabledFalse = false;
 	extraColorEnabledFalse = false;
 	globalPaletteFalse = false;
 	icFabsFalse = false;
@@ -86,6 +87,9 @@ sFractalColoring::sFractalColoring()
 	cosAdd = 0.0;
 	cosPeriod = 0.0;
 	cosStartValue = 0.0;
+	hybridAuxColorScale1 = 0.0;
+	hybridOrbitTrapScale1 = 0.0;
+	hybridRadDivDeScale1 = 0.0;
 	icRadWeight = 0.0;
 	initialColorValue = 0.0;
 	// initialMinimumR = 0.0;

@@ -101,6 +101,9 @@ struct sFractalColoring
 	double cosAdd;
 	double cosPeriod;
 	double cosStartValue;
+	double hybridAuxColorScale1;
+	double hybridOrbitTrapScale1;
+	double hybridRadDivDeScale1;
 	double icRadWeight;
 	double initialColorValue;
 	// double initialMinimumR;
@@ -112,9 +115,7 @@ struct sFractalColoring
 	double parabScale;
 	double parabStartValue;
 	double radDivDeWeight;
-	double hybridAuxColorScale1;
-	double hybridOrbitTrapScale1;
-	double hybridRadDivDeScale1;
+
 	double radWeight;
 	double roundScale;
 	double sphereRadius;
