@@ -82,7 +82,13 @@ bool cOpenClWorkerThread::checkErr(cl_int err, QString functionName)
 void cOpenClWorkerThread::ProcessRenderingLoop()
 {
 	int startTile = deviceIndex;
-	if (startTile >= scheduler->getTileSequence()->length()) return;
+	if (startTile >= scheduler->getTileSequence()->length())
+	{
+		finishedWithSuccess = true;
+		emit finished();
+		return;
+	}
+
 	scheduler->ReserveTile(startTile);
 
 	QElapsedTimer openclProcessingTime;
