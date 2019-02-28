@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>245</width>
+    <width>264</width>
     <height>931</height>
    </rect>
   </property>
@@ -14,6 +14,9 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>2</number>
+   </property>
    <property name="leftMargin">
     <number>2</number>
    </property>
@@ -31,7 +34,7 @@
      <property name="topMargin">
       <number>0</number>
      </property>
-     <property name="horizontalSpacing">
+     <property name="spacing">
       <number>2</number>
      </property>
      <item row="1" column="0">
@@ -149,7 +152,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <item>
-      <widget class="QToolButton" name="pushButton_local_load_2">
+      <widget class="cButtonLoadSettingsFromWidget" name="pushButton_local_load_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -162,7 +165,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="pushButton_local_save_2">
+      <widget class="cButtonSaveSettingsFromWidget" name="pushButton_local_save_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -175,7 +178,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="pushButton_local_reset_2">
+      <widget class="cButtonResetSettingsFromWidget" name="pushButton_local_reset_2">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -186,6 +189,19 @@
         <string>Reset</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_5">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
@@ -201,8 +217,8 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-38</y>
-        <width>219</width>
+        <y>0</y>
+        <width>238</width>
         <height>806</height>
        </rect>
       </property>
@@ -1402,6 +1418,21 @@ to target:</string>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonLoadSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_load_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonSaveSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_save_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cButtonResetSettingsFromWidget</class>
+   <extends>QPushButton</extends>
+   <header>buton_reset_settings_from_widget.h</header>
   </customwidget>
   <customwidget>
    <class>MyComboBox</class>

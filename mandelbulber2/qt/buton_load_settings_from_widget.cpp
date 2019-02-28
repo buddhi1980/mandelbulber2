@@ -40,10 +40,11 @@ cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)
 {
 	QVBoxLayout *layout = new QVBoxLayout;
-	layout->setContentsMargins(3, 3, 3, 3);
+	layout->setContentsMargins(1, 1, 1, 1);
 	setLayout(layout);
 	setIcon(QIcon(":system/icons/document-open.svg"));
-	setIconSize(QSize(10, 10));
+	setIconSize(QSize(16, 16));
+	setMaximumSize(18, 18);
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
 }
 

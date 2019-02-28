@@ -49,6 +49,19 @@
        </property>
       </widget>
      </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
    <item>
@@ -1007,11 +1020,6 @@ for 4D fractals</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -1033,18 +1041,6 @@ for 4D fractals</string>
    <header>my_line_edit.h</header>
   </customwidget>
   <customwidget>
-   <class>cMaterialSelector</class>
-   <extends>QWidget</extends>
-   <header>material_selector.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>cFormulaComboBox</class>
-   <extends>QComboBox</extends>
-   <header>formula_combo_box.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_load_settings_from_widget.h</header>
@@ -1058,6 +1054,23 @@ for 4D fractals</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>cMaterialSelector</class>
+   <extends>QWidget</extends>
+   <header>material_selector.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cFormulaComboBox</class>
+   <extends>QComboBox</extends>
+   <header>formula_combo_box.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

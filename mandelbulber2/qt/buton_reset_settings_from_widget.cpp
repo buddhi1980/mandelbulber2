@@ -40,12 +40,11 @@ cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
 		: QToolButton(_parent)
 {
 	QVBoxLayout *layout = new QVBoxLayout;
-	layout->setContentsMargins(3, 3, 3, 3);
+	layout->setContentsMargins(1, 1, 1, 1);
 	setLayout(layout);
 	setIcon(QIcon(":system/icons/edit-undo.png"));
-	setIconSize(QSize(10, 10));
-	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalLoad()));
-
+	setIconSize(QSize(16, 16));
+	setMaximumSize(18, 18);
 	connect(this, SIGNAL(clicked()), this, SLOT(slotPressedButtonLocalReset()));
 
 	QWidget *parentWidget = dynamic_cast<QWidget *>(parent());
