@@ -170,6 +170,11 @@ int main(int argc, char *argv[])
 
 	commandLineInterface.ReadCLI();
 
+#ifdef USE_OPENCL
+	gOpenCl->Reset();
+	gOpenCl->InitPlatfromAndDevices();
+#endif
+
 	if (!commandLineInterface.isNoGUI())
 	{
 		gMainInterface->ShowUi();

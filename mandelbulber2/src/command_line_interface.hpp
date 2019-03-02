@@ -112,6 +112,7 @@ private:
 	void handleEndFrame();
 	void handleVoxel();
 	void handleGpu();
+	void handleGpuAll();
 
 	struct sCliData
 	{
@@ -130,6 +131,7 @@ private:
 		bool benchmark;
 		bool touch;
 		bool gpu;
+		bool gpuAll;
 		QString startFrameText;
 		QString endFrameText;
 		QString overrideParametersText;

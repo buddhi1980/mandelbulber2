@@ -48,21 +48,6 @@ cGlobalOpenCl::cGlobalOpenCl()
 #ifdef USE_OPENCL
 	openClHardware = new cOpenClHardware();
 
-	if (gPar->Get<bool>("opencl_enabled"))
-	{
-		openClHardware->ListOpenClPlatforms();
-
-		// TODO: support dialogue box for device type
-
-		if (gPar->Get<int>("opencl_platform") >= 0)
-		{
-			openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
-				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
-
-			openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
-		}
-	}
-
 	openClEngineRenderFractal = new cOpenClEngineRenderFractal(openClHardware);
 	openClEngineRenderSSAO = new cOpenClEngineRenderSSAO(openClHardware);
 	openclEngineRenderDOF = new cOpenClEngineRenderDOF(openClHardware);
@@ -84,5 +69,23 @@ void cGlobalOpenCl::Reset()
 	openClEngineRenderFractal->Reset();
 	openClEngineRenderSSAO->Reset();
 	openclEngineRenderDOF->Reset();
+}
+
+void cGlobalOpenCl::InitPlatfromAndDevices()
+{
+	if (gPar->Get<bool>("opencl_enabled"))
+	{
+		openClHardware->ListOpenClPlatforms();
+
+		// TODO: support dialogue box for device type
+
+		if (gPar->Get<int>("opencl_platform") >= 0)
+		{
+			openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
+				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
+
+			openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+		}
+	}
 }
 #endif

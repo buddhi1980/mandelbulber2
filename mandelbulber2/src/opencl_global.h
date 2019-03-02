@@ -48,6 +48,7 @@ public:
 
 #ifdef USE_OPENCL
 	void Reset();
+	void InitPlatfromAndDevices();
 #endif
 
 	cOpenClEngineRenderFractal *openClEngineRenderFractal;
