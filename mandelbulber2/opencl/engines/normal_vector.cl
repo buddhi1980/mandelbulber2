@@ -77,8 +77,15 @@ float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, 
 #ifdef INTERIOR_MODE
 	delta = calcParam->distThresh * 0.2f * consts->params.smoothness;
 #endif
-	calcParam->distThresh = distThresh;
-	calcParam->normalCalculationMode = true;
+
+	formulaOut out;
+	out.z = (float4)(0.0f, 0.0f, 0.0f, 0.0f);
+	out.iters = 0;
+	out.distance = 0.0f;
+	out.colorIndex = 0.0f;
+	out.orbitTrapR = 0.0f;
+	out.maxiter = false;
+	out.objectId = 0;
 
 	float3 normal = 0.0f;
 	for (point2.x = -1.0f; point2.x <= 1.0f; point2.x += 0.2f) //+0.2
@@ -88,12 +95,13 @@ float3 NormalVector(__constant sClInConstants *consts, sRenderData *renderData, 
 			for (point2.z = -1.0f; point2.z <= 1.0f; point2.z += 0.2f)
 			{
 				point3 = point + point2 * delta;
-				float dist = CalculateDistance(consts, point3, calcParam, renderData).distance;
-				normal += point2 * dist;
+
+				out = Fractal(consts, point3, calcParam, calcModeNormal, NULL, -1);
+				float pseudoDistance = 1.0f + consts->params.N - out.iters;
+				normal += point2 * pseudoDistance;
 			}
 		}
 	}
-	calcParam->normalCalculationMode = false;
 	normal = normalize(normal);
 
 	if (invertMode) normal *= -1.0f;

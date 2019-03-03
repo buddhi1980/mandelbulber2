@@ -32,6 +32,7 @@
  * cRenderWorker::CalculateNormals method - calculates surface normal vectors
  */
 #include "calculate_distance.hpp"
+#include "compute_fractal.hpp"
 #include "fractparams.hpp"
 #include "render_data.hpp"
 #include "render_worker.hpp"
@@ -82,10 +83,9 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 	{
 		CVector3 point2;
 		CVector3 point3;
-		double delta = input.delta * params->smoothness * 0.5;
+		double delta = input.delta * params->smoothness;
 		if (params->interiorMode) delta = input.distThresh * 0.2 * params->smoothness;
 
-		sDistanceOut distanceOut;
 		for (point2.x = -1.0; point2.x <= 1.0; point2.x += 0.2) //+0.2
 		{
 			for (point2.y = -1.0; point2.y <= 1.0; point2.y += 0.2)
@@ -94,10 +94,14 @@ CVector3 cRenderWorker::CalculateNormals(const sShaderInputData &input) const
 				{
 					point3 = input.point + point2 * delta;
 
-					sDistanceIn distanceIn(point3, input.distThresh, true);
-					double dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
-					data->statistics.totalNumberOfIterations += distanceOut.totalIters;
-					normal += point2 * dist;
+					sFractalIn fractIn(point3, params->minN, params->N, params->common, -1, false);
+					sFractalOut fractOut;
+					fractOut.colorIndex = 0;
+
+					Compute<fractal::calcModeNormal>(*fractal, fractIn, &fractOut);
+					double pseudoDistance = 1 + params->N - fractOut.iters;
+					data->statistics.totalNumberOfIterations += fractOut.iters;
+					normal += point2 * pseudoDistance;
 				}
 			}
 		}
