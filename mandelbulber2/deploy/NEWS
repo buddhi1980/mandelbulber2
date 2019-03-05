@@ -1,6 +1,6 @@
 Version history
 
-v2.17 (February 2019)
+v2.17 (March 2019)
 - Added new fractal formulas
    josKleinianV2
    mandelbulbAtan2Power2
@@ -32,15 +32,20 @@ v2.17 (February 2019)
 - Shaders: Fixed bug causing wrong appearance of specular highlights when diffusionTextureIntensity was low and texture mapping was disabled.
 - Shaders: Fixed bug: glow was not calculated on CPU with interior mode
 - Shaders: There was missing updating input.delta in volumetric shader (CPU code) - issue #614
-= Shaders: Fixed bug #618. Max distance for SSAO was limited to 100.0
+- Shaders: Fixed bug #618. Max distance for SSAO was limited to 100.0
+- Shaders: Fixed bug in AmbientOcclusion shader (wrong appearance when maxiter reached)
+- Shaders: Corrected code for non-DE shading mode to not use distance estimationat all.
 - UI: Added displaying of last rendered tiles with noise statistics when MC is used.
 - UI: Fixed not working Reset (local reset) buttons
 - UI: Local Load/Save buttons now do not load/save animation data (caused problems with loading partial settings)
 - UI: Corrected tooltips in Load/Save/Reset buttons
 - UI: Refreshing of thumbnails can occupy not more threads than total number of CPU cores
 - UI: Reduced minimum width of navigation dock
+- UI: Substituted load/save/reset buttons with smaller icon buttons
+- UI: Fixed bug #602 - mouse dragging sometimes continued when mouse buttons were released
 - Queue: Fixed problem with locking rendering engine by updating of Queue thumbnails
 - Files: Added option to save each image channel in a separate directory
+- CLI: Added --gpuall (-G) CLI option to use all available GPU devices
     
 v2.16 (December 2018)
 - Added new fractal formulas
