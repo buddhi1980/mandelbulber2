@@ -197,6 +197,7 @@ enum enumFractalFormula
 	mandelbulbAtan2Power2 = 144,
 	bristorbrot2 = 145,
 	mandeltorus = 146,
+	amazingSurfMod3 = 147,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14

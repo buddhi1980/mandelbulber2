@@ -95,6 +95,7 @@ void AexionOctopusModIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void AmazingSurfIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void AmazingSurfMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BenesiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void BenesiPineTreeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
