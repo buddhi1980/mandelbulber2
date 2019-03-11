@@ -12146,7 +12146,7 @@ void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 
 /**
- * rotation xyz iter controls
+ * rotate angles with iteration satrt/stop controls
  */
 void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -12181,27 +12181,39 @@ void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, s
 	}
 }
 
-
 /**
  * rotation variation v1. Rotation angles vary linearly between iteration parameters.
+ * After the stop iteration, alpha = alpha + variable alpha.
  */
 void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 tempVC = CVector4(fractal->transformCommon.rotation, 0.0); // constant to be varied
-
-	if (aux.i >= fractal->transformCommon.startIterations250
+	int iterationRange =
+		fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
+	/*if (aux.i >= fractal->transformCommon.startIterations250
 			&& aux.i < fractal->transformCommon.stopIterations
-			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
-					 != 0))
+			&& iterationRange  != 0)
 	{
-		int iterationRange =
-			fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
 		int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
-		tempVC += fractal->transformCommon.offset000 * (1.0 * currentIteration) / iterationRange;
+		tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
 	}
 	if (aux.i >= fractal->transformCommon.stopIterations)
 	{
-		tempVC = (tempVC + fractal->transformCommon.offset000);
+		tempVC +=  fractal->transformCommon.offset000;
+	}*/
+
+	if (aux.i >= fractal->transformCommon.startIterations250
+				&& iterationRange  != 0)
+	{
+		if (aux.i < fractal->transformCommon.stopIterations)
+		{
+			int currentIteration = (aux.i - fractal->transformCommon.startIterations250);
+			tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
+		}
+		else
+		{
+			tempVC +=  fractal->transformCommon.offset000;
+		}
 	}
 
 	tempVC *= M_PI_180;

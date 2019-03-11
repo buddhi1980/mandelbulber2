@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotation_vary_v1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -160,6 +160,14 @@
        <number>2</number>
       </property>
       <item>
+       <widget class="QLabel" name="label_168">
+        <property name="text">
+         <string notr="true"> i.e. alpha is varied to (alpha + add_alpha)
+ over the chosen range of iterations</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <layout class="QGridLayout" name="gridLayout_45">
         <item row="0" column="2">
          <widget class="QLabel" name="label_169">
@@ -210,11 +218,11 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_44" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_44" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="2">
+        <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -242,49 +250,21 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_165">
-          <property name="text">
-           <string notr="true">beta</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+        <item row="0" column="0">
          <widget class="QLabel" name="label_167">
           <property name="text">
-           <string notr="true">alpha</string>
+           <string notr="true">add_alpha</string>
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-180.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>180.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>1.000000000000000</double>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_161">
+          <property name="text">
+           <string notr="true">add_gamma</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="2">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -312,17 +292,38 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="label_161">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_165">
           <property name="text">
-           <string notr="true">gamma</string>
+           <string notr="true">add_beta</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_166">
-          <property name="text">
-           <string>Variable:</string>
+        <item row="0" column="1">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
           </property>
          </widget>
         </item>
@@ -442,15 +443,15 @@
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
