@@ -3,8 +3,11 @@ Version history
 v2.18 (????????????? 2019)
 - Added new fractal formulas
    amazingSurfMod3
-   menger middle mod, added vary scale
+   transfRotationIterControls
 
+
+   menger middle mod, added vary scale and sphere inversion
+   trans_scale4d,  added vary scale
 
 
 

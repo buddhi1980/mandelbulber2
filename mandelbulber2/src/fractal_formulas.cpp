@@ -6805,7 +6805,24 @@ void MengerMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
  * Menger Middle Mod
  */
 void MengerMiddleModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{ // fabs() and menger fold
+{
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD1)
+	{
+		double rr = 1.0;
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.maxR2d1 / rr;
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleB1;
+		// double r = sqrt(rr);
+		aux.DE *= (fractal->transformCommon.maxR2d1 / rr) * fractal->analyticDE.scale1
+							* fractal->transformCommon.scaleB1;
+	}
+
+	// fabs() and menger fold
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
 	if (z.x - z.y < 0.0) swap(z.y, z.x);
 	if (z.x - z.z < 0.0) swap(z.z, z.x);
@@ -6909,7 +6926,6 @@ void MengerMiddleModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	{
 		z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 	}
-	//aux.DE *= fractal->transformCommon.scale3;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse) // addCpixel options
 	{
@@ -12082,16 +12098,6 @@ void TransfReciprocal3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 }
 
 /**
- * rotation
- */
-void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	Q_UNUSED(aux);
-
-	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-}
-
-/**
  * rotation folding plane
  */
 void TransfRotationFoldingPlaneIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -12126,19 +12132,55 @@ void TransfRotationFoldingPlaneIteration(CVector4 &z, const sFractal *fractal, s
 	}
 }
 
-/**
- * Rpow3 from M3D.
- * Does a power of 3 on the current length of the  vector.
- * @reference
- * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
- */
-void TransfRpow3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	double sqrRout = z.Dot(z) * fractal->transformCommon.scale;
 
-	z *= sqrRout;
-	aux.DE = aux.DE * fabs(sqrRout) + fractal->analyticDE.offset1;
+
+/**
+ * rotation
+ */
+void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 }
+
+
+/**
+ * rotation xyz iter controls
+ */
+void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+	CVector4 tp;
+	if (fractal->transformCommon.rotation44a.x != 0
+		&& aux.i >= fractal->transformCommon.startIterationsA
+		&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		tp = z;
+		double alpha = fractal->transformCommon.rotation44a.x * M_PI_180;
+		z.x = tp.x * cos(alpha) + tp.y * sin(alpha);
+		z.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+	}
+	if (fractal->transformCommon.rotation44a.y != 0
+		&& aux.i >= fractal->transformCommon.startIterationsB
+		&& aux.i < fractal->transformCommon.stopIterationsB)
+	{
+		tp = z;
+		double beta = fractal->transformCommon.rotation44a.y * M_PI_180;
+		z.y = tp.y * cos(beta) + tp.z * sin(beta);
+		z.z = tp.y * -sin(beta) + tp.z * cos(beta);
+	}
+	if (fractal->transformCommon.rotation44a.z != 0
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+	{
+		tp = z;
+		double gamma = fractal->transformCommon.rotation44a.z * M_PI_180;
+		z.x = tp.x * cos(gamma) + tp.z * sin(gamma);
+		z.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+	}
+}
+
 
 /**
  * rotation variation v1. Rotation angles vary linearly between iteration parameters.
@@ -12237,6 +12279,20 @@ void TransfRotationFoldingIteration(CVector4 &z, const sFractal *fractal, sExten
 		}
 	}
 	z = fractal->transformCommon.rotationMatrix2.RotateVector(z);
+}
+
+/**
+ * Rpow3 from M3D.
+ * Does a power of 3 on the current length of the  vector.
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfRpow3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double sqrRout = z.Dot(z) * fractal->transformCommon.scale;
+
+	z *= sqrRout;
+	aux.DE = aux.DE * fabs(sqrRout) + fractal->analyticDE.offset1;
 }
 
 /**
@@ -15279,11 +15335,35 @@ void TransfRotation4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 /**
  * scale 4D
+ * This formula contains aux.actualScaleA
  */
 void TransfScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	z *= fractal->transformCommon.scale;
-	aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	//z *= fractal->transformCommon.scale;
+	//aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+
+	double useScale = 1.0;
+	useScale = aux.actualScaleA + fractal->transformCommon.scale;
+
+	z *= useScale;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+	else // testing for log
+		aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+	if (fractal->transformCommon.functionEnabledFFalse
+			&& aux.i >= fractal->transformCommon.startIterationsY
+			&& aux.i < fractal->transformCommon.stopIterationsY)
+	{
+		// update actualScaleA for next iteration
+		double vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+		if (fractal->transformCommon.functionEnabledMFalse)
+			aux.actualScaleA = -vary;
+		else
+			aux.actualScaleA = aux.actualScaleA - vary;
+	}
 }
 
 /**

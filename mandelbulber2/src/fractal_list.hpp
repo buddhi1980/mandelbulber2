@@ -136,7 +136,7 @@ enum enumFractalFormula
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
 	mandelbulbBermarte = 94,
-	mengerMiddleMod = 95,
+	mengerMiddleMod = 95, // add vary scale v2.19
 	msltoeToroidalMulti = 96, // update DE v2.15
 	amazingSurfMulti = 97,
 	// V2.09
@@ -309,6 +309,9 @@ enum enumFractalFormula
 	// 2.17
 	transfBoxWrap4d = 1089,
 	transfSphericalInvV2 = 1090,
+	// 2.18
+	transfRotationIterControls = 1091,
+
 
 	// hybrid color trial
 	transfHybridColor = 2000,

@@ -254,6 +254,7 @@ void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfReciprocal3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRpow3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotationFoldingPlaneIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotationFoldingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

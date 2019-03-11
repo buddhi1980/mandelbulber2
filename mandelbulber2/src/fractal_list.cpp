@@ -632,6 +632,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Rotation", "transf_rotation", transfRotation,
 		TransfRotationIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Rotation Iter Controls", "transf_rotation_iter_controls",
+		transfRotationIterControls, TransfRotationIterControlsIteration, analyticDEType,
+		withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Rotation VaryV1", "transf_rotation_vary_v1",
 		transfRotationVaryV1, TransfRotationVaryV1Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
