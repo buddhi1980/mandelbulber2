@@ -50,9 +50,10 @@ class cMaterial
 {
 public:
 	cMaterial();
-	cMaterial(int _id, const cParameterContainer *materialParam, bool quiet);
+	cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet);
 	~cMaterial();
-	void setParameters(int _id, const cParameterContainer *materialParam, bool quiet);
+	void setParameters(
+		int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet);
 
 	static QString Name(const QString &name, int materialId)
 	{
@@ -131,7 +132,7 @@ public:
 	sFractalColoring fractalColoring;
 };
 
-void CreateMaterialsMap(
-	const cParameterContainer *params, QMap<int, cMaterial> *materials, bool quiet);
+void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials,
+	bool loadTextures, bool quiet);
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

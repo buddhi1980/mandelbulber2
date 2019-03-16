@@ -261,48 +261,60 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 
 	int frameNo = paramsContainer->Get<int>("frame_no");
 
-	if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
+	// don't load textures if fast or medium OpenCL mode
+	bool loadTextures = !(
+		paramsContainer->Get<bool>("opencl_enabled")
+		&& (cOpenClEngineRenderFractal::enumClRenderEngineMode(paramsContainer->Get<int>("opencl_mode"))
+					 == cOpenClEngineRenderFractal::clRenderEngineTypeFast
+				 || cOpenClEngineRenderFractal::enumClRenderEngineMode(
+							paramsContainer->Get<int>("opencl_mode"))
+							== cOpenClEngineRenderFractal::clRenderEngineTypeLimited));
+
+	if (loadTextures)
 	{
-		// get received textures from NetRender buffer
-		if (paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_background"), frameNo),
-				cTexture::doNotUseMipmaps);
+		if (gNetRender->IsClient() && renderData->configuration.UseNetRender())
+		{
+			// get received textures from NetRender buffer
+			if (paramsContainer->Get<bool>("textured_background"))
+				renderData->textures.backgroundTexture.FromQByteArray(
+					gNetRender->GetTexture(paramsContainer->Get<QString>("file_background"), frameNo),
+					cTexture::doNotUseMipmaps);
 
-		if (paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_envmap"), frameNo),
-				cTexture::doNotUseMipmaps);
+			if (paramsContainer->Get<bool>("env_mapping_enable"))
+				renderData->textures.envmapTexture.FromQByteArray(
+					gNetRender->GetTexture(paramsContainer->Get<QString>("file_envmap"), frameNo),
+					cTexture::doNotUseMipmaps);
 
-		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
-				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture.FromQByteArray(
-				gNetRender->GetTexture(paramsContainer->Get<QString>("file_lightmap"), frameNo),
-				cTexture::doNotUseMipmaps);
-	}
-	else
-	{
-		if (paramsContainer->Get<bool>("textured_background"))
-			renderData->textures.backgroundTexture =
-				cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps,
-					frameNo, config.UseIgnoreErrors());
+			if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
+					&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+				renderData->textures.lightmapTexture.FromQByteArray(
+					gNetRender->GetTexture(paramsContainer->Get<QString>("file_lightmap"), frameNo),
+					cTexture::doNotUseMipmaps);
+		}
+		else
+		{
+			if (paramsContainer->Get<bool>("textured_background"))
+				renderData->textures.backgroundTexture =
+					cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps,
+						frameNo, config.UseIgnoreErrors());
 
-		if (paramsContainer->Get<bool>("env_mapping_enable"))
-			renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
-				cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors());
+			if (paramsContainer->Get<bool>("env_mapping_enable"))
+				renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
+					cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors());
 
-		if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
-				&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
-			renderData->textures.lightmapTexture =
-				cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps, frameNo,
-					config.UseIgnoreErrors());
+			if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
+					&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
+				renderData->textures.lightmapTexture =
+					cTexture(paramsContainer->Get<QString>("file_lightmap"), cTexture::doNotUseMipmaps,
+						frameNo, config.UseIgnoreErrors());
+		}
 	}
 
 	// assign stop handler
 	renderData->stopRequest = stopRequest;
 
-	CreateMaterialsMap(
-		paramsContainer, &renderData->materials, renderData->configuration.UseIgnoreErrors());
+	CreateMaterialsMap(paramsContainer, &renderData->materials, loadTextures,
+		renderData->configuration.UseIgnoreErrors());
 
 	// preparation of lights
 	// connect signal for progress bar update

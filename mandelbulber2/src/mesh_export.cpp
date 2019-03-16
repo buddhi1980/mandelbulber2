@@ -84,7 +84,7 @@ void cMeshExport::ProcessVolume()
 	QScopedPointer<cNineFractals> fractals(new cNineFractals(gParFractal, gPar));
 	QScopedPointer<sParamRender> params(new sParamRender(gPar, &renderData->objectData));
 
-	CreateMaterialsMap(gPar, &renderData.data()->materials, true);
+	CreateMaterialsMap(gPar, &renderData.data()->materials, false, true);
 
 	renderData->ValidateObjects();
 
