@@ -275,22 +275,22 @@ void ImageFileSaveJPG::SaveImage()
 		{
 			case IMAGE_CONTENT_COLOR:
 				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(),
-					gPar->Get<int>("jpeg_quality"));
+					gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ALPHA:
 				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 				qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
 				break;
 			case IMAGE_CONTENT_NORMAL:
 				SaveJPEGQt(fullFilename, image->ConvertNormalTo8Bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_SPECULAR:
 				SaveJPEGQt(fullFilename, image->ConvertSpecularTo8Bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"));
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
 		}
@@ -829,7 +829,7 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 }
 
 bool ImageFileSaveJPG::SaveJPEGQt(
-	QString filename, unsigned char *image, int width, int height, int quality)
+	QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta)
 {
 	if (!image)
 	{
@@ -842,6 +842,12 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 	}
 
 	QImage *qImage = new QImage(width, height, QImage::Format_RGB888);
+	QMapIterator<QString, QString> i(meta);
+	while (i.hasNext())
+	{
+		i.next();
+		qImage->setText(i.key(), i.value());
+	}
 
 	for (int line = 0; line < height; line++)
 	{
@@ -865,7 +871,7 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 }
 
 bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
-	QString filename, unsigned char *image, int width, int height, int quality)
+	QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta)
 {
 
 	if (!image)
@@ -878,6 +884,12 @@ bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
 		return false;
 	}
 	QImage *qImage = new QImage(width, height, QImage::Format_Indexed8);
+	QMapIterator<QString, QString> i(meta);
+	while (i.hasNext())
+	{
+		i.next();
+		qImage->setText(i.key(), i.value());
+	}
 	QVector<QRgb> my_table;
 	for (int i = 0; i < 256; i++)
 		my_table.push_back(qRgb(i, i, i));

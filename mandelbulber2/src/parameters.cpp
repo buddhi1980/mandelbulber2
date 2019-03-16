@@ -39,6 +39,7 @@
 #include <QtAlgorithms>
 
 #include "nine_fractals.hpp"
+#include "projection_3d.hpp"
 
 //#define _PARAM_DEBUG
 
@@ -635,6 +636,30 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 	map.insert(QString("p.X"), QString::number(camera.x));
 	map.insert(QString("p.Y"), QString::number(camera.y));
 	map.insert(QString("p.Z"), QString::number(camera.z));
+
+	CVector3 rotation = Get<CVector3>("camera_rotation");
+	map.insert(QString("r.X"), QString::number(rotation.x));
+	map.insert(QString("r.Y"), QString::number(rotation.y));
+	map.insert(QString("r.Z"), QString::number(rotation.z));
+
+	map.insert(QString("fov"), QString::number(Get<double>("fov")));
+
+	QString perspectiveType = "";
+	switch(Get<int>("perspective_type")){
+		case params::perspThreePoint:
+			perspectiveType = "perspThreePoint";
+			break;
+		case params::perspFishEye:
+			perspectiveType = "perspFishEye";
+			break;
+		case params::perspEquirectangular:
+			perspectiveType = "perspEquirectangular";
+			break;
+		case params::perspFishEyeCut:
+			perspectiveType = "perspFishEyeCut";
+			break;
+	}
+	map.insert(QString("perspectiveType"), perspectiveType);
 
 	return map;
 }
