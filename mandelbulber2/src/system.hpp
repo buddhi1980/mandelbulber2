@@ -136,6 +136,7 @@ public:
 	QString GetIniFile() const;
 	QString GetRecentFilesListFile() const { return dataDirectoryHidden + "files.recent"; }
 	QString GetResolutionPresetsFile() const { return dataDirectoryHidden + "resolutionPresets.ini"; }
+	QString GetNetrenderFolder() const { return dataDirectoryHidden + "netrender"; }
 
 	QString GetImageFileNameSuggestion()
 	{

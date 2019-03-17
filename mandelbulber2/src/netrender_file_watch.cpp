@@ -37,9 +37,10 @@
 
 NetrenderFileWatch::NetrenderFileWatch(const QString &_netrenderFolder) : QObject(nullptr)
 {
-    netrenderFolderWatcher.addPath(_netrenderFolder);
-    connect(&netrenderFolderWatcher, SIGNAL(directoryChanged(const QString &)), this,
-            SLOT(netrenderFolderChanged()));
+	netrenderFolder = _netrenderFolder;
+	netrenderFolderWatcher.addPath(_netrenderFolder);
+	connect(&netrenderFolderWatcher, SIGNAL(directoryChanged(const QString &)), this,
+		SLOT(netrenderFolderChanged()));
 }
 
 NetrenderFileWatch::~NetrenderFileWatch()
@@ -48,5 +49,33 @@ NetrenderFileWatch::~NetrenderFileWatch()
 
 void NetrenderFileWatch::netrenderFolderChanged()
 {
-    // TODO
+	// get all files, which are not processing
+	QStringList netrenderFolderFiles =
+		QDir(netrenderFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
+	// make paths absolute
+	for (int i = 0; i < netrenderFolderFiles.size(); i++)
+	{
+		QString netrenderFile = netrenderFolder + QDir::separator() + netrenderFolderFiles.at(i);
+		// skip processing files
+		if (netrenderFile.endsWith(".processing")) continue;
+		// mark these files as processing
+		QFile::rename(netrenderFile, netrenderFile + ".processing");
+		// send chunked file over netrender
+		sendFileOverNetrender(netrenderFile + ".processing");
+		// delete sent file
+		QFile(netrenderFile + ".processing").remove();
+	}
+}
+
+void NetrenderFileWatch::sendFileOverNetrender(const QString &file)
+{
+	int filesize = QFile(file).size();
+	int chunks = ceil(filesize / NetrenderFileWatch::CHUNK_SIZE);
+	for (int chunk; chunk < chunks; chunk++)
+	{
+		int offset = chunk * NetrenderFileWatch::CHUNK_SIZE;
+		// TODO: something like this
+		// emit sendFileChunk(file, chunk, offset, min(filesize - offset,
+		// NetrenderFileWatch::CHUNK_SIZE));
+	}
 }

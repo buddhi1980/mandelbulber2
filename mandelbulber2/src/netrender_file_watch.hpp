@@ -41,12 +41,17 @@
 class NetrenderFileWatch : public QObject
 {
 	Q_OBJECT
+	const int CHUNK_SIZE = 1024 * 1024 * 16;
+
 public:
-        NetrenderFileWatch(const QString &_netrenderFolder);
-        ~NetrenderFileWatch() override;
+	NetrenderFileWatch(const QString &_netrenderFolder);
+	~NetrenderFileWatch() override;
+
 private:
-        QFileSystemWatcher netrenderFolderWatcher;
-        void netrenderFolderChanged();
+	QString netrenderFolder;
+	QFileSystemWatcher netrenderFolderWatcher;
+	void netrenderFolderChanged();
+	void sendFileOverNetrender(const QString &file);
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_FILE_WATCH_HPP_ */
