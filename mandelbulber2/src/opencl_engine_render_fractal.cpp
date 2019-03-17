@@ -227,6 +227,10 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			// 3D projections (3point, equirectagular, fisheye)
 			programEngine.append("#include \"" + openclEnginePath + "projection_3d.cl\"\n");
 
+			// stereoscipic rendering
+			if (params->Get<bool>("stereo_enabled"))
+				programEngine.append("#include \"" + openclEnginePath + "stereo.cl\"\n");
+
 			if (renderEngineMode != clRenderEngineTypeFast)
 			{
 				// shaders
@@ -559,6 +563,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 				break;
 			case params::mapFlat: definesCollector += " -DBACKGROUND_FLAT"; break;
 		}
+	}
+
+	if (renderData->stereo.GetMode() == cStereo::stereoRedCyan)
+	{
+		definesCollector += " -DSTEREO_REYCYAN";
 	}
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
@@ -1146,7 +1155,7 @@ QList<QPoint> cOpenClEngineRenderFractal::calculateOptimalTileSequence(
 	}
 	qSort(tiles.begin(), tiles.end(),
 		std::bind(cOpenClEngineRenderFractal::sortByCenterDistanceAsc, std::placeholders::_1,
-					std::placeholders::_2, gridWidth, gridHeight));
+			std::placeholders::_2, gridWidth, gridHeight));
 	return tiles;
 }
 

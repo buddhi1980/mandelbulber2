@@ -78,162 +78,185 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//--------- end of data file ----------------------------------
 
-	sRenderData renderData;
-	renderData.lightVector = 0;
-	renderData.viewVectorNotRotated = 0;
-	renderData.material = 0;
-	renderData.palette = 0;
-	renderData.AOVectors = 0;
-	renderData.lights = 0;
-	renderData.paletteLength = 0;
-	renderData.numberOfLights = 0;
-	renderData.AOVectorsCount = 0;
-	renderData.reflectionsMax = 0;
-	renderData.primitives = primitives;
-	renderData.numberOfPrimitives = numberOfPrimitives;
-	renderData.primitivesGlobalPosition = primitivesGlobalPosition;
+#ifdef STEREO_REYCYAN
+	float3 pixelLeftColor = 0.0f;
+	float3 pixelRightColor = 0.0f;
+	for (int eye = 0; eye < 2; eye++)
+	{
+#endif
 
-	// auxiliary vectors
-	const float3 one = (float3){1.0f, 0.0f, 0.0f};
-	const float3 ones = 1.0f;
+		sRenderData renderData;
+		renderData.lightVector = 0;
+		renderData.viewVectorNotRotated = 0;
+		renderData.material = 0;
+		renderData.palette = 0;
+		renderData.AOVectors = 0;
+		renderData.lights = 0;
+		renderData.paletteLength = 0;
+		renderData.numberOfLights = 0;
+		renderData.AOVectorsCount = 0;
+		renderData.reflectionsMax = 0;
+		renderData.primitives = primitives;
+		renderData.numberOfPrimitives = numberOfPrimitives;
+		renderData.primitivesGlobalPosition = primitivesGlobalPosition;
 
-	// main rotation matrix
-	matrix33 rot;
-	rot.m1 = (float3){1.0f, 0.0f, 0.0f};
-	rot.m2 = (float3){0.0f, 1.0f, 0.0f};
-	rot.m3 = (float3){0.0f, 0.0f, 1.0f};
+		// auxiliary vectors
+		const float3 one = (float3){1.0f, 0.0f, 0.0f};
+		const float3 ones = 1.0f;
 
-	rot = RotateZ(rot, consts->params.viewAngle.x);
-	rot = RotateX(rot, consts->params.viewAngle.y);
-	rot = RotateY(rot, consts->params.viewAngle.z);
+		// main rotation matrix
+		matrix33 rot;
+		rot.m1 = (float3){1.0f, 0.0f, 0.0f};
+		rot.m2 = (float3){0.0f, 1.0f, 0.0f};
+		rot.m3 = (float3){0.0f, 0.0f, 1.0f};
 
-	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
-	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
-	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
-		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
-	lightVector = Matrix33MulFloat3(rot, lightVector);
+		rot = RotateZ(rot, consts->params.viewAngle.x);
+		rot = RotateX(rot, consts->params.viewAngle.y);
+		rot = RotateY(rot, consts->params.viewAngle.z);
 
-	rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
-	rot = RotateX(rot, consts->params.sweetSpotVAngle);
+		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
+		lightVector = Matrix33MulFloat3(rot, lightVector);
 
-	// starting point for ray-marching
-	float3 start = consts->params.camera;
+		rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
+		rot = RotateX(rot, consts->params.sweetSpotVAngle);
+
+		// starting point for ray-marching
+		float3 start = consts->params.camera;
 
 // view vector
 #ifdef PERSP_EQUIRECTANGULAR
-	float aspectRatio = 2.0f;
+		float aspectRatio = 2.0f;
 #else
 	float aspectRatio = width / height;
 #endif
-	float2 normalizedScreenPoint;
-	normalizedScreenPoint.x = (screenPoint.x / width - 0.5f) * aspectRatio;
-	normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
-	if (consts->params.legacyCoordinateSystem) normalizedScreenPoint.y *= -1.0f;
+		float2 normalizedScreenPoint;
+		normalizedScreenPoint.x = (screenPoint.x / width - 0.5f) * aspectRatio;
+		normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
+		if (consts->params.legacyCoordinateSystem) normalizedScreenPoint.y *= -1.0f;
 
-	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
-	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
+		float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
+		float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
 
-	bool found = false;
-	int count;
+		bool found = false;
+		int count;
 
-	float3 point;
-	float scan, distThresh, distance;
+		float3 point;
+		float scan, distThresh, distance;
 
-	scan = 1e-10f;
+		scan = 1e-10f;
 
-	sClCalcParams calcParam;
-	calcParam.N = consts->params.N;
-	calcParam.normalCalculationMode = false;
-	calcParam.iterThreshMode = consts->params.iterThreshMode;
-	distThresh = 1e-6f;
+		sClCalcParams calcParam;
+		calcParam.N = consts->params.N;
+		calcParam.normalCalculationMode = false;
+		calcParam.iterThreshMode = consts->params.iterThreshMode;
+		distThresh = 1e-6f;
 
-	formulaOut outF;
-	float step = 0.0f;
+		formulaOut outF;
+		float step = 0.0f;
 
-	// ray-marching
-	for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
-	{
-		point = start + viewVector * scan;
-		distThresh = CalcDistThresh(point, consts);
-		calcParam.distThresh = distThresh;
-		calcParam.detailSize = distThresh;
-		outF = CalculateDistance(consts, point, &calcParam, &renderData);
-		distance = outF.distance;
-
-		if (distance < distThresh * 0.95f)
+		// ray-marching
+		for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 		{
-			found = true;
-			break;
-		}
-
-		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
-		scan += step / length(viewVector);
-	}
-
-	// final binary searching
-	if (found)
-	{
-		step *= 0.5f;
-		for (int i = 0; i < 5; i++)
-		{
-			if (distance < distThresh && distance > distThresh * 0.95f)
-			{
-				break;
-			}
-			else
-			{
-				if (distance > distThresh)
-				{
-					point += viewVector * step;
-				}
-				else if (distance < distThresh * 0.95f)
-				{
-					point -= viewVector * step;
-				}
-			}
+			point = start + viewVector * scan;
+			distThresh = CalcDistThresh(point, consts);
+			calcParam.distThresh = distThresh;
+			calcParam.detailSize = distThresh;
 			outF = CalculateDistance(consts, point, &calcParam, &renderData);
 			distance = outF.distance;
+
+			if (distance < distThresh * 0.95f)
+			{
+				found = true;
+				break;
+			}
+
+			step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
+			scan += step / length(viewVector);
+		}
+
+		// final binary searching
+		if (found)
+		{
 			step *= 0.5f;
+			for (int i = 0; i < 5; i++)
+			{
+				if (distance < distThresh && distance > distThresh * 0.95f)
+				{
+					break;
+				}
+				else
+				{
+					if (distance > distThresh)
+					{
+						point += viewVector * step;
+					}
+					else if (distance < distThresh * 0.95f)
+					{
+						point -= viewVector * step;
+					}
+				}
+				outF = CalculateDistance(consts, point, &calcParam, &renderData);
+				distance = outF.distance;
+				step *= 0.5f;
+			}
+		}
+		else
+		{
+			scan = 1e20f;
+		}
+
+		float3 colour = 0.7f;
+		float alpha = 0.0f;
+		float3 surfaceColour = 1.0f;
+		if (found)
+		{
+			distThresh = CalcDistThresh(point, consts);
+
+			float3 normal =
+				NormalVector(consts, &renderData, point, distance, distThresh, false, &calcParam);
+
+			float shade = dot(lightVector, normal);
+			if (shade < 0.0f) shade = 0.0f;
+
+			float3 halfVector = lightVector - viewVector;
+			halfVector = fast_normalize(halfVector);
+			float specular = dot(normal, halfVector);
+			if (specular < 0.0f) specular = 0.0f;
+			specular = pown(specular, 30.0f);
+			if (specular > 15.0f) specular = 15.0f;
+
+			colour = colour * (shade + specular);
+			alpha = 1.0f;
+		}
+		else
+		{
+			colour = (float3){0.0f, 0.0f, screenPoint.y / height};
+			alpha = 0.0f;
+		}
+
+		float glow = count / 500.0 * consts->params.DEFactor;
+
+#ifdef STEREO_REYCYAN
+		if (eye == 0)
+		{
+			pixelLeftColor.s0 = colour.s2 + glow;
+			pixelLeftColor.s1 = colour.s2 + glow;
+			pixelLeftColor.s2 = colour.s2;
+		}
+		else
+		{
+			pixelLeftColor.s0 = colour.s2 + glow;
+			pixelLeftColor.s1 = colour.s2 + glow;
+			pixelLeftColor.s2 = colour.s2 + glow;
 		}
 	}
-	else
-	{
-		scan = 1e20f;
-	}
 
-	float3 colour = 0.7f;
-	float alpha = 0.0f;
-	float3 surfaceColour = 1.0f;
-	if (found)
-	{
-		distThresh = CalcDistThresh(point, consts);
-
-		float3 normal =
-			NormalVector(consts, &renderData, point, distance, distThresh, false, &calcParam);
-
-		float shade = dot(lightVector, normal);
-		if (shade < 0.0f) shade = 0.0f;
-
-		float3 halfVector = lightVector - viewVector;
-		halfVector = fast_normalize(halfVector);
-		float specular = dot(normal, halfVector);
-		if (specular < 0.0f) specular = 0.0f;
-		specular = pown(specular, 30.0f);
-		if (specular > 15.0f) specular = 15.0f;
-
-		colour = colour * (shade + specular);
-		alpha = 1.0f;
-	}
-	else
-	{
-		colour = (float3){0.0f, 0.0f, screenPoint.y / height};
-		alpha = 0.0f;
-	}
+#else // no STEREO_REYCYAN
 
 	sClPixel pixel;
-
-	float glow = count / 500.0 * consts->params.DEFactor;
-
 	pixel.R = colour.s0 + glow;
 	pixel.G = colour.s1 * glow * 10.0f;
 	pixel.B = colour.s2;
@@ -245,4 +268,5 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.alpha = alpha * 65535;
 
 	out[buffIndex] = pixel;
+#endif
 }
