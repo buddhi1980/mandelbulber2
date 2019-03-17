@@ -275,6 +275,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemData.GetSlicesFolder());
 	result &= CreateFolder(systemData.GetMaterialsFolder());
 	result &= CreateFolder(systemData.GetAnimationFolder());
+	result &= CreateFolder(systemData.GetNetrenderFolder());
 
 	RetrieveToolbarPresets(false);
 	RetrieveExampleMaterials(false);

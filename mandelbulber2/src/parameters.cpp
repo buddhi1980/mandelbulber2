@@ -39,6 +39,7 @@
 #include <QtAlgorithms>
 
 #include "nine_fractals.hpp"
+#include "projection_3d.hpp"
 
 //#define _PARAM_DEBUG
 
@@ -632,9 +633,41 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 {
 	QMap<QString, QString> map;
 	CVector3 camera = Get<CVector3>("camera");
-	map.insert(QString("p.X"), QString::number(camera.x));
-	map.insert(QString("p.Y"), QString::number(camera.y));
-	map.insert(QString("p.Z"), QString::number(camera.z));
+	map.insert(QString("camera.x"), QString::number(camera.x));
+	map.insert(QString("camera.y"), QString::number(camera.y));
+	map.insert(QString("camera.z"), QString::number(camera.z));
+
+	CVector3 target = Get<CVector3>("target");
+	map.insert(QString("target.x"), QString::number(target.x));
+	map.insert(QString("target.y"), QString::number(target.y));
+	map.insert(QString("target.z"), QString::number(target.z));
+
+	CVector3 rotation = Get<CVector3>("camera_rotation");
+	map.insert(QString("camera_rotation.x"), QString::number(rotation.x));
+	map.insert(QString("camera_rotation.y"), QString::number(rotation.y));
+	map.insert(QString("camera_rotation.z"), QString::number(rotation.z));
+
+	map.insert(QString("fov"), QString::number(Get<double>("fov")));
+
+	QString perspectiveType = "";
+	switch(Get<int>("perspective_type")){
+		case params::perspThreePoint:
+			perspectiveType = "persp_three_point";
+			break;
+		case params::perspFishEye:
+			perspectiveType = "persp_fish_eye";
+			break;
+		case params::perspEquirectangular:
+			perspectiveType = "persp_equirectangular";
+			break;
+		case params::perspFishEyeCut:
+			perspectiveType = "persp_fish_eye_cut";
+			break;
+	}
+	map.insert(QString("perspective_type"), perspectiveType);
+	map.insert(QString("stereo_enabled"), Get<bool>("stereo_enabled") ? "yes" : "no");
+	map.insert(QString("stereo_eye_distance"), QString::number(Get<double>("stereo_eye_distance")));
+	map.insert(QString("stereo_infinite_correction"), QString::number(Get<double>("stereo_infinite_correction")));
 
 	return map;
 }
