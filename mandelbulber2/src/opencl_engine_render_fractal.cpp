@@ -566,9 +566,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	}
 
 	if (renderData->stereo.GetMode() == cStereo::stereoRedCyan)
-	{
 		definesCollector += " -DSTEREO_REYCYAN";
-	}
+
+	if (renderData->stereo.GetMode() != cStereo::stereoDisabled)
+		definesCollector += " -DSTEREOSCOPIC";
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 

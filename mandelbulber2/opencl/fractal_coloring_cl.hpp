@@ -58,7 +58,8 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum {
+typedef enum
+{
 	fractalColoringCl_None = -1,
 	fractalColoringCl_Standard = 0,
 	fractalColoringCl_ZDotPoint = 1,
@@ -117,6 +118,9 @@ typedef struct
 	cl_float cosAdd;
 	cl_float cosPeriod;
 	cl_float cosStartValue;
+	cl_float hybridAuxColorScale1;
+	cl_float hybridOrbitTrapScale1;
+	cl_float hybridRadDivDeScale1;
 	cl_float icRadWeight;
 	cl_float initialColorValue;
 	// cl_float initialMinimumR;
@@ -128,9 +132,7 @@ typedef struct
 	cl_float parabScale;
 	cl_float parabStartValue;
 	cl_float radDivDeWeight;
-	cl_float hybridAuxColorScale1;
-	cl_float hybridOrbitTrapScale1;
-	cl_float hybridRadDivDeScale1;
+
 	cl_float radWeight;
 	cl_float roundScale;
 	cl_float sphereRadius;
@@ -186,6 +188,9 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.cosAdd = source.cosAdd;
 	target.cosPeriod = source.cosPeriod;
 	target.cosStartValue = source.cosStartValue;
+	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
+	target.hybridOrbitTrapScale1 = source.hybridOrbitTrapScale1;
+	target.hybridRadDivDeScale1 = source.hybridRadDivDeScale1;
 	target.icRadWeight = source.icRadWeight;
 	target.initialColorValue = source.initialColorValue;
 	target.iterAddScale = source.iterAddScale;
@@ -196,9 +201,6 @@ inline sFractalColoringCl clCopySFractalColoringCl(const sFractalColoring &sourc
 	target.parabScale = source.parabScale;
 	target.parabStartValue = source.parabStartValue;
 	target.radDivDeWeight = source.radDivDeWeight;
-	target.hybridAuxColorScale1 = source.hybridAuxColorScale1;
-	target.hybridOrbitTrapScale1 = source.hybridOrbitTrapScale1;
-	target.hybridRadDivDeScale1 = source.hybridRadDivDeScale1;
 	target.radWeight = source.radWeight;
 	target.roundScale = source.roundScale;
 	target.sphereRadius = source.sphereRadius;

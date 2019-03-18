@@ -58,9 +58,15 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
-typedef enum { mapEquirectangular = 0, mapDoubleHemisphere = 1, mapFlat = 2 } enumTextureMapTypeCl;
+typedef enum
+{
+	mapEquirectangular = 0,
+	mapDoubleHemisphere = 1,
+	mapFlat = 2
+} enumTextureMapTypeCl;
 
-typedef enum {
+typedef enum
+{
 	booleanOperatorAND = 0,
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
@@ -127,6 +133,7 @@ typedef struct
 	cl_int shadow;			// enable shadows
 	cl_int slowShading; // enable fake gradient calculation for shading
 	cl_int SSAO_random_mode;
+	cl_int stereoSwapEyes;
 	cl_int texturedBackground; // enable textured background
 	cl_int useDefaultBailout;
 	cl_int volumetricLightEnabled[5];
@@ -302,6 +309,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.shadow = source.shadow;
 	target.slowShading = source.slowShading;
 	target.SSAO_random_mode = source.SSAO_random_mode;
+	target.stereoSwapEyes = source.stereoSwapEyes;
 	target.texturedBackground = source.texturedBackground;
 	target.useDefaultBailout = source.useDefaultBailout;
 	for (int i = 0; i < 5; i++)

@@ -61,7 +61,7 @@ enum enumBooleanOperator
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
 };
-}
+} // namespace params
 
 struct sParamRender
 {
@@ -125,6 +125,7 @@ struct sParamRender
 	bool shadow;			// enable shadows
 	bool slowShading; // enable fake gradient calculation for shading
 	bool SSAO_random_mode;
+	bool stereoSwapEyes;
 	bool texturedBackground; // enable textured background
 	bool useDefaultBailout;
 	bool volumetricLightEnabled[5];

@@ -33,7 +33,7 @@
  */
 
 // defined to force recompilation of kernels on NVidia cards with new releases
-#define MANDELBULBER_VERSION 2.17 - dev003
+#define MANDELBULBER_VERSION 2.18 - dev001
 
 int GetInteger(int byte, __global char *array)
 {
@@ -139,6 +139,17 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 		float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
 		float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
+
+#ifdef STEREOSCOPIC
+#ifdef PERSP_THREE_POINT
+		start = StereoCalcEyePosition(start, viewVector, consts->params.topVector,
+			consts->params.stereoEyeDistance, eye, consts->params.stereoSwapEyes);
+
+		matrix33 rotInv = TransposeMatrix(rot);
+		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection, &rot, &rotInv, eye,
+			consts->params.stereoSwapEyes, &viewVector);
+#endif
+#endif
 
 		bool found = false;
 		int count;
@@ -248,11 +259,24 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		}
 		else
 		{
-			pixelLeftColor.s0 = colour.s2 + glow;
-			pixelLeftColor.s1 = colour.s2 + glow;
-			pixelLeftColor.s2 = colour.s2 + glow;
+			pixelRightColor.s0 = colour.s2 + glow;
+			pixelRightColor.s1 = colour.s2 + glow;
+			pixelRightColor.s2 = colour.s2 + glow;
+
+			sClPixel pixel;
+			pixel.R = pixelRightColor.s0;
+			pixel.G = pixelLeftColor.s1;
+			pixel.B = pixelLeftColor.s2;
+			pixel.zBuffer = scan;
+			pixel.colR = 128;
+			pixel.colG = 128;
+			pixel.colB = 128;
+			pixel.opacity = 0;
+			pixel.alpha = alpha * 65535;
+
+			out[buffIndex] = pixel;
 		}
-	}
+	} // next exe
 
 #else // no STEREO_REYCYAN
 

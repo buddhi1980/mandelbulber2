@@ -25,7 +25,7 @@ void StereoViewVectorCorrection(float correction, const matrix33 *mRot, const ma
 
 	viewVectorTemp = Matrix33MulFloat3(*mRotInv, viewVectorTemp);
 	float rxz2 = viewVectorTemp.x * viewVectorTemp.x + viewVectorTemp.z * viewVectorTemp.z;
-	float3 viewVectorCorrection;
+	float3 viewVectorCorrection = 0.0f;
 	if (rxz2 < 1.0f)
 	{
 		viewVectorCorrection.x = correction / 10.0f * sqrt(1.0f - rxz2);
@@ -52,7 +52,7 @@ void StereoViewVectorCorrection(float correction, const matrix33 *mRot, const ma
 	if (eye == 0)
 	{
 		viewVectorTemp = RotateAroundVectorByAngle(
-			viewVectorTemp, (float){0.0f, 0.0f, 1.0f}, correction / 10.0f / M_PI);
+			viewVectorTemp, (float3){0.0f, 0.0f, 1.0f}, correction / 10.0f / M_PI);
 		viewVectorTemp = Matrix33MulFloat3(*mRot, viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}
