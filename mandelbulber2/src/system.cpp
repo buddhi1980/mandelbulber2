@@ -729,11 +729,11 @@ QString sSystem::GetIniFile() const
 			{
 				tempFileName = QString("mandelbulber_%1.ini").arg(ver);
 			}
-
 			if (QFile::exists(dataDirectoryHidden + tempFileName))
 			{
 				fcopy(dataDirectoryHidden + tempFileName, fullIniFileName);
 				WriteLogString("Found older settings file", dataDirectoryHidden + tempFileName, 1);
+				break;
 			}
 		}
 	}
