@@ -565,11 +565,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		}
 	}
 
-	if (renderData->stereo.GetMode() == cStereo::stereoRedCyan)
-		definesCollector += " -DSTEREO_REYCYAN";
-
 	if (renderData->stereo.GetMode() != cStereo::stereoDisabled)
 		definesCollector += " -DSTEREOSCOPIC";
+	if (renderData->stereo.GetMode() == cStereo::stereoRedCyan)
+		definesCollector += " -DSTEREO_REYCYAN";
+	if (renderData->stereo.GetMode() == cStereo::stereoLeftRight)
+		definesCollector += " -DSTEREO_LEFTRIGHT";
+	if (renderData->stereo.GetMode() == cStereo::stereoTopBottom)
+		definesCollector += " -DSTEREO_TOPBOTTOM";
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
