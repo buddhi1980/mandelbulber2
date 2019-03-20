@@ -37,7 +37,21 @@
 
 #define MANDELBULBER_VERSION 2.18
 #define MANDELBULBER_VERSION_STRING "2.18-dev"
-#define TO_STRING(a) #a
+
+#define DO_QUOTE(X) #X
+#define QUOTE(X) DO_QUOTE(X)
+
+#ifndef SHARED_DIR
+#ifdef CUSTOM_PREFIX
+#define SHARED_DIR QUOTE(CUSTOM_PREFIX) "/share/mandelbulber2"
+#endif
+#endif
+
+#ifndef SHARED_DOC_DIR
+#ifdef CUSTOM_PREFIX
+#define SHARED_DOC_DIR QUOTE(CUSTOM_PREFIX) "/share/doc/mandelbulber2"
+#endif
+#endif
 
 #ifdef _WIN32 /* WINDOWS */
 // #include <windows.h>
