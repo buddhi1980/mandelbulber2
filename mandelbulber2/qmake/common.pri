@@ -150,6 +150,7 @@ unix {
 	documentation.files = $$ROOT/deploy/doc/Mandelbulber_Manual.pdf
 	documentation.files += $$ROOT/deploy/README
 	documentation.files += $$ROOT/deploy/NEWS
+	documentation.files += $$ROOT/deploy/COPYING
 	documentation.path = $$PREFIX/share/doc/mandelbulber2
 	INSTALLS += documentation
 	
