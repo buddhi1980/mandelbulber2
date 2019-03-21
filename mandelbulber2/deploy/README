@@ -34,9 +34,10 @@ LICENCE:         GNU GPL v3.0
 - very fast CPU (recommended 3GHz, 4 cores)
 - 2GB RAM
 
-4. COMPILING
-------------
+4. COMPILING stable version
+---------------------------
 
+4.1. Compilation with qmake
 packages needed to RUN
     libqt5gui5 libpng16-16, libgsl2 liblzo2-2 libgomp1 libqt5multimedia5
     libqt5multimedia5-plugins libsndfile1 liblzo2-2
@@ -58,7 +59,7 @@ qmake mandelbulber.pro
 make all
 cd ..
 
-4.1. Alternative compilation with cmake
+4.2. Alternative compilation with cmake
 
 note: compilation with cmake is only beta and not feature complete
 
@@ -66,13 +67,13 @@ In order to compile OpenEXR with cmake the ECM should be present
 to install on Debian / Ubuntu:
 sudo apt-get install extra-cmake-modules
 
-4.2 Optional packages
+4.3. Optional packages
 
 TIFF:     install libtiff5-dev to have TIFF format support
 EXR:      install libopenexr-dev to have EXR format support
 QGAMEPAD: for gamepad support qt is required in version 5.7 and above
 
-4.2.2 OpenCL
+4.3.2 OpenCL
 
 Mandelbulber can utilize OpenCL to accelerate rendering.
 To compile Mandelbulber with OpenCL support, the headers need to be present.
@@ -87,14 +88,66 @@ qmake mandelbulber-opencl.pro
 make all
 cd ..
 
-For more information, please study the handbook (see chapter Usage).
-
-5. INSTALLATION
----------------
+4.4 Instalation
 
 Run the install script:
 ./install
-(This will also run the compilation)
+(This will also run the compilation if program was not compiled)
+
+5. COMPILING develomnent version
+--------------------------------
+
+Get actual code from GitHub:
+git clone https://github.com/buddhi1980/mandelbulber2.git
+
+Install all needed packages to compile the program listed in section 4.1 and 4.3
+
+5.1 Compile the program and install to /usr (/usr/bin, /usr/share...)
+
+Compiling from source:
+cd mandelbulber2/mandelbulber2/qmake
+qmake mandelbulber.pro (or qmake mandelbulber-opencl.pro for OpenCL version)
+make -j4
+
+installation in the system:
+sudo make install
+
+run:
+mandelbulber2
+
+5.2 Compile and install the program to custom location (example for /usr/local)
+
+Compiling from source. SHARED_PATH specifies wher the program will look for
+data files. PREFIX specifies where the program will be installed.
+qmake SHARED_PATH="/usr/local" PREFIX=/usr/local mandelbulber-opencl.pro
+make -j4
+
+installation in specified directory:
+sudo make install
+
+run:
+/usr/local/bin/mandelbulber2
+
+5.3 Compile and install the program as a standalone version (without 
+instalation in the system)
+
+Create directory for the program:
+mkdir mandelbulberStandalone
+
+Compiling from source:
+qmake SHARED_PATH="." PREFIX=mandelbulberStandalone mandelbulber-opencl.pro
+make -j4
+
+Collecting of program files in specified directory (nothing will be installed 
+in the system directories):
+make install
+
+to run:
+cd mandelbulberStandalone
+bin/mandelbulber2
+
+The program (content of mandelbulberStandalone directory) can be moved to 
+any other location.
 
 6. TESTED ON
 ------------
