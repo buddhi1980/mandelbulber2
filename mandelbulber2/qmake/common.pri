@@ -159,7 +159,7 @@ unix {
 	INSTALLS += desktopfile
 	
 	iconfile.files = $$ROOT/deploy/share/mandelbulber2/icons/mandelbulber.png
-	iconfile.path = $$PREFIX/share/icons/hicolor/256x256/apps/mandelbulber2.png
+	iconfile.path = $$PREFIX/share/icons/hicolor/256x256/apps
 	INSTALLS += iconfile
 }
 
