@@ -26,6 +26,7 @@ install:
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1 liblzo2-2 liblzo2-dev
       && sudo apt-get install -y libtiff5
       && sudo apt-get install -y libsndfile1-dev tree
+      && sudo apt-get install opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev
       && sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 100
       && sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 100
       && sudo update-alternatives --set g++ /usr/bin/g++-6
@@ -61,7 +62,7 @@ script:
   - mkdir mandelbulber2/build
   - cd mandelbulber2/build
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         qmake ../qmake/mandelbulber.pro
+         qmake ../qmake/mandelbulber-opencl.pro
       ;
     else
          qmake -spec macx-xcode ../qmake/mandelbulber.pro
