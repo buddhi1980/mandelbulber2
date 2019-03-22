@@ -117,9 +117,8 @@ mandelbulber2
 
 5.2 Compile and install the program to custom location (example for /usr/local)
 
-Compiling from source. SHARED_PATH specifies wher the program will look for
-data files. PREFIX specifies where the program will be installed.
-qmake SHARED_PATH="/usr/local" PREFIX=/usr/local mandelbulber-opencl.pro
+Compiling from source. PREFIX specifies where the program will be installed.
+qmake PREFIX=/usr/local mandelbulber-opencl.pro
 make -j4
 
 installation in specified directory:
@@ -128,26 +127,18 @@ sudo make install
 run:
 /usr/local/bin/mandelbulber2
 
-5.3 Compile and install the program as a standalone version (without 
-instalation in the system)
+5.3 Compile and install the program to custom location and specyfy custom program 
+data directory. SHARED_PATH specifies wher the program will look for data files.
 
 Create directory for the program:
 mkdir mandelbulberStandalone
 
-Compiling from source:
-qmake SHARED_PATH="." PREFIX=mandelbulberStandalone mandelbulber-opencl.pro
+Compiling from source (example):
+qmake SHARED_PATH="/tmp/customDataDirectory" PREFIX=/tmp/mandelbulber mandelbulber-opencl.pro
 make -j4
 
-Collecting of program files in specified directory (nothing will be installed 
-in the system directories):
+installation in specified directory:
 make install
-
-to run:
-cd mandelbulberStandalone
-bin/mandelbulber2
-
-The program (content of mandelbulberStandalone directory) can be moved to 
-any other location.
 
 6. TESTED ON
 ------------

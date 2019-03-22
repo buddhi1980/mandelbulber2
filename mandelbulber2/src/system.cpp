@@ -101,7 +101,7 @@ bool InitSystem()
 	systemData.docDir =
 		QDir::toNativeSeparators(sharePath + QDir::separator() + "doc" + QDir::separator());
 #else //_WIN32
-// if SHARED_DIR is not defined under Linux the use path relative to main executable directory
+// if SHARED_DIR is not defined under Linux then use path relative to main executable directory
 #ifndef SHARED_DIR
 	QDir shareDir(QCoreApplication::applicationDirPath());
 	bool success = false;
