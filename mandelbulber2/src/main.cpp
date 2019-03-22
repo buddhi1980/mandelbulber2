@@ -58,17 +58,16 @@
 
 int main(int argc, char *argv[])
 {
+	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
+	gCoreApplication->setOrganizationName("Mandelbulber");
+	gCoreApplication->setApplicationName("Mandelbulber");
+	gCoreApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
+
 	// Initialization of system functions
 	InitSystem();
 
 	// configure debug output
 	qInstallMessageHandler(myMessageOutput);
-
-	WriteLog("Prepare QApplication", 2);
-	QCoreApplication *gCoreApplication = new QCoreApplication(argc, argv);
-	gCoreApplication->setOrganizationName("Mandelbulber");
-	gCoreApplication->setApplicationName("Mandelbulber");
-	gCoreApplication->setApplicationVersion(MANDELBULBER_VERSION_STRING);
 
 	UpdateLanguage(gCoreApplication);
 
