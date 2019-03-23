@@ -74,6 +74,7 @@ bool InitSystem()
 	QLocale::setDefault(systemData.locale);
 
 	QTextStream out(stdout);
+	QTextStream outErr(stderr);
 
 	systemData.globalTimer.start();
 
@@ -99,10 +100,81 @@ bool InitSystem()
 	systemData.sharedDir = QDir::toNativeSeparators(sharePath + QDir::separator());
 	systemData.docDir =
 		QDir::toNativeSeparators(sharePath + QDir::separator() + "doc" + QDir::separator());
-#else
+#else //_WIN32
+// if SHARED_DIR is not defined under Linux then use path relative to main executable directory
+#ifndef SHARED_DIR
+	QDir shareDir(QCoreApplication::applicationDirPath());
+	bool success = false;
+	if (shareDir.cdUp())
+	{
+		if (shareDir.cd("share"))
+		{
+			QDir shareMandelbulber = shareDir;
+			if (shareMandelbulber.cd("mandelbulber2"))
+			{
+				systemData.sharedDir =
+					QDir::cleanPath(shareMandelbulber.absolutePath()) + QDir::separator();
+				success = true;
+			}
+			else
+			{
+				outErr << "Error! There is no 'mandelbulber2' directory in "
+							 << shareMandelbulber.absolutePath() << endl;
+			}
+
+			QDir shareDocMandelbulber = shareDir;
+			if (shareDocMandelbulber.cd("doc/mandelbulber2"))
+			{
+				systemData.docDir =
+					QDir::cleanPath(shareDocMandelbulber.absolutePath()) + QDir::separator();
+			}
+			else
+			{
+				outErr << "Error! There is no 'doc/mandelbulber2' directory in "
+							 << shareDocMandelbulber.absolutePath() << endl;
+			}
+		}
+		else
+		{
+			outErr << "Error! There is no 'share' directory in " << shareDir.absolutePath() << endl;
+		}
+	}
+	else
+	{
+		outErr << "Error: " << QCoreApplication::applicationDirPath() << " has no parent directory!"
+					 << endl;
+	}
+
+	// try to use default share dir
+	if (!success)
+	{
+		outErr << "Trying to use /usr/share/mandelbulber2 as program data directory" << endl;
+		if (shareDir.cd("/usr/share/mandelbulber2"))
+		{
+			systemData.sharedDir = QDir::cleanPath(shareDir.absolutePath()) + QDir::separator();
+		}
+		else
+		{
+			outErr << "Error! Directory " << QCoreApplication::applicationDirPath() << "doesn't exist!"
+						 << endl;
+		}
+
+		if (shareDir.cd("/usr/share/doc/mandelbulber2"))
+		{
+			systemData.docDir = QDir::cleanPath(shareDir.absolutePath() + QDir::separator());
+		}
+		else
+		{
+			outErr << "Error! Directory " << QCoreApplication::applicationDirPath() << "doesn't exist!"
+						 << endl;
+		}
+	}
+
+#else	// SHARED_DIR
 	systemData.sharedDir = QDir::toNativeSeparators(QString(SHARED_DIR) + QDir::separator());
 	systemData.docDir = QDir::toNativeSeparators(QString(SHARED_DOC_DIR) + QDir::separator());
-#endif
+#endif // else SHARED_DIR
+#endif // else _WIN32
 
 // logfile
 #ifdef _WIN32 /* WINDOWS */
@@ -137,6 +209,7 @@ bool InitSystem()
 	systemData.SetDataDirectoryPublic(
 		QDir::toNativeSeparators(systemData.homeDir + "mandelbulber" + QDir::separator()));
 #endif
+	out << "Program data files directory " << systemData.sharedDir << endl;
 	out << "Default data hidden directory: " << systemData.GetDataDirectoryHidden() << endl;
 	WriteLogString("Default data hidden directory", systemData.GetDataDirectoryHidden(), 1);
 	out << "Default data public directory: " << systemData.GetDataDirectoryPublic() << endl;
