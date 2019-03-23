@@ -88,6 +88,25 @@ script:
       ;
     fi
 
+# AppImage building and uploading
+  - |
+    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+      cd ../../build
+      make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
+      cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true # https://github.com/buddhi1980/mandelbulber2/issues/453#issuecomment-475412753
+      wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+      chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+      unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
+      ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
+      wget -c https://github.com/probonopd/uploadtool/raw/master/upload.sh
+      bash upload.sh Mandelbulber*.AppImage*
+    fi
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
+
 notifications:
   email:
     - buddhi1980@gmail.com
