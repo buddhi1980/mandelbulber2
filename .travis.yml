@@ -90,7 +90,7 @@ script:
 
 # AppImage building and uploading
   - |
-    if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+    if [ "${TRAVIS_OS_NAME}" = "linux" ] && [ "${TRAVIS_EVENT_TYPE}" = "cron" ]; then
       cd ../../build
       make INSTALL_ROOT=appdir -j$(nproc) install ; find appdir/
       cp appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber.png appdir/usr/share/icons/hicolor/256x256/apps/mandelbulber2.png || true # https://github.com/buddhi1980/mandelbulber2/issues/453#issuecomment-475412753
