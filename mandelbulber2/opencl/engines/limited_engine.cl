@@ -127,235 +127,300 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//--------- end of data file ----------------------------------
 
-	// auxiliary vectors
-	const float3 one = (float3){1.0f, 0.0f, 0.0f};
-	const float3 ones = 1.0f;
+	sClPixel pixel;
 
-	// main rotation matrix
-	matrix33 rot;
-	rot.m1 = (float3){1.0f, 0.0f, 0.0f};
-	rot.m2 = (float3){0.0f, 1.0f, 0.0f};
-	rot.m3 = (float3){0.0f, 0.0f, 1.0f};
+#ifdef STEREO_REYCYAN
+	float3 pixelLeftColor = 0.0f;
+	float3 pixelRightColor = 0.0f;
+	for (int eye = 0; eye < 2; eye++)
+	{
+#endif
 
-	rot = RotateZ(rot, consts->params.viewAngle.x);
-	rot = RotateX(rot, consts->params.viewAngle.y);
-	rot = RotateY(rot, consts->params.viewAngle.z);
+		// auxiliary vectors
+		const float3 one = (float3){1.0f, 0.0f, 0.0f};
+		const float3 ones = 1.0f;
 
-	// main light vector
-	float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
-	float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
-	float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
-		sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
+		// main rotation matrix
+		matrix33 rot;
+		rot.m1 = (float3){1.0f, 0.0f, 0.0f};
+		rot.m2 = (float3){0.0f, 1.0f, 0.0f};
+		rot.m3 = (float3){0.0f, 0.0f, 1.0f};
 
-	if (consts->params.mainLightPositionAsRelative) lightVector = Matrix33MulFloat3(rot, lightVector);
+		rot = RotateZ(rot, consts->params.viewAngle.x);
+		rot = RotateX(rot, consts->params.viewAngle.y);
+		rot = RotateY(rot, consts->params.viewAngle.z);
 
-	// sweet spot rotation
-	rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
-	rot = RotateX(rot, consts->params.sweetSpotVAngle);
+		// main light vector
+		float lightAlpha = consts->params.mainLightAlpha / 180.0f * M_PI_F;
+		float lightBeta = consts->params.mainLightBeta / 180.0f * M_PI_F;
+		float3 lightVector = (float3){cos(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta),
+			sin(lightAlpha - 0.5f * M_PI_F) * cos(lightBeta), sin(lightBeta)};
 
-	matrix33 rotInv = TransposeMatrix(rot);
+		if (consts->params.mainLightPositionAsRelative)
+			lightVector = Matrix33MulFloat3(rot, lightVector);
 
-	// starting point for ray-marching
-	float3 start = consts->params.camera;
+		// sweet spot rotation
+		rot = RotateZ(rot, -consts->params.sweetSpotHAngle);
+		rot = RotateX(rot, consts->params.sweetSpotVAngle);
+
+		matrix33 rotInv = TransposeMatrix(rot);
+
+		// starting point for ray-marching
+		float3 start = consts->params.camera;
 
 // view vector
 #ifdef PERSP_EQUIRECTANGULAR
-	float aspectRatio = 2.0f;
+		float aspectRatio = 2.0f;
 #else
 	float aspectRatio = width / height;
 #endif
-	float2 normalizedScreenPoint;
-	normalizedScreenPoint.x = (screenPoint.x / width - 0.5f) * aspectRatio;
-	normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
-	if (consts->params.legacyCoordinateSystem) normalizedScreenPoint.y *= -1.0f;
+
+#ifdef STEREOSCOPIC
+#ifndef STEREO_REYCYAN
+		aspectRatio = StereoModifyAspectRatio(aspectRatio);
+#endif
+#endif
+
+		float2 normalizedScreenPoint;
+		normalizedScreenPoint.x = (screenPoint.x / width - 0.5f);
+		normalizedScreenPoint.y = -(screenPoint.y / height - 0.5f);
+		if (consts->params.legacyCoordinateSystem) normalizedScreenPoint.y *= -1.0f;
+
+#ifdef STEREOSCOPIC
+#ifndef STEREO_REYCYAN
+		int eye = StereoWhichEye(normalizedScreenPoint);
+		normalizedScreenPoint = StereoModifyImagePoint(normalizedScreenPoint);
+#endif
+#endif
+
+		normalizedScreenPoint.x *= aspectRatio;
 
 #ifdef MONTE_CARLO_ANTI_ALIASING
-	normalizedScreenPoint.x += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
-	normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
+		normalizedScreenPoint.x +=
+			(Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / width * aspectRatio;
+		normalizedScreenPoint.y += (Random(1000.0f, &randomSeed) / 1000.0f - 0.5f) / height;
 #endif
 
-	float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
-	float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
+		float3 viewVectorNotRotated = CalculateViewVector(normalizedScreenPoint, consts->params.fov);
+		float3 viewVector = Matrix33MulFloat3(rot, viewVectorNotRotated);
 
 #ifdef MONTE_CARLO_DOF
-	MonteCarloDOF(&start, &viewVector, consts, rot, &randomSeed);
+		MonteCarloDOF(&start, &viewVector, consts, rot, &randomSeed);
 #endif
 
+#ifdef STEREOSCOPIC
+#ifndef PERSP_FISH_EYE_CUT
+		start = StereoCalcEyePosition(start, viewVector, consts->params.topVector,
+			consts->params.stereoEyeDistance, eye, consts->params.stereoSwapEyes);
+
+		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection, &rot, &rotInv, eye,
+			consts->params.stereoSwapEyes, &viewVector);
+#endif // PERSP_FISH_EYE_CUT
+#endif // STEREOSCOPIC
+
 #ifdef PERSP_FISH_EYE_CUT
-	bool hemisphereCut = false;
-	if (length(normalizedScreenPoint) > 0.5f / consts->params.fov) hemisphereCut = true;
+		bool hemisphereCut = false;
+		if (length(normalizedScreenPoint) > 0.5f / consts->params.fov) hemisphereCut = true;
 #endif
 
-	float4 color4 = 0.0f;
-	float opacityOut;
-	float3 surfaceColor = 0.0f;
-	float3 iridescence = 0.0f;
+		float4 color4 = 0.0f;
+		float opacityOut;
+		float3 surfaceColor = 0.0f;
+		float3 iridescence = 0.0f;
 
-	bool found = false;
-	int count;
+		bool found = false;
+		int count;
 
-	float3 point;
-	float scan, distThresh, distance;
+		float3 point;
+		float scan, distThresh, distance;
 
-	scan = 1e-10f;
+		scan = 1e-10f;
 
 #ifdef PERSP_FISH_EYE_CUT
-	if (!hemisphereCut)
-	{
+		if (!hemisphereCut)
+		{
 #endif // PERSP_FISH_EYE_CUT
 
-		sClCalcParams calcParam;
-		calcParam.N = consts->params.N;
-		calcParam.normalCalculationMode = false;
-		calcParam.iterThreshMode = consts->params.iterThreshMode;
-		distThresh = 1e-6f;
+			sClCalcParams calcParam;
+			calcParam.N = consts->params.N;
+			calcParam.normalCalculationMode = false;
+			calcParam.iterThreshMode = consts->params.iterThreshMode;
+			distThresh = 1e-6f;
 
-		sRenderData renderData;
-		renderData.lightVector = lightVector;
-		renderData.viewVectorNotRotated = viewVectorNotRotated;
-		renderData.material = material;
-		renderData.palette = palette;
-		renderData.AOVectors = AOVectors;
-		renderData.lights = lights;
-		renderData.paletteLength = paletteLength;
-		renderData.numberOfLights = numberOfLights;
-		renderData.AOVectorsCount = AOVectorsCount;
-		renderData.reflectionsMax = 0;
-		renderData.primitives = primitives;
-		renderData.numberOfPrimitives = numberOfPrimitives;
-		renderData.primitivesGlobalPosition = primitivesGlobalPosition;
-		renderData.mRot = rot;
-		renderData.mRotInv = rotInv;
+			sRenderData renderData;
+			renderData.lightVector = lightVector;
+			renderData.viewVectorNotRotated = viewVectorNotRotated;
+			renderData.material = material;
+			renderData.palette = palette;
+			renderData.AOVectors = AOVectors;
+			renderData.lights = lights;
+			renderData.paletteLength = paletteLength;
+			renderData.numberOfLights = numberOfLights;
+			renderData.AOVectorsCount = AOVectorsCount;
+			renderData.reflectionsMax = 0;
+			renderData.primitives = primitives;
+			renderData.numberOfPrimitives = numberOfPrimitives;
+			renderData.primitivesGlobalPosition = primitivesGlobalPosition;
+			renderData.mRot = rot;
+			renderData.mRotInv = rotInv;
 
-		formulaOut outF;
-		float step = 0.0f;
+			formulaOut outF;
+			float step = 0.0f;
 
-		float searchAccuracy = 0.001f * consts->params.detailLevel;
-		float searchLimit = 1.0f - searchAccuracy;
+			float searchAccuracy = 0.001f * consts->params.detailLevel;
+			float searchLimit = 1.0f - searchAccuracy;
 
-		// ray-marching
-		for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
-		{
-			point = start + viewVector * scan;
-			distThresh = CalcDistThresh(point, consts);
-			calcParam.distThresh = distThresh;
-			calcParam.detailSize = distThresh;
-			outF = CalculateDistance(consts, point, &calcParam, &renderData);
-			distance = outF.distance;
-
-			if (distance < distThresh)
+			// ray-marching
+			for (count = 0; count < MAX_RAYMARCHING && scan < consts->params.viewDistanceMax; count++)
 			{
-				found = true;
-				break;
-			}
+				point = start + viewVector * scan;
+				distThresh = CalcDistThresh(point, consts);
+				calcParam.distThresh = distThresh;
+				calcParam.detailSize = distThresh;
+				outF = CalculateDistance(consts, point, &calcParam, &renderData);
+				distance = outF.distance;
+
+				if (distance < distThresh)
+				{
+					found = true;
+					break;
+				}
 
 #ifdef INTERIOR_MODE
-			step = (distance - 0.8f * distThresh) * consts->params.DEFactor;
+				step = (distance - 0.8f * distThresh) * consts->params.DEFactor;
 #else
 		step = (distance - 0.5f * distThresh) * consts->params.DEFactor;
 #endif
 
-			step *= (1.0f - Random(1000, &randomSeed) / 10000.0f);
+				step *= (1.0f - Random(1000, &randomSeed) / 10000.0f);
 
-			scan += step / length(viewVector);
-		}
-
-		point = start + viewVector * scan;
-
-		// final binary searching
-		if (found)
-		{
-			step *= 0.5f;
-			for (int i = 0; i < 30; i++)
-			{
-				if (distance < distThresh && distance > distThresh * searchLimit)
-				{
-					break;
-				}
-				else
-				{
-					if (distance > distThresh)
-					{
-						scan += step;
-						point = start + viewVector * scan;
-					}
-					else if (distance < distThresh * searchLimit)
-					{
-						scan -= step;
-						point = start + viewVector * scan;
-					}
-				}
-				outF = CalculateDistance(consts, point, &calcParam, &renderData);
-				distance = outF.distance;
-				step *= 0.5f;
+				scan += step / length(viewVector);
 			}
+
+			point = start + viewVector * scan;
+
+			// final binary searching
+			if (found)
+			{
+				step *= 0.5f;
+				for (int i = 0; i < 30; i++)
+				{
+					if (distance < distThresh && distance > distThresh * searchLimit)
+					{
+						break;
+					}
+					else
+					{
+						if (distance > distThresh)
+						{
+							scan += step;
+							point = start + viewVector * scan;
+						}
+						else if (distance < distThresh * searchLimit)
+						{
+							scan -= step;
+							point = start + viewVector * scan;
+						}
+					}
+					outF = CalculateDistance(consts, point, &calcParam, &renderData);
+					distance = outF.distance;
+					step *= 0.5f;
+				}
+			}
+
+			// shaders
+			float3 color = 0.0f;
+			float alpha = 0.0f;
+
+			distThresh = CalcDistThresh(point, consts);
+
+			sShaderInputDataCl shaderInputData;
+			shaderInputData.point = point;
+			shaderInputData.viewVector = viewVector;
+			shaderInputData.viewVectorNotRotated = viewVectorNotRotated;
+			shaderInputData.lightVect = lightVector;
+			shaderInputData.distThresh = distThresh;
+			shaderInputData.lastDist = distance;
+			shaderInputData.delta = calcParam.detailSize;
+			shaderInputData.depth = scan;
+			shaderInputData.invertMode = false;
+			shaderInputData.material = material;
+			shaderInputData.palette = palette;
+			shaderInputData.paletteSize = paletteLength;
+			shaderInputData.stepCount = count;
+			shaderInputData.randomSeed = randomSeed;
+
+			float3 normal =
+				NormalVector(consts, &renderData, point, distance, distThresh, false, &calcParam);
+			shaderInputData.normal = normal;
+
+			float3 specular = 0.0f;
+
+			if (found)
+			{
+				color = ObjectShader(consts, &renderData, &shaderInputData, &calcParam, &surfaceColor,
+					&specular, &iridescence);
+				alpha = 1.0f;
+			}
+			else
+			{
+				color = BackgroundShader(consts, &renderData, image2dBackground, &shaderInputData);
+				scan = 1e20f;
+				alpha = 0.0f;
+			}
+
+#ifdef GLOW
+			// glow init
+			float glow = count * consts->params.glowIntensity / 512.0f * consts->params.DEFactor;
+			float glowN = 1.0f - glow;
+			if (glowN < 0.0f) glowN = 0.0f;
+
+			float3 glowColor;
+
+			glowColor = (glowN * consts->params.glowColor1 + consts->params.glowColor2 * glow);
+
+			glow *= 0.7f;
+			float glowOpacity = 1.0f * glow;
+			if (glowOpacity > 1.0f) glowOpacity = 1.0f;
+			color = glow * glowColor + (1.0f - glowOpacity) * color;
+			alpha += glowOpacity;
+#endif // GLOW
+
+			color4 = (float4){color.s0, color.s1, color.s2, alpha};
+
+#ifdef PERSP_FISH_EYE_CUT
 		}
+#endif // PERSP_FISH_EYE_CUT
 
-		// shaders
-		float3 color = 0.0f;
-		float alpha = 0.0f;
-
-		distThresh = CalcDistThresh(point, consts);
-
-		sShaderInputDataCl shaderInputData;
-		shaderInputData.point = point;
-		shaderInputData.viewVector = viewVector;
-		shaderInputData.viewVectorNotRotated = viewVectorNotRotated;
-		shaderInputData.lightVect = lightVector;
-		shaderInputData.distThresh = distThresh;
-		shaderInputData.lastDist = distance;
-		shaderInputData.delta = calcParam.detailSize;
-		shaderInputData.depth = scan;
-		shaderInputData.invertMode = false;
-		shaderInputData.material = material;
-		shaderInputData.palette = palette;
-		shaderInputData.paletteSize = paletteLength;
-		shaderInputData.stepCount = count;
-		shaderInputData.randomSeed = randomSeed;
-
-		float3 normal =
-			NormalVector(consts, &renderData, point, distance, distThresh, false, &calcParam);
-		shaderInputData.normal = normal;
-
-		float3 specular = 0.0f;
-
-		if (found)
+#ifdef STEREO_REYCYAN
+		if (eye == 0)
 		{
-			color = ObjectShader(
-				consts, &renderData, &shaderInputData, &calcParam, &surfaceColor, &specular, &iridescence);
-			alpha = 1.0f;
+			pixelLeftColor.s0 = color4.s0;
+			pixelLeftColor.s1 = color4.s1;
+			pixelLeftColor.s2 = color4.s2;
 		}
 		else
 		{
-			color = BackgroundShader(consts, &renderData, image2dBackground, &shaderInputData);
-			scan = 1e20f;
-			alpha = 0.0f;
+			pixelRightColor.s0 = color4.s0;
+			pixelRightColor.s1 = color4.s1;
+			pixelRightColor.s2 = color4.s2;
+
+			sClPixel pixel;
+			pixel.R = pixelRightColor.s0;
+			pixel.G = pixelLeftColor.s1;
+			pixel.B = pixelLeftColor.s2;
+			pixel.zBuffer = scan;
+			pixel.colR = surfaceColor.s0 * 256.0f;
+			pixel.colG = surfaceColor.s1 * 256.0f;
+			pixel.colB = surfaceColor.s2 * 256.0f;
+			pixel.opacity = opacityOut * 65535;
+			pixel.alpha = color4.s3 * 65535;
+
+			out[buffIndex] = pixel;
 		}
+	} // next exe
 
-#ifdef GLOW
-		// glow init
-		float glow = count * consts->params.glowIntensity / 512.0f * consts->params.DEFactor;
-		float glowN = 1.0f - glow;
-		if (glowN < 0.0f) glowN = 0.0f;
-
-		float3 glowColor;
-
-		glowColor = (glowN * consts->params.glowColor1 + consts->params.glowColor2 * glow);
-
-		glow *= 0.7f;
-		float glowOpacity = 1.0f * glow;
-		if (glowOpacity > 1.0f) glowOpacity = 1.0f;
-		color = glow * glowColor + (1.0f - glowOpacity) * color;
-		alpha += glowOpacity;
-#endif // GLOW
-
-		color4 = (float4){color.s0, color.s1, color.s2, alpha};
-
-#ifdef PERSP_FISH_EYE_CUT
-	}
-#endif // PERSP_FISH_EYE_CUT
-
-	sClPixel pixel;
+#else	// no STEREO_REYCYAN
 
 	pixel.R = color4.s0;
 	pixel.G = color4.s1;
@@ -368,4 +433,5 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	pixel.alpha = color4.s3 * 65535;
 
 	out[buffIndex] = pixel;
+#endif // STEREO_REYCYAN
 }
