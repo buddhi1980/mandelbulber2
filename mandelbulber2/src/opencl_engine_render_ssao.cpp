@@ -73,10 +73,12 @@ QString cOpenClEngineRenderSSAO::GetKernelName()
 	return QString("SSAO");
 }
 
-void cOpenClEngineRenderSSAO::SetParameters(const sParamRender *paramRender)
+void cOpenClEngineRenderSSAO::SetParameters(
+	const sParamRender *paramRender, const cRegion<int> &region)
 {
-	paramsSSAO.width = paramRender->imageWidth;
-	paramsSSAO.height = paramRender->imageHeight;
+	imageRegion = region;
+	paramsSSAO.width = region.width;
+	paramsSSAO.height = region.height;
 	paramsSSAO.fov = paramRender->fov;
 	paramsSSAO.quality = paramRender->ambientOcclusionQuality * paramRender->ambientOcclusionQuality;
 	if (paramsSSAO.quality < 3) paramsSSAO.quality = 3;
@@ -204,8 +206,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
-		int width = image->GetWidth();
-		int height = image->GetHeight();
+		int width = imageRegion.width;
+		int height = imageRegion.height;
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -216,10 +218,17 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		timer.start();
 
 		// copy zBuffer to input buffer
-		for (int i = 0; i < numberOfPixels; i++)
+
+		for (int y = 0; y < height; y++)
 		{
-			((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
+			for (int x = 0; x < width; x++)
+			{
+				int i = x + y * width;
+				((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] =
+					image->GetPixelZBuffer(x + imageRegion.x1, y + imageRegion.y1);
+			}
 		}
+
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
 			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i] =
@@ -268,18 +277,21 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			{
 				for (int x = 0; x < width; x++)
 				{
+					int xx = x + imageRegion.x1;
+					int yy = y + imageRegion.y1;
+
 					cl_float total_ambient =
 						((cl_float *)outputBuffers[0][outputIndex].ptr.data())[x + y * width];
-					unsigned short opacity16 = image->GetPixelOpacity(x, y);
+					unsigned short opacity16 = image->GetPixelOpacity(xx, yy);
 					float opacity = opacity16 / 65535.0f;
-					sRGB8 colour = image->GetPixelColor(x, y);
-					sRGBFloat pixel = image->GetPixelPostImage(x, y);
+					sRGB8 colour = image->GetPixelColor(xx, yy);
+					sRGBFloat pixel = image->GetPixelPostImage(xx, yy);
 					float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
 					// qDebug() << total_ambient << shadeFactor << opacity << colour.R;
 					pixel.R = pixel.R + colour.R * shadeFactor;
 					pixel.G = pixel.G + colour.G * shadeFactor;
 					pixel.B = pixel.B + colour.B * shadeFactor;
-					image->PutPixelPostImage(x, y, pixel);
+					image->PutPixelPostImage(xx, yy, pixel);
 				}
 			}
 

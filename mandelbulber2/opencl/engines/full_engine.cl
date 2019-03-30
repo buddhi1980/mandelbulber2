@@ -355,7 +355,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			pixelRightColor.s1 = resultShader.s1;
 			pixelRightColor.s2 = resultShader.s2;
 
-			sClPixel pixel;
 			pixel.R = pixelRightColor.s0;
 			pixel.G = pixelLeftColor.s1;
 			pixel.B = pixelLeftColor.s2;

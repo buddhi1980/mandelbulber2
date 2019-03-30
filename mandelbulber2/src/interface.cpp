@@ -977,7 +977,8 @@ void cInterface::RefreshPostEffects()
 #ifdef USE_OPENCL
 				sParamRender params(gPar);
 				gOpenCl->openClEngineRenderSSAO->Lock();
-				gOpenCl->openClEngineRenderSSAO->SetParameters(&params);
+				cRegion<int> region(0, 0, mainImage->GetWidth(), mainImage->GetHeight());
+				gOpenCl->openClEngineRenderSSAO->SetParameters(&params, region);
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(gPar))
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(gPar);
@@ -2238,8 +2239,7 @@ void cInterface::AutoRecovery() const
 	{
 		// auto recovery dialog
 		QMessageBox::StandardButton reply;
-		reply = QMessageBox::question(
-			mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
+		reply = QMessageBox::question(mainWindow->ui->centralwidget, QObject::tr("Auto recovery"),
 			QObject::tr(
 				"Application has not been closed properly\nDo you want to recover your latest work?"),
 			QMessageBox::Yes | QMessageBox::No);
@@ -2604,18 +2604,22 @@ void cInterface::DisableJuliaPointMode() const
 
 void cInterface::ConnectProgressAndStatisticsSignals() const
 {
-	QObject::connect(gFlightAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																			 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gFlightAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gFlightAnimation, SIGNAL(updateStatistics(cStatistics)),
 		mainWindow->ui->widgetDockStatistics, SLOT(slotUpdateStatistics(cStatistics)));
-	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressAndStatus(const QString &,
-																				 const QString &, double, cProgressText::enumProgressType)),
-		mainWindow, SLOT(slotUpdateProgressAndStatus(
-									const QString &, const QString &, double, cProgressText::enumProgressType)));
+	QObject::connect(gKeyframeAnimation,
+		SIGNAL(updateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)),
+		mainWindow,
+		SLOT(slotUpdateProgressAndStatus(
+			const QString &, const QString &, double, cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateProgressHide(cProgressText::enumProgressType)),
 		mainWindow, SLOT(slotUpdateProgressHide(cProgressText::enumProgressType)));
 	QObject::connect(gKeyframeAnimation, SIGNAL(updateStatistics(cStatistics)),

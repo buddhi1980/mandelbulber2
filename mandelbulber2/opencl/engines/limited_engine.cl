@@ -224,12 +224,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 #endif
 
 		float4 color4 = 0.0f;
-		float opacityOut;
+		float opacityOut = 0.0f;
 		float3 surfaceColor = 0.0f;
 		float3 iridescence = 0.0f;
 
 		bool found = false;
-		int count;
+		int count = 0;
 
 		float3 point;
 		float scan, distThresh, distance;
@@ -405,7 +405,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			pixelRightColor.s1 = color4.s1;
 			pixelRightColor.s2 = color4.s2;
 
-			sClPixel pixel;
 			pixel.R = pixelRightColor.s0;
 			pixel.G = pixelLeftColor.s1;
 			pixel.B = pixelLeftColor.s2;

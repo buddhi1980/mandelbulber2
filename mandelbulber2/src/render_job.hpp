@@ -45,6 +45,7 @@
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 #include "rendered_tile_data.hpp"
+#include "region.hpp"
 #include "statistics.h"
 
 // forward declarations
@@ -105,7 +106,8 @@ private:
 #ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(
 		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
-	void RenderSSAOWithOpenCl(sParamRender *params, cProgressText *progressText, bool *result);
+	void RenderSSAOWithOpenCl(
+		sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
 #endif
 

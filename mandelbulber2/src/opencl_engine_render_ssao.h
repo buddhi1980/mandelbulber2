@@ -37,6 +37,7 @@
 
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"
+#include "region.hpp"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -55,7 +56,7 @@ public:
 	~cOpenClEngineRenderSSAO() override;
 
 #ifdef USE_OPENCL
-	void SetParameters(const sParamRender *paramRender);
+	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
@@ -71,6 +72,7 @@ private:
 	QString GetKernelName() override;
 
 	sParamsSSAO paramsSSAO;
+	cRegion<int> imageRegion;
 	float intensity;
 	int numberOfPixels;
 #endif

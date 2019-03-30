@@ -440,7 +440,25 @@ bool cRenderJob::Execute()
 
 		// render all with OpenCL
 		result = RenderFractalWithOpenCl(params, fractals, &progressText);
-		RenderSSAOWithOpenCl(params, &progressText, &result);
+
+		if (renderData->stereo.isEnabled()
+				&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+						 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+		{
+			// stereoscopic rendering of SSAO (separate for each half of image)
+			cRegion<int> region;
+			region = renderData->stereo.GetRegion(
+				CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+			RenderSSAOWithOpenCl(params, region, &progressText, &result);
+			region = renderData->stereo.GetRegion(
+				CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+			RenderSSAOWithOpenCl(params, region, &progressText, &result);
+		}
+		else
+		{
+			RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+		}
+
 		RenderDOFWithOpenCl(params, &result);
 
 		if (!*renderData->stopRequest)
@@ -633,7 +651,7 @@ bool cRenderJob::RenderFractalWithOpenCl(
 }
 
 void cRenderJob::RenderSSAOWithOpenCl(
-	sParamRender *params, cProgressText *progressText, bool *result)
+	sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result)
 {
 	if (!*renderData->stopRequest && *result == true)
 	{
@@ -648,7 +666,7 @@ void cRenderJob::RenderSSAOWithOpenCl(
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
 			gOpenCl->openClEngineRenderSSAO->Lock();
-			gOpenCl->openClEngineRenderSSAO->SetParameters(params);
+			gOpenCl->openClEngineRenderSSAO->SetParameters(params, region);
 			if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(paramsContainer))
 			{
 				gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(paramsContainer);
@@ -673,6 +691,7 @@ void cRenderJob::RenderSSAOWithOpenCl(
 						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 						SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 					connect(&rendererSSAO, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
+					rendererSSAO.SetRegion(region);
 					rendererSSAO.RenderSSAO();
 
 					// refresh image at end
