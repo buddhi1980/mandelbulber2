@@ -155,8 +155,9 @@ bool InitSystem()
 		}
 		else
 		{
-			outErr << "Error! Directory " << QCoreApplication::applicationDirPath() << "doesn't exist!"
-						 << endl;
+			outErr << "Error! Directory "
+						 << "/usr/share/mandelbulber2"
+						 << "doesn't exist!" << endl;
 		}
 
 		if (shareDir.cd("/usr/share/doc/mandelbulber2"))
@@ -165,8 +166,9 @@ bool InitSystem()
 		}
 		else
 		{
-			outErr << "Error! Directory " << QCoreApplication::applicationDirPath() << "doesn't exist!"
-						 << endl;
+			outErr << "Error! Directory "
+						 << "/usr/share/doc/mandelbulber2"
+						 << "doesn't exist!" << endl;
 		}
 	}
 
