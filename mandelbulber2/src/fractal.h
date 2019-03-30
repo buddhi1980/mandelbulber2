@@ -568,8 +568,18 @@ struct sFractalTransformCommon
 	int stopIterationsG;
 	int startIterationsH;
 	int stopIterationsH;
+	int startIterationsI;
+	int stopIterationsI;
+	int startIterationsJ;
+	int stopIterationsJ;
+	int startIterationsK;
+	int stopIterationsK;
 	int startIterationsM;
 	int stopIterationsM;
+
+	int startIterationsO;
+	int stopIterationsO;
+
 	int startIterationsP;
 	int stopIterationsP1;
 	int startIterationsR;
@@ -593,6 +603,7 @@ struct sFractalTransformCommon
 	int intA;
 	int intB;
 	int int1;
+	int int2;
 	int int6;
 	int int8X;
 	int int8Y;
@@ -708,6 +719,7 @@ struct sFractalTransformCommon
 	bool functionEnabledDFalse;
 	bool functionEnabledEFalse;
 	bool functionEnabledFFalse;
+	bool functionEnabledJFalse;
 	bool functionEnabledKFalse;
 	bool functionEnabledM;
 	bool functionEnabledMFalse;

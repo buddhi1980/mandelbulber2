@@ -2771,7 +2771,7 @@ void AmazingSurfMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
- * asurf trial  beta
+ * asurf mod3  beta
  * amazing surf from Mandelbulber3D. Formula proposed by Kali, with features added by DarkBeam
  *
  * Note for the original version apply a c.x c.y SWAP
@@ -2865,11 +2865,31 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		zCol.z = z.z;
 	}
 
-	// swap
-	if (fractal->transformCommon.functionEnabledSwFalse)
+	// swizzle, swap xy alternating
+	if (fractal->transformCommon.functionEnabledSwFalse
+			&& aux.i >= fractal->transformCommon.startIterationsI
+			&& aux.i < fractal->transformCommon.stopIterationsI)
 	{
-		z = CVector4(z.y, z.x, z.z, z.w);
+				z = CVector4(z.y, z.x, z.z, z.w);
 	}
+		// n
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
+	{
+		if (aux.i % 2 < 1) z.y = -z.y;
+	}
+
+		// n
+	if (fractal->transformCommon.functionEnabledKFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
+	{
+		if (aux.i % 2 < 1) z.z = -z.z;
+	}
+
+
+
 
 	// offset
 	if (fractal->transformCommon.functionEnabledBzFalse
@@ -2902,6 +2922,8 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		}
 	}
 	else
+		if (aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
 		z += fractal->transformCommon.additionConstant000;
 
 	// standard functions
@@ -15975,10 +15997,32 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		zCol.z = z.z;
 	}
 
-	// swap
+	// swizzle
 	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		z = CVector4(z.y, z.x, z.z, z.w);
+	{ // swap xy alternating
+		if (fractal->transformCommon.functionEnabledAz
+			&& aux.i >= fractal->transformCommon.startIterationsI
+			&& aux.i < fractal->transformCommon.stopIterationsI)
+		{
+				z = CVector4(z.y, z.x, z.z, z.w);
+		}
+		// n
+		if (fractal->transformCommon.functionEnabledJFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
+		{
+			int div = fractal->transformCommon.int2;
+			if (aux.i % div < fractal->transformCommon.offset1) z.y = -z.y;
+
+		}
+		// n
+		if (fractal->transformCommon.functionEnabledKFalse
+			&& aux.i >= fractal->transformCommon.startIterationsK
+			&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			if (aux.i % 2 < 1.0) z.z = -z.z;
+		}
+
 	}
 
 	// offset
@@ -15986,7 +16030,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
+		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			CVector4 temp = fractal->transformCommon.additionConstant000;
 			CVector4 temp2 = temp * temp;
@@ -16012,6 +16056,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		}
 	}
 	else
+		if (aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
 		z += fractal->transformCommon.additionConstant000;
 
 	// standard functions

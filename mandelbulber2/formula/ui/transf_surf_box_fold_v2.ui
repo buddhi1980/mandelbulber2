@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_surf_box_fold_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>855</width>
-    <height>1092</height>
+    <height>1795</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -707,5 +707,38 @@ Limit:</string>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>130</x>
+     <y>43</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>130</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabled</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_222_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>29</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

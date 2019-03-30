@@ -328,6 +328,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.intA = container->Get<int>("transf_int_A");
 	transformCommon.intB = container->Get<int>("transf_int_B");
 	transformCommon.int1 = container->Get<int>("transf_int_1");
+	transformCommon.int2 = container->Get<int>("transf_int_2");
 	transformCommon.int6 = container->Get<int>("transf_int_6");
 	transformCommon.int8X = container->Get<int>("transf_int8_X");
 	transformCommon.int8Y = container->Get<int>("transf_int8_Y");
@@ -354,8 +355,17 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsG = container->Get<int>("transf_stop_iterations_G");
 	transformCommon.startIterationsH = container->Get<int>("transf_start_iterations_H");
 	transformCommon.stopIterationsH = container->Get<int>("transf_stop_iterations_H");
+	transformCommon.startIterationsI = container->Get<int>("transf_start_iterations_I");
+	transformCommon.stopIterationsI = container->Get<int>("transf_stop_iterations_I");
+	transformCommon.startIterationsJ = container->Get<int>("transf_start_iterations_J");
+	transformCommon.stopIterationsJ = container->Get<int>("transf_stop_iterations_J");
+	transformCommon.startIterationsK = container->Get<int>("transf_start_iterations_K");
+	transformCommon.stopIterationsK = container->Get<int>("transf_stop_iterations_K");
+
 	transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
 	transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
+	transformCommon.startIterationsO = container->Get<int>("transf_start_iterations_O");
+	transformCommon.stopIterationsO = container->Get<int>("transf_stop_iterations_O");
 	transformCommon.startIterationsP = container->Get<int>("transf_start_iterations_P");
 	transformCommon.stopIterationsP1 = container->Get<int>("transf_stop_iterations_P1");
 	transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
@@ -513,6 +523,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledDFalse = container->Get<bool>("transf_function_enabledD_false");
 	transformCommon.functionEnabledEFalse = container->Get<bool>("transf_function_enabledE_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
+	transformCommon.functionEnabledJFalse = container->Get<bool>("transf_function_enabledJ_false");
 	transformCommon.functionEnabledKFalse = container->Get<bool>("transf_function_enabledK_false");
 	transformCommon.functionEnabledM = container->Get<bool>("transf_function_enabledM");
 	transformCommon.functionEnabledMFalse = container->Get<bool>("transf_function_enabledM_false");
