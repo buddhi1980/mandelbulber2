@@ -2941,9 +2941,9 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			z += fractal->mandelbox.offset;
 
 			// if (r2 < 1e-21) r2 = 1e-21;
-			if (rr < fractal->transformCommon.minR2p25)
+			if (rr < fractal->transformCommon.minR0)
 			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 				z *= tglad_factor1;
 				aux.DE *= tglad_factor1;
 			}
@@ -15222,7 +15222,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
 		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
 		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
 		// aux.DE = aux.DE * z.Length() / oldZ.Length();
 	}
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
@@ -15232,6 +15232,51 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	aux.DE *= fractal->analyticDE.scale1;
 }
+
+/**
+ * clamp 4d
+ */
+void TransfClamp4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 upper = fractal->transformCommon.offset1111;
+	CVector4 lower = fractal->transformCommon.offsetNeg1111;
+	CVector4 scale = fractal->transformCommon.scale0000;
+	CVector4 oldZ = z;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+		if (z.x < lower.x) z.x = lower.x;
+		if (z.x > upper.x) z.x = upper.x;
+		z.x = oldZ.x * scale.x - z.x;
+	}
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+		if (z.y < lower.y) z.y = lower.y;
+		if (z.y > upper.y) z.y = upper.y;
+		z.y = oldZ.y * scale.y - z.y;
+	}
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+		if (z.z < lower.z) z.z = lower.z;
+		if (z.z > upper.z) z.z = upper.z;
+		z.z = oldZ.z * scale.z - z.z;
+	}
+
+	if (fractal->transformCommon.functionEnabledw)
+	{
+		if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
+		if (z.w < lower.w) z.w = lower.w;
+		if (z.w > upper.w) z.w = upper.w;
+		z.w = oldZ.w * scale.w - z.w;
+	}
+	//aux.DE = aux.DE * z.Length() / oldZ.Length();
+
+	aux.DE *= fractal->analyticDE.scale1;
+}
+
 
 /**
  * iteration weight 4D
@@ -16075,9 +16120,9 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			z += fractal->mandelbox.offset;
 
 			// if (r2 < 1e-21) r2 = 1e-21;
-			if (rr < fractal->transformCommon.minR2p25)
+			if (rr < fractal->transformCommon.minR0)
 			{
-				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+				double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR0;
 				z *= tglad_factor1;
 				aux.DE *= tglad_factor1;
 			}

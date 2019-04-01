@@ -197,6 +197,7 @@ enum enumFractalFormula
 	mandelbulbAtan2Power2 = 144,
 	bristorbrot2 = 145,
 	mandeltorus = 146,
+	// 2.18
 	amazingSurfMod3 = 147,
 
 	// 152 to 172 reserved for scator
@@ -311,7 +312,7 @@ enum enumFractalFormula
 	transfSphericalInvV2 = 1090,
 	// 2.18
 	transfRotationIterControls = 1091,
-
+	transfClamp4d = 1092,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
