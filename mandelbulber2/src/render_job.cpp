@@ -730,8 +730,26 @@ void cRenderJob::RenderDOFWithOpenCl(sParamRender *params, bool *result)
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), this,
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 
-			*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
-				params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
+			if (renderData->stereo.isEnabled()
+					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+			{
+				cRegion<int> region;
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
+					params, paramsContainer, image, renderData->stopRequest, region);
+
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
+					params, paramsContainer, image, renderData->stopRequest, region);
+			}
+			else
+			{
+				*result = gOpenCl->openclEngineRenderDOF->RenderDOF(
+					params, paramsContainer, image, renderData->stopRequest, renderData->screenRegion);
+			}
 		}
 	}
 }

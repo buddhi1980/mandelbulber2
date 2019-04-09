@@ -71,12 +71,13 @@ QString cOpenClEngineRenderDOFPhase1::GetKernelName()
 	return QString("DOFPhase1");
 }
 
-void cOpenClEngineRenderDOFPhase1::SetParameters(const sParamRender *paramRender)
+void cOpenClEngineRenderDOFPhase1::SetParameters(
+	const sParamRender *paramRender, const cRegion<int> &region)
 {
-	paramsDOF.width = paramRender->imageWidth;
-	paramsDOF.height = paramRender->imageHeight;
-	paramsDOF.deep =
-		paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
+	imageRegion = region;
+	paramsDOF.width = region.width;
+	paramsDOF.height = region.height;
+	paramsDOF.deep = paramRender->DOFRadius * (paramsDOF.width + paramsDOF.height) / 2000.0;
 	paramsDOF.neutral = paramRender->DOFFocus;
 	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
@@ -183,8 +184,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
-		int width = image->GetWidth();
-		int height = image->GetHeight();
+		int width = imageRegion.width;
+		int height = imageRegion.height;
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -202,13 +203,18 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		qint64 pixelsRendered = 0;
 
 		// copy zBuffer and image to input buffers
-		for (qint64 i = 0; i < numberOfPixels; i++)
+		for (int y = 0; y < height; y++)
 		{
-			((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] = image->GetZBufferPtr()[i];
-			sRGBFloat imagePixel = image->GetPostImageFloatPtr()[i];
-			float alpha = image->GetAlphaBufPtr()[i] / 65535.0;
-			((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
-				cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			for (int x = 0; x < width; x++)
+			{
+				qint64 i = qint64(x) + qint64(y) * width;
+				((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] =
+					image->GetPixelZBuffer(imageRegion.x1 + x, imageRegion.y1 + y);
+				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
+				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0;
+				((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
+					cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+			}
 		}
 
 		// writing data to queue
@@ -246,13 +252,16 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 				{
 					for (int x = 0; x < jobWidth2; x++)
 					{
+						int xx = x + imageRegion.x1;
+						int yy = y + imageRegion.y1;
+
 						cl_float4 pixelCl =
 							((cl_float4 *)outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
 						quint16 alpha = pixelCl.s[3] * 65535;
 
-						image->PutPixelPostImage(x + jobX, y + jobY, pixel);
-						image->PutPixelAlpha(x + jobX, y + jobY, alpha);
+						image->PutPixelPostImage(xx + jobX, yy + jobY, pixel);
+						image->PutPixelAlpha(xx + jobX, yy + jobY, alpha);
 					}
 				}
 

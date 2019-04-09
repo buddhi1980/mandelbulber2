@@ -87,7 +87,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	progressText.ResetTimer();
 
 	dofEnginePhase1->Lock();
-	dofEnginePhase1->SetParameters(paramRender);
+	dofEnginePhase1->SetParameters(paramRender, screenRegion);
 	bool result = false;
 	if (dofEnginePhase1->LoadSourcesAndCompile(params))
 	{
@@ -117,7 +117,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		connect(&dof, SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 
 		dof.Render(screenRegion,
-			paramRender->DOFRadius * (image->GetWidth() + image->GetHeight()) / 2000.0,
+			paramRender->DOFRadius * (screenRegion.width + screenRegion.height) / 2000.0,
 			paramRender->DOFFocus, paramRender->DOFNumberOfPasses, paramRender->DOFBlurOpacity,
 			paramRender->DOFMaxRadius, stopRequest);
 
@@ -140,13 +140,22 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 	emit updateProgressAndStatus(QObject::tr("OpenCL DOF"), QObject::tr("Sorting Z-Buffer"), 0.0);
 
-	quint64 numberOfPixels = quint64(image->GetWidth()) * quint64(image->GetHeight());
+	quint64 numberOfPixels = quint64(screenRegion.height) * quint64(screenRegion.width);
 	cPostRenderingDOF::sSortZ<float> *tempSort = new cPostRenderingDOF::sSortZ<float>[numberOfPixels];
 
-	for (quint64 index = 0; index < numberOfPixels; index++)
 	{
-		tempSort[index].z = image->GetZBufferPtr()[index];
-		tempSort[index].i = index;
+		quint64 index = 0;
+		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
+		{
+			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+			{
+				quint64 ptr =
+					quint64(x - screenRegion.x1) + quint64(y - screenRegion.y1) * quint64(screenRegion.width);
+				tempSort[index].z = image->GetPixelZBuffer(x, y);
+				tempSort[index].i = ptr;
+				index++;
+			}
+		}
 	}
 
 	// sorting z-buffer
@@ -159,7 +168,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 
 		float neutral = paramRender->DOFFocus;
 		float deep =
-			paramRender->DOFRadius * (paramRender->imageWidth + paramRender->imageHeight) / 2000.0;
+			paramRender->DOFRadius * (screenRegion.width + screenRegion.height) / 2000.0;
 
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);
@@ -227,7 +236,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 		{
 			connect(dofEnginePhase2.data(), SIGNAL(updateImage()), this, SIGNAL(updateImage()));
 			dofEnginePhase2->Lock();
-			dofEnginePhase2->SetParameters(paramRender);
+			dofEnginePhase2->SetParameters(paramRender, screenRegion);
 			if (dofEnginePhase2->LoadSourcesAndCompile(params))
 			{
 				dofEnginePhase2->CreateKernel4Program(params);

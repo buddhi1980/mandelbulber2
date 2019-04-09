@@ -38,6 +38,7 @@
 #include "dof.hpp"
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"
+#include "region.hpp"
 
 // custom includes
 #ifdef USE_OPENCL
@@ -56,7 +57,7 @@ public:
 	~cOpenClEngineRenderDOFPhase2() override;
 
 #ifdef USE_OPENCL
-	void SetParameters(const sParamRender *paramRender);
+	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
@@ -71,6 +72,7 @@ private:
 	QString GetKernelName() override;
 	sParamsDOF paramsDOF;
 	int numberOfPixels;
+	cRegion<int> imageRegion;
 
 #endif
 
