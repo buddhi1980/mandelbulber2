@@ -968,12 +968,19 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							// painting pixels with reduced opacity (averaging of MC samples)
 							sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
 							sRGBFloat newPixel;
-							newPixel.R = oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop)
-													 + pixel.R * (1.0 / output.monteCarloLoop);
-							newPixel.G = oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop)
-													 + pixel.G * (1.0 / output.monteCarloLoop);
-							newPixel.B = oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop)
-													 + pixel.B * (1.0 / output.monteCarloLoop);
+							if (output.monteCarloLoop == 1)
+							{
+								newPixel = pixel;
+							}
+							else
+							{
+								newPixel.R = oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop)
+														 + pixel.R * (1.0 / output.monteCarloLoop);
+								newPixel.G = oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop)
+														 + pixel.G * (1.0 / output.monteCarloLoop);
+								newPixel.B = oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop)
+														 + pixel.B * (1.0 / output.monteCarloLoop);
+							}
 							image->PutPixelImage(xx, yy, newPixel);
 							image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
 							unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
@@ -990,6 +997,14 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 							noise *= 0.3333;
 
 							double sumBrightness = newPixel.R + newPixel.G + newPixel.B;
+
+							if (qIsInf(sumBrightness))
+							{
+								sumBrightness = 0.0;
+								noise = 0.0;
+								image->PutPixelImage(xx, yy, sRGBFloat());
+							}
+
 							if (sumBrightness > 1.0) noise /= (sumBrightness * sumBrightness);
 
 							monteCarloNoiseSum += noise;
