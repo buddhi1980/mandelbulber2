@@ -1045,7 +1045,7 @@ bool cSettings::DecodeFramesHeader(
 					QString lastTwo = fullParameterName.right(2);
 					if (lastTwo == "_x") // check if it's CVector4
 					{
-						//check if parameter with _x doesn't exists in the container
+						// check if parameter with _x doesn't exists in the container
 						int firstUnderscore = fullParameterName.indexOf('_');
 						QString containerName = fullParameterName.left(firstUnderscore);
 						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
@@ -1080,7 +1080,17 @@ bool cSettings::DecodeFramesHeader(
 								}
 							}
 						}
-						else if (lastTwo == "_R") // check if it's RGB
+					}
+					else if (lastTwo == "_R") // check if it's RGB
+					{
+						// check if parameter with _R doesn't exists in the container
+						int firstUnderscore = fullParameterName.indexOf('_');
+						QString containerName = fullParameterName.left(firstUnderscore);
+						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+						cParameterContainer *selectedContainer =
+							cAnimationFrames::ContainerSelector(containerName, par, fractPar);
+
+						if (!selectedContainer->IfExists(parameterName))
 						{
 							// check if there are at least 2 parameters left and they are *_G and *_B
 							if (i + 2 < lineSplit.size())
