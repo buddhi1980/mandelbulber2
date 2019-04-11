@@ -1045,43 +1045,53 @@ bool cSettings::DecodeFramesHeader(
 					QString lastTwo = fullParameterName.right(2);
 					if (lastTwo == "_x") // check if it's CVector4
 					{
-						// check if there are at least 2 parameters left and they are *_y and *_z
-						bool isCVector4 = false;
-						if (i + 3 < lineSplit.size())
-						{
-							QString lastTwoY = lineSplit[i + 1].right(2);
-							QString lastTwoZ = lineSplit[i + 2].right(2);
-							QString lastTwoW = lineSplit[i + 3].right(2);
-							if (lastTwoY == "_y" && lastTwoZ == "_z" && lastTwoW == "_w")
-							{
-								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
-								i += 3;
-								isCVector4 = true;
-							}
-						}
+						//check if parameter with _x doesn't exists in the container
+						int firstUnderscore = fullParameterName.indexOf('_');
+						QString containerName = fullParameterName.left(firstUnderscore);
+						QString parameterName = fullParameterName.mid(firstUnderscore + 1);
+						cParameterContainer *selectedContainer =
+							cAnimationFrames::ContainerSelector(containerName, par, fractPar);
 
-						if (!isCVector4 && i + 2 < lineSplit.size()) // check if it's CVector3
+						if (!selectedContainer->IfExists(parameterName))
 						{
-							QString lastTwoY = lineSplit[i + 1].right(2);
-							QString lastTwoZ = lineSplit[i + 2].right(2);
-							if (lastTwoY == "_y" && lastTwoZ == "_z")
+							// check if there are at least 2 parameters left and they are *_y and *_z
+							bool isCVector4 = false;
+							if (i + 3 < lineSplit.size())
 							{
-								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
-								i += 2;
+								QString lastTwoY = lineSplit[i + 1].right(2);
+								QString lastTwoZ = lineSplit[i + 2].right(2);
+								QString lastTwoW = lineSplit[i + 3].right(2);
+								if (lastTwoY == "_y" && lastTwoZ == "_z" && lastTwoW == "_w")
+								{
+									fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+									i += 3;
+									isCVector4 = true;
+								}
+							}
+
+							if (!isCVector4 && i + 2 < lineSplit.size()) // check if it's CVector3
+							{
+								QString lastTwoY = lineSplit[i + 1].right(2);
+								QString lastTwoZ = lineSplit[i + 2].right(2);
+								if (lastTwoY == "_y" && lastTwoZ == "_z")
+								{
+									fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+									i += 2;
+								}
 							}
 						}
-					}
-					else if (lastTwo == "_R") // check if it's RGB
-					{
-						// check if there are at least 2 parameters left and they are *_G and *_B
-						if (i + 2 < lineSplit.size())
+						else if (lastTwo == "_R") // check if it's RGB
 						{
-							QString lastTwoG = lineSplit[i + 1].right(2);
-							QString lastTwoB = lineSplit[i + 2].right(2);
-							if (lastTwoG == "_G" && lastTwoB == "_B")
+							// check if there are at least 2 parameters left and they are *_G and *_B
+							if (i + 2 < lineSplit.size())
 							{
-								fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
-								i += 2;
+								QString lastTwoG = lineSplit[i + 1].right(2);
+								QString lastTwoB = lineSplit[i + 2].right(2);
+								if (lastTwoG == "_G" && lastTwoB == "_B")
+								{
+									fullParameterName = fullParameterName.left(fullParameterName.length() - 2);
+									i += 2;
+								}
 							}
 						}
 					}
@@ -1093,6 +1103,7 @@ bool cSettings::DecodeFramesHeader(
 				QString parameterName = fullParameterName.mid(firstUnderscore + 1);
 				QString value = "";
 				Compatibility(parameterName, value);
+				// reconstruction of full parameter name
 				fullParameterName = containerName + "_" + parameterName;
 
 				bool result = frames->AddAnimatedParameter(fullParameterName, par, fractPar);
