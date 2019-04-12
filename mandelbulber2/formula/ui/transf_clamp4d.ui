@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>909</width>
-    <height>1609</height>
+    <height>1735</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,13 +35,6 @@
       <string>z = oldZ * scale - clamp(z,lower, upper) </string>
      </property>
     </widget>
-   </item>
-   <item>
-    <layout class="QGridLayout" name="gridLayout_81">
-     <property name="spacing">
-      <number>2</number>
-     </property>
-    </layout>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout" columnstretch="0,0,1">
@@ -770,12 +763,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>69</y>
+     <x>50</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>124</y>
+     <y>72</y>
     </hint>
    </hints>
   </connection>
@@ -786,12 +779,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>444</x>
-     <y>69</y>
+     <x>50</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>152</y>
+     <y>186</y>
     </hint>
    </hints>
   </connection>
@@ -802,12 +795,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>630</x>
-     <y>69</y>
+     <x>50</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>180</y>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
@@ -818,12 +811,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>809</x>
-     <y>69</y>
+     <x>50</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>208</y>
+     <y>414</y>
     </hint>
    </hints>
   </connection>
@@ -834,12 +827,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>235</x>
-     <y>63</y>
+     <x>50</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
-     <x>241</x>
-     <y>85</y>
+     <x>294</x>
+     <y>44</y>
     </hint>
    </hints>
   </connection>
@@ -850,12 +843,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>412</x>
-     <y>64</y>
+     <x>50</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>412</x>
-     <y>88</y>
+     <x>465</x>
+     <y>158</y>
     </hint>
    </hints>
   </connection>
@@ -866,12 +859,12 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>604</x>
-     <y>61</y>
+     <x>50</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
-     <x>609</x>
-     <y>86</y>
+     <x>662</x>
+     <y>272</y>
     </hint>
    </hints>
   </connection>
@@ -882,12 +875,140 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>795</x>
-     <y>62</y>
+     <x>50</x>
+     <y>386</y>
     </hint>
     <hint type="destinationlabel">
-     <x>796</x>
-     <y>84</y>
+     <x>849</x>
+     <y>386</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_neg_1111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>21</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>141</x>
+     <y>91</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_scale_0000_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>22</x>
+     <y>33</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>144</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_neg_1111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>24</x>
+     <y>154</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>205</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_scale_0000_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>126</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_neg_1111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>30</x>
+     <y>258</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_scale_0000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>24</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>346</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledw</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offset_neg_1111_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>380</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>115</x>
+     <y>434</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledw</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_scale_0000_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>385</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>133</x>
+     <y>462</y>
     </hint>
    </hints>
   </connection>

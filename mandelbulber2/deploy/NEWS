@@ -4,6 +4,7 @@ v2.18 (????????????? 2019)
 - Added new fractal formulas
    amazingSurfMod3
    transfRotationIterControls
+   transfClamp4d
 
 - modified fractal formulas
    menger middle mod, added vary scale and sphere inversion
