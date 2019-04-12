@@ -22,28 +22,15 @@ REAL4 TransfSphericalInvV2Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	// unconditional mode
 	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (fractal->transformCommon.functionEnabledTempFalse) // start temp code
+		if (aux->i >= fractal->transformCommon.startIterationsD
+				&& aux->i < fractal->transformCommon.stopIterationsD1)
 		{
-			if (aux->i < 1)
-			{
-				z += fractal->transformCommon.offset000;
-				rr = dot(z, z);
-				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			}
-		}
-		else // end temp code
-		{
-			if (aux->i >= fractal->transformCommon.startIterationsD
-					&& aux->i < fractal->transformCommon.stopIterationsD1)
-			{
-				z += fractal->transformCommon.offset000;
-				rr = dot(z, z);
-				z *= native_divide(fractal->transformCommon.maxR2d1, rr);
-				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-				// REAL r = native_sqrt(rr);
-				aux->DE = native_divide((fractal->transformCommon.maxR2d1), rr);
-			}
+			z += fractal->transformCommon.offset000;
+			rr = dot(z, z);
+			z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			// REAL r = native_sqrt(rr);
+			aux->DE = native_divide((fractal->transformCommon.maxR2d1), rr);
 		}
 	}
 

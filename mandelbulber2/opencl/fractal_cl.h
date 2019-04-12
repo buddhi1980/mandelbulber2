@@ -490,15 +490,11 @@ typedef struct
 {
 	cl_int enabled;
 	cl_int enabledFalse;
-	// cl_int enabledAuxR2False; // only used once. Remove
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-	// cl_float factor2;
-	// cl_float scaleLin; // out of date name, only 4 uses. Remove
-	// cl_float offsetLin; // out of date name, only 4 uses. Remove
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
@@ -735,7 +731,7 @@ typedef struct
 	cl_int sphereInversionEnabledFalse;
 	cl_int spheresEnabled;
 
-	cl_int functionEnabledTempFalse;
+	//cl_int functionEnabledTempFalse;
 } sFractalTransformCommonCl;
 
 typedef struct
@@ -1398,7 +1394,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.rotation2EnabledFalse = source.rotation2EnabledFalse;
 	target.sphereInversionEnabledFalse = source.sphereInversionEnabledFalse;
 	target.spheresEnabled = source.spheresEnabled;
-	target.functionEnabledTempFalse = source.functionEnabledTempFalse;
+	//target.functionEnabledTempFalse = source.functionEnabledTempFalse;
 	return target;
 }
 
