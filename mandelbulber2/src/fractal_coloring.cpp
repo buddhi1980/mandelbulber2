@@ -92,7 +92,6 @@ sFractalColoring::sFractalColoring()
 	hybridRadDivDeScale1 = 0.0;
 	icRadWeight = 0.0;
 	initialColorValue = 0.0;
-	// initialMinimumR = 0.0;
 	iterAddScale = 0.0;
 	iterScale = 0.0;
 	maxColorValue = 0.0;

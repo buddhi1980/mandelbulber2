@@ -84,7 +84,7 @@ struct sFractalColoring
 	bool xyzYSqrdFalse;
 	bool xyzZSqrdFalse;
 
-	bool tempLimitFalse; // tempoary
+	bool tempLimitFalse; // temporary
 
 	enumFractalColoring coloringAlgorithm;
 	int iStartValue;
@@ -106,7 +106,6 @@ struct sFractalColoring
 	double hybridRadDivDeScale1;
 	double icRadWeight;
 	double initialColorValue;
-	// double initialMinimumR;
 	double iterAddScale;
 	double iterScale;
 	double maxColorValue;

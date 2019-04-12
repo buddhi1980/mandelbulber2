@@ -123,7 +123,6 @@ typedef struct
 	cl_float hybridRadDivDeScale1;
 	cl_float icRadWeight;
 	cl_float initialColorValue;
-	// cl_float initialMinimumR;
 	cl_float iterAddScale;
 	cl_float iterScale;
 	cl_float maxColorValue;
