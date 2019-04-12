@@ -12794,28 +12794,15 @@ void TransfSphericalInvV2Iteration(CVector4 &z, const sFractal *fractal, sExtend
 	// unconditional mode
 	if (fractal->transformCommon.functionEnabledCz)
 	{
-		if (fractal->transformCommon.functionEnabledTempFalse) // start temp code
+		if (aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD1)
 		{
-			if (aux.i < 1)
-			{
-				z += fractal->transformCommon.offset000;
-				rr = z.Dot(z);
-				z *= fractal->transformCommon.maxR2d1 / rr;
-				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-			}
-		}
-		else // end temp code
-		{
-			if (aux.i >= fractal->transformCommon.startIterationsD
-					&& aux.i < fractal->transformCommon.stopIterationsD1)
-			{
-				z += fractal->transformCommon.offset000;
-				rr = z.Dot(z);
-				z *= fractal->transformCommon.maxR2d1 / rr;
-				z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
-				// double r = sqrt(rr);
-				aux.DE = (fractal->transformCommon.maxR2d1) / rr;
-			}
+			z += fractal->transformCommon.offset000;
+			rr = z.Dot(z);
+			z *= fractal->transformCommon.maxR2d1 / rr;
+			z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+			// double r = sqrt(rr);
+			aux.DE = (fractal->transformCommon.maxR2d1) / rr;
 		}
 	}
 

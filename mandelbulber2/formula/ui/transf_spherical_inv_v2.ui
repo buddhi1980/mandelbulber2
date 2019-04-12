@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_spherical_inv_v2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>2230</height>
+    <height>3451</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,0,0,0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,0,0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -63,13 +63,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_temp_false">
-        <property name="text">
-         <string notr="true">Temp   Sphere Inversion Pre_Transform (only works in slot #1)</string>
-        </property>
-       </widget>
-      </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_62">
         <property name="spacing">
@@ -1516,14 +1509,14 @@ if ( z &gt; MinumumR) z *= 1/  rrMode</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

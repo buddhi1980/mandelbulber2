@@ -541,8 +541,8 @@ sFractal::sFractal(const cParameterContainer *container)
 		container->Get<bool>("transf_sphere_inversion_enabled_false");
 	transformCommon.spheresEnabled = container->Get<bool>("transf_spheres_enabled");
 
-	transformCommon.functionEnabledTempFalse =
-		container->Get<bool>("transf_function_enabled_temp_false");
+	//transformCommon.functionEnabledTempFalse =
+	//	container->Get<bool>("transf_function_enabled_temp_false");
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 2);
 

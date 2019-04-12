@@ -66,8 +66,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	double r = z.Length();
 
-	double initR = r;
-
 	double initialWAxisColor = z.w;
 
 	double orbitTrapTotal = 0.0;
@@ -491,13 +489,6 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					case analyticFunctionNone: out->distance = -1.0; break;
 					case analyticFunctionUndefined: out->distance = r; break;
 				}
-			}
-			// TEMPORARY CODE.  To be removed afer testing
-			if (fractals.GetFractal(sequence)->transformCommon.functionEnabledTempFalse)
-			{
-				out->distance =
-					out->distance * initR * initR
-					/ (fractals.GetFractal(sequence)->transformCommon.maxR2d1 + initR * out->distance);
 			}
 		}
 		else
