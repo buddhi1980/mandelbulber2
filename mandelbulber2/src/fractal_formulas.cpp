@@ -15547,16 +15547,18 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// double auxColor = 0.0;
-	double R2 = 0.0;
+	double RR = 0.0;
 	double distEst = 0.0;
-	double planeBias = 0.0;
 	double linearOffset = 0.0;
-	// double factorR = fractal->mandelbox.color.factorR;
-	double componentMaster = 0.0;
-	double minValue = 0.0;
-	double lengthIter = 0.0;
 	double boxTrap = 0.0;
 	double sphereTrap = 0.0;
+
+		double lengthIter = 0.0;
+	double planeBias = 0.0;
+
+	// double factorR = fractal->mandelbox.color.factorR;
+	double componentMaster = 0.0;
+	// double minValue = 0.0;
 
 	// if
 	{
@@ -15568,18 +15570,13 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			CVector4 c = aux.c;
 			temp0 = c.Dot(c) * fractal->foldColor.scaleA0; // initial R2
 			temp1 = z.Dot(z) * fractal->foldColor.scaleB0;
-			R2 = temp0 + temp1;
+			RR = temp0 + temp1;
 		}
 
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			distEst = aux.DE;
-			double temp5 = 0.0;
-			temp5 = distEst * fractal->foldColor.scaleD0;
-			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= 1.0 / (aux.i + 1.0);
-			if (fractal->transformCommon.functionEnabledBzFalse) temp5 *= 1.0 / (aux.i * aux.i + 1.0);
-			distEst = temp5;
+			distEst = aux.DE * fractal->foldColor.scaleD0;
 		}
 
 		// max linear offset
@@ -15626,19 +15623,19 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		// sphere trap
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
-			double sphereR2 = fractal->transformCommon.maxR2d1;
+			double sphereRR = fractal->transformCommon.maxR2d1;
 			double temp45 = z.Dot(z);
-			double temp46 = sphereR2 - temp45;
+			double temp46 = sphereRR - temp45;
 			double temp47 = temp46;
 			double temp51 = temp46;
 			if (fractal->transformCommon.functionEnabledAx) temp51 = fabs(temp51);
 			temp51 *= fractal->transformCommon.scaleF1;
 
-			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereR2)
+			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereRR)
 			{
 				temp46 *= temp46 * fractal->transformCommon.scaleG1;
 			}
-			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereR2)
+			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereRR)
 			{
 				temp47 *= temp47 * fractal->transformCommon.scaleB1;
 			}
@@ -15683,7 +15680,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 
 		// build  componentMaster
-		componentMaster = (R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster = (RR + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
 
 		// divide by i option
 		/*if (fractal->transformCommon.functionEnabledCzFalse
@@ -15700,17 +15697,6 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			}*/
 
 		aux.colorHybrid = componentMaster;
-
-		if (fractal->surfBox.enabledZ2False)
-		{
-			if (componentMaster < aux.temp100 * fractal->transformCommon.scaleA1)
-			{
-				aux.temp100 = componentMaster;
-			}
-			minValue = aux.temp100;
-
-			aux.colorHybrid += (minValue - aux.colorHybrid) * fractal->surfBox.scale1Z1;
-		}
 		aux.colorHybrid *= 256.0;
 	}
 }
@@ -15733,7 +15719,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double linearOffset = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
-	double minValue = 0.0;
+	//double minValue = 0.0;
 	double lengthIter = 0.0;
 	double boxTrap = 0.0;
 	double sphereTrap = 0.0;
@@ -15759,21 +15745,23 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			if (aux.i >= fractal->transformCommon.startIterationsD
 					&& aux.i < fractal->transformCommon.stopIterationsD)
 			{
-				CVector4 subVs = z - aux.old_z;
-				lastDist = subVs.Dot(subVs) * fractal->foldColor.scaleB1;
+				CVector4 subVs = fabs(z - aux.old_z);
+				lastDist = sqrt(subVs.Dot(subVs));
 
-				if (fractal->transformCommon.functionEnabledAxFalse)
+				//lastDist = z.Dot(z) / aux.old_z.Dot(aux.old_z) * fractal->foldColor.scaleB1;
+				/*if (fractal->transformCommon.functionEnabledAxFalse)
 				{
 					subVs = fabs(subVs);
 					lastDist = min(min(subVs.x, subVs.y), subVs.z) * fractal->foldColor.scaleB1;
 				}
-				else
-					aux.addDist += lastDist;
+				else*/
+				aux.addDist += lastDist * fractal->foldColor.scaleB1;
+				//aux.addDist += fractal->foldColor.scaleB1;
 			}
-			lastDist = aux.addDist;
+		}
+			//lastDist = aux.addDist;
 			// update
 			aux.old_z = z;
-		}
 
 		/*aux.sum_z +=(z); // fabs
 		CVector4 sumZ = aux.sum_z;
@@ -15915,23 +15903,26 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	}
 	// build  componentMaster
 	componentMaster =
-		(R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI + sphereTrap + lastDist);
+		(R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI + sphereTrap + aux.addDist);
 
 	componentMaster *= fractal->transformCommon.scaleA1;
 
 	aux.colorHybrid = componentMaster;
-	if (fractal->surfBox.enabledZ2False)
+	/*if (fractal->surfBox.enabledZ2False)
 	{
-		if (componentMaster < aux.temp100) // )
+		if (componentMaster < aux.temp100 + 1000.0) // )
 		{
 			aux.temp100 = componentMaster;
 		}
 		minValue = aux.temp100;
 
-		aux.colorHybrid += (minValue - aux.colorHybrid);
+		aux.colorHybrid = (minValue);
+		//aux.colorHybrid += (minValue - aux.colorHybrid);
+
 		//	aux.colorHybrid * (1.0 - fractal->surfBox.scale1Z1) + (minValue *
 		// fractal->surfBox.scale1Z1);
-	}
+	}*/
+			aux.colorHybrid *= 256.0;
 }
 
 /**

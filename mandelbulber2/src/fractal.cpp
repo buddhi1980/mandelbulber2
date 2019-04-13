@@ -250,12 +250,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
-	// analyticDE.factor2 = container->Get<double>("analyticDE_factor_2");
 	analyticDE.enabled = container->Get<bool>("analyticDE_enabled");
 	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
-	// analyticDE.enabledAuxR2False = container->Get<bool>("analyticDE_enabled_auxR2_false");
-	// analyticDE.scaleLin = container->Get<double>("analyticDE_scale_linear");
-	// analyticDE.offsetLin = container->Get<double>("analyticDE_offset_linear");
 
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
