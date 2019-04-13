@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_abs_add_multi</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>ABS Add Constant Multi
+      <string>ABS Add Constant Multiple parameters
 z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
      </property>
     </widget>
@@ -48,15 +48,47 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="4" column="1">
-      <widget class="QLabel" name="label_94">
-       <property name="text">
-        <string notr="true">x</string>
+     <item row="9" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="5" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+     <item row="6" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string>z.z</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLabel" name="label_99">
+       <property name="text">
+        <string notr="true">z.x</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -80,104 +112,27 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0" colspan="3">
+      <widget class="Line" name="line_24">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
        <property name="text">
-        <string/>
+        <string>z.z</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
-       </property>
+     <item row="10" column="1">
+      <widget class="QLabel" name="label_101">
        <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_95">
-       <property name="text">
-        <string notr="true">y</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
-       </property>
-       <property name="text">
-        <string notr="true">ABS(z + A)</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="label_96">
-       <property name="text">
-        <string notr="true">z</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="label_70">
-       <property name="text">
-        <string notr="true">z</string>
+        <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
@@ -206,78 +161,71 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_68">
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_100">
        <property name="text">
-        <string notr="true">y</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string notr="true">const.A</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
        <property name="layoutDirection">
         <enum>Qt::RightToLeft</enum>
        </property>
        <property name="text">
-        <string notr="true">ABS(z - B)</string>
+        <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_y">
+     <item row="8" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="prefix">
+        <string/>
+       </property>
        <property name="decimals">
         <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="3" column="0" colspan="3">
-      <widget class="Line" name="line_24">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="4" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_x">
+       <property name="enabled">
+        <bool>false</bool>
        </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="prefix">
+        <string/>
+       </property>
        <property name="decimals">
         <number>6</number>
        </property>
        <property name="minimum">
         <double>-99.989999999999995</double>
-       </property>
-       <property name="maximum">
-        <double>99.989999999999995</double>
        </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
@@ -309,25 +257,37 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
-       <property name="layoutDirection">
-        <enum>Qt::RightToLeft</enum>
-       </property>
-       <property name="text">
-        <string/>
+     <item row="7" column="0" colspan="3">
+      <widget class="Line" name="line_23">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
       </widget>
      </item>
-     <item row="11" column="1">
-      <widget class="QLabel" name="label_101">
-       <property name="text">
-        <string notr="true">z</string>
+     <item row="10" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_z">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-99.989999999999995</double>
+       </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_z">
+     <item row="2" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_z">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -351,23 +311,33 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="0" colspan="3">
-      <widget class="Line" name="line_23">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string notr="true">const.B</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_111_x">
+     <item row="5" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string notr="true">z.y</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_000_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
        </property>
        <property name="decimals">
         <number>6</number>
@@ -375,36 +345,38 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
        <property name="minimum">
         <double>-99.989999999999995</double>
        </property>
+       <property name="maximum">
+        <double>99.989999999999995</double>
+       </property>
        <property name="singleStep">
         <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
-     <item row="10" column="1">
-      <widget class="QLabel" name="label_100">
-       <property name="text">
-        <string notr="true">y</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
-      <widget class="QLabel" name="label_69">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
        <property name="text">
-        <string notr="true">x</string>
+        <string>z.x</string>
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="QLabel" name="label_99">
-       <property name="text">
-        <string notr="true">x</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
+     <item row="9" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string notr="true">- ( z * C )</string>
+        <string notr="true">const.C</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledx">
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string>z.x</string>
        </property>
       </widget>
      </item>
@@ -564,11 +536,115 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
      <item row="2" column="0">
       <widget class="QLabel" name="label_259">
        <property name="text">
-        <string>Offset:</string>
+        <string>Post-Offset:</string>
        </property>
       </widget>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
+     <property name="title">
+      <string>Analytic D&amp;E extra controls</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_177">
+          <property name="text">
+           <string>offset0:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_182">
+          <property name="text">
+           <string>scale1:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -706,17 +782,11 @@ z = abs( z + const.A ) - abs( z - const.B ) - ( z * const.C )</string>
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>checkBox_transf_function_enabledAx</tabstop>
   <tabstop>spinbox3_transf_addition_constant_x</tabstop>
-  <tabstop>checkBox_transf_function_enabledAy</tabstop>
   <tabstop>spinbox3_transf_addition_constant_y</tabstop>
-  <tabstop>checkBox_transf_function_enabledAz</tabstop>
   <tabstop>spinbox3_transf_addition_constant_z</tabstop>
-  <tabstop>checkBox_transf_function_enabledx</tabstop>
   <tabstop>spinbox3_transf_offset_000_x</tabstop>
-  <tabstop>checkBox_transf_function_enabledy</tabstop>
   <tabstop>spinbox3_transf_offset_000_y</tabstop>
-  <tabstop>checkBox_transf_function_enabledz</tabstop>
   <tabstop>spinbox3_transf_offset_000_z</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_x</tabstop>
   <tabstop>spinbox3_transf_scale3D_111_y</tabstop>
