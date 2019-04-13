@@ -150,7 +150,14 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 #ifdef STEREO_REYCYAN
 	float3 pixelLeftColor = 0.0f;
 	float3 pixelRightColor = 0.0f;
+
+#ifdef STEREO_FORCEDEYELEFT
+	int eye = 0;
+#elif STEREO_FORCEDEYERIGHT
+	int eye = 1;
+#else
 	for (int eye = 0; eye < 2; eye++)
+#endif
 	{
 #endif
 
@@ -343,6 +350,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 #endif // PERSP_FISH_EYE_CUT
 
 #ifdef STEREO_REYCYAN
+#ifdef STEREO_FORCEDEYELEFT // if double ppass - left eye
+		pixelLeftColor.s1 = resultShader.s1;
+		pixelLeftColor.s2 = resultShader.s2;
+#elif STEREO_FORCEDEYERIGHT // if double ppass - right eye
+		pixelRightColor.s0 = resultShader.s0;
+#else												// if not double pass (internal repeat loop)
 		if (eye == 0)
 		{
 			pixelLeftColor.s0 = resultShader.s0;
@@ -350,10 +363,13 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 			pixelLeftColor.s2 = resultShader.s2;
 		}
 		else
+#endif
 		{
+#if (!defined(STEREO_FORCEDEYELEFT) && !defined(STEREO_FORCEDEYERIGHT))
 			pixelRightColor.s0 = resultShader.s0;
 			pixelRightColor.s1 = resultShader.s1;
 			pixelRightColor.s2 = resultShader.s2;
+#endif
 
 			pixel.R = pixelRightColor.s0;
 			pixel.G = pixelLeftColor.s1;

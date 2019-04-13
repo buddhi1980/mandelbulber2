@@ -401,6 +401,88 @@ bool cRenderJob::Execute()
 		}
 	}
 
+#ifdef USE_OPENCL
+	if (paramsContainer->Get<bool>("opencl_enabled")
+			&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
+					 paramsContainer->Get<int>("opencl_mode"))
+					 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
+	{
+		cProgressText progressText;
+		progressText.ResetTimer();
+
+		*renderData->stopRequest = false;
+
+		for (int repeat = 0; repeat < noOfRepeats; repeat++)
+		{
+			SetupStereoEyes(repeat, twoPassStereo);
+
+			// move parameters from containers to structures
+			sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
+			cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
+
+			renderData->ValidateObjects();
+
+			image->SetImageParameters(params->imageAdjustments);
+
+			InitStatistics(fractals);
+
+			image->SetFastPreview(true);
+
+			// render all with OpenCL
+			result = RenderFractalWithOpenCl(params, fractals, &progressText);
+
+			if (renderData->stereo.isEnabled()
+					&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
+							 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
+			{
+				// stereoscopic rendering of SSAO (separate for each half of image)
+				cRegion<int> region;
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
+				RenderSSAOWithOpenCl(params, region, &progressText, &result);
+				region = renderData->stereo.GetRegion(
+					CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
+				RenderSSAOWithOpenCl(params, region, &progressText, &result);
+			}
+			else
+			{
+				RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
+			}
+
+			RenderDOFWithOpenCl(params, &result);
+
+			if (!*renderData->stopRequest)
+			{
+				if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
+							paramsContainer->Get<int>("opencl_mode"))
+							== cOpenClEngineRenderFractal::clRenderEngineTypeFast
+						|| mode == flightAnimRecord)
+					image->SetFastPreview(true);
+				else
+					image->SetFastPreview(false);
+
+				if (image->IsPreview())
+				{
+					image->UpdatePreview();
+					WriteLog("image->GetImageWidget()->update()", 2);
+					emit updateImage();
+				}
+			}
+
+			if (twoPassStereo && repeat == 0) renderData->stereo.StoreImageInBuffer(image);
+
+			delete params;
+			delete fractals;
+		} // next repeat
+
+		image->SetFastPreview(false);
+
+		emit updateProgressAndStatus(
+			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
+	}
+
+#endif
+
 	if (twoPassStereo)
 	{
 		renderData->stereo.MixImages(image);
@@ -414,81 +496,6 @@ bool cRenderJob::Execute()
 			emit updateImage();
 		}
 	}
-
-#ifdef USE_OPENCL
-	if (paramsContainer->Get<bool>("opencl_enabled")
-			&& cOpenClEngineRenderFractal::enumClRenderEngineMode(
-					 paramsContainer->Get<int>("opencl_mode"))
-					 != cOpenClEngineRenderFractal::clRenderEngineTypeNone)
-	{
-		cProgressText progressText;
-		progressText.ResetTimer();
-
-		*renderData->stopRequest = false;
-
-		// move parameters from containers to structures
-		sParamRender *params = new sParamRender(paramsContainer, &renderData->objectData);
-		cNineFractals *fractals = new cNineFractals(fractalContainer, paramsContainer);
-
-		renderData->ValidateObjects();
-
-		image->SetImageParameters(params->imageAdjustments);
-
-		InitStatistics(fractals);
-
-		image->SetFastPreview(true);
-
-		// render all with OpenCL
-		result = RenderFractalWithOpenCl(params, fractals, &progressText);
-
-		if (renderData->stereo.isEnabled()
-				&& (renderData->stereo.GetMode() == cStereo::stereoLeftRight
-						 || renderData->stereo.GetMode() == cStereo::stereoTopBottom))
-		{
-			// stereoscopic rendering of SSAO (separate for each half of image)
-			cRegion<int> region;
-			region = renderData->stereo.GetRegion(
-				CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeLeft);
-			RenderSSAOWithOpenCl(params, region, &progressText, &result);
-			region = renderData->stereo.GetRegion(
-				CVector2<int>(image->GetWidth(), image->GetHeight()), cStereo::eyeRight);
-			RenderSSAOWithOpenCl(params, region, &progressText, &result);
-		}
-		else
-		{
-			RenderSSAOWithOpenCl(params, renderData->screenRegion, &progressText, &result);
-		}
-
-		RenderDOFWithOpenCl(params, &result);
-
-		if (!*renderData->stopRequest)
-		{
-			if (cOpenClEngineRenderFractal::enumClRenderEngineMode(
-						paramsContainer->Get<int>("opencl_mode"))
-						== cOpenClEngineRenderFractal::clRenderEngineTypeFast
-					|| mode == flightAnimRecord)
-				image->SetFastPreview(true);
-			else
-				image->SetFastPreview(false);
-
-			if (image->IsPreview())
-			{
-				image->UpdatePreview();
-				WriteLog("image->GetImageWidget()->update()", 2);
-				emit updateImage();
-			}
-		}
-
-		image->SetFastPreview(false);
-
-		emit updateProgressAndStatus(
-			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
-
-		delete params;
-		delete fractals;
-	}
-
-#endif
 
 	if (result)
 		emit fullyRendered(tr("Finished Render"), tr("The image has been rendered completely."));

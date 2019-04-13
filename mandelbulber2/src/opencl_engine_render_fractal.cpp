@@ -573,6 +573,10 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DSTEREO_LEFTRIGHT";
 	if (renderData->stereo.GetMode() == cStereo::stereoTopBottom)
 		definesCollector += " -DSTEREO_TOPBOTTOM";
+	if (renderData->stereo.GetForcedEye() == cStereo::eyeLeft)
+		definesCollector += " -DSTEREO_FORCEDEYELEFT";
+	if (renderData->stereo.GetForcedEye() == cStereo::eyeRight)
+		definesCollector += " -DSTEREO_FORCEDEYERIGHT";
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 

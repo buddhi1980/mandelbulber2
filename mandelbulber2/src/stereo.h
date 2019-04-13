@@ -83,6 +83,7 @@ public:
 	void StoreImageInBuffer(cImage *image);
 	void MixImages(cImage *image) const;
 	void ForceEye(enumEye eye);
+	enumEye GetForcedEye() { return forceEye; }
 	void SwapEyes() { swapped = true; }
 	bool AreSwapped() const { return swapped; }
 
