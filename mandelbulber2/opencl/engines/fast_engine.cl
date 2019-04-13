@@ -159,12 +159,19 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 #ifdef STEREOSCOPIC
 #ifndef PERSP_FISH_EYE_CUT
+
+#ifdef PERSP_EQUIRECTANGULAR // reduce of stereo effect on poles
+		float stereoIntensity = 1.0f - pow(normalizedScreenPoint.y * 2.0f, 10.0f);
+#else
+		float stereoIntensity = 1.0f;
+#endif
+
 		start = StereoCalcEyePosition(start, viewVector, consts->params.topVector,
-			consts->params.stereoEyeDistance, eye, consts->params.stereoSwapEyes);
+			consts->params.stereoEyeDistance * stereoIntensity, eye, consts->params.stereoSwapEyes);
 
 		matrix33 rotInv = TransposeMatrix(rot);
-		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection, &rot, &rotInv, eye,
-			consts->params.stereoSwapEyes, &viewVector);
+		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection * stereoIntensity, &rot,
+			&rotInv, eye, consts->params.stereoSwapEyes, &viewVector);
 #else // PERSP_FISH_EYE_CUT
 		float3 eyePosition = 0.0f;
 		float3 sideVector = normalize(cross(viewVector, consts->params.topVector));

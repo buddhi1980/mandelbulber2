@@ -284,10 +284,15 @@ void cRenderWorker::doWork()
 					}
 					else
 					{
-						startRay = data->stereo.CalcEyePosition(
-							startRay, viewVector, params->topVector, params->stereoEyeDistance, stereoEye);
-						data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection, mRot, mRotInv,
-							stereoEye, params->perspectiveType, &viewVector);
+						//reduce of stereo effect on poles
+						double stereoIntensity = (params->perspectiveType == params::perspEquirectangular)
+																			 ? 1.0 - pow(imagePoint.y * 2.0, 10.0)
+																			 : 1.0;
+
+						startRay = data->stereo.CalcEyePosition(startRay, viewVector, params->topVector,
+							params->stereoEyeDistance * stereoIntensity, stereoEye);
+						data->stereo.ViewVectorCorrection(params->stereoInfiniteCorrection * stereoIntensity,
+							mRot, mRotInv, stereoEye, params->perspectiveType, &viewVector);
 					}
 				}
 
