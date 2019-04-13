@@ -165,7 +165,24 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		matrix33 rotInv = TransposeMatrix(rot);
 		StereoViewVectorCorrection(consts->params.stereoInfiniteCorrection, &rot, &rotInv, eye,
 			consts->params.stereoSwapEyes, &viewVector);
-#endif // PERSP_FISH_EYE_CUT
+#else // PERSP_FISH_EYE_CUT
+		float3 eyePosition = 0.0f;
+		float3 sideVector = normalize(cross(viewVector, consts->params.topVector));
+		float3 rightVector =
+			normalize(cross(consts->params.target - consts->params.camera, consts->params.topVector));
+		float eyeDistance = consts->params.stereoEyeDistance;
+		if (consts->params.stereoSwapEyes) eyeDistance *= -1.0f;
+
+		if (eye == 0)
+		{
+			eyePosition = start + 0.5f * (rightVector * eyeDistance + sideVector * eyeDistance);
+		}
+		else
+		{
+			eyePosition = start - 0.5f * (rightVector * eyeDistance + sideVector * eyeDistance);
+		}
+		start = eyePosition;
+#endif
 #endif // STEREOSCOPIC
 
 		bool found = false;
