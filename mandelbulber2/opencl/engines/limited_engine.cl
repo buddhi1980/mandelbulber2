@@ -177,7 +177,9 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 #ifdef STEREOSCOPIC
 #ifndef STEREO_REYCYAN
+#ifndef PERSP_EQUIRECTANGULAR
 		aspectRatio = StereoModifyAspectRatio(aspectRatio);
+#endif
 #endif
 #endif
 
