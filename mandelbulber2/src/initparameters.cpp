@@ -973,6 +973,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam(
 		"transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offsetA_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_neg_1111", CVector4(-1.0, -1.0, -1.0, -1.0), morphAkima, paramStandard);
@@ -982,6 +983,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam(
 		"transf_constant_multiplier_1220", CVector4(1.0, 2.0, 2.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_scale_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_scale_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
 
 	par->addParam("transf_addCpixel_enabled", true, morphLinear, paramStandard);
 	par->addParam("transf_addCpixel_enabled_false", false, morphLinear, paramStandard);

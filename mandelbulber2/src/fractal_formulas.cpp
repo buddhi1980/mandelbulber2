@@ -1977,6 +1977,21 @@ void AboxModKaliV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z += sign(z.z) * tempFAB.z;
 	}
 
+	// sign options
+	if (fractal->transformCommon.functionEnabledSFalse
+		&& aux.i >= fractal->transformCommon.startIterationsD
+		&& aux.i < fractal->transformCommon.stopIterationsD)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
+	}
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
 	// aux.color controls
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -15053,6 +15068,60 @@ void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sE
 	}
 	aux.DE *= fractal->analyticDE.scale1; // DE tweak
 }
+
+/**
+ * abs Multi - Multiple parameters for abs functions
+ */
+void TransfAbsAddMulti4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
+	CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);
+
+	if (fractal->transformCommon.functionEnabledAx)
+		tempA.x = fabs(z.x + fractal->transformCommon.additionConstant0000.x);
+
+	if (fractal->transformCommon.functionEnabledx)
+		tempB.x = fabs(z.x - fractal->transformCommon.offset0000.x);
+
+	z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale1111.x);
+
+	if (fractal->transformCommon.functionEnabledAy)
+		tempA.y = fabs(z.y + fractal->transformCommon.additionConstant0000.y);
+
+	if (fractal->transformCommon.functionEnabledy)
+		tempB.y = fabs(z.y - fractal->transformCommon.offset0000.y);
+
+	z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale1111.y);
+
+	if (fractal->transformCommon.functionEnabledAz)
+		tempA.z = fabs(z.z + fractal->transformCommon.additionConstant0000.z);
+
+	if (fractal->transformCommon.functionEnabledz)
+		tempB.z = fabs(z.z - fractal->transformCommon.offset0000.z);
+
+	z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale1111.z);
+
+	if (fractal->transformCommon.functionEnabledAw)
+		tempA.w = fabs(z.w + fractal->transformCommon.additionConstant0000.w);
+
+	if (fractal->transformCommon.functionEnabledz)
+		tempB.w = fabs(z.w - fractal->transformCommon.offset0000.w);
+
+	z.w = tempA.w - tempB.w - (z.w * fractal->transformCommon.scale1111.w);
+
+	// post-offset
+	z += fractal->transformCommon.offsetA0000;
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+}
+
+
+
+
+
 
 /**
  * Adds c constant to z vector 4D
