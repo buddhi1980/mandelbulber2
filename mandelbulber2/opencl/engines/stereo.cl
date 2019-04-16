@@ -91,7 +91,7 @@ int StereoWhichEye(float2 imagePoint)
 #endif
 
 #ifdef STEREO_TOPBOTTOM
-	eye = imagePoint.y >= 0.0f ? 1 : 0;
+	eye = imagePoint.y >= 0.0f ? 0 : 1;
 #endif
 
 	return eye;
