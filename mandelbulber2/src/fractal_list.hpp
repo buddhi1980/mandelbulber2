@@ -182,7 +182,7 @@ enum enumFractalFormula
 	// 2.14
 	mandelboxVariable = 133,
 	boxFold4dBulbPow2 = 134,
-	aboxModKaliV2 = 135,
+	aboxModKaliV2 = 135, // v2.18 add oldZ sign transform
 	// 2.15
 	aboxModKaliV3 = 136,
 	// 2.16
@@ -313,6 +313,8 @@ enum enumFractalFormula
 	// 2.18
 	transfRotationIterControls = 1091,
 	transfClamp4d = 1092,
+	transfAbsAddMulti4d = 1093,
+
 
 	// hybrid color trial
 	transfHybridColor = 2000,

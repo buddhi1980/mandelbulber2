@@ -306,6 +306,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfClamp4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfAbsAddMulti4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfIterationWeight4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
