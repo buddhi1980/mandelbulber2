@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold4d_tglad</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>855</width>
+    <width>934</width>
     <height>1092</height>
    </rect>
   </property>
@@ -195,36 +195,18 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_z">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-100.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>100.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_30">
+       <property name="text">
+        <string>W plane:</string>
        </property>
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_w">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -252,42 +234,24 @@
       </widget>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="label_30">
+      <widget class="QLabel" name="label_27">
        <property name="text">
-        <string>W plane:</string>
+        <string>Z plane:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+       <property name="text">
+        <string notr="true">aux.color components</string>
        </property>
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_y">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="prefix">
-        <string/>
-       </property>
-       <property name="suffix">
-        <string/>
-       </property>
-       <property name="decimals">
-        <number>6</number>
-       </property>
-       <property name="minimum">
-        <double>-100.000000000000000</double>
-       </property>
-       <property name="maximum">
-        <double>100.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.100000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_x">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -315,41 +279,92 @@
       </widget>
      </item>
      <item row="4" column="0">
-      <widget class="QLabel" name="label_27">
-       <property name="text">
-        <string>Z plane:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
       <widget class="QLabel" name="label_26">
        <property name="text">
         <string>Y plane:</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="0">
+     <item row="3" column="0">
       <widget class="QLabel" name="label_25">
        <property name="text">
         <string>X plane:</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0" colspan="3">
-      <widget class="MyCheckBox" name="checkBox_fold_color_aux_color_enabled_false">
+     <item row="6" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_w">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-100.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox4_mandelbox_color_4D_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>6</number>
+       </property>
+       <property name="minimum">
+        <double>-100.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
-        <string notr="true">aux.color components</string>
+        <string notr="true">enable aux.color mode 2</string>
        </property>
       </widget>
      </item>
     </layout>
-   </item>
-   <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCx_false">
-     <property name="text">
-      <string notr="true">enable aux.color mode 2</string>
-     </property>
-    </widget>
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_info">
@@ -495,5 +510,86 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_mandelbox_color_4D_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>157</x>
+     <y>144</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_mandelbox_color_4D_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>19</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_mandelbox_color_4D_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>183</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_mandelbox_color_4D_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>20</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>298</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_fold_color_aux_color_enabled_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledCx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>22</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>81</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

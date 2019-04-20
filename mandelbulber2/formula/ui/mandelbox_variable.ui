@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>mandelbox_variable</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -32,7 +32,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Box folding dev V2.14 BETA</string>
+      <string>Box folding</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
       <property name="spacing">
@@ -1141,7 +1141,7 @@ offset:</string>
    <item>
     <widget class="MyGroupBox" name="groupCheck_mandelbox_rotations_enabled">
      <property name="title">
-      <string>&amp;Rotation of separate planes (TODO)</string>
+      <string>&amp;Rotation of separate planes (TODO plus add more)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -3104,11 +3104,6 @@ offset:</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -3128,6 +3123,11 @@ offset:</string>
    <class>MyComboBox</class>
    <extends>QComboBox</extends>
    <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

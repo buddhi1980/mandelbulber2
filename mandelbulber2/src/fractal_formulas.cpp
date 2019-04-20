@@ -15029,13 +15029,75 @@ void TransfAbsAddConstant4dIteration(CVector4 &z, const sFractal *fractal, sExte
 
 /**
  * abs.  Add abs constantV2,  z = abs( z + constant) - abs( z - constant) - z:
+ * This formula contains aux.color
  */
 void TransfAbsAddTgladFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	CVector4 limit =  fractal->transformCommon.additionConstant0000;
 
-	z = fabs(z + fractal->transformCommon.additionConstant0000)
-			- fabs(z - fractal->transformCommon.additionConstant0000) - z;
+	CVector4 oldZ = z;
+
+	if (fractal->transformCommon.functionEnabledAx
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+				z.x = fabs(z.x + limit.x)
+					- fabs(z.x - limit.x) - z.x;
+
+	if (fractal->transformCommon.functionEnabledAy
+			&&  aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+				z.y = fabs(z.y + limit.y)
+					- fabs(z.y - limit.y) - z.y;
+
+	if (fractal->transformCommon.functionEnabledAz
+			&&  aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+				z.z = fabs(z.z + limit.z)
+					- fabs(z.z - limit.z) - z.z;
+
+	if (fractal->transformCommon.functionEnabledAw
+			&&  aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+				z.w = fabs(z.w + limit.w)
+					- fabs(z.w - limit.w) - z.w;
+
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+			if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+			if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+			if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
+		}
+		else
+		{
+			if (z.x != oldZ.x)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.x * (fabs(z.x) - limit.x);
+			if (z.y != oldZ.y)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.y * (fabs(z.y) - limit.y);
+			if (z.z != oldZ.z)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.z * (fabs(z.z) - limit.z);
+			if (z.w != oldZ.w)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.w * (fabs(z.w) - limit.w);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
 }
 
 /**
@@ -15074,8 +15136,6 @@ void TransfAbsAddConditional4dIteration(CVector4 &z, const sFractal *fractal, sE
  */
 void TransfAbsAddMulti4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
-
 	CVector4 tempA = CVector4(0.0, 0.0, 0.0, 0.0);
 	CVector4 tempB = CVector4(0.0, 0.0, 0.0, 0.0);
 
@@ -15117,11 +15177,6 @@ void TransfAbsAddMulti4dIteration(CVector4 &z, const sFractal *fractal, sExtende
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
-
-
-
-
-
 
 /**
  * Adds c constant to z vector 4D
