@@ -15235,11 +15235,113 @@ void TransfBoxFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
 	}
 }
+
 /**
  * box fold 4D Tglad
  * This formula contains aux.color
  */
 void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	CVector4 limit = fractal->transformCommon.offset1111;
+
+	if (!fractal->transformCommon.functionEnabledCyFalse)
+	{
+		z.x = fabs(z.x + limit.x)
+					- fabs(z.x - limit.x) - z.x;
+		z.y = fabs(z.y + limit.y)
+					- fabs(z.y - limit.y) - z.y;
+		z.z = fabs(z.z + limit.z)
+					- fabs(z.z - limit.z) - z.z;
+		z.w = fabs(z.w + limit.w)
+					- fabs(z.w - limit.w) - z.w;
+
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			if (aux.i > fractal->transformCommon.startIterationsA)
+			{
+				limit.x *= (1.0
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsA)
+																	/fractal->transformCommon.offset0000.x))
+									* fractal->transformCommon.scale1111.x;
+			}
+			z.x = fabs(z.x + limit.x)
+						- fabs(z.x - limit.x) - z.x;
+		}
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			if (aux.i > fractal->transformCommon.startIterationsB)
+			{
+				limit.y *= (1.0
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsB)
+																	/fractal->transformCommon.offset0000.y))
+									* fractal->transformCommon.scale1111.y;
+			}
+			z.y = fabs(z.y + limit.y)
+						- fabs(z.y - limit.y) - z.y;
+		}
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			if (aux.i > fractal->transformCommon.startIterationsB)
+			{
+				limit.z *= (1.0
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsC)
+																	/fractal->transformCommon.offset0000.z))
+									* fractal->transformCommon.scale1111.z;
+			}
+			z.z = fabs(z.z + limit.z)
+						- fabs(z.z - limit.z) - z.z;
+		}
+		if (fractal->transformCommon.functionEnabledAw)
+		{
+			if (aux.i > fractal->transformCommon.startIterationsB)
+			{
+				limit.w *= (1.0
+										- 1.0 / (1.0
+															+ (aux.i - fractal->transformCommon.startIterationsD)
+																	/fractal->transformCommon.offset0000.w))
+									* fractal->transformCommon.scale1111.w;
+			}
+			z.w = fabs(z.w + limit.w)
+						- fabs(z.w - limit.w) - z.w;
+		}
+	}
+
+	if (fractal->foldColor.auxColorEnabledFalse)
+	{
+		if (!fractal->transformCommon.functionEnabledCxFalse)
+		{
+			if (z.x != oldZ.x) aux.color += fractal->mandelbox.color.factor4D.x;
+			if (z.y != oldZ.y) aux.color += fractal->mandelbox.color.factor4D.y;
+			if (z.z != oldZ.z) aux.color += fractal->mandelbox.color.factor4D.z;
+			if (z.w != oldZ.w) aux.color += fractal->mandelbox.color.factor4D.w;
+		}
+		else
+		{
+			if (z.x != oldZ.x)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.x * (fabs(z.x) - limit.x);
+			if (z.y != oldZ.y)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.y * (fabs(z.y) - limit.y);
+			if (z.z != oldZ.z)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.z * (fabs(z.z) - limit.z);
+			if (z.w != oldZ.w)
+				aux.color +=
+					fractal->mandelbox.color.factor4D.w * (fabs(z.w) - limit.w);
+		}
+	}
+}
+
+
+/*void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
 	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
@@ -15276,7 +15378,7 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
 					fractal->mandelbox.color.factor4D.w * (fabs(z.w) - fractal->transformCommon.offset1111.w);
 		}
 	}
-}
+}*/
 
 /**
  * box wrap 4d

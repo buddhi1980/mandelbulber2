@@ -11,9 +11,8 @@ v2.18 (????????????? 2019)
    menger middle mod, added vary scale and sphere inversion
    trans_scale4d,  added vary scale
    aboxModKaliV2,  added oldZ sign transform
-   transfAbsAddTgladFold4d added iter controls and aux.color
-
-
+   transfAbsAddTgladFold4d, added iter controls and aux.color
+   transfBoxFold4dTglad, added linear vary scale option
 
 v2.17 (March 2019)
 - Added new fractal formulas
