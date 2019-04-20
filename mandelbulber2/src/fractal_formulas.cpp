@@ -5102,7 +5102,7 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	else
 	{
 		// TODO recode the following
-		if (z.x > limit4.x)
+	/*	if (z.x > limit4.x)
 		{
 			z.x = value4.x - z.x;
 		}
@@ -5126,7 +5126,58 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		{
 			z.z = -value4.z - z.z;
 		}
-		zCol = z;
+		zCol = z;*/
+
+
+
+		if (!fractal->transformCommon.functionEnabledCyFalse)
+		{
+			z = fabs(z + limit4) - fabs(z - limit4) - z;
+			zCol = z;
+		}
+		else //  variable limit values
+		{
+			if (fractal->transformCommon.functionEnabledAx)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsC)
+				{
+					limit4.x *= (1.0
+											- 1.0 / (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsC)
+																		/fractal->transformCommon.offsetA000.x))
+										* fractal->transformCommon.scale3D111.x;
+				}
+				z.x = fabs(z.x + limit4.x)
+							- fabs(z.x - limit4.x) - z.x;
+			}
+			if (fractal->transformCommon.functionEnabledAy)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsY)
+				{
+					limit4.y *= (1.0
+											- 1.0 / (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsY)
+																		/fractal->transformCommon.offsetA000.y))
+										* fractal->transformCommon.scale3D111.y;
+				}
+				z.y = fabs(z.y + limit4.y)
+							- fabs(z.y - limit4.y) - z.y;
+			}
+			if (fractal->transformCommon.functionEnabledAz)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsZ)
+				{
+					limit4.z *= (1.0
+											- 1.0 / (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsZ)
+																		/fractal->transformCommon.offsetA000.z))
+										* fractal->transformCommon.scale3D111.z;
+				}
+				z.z = fabs(z.z + limit4.z)
+							- fabs(z.z - limit4.z) - z.z;
+			}
+			zCol = z;
+		}
 	}
 
 	// spherical folding

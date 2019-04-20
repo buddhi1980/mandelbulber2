@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>1477</height>
+    <height>1490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -170,7 +170,8 @@
      <item row="0" column="1" rowspan="4">
       <widget class="QLabel" name="label_95">
        <property name="text">
-        <string>Folding Limit:</string>
+        <string>Folding
+Limit:</string>
        </property>
       </widget>
      </item>
@@ -185,8 +186,11 @@
    </item>
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledCy_false">
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Works only on the axis enabled.&lt;/p&gt;&lt;p&gt;Vary offset must be &amp;gt; 0.&lt;/p&gt;&lt;p&gt;Vary offset &amp;amp; scale define the linear slope.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
      <property name="title">
-      <string>linear vary li&amp;mits</string>
+      <string>Linear Vary Li&amp;mits</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -349,43 +353,8 @@ iter:</string>
         <property name="verticalSpacing">
          <number>4</number>
         </property>
-        <item row="1" column="1">
-         <widget class="QLabel" name="label_120">
-          <property name="text">
-           <string notr="true">x</string>
-          </property>
-         </widget>
-        </item>
         <item row="4" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_0000_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_0000_x">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -489,11 +458,47 @@ iter:</string>
           </property>
          </widget>
         </item>
-        <item row="3" column="0" rowspan="2">
+        <item row="1" column="1" rowspan="2">
+         <widget class="QLabel" name="label_120">
+          <property name="text">
+           <string notr="true">x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" rowspan="2">
+         <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_0000_x">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-100.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>100.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" rowspan="5">
          <widget class="QLabel" name="label_34">
           <property name="text">
            <string>vary
-offset:</string>
+offset
+ ( &gt; 0):</string>
           </property>
          </widget>
         </item>
