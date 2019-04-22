@@ -21,16 +21,18 @@
 REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	// REAL auxColor = 0.0f;
-	REAL R2 = 0.0f;
+	REAL RR = 0.0f;
 	REAL distEst = 0.0f;
-	REAL planeBias = 0.0f;
 	REAL linearOffset = 0.0f;
-	// REAL factorR = fractal->mandelbox.color.factorR;
-	REAL componentMaster = 0.0f;
-	REAL minValue = 0.0f;
-	REAL lengthIter = 0.0f;
 	REAL boxTrap = 0.0f;
 	REAL sphereTrap = 0.0f;
+
+	REAL lengthIter = 0.0f;
+	REAL planeBias = 0.0f;
+
+	// REAL factorR = fractal->mandelbox.color.factorR;
+	REAL componentMaster = 0.0f;
+	// REAL minValue = 0.0f;
 
 	// if
 	{
@@ -42,19 +44,13 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			REAL4 c = aux->c;
 			temp0 = dot(c, c) * fractal->foldColor.scaleA0; // initial R2
 			temp1 = dot(z, z) * fractal->foldColor.scaleB0;
-			R2 = temp0 + temp1;
+			RR = temp0 + temp1;
 		}
 
 		// DE component
 		if (fractal->transformCommon.functionEnabledDFalse)
 		{
-			distEst = aux->DE;
-			REAL temp5 = 0.0f;
-			temp5 = distEst * fractal->foldColor.scaleD0;
-			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= native_recip((aux->i + 1.0f));
-			if (fractal->transformCommon.functionEnabledBzFalse)
-				temp5 *= native_recip((mad(aux->i, aux->i, 1.0f)));
-			distEst = temp5;
+			distEst = aux->DE * fractal->foldColor.scaleD0;
 		}
 
 		// max linear offset
@@ -101,19 +97,19 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		// sphere trap
 		if (fractal->transformCommon.functionEnabledzFalse)
 		{
-			REAL sphereR2 = fractal->transformCommon.maxR2d1;
+			REAL sphereRR = fractal->transformCommon.maxR2d1;
 			REAL temp45 = dot(z, z);
-			REAL temp46 = sphereR2 - temp45;
+			REAL temp46 = sphereRR - temp45;
 			REAL temp47 = temp46;
 			REAL temp51 = temp46;
 			if (fractal->transformCommon.functionEnabledAx) temp51 = fabs(temp51);
 			temp51 *= fractal->transformCommon.scaleF1;
 
-			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereR2)
+			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereRR)
 			{
 				temp46 *= temp46 * fractal->transformCommon.scaleG1;
 			}
-			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereR2)
+			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereRR)
 			{
 				temp47 *= temp47 * fractal->transformCommon.scaleB1;
 			}
@@ -158,7 +154,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		}
 
 		// build  componentMaster
-		componentMaster = (R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster = (RR + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
 
 		// divide by i option
 		/*if (fractal->transformCommon.functionEnabledCzFalse
@@ -176,17 +172,6 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			}*/
 
 		aux->colorHybrid = componentMaster;
-
-		if (fractal->surfBox.enabledZ2False)
-		{
-			if (componentMaster < aux->temp100 * fractal->transformCommon.scaleA1)
-			{
-				aux->temp100 = componentMaster;
-			}
-			minValue = aux->temp100;
-
-			aux->colorHybrid += (minValue - aux->colorHybrid) * fractal->surfBox.scale1Z1;
-		}
 		aux->colorHybrid *= 256.0f;
 	}
 	return z;

@@ -14,7 +14,24 @@
  */
 
 REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-{ // fabs() and menger fold
+{
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD1)
+	{
+		REAL rr = 1.0f;
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.maxR2d1, rr);
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleB1;
+		// REAL r = native_sqrt(rr);
+		aux->DE *= (native_divide(fractal->transformCommon.maxR2d1, rr)) * fractal->analyticDE.scale1
+							 * fractal->transformCommon.scaleB1;
+	}
+
+	// fabs() and menger fold
 	z = fabs(z + fractal->transformCommon.additionConstantA000);
 	if (z.x - z.y < 0.0f)
 	{
@@ -94,8 +111,36 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			aux->DE *= fabs(fractal->transformCommon.scaleA1);
 		}
 	}
-	// menger scales and offsets
-	z *= fractal->transformCommon.scale3;
+	// menger scale
+	REAL useScale = 1.0f;
+	if (aux->i >= fractal->transformCommon.startIterationsS
+			&& aux->i < fractal->transformCommon.stopIterationsS)
+	{
+		useScale = aux->actualScaleA + fractal->transformCommon.scale3;
+
+		z *= useScale;
+
+		if (!fractal->analyticDE.enabledFalse)
+			aux->DE = mad(aux->DE, fabs(useScale), 1.0f);
+		else // testing for log
+			aux->DE =
+				mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
+
+		if (fractal->transformCommon.functionEnabledFFalse
+				&& aux->i >= fractal->transformCommon.startIterationsY
+				&& aux->i < fractal->transformCommon.stopIterationsY)
+		{
+			// update actualScaleA for next iteration
+			REAL vary = fractal->transformCommon.scaleVary0
+									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
+			if (fractal->transformCommon.functionEnabledMFalse)
+				aux->actualScaleA = -vary;
+			else
+				aux->actualScaleA = aux->actualScaleA - vary;
+		}
+	}
+
+	// menger offsets
 	z.x -= 2.0f * fractal->transformCommon.constantMultiplier111.x;
 	z.y -= 2.0f * fractal->transformCommon.constantMultiplier111.y;
 	if (fractal->transformCommon.functionEnabled)
@@ -106,7 +151,6 @@ REAL4 MengerMiddleModIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	{
 		z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 	}
-	aux->DE *= fractal->transformCommon.scale3;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse) // addCpixel options
 	{

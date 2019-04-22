@@ -68,7 +68,7 @@ REAL4 TransfBoxWrap4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 		z.x = z.x * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.x) + 1.0f));
 		z.y = z.y * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.y) + 1.0f));
 		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
-		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
+		z.w = z.w * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.w) + 1.0f));
 		// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
 	}
 	if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);

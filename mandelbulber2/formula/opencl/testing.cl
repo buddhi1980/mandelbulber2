@@ -105,10 +105,30 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		zCol.z = z.z;
 	}
 
-	// swap
+	// swizzle
 	if (fractal->transformCommon.functionEnabledSwFalse)
-	{
-		z = (REAL4){z.y, z.x, z.z, z.w};
+	{ // swap xy alternating
+		if (fractal->transformCommon.functionEnabledAz
+				&& aux->i >= fractal->transformCommon.startIterationsI
+				&& aux->i < fractal->transformCommon.stopIterationsI)
+		{
+			z = (REAL4){z.y, z.x, z.z, z.w};
+		}
+		// n
+		if (fractal->transformCommon.functionEnabledJFalse
+				&& aux->i >= fractal->transformCommon.startIterationsJ
+				&& aux->i < fractal->transformCommon.stopIterationsJ)
+		{
+			int div = fractal->transformCommon.int2;
+			if (aux->i % div < fractal->transformCommon.offset1) z.y = -z.y;
+		}
+		// n
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux->i >= fractal->transformCommon.startIterationsK
+				&& aux->i < fractal->transformCommon.stopIterationsK)
+		{
+			if (aux->i % 2 < 1.0f) z.z = -z.z;
+		}
 	}
 
 	// offset
@@ -116,7 +136,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			&& aux->i >= fractal->transformCommon.startIterationsX
 			&& aux->i < fractal->transformCommon.stopIterationsX)
 	{
-		if (fractal->transformCommon.functionEnabledBxFalse)
+		if (!fractal->transformCommon.functionEnabledBxFalse)
 		{
 			REAL4 temp = fractal->transformCommon.additionConstant000;
 			REAL4 temp2 = temp * temp;
@@ -141,7 +161,8 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 						 * fractal->transformCommon.scale1; // * sign(z.z);
 		}
 	}
-	else
+	else if (aux->i >= fractal->transformCommon.startIterationsO
+					 && aux->i < fractal->transformCommon.stopIterationsO)
 		z += fractal->transformCommon.additionConstant000;
 
 	// standard functions
@@ -159,10 +180,10 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			z += fractal->mandelbox.offset;
 
 			// if (r2 < 1e-21f) r2 = 1e-21f;
-			if (rr < fractal->transformCommon.minR2p25)
+			if (rr < fractal->transformCommon.minR0)
 			{
 				REAL tglad_factor1 =
-					native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR2p25);
+					native_divide(fractal->transformCommon.maxR2d1, fractal->transformCommon.minR0);
 				z *= tglad_factor1;
 				aux->DE *= tglad_factor1;
 			}

@@ -183,6 +183,7 @@ typedef struct
 	cl_float DOFMonteCarloCADispersionGain;
 	cl_float DOFMonteCarloCACameraDispersion;
 	cl_float fakeLightsIntensity;
+
 	cl_float fakeLightsVisibility;
 	cl_float fakeLightsVisibilitySize;
 	cl_float fogVisibility;
@@ -224,6 +225,7 @@ typedef struct
 	cl_float3 auxLightPre[4];
 	cl_float3 auxLightRandomCenter;
 	cl_float3 backgroundRotation;
+
 	cl_float3 formulaPosition[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRotation[NUMBER_OF_FRACTALS];
 	cl_float3 formulaRepeat[NUMBER_OF_FRACTALS];

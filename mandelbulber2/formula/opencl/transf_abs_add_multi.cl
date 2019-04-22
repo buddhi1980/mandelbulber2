@@ -45,5 +45,8 @@ REAL4 TransfAbsAddMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	z.z = tempA.z - tempB.z - (z.z * fractal->transformCommon.scale3D111.z);
 
 	z += fractal->transformCommon.offsetA000;
+
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

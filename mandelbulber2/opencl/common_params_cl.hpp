@@ -57,6 +57,13 @@
 #include "src/image_adjustments.h"
 #endif /* OPENCL_KERNEL_CODE */
 
+typedef enum
+{
+	fakeLightsShapePoint = 0,
+	fakeLightsShapeLine = 1,
+	fakeLightsShapeCircle = 2
+} enumFakeLightsShapeCl;
+
 typedef struct
 {
 	cl_float boxLimit; // parameters of TGlad's folding
@@ -74,13 +81,18 @@ typedef struct
 	cl_int fakeLightsMaxIter;
 	cl_int fakeLightsMinIter;
 
+	cl_int fakeLightsOrbitTrapShape;
+
+	cl_float fakeLightsOrbitTrapSize;
 	cl_float linearDEOffset;
 
 	cl_float3 fakeLightsOrbitTrap;
+	cl_float3 fakeLightsRotation;
 	cl_float3 fractalPosition;
 	cl_float3 fractalRotation;
 	cl_float3 repeat;
 	matrix33 mRotFractalRotation;
+	matrix33 mRotFakeLightsRotation;
 
 	sFractalFoldingsCl foldings;
 } sCommonParamsCl;
@@ -104,12 +116,16 @@ inline sCommonParamsCl clCopySCommonParamsCl(const sCommonParams &source)
 	target.iterThreshMode = source.iterThreshMode;
 	target.fakeLightsMaxIter = source.fakeLightsMaxIter;
 	target.fakeLightsMinIter = source.fakeLightsMinIter;
+	target.fakeLightsOrbitTrapShape = source.fakeLightsOrbitTrapShape;
+	target.fakeLightsOrbitTrapSize = source.fakeLightsOrbitTrapSize;
 	target.linearDEOffset = source.linearDEOffset;
 	target.fakeLightsOrbitTrap = toClFloat3(source.fakeLightsOrbitTrap);
+	target.fakeLightsRotation = toClFloat3(source.fakeLightsRotation);
 	target.fractalPosition = toClFloat3(source.fractalPosition);
 	target.fractalRotation = toClFloat3(source.fractalRotation);
 	target.repeat = toClFloat3(source.repeat);
 	target.mRotFractalRotation = toClMatrix33(source.mRotFractalRotation);
+	target.mRotFakeLightsRotation = toClMatrix33(source.mRotFakeLightsRotation);
 	target.foldings = clCopySFractalFoldingsCl(source.foldings);
 	return target;
 }

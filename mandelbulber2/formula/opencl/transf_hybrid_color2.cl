@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -28,7 +28,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL linearOffset = 0.0f;
 	// REAL factorR = fractal->mandelbox.color.factorR;
 	REAL componentMaster = 0.0f;
-	REAL minValue = 0.0f;
+	// REAL minValue = 0.0f;
 	REAL lengthIter = 0.0f;
 	REAL boxTrap = 0.0f;
 	REAL sphereTrap = 0.0f;
@@ -54,21 +54,24 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			if (aux->i >= fractal->transformCommon.startIterationsD
 					&& aux->i < fractal->transformCommon.stopIterationsD)
 			{
-				REAL4 subVs = z - aux->old_z;
-				lastDist = dot(subVs, subVs) * fractal->foldColor.scaleB1;
+				REAL4 subVs = fabs(z - aux->old_z);
+				lastDist = native_sqrt(dot(subVs, subVs));
 
-				if (fractal->transformCommon.functionEnabledAxFalse)
+				// lastDist = native_divide(dot(z, z), dot(aux->old_z, aux->old_z)) *
+				// fractal->foldColor.scaleB1;
+				/*if (fractal->transformCommon.functionEnabledAxFalse)
 				{
 					subVs = fabs(subVs);
 					lastDist = min(min(subVs.x, subVs.y), subVs.z) * fractal->foldColor.scaleB1;
 				}
-				else
-					aux->addDist += lastDist;
+				else*/
+				aux->addDist += lastDist * fractal->foldColor.scaleB1;
+				// aux->addDist += fractal->foldColor.scaleB1;
 			}
-			lastDist = aux->addDist;
-			// update
-			aux->old_z = z;
 		}
+		// lastDist = aux->addDist;
+		// update
+		aux->old_z = z;
 
 		/*aux->sum_z +=(z); // fabs
 		REAL4 sumZ = aux->sum_z;
@@ -212,23 +215,26 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 	}
 	// build  componentMaster
-	componentMaster =
-		(R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI + sphereTrap + lastDist);
+	componentMaster = (R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI
+										 + sphereTrap + aux->addDist);
 
 	componentMaster *= fractal->transformCommon.scaleA1;
 
 	aux->colorHybrid = componentMaster;
-	if (fractal->surfBox.enabledZ2False)
+	/*if (fractal->surfBox.enabledZ2False)
 	{
-		if (componentMaster < aux->temp100) // )
+		if (componentMaster < aux->temp100 + 1000.0f) // )
 		{
 			aux->temp100 = componentMaster;
 		}
 		minValue = aux->temp100;
 
-		aux->colorHybrid += (minValue - aux->colorHybrid);
+		aux->colorHybrid = (minValue);
+		//aux->colorHybrid += (minValue - aux->colorHybrid);
+
 		//	mad(aux->colorHybrid, (1.0f - fractal->surfBox.scale1Z1), (minValue *
 		// fractal->surfBox.scale1Z1));
-	}
+	}*/
+	aux->colorHybrid *= 256.0f;
 	return z;
 }

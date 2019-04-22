@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -63,31 +63,77 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	else
 	{
 		// TODO recode the following
-		if (z.x > limit4.x)
+		/*	if (z.x > limit4.x)
+			{
+				z.x = value4.x - z.x;
+			}
+			else if (z.x < -limit4.x)
+			{
+				z.x = -value4.x - z.x;
+			}
+			if (z.y > limit4.y)
+			{
+				z.y = value4.y - z.y;
+			}
+			else if (z.y < -limit4.y)
+			{
+				z.y = -value4.y - z.y;
+			}
+			if (z.z > limit4.z)
+			{
+				z.z = value4.z - z.z;
+			}
+			else if (z.z < -limit4.z)
+			{
+				z.z = -value4.z - z.z;
+			}
+			zCol = z;*/
+
+		if (!fractal->transformCommon.functionEnabledCyFalse)
 		{
-			z.x = value4.x - z.x;
+			z = fabs(z + limit4) - fabs(z - limit4) - z;
+			zCol = z;
 		}
-		else if (z.x < -limit4.x)
+		else //  variable limit values
 		{
-			z.x = -value4.x - z.x;
+			if (fractal->transformCommon.functionEnabledAx)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsC)
+				{
+					limit4.x *= (1.0f
+												- native_recip((1.0f
+																				+ (aux->i - fractal->transformCommon.startIterationsC)
+																						/ fractal->transformCommon.offsetA000.x)))
+											* fractal->transformCommon.scale3D111.x;
+				}
+				z.x = fabs(z.x + limit4.x) - fabs(z.x - limit4.x) - z.x;
+			}
+			if (fractal->transformCommon.functionEnabledAy)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsY)
+				{
+					limit4.y *= (1.0f
+												- native_recip((1.0f
+																				+ (aux->i - fractal->transformCommon.startIterationsY)
+																						/ fractal->transformCommon.offsetA000.y)))
+											* fractal->transformCommon.scale3D111.y;
+				}
+				z.y = fabs(z.y + limit4.y) - fabs(z.y - limit4.y) - z.y;
+			}
+			if (fractal->transformCommon.functionEnabledAz)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsZ)
+				{
+					limit4.z *= (1.0f
+												- native_recip((1.0f
+																				+ (aux->i - fractal->transformCommon.startIterationsZ)
+																						/ fractal->transformCommon.offsetA000.z)))
+											* fractal->transformCommon.scale3D111.z;
+				}
+				z.z = fabs(z.z + limit4.z) - fabs(z.z - limit4.z) - z.z;
+			}
+			zCol = z;
 		}
-		if (z.y > limit4.y)
-		{
-			z.y = value4.y - z.y;
-		}
-		else if (z.y < -limit4.y)
-		{
-			z.y = -value4.y - z.y;
-		}
-		if (z.z > limit4.z)
-		{
-			z.z = value4.z - z.z;
-		}
-		else if (z.z < -limit4.z)
-		{
-			z.z = -value4.z - z.z;
-		}
-		zCol = z;
 	}
 
 	// spherical folding

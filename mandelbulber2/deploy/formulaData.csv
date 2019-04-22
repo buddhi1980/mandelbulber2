@@ -15,6 +15,7 @@ aexionOctopusMod,"Aexion Octopus Mod",deltaDEType,logarithmicDEFunction,cpixelAl
 amazingSurf,"Amazing Surf",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionAmazingSurf
 amazingSurfMod1,"Amazing Surf - Mod 1",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 amazingSurfMod2,"Amazing Surf - Mod 2",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+amazingSurfMod3,"Amazing Surf - Mod 3",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 amazingSurfMulti,"Amazing Surf - Multi",analyticDEType,linearDEFunction,cpixelEnabledByDefault,100,analyticFunctionLinear,coloringFunctionABox
 benesi,"Benesi - Pwr2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 benesiPineTree,"Benesi - Pine Tree",analyticDEType,logarithmicDEFunction,cpixelAlreadyHas,10,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -163,6 +164,7 @@ transfPwr2Polynomial,"T>Power2 Polynomial",analyticDEType,linearDEFunction,cpixe
 transfQuaternionFold,"T>Quaternion Fold",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 transfReciprocal3,T>Reciprocal3,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotation,T>Rotation,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfRotationIterControls,"T>Rotation Iter Controls",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotationVaryV1,"T>Rotation VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotationFoldingPlane,"T>Rotation Folding Plane",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotationFolding,"T>Rotation Folding",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
@@ -197,11 +199,13 @@ transfSurfFoldMulti,"T>Surf Fold Multi",analyticDEType,linearDEFunction,cpixelDi
 transfZvectorAxisSwap,"T>Zvector Axis Swap",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAddConstant4d,"T>Add Constant 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional4d,"T>Abs Add Conditional 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+transfAbsAddMulti4d,"T>Abs Add Multi 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConstant4d,"T>Abs Add Constant 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddTgladFold4d,"T>Abs Add Tglad Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4d,"T>Box Fold 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxFold4dTglad,"T>Box Fold 4D Tglad",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxWrap4d,"T>Box Wrap 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfClamp4d,"T>Clamp 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfIterationWeight4d,"T>Iteration Weight 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfReciprocal4d,"T>Reciprocal 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfRotation4d,"T>Rotation 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault

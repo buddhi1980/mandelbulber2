@@ -75,6 +75,20 @@ REAL4 AboxModKaliV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z += sign(z.z) * tempFAB.z;
 	}
 
+	// sign options
+	if (fractal->transformCommon.functionEnabledSFalse
+			&& aux->i >= fractal->transformCommon.startIterationsD
+			&& aux->i < fractal->transformCommon.stopIterationsD)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x *= sign(oldZ.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y *= sign(oldZ.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z *= sign(oldZ.z);
+	}
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+
 	// aux->color controls
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{

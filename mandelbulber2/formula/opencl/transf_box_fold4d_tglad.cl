@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,14 +17,66 @@
 REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 oldZ = z;
-	z.x = fabs(z.x + fractal->transformCommon.offset1111.x)
-				- fabs(z.x - fractal->transformCommon.offset1111.x) - z.x;
-	z.y = fabs(z.y + fractal->transformCommon.offset1111.y)
-				- fabs(z.y - fractal->transformCommon.offset1111.y) - z.y;
-	z.z = fabs(z.z + fractal->transformCommon.offset1111.z)
-				- fabs(z.z - fractal->transformCommon.offset1111.z) - z.z;
-	z.w = fabs(z.w + fractal->transformCommon.offset1111.w)
-				- fabs(z.w - fractal->transformCommon.offset1111.w) - z.w;
+	REAL4 limit = fractal->transformCommon.offset1111;
+
+	if (!fractal->transformCommon.functionEnabledCyFalse)
+	{
+		z.x = fabs(z.x + limit.x) - fabs(z.x - limit.x) - z.x;
+		z.y = fabs(z.y + limit.y) - fabs(z.y - limit.y) - z.y;
+		z.z = fabs(z.z + limit.z) - fabs(z.z - limit.z) - z.z;
+		z.w = fabs(z.w + limit.w) - fabs(z.w - limit.w) - z.w;
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			if (aux->i > fractal->transformCommon.startIterationsA)
+			{
+				limit.x *= (1.0f
+										 - native_recip((1.0f
+																		 + (aux->i - fractal->transformCommon.startIterationsA)
+																				 / fractal->transformCommon.offset0000.x)))
+									 * fractal->transformCommon.scale1111.x;
+			}
+			z.x = fabs(z.x + limit.x) - fabs(z.x - limit.x) - z.x;
+		}
+		if (fractal->transformCommon.functionEnabledAy)
+		{
+			if (aux->i > fractal->transformCommon.startIterationsB)
+			{
+				limit.y *= (1.0f
+										 - native_recip((1.0f
+																		 + (aux->i - fractal->transformCommon.startIterationsB)
+																				 / fractal->transformCommon.offset0000.y)))
+									 * fractal->transformCommon.scale1111.y;
+			}
+			z.y = fabs(z.y + limit.y) - fabs(z.y - limit.y) - z.y;
+		}
+		if (fractal->transformCommon.functionEnabledAz)
+		{
+			if (aux->i > fractal->transformCommon.startIterationsB)
+			{
+				limit.z *= (1.0f
+										 - native_recip((1.0f
+																		 + (aux->i - fractal->transformCommon.startIterationsC)
+																				 / fractal->transformCommon.offset0000.z)))
+									 * fractal->transformCommon.scale1111.z;
+			}
+			z.z = fabs(z.z + limit.z) - fabs(z.z - limit.z) - z.z;
+		}
+		if (fractal->transformCommon.functionEnabledAw)
+		{
+			if (aux->i > fractal->transformCommon.startIterationsB)
+			{
+				limit.w *= (1.0f
+										 - native_recip((1.0f
+																		 + (aux->i - fractal->transformCommon.startIterationsD)
+																				 / fractal->transformCommon.offset0000.w)))
+									 * fractal->transformCommon.scale1111.w;
+			}
+			z.w = fabs(z.w + limit.w) - fabs(z.w - limit.w) - z.w;
+		}
+	}
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -37,18 +89,10 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		}
 		else
 		{
-			if (z.x != oldZ.x)
-				aux->color +=
-					fractal->mandelbox.color.factor4D.x * (fabs(z.x) - fractal->transformCommon.offset1111.x);
-			if (z.y != oldZ.y)
-				aux->color +=
-					fractal->mandelbox.color.factor4D.y * (fabs(z.y) - fractal->transformCommon.offset1111.y);
-			if (z.z != oldZ.z)
-				aux->color +=
-					fractal->mandelbox.color.factor4D.z * (fabs(z.z) - fractal->transformCommon.offset1111.z);
-			if (z.w != oldZ.w)
-				aux->color +=
-					fractal->mandelbox.color.factor4D.w * (fabs(z.w) - fractal->transformCommon.offset1111.w);
+			if (z.x != oldZ.x) aux->color += fractal->mandelbox.color.factor4D.x * (fabs(z.x) - limit.x);
+			if (z.y != oldZ.y) aux->color += fractal->mandelbox.color.factor4D.y * (fabs(z.y) - limit.y);
+			if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor4D.z * (fabs(z.z) - limit.z);
+			if (z.w != oldZ.w) aux->color += fractal->mandelbox.color.factor4D.w * (fabs(z.w) - limit.w);
 		}
 	}
 	return z;
