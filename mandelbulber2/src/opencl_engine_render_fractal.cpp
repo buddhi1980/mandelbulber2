@@ -191,6 +191,12 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 			programEngine.append("#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
 		}
 
+		if (params->Get<bool>("fake_lights_enabled"))
+		{
+			// fake lights based on orbit traps - shapes
+			programEngine.append("#include \"" + openclEnginePath + "orbit_trap_shape.cl\"\n");
+		}
+
 		// compute fractal
 		programEngine.append("#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
 
@@ -524,6 +530,14 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	{
 		definesCollector += " -DFAKE_LIGHTS";
 		anyVolumetricShaderUsed = true;
+
+		switch (paramRender->common.fakeLightsOrbitTrapShape)
+		{
+			case params::fakeLightsShapePoint: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
+			case params::fakeLightsShapeLine: definesCollector += " -DFAKE_LIGHTS_LINE"; break;
+			case params::fakeLightsShapeCircle: definesCollector += " -DFAKE_LIGHTS_CIRCLE"; break;
+			default: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
+		}
 	}
 	if (!anyVolumetricShaderUsed) definesCollector += " -DSIMPLE_GLOW";
 
