@@ -77,7 +77,8 @@ typedef struct
 	bool maxiter;
 } formulaOut;
 
-typedef enum {
+typedef enum
+{
 	calcModeNormal = 0,
 	calcModeColouring = 1,
 	calcModeFake_AO = 2,
@@ -420,10 +421,17 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 #ifdef FAKE_LIGHTS
 			else if (mode == calcModeOrbitTrap)
 			{
-				float4 delta = z - (float4){consts->params.common.fakeLightsOrbitTrap.x,
-														 consts->params.common.fakeLightsOrbitTrap.y,
-														 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
-				float distance = length(delta);
+				//				float4 delta = z
+				//											 - (float4){consts->params.common.fakeLightsOrbitTrap.x,
+				//													 consts->params.common.fakeLightsOrbitTrap.y,
+				//													 consts->params.common.fakeLightsOrbitTrap.z, 0.0f};
+				//				float distance = fabs(length(delta.yz));
+
+				// torus orbit trap - temporary code
+				float lengthYZ = length(z.yz - consts->params.common.fakeLightsOrbitTrap.yz) - 1.0;
+				float distance =
+					length((float2){lengthYZ, z.x - consts->params.common.fakeLightsOrbitTrap.x});
+
 				if (i >= consts->params.common.fakeLightsMinIter
 						&& i <= consts->params.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0f / (distance * distance));
@@ -462,7 +470,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		}
 	}
 
-// calculate estimated distance
+	// calculate estimated distance
 
 #ifdef IS_HYBRID
 #ifdef ANALYTIC_LOG_DE

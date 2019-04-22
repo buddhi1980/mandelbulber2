@@ -37,6 +37,16 @@
 
 #include "algebra.hpp"
 
+namespace params
+{
+enum enumFakeLightsShape
+{
+	fakeLightsShapePoint = 0,
+	fakeLightsShapeLine = 1,
+	fakeLightsShapeCircle = 2
+};
+};
+
 struct sFractalFoldings
 {
 	double boxLimit; // parameters of TGlad's folding
@@ -54,13 +64,18 @@ struct sCommonParams
 	int fakeLightsMaxIter;
 	int fakeLightsMinIter;
 
+	params::enumFakeLightsShape fakeLightsOrbitTrapShape;
+
+	double fakeLightsOrbitTrapSize;
 	double linearDEOffset;
 
 	CVector3 fakeLightsOrbitTrap;
+	CVector3 fakeLightsRotation;
 	CVector3 fractalPosition;
 	CVector3 fractalRotation;
 	CVector3 repeat;
 	CRotationMatrix mRotFractalRotation;
+	CRotationMatrix mRotFakeLightsRotation;
 
 	sFractalFoldings foldings;
 };

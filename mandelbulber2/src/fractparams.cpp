@@ -187,6 +187,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	volumetricLightEnabled[0] = container->Get<bool>("main_light_volumetric_enabled");
 	volumetricLightIntensity[0] = container->Get<double>("main_light_volumetric_intensity");
 	volumetricLightDEFactor = container->Get<double>("volumetric_light_DE_Factor");
+
 	mRotBackgroundRotation.SetRotation(backgroundRotation * M_PI / 180.0);
 
 	for (int i = 0; i < 4; ++i)
@@ -245,6 +246,10 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");
 	common.fakeLightsMinIter = container->Get<int>("fake_lights_min_iter");
 	common.fakeLightsOrbitTrap = container->Get<CVector3>("fake_lights_orbit_trap");
+	common.fakeLightsOrbitTrapShape =
+		params::enumFakeLightsShape(container->Get<int>("fake_lights_orbit_trap_shape"));
+	common.fakeLightsOrbitTrapSize = container->Get<double>("fake_lights_orbit_trap_size");
+	common.fakeLightsRotation = container->Get<CVector3>("fake_lights_orbit_rotation");
 	common.foldings.boxEnable = container->Get<bool>("box_folding");
 	common.foldings.boxLimit = container->Get<double>("box_folding_limit");
 	common.foldings.boxValue = container->Get<double>("box_folding_value");
@@ -257,6 +262,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	common.repeat = container->Get<CVector3>("repeat");
 	common.iterThreshMode = iterThreshMode = container->Get<bool>("iteration_threshold_mode");
 	common.linearDEOffset = container->Get<double>("linear_DE_offset");
+
+	common.mRotFakeLightsRotation.SetRotation2(common.fakeLightsRotation * M_PI / 180.0);
 
 	// formula = Get<int>("tile_number");
 }

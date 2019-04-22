@@ -61,6 +61,7 @@ enum enumBooleanOperator
 	booleanOperatorOR = 1,
 	booleanOperatorSUB = 2
 };
+
 } // namespace params
 
 struct sParamRender
@@ -175,6 +176,7 @@ struct sParamRender
 	double DOFMonteCarloCADispersionGain;
 	double DOFMonteCarloCACameraDispersion;
 	double fakeLightsIntensity;
+
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
 	double fogVisibility;
@@ -216,6 +218,7 @@ struct sParamRender
 	CVector3 auxLightPre[4];
 	CVector3 auxLightRandomCenter;
 	CVector3 backgroundRotation;
+
 	CVector3 formulaPosition[NUMBER_OF_FRACTALS];
 	CVector3 formulaRotation[NUMBER_OF_FRACTALS];
 	CVector3 formulaRepeat[NUMBER_OF_FRACTALS];

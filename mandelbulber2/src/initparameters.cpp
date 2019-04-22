@@ -384,6 +384,11 @@ void InitParams(cParameterContainer *par)
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
+	par->addParam("fake_lights_orbit_trap_shape", 0, morphNone, paramStandard,
+		QStringList({"point", "line", "circle"}));
+	par->addParam(
+		"fake_lights_orbit_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+	par->addParam("fake_lights_orbit_trap_size", 1.0, 0.0, 1e15, morphAkimaAngle, paramStandard);
 
 	par->addParam("all_primitives_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("all_primitives_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
@@ -408,14 +413,16 @@ void InitParams(cParameterContainer *par)
 	par->addParam("file_destination",
 		QDir::toNativeSeparators(systemData.GetImagesFolder() + QDir::separator() + "image"), morphNone,
 		paramStandard);
-	par->addParam("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
-																														+ QDir::separator() + "background.jpg"),
+	par->addParam("file_background",
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "background.jpg"),
 		morphNone, paramStandard);
 	par->addParam("file_envmap",
 		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "envmap.jpg"),
 		morphNone, paramStandard);
-	par->addParam("file_lightmap", QDir::toNativeSeparators(systemData.sharedDir + "textures"
-																													+ QDir::separator() + "lightmap.jpg"),
+	par->addParam("file_lightmap",
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "lightmap.jpg"),
 		morphNone, paramStandard);
 	/* unused in Mandelbulber v2
 	par->addParam("file_animation_path",
@@ -976,7 +983,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetA_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_1111", CVector4(1.0, 1.0, 1.0, 1.0), morphAkima, paramStandard);
-	par->addParam("transf_offset_neg_1111", CVector4(-1.0, -1.0, -1.0, -1.0), morphAkima, paramStandard);
+	par->addParam(
+		"transf_offset_neg_1111", CVector4(-1.0, -1.0, -1.0, -1.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_2222", CVector4(2.0, 2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam(
 		"transf_addition_constant_111d5", CVector4(1.0, 1.0, 1.0, 0.5), morphAkima, paramStandard);
@@ -1040,7 +1048,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_sphere_inversion_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_spheres_enabled", true, morphLinear, paramStandard);
 
-	//par->addParam("transf_function_enabled_temp_false", false, morphLinear, paramStandard);
+	// par->addParam("transf_function_enabled_temp_false", false, morphLinear, paramStandard);
 
 	// platonic_solid
 
@@ -1161,23 +1169,23 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("file_color_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "color_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_diffusion_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "diffusion_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_displacement_texture", materialId),
-		QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator()
-														 + "displacement_texture.jpg"),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "displacement_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_luminosity_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "luminosity_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("file_normal_map_texture", materialId),
 		QDir::toNativeSeparators(
-									systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
+			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,
 		paramStandard);

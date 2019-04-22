@@ -39,6 +39,7 @@
 #include "fractal_formulas.hpp"
 #include "material.h"
 #include "nine_fractals.hpp"
+#include "orbit_trap_shape.hpp"
 
 using namespace fractal;
 
@@ -368,8 +369,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 			else if (Mode == calcModeOrbitTrap)
 			{
-				CVector4 delta = z - CVector4(in.common.fakeLightsOrbitTrap, 0.0);
-				double distance = delta.Length();
+				double distance = OrbitTrapShapeDistance(z, in.common);
+
 				if (i >= in.common.fakeLightsMinIter && i <= in.common.fakeLightsMaxIter)
 					orbitTrapTotal += (1.0 / (distance * distance));
 				if (distance > fractals.GetBailout(sequence))

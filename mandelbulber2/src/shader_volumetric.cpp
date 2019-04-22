@@ -156,9 +156,10 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
 			double r = fractOut.orbitTrapR;
 			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-																	 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-																 + 1e-100);
+			double fakeLight = 1.0
+												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
+															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
+														 + 0.1);
 			output.R +=
 				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
 			output.G +=
