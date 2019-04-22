@@ -35,5 +35,5 @@ double OrbitTrapShapeDistance(CVector4 z4, const sCommonParams &par)
 		}
 	}
 
-	return dist;
+	return dist / par.fakeLightsThickness;
 }

@@ -55,7 +55,7 @@ float OrbitTrapShapeDistance(float4 z4, __constant sClInConstants *consts)
 	dist = length((float2){lengthYZ, delta.x});
 #endif
 
-	return dist;
+	return dist / consts->params.common.fakeLightsThickness;
 }
 
 #endif // FAKE_LIGHTS

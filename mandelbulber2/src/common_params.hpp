@@ -67,6 +67,7 @@ struct sCommonParams
 	params::enumFakeLightsShape fakeLightsOrbitTrapShape;
 
 	double fakeLightsOrbitTrapSize;
+	double fakeLightsThickness;
 	double linearDEOffset;
 
 	CVector3 fakeLightsOrbitTrap;
