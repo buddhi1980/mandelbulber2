@@ -12237,7 +12237,32 @@ void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 
 
 /**
- * rotate angles with iteration satrt/stop controls
+ * rotate about vec3
+ */
+void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double useAngle = fractal->transformCommon.angle0 * M_PI_180;
+
+	if (fractal->transformCommon.functionEnabledEFalse)
+	{
+		if (aux.i > fractal->transformCommon.startIterationsRV)
+		{
+		useAngle *= (1.0
+									- 1.0 / (1.0
+														+ (aux.i - fractal->transformCommon.startIterationsRV)
+																/ fractal->transformCommon.offset0))
+								* fractal->transformCommon.scale1;
+		}
+	}
+	CVector4 rotVec4 =  (fractal->transformCommon.offset000);
+	//CVector3 rotVec3 =  CVector3(fractal->transformCommon.offset000.GetXYZ());
+	z = z.RotateAroundVectorByAngle((rotVec4.GetXYZ()), useAngle);
+}
+
+
+
+/**
+ * rotate angles with iteration start/stop controls
  */
 void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {

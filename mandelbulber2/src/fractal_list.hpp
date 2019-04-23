@@ -314,7 +314,7 @@ enum enumFractalFormula
 	transfRotationIterControls = 1091,
 	transfClamp4d = 1092,
 	transfAbsAddMulti4d = 1093,
-
+	transfRotateAboutVec3 = 1094,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

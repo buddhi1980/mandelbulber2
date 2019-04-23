@@ -366,6 +366,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.stopIterationsP1 = container->Get<int>("transf_stop_iterations_P1");
 	transformCommon.startIterationsR = container->Get<int>("transf_start_iterations_R");
 	transformCommon.stopIterationsR = container->Get<int>("transf_stop_iterations_R");
+	transformCommon.startIterationsRV = container->Get<int>("transf_start_iterations_RV");
+	transformCommon.stopIterationsRV = container->Get<int>("transf_stop_iterations_RV");
 	transformCommon.startIterationsS = container->Get<int>("transf_start_iterations_S");
 	transformCommon.stopIterationsS = container->Get<int>("transf_stop_iterations_S");
 	transformCommon.startIterationsT = container->Get<int>("transf_start_iterations_T");
@@ -467,6 +469,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.scale3Dd222 = CVector4(container->Get<CVector3>("transf_scale3Dd_222"), 1.0);
 	transformCommon.scale3D333 = CVector4(container->Get<CVector3>("transf_scale3D_333"), 1.0);
 	transformCommon.scale3D444 = CVector4(container->Get<CVector3>("transf_scale3D_444"), 1.0);
+	transformCommon.vec111 = CVector4(container->Get<CVector3>("transf_vec_111"), 0.0);
 
 	// 4d vec
 	transformCommon.additionConstant0000 = container->Get<CVector4>("transf_addition_constant_0000");

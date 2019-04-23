@@ -881,6 +881,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_P1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_R", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_RV", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_RV", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_S", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_S", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_T", 0, morphLinear, paramStandard);
@@ -977,6 +979,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_scale3Dd_222", CVector3(2.0, 2.0, 2.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_333", CVector3(3.0, 3.0, 3.0), morphAkima, paramStandard);
 	par->addParam("transf_scale3D_444", CVector3(4.0, 4.0, 4.0), morphAkima, paramStandard);
+	par->addParam("transf_vec_111", CVector3(1.0, 1.0, 1.0), morphAkima, paramStandard);
 
 	par->addParam(
 		"transf_addition_constant_0000", CVector4(0.0, 0.0, 0.0, 0.0), morphAkima, paramStandard);

@@ -576,14 +576,14 @@ struct sFractalTransformCommon
 	int stopIterationsK;
 	int startIterationsM;
 	int stopIterationsM;
-
 	int startIterationsO;
 	int stopIterationsO;
-
 	int startIterationsP;
 	int stopIterationsP1;
 	int startIterationsR;
 	int stopIterationsR;
+	int startIterationsRV;
+	int stopIterationsRV;
 	int startIterationsS;
 	int stopIterationsS;
 	int startIterationsT;
@@ -648,6 +648,7 @@ struct sFractalTransformCommon
 	CVector4 offset222;
 	CVector4 power025;
 	CVector4 power8;
+	CVector4 vec111;
 
 	CVector3 rotation; // vec3s
 	CVector3 rotation2;

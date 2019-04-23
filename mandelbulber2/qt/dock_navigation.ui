@@ -110,7 +110,7 @@
      <item>
       <widget class="MyComboBox" name="comboBox_opencl_mode">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes for OpenCL computation (GPU support):&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;no OpenCL&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - use only CPU&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;fast&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - very fast rendering on GPU. Fractal has visible shape, but colors and effects are not calculated. It is very good mode for fast camera navigation and looking for interesting fractal shapes in auto-refresh mode.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;medium&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - medium rendering speed on GPU. There is calculated color of the fractal, light sources with shadows are used. There is used only first defined material. Reflections and volumetric effects are not calculated.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;full&lt;/span&gt;&lt;span style=&quot; font-weight:400;&quot;&gt; - the most accurate and the the slowest rendering. Uses more GPU resources. All effects are calculated (except texture mapping which is not implemented yet in OpenCL rendering engine) &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Modes for OpenCL computation (GPU support):&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;no OpenCL&lt;/span&gt; - use only CPU&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;fast&lt;/span&gt; - very fast rendering on GPU. Fractal has visible shape, but colors and effects are not calculated. It is very good mode for fast camera navigation and looking for interesting fractal shapes in auto-refresh mode.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;medium&lt;/span&gt; - medium rendering speed on GPU. There is calculated color of the fractal, light sources with shadows are used. There is used only first defined material. Reflections and volumetric effects are not calculated.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;full&lt;/span&gt; - the most accurate and the the slowest rendering. Uses more GPU resources. All effects are calculated .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <item>
         <property name="text">
@@ -218,8 +218,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>238</width>
-        <height>806</height>
+        <width>244</width>
+        <height>864</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_coordinates">
