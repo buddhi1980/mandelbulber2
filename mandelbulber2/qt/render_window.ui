@@ -1236,7 +1236,7 @@
      <normaloff>:/system/icons/document-save.svg</normaloff>:/system/icons/document-save.svg</iconset>
    </property>
    <property name="text">
-    <string>&amp;Save window layout as default</string>
+    <string>&amp;Save window layout as startup</string>
    </property>
   </action>
   <action name="actionDefault_docks_positions">
@@ -1245,7 +1245,7 @@
      <normaloff>:/system/icons/edit-undo.png</normaloff>:/system/icons/edit-undo.png</iconset>
    </property>
    <property name="text">
-    <string>&amp;Default window layout</string>
+    <string>&amp;Reset window layout to default</string>
    </property>
   </action>
   <action name="actionAnimation_docks_positions">

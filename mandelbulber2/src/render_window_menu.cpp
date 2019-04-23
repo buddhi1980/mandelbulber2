@@ -453,7 +453,22 @@ void RenderWindow::ResetDocksPositions()
 
 void RenderWindow::slotMenuResetDocksPositions()
 {
-	restoreState(gMainInterface->settings.value("mainWindowState").toByteArray());
+	// restoreState(gMainInterface->settings.value("mainWindowState").toByteArray());
+	ResetDocksPositions();
+	ui->dockWidget_histogram->hide();
+	ui->dockWidget_info->hide();
+	ui->dockWidget_queue_dock->hide();
+	ui->dockWidget_animation->hide();
+	ui->dockWidget_measurement->hide();
+	ui->dockWidget_gamepad_dock->hide();
+
+	tabifyDockWidget(ui->dockWidget_materialEditor, ui->dockWidget_effects);
+	tabifyDockWidget(ui->dockWidget_effects, ui->dockWidget_image_adjustments);
+	tabifyDockWidget(ui->dockWidget_image_adjustments, ui->dockWidget_rendering_engine);
+	tabifyDockWidget(ui->dockWidget_rendering_engine, ui->dockWidget_objects);
+	tabifyDockWidget(ui->dockWidget_objects, ui->dockWidget_histogram);
+
+	addDockWidget(Qt::LeftDockWidgetArea, ui->dockWidget_Materials);
 }
 
 void RenderWindow::slotMenuAnimationDocksPositions()
