@@ -1793,6 +1793,39 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void AboxModKaliIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// 3D Rotation
+	if (fractal->mandelbox.mainRotationEnabled)
+	{
+		CVector4 tempVC = CVector4(fractal->mandelbox.rotationMain, 0.0); // constant to be varied
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			if (aux.i >= fractal->transformCommon.startIterations
+					&& aux.i < fractal->transformCommon.stopIterations
+					&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
+							 != 0))
+			{
+				double iterationRange =
+					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
+				double currentIteration = (aux.i - fractal->transformCommon.startIterations);
+				tempVC += fractal->transformCommon.offset000 * currentIteration / iterationRange;
+			}
+
+			if (aux.i >= fractal->transformCommon.stopIterations)
+			{
+				tempVC += tempVC + fractal->transformCommon.offset000;
+			}
+		}
+
+		tempVC *= M_PI_180;
+
+		if (tempVC.x != 0.0)
+				z = z.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), tempVC.x);
+		if (tempVC.y != 0.0)
+				z = z.RotateAroundVectorByAngle(CVector3(0.0, 1.0, 0.0), tempVC.y);
+		if (tempVC.z != 0.0)
+				z = z.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), tempVC.z);
+	}
+
 	z = fractal->transformCommon.additionConstant0555 - fabs(z);
 	double rr = z.Dot(z);
 	double MinR = fractal->transformCommon.minR06;
