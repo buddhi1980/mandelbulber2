@@ -76,7 +76,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -2688,7 +2688,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-805</y>
+            <y>-829</y>
             <width>527</width>
             <height>1854</height>
            </rect>
@@ -4434,6 +4434,21 @@ of lights:</string>
                   <item>
                    <property name="text">
                     <string>Circle</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Square</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Sphere</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Cube</string>
                    </property>
                   </item>
                  </widget>

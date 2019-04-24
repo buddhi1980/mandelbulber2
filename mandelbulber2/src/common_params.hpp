@@ -43,7 +43,10 @@ enum enumFakeLightsShape
 {
 	fakeLightsShapePoint = 0,
 	fakeLightsShapeLine = 1,
-	fakeLightsShapeCircle = 2
+	fakeLightsShapeCircle = 2,
+	fakeLightsShapeSquare = 3,
+	fakeLightsShapeSphere = 4,
+	fakeLightsShapeCube = 5
 };
 };
 

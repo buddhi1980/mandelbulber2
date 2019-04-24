@@ -536,6 +536,9 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			case params::fakeLightsShapePoint: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
 			case params::fakeLightsShapeLine: definesCollector += " -DFAKE_LIGHTS_LINE"; break;
 			case params::fakeLightsShapeCircle: definesCollector += " -DFAKE_LIGHTS_CIRCLE"; break;
+			case params::fakeLightsShapeSquare: definesCollector += " -DFAKE_LIGHTS_SQUARE"; break;
+			case params::fakeLightsShapeSphere: definesCollector += " -DFAKE_LIGHTS_SPHERE"; break;
+			case params::fakeLightsShapeCube: definesCollector += " -DFAKE_LIGHTS_CUBE"; break;
 			default: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
 		}
 	}

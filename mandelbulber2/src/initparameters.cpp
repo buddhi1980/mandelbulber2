@@ -386,7 +386,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("fake_lights_max_iter", 2, 0, 250, morphLinear, paramStandard);
 	par->addParam("fake_lights_color", sRGB(65535, 65535, 65535), morphLinear, paramStandard);
 	par->addParam("fake_lights_orbit_trap_shape", 0, morphNone, paramStandard,
-		QStringList({"point", "line", "circle"}));
+		QStringList({"point", "line", "circle", "square", "sphere", "cube"}));
 	par->addParam(
 		"fake_lights_orbit_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
 	par->addParam("fake_lights_orbit_trap_size", 1.0, 0.0, 1e15, morphAkimaAngle, paramStandard);
