@@ -100,11 +100,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsC)
 				{
-					limit4.x *= (1.0f
-												- native_recip((1.0f
-																				+ (aux->i - fractal->transformCommon.startIterationsC)
-																						/ fractal->transformCommon.offsetA000.x)))
-											* fractal->transformCommon.scale3D111.x;
+					limit4.x *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsC),
+																	fractal->transformCommon.offsetA000.x))))
+						* fractal->transformCommon.scale3D111.x;
 				}
 				z.x = fabs(z.x + limit4.x) - fabs(z.x - limit4.x) - z.x;
 			}
@@ -112,11 +113,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsY)
 				{
-					limit4.y *= (1.0f
-												- native_recip((1.0f
-																				+ (aux->i - fractal->transformCommon.startIterationsY)
-																						/ fractal->transformCommon.offsetA000.y)))
-											* fractal->transformCommon.scale3D111.y;
+					limit4.y *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsY),
+																	fractal->transformCommon.offsetA000.y))))
+						* fractal->transformCommon.scale3D111.y;
 				}
 				z.y = fabs(z.y + limit4.y) - fabs(z.y - limit4.y) - z.y;
 			}
@@ -124,11 +126,12 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			{
 				if (aux->i > fractal->transformCommon.startIterationsZ)
 				{
-					limit4.z *= (1.0f
-												- native_recip((1.0f
-																				+ (aux->i - fractal->transformCommon.startIterationsZ)
-																						/ fractal->transformCommon.offsetA000.z)))
-											* fractal->transformCommon.scale3D111.z;
+					limit4.z *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsZ),
+																	fractal->transformCommon.offsetA000.z))))
+						* fractal->transformCommon.scale3D111.z;
 				}
 				z.z = fabs(z.z + limit4.z) - fabs(z.z - limit4.z) - z.z;
 			}

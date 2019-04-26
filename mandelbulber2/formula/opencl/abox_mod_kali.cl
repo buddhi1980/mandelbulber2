@@ -16,6 +16,38 @@
 
 REAL4 AboxModKaliIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// 3D Rotation
+	if (fractal->mandelbox.mainRotationEnabled)
+	{
+		REAL4 tempVC = (REAL4){fractal->mandelbox.rotationMain.x, fractal->mandelbox.rotationMain.y,
+			fractal->mandelbox.rotationMain.z, 0.0f}; // constant to be varied
+		if (fractal->transformCommon.functionEnabledPFalse)
+		{
+			if (aux->i >= fractal->transformCommon.startIterations
+					&& aux->i < fractal->transformCommon.stopIterations
+					&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
+							 != 0))
+			{
+				REAL iterationRange =
+					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
+				REAL currentIteration = (aux->i - fractal->transformCommon.startIterations);
+				tempVC +=
+					fractal->transformCommon.offset000 * native_divide(currentIteration, iterationRange);
+			}
+
+			if (aux->i >= fractal->transformCommon.stopIterations)
+			{
+				tempVC += tempVC + fractal->transformCommon.offset000;
+			}
+		}
+
+		tempVC *= M_PI_180;
+
+		if (tempVC.x != 0.0f) z = RotateAroundVectorByAngle4(z, (REAL3){1.0f, 0.0f, 0.0f}, tempVC.x);
+		if (tempVC.y != 0.0f) z = RotateAroundVectorByAngle4(z, (REAL3){0.0f, 1.0f, 0.0f}, tempVC.y);
+		if (tempVC.z != 0.0f) z = RotateAroundVectorByAngle4(z, (REAL3){0.0f, 0.0f, 1.0f}, tempVC.z);
+	}
+
 	z = fractal->transformCommon.additionConstant0555 - fabs(z);
 	REAL rr = dot(z, z);
 	REAL MinR = fractal->transformCommon.minR06;
