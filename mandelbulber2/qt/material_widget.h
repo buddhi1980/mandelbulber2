@@ -69,6 +69,7 @@ private:
 	bool dataAssigned;
 	double timeUpdateData;
 	double timeAssignData;
+	bool materialNotDefined;
 
 	void mousePressEvent(QMouseEvent *event) override;
 

@@ -40,6 +40,7 @@
 
 #include <QMouseEvent>
 
+#include "../src/fractparams.hpp"
 #include "src/fractal_container.hpp"
 #include "src/fractal_enums.h"
 #include "src/global_data.hpp"
@@ -125,28 +126,42 @@ void cMaterialWidget::InitializeData()
 		}
 		InitMaterialParams(1, &params);
 
-		// copy parameters from main parameter container to temporary container for material
-		for (int i = 0; i < cMaterial::paramsList.size(); i++)
+		if (paramsCopy.IfExists(cMaterial::Name("is_defined", actualMaterialIndex)))
 		{
-			cOneParameter parameter = paramsCopy.GetAsOneParameter(
-				cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
-			params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
-		}
 
-		params.Set("camera", CVector3(1.5, -2.5, 0.7));
-		params.Set("raytraced_reflections", true);
-		params.Set("N", 10);
-		params.Set("detail_level", 0.2);
-		params.Set("smoothness", 5.0);
-		fractal.at(0).Set("power", 5);
-		params.Set("julia_mode", true);
-		params.Set("textured_background", true);
-		params.Set("file_background",
-			QDir::toNativeSeparators(systemData.sharedDir + "textures" + QDir::separator() + "grid.png"));
-		params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
-		params.Set("mat1_displacement_texture_height", 0.01);
-		params.Set("main_light_intensity", 1.2);
-		params.Set("shadows_enabled", false);
+			// copy parameters from main parameter container to temporary container for material
+			for (int i = 0; i < cMaterial::paramsList.size(); i++)
+			{
+				cOneParameter parameter = paramsCopy.GetAsOneParameter(
+					cMaterial::Name(cMaterial::paramsList.at(i), actualMaterialIndex));
+				params.SetFromOneParameter(cMaterial::Name(cMaterial::paramsList.at(i), 1), parameter);
+			}
+
+			params.Set("camera", CVector3(1.5, -2.5, 0.7));
+			params.Set("raytraced_reflections", true);
+			params.Set("N", 10);
+			params.Set("detail_level", 0.2);
+			params.Set("smoothness", 5.0);
+			fractal.at(0).Set("power", 5);
+			params.Set("julia_mode", true);
+			params.Set("textured_background", true);
+			params.Set("file_background", QDir::toNativeSeparators(systemData.sharedDir + "textures"
+																														 + QDir::separator() + "grid.png"));
+			params.Set("mat1_texture_scale", CVector3(1.0, 1.0, 1.0));
+			params.Set("mat1_displacement_texture_height", 0.01);
+			params.Set("main_light_intensity", 1.2);
+			params.Set("shadows_enabled", false);
+		}
+		else
+		{
+			params.Set("camera", CVector3(1.5, -2.5, 0.7));
+			params.Set("fractal_enable_1", false);
+			params.Set("textured_background", true);
+			params.Set("file_background",
+				QDir::toNativeSeparators(
+					systemData.sharedDir + "textures" + QDir::separator() + "material is not defined.png"));
+			params.Set("textured_background_map_type", int(params::mapFlat));
+		}
 
 		// call parent assignation
 		// maybe disable preview saving, to not pollute hard drive?
