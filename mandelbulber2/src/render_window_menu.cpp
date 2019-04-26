@@ -401,12 +401,13 @@ void RenderWindow::slotMenuLoadSettingsFromFile(QString fileName)
 	setWindowTitle(QString("Mandelbulber (") + fileName + ")");
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
-	gMainInterface->ReEnablePeriodicRefresh();
 	showDescriptionPopup();
 }
 
 void RenderWindow::slotMenuLoadSettingsFromClipboard()
 {
+	gMainInterface->DisablePeriodicRefresh();
+
 	gMainInterface->SynchronizeInterface(
 		gPar, gParFractal, qInterface::read); // update appParam before loading new settings
 

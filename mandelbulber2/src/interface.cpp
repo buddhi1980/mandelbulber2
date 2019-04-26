@@ -2495,6 +2495,7 @@ void cInterface::DisablePeriodicRefresh()
 	{
 		autoRefreshLastState = mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked();
 		mainWindow->ui->widgetDockNavigation->AutoRefreshSetChecked(false);
+		gPar->Set("auto_refresh", false);
 	}
 }
 
@@ -2507,6 +2508,7 @@ void cInterface::ReEnablePeriodicRefresh()
 	if (autoRefreshLastState)
 	{
 		mainWindow->ui->widgetDockNavigation->AutoRefreshSetChecked(true);
+		gPar->Set("auto_refresh", true);
 	}
 }
 

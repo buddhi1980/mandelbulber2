@@ -521,7 +521,6 @@ void RenderWindow::slotMenuLoadPreset(QString filename)
 
 	gFlightAnimation->RefreshTable();
 	gKeyframeAnimation->RefreshTable();
-	gMainInterface->ReEnablePeriodicRefresh();
 	showDescriptionPopup();
 	setWindowTitle(QString("Mandelbulber (") + systemData.lastSettingsFile + ")");
 }
