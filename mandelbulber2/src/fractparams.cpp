@@ -82,6 +82,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DEFactor = container->Get<double>("DE_factor");
 	delta_DE_function = fractal::enumDEFunctionType(container->Get<int>("delta_DE_function"));
 	delta_DE_method = fractal::enumDEMethod(container->Get<int>("delta_DE_method"));
+	deltaDERelativeDelta = container->Get<double>("deltade_relative_delta");
 	detailLevel = container->Get<double>("detail_level");
 	detailSizeMax = container->Get<double>("detail_size_max");
 	detailSizeMin = container->Get<double>("detail_size_min");

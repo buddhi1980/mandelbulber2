@@ -168,7 +168,8 @@ struct sParamRender
 	double backgroundTextureOffsetY;
 	double cameraDistanceToTarget; // zoom
 	double constantFactor;
-	double DEFactor;		// factor for distance estimation steps
+	double DEFactor; // factor for distance estimation steps
+	double deltaDERelativeDelta;
 	double detailLevel; // DE threshold factor
 	double detailSizeMax;
 	double detailSizeMin;

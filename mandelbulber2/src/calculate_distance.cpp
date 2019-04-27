@@ -291,7 +291,15 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 	}
 	else
 	{
-		const double deltaDE = 1e-10;
+		double deltaDE;
+		if (params.advancedQuality)
+		{
+			deltaDE = max(fractIn.point.Length() * 1e-14, params.deltaDERelativeDelta * in.detailSize);
+		}
+		else
+		{
+			deltaDE = max(fractIn.point.Length() * 1e-14, 1e-5 * in.detailSize);
+		}
 
 		Compute<fractal::calcModeDeltaDE1>(fractals, fractIn, &fractOut);
 		const double r = fractOut.z.Length();

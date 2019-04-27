@@ -175,7 +175,8 @@ typedef struct
 	cl_float backgroundTextureOffsetY;
 	cl_float cameraDistanceToTarget; // zoom
 	cl_float constantFactor;
-	cl_float DEFactor;		// factor for distance estimation steps
+	cl_float DEFactor; // factor for distance estimation steps
+	cl_float deltaDERelativeDelta;
 	cl_float detailLevel; // DE threshold factor
 	cl_float detailSizeMax;
 	cl_float detailSizeMin;
@@ -367,6 +368,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.cameraDistanceToTarget = source.cameraDistanceToTarget;
 	target.constantFactor = source.constantFactor;
 	target.DEFactor = source.DEFactor;
+	target.deltaDERelativeDelta = source.deltaDERelativeDelta;
 	target.detailLevel = source.detailLevel;
 	target.detailSizeMax = source.detailSizeMax;
 	target.detailSizeMin = source.detailSizeMin;

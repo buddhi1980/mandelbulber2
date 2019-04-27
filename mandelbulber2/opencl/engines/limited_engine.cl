@@ -320,6 +320,14 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 				step *= (1.0f - Random(1000, &randomSeed) / 10000.0f);
 
+#ifdef ADVANCED_QUALITY
+				step = clamp(step, consts->params.absMinMarchingStep, consts->params.absMaxMarchingStep);
+
+				if (distThresh > consts->params.absMinMarchingStep)
+					step = clamp(step, consts->params.relMinMarchingStep * distThresh,
+						consts->params.relMaxMarchingStep * distThresh);
+#endif
+
 				scan += step / length(viewVector);
 			}
 

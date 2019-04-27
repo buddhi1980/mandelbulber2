@@ -201,7 +201,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("rel_max_marching_step", 1e4, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("rel_min_marching_step", 1e-2, 1e-15, 1e15, morphLinear, paramStandard);
 	par->addParam("detail_size_max", 1.0, morphLinear, paramStandard);
-	par->addParam("detail_size_min", 1e-6, morphLinear, paramStandard);
+	par->addParam("detail_size_min", 1e-12, morphLinear, paramStandard);
+	par->addParam("deltade_relative_delta", 0.01, 1e-15, 1e6, morphLinear, paramStandard);
 
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);

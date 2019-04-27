@@ -169,8 +169,12 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif
 	{
 
+#ifdef ADVANCED_QUALITY
+		float delta =
+			max(length(point) * 1.0e-6f, calcParam->detailSize * consts->params.deltaDERelativeDelta);
+#else
 		float delta = max(length(point) * 1.0e-6f, calcParam->detailSize * 0.1f);
-		// float delta = 1.0e-5f;
+#endif
 		float3 dr = 0.0f;
 
 		out = Fractal(consts, point, calcParam, calcModeDeltaDE1, NULL, forcedFormulaIndex);
