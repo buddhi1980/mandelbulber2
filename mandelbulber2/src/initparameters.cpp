@@ -195,6 +195,14 @@ void InitParams(cParameterContainer *par)
 	par->addParam("initial_waxis", 0.0, morphAkima, paramStandard);
 	par->addParam("linear_DE_offset", 0.0, morphLinear, paramStandard);
 
+	par->addParam("advanced_quality", false, morphLinear, paramStandard);
+	par->addParam("abs_max_marching_step", 3.0, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("abs_min_marching_step", 1e-15, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("rel_max_marching_step", 1e4, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("rel_min_marching_step", 1e-2, 1e-15, 1e15, morphLinear, paramStandard);
+	par->addParam("detail_size_max", 1.0, morphLinear, paramStandard);
+	par->addParam("detail_size_min", 1e-6, morphLinear, paramStandard);
+
 	// stereoscopic
 	par->addParam("stereo_enabled", false, morphLinear, paramStandard);
 	par->addParam("stereo_eye_distance", 0.1, 1e-15, 1e15, morphAkima, paramStandard);

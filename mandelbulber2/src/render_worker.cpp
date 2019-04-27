@@ -284,7 +284,7 @@ void cRenderWorker::doWork()
 					}
 					else
 					{
-						//reduce of stereo effect on poles
+						// reduce of stereo effect on poles
 						double stereoIntensity = (params->perspectiveType == params::perspEquirectangular)
 																			 ? 1.0 - pow(imagePoint.y * 2.0, 10.0)
 																			 : 1.0;
@@ -590,6 +590,13 @@ double cRenderWorker::CalcDistThresh(CVector3 point) const
 			|| params->perspectiveType == params::perspFishEye
 			|| params->perspectiveType == params::perspFishEyeCut)
 		distThresh *= M_PI;
+
+	if (params->advancedQuality)
+	{
+		if (distThresh > params->detailSizeMax) distThresh = params->detailSizeMax;
+		if (distThresh < params->detailSizeMin) distThresh = params->detailSizeMin;
+	}
+
 	distThresh /= data->reduceDetail;
 	return distThresh;
 }
@@ -669,7 +676,6 @@ void cRenderWorker::RayMarching(
 		data->statistics.histogramIterations.Add(distanceOut.iters);
 		data->statistics.totalNumberOfIterations += distanceOut.totalIters;
 
-		if (dist > 3.0) dist = 3.0;
 		if (dist < distThresh)
 		{
 			if (dist < 0.1 * distThresh) data->statistics.missedDE++;
@@ -681,17 +687,31 @@ void cRenderWorker::RayMarching(
 		if (params->interiorMode)
 		{
 			step = (dist - 0.8 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
-			;
 		}
 		else
 		{
 			step = (dist - 0.5 * distThresh) * params->DEFactor * (1.0 - Random(1000) / 10000.0);
-			;
 		}
+
+		if (params->advancedQuality)
+		{
+			if (step > params->absMaxMarchingStep) step = params->absMaxMarchingStep;
+			if (step < params->absMinMarchingStep) step = params->absMinMarchingStep;
+			if (distThresh > params->absMinMarchingStep)
+			{
+				if (step > params->relMaxMarchingStep * distThresh)
+					step = params->relMaxMarchingStep * distThresh;
+			}
+			if (step < params->relMinMarchingStep * distThresh)
+				step = params->relMinMarchingStep * distThresh;
+		}
+		else
+		{
+			if (step > 3.0) step = 3.0;
+		}
+
 		inOut->stepBuff[i].point = point;
-		// qDebug() << "i" << i << "dist" << inOut->stepBuff[i].distance << "iters" <<
-		// inOut->stepBuff[i].iters << "distThresh" << inOut->stepBuff[i].distThresh << "step" <<
-		// inOut->stepBuff[i].step << "point" << inOut->stepBuff[i].point.Debug();
+
 		(*inOut->buffCount) = i + 1;
 		// divided by length of view Vector to eliminate overstepping when fov is big
 		scan += step / in.direction.Length();

@@ -54,7 +54,8 @@ typedef struct
 	int count;
 } sRayMarchingOut;
 
-typedef enum {
+typedef enum
+{
 	rayBranchReflection = 0,
 	rayBranchRefraction = 1,
 	rayBranchDone = 2,
@@ -182,6 +183,14 @@ void RayMarching(sRayMarchingIn in, sRayMarchingOut *out, __constant sClInConsta
 #endif
 
 		step *= (1.0f - Random(1000, randomSeed) / 10000.0f);
+
+#ifdef ADVANCED_QUALITY
+		step = clamp(step, consts->params.absMinMarchingStep, consts->params.absMaxMarchingStep);
+
+		if (distThresh > consts->params.absMinMarchingStep)
+			step = clamp(step, consts->params.relMinMarchingStep * distThresh,
+				consts->params.relMaxMarchingStep * distThresh);
+#endif
 
 		scan += step / length(in.direction);
 	}
@@ -600,7 +609,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				objectShader += globalIllumination;
 #endif // MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 
-// calculate reflectance according to Fresnel equations
+				// calculate reflectance according to Fresnel equations
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				// prepare refraction values

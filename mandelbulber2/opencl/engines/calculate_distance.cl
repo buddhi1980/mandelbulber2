@@ -49,7 +49,11 @@ float CalcDistThresh(float3 point, __constant sClInConstants *consts)
 	distThresh *= M_PI;
 #endif
 
+#ifdef ADVANCED_QUALITY
+	distThresh = clamp(distThresh, consts->params.detailSizeMin, consts->params.detailSizeMax);
+#else
 	distThresh = max(distThresh, 1e-6f);
+#endif
 
 	return distThresh;
 }

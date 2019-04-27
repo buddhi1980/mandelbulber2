@@ -589,14 +589,14 @@ typedef struct
 	cl_int stopIterationsK;
 	cl_int startIterationsM;
 	cl_int stopIterationsM;
-
 	cl_int startIterationsO;
 	cl_int stopIterationsO;
-
 	cl_int startIterationsP;
 	cl_int stopIterationsP1;
 	cl_int startIterationsR;
 	cl_int stopIterationsR;
+	cl_int startIterationsRV;
+	cl_int stopIterationsRV;
 	cl_int startIterationsS;
 	cl_int stopIterationsS;
 	cl_int startIterationsT;
@@ -661,6 +661,7 @@ typedef struct
 	cl_float4 offset222;
 	cl_float4 power025;
 	cl_float4 power8;
+	cl_float4 vec111;
 
 	cl_float3 rotation; // vec3s
 	cl_float3 rotation2;
@@ -1283,6 +1284,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsP1 = source.stopIterationsP1;
 	target.startIterationsR = source.startIterationsR;
 	target.stopIterationsR = source.stopIterationsR;
+	target.startIterationsRV = source.startIterationsRV;
+	target.stopIterationsRV = source.stopIterationsRV;
 	target.startIterationsS = source.startIterationsS;
 	target.stopIterationsS = source.stopIterationsS;
 	target.startIterationsT = source.startIterationsT;
@@ -1344,6 +1347,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset222 = toClFloat4(source.offset222);
 	target.power025 = toClFloat4(source.power025);
 	target.power8 = toClFloat4(source.power8);
+	target.vec111 = toClFloat4(source.vec111);
 	target.rotation = toClFloat3(source.rotation);
 	target.rotation2 = toClFloat3(source.rotation2);
 	target.rotationVary = toClFloat3(source.rotationVary);

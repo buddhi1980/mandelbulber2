@@ -429,6 +429,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 
+	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
+
 	listOfUsedFormulas.clear();
 
 	// creating list of used formulas

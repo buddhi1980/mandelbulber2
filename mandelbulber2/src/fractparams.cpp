@@ -40,6 +40,9 @@
 sParamRender::sParamRender(const cParameterContainer *container, QVector<cObjectData> *objectData)
 		: primitives(container, objectData)
 {
+	advancedQuality = container->Get<bool>("advanced_quality");
+	absMaxMarchingStep = container->Get<double>("abs_max_marching_step");
+	absMinMarchingStep = container->Get<double>("abs_min_marching_step");
 	antialiasingEnabled = container->Get<bool>("antialiasing_enabled");
 	antialiasingSize = container->Get<int>("antialiasing_size");
 	ambientOcclusion = container->Get<double>("ambient_occlusion");
@@ -80,6 +83,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	delta_DE_function = fractal::enumDEFunctionType(container->Get<int>("delta_DE_function"));
 	delta_DE_method = fractal::enumDEMethod(container->Get<int>("delta_DE_method"));
 	detailLevel = container->Get<double>("detail_level");
+	detailSizeMax = container->Get<double>("detail_size_max");
+	detailSizeMin = container->Get<double>("detail_size_min");
 	DEThresh = container->Get<double>("DE_thresh");
 	DOFEnabled = container->Get<bool>("DOF_enabled");
 	DOFFocus = container->Get<double>("DOF_focus");
@@ -153,6 +158,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));
 	raytracedReflections = container->Get<bool>("raytraced_reflections");
 	reflectionsMax = container->Get<int>("reflections_max");
+	relMaxMarchingStep = container->Get<double>("rel_max_marching_step");
+	relMinMarchingStep = container->Get<double>("rel_min_marching_step");
 	repeatFrom = container->Get<int>("repeat_from");
 	resolution = 0.0;
 	shadow = container->Get<bool>("shadows_enabled");

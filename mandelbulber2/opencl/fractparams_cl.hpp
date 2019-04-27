@@ -100,6 +100,7 @@ typedef struct
 	cl_int delta_DE_method;
 	cl_int delta_DE_function;
 
+	cl_int advancedQuality;
 	cl_int antialiasingEnabled;
 	cl_int ambientOcclusionEnabled; // enable global illumination
 	cl_int auxLightPreEnabled[4];
@@ -157,6 +158,8 @@ typedef struct
 	cl_float3 volFogColour2;
 	cl_float3 volFogColour3;
 
+	cl_float absMaxMarchingStep;
+	cl_float absMinMarchingStep;
 	cl_float ambientOcclusion;
 	cl_float ambientOcclusionFastTune;
 	cl_float auxLightPreIntensity[4];
@@ -174,6 +177,8 @@ typedef struct
 	cl_float constantFactor;
 	cl_float DEFactor;		// factor for distance estimation steps
 	cl_float detailLevel; // DE threshold factor
+	cl_float detailSizeMax;
+	cl_float detailSizeMin;
 	cl_float DEThresh;
 	cl_float DOFFocus;
 	cl_float DOFRadius;
@@ -183,7 +188,6 @@ typedef struct
 	cl_float DOFMonteCarloCADispersionGain;
 	cl_float DOFMonteCarloCACameraDispersion;
 	cl_float fakeLightsIntensity;
-
 	cl_float fakeLightsVisibility;
 	cl_float fakeLightsVisibilitySize;
 	cl_float fogVisibility;
@@ -203,6 +207,8 @@ typedef struct
 	cl_float mainLightIntensity;
 	cl_float mainLightVisibility;
 	cl_float mainLightVisibilitySize;
+	cl_float relMaxMarchingStep;
+	cl_float relMinMarchingStep;
 	cl_float resolution; // resolution of image in fractal coordinates
 	cl_float shadowConeAngle;
 	cl_float smoothness;
@@ -275,6 +281,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	}
 	target.delta_DE_method = source.delta_DE_method;
 	target.delta_DE_function = source.delta_DE_function;
+	target.advancedQuality = source.advancedQuality;
 	target.antialiasingEnabled = source.antialiasingEnabled;
 	target.ambientOcclusionEnabled = source.ambientOcclusionEnabled;
 	for (int i = 0; i < 4; i++)
@@ -339,6 +346,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.volFogColour1 = toClFloat3(source.volFogColour1);
 	target.volFogColour2 = toClFloat3(source.volFogColour2);
 	target.volFogColour3 = toClFloat3(source.volFogColour3);
+	target.absMaxMarchingStep = source.absMaxMarchingStep;
+	target.absMinMarchingStep = source.absMinMarchingStep;
 	target.ambientOcclusion = source.ambientOcclusion;
 	target.ambientOcclusionFastTune = source.ambientOcclusionFastTune;
 	for (int i = 0; i < 4; i++)
@@ -359,6 +368,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.constantFactor = source.constantFactor;
 	target.DEFactor = source.DEFactor;
 	target.detailLevel = source.detailLevel;
+	target.detailSizeMax = source.detailSizeMax;
+	target.detailSizeMin = source.detailSizeMin;
 	target.DEThresh = source.DEThresh;
 	target.DOFFocus = source.DOFFocus;
 	target.DOFRadius = source.DOFRadius;
@@ -390,6 +401,8 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.mainLightIntensity = source.mainLightIntensity;
 	target.mainLightVisibility = source.mainLightVisibility;
 	target.mainLightVisibilitySize = source.mainLightVisibilitySize;
+	target.relMaxMarchingStep = source.relMaxMarchingStep;
+	target.relMinMarchingStep = source.relMinMarchingStep;
 	target.resolution = source.resolution;
 	target.shadowConeAngle = source.shadowConeAngle;
 	target.smoothness = source.smoothness;

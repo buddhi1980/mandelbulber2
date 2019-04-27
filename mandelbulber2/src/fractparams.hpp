@@ -93,6 +93,7 @@ struct sParamRender
 	fractal::enumDEMethod delta_DE_method;
 	fractal::enumDEFunctionType delta_DE_function;
 
+	bool advancedQuality;
 	bool antialiasingEnabled;
 	bool ambientOcclusionEnabled; // enable global illumination
 	bool auxLightPreEnabled[4];
@@ -150,6 +151,8 @@ struct sParamRender
 	sRGB volFogColour2;
 	sRGB volFogColour3;
 
+	double absMaxMarchingStep;
+	double absMinMarchingStep;
 	float ambientOcclusion;
 	double ambientOcclusionFastTune;
 	double auxLightPreIntensity[4];
@@ -167,6 +170,8 @@ struct sParamRender
 	double constantFactor;
 	double DEFactor;		// factor for distance estimation steps
 	double detailLevel; // DE threshold factor
+	double detailSizeMax;
+	double detailSizeMin;
 	double DEThresh;
 	double DOFFocus;
 	double DOFRadius;
@@ -176,7 +181,6 @@ struct sParamRender
 	double DOFMonteCarloCADispersionGain;
 	double DOFMonteCarloCACameraDispersion;
 	double fakeLightsIntensity;
-
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
 	double fogVisibility;
@@ -196,6 +200,8 @@ struct sParamRender
 	float mainLightIntensity;
 	double mainLightVisibility;
 	double mainLightVisibilitySize;
+	double relMaxMarchingStep;
+	double relMinMarchingStep;
 	double resolution; // resolution of image in fractal coordinates
 	double shadowConeAngle;
 	double smoothness;
