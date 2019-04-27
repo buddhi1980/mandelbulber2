@@ -1,0 +1,69 @@
+# Mandelbulber settings file
+# version 2.18
+# only modified parameters
+[description]
+DeltaDE is often best with spherical inversion. If using AnalyticDE then try adjusting the AnalyticDE clamps. Increasing Clamp_y may improve the DE but will increase the render time.
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_mode 0;
+camera 16 0 0;
+camera_distance_to_target 16;
+camera_rotation 90 1.879999999999985 0;
+camera_top 0.03280630243612315 1.35187737605445e-22 0.9994617283920728;
+delta_DE_function 3;
+delta_DE_method 2;
+detail_level 2.4;
+flight_last_to_render 0;
+formula_1 103;
+formula_2 1055;
+formula_start_iteration_1 1;
+formula_stop_iteration_2 6;
+glow_enabled false;
+hybrid_fractal_enable true;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_beta 0;
+mat1_coloring_random_seed 93361;
+mat1_fractal_coloring_add_max 0;
+mat1_fractal_coloring_add_spread 0;
+mat1_fractal_coloring_aux_color_scale1 0;
+mat1_fractal_coloring_aux_color_weight 0;
+mat1_fractal_coloring_cos_add 0;
+mat1_fractal_coloring_cos_period 0;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_ic_rad_weight 0;
+mat1_fractal_coloring_iter_add_scale 0;
+mat1_fractal_coloring_iter_add_scale_enabled_true false;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_orbit_trap_weight 64;
+mat1_fractal_coloring_parab_scale 0;
+mat1_fractal_coloring_rad_div_de_weight 0;
+mat1_fractal_coloring_round_scale 0;
+mat1_fractal_coloring_xyz_000 0 0 0;
+mat1_fractal_coloring_xyzC_111 0 0 0;
+mat1_is_defined true;
+mat1_specular_plastic_enable false;
+N 16;
+random_lights_group true;
+target 0.008612345726835002 -2.636770406879606e-19 0.5249008389779704;
+view_distance_max 100;
+[fractal_1]
+transf_addition_constant_0777 1 0.5 1;
+transf_folding_value 1.98;
+transf_function_enabledP_false true;
+transf_function_enabledR_false true;
+transf_minimum_radius_05 0.4;
+transf_offset 0.06;
+transf_offset_000 -0.5 1 0;
+transf_rotation 0 0 -90;
+transf_stop_iterations_P1 2;
+[fractal_2]
+mandelbox_folding_fixed_radius 0.5;
+mandelbox_offset 0.4 0 -0.5;
+transf_addition_constant -0.5 0 0.5;
+transf_function_enabled_false true;
+transf_minimum_radius_0 0.5;
+transf_scale 2;

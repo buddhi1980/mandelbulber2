@@ -1,0 +1,79 @@
+# Mandelbulber settings file
+# version 2.18
+# only modified parameters
+[description]
+original settings by Graeme McLaren collection - license Creative Commons (CC-BY 4.0)
+[main_parameters]
+ambient_occlusion_quality 8;
+background_3_colors_enable false;
+background_color_1 0000 0900 0f00;
+basic_fog_color 5f00 6800 7300;
+camera 0 -22.29557031820461 1;
+camera_distance_to_target 22.79557031820461;
+camera_rotation 0 0 0;
+camera_top 0 0 1;
+DE_factor 0.9;
+DE_thresh 0.000625;
+dont_add_c_constant_1 true;
+fake_lights_color 5500 0000 0000;
+fake_lights_enabled true;
+fake_lights_orbit_trap 0 0 0.125;
+fake_lights_orbit_trap_shape square;
+fake_lights_orbit_trap_size 0.25;
+fake_lights_thickness 4;
+flight_last_to_render 0;
+formula_1 132;
+formula_2 132;
+fov 0.8;
+glow_enabled false;
+hdr true;
+hybrid_fractal_enable true;
+image_height 1200;
+image_width 1600;
+julia_mode true;
+keyframe_last_to_render 0;
+main_light_alpha 0;
+main_light_beta 0;
+main_light_colour ff00 ff00 ff00;
+mat1_is_defined true;
+mat1_specular_plastic_enable false;
+mat1_surface_color_palette fd6029 698403 fff59c f5bd22 000000 d4d428 aa0000 8c2d1a d4ffd4 aba53c;
+mat2_is_defined true;
+mat2_reflectance 0.7;
+mat2_specular_plastic_enable false;
+mat2_use_colors_from_palette false;
+primitive_water_1_enabled true;
+primitive_water_1_material_id 2;
+primitive_water_1_position -0.009467661194480864 -20.47850765049462 0.9868909306537957;
+primitive_water_1_relative_amplitude 0.0125;
+raytraced_reflections true;
+reflections_max 2;
+target 0 0.4999999999999964 1;
+volumetric_fog_colour_1_distance 0.01337807652837981;
+volumetric_fog_colour_2_distance 0.02675615305675963;
+volumetric_fog_density 0.0625;
+volumetric_fog_distance_factor 0.02675615305675963;
+[fractal_1]
+mandelbox_offset 0 0 0.2;
+mandelbox_scale 1.1;
+transf_addition_constant 0 0 0.3124;
+transf_addition_constant_111 1.5 1.4 1;
+transf_function_enabledF_false true;
+transf_minR2_p25 0;
+transf_scale_vary_0 0.1;
+transf_scaleB_1 0;
+transf_scaleC_1 0.7;
+transf_stop_iterations_M 14;
+transf_stop_iterations_Y 12;
+[fractal_2]
+aSurf3Folds_order_of_folds_2 type3;
+mandelbox_offset 0 0 -0.4;
+mandelbox_scale 1.3;
+transf_addCpixel_enabled_false true;
+transf_addition_constant 0 0 2;
+transf_addition_constant_111 1 1 0;
+transf_constant_multiplier_111 0 0 -0.3;
+transf_function_enabledAx_false true;
+transf_minR2_p25 0;
+transf_start_iterations_S 13;
+transf_stop_iterations_B 5;

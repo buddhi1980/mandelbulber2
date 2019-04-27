@@ -15848,7 +15848,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	double lengthIter = 0.0;
 	double planeBias = 0.0;
-
+	double twoPoints = 0.0;
+	double lastVec = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	// double minValue = 0.0;
@@ -15972,8 +15973,34 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			planeBias = tempP.x + tempP.y + tempP.z;
 		}
 
+		// two points
+		if (fractal->transformCommon.functionEnabledBxFalse)
+		{
+			CVector4 PtOne = z - fractal->transformCommon.offset000;
+			CVector4 PtTwo = z - fractal->transformCommon.offsetA000;
+			double distOne = PtOne.Length(); // * weight
+			double distTwo = PtTwo.Length();
+			twoPoints = min(distOne, distTwo) * fractal->transformCommon.scaleA1;
+
+		}
+		// last vector
+		if (fractal->transformCommon.functionEnabledByFalse)
+		{
+			double lastLast = aux.addDist;
+			double  last = z.Length();
+
+			if (fractal->transformCommon.functionEnabledBzFalse)
+				lastVec = last / lastLast * fractal->transformCommon.scaleA1;
+			else
+				lastVec = lastLast / last * fractal->transformCommon.scaleA1;
+			lastVec = fabs(lastVec);
+			aux.addDist = last;
+		}
+
+
+
 		// build  componentMaster
-		componentMaster = (RR + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap);
+		componentMaster = (RR + distEst + planeBias + lengthIter + linearOffset + boxTrap + sphereTrap + twoPoints + lastVec);
 
 		// divide by i option
 		/*if (fractal->transformCommon.functionEnabledCzFalse

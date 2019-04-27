@@ -1,0 +1,54 @@
+# Mandelbulber settings file
+# version 2.18
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+background_3_colors_enable false;
+background_brightness 0.5;
+camera -14.49654656532129 -17.2763114494309 8.208483439816046;
+camera_distance_to_target 24;
+camera_rotation -39.99999999999996 -20.94000000000002 0;
+camera_top 0.2297259345905616 0.2737767078603643 0.9339551965751001;
+DE_factor 0.9;
+detail_level 3.200000000000001;
+flight_last_to_render 0;
+formula_1 1029;
+formula_2 7;
+formula_stop_iteration_1 1;
+fov 0.4;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 1;
+image_width 1200;
+keyframe_last_to_render 0;
+limits_enabled true;
+linear_DE_offset 1;
+mat1_coloring_random_seed 385422;
+mat1_fractal_coloring_algorithm 3;
+mat1_fractal_coloring_aux_color_scale1 0;
+mat1_fractal_coloring_extra_color_enabled_false true;
+mat1_fractal_coloring_global_palette_false true;
+mat1_fractal_coloring_ic_xyz_enabled_false true;
+mat1_fractal_coloring_init_cond_enabled_false true;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_rad_div_de_scale1 1024;
+mat1_fractal_coloring_round_enabled_false true;
+mat1_fractal_coloring_round_scale 2;
+mat1_fractal_coloring_xyz_000 0 0 1;
+mat1_fractal_coloring_xyz_iter_scale -0.5;
+mat1_fractal_coloring_xyzC_111 0 0 1;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_metallic 1;
+mat1_specular_plastic_enable false;
+mat1_specular_width 1;
+mat1_surface_color ff00 ff00 7f00;
+mat1_surface_color_palette 0000ff 00ff00 ffff7f aa0000 3b7f87 ac48a2 abab41 04a75e ffae4a ffff7f;
+raytraced_reflections true;
+target -0.08851068466135814 -0.1054829264281452 -0.3688792023514686;
+view_distance_max 268.4125324750406;
+[fractal_1]
+mandelbox_scale 1.5;
+transf_addition_constant 1 1 1;
+transf_offset_000 1 1 1;
