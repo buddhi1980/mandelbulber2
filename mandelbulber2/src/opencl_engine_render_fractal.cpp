@@ -366,6 +366,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool useLinearDEFunction = false;
 	bool useLogarithmicDEFunction = false;
 	bool usePseudoKleinianDEFunction = false;
+	bool useJosKleinianDEFunction = true;
 
 	if (fractals->IsHybrid())
 	{
@@ -393,6 +394,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 				case fractal::linearDEFunction: useLinearDEFunction = true; break;
 				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
+				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
 				default: break;
 			}
 		}
@@ -415,6 +417,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 					case fractal::linearDEFunction: useLinearDEFunction = true; break;
 					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
+					case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
 					default: break;
 				}
 			}
@@ -426,6 +429,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (useLinearDEFunction) definesCollector += " -DDELTA_LINEAR_DE";
 	if (useLogarithmicDEFunction) definesCollector += " -DDELTA_LOG_DE";
 	if (usePseudoKleinianDEFunction) definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
+	if (useJosKleinianDEFunction) definesCollector += " -DDELTA_JOS_KLEINIAN_DE";
 
 	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
 

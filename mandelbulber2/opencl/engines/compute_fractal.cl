@@ -531,6 +531,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	}
 #endif
 
+#ifdef DELTA_JOS_KLEINIAN_DE
+	// needed for JosKleinian fractal to calculate spheres in deltaDE mode
+	if (consts->fractal[sequence].transformCommon.spheresEnabled)
+		z.y = min(z.y, consts->fractal[sequence].transformCommon.foldingValue - z.y);
+#endif
+
 	// end
 	if (dist < 0.0f) dist = 0.0f;
 	out.distance = dist;

@@ -221,6 +221,11 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #elif DELTA_PSEUDO_KLEINIAN_DE
 			float rxy = native_sqrt(out.z.x * out.z.x + out.z.y * out.z.y);
 			out.distance = max(rxy - 0.92784f, fabs(rxy * out.z.z) / r) / d;
+#elif DELTA_JOS_KLEINIAN_DE
+			float4 z = out.z;
+			float rxy = native_sqrt(z.x * z.x + z.z * z.z);
+			out.distance = (fabs(rxy * z.y) / r) / d;
+			out.maxiter = false;
 #endif
 		}
 
