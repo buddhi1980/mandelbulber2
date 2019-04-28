@@ -2851,49 +2851,39 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			{
 				case multi_orderOf3Folds_type1: // tglad fold
 				default:
-					z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
-								- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
-					z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
-								- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
-
-					if (fractal->transformCommon.functionEnabledCzFalse
-							&& aux.i >= fractal->transformCommon.startIterationsT
-							&& aux.i < fractal->transformCommon.stopIterationsT1)
+					if (fractal->transformCommon.functionEnabledCx)
 					{
-						CVector4 limit = fractal->transformCommon.additionConstant111;
-						CVector4 length = 2.0 * limit;
-						CVector4 tgladS = 1.0 / length;
-						CVector4 Add = CVector4(0.0, 0.0, 0.0, 0.0);
-						if (fabs(z.x) < limit.x) Add.x = z.x * z.x * tgladS.x;
-						if (fabs(z.y) < limit.y) Add.y = z.y * z.y * tgladS.y;
-						if (fabs(z.x) > limit.x && fabs(z.x) < length.x)
-							Add.x = (length.x - fabs(z.x)) * (length.x - fabs(z.x)) * tgladS.x;
-						if (fabs(z.y) > limit.y && fabs(z.y) < length.y)
-							Add.y = (length.y - fabs(z.y)) * (length.y - fabs(z.y)) * tgladS.y;
-						Add *= fractal->transformCommon.scale3D000;
-						z.x = (z.x - (sign(z.x) * (Add.x)));
-						z.y = (z.y - (sign(z.y) * (Add.y)));
+						z.x = fabs(z.x + fractal->transformCommon.additionConstant111.x)
+									- fabs(z.x - fractal->transformCommon.additionConstant111.x) - z.x;
+						z.y = fabs(z.y + fractal->transformCommon.additionConstant111.y)
+									- fabs(z.y - fractal->transformCommon.additionConstant111.y) - z.y;
+						zCol = z;
 					}
-					zCol = z;
 					break;
 				case multi_orderOf3Folds_type2: // z = fold - fabs( fabs(z) - fold)
-					z.x = fractal->transformCommon.offset111.x
-								- fabs(fabs(z.x) - fractal->transformCommon.offset111.x);
-					z.y = fractal->transformCommon.offset111.y
-								- fabs(fabs(z.y) - fractal->transformCommon.offset111.y);
-					zCol = z;
+					if (fractal->transformCommon.functionEnabledDFalse)
+					{
+						z.x = fractal->transformCommon.offset111.x
+									- fabs(fabs(z.x) - fractal->transformCommon.offset111.x);
+						z.y = fractal->transformCommon.offset111.y
+									- fabs(fabs(z.y) - fractal->transformCommon.offset111.y);
+						zCol = z;
+					}
 					break;
 				case multi_orderOf3Folds_type3:
-					// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeam's
-					z.x = fractal->transformCommon.offset2
-								- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
-											 - fractal->transformCommon.offset2)
-								- fractal->transformCommon.offsetA111.x;
-					z.y = fractal->transformCommon.offset2
-								- fabs(fabs(z.y + fractal->transformCommon.offsetA111.y)
-											 - fractal->transformCommon.offset2)
-								- fractal->transformCommon.offsetA111.y;
-					zCol = z;
+					if (fractal->transformCommon.functionEnabledEFalse)
+					{
+						// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeam's
+						z.x = fractal->transformCommon.scale3Da222.x
+									- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
+												 - fractal->transformCommon.scale3Da222.x)
+									- fractal->transformCommon.offsetA111.x;
+						z.y = fractal->transformCommon.scale3Da222.y
+									- fabs(fabs(z.y + fractal->transformCommon.offsetA111.y)
+												 - fractal->transformCommon.scale3Da222.y)
+									- fractal->transformCommon.offsetA111.y;
+						zCol = z;
+					}
 					break;
 			}
 		}
@@ -2916,7 +2906,7 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	{
 		z = CVector4(z.y, z.x, z.z, z.w);
 	}
-	// n
+	// change y sign if iter is even
 	if (fractal->transformCommon.functionEnabledJFalse
 			&& aux.i >= fractal->transformCommon.startIterationsJ
 			&& aux.i < fractal->transformCommon.stopIterationsJ)
@@ -2924,7 +2914,7 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		if (aux.i % 2 < 1) z.y = -z.y;
 	}
 
-	// n
+	// change z sign if iter is even
 	if (fractal->transformCommon.functionEnabledKFalse
 			&& aux.i >= fractal->transformCommon.startIterationsK
 			&& aux.i < fractal->transformCommon.stopIterationsK)
@@ -2971,7 +2961,9 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	{
 		double rr = z.Dot(z);
 		rrCol = rr;
-		if (fractal->transformCommon.functionEnabledFalse)		// force cylinder fold
+		if (fractal->transformCommon.functionEnabledFalse
+				&& fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD) // force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 
 		// Mandelbox Spherical fold
