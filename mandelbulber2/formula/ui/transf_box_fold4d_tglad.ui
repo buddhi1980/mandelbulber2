@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_box_fold4d_tglad</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>934</width>
-    <height>1490</height>
+    <height>2316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -190,7 +190,7 @@ Limit:</string>
       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Works only on the axis enabled.&lt;/p&gt;&lt;p&gt;Vary offset must be &amp;gt; 0.&lt;/p&gt;&lt;p&gt;Vary offset &amp;amp; scale define the linear slope.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="title">
-      <string>Linear Vary Li&amp;mits</string>
+      <string>Polynomial Vary Li&amp;mits</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1017,6 +1017,11 @@ scale:</string>
  </widget>
  <customwidgets>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
@@ -1026,11 +1031,6 @@ scale:</string>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
