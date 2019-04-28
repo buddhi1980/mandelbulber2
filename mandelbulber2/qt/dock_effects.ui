@@ -2688,7 +2688,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1020</y>
+            <y>-668</y>
             <width>529</width>
             <height>2090</height>
            </rect>
@@ -4112,7 +4112,7 @@ of lights:</string>
            <item>
             <widget class="MyGroupBox" name="groupCheck_fake_lights_enabled">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DO NOT use with either Pseudo Kleinian or Jos Kleinian distance estimate functions.&lt;br/&gt;&lt;br/&gt;Simulates big amount of lights. These light sources are fast for rendering because they don't need to be calculated separately. They came from fractal equation.&lt;/p&gt;&lt;p&gt;Positions of lights are set by coordinates of orbit trap point. Where iterated function goes near selected point then this point is brighter.&lt;/p&gt;&lt;p&gt;This effect is difficult to setup and often you need to try many different orbit trap coordinates.&lt;/p&gt;&lt;p&gt;These light sources illuminate the fractal surface, but do not cast shadows.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;DO NOT use with either Pseudo Kleinian or Jos Kleinian distance estimate functions.&lt;br/&gt;&lt;br/&gt;Simulates a large amount of lights and is relatively fast to render.&lt;/p&gt;&lt;p&gt;An orbit trap is a point, a 2D, or 3D shape defined in 3D space. The brightness of the point is dependent on how close the point's orbit gets to the orbit trap shape during the chosen iterations.&lt;/p&gt;&lt;p&gt;This effect is difficult to setup and often you need to try many different orbit trap settings.&lt;/p&gt;&lt;p&gt;These light sources illuminate the fractal surface, but do not cast shadows.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
               <string>Fake lights based on orbit &amp;traps</string>
