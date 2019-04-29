@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_rotate_about_vec3</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>799</width>
-    <height>709</height>
+    <width>862</width>
+    <height>748</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -203,7 +203,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledE_false">
      <property name="title">
-      <string>enable variab&amp;le angle</string>
+      <string>polynomial variab&amp;le angle</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -457,11 +457,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -471,6 +466,11 @@
    <class>MySpinBox</class>
    <extends>QSpinBox</extends>
    <header>my_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

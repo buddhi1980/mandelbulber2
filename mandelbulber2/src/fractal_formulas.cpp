@@ -3016,7 +3016,7 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 			if (!fractal->analyticDE.enabledFalse)
 				aux.DE = aux.DE * fabs(useScale) + 1.0;
-			else // testing for log
+			else
 				aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 
 			if (fractal->transformCommon.functionEnabledFFalse
@@ -5368,6 +5368,10 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 
 	// color updated v2.13 & mode2 v2.14
 	if (fractal->foldColor.auxColorEnabledFalse)
@@ -12287,7 +12291,7 @@ void TransfRotationIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
  */
 void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double useAngle = fractal->transformCommon.angle0 * M_PI_180;
+	double useAngle = fractal->transformCommon.angle0;
 
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
@@ -12301,9 +12305,36 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 									* fractal->transformCommon.scale1;
 		}
 	}
-	CVector4 rotVec4 = (fractal->transformCommon.offset000);
+
+	CVector4 v = (fractal->transformCommon.offset000);
+	v = v / v.Length(); // normalise
+	float c = cos(useAngle * M_PI_180);
+	float s = sin(useAngle * M_PI_180);
+	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, 1.0);
+
+	rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y - s * v.z) + ((1.0 - c) * v.x * v.z + s * v.y);
+	rotVec.y = ((1.0 - c) * v.x * v.y + s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z - s * v.x);
+	rotVec.z = ((1.0 - c) * v.x * v.z - s * v.y) + ((1.0 - c) * v.y * v.z + s * v.x) + (c + (1.0 - c) * v.z * v.z);
+
+	//rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x * v.z - s * v.y);
+	//rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z + s * v.x);
+	//rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
+
+
+	z *= rotVec;
+
+		/*return mat3(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 - c) * v.x * v.z + s * v.y,
+
+
+			(1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0 - c) * v.y * v.z - s * v.x,
+
+
+			(1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s * v.x, c + (1.0 - c) * v.z * v.z
+
+
+			);*/
 	// CVector3 rotVec3 =  CVector3(fractal->transformCommon.offset000.GetXYZ());
-	z = z.RotateAroundVectorByAngle((rotVec4.GetXYZ()), useAngle);
+	//z = z.RotateAroundVectorByAngle((rotVec4.GetXYZ()), useAngle);
 }
 
 /**

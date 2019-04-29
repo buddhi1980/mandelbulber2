@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>581</height>
+            <width>537</width>
+            <height>614</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -585,8 +585,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>367</width>
-            <height>455</height>
+            <width>418</width>
+            <height>498</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1022,9 +1022,9 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-73</y>
+            <y>-300</y>
             <width>537</width>
-            <height>841</height>
+            <height>875</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">
@@ -1323,7 +1323,7 @@ and will only be present after enabling and re-render.</string>
               <item>
                <widget class="QLabel" name="label_explanation_opencl_missing_features">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="wordWrap">
                  <bool>true</bool>
