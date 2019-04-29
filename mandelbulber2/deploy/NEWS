@@ -13,8 +13,12 @@ v2.18 (????????????? 2019)
    aboxModKaliV2,  added oldZ sign transform
    transfAbsAddTgladFold4d, added iter controls and aux.color
    transfBoxFold4dTglad, added linear vary scale option
-   mandelboxVariable, added variable box limits
+   mandelboxVariable, added variable functions for box limits and addCpixel
    aboxModKali, added pre-rotation (variable)
+
+
+
+
 
 v2.17 (March 2019)
 - Added new fractal formulas

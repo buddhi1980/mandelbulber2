@@ -4748,7 +4748,7 @@ void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	z *= -iR;
 	z.x = -b - z.x;
 	z.y = a + z.y;
-	// aux.pseudoKleinianDE *= iR; // TODO remove after testing
+
 	aux.DE *= fabs(iR);
 }
 
@@ -4860,7 +4860,6 @@ void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.y = a + z.y;
 		z.z = -z.z - c;
 
-		// aux.pseudoKleinianDE *= iR; // TODO remove after testing
 		aux.DE *= fabs(iR);
 	}
 
@@ -5133,33 +5132,6 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	else
 	{
-		// TODO recode the following
-		/*	if (z.x > limit4.x)
-			{
-				z.x = value4.x - z.x;
-			}
-			else if (z.x < -limit4.x)
-			{
-				z.x = -value4.x - z.x;
-			}
-			if (z.y > limit4.y)
-			{
-				z.y = value4.y - z.y;
-			}
-			else if (z.y < -limit4.y)
-			{
-				z.y = -value4.y - z.y;
-			}
-			if (z.z > limit4.z)
-			{
-				z.z = value4.z - z.z;
-			}
-			else if (z.z < -limit4.z)
-			{
-				z.z = -value4.z - z.z;
-			}
-			zCol = z;*/
-
 		if (!fractal->transformCommon.functionEnabledCyFalse)
 		{
 			z = fabs(z + limit4) - fabs(z - limit4) - z;
@@ -5311,6 +5283,7 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				aux.actualScaleA = aux.actualScaleA - vary;
 		}
 	}
+		// add cpixel
 	CVector4 c = aux.const_c;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -5346,11 +5319,52 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				case multi_OrderOfXYZ_zyx: tempC = CVector4(c.z, c.y, c.x, c.w); break;
 			}
 		}
+		// rotate c
 		if (fractal->transformCommon.rotationEnabled
 				&& aux.i >= fractal->transformCommon.startIterationsG
 				&& aux.i < fractal->transformCommon.stopIterationsG)
 		{
 			tempC = fractal->transformCommon.rotationMatrix.RotateVector(tempC);
+		}
+		// vary c
+		if (fractal->transformCommon.functionEnabledMFalse)
+		{
+			if (fractal->transformCommon.functionEnabledx)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsM)
+				{
+					tempC.x *= (1.0
+												- 1.0
+														/ (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsM)
+																		/ fractal->transformCommon.offsetF000.x))
+											* fractal->transformCommon.constantMultiplierB111.x;
+				}
+			}
+			if (fractal->transformCommon.functionEnabledy)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsO)
+				{
+					tempC.y *= (1.0
+												- 1.0
+														/ (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsO)
+																		/ fractal->transformCommon.offsetF000.y))
+											* fractal->transformCommon.constantMultiplierB111.y;
+				}
+			}
+			if (fractal->transformCommon.functionEnabledz)
+			{
+				if (aux.i > fractal->transformCommon.startIterationsP)
+				{
+					tempC.z *= (1.0
+												- 1.0
+														/ (1.0
+																+ (aux.i - fractal->transformCommon.startIterationsP)
+																		/ fractal->transformCommon.offsetF000.z))
+											* fractal->transformCommon.constantMultiplierB111.z;
+				}
+			}
 		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
