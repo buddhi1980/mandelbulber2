@@ -40,7 +40,7 @@
         </font>
        </property>
        <property name="title">
-        <string>Fold Ty&amp;pe 2, z = fold - abs( abs(z) - fold)</string>
+        <string>Fold Ty&amp;pe 2, darkbeam SurfBox</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -60,6 +60,13 @@
         </property>
         <item>
          <layout class="QGridLayout" name="gridLayout_29" columnstretch="0,0,0,1">
+          <item row="5" column="2">
+           <widget class="QLabel" name="label_143">
+            <property name="text">
+             <string notr="true">z.y</string>
+            </property>
+           </widget>
+          </item>
           <item row="0" column="2">
            <widget class="QLabel" name="label_134">
             <property name="text">
@@ -89,10 +96,31 @@
             </property>
            </widget>
           </item>
+          <item row="0" column="0" rowspan="3" colspan="2">
+           <widget class="QLabel" name="label_266">
+            <property name="text">
+             <string>fold:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="2">
+           <widget class="QLabel" name="label_137">
+            <property name="text">
+             <string notr="true">z.x</string>
+            </property>
+           </widget>
+          </item>
           <item row="1" column="2" rowspan="2">
            <widget class="QLabel" name="label_136">
             <property name="text">
              <string notr="true">z.y</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0" rowspan="2" colspan="2">
+           <widget class="QLabel" name="label_17">
+            <property name="text">
+             <string>fold2 </string>
             </property>
            </widget>
           </item>
@@ -118,10 +146,54 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1" rowspan="3">
-           <widget class="QLabel" name="label_266">
-            <property name="text">
-             <string>fold:</string>
+          <item row="4" column="3">
+           <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_222_x">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="minimum">
+             <double>-99.989999999999995</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="3">
+           <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_222_y">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="minimum">
+             <double>-99.989999999999995</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="Line" name="line_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
             </property>
            </widget>
           </item>
@@ -139,7 +211,7 @@
         </font>
        </property>
        <property name="title">
-        <string>Fold Ty&amp;pe 3, z = fold2 - abs( abs(z + fold) - fold2) - abs(fold) a darkbeam fold</string>
+        <string>Fold Ty&amp;pe 3, a darkbeam fold</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -175,28 +247,6 @@
           </item>
           <item row="1" column="3">
            <widget class="MyDoubleSpinBox" name="spinbox3_transf_offsetA_111_y">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="decimals">
-             <number>6</number>
-            </property>
-            <property name="minimum">
-             <double>-99.989999999999995</double>
-            </property>
-            <property name="singleStep">
-             <double>0.100000000000000</double>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="3">
-           <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3Da_222_x">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
               <horstretch>0</horstretch>
@@ -275,7 +325,29 @@
            </widget>
           </item>
           <item row="4" column="3">
-           <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3Da_222_y">
+           <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_222_y">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="decimals">
+             <number>6</number>
+            </property>
+            <property name="minimum">
+             <double>-99.989999999999995</double>
+            </property>
+            <property name="singleStep">
+             <double>0.100000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="3">
+           <widget class="MyDoubleSpinBox" name="spinbox3_transf_offset_222_x">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
               <horstretch>0</horstretch>
@@ -310,7 +382,7 @@
         </font>
        </property>
        <property name="title">
-        <string>Fold Ty&amp;pe 1, z = abs(z + fold) - abs(z - fold) - z Tglad fold</string>
+        <string>Fold Ty&amp;pe 1 Tglad</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
@@ -400,6 +472,13 @@
        </layout>
       </widget>
      </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_106">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Rectangular folding&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
      <item row="8" column="1">
       <layout class="QGridLayout" name="gridLayout_75">
        <property name="topMargin">
@@ -441,19 +520,6 @@
          </property>
          <property name="maximum">
           <number>250</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="3">
-        <widget class="QLabel" name="label_5">
-         <property name="font">
-          <font>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Slot, Fold Type and Iteration controls</string>
          </property>
         </widget>
        </item>
@@ -629,14 +695,20 @@
          </property>
         </widget>
        </item>
+       <item row="0" column="0" colspan="4">
+        <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Slot, Fold Type and Iteration controls</string>
+         </property>
+        </widget>
+       </item>
       </layout>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_106">
-       <property name="text">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Rectangular folding&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-      </widget>
      </item>
     </layout>
    </item>

@@ -2860,13 +2860,30 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 						zCol = z;
 					}
 					break;
-				case multi_orderOf3Folds_type2: // z = fold - fabs( fabs(z) - fold)
+				case multi_orderOf3Folds_type2:
 					if (fractal->transformCommon.functionEnabledDFalse)
 					{
-						z.x = fractal->transformCommon.offset111.x
-									- fabs(fabs(z.x) - fractal->transformCommon.offset111.x);
-						z.y = fractal->transformCommon.offset111.y
-									- fabs(fabs(z.y) - fractal->transformCommon.offset111.y);
+						// tglad fold
+						CVector4 foldMod = fractal->transformCommon.offsetA222;
+						CVector4 fold = fractal->transformCommon.offset111;
+						CVector4 sg = z;
+						sg.x = sign(z.x);
+						sg.y = sign(z.y);
+
+						CVector4 folder = z;
+						CVector4 Tglad = z;
+
+						Tglad.x = fabs(z.x + fold.x) - fabs(z.x - fold.x) - z.x;
+						Tglad.y = fabs(z.y + fold.y) - fabs(z.y - fold.y) - z.y;
+
+						folder.x = sg.x * (z.x - Tglad.x);
+						folder.y = sg.y * (z.y - Tglad.y);
+						folder.x = fabs(folder.x);
+						folder.y = fabs(folder.y);
+						folder.x = min(folder.x, foldMod.x);
+						folder.y = min(folder.y, foldMod.y);
+						z.x -= sg.x * folder.x;
+						z.y -= sg.y * folder.y;
 						zCol = z;
 					}
 					break;
@@ -2874,13 +2891,13 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 					if (fractal->transformCommon.functionEnabledEFalse)
 					{
 						// z = fold2 - fabs( fabs(z + fold) - fold2) - fabs(fold), darkbeam's
-						z.x = fractal->transformCommon.scale3Da222.x
+						z.x = fractal->transformCommon.offset222.x
 									- fabs(fabs(z.x + fractal->transformCommon.offsetA111.x)
-												 - fractal->transformCommon.scale3Da222.x)
+												 - fractal->transformCommon.offset222.x)
 									- fractal->transformCommon.offsetA111.x;
-						z.y = fractal->transformCommon.scale3Da222.y
+						z.y = fractal->transformCommon.offset222.y
 									- fabs(fabs(z.y + fractal->transformCommon.offsetA111.y)
-												 - fractal->transformCommon.scale3Da222.y)
+												 - fractal->transformCommon.offset222.y)
 									- fractal->transformCommon.offsetA111.y;
 						zCol = z;
 					}
@@ -2962,7 +2979,7 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		double rr = z.Dot(z);
 		rrCol = rr;
 		if (fractal->transformCommon.functionEnabledFalse
-				&& fractal->transformCommon.startIterationsD
+				&& aux.i >= fractal->transformCommon.startIterationsD
 				&& aux.i < fractal->transformCommon.stopIterationsD) // force cylinder fold
 			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
 
