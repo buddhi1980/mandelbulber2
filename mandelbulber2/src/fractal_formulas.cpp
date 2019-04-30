@@ -12306,7 +12306,7 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 		}
 	}
 
-	CVector4 v = (fractal->transformCommon.offset000);
+	CVector4 v = fractal->transformCommon.vec111;
 	v = v / v.Length(); // normalise
 	float c = cos(useAngle * M_PI_180);
 	float s = sin(useAngle * M_PI_180);
@@ -12318,7 +12318,7 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 
 	//rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x * v.z - s * v.y);
 	//rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z + s * v.x);
-	//rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
+	// rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
 
 
 	z *= rotVec;
