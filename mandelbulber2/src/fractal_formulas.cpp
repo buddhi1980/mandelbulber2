@@ -12312,29 +12312,32 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 	float s = sin(useAngle * M_PI_180);
 	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, 1.0);
 
-	rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y - s * v.z) + ((1.0 - c) * v.x * v.z + s * v.y);
-	rotVec.y = ((1.0 - c) * v.x * v.y + s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z - s * v.x);
-	rotVec.z = ((1.0 - c) * v.x * v.z - s * v.y) + ((1.0 - c) * v.y * v.z + s * v.x) + (c + (1.0 - c) * v.z * v.z);
+	//if (fractal->transformCommon.functionEnabledAx)
+	{
+		rotVec.x = z.x * (c + (1.0 - c) * v.x * v.x) + z.y * ((1.0 - c) * v.x * v.y + s * v.z) + z.z * ((1.0 - c) * v.x * v.z - s * v.y);
+		rotVec.y = z.x * ((1.0 - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0 - c) * v.y * v.y) + z.z * ((1.0 - c) * v.y * v.z + s * v.x);
+		rotVec.z = z.x * ((1.0 - c) * v.x * v.z + s * v.y) + z.y * ((1.0 - c) * v.y * v.z - s * v.x) + z.z * (c + (1.0 - c) * v.z * v.z);
+		z = rotVec;
+	}
 
-	//rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x * v.z - s * v.y);
-	//rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z + s * v.x);
-	// rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
+	/*if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x * v.z - s * v.y);
+		rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z + s * v.x);
+		rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
+		z *= rotVec;
+	}*/
 
+	/*	CMatrix44 rotM = CMatrix44(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 - c) * v.x * v.z + s * v.y, 0.0,
+			(1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0 - c) * v.y * v.z - s * v.x, 0.0,
+			(1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s * v.x, c + (1.0 - c) * v.z * v.z, 0.0,
+			0.0, 0.0, 0.0, 0.0
+			);
+		z *= rotM;*/
 
-	z *= rotVec;
-
-		/*return mat3(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 - c) * v.x * v.z + s * v.y,
-
-
-			(1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0 - c) * v.y * v.z - s * v.x,
-
-
-			(1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s * v.x, c + (1.0 - c) * v.z * v.z
-
-
-			);*/
-	// CVector3 rotVec3 =  CVector3(fractal->transformCommon.offset000.GetXYZ());
-	//z = z.RotateAroundVectorByAngle((rotVec4.GetXYZ()), useAngle);
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
