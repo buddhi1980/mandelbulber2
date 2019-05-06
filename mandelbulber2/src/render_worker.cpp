@@ -581,11 +581,19 @@ void cRenderWorker::PrepareAOVectors()
 double cRenderWorker::CalcDistThresh(CVector3 point) const
 {
 	double distThresh;
-	if (params->constantDEThreshold)
-		distThresh = params->DEThresh;
+	if (params->iterThreshMode)
+	{
+		distThresh = (params->camera - point).Length() * params->resolution * params->fov;
+	}
 	else
-		distThresh =
-			(params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
+	{
+		if (params->constantDEThreshold)
+			distThresh = params->DEThresh;
+		else
+			distThresh =
+				(params->camera - point).Length() * params->resolution * params->fov / params->detailLevel;
+	}
+
 	if (params->perspectiveType == params::perspEquirectangular
 			|| params->perspectiveType == params::perspFishEye
 			|| params->perspectiveType == params::perspFishEyeCut)
