@@ -41,6 +41,7 @@
 #include "ao_modes.h"
 #include "cimage.hpp"
 #include "fractparams.hpp"
+#include "global_data.hpp"
 #include "image_scale.hpp"
 #include "netrender.hpp"
 #include "nine_fractals.hpp"
@@ -477,6 +478,7 @@ bool cRenderJob::Execute()
 
 		image->SetFastPreview(false);
 
+		gApplication->processEvents();
 		emit updateProgressAndStatus(
 			tr("OpenCl - rendering - all finished"), progressText.getText(1.0), 1.0);
 	}
