@@ -296,6 +296,8 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		}
 		QString engineFullFileName = openclEnginePath + engineFileName;
 		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+
+		qDebug() << programEngine.toStdString().c_str();
 	}
 	catch (const QString &ex)
 	{
