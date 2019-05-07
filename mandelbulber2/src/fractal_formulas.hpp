@@ -236,7 +236,11 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfNegAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAbsAddMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
+
 void TransfFoldingTetra3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void TransfIterationWeightIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfInvCylindricalIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

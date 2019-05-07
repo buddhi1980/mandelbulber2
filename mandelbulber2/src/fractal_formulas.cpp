@@ -11581,6 +11581,53 @@ void TransfFoldingTetra3dIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
+ * Gnarl deformation in 2D (from Mark Townsend), and Luca 2011
+ * @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ */
+void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	CVector4 tempZ = z;
+	double Scale = fractal->transformCommon.scale1;
+	double stepX = fractal->transformCommon.scale3D000.x; //-0.1;
+	double stepY = fractal->transformCommon.scale3D000.y;
+	// double stepZ = fractal->transformCommon.scale3D000.z;
+	double Alpha = fractal->transformCommon.rotation.x; // 2.0;
+	double Beta = fractal->transformCommon.rotation.y; //-4.0;
+	double Gamma = fractal->transformCommon.rotation.z; //-0.1;
+	double xx = z.x * z.x;
+
+	if (fractal->transformCommon.functionEnabledAx)
+	{
+		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y) )))) * Scale;
+		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx) ))) * Scale;
+	}
+
+	/*double Scale = 1.03;
+	double stepX = 0.1;
+	double stepY = 0.1;
+	double stepZ = 0.1;
+	double Alpha = 3.0;
+	double Beta = 2.0;
+
+
+	tempZ.x = (z.x - stepX * sin(z.z + sin( Alpha (z.z + sin (Beta * z.z )))) * Scale;
+	tempZ.y = (z.y - stepY * sin(z.x + sin( Alpha (z.x + sin (Beta * z.x )))) * Scale;
+	tempZ.z = (z.z - stepZ * sin(z.y + sin( Alpha (z.y + sin (Beta * z.y )))) * Scale;*/
+
+	z = tempZ;
+
+
+}
+
+
+
+
+
+
+/**
  * iteration weight. Influence fractal based on the weight of
  * Z values after different iterations
  */

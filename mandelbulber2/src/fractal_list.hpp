@@ -316,6 +316,7 @@ enum enumFractalFormula
 	transfAbsAddMulti4d = 1093,
 	transfRotateAboutVec3 = 1094,
 	transfOffsetSCurve4d = 1095,
+	transfGnarl = 1096,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
