@@ -11588,12 +11588,12 @@ void TransfFoldingTetra3dIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	Q_UNUSED(aux);
-
+	CVector4 oldZ = z;
 	CVector4 tempZ = z;
 	double Scale = fractal->transformCommon.scale1;
 	double stepX = fractal->transformCommon.scale3D000.x; //-0.1;
 	double stepY = fractal->transformCommon.scale3D000.y;
-	// double stepZ = fractal->transformCommon.scale3D000.z;
+	double stepZ = fractal->transformCommon.scale3D000.z;
 	double Alpha = fractal->transformCommon.rotation.x; // 2.0;
 	double Beta = fractal->transformCommon.rotation.y; //-4.0;
 	double Gamma = fractal->transformCommon.rotation.z; //-0.1;
@@ -11606,29 +11606,24 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 		aux.DE *= fabs(Scale);
 	}
 
-	/*double Scale = 1.03;
-	double stepX = 0.1;
-	double stepY = 0.1;
-	double stepZ = 0.1;
-	double Alpha = 3.0;
-	double Beta = 2.0;
-
-
-	tempZ.x = (z.x - stepX * sin(z.z + sin( Alpha (z.z + sin (Beta * z.z )))) * Scale;
-	tempZ.y = (z.y - stepY * sin(z.x + sin( Alpha (z.x + sin (Beta * z.x )))) * Scale;
-	tempZ.z = (z.z - stepZ * sin(z.y + sin( Alpha (z.y + sin (Beta * z.y )))) * Scale;*/
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin (Beta * z.z )))) * Scale;
+		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin (Beta * z.x )))) * Scale;
+		tempZ.z = z.z - stepZ * sin(z.y + sin(Alpha * (z.y + sin (Beta * z.y )))) * Scale;
+	}
 
 	z = tempZ;
 
 	if (fractal->analyticDE.enabled)
 	{
-		//if (!fractal->analyticDE.enabledFalse)
+		if (!fractal->analyticDE.enabledFalse)
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		//else
-		//{
-		//	double avgScale = z.Length() / temp.Length();
-		//	aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		//}
+		else
+		{
+			double avgScale = z.Length() / oldZ.Length();
+			aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		}
 	}
 }
 

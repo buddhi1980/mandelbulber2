@@ -39,9 +39,9 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
        <property name="text">
-        <string notr="true"/>
+        <string notr="true">3D</string>
        </property>
       </widget>
      </item>
@@ -583,22 +583,5 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>checkBox_transf_function_enabledAx</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>spinbox3_transf_scale3D_000_x</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>78</x>
-     <y>46</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>272</x>
-     <y>51</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
