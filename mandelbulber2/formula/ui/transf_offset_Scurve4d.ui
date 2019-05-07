@@ -32,7 +32,8 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Offset increases away from the origin</string>
+      <string>Offset increases away from the origin
+ negative offsets commonly used</string>
      </property>
     </widget>
    </item>
