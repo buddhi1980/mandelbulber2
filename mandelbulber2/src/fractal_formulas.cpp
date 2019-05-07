@@ -11603,6 +11603,7 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	{
 		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y) )))) * Scale;
 		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx) ))) * Scale;
+		aux.DE *= fabs(Scale);
 	}
 
 	/*double Scale = 1.03;
@@ -11619,7 +11620,16 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	z = tempZ;
 
-
+	if (fractal->analyticDE.enabled)
+	{
+		//if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		//else
+		//{
+		//	double avgScale = z.Length() / temp.Length();
+		//	aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		//}
+	}
 }
 
 
