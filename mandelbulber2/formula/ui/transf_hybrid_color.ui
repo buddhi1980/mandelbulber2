@@ -125,7 +125,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="0" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledM">
           <property name="enabled">
            <bool>true</bool>
@@ -172,16 +172,6 @@
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="2" column="1">
-         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY2_false">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="text">
-           <string notr="true">addC</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0">
          <widget class="MyCheckBox" name="checkBox_surfBox_enabledX1">
           <property name="enabled">
@@ -189,6 +179,16 @@
           </property>
           <property name="text">
            <string notr="true">abs(z)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="MyCheckBox" name="checkBox_surfBox_enabledY2_false">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="text">
+           <string notr="true">addC</string>
           </property>
          </widget>
         </item>
@@ -1569,14 +1569,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

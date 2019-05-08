@@ -16109,243 +16109,62 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 /**
  * Hybrid Color Trial2
  *
- * for folds the aux.color is updated each iteration
- * depending on which slots have formulas that use it
- *
  *
  * bailout may need to be adjusted with some formulas
  */
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	// double auxColor = 0.0;
-	double R2 = 0.0;
-	double distEst = 0.0;
-	double planeBias = 0.0;
+
+	//double distEst = 0.0;
+	//double planeBias = 0.0;
 	double linearOffset = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 	double componentMaster = 0.0;
 	double lastVec = 0.0;
-	double lengthIter = 0.0;
-	double boxTrap = 0.0;
-	double sphereTrap = 0.0;
-	float lastDist = 0.0;
-	float addI = 0.0;
+	//double lengthIter = 0.0;
+	//double boxTrap = 0.0;
+	//double sphereTrap = 0.0;
+	//float lastDist = 0.0;
+	//float addI = 0.0;
 
-	// if
+	// max linear offset
+	if (fractal->transformCommon.functionEnabledMFalse)
 	{
-		// last vector
-		if (fractal->transformCommon.functionEnabledByFalse)
-		{
-			double lastLast = aux.addDist;
-			double  last = z.Length();
+		double temp30 = 0.0;
+		CVector4 temp31 = z;
+		if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
 
-			if (fractal->transformCommon.functionEnabledBzFalse)
-				lastVec = last / lastLast * fractal->transformCommon.scaleA1;
-			else
-				lastVec = lastLast / last * fractal->transformCommon.scaleA1;
-			lastVec = fabs(lastVec);
-			aux.addDist = last;
-		}
-
-
-
-		// radius squared components
-		if (fractal->transformCommon.functionEnabledRFalse)
-		{
-			double temp0 = 0.0;
-			double temp1 = 0.0;
-			CVector4 c = aux.c;
-			temp0 = c.Dot(c) * fractal->foldColor.scaleA0; // initial R2
-			temp1 = z.Dot(z) * fractal->foldColor.scaleB0;
-			R2 = temp0 + temp1;
-		}
-
-		// total distance squared
-		if (fractal->foldColor.distanceEnabledFalse)
-		{
-			if (aux.i >= fractal->transformCommon.startIterationsD
-					&& aux.i < fractal->transformCommon.stopIterationsD)
-			{
-				CVector4 subVs = fabs(z - aux.old_z);
-				lastDist = sqrt(subVs.Dot(subVs));
-
-				// lastDist = z.Dot(z) / aux.old_z.Dot(aux.old_z) * fractal->foldColor.scaleB1;
-				/*if (fractal->transformCommon.functionEnabledAxFalse)
-				{
-					subVs = fabs(subVs);
-					lastDist = min(min(subVs.x, subVs.y), subVs.z) * fractal->foldColor.scaleB1;
-				}
-				else*/
-				aux.addDist += lastDist * fractal->foldColor.scaleB1;
-				// aux.addDist += fractal->foldColor.scaleB1;
-			}
-		}
-		// lastDist = aux.addDist;
-		// update
-		aux.old_z = z;
-
-		/*aux.sum_z +=(z); // fabs
-		CVector4 sumZ = aux.sum_z;
-		sumDist = sumZ.Dot(sumZ) * fractal->foldColor.scaleB1;*/
-
-		/*	CVector4 subV = z - aux.old_z;
-			subV = fabs(subV);
-			// sumDist = max(max(subV.x, subV.y), subV.z);
-			sumDist = min(min(subV.x, subV.y), subV.z) * fractal->foldColor.scaleB1 / 10.0;*/
-
-		/*last distance
-
-		{
-			aux.sum_z +=(z); // fabs
-			CVector4 sumZ = aux.sum_z;
-			sumDist = sumZ.Dot(sumZ) * fractal->foldColor.scaleB1;
-
-			CVector4 subV = z - aux.old_z;
-			lastDist = subV.Dot(subV) * fractal->foldColor.scaleC1;
-
-			// sumDist = max(max(subV.x, subV.y), subV.z);
-			//sumDist = min(min(subV.x, subV.y), subV.z) * fractal->foldColor.scaleB1 / 10.0;
-
-			// update
-			aux.old_z = z;
-		}*/
-
-		// DE component
-		if (fractal->transformCommon.functionEnabledDFalse)
-		{
-			distEst = aux.DE;
-			double temp5 = 0.0;
-			temp5 = distEst * fractal->foldColor.scaleD0;
-			if (fractal->transformCommon.functionEnabledByFalse) temp5 *= 1.0 / (aux.i + 1.0);
-			if (fractal->transformCommon.functionEnabledBzFalse) temp5 *= 1.0 / (aux.i * aux.i + 1.0);
-			distEst = temp5;
-		}
-
-		// max linear offset
-		if (fractal->transformCommon.functionEnabledMFalse)
-		{
-			double temp30 = 0.0;
-			CVector4 temp31 = z;
-			if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
-
-			temp30 = max(max(temp31.x, temp31.y), temp31.z);
-			temp30 *= fractal->foldColor.scaleA1;
-			linearOffset = temp30;
-		}
-
-		// box trap
-		if (fractal->surfBox.enabledX2False)
-		{
-			CVector4 box = fractal->transformCommon.scale3D444;
-			CVector4 temp35 = z;
-			double temp39 = 0.0;
-
-			if (fractal->transformCommon.functionEnabledCx) temp35 = fabs(temp35);
-
-			temp35 = box - temp35;
-			double temp36 = max(max(temp35.x, temp35.y), temp35.z);
-			double temp37 = min(min(temp35.x, temp35.y), temp35.z);
-			temp36 = temp36 + temp37 * fractal->transformCommon.offsetB0;
-			temp36 *= fractal->transformCommon.scaleC1;
-
-			if (fractal->surfBox.enabledY2False)
-			{
-				CVector4 temp38 = aux.c;
-
-				if (fractal->transformCommon.functionEnabledCz) temp38 = fabs(temp38);
-				temp38 = box - temp38;
-
-				temp39 = max(max(temp38.x, temp38.y), temp38.z);
-				double temp40 = min(min(temp38.x, temp38.y), temp38.z);
-				temp39 = temp39 + temp40 * fractal->transformCommon.offsetA0;
-				temp39 *= fractal->transformCommon.scaleE1;
-			}
-			boxTrap = temp36 + temp39;
-		}
-
-		// sphere trap
-		if (fractal->transformCommon.functionEnabledzFalse)
-		{
-			double sphereR2 = fractal->transformCommon.maxR2d1;
-			double temp45 = z.Dot(z);
-			double temp46 = sphereR2 - temp45;
-			double temp47 = temp46;
-			double temp51 = temp46;
-			if (fractal->transformCommon.functionEnabledAx) temp51 = fabs(temp51);
-			temp51 *= fractal->transformCommon.scaleF1;
-
-			if (fractal->transformCommon.functionEnabledyFalse && temp45 > sphereR2)
-			{
-				temp46 *= temp46 * fractal->transformCommon.scaleG1;
-			}
-			if (fractal->transformCommon.functionEnabledPFalse && temp45 < sphereR2)
-			{
-				temp47 *= temp47 * fractal->transformCommon.scaleB1;
-			}
-			sphereTrap = temp51 + temp47 + temp46;
-		}
-
-		// plane bias
-		if (fractal->transformCommon.functionEnabledAzFalse)
-		{
-			CVector4 tempP = z;
-			if (fractal->transformCommon.functionEnabledEFalse)
-			{
-				tempP.x = tempP.x * tempP.y;
-				tempP.x *= tempP.x;
-			}
-			else
-			{
-				tempP.x = fabs(tempP.x * tempP.y);
-			}
-			if (fractal->transformCommon.functionEnabledFFalse)
-			{
-				tempP.y = tempP.y * tempP.z;
-				tempP.y *= tempP.y;
-			}
-			else
-			{
-				tempP.y = fabs(tempP.y * tempP.z);
-			}
-
-			if (fractal->transformCommon.functionEnabledKFalse)
-			{
-				tempP.z = tempP.z * tempP.x;
-				tempP.z *= tempP.z;
-			}
-			else
-			{
-				tempP.z = fabs(tempP.z * tempP.x);
-			}
-
-			tempP = tempP * fractal->transformCommon.scale3D000;
-			planeBias = tempP.x + tempP.y + tempP.z;
-		}
+		temp30 = max(max(temp31.x, temp31.y), temp31.z);
+		temp30 *= fractal->foldColor.scaleA1;
+		linearOffset = temp30;
 	}
 
 
-	// build  componentMaster
-	componentMaster = (lastVec + R2 + distEst + planeBias + lengthIter + linearOffset + boxTrap + addI
-										 + sphereTrap + aux.addDist) ;
-
-	componentMaster *= fractal->transformCommon.scaleA1;
-
-	aux.colorHybrid = componentMaster;
-	/*if (fractal->surfBox.enabledZ2False)
+	// last vector
+	if (fractal->transformCommon.functionEnabledByFalse)
 	{
-		if (componentMaster < aux.temp100 + 1000.0) // )
-		{
-			aux.temp100 = componentMaster;
-		}
-		minValue = aux.temp100;
+		double lastLast = aux.addDist;
+		double  last = z.Length();
 
-		aux.colorHybrid = (minValue);
-		//aux.colorHybrid += (minValue - aux.colorHybrid);
+		if (fractal->transformCommon.functionEnabledBzFalse)
+			lastVec = last / lastLast * fractal->transformCommon.scaleA1;
+		else
+			lastVec = lastLast / last * fractal->transformCommon.scaleA1;
+		lastVec = fabs(lastVec);
+		aux.addDist = last;
+	}
 
-		//	aux.colorHybrid * (1.0 - fractal->surfBox.scale1Z1) + (minValue *
-		// fractal->surfBox.scale1Z1);
-	}*/
-	aux.colorHybrid *= 256.0;
+
+	if (aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		// build  componentMaster
+		componentMaster = (lastVec +  linearOffset);
+	}
+	//componentMaster *= fractal->transformCommon.scale;
+
+	aux.colorHybrid = componentMaster * 256.0;
 }
 
 /**

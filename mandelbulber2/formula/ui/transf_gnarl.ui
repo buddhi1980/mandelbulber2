@@ -32,7 +32,9 @@
    <item>
     <widget class="QLabel" name="label_180">
      <property name="text">
-      <string>Gnarl formulas can be run individually or in series</string>
+      <string>Gnarl formulas can be run individually or in series.
+Generally used for 1 iteration
+Gamma angle does no work with 3D</string>
      </property>
     </widget>
    </item>
@@ -269,7 +271,7 @@
      <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox3_transf_scale3D_000_z">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -597,5 +599,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox3_transf_scale3D_000_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>702</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>629</x>
+     <y>202</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
