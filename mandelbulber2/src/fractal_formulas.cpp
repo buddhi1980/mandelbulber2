@@ -11600,33 +11600,38 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		tempZ.x = (z.x - stepX * sin(z.y + sin(Alpha * (z.y + sin(Beta * z.y))))) * Scale;
-		tempZ.y = (z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin(Beta * z.x))))) * Scale;
+		tempZ.x = z.x - stepX * sin(z.y + sin(Alpha * (z.y + sin(Beta * z.y))));
+		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin(Beta * z.x))));
+		z = tempZ;
 	}
 
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		double xx = z.x * z.x;
-		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y) )))) * Scale;
-		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx) ))) * Scale;
+		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y)))));
+		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx))));
+		z = tempZ;
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		double xx = z.x * z.x;
 		double yy = z.y * z.y;
-		tempZ.y = xx + stepY * (sin(yy * sqrt(abs(z.y)) - Alpha * sin((yy + sin(Beta * yy))))) * Scale;
-		tempZ.x = yy - stepX * (sin(xx * sqrt(abs(xx)) + sin(Alpha * (xx + sin(Beta * xx))))) * Scale;
+		tempZ.y = xx + stepY * (sin(yy * sqrt(fabs(z.y)) - Alpha * sin((yy + sin(Beta * yy)))));
+		tempZ.x = yy - stepX * (sin(xx * sqrt(fabs(xx)) + sin(Alpha * (xx + sin(Beta * xx)))));
+		z = tempZ;
 	}
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin (Beta * z.z )))) * Scale;
-		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin (Beta * z.x )))) * Scale;
-		tempZ.z = z.z - stepZ * sin(z.y + sin(Alpha * (z.y + sin (Beta * z.y )))) * Scale;
+		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin (Beta * z.z ))));
+		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin (Beta * z.x ))));
+		tempZ.z = (z.z - stepZ * sin(z.y + sin(Alpha * (z.y + sin (Beta * z.y ))))) * Scale;
+		z = tempZ;
 	}
+	z.x *= Scale;
+	z.y *= Scale;
 
-	z = tempZ;
 
 	if (fractal->analyticDE.enabled)
 	{
