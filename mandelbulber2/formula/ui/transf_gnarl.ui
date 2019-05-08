@@ -30,18 +30,18 @@
     <number>2</number>
    </property>
    <item>
-    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0">
+    <layout class="QGridLayout" name="gridLayout_3" columnstretch="0,0,0,0">
      <item row="1" column="2">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
        <property name="text">
-        <string notr="true"/>
+        <string notr="true">2D_3</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
        <property name="text">
-        <string notr="true">3D</string>
+        <string notr="true">2D_2</string>
        </property>
       </widget>
      </item>
@@ -49,6 +49,13 @@
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx">
        <property name="text">
         <string notr="true">2D </string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+       <property name="text">
+        <string notr="true">3D</string>
        </property>
       </widget>
      </item>

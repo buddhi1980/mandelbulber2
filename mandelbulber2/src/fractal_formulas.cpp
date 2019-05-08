@@ -11597,16 +11597,29 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	double Alpha = fractal->transformCommon.rotation.x; // 2.0;
 	double Beta = fractal->transformCommon.rotation.y; //-4.0;
 	double Gamma = fractal->transformCommon.rotation.z; //-0.1;
-	double xx = z.x * z.x;
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
+		tempZ.x = (z.x - stepX * sin(z.y + sin(Alpha * (z.y + sin(Beta * z.y))))) * Scale;
+		tempZ.y = (z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin(Beta * z.x))))) * Scale;
+	}
+
+	if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		double xx = z.x * z.x;
 		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y) )))) * Scale;
 		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx) ))) * Scale;
-		aux.DE *= fabs(Scale);
 	}
 
 	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		double xx = z.x * z.x;
+		double yy = z.y * z.y;
+		tempZ.y = xx + stepY * (sin(yy * sqrt(abs(z.y)) - Alpha * sin((yy + sin(Beta * yy))))) * Scale;
+		tempZ.x = yy - stepX * (sin(xx * sqrt(abs(xx)) + sin(Alpha * (xx + sin(Beta * xx))))) * Scale;
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin (Beta * z.z )))) * Scale;
 		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin (Beta * z.x )))) * Scale;
@@ -11618,7 +11631,7 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.DE = aux.DE *fabs(Scale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
 			double avgScale = z.Length() / oldZ.Length();
