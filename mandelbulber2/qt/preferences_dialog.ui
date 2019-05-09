@@ -58,7 +58,7 @@
             <x>0</x>
             <y>0</y>
             <width>537</width>
-            <height>614</height>
+            <height>617</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -516,6 +516,16 @@
                 </item>
                </layout>
               </item>
+              <item>
+               <widget class="QLabel" name="label_path_to_logfile">
+                <property name="text">
+                 <string>Path to log file:</string>
+                </property>
+                <property name="wordWrap">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>
@@ -585,8 +595,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>418</width>
-            <height>498</height>
+            <width>555</width>
+            <height>581</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -1022,9 +1032,9 @@ and will only be present after enabling and re-render.</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-300</y>
+            <y>0</y>
             <width>537</width>
-            <height>875</height>
+            <height>825</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">

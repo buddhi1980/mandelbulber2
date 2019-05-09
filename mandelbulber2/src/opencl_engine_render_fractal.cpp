@@ -338,6 +338,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 {
 	Q_UNUSED(fractalContainer);
 
+	WriteLog(QString("Setting parameters for OpenCL rendering"), 2);
+
 	meshExportMode = meshExportModeEnable;
 	reservedGpuTime = paramContainer->Get<double>("opencl_reserved_gpu_time");
 
@@ -609,7 +611,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 
 	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
 
-	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 3);
+	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
 
 	renderData->ValidateObjects();
 
@@ -618,6 +620,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	// --------------- textures dynamic data -----------------
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
+		WriteLog(QString("Creating dynamic data for textures"), 2);
+
 		int numberOfTextures =
 			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, renderData->materials);
 
@@ -632,9 +636,12 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
 
 		definesCollector += texturesData->GetDefinesCollector();
+
+		WriteLogInt(QString("Created dynamic data for textures"), inTextureBuffer.size(), 2);
 	}
 
 	//----------- create dynamic data -----------
+	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
 	dynamicData.reset(new cOpenClDynamicData);
 	dynamicData->ReserveHeader();
 
@@ -702,6 +709,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	dynamicData->FillHeader();
 
 	inBuffer = dynamicData->GetData();
+	WriteLogInt(QString("Created dynamic data for OpenCL rendering"), inBuffer.size(), 2);
 
 	//---------------- another parameters -------------
 	autoRefreshMode = paramContainer->Get<bool>("auto_refresh");
@@ -762,6 +770,7 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	{
 		if (hardware->ContextCreated())
 		{
+			WriteLog(QString("Allocating OpenCL buffer for constants"), 2);
 
 			inCLConstBuffer.append(QSharedPointer<cl::Buffer>(
 				new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -778,6 +787,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 			if (meshExportMode)
 			{
+				WriteLog(QString("Allocating OpenCL buffer for mesh constants"), 2);
+
 				inCLConstMeshExportBuffer.append(QSharedPointer<cl::Buffer>(
 					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
 						sizeof(sClMeshExport), constantInMeshExportBuffer.data(), &err)));
@@ -793,6 +804,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 			}
 
 			// this buffer will be used for color palettes, lights, etc...
+			WriteLog(QString("Allocating OpenCL buffer for dynamic data"), 2);
+
 			inCLBuffer.append(QSharedPointer<cl::Buffer>(new cl::Buffer(*hardware->getContext(d),
 				CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR, size_t(inBuffer.size()), inBuffer.data(), &err)));
 			if (!checkErr(err,
@@ -807,6 +820,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 
 			if (renderEngineMode == clRenderEngineTypeFull)
 			{
+				WriteLog(QString("Allocating OpenCL buffer for texture data"), 2);
+
 				// this buffer will be used for textures
 				inCLTextureBuffer.append(QSharedPointer<cl::Buffer>(
 					new cl::Buffer(*hardware->getContext(d), CL_MEM_READ_ONLY | CL_MEM_COPY_HOST_PTR,
@@ -836,6 +851,8 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 bool cOpenClEngineRenderFractal::RenderMulti(
 	cImage *image, bool *stopRequest, sRenderData *renderData)
 {
+	WriteLog(QString("Starting RenderMulti()"), 2);
+
 	bool finallResult = true; // true if rendering was compiled successfully
 
 	if (programsLoaded)
@@ -867,6 +884,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		qint64 numberOfPixels = qint64(width) * qint64(height);
 		qint64 gridWidth = width / optimalJob.stepSizeX;
 		qint64 gridHeight = height / optimalJob.stepSizeY;
+
+		WriteLog(QString("Setting grid size to %1 x %2").arg(gridWidth).arg(gridHeight), 2);
 
 		// preparation of table for noise statistics used in MC method
 		const qint64 noiseTableSize = (gridWidth + 1) * (gridHeight + 1);
@@ -917,6 +936,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		QSharedPointer<cOpenCLWorkerOutputQueue> outputQueue(new cOpenCLWorkerOutputQueue);
 
 		// initializing and starting of all workers
+
+		WriteLog(QString("Creating threads for OpenCL workers"), 2);
 		for (int d = 0; d < numberOfOpenCLWorkers; d++)
 		{
 			// allocating memory for threads and workers
@@ -961,6 +982,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		int lastMonteCarloLoop = 1;
 
 		// main image data collection loop
+		WriteLog(QString("Starting main rendering loop"), 2);
 		do
 		{
 			// repeat loop until there is something in output queue
@@ -1291,6 +1313,8 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	int argIterator, int deviceIndex)
 {
+	WriteLog(QString("Assigning kernel parameters"), 2);
+
 	int err = clKernels.at(deviceIndex)
 							->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory
 	if (!checkErr(err, "kernel->setArg(1, *inCLBuffer)"))
@@ -1378,6 +1402,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
+		WriteLog(QString("Writing OpenCL input buffer"), 2);
 		err = clQueues.at(d)->enqueueWriteBuffer(
 			*inCLBuffer[d], CL_TRUE, 0, inBuffer.size(), inBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLBuffer)"))
@@ -1399,6 +1424,8 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 		if (renderEngineMode == clRenderEngineTypeFull)
 		{
+			WriteLog(QString("Writing OpenCL texture buffer"), 2);
+
 			err = clQueues.at(d)->enqueueWriteBuffer(
 				*inCLTextureBuffer[d], CL_TRUE, 0, inTextureBuffer.size(), inTextureBuffer.data());
 			if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLTextureBuffer)"))
@@ -1419,6 +1446,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 			}
 		}
 
+		WriteLog(QString("Writing OpenCL constant buffer"), 2);
 		err = clQueues.at(d)->enqueueWriteBuffer(
 			*inCLConstBuffer[d].data(), CL_TRUE, 0, sizeof(sClInConstants), constantInBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstBuffer)"))
@@ -1441,6 +1469,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 
 	if (meshExportMode)
 	{
+		WriteLog(QString("Writing OpenCL mesh constant buffer"), 2);
 		err = clQueues.at(0)->enqueueWriteBuffer(*inCLConstMeshExportBuffer[0].data(), CL_TRUE, 0,
 			sizeof(sClMeshExport), constantInMeshExportBuffer.data());
 		if (!checkErr(err, "CommandQueue::enqueueWriteBuffer(inCLConstMeshExportBuffer)"))
@@ -1468,7 +1497,7 @@ bool cOpenClEngineRenderFractal::WriteBuffersToQueue()
 bool cOpenClEngineRenderFractal::ProcessQueue(
 	size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY)
 {
-
+	WriteLog(QString("Processing OpenCL queue"), 3);
 	size_t stepSizeX = optimalJob.stepSizeX;
 	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;
 	size_t stepSizeY = optimalJob.stepSizeY;
@@ -1489,6 +1518,7 @@ bool cOpenClEngineRenderFractal::ProcessQueue(
 
 bool cOpenClEngineRenderFractal::ReadBuffersFromQueue()
 {
+	WriteLog(QString("Reading OpenCL buffers"), 3);
 	for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 	{
 		if (!cOpenClEngine::ReadBuffersFromQueue(d)) return false;
@@ -1514,6 +1544,7 @@ size_t cOpenClEngineRenderFractal::CalcNeededMemory()
 bool cOpenClEngineRenderFractal::PrepareBufferForBackground(sRenderData *renderData)
 {
 	// buffer for background image
+	WriteLog(QString("Preparing buffer for background"), 3);
 
 	int texWidth = renderData->textures.backgroundTexture.Width();
 	int texHeight = renderData->textures.backgroundTexture.Height();

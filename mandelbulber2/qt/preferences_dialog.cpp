@@ -95,6 +95,8 @@ cPreferencesDialog::cPreferencesDialog(QWidget *parent)
 		ui->comboboxLanguage->setCurrentIndex(index);
 	}
 
+	ui->label_path_to_logfile->setText(tr("Path to log file: %1").arg(systemData.logfileName));
+
 #ifdef USE_OPENCL
 	UpdateOpenCLListBoxes();
 	UpdateOpenCLMemoryLimits();
