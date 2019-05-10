@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>579</width>
-    <height>657</height>
+    <width>612</width>
+    <height>819</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>537</width>
-            <height>617</height>
+            <width>588</width>
+            <height>743</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -595,8 +595,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>555</width>
-            <height>581</height>
+            <width>588</width>
+            <height>743</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -957,6 +957,17 @@ and will only be present after enabling and re-render.</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
+                  <property name="text">
+                   <string>Generate</string>
+                  </property>
+                  <property name="icon">
+                   <iconset theme="applications-graphics" resource="icons.qrc">
+                    <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
+                  </property>
+                 </widget>
+                </item>
                 <item row="0" column="0">
                  <widget class="QPushButton" name="pushButton_clear_thumbnail_cache">
                   <property name="text">
@@ -979,14 +990,10 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="pushButton_generate_thumbnail_cache">
+                <item row="1" column="0" colspan="3">
+                 <widget class="MyCheckBox" name="checkBox_thumbnails_with_opencl">
                   <property name="text">
-                   <string>Generate</string>
-                  </property>
-                  <property name="icon">
-                   <iconset theme="applications-graphics" resource="icons.qrc">
-                    <normaloff>:/system/icons/applications-graphics.svg</normaloff>:/system/icons/applications-graphics.svg</iconset>
+                   <string>Render thubnails with OpenCL (if OpenCL enabled)</string>
                   </property>
                  </widget>
                 </item>
@@ -1033,7 +1040,7 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>537</width>
+            <width>570</width>
             <height>825</height>
            </rect>
           </property>
