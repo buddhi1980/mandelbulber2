@@ -673,6 +673,7 @@ struct sFractalTransformCommon
 	CVector4 offsetA0000;
 	CVector4 offset1111;
 	CVector4 offsetA1111;
+	CVector4 offsetB1111;
 	CVector4 offsetNeg1111;
 	CVector4 offset2222;
 	CVector4 additionConstant111d5;

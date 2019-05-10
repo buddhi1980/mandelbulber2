@@ -808,6 +808,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Rotation 4D", "transf_rotation4d", transfRotation4d,
 		TransfRotation4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>Round 4D", "transf_round4d", transfRound4d,
+		TransfRound4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionNone, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Scale 4D", "transf_scale4d", transfScale4d,
 		TransfScale4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));

@@ -317,6 +317,7 @@ void TransfIterationWeight4dIteration(CVector4 &z, const sFractal *fractal, sExt
 void TransfOffsetSCurve4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfReciprocal4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotation4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfRound4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScale4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSphericalFold4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
