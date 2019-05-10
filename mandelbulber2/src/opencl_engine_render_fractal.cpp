@@ -1313,7 +1313,7 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 bool cOpenClEngineRenderFractal::AssignParametersToKernelAdditional(
 	int argIterator, int deviceIndex)
 {
-	WriteLog(QString("Assigning kernel parameters"), 2);
+	WriteLog(QString("Assigning kernel parameters"), 3);
 
 	int err = clKernels.at(deviceIndex)
 							->setArg(argIterator++, *inCLBuffer[deviceIndex]); // input data in global memory

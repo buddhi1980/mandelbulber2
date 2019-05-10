@@ -287,8 +287,11 @@ void WriteLog(QString text, int verbosityLevel)
 	// 2 - main events / actions
 	// 3 - detailed events / actions
 
+	QMutex mutex;
+
 	if (verbosityLevel <= systemData.loggingVerbosity)
 	{
+		mutex.lock();
 		FILE *logfile = fopen(systemData.logfileName.toLocal8Bit().constData(), "a");
 #ifdef _WIN32
 		QString logText = QString("PID: %1, time: %2, %3\n")
@@ -302,10 +305,12 @@ void WriteLog(QString text, int verbosityLevel)
 				.arg(QString::number((systemData.globalTimer.nsecsElapsed()) / 1.0e9, 'f', 9))
 				.arg(text);
 #endif
-
-		fputs(logText.toLocal8Bit().constData(), logfile);
-		fclose(logfile);
-
+		if (logfile)
+		{
+			fputs(logText.toLocal8Bit().constData(), logfile);
+			fclose(logfile);
+		}
+		mutex.unlock();
 		// write to log in window
 		if (gMainInterface && gMainInterface->mainWindow != nullptr)
 		{
