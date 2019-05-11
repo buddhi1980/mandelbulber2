@@ -354,9 +354,8 @@ bool cOpenClEngine::CreateCommandQueue()
 
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
-			clQueues.append(
-				QSharedPointer<cl::CommandQueue>(new cl::CommandQueue(*hardware->getContext(d),
-					*hardware->getEnabledDevices().at(d), CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, &err)));
+			clQueues.append(QSharedPointer<cl::CommandQueue>(new cl::CommandQueue(
+				*hardware->getContext(d), *hardware->getEnabledDevices().at(d), 0, &err)));
 
 			if (!checkErr(err, QString("Device #%1: cl::CommandQueue()").arg(d))) wasNoError = false;
 		}
