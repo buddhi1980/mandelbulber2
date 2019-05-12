@@ -581,4 +581,8 @@ void cAnimationFrames::WipeFramesFromFolder(QString folder)
 	// then an optional suffix (e.g. "_alpha") followed by the image file extension
 	QString regex = "^frame_[0-9]+(?:_[a-z]+)?\\..+$";
 	DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
 }

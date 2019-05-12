@@ -449,7 +449,7 @@ void DeleteAllFilesFromDirectory(
 	}
 	else
 	{
-		WriteLogString("Directory does not exist", folder, 1);
+		WriteLogString("Directory does not exist", folder, 2);
 	}
 }
 
