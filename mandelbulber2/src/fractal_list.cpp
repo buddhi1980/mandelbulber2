@@ -770,7 +770,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Abs Add Conditional 4D",
 		"transf_abs_add_conditional4d", transfAbsAddConditional4d, TransfAbsAddConditional4dIteration,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
 		coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Abs Add Multi 4D", "transf_abs_add_multi4d",
 		transfAbsAddMulti4d, TransfAbsAddMulti4dIteration, analyticDEType, withoutDEFunction,
@@ -799,10 +799,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfClamp4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Iteration Weight 4D", "transf_iteration_weight4d",
-		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, linearDEFunction,
+		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Offset S-Curve 4D", "transf_offset_Scurve4d", transfOffsetSCurve4d,
-		TransfOffsetSCurve4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		TransfOffsetSCurve4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Reciprocal 4D", "transf_reciprocal4d",
 		transfReciprocal4d, TransfReciprocal4dIteration, analyticDEType, withoutDEFunction,
@@ -811,7 +811,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfRotation4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Scale 4D", "transf_scale4d", transfScale4d,
-		TransfScale4dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		TransfScale4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Spherical Fold 4D", "transf_spherical_fold4d",
 		transfSphericalFold4d, TransfSphericalFold4dIteration, analyticDEType, linearDEFunction,
@@ -830,7 +830,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing", "testing", testing, TestingIteration,
-		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
+		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
 		coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,

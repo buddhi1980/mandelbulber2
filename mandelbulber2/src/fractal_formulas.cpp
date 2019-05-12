@@ -15575,9 +15575,10 @@ void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->transformCommon.functionEnabledBxFalse)
 	{
-		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
-		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+			z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
+			z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
+			z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+			z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
 	}
 
 	if (fractal->analyticDE.enabled)
