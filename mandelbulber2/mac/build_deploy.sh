@@ -47,7 +47,7 @@ cp -v "$SUPPORT/deploy/NEWS" "$PACK"
 cp -v "$SUPPORT/deploy/COPYING" "$PACK"
 #copying share folder
 SHARE=$PACK
-cp -vr "$SUPPORT/deploy/share/mandelbulber2/*" "$SHARE/"
+cp -vr "$SUPPORT/deploy/share/mandelbulber2/"* "$SHARE/"
 #copying fomula files
 cp -vr "$SUPPORT/formula" "$SHARE/"
 #copying language files
