@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>909</width>
-    <height>1609</height>
+    <height>1725</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,7 @@
    <item>
     <widget class="QLabel" name="label_75">
      <property name="text">
-      <string>A pretransform, run as iter#0</string>
+      <string>A pre-transform, run as iter#0</string>
      </property>
     </widget>
    </item>
