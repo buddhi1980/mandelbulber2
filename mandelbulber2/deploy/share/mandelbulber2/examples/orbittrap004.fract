@@ -1,0 +1,33 @@
+# Mandelbulber settings file
+# version 2.18
+# only modified parameters
+[main_parameters]
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+camera -1,654721640428247 -0,3180315583278531 0,131410813019422;
+camera_distance_to_target 0,3277034075280079;
+camera_rotation 3,793205561089279 -19,0376215099297 6,125392410805505;
+camera_top 0,08501496163327846 0,3306752537157348 0,9399076193320951;
+DE_factor 0,125;
+fake_lights_color 8600 ff00 2a00;
+fake_lights_enabled true;
+fake_lights_intensity 0,125;
+fake_lights_max_iter 7;
+fake_lights_orbit_trap 0 0 0;
+fake_lights_orbit_trap_shape sphere;
+fake_lights_orbit_trap_size 2,037053327192401;
+fake_lights_thickness 0,5;
+fake_lights_visibility 16;
+fake_lights_visibility_size 4;
+flight_last_to_render 0;
+formula_1 3;
+hdr true;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+main_light_enable false;
+mat1_is_defined true;
+raytraced_reflections true;
+target -1,675215283969568 -0,008930648299742723 0,02451758919460282;
+view_distance_max 13,88608701935128;
