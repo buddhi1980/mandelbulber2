@@ -15516,7 +15516,7 @@ void TransfBoxFold4dTgladIteration(CVector4 &z, const sFractal *fractal, sExtend
  */
 void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 size = fractal->transformCommon.offset1111;
+	CVector4 size = fractal->transformCommon.offset2222;
 	CVector4 oldZ = z;
 
 	if (!fractal->transformCommon.functionEnabledFalse)

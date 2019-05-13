@@ -637,7 +637,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionNone, coloringFunctionDefault));
 
 	// Rotation Transforms
-// transfRotateAboutVec3
 	fractalList->append(sFractalDescription("T>Rotate About Vec3", "transf_rotate_about_vec3", transfRotateAboutVec3,
 		TransfRotateAboutVec3Iteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));

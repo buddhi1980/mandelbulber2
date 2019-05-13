@@ -84,7 +84,7 @@
       <number>2</number>
      </property>
      <item row="6" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_w">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_2222_w">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -112,7 +112,7 @@
       </widget>
      </item>
      <item row="4" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_y">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_2222_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -168,7 +168,7 @@
       </widget>
      </item>
      <item row="5" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_z">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_2222_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -203,7 +203,7 @@
       </widget>
      </item>
      <item row="3" column="2">
-      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_x">
+      <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_2222_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -714,7 +714,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Analytic DE alternate method</string>
+         <string>Analytic DE alternative method</string>
         </property>
        </widget>
       </item>
@@ -889,10 +889,10 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>spinbox4_transf_offset_1111_x</tabstop>
-  <tabstop>spinbox4_transf_offset_1111_y</tabstop>
-  <tabstop>spinbox4_transf_offset_1111_z</tabstop>
-  <tabstop>spinbox4_transf_offset_1111_w</tabstop>
+  <tabstop>spinbox4_transf_offset_2222_x</tabstop>
+  <tabstop>spinbox4_transf_offset_2222_y</tabstop>
+  <tabstop>spinbox4_transf_offset_2222_z</tabstop>
+  <tabstop>spinbox4_transf_offset_2222_w</tabstop>
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
@@ -900,64 +900,192 @@
   <connection>
    <sender>checkBox_transf_function_enabledx</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox4_transf_offset_1111_x</receiver>
+   <receiver>spinbox4_transf_offset_2222_x</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>268</x>
-     <y>69</y>
+     <x>362</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>124</y>
+     <y>74</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>checkBox_transf_function_enabledy</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox4_transf_offset_1111_y</receiver>
+   <receiver>spinbox4_transf_offset_2222_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>444</x>
-     <y>69</y>
+     <x>543</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>152</y>
+     <y>102</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>checkBox_transf_function_enabledz</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox4_transf_offset_1111_z</receiver>
+   <receiver>spinbox4_transf_offset_2222_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>630</x>
-     <y>69</y>
+     <x>724</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>180</y>
+     <y>130</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>checkBox_transf_function_enabledw</sender>
    <signal>toggled(bool)</signal>
-   <receiver>spinbox4_transf_offset_1111_w</receiver>
+   <receiver>spinbox4_transf_offset_2222_w</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>809</x>
-     <y>69</y>
+     <x>905</x>
+     <y>44</y>
     </hint>
     <hint type="destinationlabel">
      <x>905</x>
-     <y>208</y>
+     <y>158</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetA_1111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>243</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>257</x>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetB_1111_x</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>222</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetA_1111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>251</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledy</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetB_1111_y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>446</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>623</x>
+     <y>257</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetA_1111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>612</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>308</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledz</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetB_1111_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>589</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>673</x>
+     <y>278</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledw</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetA_1111_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>784</x>
+     <y>32</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledw</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinbox4_transf_offsetB_1111_w</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>820</x>
+     <y>35</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>820</x>
+     <y>307</y>
     </hint>
    </hints>
   </connection>
