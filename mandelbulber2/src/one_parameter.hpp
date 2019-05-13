@@ -65,7 +65,7 @@ enum enumValueSelection
 	valueMin,
 	valueMax
 };
-}
+} // namespace parameterContainer
 using namespace parameterContainer;
 
 class cOneParameter

@@ -46,7 +46,8 @@
 #include "color_structures.hpp"
 
 // custom includes
-extern "C" {
+extern "C"
+{
 #include <png.h>
 }
 
@@ -187,10 +188,10 @@ public:
 	}
 	void SaveImage() override;
 	QString getJobName() override { return tr("Saving %1").arg("JPG"); }
-	static bool SaveJPEGQt(
-			QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta = {});
-	static bool SaveJPEGQtGreyscale(
-		QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta = {});
+	static bool SaveJPEGQt(QString filename, unsigned char *image, int width, int height, int quality,
+		QMap<QString, QString> meta = {});
+	static bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height,
+		int quality, QMap<QString, QString> meta = {});
 };
 
 #ifdef USE_TIFF

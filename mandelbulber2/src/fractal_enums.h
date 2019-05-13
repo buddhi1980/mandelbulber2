@@ -96,6 +96,6 @@ enum enumColoringFunction
 	// coloringFunctionABox2 = 4, V2.14 removed
 	coloringFunctionDonut = 4,
 };
-};
+}; // namespace fractal
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_ENUMS_H_ */

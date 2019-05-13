@@ -167,8 +167,7 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	{
 
 		float neutral = paramRender->DOFFocus;
-		float deep =
-			paramRender->DOFRadius * (screenRegion.width + screenRegion.height) / 2000.0;
+		float deep = paramRender->DOFRadius * (screenRegion.width + screenRegion.height) / 2000.0;
 
 		emit updateProgressAndStatus(
 			QObject::tr("OpenCL DOF"), QObject::tr("Randomizing Z-Buffer"), 0.0);

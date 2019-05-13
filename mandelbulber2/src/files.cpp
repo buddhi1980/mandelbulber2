@@ -42,7 +42,8 @@
 #include "initparameters.hpp"
 
 // custom includes
-extern "C" {
+extern "C"
+{
 #include <png.h>
 }
 

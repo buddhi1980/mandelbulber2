@@ -2981,7 +2981,7 @@ void AmazingSurfMod3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		if (fractal->transformCommon.functionEnabledFalse
 				&& aux.i >= fractal->transformCommon.startIterationsD
 				&& aux.i < fractal->transformCommon.stopIterationsD) // force cylinder fold
-			rr -= z.z * z.z * fractal->transformCommon.scaleB1; // fold weight
+			rr -= z.z * z.z * fractal->transformCommon.scaleB1;		 // fold weight
 
 		// Mandelbox Spherical fold
 		if (aux.i >= fractal->transformCommon.startIterationsM
@@ -5283,7 +5283,7 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				aux.actualScaleA = aux.actualScaleA - vary;
 		}
 	}
-		// add cpixel
+	// add cpixel
 	CVector4 c = aux.const_c;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -5334,11 +5334,11 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				if (aux.i > fractal->transformCommon.startIterationsM)
 				{
 					tempC.x *= (1.0
-												- 1.0
-														/ (1.0
-																+ (aux.i - fractal->transformCommon.startIterationsM)
-																		/ fractal->transformCommon.offsetF000.x))
-											* fractal->transformCommon.constantMultiplierB111.x;
+											 - 1.0
+													 / (1.0
+															 + (aux.i - fractal->transformCommon.startIterationsM)
+																	 / fractal->transformCommon.offsetF000.x))
+										 * fractal->transformCommon.constantMultiplierB111.x;
 				}
 			}
 			if (fractal->transformCommon.functionEnabledy)
@@ -5346,11 +5346,11 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				if (aux.i > fractal->transformCommon.startIterationsO)
 				{
 					tempC.y *= (1.0
-												- 1.0
-														/ (1.0
-																+ (aux.i - fractal->transformCommon.startIterationsO)
-																		/ fractal->transformCommon.offsetF000.y))
-											* fractal->transformCommon.constantMultiplierB111.y;
+											 - 1.0
+													 / (1.0
+															 + (aux.i - fractal->transformCommon.startIterationsO)
+																	 / fractal->transformCommon.offsetF000.y))
+										 * fractal->transformCommon.constantMultiplierB111.y;
 				}
 			}
 			if (fractal->transformCommon.functionEnabledz)
@@ -5358,11 +5358,11 @@ void MandelboxVariableIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				if (aux.i > fractal->transformCommon.startIterationsP)
 				{
 					tempC.z *= (1.0
-												- 1.0
-														/ (1.0
-																+ (aux.i - fractal->transformCommon.startIterationsP)
-																		/ fractal->transformCommon.offsetF000.z))
-											* fractal->transformCommon.constantMultiplierB111.z;
+											 - 1.0
+													 / (1.0
+															 + (aux.i - fractal->transformCommon.startIterationsP)
+																	 / fractal->transformCommon.offsetF000.z))
+										 * fractal->transformCommon.constantMultiplierB111.z;
 				}
 			}
 		}
@@ -11593,7 +11593,7 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	double stepY = fractal->transformCommon.scale3D000.y;
 	double stepZ = fractal->transformCommon.scale3D000.z;
 	double Alpha = fractal->transformCommon.rotation.x; // 2.0;
-	double Beta = fractal->transformCommon.rotation.y; //-4.0;
+	double Beta = fractal->transformCommon.rotation.y;	//-4.0;
 	double Gamma = fractal->transformCommon.rotation.z; //-0.1;
 
 	if (fractal->transformCommon.functionEnabledAx)
@@ -11606,8 +11606,8 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		double xx = z.x * z.x;
-		tempZ.x = z.x + stepX * (sin( Gamma * (z.y - xx) + sin( Alpha * (z.y + Beta * cos(z.y)))));
-		tempZ.y = z.y + stepY * (sin( Gamma * (z.y + xx) - Alpha * sin( xx + Beta * cos(xx))));
+		tempZ.x = z.x + stepX * (sin(Gamma * (z.y - xx) + sin(Alpha * (z.y + Beta * cos(z.y)))));
+		tempZ.y = z.y + stepY * (sin(Gamma * (z.y + xx) - Alpha * sin(xx + Beta * cos(xx))));
 		z = tempZ;
 	}
 
@@ -11622,19 +11622,18 @@ void TransfGnarlIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin (Beta * z.z ))));
-		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin (Beta * z.x ))));
-		tempZ.z = (z.z - stepZ * sin(z.y + sin(Alpha * (z.y + sin (Beta * z.y ))))) * Scale;
+		tempZ.x = z.x - stepX * sin(z.z + sin(Alpha * (z.z + sin(Beta * z.z))));
+		tempZ.y = z.y - stepY * sin(z.x + sin(Alpha * (z.x + sin(Beta * z.x))));
+		tempZ.z = (z.z - stepZ * sin(z.y + sin(Alpha * (z.y + sin(Beta * z.y))))) * Scale;
 		z = tempZ;
 	}
 	z.x *= Scale;
 	z.y *= Scale;
 
-
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE *fabs(Scale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux.DE = aux.DE * fabs(Scale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
 			double avgScale = z.Length() / oldZ.Length();
@@ -11756,8 +11755,7 @@ void TransfMengerFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
 		if (fractal->transformCommon.functionEnabled)
 		{
-			if (z.z > 1.0)
-				z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
+			if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		}
 		else
 		{
@@ -12373,26 +12371,29 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 	float s = sin(useAngle * M_PI_180);
 	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, 1.0);
 
-	//if (fractal->transformCommon.functionEnabledAx)
+	// if (fractal->transformCommon.functionEnabledAx)
 	{
-		rotVec.x = z.x * (c + (1.0 - c) * v.x * v.x) + z.y * ((1.0 - c) * v.x * v.y + s * v.z) + z.z * ((1.0 - c) * v.x * v.z - s * v.y);
-		rotVec.y = z.x * ((1.0 - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0 - c) * v.y * v.y) + z.z * ((1.0 - c) * v.y * v.z + s * v.x);
-		rotVec.z = z.x * ((1.0 - c) * v.x * v.z + s * v.y) + z.y * ((1.0 - c) * v.y * v.z - s * v.x) + z.z * (c + (1.0 - c) * v.z * v.z);
+		rotVec.x = z.x * (c + (1.0 - c) * v.x * v.x) + z.y * ((1.0 - c) * v.x * v.y + s * v.z)
+							 + z.z * ((1.0 - c) * v.x * v.z - s * v.y);
+		rotVec.y = z.x * ((1.0 - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0 - c) * v.y * v.y)
+							 + z.z * ((1.0 - c) * v.y * v.z + s * v.x);
+		rotVec.z = z.x * ((1.0 - c) * v.x * v.z + s * v.y) + z.y * ((1.0 - c) * v.y * v.z - s * v.x)
+							 + z.z * (c + (1.0 - c) * v.z * v.z);
 		z = rotVec;
 	}
 
 	/*if (fractal->transformCommon.functionEnabledAxFalse)
 	{
-		rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x * v.z - s * v.y);
-		rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0 - c) * v.y * v.z + s * v.x);
-		rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z - s * v.x) + (c + (1.0 - c) * v.z * v.z);
-		z *= rotVec;
+		rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x *
+	v.z - s * v.y); rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0
+	- c) * v.y * v.z + s * v.x); rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z
+	- s * v.x) + (c + (1.0 - c) * v.z * v.z); z *= rotVec;
 	}*/
 
-	/*	CMatrix44 rotM = CMatrix44(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 - c) * v.x * v.z + s * v.y, 0.0,
-			(1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0 - c) * v.y * v.z - s * v.x, 0.0,
-			(1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s * v.x, c + (1.0 - c) * v.z * v.z, 0.0,
-			0.0, 0.0, 0.0, 0.0
+	/*	CMatrix44 rotM = CMatrix44(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 -
+		c) * v.x * v.z + s * v.y, 0.0, (1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0
+		- c) * v.y * v.z - s * v.x, 0.0, (1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s *
+		v.x, c + (1.0 - c) * v.z * v.z, 0.0, 0.0, 0.0, 0.0, 0.0
 			);
 		z *= rotM;*/
 
@@ -15523,19 +15524,19 @@ void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
 		{
-			 z.x -= round(z.x / size.x) * size.x;
+			z.x -= round(z.x / size.x) * size.x;
 		}
 		if (fractal->transformCommon.functionEnabledy && size.y != 0.0)
 		{
-			 z.y -= round(z.y / size.y) * size.y;
+			z.y -= round(z.y / size.y) * size.y;
 		}
 		if (fractal->transformCommon.functionEnabledz && size.z != 0.0)
 		{
-			 z.z -= round(z.z / size.z) * size.z;
+			z.z -= round(z.z / size.z) * size.z;
 		}
 		if (fractal->transformCommon.functionEnabledw && size.w != 0.0)
 		{
-			 z.w -= round(z.w / size.w) * size.w;
+			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
 	else
@@ -15543,42 +15544,34 @@ void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		CVector4 repeatPos = fractal->transformCommon.offsetA1111;
 		CVector4 repeatNeg = fractal->transformCommon.offsetB1111;
 
-		if (fractal->transformCommon.functionEnabledx
-				&& z.x < (repeatPos.x + 0.5) * size.x
-				&& z.x > (repeatNeg.x + 0.5) * -size.x
-				&&  size.x != 0.0)
+		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * size.x
+				&& z.x > (repeatNeg.x + 0.5) * -size.x && size.x != 0.0)
 		{
-			 z.x -= round(z.x / size.x) * size.x;
+			z.x -= round(z.x / size.x) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy
-				&& z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y
-				&&  size.y != 0.0)
+		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5) * size.y
+				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0)
 		{
-			 z.y -= round(z.y / size.y) * size.y;
+			z.y -= round(z.y / size.y) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz
-				&& z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z
-				&&  size.z != 0.0)
+		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5) * size.z
+				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0)
 		{
-			 z.z -= round(z.z / size.z) * size.z;
+			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw
-				&& z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w
-				&&  size.w != 0.0)
+		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5) * size.w
+				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0)
 		{
-			 z.w -= round(z.w / size.w) * size.w;
+			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
 
 	if (fractal->transformCommon.functionEnabledBxFalse)
 	{
-			z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
-			z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
-			z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
-			z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
+		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
+		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
+		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+		z.w = z.w * fractal->transformCommon.scale1 / (fabs(oldZ.w) + 1.0);
 	}
 
 	if (fractal->analyticDE.enabled)
@@ -15727,35 +15720,35 @@ void TransfOffsetSCurve4dIteration(CVector4 &z, const sFractal *fractal, sExtend
 
 	CVector4 temp = fractal->transformCommon.additionConstant0000 / -2.0;
 	CVector4 temp2 = temp * temp;
-	CVector4 offS =  CVector4(0.0,0.0,0.0,0.0);
+	CVector4 offS = CVector4(0.0, 0.0, 0.0, 0.0);
 	// if (z.w < 1e-016) z.w = 1e-016;
 	if (z.w < 1e-21 && z.w > -1e-21) z.w = (z.w > 0) ? 1e-21 : -1e-21;
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
-		offS.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x) * sign(z.x)
-				 * fractal->transformCommon.scale1;
+		offS.x += ((8.0 * temp.x * temp2.x) / ((z.x * z.x) + (4.0 * temp2.x)) - 2.0 * temp.x)
+							* sign(z.x) * fractal->transformCommon.scale1;
 		z.x += offS.x;
 	}
 
 	if (fractal->transformCommon.functionEnabledAy)
 	{
-		offS.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y) * sign(z.y)
-				 * fractal->transformCommon.scale1;
+		offS.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y)
+							* sign(z.y) * fractal->transformCommon.scale1;
 		z.y += offS.y;
 	}
 
 	if (fractal->transformCommon.functionEnabledAz)
 	{
-		offS.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z) * sign(z.z)
-				 * fractal->transformCommon.scale1;
+		offS.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z)
+							* sign(z.z) * fractal->transformCommon.scale1;
 		z.z += offS.z;
 	}
 
 	if (fractal->transformCommon.functionEnabledAw)
 	{
-		offS.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w) * sign(z.w)
-				 * fractal->transformCommon.scale1;
+		offS.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w)
+							* sign(z.w) * fractal->transformCommon.scale1;
 		z.w += offS.w;
 	}
 
@@ -16046,8 +16039,6 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double twoPoints = 0.0;
 	double componentMaster = 0.0;
 
-
-
 	// max linear offset
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
@@ -16183,20 +16174,19 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double componentMaster = 0.0;
 	double orbitPoints = 0.0;
 
-
 	// double auxColor = 0.0;
 
-	//double distEst = 0.0;
-	//double planeBias = 0.0;
-	//double totalDist = 0.0;
+	// double distEst = 0.0;
+	// double planeBias = 0.0;
+	// double totalDist = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 
-	//double lastVec = 0.0;
-	//double lengthIter = 0.0;
-	//double boxTrap = 0.0;
-	//double sphereTrap = 0.0;
-	//float lastDist = 0.0;
-	//float addI = 0.0;
+	// double lastVec = 0.0;
+	// double lengthIter = 0.0;
+	// double boxTrap = 0.0;
+	// double sphereTrap = 0.0;
+	// float lastDist = 0.0;
+	// float addI = 0.0;
 
 	// max distance travelled
 	/*if (fractal->transformCommon.functionEnabledPFalse)
@@ -16259,18 +16249,17 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	}
 
 	if (aux.i >= fractal->transformCommon.startIterationsT
-				&& aux.i < fractal->transformCommon.stopIterationsT)
+			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		// build  componentMaster
-		componentMaster = (  orbitPoints);
+		componentMaster = (orbitPoints);
 	}
 	componentMaster *= fractal->transformCommon.scale;
-
 
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		aux.temp100 = min(aux.temp100, componentMaster);
-			aux.colorHybrid = aux.temp100;
+		aux.colorHybrid = aux.temp100;
 	}
 	else
 		aux.colorHybrid = componentMaster;
@@ -16283,26 +16272,26 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 size = fractal->transformCommon.offset1111;
-	//CVector4 wrap_mode = z;
+	// CVector4 wrap_mode = z;
 	CVector4 oldZ = z;
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
 		{
-			 z.x -= round(z.x / size.x) * size.x;
+			z.x -= round(z.x / size.x) * size.x;
 		}
 		if (fractal->transformCommon.functionEnabledy && size.y != 0.0)
 		{
-			 z.y -= round(z.y / size.y) * size.y;
+			z.y -= round(z.y / size.y) * size.y;
 		}
 		if (fractal->transformCommon.functionEnabledz && size.z != 0.0)
 		{
-			 z.z -= round(z.z / size.z) * size.z;
+			z.z -= round(z.z / size.z) * size.z;
 		}
 		if (fractal->transformCommon.functionEnabledw && size.w != 0.0)
 		{
-			 z.w -= round(z.w / size.w) * size.w;
+			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
 	else
@@ -16310,33 +16299,25 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		CVector4 repeatPos = fractal->transformCommon.offsetA1111;
 		CVector4 repeatNeg = fractal->transformCommon.offsetB1111;
 
-		if (fractal->transformCommon.functionEnabledx
-				&& z.x < (repeatPos.x + 0.5) * size.x
-				&& z.x > (repeatNeg.x + 0.5) * -size.x
-				&&  size.x != 0.0)
+		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * size.x
+				&& z.x > (repeatNeg.x + 0.5) * -size.x && size.x != 0.0)
 		{
-			 z.x -= round(z.x / size.x) * size.x;
+			z.x -= round(z.x / size.x) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy
-				&& z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y
-				&&  size.y != 0.0)
+		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5) * size.y
+				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0)
 		{
-			 z.y -= round(z.y / size.y) * size.y;
+			z.y -= round(z.y / size.y) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz
-				&& z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z
-				&&  size.z != 0.0)
+		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5) * size.z
+				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0)
 		{
-			 z.z -= round(z.z / size.z) * size.z;
+			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw
-				&& z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w
-				&&  size.w != 0.0)
+		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5) * size.w
+				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0)
 		{
-			 z.w -= round(z.w / size.w) * size.w;
+			z.w -= round(z.w / size.w) * size.w;
 		}
 	}
 

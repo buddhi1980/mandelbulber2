@@ -285,9 +285,7 @@ void cTabFractal::FrameIterationFormulaSetWidgetsVisibility(bool visible) const
 	ui->checkBox_check_for_bailout->setVisible(visible);
 }
 
-void cTabFractal::ConnectSignals()
-{
-}
+void cTabFractal::ConnectSignals() {}
 
 void cTabFractal::MaterialSetVisible(bool visible) const
 {

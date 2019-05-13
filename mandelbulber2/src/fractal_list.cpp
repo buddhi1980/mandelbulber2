@@ -586,12 +586,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfFoldingTetra3d, TransfFoldingTetra3dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>Gnarl", "transf_gnarl",
-		transfGnarl, TransfGnarlIteration, analyticDEType, withoutDEFunction,
-		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
-
-
-
+	fractalList->append(sFractalDescription("T>Gnarl", "transf_gnarl", transfGnarl,
+		TransfGnarlIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Iteration Weight", "transf_iteration_weight",
 		transfIterationWeight, TransfIterationWeightIteration, analyticDEType, linearDEFunction,
@@ -637,16 +634,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticFunctionNone, coloringFunctionDefault));
 
 	// Rotation Transforms
-	fractalList->append(sFractalDescription("T>Rotate About Vec3", "transf_rotate_about_vec3", transfRotateAboutVec3,
-		TransfRotateAboutVec3Iteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Rotate About Vec3", "transf_rotate_about_vec3",
+		transfRotateAboutVec3, TransfRotateAboutVec3Iteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Rotation", "transf_rotation", transfRotation,
 		TransfRotationIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionNone, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Rotation Iter Controls", "transf_rotation_iter_controls",
-		transfRotationIterControls, TransfRotationIterControlsIteration, analyticDEType,
-		withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Rotation Iter Controls",
+		"transf_rotation_iter_controls", transfRotationIterControls,
+		TransfRotationIterControlsIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault,
+		100, analyticFunctionNone, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Rotation VaryV1", "transf_rotation_vary_v1",
 		transfRotationVaryV1, TransfRotationVaryV1Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -787,9 +785,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfBoxFold4dTglad, TransfBoxFold4dTgladIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>Box Tiling 4D", "transf_box_tiling4d", transfBoxTiling4d,
-		TransfBoxTiling4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Box Tiling 4D", "transf_box_tiling4d",
+		transfBoxTiling4d, TransfBoxTiling4dIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>Box Wrap 4D", "transf_box_wrap4d", transfBoxWrap4d,
 		TransfBoxWrap4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
@@ -800,9 +798,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Iteration Weight 4D", "transf_iteration_weight4d",
 		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Offset S-Curve 4D", "transf_offset_s_curve4d", transfOffsetSCurve4d,
-		TransfOffsetSCurve4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Offset S-Curve 4D", "transf_offset_s_curve4d",
+		transfOffsetSCurve4d, TransfOffsetSCurve4dIteration, analyticDEType, withoutDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Reciprocal 4D", "transf_reciprocal4d",
 		transfReciprocal4d, TransfReciprocal4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));

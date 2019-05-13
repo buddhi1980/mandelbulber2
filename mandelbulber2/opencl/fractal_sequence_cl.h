@@ -42,14 +42,20 @@
 #include "src/fractal_enums.h"
 #endif
 
-typedef enum { analyticDEType, deltaDEType } enumDETypeCl;
+typedef enum
+{
+	analyticDEType,
+	deltaDEType
+} enumDETypeCl;
 
-typedef enum {
+typedef enum
+{
 	linearDEFunction = 1,
 	logarithmicDEFunction = 2,
 } enumDEFunctionTypeCl;
 
-typedef enum {
+typedef enum
+{
 	clAnalyticFunctionUndefined = -1,
 	clAnalyticFunctionNone = 0,
 	clAnalyticFunctionLinear = 1,
@@ -59,7 +65,8 @@ typedef enum {
 	clAnalyticFunctionJosKleinian = 5
 } enumDEAnalyticFunctionCl;
 
-typedef enum {
+typedef enum
+{
 	clColoringFunctionUndefined = -1,
 	clColoringFunctionDefault = 0,
 	clColoringFunctionABox = 1,

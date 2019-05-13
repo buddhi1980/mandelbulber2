@@ -123,6 +123,4 @@ void cResourceHttpProvider::moreData()
 	outFile->write(reply->readAll());
 }
 
-void cResourceHttpProvider::closeFile()
-{
-}
+void cResourceHttpProvider::closeFile() {}

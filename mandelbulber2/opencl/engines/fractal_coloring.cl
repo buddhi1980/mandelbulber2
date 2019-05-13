@@ -157,11 +157,12 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 			{
 				if (colorValue > fractalColoring->addStartValue)
 				{
-					colorValue += (1.0f
-													- 1.0f / (1.0f
-																		 + (colorValue - fractalColoring->addStartValue)
-																				 / fractalColoring->addSpread))
-												* fractalColoring->addMax;
+					colorValue +=
+						(1.0f
+							- 1.0f
+									/ (1.0f
+											+ (colorValue - fractalColoring->addStartValue) / fractalColoring->addSpread))
+						* fractalColoring->addMax;
 				}
 			}
 
@@ -182,8 +183,9 @@ cl_float CalculateColorIndex(bool isHybrid, cl_float r, cl_float4 z, cl_float co
 				if (colorValue > fractalColoring->cosStartValue)
 				{
 					float trig = (0.5f
-												 - 0.5f * cos((colorValue - fractalColoring->cosStartValue) * M_PI_F
-																			/ (fractalColoring->cosPeriod * 2.0f)))
+												 - 0.5f
+														 * cos((colorValue - fractalColoring->cosStartValue) * M_PI_F
+																	 / (fractalColoring->cosPeriod * 2.0f)))
 											 * fractalColoring->cosAdd;
 					colorValue += trig;
 				}

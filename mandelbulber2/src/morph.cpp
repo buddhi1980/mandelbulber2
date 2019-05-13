@@ -488,8 +488,9 @@ double cMorph::CatmullRomInterpolate(
 			}
 		}
 	}
-	double value = 0.5 * ((2 * v2) + (-v1 + v3) * factor + (2 * v1 - 5 * v2 + 4 * v3 - v4) * factor2
-												 + (-v1 + 3 * v2 - 3 * v3 + v4) * factor3);
+	double value = 0.5
+								 * ((2 * v2) + (-v1 + v3) * factor + (2 * v1 - 5 * v2 + 4 * v3 - v4) * factor2
+										 + (-v1 + 3 * v2 - 3 * v3 + v4) * factor3);
 	if (logarithmic)
 	{
 		if (negative)

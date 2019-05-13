@@ -828,8 +828,8 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 	fclose(fp);
 }
 
-bool ImageFileSaveJPG::SaveJPEGQt(
-	QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta)
+bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int width, int height,
+	int quality, QMap<QString, QString> meta)
 {
 	if (!image)
 	{
@@ -870,8 +870,8 @@ bool ImageFileSaveJPG::SaveJPEGQt(
 	return result;
 }
 
-bool ImageFileSaveJPG::SaveJPEGQtGreyscale(
-	QString filename, unsigned char *image, int width, int height, int quality, QMap<QString, QString> meta)
+bool ImageFileSaveJPG::SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width,
+	int height, int quality, QMap<QString, QString> meta)
 {
 
 	if (!image)

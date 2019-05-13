@@ -650,24 +650,18 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 	map.insert(QString("fov"), QString::number(Get<double>("fov")));
 
 	QString perspectiveType = "";
-	switch(Get<int>("perspective_type")){
-		case params::perspThreePoint:
-			perspectiveType = "persp_three_point";
-			break;
-		case params::perspFishEye:
-			perspectiveType = "persp_fish_eye";
-			break;
-		case params::perspEquirectangular:
-			perspectiveType = "persp_equirectangular";
-			break;
-		case params::perspFishEyeCut:
-			perspectiveType = "persp_fish_eye_cut";
-			break;
+	switch (Get<int>("perspective_type"))
+	{
+		case params::perspThreePoint: perspectiveType = "persp_three_point"; break;
+		case params::perspFishEye: perspectiveType = "persp_fish_eye"; break;
+		case params::perspEquirectangular: perspectiveType = "persp_equirectangular"; break;
+		case params::perspFishEyeCut: perspectiveType = "persp_fish_eye_cut"; break;
 	}
 	map.insert(QString("perspective_type"), perspectiveType);
 	map.insert(QString("stereo_enabled"), Get<bool>("stereo_enabled") ? "yes" : "no");
 	map.insert(QString("stereo_eye_distance"), QString::number(Get<double>("stereo_eye_distance")));
-	map.insert(QString("stereo_infinite_correction"), QString::number(Get<double>("stereo_infinite_correction")));
+	map.insert(QString("stereo_infinite_correction"),
+		QString::number(Get<double>("stereo_infinite_correction")));
 
 	return map;
 }

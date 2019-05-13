@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -581,8 +581,12 @@ void cAnimationFrames::WipeFramesFromFolder(QString folder)
 	// then an optional suffix (e.g. "_alpha") followed by the image file extension
 	QString regex = "^frame_[0-9]+(?:_[a-z]+)?\\..+$";
 	DeleteAllFilesFromDirectory(folder, regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
-	DeleteAllFilesFromDirectory(folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(
+		folder + QDir::separator() + gPar->Get<QString>("alpha_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(
+		folder + QDir::separator() + gPar->Get<QString>("zbuffer_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(
+		folder + QDir::separator() + gPar->Get<QString>("normal_postfix"), regex, QRegExp::RegExp);
+	DeleteAllFilesFromDirectory(
+		folder + QDir::separator() + gPar->Get<QString>("specular_postfix"), regex, QRegExp::RegExp);
 }

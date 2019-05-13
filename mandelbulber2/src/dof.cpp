@@ -44,9 +44,7 @@
 using std::max;
 using std::min;
 
-cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image)
-{
-}
+cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image) {}
 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
 	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest)

@@ -41,9 +41,7 @@ MyComboBox::MyComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapp
 	defaultValue = 0;
 }
 
-MyComboBox::~MyComboBox()
-{
-}
+MyComboBox::~MyComboBox() {}
 
 void MyComboBox::contextMenuEvent(QContextMenuEvent *event)
 {

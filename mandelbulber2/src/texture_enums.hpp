@@ -52,6 +52,6 @@ enum enumTextureSelection
 	texLuminosity = 2,
 	texDisplacement = 3,
 };
-}
+} // namespace texture
 
 #endif /* MANDELBULBER2_SRC_TEXTURE_ENUMS_HPP_ */

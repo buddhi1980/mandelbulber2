@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2017-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2017-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -238,8 +238,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 				{
 					colorValue +=
 						(1.0
-							- 1.0 / (1.0
-												+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
+							- 1.0
+									/ (1.0
+											+ (colorValue - fractalColoring.addStartValue) / fractalColoring.addSpread))
 						* fractalColoring.addMax;
 				}
 			}
@@ -261,8 +262,9 @@ double CalculateColorIndex(bool isHybrid, double r, CVector4 z, double colorMin,
 				if (colorValue > fractalColoring.cosStartValue)
 				{
 					double trig = (0.5
-													- 0.5 * cos((colorValue - fractalColoring.cosStartValue) * M_PI
-																			/ (fractalColoring.cosPeriod * 2.0)))
+													- 0.5
+															* cos((colorValue - fractalColoring.cosStartValue) * M_PI
+																		/ (fractalColoring.cosPeriod * 2.0)))
 												* fractalColoring.cosAdd;
 					colorValue += trig;
 				}

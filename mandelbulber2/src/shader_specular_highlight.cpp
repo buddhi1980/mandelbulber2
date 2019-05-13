@@ -46,9 +46,10 @@ sRGBAfloat cRenderWorker::SpecularHighlight(
 	if (input.material->useDiffusionTexture)
 	{
 		float diffuse =
-			10.0f * (1.1f
-								- input.material->diffusionTextureIntensity
-										* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
+			10.0f
+			* (1.1f
+					- input.material->diffusionTextureIntensity
+							* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 		shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
 	}
 	else

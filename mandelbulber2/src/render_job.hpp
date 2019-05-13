@@ -44,8 +44,8 @@
 #include "camera_target.hpp"
 #include "fractal_container.hpp"
 #include "parameters.hpp"
-#include "rendered_tile_data.hpp"
 #include "region.hpp"
+#include "rendered_tile_data.hpp"
 #include "statistics.h"
 
 // forward declarations

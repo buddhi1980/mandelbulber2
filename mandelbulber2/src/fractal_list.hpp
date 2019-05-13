@@ -136,7 +136,7 @@ enum enumFractalFormula
 	mandelbulbKali = 92,
 	mandelbulbKaliMulti = 93,
 	mandelbulbBermarte = 94,
-	mengerMiddleMod = 95, // add vary scale v2.19
+	mengerMiddleMod = 95,			// add vary scale v2.19
 	msltoeToroidalMulti = 96, // update DE v2.15
 	amazingSurfMulti = 97,
 	// V2.09

@@ -43,9 +43,7 @@ NetrenderFileWatch::NetrenderFileWatch(const QString &_netrenderFolder) : QObjec
 		SLOT(netrenderFolderChanged()));
 }
 
-NetrenderFileWatch::~NetrenderFileWatch()
-{
-}
+NetrenderFileWatch::~NetrenderFileWatch() {}
 
 void NetrenderFileWatch::netrenderFolderChanged()
 {

@@ -127,10 +127,12 @@ cFlightAnimation::cFlightAnimation(cInterface *_interface, cAnimationFrames *_fr
 			mainInterface->systemTray, SLOT(showMessage(QString, QString)));
 
 		// connect QuestionMessage signal
-		connect(this, SIGNAL(QuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
-										QMessageBox::StandardButton *)),
-			mainInterface->mainWindow, SLOT(slotQuestionMessage(const QString, const QString,
-																	 QMessageBox::StandardButtons, QMessageBox::StandardButton *)));
+		connect(this,
+			SIGNAL(QuestionMessage(
+				const QString, const QString, QMessageBox::StandardButtons, QMessageBox::StandardButton *)),
+			mainInterface->mainWindow,
+			SLOT(slotQuestionMessage(const QString, const QString, QMessageBox::StandardButtons,
+				QMessageBox::StandardButton *)));
 
 		table = ui->tableWidget_flightAnimation;
 	}
@@ -1296,8 +1298,9 @@ QString cFlightAnimation::GetFlightFilename(int index) const
 {
 	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
 										 + QString("%1").arg(index, 7, 10, QChar('0'));
-	filename += "." + ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-											params->Get<int>("flight_animation_image_type")));
+	filename += "."
+							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
+									params->Get<int>("flight_animation_image_type")));
 	return filename;
 }
 

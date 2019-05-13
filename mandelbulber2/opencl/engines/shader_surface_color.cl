@@ -90,7 +90,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 				pointTemp *= consts->params.formulaScale[formulaIndex];
 
 #else
-				int formulaIndex = -1;
+		int formulaIndex = -1;
 #endif
 				fout =
 					Fractal(consts, pointTemp, calcParams, calcModeColouring, input->material, formulaIndex);

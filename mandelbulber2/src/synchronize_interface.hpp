@@ -70,7 +70,7 @@ struct widgetProperties
 	char lastChar() { return paramName.at(paramName.length() - 1).toLatin1(); }
 	QString nameVect() { return paramName.left(paramName.length() - 2); }
 };
-}
+} // namespace qInterface
 
 void SynchronizeInterfaceWindow(
 	QWidget *window, cParameterContainer *par, qInterface::enumReadWrite mode);

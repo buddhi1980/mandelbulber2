@@ -43,9 +43,7 @@
 #include "synchronize_interface.hpp"
 #include "system.hpp"
 
-cAutomatedWidgets::cAutomatedWidgets(QObject *parent) : QObject(parent)
-{
-}
+cAutomatedWidgets::cAutomatedWidgets(QObject *parent) : QObject(parent) {}
 
 void cAutomatedWidgets::slotSliderMoved(int value) const
 {

@@ -53,6 +53,6 @@ enum enumCameraRotationMode
 	rotateCamera,
 	rotateAroundTarget
 };
-}
+} // namespace cameraMovementEnums
 
 #endif /* MANDELBULBER2_SRC_CAMERA_MOVEMENT_MODES_H_ */
