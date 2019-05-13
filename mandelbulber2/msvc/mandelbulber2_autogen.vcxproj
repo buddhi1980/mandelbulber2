@@ -41,7 +41,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A4B9BF4A-39AD-43E0-B1A1-3E39AB811A7C}</ProjectGuid>
     <RootNamespace>mandelbulber2_autogen</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
