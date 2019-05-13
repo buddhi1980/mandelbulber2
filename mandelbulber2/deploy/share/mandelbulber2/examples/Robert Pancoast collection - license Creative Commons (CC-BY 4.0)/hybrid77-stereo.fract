@@ -4,6 +4,7 @@
 [main_parameters]
 ambient_occlusion 2;
 ambient_occlusion_enabled true;
+ambient_occlusion_mode 1;
 analityc_DE_mode false;
 aux_light_position_1 3 -3 -3;
 aux_light_position_4 0 -1 3;
