@@ -16167,7 +16167,8 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	// build  componentMaster
 	componentMaster = (linearOffset + boxTrap + sphereTrap + planeBias + twoPoints);
-	aux.colorHybrid = componentMaster * 256.0;
+
+	aux.colorHybrid = componentMaster;
 }
 
 /**
@@ -16178,57 +16179,101 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	z.x += 0.000000001; // so not detected as a  zero change in z
+	double componentMaster = 0.0;
+	double orbitPoints = 0.0;
+
+
 	// double auxColor = 0.0;
 
 	//double distEst = 0.0;
 	//double planeBias = 0.0;
-	double linearOffset = 0.0;
+	//double totalDist = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
-	double componentMaster = 0.0;
-	double lastVec = 0.0;
+
+	//double lastVec = 0.0;
 	//double lengthIter = 0.0;
 	//double boxTrap = 0.0;
 	//double sphereTrap = 0.0;
 	//float lastDist = 0.0;
 	//float addI = 0.0;
 
-	// max linear offset
+	// max distance travelled
+	/*if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		double total = aux.addDist;
+		double  newZ = z.Length();
+		totalDist = total + newZ;
+		aux.addDist = totalDist;
+
+		//temp30 *= fractal->foldColor.scaleA1;
+
+	}
+
+
+	// last vector length
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
-		double temp30 = 0.0;
-		CVector4 temp31 = z;
-		if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
+		if ( aux.i < fractal->transformCommon.stopIterationsM)
+		{
+			double lastZ = aux.addDist;
+			double  newZ = z.Length();
 
-		temp30 = max(max(temp31.x, temp31.y), temp31.z);
-		temp30 *= fractal->foldColor.scaleA1;
-		linearOffset = temp30;
-	}
+			if (fractal->transformCommon.functionEnabledBxFalse)
+				lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse)
+				lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse)
+				lastVec = lastZ - newZ;
 
 
-	// last vector
-	if (fractal->transformCommon.functionEnabledByFalse)
+			//lastVec = fabs(lastVec);
+			//lastVec =  aux.i;
+			aux.temp100 = lastVec * fractal->transformCommon.scaleA1;
+			aux.addDist = newZ;
+		}
+
+	}*/
+	// two points
+	if (fractal->transformCommon.functionEnabledBxFalse)
 	{
-		double lastLast = aux.addDist;
-		double  last = z.Length();
+		CVector4 PtOne = z - fractal->transformCommon.offset000;
+		CVector4 PtTwo = z - fractal->transformCommon.offsetA000;
+		double distOne = PtOne.Length(); // * weight
+		double distTwo = PtTwo.Length();
+		orbitPoints = min(distOne, distTwo);
+		if (fractal->transformCommon.functionEnabledAxFalse)
+		{
+			CVector4 PtThree = z - fractal->transformCommon.offsetF000;
+			double distThree = PtThree.Length();
+			orbitPoints = min(orbitPoints, distThree);
+		}
+		if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			CVector4 PtFour = z - fractal->transformCommon.additionConstantA000;
+			double distFour = PtFour.Length();
+			orbitPoints = min(orbitPoints, distFour);
+		}
 
-		if (fractal->transformCommon.functionEnabledBzFalse)
-			lastVec = last / lastLast * fractal->transformCommon.scaleA1;
-		else
-			lastVec = lastLast / last * fractal->transformCommon.scaleA1;
-		lastVec = fabs(lastVec);
-		aux.addDist = last;
+		orbitPoints *= fractal->transformCommon.scaleA1;
 	}
-
 
 	if (aux.i >= fractal->transformCommon.startIterationsT
 				&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
 		// build  componentMaster
-		componentMaster = (lastVec +  linearOffset);
+		componentMaster = (  orbitPoints);
 	}
-	//componentMaster *= fractal->transformCommon.scale;
+	componentMaster *= fractal->transformCommon.scale;
 
-	aux.colorHybrid = componentMaster * 256.0;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		aux.temp100 = min(aux.temp100, componentMaster);
+			aux.colorHybrid = aux.temp100;
+	}
+	else
+		aux.colorHybrid = componentMaster;
 }
 
 /**
