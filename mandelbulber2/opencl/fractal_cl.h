@@ -659,6 +659,7 @@ typedef struct
 	cl_float4 offset200;
 	cl_float4 offsetA200;
 	cl_float4 offset222;
+	cl_float4 offsetA222;
 	cl_float4 power025;
 	cl_float4 power8;
 	cl_float4 vec111;
@@ -685,6 +686,7 @@ typedef struct
 	cl_float4 offsetA0000;
 	cl_float4 offset1111;
 	cl_float4 offsetA1111;
+	cl_float4 offsetB1111;
 	cl_float4 offsetNeg1111;
 	cl_float4 offset2222;
 	cl_float4 additionConstant111d5;
@@ -1345,6 +1347,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset200 = toClFloat4(source.offset200);
 	target.offsetA200 = toClFloat4(source.offsetA200);
 	target.offset222 = toClFloat4(source.offset222);
+	target.offsetA222 = toClFloat4(source.offsetA222);
 	target.power025 = toClFloat4(source.power025);
 	target.power8 = toClFloat4(source.power8);
 	target.vec111 = toClFloat4(source.vec111);
@@ -1368,6 +1371,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offsetA0000 = toClFloat4(source.offsetA0000);
 	target.offset1111 = toClFloat4(source.offset1111);
 	target.offsetA1111 = toClFloat4(source.offsetA1111);
+	target.offsetB1111 = toClFloat4(source.offsetB1111);
 	target.offsetNeg1111 = toClFloat4(source.offsetNeg1111);
 	target.offset2222 = toClFloat4(source.offset2222);
 	target.additionConstant111d5 = toClFloat4(source.additionConstant111d5);

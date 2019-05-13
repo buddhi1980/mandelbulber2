@@ -48,8 +48,7 @@ REAL4 TransfMengerFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 		z.y -= 2.0f * fractal->transformCommon.constantMultiplier111.y;
 		if (fractal->transformCommon.functionEnabled)
 		{
-			if (z.z > 1.0f) // z.z < 1.0f  z.z = z.z
-				z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
+			if (z.z > 1.0f) z.z -= 2.0f * fractal->transformCommon.constantMultiplier111.z;
 		}
 		else
 		{

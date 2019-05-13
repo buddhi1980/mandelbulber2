@@ -62,33 +62,6 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	}
 	else
 	{
-		// TODO recode the following
-		/*	if (z.x > limit4.x)
-			{
-				z.x = value4.x - z.x;
-			}
-			else if (z.x < -limit4.x)
-			{
-				z.x = -value4.x - z.x;
-			}
-			if (z.y > limit4.y)
-			{
-				z.y = value4.y - z.y;
-			}
-			else if (z.y < -limit4.y)
-			{
-				z.y = -value4.y - z.y;
-			}
-			if (z.z > limit4.z)
-			{
-				z.z = value4.z - z.z;
-			}
-			else if (z.z < -limit4.z)
-			{
-				z.z = -value4.z - z.z;
-			}
-			zCol = z;*/
-
 		if (!fractal->transformCommon.functionEnabledCyFalse)
 		{
 			z = fabs(z + limit4) - fabs(z - limit4) - z;
@@ -243,6 +216,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				aux->actualScaleA = aux->actualScaleA - vary;
 		}
 	}
+	// add cpixel
 	REAL4 c = aux->const_c;
 
 	if (fractal->transformCommon.addCpixelEnabledFalse
@@ -278,14 +252,59 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				case multi_OrderOfXYZCl_zyx: tempC = (REAL4){c.z, c.y, c.x, c.w}; break;
 			}
 		}
+		// rotate c
 		if (fractal->transformCommon.rotationEnabled
 				&& aux->i >= fractal->transformCommon.startIterationsG
 				&& aux->i < fractal->transformCommon.stopIterationsG)
 		{
 			tempC = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, tempC);
 		}
+		// vary c
+		if (fractal->transformCommon.functionEnabledMFalse)
+		{
+			if (fractal->transformCommon.functionEnabledx)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsM)
+				{
+					tempC.x *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsM),
+																	fractal->transformCommon.offsetF000.x))))
+						* fractal->transformCommon.constantMultiplierB111.x;
+				}
+			}
+			if (fractal->transformCommon.functionEnabledy)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsO)
+				{
+					tempC.y *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsO),
+																	fractal->transformCommon.offsetF000.y))))
+						* fractal->transformCommon.constantMultiplierB111.y;
+				}
+			}
+			if (fractal->transformCommon.functionEnabledz)
+			{
+				if (aux->i > fractal->transformCommon.startIterationsP)
+				{
+					tempC.z *=
+						(1.0f
+							- native_recip((1.0f
+															+ native_divide((aux->i - fractal->transformCommon.startIterationsP),
+																	fractal->transformCommon.offsetF000.z))))
+						* fractal->transformCommon.constantMultiplierB111.z;
+				}
+			}
+		}
 		z += tempC * fractal->transformCommon.constantMultiplier111;
 	}
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 
 	// color updated v2.13 & mode2 v2.14
 	if (fractal->foldColor.auxColorEnabledFalse)

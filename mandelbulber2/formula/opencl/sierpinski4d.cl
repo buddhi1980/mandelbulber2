@@ -17,7 +17,6 @@
 
 REAL4 Sierpinski4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	REAL temp;
 	if (z.x + z.y < 0.0f)
 	{

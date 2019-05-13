@@ -49,7 +49,6 @@ REAL4 TransfClamp4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (z.w > upper.w) z.w = upper.w;
 		z.w = mad(oldZ.w, scale.w, -z.w);
 	}
-	// aux->DE = aux->DE * native_divide(length(z), length(oldZ));
 
 	aux->DE *= fractal->analyticDE.scale1;
 	return z;

@@ -33,10 +33,6 @@ REAL4 TransfPlatonicSolidIteration(REAL4 z, __constant sFractalCl *fractal, sExt
 	}
 	else
 	{
-		// if (fractal->transformCommon.functionEnabledx) rho = native_sqrt(length(z)); // the radius
-		// if (fractal->transformCommon.functionEnabledyFalse) rho = length(z);
-		// if (fractal->transformCommon.functionEnabledzFalse) rho = dot(z, z);
-
 		REAL rho1 = 0.0f;
 		REAL rho2 = 0.0f;
 		REAL rho3 = 0.0f;

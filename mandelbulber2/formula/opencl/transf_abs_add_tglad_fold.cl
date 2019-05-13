@@ -26,7 +26,6 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		// REAL4 limit = fractal->transformCommon.additionConstant000;
 		REAL4 length = 2.0f * limit;
 		REAL4 tgladS = native_recip(length);
 		REAL4 Add = (REAL4){0.0f, 0.0f, 0.0f, 0.0f};

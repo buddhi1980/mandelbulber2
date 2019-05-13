@@ -800,7 +800,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Iteration Weight 4D", "transf_iteration_weight4d",
 		transfIterationWeight4d, TransfIterationWeight4dIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("T>Offset S-Curve 4D", "transf_offset_Scurve4d", transfOffsetSCurve4d,
+	fractalList->append(sFractalDescription("T>Offset S-Curve 4D", "transf_offset_s_curve4d", transfOffsetSCurve4d,
 		TransfOffsetSCurve4dIteration, analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>Reciprocal 4D", "transf_reciprocal4d",

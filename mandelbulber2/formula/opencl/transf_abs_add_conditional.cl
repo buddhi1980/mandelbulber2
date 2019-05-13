@@ -45,7 +45,6 @@ REAL4 TransfAbsAddConditionalIteration(REAL4 z, __constant sFractalCl *fractal, 
 					* (fractal->transformCommon.offset111.z - fabs(z.z)
 							+ fabs(z.z) * fractal->transformCommon.offset000.z);
 	}
-	// aux->DE = aux->DE * l/L;
 
 	aux->DE *= fractal->analyticDE.scale1; // DE tweak
 	return z;

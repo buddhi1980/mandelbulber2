@@ -20,17 +20,6 @@ REAL4 TransfRotationVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		fractal->transformCommon.rotation.z, 0.0f}; // constant to be varied
 	int iterationRange =
 		fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250;
-	/*if (aux->i >= fractal->transformCommon.startIterations250
-			&& aux->i < fractal->transformCommon.stopIterations
-			&& iterationRange  != 0)
-	{
-		int currentIteration = (aux->i - fractal->transformCommon.startIterations250);
-		tempVC += fractal->transformCommon.offset000 * native_divide(currentIteration, iterationRange);
-	}
-	if (aux->i >= fractal->transformCommon.stopIterations)
-	{
-		tempVC +=  fractal->transformCommon.offset000;
-	}*/
 
 	if (aux->i >= fractal->transformCommon.startIterations250 && iterationRange != 0)
 	{

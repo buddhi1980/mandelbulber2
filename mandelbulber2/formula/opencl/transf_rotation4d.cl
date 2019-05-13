@@ -14,7 +14,6 @@
  */
 
 REAL4 TransfRotation4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
-// temp 4D rotation
 {
 	Q_UNUSED(aux);
 

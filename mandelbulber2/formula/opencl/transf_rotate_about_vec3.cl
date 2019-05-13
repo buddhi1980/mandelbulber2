@@ -15,7 +15,7 @@
 
 REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL useAngle = fractal->transformCommon.angle0 * M_PI_180;
+	REAL useAngle = fractal->transformCommon.angle0;
 
 	if (fractal->transformCommon.functionEnabledEFalse)
 	{
@@ -29,8 +29,42 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 				* fractal->transformCommon.scale1;
 		}
 	}
-	REAL4 rotVec4 = (fractal->transformCommon.offset000);
-	// REAL3 rotVec3 =  (REAL3) {fractal->transformCommon.offset000.xyz};
-	z = RotateAroundVectorByAngle4(z, (rotVec4.xyz), useAngle);
+
+	REAL4 v = fractal->transformCommon.vec111;
+	v = native_divide(v, length(v)); // normalise
+	float c = native_cos(useAngle * M_PI_180);
+	float s = native_sin(useAngle * M_PI_180);
+	REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, 1.0f};
+
+	// if (fractal->transformCommon.functionEnabledAx)
+	{
+		rotVec.x = z.x * (mad((1.0f - c), v.x * v.x, c)) + z.y * (mad((1.0f - c) * v.x, v.y, s * v.z))
+							 + z.z * (mad((1.0f - c) * v.x, v.z, -s * v.y));
+		rotVec.y = z.x * (mad((1.0f - c) * v.x, v.y, -s * v.z)) + z.y * (mad((1.0f - c), v.y * v.y, c))
+							 + z.z * (mad((1.0f - c) * v.y, v.z, s * v.x));
+		rotVec.z = z.x * (mad((1.0f - c) * v.x, v.z, s * v.y))
+							 + z.y * (mad((1.0f - c) * v.y, v.z, -s * v.x))
+							 + z.z * (mad((1.0f - c), v.z * v.z, c));
+		z = rotVec;
+	}
+
+	/*if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		rotVec.x = (mad((1.0f - c), v.x * v.x, c)) + (mad((1.0f - c) * v.x, v.y, s * v.z)) + (mad((1.0f
+	- c) * v.x, v.z, -s * v.y)); rotVec.y = (mad((1.0f - c) * v.x, v.y, -s * v.z)) + (mad((1.0f - c),
+	v.y * v.y, c)) + (mad((1.0f - c) * v.y, v.z, s * v.x)); rotVec.z = (mad((1.0f - c) * v.x, v.z, s *
+	v.y)) + (mad((1.0f - c) * v.y, v.z, -s * v.x)) + (mad((1.0f - c), v.z * v.z, c)); z *= rotVec;
+	}*/
+
+	/*	CMatrix44 rotM = CMatrix44(c + (1.0f - c) * v.x * v.x, (1.0f - c) * v.x * v.y - s * v.z, (1.0f
+		- c) * v.x * v.z + s * v.y, 0.0f, (1.0f - c) * v.x * v.y + s * v.z, c + (1.0f - c) * v.y * v.y,
+		(1.0f - c) * v.y * v.z - s * v.x, 0.0f, (1.0f - c) * v.x * v.z - s * v.y, (1.0f - c) * v.y * v.z
+		+ s * v.x, c + (1.0f - c) * v.z * v.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+			);
+		z *= rotM;*/
+
+	// DE tweak
+	if (fractal->analyticDE.enabledFalse)
+		aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

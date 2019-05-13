@@ -18,7 +18,8 @@
 
 REAL4 TransfPolyFoldSymIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
+
+	REAL4 oldZ = z;
 
 	int order = fractal->transformCommon.int6;
 	REAL div2PI = (REAL)native_divide(order, M_PI_2x);
@@ -33,5 +34,15 @@ REAL4 TransfPolyFoldSymIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 	z.y = mad(tempZx, native_sin(angle), z.y * native_cos(angle));
 	if (cy) z.y = -z.y;
 	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		else
+		{
+			REAL avgScale = native_divide(length(z), length(oldZ));
+			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		}
+	}
 	return z;
 }
