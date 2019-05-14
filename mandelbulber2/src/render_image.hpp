@@ -37,6 +37,7 @@
 
 #include <QObject>
 
+#include "render_worker.hpp"
 #include "statistics.h"
 
 // forward declarations
@@ -45,6 +46,8 @@ struct sParamRender;
 struct sRenderData;
 class cImage;
 class cScheduler;
+struct sThreadData;
+class cProgressText;
 
 class cRenderer : public QObject
 {
@@ -57,6 +60,20 @@ public:
 
 private:
 	void CreateLineData(int y, QByteArray *lineData) const;
+	int InitProgresiveSteps();
+	void InitializeThreadData(cRenderWorker::sThreadData *threadData);
+	void LaunchThreads(
+		QThread **thread, cRenderWorker **worker, cRenderWorker::sThreadData *threadData);
+	void TerminateRendering();
+	double PeriodicUpdateStatusAndProgressBar(QString &statusText, QString &progressTxt,
+		cProgressText &progressText, QElapsedTimer &timerProgressRefresh);
+	QSet<int> UpdateImageDuringRendering(QList<int> &listToRefresh, QList<int> &listToSend);
+	void SendRenderedLinesToNetRender(QList<int> &listToSend);
+	void UpdateNetRenderToDoList();
+	void SendRenderedLinesToNetRenderAfterRendering(QList<int> listToSend);
+	void RenderSSAO();
+	void RenderDOF();
+	void RenderHDRBlur();
 
 	const sParamRender *params;
 	const cNineFractals *fractal;

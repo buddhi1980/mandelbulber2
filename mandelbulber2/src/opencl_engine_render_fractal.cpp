@@ -118,6 +118,153 @@ QString cOpenClEngineRenderFractal::GetKernelName()
 	return QString("fractal3D");
 }
 
+void cOpenClEngineRenderFractal::CreateListOfHeaderFiles(QStringList &clHeaderFiles)
+{
+	clHeaderFiles.append("defines_cl.h");
+	clHeaderFiles.append("opencl_typedefs.h");
+	clHeaderFiles.append("opencl_algebra.h");
+	clHeaderFiles.append("common_params_cl.hpp");
+	clHeaderFiles.append("image_adjustments_cl.h");
+	clHeaderFiles.append("fractal_cl.h");
+	clHeaderFiles.append("fractal_coloring_cl.hpp");
+	clHeaderFiles.append("fractparams_cl.hpp");
+	clHeaderFiles.append("fractal_sequence_cl.h");
+	clHeaderFiles.append("texture_enums_cl.h");
+	clHeaderFiles.append("material_cl.h");
+	clHeaderFiles.append("shader_input_data_cl.h");
+	clHeaderFiles.append("object_type_cl.h");
+	clHeaderFiles.append("object_data_cl.h");
+	clHeaderFiles.append("primitives_cl.h");
+	clHeaderFiles.append("input_data_structures.h");
+	clHeaderFiles.append("render_data_cl.h");
+}
+
+void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeaderFiles,
+	const QString &openclPathSlash, const cParameterContainer *params,
+	const QString &openclEnginePath, QByteArray &programEngine)
+{
+	for (int i = 0; i < clHeaderFiles.size(); i++)
+	{
+		programEngine.append("\n#include \"" + openclPathSlash + clHeaderFiles.at(i) + "\"\n");
+	}
+	if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
+	{
+		programEngine.append("\n#include \"" + openclEnginePath + "basic_foldings.cl\"\n");
+	}
+	// fractal formulas - only actually used
+	for (int i = 0; i < listOfUsedFormulas.size(); i++)
+	{
+		QString formulaName = listOfUsedFormulas.at(i);
+		if (formulaName != "")
+		{
+			programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
+													 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
+		}
+	}
+	if (renderEngineMode != clRenderEngineTypeFast)
+	{
+		// fractal coloring
+		programEngine.append("\n#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
+	}
+	if (params->Get<bool>("fake_lights_enabled"))
+	{
+		// fake lights based on orbit traps - shapes
+		programEngine.append("\n#include \"" + openclEnginePath + "orbit_trap_shape.cl\"\n");
+	}
+	// compute fractal
+	programEngine.append("\n#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
+	if (!meshExportMode || true)
+	{
+		// texture mapping
+		programEngine.append("\n#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
+		if (renderEngineMode != clRenderEngineTypeFast)
+		{
+			// calculation of texture pixel address
+			programEngine.append(
+				"\n#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
+			// calculation of bicubic interpolation for textures
+			programEngine.append("\n#include \"" + openclEnginePath + "bicubic_interpolation.cl\"\n");
+			// calculate displacement from textures
+			programEngine.append("\n#include \"" + openclEnginePath + "displacement_map.cl\"\n");
+		}
+	}
+	// compute fractal
+	programEngine.append("\n#include \"" + openclEnginePath + "primitives.cl\"\n");
+	// calculate distance
+	programEngine.append("\n#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
+	if (!meshExportMode || true)
+	{
+		// normal vector calculation
+		programEngine.append("\n#include \"" + openclEnginePath + "normal_vector.cl\"\n");
+		// 3D projections (3point, equirectagular, fisheye)
+		programEngine.append("\n#include \"" + openclEnginePath + "projection_3d.cl\"\n");
+		// stereoscipic rendering
+		if (params->Get<bool>("stereo_enabled"))
+			programEngine.append("\n#include \"" + openclEnginePath + "stereo.cl\"\n");
+
+		if (renderEngineMode != clRenderEngineTypeFast)
+		{
+			// shaders
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_iter_opacity.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_hsv2rgb.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_background.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_surface_color.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shading.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_specular_highlight.cl\"\n");
+			programEngine.append(
+				"\n#include \"" + openclEnginePath + "shader_specular_highlight_combined.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shadow.cl\"\n");
+			programEngine.append(
+				"\n#include \"" + openclEnginePath + "shader_fast_ambient_occlusion.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_ambient_occlusion.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_aux_shadow.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_light_shading.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_aux_lights_shader.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_fake_lights.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_texture.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_object.cl\"\n");
+			programEngine.append(
+				"\n#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
+		}
+		if (renderEngineMode == clRenderEngineTypeFull)
+		{
+			// ray recursion
+			programEngine.append("\n#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
+		}
+		if (renderEngineMode != clRenderEngineTypeFast)
+		{
+			// Monte Carlo DOF
+			programEngine.append("\n#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
+		}
+	}
+}
+
+void cOpenClEngineRenderFractal::LoadSourceWithMainEngine(
+	const QString &openclEnginePath, QByteArray &programEngine)
+{
+	// main engine
+	QString engineFileName;
+	if (meshExportMode)
+	{
+		engineFileName = "slicer_engine.cl";
+	}
+	else
+	{
+		switch (renderEngineMode)
+		{
+			case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
+			case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
+			case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
+			case clRenderEngineTypeNone: break;
+		}
+	}
+	QString engineFullFileName = openclEnginePath + engineFileName;
+	programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+}
+
 bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer *params)
 {
 	programsLoaded = false;
@@ -132,23 +279,7 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		QString openclEnginePath = openclPath + "engines" + QDir::separator();
 
 		QStringList clHeaderFiles;
-		clHeaderFiles.append("defines_cl.h");
-		clHeaderFiles.append("opencl_typedefs.h");
-		clHeaderFiles.append("opencl_algebra.h");
-		clHeaderFiles.append("common_params_cl.hpp");
-		clHeaderFiles.append("image_adjustments_cl.h");
-		clHeaderFiles.append("fractal_cl.h");
-		clHeaderFiles.append("fractal_coloring_cl.hpp");
-		clHeaderFiles.append("fractparams_cl.hpp");
-		clHeaderFiles.append("fractal_sequence_cl.h");
-		clHeaderFiles.append("texture_enums_cl.h");
-		clHeaderFiles.append("material_cl.h");
-		clHeaderFiles.append("shader_input_data_cl.h");
-		clHeaderFiles.append("object_type_cl.h");
-		clHeaderFiles.append("object_data_cl.h");
-		clHeaderFiles.append("primitives_cl.h");
-		clHeaderFiles.append("input_data_structures.h");
-		clHeaderFiles.append("render_data_cl.h");
+		CreateListOfHeaderFiles(clHeaderFiles);
 
 		if (meshExportMode) clHeaderFiles.append("mesh_export_data_cl.h");
 
@@ -164,142 +295,10 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 		QString openclPathSlash = openclPath;
 #endif
 
-		for (int i = 0; i < clHeaderFiles.size(); i++)
-		{
-			programEngine.append("\n#include \"" + openclPathSlash + clHeaderFiles.at(i) + "\"\n");
-		}
-
-		if (params->Get<bool>("box_folding") || params->Get<bool>("spherical_folding"))
-		{
-			programEngine.append("\n#include \"" + openclEnginePath + "basic_foldings.cl\"\n");
-		}
-
-		// fractal formulas - only actually used
-		for (int i = 0; i < listOfUsedFormulas.size(); i++)
-		{
-			QString formulaName = listOfUsedFormulas.at(i);
-			if (formulaName != "")
-			{
-				programEngine.append("\n#include \"" + systemData.sharedDir + "formula" + QDir::separator()
-														 + "opencl" + QDir::separator() + formulaName + ".cl\"\n");
-			}
-		}
-
-		if (renderEngineMode != clRenderEngineTypeFast)
-		{
-			// fractal coloring
-			programEngine.append("\n#include \"" + openclEnginePath + "fractal_coloring.cl\"\n");
-		}
-
-		if (params->Get<bool>("fake_lights_enabled"))
-		{
-			// fake lights based on orbit traps - shapes
-			programEngine.append("\n#include \"" + openclEnginePath + "orbit_trap_shape.cl\"\n");
-		}
-
-		// compute fractal
-		programEngine.append("\n#include \"" + openclEnginePath + "compute_fractal.cl\"\n");
-
-		if (!meshExportMode || true)
-		{
-			// texture mapping
-			programEngine.append("\n#include \"" + openclEnginePath + "texture_mapping.cl\"\n");
-
-			if (renderEngineMode != clRenderEngineTypeFast)
-			{
-				// calculation of texture pixel address
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_texture_pixel_address.cl\"\n");
-
-				// calculation of bicubic interpolation for textures
-				programEngine.append("\n#include \"" + openclEnginePath + "bicubic_interpolation.cl\"\n");
-
-				// calculate displacement from textures
-				programEngine.append("\n#include \"" + openclEnginePath + "displacement_map.cl\"\n");
-			}
-		}
-
-		// compute fractal
-		programEngine.append("\n#include \"" + openclEnginePath + "primitives.cl\"\n");
-
-		// calculate distance
-		programEngine.append("\n#include \"" + openclEnginePath + "calculate_distance.cl\"\n");
-
-		if (!meshExportMode || true)
-		{
-			// normal vector calculation
-			programEngine.append("\n#include \"" + openclEnginePath + "normal_vector.cl\"\n");
-
-			// 3D projections (3point, equirectagular, fisheye)
-			programEngine.append("\n#include \"" + openclEnginePath + "projection_3d.cl\"\n");
-
-			// stereoscipic rendering
-			if (params->Get<bool>("stereo_enabled"))
-				programEngine.append("\n#include \"" + openclEnginePath + "stereo.cl\"\n");
-
-			if (renderEngineMode != clRenderEngineTypeFast)
-			{
-				// shaders
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_iter_opacity.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_hsv2rgb.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_background.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_surface_color.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shading.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_specular_highlight.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_specular_highlight_combined.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_main_shadow.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_fast_ambient_occlusion.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_ambient_occlusion.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_aux_shadow.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_light_shading.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_aux_lights_shader.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_fake_lights.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_texture.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_object.cl\"\n");
-				programEngine.append(
-					"\n#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
-				programEngine.append("\n#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
-			}
-
-			if (renderEngineMode == clRenderEngineTypeFull)
-			{
-				// ray recursion
-				programEngine.append("\n#include \"" + openclEnginePath + "ray_recursion.cl\"\n");
-			}
-
-			if (renderEngineMode != clRenderEngineTypeFast)
-			{
-				// Monte Carlo DOF
-				programEngine.append("\n#include \"" + openclEnginePath + "monte_carlo_dof.cl\"\n");
-			}
-		}
+		CreateListOfIncludes(clHeaderFiles, openclPathSlash, params, openclEnginePath, programEngine);
 
 		// main engine
-		QString engineFileName;
-		if (meshExportMode)
-		{
-			engineFileName = "slicer_engine.cl";
-		}
-		else
-		{
-			switch (renderEngineMode)
-			{
-				case clRenderEngineTypeFast: engineFileName = "fast_engine.cl"; break;
-				case clRenderEngineTypeLimited: engineFileName = "limited_engine.cl"; break;
-				case clRenderEngineTypeFull: engineFileName = "full_engine.cl"; break;
-				case clRenderEngineTypeNone: break;
-			}
-		}
-		QString engineFullFileName = openclEnginePath + engineFileName;
-		programEngine.append(LoadUtf8TextFromFile(engineFullFileName));
+		LoadSourceWithMainEngine(openclEnginePath, programEngine);
 
 		// qDebug() << programEngine.toStdString().c_str();
 	}
@@ -332,41 +331,12 @@ bool cOpenClEngineRenderFractal::LoadSourcesAndCompile(const cParameterContainer
 	return programsLoaded;
 }
 
-void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer,
-	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
-	sRenderData *renderData, bool meshExportModeEnable)
+void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
+	cNineFractals *fractals, sParamRender *paramRender)
 {
-	Q_UNUSED(fractalContainer);
-
-	WriteLog(QString("Setting parameters for OpenCL rendering"), 2);
-
-	meshExportMode = meshExportModeEnable;
-	reservedGpuTime = paramContainer->Get<double>("opencl_reserved_gpu_time");
-
-	constantInBuffer.reset(new sClInConstants);
-
-	if (meshExportMode)
-	{
-		constantInMeshExportBuffer.reset(new sClMeshExport);
-	}
-
-	definesCollector.clear();
-
-	renderEngineMode = enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode"));
-
-	// update camera rotation data (needed for simplified calculation in opencl kernel)
-	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
-	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
-	paramRender->resolution = 1.0 / paramRender->imageHeight;
-
-	if (renderEngineMode == clRenderEngineTypeFull) definesCollector += " -DFULL_ENGINE";
-
-	if (meshExportMode) definesCollector += " -DMESH_EXPORT";
-
 	// define distance estimation method
 	fractal::enumDEType deType = fractals->GetDEType(0);
 	fractal::enumDEFunctionType deFunctionType = fractals->GetDEFunctionType(0);
-
 	if (fractals->IsHybrid()) definesCollector += " -DIS_HYBRID";
 
 	bool useAnalyticDEType = false;
@@ -375,7 +345,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	bool useLogarithmicDEFunction = false;
 	bool usePseudoKleinianDEFunction = false;
 	bool useJosKleinianDEFunction = true;
-
 	if (fractals->IsHybrid())
 	{
 		if (deType == fractal::analyticDEType)
@@ -431,20 +400,22 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			}
 		}
 	}
-
 	if (useAnalyticDEType) definesCollector += " -DANALYTIC_DE";
+
 	if (useDeltaDEType) definesCollector += " -DDELTA_DE";
+
 	if (useLinearDEFunction) definesCollector += " -DDELTA_LINEAR_DE";
+
 	if (useLogarithmicDEFunction) definesCollector += " -DDELTA_LOG_DE";
+
 	if (usePseudoKleinianDEFunction) definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
+
 	if (useJosKleinianDEFunction) definesCollector += " -DDELTA_JOS_KLEINIAN_DE";
+}
 
-	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
-
-	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
-
+void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractals)
+{
 	listOfUsedFormulas.clear();
-
 	// creating list of used formulas
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
@@ -453,7 +424,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		QString formulaName = fractalList.at(listIndex).internalName;
 		listOfUsedFormulas.append(formulaName);
 	}
-
 	// adding #defines to the list
 	for (int i = 0; i < listOfUsedFormulas.size(); i++)
 	{
@@ -465,19 +435,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		}
 	}
 
-	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
-	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
+	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
+}
 
-	bool weightUsed = false;
-	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
-	{
-		if (fractals->GetWeight(i) != 1.0)
-		{
-			weightUsed = true;
-		}
-	}
-	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
-
+void cOpenClEngineRenderFractal::SetParametersForPerspectiveProjection(sParamRender *paramRender)
+{
 	// ---- perspective projections ------
 	switch (paramRender->perspectiveType)
 	{
@@ -486,11 +448,15 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		case params::perspFishEye: definesCollector += " -DPERSP_FISH_EYE"; break;
 		case params::perspFishEyeCut: definesCollector += " -DPERSP_FISH_EYE_CUT"; break;
 	}
+}
 
+void cOpenClEngineRenderFractal::SetParametersForShaders(
+	sParamRender *paramRender, sRenderData *renderData)
+{
 	// ------------ enabling shaders ----------
 	bool anyVolumetricShaderUsed = false;
-
 	if (paramRender->shadow) definesCollector += " -DSHADOWS";
+
 	if (paramRender->ambientOcclusionEnabled)
 	{
 		if (paramRender->ambientOcclusionMode == params::AOModeFast)
@@ -499,6 +465,7 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			definesCollector += " -DAO_MODE_MULTIPLE_RAYS";
 	}
 	if (paramRender->slowShading) definesCollector += " -DSLOW_SHADING";
+
 	if (renderData->lights.IsAnyLightEnabled())
 	{
 		definesCollector += " -DAUX_LIGHTS";
@@ -508,11 +475,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			anyVolumetricShaderUsed = true;
 		}
 	}
-
-	if (paramRender->interiorMode) definesCollector += " -DINTERIOR_MODE";
-
-	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
-
 	bool isVolumetricLight = false;
 	for (bool i : paramRender->volumetricLightEnabled)
 	{
@@ -523,8 +485,8 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DVOLUMETRIC_LIGHTS";
 		anyVolumetricShaderUsed = true;
 	}
-
 	if (paramRender->glowEnabled) definesCollector += " -DGLOW";
+
 	if (paramRender->fogEnabled)
 	{
 		definesCollector += " -DBASIC_FOG";
@@ -544,7 +506,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	{
 		definesCollector += " -DFAKE_LIGHTS";
 		anyVolumetricShaderUsed = true;
-
 		switch (paramRender->common.fakeLightsOrbitTrapShape)
 		{
 			case params::fakeLightsShapePoint: definesCollector += " -DFAKE_LIGHTS_POINT"; break;
@@ -561,14 +522,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	if (paramRender->DOFMonteCarlo)
 	{
 		definesCollector += " -DMONTE_CARLO";
-
 		if (paramRender->DOFEnabled)
 		{
 			definesCollector += " -DMONTE_CARLO_DOF";
 		}
-
 		definesCollector += " -DMONTE_CARLO_ANTI_ALIASING";
-
 		if (paramRender->DOFMonteCarloGlobalIllumination)
 		{
 			definesCollector += " -DMONTE_CARLO_DOF_GLOBAL_ILLUMINATION";
@@ -582,7 +540,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			definesCollector += " -DMC_SOFT_SHADOWS";
 		}
 	}
-
 	if (paramRender->texturedBackground)
 	{
 		definesCollector += " -DTEXTURED_BACKGROUND";
@@ -595,60 +552,60 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 			case params::mapFlat: definesCollector += " -DBACKGROUND_FLAT"; break;
 		}
 	}
+}
 
+void cOpenClEngineRenderFractal::SetParametersForStereoscopic(sRenderData *renderData)
+{
 	if (renderData->stereo.GetMode() != cStereo::stereoDisabled)
 		definesCollector += " -DSTEREOSCOPIC";
+
 	if (renderData->stereo.GetMode() == cStereo::stereoRedCyan)
 		definesCollector += " -DSTEREO_REYCYAN";
+
 	if (renderData->stereo.GetMode() == cStereo::stereoLeftRight)
 		definesCollector += " -DSTEREO_LEFTRIGHT";
+
 	if (renderData->stereo.GetMode() == cStereo::stereoTopBottom)
 		definesCollector += " -DSTEREO_TOPBOTTOM";
+
 	if (renderData->stereo.GetForcedEye() == cStereo::eyeLeft)
 		definesCollector += " -DSTEREO_FORCEDEYELEFT";
+
 	if (renderData->stereo.GetForcedEye() == cStereo::eyeRight)
 		definesCollector += " -DSTEREO_FORCEDEYERIGHT";
+}
 
-	listOfUsedFormulas = listOfUsedFormulas.toSet().toList(); // eliminate duplicates
-
-	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
-
-	renderData->ValidateObjects();
-
+QMap<QString, int> cOpenClEngineRenderFractal::SetParametersAndDataForTextures(
+	sRenderData *renderData)
+{
 	QMap<QString, int> textureIndexes;
-
 	// --------------- textures dynamic data -----------------
 	if (renderEngineMode == clRenderEngineTypeFull)
 	{
 		WriteLog(QString("Creating dynamic data for textures"), 2);
-
 		int numberOfTextures =
 			cOpenClTexturesData::CheckNumberOfTextures(renderData->textures, renderData->materials);
-
 		texturesData.reset(new cOpenClTexturesData(numberOfTextures));
 		texturesData->ReserveHeader();
 		texturesData->BuildAllTexturesData(
 			renderData->textures, renderData->materials, &textureIndexes);
 		texturesData->FillHeader();
 		inTextureBuffer = texturesData->GetData();
-
 		if (numberOfTextures > 0) definesCollector += " -DUSE_TEXTURES";
+
 		definesCollector += " -DNUMBER_OF_TEXTURES=" + QString::number(numberOfTextures);
-
 		definesCollector += texturesData->GetDefinesCollector();
-
 		WriteLogInt(QString("Created dynamic data for textures"), inTextureBuffer.size(), 2);
 	}
+	return textureIndexes;
+}
 
-	//----------- create dynamic data -----------
-	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
-	dynamicData.reset(new cOpenClDynamicData);
-	dynamicData->ReserveHeader();
-
+void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
+	const QMap<QString, int> &textureIndexes, sRenderData *renderData, sParamRender *paramRender)
+{
 	// materials
 	int materialsArraySize = dynamicData->BuildMaterialsData(renderData->materials, textureIndexes);
 	definesCollector += " -DMAT_ARRAY_SIZE=" + QString::number(materialsArraySize);
-
 	bool anyMaterialIsReflective = false;
 	bool anyMaterialIsRefractive = false;
 	bool anyMaterialHasSpecialColoring = false;
@@ -670,12 +627,18 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		if (material.roughSurface) anyMaterialHasRoughSurface = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
+
 	if (anyMaterialIsRefractive) definesCollector += " -DUSE_REFRACTION";
+
 	if (anyMaterialHasSpecialColoring) definesCollector += " -DUSE_COLORING_MODES";
+
 	if (anyMaterialHasIridescence) definesCollector += " -DUSE_IRIDESCENCE";
+
 	if (renderEngineMode != clRenderEngineTypeFast && anyMaterialHasColoringEnabled)
 		definesCollector += " -DUSE_FRACTAL_COLORING";
+
 	if (anyMaterialHasExtraColoringEnabled) definesCollector += " -DUSE_EXTRA_COLORING";
+
 	if (anyMaterialHasRoughSurface) definesCollector += " -DUSE_ROUGH_SURFACE";
 
 	if (((anyMaterialIsReflective || anyMaterialIsRefractive) && paramRender->raytracedReflections)
@@ -689,7 +652,11 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
 	if (anyMaterialHasTextureFractalize) definesCollector += " -DFRACTALIZE_TEXTURE";
+}
 
+void cOpenClEngineRenderFractal::DynamicDataForAOVectors(
+	sParamRender *paramRender, cNineFractals *fractals, sRenderData *renderData)
+{
 	// AO colored vectors
 	cRenderWorker *tempRenderWorker =
 		new cRenderWorker(paramRender, fractals, nullptr, renderData, nullptr);
@@ -697,6 +664,93 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	sVectorsAround *AOVectors = tempRenderWorker->getAOVectorsAround();
 	int numberOfVectors = tempRenderWorker->getAoVectorsCount();
 	dynamicData->BuildAOVectorsData(AOVectors, numberOfVectors);
+	delete tempRenderWorker;
+}
+
+void cOpenClEngineRenderFractal::SetParametersForIterationWeight(cNineFractals *fractals)
+{
+	bool weightUsed = false;
+	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
+	{
+		if (fractals->GetWeight(i) != 1.0)
+		{
+			weightUsed = true;
+		}
+	}
+	if (weightUsed) definesCollector += " -DITERATION_WEIGHT";
+}
+
+void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramContainer,
+	const cFractalContainer *fractalContainer, sParamRender *paramRender, cNineFractals *fractals,
+	sRenderData *renderData, bool meshExportModeEnable)
+{
+	Q_UNUSED(fractalContainer);
+
+	WriteLog(QString("Setting parameters for OpenCL rendering"), 2);
+
+	meshExportMode = meshExportModeEnable;
+	reservedGpuTime = paramContainer->Get<double>("opencl_reserved_gpu_time");
+
+	constantInBuffer.reset(new sClInConstants);
+
+	if (meshExportMode)
+	{
+		constantInMeshExportBuffer.reset(new sClMeshExport);
+	}
+
+	definesCollector.clear();
+
+	renderEngineMode = enumClRenderEngineMode(paramContainer->Get<int>("opencl_mode"));
+
+	// update camera rotation data (needed for simplified calculation in opencl kernel)
+	cCameraTarget cameraTarget(paramRender->camera, paramRender->target, paramRender->topVector);
+	paramRender->viewAngle = cameraTarget.GetRotation() * 180.0 / M_PI;
+	paramRender->resolution = 1.0 / paramRender->imageHeight;
+
+	if (renderEngineMode == clRenderEngineTypeFull) definesCollector += " -DFULL_ENGINE";
+	if (meshExportMode) definesCollector += " -DMESH_EXPORT";
+	if (paramRender->limitsEnabled) definesCollector += " -DLIMITS_ENABLED";
+	if (paramRender->advancedQuality) definesCollector += " -DADVANCED_QUALITY";
+
+	// define distance estimation method
+	SetParametersForDistanceEstimationMethod(fractals, paramRender);
+
+	CreateListOfUsedFormulas(fractals);
+
+	if (paramRender->common.foldings.boxEnable) definesCollector += " -DBOX_FOLDING";
+	if (paramRender->common.foldings.sphericalEnable) definesCollector += " -DSPHERICAL_FOLDING";
+	if (paramRender->interiorMode) definesCollector += " -DINTERIOR_MODE";
+	if (paramRender->booleanOperatorsEnabled) definesCollector += " -DBOOLEAN_OPERATORS";
+
+	SetParametersForIterationWeight(fractals);
+
+	// ---- perspective projections ------
+	SetParametersForPerspectiveProjection(paramRender);
+
+	// ------------ enabling shaders ----------
+	SetParametersForShaders(paramRender, renderData);
+
+	SetParametersForStereoscopic(renderData);
+
+	WriteLogDouble("Constant buffer size [KB]", sizeof(sClInConstants) / 1024.0, 2);
+
+	//---------- DYNAMIC DATA -------------
+	renderData->ValidateObjects();
+
+	QMap<QString, int> textureIndexes = SetParametersAndDataForTextures(renderData);
+
+	//----------- create dynamic data -----------
+	WriteLog(QString("Creating dynamic data for OpenCL rendering"), 2);
+	dynamicData.reset(new cOpenClDynamicData);
+	dynamicData->ReserveHeader();
+
+	// materials
+	SetParametersAndDataForMaterials(textureIndexes, renderData, paramRender);
+
+	// AO colored vectors
+	DynamicDataForAOVectors(paramRender, fractals, renderData);
+
+	// random lights
 	dynamicData->BuildLightsData(&renderData->lights);
 
 	definesCollector += dynamicData->BuildPrimitivesData(&paramRender->primitives);
@@ -726,8 +780,6 @@ void cOpenClEngineRenderFractal::SetParameters(const cParameterContainer *paramC
 	}
 
 	fractals->CopyToOpenclData(&constantInBuffer->sequence);
-
-	delete tempRenderWorker;
 }
 
 void cOpenClEngineRenderFractal::RegisterInputOutputBuffers(const cParameterContainer *params)
@@ -847,6 +899,115 @@ bool cOpenClEngineRenderFractal::PreAllocateBuffers(const cParameterContainer *p
 	return true;
 }
 
+void cOpenClEngineRenderFractal::CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
+	const QSharedPointer<cOpenClScheduler> &scheduler, int width, int height,
+	const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
+	QList<QSharedPointer<QThread>> &threads, QList<QSharedPointer<cOpenClWorkerThread>> &workers,
+	bool *stopRequest)
+{
+	for (int d = 0; d < numberOfOpenCLWorkers; d++)
+	{
+		// allocating memory for threads and workers
+		WriteLog(QString("Thread for OpenCL worker") + QString::number(d) + " create", 3);
+		threads.append(QSharedPointer<QThread>(new QThread));
+		workers.append(
+			QSharedPointer<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
+		// pushing data to workers
+		workers[d]->setImageWidth(width);
+		workers[d]->setImageHeight(height);
+		workers[d]->setOptimalStepX(optimalJob.stepSizeX);
+		workers[d]->setOptimalStepY(optimalJob.stepSizeY);
+		workers[d]->setClKernel(clKernels[d]);
+		workers[d]->setClQueue(clQueues[d]);
+		workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); // 0 because not used
+		workers[d]->setOutputBuffers(outputBuffers[d]);
+		workers[d]->setOutputQueue(outputQueue);
+		workers[d]->setMaxMonteCarloSamples(numberOfSamples);
+		workers[d]->setStopRequest(stopRequest);
+		workers[d]->setReservedGpuTime(reservedGpuTime);
+		// stating threads
+		workers[d]->moveToThread(threads[d].data());
+		QObject::connect(
+			threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
+		QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
+		connect(workers[d].data(),
+			SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)), gErrorMessage,
+			SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
+		threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
+		threads[d]->start();
+		threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
+		WriteLog(QString("Thread ") + QString::number(d) + " started", 3);
+	}
+}
+
+sRGBFloat cOpenClEngineRenderFractal::MCMixColor(
+	const cOpenCLWorkerOutputQueue::sClSingleOutput &output, const sRGBFloat &pixel,
+	const sRGBFloat &oldPixel)
+{
+	sRGBFloat newPixel;
+	if (output.monteCarloLoop == 1)
+	{
+		newPixel = pixel;
+	}
+	else
+	{
+		newPixel.R =
+			oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop) + pixel.R * (1.0 / output.monteCarloLoop);
+		newPixel.G =
+			oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop) + pixel.G * (1.0 / output.monteCarloLoop);
+		newPixel.B =
+			oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop) + pixel.B * (1.0 / output.monteCarloLoop);
+	}
+	return newPixel;
+}
+
+void cOpenClEngineRenderFractal::PutMultiPixel(size_t xx, size_t yy, const sRGBFloat &newPixel,
+	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, unsigned short opacity,
+	cImage *image)
+{
+	image->PutPixelImage(xx, yy, newPixel);
+	image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
+	image->PutPixelAlpha(xx, yy, newAlpha);
+	image->PutPixelColor(xx, yy, color);
+	image->PutPixelOpacity(xx, yy, opacity);
+}
+
+int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
+	QElapsedTimer &timerImageRefresh, cImage *image, QList<QRect> &lastRenderedRects,
+	QList<sRenderedTileData> &listOfRenderedTilesData)
+{
+	timerImageRefresh.restart();
+	image->NullPostEffect(&lastRenderedRects);
+	image->CompileImage(&lastRenderedRects);
+	if (image->IsPreview())
+	{
+		image->ConvertTo8bit(&lastRenderedRects);
+		image->UpdatePreview(&lastRenderedRects);
+		sendRenderedTilesList(listOfRenderedTilesData);
+		updateImage();
+	}
+	lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
+	lastRenderedRects.clear();
+	listOfRenderedTilesData.clear();
+	timerImageRefresh.restart();
+	return lastRefreshTime;
+}
+
+void cOpenClEngineRenderFractal::FinallRefreshOfImage(QList<QRect> lastRenderedRects, cImage *image)
+{
+	QElapsedTimer timerImageRefresh;
+	timerImageRefresh.start();
+	image->NullPostEffect(&lastRenderedRects);
+	image->CompileImage(&lastRenderedRects);
+	if (image->IsPreview())
+	{
+		image->ConvertTo8bit(&lastRenderedRects);
+		image->UpdatePreview(&lastRenderedRects);
+		updateImage();
+	}
+	lastRenderedRects.clear();
+}
+
 // Multi-threaded version of OpenCL render function
 bool cOpenClEngineRenderFractal::RenderMulti(
 	cImage *image, bool *stopRequest, sRenderData *renderData)
@@ -938,41 +1099,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// initializing and starting of all workers
 
 		WriteLog(QString("Creating threads for OpenCL workers"), 2);
-		for (int d = 0; d < numberOfOpenCLWorkers; d++)
-		{
-			// allocating memory for threads and workers
-			WriteLog(QString("Thread for OpenCL worker") + QString::number(d) + " create", 3);
-			threads.append(QSharedPointer<QThread>(new QThread));
-			workers.append(
-				QSharedPointer<cOpenClWorkerThread>(new cOpenClWorkerThread(this, scheduler, d)));
-
-			// pushing data to workers
-			workers[d]->setImageWidth(width);
-			workers[d]->setImageHeight(height);
-			workers[d]->setOptimalStepX(optimalJob.stepSizeX);
-			workers[d]->setOptimalStepY(optimalJob.stepSizeY);
-			workers[d]->setClKernel(clKernels[d]);
-			workers[d]->setClQueue(clQueues[d]);
-			workers[d]->setInputAndOutputBuffers(inputAndOutputBuffers[0]); // 0 because not used
-			workers[d]->setOutputBuffers(outputBuffers[d]);
-			workers[d]->setOutputQueue(outputQueue);
-			workers[d]->setMaxMonteCarloSamples(numberOfSamples);
-			workers[d]->setStopRequest(stopRequest);
-			workers[d]->setReservedGpuTime(reservedGpuTime);
-
-			// stating threads
-			workers[d]->moveToThread(threads[d].data());
-			QObject::connect(
-				threads[d].data(), SIGNAL(started()), workers[d].data(), SLOT(ProcessRenderingLoop()));
-			QObject::connect(workers[d].data(), SIGNAL(finished()), threads[d].data(), SLOT(quit()));
-			connect(workers[d].data(),
-				SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)), gErrorMessage,
-				SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
-			threads[d]->setObjectName("OpenCLWorker #" + QString::number(d));
-			threads[d]->start();
-			threads[d]->setPriority(GetQThreadPriority(systemData.threadsPriority));
-			WriteLog(QString("Thread ") + QString::number(d) + " started", 3);
-		}
+		CreateThreadsForOpenCLWorkers(numberOfOpenCLWorkers, scheduler, width, height, outputQueue,
+			numberOfSamples, threads, workers, stopRequest);
 
 		// while loop continue condition
 		bool continueWhileLoop = false;
@@ -1022,28 +1150,13 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						{
 							// painting pixels with reduced opacity (averaging of MC samples)
 							sRGBFloat oldPixel = image->GetPixelImage(xx, yy);
-							sRGBFloat newPixel;
-							if (output.monteCarloLoop == 1)
-							{
-								newPixel = pixel;
-							}
-							else
-							{
-								newPixel.R = oldPixel.R * (1.0 - 1.0 / output.monteCarloLoop)
-														 + pixel.R * (1.0 / output.monteCarloLoop);
-								newPixel.G = oldPixel.G * (1.0 - 1.0 / output.monteCarloLoop)
-														 + pixel.G * (1.0 / output.monteCarloLoop);
-								newPixel.B = oldPixel.B * (1.0 - 1.0 / output.monteCarloLoop)
-														 + pixel.B * (1.0 / output.monteCarloLoop);
-							}
-							image->PutPixelImage(xx, yy, newPixel);
-							image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
+							sRGBFloat newPixel = MCMixColor(output, pixel, oldPixel);
+
 							unsigned short oldAlpha = image->GetPixelAlpha(xx, yy);
 							unsigned short newAlpha = (double)oldAlpha * (1.0 - 1.0 / output.monteCarloLoop)
 																				+ alpha * (1.0 / output.monteCarloLoop);
-							image->PutPixelAlpha(xx, yy, newAlpha);
-							image->PutPixelColor(xx, yy, color);
-							image->PutPixelOpacity(xx, yy, opacity);
+
+							PutMultiPixel(xx, yy, newPixel, pixelCl, newAlpha, color, opacity, image);
 
 							// noise estimation
 							double noise = (newPixel.R - oldPixel.R) * (newPixel.R - oldPixel.R)
@@ -1068,11 +1181,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 						// if not MC then just paint pixels
 						else
 						{
-							image->PutPixelImage(xx, yy, pixel);
-							image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
-							image->PutPixelColor(xx, yy, color);
-							image->PutPixelOpacity(xx, yy, opacity);
-							image->PutPixelAlpha(xx, yy, alpha);
+							PutMultiPixel(xx, yy, pixel, pixelCl, alpha, color, opacity, image);
 						}
 					} // next y
 				}		// next x
@@ -1145,22 +1254,8 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 			// refreshing image (refreshing period depends on refreshing speed)
 			if (lastRenderedRects.size() > 0 && timerImageRefresh.nsecsElapsed() > lastRefreshTime * 1000)
 			{
-				timerImageRefresh.restart();
-
-				image->NullPostEffect(&lastRenderedRects);
-				image->CompileImage(&lastRenderedRects);
-				if (image->IsPreview())
-				{
-					image->ConvertTo8bit(&lastRenderedRects);
-					image->UpdatePreview(&lastRenderedRects);
-					emit sendRenderedTilesList(listOfRenderedTilesData);
-					emit updateImage();
-				}
-				lastRefreshTime = timerImageRefresh.nsecsElapsed() / lastRenderedRects.size();
-
-				lastRenderedRects.clear();
-				listOfRenderedTilesData.clear();
-				timerImageRefresh.restart();
+				lastRefreshTime = PeriodicRefreshOfTiles(
+					lastRefreshTime, timerImageRefresh, image, lastRenderedRects, listOfRenderedTilesData);
 			}
 
 			// processing application events
@@ -1190,17 +1285,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 		// finall refresh of image
 		if (lastRenderedRects.size() > 0)
 		{
-			QElapsedTimer timerImageRefresh;
-			timerImageRefresh.start();
-			image->NullPostEffect(&lastRenderedRects);
-			image->CompileImage(&lastRenderedRects);
-			if (image->IsPreview())
-			{
-				image->ConvertTo8bit(&lastRenderedRects);
-				image->UpdatePreview(&lastRenderedRects);
-				emit updateImage();
-			}
-			lastRenderedRects.clear();
+			FinallRefreshOfImage(lastRenderedRects, image);
 		}
 
 		delete[] noiseTable;

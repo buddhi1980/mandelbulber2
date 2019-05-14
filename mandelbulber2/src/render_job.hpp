@@ -111,6 +111,8 @@ private:
 	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
 #endif
 
+	void LoadTextures(int frameNo, const cRenderingConfiguration &config);
+
 	bool hasQWidget;
 	bool inProgress;
 	bool ready;
