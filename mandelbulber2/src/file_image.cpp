@@ -282,8 +282,37 @@ void ImageFileSaveJPG::SaveImage()
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
-				qWarning() << "JPG cannot save zbuffer (loss of precision to strong)";
+			{
+				float *zbuffer = image->GetZBufferPtr();
+				uint64_t size = image->GetWidth() * image->GetHeight();
+				unsigned char *zBuffer8Bit = new unsigned char[size];
+				float minZ = float(1.0e50);
+				float maxZ = 0.0;
+				for (uint64_t i = 0; i < size; i++)
+				{
+					float z = zbuffer[i];
+					if (z > maxZ && z < 1e19) maxZ = z;
+					if (z < minZ) minZ = z;
+				}
+				double kZ = log(maxZ / minZ);
+
+				for (uint64_t y = 0; y < image->GetHeight(); y++)
+				{
+					for (uint64_t x = 0; x < image->GetWidth(); x++)
+					{
+						uint64_t ptr = (x + y * image->GetWidth());
+						float z = image->GetPixelZBuffer(x, y);
+						float z1 = log(z / minZ) / kZ;
+						int intZ = z1 * 240;
+						if (z > 1e19) intZ = 255;
+						zBuffer8Bit[ptr] = (unsigned char)intZ;
+					}
+				}
+				SaveJPEGQtGreyscale(fullFilename, zBuffer8Bit, image->GetWidth(), image->GetHeight(),
+					gPar->Get<int>("jpeg_quality"), image->getMeta());
+				delete[] zBuffer8Bit;
 				break;
+			}
 			case IMAGE_CONTENT_NORMAL:
 				SaveJPEGQt(fullFilename, image->ConvertNormalTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
