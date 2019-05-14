@@ -426,6 +426,7 @@ bool cRenderJob::Execute()
 			image->SetImageParameters(params->imageAdjustments);
 
 			InitStatistics(fractals);
+			emit updateStatistics(renderData->statistics);
 
 			image->SetFastPreview(true);
 
