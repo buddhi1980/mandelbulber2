@@ -822,6 +822,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",
 		transfHybridColor, TransfHybridColorIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
+
+	// ------------------ testing -----------------------
+
 	fractalList->append(sFractalDescription("T>Hybrid Color2", "transf_hybrid_color2",
 		transfHybridColor2, TransfHybridColor2Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -842,7 +845,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
 
-	fractalList->append(sFractalDescription("Mandelbulb Eye Test", "mandelbulb_eye_test",
+	fractalList->append(sFractalDescription("Testing Par", "mandelbulb_eye_test",
 		mandelbulbEyeTest, MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
 }

@@ -834,7 +834,7 @@
       </font>
      </property>
      <property name="title">
-      <string>&amp;Two Points</string>
+      <string>&amp;OrbitTrap Points</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
