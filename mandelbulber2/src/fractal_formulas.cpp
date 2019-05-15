@@ -12369,7 +12369,7 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 	v = v / v.Length(); // normalise
 	float c = cos(useAngle * M_PI_180);
 	float s = sin(useAngle * M_PI_180);
-	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, 1.0);
+	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, z.w);
 
 	// if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -16024,7 +16024,7 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 	}
 }
 
-//  experimental testing
+
 //  experimental testing
 /**
  * Hybrid Color Trial

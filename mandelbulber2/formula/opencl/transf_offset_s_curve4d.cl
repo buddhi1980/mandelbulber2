@@ -23,7 +23,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 temp2 = temp * temp;
 	REAL4 offS = (REAL4){0.0f, 0.0, 0.0, 0.0};
 	// if (z.w < 1e-016f) z.w = 1e-016f;
-	if (z.w < 1e-21f && z.w > -1e-21f) z.w = (z.w > 0) ? 1e-21f : -1e-21f;
+	if (z.w < 1e-16f && z.w > -1e-16f) z.w = (z.w > 0) ? 1e-16f : -1e-16f;
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
