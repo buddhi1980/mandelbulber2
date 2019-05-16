@@ -34,7 +34,7 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	v = native_divide(v, length(v)); // normalise
 	float c = native_cos(useAngle * M_PI_180);
 	float s = native_sin(useAngle * M_PI_180);
-	REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, 1.0f};
+	REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
 
 	// if (fractal->transformCommon.functionEnabledAx)
 	{
