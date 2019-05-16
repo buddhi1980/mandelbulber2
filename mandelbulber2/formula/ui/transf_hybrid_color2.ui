@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_hybrid_color2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -156,7 +156,7 @@ provides complete control</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
+     <item row="1" column="0" colspan="3">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="enabled">
         <bool>true</bool>

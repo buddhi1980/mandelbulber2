@@ -12140,23 +12140,21 @@ void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtend
 void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 c = aux.const_c;
-
+	// quat fold
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
+
+
+	// quat scale and DE fudge
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z *= fractal->transformCommon.constantMultiplier122;
-
-		if (fractal->analyticDE.enabled)
-		{
-			if (!fractal->analyticDE.enabledFalse)
-				aux.DE = aux.DE * 2.0 * aux.r;
-			else
-				aux.DE = aux.DE * 2.0 * aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-		}
-
-		// offset
-		z += fractal->transformCommon.additionConstant000;
+		aux.DE *= 2.0;
 	}
+
+	// offset
+	z += fractal->transformCommon.additionConstant000;
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -12191,6 +12189,9 @@ void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtend
 		}
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
+
+	// tweaking DE
+	aux.DE = aux.DE * aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
