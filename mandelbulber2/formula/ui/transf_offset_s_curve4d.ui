@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_offset_s_curve4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>916</width>
-    <height>1391</height>
+    <width>943</width>
+    <height>1437</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,7 +32,8 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>Offset increases away from the origin negative offsets commonly used</string>
+      <string>Offset increases away from the origin,
+ negative offsets commonly used</string>
      </property>
     </widget>
    </item>

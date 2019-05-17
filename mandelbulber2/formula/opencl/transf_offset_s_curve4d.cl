@@ -22,7 +22,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 	REAL4 temp = native_divide(fractal->transformCommon.additionConstant0000, -2.0f);
 	REAL4 temp2 = temp * temp;
 	REAL4 offS = (REAL4){0.0f, 0.0, 0.0, 0.0};
-	// if (z.w < 1e-016f) z.w = 1e-016f;
+
 	//if (z.w < 1e-21f && z.w > -1e-21f) z.w = (z.w > 0) ? 1e-21f : -1e-21f;
 
 	if (fractal->transformCommon.functionEnabledAx)
@@ -51,6 +51,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 
 	if (fractal->transformCommon.functionEnabledAw)
 	{
+		if (temp.w < 1e-16f && temp.w > -1e-16f) temp.w = (temp.w > 0) ? 1e-16f : -1e-16f;
 		offS.w +=
 			(native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w)
 			* sign(z.w) * fractal->transformCommon.scale1;

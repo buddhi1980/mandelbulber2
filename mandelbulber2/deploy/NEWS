@@ -19,6 +19,7 @@ v2.18 (????????????? 2019)
    transfBoxFold4dTglad, added linear vary scale option
    mandelboxVariable, added variable functions for box limits and addCpixel
    aboxModKali, added pre-rotation (variable)
+   transfQuaternionFold, re-structure DE
 
 
 
