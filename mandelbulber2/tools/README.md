@@ -38,8 +38,10 @@ from here on only working on the tag:
 The language system requires language tools of qt.
 
 Updating of ts files (first step before editing language entries)
+
 `lupdate mandelbulber2/formula/ui/*.ui -ts mandelbulber2/language/formula_*.ts`
-`lupdate mandelbulber2/Debug/mandelbulber.pro`
+
+`lupdate mandelbulber2/qmake/mandelbulber-opencl-no-installer.pro`
 
 Modify language files
 `linguist mandelbulber2/language/[language to edit].ts`
