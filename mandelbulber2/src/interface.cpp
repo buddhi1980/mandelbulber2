@@ -2654,7 +2654,7 @@ void cInterface::DetachMainImageWidget()
 	detachedWindow->InstallImageWidget(mainWindow->ui->widgetWithImage);
 	detachedWindow->restoreGeometry(settings.value("detachedWindowGeometry").toByteArray());
 	detachedWindow->show();
-	mainWindow->centralWidget()->hide();
+	// mainWindow->centralWidget()->hide();
 	gPar->Set("image_detached", true);
 }
 
@@ -2665,7 +2665,7 @@ void cInterface::AttachMainImageWidget()
 		detachedWindow->RemoveImageWidget(mainWindow->ui->widgetWithImage);
 		mainWindow->ui->verticalLayout->addWidget(mainWindow->ui->widgetWithImage);
 		settings.setValue("detachedWindowGeometry", detachedWindow->saveGeometry());
-		mainWindow->centralWidget()->show();
+		// mainWindow->centralWidget()->show();
 		gPar->Set("image_detached", false);
 	}
 }
