@@ -66,14 +66,14 @@ sudo rm -f -r $MANDELBULBER_SHARE
 sudo mkdir $MANDELBULBER_SHARE
 cd ..
 sudo ln -s ${PWD}/formula $MANDELBULBER_SHARE/formula
-sudo ln -s ${PWD}/data $MANDELBULBER_SHARE/data
+sudo ln -s ${PWD}/deploy/share/mandelbulber2/data $MANDELBULBER_SHARE/data
 sudo ln -s ${PWD}/language $MANDELBULBER_SHARE/language
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/materials $MANDELBULBER_SHARE/materials
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/examples $MANDELBULBER_SHARE/examples
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/icons $MANDELBULBER_SHARE/icons
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/textures $MANDELBULBER_SHARE/textures
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/toolbar $MANDELBULBER_SHARE/toolbar
-sudo ln -s ${PWD}/deploy/share/mandelbulber2/doc $MANDELBULBER_SHARE/doc
+sudo ln -s ${PWD}/deploy/doc $MANDELBULBER_SHARE/doc
 sudo ln -s ${PWD}/deploy/share/mandelbulber2/sounds $MANDELBULBER_SHARE/sounds
 sudo ln -s ${PWD}/opencl $MANDELBULBER_SHARE/opencl
 
