@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_gnarl</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>916</width>
-    <height>1391</height>
+    <height>1557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,8 +33,7 @@
     <widget class="QLabel" name="label_180">
      <property name="text">
       <string>Gnarl formulas can be run individually or in series.
-Generally used for 1 iteration
-Gamma angle does not work with 3D option</string>
+Generally used for 1 iteration</string>
      </property>
     </widget>
    </item>
@@ -154,6 +153,9 @@ Gamma angle does not work with 3D option</string>
      </item>
      <item row="2" column="1">
       <widget class="MyDoubleSpinBox" name="spinboxd3_transf_rotation_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -624,12 +626,28 @@ Gamma angle does not work with 3D option</string>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>702</x>
-     <y>35</y>
+     <x>912</x>
+     <y>78</y>
     </hint>
     <hint type="destinationlabel">
-     <x>629</x>
-     <y>202</y>
+     <x>680</x>
+     <y>250</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledAx_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxd3_transf_rotation_z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>259</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>157</y>
     </hint>
    </hints>
   </connection>
