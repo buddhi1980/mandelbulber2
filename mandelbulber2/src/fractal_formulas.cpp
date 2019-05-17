@@ -12143,7 +12143,6 @@ void TransfQuaternionFoldIteration(CVector4 &z, const sFractal *fractal, sExtend
 	// quat fold
 	z = CVector4(z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w);
 
-
 	// quat scale and DE fudge
 
 	if (fractal->transformCommon.functionEnabledFalse)
@@ -15722,8 +15721,7 @@ void TransfOffsetSCurve4dIteration(CVector4 &z, const sFractal *fractal, sExtend
 	CVector4 temp = fractal->transformCommon.additionConstant0000 / -2.0;
 	CVector4 temp2 = temp * temp;
 	CVector4 offS = CVector4(0.0, 0.0, 0.0, 0.0);
-	// if (z.w < 1e-016) z.w = 1e-016;
-	if (z.w < 1e-21 && z.w > -1e-21) z.w = (z.w > 0) ? 1e-21 : -1e-21;
+	if (z.w < 1e-15 && z.w > -1e-15) z.w = (z.w > 0) ? 1e-15 : -1e-15;
 
 	if (fractal->transformCommon.functionEnabledAx)
 	{
@@ -16025,7 +16023,6 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 	}
 }
 
-
 //  experimental testing
 /**
  * Hybrid Color Trial
@@ -16181,21 +16178,21 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	double lastVec = 0.0;
 	// double auxColor = 0.0;
 
-	//double distEst = 0.0;
-	//double planeBias = 0.0;
+	// double distEst = 0.0;
+	// double planeBias = 0.0;
 	// double factorR = fractal->mandelbox.color.factorR;
 
-	//double lengthIter = 0.0;
-	//double boxTrap = 0.0;
-	//double sphereTrap = 0.0;
-	//float lastDist = 0.0;
-	//float addI = 0.0;
+	// double lengthIter = 0.0;
+	// double boxTrap = 0.0;
+	// double sphereTrap = 0.0;
+	// float lastDist = 0.0;
+	// float addI = 0.0;
 
 	// summation of r
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
 		double total = aux.addDist;
-		double  newR = z.Length(); //aux.r?
+		double newR = z.Length(); // aux.r?
 		totalR = (total + newR) * fractal->transformCommon.scaleD1;
 		aux.addDist = totalR;
 	}
@@ -16204,7 +16201,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	if (fractal->transformCommon.functionEnabledSFalse)
 	{
 		CVector4 oldPt = aux.old_z;
-		CVector4  newPt = z;
+		CVector4 newPt = z;
 		CVector4 diffZ = oldPt - newPt;
 		double dist = diffZ.Length();
 		aux.addDist += dist;
@@ -16215,22 +16212,18 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	// last two  z lengths
 	if (fractal->transformCommon.functionEnabledPFalse)
 	{
-		if ( aux.i < fractal->transformCommon.stopIterationsM)
+		if (aux.i < fractal->transformCommon.stopIterationsM)
 		{
 			double lastZ = aux.addDist;
-			double  newZ = z.Length();
+			double newZ = z.Length();
 
-			if (fractal->transformCommon.functionEnabledAzFalse)
-				lastVec = newZ / lastZ;
-			if (fractal->transformCommon.functionEnabledByFalse)
-				lastVec = lastZ / newZ;
-			if (fractal->transformCommon.functionEnabledBzFalse)
-				lastVec = fabs(lastZ - newZ);
+			if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 
 			lastVec *= fractal->transformCommon.scaleB1;
 			aux.addDist = newZ;
 		}
-
 	}
 
 	// orbitTrap points
@@ -16265,7 +16258,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
 	}
 	componentMaster *= fractal->transformCommon.scale;
-
 
 	if (!fractal->transformCommon.functionEnabledFalse)
 

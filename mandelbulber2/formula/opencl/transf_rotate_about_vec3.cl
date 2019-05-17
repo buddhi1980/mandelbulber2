@@ -52,14 +52,16 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		rotVec.x = (mad((1.0f - c), v.x * v.x, c)) + (mad((1.0f - c) * v.x, v.y, s * v.z)) + (mad((1.0f
 	- c) * v.x, v.z, -s * v.y)); rotVec.y = (mad((1.0f - c) * v.x, v.y, -s * v.z)) + (mad((1.0f - c),
-	v.y * v.y, c)) + (mad((1.0f - c) * v.y, v.z, s * v.x)); rotVec.z = (mad((1.0f - c) * v.x, v.z, s *
-	v.y)) + (mad((1.0f - c) * v.y, v.z, -s * v.x)) + (mad((1.0f - c), v.z * v.z, c)); z *= rotVec;
+	v.y * v.y, c)) + (mad((1.0f
+	- c) * v.y, v.z, s * v.x)); rotVec.z = (mad((1.0f - c) * v.x, v.z, s * v.y)) + (mad((1.0f - c) *
+	v.y, v.z, -s * v.x)) + (mad((1.0f - c), v.z * v.z, c)); z *= rotVec;
 	}*/
 
 	/*	CMatrix44 rotM = CMatrix44(c + (1.0f - c) * v.x * v.x, (1.0f - c) * v.x * v.y - s * v.z, (1.0f
 		- c) * v.x * v.z + s * v.y, 0.0f, (1.0f - c) * v.x * v.y + s * v.z, c + (1.0f - c) * v.y * v.y,
-		(1.0f - c) * v.y * v.z - s * v.x, 0.0f, (1.0f - c) * v.x * v.z - s * v.y, (1.0f - c) * v.y * v.z
-		+ s * v.x, c + (1.0f - c) * v.z * v.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
+		(1.0f
+		- c) * v.y * v.z - s * v.x, 0.0f, (1.0f - c) * v.x * v.z - s * v.y, (1.0f - c) * v.y * v.z + s *
+		v.x, c + (1.0f - c) * v.z * v.z, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f
 			);
 		z *= rotM;*/
 

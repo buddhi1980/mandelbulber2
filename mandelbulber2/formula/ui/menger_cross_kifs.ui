@@ -1501,7 +1501,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Menger Cross KIFS&lt;br&gt;from code by Knighty&lt;br&gt;http://www.fractalforums.com/fragmentarium/&lt;br&gt;cross-menger!-can-anyone-do-this/msg93972/#new&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger cross kifs 001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/sinCos_xkifs.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger cross kifs 001.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/sinCos_xkifs.fract&lt;br&gt;Graeme McLaren  collection - license Creative Commons  (CC-BY 4.0)/transf_Zvec_axis_swap.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

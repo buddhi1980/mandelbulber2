@@ -152,8 +152,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>543</width>
-            <height>1027</height>
+            <width>545</width>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1072,8 +1072,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>529</width>
-            <height>1125</height>
+            <width>249</width>
+            <height>1037</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2019,8 +2019,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>543</width>
-            <height>1027</height>
+            <width>274</width>
+            <height>379</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2688,9 +2688,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-863</y>
-            <width>529</width>
-            <height>2090</height>
+            <y>0</y>
+            <width>527</width>
+            <height>1854</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4204,7 +4204,7 @@ of lights:</string>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_92">
                   <property name="text">
-                   <string>Intensity:</string>
+                   <string>Intensity on surface:</string>
                   </property>
                  </widget>
                 </item>
@@ -4272,7 +4272,7 @@ of lights:</string>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_93">
                   <property name="text">
-                   <string>Visibility:</string>
+                   <string>Visibility of glow:</string>
                   </property>
                  </widget>
                 </item>
@@ -4636,8 +4636,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>543</width>
-            <height>1016</height>
+            <width>167</width>
+            <height>109</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

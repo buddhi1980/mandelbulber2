@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -17,24 +17,20 @@
 REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	REAL4 c = aux->const_c;
-
+	// quat fold
 	z = (REAL4){z.x * z.x - z.y * z.y - z.z * z.z, z.x * z.y, z.x * z.z, z.w};
+
+	// quat scale and DE fudge
+
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		z *= fractal->transformCommon.constantMultiplier122;
-
-		if (fractal->analyticDE.enabled)
-		{
-			if (!fractal->analyticDE.enabledFalse)
-				aux->DE = aux->DE * 2.0f * aux->r;
-			else
-				aux->DE =
-					mad(aux->DE * 2.0f * aux->r, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
-		}
-
-		// offset
-		z += fractal->transformCommon.additionConstant000;
+		aux->DE *= 2.0f;
 	}
+
+	// offset
+	z += fractal->transformCommon.additionConstant000;
+
 	// addCpixel
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -69,5 +65,8 @@ REAL4 TransfQuaternionFoldIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		}
 		z += tempC * fractal->transformCommon.constantMultiplierC111;
 	}
+
+	// tweaking DE
+	aux->DE = mad(aux->DE * aux->r, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 	return z;
 }

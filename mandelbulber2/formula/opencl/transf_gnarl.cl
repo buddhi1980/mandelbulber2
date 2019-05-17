@@ -44,7 +44,8 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 											Gamma * (z.y - xx) + native_sin(Alpha * (mad(Beta, native_cos(z.y), z.y)))));
 		tempZ.y =
 			z.y
-			+ stepY * (native_sin(Gamma * (z.y + xx) - Alpha * native_sin(xx + Beta * native_cos(xx))));
+			+ stepY
+					* (native_sin(Gamma * (z.y + xx) - Alpha * native_sin(mad(Beta, native_cos(xx), xx))));
 		z = tempZ;
 	}
 
@@ -65,9 +66,10 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 
 	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
-		tempZ.x = z.x - stepX * native_sin(z.z + native_sin(Alpha * (z.z + sin(Beta * z.z))));
-		tempZ.y = z.y - stepY * native_sin(z.x + native_sin(Alpha * (z.x + sin(Beta * z.x))));
-		tempZ.z = (z.z - stepZ * native_sin(z.y + native_sin(Alpha * (z.y + sin(Beta * z.y))))) * Scale;
+		tempZ.x = z.x - stepX * native_sin(z.z + native_sin(Alpha * (z.z + native_sin(Beta * z.z))));
+		tempZ.y = z.y - stepY * native_sin(z.x + native_sin(Alpha * (z.x + native_sin(Beta * z.x))));
+		tempZ.z =
+			(z.z - stepZ * native_sin(z.y + native_sin(Alpha * (z.y + native_sin(Beta * z.y))))) * Scale;
 		z = tempZ;
 	}
 	z.x *= Scale;
@@ -76,7 +78,7 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux->DE = aux->DE * fabs(Scale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			aux->DE = mad(aux->DE * fabs(Scale), fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 		else
 		{
 			REAL avgScale = native_divide(length(z), length(oldZ));

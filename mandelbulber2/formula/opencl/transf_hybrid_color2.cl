@@ -22,57 +22,60 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	REAL componentMaster = 0.0f;
 	REAL orbitPoints = 0.0f;
 
+	REAL totalDist = 0.0f;
+	REAL totalR = 0.0f;
+	REAL lastVec = 0.0f;
 	// REAL auxColor = 0.0f;
 
 	// REAL distEst = 0.0f;
 	// REAL planeBias = 0.0f;
-	// REAL totalDist = 0.0f;
 	// REAL factorR = fractal->mandelbox.color.factorR;
 
-	// REAL lastVec = 0.0f;
 	// REAL lengthIter = 0.0f;
 	// REAL boxTrap = 0.0f;
 	// REAL sphereTrap = 0.0f;
 	// float lastDist = 0.0f;
 	// float addI = 0.0f;
 
-	// max distance travelled
-	/*if (fractal->transformCommon.functionEnabledPFalse)
-	{
-		REAL total = aux->addDist;
-		REAL  newZ = length(z);
-		totalDist = total + newZ;
-		aux->addDist = totalDist;
-
-		//temp30 *= fractal->foldColor.scaleA1;
-
-	}
-
-
-	// last vector length
+	// summation of r
 	if (fractal->transformCommon.functionEnabledMFalse)
 	{
-		if ( aux->i < fractal->transformCommon.stopIterationsM)
+		REAL total = aux->addDist;
+		REAL newR = length(z); // aux->r?
+		totalR = (total + newR) * fractal->transformCommon.scaleD1;
+		aux->addDist = totalR;
+	}
+
+	// max distance travelled
+	if (fractal->transformCommon.functionEnabledSFalse)
+	{
+		REAL4 oldPt = aux->old_z;
+		REAL4 newPt = z;
+		REAL4 diffZ = oldPt - newPt;
+		REAL dist = length(diffZ);
+		aux->addDist += dist;
+		totalDist = aux->addDist * fractal->foldColor.scaleC1;
+		aux->old_z = z;
+	}
+
+	// last two  z lengths
+	if (fractal->transformCommon.functionEnabledPFalse)
+	{
+		if (aux->i < fractal->transformCommon.stopIterationsM)
 		{
 			REAL lastZ = aux->addDist;
-			REAL  newZ = length(z);
+			REAL newZ = length(z);
 
-			if (fractal->transformCommon.functionEnabledBxFalse)
-				lastVec = native_divide(newZ, lastZ);
-			if (fractal->transformCommon.functionEnabledByFalse)
-				lastVec = native_divide(lastZ, newZ);
-			if (fractal->transformCommon.functionEnabledBzFalse)
-				lastVec = lastZ - newZ;
+			if (fractal->transformCommon.functionEnabledAzFalse) lastVec = native_divide(newZ, lastZ);
+			if (fractal->transformCommon.functionEnabledByFalse) lastVec = native_divide(lastZ, newZ);
+			if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
 
-
-			//lastVec = fabs(lastVec);
-			//lastVec =  aux->i;
-			aux->temp100 = lastVec * fractal->transformCommon.scaleA1;
+			lastVec *= fractal->transformCommon.scaleB1;
 			aux->addDist = newZ;
 		}
+	}
 
-	}*/
-	// two points
+	// orbitTrap points
 	if (fractal->transformCommon.functionEnabledBxFalse)
 	{
 		REAL4 PtOne = z - fractal->transformCommon.offset000;
@@ -100,11 +103,13 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
 		// build  componentMaster
-		componentMaster = (orbitPoints);
+
+		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
 	}
 	componentMaster *= fractal->transformCommon.scale;
 
-	if (fractal->transformCommon.functionEnabledFalse)
+	if (!fractal->transformCommon.functionEnabledFalse)
+
 	{
 		aux->temp100 = min(aux->temp100, componentMaster);
 		aux->colorHybrid = aux->temp100;
