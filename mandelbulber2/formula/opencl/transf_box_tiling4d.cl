@@ -24,15 +24,15 @@ REAL4 TransfBoxTiling4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			z.x -= round(native_divide(z.x, size.x)) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy && size.y != 0.0f)
+		if (fractal->transformCommon.functionEnabledyFalse && size.y != 0.0f)
 		{
 			z.y -= round(native_divide(z.y, size.y)) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz && size.z != 0.0f)
+		if (fractal->transformCommon.functionEnabledzFalse && size.z != 0.0f)
 		{
 			z.z -= round(native_divide(z.z, size.z)) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw && size.w != 0.0f)
+		if (fractal->transformCommon.functionEnabledwFalse && size.w != 0.0f)
 		{
 			z.w -= round(native_divide(z.w, size.w)) * size.w;
 		}
@@ -47,17 +47,17 @@ REAL4 TransfBoxTiling4dIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			z.x -= round(native_divide(z.x, size.x)) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5f) * size.y
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5f) * size.y
 				&& z.y > (repeatNeg.y + 0.5f) * -size.y && size.y != 0.0f)
 		{
 			z.y -= round(native_divide(z.y, size.y)) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5f) * size.z
+		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5f) * size.z
 				&& z.z > (repeatNeg.z + 0.5f) * -size.z && size.z != 0.0f)
 		{
 			z.z -= round(native_divide(z.z, size.z)) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5f) * size.w
+		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5f) * size.w
 				&& z.w > (repeatNeg.w + 0.5f) * -size.w && size.w != 0.0f)
 		{
 			z.w -= round(native_divide(z.w, size.w)) * size.w;

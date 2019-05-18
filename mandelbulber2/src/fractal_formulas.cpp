@@ -15526,15 +15526,15 @@ void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		{
 			z.x -= round(z.x / size.x) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy && size.y != 0.0)
+		if (fractal->transformCommon.functionEnabledyFalse && size.y != 0.0)
 		{
 			z.y -= round(z.y / size.y) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz && size.z != 0.0)
+		if (fractal->transformCommon.functionEnabledzFalse && size.z != 0.0)
 		{
 			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw && size.w != 0.0)
+		if (fractal->transformCommon.functionEnabledwFalse && size.w != 0.0)
 		{
 			z.w -= round(z.w / size.w) * size.w;
 		}
@@ -15549,17 +15549,17 @@ void TransfBoxTiling4dIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		{
 			z.x -= round(z.x / size.x) * size.x;
 		}
-		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5) * size.y
+		if (fractal->transformCommon.functionEnabledyFalse && z.y < (repeatPos.y + 0.5) * size.y
 				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0)
 		{
 			z.y -= round(z.y / size.y) * size.y;
 		}
-		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5) * size.z
+		if (fractal->transformCommon.functionEnabledzFalse && z.z < (repeatPos.z + 0.5) * size.z
 				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0)
 		{
 			z.z -= round(z.z / size.z) * size.z;
 		}
-		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5) * size.w
+		if (fractal->transformCommon.functionEnabledwFalse && z.w < (repeatPos.w + 0.5) * size.w
 				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0)
 		{
 			z.w -= round(z.w / size.w) * size.w;
