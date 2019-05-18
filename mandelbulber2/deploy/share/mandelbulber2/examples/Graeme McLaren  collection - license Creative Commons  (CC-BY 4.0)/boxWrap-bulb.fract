@@ -43,6 +43,7 @@ volumetric_fog_colour_2_distance 0.8164668682617605;
 volumetric_fog_distance_factor 1.632933736523521;
 volumetric_fog_enabled true;
 [fractal_1]
+transf_function_enabledBz_false true;
 transf_function_enabledw false;
 transf_function_enabledx false;
 transf_function_enabledy false;
