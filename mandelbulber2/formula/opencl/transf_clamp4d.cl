@@ -27,14 +27,14 @@ REAL4 TransfClamp4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		if (z.x > upper.x) z.x = upper.x;
 		z.x = mad(oldZ.x, scale.x, -z.x);
 	}
-	if (fractal->transformCommon.functionEnabledy)
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 		if (z.y < lower.y) z.y = lower.y;
 		if (z.y > upper.y) z.y = upper.y;
 		z.y = mad(oldZ.y, scale.y, -z.y);
 	}
-	if (fractal->transformCommon.functionEnabledz)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 		if (z.z < lower.z) z.z = lower.z;
@@ -42,7 +42,7 @@ REAL4 TransfClamp4dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		z.z = mad(oldZ.z, scale.z, -z.z);
 	}
 
-	if (fractal->transformCommon.functionEnabledw)
+	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 		if (z.w < lower.w) z.w = lower.w;

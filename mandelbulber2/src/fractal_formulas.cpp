@@ -15608,7 +15608,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			wrap_mode.x = z.x - 2.0 * box_size.x * floor(z.x / 2.0 * box_size.x);
 		z.x = wrap_mode.x - box_size.x;
 	}
-	if (fractal->transformCommon.functionEnabledy)
+	if (fractal->transformCommon.functionEnabledByFalse)
 	{
 		z.y += box_size.y;
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -15617,7 +15617,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 			wrap_mode.y = z.y - 2.0 * box_size.y * floor(z.y / 2.0 * box_size.y);
 		z.y = wrap_mode.y - box_size.y;
 	}
-	if (fractal->transformCommon.functionEnabledz)
+	if (fractal->transformCommon.functionEnabledBzFalse)
 	{
 		z.z += box_size.z;
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -15627,7 +15627,7 @@ void TransfBoxWrap4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 		z.z = wrap_mode.z - box_size.z;
 	}
 
-	if (fractal->transformCommon.functionEnabledw)
+	if (fractal->transformCommon.functionEnabledCxFalse)
 	{
 		z.w += box_size.w;
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -15670,14 +15670,14 @@ void TransfClamp4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		if (z.x > upper.x) z.x = upper.x;
 		z.x = oldZ.x * scale.x - z.x;
 	}
-	if (fractal->transformCommon.functionEnabledy)
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 		if (z.y < lower.y) z.y = lower.y;
 		if (z.y > upper.y) z.y = upper.y;
 		z.y = oldZ.y * scale.y - z.y;
 	}
-	if (fractal->transformCommon.functionEnabledz)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 		if (z.z < lower.z) z.z = lower.z;
@@ -15685,7 +15685,7 @@ void TransfClamp4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.z = oldZ.z * scale.z - z.z;
 	}
 
-	if (fractal->transformCommon.functionEnabledw)
+	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		if (fractal->transformCommon.functionEnabledwFalse) z.w = fabs(z.w);
 		if (z.w < lower.w) z.w = lower.w;
@@ -15730,21 +15730,21 @@ void TransfOffsetSCurve4dIteration(CVector4 &z, const sFractal *fractal, sExtend
 		z.x += offS.x;
 	}
 
-	if (fractal->transformCommon.functionEnabledAy)
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		offS.y += ((8.0 * temp.y * temp2.y) / ((z.y * z.y) + (4.0 * temp2.y)) - 2.0 * temp.y)
 							* sign(z.y) * fractal->transformCommon.scale1;
 		z.y += offS.y;
 	}
 
-	if (fractal->transformCommon.functionEnabledAz)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		offS.z += ((8.0 * temp.z * temp2.z) / ((z.z * z.z) + (4.0 * temp2.z)) - 2.0 * temp.z)
 							* sign(z.z) * fractal->transformCommon.scale1;
 		z.z += offS.z;
 	}
 
-	if (fractal->transformCommon.functionEnabledAw)
+	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		offS.w += ((8.0 * temp.w * temp2.w) / ((z.w * z.w) + (4.0 * temp2.w)) - 2.0 * temp.w)
 							* sign(z.w) * fractal->transformCommon.scale1;

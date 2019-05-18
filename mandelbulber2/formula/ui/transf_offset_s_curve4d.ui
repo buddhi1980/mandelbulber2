@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_offset_s_curve4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -44,7 +44,7 @@
      <item row="1" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_y">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -94,7 +94,7 @@
      <item row="3" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_w">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -129,7 +129,7 @@
      <item row="2" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_addition_constant_0000_z">
        <property name="enabled">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -159,21 +159,30 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string notr="true">z.y</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string notr="true">z.z</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
        <property name="text">
         <string notr="true">z.w</string>
        </property>
@@ -572,60 +581,60 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>46</y>
+     <x>97</x>
+     <y>45</y>
     </hint>
     <hint type="destinationlabel">
-     <x>272</x>
-     <y>51</y>
+     <x>372</x>
+     <y>47</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledAy</sender>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_addition_constant_0000_y</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>79</y>
+     <x>97</x>
+     <y>73</y>
     </hint>
     <hint type="destinationlabel">
-     <x>252</x>
-     <y>93</y>
+     <x>352</x>
+     <y>75</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledAz</sender>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_addition_constant_0000_z</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>109</y>
+     <x>97</x>
+     <y>101</y>
     </hint>
     <hint type="destinationlabel">
-     <x>228</x>
-     <y>117</y>
+     <x>328</x>
+     <y>103</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledAw</sender>
+   <sender>checkBox_transf_function_enabledAw_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_addition_constant_0000_w</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>142</y>
+     <x>97</x>
+     <y>129</y>
     </hint>
     <hint type="destinationlabel">
-     <x>228</x>
-     <y>143</y>
+     <x>328</x>
+     <y>131</y>
     </hint>
    </hints>
   </connection>

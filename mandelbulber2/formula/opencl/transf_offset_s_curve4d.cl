@@ -32,7 +32,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		z.x += offS.x;
 	}
 
-	if (fractal->transformCommon.functionEnabledAy)
+	if (fractal->transformCommon.functionEnabledAyFalse)
 	{
 		offS.y +=
 			(native_divide((8.0f * temp.y * temp2.y), ((z.y * z.y) + (4.0f * temp2.y))) - 2.0f * temp.y)
@@ -40,7 +40,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		z.y += offS.y;
 	}
 
-	if (fractal->transformCommon.functionEnabledAz)
+	if (fractal->transformCommon.functionEnabledAzFalse)
 	{
 		offS.z +=
 			(native_divide((8.0f * temp.z * temp2.z), ((z.z * z.z) + (4.0f * temp2.z))) - 2.0f * temp.z)
@@ -48,7 +48,7 @@ REAL4 TransfOffsetSCurve4dIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 		z.z += offS.z;
 	}
 
-	if (fractal->transformCommon.functionEnabledAw)
+	if (fractal->transformCommon.functionEnabledAwFalse)
 	{
 		offS.w +=
 			(native_divide((8.0f * temp.w * temp2.w), ((z.w * z.w) + (4.0f * temp2.w))) - 2.0f * temp.w)

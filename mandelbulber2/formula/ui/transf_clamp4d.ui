@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_clamp4d</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -50,6 +50,9 @@
      </item>
      <item row="13" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string notr="true">abs z.z</string>
        </property>
@@ -64,6 +67,9 @@
      </item>
      <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -162,6 +168,9 @@
      </item>
      <item row="18" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledw_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string notr="true">abs z.w</string>
        </property>
@@ -189,7 +198,7 @@
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
        <property name="text">
         <string notr="true">z.y</string>
        </property>
@@ -197,6 +206,9 @@
      </item>
      <item row="15" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_neg_1111_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -224,7 +236,7 @@
       </widget>
      </item>
      <item row="18" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledw">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
        <property name="text">
         <string notr="true">z.w</string>
        </property>
@@ -239,6 +251,9 @@
      </item>
      <item row="10" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_neg_1111_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -302,6 +317,9 @@
      </item>
      <item row="20" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_neg_1111_w">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -330,6 +348,9 @@
      </item>
      <item row="19" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_w">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -365,6 +386,9 @@
      </item>
      <item row="21" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_scale_0000_w">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -399,7 +423,7 @@
       </widget>
      </item>
      <item row="13" column="1">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledz">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
        <property name="text">
         <string notr="true">z.z</string>
        </property>
@@ -414,6 +438,9 @@
      </item>
      <item row="11" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_scale_0000_y">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -449,6 +476,9 @@
      </item>
      <item row="8" column="2">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string notr="true">abs z.y</string>
        </property>
@@ -456,6 +486,9 @@
      </item>
      <item row="16" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_scale_0000_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -484,6 +517,9 @@
      </item>
      <item row="14" column="2">
       <widget class="MyDoubleSpinBox" name="spinbox4_transf_offset_1111_z">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -707,11 +743,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
@@ -721,6 +752,11 @@
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -747,7 +783,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_1111_y</receiver>
    <slot>setEnabled(bool)</slot>
@@ -763,7 +799,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_1111_z</receiver>
    <slot>setEnabled(bool)</slot>
@@ -779,7 +815,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledw</sender>
+   <sender>checkBox_transf_function_enabledAw_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_1111_w</receiver>
    <slot>setEnabled(bool)</slot>
@@ -811,7 +847,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledy_false</receiver>
    <slot>setEnabled(bool)</slot>
@@ -827,7 +863,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledz_false</receiver>
    <slot>setEnabled(bool)</slot>
@@ -843,7 +879,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledw</sender>
+   <sender>checkBox_transf_function_enabledAw_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_transf_function_enabledw_false</receiver>
    <slot>setEnabled(bool)</slot>
@@ -891,7 +927,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_neg_1111_y</receiver>
    <slot>setEnabled(bool)</slot>
@@ -907,7 +943,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledy</sender>
+   <sender>checkBox_transf_function_enabledAy_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_scale_0000_y</receiver>
    <slot>setEnabled(bool)</slot>
@@ -923,7 +959,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_neg_1111_z</receiver>
    <slot>setEnabled(bool)</slot>
@@ -939,7 +975,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledz</sender>
+   <sender>checkBox_transf_function_enabledAz_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_scale_0000_z</receiver>
    <slot>setEnabled(bool)</slot>
@@ -955,7 +991,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledw</sender>
+   <sender>checkBox_transf_function_enabledAw_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_offset_neg_1111_w</receiver>
    <slot>setEnabled(bool)</slot>
@@ -971,7 +1007,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>checkBox_transf_function_enabledw</sender>
+   <sender>checkBox_transf_function_enabledAw_false</sender>
    <signal>toggled(bool)</signal>
    <receiver>spinbox4_transf_scale_0000_w</receiver>
    <slot>setEnabled(bool)</slot>
