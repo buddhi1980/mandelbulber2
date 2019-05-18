@@ -12363,39 +12363,51 @@ void TransfRotateAboutVec3Iteration(CVector4 &z, const sFractal *fractal, sExten
 																/ fractal->transformCommon.offset0))
 									* fractal->transformCommon.scale1;
 		}
-	}
 
-	CVector4 v = fractal->transformCommon.vec111;
-	v = v / v.Length(); // normalise
-	float c = cos(useAngle * M_PI_180);
-	float s = sin(useAngle * M_PI_180);
-	CVector4 rotVec = CVector4(0.0, 0.0, 0.0, z.w);
+		CVector4 v = fractal->transformCommon.vec111;
+		v = v / v.Length(); // normalise
+		float c = cos(useAngle * M_PI_180);
+		float s = sin(useAngle * M_PI_180);
+		CVector4 rotVec = CVector4(0.0, 0.0, 0.0, z.w);
 
-	// if (fractal->transformCommon.functionEnabledAx)
-	{
 		rotVec.x = z.x * (c + (1.0 - c) * v.x * v.x) + z.y * ((1.0 - c) * v.x * v.y + s * v.z)
 							 + z.z * ((1.0 - c) * v.x * v.z - s * v.y);
 		rotVec.y = z.x * ((1.0 - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0 - c) * v.y * v.y)
 							 + z.z * ((1.0 - c) * v.y * v.z + s * v.x);
 		rotVec.z = z.x * ((1.0 - c) * v.x * v.z + s * v.y) + z.y * ((1.0 - c) * v.y * v.z - s * v.x)
-							 + z.z * (c + (1.0 - c) * v.z * v.z);
+								 + z.z * (c + (1.0 - c) * v.z * v.z);
 		z = rotVec;
 	}
-
-	/*if (fractal->transformCommon.functionEnabledAxFalse)
+	else
 	{
-		rotVec.x = (c + (1.0 - c) * v.x * v.x) + ((1.0 - c) * v.x * v.y + s * v.z) + ((1.0 - c) * v.x *
-	v.z - s * v.y); rotVec.y = ((1.0 - c) * v.x * v.y - s * v.z) + (c + (1.0 - c) * v.y * v.y) + ((1.0
-	- c) * v.y * v.z + s * v.x); rotVec.z = ((1.0 - c) * v.x * v.z + s * v.y) + ((1.0 - c) * v.y * v.z
-	- s * v.x) + (c + (1.0 - c) * v.z * v.z); z *= rotVec;
-	}*/
+		CVector4 v = fractal->transformCommon.vec111;
+		v = v / v.Length(); // normalise
+		float c = cos(useAngle * M_PI_180);
+		float s = sin(useAngle * M_PI_180);
+		CVector4 rotVec = CVector4(0.0, 0.0, 0.0, z.w);
 
-	/*	CMatrix44 rotM = CMatrix44(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 -
+		rotVec.x = z.x * (c + (1.0 - c) * v.x * v.x) + z.y * ((1.0 - c) * v.x * v.y + s * v.z)
+							 + z.z * ((1.0 - c) * v.x * v.z - s * v.y);
+		rotVec.y = z.x * ((1.0 - c) * v.x * v.y - s * v.z) + z.y * (c + (1.0 - c) * v.y * v.y)
+							 + z.z * ((1.0 - c) * v.y * v.z + s * v.x);
+		rotVec.z = z.x * ((1.0 - c) * v.x * v.z + s * v.y) + z.y * ((1.0 - c) * v.y * v.z - s * v.x)
+								 + z.z * (c + (1.0 - c) * v.z * v.z);
+		z = rotVec;
+
+
+	/*	CVector4 v = fractal->transformCommon.vec111;
+		v = v / v.Length(); // normalise
+		float c = cos(useAngle * M_PI_180);
+		float s = sin(useAngle * M_PI_180);
+		CVector4 rotVec = CVector4(0.0, 0.0, 0.0, z.w);
+
+		CMatrix44 rotM = CMatrix44(c + (1.0 - c) * v.x * v.x, (1.0 - c) * v.x * v.y - s * v.z, (1.0 -
 		c) * v.x * v.z + s * v.y, 0.0, (1.0 - c) * v.x * v.y + s * v.z, c + (1.0 - c) * v.y * v.y, (1.0
 		- c) * v.y * v.z - s * v.x, 0.0, (1.0 - c) * v.x * v.z - s * v.y, (1.0 - c) * v.y * v.z + s *
 		v.x, c + (1.0 - c) * v.z * v.z, 0.0, 0.0, 0.0, 0.0, 0.0
 			);
 		z *= rotM;*/
+	}
 
 	// DE tweak
 	if (fractal->analyticDE.enabledFalse)
