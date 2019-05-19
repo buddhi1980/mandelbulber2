@@ -85,6 +85,7 @@ private slots:
 	void slotPressedImageSizeDecrease() const;
 	void slotImageHeightChanged(int value) const;
 	void slotChangeResolutionPreset();
+	void slotOptimalDistancesBetweenEyes() const;
 
 	// Quality presets
 	static void slotQualityPresetVeryLow();

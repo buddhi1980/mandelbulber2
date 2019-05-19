@@ -478,7 +478,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,2,1">
+       <layout class="QGridLayout" name="gridLayout_11" columnstretch="0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -583,6 +583,14 @@
          </widget>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_optimal_distance_between_eyes">
+        <property name="text">
+         <string>Calculate optimal distance
+between eyes</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

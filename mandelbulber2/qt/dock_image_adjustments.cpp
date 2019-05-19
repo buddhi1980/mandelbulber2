@@ -95,6 +95,8 @@ void cDockImageAdjustments::ConnectSignals() const
 		SLOT(slotImageHeightChanged(int)));
 	connect(ui->checkBox_connect_detail_level, SIGNAL(stateChanged(int)), this,
 		SLOT(slotCheckedDetailLevelLock(int)));
+	connect(ui->pushButton_optimal_distance_between_eyes, SIGNAL(clicked()), this,
+		SLOT(slotOptimalDistancesBetweenEyes()));
 
 	// quality presets
 	connect(ui->pushButton_quality_preset_very_low, SIGNAL(clicked()), this,
@@ -402,4 +404,13 @@ void cDockImageAdjustments::slotChangeResolutionPreset()
 	cSettings settings(cSettings::formatAppSettings);
 	settings.CreateText(resolutionPresets, nullptr);
 	settings.SaveToFile(presetsFile);
+}
+
+void cDockImageAdjustments::slotOptimalDistancesBetweenEyes() const
+{
+	gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::read);
+	double distToFractal = gMainInterface->GetDistanceForPoint(gPar->Get<CVector3>("camera"));
+	double distanceBetweenEyes = distToFractal * 0.05;
+	gPar->Set("stereo_eye_distance", distanceBetweenEyes);
+	SynchronizeInterfaceWindow(ui->groupCheck_stereo_enabled, gPar, qInterface::write);
 }
