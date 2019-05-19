@@ -1,5 +1,5 @@
 
-                              MANDELBULBER 2.17
+                              MANDELBULBER 2.18
 
 1. What is Mandelbulber
 -----------------------
@@ -143,10 +143,10 @@ make install
 6. TESTED ON
 ------------
 
-- Debian Stretch x64
+- Debian Buster x64
 - Ubuntu 17
 
-- gcc 8.2
+- gcc 8.3
 - clang 7.0
 - msvc17
 
