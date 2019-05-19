@@ -102,6 +102,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
 				float z = image->GetPixelZBuffer(x, y);
+				if(z < 1e-14) continue;
 				float blur1 = (z - neutral) / z * deep;
 				float blur = fabs(blur1);
 				if (blur > maxRadius) blur = maxRadius;
@@ -287,6 +288,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					int x = int(ii % quint64(imageWidth));
 					int y = int(ii / quint64(imageWidth));
 					float z = image->GetPixelZBuffer(x, y);
+					if(z < 1e-14) continue;
 					float blur = fabs(z - neutral) / z * deep + 1.0f;
 					if (blur > maxRadius) blur = maxRadius;
 					int size = int(blur);

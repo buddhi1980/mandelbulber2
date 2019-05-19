@@ -45,55 +45,59 @@ kernel void DOFPhase1(
 
 	const int2 scr = (int2){scrX, scrY};
 
-	float z = zBuffer[inBuffIndex];
-	float blur1 = (z - params.neutral) / z * params.deep;
-	float blur = fabs(blur1);
-	if (blur > params.maxRadius) blur = params.maxRadius;
-	int size = (int)blur;
-	int xStart = max(scr.x - size, 0);
-	int xStop = min(scr.x + size, params.width - 1);
-	int yStart = max(scr.y - size, 0);
-	int yStop = min(scr.y + size, params.height - 1);
-
 	float totalWeight = 0.0f;
 	float4 tempPixel = 0.0f;
-	int2 point;
-	for (point.y = yStart; point.y <= yStop; point.y++)
+
+	float z = zBuffer[inBuffIndex];
+	if (z > 1e-8f)
 	{
-		for (point.x = xStart; point.x <= xStop; point.x++)
+		float blur1 = (z - params.neutral) / z * params.deep;
+		float blur = fabs(blur1);
+		if (blur > params.maxRadius) blur = params.maxRadius;
+		int size = (int)blur;
+		int xStart = max(scr.x - size, 0);
+		int xStop = min(scr.x + size, params.width - 1);
+		int yStart = max(scr.y - size, 0);
+		int yStop = min(scr.y + size, params.height - 1);
+
+		int2 point;
+		for (point.y = yStart; point.y <= yStop; point.y++)
 		{
-			int2 intDelta = scr - point;
-			float2 delta = convert_float2(intDelta);
-			float r = length(delta);
-			float weight = blur - r;
-			weight = clamp(weight, 0.0f, 1.0f);
-
-			int inBuffIndex2 = point.x + point.y * params.width;
-			float z2 = zBuffer[inBuffIndex2];
-			float blur2 = (z2 - params.neutral) / z2 * params.deep;
-			if (blur1 > blur2)
+			for (point.x = xStart; point.x <= xStop; point.x++)
 			{
-				if (blur1 * blur2 < 0.0f)
+				int2 intDelta = scr - point;
+				float2 delta = convert_float2(intDelta);
+				float r = length(delta);
+				float weight = blur - r;
+				weight = clamp(weight, 0.0f, 1.0f);
+
+				int inBuffIndex2 = point.x + point.y * params.width;
+				float z2 = zBuffer[inBuffIndex2];
+				float blur2 = (z2 - params.neutral) / z2 * params.deep;
+				if (blur1 > blur2)
 				{
-					weight = 0.0f;
-				}
-				else
-				{
-					float weight2 = 0.0f;
-					if (blur1 > 0.0f)
-						weight2 = 1.1f - blur1 / blur2;
+					if (blur1 * blur2 < 0.0f)
+					{
+						weight = 0.0f;
+					}
 					else
-						weight2 = 1.1f - blur2 / blur1;
-					if (weight2 < 0.0f) weight2 = 0.0f;
-					weight *= weight2 * 10.0f;
+					{
+						float weight2 = 0.0f;
+						if (blur1 > 0.0f)
+							weight2 = 1.1f - blur1 / blur2;
+						else
+							weight2 = 1.1f - blur2 / blur1;
+						if (weight2 < 0.0f) weight2 = 0.0f;
+						weight *= weight2 * 10.0f;
+					}
 				}
-			}
 
-			totalWeight += weight;
-			if (weight > 0.0f)
-			{
-				float4 pix = inImage[inBuffIndex2];
-				tempPixel += pix * weight;
+				totalWeight += weight;
+				if (weight > 0.0f)
+				{
+					float4 pix = inImage[inBuffIndex2];
+					tempPixel += pix * weight;
+				}
 			}
 		}
 	}
