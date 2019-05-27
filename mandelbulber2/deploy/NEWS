@@ -1,6 +1,6 @@
 Version history
 
-v2.18 (????????????? 2019)
+v2.18 (June 2019)
 - Added new fractal formulas
    amazingSurfMod3
    transfRotationIterControls
@@ -10,7 +10,6 @@ v2.18 (????????????? 2019)
    transfOffsetSCurve4d
    transfGnarl
    transfBoxTiling4d
-
 - modified fractal formulas
    menger middle mod, added vary scale and sphere inversion
    trans_scale4d,  added vary scale
@@ -20,10 +19,38 @@ v2.18 (????????????? 2019)
    mandelboxVariable, added variable functions for box limits and addCpixel
    aboxModKali, added pre-rotation (variable)
    transfQuaternionFold, re-structure DE
-
-
-
-
+- OpenCL: Added rendering of stereoscopic images
+- OpenCL: Disabled loading of textures in fast and medium OpenCL modes (improves performance)
+- OpenCL: Fixed problem with "nan" estimated noise when some of pixels have infinite brightness.
+- OpenCL: Added missing code for DeltaDE josKleinian. Fixed bug #627
+- OpenCL: Corrected displaying of total rendering time when DOF is used
+- OpenCL: Added more logging to OpenCL launching code.
+- Effects: Added rectangle, circle, cube and sphere shapes to "fake lights" algorithm
+- Effects: Added "thickness" parameter for "fake lights"
+- Effects: Added reduction of stereoscopic effect on poles when is used equirectangular projection
+- Effects: Swapped eyes in top-bottom mode (default was incorrect when uploaded into Youtube)
+- Effects: Added button "Calculate optimal distance between eyes" for stereoscopic rendering
+- Effects: Fixed bug in openCL multi-ray AO #634. When iterThreshMode was enabled, the detailLevel parameter was still used.
+- Effects: Added elimination of calculation of DOF at pixels with zero distance
+- Settings: Corrected loading of settings with animation containing parameters with names *_x, *_y, *_z, which are not vectors
+- Files: Added saving metadata (scene parameters) into image files.
+- Files: Fixed bug #637. Now files from _alpha and _zbuffer directories are deleted.
+- Files: Added saving 8-bit JPG z-buffer
+- UI: Corrected behavior of "Default window layout"
+- UI: Disabled auto-refresh before settings are loaded (fixed problem with partial loading of settings)
+- UI: Better handling for "Material is not defined" problem. Fixed issue #636
+- UI: Added displaying of path to log in Preferences.
+- UI: Added option to enable/disable rendering of thumbnails (used in load settings file selector)
+- UI: Fixed bug #654. Now central widget is not hidden when rendered image is detached.
+- Fractals: Added advanced controls for raymarching step calculation.
+- MacOS: fixed OpenCL compiler errors caused by missing line breaks after last lines of code
+- MacOS: Eliminating error on MacOS: Critical: OpenCl ERROR: "Device #0: cl::CommandQueue()" ( -30 )
+- MacOS: in mac/build_deploy.sc corrected copying of share folder (now default textures works)
+This change doesn't have impact on rendering speed.
+- Compilation: Added 'make install' option for qmake
+- Compilation: Added support for running Mandelbulber as portable application under Linux
+- Compilation: Added continuous integration for AppImage
+- Compilation: Fixed bug #655. Corrected paths tof doc and data in prepare_for_dev* scripts
 
 v2.17 (March 2019)
 - Added new fractal formulas
