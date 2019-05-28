@@ -167,6 +167,7 @@ public:
 		CVector3 startIndicatedPoint;
 		Qt::MouseButtons button;
 		QElapsedTimer lastRefreshTime;
+		qint64 lastStartRenderingTime;
 	} cameraDragData;
 };
 

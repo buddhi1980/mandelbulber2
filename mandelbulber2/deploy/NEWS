@@ -42,6 +42,7 @@ v2.18 (June 2019)
 - UI: Added displaying of path to log in Preferences.
 - UI: Added option to enable/disable rendering of thumbnails (used in load settings file selector)
 - UI: Fixed bug #654. Now central widget is not hidden when rendered image is detached.
+- UI: Fixed problem with unwanted repeating of rendering after mouse dragging. 
 - Fractals: Added advanced controls for raymarching step calculation.
 - MacOS: fixed OpenCL compiler errors caused by missing line breaks after last lines of code
 - MacOS: Eliminating error on MacOS: Critical: OpenCl ERROR: "Device #0: cl::CommandQueue()" ( -30 )

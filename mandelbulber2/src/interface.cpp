@@ -1425,6 +1425,7 @@ void cInterface::MouseDragStart(
 			cameraDragData.startNormalizedPoint = normalizedPoint;
 			cameraDragData.startZ = depth;
 			cameraDragData.lastRefreshTime.restart();
+			cameraDragData.lastStartRenderingTime = 0;
 
 			if (clickMode == RenderedImage::clickMoveCamera)
 			{
@@ -1443,7 +1444,8 @@ void cInterface::MouseDragDelta(int dx, int dy)
 {
 	if (cameraDragData.cameraDraggingStarted)
 	{
-		if (cameraDragData.lastRefreshTime.elapsed() > gPar->Get<double>("auto_refresh_period") * 1000)
+		if (cameraDragData.lastRefreshTime.elapsed()
+				> gPar->Get<double>("auto_refresh_period") * 1000 + cameraDragData.lastStartRenderingTime)
 		{
 			cameraDragData.lastRefreshTime.restart();
 			params::enumPerspectiveType perspType =
@@ -1617,7 +1619,11 @@ void cInterface::MouseDragDelta(int dx, int dy)
 			}
 
 			SynchronizeInterface(gPar, gParFractal, qInterface::write);
+
+			QElapsedTimer timerStartRender;
+			timerStartRender.start();
 			StartRender();
+			cameraDragData.lastStartRenderingTime = timerStartRender.elapsed();
 		}
 	}
 }
@@ -2471,18 +2477,21 @@ void cInterface::ResetFormula(int fractalNumber) const
 
 void cInterface::PeriodicRefresh()
 {
-	if (mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked())
+	if (!cameraDragData.cameraDraggingStarted)
 	{
-		// check if something was changed in settings
-		SynchronizeInterface(gPar, gParFractal, qInterface::read);
-		cSettings tempSettings(cSettings::formatCondensedText);
-		tempSettings.CreateText(gPar, gParFractal);
-		QString newHash = tempSettings.GetHashCode();
-
-		if (newHash != autoRefreshLastHash)
+		if (mainWindow->ui->widgetDockNavigation->AutoRefreshIsChecked())
 		{
-			autoRefreshLastHash = newHash;
-			StartRender();
+			// check if something was changed in settings
+			SynchronizeInterface(gPar, gParFractal, qInterface::read);
+			cSettings tempSettings(cSettings::formatCondensedText);
+			tempSettings.CreateText(gPar, gParFractal);
+			QString newHash = tempSettings.GetHashCode();
+
+			if (newHash != autoRefreshLastHash)
+			{
+				autoRefreshLastHash = newHash;
+				StartRender();
+			}
 		}
 	}
 
