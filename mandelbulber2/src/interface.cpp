@@ -112,6 +112,7 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	autoRefreshLastState = false;
 	lockedDetailLevel = 1.0;
 	lastSelectedMaterial = 1;
+	numberOfStartedRenders = 0;
 }
 
 cInterface::~cInterface()
@@ -480,6 +481,7 @@ void cInterface::SynchronizeInterface(
 
 void cInterface::StartRender(bool noUndo)
 {
+	numberOfStartedRenders++;
 	if (!mainImage->IsUsed())
 	{
 		mainImage->BlockImage();
@@ -552,6 +554,7 @@ void cInterface::StartRender(bool noUndo)
 
 	thread->setObjectName("RenderJob");
 	thread->start();
+	numberOfStartedRenders--;
 }
 
 void cInterface::MoveCamera(QString buttonName, bool synchronizeAndRender)
@@ -1444,8 +1447,11 @@ void cInterface::MouseDragDelta(int dx, int dy)
 {
 	if (cameraDragData.cameraDraggingStarted)
 	{
+		if (numberOfStartedRenders > 1) stopRequest = true;
+
 		if (cameraDragData.lastRefreshTime.elapsed()
-				> gPar->Get<double>("auto_refresh_period") * 1000 + cameraDragData.lastStartRenderingTime)
+					> gPar->Get<double>("auto_refresh_period") * 1000 + cameraDragData.lastStartRenderingTime
+				&& numberOfStartedRenders < 2)
 		{
 			cameraDragData.lastRefreshTime.restart();
 			params::enumPerspectiveType perspType =

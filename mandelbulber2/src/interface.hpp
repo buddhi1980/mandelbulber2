@@ -154,6 +154,7 @@ public:
 
 	bool stopRequest;
 	bool repeatRequest; // request to repeat start loop
+	int numberOfStartedRenders;
 
 	struct sCameraDragData
 	{
