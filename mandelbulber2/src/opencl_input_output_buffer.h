@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * generic I/O buffer for OpenCL kernels
  */
 
 #ifndef MANDELBULBER2_SRC_OPENCL_INPUT_OUTPUT_BUFFER_H_

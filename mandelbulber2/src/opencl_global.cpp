@@ -77,8 +77,6 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 	{
 		openClHardware->ListOpenClPlatforms();
 
-		// TODO: support dialogue box for device type
-
 		if (gPar->Get<int>("opencl_platform") >= 0)
 		{
 			openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),

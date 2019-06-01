@@ -42,7 +42,6 @@ cOpenClHardware::cOpenClHardware(QObject *parent) : QObject(parent)
 {
 	openClAvailable = false;
 	contextReady = false;
-	// TODO: confirm initial value
 	// initialize multi-gpu devices' indices list with empty QList
 	selectedDevicesIndices = QList<int>();
 	missingOpenClDLL = false;
@@ -377,7 +376,6 @@ void cOpenClHardware::EnableDevice(int index)
 
 void cOpenClHardware::DisableDevice(int index)
 {
-	// TODO
 	clDeviceWorkers[index].Disable();
 }
 

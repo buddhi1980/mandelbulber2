@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * base class for data of dynamic size for OpenCL kernels
  */
 
 #include "opencl_abstract_dynamic_data.h"

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * combobox with custom context menu
  */
 
 #ifndef MANDELBULBER2_QT_MY_COMBO_BOX_H_

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * scheduler for multi-gpu rendering
  */
 
 #ifndef MANDELBULBER2_SRC_OPENCL_SCHEDULER_H_

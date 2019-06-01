@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * combobox with custom context menu
  */
 
 #include "my_combo_box.h"

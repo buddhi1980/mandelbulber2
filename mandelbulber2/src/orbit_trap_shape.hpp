@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * calculation of distance to shape used in orbit trap algorithm
  */
 
 #ifndef MANDELBULBER2_SRC_ORBIT_TRAP_SHAPE_HPP_

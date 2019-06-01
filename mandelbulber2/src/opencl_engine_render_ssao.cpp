@@ -240,10 +240,6 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		// TODO:
-		// insert device for loop here
-		// requires initialization for all opencl devices
-		// requires optimalJob for all opencl devices
 		for (qint64 pixelIndex = 0; pixelIndex < qint64(width) * qint64(height);
 				 pixelIndex += optimalJob.stepSize)
 		{

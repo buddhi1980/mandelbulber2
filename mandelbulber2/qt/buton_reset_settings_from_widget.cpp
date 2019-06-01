@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * button to reset settings in parent widget
  */
 
 #include "buton_reset_settings_from_widget.h"
@@ -56,7 +56,7 @@ cButtonResetSettingsFromWidget::cButtonResetSettingsFromWidget(QWidget *_parent)
 
 cButtonResetSettingsFromWidget::~cButtonResetSettingsFromWidget()
 {
-	// TODO Auto-generated destructor stub
+	// nothing to destroy
 }
 
 void cButtonResetSettingsFromWidget::slotPressedButtonLocalReset()

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * button to save settings from parent widget
  */
 
 #include "buton_save_settings_from_widget.h"
@@ -56,7 +56,7 @@ cButtonSaveSettingsFromWidget::cButtonSaveSettingsFromWidget(QWidget *_parent)
 
 cButtonSaveSettingsFromWidget::~cButtonSaveSettingsFromWidget()
 {
-	// TODO Auto-generated destructor stub
+	// nothing to destroy;
 }
 
 void cButtonSaveSettingsFromWidget::slotPressedButtonLocalSave()

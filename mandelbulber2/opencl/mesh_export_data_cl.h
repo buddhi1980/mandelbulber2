@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * TODO: data structure for mesh export kernel
  */
 
 #ifndef MANDELBULBER2_OPENCL_MESH_EXPORT_DATA_CL_H_

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * data structure for displaying last rendered tiles
  */
 
 #ifndef MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_

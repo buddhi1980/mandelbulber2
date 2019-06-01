@@ -98,7 +98,7 @@ void RenderWindow::slotPressedButtonAlignPrimitiveAngle() const
 	vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(1.0, 0.0, 0.0), -alpha);
 	vectorTemp = vectorTemp.RotateAroundVectorByAngle(CVector3(0.0, 0.0, 1.0), -beta);
 
-	double gamma = -atan2(vectorTemp.z, vectorTemp.x); // FIXME wrong angle is calculated
+	double gamma = -atan2(vectorTemp.z, vectorTemp.x);
 
 	alpha = cCameraTarget::CorrectAngle(alpha);
 	beta = cCameraTarget::CorrectAngle(beta);

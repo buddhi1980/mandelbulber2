@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * thread for one of GPUs in multi-gpu rendering
  */
 
 #ifndef MANDELBULBER2_SRC_OPENCL_WORKER_THREAD_H_

@@ -213,7 +213,6 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 	{
 		optimalJob.jobSizeMultiplier = params->Get<int>("opencl_job_size_multiplier");
 
-		// TODO: kernel
 		if (CreateKernels())
 		{
 			InitOptimalJob(params);
@@ -241,12 +240,6 @@ bool cOpenClEngine::CreateKernels()
 	{
 		size_t workGroupSize = 0;
 
-		// sets values for optimalJob
-		// TODO: support multiple devices
-		// TODO: create a optimalJob per device
-		// iterate through getEnabledDevices
-		// kernel->getWorkGroupInfo  workGroupSize
-
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
 			clKernels[d]->getWorkGroupInfo(
@@ -257,8 +250,6 @@ bool cOpenClEngine::CreateKernels()
 
 			size_t workGroupSizeOptimalMultiplier = 0;
 
-			// TODO: support multiple devices
-			// kernel->getWorkGroupInfo  workGroupSizeOptimalMultiplier
 			clKernels[d]->getWorkGroupInfo(*hardware->getEnabledDevices().at(d),
 				CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE, &workGroupSizeOptimalMultiplier);
 			WriteLogSizeT(
@@ -299,13 +290,6 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	size_t memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024 * 1024;
 	size_t pixelCnt = width * height;
 
-	// TODO: support multi-GPU
-	// TODO: create a optimalJob per device
-	// iterate through getSelectedDevicesInformation
-	// requires deviceInfo.maxMemAllocSize for each device
-	// for now, we use the same optimal job for all GPU
-	// we will enable multi-gpu, but require the exact same gpu model
-	// *this requires update*
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDevicesInformation().at(0);
 
 	optimalJob.stepSize = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
@@ -347,9 +331,7 @@ bool cOpenClEngine::CreateCommandQueue()
 	{
 		cl_int err;
 		bool wasNoError = true;
-		// TODO: support multiple devices
-		// TODO: create a separate queue per device
-		// iterate through getEnabledDevices
+
 		clQueues.clear();
 
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)

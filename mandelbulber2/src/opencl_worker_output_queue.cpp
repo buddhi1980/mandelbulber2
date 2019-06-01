@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * output queue for multi-gpu rendering
  */
 
 #ifdef USE_OPENCL

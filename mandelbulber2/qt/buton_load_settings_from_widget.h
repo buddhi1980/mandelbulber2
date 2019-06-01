@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * button to load settings from parent widget
  */
 
 #ifndef MANDELBULBER2_QT_BUTON_LOAD_SETTINGS_FROM_WIDGET_H_

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * thread for one of GPUs in multi-gpu rendering
  */
 
 #ifdef USE_OPENCL
@@ -65,7 +65,7 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
 {
-	// TODO Auto-generated destructor stub
+	//nothing to destroy
 }
 
 bool cOpenClWorkerThread::checkErr(cl_int err, QString functionName)

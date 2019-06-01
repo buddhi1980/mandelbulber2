@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * button to load settings from parent widget
  */
 
 #include "buton_load_settings_from_widget.h"
@@ -50,7 +50,7 @@ cButtonLoadSettingsFromWidget::cButtonLoadSettingsFromWidget(QWidget *_parent)
 
 cButtonLoadSettingsFromWidget::~cButtonLoadSettingsFromWidget()
 {
-	// TODO Auto-generated destructor stub
+	// nothing to destroy
 }
 
 void cButtonLoadSettingsFromWidget::slotPressedButtonLocalLoad()

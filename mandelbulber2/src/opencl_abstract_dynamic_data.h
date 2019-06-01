@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * base class for data of dynamic size for OpenCL kernels
  */
 
 #ifndef MANDELBULBER2_SRC_OPENCL_ABSTRACT_DYNAMIC_DATA_H_

@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * dynamic data for textures loaded to OpenCL kernel
  */
 
 #include "system.hpp"

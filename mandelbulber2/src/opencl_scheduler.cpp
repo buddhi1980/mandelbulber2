@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * TODO: description
+ * scheduler for multi-gpu rendering
  */
 
 #include "opencl_scheduler.h"
@@ -51,7 +51,7 @@ cOpenClScheduler::cOpenClScheduler(const QList<QPoint> *tileSequence)
 
 cOpenClScheduler::~cOpenClScheduler()
 {
-	// TODO Auto-generated destructor stub
+	// nothing to destroy
 }
 
 void cOpenClScheduler::EnableAllTiles()
