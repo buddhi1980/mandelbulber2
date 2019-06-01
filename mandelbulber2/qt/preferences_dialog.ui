@@ -993,7 +993,7 @@ and will only be present after enabling and re-render.</string>
                 <item row="1" column="0" colspan="3">
                  <widget class="MyCheckBox" name="checkBox_thumbnails_with_opencl">
                   <property name="text">
-                   <string>Render thubnails with OpenCL (if OpenCL enabled)</string>
+                   <string>Render thumbnails with OpenCL (if OpenCL enabled)</string>
                   </property>
                  </widget>
                 </item>
