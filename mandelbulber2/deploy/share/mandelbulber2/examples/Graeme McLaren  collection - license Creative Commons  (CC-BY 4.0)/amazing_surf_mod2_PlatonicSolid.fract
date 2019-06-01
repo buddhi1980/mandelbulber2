@@ -1,0 +1,63 @@
+# Mandelbulber settings file
+# version 2.18
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+ambient_occlusion_quality 8;
+background_3_colors_enable false;
+background_color_1 7000 9300 ab00;
+background_color_2 0000 5500 0000;
+camera -0.4267766952966372 1.703351118960395 -1.017638090205042;
+camera_distance_to_target 0.3017238383211039;
+camera_rotation 45.00000000000005 0 0;
+camera_top 0 0 1;
+constant_DE_threshold true;
+DE_factor 0.7639272464914265;
+DE_thresh 0.00125;
+delta_DE_function 1;
+delta_DE_method 2;
+dont_add_c_constant_1 true;
+flight_last_to_render 0;
+formula_1 132;
+formula_2 56;
+formula_start_iteration_2 23;
+fov 0.7;
+frames_per_keyframe 60;
+hybrid_fractal_enable true;
+image_height 1200;
+image_proportion 3;
+image_width 1800;
+julia_c -1.920139481196804 0.2964175638227875 0.005382458930028977;
+keyframe_last_to_render 0;
+main_light_colour f400 f400 f400;
+mat1_coloring_random_seed 833735;
+mat1_fractal_coloring_aux_color_scale1 0;
+mat1_fractal_coloring_global_palette_false true;
+mat1_fractal_coloring_iter_add_scale 4;
+mat1_fractal_coloring_iter_add_scale_enabled_true false;
+mat1_fractal_coloring_iter_scale -3.4;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_fractal_coloring_rad_div_de_weight 1.9;
+mat1_fractal_coloring_round_scale 4;
+mat1_is_defined true;
+mat1_specular 1;
+mat1_specular_color 9c00 9c00 8200;
+mat1_specular_plastic_enable false;
+mat1_specular_width 1;
+mat1_surface_color c300 c300 c300;
+mat1_surface_color_palette fd6029 698403 125512 683f1c 6b4830 c68876 a51c64 3b9fee d4ffd4 aba53c;
+target -0.6401276674191233 1.916702091082881 -1.017638090205042;
+textured_background_map_type 2;
+[fractal_1]
+mandelbox_scale 1.1;
+transf_addition_constant 0 0 0.2;
+transf_addition_constant_111 1.5 1.5 1;
+transf_minR2_p25 0;
+[fractal_2]
+analyticDE_scale_1 1.1;
+platonic_solid_amplitude 0.3;
+platonic_solid_frequency 0.1;
+platonic_solid_rhoMul 1.5;
+transf_function_enabled_false true;
+transf_function_enabledx false;
+transf_function_enabledy_false true;

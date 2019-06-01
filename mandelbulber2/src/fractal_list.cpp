@@ -837,7 +837,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog,
+	fractalList->append(sFractalDescription("Testing Scator", "testing_log", testingLog,
 		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 
