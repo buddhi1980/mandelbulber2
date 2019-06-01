@@ -845,7 +845,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
 
-	fractalList->append(sFractalDescription("Testing Par", "mandelbulb_eye_test",
+	fractalList->append(sFractalDescription("Testing Par", "testing_par",
 		mandelbulbEyeTest, MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
 }
