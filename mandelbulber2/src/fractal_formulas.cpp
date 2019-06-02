@@ -16881,33 +16881,16 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	th0 += asin(z.z / r);
 	ph0 += atan2(z.y, z.x);
-
+	double rp = r;
 	if (fractal->transformCommon.functionEnabledx) // 0ne
 	{
 		newZ1 = z;
-
 		de1 = 1.0;
-		double rp = r;
-		//de1 = rp * aux.DE * 1.0 + 1.0;
-		/*rp *= r;
-		double th = th0 * 1.0 * fractal->transformCommon.scaleA1;
-		double ph = ph0 * 1.0 * fractal->transformCommon.scaleB1;
 
-		if (!fractal->transformCommon.functionEnabledxFalse)
-		{
-			double costh = cos(th);
-			newZ1 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
-		}
-		else
-		{
-			double sinth = sin(th);
-			newZ1 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
-		}*/
 	}
 
 	if (fractal->transformCommon.functionEnabledy) // two
 	{
-		double rp = r;
 		de2 = rp * aux.DE * 2.0 + 1.0;
 		rp *= r;
 		double th = th0 * 2.0 * fractal->transformCommon.scaleA1;
@@ -16927,7 +16910,7 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->transformCommon.functionEnabledz) // three
 	{
-		double rp = r * r;
+		rp = r * r;
 		de3 = rp * aux.DE * 3.0 + 1.0;
 		rp *= r;
 		double th = th0 * 3.0 * fractal->transformCommon.scaleA1;
@@ -16940,7 +16923,6 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 		else
 		{
-
 			double sinth = sin(th);
 			newZ3 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
 		}
@@ -16948,7 +16930,7 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->transformCommon.functionEnabledw) // four
 	{
-		double rp = r * r * r;
+		rp = r * r * r;
 		de4 = rp * aux.DE * 4.0 + 1.0;
 		rp *= r;
 		double th = th0 * 4.0 * fractal->transformCommon.scaleA1;
@@ -16961,70 +16943,16 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		}
 		else
 		{
-
 			double sinth = sin(th);
 			newZ4 = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
 		}
 	}
-	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux.DE = abs(de1 + de2 + de3 + de4);
+	//z = newZ1 + newZ2 + newZ3 + newZ4;
+	//aux.DE = abs(de1 + de2 + de3 + de4);
 
-
-
-
-
-
-
-
-
-
-
-
-
-	//r = z.Length();
-	/*CVector3 v;
-	switch (fractal->sinTan2Trig.orderOfZYX)
-	{
-		case multi_OrderOfZYX_zyx:
-		default: v = CVector3(z.z, z.y, z.x); break;
-		case multi_OrderOfZYX_zxy: v = CVector3(z.z, z.x, z.y); break;
-		case multi_OrderOfZYX_yzx: v = CVector3(z.y, z.z, z.x); break;
-		case multi_OrderOfZYX_yxz: v = CVector3(z.y, z.x, z.z); break;
-		case multi_OrderOfZYX_xzy: v = CVector3(z.x, z.z, z.y); break;
-		case multi_OrderOfZYX_xyz: v = CVector3(z.x, z.y, z.z); break;
-	}
-
-	if (fractal->sinTan2Trig.asinOrAcos == multi_asinOrAcos_asin)
-		th0 += asin(v.x / aux.r);
-	else
-		th0 += acos(v.x / aux.r);
-
-	if (fractal->sinTan2Trig.atan2OrAtan == multi_atan2OrAtan_atan2)
-		ph0 += atan2(v.y, v.z);
-	else
-		ph0 += atan(v.y / v.z);
-
-	double rp = pow(aux.r, fractal->bulb.power - 1.0);
-	double th = th0 * fractal->bulb.power * fractal->transformCommon.scaleA1;
-	double ph = ph0 * fractal->bulb.power * fractal->transformCommon.scaleB1;
-
-	aux.DE = rp * aux.DE * fractal->bulb.power + 1.0;
-	rp *= aux.r;
-
-	if (fractal->transformCommon.functionEnabledxFalse)
-	{ // cosine mode
-		double sinth = th;
-		if (fractal->transformCommon.functionEnabledyFalse) sinth = th0;
-		sinth = sin(sinth);
-		z = rp * CVector4(sinth * sin(ph), cos(ph) * sinth, cos(th), 0.0);
-	}
-	else
-	{ // sine mode ( default = V2.07))
-		double costh = th;
-		if (fractal->transformCommon.functionEnabledzFalse) costh = th0;
-		costh = cos(costh);
-		z = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
-	}*/
+	CVector4 w8ts = fractal->transformCommon.offset1111;
+	z = (newZ1 * w8ts.x) + (newZ2 * w8ts.y) + (newZ3 * w8ts.z) + (newZ4 * w8ts.w);
+	aux.DE = abs((de1 * w8ts.x) + (de2 * w8ts.y) + (de3 * w8ts.z) + (de4 * w8ts.w));
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
