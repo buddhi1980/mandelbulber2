@@ -169,8 +169,6 @@ endif()
 
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION ${INSTALL_PATH})
 
-add_definitions("-DSHARED_DIR=\"${SHARED_DIR_DEF}\"")
-
 if(WIN32)
 	install(FILES ../deploy/win64/mandelbulber2.ico
 			DESTINATION .)
