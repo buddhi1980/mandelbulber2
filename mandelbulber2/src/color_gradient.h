@@ -20,6 +20,8 @@ public:
 	{
 		sRGB16 color;
 		double position; // from 0 to 1.0
+
+		static bool lessCompare(sColor a, sColor b) { return a.position < b.position; }
 	};
 
 	int AddColor(sRGB16 color, double position); // returns new color index
@@ -27,14 +29,17 @@ public:
 	void ModifyPosition(int index, double position);
 	void RemoveColor(int index);
 	sRGB16 GetColor(double position);
-	QList<sColor> GetListOColors();
+	QList<sColor> GetListOfColors();
 	QVector<sRGB16> GetGradient(int length);
 
 private:
 	void SortGradient();
+	int PaletteIterator(int paletteIndex, double position);
+	sRGB16 Interpolate(int paletteIndex, double pos);
 
 	QList<sColor> colors;
 	QList<sColor> sortedColors;
+	bool sorted;
 };
 
 #endif /* MANDELBULBER2_SRC_COLOR_GRADIENT_H_ */
