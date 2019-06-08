@@ -119,9 +119,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-720</y>
-        <width>472</width>
-        <height>4207</height>
+        <y>0</y>
+        <width>466</width>
+        <height>3672</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -197,6 +197,13 @@
           <property name="bottomMargin">
            <number>2</number>
           </property>
+          <item>
+           <widget class="cPaletteEditWidget" name="colorpalette_surface_color_palette_new" native="true">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color the fractal surface.&lt;/p&gt;&lt;p&gt;Click on a color to edit the palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+           </widget>
+          </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">
             <property name="spacing">
@@ -4567,6 +4574,12 @@ object size)</string>
    <class>cMaterialWidget</class>
    <extends>QWidget</extends>
    <header>material_widget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>cPaletteEditWidget</class>
+   <extends>QWidget</extends>
+   <header>palette_edit_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

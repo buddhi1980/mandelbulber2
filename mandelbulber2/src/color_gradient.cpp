@@ -12,8 +12,18 @@ cColorGradient::cColorGradient()
 {
 	sColor positionedColor = {sRGB16(65535, 65535, 65535), 0.0};
 	colors.append(positionedColor);
-	positionedColor.position = 1.0;
-	colors.append(positionedColor);
+
+	sColor positionedColor2 = {sRGB16(65535, 65535, 65535), 1.0};
+	colors.append(positionedColor2);
+
+	// third for testing
+	sColor positionedColor3 = {sRGB16(65535, 0, 0), 0.3};
+	colors.append(positionedColor3);
+
+	// fourth for testing
+	sColor positionedColor4 = {sRGB16(0, 0, 0), 0.25};
+	colors.append(positionedColor4);
+
 	sorted = false;
 }
 
@@ -91,7 +101,7 @@ void cColorGradient::RemoveColor(int index)
 int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
 {
 	int newIndex = paletteIndex;
-	while (paletteIndex < sortedColors.size() && colorPosition > sortedColors[paletteIndex].position)
+	while (newIndex < sortedColors.size() - 1 && colorPosition > sortedColors[newIndex + 1].position)
 	{
 		newIndex++;
 	}
@@ -125,9 +135,9 @@ sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos)
 		{
 			double delta = (pos - pos1) / (pos2 - pos1);
 			double nDelta = 1.0 - delta;
-			color.R = color1.R * delta + color2.R * nDelta;
-			color.G = color1.G * delta + color2.R * nDelta;
-			color.B = color1.B * delta + color2.R * nDelta;
+			color.R = color1.R * nDelta + color2.R * delta;
+			color.G = color1.G * nDelta + color2.G * delta;
+			color.B = color1.B * nDelta + color2.B * delta;
 		}
 		else
 		{

@@ -9,6 +9,7 @@
 #define MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_
 
 #include <QWidget>
+#include "src/color_gradient.h"
 
 class cPaletteEditWidget : public QWidget
 {
@@ -18,7 +19,10 @@ public:
 	~cPaletteEditWidget();
 
 private:
+	const int margins = 5;
 	void paintEvent(QPaintEvent *event) override;
+
+	cColorGradient gradient;
 };
 
 #endif /* MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_ */
