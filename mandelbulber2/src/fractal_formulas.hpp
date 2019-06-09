@@ -137,7 +137,7 @@ void Mandelbulb3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 
 void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
@@ -152,6 +152,7 @@ void MandelbulbKaliMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelbulbPower1234Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -326,9 +327,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
 void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

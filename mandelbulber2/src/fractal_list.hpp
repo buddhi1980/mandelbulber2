@@ -199,6 +199,8 @@ enum enumFractalFormula
 	mandeltorus = 146,
 	// 2.18
 	amazingSurfMod3 = 147,
+	// 2.19
+	mandelbulbPower1234 = 148,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
@@ -207,7 +209,6 @@ enum enumFractalFormula
 	scatorPower2StdR = 174,			 // added V2.15
 
 	mandelbulbEye = 800,
-	mandelbulbEyeTest = 810,
 
 	transfAddConstant = 1001,
 	transfRotation = 1002,
@@ -324,7 +325,7 @@ enum enumFractalFormula
 	transfHybridColor2 = 2001,
 	testing = 2100,
 	testing4d = 2101,
-	testingLog = 2102,
+	testingLog = 2103,
 };
 }
 

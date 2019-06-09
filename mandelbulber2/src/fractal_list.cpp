@@ -270,6 +270,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb - Bermarte", "mandelbulb_bermarte",
 		mandelbulbBermarte, MandelbulbBermarteIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Mandelbulb - Power 1234", "mandelbulb_power1234",
+		mandelbulbPower1234, MandelbulbPower1234Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Mandelbulb - Power 2", "mandelbulb_power2",
 		mandelbulbPower2, MandelbulbPower2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -523,12 +528,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Cpixel - Scator", "transf_add_cpixel_scator",
 		transfAddCpixelScator, TransfAddCpixelScatorIteration, analyticDEType, withoutDEFunction,
 		cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
-
 	fractalList->append(
 		sFractalDescription("T>Add Cpixel - Sin Or Cos", "transf_add_cpixel_sin_or_cos",
 			transfAddCpixelSinOrCos, TransfAddCpixelSinOrCosIteration, analyticDEType, withoutDEFunction,
 			cpixelAlreadyHas, 100, analyticFunctionNone, coloringFunctionDefault));
-
 	fractalList->append(
 		sFractalDescription("T>Add Cpixel - Symmetrical", "transf_add_cpixel_symmetrical",
 			transfAddCpixelSymmetrical, TransfAddCpixelSymmetricalIteration, analyticDEType,
@@ -833,19 +836,20 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
 		coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Testing Log", "testing_log",
+		testingLog, TestingLogIteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Testing Scator", "testing_log", testingLog,
-		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelDisabledByDefault, 10,
-		analyticFunctionLogarithmic, coloringFunctionDefault));
+
 
 	fractalList->append(sFractalDescription("T>Blockify", "transf_blockify", transfBlockify,
 		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
 
-	fractalList->append(sFractalDescription("Testing Par", "testing_par",
-		mandelbulbEyeTest, MandelbulbEyeTestIteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 }
