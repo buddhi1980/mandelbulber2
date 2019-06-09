@@ -20,13 +20,20 @@ public:
 
 private:
 	void paintEvent(QPaintEvent *event) override;
+	void mouseMoveEvent(QMouseEvent *event) override;
+	void mousePressEvent(QMouseEvent *event) override;
+	void mouseReleaseEvent(QMouseEvent *event) override;
 
 	void PaintButton(const cColorGradient::sColor &posColor, QPainter &painter);
 	int CalcButtonPosition(double colorPosition);
+	int FindButtonAtPosition(int x);
 
 	cColorGradient gradient;
 	int buttonWidth;
 	int margins;
+	bool mouseDragStarted;
+	int pressedColorIndex;
+	int dragStartX;
 };
 
 #endif /* MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_ */
