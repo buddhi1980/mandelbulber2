@@ -19,10 +19,14 @@ public:
 	~cPaletteEditWidget();
 
 private:
-	const int margins = 5;
 	void paintEvent(QPaintEvent *event) override;
 
+	void PaintButton(const cColorGradient::sColor &posColor, QPainter &painter);
+	int CalcButtonPosition(double colorPosition);
+
 	cColorGradient gradient;
+	int buttonWidth;
+	int margins;
 };
 
 #endif /* MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_ */

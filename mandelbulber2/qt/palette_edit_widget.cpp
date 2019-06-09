@@ -12,7 +12,13 @@
 
 cPaletteEditWidget::cPaletteEditWidget(QWidget *parent) : QWidget(parent)
 {
-	setFixedHeight(systemData.GetPreferredThumbnailSize() / 2);
+	int fixHeight = systemData.GetPreferredThumbnailSize() / 2;
+	setFixedHeight(fixHeight);
+
+	buttonWidth = fixHeight / 6;
+	if (buttonWidth % 2 == 0) buttonWidth += 1; // to always have odd width
+
+	margins = buttonWidth / 2 + 2;
 }
 
 cPaletteEditWidget::~cPaletteEditWidget()
@@ -35,4 +41,44 @@ void cPaletteEditWidget::paintEvent(QPaintEvent *event)
 		painter.setPen(color);
 		painter.drawLine(x + margins, 0, x + margins, gradientHeight);
 	}
+
+	QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
+	for (cColorGradient::sColor posColor : listOfColors)
+	{
+		PaintButton(posColor, painter);
+	}
+}
+
+int cPaletteEditWidget::CalcButtonPosition(double position)
+{
+	return margins + position * (width() - 2 * margins - 1);
+}
+
+void cPaletteEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPainter &painter)
+{
+	int buttonPosition = CalcButtonPosition(posColor.position);
+
+	int buttonTop = height() / 2 + buttonWidth / 2;
+
+	QRect rect(QPoint(buttonPosition - buttonWidth / 2, buttonTop),
+		QPoint(buttonPosition + buttonWidth / 2, height() - 2));
+
+	QColor color(posColor.color.R / 256, posColor.color.G / 256, posColor.color.B / 256);
+
+	QBrush brush(color, Qt::SolidPattern);
+	painter.fillRect(rect, brush);
+
+	QVector<QPoint> triangle = {QPoint(buttonPosition, height() / 2),
+		QPoint(buttonPosition - buttonWidth / 2, buttonTop),
+		QPoint(buttonPosition + buttonWidth / 2, buttonTop)};
+	QPolygon pTriangle(triangle);
+	QPainterPath pathTriangle;
+	pathTriangle.addPolygon(pTriangle);
+	painter.fillPath(pathTriangle, brush);
+
+	int avgColor = (posColor.color.R + posColor.color.G + posColor.color.B)/3;
+	if(avgColor > 10000) painter.setPen(Qt::black);
+	else  painter.setPen(Qt::white);
+
+	painter.drawRect(rect);
 }
