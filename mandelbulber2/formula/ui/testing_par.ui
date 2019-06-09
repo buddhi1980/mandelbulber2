@@ -66,7 +66,7 @@
          <string/>
         </property>
         <property name="title">
-         <string>abs() Controls (Burning Ship &amp;mode)</string>
+         <string>abs() Cont&amp;rols</string>
         </property>
         <property name="checkable">
          <bool>true</bool>

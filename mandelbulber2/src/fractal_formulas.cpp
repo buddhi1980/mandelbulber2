@@ -10311,7 +10311,7 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 		z.y = (z.y - (sign(z.y) * (Add.y)));
 		z.z = (z.z - (sign(z.z) * (Add.z)));
 	}
-	// aux.color
+	// aux.color mode 1
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
@@ -10347,7 +10347,6 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 		{
 			colorAdd += fractal->mandelbox.color.factor.z * (1.0 - (limit.z - fabs(z.z)) / limit.z);
 		}
-		aux.color += colorAdd;
 	}
 
 	// mode 3
@@ -10366,8 +10365,8 @@ void TransfAbsAddTgladFoldIteration(CVector4 &z, const sFractal *fractal, sExten
 		{
 			colorAdd += fractal->mandelbox.color.factor.z * (fabs(z.z) - limit.z) / limit.z;
 		}
-		aux.color += colorAdd;
 	}
+	aux.color += colorAdd;
 }
 
 /**
@@ -16886,7 +16885,6 @@ void MandelbulbEyeTestIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		newZ1 = z;
 		de1 = 1.0;
-
 	}
 
 	if (fractal->transformCommon.functionEnabledy) // two
