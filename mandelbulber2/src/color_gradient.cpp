@@ -108,14 +108,14 @@ int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
 	return newIndex;
 }
 
-sRGB16 cColorGradient::GetColor(double position)
+sRGB16 cColorGradient::GetColor(double position, bool smooth)
 {
 	SortGradient();
 	int paletteIndex = PaletteIterator(0, position);
-	return Interpolate(paletteIndex, position);
+	return Interpolate(paletteIndex, position, smooth);
 }
 
-sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos)
+sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 {
 	sRGB16 color;
 	// if last element then just copy color value (no interpolation)
@@ -134,6 +134,9 @@ sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos)
 		if (pos2 - pos1 > 0.0)
 		{
 			double delta = (pos - pos1) / (pos2 - pos1);
+
+			if (smooth) delta = 0.5 * (1.0 - cos(delta * M_PI));
+
 			double nDelta = 1.0 - delta;
 			color.R = color1.R * nDelta + color2.R * delta;
 			color.G = color1.G * nDelta + color2.G * delta;
@@ -148,7 +151,7 @@ sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos)
 	return color;
 }
 
-QVector<sRGB16> cColorGradient::GetGradient(int length)
+QVector<sRGB16> cColorGradient::GetGradient(int length, bool smooth)
 {
 	QVector<sRGB16> gradient;
 	if (length >= 2)
@@ -164,7 +167,7 @@ QVector<sRGB16> cColorGradient::GetGradient(int length)
 		{
 			double pos = i * step;
 			paletteIndex = PaletteIterator(paletteIndex, pos);
-			sRGB16 color = Interpolate(paletteIndex, pos);
+			sRGB16 color = Interpolate(paletteIndex, pos, smooth);
 			gradient.append(color);
 		}
 	}

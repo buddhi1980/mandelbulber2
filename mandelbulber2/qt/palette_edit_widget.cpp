@@ -27,7 +27,7 @@ void cPaletteEditWidget::paintEvent(QPaintEvent *event)
 	int gradientHeight = height() / 2;
 
 	QPainter painter(this);
-	QVector<sRGB16> grad = gradient.GetGradient(gradientWidth);
+	QVector<sRGB16> grad = gradient.GetGradient(gradientWidth, true);
 
 	for (int x = 0; x < grad.size(); x++)
 	{
