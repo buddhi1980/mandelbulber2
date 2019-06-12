@@ -146,7 +146,7 @@ void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
 		QColorDialog colorDialog(this);
 		colorDialog.setOption(QColorDialog::DontUseNativeDialog);
 		sRGB16 colorRGB = listOfColors[pressedColorIndex].color;
-		QColor color(colorRGB.R, colorRGB.G, colorRGB.B);
+		QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
 		colorDialog.setCurrentColor(color);
 		colorDialog.setWindowTitle(tr("Edit color #%1").arg(QString::number(pressedColorIndex + 1)));
 		if (colorDialog.exec() == QDialog::Accepted)
@@ -155,11 +155,9 @@ void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
 			colorRGB = sRGB16(color.red() * 256, color.green() * 256, color.blue() * 256);
 			gradient.ModifyColor(pressedColorIndex, colorRGB);
 
-			if(pressedColorIndex == 0)
-				gradient.ModifyColor(1, colorRGB);
+			if (pressedColorIndex == 0) gradient.ModifyColor(1, colorRGB);
 
-			if(pressedColorIndex == 1)
-				gradient.ModifyColor(0, colorRGB);
+			if (pressedColorIndex == 1) gradient.ModifyColor(0, colorRGB);
 
 			emit update();
 		}
