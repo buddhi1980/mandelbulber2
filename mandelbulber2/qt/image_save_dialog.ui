@@ -221,7 +221,7 @@
          <item>
             <layout class="QVBoxLayout" name="verticalLayout_10">
              <item>
-              <widget class="MyGroupBox" name="groupCheck_optional_image_channels">
+              <widget class="MyGroupBox" name="groupCheck_optional_image_channels_enabled">
                <property name="title">
                 <string>Optional Image Channels</string>
                </property>

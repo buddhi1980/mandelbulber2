@@ -547,6 +547,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("jpeg_quality", 95, 1, 100, morphNone, paramApp);
 	par->addParam("stereoscopic_in_separate_files", false, morphNone, paramApp);
 	par->addParam("save_channels_in_separate_folders", false, morphNone, paramApp);
+	par->addParam("optional_image_channels_enabled", false, morphNone, paramApp);
 
 	par->addParam("logging_verbosity", 1, 0, 3, morphNone, paramApp);
 	par->addParam("threads_priority", 2, 0, 3, morphNone, paramApp);
