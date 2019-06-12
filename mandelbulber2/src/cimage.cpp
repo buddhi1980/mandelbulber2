@@ -100,6 +100,8 @@ bool cImage::AllocMem()
 				colourBuffer.reset(new sRGB8[quint64(width) * quint64(height)]);
 				if (opt.optionalNormal) AllocRGB(normalFloat, normal16, normal8);
 				if (opt.optionalSpecular) AllocRGB(specularFloat, specular16, specular8);
+				if (opt.optionalDiffuse) AllocRGB(diffuseFloat, diffuse16, diffuse8);
+				if (opt.optionalWorld) AllocRGB(worldFloat, world16, world8);
 				ClearImage();
 			}
 			catch (std::bad_alloc &ba)
@@ -164,6 +166,8 @@ void cImage::ClearImage()
 
 	if (opt.optionalNormal) ClearRGB(normalFloat, normal16, normal8);
 	if (opt.optionalSpecular) ClearRGB(specularFloat, specular16, specular8);
+	if (opt.optionalDiffuse) ClearRGB(diffuseFloat, diffuse16, diffuse8);
+	if (opt.optionalWorld) ClearRGB(worldFloat, world16, world8);
 
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
 		zBuffer[i] = float(1e20);
@@ -193,6 +197,8 @@ void cImage::FreeImage()
 
 	FreeRGB(normalFloat, normal16, normal8);
 	FreeRGB(specularFloat, specular16, specular8);
+	FreeRGB(diffuseFloat, diffuse16, diffuse8);
+	FreeRGB(worldFloat, world16, world8);
 
 	gammaTable.reset();
 	gammaTablePrepared = false;
@@ -325,6 +331,8 @@ int cImage::GetUsedMB() const
 	quint64 optionalChannels = 0;
 	if (opt.optionalNormal) optionalChannels++;
 	if (opt.optionalSpecular) optionalChannels++;
+	if (opt.optionalDiffuse) optionalChannels++;
+	if (opt.optionalWorld) optionalChannels++;
 	optionalSize += optionalChannels * quint64(width) * quint64(height)
 									* (sizeof(sRGBFloat) + sizeof(sRGB16) + sizeof(sRGB8));
 
@@ -428,6 +436,30 @@ quint8 *cImage::ConvertSpecularTo8Bit()
 {
 	if (!opt.optionalSpecular) return nullptr;
 	return ConvertGenericRGBTo8bit(specularFloat, specular8);
+}
+
+quint8 *cImage::ConvertDiffuseTo16Bit()
+{
+	if (!opt.optionalDiffuse) return nullptr;
+	return ConvertGenericRGBTo16bit(diffuseFloat, diffuse16);
+}
+
+quint8 *cImage::ConvertDiffuseTo8Bit()
+{
+	if (!opt.optionalDiffuse) return nullptr;
+	return ConvertGenericRGBTo8bit(diffuseFloat, diffuse8);
+}
+
+quint8 *cImage::ConvertWorldTo16Bit()
+{
+	if (!opt.optionalWorld) return nullptr;
+	return ConvertGenericRGBTo16bit(worldFloat, world16);
+}
+
+quint8 *cImage::ConvertWorldTo8Bit()
+{
+	if (!opt.optionalWorld) return nullptr;
+	return ConvertGenericRGBTo8bit(worldFloat, world8);
 }
 
 sRGB8 cImage::Interpolation(float x, float y) const
@@ -1117,6 +1149,28 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 
 					left->specular16[ptrNew] = specular16[ptrLeft];
 					right->specular16[ptrNew] = specular16[ptrRight];
+				}
+				if (opt.optionalDiffuse)
+				{
+					left->diffuseFloat[ptrNew] = diffuseFloat[ptrLeft];
+					right->diffuseFloat[ptrNew] = diffuseFloat[ptrRight];
+
+					left->diffuse8[ptrNew] = diffuse8[ptrLeft];
+					right->diffuse8[ptrNew] = diffuse8[ptrRight];
+
+					left->diffuse16[ptrNew] = diffuse16[ptrLeft];
+					right->diffuse16[ptrNew] = diffuse16[ptrRight];
+				}
+				if (opt.optionalWorld)
+				{
+					left->worldFloat[ptrNew] = worldFloat[ptrLeft];
+					right->worldFloat[ptrNew] = worldFloat[ptrRight];
+
+					left->world8[ptrNew] = world8[ptrLeft];
+					right->world8[ptrNew] = world8[ptrRight];
+
+					left->world16[ptrNew] = world16[ptrLeft];
+					right->world16[ptrNew] = world16[ptrRight];
 				}
 			}
 		}

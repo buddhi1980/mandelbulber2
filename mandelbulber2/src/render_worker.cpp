@@ -188,6 +188,7 @@ void cRenderWorker::doWork()
 			sRGBFloat normalFloat;
 			sRGBFloat specularFloat;
 			double depth = 1e20;
+			sRGBFloat worldPositionRGB;
 
 			if (monteCarlo) repeats = params->DOFSamples;
 			if (antiAliasing) repeats *= antiAliasingSize * antiAliasingSize;
@@ -299,6 +300,8 @@ void cRenderWorker::doWork()
 				sRGBAfloat resultShader;
 				sRGBAfloat objectColour;
 				CVector3 normal;
+				CVector3 worldPosition;
+;
 
 				double opacity = 1.0;
 				depth = 1e20;
@@ -338,6 +341,7 @@ void cRenderWorker::doWork()
 					if (!recursionOut.found) depth = 1e20;
 					opacity = recursionOut.fogOpacity;
 					normal = recursionOut.normal;
+					worldPosition = recursionOut.rayMarchingOut.point;
 					specularFloat.R = recursionOut.specular.R;
 					specularFloat.G = recursionOut.specular.G;
 					specularFloat.B = recursionOut.specular.B;
@@ -383,6 +387,14 @@ void cRenderWorker::doWork()
 					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
 					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
 					normalFloat.B = 1.0 - normalRotated.y;
+				}
+
+				if (image->GetImageOptional()->optionalWorld)
+				{
+					// TODO, which range mapping?
+					worldPositionRGB.R = (100 + worldPosition.x) / 200;
+					worldPositionRGB.G = (100 + worldPosition.y) / 200;
+					worldPositionRGB.B = (100 + worldPosition.z) / 200;
 				}
 
 				finalPixelDOF.R += finalPixel.R;
@@ -456,6 +468,8 @@ void cRenderWorker::doWork()
 								image->PutPixelNormal(xxx, yyy, normalFloat);
 							if (image->GetImageOptional()->optionalSpecular)
 								image->PutPixelSpecular(xxx, yyy, specularFloat);
+							if (image->GetImageOptional()->optionalWorld)
+								image->PutPixelWorld(xxx, yyy, worldPositionRGB);
 						}
 					}
 				}

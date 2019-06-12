@@ -45,6 +45,16 @@
 
 #include "color_structures.hpp"
 
+#ifdef USE_EXR
+#include <ImfAttribute.h>
+#include <ImfChannelList.h>
+#include <ImfFrameBuffer.h>
+#include <ImfInputFile.h>
+#include <ImfOutputFile.h>
+#include <ImfStringAttribute.h>
+#include <half.h>
+#endif // USE_EXR
+
 // custom includes
 extern "C"
 {
@@ -89,7 +99,11 @@ public:
 		// https://www.blender.org/manual/render/blender_render/textures/influence/material/bump_and_normal.html
 		IMAGE_CONTENT_NORMAL = 3,
 
-		IMAGE_CONTENT_SPECULAR = 4
+		IMAGE_CONTENT_SPECULAR = 4,
+
+		IMAGE_CONTENT_DIFFUSE = 5,
+
+		IMAGE_CONTENT_WORLD_POSITION = 6,
 	};
 
 	enum enumImageChannelQualityType
@@ -223,6 +237,8 @@ public:
 	QString getJobName() override { return tr("Saving %1").arg("EXR"); }
 	void SaveEXR(QString filename, cImage *image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
+	void SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
+		Imf::Header header, Imf::FrameBuffer frameBuffer, uint64_t width, uint64_t height);
 };
 #endif /* USE_EXR */
 

@@ -47,15 +47,20 @@
 
 struct sImageOptional
 {
-	sImageOptional() : optionalNormal(false), optionalSpecular(false) {}
+	sImageOptional() : optionalNormal(false), optionalSpecular(false),
+		optionalDiffuse(false), optionalWorld(false){}
 	inline bool operator==(sImageOptional other) const
 	{
-		return other.optionalNormal == optionalNormal;
-		return other.optionalSpecular == optionalSpecular;
+		return other.optionalNormal == optionalNormal
+				&& other.optionalSpecular == optionalSpecular
+				&& other.optionalDiffuse == optionalDiffuse
+				&& other.optionalWorld == optionalWorld;
 	}
 
 	bool optionalNormal;
 	bool optionalSpecular;
+	bool optionalDiffuse;
+	bool optionalWorld;
 };
 
 struct sAllImageData
@@ -65,6 +70,8 @@ struct sAllImageData
 	quint16 opacityBuffer;
 	sRGBFloat normalFloat;
 	sRGBFloat normalSpecular;
+	sRGBFloat worldPosition;
+	sRGBFloat diffuse;
 	sRGB8 colourBuffer;
 	float zBuffer;
 };
@@ -146,6 +153,14 @@ public:
 	{
 		specularFloat[getImageIndex(x, y)] = pixel;
 	}
+	inline void PutPixelDiffuse(qint64 x, qint64 y, sRGBFloat pixel)
+	{
+		diffuseFloat[getImageIndex(x, y)] = pixel;
+	}
+	inline void PutPixelWorld(qint64 x, qint64 y, sRGBFloat pixel)
+	{
+		worldFloat[getImageIndex(x, y)] = pixel;
+	}
 	inline sRGBFloat GetPixelImage(qint64 x, qint64 y) const
 	{
 		return imageFloat[getImageIndex(x, y)];
@@ -193,6 +208,30 @@ public:
 	inline sRGB8 GetPixelSpecular8(qint64 x, qint64 y)
 	{
 		return GetPixelGeneric8(specular8, opt.optionalSpecular, x, y);
+	}
+	inline sRGBFloat GetPixelDiffuse(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric(diffuseFloat, opt.optionalDiffuse, x, y);
+	}
+	inline sRGB16 GetPixelDiffuse16(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric16(diffuse16, opt.optionalDiffuse, x, y);
+	}
+	inline sRGB8 GetPixelDiffuse8(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric8(diffuse8, opt.optionalDiffuse, x, y);
+	}
+	inline sRGBFloat GetPixelWorld(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric(worldFloat, opt.optionalWorld, x, y);
+	}
+	inline sRGB16 GetPixelWorld16(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric16(world16, opt.optionalWorld, x, y);
+	}
+	inline sRGB8 GetPixelWorld8(qint64 x, qint64 y)
+	{
+		return GetPixelGeneric8(world8, opt.optionalWorld, x, y);
 	}
 
 	inline sRGBFloat GetPixelGeneric(
@@ -278,6 +317,10 @@ public:
 	quint8 *ConvertNormalTo8Bit();
 	quint8 *ConvertSpecularTo16Bit();
 	quint8 *ConvertSpecularTo8Bit();
+	quint8 *ConvertDiffuseTo16Bit();
+	quint8 *ConvertDiffuseTo8Bit();
+	quint8 *ConvertWorldTo16Bit();
+	quint8 *ConvertWorldTo8Bit();
 
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
@@ -336,6 +379,14 @@ private:
 	QScopedArrayPointer<sRGBFloat> specularFloat;
 	QScopedArrayPointer<sRGB8> specular8;
 	QScopedArrayPointer<sRGB16> specular16;
+
+	QScopedArrayPointer<sRGBFloat> diffuseFloat;
+	QScopedArrayPointer<sRGB8> diffuse8;
+	QScopedArrayPointer<sRGB16> diffuse16;
+
+	QScopedArrayPointer<sRGBFloat> worldFloat;
+	QScopedArrayPointer<sRGB8> world8;
+	QScopedArrayPointer<sRGB16> world16;
 
 	QScopedArrayPointer<sRGB8> preview;
 	QScopedArrayPointer<sRGB8> preview2;

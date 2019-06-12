@@ -565,6 +565,10 @@ void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 				lineOfImage[x].normalFloat = image->GetPixelNormal(x, y);
 			if (image->GetImageOptional()->optionalSpecular)
 				lineOfImage[x].normalSpecular = image->GetPixelSpecular(x, y);
+			if (image->GetImageOptional()->optionalWorld)
+				lineOfImage[x].worldPosition = image->GetPixelWorld(x, y);
+			if (image->GetImageOptional()->optionalDiffuse)
+				lineOfImage[x].diffuse = image->GetPixelDiffuse(x, y);
 		}
 		lineData->append(reinterpret_cast<char *>(lineOfImage), CastSizeToInt(dataSize));
 		delete[] lineOfImage;
@@ -595,6 +599,10 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 					image->PutPixelNormal(x, y, lineOfImage[x].normalFloat);
 				if (image->GetImageOptional()->optionalSpecular)
 					image->PutPixelSpecular(x, y, lineOfImage[x].normalSpecular);
+				if (image->GetImageOptional()->optionalDiffuse)
+					image->PutPixelWorld(x, y, lineOfImage[x].diffuse);
+				if (image->GetImageOptional()->optionalWorld)
+					image->PutPixelWorld(x, y, lineOfImage[x].worldPosition);
 			}
 		}
 		else

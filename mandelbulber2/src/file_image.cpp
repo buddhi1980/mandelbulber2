@@ -48,15 +48,6 @@
 #include "tiff.h"
 #include "tiffio.h"
 #endif // USE_TIFF
-#ifdef USE_EXR
-#include <ImfAttribute.h>
-#include <ImfChannelList.h>
-#include <ImfFrameBuffer.h>
-#include <ImfInputFile.h>
-#include <ImfOutputFile.h>
-#include <ImfStringAttribute.h>
-#include <half.h>
-#endif // USE_EXR
 
 #define PNG_DEBUG 3
 
@@ -111,13 +102,14 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_ZBUFFER: return "zbuffer";
 		case IMAGE_CONTENT_NORMAL: return "normal";
 		case IMAGE_CONTENT_SPECULAR: return "specular";
+		case IMAGE_CONTENT_WORLD_POSITION: return "world";
 	}
 	return "";
 }
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha", "zbuffer", "normal", "specular"});
+	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "world"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -247,6 +239,7 @@ void ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
 			case IMAGE_CONTENT_SPECULAR:
+			case IMAGE_CONTENT_WORLD_POSITION:
 			default: SavePNG(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -321,6 +314,10 @@ void ImageFileSaveJPG::SaveImage()
 				SaveJPEGQt(fullFilename, image->ConvertSpecularTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
+			case IMAGE_CONTENT_WORLD_POSITION:
+				SaveJPEGQt(fullFilename, image->ConvertWorldTo8Bit(), image->GetWidth(),
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
+				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
 		}
 		currentChannel++;
@@ -359,6 +356,7 @@ void ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
 			case IMAGE_CONTENT_SPECULAR:
+			case IMAGE_CONTENT_WORLD_POSITION:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
 		currentChannel++;
@@ -435,6 +433,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_SPECULAR: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
 
@@ -458,6 +457,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
 			case IMAGE_CONTENT_NORMAL: pixelSize *= 3; break;
 			case IMAGE_CONTENT_SPECULAR: pixelSize *= 3; break;
+			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
 		}
 
 		bool directOnBuffer = false;
@@ -496,6 +496,7 @@ void ImageFileSavePNG::SavePNG(
 				case IMAGE_CONTENT_ZBUFFER:
 				case IMAGE_CONTENT_NORMAL:
 				case IMAGE_CONTENT_SPECULAR:
+				case IMAGE_CONTENT_WORLD_POSITION:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
 			}
@@ -615,6 +616,21 @@ void ImageFileSavePNG::SavePNG(
 								if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
 								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 								*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
+							}
+						}
+						case IMAGE_CONTENT_WORLD_POSITION:
+						{
+							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+							{
+								if (x == 0 && y == 0) image->ConvertWorldTo16Bit();
+								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB16(image->GetPixelWorld16(x, y));
+							}
+							else
+							{
+								if (x == 0 && y == 0) image->ConvertWorldTo8Bit();
+								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB8(image->GetPixelWorld8(x, y));
 							}
 						}
 						break;
@@ -1112,94 +1128,17 @@ void ImageFileSaveEXR::SaveEXR(
 
 	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
 	{
-		// add rgb channel header
-		Imf::PixelType imfQuality =
-			imageConfig[IMAGE_CONTENT_NORMAL].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
-																																									 : Imf::HALF;
-
-		header.channels().insert("n.X", Imf::Channel(imfQuality, 1, 1, linear));
-		header.channels().insert("n.Y", Imf::Channel(imfQuality, 1, 1, linear));
-		header.channels().insert("n.Z", Imf::Channel(imfQuality, 1, 1, linear));
-
-		int pixelSize = sizeof(tsRGB<half>);
-		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[uint64_t(width) * height * pixelSize];
-		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
-		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
-
-		for (uint64_t y = 0; y < height; y++)
-		{
-			for (uint64_t x = 0; x < width; x++)
-			{
-				uint64_t ptr = (x + y * width);
-				sRGBFloat pixel = image->GetPixelNormal(x, y);
-				if (imfQuality == Imf::FLOAT)
-				{
-					floatPointer[ptr] = pixel;
-				}
-				else
-				{
-					halfPointer[ptr].R = pixel.R;
-					halfPointer[ptr].G = pixel.G;
-					halfPointer[ptr].B = pixel.B;
-				}
-			}
-		}
-
-		// point EXR frame buffer to rgb
-		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("n.X", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
-																3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("n.Y", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
-																3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("n.Z", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
-																3 * compSize, 3 * width * compSize));
+		SaveExrRgbChannel(QStringList{"n.X", "n.Y", "n.Z"}, imageConfig[IMAGE_CONTENT_NORMAL], header, frameBuffer, width, height);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))
 	{
-		// add rgb channel header
-		Imf::PixelType imfQuality =
-			imageConfig[IMAGE_CONTENT_SPECULAR].channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
-																																										 : Imf::HALF;
+		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR], header, frameBuffer, width, height);
+	}
 
-		header.channels().insert("s.R", Imf::Channel(imfQuality, 1, 1, linear));
-		header.channels().insert("s.G", Imf::Channel(imfQuality, 1, 1, linear));
-		header.channels().insert("s.B", Imf::Channel(imfQuality, 1, 1, linear));
-
-		int pixelSize = sizeof(tsRGB<half>);
-		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
-		char *buffer = new char[uint64_t(width) * height * pixelSize];
-		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
-		tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
-
-		for (uint64_t y = 0; y < height; y++)
-		{
-			for (uint64_t x = 0; x < width; x++)
-			{
-				uint64_t ptr = (x + y * width);
-				sRGBFloat pixel = image->GetPixelSpecular(x, y);
-				if (imfQuality == Imf::FLOAT)
-				{
-					floatPointer[ptr] = pixel;
-				}
-				else
-				{
-					halfPointer[ptr].R = pixel.R;
-					halfPointer[ptr].G = pixel.G;
-					halfPointer[ptr].B = pixel.B;
-				}
-			}
-		}
-
-		// point EXR frame buffer to rgb
-		size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-		frameBuffer.insert("s.R", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
-																3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("s.G", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
-																3 * compSize, 3 * width * compSize));
-		frameBuffer.insert("s.B", Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
-																3 * compSize, 3 * width * compSize));
+	if (imageConfig.contains(IMAGE_CONTENT_WORLD_POSITION))
+	{
+		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION], header, frameBuffer, width, height);
 	}
 
 	QMapIterator<QString, QString> i(image->getMeta());
@@ -1221,6 +1160,60 @@ void ImageFileSaveEXR::SaveEXR(
 		emit updateProgressAndStatus(getJobName(), QString("Saving all channels"), 1.0 * r / height);
 	}
 }
+
+void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
+	Imf::Header header, Imf::FrameBuffer frameBuffer, uint64_t width, uint64_t height)
+{
+	bool linear = gPar->Get<bool>("linear_colorspace");
+	// add rgb channel header
+	Imf::PixelType imfQuality =
+			imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
+																																								 : Imf::HALF;
+
+	header.channels().insert(names.at(0).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
+	header.channels().insert(names.at(1).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
+	header.channels().insert(names.at(2).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
+
+	int pixelSize = sizeof(tsRGB<half>);
+	if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
+	char *buffer = new char[uint64_t(width) * height * pixelSize];
+	tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
+	tsRGB<float> *floatPointer = reinterpret_cast<tsRGB<float> *>(buffer);
+
+	for (uint64_t y = 0; y < height; y++)
+	{
+		for (uint64_t x = 0; x < width; x++)
+		{
+			uint64_t ptr = (x + y * width);
+			sRGBFloat pixel;
+			switch(imageChannel.contentType){
+				case IMAGE_CONTENT_NORMAL: pixel = image->GetPixelNormal(x, y); break;
+				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
+				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
+			}
+			if (imfQuality == Imf::FLOAT)
+			{
+				floatPointer[ptr] = pixel;
+			}
+			else
+			{
+				halfPointer[ptr].R = pixel.R;
+				halfPointer[ptr].G = pixel.G;
+				halfPointer[ptr].B = pixel.B;
+			}
+		}
+	}
+
+	// point EXR frame buffer to rgb
+	size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
+	frameBuffer.insert(names.at(0).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+															3 * compSize, 3 * width * compSize));
+	frameBuffer.insert(names.at(1).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+															3 * compSize, 3 * width * compSize));
+	frameBuffer.insert(names.at(2).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+															3 * compSize, 3 * width * compSize));
+}
+
 #endif /* USE_EXR */
 
 #ifdef USE_TIFF
@@ -1263,6 +1256,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_SPECULAR: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
 
@@ -1274,6 +1268,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ZBUFFER: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_NORMAL: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_SPECULAR: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
 	}
 
 	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, width);
@@ -1458,6 +1453,27 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
 						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
+					}
+				}
+				break;
+				case IMAGE_CONTENT_WORLD_POSITION:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGBFloat(image->GetPixelWorld(x, y));
+					}
+					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						if (x == 0 && y == 0) image->ConvertWorldTo16Bit();
+						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB16(image->GetPixelWorld16(x, y));
+					}
+					else
+					{
+						if (x == 0 && y == 0) image->ConvertWorldTo8Bit();
+						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB8(image->GetPixelWorld8(x, y));
 					}
 				}
 				break;
