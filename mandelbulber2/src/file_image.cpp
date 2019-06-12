@@ -1141,6 +1141,7 @@ void ImageFileSaveEXR::SaveEXR(
 		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION], header, frameBuffer, width, height);
 	}
 
+	// insert meta data
 	QMapIterator<QString, QString> i(image->getMeta());
 	while (i.hasNext())
 	{
@@ -1152,7 +1153,6 @@ void ImageFileSaveEXR::SaveEXR(
 	Imf::OutputFile file(filename.toStdString().c_str(), header);
 	file.setFrameBuffer(frameBuffer);
 
-	// file.writePixels(height);
 	for (uint64_t r = 0; r < height; r += SAVE_CHUNK_SIZE)
 	{
 		uint64_t currentChunkSize = min(height - r, SAVE_CHUNK_SIZE);
@@ -1170,9 +1170,9 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 			imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																								 : Imf::HALF;
 
-	header.channels().insert(names.at(0).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
-	header.channels().insert(names.at(1).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
-	header.channels().insert(names.at(2).toStdString(), Imf::Channel(imfQuality, 1, 1, linear));
+	header.channels().insert(names.at(0).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
+	header.channels().insert(names.at(1).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
+	header.channels().insert(names.at(2).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
 
 	int pixelSize = sizeof(tsRGB<half>);
 	if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
@@ -1206,11 +1206,11 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 
 	// point EXR frame buffer to rgb
 	size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-	frameBuffer.insert(names.at(0).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+	frameBuffer.insert(names.at(0).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
 															3 * compSize, 3 * width * compSize));
-	frameBuffer.insert(names.at(1).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+	frameBuffer.insert(names.at(1).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
 															3 * compSize, 3 * width * compSize));
-	frameBuffer.insert(names.at(2).toStdString(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+	frameBuffer.insert(names.at(2).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
 															3 * compSize, 3 * width * compSize));
 }
 
