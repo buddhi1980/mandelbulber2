@@ -970,6 +970,8 @@ void cOpenClEngineRenderFractal::PutMultiPixel(size_t xx, size_t yy, const sRGBF
 	image->PutPixelAlpha(xx, yy, newAlpha);
 	image->PutPixelColor(xx, yy, color);
 	image->PutPixelOpacity(xx, yy, opacity);
+	if (image->GetImageOptional()->optionalDiffuse)
+		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0, color.G / 255.0, color.B / 255.0));
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
@@ -1363,6 +1365,8 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 			image->PutPixelColor(xx, yy, sRGB8(255, 255, 255));
 			image->PutPixelOpacity(xx, yy, 65535);
 			image->PutPixelAlpha(xx, yy, 1);
+			if (image->GetImageOptional()->optionalDiffuse)
+				image->PutPixelDiffuse(xx, yy, sRGBFloat(1, 1, 1));
 		}
 	}
 	QList<QRect> currentRenderededLines;

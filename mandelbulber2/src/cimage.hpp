@@ -71,7 +71,6 @@ struct sAllImageData
 	sRGBFloat normalFloat;
 	sRGBFloat normalSpecular;
 	sRGBFloat worldPosition;
-	sRGBFloat diffuse;
 	sRGB8 colourBuffer;
 	float zBuffer;
 };

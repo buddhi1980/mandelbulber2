@@ -240,6 +240,7 @@ void ImageFileSavePNG::SaveImage()
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
 			case IMAGE_CONTENT_SPECULAR:
+			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
 			default: SavePNG(fullFilename, image, channel.value()); break;
 		}
@@ -315,6 +316,10 @@ void ImageFileSaveJPG::SaveImage()
 				SaveJPEGQt(fullFilename, image->ConvertSpecularTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
+			case IMAGE_CONTENT_DIFFUSE:
+				SaveJPEGQt(fullFilename, image->ConvertDiffuseTo8Bit(), image->GetWidth(),
+					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
+				break;
 			case IMAGE_CONTENT_WORLD_POSITION:
 				SaveJPEGQt(fullFilename, image->ConvertWorldTo8Bit(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
@@ -357,6 +362,7 @@ void ImageFileSaveTIFF::SaveImage()
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
 			case IMAGE_CONTENT_SPECULAR:
+			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
 			default: SaveTIFF(fullFilename, image, channel.value()); break;
 		}
@@ -434,6 +440,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_SPECULAR: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_DIFFUSE: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
 			default: colorType = PNG_COLOR_TYPE_RGB; break;
 		}
@@ -458,6 +465,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
 			case IMAGE_CONTENT_NORMAL: pixelSize *= 3; break;
 			case IMAGE_CONTENT_SPECULAR: pixelSize *= 3; break;
+			case IMAGE_CONTENT_DIFFUSE: pixelSize *= 3; break;
 			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
 		}
 
@@ -497,6 +505,7 @@ void ImageFileSavePNG::SavePNG(
 				case IMAGE_CONTENT_ZBUFFER:
 				case IMAGE_CONTENT_NORMAL:
 				case IMAGE_CONTENT_SPECULAR:
+				case IMAGE_CONTENT_DIFFUSE:
 				case IMAGE_CONTENT_WORLD_POSITION:
 					// zbuffer and normals are float, so direct buffer write is not applicable
 					break;
@@ -619,6 +628,23 @@ void ImageFileSavePNG::SavePNG(
 								*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
 							}
 						}
+						break;
+						case IMAGE_CONTENT_DIFFUSE:
+						{
+							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+							{
+								if (x == 0 && y == 0) image->ConvertDiffuseTo16Bit();
+								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB16(image->GetPixelDiffuse16(x, y));
+							}
+							else
+							{
+								if (x == 0 && y == 0) image->ConvertDiffuseTo8Bit();
+								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+								*typedColorPtr = sRGB8(image->GetPixelDiffuse8(x, y));
+							}
+						}
+						break;
 						case IMAGE_CONTENT_WORLD_POSITION:
 						{
 							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
@@ -1137,6 +1163,11 @@ void ImageFileSaveEXR::SaveEXR(
 		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR], &header, &frameBuffer, width, height);
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_DIFFUSE))
+	{
+		SaveExrRgbChannel(QStringList{"d.R", "d.G", "d.B"}, imageConfig[IMAGE_CONTENT_DIFFUSE], &header, &frameBuffer, width, height);
+	}
+
 	if (imageConfig.contains(IMAGE_CONTENT_WORLD_POSITION))
 	{
 		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION], &header, &frameBuffer, width, height);
@@ -1190,6 +1221,7 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 			switch(imageChannel.contentType){
 				case IMAGE_CONTENT_NORMAL: pixel = image->GetPixelNormal(x, y); break;
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
+				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
 			}
 			if (imfQuality == Imf::FLOAT)
@@ -1257,6 +1289,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_SPECULAR: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_DIFFUSE: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
 		default: colorType = PHOTOMETRIC_RGB; break;
 	}
@@ -1269,6 +1302,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ZBUFFER: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_NORMAL: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_SPECULAR: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_DIFFUSE: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
 	}
 
@@ -1454,6 +1488,27 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
 						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
 						*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
+					}
+				}
+				break;
+				case IMAGE_CONTENT_DIFFUSE:
+				{
+					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+					{
+						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGBFloat(image->GetPixelDiffuse(x, y));
+					}
+					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+					{
+						if (x == 0 && y == 0) image->ConvertDiffuseTo16Bit();
+						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB16(image->GetPixelDiffuse16(x, y));
+					}
+					else
+					{
+						if (x == 0 && y == 0) image->ConvertDiffuseTo8Bit();
+						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
+						*typedColorPtr = sRGB8(image->GetPixelDiffuse8(x, y));
 					}
 				}
 				break;
