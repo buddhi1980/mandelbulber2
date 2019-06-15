@@ -241,21 +241,21 @@ and will only be present after enabling and re-render.</string>
                </widget>
               </item>
               <item row="1" column="0">
-               <widget class="QLabel" name="label_10">
+               <widget class="QLabel" name="label_image_channel_optional">
                 <property name="text">
                  <string>Image Channel</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLabel" name="label_8">
+               <widget class="QLabel" name="label_image_quality_optional">
                 <property name="text">
                  <string>Quality</string>
                 </property>
                </widget>
               </item>
               <item row="1" column="2">
-               <widget class="QLabel" name="label_9">
+               <widget class="QLabel" name="label_image_postfix_optional">
                 <property name="text">
                  <string>Postfix</string>
                 </property>

@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
@@ -102,27 +106,9 @@ private:
 
 public:
 	bool IsUpgraded() const { return QFileInfo::exists(dataDirectoryPublic + "settings"); }
-	void Upgrade() const
-	{
-		QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
-			GetMaterialsFolder(), GetAnimationFolder()};
-		for (int i = 0; i < moveFolders.size(); i++)
-		{
-			QString folderSource = moveFolders.at(i);
-			QString folderTarget = folderSource;
-			folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
-			if (QFileInfo::exists(folderTarget))
-			{
-				qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
-			}
-			else if (!QDir().rename(folderSource, folderTarget))
-			{
-				qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
-			}
-		}
-	}
-	void SetDataDirectoryHidden(QString target) { dataDirectoryHidden = target; }
-	void SetDataDirectoryPublic(QString target) { dataDirectoryPublic = target; }
+	void Upgrade() const;
+	void SetDataDirectoryHidden(QString target) { dataDirectoryHidden = std::move(target); }
+	void SetDataDirectoryPublic(QString target) { dataDirectoryPublic = std::move(target); }
 	QString GetDataDirectoryPublic() const { return dataDirectoryPublic; }
 	QString GetDataDirectoryHidden() const { return dataDirectoryHidden; }
 	QString GetDataDirectoryUsed() const
@@ -148,20 +134,7 @@ public:
 	QString GetResolutionPresetsFile() const { return dataDirectoryHidden + "resolutionPresets.ini"; }
 	QString GetNetrenderFolder() const { return dataDirectoryHidden + "netrender"; }
 
-	QString GetImageFileNameSuggestion()
-	{
-		QString imageBaseName = QFileInfo(lastImageFile).completeBaseName();
-
-		// if the last image file has been saved manually, this is the suggestion for the filename
-		if (!lastImageFile.endsWith("image.jpg")) return imageBaseName;
-
-		// otherwise if the settings has been loaded from a proper .fract file, this fileName's basename
-		// is the suggestion
-		if (lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
-
-		// maybe loaded by clipboard, no better suggestion, than the default lastImageFile's baseName
-		return imageBaseName;
-	}
+	QString GetImageFileNameSuggestion();
 
 	int GetPreferredFontSize() const { return preferredFontSize; }
 	void SetPreferredFontSize(int preferredFontSizeInput)
@@ -178,7 +151,7 @@ public:
 	{
 		preferredFontPointSize = preferredFontPointSizeInput;
 	}
-	void SetLogfileName(QString logfileNameInput) { logfileName = logfileNameInput; }
+	void SetLogfileName(QString logfileNameInput) { logfileName = std::move(logfileNameInput); }
 
 	QString homeDir;
 	QString sharedDir;
@@ -218,25 +191,25 @@ extern sSystem systemData;
 extern sActualFileNames actualFileNames;
 
 bool InitSystem();
-void WriteLog(QString text, int verbosityLevel);
-void WriteLogCout(QString text, int verbosityLevel);
-void WriteLogDouble(QString text, double value, int verbosityLevel);
-void WriteLogInt(QString text, int value, int verbosityLevel);
-void WriteLogSizeT(QString text, size_t value, int verbosityLevel);
-void WriteLogString(QString text, QString value, int verbosityLevel);
+void WriteLog(const QString& text, int verbosityLevel);
+void WriteLogCout(const QString& text, int verbosityLevel);
+void WriteLogDouble(const QString& text, double value, int verbosityLevel);
+void WriteLogInt(const QString& text, int value, int verbosityLevel);
+void WriteLogSizeT(const QString& text, size_t value, int verbosityLevel);
+void WriteLogString(const QString& text, const QString& value, int verbosityLevel);
 void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders();
-bool CreateFolder(QString name);
+bool CreateFolder(const QString& name);
 void DeleteAllFilesFromDirectory(
-	QString folder, QString filterExpression, QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
-int fcopy(QString source, QString dest);
+	const QString& folder, const QString& filterExpression, QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
+int fcopy(const QString& source, const QString& dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();
 void UpdateUIStyle();
 void UpdateUISkin();
-void UpdateLanguage(QCoreApplication *app);
+void UpdateLanguage();
 void RetrieveToolbarPresets(bool force);
 void RetrieveExampleMaterials(bool force);
 QThread::Priority GetQThreadPriority(enumRenderingThreadPriority priority);

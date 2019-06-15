@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	// configure debug output
 	qInstallMessageHandler(myMessageOutput);
 
-	UpdateLanguage(gCoreApplication);
+	UpdateLanguage();
 
 	cCommandLineInterface commandLineInterface(gApplication);
 
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
 		UpdateUIStyle();
 		UpdateUISkin();
 	}
-	UpdateLanguage(gApplication);
+	UpdateLanguage();
 
 #ifdef USE_OPENCL
 	gOpenCl = new cGlobalOpenCl();

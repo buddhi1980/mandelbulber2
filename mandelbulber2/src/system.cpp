@@ -257,7 +257,7 @@ void handle_winch(int sig)
 	(void)sig;
 #ifndef _WIN32
 	signal(SIGWINCH, SIG_IGN);
-	struct winsize w;
+	struct winsize w{};
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	systemData.terminalWidth = w.ws_col;
 	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
@@ -272,7 +272,7 @@ int get_cpu_count()
 	return QThread::idealThreadCount();
 }
 
-void WriteLogCout(QString text, int verbosityLevel)
+void WriteLogCout(const QString& text, int verbosityLevel)
 {
 	// output to console
 	cout << text.toStdString();
@@ -280,7 +280,7 @@ void WriteLogCout(QString text, int verbosityLevel)
 	WriteLog(text, verbosityLevel);
 }
 
-void WriteLog(QString text, int verbosityLevel)
+void WriteLog(const QString& text, int verbosityLevel)
 {
 	// verbosity level:
 	// 1 - only errors
@@ -319,22 +319,22 @@ void WriteLog(QString text, int verbosityLevel)
 	}
 }
 
-void WriteLogString(QString text, QString value, int verbosityLevel)
+void WriteLogString(const QString& text, const QString& value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + value, verbosityLevel);
 }
 
-void WriteLogDouble(QString text, double value, int verbosityLevel)
+void WriteLogDouble(const QString& text, double value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
-void WriteLogInt(QString text, int value, int verbosityLevel)
+void WriteLogInt(const QString& text, int value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
-void WriteLogSizeT(QString text, size_t value, int verbosityLevel)
+void WriteLogSizeT(const QString& text, size_t value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
@@ -398,7 +398,7 @@ bool CreateDefaultFolders()
 	return result;
 }
 
-bool CreateFolder(QString qName)
+bool CreateFolder(const QString& qName)
 {
 	if (QDir(qName).exists())
 	{
@@ -422,7 +422,7 @@ bool CreateFolder(QString qName)
 }
 
 void DeleteAllFilesFromDirectory(
-	QString folder, QString filterExpression, QRegExp::PatternSyntax pattern)
+	const QString& folder, const QString& filterExpression, QRegExp::PatternSyntax pattern)
 {
 	QRegExp rx(filterExpression);
 	rx.setPatternSyntax(pattern);
@@ -453,7 +453,7 @@ void DeleteAllFilesFromDirectory(
 	}
 }
 
-int fcopy(QString source, QString dest)
+int fcopy(const QString& source, const QString& dest)
 {
 	// ------ file reading
 
@@ -584,7 +584,7 @@ void UpdateUIStyle()
 	if (gPar->Get<int>("ui_style_type") >= 0
 			&& gPar->Get<int>("ui_style_type") < QStyleFactory::keys().size())
 	{
-		gApplication->setStyle(
+		QApplication::setStyle(
 			QStyleFactory::create(QStyleFactory::keys().at(gPar->Get<int>("ui_style_type"))));
 	}
 }
@@ -615,7 +615,7 @@ void UpdateUISkin()
 			break;
 		case 3: // Nasa Font light
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
-			gApplication->setFont(QFont("nasalization"));
+			QApplication::setFont(QFont("nasalization"));
 			colorBackground1 = QColor(167, 173, 187);
 			colorBackground2 = QColor(192, 196, 207);
 			colorText1 = Qt::black;
@@ -623,7 +623,7 @@ void UpdateUISkin()
 			break;
 		case 4: // Nasa Font dark
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
-			gApplication->setFont(QFont("nasalization"));
+			QApplication::setFont(QFont("nasalization"));
 			colorBackground1 = QColor(52, 61, 70);
 			colorBackground2 = QColor(79, 91, 102);
 			colorText1 = Qt::white;
@@ -631,7 +631,7 @@ void UpdateUISkin()
 			break;
 		case 5: // Nasa Font dark green
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
-			gApplication->setFont(QFont("nasalization"));
+			QApplication::setFont(QFont("nasalization"));
 			colorBackground1 = QColor(20, 40, 10);
 			colorBackground2 = QColor(30, 50, 0);
 			colorText1 = Qt::green;
@@ -639,7 +639,7 @@ void UpdateUISkin()
 			break;
 		case 6: // Nasa Font dark blue
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
-			gApplication->setFont(QFont("nasalization"));
+			QApplication::setFont(QFont("nasalization"));
 			colorBackground1 = QColor(10, 10, 40);
 			colorBackground2 = QColor(20, 20, 60);
 			colorText1 = QColor(50, 150, 255);
@@ -647,7 +647,7 @@ void UpdateUISkin()
 			break;
 		case 7: // Nasa Font dark brown
 			QFontDatabase::addApplicationFont(":/fonts/fonts/nasalization-rg.ttf");
-			gApplication->setFont(QFont("nasalization"));
+			QApplication::setFont(QFont("nasalization"));
 			colorBackground1 = QColor(40, 10, 10);
 			colorBackground2 = QColor(60, 20, 20);
 			colorText1 = QColor(255, 150, 50);
@@ -675,10 +675,10 @@ void UpdateUISkin()
 		palette.setColor(QPalette::HighlightedText, colorText2);
 	}
 	// set ui skin
-	gApplication->setPalette(palette);
+	QApplication::setPalette(palette);
 }
 
-void UpdateLanguage(QCoreApplication *app)
+void UpdateLanguage()
 {
 	// Set language from locale
 	WriteLog("Prepare translator", 2);
@@ -701,8 +701,8 @@ void UpdateLanguage(QCoreApplication *app)
 		"formula_" + locale, systemData.sharedDir + QDir::separator() + "language");
 
 	WriteLog("Installing translator", 2);
-	app->installTranslator(&mandelbulberMainTranslator);
-	app->installTranslator(&mandelbulberFractalUiTranslator);
+	QCoreApplication::installTranslator(&mandelbulberMainTranslator);
+	QCoreApplication::installTranslator(&mandelbulberFractalUiTranslator);
 
 	// try to load qt translator
 	if (qtTranslator.load(
@@ -710,7 +710,7 @@ void UpdateLanguage(QCoreApplication *app)
 			|| qtTranslator.load(QLatin1String("qtbase_") + locale,
 					 QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
 	{
-		app->installTranslator(&qtTranslator);
+		QCoreApplication::installTranslator(&qtTranslator);
 	}
 }
 
@@ -770,10 +770,10 @@ void CalcPreferredFontSize(bool noGui)
 {
 	if (!noGui)
 	{
-		const int fontSize = gApplication->font().pointSizeF();
+		const int fontSize = (int) QApplication::font().pointSizeF();
 		systemData.SetPreferredFontPointSize(fontSize);
 
-		QFontMetrics fm(gApplication->font());
+		QFontMetrics fm(QApplication::font());
 		const int pixelFontSize = fm.height();
 
 		const int thumbnailSize = (pixelFontSize * 8);
@@ -818,6 +818,39 @@ QString sSystem::GetIniFile() const
 		}
 	}
 	return fullIniFileName;
+}
+
+void sSystem::Upgrade() const {
+    QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
+                               GetMaterialsFolder(), GetAnimationFolder()};
+    for (int i = 0; i < moveFolders.size(); i++)
+    {
+        const QString& folderSource = moveFolders.at(i);
+        QString folderTarget = folderSource;
+        folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
+        if (QFileInfo::exists(folderTarget))
+        {
+            qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
+        }
+        else if (!QDir().rename(folderSource, folderTarget))
+        {
+            qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
+        }
+    }
+}
+
+QString sSystem::GetImageFileNameSuggestion() {
+    QString imageBaseName = QFileInfo(lastImageFile).completeBaseName();
+
+    // if the last image file has been saved manually, this is the suggestion for the filename
+    if (!lastImageFile.endsWith("image.jpg")) return imageBaseName;
+
+    // otherwise if the settings has been loaded from a proper .fract file, this fileName's basename
+    // is the suggestion
+    if (lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
+
+    // maybe loaded by clipboard, no better suggestion, than the default lastImageFile's baseName
+    return imageBaseName;
 }
 
 bool IsOutputTty()

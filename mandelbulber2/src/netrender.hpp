@@ -49,7 +49,7 @@ class CNetRender : public QObject
 {
 	Q_OBJECT
 public:
-	CNetRender(qint32 workerCount);
+	explicit CNetRender(qint32 workerCount);
 	~CNetRender() override;
 
 	//--------------- enumerations ---------------------
@@ -127,7 +127,7 @@ public:
 	// ask if client is connected
 	bool IsClient() const { return deviceType == netRender_CLIENT; }
 	// initializing server
-	void SetServer(qint32 portNo);
+	void SetServer(qint32 _portNo);
 	// deleting server
 	void DeleteServer();
 	// connecting client
@@ -157,7 +157,7 @@ public:
 	// get line numbers which should be rendered first
 	QList<int> GetStartingPositions() const { return startingPositions; }
 	// get received textures
-	QByteArray *GetTexture(QString textureName, int frameNo);
+	QByteArray *GetTexture(const QString& textureName, int frameNo);
 
 	bool WaitForAllClientsReady(double timeout);
 
@@ -191,8 +191,6 @@ private:
 	QString address;
 	QString serverName;
 	qint32 portNo;
-	qint32 totalReceived;
-	qint32 totalReceivedUncompressed;
 	qint32 version;
 	qint32 workerCount;
 	QTcpServer *server;
@@ -213,17 +211,17 @@ private:
 public slots:
 	// send parameters and textures to all clients and start rendering
 	void SetCurrentJob(
-		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
+		const cParameterContainer& settings, const cFractalContainer& fractal, QStringList listOfTextures);
 	// send to server a list of numbers and image data of already rendered lines
-	void SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines) const;
+	void SendRenderedLines(const QList<int>& lineNumbers, const QList<QByteArray>& lines) const;
 	// send list of already rendered lines
-	void SendToDoList(int clientIndex, QList<int> done); // send list of already rendered lines
+	void SendToDoList(int clientIndex, const QList<int>& done); // send list of already rendered lines
 	// notify the server about client status change
 	void NotifyStatus();
 	// send message to all clients to stop rendering
 	void StopAll();
 	// send client id and list of list of lines to render at the beginning to selected client
-	void SendSetup(int clientIndex, int id, QList<int> startingPositions);
+	void SendSetup(int clientIndex, int id, const QList<int>& _startingPositions);
 	// kicks and kills a client (can be used if client is hanging)
 	void KickAndKillClient(int clientIndex);
 

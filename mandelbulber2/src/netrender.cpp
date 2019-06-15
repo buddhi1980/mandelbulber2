@@ -55,15 +55,13 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
 {
 	this->workerCount = workerCount;
 	deviceType = netRender_UNKNOWN;
-	version = 1000 * MANDELBULBER_VERSION;
+	version = 1000L * MANDELBULBER_VERSION;
 	clientSocket = nullptr;
 	server = nullptr;
 	portNo = 0;
 	status = netRender_NEW;
 	reconnectTimer = nullptr;
 	actualId = 0;
-	totalReceivedUncompressed = 0;
-	totalReceived = 0;
 	isUsed = false;
 }
 
@@ -73,11 +71,11 @@ CNetRender::~CNetRender()
 	DeleteClient();
 }
 
-void CNetRender::SetServer(qint32 portNo)
+void CNetRender::SetServer(qint32 _portNo)
 {
 	DeleteClient();
 	DeleteServer();
-	this->portNo = portNo;
+	portNo = _portNo;
 	ResetMessage(&msgCurrentJob);
 	server = new QTcpServer(this);
 
@@ -195,7 +193,7 @@ void CNetRender::HandleNewConnection()
 void CNetRender::ClientDisconnected()
 {
 	// get client by signal emitter
-	QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+	auto *socket = qobject_cast<QTcpSocket *>(sender());
 	if (socket)
 	{
 		int index = GetClientIndexFromSocket(socket);
@@ -227,7 +225,7 @@ int CNetRender::GetClientIndexFromSocket(const QTcpSocket *socket) const
 void CNetRender::ReceiveFromClient()
 {
 	// get client by signal emitter
-	QTcpSocket *socket = qobject_cast<QTcpSocket *>(sender());
+	auto *socket = qobject_cast<QTcpSocket *>(sender());
 	int index = GetClientIndexFromSocket(socket);
 	if (index != -1)
 	{
@@ -236,13 +234,13 @@ void CNetRender::ReceiveFromClient()
 	}
 }
 
-void CNetRender::SetClient(QString address, int portNo)
+void CNetRender::SetClient(QString _address, int _portNo)
 {
 	DeleteServer();
 	deviceType = netRender_CLIENT;
 	status = netRender_NEW;
-	this->address = address;
-	this->portNo = portNo;
+	address = _address;
+	portNo = _portNo;
 	ResetMessage(&msgFromServer);
 	clientSocket = new QTcpSocket(this);
 
@@ -600,7 +598,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 						// in noGui mode it must be started as separate thread to be able to process event loop
 						gMainInterface->headless = new cHeadless;
 
-						QThread *thread = new QThread; // deleted by deleteLater()
+						auto *thread = new QThread; // deleted by deleteLater()
 						gMainInterface->headless->moveToThread(thread);
 						QObject::connect(
 							thread, SIGNAL(started()), gMainInterface->headless, SLOT(slotNetRender()));
@@ -682,7 +680,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case netRender_KICK_AND_KILL:
 			{
 				WriteLog("NetRender - ProcessData(), command KICK AND KILL", 2);
-				gApplication->quit();
+				QApplication::quit();
 				break;
 			}
 
@@ -808,7 +806,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 }
 
 // send rendered lines
-void CNetRender::SendRenderedLines(QList<int> lineNumbers, QList<QByteArray> lines) const
+void CNetRender::SendRenderedLines(const QList<int>& lineNumbers, const QList<QByteArray>& lines) const
 {
 	sMessage msg;
 	msg.command = netRender_DATA;
@@ -834,7 +832,7 @@ void CNetRender::Stop()
 }
 
 void CNetRender::SetCurrentJob(
-	cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures)
+	const cParameterContainer& settings, const cFractalContainer& fractal, QStringList listOfTextures)
 {
 	WriteLog("NetRender - Sending job", 2);
 	cSettings settingsData(cSettings::formatNetRender);
@@ -899,7 +897,7 @@ void CNetRender::NotifyStatus()
 	emit NewStatusClient();
 }
 
-void CNetRender::SendToDoList(int clientIndex, QList<int> done)
+void CNetRender::SendToDoList(int clientIndex, const QList<int>& done)
 {
 	if (clientIndex < clients.size())
 	{
@@ -926,7 +924,7 @@ void CNetRender::StopAll()
 	Stop();
 }
 
-void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions)
+void CNetRender::SendSetup(int clientIndex, int id, const QList<int>& _startingPositions)
 {
 	WriteLog("NetRender - send setup to clients", 2);
 	if (clientIndex < clients.size())
@@ -935,8 +933,8 @@ void CNetRender::SendSetup(int clientIndex, int id, QList<int> startingPositions
 		msg.command = netRender_SETUP;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 		stream << qint32(id);
-		stream << qint32(startingPositions.size());
-		for (int startingPosition : startingPositions)
+		stream << qint32(_startingPositions.size());
+		for (int startingPosition : _startingPositions)
 		{
 			stream << qint32(startingPosition);
 		}
@@ -1048,7 +1046,7 @@ bool CNetRender::WaitForAllClientsReady(double timeout)
 			Wait(200);
 		}
 
-		gApplication->processEvents();
+		QApplication::processEvents();
 	}
 	return false;
 }
@@ -1073,7 +1071,7 @@ bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
 	return majorVersion1 == majorVersion2;
 }
 
-QByteArray *CNetRender::GetTexture(QString textureName, int frameNo)
+QByteArray *CNetRender::GetTexture(const QString& textureName, int frameNo)
 {
 	const QList<QString> keys = textures.keys();
 	QString animatedTextureName = AnimatedFileName(textureName, frameNo, &keys);
