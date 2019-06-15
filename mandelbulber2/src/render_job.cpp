@@ -150,7 +150,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	sImageOptional imageOptional;
 	imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
 	imageOptional.optionalSpecular = paramsContainer->Get<bool>("specular_enabled");
-	imageOptional.optionalWorld = false; // TODO: enable, when ready
+	imageOptional.optionalWorld = paramsContainer->Get<bool>("world_enabled");
 	imageOptional.optionalDiffuse = false; // TODO: enable, when ready
 
 	emit updateProgressAndStatus(

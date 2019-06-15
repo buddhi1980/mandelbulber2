@@ -102,6 +102,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_ZBUFFER: return "zbuffer";
 		case IMAGE_CONTENT_NORMAL: return "normal";
 		case IMAGE_CONTENT_SPECULAR: return "specular";
+		case IMAGE_CONTENT_DIFFUSE: return "diffuse";
 		case IMAGE_CONTENT_WORLD_POSITION: return "world";
 	}
 	return "";
@@ -109,7 +110,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "world"});
+	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -1128,17 +1129,17 @@ void ImageFileSaveEXR::SaveEXR(
 
 	if (imageConfig.contains(IMAGE_CONTENT_NORMAL))
 	{
-		SaveExrRgbChannel(QStringList{"n.X", "n.Y", "n.Z"}, imageConfig[IMAGE_CONTENT_NORMAL], header, frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"n.X", "n.Y", "n.Z"}, imageConfig[IMAGE_CONTENT_NORMAL], &header, &frameBuffer, width, height);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))
 	{
-		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR], header, frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR], &header, &frameBuffer, width, height);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_WORLD_POSITION))
 	{
-		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION], header, frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"p.X", "p.Y", "p.Z"}, imageConfig[IMAGE_CONTENT_WORLD_POSITION], &header, &frameBuffer, width, height);
 	}
 
 	// insert meta data
@@ -1162,7 +1163,7 @@ void ImageFileSaveEXR::SaveEXR(
 }
 
 void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
-	Imf::Header header, Imf::FrameBuffer frameBuffer, uint64_t width, uint64_t height)
+	Imf::Header *header, Imf::FrameBuffer *frameBuffer, uint64_t width, uint64_t height)
 {
 	bool linear = gPar->Get<bool>("linear_colorspace");
 	// add rgb channel header
@@ -1170,9 +1171,9 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 			imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32 ? Imf::FLOAT
 																																								 : Imf::HALF;
 
-	header.channels().insert(names.at(0).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
-	header.channels().insert(names.at(1).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
-	header.channels().insert(names.at(2).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
+	header->channels().insert(names.at(0).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
+	header->channels().insert(names.at(1).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
+	header->channels().insert(names.at(2).toStdString().c_str(), Imf::Channel(imfQuality, 1, 1, linear));
 
 	int pixelSize = sizeof(tsRGB<half>);
 	if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
@@ -1206,11 +1207,11 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 
 	// point EXR frame buffer to rgb
 	size_t compSize = (imfQuality == Imf::FLOAT ? sizeof(float) : sizeof(half));
-	frameBuffer.insert(names.at(0).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
+	frameBuffer->insert(names.at(0).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 0 * compSize,
 															3 * compSize, 3 * width * compSize));
-	frameBuffer.insert(names.at(1).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
+	frameBuffer->insert(names.at(1).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 1 * compSize,
 															3 * compSize, 3 * width * compSize));
-	frameBuffer.insert(names.at(2).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
+	frameBuffer->insert(names.at(2).toStdString().c_str(), Imf::Slice(imfQuality, static_cast<char *>(buffer) + 2 * compSize,
 															3 * compSize, 3 * width * compSize));
 }
 

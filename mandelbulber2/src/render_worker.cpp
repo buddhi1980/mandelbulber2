@@ -392,9 +392,9 @@ void cRenderWorker::doWork()
 				if (image->GetImageOptional()->optionalWorld)
 				{
 					// TODO, which range mapping?
-					worldPositionRGB.R = (100 + worldPosition.x) / 200;
-					worldPositionRGB.G = (100 + worldPosition.y) / 200;
-					worldPositionRGB.B = (100 + worldPosition.z) / 200;
+					worldPositionRGB.R = worldPosition.x;
+					worldPositionRGB.G = worldPosition.y;
+					worldPositionRGB.B = worldPosition.z;
 				}
 
 				finalPixelDOF.R += finalPixel.R;

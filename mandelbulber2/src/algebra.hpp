@@ -78,7 +78,7 @@ public:
 		y = vector.y;
 		z = vector.z;
 	}
-	inline CVector3(const double vector[3])
+	inline explicit CVector3(const double vector[3])
 	{
 		if (vector)
 		{
@@ -211,7 +211,7 @@ public:
 		// than evaluating each dimension sequentially.
 		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z));
 	}
-	CVector3 RotateAroundVectorByAngle(CVector3 axis, double angle) const;
+	CVector3 RotateAroundVectorByAngle(const CVector3& axis, double angle) const;
 	QString Debug() const
 	{
 		return QString("[%1, %2, %3]").arg(QString::number(x), QString::number(y), QString::number(z));
@@ -224,12 +224,12 @@ public:
 	double z;
 };
 
-inline CVector3 operator*(double scalar, CVector3 vector)
+inline CVector3 operator*(double scalar, const CVector3& vector)
 {
 	return CVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar);
 }
 
-inline CVector3 operator/(double scalar, CVector3 vector)
+inline CVector3 operator/(double scalar, const CVector3& vector)
 {
 	return CVector3(scalar / vector.x, scalar / vector.y, scalar / vector.z);
 }
@@ -255,7 +255,7 @@ public:
 		}
 	}
 
-	inline StructuredCVector3(CVector3 vectors[])
+	inline explicit StructuredCVector3(CVector3 vectors[])
 	{
 		for (int n = 0; n < 8; n++)
 		{
@@ -265,9 +265,9 @@ public:
 		}
 	}
 
-	double x[8];
-	double y[8];
-	double z[8];
+	double x[8]{};
+	double y[8]{};
+	double z[8]{};
 };
 
 /************************* vector 4D **********************/
@@ -288,7 +288,7 @@ public:
 		z = _z;
 		w = _w;
 	}
-	inline CVector4(CVector3 vectXYZ, double _w)
+	inline CVector4(const CVector3& vectXYZ, double _w)
 	{
 		x = vectXYZ.x;
 		y = vectXYZ.y;
@@ -302,7 +302,7 @@ public:
 		z = v.z;
 		w = v.w;
 	}
-	inline CVector4(const double v[4])
+	inline explicit CVector4(const double v[4])
 	{
 		x = v[0];
 		y = v[1];
@@ -431,7 +431,7 @@ public:
 		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z) & gsl_finite(w));
 	}
 
-	CVector4 RotateAroundVectorByAngle(CVector3 axis, double angle) const;
+	CVector4 RotateAroundVectorByAngle(const CVector3& axis, double angle) const;
 
 	QString Debug() const
 	{
@@ -444,12 +444,12 @@ public:
 	double x, y, z, w;
 };
 
-inline CVector4 operator*(double scalar, CVector4 vector)
+inline CVector4 operator*(double scalar, const CVector4& vector)
 {
 	return CVector4(vector.x * scalar, vector.y * scalar, vector.z * scalar, vector.w * scalar);
 }
 
-inline CVector4 operator/(double scalar, CVector4 vector)
+inline CVector4 operator/(double scalar, const CVector4& vector)
 {
 	return CVector4(scalar / vector.x, scalar / vector.y, scalar / vector.z, scalar / vector.w);
 }
@@ -614,9 +614,9 @@ public:
 	double GetGamma() const;
 	void SetRotation(double angles[3]);
 	void SetRotation(double alpha, double beta, double gamma);
-	void SetRotation(CVector3 rotation);
-	void SetRotation2(CVector3 rotation);
-	void SetRotation3(CVector3 rotation);
+	void SetRotation(const CVector3& rotation);
+	void SetRotation2(const CVector3& rotation);
+	void SetRotation3(const CVector3& rotation);
 	CRotationMatrix Transpose() const;
 	CMatrix33 GetMatrix() const { return matrix; }
 
@@ -678,8 +678,8 @@ public:
 	// void SetRotation2(CVector4 rotation);
 	// void SetRotation3(CVector4 rotation);
 
-	void SetRotation44a(CVector3 rotation);
-	void SetRotation44b(CVector3 rotation);
+	void SetRotation44a(const CVector3& rotation);
+	void SetRotation44b(const CVector3& rotation);
 
 	CRotationMatrix44 Transpose() const;
 	CMatrix44 GetMatrix() const { return matrix; }

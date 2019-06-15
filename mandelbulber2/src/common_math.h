@@ -115,14 +115,14 @@ T SmoothCVector(const T &v1, const T &v2, double k);
 double cubicInterpolate(double p[4], double x);
 double bicubicInterpolate(double p[4][4], double x, double y);
 
-CVector3 wrap(CVector3 x, CVector3 a, CVector3 s);
+CVector3 wrap(CVector3 x, const CVector3& a, const CVector3& s);
 
 double MagicRound(double val, double maxError);
 
 // hypercomplex multiplication taken from:
 // https://www.physicsforums.com/threads/16-different-spherical-coordinate-systems.331883/
 CVector4 hypercomplex_mult(const CVector4 &vec1, const CVector4 &vec2);
-CVector4 hypercomplex_pow_constant(const CVector4 &vec1, const int n);
+CVector4 hypercomplex_pow_constant(const CVector4 &vec1, int n);
 
 // 3D analogon to the 2D complex conjugate
 // mirroring a point on the x-axis

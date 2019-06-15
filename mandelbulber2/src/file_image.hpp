@@ -238,7 +238,7 @@ public:
 	void SaveEXR(QString filename, cImage *image,
 		QMap<enumImageContentType, structSaveImageChannel> imageConfig);
 	void SaveExrRgbChannel(QStringList names, structSaveImageChannel imageChannel,
-		Imf::Header header, Imf::FrameBuffer frameBuffer, uint64_t width, uint64_t height);
+		Imf::Header *header, Imf::FrameBuffer *frameBuffer, uint64_t width, uint64_t height);
 };
 #endif /* USE_EXR */
 

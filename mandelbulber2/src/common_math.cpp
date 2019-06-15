@@ -187,7 +187,7 @@ double bicubicInterpolate(double p[4][4], double x, double y)
 	return cubicInterpolate(yy, x);
 }
 
-CVector3 wrap(CVector3 x, CVector3 a, CVector3 s)
+CVector3 wrap(CVector3 x, const CVector3& a, const CVector3& s)
 {
 	x -= s;
 	CVector3 out(x.x - a.x * floor(x.x / a.x) + s.x, x.y - a.y * floor(x.y / a.y) + s.y,
