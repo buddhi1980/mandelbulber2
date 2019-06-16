@@ -309,19 +309,10 @@ void ImageFileSaveJPG::SaveImage()
 				break;
 			}
 			case IMAGE_CONTENT_NORMAL:
-				SaveJPEGQt(fullFilename, image->ConvertNormalTo8Bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
-				break;
-			case IMAGE_CONTENT_SPECULAR:
-				SaveJPEGQt(fullFilename, image->ConvertSpecularTo8Bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
-				break;
-			case IMAGE_CONTENT_DIFFUSE:
-				SaveJPEGQt(fullFilename, image->ConvertDiffuseTo8Bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
-				break;
-			case IMAGE_CONTENT_WORLD_POSITION:
-				SaveJPEGQt(fullFilename, image->ConvertWorldTo8Bit(), image->GetWidth(),
+		case IMAGE_CONTENT_SPECULAR:
+		case IMAGE_CONTENT_DIFFUSE:
+		case IMAGE_CONTENT_WORLD_POSITION:
+				SaveJPEGQt32(fullFilename, channel.value(), image->GetWidth(),
 					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
@@ -330,6 +321,7 @@ void ImageFileSaveJPG::SaveImage()
 	}
 	updateProgressAndStatusFinished();
 }
+
 
 #ifdef USE_TIFF
 void ImageFileSaveTIFF::SaveImage()
@@ -889,6 +881,68 @@ bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int wi
 		memcpy(qScanLine, linePointer, sizeof(unsigned char) * 3 * width);
 	}
 
+	QFile file(filename);
+	file.open(QIODevice::WriteOnly);
+	bool result = qImage->save(&file, "JPEG", quality);
+	if (!result)
+	{
+		cErrorMessage::showMessage(
+			QObject::tr("Can't save image to JPEG file!\n") + filename + "\n" + file.errorString(),
+			cErrorMessage::errorMessage);
+	}
+	file.close();
+	delete qImage;
+	return result;
+}
+
+bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel imageChannel, int width, int height,
+	int quality, QMap<QString, QString> meta)
+{
+
+	if (!image)
+	{
+		WriteLog(
+			"ImageFileSaveJPG::SaveJPEGQt(): "
+			"the image is a null pointer, this might be the case for optional channel(s). "
+			"If this is the case, just rerender the image with enabled channel(s).",
+			1);
+		return false;
+	}
+
+	QImage *qImage = new QImage(width, height, QImage::Format_RGB888);
+	QMapIterator<QString, QString> i(meta);
+	while (i.hasNext())
+	{
+		i.next();
+		qImage->setText(i.key(), i.value());
+	}
+	for (int y = 0; y < height; y++)
+	{
+		unsigned char *qScanLine = qImage->scanLine(y);
+
+		for (int x = 0; x < width; x++)
+		{
+			sRGBAfloat pixel;
+			switch(imageChannel.contentType){
+				case IMAGE_CONTENT_NORMAL:
+					pixel = image->GetPixelNormal(x, y);
+				break;
+				case IMAGE_CONTENT_SPECULAR:
+					pixel = image->GetPixelSpecular(x, y);
+				break;
+				case IMAGE_CONTENT_DIFFUSE:
+					pixel = image->GetPixelDiffuse(x, y);
+				break;
+				case IMAGE_CONTENT_WORLD_POSITION:
+					pixel = image->GetPixelWorld(x, y);
+				break;
+			}
+			sRGB8 pixel8 = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+			qScanLine[3 * x + 0] = pixel8.R;
+			qScanLine[3 * x + 1] = pixel8.G;
+			qScanLine[3 * x + 2] = pixel8.B;
+		}
+	}
 	QFile file(filename);
 	file.open(QIODevice::WriteOnly);
 	bool result = qImage->save(&file, "JPEG", quality);

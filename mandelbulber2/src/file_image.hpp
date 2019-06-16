@@ -207,6 +207,9 @@ public:
 		QMap<QString, QString> meta = {});
 	static bool SaveJPEGQtGreyscale(QString filename, unsigned char *image, int width, int height,
 		int quality, QMap<QString, QString> meta = {});
+	bool SaveJPEGQt32(QString filename, structSaveImageChannel imageChannel, int width, int height, int quality,
+		QMap<QString, QString> meta = {});
+
 };
 
 #ifdef USE_TIFF
