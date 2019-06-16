@@ -598,68 +598,16 @@ void ImageFileSavePNG::SavePNG(
 						}
 						break;
 						case IMAGE_CONTENT_NORMAL:
-						{
-							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-							{
-								if (x == 0 && y == 0) image->ConvertNormalTo16Bit();
-								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
-							}
-							else
-							{
-								if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
-								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
-							}
-						}
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y));
 						break;
 						case IMAGE_CONTENT_SPECULAR:
-						{
-							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-							{
-								if (x == 0 && y == 0) image->ConvertSpecularTo16Bit();
-								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB16(image->GetPixelSpecular16(x, y));
-							}
-							else
-							{
-								if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
-								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
-							}
-						}
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y));
 						break;
 						case IMAGE_CONTENT_DIFFUSE:
-						{
-							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-							{
-								if (x == 0 && y == 0) image->ConvertDiffuseTo16Bit();
-								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB16(image->GetPixelDiffuse16(x, y));
-							}
-							else
-							{
-								if (x == 0 && y == 0) image->ConvertDiffuseTo8Bit();
-								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB8(image->GetPixelDiffuse8(x, y));
-							}
-						}
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelDiffuse(x, y));
 						break;
 						case IMAGE_CONTENT_WORLD_POSITION:
-						{
-							if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-							{
-								if (x == 0 && y == 0) image->ConvertWorldTo16Bit();
-								sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB16(image->GetPixelWorld16(x, y));
-							}
-							else
-							{
-								if (x == 0 && y == 0) image->ConvertWorldTo8Bit();
-								sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-								*typedColorPtr = sRGB8(image->GetPixelWorld8(x, y));
-							}
-						}
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y));
 						break;
 					}
 				}
@@ -898,6 +846,19 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 	delete[] files;
 
 	fclose(fp);
+}
+
+void ImageFileSavePNG::SavePngRgbPixel(structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel){
+	if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16 || imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+	{
+		sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
+		*typedColorPtr = sRGB16(pixel.R * 65535.0f, pixel.G * 65535.0f, pixel.B * 65535.0f);
+	}
+	else
+	{
+		sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
+		*typedColorPtr = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+	}
 }
 
 bool ImageFileSaveJPG::SaveJPEGQt(QString filename, unsigned char *image, int width, int height,
@@ -1450,88 +1411,16 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				}
 				break;
 				case IMAGE_CONTENT_NORMAL:
-				{
-					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
-					{
-						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGBFloat(image->GetPixelNormal(x, y));
-					}
-					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						if (x == 0 && y == 0) image->ConvertNormalTo16Bit();
-						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB16(image->GetPixelNormal16(x, y));
-					}
-					else
-					{
-						if (x == 0 && y == 0) image->ConvertNormalTo8Bit();
-						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB8(image->GetPixelNormal8(x, y));
-					}
-				}
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y));
 				break;
 				case IMAGE_CONTENT_SPECULAR:
-				{
-					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
-					{
-						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGBFloat(image->GetPixelSpecular(x, y));
-					}
-					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						if (x == 0 && y == 0) image->ConvertSpecularTo16Bit();
-						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB16(image->GetPixelSpecular16(x, y));
-					}
-					else
-					{
-						if (x == 0 && y == 0) image->ConvertSpecularTo8Bit();
-						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB8(image->GetPixelSpecular8(x, y));
-					}
-				}
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y));
 				break;
 				case IMAGE_CONTENT_DIFFUSE:
-				{
-					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
-					{
-						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGBFloat(image->GetPixelDiffuse(x, y));
-					}
-					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						if (x == 0 && y == 0) image->ConvertDiffuseTo16Bit();
-						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB16(image->GetPixelDiffuse16(x, y));
-					}
-					else
-					{
-						if (x == 0 && y == 0) image->ConvertDiffuseTo8Bit();
-						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB8(image->GetPixelDiffuse8(x, y));
-					}
-				}
+						SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelDiffuse(x, y));
 				break;
 				case IMAGE_CONTENT_WORLD_POSITION:
-				{
-					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
-					{
-						sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGBFloat(image->GetPixelWorld(x, y));
-					}
-					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
-					{
-						if (x == 0 && y == 0) image->ConvertWorldTo16Bit();
-						sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB16(image->GetPixelWorld16(x, y));
-					}
-					else
-					{
-						if (x == 0 && y == 0) image->ConvertWorldTo8Bit();
-						sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(&colorPtr[ptr]);
-						*typedColorPtr = sRGB8(image->GetPixelWorld8(x, y));
-					}
-				}
+						SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y));
 				break;
 			}
 		}
@@ -1551,6 +1440,24 @@ bool ImageFileSaveTIFF::SaveTIFF(
 	TIFFClose(tiff);
 	delete[] colorPtr;
 	return true;
+}
+
+void ImageFileSaveTIFF::SaveTiffRgbPixel(structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel){
+    if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
+    {
+        sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(colorPtr);
+        *typedColorPtr = pixel;
+    }
+    else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
+    {
+        sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
+        *typedColorPtr = sRGB16(pixel.R * 65535.0f, pixel.G * 65535.0f, pixel.B * 65535.0f);
+    }
+    else
+    {
+        sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
+        *typedColorPtr = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+    }
 }
 
 #endif /* USE_TIFF */
