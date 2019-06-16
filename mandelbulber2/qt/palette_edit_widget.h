@@ -17,6 +17,7 @@ class cPaletteEditWidget : public QWidget
 public:
 	cPaletteEditWidget(QWidget *parent = nullptr);
 	~cPaletteEditWidget();
+	void SetViewModeOnly();
 
 private:
 	void paintEvent(QPaintEvent *event) override;
@@ -34,6 +35,10 @@ private:
 	bool mouseDragStarted;
 	int pressedColorIndex;
 	int dragStartX;
+	bool viewMode;
+
+signals:
+	void openEditor();
 };
 
 #endif /* MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_ */

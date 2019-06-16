@@ -53,6 +53,7 @@ class cMaterialEditor;
 class cSystemTray;
 class cImage;
 class cDetachedWindow;
+class cGradientsEditor;
 
 class cInterface : public QObject
 {
@@ -147,6 +148,7 @@ public:
 	cMaterialEditor *materialEditor;
 	QWidget *scrollAreaMaterialEditor;
 	cSystemTray *systemTray;
+	cGradientsEditor *gradientsEditor;
 
 	CVector2<int> lockedImageResolution;
 	double lockedDetailLevel;

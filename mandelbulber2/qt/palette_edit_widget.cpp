@@ -14,6 +14,7 @@
 
 cPaletteEditWidget::cPaletteEditWidget(QWidget *parent) : QWidget(parent)
 {
+	viewMode = false;
 	mouseDragStarted = false;
 	pressedColorIndex = 0;
 	dragStartX = 0;
@@ -32,11 +33,18 @@ cPaletteEditWidget::~cPaletteEditWidget()
 	// TODO Auto-generated destructor stub
 }
 
+void cPaletteEditWidget::SetViewModeOnly()
+{
+	viewMode = true;
+	setFixedHeight(systemData.GetPreferredThumbnailSize() / 4);
+	margins = 0;
+}
+
 void cPaletteEditWidget::paintEvent(QPaintEvent *event)
 {
 	int gradientWidth = width() - 2 * margins;
 	if (gradientWidth < 2) gradientWidth = 2;
-	int gradientHeight = height() / 2;
+	int gradientHeight = (viewMode) ? height() : height() / 2;
 
 	QPainter painter(this);
 	QVector<sRGB16> grad = gradient.GetGradient(gradientWidth, true);
@@ -48,10 +56,13 @@ void cPaletteEditWidget::paintEvent(QPaintEvent *event)
 		painter.drawLine(x + margins, 0, x + margins, gradientHeight);
 	}
 
-	QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
-	for (cColorGradient::sColor posColor : listOfColors)
+	if (!viewMode)
 	{
-		PaintButton(posColor, painter);
+		QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
+		for (cColorGradient::sColor posColor : listOfColors)
+		{
+			PaintButton(posColor, painter);
+		}
 	}
 }
 
@@ -126,43 +137,60 @@ void cPaletteEditWidget::mouseMoveEvent(QMouseEvent *event)
 
 void cPaletteEditWidget::mousePressEvent(QMouseEvent *event)
 {
-	int mouseX = event->x();
-	int mouseY = event->y();
-
-	if (mouseY > height() / 2)
+	if (event->button() == Qt::LeftButton)
 	{
-		int index = FindButtonAtPosition(mouseX);
-		dragStartX = mouseX;
-		pressedColorIndex = index;
+		if (viewMode)
+		{
+			emit openEditor();
+		}
+		else
+		{
+			int mouseX = event->x();
+			int mouseY = event->y();
+
+			if (mouseY > height() / 2)
+			{
+				int index = FindButtonAtPosition(mouseX);
+				dragStartX = mouseX;
+				pressedColorIndex = index;
+			}
+		}
 	}
 }
 
 void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-	if (pressedColorIndex >= 0 && !mouseDragStarted)
+	if (event->button() == Qt::LeftButton)
 	{
-		QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
-
-		QColorDialog colorDialog(this);
-		colorDialog.setOption(QColorDialog::DontUseNativeDialog);
-		sRGB16 colorRGB = listOfColors[pressedColorIndex].color;
-		QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
-		colorDialog.setCurrentColor(color);
-		colorDialog.setWindowTitle(tr("Edit color #%1").arg(QString::number(pressedColorIndex + 1)));
-		if (colorDialog.exec() == QDialog::Accepted)
+		if (!viewMode)
 		{
-			color = colorDialog.currentColor();
-			colorRGB = sRGB16(color.red() * 256, color.green() * 256, color.blue() * 256);
-			gradient.ModifyColor(pressedColorIndex, colorRGB);
+			if (pressedColorIndex >= 0 && !mouseDragStarted)
+			{
+				QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
 
-			if (pressedColorIndex == 0) gradient.ModifyColor(1, colorRGB);
+				QColorDialog colorDialog(this);
+				colorDialog.setOption(QColorDialog::DontUseNativeDialog);
+				sRGB16 colorRGB = listOfColors[pressedColorIndex].color;
+				QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
+				colorDialog.setCurrentColor(color);
+				colorDialog.setWindowTitle(
+					tr("Edit color #%1").arg(QString::number(pressedColorIndex + 1)));
+				if (colorDialog.exec() == QDialog::Accepted)
+				{
+					color = colorDialog.currentColor();
+					colorRGB = sRGB16(color.red() * 256, color.green() * 256, color.blue() * 256);
+					gradient.ModifyColor(pressedColorIndex, colorRGB);
 
-			if (pressedColorIndex == 1) gradient.ModifyColor(0, colorRGB);
+					if (pressedColorIndex == 0) gradient.ModifyColor(1, colorRGB);
 
-			emit update();
+					if (pressedColorIndex == 1) gradient.ModifyColor(0, colorRGB);
+
+					emit update();
+				}
+			}
+
+			pressedColorIndex = -1;
+			mouseDragStarted = false;
 		}
 	}
-
-	pressedColorIndex = -1;
-	mouseDragStarted = false;
 }

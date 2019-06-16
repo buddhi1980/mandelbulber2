@@ -198,11 +198,7 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="cPaletteEditWidget" name="colorpalette_surface_color_palette_new" native="true">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color the fractal surface.&lt;/p&gt;&lt;p&gt;Click on a color to edit the palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
+           <widget class="cPaletteEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">

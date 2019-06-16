@@ -38,6 +38,7 @@
 
 #include "ui_material_editor.h"
 
+#include "gradients_editor.h"
 #include "preview_file_dialog.h"
 
 #include "src/automated_widgets.hpp"
@@ -58,6 +59,8 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::
 
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
+
+	ui->colorpalette_surface_color_gradient->SetViewModeOnly();
 
 	ConnectSignals();
 }
@@ -82,6 +85,8 @@ void cMaterialEditor::ConnectSignals()
 		SLOT(slotPressedButtonGetPaletteFromImage()));
 	connect(
 		ui->widget_material_preview, SIGNAL(materialChanged(int)), this, SIGNAL(materialChanged(int)));
+	connect(ui->colorpalette_surface_color_gradient, SIGNAL(openEditor()), this,
+		SLOT(slotOpenGradientsEditor()));
 }
 
 void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
@@ -209,4 +214,9 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 void cMaterialEditor::Colorize(int randomSeed)
 {
 	cInterface::ColorizeGroupBoxes(this, randomSeed);
+}
+
+void cMaterialEditor::slotOpenGradientsEditor() const
+{
+	gMainInterface->gradientsEditor->show();
 }

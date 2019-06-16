@@ -71,6 +71,7 @@
 #include "undo.h"
 
 #include "qt/detached_window.h"
+#include "qt/gradients_editor.h"
 #include "qt/material_editor.h"
 #include "qt/my_group_box.h"
 #include "qt/my_progress_bar.h"
@@ -106,6 +107,7 @@ cInterface::cInterface(QObject *parent) : QObject(parent)
 	materialListModel = nullptr;
 	materialEditor = nullptr;
 	scrollAreaMaterialEditor = nullptr;
+	gradientsEditor = nullptr;
 	systemTray = nullptr;
 	stopRequest = false;
 	repeatRequest = false;
@@ -127,6 +129,7 @@ cInterface::~cInterface()
 	if (progressBarLayout) delete progressBarLayout;
 	if (qImage) delete qImage;
 	if (mainImage) delete mainImage;
+	if (gradientsEditor) delete gradientsEditor;
 	if (headless) delete headless;
 	if (mainWindow) delete mainWindow;
 }
@@ -209,6 +212,9 @@ void cInterface::ShowUi()
 	renderedImage->setMinimumSize(mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
 	renderedImage->AssignImage(mainImage);
 	renderedImage->AssignParameters(gPar, gParFractal);
+
+	gradientsEditor = new cGradientsEditor();
+	gradientsEditor->hide();
 
 	WriteLog("Prepare progress and status bar", 2);
 	progressBarLayout = new QVBoxLayout();

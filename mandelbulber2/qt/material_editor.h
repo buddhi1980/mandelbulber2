@@ -65,6 +65,7 @@ private slots:
 	void slotChangedSpinBoxPaletteOffset(double value) const;
 	void slotChangedSpinBoxPaletteSize(int value) const;
 	void slotChangedComboFractalColoringAlgorithm(int index) const;
+	void slotOpenGradientsEditor() const;
 
 private:
 	void ConnectSignals();
