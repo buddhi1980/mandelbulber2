@@ -37,6 +37,7 @@
 #include <qpainter.h>
 
 #include <QtCore>
+#include <QtGlobal>
 
 #include "common_math.h"
 cImage::cImage(int w, int h, bool _allocLater)
@@ -395,9 +396,9 @@ quint8 *cImage::ConvertGenericRGBTo8bit(
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
-		to[i].R = quint8(from[i].R * 255.0f);
-		to[i].G = quint8(from[i].G * 255.0f);
-		to[i].B = quint8(from[i].B * 255.0f);
+		to[i].R = quint8(qBound(0.0f, from[i].R * 255.0f, 255.0f));
+		to[i].G = quint8(qBound(0.0f, from[i].G * 255.0f, 255.0f));
+		to[i].B = quint8(qBound(0.0f, from[i].B * 255.0f, 255.0f));
 	}
 	return reinterpret_cast<quint8 *>(to.data());
 }
@@ -407,9 +408,9 @@ quint8 *cImage::ConvertGenericRGBTo16bit(
 {
 	for (quint64 i = 0; i < quint64(width) * quint64(height); i++)
 	{
-		to[i].R = quint16(from[i].R * 65535.0f);
-		to[i].G = quint16(from[i].G * 65535.0f);
-		to[i].B = quint16(from[i].B * 65535.0f);
+		to[i].R = quint16(qBound(0.0f, from[i].R * 65535.0f, 65535.0f));
+		to[i].G = quint16(qBound(0.0f, from[i].G * 65535.0f, 65535.0f));
+		to[i].B = quint16(qBound(0.0f, from[i].B * 65535.0f, 65535.0f));
 	}
 	return reinterpret_cast<quint8 *>(to.data());
 }

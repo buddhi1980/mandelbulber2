@@ -299,7 +299,7 @@ void cRenderWorker::doWork()
 				sRGBAfloat resultShader;
 				sRGBAfloat objectColour;
 				CVector3 normal;
-;
+				;
 
 				double opacity = 1.0;
 				depth = 1e20;
@@ -384,6 +384,7 @@ void cRenderWorker::doWork()
 				if (image->GetImageOptional()->optionalNormal)
 				{
 					CVector3 normalRotated = mRotInv.RotateVector(normal);
+					normalRotated.Normalize();
 					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
 					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
 					normalFloat.B = 1.0 - normalRotated.y;
@@ -463,7 +464,8 @@ void cRenderWorker::doWork()
 							if (image->GetImageOptional()->optionalWorld)
 								image->PutPixelWorld(xxx, yyy, worldPositionRGB);
 							if (image->GetImageOptional()->optionalDiffuse)
-								image->PutPixelDiffuse(xxx, yyy, sRGBFloat(colour.R / 255.0, colour.G / 255.0, colour.B / 255.0));
+								image->PutPixelDiffuse(
+									xxx, yyy, sRGBFloat(colour.R / 255.0, colour.G / 255.0, colour.B / 255.0));
 						}
 					}
 				}
