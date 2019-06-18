@@ -38,7 +38,6 @@
 
 #include "ui_material_editor.h"
 
-#include "gradients_editor.h"
 #include "preview_file_dialog.h"
 
 #include "src/automated_widgets.hpp"
@@ -60,7 +59,7 @@ cMaterialEditor::cMaterialEditor(QWidget *parent) : QWidget(parent), ui(new Ui::
 	automatedWidgets = new cAutomatedWidgets(this);
 	automatedWidgets->ConnectSignalsForSlidersInWindow(this);
 
-	ui->colorpalette_surface_color_gradient->SetViewModeOnly();
+	// ui->colorpalette_surface_color_gradient->SetViewModeOnly();
 
 	ConnectSignals();
 }
@@ -77,16 +76,12 @@ void cMaterialEditor::ConnectSignals()
 		SLOT(slotPressedButtonNewRandomPalette()));
 	connect(ui->spinbox_coloring_palette_offset, SIGNAL(valueChanged(double)), this,
 		SLOT(slotChangedSpinBoxPaletteOffset(double)));
-	connect(ui->spinboxInt_coloring_palette_size, SIGNAL(valueChanged(int)), this,
-		SLOT(slotChangedSpinBoxPaletteSize(int)));
 	connect(ui->comboBox_fractal_coloring_algorithm, SIGNAL(currentIndexChanged(int)), this,
 		SLOT(slotChangedComboFractalColoringAlgorithm(int)));
 	connect(ui->pushButton_getPaletteFromImage, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonGetPaletteFromImage()));
 	connect(
 		ui->widget_material_preview, SIGNAL(materialChanged(int)), this, SIGNAL(materialChanged(int)));
-	connect(ui->colorpalette_surface_color_gradient, SIGNAL(openEditor()), this,
-		SLOT(slotOpenGradientsEditor()));
 }
 
 void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
@@ -157,25 +152,25 @@ void cMaterialEditor::slotPressedButtonNewRandomPalette() const
 		parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex)),
 		parameterContainer->Get<int>(cMaterial::Name("coloring_random_seed", materialIndex)),
 		parameterContainer->Get<double>(cMaterial::Name("coloring_saturation", materialIndex)));
-	ui->colorpalette_surface_color_palette->SetPalette(palette);
+	// ui->colorpalette_surface_color_palette->SetPalette(palette);
 }
 
 void cMaterialEditor::slotPressedButtonRandomize() const
 {
 	srand(static_cast<unsigned int>(QTime::currentTime().msec()));
 	int seed = Random(999999);
-	ui->spinboxInt_coloring_random_seed->setValue(seed);
+	// ui->spinboxInt_coloring_random_seed->setValue(seed);
 	slotPressedButtonNewRandomPalette();
 }
 
 void cMaterialEditor::slotChangedSpinBoxPaletteOffset(double value) const
 {
-	ui->colorpalette_surface_color_palette->SetOffset(value);
+	// ui->colorpalette_surface_color_palette->SetOffset(value);
 }
 
 void cMaterialEditor::slotChangedSpinBoxPaletteSize(int value) const
 {
-	ui->slider_coloring_palette_offset->setMaximum(value * 100);
+	// ui->slider_coloring_palette_offset->setMaximum(value * 100);
 }
 
 void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
@@ -206,7 +201,7 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 		filenames = dialog.selectedFiles();
 		QString filename = QDir::toNativeSeparators(filenames.first());
 		cColorPalette palette = GetPaletteFromImage(filename);
-		ui->colorpalette_surface_color_palette->SetPalette(palette);
+		// ui->colorpalette_surface_color_palette->SetPalette(palette);
 		systemData.lastImagePaletteFile = filename;
 	}
 }
@@ -214,9 +209,4 @@ void cMaterialEditor::slotPressedButtonGetPaletteFromImage()
 void cMaterialEditor::Colorize(int randomSeed)
 {
 	cInterface::ColorizeGroupBoxes(this, randomSeed);
-}
-
-void cMaterialEditor::slotOpenGradientsEditor() const
-{
-	gMainInterface->gradientsEditor->show();
 }

@@ -95,7 +95,7 @@ void cGradientEditWidget::PaintButton(const cColorGradient::sColor &posColor, QP
 	painter.fillPath(pathTriangle, brush);
 
 	int avgColor = (posColor.color.R + posColor.color.G + posColor.color.B) / 3;
-	if (avgColor > 10000)
+	if (avgColor > 100)
 		painter.setPen(Qt::black);
 	else
 		painter.setPen(Qt::white);

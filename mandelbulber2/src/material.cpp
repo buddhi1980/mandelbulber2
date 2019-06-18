@@ -218,7 +218,8 @@ QStringList cMaterial::paramsList = {
 	"use_normal_map_texture",
 
 	"surface_color_palette",
-	"surface_color_gradient"
+	"surface_color_gradient",
+	"specular_gradient"
 };
 
 void cMaterial::setParameters(

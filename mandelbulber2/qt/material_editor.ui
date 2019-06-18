@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>492</width>
-    <height>1042</height>
+    <height>1278</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -121,7 +121,7 @@
         <x>0</x>
         <y>0</y>
         <width>466</width>
-        <height>3672</height>
+        <height>3614</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -141,42 +141,12 @@
         <number>2</number>
        </property>
        <item>
-        <layout class="QGridLayout" name="gridLayout_8">
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <item row="0" column="1">
-          <widget class="MyColorButton" name="colorButton_surface_color" native="true">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="toolTip">
-            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the object's surface . This color is used when 'Use colors from palette' is disabled or when the material is to be applied to a non-fractal object.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-           <property name="text" stdset="0">
-            <string>PushButton</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_56">
-           <property name="text">
-            <string>Single color:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
         <widget class="MyGroupBox" name="groupCheck_use_colors_from_palette">
          <property name="toolTip">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables coloring of fractal surface using mathematical algorithms and a color palette. &lt;/p&gt;&lt;p&gt;This option works only for fractal objects, (not for primitive objects.)&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;palette off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;palette on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="title">
-          <string>&amp;Use colors from a palette</string>
+          <string>&amp;Use colors from gradients</string>
          </property>
          <property name="checkable">
           <bool>true</bool>
@@ -198,50 +168,45 @@
            <number>2</number>
           </property>
           <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>Surface color</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Specular highlights</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true"/>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">
             <property name="spacing">
              <number>2</number>
             </property>
-            <item row="5" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="label_133">
               <property name="text">
                <string>Color speed:</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="label_172">
-              <property name="text">
-               <string>Random seed:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0">
+            <item row="0" column="0">
              <widget class="QLabel" name="label_357">
               <property name="text">
                <string>Palette offset:</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0">
-             <widget class="QLabel" name="label_355">
-              <property name="text">
-               <string>Palette size:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_356">
-              <property name="text">
-               <string>Palette:
-(click to edit)</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0" colspan="3">
+            <item row="2" column="0" colspan="3">
              <widget class="QPushButton" name="pushButton_randomize">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -257,7 +222,7 @@
               </property>
              </widget>
             </item>
-            <item row="12" column="0">
+            <item row="7" column="0">
              <widget class="QLabel" name="label_fractal_coloring_circle_radius">
               <property name="text">
                <string>Orbit trap
@@ -265,7 +230,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="2">
+            <item row="8" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_x">
               <property name="enabled">
                <bool>false</bool>
@@ -281,14 +246,14 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="0" colspan="3">
+            <item row="5" column="0" colspan="3">
              <widget class="Line" name="line_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="15" column="2">
+            <item row="10" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_z">
               <property name="enabled">
                <bool>false</bool>
@@ -304,7 +269,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="1">
+            <item row="8" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_x">
               <property name="text">
                <string>x:</string>
@@ -314,7 +279,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="15" column="1">
+            <item row="10" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_z">
               <property name="text">
                <string>z:</string>
@@ -324,42 +289,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1" colspan="2">
-             <widget class="ColorPaletteWidget" name="colorpalette_surface_color_palette" native="true">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color the fractal surface.&lt;/p&gt;&lt;p&gt;Click on a color to edit the palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1" colspan="2">
-             <widget class="QSlider" name="slider_coloring_palette_offset">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>1000</number>
-              </property>
-              <property name="singleStep">
-               <number>1</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item row="9" column="0" colspan="3">
+            <item row="4" column="0" colspan="3">
              <widget class="QPushButton" name="pushButton_getPaletteFromImage">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -375,70 +305,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="label_173">
-              <property name="text">
-               <string>Saturation:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1" colspan="2">
-             <widget class="MySpinBox" name="spinboxInt_coloring_palette_size">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in the color palette.&lt;/p&gt;&lt;p&gt;To apply changes to the palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
-              <property name="maximum">
-               <number>255</number>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1" colspan="2">
-             <widget class="MyDoubleSpinBox" name="spinbox_coloring_saturation">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in a random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="accelerated">
-               <bool>false</bool>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="minimum">
-               <double>0.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>1000.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.010000000000000</double>
-              </property>
-              <property name="value">
-               <double>0.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item row="5" column="1" colspan="2">
+            <item row="1" column="1" colspan="2">
              <widget class="MyDoubleSpinBox" name="spinbox_coloring_speed">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -475,7 +342,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="12" column="1" colspan="2">
+            <item row="7" column="1" colspan="2">
              <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_sphere_radius">
               <property name="enabled">
                <bool>false</bool>
@@ -516,22 +383,6 @@ sphere radius:</string>
              </widget>
             </item>
             <item row="6" column="1" colspan="2">
-             <widget class="MySpinBox" name="spinboxInt_coloring_random_seed">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Seed value for the random palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="maximum">
-               <number>999999</number>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1" colspan="2">
              <widget class="MyComboBox" name="comboBox_fractal_coloring_algorithm">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -569,7 +420,7 @@ sphere radius:</string>
               </item>
              </widget>
             </item>
-            <item row="14" column="1">
+            <item row="9" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_y">
               <property name="text">
                <string>y:</string>
@@ -579,7 +430,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0" colspan="3">
+            <item row="3" column="0" colspan="3">
              <widget class="QPushButton" name="pushButton_randomPalette">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -595,14 +446,14 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="0">
+            <item row="6" column="0">
              <widget class="QLabel" name="label_354">
               <property name="text">
                <string>Coloring algorithm:</string>
               </property>
              </widget>
             </item>
-            <item row="14" column="2">
+            <item row="9" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_y">
               <property name="enabled">
                <bool>false</bool>
@@ -618,7 +469,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1" colspan="2">
+            <item row="0" column="1" colspan="2">
              <widget class="MyDoubleSpinBox" name="spinbox_coloring_palette_offset">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -655,7 +506,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="16" column="1">
+            <item row="11" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_z_2">
               <property name="text">
                <string>w:</string>
@@ -665,7 +516,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="16" column="2">
+            <item row="11" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_w">
               <property name="enabled">
                <bool>false</bool>
@@ -681,7 +532,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="13" column="0" rowspan="4">
+            <item row="8" column="0" rowspan="4">
              <widget class="QLabel" name="label_fractal_coloring_line_direction">
               <property name="text">
                <string>Orbit trap line
@@ -2587,17 +2438,11 @@ direction vector:</string>
         </widget>
        </item>
        <item>
-        <widget class="MyGroupBox" name="groupCheck_use_color_texture">
-         <property name="toolTip">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image file as color texture.&lt;/p&gt;&lt;p&gt;Color texture is mixed with 'Single Color' (if palette is off) or 'Palette' (if palette is on). &lt;/p&gt;&lt;p&gt;example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - color texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
+        <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Use color texture from an &amp;image</string>
+          <string>Surface color</string>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_141">
+         <layout class="QVBoxLayout" name="verticalLayout_6">
           <property name="spacing">
            <number>2</number>
           </property>
@@ -2614,26 +2459,12 @@ direction vector:</string>
            <number>2</number>
           </property>
           <item>
-           <layout class="QGridLayout" name="gridLayout_95" rowstretch="0,0" columnstretch="0,0,1">
-            <property name="spacing">
-             <number>2</number>
+           <layout class="QGridLayout" name="gridLayout_8">
+            <property name="topMargin">
+             <number>0</number>
             </property>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_378">
-              <property name="text">
-               <string>Texture intensity:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_377">
-              <property name="text">
-               <string>Texture path:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" colspan="2">
-             <widget class="FileSelectWidget" name="text_file_color_texture" native="true">
+            <item row="0" column="1">
+             <widget class="MyColorButton" name="colorButton_surface_color" native="true">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                 <horstretch>0</horstretch>
@@ -2641,39 +2472,113 @@ direction vector:</string>
                </sizepolicy>
               </property>
               <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with color texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by '%' symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the object's surface . This color is used when 'Use colors from palette' is disabled or when the material is to be applied to a non-fractal object.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text" stdset="0">
+               <string>PushButton</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="MyDoubleSpinBox" name="spinbox_color_texture_intensity">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="prefix">
-               <string/>
-              </property>
-              <property name="suffix">
-               <string/>
-              </property>
-              <property name="decimals">
-               <number>2</number>
-              </property>
-              <property name="maximum">
-               <double>1000.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.100000000000000</double>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_56">
+              <property name="text">
+               <string>Single color:</string>
               </property>
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="MyGroupBox" name="groupCheck_use_color_texture">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use image file as color texture.&lt;/p&gt;&lt;p&gt;Color texture is mixed with 'Single Color' (if palette is off) or 'Palette' (if palette is on). &lt;/p&gt;&lt;p&gt;example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/material - color texture.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="title">
+             <string>Use color texture from an &amp;image</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_141">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_95" rowstretch="0,0" columnstretch="0,0,1">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <item row="1" column="0">
+                <widget class="QLabel" name="label_378">
+                 <property name="text">
+                  <string>Texture intensity:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_377">
+                 <property name="text">
+                  <string>Texture path:</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1" colspan="2">
+                <widget class="FileSelectWidget" name="text_file_color_texture" native="true">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Path to image with color texture&lt;/p&gt;&lt;p&gt;To use animated textures (image sequences), replace numbers by '%' symbol. Example: If sequence of images is as showed below: &lt;br/&gt;texture0001.jpg&lt;br/&gt;texture0002.jpg&lt;br/&gt;etc&lt;/p&gt;&lt;p&gt;Then use following file name: texture%%%%.jpg&lt;br/&gt;This tells the program to treat this as not a single image but as a sequence of images with 4 digit index.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="2">
+                <widget class="MyDoubleSpinBox" name="spinbox_color_texture_intensity">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="toolTip">
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of color texture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 </property>
+                 <property name="prefix">
+                  <string/>
+                 </property>
+                 <property name="suffix">
+                  <string/>
+                 </property>
+                 <property name="decimals">
+                  <number>2</number>
+                 </property>
+                 <property name="maximum">
+                  <double>1000.000000000000000</double>
+                 </property>
+                 <property name="singleStep">
+                  <double>0.100000000000000</double>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -4561,12 +4466,6 @@ object size)</string>
    <header>file_select_widget.h</header>
   </customwidget>
   <customwidget>
-   <class>ColorPaletteWidget</class>
-   <extends>QWidget</extends>
-   <header>color_palette_widget.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>cMaterialWidget</class>
    <extends>QWidget</extends>
    <header>material_widget.h</header>
@@ -4583,8 +4482,6 @@ object size)</string>
   <tabstop>text_name</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>spinbox_coloring_palette_offset</tabstop>
-  <tabstop>spinboxInt_coloring_palette_size</tabstop>
-  <tabstop>spinbox_coloring_saturation</tabstop>
   <tabstop>spinbox_coloring_speed</tabstop>
   <tabstop>pushButton_randomPalette</tabstop>
   <tabstop>pushButton_getPaletteFromImage</tabstop>
