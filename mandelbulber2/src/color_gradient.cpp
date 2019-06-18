@@ -17,14 +17,6 @@ cColorGradient::cColorGradient()
 	sColor positionedColor2 = {sRGB8(255, 255, 255), 1.0};
 	colors.append(positionedColor2);
 
-	// third for testing
-	sColor positionedColor3 = {sRGB8(255, 0, 0), 0.3};
-	colors.append(positionedColor3);
-
-	// fourth for testing
-	sColor positionedColor4 = {sRGB8(0, 0, 0), 0.25};
-	colors.append(positionedColor4);
-
 	sorted = false;
 }
 
@@ -32,18 +24,11 @@ cColorGradient::~cColorGradient() {}
 
 int cColorGradient::AddColor(sRGB8 color, double position)
 {
-	if (position >= 0.0 && position <= 1.0)
-	{
-		sorted = false;
-		sColor positionedColor = {color, position};
-		colors.append(positionedColor);
-		return colors.size();
-	}
-	else
-	{
-		qCritical() << "Wrong color position in gradient!" << position;
-		return 0;
-	}
+	sorted = false;
+	position = CorrectPosition(position, -1);
+	sColor positionedColor = {color, position};
+	colors.append(positionedColor);
+	return colors.size();
 }
 
 void cColorGradient::ModifyColor(int index, sRGB8 color)
@@ -61,22 +46,16 @@ void cColorGradient::ModifyColor(int index, sRGB8 color)
 
 void cColorGradient::ModifyPosition(int index, double position)
 {
-	// FIXME prevent from having two colors at the same position;
-	if (position >= 0.0 && position <= 1.0)
+	position = CorrectPosition(position, index);
+
+	if (index < colors.size())
 	{
-		if (index < colors.size())
-		{
-			sorted = false;
-			colors[index].position = position;
-		}
-		else
-		{
-			qCritical() << "wrong color index";
-		}
+		sorted = false;
+		colors[index].position = position;
 	}
 	else
 	{
-		qCritical() << "Wrong color position in gradient!" << position;
+		qCritical() << "wrong color index";
 	}
 }
 
@@ -253,6 +232,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 					color.G = (colorHex / 256) % 256;
 					color.B = colorHex % 256;
 					sColor colorPos = {color, position};
+					position = CorrectPosition(position, -1);
 					colors.append(colorPos);
 
 					if (i == 1)
@@ -265,4 +245,38 @@ void cColorGradient::SetColorsFromString(const QString &string)
 			}
 		}
 	}
+}
+
+double cColorGradient::CorrectPosition(double position, int ignoreIndex)
+{
+	position = qBound(0.0, position, 1.0);
+	bool positionIncorrect = false;
+
+	bool rightDirection = (position < 0.5) ? true : false;
+
+	do
+	{
+		for (int i = 0; i < colors.size(); i++)
+		{
+			if (i == ignoreIndex) continue;
+			if (abs(position - colors[i].position) < 0.0001)
+			{
+				positionIncorrect = true;
+				if (rightDirection)
+				{
+					position += 0.0001;
+				}
+				else
+				{
+					position -= 0.0001;
+				}
+			}
+			else
+			{
+				positionIncorrect = false;
+			}
+		}
+	} while (positionIncorrect);
+
+	return position;
 }

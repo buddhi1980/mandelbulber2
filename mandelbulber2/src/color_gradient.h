@@ -38,6 +38,7 @@ private:
 	void SortGradient();
 	int PaletteIterator(int paletteIndex, double position);
 	sRGB8 Interpolate(int paletteIndex, double pos, bool smooth);
+	double CorrectPosition(double position, int ignoreIndex);
 
 	QList<sColor> colors;
 	QList<sColor> sortedColors;

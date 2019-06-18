@@ -107,7 +107,7 @@ int cGradientEditWidget::FindButtonAtPosition(int x)
 {
 	QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
 
-	for (int i = 0; i < listOfColors.size(); i++)
+	for (int i = listOfColors.size() - 1; i >= 0; i--)
 	{
 		int xButton = CalcButtonPosition(listOfColors[i].position);
 		if ((x > xButton - buttonWidth / 2) && (x <= xButton + buttonWidth / 2))
@@ -152,8 +152,11 @@ void cGradientEditWidget::mousePressEvent(QMouseEvent *event)
 			if (mouseY > height() / 2)
 			{
 				int index = FindButtonAtPosition(mouseX);
-				dragStartX = mouseX;
-				pressedColorIndex = index;
+				if (index >= 2)
+				{
+					dragStartX = mouseX;
+					pressedColorIndex = index;
+				}
 			}
 		}
 	}
