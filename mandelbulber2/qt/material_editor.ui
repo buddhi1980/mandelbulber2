@@ -198,7 +198,7 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="cPaletteEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
+           <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,1">
@@ -4573,9 +4573,9 @@ object size)</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>cPaletteEditWidget</class>
+   <class>cGradientEditWidget</class>
    <extends>QWidget</extends>
-   <header>palette_edit_widget.h</header>
+   <header>gradient_edit_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

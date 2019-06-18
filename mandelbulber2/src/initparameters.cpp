@@ -531,8 +531,7 @@ void InitParams(cParameterContainer *par)
 		"specular_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
 		"diffuse_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
-	par->addParam(
-		"world_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam("world_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 
 	par->addParam("color_postfix", QString(""), morphNone, paramApp);
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
@@ -1427,6 +1426,12 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)), 1.0);
 	par->addParam(
 		cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
+
+	par->addParam(cMaterial::Name("surface_color_gradient", materialId),
+		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 "
+						"3b9fee "
+						"8000 d4ffd4 9000 aba53c"),
+		morphNone, paramStandard);
 }
 
 void DeletePrimitiveParams(

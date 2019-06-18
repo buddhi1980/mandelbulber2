@@ -18,24 +18,26 @@ public:
 public:
 	struct sColor
 	{
-		sRGB16 color;
+		sRGB8 color;
 		double position; // from 0 to 1.0
 
 		static bool lessCompare(sColor a, sColor b) { return a.position < b.position; }
 	};
 
-	int AddColor(sRGB16 color, double position); // returns new color index
-	void ModifyColor(int index, sRGB16 color);
+	int AddColor(sRGB8 color, double position); // returns new color index
+	void ModifyColor(int index, sRGB8 color);
 	void ModifyPosition(int index, double position);
 	void RemoveColor(int index);
-	sRGB16 GetColor(double position, bool smooth);
+	sRGB8 GetColor(double position, bool smooth);
 	QList<sColor> GetListOfColors();
-	QVector<sRGB16> GetGradient(int length, bool smooth);
+	QVector<sRGB8> GetGradient(int length, bool smooth);
+	QString GetColorsAsString();
+	void SetColorsFromString(const QString &string);
 
 private:
 	void SortGradient();
 	int PaletteIterator(int paletteIndex, double position);
-	sRGB16 Interpolate(int paletteIndex, double pos, bool smooth);
+	sRGB8 Interpolate(int paletteIndex, double pos, bool smooth);
 
 	QList<sColor> colors;
 	QList<sColor> sortedColors;

@@ -5,19 +5,21 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_
-#define MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_
+#ifndef MANDELBULBER2_QT_GRADIENT_EDIT_WIDGET_H_
+#define MANDELBULBER2_QT_GRADIENT_EDIT_WIDGET_H_
 
 #include <QWidget>
 #include "src/color_gradient.h"
 
-class cPaletteEditWidget : public QWidget
+class cGradientEditWidget : public QWidget
 {
 	Q_OBJECT
 public:
-	cPaletteEditWidget(QWidget *parent = nullptr);
-	~cPaletteEditWidget();
+	cGradientEditWidget(QWidget *parent = nullptr);
+	~cGradientEditWidget();
 	void SetViewModeOnly();
+	QString GetColors() { return gradient.GetColorsAsString(); }
+	void SetColors(const QString &colorsString);
 
 private:
 	void paintEvent(QPaintEvent *event) override;
@@ -41,4 +43,4 @@ signals:
 	void openEditor();
 };
 
-#endif /* MANDELBULBER2_QT_PALETTE_EDIT_WIDGET_H_ */
+#endif /* MANDELBULBER2_QT_GRADIENT_EDIT_WIDGET_H_ */

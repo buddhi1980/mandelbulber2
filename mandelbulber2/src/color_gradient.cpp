@@ -7,21 +7,22 @@
 
 #include "color_gradient.h"
 #include <algorithm> // std::sort
+#include <QString>
 
 cColorGradient::cColorGradient()
 {
-	sColor positionedColor = {sRGB16(65535, 65535, 65535), 0.0};
+	sColor positionedColor = {sRGB8(255, 255, 255), 0.0};
 	colors.append(positionedColor);
 
-	sColor positionedColor2 = {sRGB16(65535, 65535, 65535), 1.0};
+	sColor positionedColor2 = {sRGB8(255, 255, 255), 1.0};
 	colors.append(positionedColor2);
 
 	// third for testing
-	sColor positionedColor3 = {sRGB16(65535, 0, 0), 0.3};
+	sColor positionedColor3 = {sRGB8(255, 0, 0), 0.3};
 	colors.append(positionedColor3);
 
 	// fourth for testing
-	sColor positionedColor4 = {sRGB16(0, 0, 0), 0.25};
+	sColor positionedColor4 = {sRGB8(0, 0, 0), 0.25};
 	colors.append(positionedColor4);
 
 	sorted = false;
@@ -29,7 +30,7 @@ cColorGradient::cColorGradient()
 
 cColorGradient::~cColorGradient() {}
 
-int cColorGradient::AddColor(sRGB16 color, double position)
+int cColorGradient::AddColor(sRGB8 color, double position)
 {
 	if (position >= 0.0 && position <= 1.0)
 	{
@@ -45,7 +46,7 @@ int cColorGradient::AddColor(sRGB16 color, double position)
 	}
 }
 
-void cColorGradient::ModifyColor(int index, sRGB16 color)
+void cColorGradient::ModifyColor(int index, sRGB8 color)
 {
 	if (index < colors.size())
 	{
@@ -60,6 +61,7 @@ void cColorGradient::ModifyColor(int index, sRGB16 color)
 
 void cColorGradient::ModifyPosition(int index, double position)
 {
+	// FIXME prevent from having two colors at the same position;
 	if (position >= 0.0 && position <= 1.0)
 	{
 		if (index < colors.size())
@@ -108,16 +110,16 @@ int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
 	return newIndex;
 }
 
-sRGB16 cColorGradient::GetColor(double position, bool smooth)
+sRGB8 cColorGradient::GetColor(double position, bool smooth)
 {
 	SortGradient();
 	int paletteIndex = PaletteIterator(0, position);
 	return Interpolate(paletteIndex, position, smooth);
 }
 
-sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
+sRGB8 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 {
-	sRGB16 color;
+	sRGB8 color;
 	// if last element then just copy color value (no interpolation)
 	if (paletteIndex == sortedColors.size() - 1)
 	{
@@ -126,8 +128,8 @@ sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 	else
 	{
 		// interpolation
-		sRGB16 color1 = sortedColors[paletteIndex].color;
-		sRGB16 color2 = sortedColors[paletteIndex + 1].color;
+		sRGB8 color1 = sortedColors[paletteIndex].color;
+		sRGB8 color2 = sortedColors[paletteIndex + 1].color;
 		double pos1 = sortedColors[paletteIndex].position;
 		double pos2 = sortedColors[paletteIndex + 1].position;
 		// relative delta
@@ -151,9 +153,9 @@ sRGB16 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 	return color;
 }
 
-QVector<sRGB16> cColorGradient::GetGradient(int length, bool smooth)
+QVector<sRGB8> cColorGradient::GetGradient(int length, bool smooth)
 {
-	QVector<sRGB16> gradient;
+	QVector<sRGB8> gradient;
 	if (length >= 2)
 	{
 		SortGradient();
@@ -167,7 +169,7 @@ QVector<sRGB16> cColorGradient::GetGradient(int length, bool smooth)
 		{
 			double pos = i * step;
 			paletteIndex = PaletteIterator(paletteIndex, pos);
-			sRGB16 color = Interpolate(paletteIndex, pos, smooth);
+			sRGB8 color = Interpolate(paletteIndex, pos, smooth);
 			gradient.append(color);
 		}
 	}
@@ -175,6 +177,7 @@ QVector<sRGB16> cColorGradient::GetGradient(int length, bool smooth)
 	{
 		qCritical() << "Wrong length of gradient";
 	}
+
 	return gradient;
 }
 
@@ -190,5 +193,76 @@ void cColorGradient::SortGradient()
 		sortedColors = colors;
 		std::sort(sortedColors.begin(), sortedColors.end(), sColor::lessCompare);
 		sorted = true;
+	}
+}
+
+QString cColorGradient::GetColorsAsString()
+{
+	SortGradient();
+	QString string;
+
+	// last color is not converted bcause is the same like first
+	for (int i = 0; i < sortedColors.size() - 1; i++)
+	{
+		QString oneColor = QString("%1 %2%3%4")
+												 .arg(int(sortedColors[i].position * 10000))
+												 .arg(sortedColors[i].color.R / 256, 2, 16, QChar('0'))
+												 .arg(sortedColors[i].color.G / 256, 2, 16, QChar('0'))
+												 .arg(sortedColors[i].color.B / 256, 2, 16, QChar('0'));
+
+		if (i > 0) string += " ";
+		string += oneColor;
+	}
+
+	return string;
+}
+
+void cColorGradient::SetColorsFromString(const QString &string)
+{
+	QStringList split = string.split(" ");
+	colors.clear();
+	sorted = false;
+
+	if (split.size() < 4)
+	{
+		sColor positionedColor = {sRGB8(255, 255, 255), 0.0};
+		colors.append(positionedColor);
+
+		sColor positionedColor2 = {sRGB8(255, 255, 255), 1.0};
+		colors.append(positionedColor2);
+
+		qCritical() << "Error! In gradient string shoud be at least two colors";
+	}
+	else
+	{
+		double position = 0.0;
+		sRGB8 color;
+
+		for (int i = 0; i < split.size(); i++)
+		{
+			if (split[i].size() > 0)
+			{
+				if (i % 2 == 0)
+				{
+					position = split[i].toInt() / 10000.0;
+				}
+				else
+				{
+					unsigned int colorHex = split[i].toInt(nullptr, 16);
+					color.R = colorHex / 65536;
+					color.G = (colorHex / 256) % 256;
+					color.B = colorHex % 256;
+					sColor colorPos = {color, position};
+					colors.append(colorPos);
+
+					if (i == 1)
+					{
+						sColor lastColor = colors.first();
+						lastColor.position = 1.0;
+						colors.append(lastColor);
+					}
+				}
+			}
+		}
 	}
 }

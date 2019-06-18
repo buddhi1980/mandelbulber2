@@ -957,6 +957,25 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			name.replace("amplitude", "relative_amplitude");
 		}
 	}
+
+	if (fileVersion <= 2.19)
+	{
+		if (name.contains("surface_color_palette"))
+		{
+			name.replace("surface_color_palette", "surface_color_gradient");
+
+			QStringList split = value.split(" ");
+			double step = 1.0 / split.size();
+			QString newValue;
+			for (int i = 0; i < split.size(); i++)
+			{
+				int pos = int(i * step * 10000.0);
+				if (i > 0) newValue += " ";
+				newValue += QString("%1 %2").arg(pos).arg(split[i]);
+			}
+			value = newValue;
+		}
+	}
 }
 
 void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *fract)

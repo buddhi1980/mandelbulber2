@@ -5,14 +5,15 @@
  *      Author: krzysztof
  */
 
+#include "gradient_edit_widget.h"
+
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
 
-#include "palette_edit_widget.h"
 #include "src/system.hpp"
 
-cPaletteEditWidget::cPaletteEditWidget(QWidget *parent) : QWidget(parent)
+cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 {
 	viewMode = false;
 	mouseDragStarted = false;
@@ -28,30 +29,30 @@ cPaletteEditWidget::cPaletteEditWidget(QWidget *parent) : QWidget(parent)
 	margins = buttonWidth / 2 + 2;
 }
 
-cPaletteEditWidget::~cPaletteEditWidget()
+cGradientEditWidget::~cGradientEditWidget()
 {
 	// TODO Auto-generated destructor stub
 }
 
-void cPaletteEditWidget::SetViewModeOnly()
+void cGradientEditWidget::SetViewModeOnly()
 {
 	viewMode = true;
 	setFixedHeight(systemData.GetPreferredThumbnailSize() / 4);
 	margins = 0;
 }
 
-void cPaletteEditWidget::paintEvent(QPaintEvent *event)
+void cGradientEditWidget::paintEvent(QPaintEvent *event)
 {
 	int gradientWidth = width() - 2 * margins;
 	if (gradientWidth < 2) gradientWidth = 2;
 	int gradientHeight = (viewMode) ? height() : height() / 2;
 
 	QPainter painter(this);
-	QVector<sRGB16> grad = gradient.GetGradient(gradientWidth, true);
+	QVector<sRGB8> grad = gradient.GetGradient(gradientWidth, true);
 
 	for (int x = 0; x < grad.size(); x++)
 	{
-		QColor color(QColor(grad[x].R / 256, grad[x].G / 256, grad[x].B / 256));
+		QColor color(QColor(grad[x].R, grad[x].G, grad[x].B));
 		painter.setPen(color);
 		painter.drawLine(x + margins, 0, x + margins, gradientHeight);
 	}
@@ -66,12 +67,12 @@ void cPaletteEditWidget::paintEvent(QPaintEvent *event)
 	}
 }
 
-int cPaletteEditWidget::CalcButtonPosition(double position)
+int cGradientEditWidget::CalcButtonPosition(double position)
 {
 	return margins + position * (width() - 2 * margins - 1);
 }
 
-void cPaletteEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPainter &painter)
+void cGradientEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPainter &painter)
 {
 	int buttonPosition = CalcButtonPosition(posColor.position);
 
@@ -80,7 +81,7 @@ void cPaletteEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPa
 	QRect rect(QPoint(buttonPosition - buttonWidth / 2, buttonTop),
 		QPoint(buttonPosition + buttonWidth / 2, height() - 2));
 
-	QColor color(posColor.color.R / 256, posColor.color.G / 256, posColor.color.B / 256);
+	QColor color(posColor.color.R, posColor.color.G, posColor.color.B);
 
 	QBrush brush(color, Qt::SolidPattern);
 	painter.fillRect(rect, brush);
@@ -102,7 +103,7 @@ void cPaletteEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPa
 	painter.drawRect(rect);
 }
 
-int cPaletteEditWidget::FindButtonAtPosition(int x)
+int cGradientEditWidget::FindButtonAtPosition(int x)
 {
 	QList<cColorGradient::sColor> listOfColors = gradient.GetListOfColors();
 
@@ -117,7 +118,7 @@ int cPaletteEditWidget::FindButtonAtPosition(int x)
 	return -1; //-1 means nothing found
 }
 
-void cPaletteEditWidget::mouseMoveEvent(QMouseEvent *event)
+void cGradientEditWidget::mouseMoveEvent(QMouseEvent *event)
 {
 	if (pressedColorIndex >= 2)
 	{
@@ -135,7 +136,7 @@ void cPaletteEditWidget::mouseMoveEvent(QMouseEvent *event)
 	}
 }
 
-void cPaletteEditWidget::mousePressEvent(QMouseEvent *event)
+void cGradientEditWidget::mousePressEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
@@ -158,7 +159,7 @@ void cPaletteEditWidget::mousePressEvent(QMouseEvent *event)
 	}
 }
 
-void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
+void cGradientEditWidget::mouseReleaseEvent(QMouseEvent *event)
 {
 	if (event->button() == Qt::LeftButton)
 	{
@@ -170,15 +171,15 @@ void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
 
 				QColorDialog colorDialog(this);
 				colorDialog.setOption(QColorDialog::DontUseNativeDialog);
-				sRGB16 colorRGB = listOfColors[pressedColorIndex].color;
-				QColor color(colorRGB.R / 256, colorRGB.G / 256, colorRGB.B / 256);
+				sRGB8 colorRGB = listOfColors[pressedColorIndex].color;
+				QColor color(colorRGB.R, colorRGB.G, colorRGB.B);
 				colorDialog.setCurrentColor(color);
 				colorDialog.setWindowTitle(
 					tr("Edit color #%1").arg(QString::number(pressedColorIndex + 1)));
 				if (colorDialog.exec() == QDialog::Accepted)
 				{
 					color = colorDialog.currentColor();
-					colorRGB = sRGB16(color.red() * 256, color.green() * 256, color.blue() * 256);
+					colorRGB = sRGB8(color.red(), color.green(), color.blue());
 					gradient.ModifyColor(pressedColorIndex, colorRGB);
 
 					if (pressedColorIndex == 0) gradient.ModifyColor(1, colorRGB);
@@ -193,4 +194,10 @@ void cPaletteEditWidget::mouseReleaseEvent(QMouseEvent *event)
 			mouseDragStarted = false;
 		}
 	}
+}
+
+void cGradientEditWidget::SetColors(const QString &colorsString)
+{
+	gradient.SetColorsFromString(colorsString);
+	update();
 }

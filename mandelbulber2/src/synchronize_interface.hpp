@@ -52,6 +52,7 @@ class ColorPaletteWidget;
 class QComboBox;
 class cMaterialSelector;
 class QPlainTextEdit;
+class cGradientEditWidget;
 
 namespace qInterface
 {
@@ -92,6 +93,8 @@ void SynchronizeInterfaceMyColorButton(
 	QList<MyColorButton *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceColorPaletteWidget(
 	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
+void SynchronizeInterfaceColorGradientWidget(
+	QList<cGradientEditWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQComboBox(
 	QList<QComboBox *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceMaterialSelector(

@@ -45,9 +45,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item row="1" column="0">
-       <widget class="cPaletteEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
-      </item>
       <item row="0" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <property name="leftMargin">
@@ -149,6 +146,9 @@
         </item>
        </layout>
       </item>
+      <item row="1" column="0">
+       <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
+      </item>
      </layout>
     </widget>
    </item>
@@ -170,9 +170,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <item row="1" column="0">
-       <widget class="cPaletteEditWidget" name="colorpalette_surface_color_gradient_2" native="true"/>
-      </item>
       <item row="0" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_4">
         <property name="leftMargin">
@@ -274,6 +271,9 @@
         </item>
        </layout>
       </item>
+      <item row="1" column="0">
+       <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient_2" native="true"/>
+      </item>
      </layout>
     </widget>
    </item>
@@ -281,9 +281,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>cPaletteEditWidget</class>
+   <class>cGradientEditWidget</class>
    <extends>QWidget</extends>
-   <header>palette_edit_widget.h</header>
+   <header>gradient_edit_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
