@@ -1427,8 +1427,15 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(
 		cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
 
+	// old default colors - for testing compatibility
 	par->addParam(cMaterial::Name("surface_color_gradient", materialId),
-		QString("0 ff6000 2500 699000 5000 ffff80 7500 ffbb00"), morphNone, paramStandard);
+		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 "
+						"3b9fee "
+						"8000 d4ffd4 9000 aba53c"),
+		morphNone, paramStandard);
+
+	//	par->addParam(cMaterial::Name("surface_color_gradient", materialId),
+	//		QString("0 ff6000 2500 699000 5000 ffff80 7500 ffbb00"), morphNone, paramStandard);
 
 	par->addParam(cMaterial::Name("specular_gradient", materialId),
 		QString("0 eeeeee 2500 666666 5000 ffffff 7500 bbbbbb"), morphNone, paramStandard);

@@ -65,15 +65,11 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 					tempPoint, 0, params->N * 10, params->common, formulaIndex, false, input.material);
 				sFractalOut fractOut;
 				Compute<fractal::calcModeColouring>(*fractal, fractIn, &fractOut);
-				int nrCol = floor(fractOut.colorIndex);
-				nrCol = abs(nrCol) % (248 * 256);
+				double nrCol = fmod(fabs(fractOut.colorIndex), 248.0 * 256.0); // kept for compatibility
 
-				int color_number;
-
-				color_number =
-					int(nrCol * input.material->coloring_speed + 256 * input.material->paletteOffset) % 65536;
-
-				colour = input.material->palette.IndexToColour(color_number);
+				double colorPosition = fmod(nrCol / 256.0 / 10.0 + input.material->paletteOffset, 1.0);
+				colour = input.material->gradientSurface.GetColor(colorPosition, false);
+				// TODO - smooth mode for gradient
 			}
 			else
 			{

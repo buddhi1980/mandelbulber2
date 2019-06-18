@@ -37,6 +37,7 @@
 
 #include <QMap>
 
+#include "color_gradient.h"
 #include "color_palette.hpp"
 #include "color_structures.hpp"
 #include "fractal_coloring.hpp"
@@ -95,7 +96,9 @@ public:
 	sRGB specularColor;
 	sRGB transparencyColor;
 
-	cColorPalette palette;
+	cColorPalette palette; // FIXME to be deleted when cColorGradiend will be done
+	cColorGradient gradientSurface;
+	cColorGradient gradientSpecular;
 
 	cTexture colorTexture;
 	cTexture diffusionTexture;

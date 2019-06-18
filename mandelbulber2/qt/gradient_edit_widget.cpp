@@ -48,7 +48,7 @@ void cGradientEditWidget::paintEvent(QPaintEvent *event)
 	int gradientHeight = (viewMode) ? height() : height() / 2;
 
 	QPainter painter(this);
-	QVector<sRGB8> grad = gradient.GetGradient(gradientWidth, true);
+	QVector<sRGB> grad = gradient.GetGradient(gradientWidth, false);
 
 	for (int x = 0; x < grad.size(); x++)
 	{
@@ -174,7 +174,7 @@ void cGradientEditWidget::mouseReleaseEvent(QMouseEvent *event)
 
 				QColorDialog colorDialog(this);
 				colorDialog.setOption(QColorDialog::DontUseNativeDialog);
-				sRGB8 colorRGB = listOfColors[pressedColorIndex].color;
+				sRGB colorRGB = listOfColors[pressedColorIndex].color;
 				QColor color(colorRGB.R, colorRGB.G, colorRGB.B);
 				colorDialog.setCurrentColor(color);
 				colorDialog.setWindowTitle(
@@ -182,7 +182,7 @@ void cGradientEditWidget::mouseReleaseEvent(QMouseEvent *event)
 				if (colorDialog.exec() == QDialog::Accepted)
 				{
 					color = colorDialog.currentColor();
-					colorRGB = sRGB8(color.red(), color.green(), color.blue());
+					colorRGB = sRGB(color.red(), color.green(), color.blue());
 					gradient.ModifyColor(pressedColorIndex, colorRGB);
 
 					if (pressedColorIndex == 0) gradient.ModifyColor(1, colorRGB);

@@ -958,7 +958,7 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 	}
 
-	if (fileVersion <= 2.19)
+	if (fileVersion < 2.19)
 	{
 		if (name.contains("surface_color_palette"))
 		{

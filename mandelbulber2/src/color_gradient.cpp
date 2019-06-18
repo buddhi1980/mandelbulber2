@@ -11,10 +11,10 @@
 
 cColorGradient::cColorGradient()
 {
-	sColor positionedColor = {sRGB8(255, 255, 255), 0.0};
+	sColor positionedColor = {sRGB(255, 255, 255), 0.0};
 	colors.append(positionedColor);
 
-	sColor positionedColor2 = {sRGB8(255, 255, 255), 1.0};
+	sColor positionedColor2 = {sRGB(255, 255, 255), 1.0};
 	colors.append(positionedColor2);
 
 	sorted = false;
@@ -22,7 +22,7 @@ cColorGradient::cColorGradient()
 
 cColorGradient::~cColorGradient() {}
 
-int cColorGradient::AddColor(sRGB8 color, double position)
+int cColorGradient::AddColor(sRGB color, double position)
 {
 	sorted = false;
 	position = CorrectPosition(position, -1);
@@ -31,7 +31,7 @@ int cColorGradient::AddColor(sRGB8 color, double position)
 	return colors.size();
 }
 
-void cColorGradient::ModifyColor(int index, sRGB8 color)
+void cColorGradient::ModifyColor(int index, sRGB color)
 {
 	if (index < colors.size())
 	{
@@ -89,16 +89,16 @@ int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
 	return newIndex;
 }
 
-sRGB8 cColorGradient::GetColor(double position, bool smooth)
+sRGB cColorGradient::GetColor(double position, bool smooth)
 {
 	SortGradient();
 	int paletteIndex = PaletteIterator(0, position);
 	return Interpolate(paletteIndex, position, smooth);
 }
 
-sRGB8 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
+sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 {
-	sRGB8 color;
+	sRGB color;
 	// if last element then just copy color value (no interpolation)
 	if (paletteIndex == sortedColors.size() - 1)
 	{
@@ -107,8 +107,8 @@ sRGB8 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 	else
 	{
 		// interpolation
-		sRGB8 color1 = sortedColors[paletteIndex].color;
-		sRGB8 color2 = sortedColors[paletteIndex + 1].color;
+		sRGB color1 = sortedColors[paletteIndex].color;
+		sRGB color2 = sortedColors[paletteIndex + 1].color;
 		double pos1 = sortedColors[paletteIndex].position;
 		double pos2 = sortedColors[paletteIndex + 1].position;
 		// relative delta
@@ -132,9 +132,9 @@ sRGB8 cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
 	return color;
 }
 
-QVector<sRGB8> cColorGradient::GetGradient(int length, bool smooth)
+QVector<sRGB> cColorGradient::GetGradient(int length, bool smooth)
 {
-	QVector<sRGB8> gradient;
+	QVector<sRGB> gradient;
 	if (length >= 2)
 	{
 		SortGradient();
@@ -148,7 +148,7 @@ QVector<sRGB8> cColorGradient::GetGradient(int length, bool smooth)
 		{
 			double pos = i * step;
 			paletteIndex = PaletteIterator(paletteIndex, pos);
-			sRGB8 color = Interpolate(paletteIndex, pos, smooth);
+			sRGB color = Interpolate(paletteIndex, pos, smooth);
 			gradient.append(color);
 		}
 	}
@@ -185,9 +185,9 @@ QString cColorGradient::GetColorsAsString()
 	{
 		QString oneColor = QString("%1 %2%3%4")
 												 .arg(int(sortedColors[i].position * 10000))
-												 .arg(sortedColors[i].color.R / 256, 2, 16, QChar('0'))
-												 .arg(sortedColors[i].color.G / 256, 2, 16, QChar('0'))
-												 .arg(sortedColors[i].color.B / 256, 2, 16, QChar('0'));
+												 .arg(sortedColors[i].color.R, 2, 16, QChar('0'))
+												 .arg(sortedColors[i].color.G, 2, 16, QChar('0'))
+												 .arg(sortedColors[i].color.B, 2, 16, QChar('0'));
 
 		if (i > 0) string += " ";
 		string += oneColor;
@@ -204,10 +204,10 @@ void cColorGradient::SetColorsFromString(const QString &string)
 
 	if (split.size() < 4)
 	{
-		sColor positionedColor = {sRGB8(255, 255, 255), 0.0};
+		sColor positionedColor = {sRGB(255, 255, 255), 0.0};
 		colors.append(positionedColor);
 
-		sColor positionedColor2 = {sRGB8(255, 255, 255), 1.0};
+		sColor positionedColor2 = {sRGB(255, 255, 255), 1.0};
 		colors.append(positionedColor2);
 
 		qCritical() << "Error! In gradient string shoud be at least two colors";
@@ -215,7 +215,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 	else
 	{
 		double position = 0.0;
-		sRGB8 color;
+		sRGB color;
 
 		for (int i = 0; i < split.size(); i++)
 		{
