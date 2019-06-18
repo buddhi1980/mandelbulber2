@@ -11717,6 +11717,54 @@ void TransfBoxOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 }
 
 /**
+ * diagonal fold conditional
+ */
+void TransfDiagonalFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (!fractal->transformCommon.functionEnabledAxFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAx)
+		{
+			if (z.x > z.y) swap(z.y, z.x);
+		}
+		if (fractal->transformCommon.functionEnabledAyFalse)
+		{
+			if (z.y > z.z) swap(z.z, z.y);
+		}
+		if (fractal->transformCommon.functionEnabledAzFalse)
+		{
+			if (z.z > z.x) swap(z.x, z.z);
+		}
+	}
+	else
+	{
+		if (fractal->transformCommon.functionEnabledAx
+				&& aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			if (z.x > z.y) swap(z.y, z.x);
+		}
+		if (fractal->transformCommon.functionEnabledAyFalse
+				&& aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			if (z.y > z.z) swap(z.z, z.y);
+		}
+		if (fractal->transformCommon.functionEnabledAzFalse
+				&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+		{
+			if (z.z > z.x) swap(z.x, z.z);
+		}
+	}
+
+	if (fractal->analyticDE.enabledFalse)
+	{
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+	}
+}
+
+/**
  * folding tetra3D from M3D (Luca GN 2011):
  * Code taken from the forums, KIFS original thread
  * side note - if you disable the 1st half, 2nd half will be
