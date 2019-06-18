@@ -262,7 +262,7 @@ double cColorGradient::CorrectPosition(double position, int ignoreIndex)
 		for (int i = 0; i < colors.size(); i++)
 		{
 			if (i == ignoreIndex) continue;
-			if (abs(position - colors[i].position) < 0.0001)
+			if (fabs(position - colors[i].position) < 0.0001)
 			{
 				positionIncorrect = true;
 				if (rightDirection)
