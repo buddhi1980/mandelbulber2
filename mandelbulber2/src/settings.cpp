@@ -1041,6 +1041,28 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 			}
 		}
 	}
+
+	if (fileVersion < 2.19)
+	{
+		QSet<QString> materialList;
+		QStringList listOfParameters = par->GetListOfParameters();
+		for (QString paramName : listOfParameters)
+		{
+			if (paramName.left(3) == "mat" && paramName.contains("is_defined"))
+			{
+				int firstDash = paramName.indexOf("_");
+				materialList.insert(paramName.left(firstDash));
+			}
+		}
+
+		for(QString mat : materialList)
+		{
+			QString coloringOffsetParameter = mat + "_coloring_palette_offset";
+			QString colorPaletteParameter = mat + "_surface_color_gradient";
+			int paletteSize = par->Get<QString>(colorPaletteParameter).split(" ").size() / 2;
+			par->Set(coloringOffsetParameter, par->Get<double>(coloringOffsetParameter) / paletteSize);
+		}
+	}
 }
 
 bool cSettings::DecodeFramesHeader(

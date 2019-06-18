@@ -28,16 +28,16 @@ public:
 	void ModifyColor(int index, sRGB color);
 	void ModifyPosition(int index, double position);
 	void RemoveColor(int index);
-	sRGB GetColor(double position, bool smooth);
+	sRGB GetColor(double position, bool smooth) const;
 	QList<sColor> GetListOfColors();
 	QVector<sRGB> GetGradient(int length, bool smooth);
 	QString GetColorsAsString();
 	void SetColorsFromString(const QString &string);
+	void SortGradient();
 
 private:
-	void SortGradient();
-	int PaletteIterator(int paletteIndex, double position);
-	sRGB Interpolate(int paletteIndex, double pos, bool smooth);
+	int PaletteIterator(int paletteIndex, double position) const;
+	sRGB Interpolate(int paletteIndex, double pos, bool smooth) const;
 	double CorrectPosition(double position, int ignoreIndex);
 
 	QList<sColor> colors;

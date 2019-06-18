@@ -79,7 +79,7 @@ void cColorGradient::RemoveColor(int index)
 	}
 }
 
-int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
+int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition) const
 {
 	int newIndex = paletteIndex;
 	while (newIndex < sortedColors.size() - 1 && colorPosition > sortedColors[newIndex + 1].position)
@@ -89,14 +89,13 @@ int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition)
 	return newIndex;
 }
 
-sRGB cColorGradient::GetColor(double position, bool smooth)
+sRGB cColorGradient::GetColor(double position, bool smooth) const
 {
-	SortGradient();
 	int paletteIndex = PaletteIterator(0, position);
 	return Interpolate(paletteIndex, position, smooth);
 }
 
-sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth)
+sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth) const
 {
 	sRGB color;
 	// if last element then just copy color value (no interpolation)
@@ -169,9 +168,12 @@ void cColorGradient::SortGradient()
 {
 	if (!sorted)
 	{
+		QMutex mutex;
+		mutex.lock();
 		sortedColors = colors;
 		std::sort(sortedColors.begin(), sortedColors.end(), sColor::lessCompare);
 		sorted = true;
+		mutex.unlock();
 	}
 }
 
@@ -245,6 +247,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 			}
 		}
 	}
+	SortGradient();
 }
 
 double cColorGradient::CorrectPosition(double position, int ignoreIndex)
