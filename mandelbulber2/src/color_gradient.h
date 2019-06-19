@@ -35,6 +35,7 @@ public:
 	QString GetColorsAsString();
 	void SetColorsFromString(const QString &string);
 	void SortGradient();
+	int GetNumberOfColors() { return colors.size(); }
 
 private:
 	int PaletteIterator(int paletteIndex, double position) const;

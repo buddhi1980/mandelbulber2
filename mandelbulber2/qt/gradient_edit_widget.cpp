@@ -10,6 +10,7 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <QColorDialog>
+#include <QMenu>
 
 #include "src/system.hpp"
 
@@ -201,4 +202,55 @@ void cGradientEditWidget::SetColors(const QString &colorsString)
 {
 	gradient.SetColorsFromString(colorsString);
 	update();
+}
+
+void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu *menu = new QMenu();
+	QAction *actionAddColor = menu->addAction(tr("Add color"));
+	QAction *actionRemoveColor = menu->addAction(tr("Remove color"));
+	menu->addSeparator();
+	QAction *actionClear = menu->addAction(tr("Delete all colors"));
+	QAction *actionChangeNumberOfColors = menu->addAction(tr("Change number of colors"));
+	QAction *actionLoad = menu->addAction(tr("Load colors from file"));
+	QAction *actionSave = menu->addAction(tr("Save colors to file"));
+	QAction *actionCopy = menu->addAction(tr("Copy"));
+	QAction *actionPaste = menu->addAction(tr("Paste"));
+
+	const QAction *selectedItem = menu->exec(event->globalPos());
+
+	if (selectedItem)
+	{
+		if (selectedItem == actionAddColor)
+		{
+			int xClick = event->x();
+			int gradientWidth = width() - 2 * margins;
+			double pos = double(xClick - margins) / gradientWidth;
+			gradient.SortGradient();
+			sRGB color = gradient.GetColor(pos, false);
+			gradient.AddColor(color, pos);
+			update();
+		}
+
+		if (selectedItem == actionRemoveColor)
+		{
+			int xClick = event->x();
+			int index = FindButtonAtPosition(xClick);
+			if (index >= 2)
+			{
+				gradient.RemoveColor(index);
+			}
+		}
+
+		if (selectedItem == actionClear)
+		{
+			int numberOfColors = gradient.GetNumberOfColors();
+			for (int index = 2; index < numberOfColors; index++)
+			{
+				gradient.RemoveColor(2);
+			}
+		}
+	}
+
+	delete menu;
 }

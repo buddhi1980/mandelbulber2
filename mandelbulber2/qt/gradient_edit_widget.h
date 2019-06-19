@@ -26,6 +26,7 @@ private:
 	void mouseMoveEvent(QMouseEvent *event) override;
 	void mousePressEvent(QMouseEvent *event) override;
 	void mouseReleaseEvent(QMouseEvent *event) override;
+	void contextMenuEvent(QContextMenuEvent *event) override;
 
 	void PaintButton(const cColorGradient::sColor &posColor, QPainter &painter);
 	int CalcButtonPosition(double colorPosition);
