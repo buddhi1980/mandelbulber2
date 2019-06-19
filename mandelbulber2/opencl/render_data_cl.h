@@ -49,7 +49,10 @@ typedef struct
 #if defined(FULL_ENGINE) || defined(MESH_EXPORT)
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
-	int *paletteLengths;
+	int *paletteSurfaceOffsets;
+	int *paletteSurfaceLengths;
+	int *paletteSpecularOffsets;
+	int *paletteSpecularLengths;
 #else
 	__global sMaterialCl *material;
 	__global float4 *palette;

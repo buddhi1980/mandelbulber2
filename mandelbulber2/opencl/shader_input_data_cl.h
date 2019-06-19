@@ -55,6 +55,9 @@ typedef struct
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
-	int paletteSize;
+	int paletteSurfaceOffset;
+	int paletteSurfaceLength;
+	int paletteSpecularOffset;
+	int paletteSpecularLength;
 
 } sShaderInputDataCl;

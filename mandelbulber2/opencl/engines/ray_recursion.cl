@@ -307,7 +307,15 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
-			shaderInputData.paletteSize = renderData->paletteLengths[objectData->materialId];
+			shaderInputData.paletteSurfaceOffset =
+				renderData->paletteSurfaceOffsets[objectData->materialId];
+			shaderInputData.paletteSurfaceLength =
+				renderData->paletteSurfaceLengths[objectData->materialId];
+			shaderInputData.paletteSpecularOffset =
+				renderData->paletteSpecularOffsets[objectData->materialId];
+			shaderInputData.paletteSpecularLength =
+				renderData->paletteSpecularLengths[objectData->materialId];
+
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 
@@ -541,7 +549,14 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
-			shaderInputData.paletteSize = renderData->paletteLengths[objectData->materialId];
+			shaderInputData.paletteSurfaceOffset =
+				renderData->paletteSurfaceOffsets[objectData->materialId];
+			shaderInputData.paletteSurfaceLength =
+				renderData->paletteSurfaceLengths[objectData->materialId];
+			shaderInputData.paletteSpecularOffset =
+				renderData->paletteSpecularOffsets[objectData->materialId];
+			shaderInputData.paletteSpecularLength =
+				renderData->paletteSpecularLengths[objectData->materialId];
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 

@@ -75,7 +75,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	//--- materials
 	__global sMaterialCl *materials[MAT_ARRAY_SIZE];
 	__global float4 *palettes[MAT_ARRAY_SIZE];
-	int paletteLengths[MAT_ARRAY_SIZE];
+	int paletteSurfaceOffsets[MAT_ARRAY_SIZE];
+	int paletteSurfaceLengths[MAT_ARRAY_SIZE];
+	int paletteSpecularOffsets[MAT_ARRAY_SIZE];
+	int paletteSpecularLengths[MAT_ARRAY_SIZE];
 
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
@@ -89,9 +92,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		// material header
 		int materialClOffset = GetInteger(materialOffset, inBuff);
 		int paletteItemsOffset = GetInteger(materialOffset + sizeof(int), inBuff);
-		int paletteSize = GetInteger(materialOffset + sizeof(int) * 2, inBuff);
-		int paletteLengthTemp = GetInteger(materialOffset + sizeof(int) * 3, inBuff);
-		paletteLengths[i] = paletteLengthTemp;
+		paletteSurfaceOffsets[i] = GetInteger(materialOffset + sizeof(int) * 2, inBuff);
+		paletteSurfaceLengths[i] = GetInteger(materialOffset + sizeof(int) * 3, inBuff);
+		paletteSpecularOffsets[i] = GetInteger(materialOffset + sizeof(int) * 4, inBuff);
+		paletteSpecularLengths[i] = GetInteger(materialOffset + sizeof(int) * 5, inBuff);
 
 		// material data
 		__global sMaterialCl *materialTemp = (__global sMaterialCl *)&inBuff[materialClOffset];
@@ -319,7 +323,10 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.palettes = palettes;
 		renderData.AOVectors = AOVectors;
 		renderData.lights = lights;
-		renderData.paletteLengths = paletteLengths;
+		renderData.paletteSurfaceOffsets = paletteSurfaceOffsets;
+		renderData.paletteSurfaceLengths = paletteSurfaceLengths;
+		renderData.paletteSpecularOffsets = paletteSpecularOffsets;
+		renderData.paletteSpecularLengths = paletteSpecularLengths;
 		renderData.numberOfLights = numberOfLights;
 		renderData.AOVectorsCount = AOVectorsCount;
 		renderData.reflectionsMax = reflectionsMax;

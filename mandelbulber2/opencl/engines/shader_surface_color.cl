@@ -38,15 +38,15 @@ float3 IndexToColour(int index, sShaderInputDataCl *input)
 
 	if (index < 0)
 	{
-		color = input->palette[input->paletteSize - 1].xyz;
+		color = input->palette[input->paletteSurfaceLength - 1].xyz;
 	}
 	else
 	{
-		int col = (index / 256) % (input->paletteSize);
-		int colPlus1 = (col + 1) % (input->paletteSize);
+		int col = (index / 256) % (input->paletteSurfaceLength);
+		int colPlus1 = (col + 1) % (input->paletteSurfaceLength);
 
-		float4 color1 = input->palette[col];
-		float4 color2 = input->palette[colPlus1];
+		float4 color1 = input->palette[col + input->paletteSurfaceOffset];
+		float4 color2 = input->palette[colPlus1 + input->paletteSurfaceOffset];
 		float4 deltaC = (color2 - color1) / 256.0f;
 
 		float delta = index % 256;

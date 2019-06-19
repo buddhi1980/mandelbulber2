@@ -29,7 +29,8 @@ public:
 	void ModifyPosition(int index, double position);
 	void RemoveColor(int index);
 	sRGB GetColor(double position, bool smooth) const;
-	QList<sColor> GetListOfColors();
+	QList<sColor> GetListOfColors() const;
+	QList<sColor> GetListOfSortedColors() const;
 	QVector<sRGB> GetGradient(int length, bool smooth);
 	QString GetColorsAsString();
 	void SetColorsFromString(const QString &string);

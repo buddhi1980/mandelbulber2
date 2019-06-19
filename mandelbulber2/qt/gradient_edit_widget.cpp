@@ -152,11 +152,9 @@ void cGradientEditWidget::mousePressEvent(QMouseEvent *event)
 			if (mouseY > height() / 2)
 			{
 				int index = FindButtonAtPosition(mouseX);
-				if (index >= 2)
-				{
-					dragStartX = mouseX;
-					pressedColorIndex = index;
-				}
+
+				dragStartX = mouseX;
+				pressedColorIndex = index;
 			}
 		}
 	}

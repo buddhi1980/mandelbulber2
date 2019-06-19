@@ -159,9 +159,15 @@ QVector<sRGB> cColorGradient::GetGradient(int length, bool smooth)
 	return gradient;
 }
 
-QList<cColorGradient::sColor> cColorGradient::GetListOfColors()
+QList<cColorGradient::sColor> cColorGradient::GetListOfColors() const
 {
 	return colors;
+}
+
+QList<cColorGradient::sColor> cColorGradient::GetListOfSortedColors() const
+{
+	if (!sorted) qCritical() << "Colors were not sorted!";
+	return sortedColors;
 }
 
 void cColorGradient::SortGradient()
@@ -204,7 +210,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 	colors.clear();
 	sorted = false;
 
-	if (split.size() < 4)
+	if (split.size() < 2)
 	{
 		sColor positionedColor = {sRGB(255, 255, 255), 0.0};
 		colors.append(positionedColor);
@@ -212,7 +218,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 		sColor positionedColor2 = {sRGB(255, 255, 255), 1.0};
 		colors.append(positionedColor2);
 
-		qCritical() << "Error! In gradient string shoud be at least two colors";
+		qCritical() << "Error! In gradient string shoud be at least one color";
 	}
 	else
 	{

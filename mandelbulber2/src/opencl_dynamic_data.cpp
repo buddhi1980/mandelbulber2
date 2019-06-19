@@ -34,6 +34,7 @@
 
 #include "opencl_dynamic_data.hpp"
 
+#include "color_gradient.h"
 #include "lights.hpp"
 #include "material.h"
 #include "opencl_textures_data.h"
@@ -73,10 +74,12 @@ int cOpenClDynamicData::BuildMaterialsData(
 	---- material 0 ---
 	+0	cl_int materialClOffset (offset for material data)
 	+4	cl_int paletteItemsOffset
-	+8	cl_int palette size (bytes)
-	+12	cl_int paletteLength (number of color palette items)
+	+8	cl_int palette_offset_surface
+	+12	cl_int paletteLengthSurface (number of surface color palette items)
+	+16 cl_int palette offset specular
+	+20 cl_int paletteLengthSpecular (number of specular color palette items)
 
-	+16	sMaterialCl material
+	+24	sMaterialCl material
 
 		palette items:
 			cl_float3 color[0]
@@ -118,7 +121,13 @@ int cOpenClDynamicData::BuildMaterialsData(
 	{
 		sMaterialCl materialCl;
 		cl_float4 *paletteCl;
-		int paletteSize;
+
+		int totalSizeOfGradients = 0;
+		cl_int paletteOffsetSurface;
+		cl_int paletteSizeSurface;
+		cl_int paletteOffsetSpecular;
+		cl_int paletteSizeSpecular;
+
 		if (materials.contains(materialIndex))
 		{
 			cMaterial material = materials[materialIndex];
@@ -146,30 +155,55 @@ int cOpenClDynamicData::BuildMaterialsData(
 			materialCl.normalMapTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
-			cColorPalette palette = material.palette;
-			paletteSize = palette.GetSize();
-			paletteCl = new cl_float4[paletteSize];
-			for (int i = 0; i < paletteSize; i++)
+			// gradients
+			QList<cColorGradient::sColor> gradientSurface =
+				material.gradientSurface.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientSpecular =
+				material.gradientSpecular.GetListOfSortedColors();
+
+			paletteOffsetSurface = 0;
+			paletteSizeSurface = gradientSurface.size();
+			totalSizeOfGradients += paletteSizeSurface;
+
+			paletteOffsetSpecular = paletteOffsetSurface + paletteSizeSurface;
+			paletteSizeSpecular = gradientSpecular.size();
+			totalSizeOfGradients += paletteSizeSpecular;
+
+			paletteCl = new cl_float4[totalSizeOfGradients];
+
+			for (int i = 0; i < paletteSizeSurface; i++)
 			{
-				paletteCl[i] = toClFloat4(CVector4(palette.GetColor(i).R / 256.0,
-					palette.GetColor(i).G / 256.0, palette.GetColor(i).B / 256.0, 0.0));
+				paletteCl[i + paletteOffsetSurface] = toClFloat4(
+					CVector4(gradientSurface[i].color.R / 256.0, gradientSurface[i].color.G / 256.0,
+						gradientSurface[i].color.B / 256.0, gradientSurface[i].position));
+			}
+
+			for (int i = 0; i < paletteSizeSpecular; i++)
+			{
+				paletteCl[i + paletteOffsetSpecular] = toClFloat4(
+					CVector4(gradientSpecular[i].color.R / 256.0, gradientSpecular[i].color.G / 256.0,
+						gradientSpecular[i].color.B / 256.0, gradientSpecular[i].position));
 			}
 		}
 		else
 		{
 			// fill not used material with dummy
 			memset(&materialCl, 0, sizeof(materialCl));
-			paletteSize = 1;
-			paletteCl = new cl_float4[1];
-			paletteCl[0] = toClFloat4(CVector4());
+			paletteOffsetSurface = 0;
+			paletteSizeSurface = 2;
+			paletteOffsetSpecular = 2;
+			paletteSizeSpecular = 2;
+			paletteCl = new cl_float4[4];
+			for (int i = 0; i < 4; i++)
+			{
+				paletteCl[i] = toClFloat4(CVector4());
+			}
 		}
 
 		materialOffsets[materialIndex] = totalDataOffset;
 
 		cl_int materialClOffset = 0;
 		cl_int paletteItemsOffset = 0;
-		cl_int paletteSizeBytes = sizeof(cl_float4) * paletteSize;
-		cl_int paletteLength = paletteSize;
 
 		// reserve bytes for cl_int materialClOffset
 		int materialClOffsetAddress = totalDataOffset;
@@ -181,13 +215,21 @@ int cOpenClDynamicData::BuildMaterialsData(
 		data.append(reinterpret_cast<char *>(&paletteItemsOffset), sizeof(paletteItemsOffset));
 		totalDataOffset += sizeof(paletteItemsOffset);
 
-		// cl_int palette size (bytes)
-		data.append(reinterpret_cast<char *>(&paletteSizeBytes), sizeof(paletteSizeBytes));
-		totalDataOffset += sizeof(paletteSizeBytes);
+		// cl_int paletteOffsetSurface
+		data.append(reinterpret_cast<char *>(&paletteOffsetSurface), sizeof(paletteOffsetSurface));
+		totalDataOffset += sizeof(paletteOffsetSurface);
 
-		// cl_int paletteLength (number of color palette items)
-		data.append(reinterpret_cast<char *>(&paletteLength), sizeof(paletteLength));
-		totalDataOffset += sizeof(paletteLength);
+		// cl_int paletteSizeSurface
+		data.append(reinterpret_cast<char *>(&paletteSizeSurface), sizeof(paletteSizeSurface));
+		totalDataOffset += sizeof(paletteSizeSurface);
+
+		// cl_int paletteOffsetSpecular
+		data.append(reinterpret_cast<char *>(&paletteOffsetSpecular), sizeof(paletteOffsetSpecular));
+		totalDataOffset += sizeof(paletteOffsetSurface);
+
+		// cl_int paletteSizeSpecular
+		data.append(reinterpret_cast<char *>(&paletteSizeSpecular), sizeof(paletteSizeSpecular));
+		totalDataOffset += sizeof(paletteSizeSpecular);
 
 		// add dummy bytes for alignment to 16
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);
@@ -206,6 +248,7 @@ int cOpenClDynamicData::BuildMaterialsData(
 
 		// palette data
 		paletteItemsOffset = totalDataOffset;
+		int paletteSizeBytes = totalSizeOfGradients * sizeof(cl_float4);
 		data.append(reinterpret_cast<char *>(paletteCl), paletteSizeBytes);
 		totalDataOffset += paletteSizeBytes;
 
