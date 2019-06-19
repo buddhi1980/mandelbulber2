@@ -32,27 +32,58 @@
  * surface color calculation
  */
 
-float3 IndexToColour(int index, sShaderInputDataCl *input)
+float3 GradientInterpolate(
+	int paletteIndex, float pos, bool smooth, int gradientSize, __global float4 *palette)
 {
-	float3 color = (float3){1.0f, 1.0f, 1.0f};
-
-	if (index < 0)
+	float3 color = 0.0f;
+	// if last element then just copy color value (no interpolation)
+	if (paletteIndex == gradientSize - 1)
 	{
-		color = input->palette[input->paletteSurfaceLength - 1].xyz;
+		color = palette[paletteIndex - 1].xyz;
 	}
 	else
 	{
-		int col = (index / 256) % (input->paletteSurfaceLength);
-		int colPlus1 = (col + 1) % (input->paletteSurfaceLength);
+		// interpolation
+		float3 color1 = palette[paletteIndex].xyz;
+		float pos1 = palette[paletteIndex].w;
+		float3 color2 = palette[paletteIndex + 1].xyz;
+		float pos2 = palette[paletteIndex + 1].w;
 
-		float4 color1 = input->palette[col + input->paletteSurfaceOffset];
-		float4 color2 = input->palette[colPlus1 + input->paletteSurfaceOffset];
-		float4 deltaC = (color2 - color1) / 256.0f;
+		// relative delta
+		if (pos2 - pos1 > 0.0f)
+		{
+			float delta = (pos - pos1) / (pos2 - pos1);
 
-		float delta = index % 256;
-		color = (color1 + (deltaC * delta)).xyz;
+			if (smooth) delta = 0.5f * (1.0f - cos(delta * M_PI));
+
+			float nDelta = 1.0f - delta;
+			color.s0 = color1.s0 * nDelta + color2.s0 * delta;
+			color.s1 = color1.s1 * nDelta + color2.s1 * delta;
+			color.s2 = color1.s2 * nDelta + color2.s2 * delta;
+		}
+		else
+		{
+			color = color1;
+		}
 	}
 	return color;
+}
+
+int GradientIterator(
+	int paletteIndex, float colorPosition, int gradientSize, __global float4 *palette)
+{
+	int newIndex = paletteIndex;
+	while (newIndex < gradientSize - 1 && colorPosition > palette[newIndex + 1].s3)
+	{
+		newIndex++;
+	}
+	return newIndex;
+}
+
+float3 GetColorFronGradient(float position, bool smooth, int gradientSize, __global float4 *palette)
+{
+	int paletteIndex = GradientIterator(0, position, gradientSize, palette);
+	return GradientInterpolate(paletteIndex, position, smooth, gradientSize, palette);
 }
 
 float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
@@ -94,13 +125,14 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 				fout =
 					Fractal(consts, pointTemp, calcParams, calcModeColouring, input->material, formulaIndex);
-				int nCol = floor(fout.colorIndex);
-				nCol = abs(nCol) % (248 * 256);
-				int color_number =
-					(int)(nCol * input->material->coloring_speed + 256 * input->material->paletteOffset)
-					% 65536;
+				float nCol = fmod(fabs(fout.colorIndex), 248.0f * 256.0f);
 
-				color = IndexToColour(color_number, input);
+				float colorPosition = fmod(
+					nCol / 256.0f / 10.0f * input->material->coloring_speed + input->material->paletteOffset,
+					1.0f);
+
+				color = GetColorFronGradient(colorPosition, false, input->paletteSurfaceLength,
+					input->palette + input->paletteSurfaceOffset);
 			}
 			else
 			{
