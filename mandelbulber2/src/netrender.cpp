@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -61,7 +61,8 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
 	actualId = 0;
 	isUsed = false;
 	cNetRenderClient = new CNetRenderClient();
-	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this, SLOT(clientStatusChanged(netRenderStatus)));
+	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
+		SLOT(clientStatusChanged(netRenderStatus)));
 	connect(cNetRenderClient, SIGNAL(receivedData()), this, SLOT(clientReceiveData()));
 }
 
@@ -601,7 +602,8 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 }
 
 // send rendered lines
-void CNetRender::SendRenderedLines(const QList<int>& lineNumbers, const QList<QByteArray>& lines) const
+void CNetRender::SendRenderedLines(
+	const QList<int> &lineNumbers, const QList<QByteArray> &lines) const
 {
 	sMessage msg;
 	msg.command = netRender_DATA;
@@ -627,7 +629,7 @@ void CNetRender::Stop()
 }
 
 void CNetRender::SetCurrentJob(
-	const cParameterContainer& settings, const cFractalContainer& fractal, QStringList listOfTextures)
+	const cParameterContainer &settings, const cFractalContainer &fractal, QStringList listOfTextures)
 {
 	WriteLog("NetRender - Sending job", 2);
 	cSettings settingsData(cSettings::formatNetRender);
@@ -692,7 +694,7 @@ void CNetRender::NotifyStatus()
 	emit NewStatusClient();
 }
 
-void CNetRender::SendToDoList(int clientIndex, const QList<int>& done)
+void CNetRender::SendToDoList(int clientIndex, const QList<int> &done)
 {
 	if (clientIndex < clients.size())
 	{
@@ -719,7 +721,7 @@ void CNetRender::StopAll()
 	Stop();
 }
 
-void CNetRender::SendSetup(int clientIndex, int id, const QList<int>& _startingPositions)
+void CNetRender::SendSetup(int clientIndex, int id, const QList<int> &_startingPositions)
 {
 	WriteLog("NetRender - send setup to clients", 2);
 	if (clientIndex < clients.size())
@@ -866,7 +868,7 @@ bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
 	return majorVersion1 == majorVersion2;
 }
 
-QByteArray *CNetRender::GetTexture(const QString& textureName, int frameNo)
+QByteArray *CNetRender::GetTexture(const QString &textureName, int frameNo)
 {
 	const QList<QString> keys = textures.keys();
 	QString animatedTextureName = AnimatedFileName(textureName, frameNo, &keys);
@@ -893,11 +895,11 @@ bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
 	return CNetRenderTransport::SendData(socket, msg, actualId);
 }
 
-void CNetRender::ReceiveData(QTcpSocket *socket, sMessage* msg)
+void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
-	if(socket->bytesAvailable() > 0)
+	if (socket->bytesAvailable() > 0)
 	{
-		if(CNetRenderTransport::ReceiveData(socket, msg))
+		if (CNetRenderTransport::ReceiveData(socket, msg))
 		{
 			ProcessData(socket, msg);
 			return;

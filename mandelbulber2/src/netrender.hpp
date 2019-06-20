@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -40,10 +40,9 @@
 #include <QtCore>
 
 #include "fractal_container.hpp"
-#include "parameters.hpp"
-
 #include "netrender_client.hpp"
 #include "netrender_transport.hpp"
+#include "parameters.hpp"
 
 // forward declarations
 struct sRenderData;
@@ -120,7 +119,7 @@ public:
 	// get line numbers which should be rendered first
 	QList<int> GetStartingPositions() const { return startingPositions; }
 	// get received textures
-	QByteArray *GetTexture(const QString& textureName, int frameNo);
+	QByteArray *GetTexture(const QString &textureName, int frameNo);
 
 	bool WaitForAllClientsReady(double timeout);
 
@@ -168,18 +167,18 @@ private:
 	//------------------- public slots -------------------
 public slots:
 	// send parameters and textures to all clients and start rendering
-	void SetCurrentJob(
-		const cParameterContainer& settings, const cFractalContainer& fractal, QStringList listOfTextures);
+	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
+		QStringList listOfTextures);
 	// send to server a list of numbers and image data of already rendered lines
-	void SendRenderedLines(const QList<int>& lineNumbers, const QList<QByteArray>& lines) const;
+	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines) const;
 	// send list of already rendered lines
-	void SendToDoList(int clientIndex, const QList<int>& done); // send list of already rendered lines
+	void SendToDoList(int clientIndex, const QList<int> &done); // send list of already rendered lines
 	// notify the server about client status change
 	void NotifyStatus();
 	// send message to all clients to stop rendering
 	void StopAll();
 	// send client id and list of list of lines to render at the beginning to selected client
-	void SendSetup(int clientIndex, int id, const QList<int>& _startingPositions);
+	void SendSetup(int clientIndex, int id, const QList<int> &_startingPositions);
 	// kicks and kills a client (can be used if client is hanging)
 	void KickAndKillClient(int clientIndex);
 
