@@ -965,9 +965,14 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			name.replace("surface_color_palette", "surface_color_gradient");
 
 			QStringList split = value.split(" ");
-			double step = 1.0 / split.size();
+			int numberOfColors = split.size();
+
+			// in case if last color is not a valid color (e.g. empty)
+			if (split.last().size() < 6) numberOfColors -= 1;
+
+			double step = 1.0 / numberOfColors;
 			QString newValue;
-			for (int i = 0; i < split.size(); i++)
+			for (int i = 0; i < numberOfColors; i++)
 			{
 				int pos = int(i * step * 10000.0);
 				if (i > 0) newValue += " ";
@@ -1055,12 +1060,15 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 			}
 		}
 
-		for(QString mat : materialList)
+		for (QString mat : materialList)
 		{
 			QString coloringOffsetParameter = mat + "_coloring_palette_offset";
 			QString colorPaletteParameter = mat + "_surface_color_gradient";
+			QString coloringSpeedParameter = mat + "_coloring_speed";
 			int paletteSize = par->Get<QString>(colorPaletteParameter).split(" ").size() / 2;
 			par->Set(coloringOffsetParameter, par->Get<double>(coloringOffsetParameter) / paletteSize);
+			par->Set(
+				coloringSpeedParameter, par->Get<double>(coloringSpeedParameter) * 10.0 / paletteSize);
 		}
 	}
 }
