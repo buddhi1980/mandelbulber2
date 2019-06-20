@@ -67,8 +67,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
+	sGradientsCollection gradients;
+	gradients.specular = sRGB(256,256,256);
+
 	// calculate surface colour
-	sRGBAfloat colour = SurfaceColour(input);
+	sRGBAfloat colour = SurfaceColour(input, &gradients);
 	float texColInt = mat->colorTextureIntensity;
 	float texColIntN = 1.0f - mat->colorTextureIntensity;
 	colour.R *= input.texColor.R * texColInt + texColIntN;
@@ -81,6 +84,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (params->mainLightEnable)
 	{
 		specular = SpecularHighlightCombined(input, input.lightVect, colour);
+		if (input.material->useColorsFromPalette)
+		{
+			specular.R *= gradients.specular.R / 256.0;
+			specular.G *= gradients.specular.G / 256.0;
+			specular.B *= gradients.specular.B / 256.0;
+		}
 	}
 
 	// ambient occlusion

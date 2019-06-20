@@ -194,6 +194,12 @@ private:
 		bool goDeeper;
 	};
 
+	struct sGradientsCollection
+	{
+		sRGB surface;
+		sRGB specular;
+	};
+
 	// functions
 	void PrepareMainVectors();
 	void PrepareReflectionBuffer();
@@ -217,7 +223,7 @@ private:
 		float specularWidth, float roughness) const;
 	sRGBAfloat SpecularHighlightCombined(
 		const sShaderInputData &input, CVector3 lightVector, sRGBAfloat surfaceColor) const;
-	sRGBAfloat SurfaceColour(const sShaderInputData &input) const;
+	sRGBAfloat SurfaceColour(const sShaderInputData &input, sGradientsCollection *gradients) const;
 	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat EnvMapping(const sShaderInputData &input) const;

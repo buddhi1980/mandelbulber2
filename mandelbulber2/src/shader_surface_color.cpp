@@ -36,7 +36,8 @@
 #include "render_data.hpp"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
+sRGBAfloat cRenderWorker::SurfaceColour(
+	const sShaderInputData &input, sGradientsCollection *gradients) const
 {
 	sRGBAfloat out;
 
@@ -72,6 +73,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(const sShaderInputData &input) const
 					1.0);
 				colour = input.material->gradientSurface.GetColor(colorPosition, false);
 				// TODO - smooth mode for gradient
+
+				gradients->surface = colour;
+				gradients->specular = input.material->gradientSpecular.GetColor(colorPosition, false);
 			}
 			else
 			{

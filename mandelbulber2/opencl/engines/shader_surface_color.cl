@@ -32,6 +32,12 @@
  * surface color calculation
  */
 
+typedef struct
+{
+	float3 surface;
+	float3 specular;
+} sClGradientsCollection;
+
 float3 GradientInterpolate(
 	int paletteIndex, float pos, bool smooth, int gradientSize, __global float4 *palette)
 {
@@ -87,7 +93,7 @@ float3 GetColorFronGradient(float position, bool smooth, int gradientSize, __glo
 }
 
 float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
-	sShaderInputDataCl *input, sClCalcParams *calcParams)
+	sShaderInputDataCl *input, sClCalcParams *calcParams, sClGradientsCollection *gradients)
 {
 	float3 out;
 	calcParams->distThresh = input->distThresh;
@@ -133,6 +139,10 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 
 				color = GetColorFronGradient(colorPosition, false, input->paletteSurfaceLength,
 					input->palette + input->paletteSurfaceOffset);
+
+				gradients->surface = color;
+				gradients->specular = GetColorFronGradient(colorPosition, false,
+					input->paletteSpecularLength, input->palette + input->paletteSpecularOffset);
 			}
 			else
 			{
