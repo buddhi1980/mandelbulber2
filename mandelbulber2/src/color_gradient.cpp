@@ -256,6 +256,23 @@ void cColorGradient::SetColorsFromString(const QString &string)
 	SortGradient();
 }
 
+void cColorGradient::DeleteAll()
+{
+	colors.clear();
+	sortedColors.clear();
+	sorted = false;
+}
+
+void cColorGradient::DeleteAndKeepTwo()
+{
+	sorted = false;
+	int numberOfColors = colors.size();
+	for (int index = 2; index < numberOfColors; index++)
+	{
+		colors.removeLast();
+	}
+}
+
 double cColorGradient::CorrectPosition(double position, int ignoreIndex)
 {
 	position = qBound(0.0, position, 1.0);

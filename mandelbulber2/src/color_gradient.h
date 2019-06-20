@@ -36,6 +36,8 @@ public:
 	void SetColorsFromString(const QString &string);
 	void SortGradient();
 	int GetNumberOfColors() { return colors.size(); }
+	void DeleteAll();
+	void DeleteAndKeepTwo();
 
 private:
 	int PaletteIterator(int paletteIndex, double position) const;

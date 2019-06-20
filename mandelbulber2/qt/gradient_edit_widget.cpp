@@ -11,6 +11,8 @@
 #include <QMouseEvent>
 #include <QColorDialog>
 #include <QMenu>
+#include <QInputDialog>
+#include <QtWidgets>
 
 #include "src/system.hpp"
 
@@ -244,10 +246,38 @@ void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 
 		if (selectedItem == actionClear)
 		{
-			int numberOfColors = gradient.GetNumberOfColors();
-			for (int index = 2; index < numberOfColors; index++)
+			gradient.DeleteAndKeepTwo();
+		}
+
+		if (selectedItem == actionChangeNumberOfColors)
+		{
+			bool ok;
+			int newNumber = QInputDialog::getInt(this, tr("Change number of colors"),
+				tr("New number of colors:"), gradient.GetNumberOfColors() - 1, 1, 100, 1, &ok);
+			if (ok && newNumber != gradient.GetNumberOfColors() - 1)
 			{
-				gradient.RemoveColor(2);
+				gradient.SortGradient();
+
+				cColorGradient newGradient;
+				newGradient.DeleteAll();
+
+				double step = 1.0 / newNumber;
+				for (int i = 0; i < newNumber; i++)
+				{
+					if (i == 0)
+					{
+						sRGB color = gradient.GetColor(0.0, false);
+						newGradient.AddColor(color, 0.0);
+						newGradient.AddColor(color, 1.0);
+					}
+					else
+					{
+						double pos = step * i;
+						sRGB color = gradient.GetColor(pos, false);
+						newGradient.AddColor(color, pos);
+					}
+				}
+				gradient = newGradient;
 			}
 		}
 	}
