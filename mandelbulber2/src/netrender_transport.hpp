@@ -83,6 +83,17 @@ struct sMessage
 	QByteArray payload;
 };
 
+struct sClient
+{
+	sClient() : socket(nullptr), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
+	QTcpSocket *socket;
+	sMessage msg;
+	netRenderStatus status;
+	qint32 linesRendered;
+	qint32 clientWorkerCount;
+	QString name;
+};
+
 class CNetRenderTransport
 {
 public:

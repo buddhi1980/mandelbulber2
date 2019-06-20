@@ -41,6 +41,7 @@
 
 #include "fractal_container.hpp"
 #include "netrender_client.hpp"
+#include "netrender_server.hpp"
 #include "netrender_transport.hpp"
 #include "parameters.hpp"
 
@@ -69,19 +70,6 @@ public:
 		netRenderServer
 	};
 
-public:
-	// all information about connected clients
-	struct sClient
-	{
-		sClient() : socket(nullptr), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
-		QTcpSocket *socket;
-		sMessage msg;
-		netRenderStatus status;
-		qint32 linesRendered;
-		qint32 clientWorkerCount;
-		QString name;
-	};
-
 	//----------------- public methods --------------------------
 public:
 	// ask if server is established
@@ -98,13 +86,13 @@ public:
 	void DeleteClient();
 
 	// get client
-	const sClient &GetClient(int index);
+	const sClient &GetClient(int index) { return cNetRenderServer->GetClient(index); }
 	// get number of connected clients
-	qint32 GetClientCount() const { return clients.size(); }
+	qint32 GetClientCount() const { return cNetRenderServer->GetClientCount(); }
 	// get number of CPU cores for selected client
-	qint32 GetWorkerCount(qint32 index) { return clients[index].clientWorkerCount; }
+	qint32 GetWorkerCount(qint32 index) { return cNetRenderServer->GetWorkerCount(index); }
 	// get total number of available CPUs
-	qint32 getTotalWorkerCount();
+	qint32 getTotalWorkerCount() { return cNetRenderServer->getTotalWorkerCount(); }
 	// get status
 	netRenderStatus GetStatus() const { return status; }
 	// get name of the connected server
@@ -137,22 +125,23 @@ private:
 	// process received data and send response if needed
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
 	// get client index by given socket pointer
-	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
+	int GetClientIndexFromSocket(const QTcpSocket *socket)
+	{
+		return cNetRenderServer->GetClientIndexFromSocket(socket);
+	}
 	// compare major version of software
 	static bool CompareMajorVersion(qint32 version1, qint32 version2);
 
 	//---------------- private data -----------------
 private:
 	CNetRenderClient *cNetRenderClient;
+	CNetRenderServer *cNetRenderServer;
 	netRenderStatus status;
-	QList<sClient> clients;
-	sClient nullClient; // dummy client for fail-safe purposes
 	QString address;
 	QString serverName;
 	qint32 portNo;
 	qint32 version;
 	qint32 workerCount;
-	QTcpServer *server;
 	typeOfDevice deviceType;
 	sMessage msgFromServer;
 	sMessage msgCurrentJob;
@@ -184,16 +173,15 @@ public slots:
 
 	//------------------- private slots ------------------
 private slots:
-	// handle new client
-	void HandleNewConnection();
-	// delete client from list when disconnected
-	void ClientDisconnected();
-	// received data from client
-	void ReceiveFromClient();
 	// received client status changed
 	void clientStatusChanged(netRenderStatus _status);
+	// received server status changed
+	void serverStatusChanged(netRenderStatus _status);
 	// received data on client connection
 	void clientReceiveData();
+	void ClientsHaveChanged();
+	void SendVersionToClient(int index);
+	void ReceiveFromClient(int index);
 
 signals:
 	// request to update table of clients
