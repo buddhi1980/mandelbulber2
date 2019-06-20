@@ -75,7 +75,7 @@ void CNetRenderClient::DeleteClient()
 		delete clientSocket;
 		clientSocket = nullptr;
 	}
-	emit changeClientStatus(0); // TODO: netRender_DISABLED
+	emit changeClientStatus(netRender_DISABLED);
 }
 
 void CNetRenderClient::TryServerConnect()
@@ -94,7 +94,7 @@ void CNetRenderClient::TryServerConnect()
 		}
 		else
 		{
-			emit changeClientStatus(4); // netRender_CONNECTING
+			emit changeClientStatus(netRender_CONNECTING);
 			clientSocket->close();
 			clientSocket->connectToHost(address, portNo);
 		}
@@ -118,7 +118,7 @@ void CNetRenderClient::SetClient(QString _address, int _portNo)
 	WriteLog(
 		"NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo),
 		2);
-	emit changeClientStatus(4); // TODO: netRender_CONNECTING
+	emit changeClientStatus(netRender_CONNECTING);
 }
 
 void CNetRenderClient::ReceiveFromServer()
@@ -128,7 +128,7 @@ void CNetRenderClient::ReceiveFromServer()
 
 void CNetRenderClient::ServerDisconnected()
 {
-	emit changeClientStatus(5); // TODO netRender_ERROR
+	emit changeClientStatus(netRender_ERROR);
 
 	gMainInterface->stopRequest = true;
 

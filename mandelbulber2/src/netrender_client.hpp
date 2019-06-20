@@ -39,6 +39,8 @@
 #include <QTcpSocket>
 #include <QtCore>
 
+#include "netrender_transport.hpp"
+
 // forward declarations
 struct sRenderData;
 
@@ -61,7 +63,7 @@ private slots:
 	void ReceiveFromServer();
 
 signals:
-	void changeClientStatus(int);
+	void changeClientStatus(netRenderStatus status);
 	void receivedData();
 
 private:

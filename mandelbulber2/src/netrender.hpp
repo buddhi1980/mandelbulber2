@@ -43,6 +43,7 @@
 #include "parameters.hpp"
 
 #include "netrender_client.hpp"
+#include "netrender_transport.hpp"
 
 // forward declarations
 struct sRenderData;
@@ -56,34 +57,6 @@ public:
 
 	//--------------- enumerations ---------------------
 public:
-	enum netCommand
-	{
-		netRender_NONE, // used for invalidating the message buffer after a message has been processed
-		netRender_VERSION, // ask for server version (server to clients)
-		netRender_WORKER,	// ask for number of client CPU count (client to server)
-		netRender_RENDER,	// list of lines needed to be rendered,
-											 // and suggestion which lines should be rendered first (server to clients)
-		netRender_DATA,		 // data of rendered lines (client to server)
-		netRender_BAD,		 // answer about wrong server version (client to server)
-		netRender_JOB,		 // sending of settings and textures
-											 // Receiving of job will start rendering on client (server to clients)
-		netRender_STOP,		 // terminate rendering request (server to clients)
-		netRender_STATUS,	// ask for status (server to clients)
-		netRender_SETUP,	 // send setup job id and starting positions (server to clients)
-		netRender_ACK,		 // acknowledge receiving of rendered lines (server to clients)
-		netRender_KICK_AND_KILL // command to kill the client (program exit) (server to clients)
-	};
-
-	enum netRenderStatus
-	{
-		netRender_DISABLED = 0,		// no slot configured - netrendering disabled in the program
-		netRender_READY = 1,			// client is ready and able to receive jobs
-		netRender_WORKING = 2,		// during rendering
-		netRender_NEW = 3,				// just connected
-		netRender_CONNECTING = 4, // connecting in progress
-		netRender_ERROR = 5				// error occurred
-	};
-
 	enum typeOfDevice
 	{
 		netRender_CLIENT,
@@ -95,18 +68,6 @@ public:
 	{
 		netRenderClient,
 		netRenderServer
-	};
-
-	//---------------- internal data structures ----------------
-private:
-	// general message frame for sending/receiving
-	struct sMessage
-	{
-		sMessage() : command(netRender_NONE), id(0), size(0) {}
-		qint32 command;
-		qint32 id;
-		qint32 size;
-		QByteArray payload;
 	};
 
 public:
@@ -172,14 +133,10 @@ public:
 	void Release() { isUsed = false; }
 
 private:
-	// send data to communication partner
-	bool SendData(QTcpSocket *socket, sMessage msg) const;
-	// receive data from partner
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
+	bool SendData(QTcpSocket *socket, sMessage msg) const;
 	// process received data and send response if needed
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
-	// clearing message buffer
-	static void ResetMessage(sMessage *msg);
 	// get client index by given socket pointer
 	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
 	// compare major version of software
@@ -235,7 +192,7 @@ private slots:
 	// received data from client
 	void ReceiveFromClient();
 	// received client status changed
-	void clientStatusChanged(int _status);
+	void clientStatusChanged(netRenderStatus _status);
 	// received data on client connection
 	void clientReceiveData();
 

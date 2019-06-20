@@ -247,8 +247,8 @@ void Test::netrender() const
 
 	QTest::qWait(500);
 
-	CNetRender::netRenderStatus clientStatus = netRenderClient->GetStatus();
-	QVERIFY2(clientStatus == CNetRender::netRender_READY,
+	netRenderStatus clientStatus = netRenderClient->GetStatus();
+	QVERIFY2(clientStatus == netRender_READY,
 		QString("client status wrong: should be 'READY' but is '%1'.")
 			.arg(CNetRender::GetStatusText(clientStatus))
 			.toStdString()

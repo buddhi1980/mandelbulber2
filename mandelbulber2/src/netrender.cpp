@@ -43,7 +43,6 @@
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
-#include "lzo_compression.h"
 #include "render_window.hpp"
 #include "settings.hpp"
 #include "system.hpp"
@@ -62,7 +61,7 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
 	actualId = 0;
 	isUsed = false;
 	cNetRenderClient = new CNetRenderClient();
-	connect(cNetRenderClient, SIGNAL(changeClientStatus(int)), this, SLOT(clientStatusChanged(int)));
+	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this, SLOT(clientStatusChanged(netRenderStatus)));
 	connect(cNetRenderClient, SIGNAL(receivedData()), this, SLOT(clientReceiveData()));
 }
 
@@ -77,7 +76,7 @@ void CNetRender::SetServer(qint32 _portNo)
 	DeleteClient();
 	DeleteServer();
 	portNo = _portNo;
-	ResetMessage(&msgCurrentJob);
+	CNetRenderTransport::ResetMessage(&msgCurrentJob);
 	server = new QTcpServer(this);
 
 	WriteLog("NetRender - starting server.", 2);
@@ -227,7 +226,7 @@ void CNetRender::SetClient(QString _address, int _portNo)
 	status = netRender_NEW;
 	address = _address;
 	portNo = _portNo;
-	ResetMessage(&msgFromServer);
+	CNetRenderTransport::ResetMessage(&msgFromServer);
 	cNetRenderClient->SetClient(_address, _portNo);
 
 	if (systemData.noGui)
@@ -235,129 +234,6 @@ void CNetRender::SetClient(QString _address, int _portNo)
 		QTextStream out(stdout);
 		out << "NetRender - Client Setup, link to server: " + address
 						 + ", port: " + QString::number(portNo) + "\n";
-	}
-}
-
-bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
-{
-	//			NetRender Message format         (optional)
-	// | qint32		| qint32	| qint32	|( 0 - ???	| quint16  |)
-	// | command	| id			| size		|( payload	| checksum |)
-
-	if (!socket) return false;
-	if (socket->state() != QAbstractSocket::ConnectedState) return false;
-
-	QByteArray byteArray;
-	QDataStream socketWriteStream(&byteArray, QIODevice::ReadWrite);
-
-	msg.payload = lzoCompress(msg.payload);
-	msg.size = msg.payload.size();
-	msg.id = actualId;
-
-	WriteLog(QString("NetRender - send data, command %1, bytes %2, id %3")
-						 .arg(msg.command)
-						 .arg(msg.size)
-						 .arg(msg.id),
-		3);
-
-	// append header
-	socketWriteStream << msg.command << msg.id << msg.size;
-
-	// append payload
-	if (msg.size > 0)
-	{
-		socketWriteStream.writeRawData(msg.payload.data(), msg.size);
-		// append checksum
-		qint16 checksum = qChecksum(msg.payload.data(), msg.size);
-		socketWriteStream << checksum;
-	}
-
-	// write to socket
-	if (socket->isOpen() && socket->state() == QAbstractSocket::ConnectedState)
-	{
-		socket->write(byteArray);
-	}
-	else
-	{
-		qCritical() << "CNetRender::SendData(QTcpSocket *socket, sMessage msg): socket closed!";
-	}
-
-	return true;
-}
-
-void CNetRender::ResetMessage(sMessage *msg)
-{
-	if (msg == nullptr)
-	{
-		qCritical() << "CNetRender::ResetMessage(sMessage *msg): message is nullptr!";
-	}
-	else
-	{
-		msg->command = netRender_NONE;
-		msg->id = 0;
-		msg->size = 0;
-		if (!msg->payload.isEmpty()) msg->payload.clear();
-	}
-}
-
-void CNetRender::ReceiveData(QTcpSocket *socket, sMessage *msg)
-{
-	QDataStream socketReadStream(socket);
-	qint64 bytesAvailable = socket->bytesAvailable();
-
-	while (bytesAvailable > 0)
-	{
-		if (msg->command == netRender_NONE)
-		{
-			if (socket->bytesAvailable()
-					< qint64((sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size))))
-			{
-				return;
-			}
-			// meta data available
-			socketReadStream >> msg->command;
-			socketReadStream >> msg->id;
-			socketReadStream >> msg->size;
-			WriteLog(QString("NetRender - ReceiveData(), command %1, bytes %2, id %3")
-								 .arg(msg->command)
-								 .arg(msg->size)
-								 .arg(msg->id),
-				3);
-		}
-
-		bytesAvailable = socket->bytesAvailable();
-
-		if (msg->size > 0)
-		{
-			if (bytesAvailable < qint64(sizeof(quint16) + msg->size))
-			{
-				return;
-			}
-			// full payload available
-			char *buffer = new char[msg->size];
-			socketReadStream.readRawData(buffer, msg->size);
-			msg->payload.append(buffer, msg->size);
-
-			quint16 crcCalculated = qChecksum(buffer, msg->size);
-			quint16 crcReceived;
-			socketReadStream >> crcReceived;
-
-			delete[] buffer;
-			if (crcCalculated != crcReceived)
-			{
-				// ResetMessage(msg);
-				// socketReadStream.atEnd();
-				// socketReadStream.skipRawData(socket->bytesAvailable());
-				WriteLog("NetRender - ReceiveData() : crc error", 2);
-
-				return;
-			}
-			msg->payload = lzoUncompress(msg->payload);
-			msg->size = msg->payload.size();
-		}
-		ProcessData(socket, msg);
-
-		bytesAvailable = socket->bytesAvailable();
 	}
 }
 
@@ -721,7 +597,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			qWarning() << "NetRender - client unknown, address: " + socket->peerAddress().toString();
 		}
 	}
-	ResetMessage(inMsg);
+	CNetRenderTransport::ResetMessage(inMsg);
 }
 
 // send rendered lines
@@ -889,12 +765,12 @@ QString CNetRender::GetStatusText(netRenderStatus displayStatus)
 {
 	switch (displayStatus)
 	{
-		case CNetRender::netRender_DISABLED: return tr("DISABLED");
-		case CNetRender::netRender_READY: return tr("READY");
-		case CNetRender::netRender_WORKING: return tr("WORKING");
-		case CNetRender::netRender_NEW: return tr("NEW");
-		case CNetRender::netRender_CONNECTING: return tr("(RE-)CONNECTING");
-		case CNetRender::netRender_ERROR: return tr("ERROR");
+		case netRender_DISABLED: return tr("DISABLED");
+		case netRender_READY: return tr("READY");
+		case netRender_WORKING: return tr("WORKING");
+		case netRender_NEW: return tr("NEW");
+		case netRender_CONNECTING: return tr("(RE-)CONNECTING");
+		case netRender_ERROR: return tr("ERROR");
 	}
 	return tr("UNKNOWN");
 }
@@ -903,12 +779,12 @@ QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
 {
 	switch (displayStatus)
 	{
-		case CNetRender::netRender_DISABLED: return "darkgrey";
-		case CNetRender::netRender_READY: return "darkgreen";
-		case CNetRender::netRender_WORKING: return "darkblue";
-		case CNetRender::netRender_NEW: return "darkpurple";
-		case CNetRender::netRender_CONNECTING: return "darkorange";
-		case CNetRender::netRender_ERROR: return "darkred";
+		case netRender_DISABLED: return "darkgrey";
+		case netRender_READY: return "darkgreen";
+		case netRender_WORKING: return "darkblue";
+		case netRender_NEW: return "darkpurple";
+		case netRender_CONNECTING: return "darkorange";
+		case netRender_ERROR: return "darkred";
 	}
 	return "red";
 }
@@ -927,7 +803,7 @@ const CNetRender::sClient &CNetRender::GetClient(int index)
 	}
 }
 
-CNetRender::netRenderStatus CNetRender::GetClientStatus(int index)
+netRenderStatus CNetRender::GetClientStatus(int index)
 {
 	if (index < GetClientCount())
 	{
@@ -997,11 +873,11 @@ QByteArray *CNetRender::GetTexture(const QString& textureName, int frameNo)
 	return &textures[animatedTextureName];
 }
 
-void CNetRender::clientStatusChanged(int _status)
+void CNetRender::clientStatusChanged(netRenderStatus _status)
 {
 	if (IsClient())
 	{
-		status = (netRenderStatus) _status;
+		status = _status;
 		emit NotifyStatus();
 	}
 }
@@ -1010,4 +886,21 @@ void CNetRender::clientReceiveData()
 {
 	WriteLog("NetRender - ReceiveFromServer()", 3);
 	ReceiveData(cNetRenderClient->getSocket(), &msgFromServer);
+}
+
+bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
+{
+	return CNetRenderTransport::SendData(socket, msg, actualId);
+}
+
+void CNetRender::ReceiveData(QTcpSocket *socket, sMessage* msg)
+{
+	if(socket->bytesAvailable() > 0)
+	{
+		if(CNetRenderTransport::ReceiveData(socket, msg))
+		{
+			ProcessData(socket, msg);
+			return;
+		}
+	}
 }

@@ -197,7 +197,7 @@ void cRenderer::SendRenderedLinesToNetRender(QList<int> &listToSend)
 {
 	// sending rendered lines to NetRender server
 	if (data->configuration.UseNetRender() && gNetRender->IsClient()
-			&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+			&& gNetRender->GetStatus() == netRender_WORKING)
 	{
 		// If ACK was already received, then server is ready to take new data.
 		if (netRenderAckReceived)
@@ -248,7 +248,7 @@ void cRenderer::SendRenderedLinesToNetRenderAfterRendering(QList<int> listToSend
 {
 	// send last rendered lines
 	if (data->configuration.UseNetRender() && gNetRender->IsClient()
-			&& gNetRender->GetStatus() == CNetRender::netRender_WORKING)
+			&& gNetRender->GetStatus() == netRender_WORKING)
 	{
 		if (netRenderAckReceived)
 		{
@@ -524,7 +524,7 @@ bool cRenderer::RenderImage()
 		{
 			if (gNetRender->IsClient())
 			{
-				gNetRender->SetStatus(CNetRender::netRender_READY);
+				gNetRender->SetStatus(netRender_READY);
 				emit NotifyClientStatus();
 			}
 		}
