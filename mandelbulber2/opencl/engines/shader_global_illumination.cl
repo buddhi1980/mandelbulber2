@@ -95,7 +95,10 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			__global sObjectDataCl *objectData = &renderData->objectsData[inputCopy.objectId];
 			inputCopy.material = renderData->materials[objectData->materialId];
 			inputCopy.palette = renderData->palettes[objectData->materialId];
-			inputCopy.paletteSize = renderData->paletteLengths[objectData->materialId];
+			inputCopy.paletteSurfaceOffset = renderData->paletteSurfaceOffsets[objectData->materialId];
+			inputCopy.paletteSurfaceLength = renderData->paletteSurfaceLengths[objectData->materialId];
+			inputCopy.paletteSpecularOffset = renderData->paletteSpecularOffsets[objectData->materialId];
+			inputCopy.paletteSpecularLength = renderData->paletteSpecularLengths[objectData->materialId];
 
 #if USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE
