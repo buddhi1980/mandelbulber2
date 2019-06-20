@@ -48,30 +48,41 @@ struct sRenderData;
 
 enum netCommand
 {
-	netRender_NONE,		 // used for invalidating the message buffer after a message has been processed
-	netRender_VERSION, // ask for server version (server to clients)
-	netRender_WORKER,	// ask for number of client CPU count (client to server)
-	netRender_RENDER,	// list of lines needed to be rendered,
-										 // and suggestion which lines should be rendered first (server to clients)
-	netRender_DATA,		 // data of rendered lines (client to server)
-	netRender_BAD,		 // answer about wrong server version (client to server)
-	netRender_JOB,		 // sending of settings and textures
-										 // Receiving of job will start rendering on client (server to clients)
-	netRender_STOP,		 // terminate rendering request (server to clients)
-	netRender_STATUS,	// ask for status (server to clients)
-	netRender_SETUP,	 // send setup job id and starting positions (server to clients)
-	netRender_ACK,		 // acknowledge receiving of rendered lines (server to clients)
-	netRender_KICK_AND_KILL // command to kill the client (program exit) (server to clients)
+	netRender_NONE = 0, // used for invalidating the message buffer after a message has been processed
+};
+
+/* these commands are send from the server to the client */
+enum netCommandServer
+{
+	netRender_VERSION = 1,			 /* send the program version */
+	netRender_RENDER = 3,				 /* list of lines needed to be rendered,
+																and suggestion which lines should be rendered first */
+	netRender_JOB = 6,					 /* sending of settings and textures
+																Receiving of job will start rendering on client */
+	netRender_STOP = 7,					 /* terminate rendering request */
+	netRender_SETUP = 9,				 /* send setup job id and starting positions */
+	netRender_ACK = 10,					 /* acknowledge receiving of rendered lines */
+	netRender_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
+	netRender_ASK_STATUS = 12	/* ask the client what its statis is */
+};
+
+/* these commands are send from the client to the server */
+enum netCommandClient
+{
+	netRender_WORKER = 2, /* send the worker stats */
+	netRender_DATA = 4,		/* data of rendered lines */
+	netRender_BAD = 5,		/* answer about wrong server version */
+	netRender_STATUS = 8, /* send status update */
 };
 
 enum netRenderStatus
 {
-	netRender_DISABLED,		// no slot configured - netrendering disabled in the program
-	netRender_READY,			// client is ready and able to receive jobs
-	netRender_WORKING,		// during rendering
-	netRender_NEW,				// just connected
-	netRender_CONNECTING, // connecting in progress
-	netRender_ERROR				// error occurred
+	netRender_DISABLED = 0,		/* no slot configured - netrendering disabled in the program */
+	netRender_READY = 1,			/* client is ready and able to receive jobs */
+	netRender_WORKING = 2,		/* during rendering */
+	netRender_NEW = 3,				/* just connected */
+	netRender_CONNECTING = 4, /* connecting in progress */
+	netRender_ERROR = 5				/* error occurred */
 };
 
 struct sMessage

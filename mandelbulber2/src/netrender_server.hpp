@@ -29,7 +29,7 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com), Sebastian Jennen (jenzebas@gmail.com)
  *
- * NetrenderClient class - Networking class for client specific command and payload communication
+ * NetrenderClient class - Networking class for server specific command and payload communication
  */
 
 #ifndef MANDELBULBER2_SRC_NETRENDER_SERVER_HPP_

@@ -132,7 +132,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	//------------------------- CLIENT ------------------------
 	if (IsClient())
 	{
-		switch (netCommand(inMsg->command))
+		switch (netCommandServer(inMsg->command))
 		{
 			case netRender_VERSION:
 			{
@@ -193,7 +193,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 				WriteLog("NetRender - ProcessData(), command STOP", 2);
 				break;
 			}
-			case netRender_STATUS:
+			case netRender_ASK_STATUS:
 			{
 				WriteLog("NetRender - ProcessData(), command STATUS", 3);
 				NotifyStatus();
@@ -376,7 +376,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		int index = GetClientIndexFromSocket(socket);
 		if (index > -1)
 		{
-			switch (netCommand(inMsg->command))
+			switch (netCommandClient(inMsg->command))
 			{
 				case netRender_BAD:
 				{
