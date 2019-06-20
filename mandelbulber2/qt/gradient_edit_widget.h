@@ -31,6 +31,16 @@ private:
 	void PaintButton(const cColorGradient::sColor &posColor, QPainter &painter);
 	int CalcButtonPosition(double colorPosition);
 	int FindButtonAtPosition(int x);
+	void AddColor(QContextMenuEvent *event);
+	void RemoveColor(QContextMenuEvent *event);
+	void Clear();
+	void ChangeNumberOfColors();
+	void GrabColors();
+	void LoadColors();
+	void SaveColors();
+	bool DecodeGradientFromFile(QString string);
+	void LoadFromClipboard();
+	void SaveToClipboard();
 
 	cColorGradient gradient;
 	int buttonWidth;

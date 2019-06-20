@@ -160,6 +160,7 @@ public:
 	QString lastSettingsFile;
 	QString lastImageFile;
 	QString lastImagePaletteFile;
+	QString lastGradientFile;
 	QHash<QString, QString> supportedLanguages;
 	int numberOfThreads;
 	bool noGui;
@@ -191,19 +192,19 @@ extern sSystem systemData;
 extern sActualFileNames actualFileNames;
 
 bool InitSystem();
-void WriteLog(const QString& text, int verbosityLevel);
-void WriteLogCout(const QString& text, int verbosityLevel);
-void WriteLogDouble(const QString& text, double value, int verbosityLevel);
-void WriteLogInt(const QString& text, int value, int verbosityLevel);
-void WriteLogSizeT(const QString& text, size_t value, int verbosityLevel);
-void WriteLogString(const QString& text, const QString& value, int verbosityLevel);
+void WriteLog(const QString &text, int verbosityLevel);
+void WriteLogCout(const QString &text, int verbosityLevel);
+void WriteLogDouble(const QString &text, double value, int verbosityLevel);
+void WriteLogInt(const QString &text, int value, int verbosityLevel);
+void WriteLogSizeT(const QString &text, size_t value, int verbosityLevel);
+void WriteLogString(const QString &text, const QString &value, int verbosityLevel);
 void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders();
-bool CreateFolder(const QString& name);
-void DeleteAllFilesFromDirectory(
-	const QString& folder, const QString& filterExpression, QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
-int fcopy(const QString& source, const QString& dest);
+bool CreateFolder(const QString &name);
+void DeleteAllFilesFromDirectory(const QString &folder, const QString &filterExpression,
+	QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
+int fcopy(const QString &source, const QString &dest);
 void Wait(long int time);
 void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg);
 void UpdateDefaultPaths();

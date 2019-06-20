@@ -227,6 +227,7 @@ bool InitSystem()
 		systemData.GetImagesFolder() + QDir::separator() + QString("image.jpg"));
 	systemData.lastImagePaletteFile = QDir::toNativeSeparators(
 		systemData.sharedDir + "textures" + QDir::separator() + QString("colour palette.jpg"));
+	systemData.lastGradientFile = QDir::toNativeSeparators(systemData.GetDataDirectoryPublic());
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
@@ -257,7 +258,9 @@ void handle_winch(int sig)
 	(void)sig;
 #ifndef _WIN32
 	signal(SIGWINCH, SIG_IGN);
-	struct winsize w{};
+	struct winsize w
+	{
+	};
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	systemData.terminalWidth = w.ws_col;
 	if (systemData.terminalWidth <= 0) systemData.terminalWidth = 80;
@@ -272,7 +275,7 @@ int get_cpu_count()
 	return QThread::idealThreadCount();
 }
 
-void WriteLogCout(const QString& text, int verbosityLevel)
+void WriteLogCout(const QString &text, int verbosityLevel)
 {
 	// output to console
 	cout << text.toStdString();
@@ -280,7 +283,7 @@ void WriteLogCout(const QString& text, int verbosityLevel)
 	WriteLog(text, verbosityLevel);
 }
 
-void WriteLog(const QString& text, int verbosityLevel)
+void WriteLog(const QString &text, int verbosityLevel)
 {
 	// verbosity level:
 	// 1 - only errors
@@ -319,22 +322,22 @@ void WriteLog(const QString& text, int verbosityLevel)
 	}
 }
 
-void WriteLogString(const QString& text, const QString& value, int verbosityLevel)
+void WriteLogString(const QString &text, const QString &value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + value, verbosityLevel);
 }
 
-void WriteLogDouble(const QString& text, double value, int verbosityLevel)
+void WriteLogDouble(const QString &text, double value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
-void WriteLogInt(const QString& text, int value, int verbosityLevel)
+void WriteLogInt(const QString &text, int value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
 
-void WriteLogSizeT(const QString& text, size_t value, int verbosityLevel)
+void WriteLogSizeT(const QString &text, size_t value, int verbosityLevel)
 {
 	WriteLog(text + ", value = " + QString::number(value), verbosityLevel);
 }
@@ -398,7 +401,7 @@ bool CreateDefaultFolders()
 	return result;
 }
 
-bool CreateFolder(const QString& qName)
+bool CreateFolder(const QString &qName)
 {
 	if (QDir(qName).exists())
 	{
@@ -422,7 +425,7 @@ bool CreateFolder(const QString& qName)
 }
 
 void DeleteAllFilesFromDirectory(
-	const QString& folder, const QString& filterExpression, QRegExp::PatternSyntax pattern)
+	const QString &folder, const QString &filterExpression, QRegExp::PatternSyntax pattern)
 {
 	QRegExp rx(filterExpression);
 	rx.setPatternSyntax(pattern);
@@ -453,7 +456,7 @@ void DeleteAllFilesFromDirectory(
 	}
 }
 
-int fcopy(const QString& source, const QString& dest)
+int fcopy(const QString &source, const QString &dest)
 {
 	// ------ file reading
 
@@ -770,7 +773,7 @@ void CalcPreferredFontSize(bool noGui)
 {
 	if (!noGui)
 	{
-		const int fontSize = (int) QApplication::font().pointSizeF();
+		const int fontSize = (int)QApplication::font().pointSizeF();
 		systemData.SetPreferredFontPointSize(fontSize);
 
 		QFontMetrics fm(QApplication::font());
@@ -820,37 +823,39 @@ QString sSystem::GetIniFile() const
 	return fullIniFileName;
 }
 
-void sSystem::Upgrade() const {
-    QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
-                               GetMaterialsFolder(), GetAnimationFolder()};
-    for (int i = 0; i < moveFolders.size(); i++)
-    {
-        const QString& folderSource = moveFolders.at(i);
-        QString folderTarget = folderSource;
-        folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
-        if (QFileInfo::exists(folderTarget))
-        {
-            qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
-        }
-        else if (!QDir().rename(folderSource, folderTarget))
-        {
-            qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
-        }
-    }
+void sSystem::Upgrade() const
+{
+	QStringList moveFolders = {GetSettingsFolder(), GetImagesFolder(), GetSlicesFolder(),
+		GetMaterialsFolder(), GetAnimationFolder()};
+	for (int i = 0; i < moveFolders.size(); i++)
+	{
+		const QString &folderSource = moveFolders.at(i);
+		QString folderTarget = folderSource;
+		folderTarget.replace(dataDirectoryHidden, dataDirectoryPublic);
+		if (QFileInfo::exists(folderTarget))
+		{
+			qCritical() << QString("target folder %1 already exists, won't move!").arg(folderTarget);
+		}
+		else if (!QDir().rename(folderSource, folderTarget))
+		{
+			qCritical() << QString("cannot move folder %1 to %2!").arg(folderSource, folderTarget);
+		}
+	}
 }
 
-QString sSystem::GetImageFileNameSuggestion() {
-    QString imageBaseName = QFileInfo(lastImageFile).completeBaseName();
+QString sSystem::GetImageFileNameSuggestion()
+{
+	QString imageBaseName = QFileInfo(lastImageFile).completeBaseName();
 
-    // if the last image file has been saved manually, this is the suggestion for the filename
-    if (!lastImageFile.endsWith("image.jpg")) return imageBaseName;
+	// if the last image file has been saved manually, this is the suggestion for the filename
+	if (!lastImageFile.endsWith("image.jpg")) return imageBaseName;
 
-    // otherwise if the settings has been loaded from a proper .fract file, this fileName's basename
-    // is the suggestion
-    if (lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
+	// otherwise if the settings has been loaded from a proper .fract file, this fileName's basename
+	// is the suggestion
+	if (lastSettingsFile.endsWith(".fract")) return QFileInfo(lastSettingsFile).completeBaseName();
 
-    // maybe loaded by clipboard, no better suggestion, than the default lastImageFile's baseName
-    return imageBaseName;
+	// maybe loaded by clipboard, no better suggestion, than the default lastImageFile's baseName
+	return imageBaseName;
 }
 
 bool IsOutputTty()
