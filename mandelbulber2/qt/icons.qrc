@@ -28,6 +28,14 @@
     <file>icons/dialog-information.svg</file>
     <file>icons/help-contents.svg</file>
   </qresource>
+  <qresource prefix="gradient">
+    <file>icons/gradient-brighter.svg</file>
+    <file>icons/gradient-darker.svg</file>
+    <file>icons/gradient-high-saturation.svg</file>
+    <file>icons/gradient-low-saturation.svg</file>
+    <file>icons/dice_colors.svg</file>
+    <file>icons/dice_colors_and_pos.svg</file>
+  </qresource>
   <qresource prefix="/tooltips">
     <file>tooltips_images/material - iridescence on.jpg</file>
     <file>tooltips_images/material - iridescence off.jpg</file>

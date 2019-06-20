@@ -17,6 +17,7 @@
 #include "../src/error_message.hpp"
 #include "preview_file_dialog.h"
 #include "src/system.hpp"
+#include "src/common_math.h";
 
 cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 {
@@ -25,18 +26,56 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 	pressedColorIndex = 0;
 	dragStartX = 0;
 
-	int fixHeight = systemData.GetPreferredThumbnailSize() / 2;
+	fixHeight = systemData.GetPreferredThumbnailSize() / 1.4;
 	setFixedHeight(fixHeight);
 
-	buttonWidth = fixHeight / 6;
+	buttonWidth = fixHeight / 8;
 	if (buttonWidth % 2 == 0) buttonWidth += 1; // to always have odd width
 
 	margins = buttonWidth / 2 + 2;
+	toolbarHeight = fixHeight / 3.5;
+
+	buttonRandomColors = new QToolButton(this);
+	AddToolButton(buttonRandomColors, margins, ":gradient/icons/dice_colors.svg");
+	buttonRandomColorsAndPositions = new QToolButton(this);
+	AddToolButton(buttonRandomColorsAndPositions, margins + (toolbarHeight + 2) * 1,
+		":gradient/icons/dice_colors_and_pos.svg");
+	buttonBrightnessInc = new QToolButton(this);
+	AddToolButton(buttonBrightnessInc, margins + (toolbarHeight + 2) * 2,
+		":gradient/icons/gradient-brighter.svg");
+	buttonBrightnessDec = new QToolButton(this);
+	AddToolButton(
+		buttonBrightnessDec, margins + (toolbarHeight + 2) * 3, ":gradient/icons/gradient-darker.svg");
+	buttonSaturationInc = new QToolButton(this);
+	AddToolButton(buttonSaturationInc, margins + (toolbarHeight + 2) * 4,
+		":gradient/icons/gradient-high-saturation.svg");
+	buttonSaturationDec = new QToolButton(this);
+	AddToolButton(buttonSaturationDec, margins + (toolbarHeight + 2) * 5,
+		":gradient/icons/gradient-low-saturation.svg");
+
+	connect(buttonRandomColors, SIGNAL(clicked()), this, SLOT(pressedButtonRandomColors()));
+	connect(buttonRandomColorsAndPositions, SIGNAL(clicked()), this,
+		SLOT(pressedButtonRandomColorsAndPositions()));
+	connect(buttonBrightnessInc, SIGNAL(clicked()), this, SLOT(pressedButtonBrightnessInc()));
+	connect(buttonBrightnessDec, SIGNAL(clicked()), this, SLOT(pressedButtonBrightnessDec()));
+	connect(buttonSaturationInc, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationInc()));
+	connect(buttonSaturationDec, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationDec()));
 }
 
 cGradientEditWidget::~cGradientEditWidget()
 {
-	// TODO Auto-generated destructor stub
+	// nothing to destroy
+}
+
+void cGradientEditWidget::AddToolButton(QToolButton *toolbutton, int position, QString iconName)
+{
+	toolbutton->setObjectName("button");
+	toolbutton->setFixedSize(toolbarHeight, toolbarHeight);
+	QIcon iconRandomColors = QIcon(iconName);
+	toolbutton->setIcon(iconRandomColors);
+	toolbutton->setIconSize(QSize(toolbarHeight - 4, toolbarHeight - 4));
+	toolbutton->move(position, 0);
+	toolbutton->show();
 }
 
 void cGradientEditWidget::SetViewModeOnly()
@@ -48,9 +87,11 @@ void cGradientEditWidget::SetViewModeOnly()
 
 void cGradientEditWidget::paintEvent(QPaintEvent *event)
 {
+	QWidget::paintEvent(event);
+
 	int gradientWidth = width() - 2 * margins;
 	if (gradientWidth < 2) gradientWidth = 2;
-	int gradientHeight = (viewMode) ? height() : height() / 2;
+	int gradientHeight = (viewMode) ? height() : (height() - toolbarHeight) / 2;
 
 	QPainter painter(this);
 	QVector<sRGB> grad = gradient.GetGradient(gradientWidth, false);
@@ -59,7 +100,7 @@ void cGradientEditWidget::paintEvent(QPaintEvent *event)
 	{
 		QColor color(QColor(grad[x].R, grad[x].G, grad[x].B));
 		painter.setPen(color);
-		painter.drawLine(x + margins, 0, x + margins, gradientHeight);
+		painter.drawLine(x + margins, toolbarHeight, x + margins, toolbarHeight + gradientHeight);
 	}
 
 	if (!viewMode)
@@ -81,7 +122,7 @@ void cGradientEditWidget::PaintButton(const cColorGradient::sColor &posColor, QP
 {
 	int buttonPosition = CalcButtonPosition(posColor.position);
 
-	int buttonTop = height() / 2 + buttonWidth / 2;
+	int buttonTop = (height() - toolbarHeight) / 2 + toolbarHeight + buttonWidth / 2;
 
 	QRect rect(QPoint(buttonPosition - buttonWidth / 2, buttonTop),
 		QPoint(buttonPosition + buttonWidth / 2, height() - 2));
@@ -91,7 +132,7 @@ void cGradientEditWidget::PaintButton(const cColorGradient::sColor &posColor, QP
 	QBrush brush(color, Qt::SolidPattern);
 	painter.fillRect(rect, brush);
 
-	QVector<QPoint> triangle = {QPoint(buttonPosition, height() / 2),
+	QVector<QPoint> triangle = {QPoint(buttonPosition, buttonTop - buttonWidth / 2),
 		QPoint(buttonPosition - buttonWidth / 2, buttonTop),
 		QPoint(buttonPosition + buttonWidth / 2, buttonTop)};
 	QPolygon pTriangle(triangle);
@@ -455,4 +496,97 @@ void cGradientEditWidget::contextMenuEvent(QContextMenuEvent *event)
 	}
 
 	delete menu;
+}
+
+void cGradientEditWidget::pressedButtonRandomColors()
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color(Random(255), Random(255), Random(255));
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonRandomColorsAndPositions()
+{
+	int numberOfColors = gradient.GetNumberOfColors() - 1;
+	gradient.DeleteAll();
+	for (int i = 0; i < numberOfColors; i++)
+	{
+		sRGB color(Random(255), Random(255), Random(255));
+		double position = Random(10000) / 10000.0;
+		if (i == 0)
+		{
+			gradient.AddColor(color, 0.0);
+			gradient.AddColor(color, 1.0);
+		}
+		else
+		{
+			gradient.AddColor(color, position);
+		}
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonBrightnessInc()
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		color.R = qBound(0, int(color.R * 1.2), 255);
+		color.G = qBound(0, int(color.G * 1.2), 255);
+		color.B = qBound(0, int(color.B * 1.2), 255);
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonBrightnessDec()
+{
+
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		color.R = qBound(0, int(color.R * 0.8), 255);
+		color.G = qBound(0, int(color.G * 0.8), 255);
+		color.B = qBound(0, int(color.B * 0.8), 255);
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonSaturationInc()
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		int average = (color.R + color.G + color.B) / 3;
+		color.R = qBound(0, int((color.R - average) * 0.2 + color.R), 255);
+		color.G = qBound(0, int((color.G - average) * 0.2 + color.G), 255);
+		color.B = qBound(0, int((color.B - average) * 0.2 + color.B), 255);
+
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonSaturationDec()
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		int average = (color.R + color.G + color.B) / 3;
+		color.R = qBound(0, int((color.R - average) * -0.2 + color.R), 255);
+		color.G = qBound(0, int((color.G - average) * -0.2 + color.G), 255);
+		color.B = qBound(0, int((color.B - average) * -0.2 + color.B), 255);
+
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
 }

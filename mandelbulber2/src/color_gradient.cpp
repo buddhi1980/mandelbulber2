@@ -11,6 +11,8 @@
 
 cColorGradient::cColorGradient()
 {
+	// first two colors are always positioned at 0.0 and 1.0;
+
 	sColor positionedColor = {sRGB(255, 255, 255), 0.0};
 	colors.append(positionedColor);
 
@@ -305,4 +307,9 @@ double cColorGradient::CorrectPosition(double position, int ignoreIndex)
 	} while (positionIncorrect);
 
 	return position;
+}
+
+sRGB cColorGradient::GetColorByIndex(int index)
+{
+	return colors.at(index).color;
 }

@@ -8,6 +8,7 @@
 #ifndef MANDELBULBER2_QT_GRADIENT_EDIT_WIDGET_H_
 #define MANDELBULBER2_QT_GRADIENT_EDIT_WIDGET_H_
 
+#include <QToolButton>
 #include <QWidget>
 #include "src/color_gradient.h"
 
@@ -41,14 +42,33 @@ private:
 	bool DecodeGradientFromFile(QString string);
 	void LoadFromClipboard();
 	void SaveToClipboard();
+	void AddToolButton(QToolButton *button, int position, QString iconName);
 
+private slots:
+	void pressedButtonRandomColors();
+	void pressedButtonRandomColorsAndPositions();
+	void pressedButtonBrightnessInc();
+	void pressedButtonBrightnessDec();
+	void pressedButtonSaturationInc();
+	void pressedButtonSaturationDec();
+
+private:
 	cColorGradient gradient;
 	int buttonWidth;
 	int margins;
 	bool mouseDragStarted;
 	int pressedColorIndex;
 	int dragStartX;
+	int toolbarHeight;
 	bool viewMode;
+	int fixHeight;
+
+	QToolButton *buttonRandomColors;
+	QToolButton *buttonRandomColorsAndPositions;
+	QToolButton *buttonBrightnessInc;
+	QToolButton *buttonBrightnessDec;
+	QToolButton *buttonSaturationInc;
+	QToolButton *buttonSaturationDec;
 
 signals:
 	void openEditor();

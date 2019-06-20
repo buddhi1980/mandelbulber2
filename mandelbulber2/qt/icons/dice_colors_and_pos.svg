@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   viewBox="0 0 365.63 367.74"
+   id="svg3118"
+   sodipodi:docname="dice_colors_and_pos.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1987"
+     inkscape:window-height="1307"
+     id="namedview24"
+     showgrid="false"
+     inkscape:zoom="0.64175778"
+     inkscape:cx="-8.066984"
+     inkscape:cy="183.87"
+     inkscape:window-x="180"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs4871" />
+  <title
+     id="title3948">Six Sided Dice</title>
+  <g
+     transform="matrix(0.82959753,0,0,0.91529713,-84.722715,-241.49935)"
+     id="layer1">
+    <path
+       id="path880"
+       d="m 328.73,272.36 c -1.0593,-0.0232 -2.2036,0.23919 -3.6546,0.73073 l -160.8,47.216 c -1.338,0.31267 -1.2603,0.67334 -0.14622,1.5349 l 142.74,113.95 c 2.6283,2.179 3.8646,2.4492 7.5282,1.3156 l 160.06,-55.474 c 3.6722,-1.3494 3.9274,-1.6778 0.14636,-4.1662 l -140.48,-102.76 c -2.1688,-1.5284 -3.6434,-2.3048 -5.4085,-2.3387 z"
+       style="fill:#008000;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path878"
+       d="m 310.385,286.174 c 3.2021,-0.0232 6.5824,0.32827 10.086,1.0963 14.016,3.073 23.956,11.638 22.146,19.076 -1.8102,7.4379 -14.635,10.967 -28.651,7.8935 -14.016,-3.0731 -23.956,-11.565 -22.146,-19.003 1.3576,-5.5786 8.9586,-9.0156 18.564,-9.063 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path876"
+       d="m 219.755,313.729 c 3.2021,-0.0232 6.6554,0.32813 10.159,1.0964 14.016,3.073 23.883,11.565 22.073,19.003 -1.8102,7.4381 -14.635,11.04 -28.651,7.9667 -14.016,-3.073 -23.883,-11.638 -22.073,-19.076 1.3577,-5.5786 8.8855,-8.9426 18.491,-8.99 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path874"
+       d="m 357.085,320.7454 c 3.202,-0.0232 6.6555,0.40133 10.159,1.1695 14.016,3.0728 23.883,11.565 22.073,19.003 -1.8102,7.438 -14.635,10.967 -28.651,7.8935 -14.016,-3.0729 -23.883,-11.565 -22.073,-19.003 1.3577,-5.5783 8.8855,-9.0156 18.492,-9.063 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path872"
+       d="m 154.195,329.5892 c -0.2935,0.0748 -0.38831,0.53334 -0.58471,1.4619 l -36.252,181.33 c -0.42235,1.8862 -0.3482,2.3536 1.3887,3.8739 l 137.7,118.7 c 3.2029,3.0612 3.8757,3.0218 4.3122,-0.73091 l 40.126,-183.89 c 0.84081,-2.5054 -0.0249,-3.8837 -1.4618,-5.0432 l -143.77,-114.81 c -0.74001,-0.62428 -1.1682,-0.95149 -1.4618,-0.87718 z"
+       style="fill:#ff0000;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path870"
+       d="m 266.025,350.2732 c 3.202,-0.0232 6.6554,0.32815 10.159,1.0965 14.016,3.073 23.883,11.565 22.073,19.003 -1.8102,7.4381 -14.635,10.967 -28.651,7.8937 -14.016,-3.073 -23.883,-11.565 -22.073,-19.003 1.3576,-5.5787 8.8856,-8.9426 18.491,-8.9901 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path868"
+       d="m 404.825,356.3396 c 3.202,-0.0232 6.6554,0.32815 10.159,1.0963 14.016,3.0731 23.883,11.565 22.073,19.003 -1.8102,7.4381 -14.635,11.04 -28.651,7.9668 -14.016,-3.0731 -23.883,-11.638 -22.073,-19.076 1.3577,-5.5783 8.8856,-8.9423 18.492,-8.9899 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path866"
+       d="m 163.115,362.9906 c 0.54012,-0.0537 1.1314,-0.0294 1.681,0 6.5957,0.3492 13.738,6.5306 17.907,16.445 5.5583,13.219 3.7052,28.055 -4.093,33.109 -7.7982,5.0539 -18.634,-1.5446 -24.192,-14.764 -5.5583,-13.219 -3.7054,-28.055 4.093,-33.109 1.4621,-0.94771 2.9845,-1.5207 4.6046,-1.6812 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path864"
+       d="m 313.755,386.8176 c 3.202,-0.0231 6.6554,0.32816 10.159,1.0965 14.016,3.0728 23.883,11.565 22.073,19.003 -1.8103,7.438 -14.635,10.967 -28.651,7.8936 -14.016,-3.0731 -23.883,-11.565 -22.073,-19.003 1.3576,-5.5785 8.8855,-8.9425 18.491,-8.99 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path862"
+       d="m 536.935,410.43212 c -0.30728,0.0632 -0.73942,0.17087 -1.2425,0.36543 l -164.38,57.02 c -3.348,1.3784 -3.2476,1.9411 -3.8007,4.4584 l -40.053,183.31 c -0.13597,2.6988 -1.1302,3.9269 2.0465,2.4852 l 161.97,-60.518 c 3.1428,-1.5036 3.7452,-1.7677 4.093,-4.8238 l 42.026,-180.75 c 0.34821,-1.2733 0.26378,-1.7272 -0.65777,-1.5348 z"
+       style="fill:#0000ff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path860"
+       d="m 510.258,440.17912 c 4.6284,0.0748 8.2604,2.3262 9.8671,6.6512 3.2131,8.6497 -2.9745,22.494 -13.887,30.916 -10.912,8.4224 -22.368,8.2114 -25.581,-0.43849 -3.2134,-8.6498 2.9744,-22.494 13.887,-30.917 5.4562,-4.2113 11.086,-6.2873 15.714,-6.2127 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path858"
+       d="m 256.018,437.4677 c 6.6789,0.17076 13.965,6.4487 18.199,16.518 5.5583,13.219 3.7783,28.055 -4.0199,33.109 -7.7982,5.054 -18.634,-1.6175 -24.192,-14.837 -5.5583,-13.219 -3.7054,-27.982 4.093,-33.036 1.4622,-0.94772 2.9841,-1.5209 4.6046,-1.6812 0.43892,-0.0453 0.87044,-0.0842 1.3156,-0.0726 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path856"
+       d="m 197.328,458.6637 c 6.6788,0.17077 13.965,6.4488 18.199,16.518 5.5583,13.219 3.7783,28.055 -4.0199,33.109 -7.7982,5.054 -18.634,-1.6176 -24.192,-14.837 -5.5583,-13.219 -3.7052,-27.982 4.093,-33.036 1.4621,-0.94772 2.9841,-1.521 4.6045,-1.6812 0.43892,-0.0453 0.87046,-0.0842 1.3157,-0.0726 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path854"
+       d="m 139.515,479.6397 c 0.53992,-0.0537 1.1313,-0.0273 1.6809,0 6.5957,0.3492 13.665,6.6037 17.834,16.518 5.5583,13.219 3.7784,27.982 -4.0198,33.036 -7.7983,5.054 -18.634,-1.5446 -24.192,-14.764 -5.5583,-13.219 -3.7053,-28.055 4.093,-33.109 1.4622,-0.94772 2.9845,-1.5208 4.6046,-1.6812 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path852"
+       d="m 448.575,515.75212 c 4.529,0.1474 8.1393,2.3938 9.7208,6.6512 3.2134,8.6498 -3.0476,22.494 -13.96,30.916 -10.912,8.4224 -22.368,8.2115 -25.581,-0.43849 -3.2134,-8.6497 3.0476,-22.494 13.96,-30.916 4.7742,-3.6848 9.6414,-5.7376 13.887,-6.1395 0.68233,-0.0653 1.3264,-0.0937 1.9734,-0.0726 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path850"
+       d="m 229.345,555.8717 c 0.54,-0.0537 1.1313,-0.0273 1.681,0 6.5956,0.34922 13.738,6.5305 17.907,16.445 5.5583,13.219 3.7053,28.055 -4.093,33.109 -7.7982,5.054 -18.561,-1.5446 -24.119,-14.764 -5.5583,-13.219 -3.7784,-28.055 4.0198,-33.109 1.4622,-0.94739 2.9845,-1.5206 4.6046,-1.6809 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3924"
+       d="m 381.626,593.44612 c 4.6285,0.0748 8.2603,2.2531 9.867,6.578 3.2132,8.6497 -2.9744,22.494 -13.887,30.916 -10.912,8.4224 -22.368,8.2844 -25.581,-0.36546 -3.2132,-8.6496 2.9744,-22.494 13.887,-30.917 5.4562,-4.2111 11.086,-6.287 15.714,-6.2123 z"
+       style="fill:#ffffff;fill-opacity:1"
+       inkscape:connector-curvature="0" />
+  </g>
+  <metadata
+     id="metadata4869">
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/publicdomain/" />
+        <dc:publisher>
+          <cc:Agent
+             rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Six Sided Dice</dc:title>
+        <dc:date>2010-11-06T04:11:57</dc:date>
+        <dc:description>A simple one-colour graphic of a basic six-sided die.</dc:description>
+        <dc:source>https://openclipart.org/detail/94489/six-sided-dice-(d6)-by-wirelizard</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>wirelizard</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>RPG</rdf:li>
+            <rdf:li>d6</rdf:li>
+            <rdf:li>dice</rdf:li>
+            <rdf:li>die</rdf:li>
+            <rdf:li>game</rdf:li>
+            <rdf:li>gamer</rdf:li>
+            <rdf:li>games</rdf:li>
+            <rdf:li>outline</rdf:li>
+            <rdf:li>roleplay</rdf:li>
+            <rdf:li>six sided</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>
