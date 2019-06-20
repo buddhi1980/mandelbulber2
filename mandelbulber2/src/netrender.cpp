@@ -56,13 +56,14 @@ CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
 	this->workerCount = workerCount;
 	deviceType = netRender_UNKNOWN;
 	version = 1000L * MANDELBULBER_VERSION;
-	clientSocket = nullptr;
 	server = nullptr;
 	portNo = 0;
 	status = netRender_NEW;
-	reconnectTimer = nullptr;
 	actualId = 0;
 	isUsed = false;
+	cNetRenderClient = new CNetRenderClient();
+	connect(cNetRenderClient, SIGNAL(changeClientStatus(int)), this, SLOT(clientStatusChanged(int)));
+	connect(cNetRenderClient, SIGNAL(receivedData()), this, SLOT(clientReceiveData()));
 }
 
 CNetRender::~CNetRender()
@@ -134,23 +135,8 @@ void CNetRender::DeleteServer()
 
 void CNetRender::DeleteClient()
 {
-	if (deviceType != netRender_CLIENT) return;
 	deviceType = netRender_UNKNOWN;
-	WriteLog("NetRender - Delete Client", 2);
-	if (reconnectTimer)
-	{
-		if (reconnectTimer->isActive()) reconnectTimer->stop();
-		delete reconnectTimer;
-		reconnectTimer = nullptr;
-	}
-	if (clientSocket)
-	{
-		clientSocket->close();
-		delete clientSocket;
-		clientSocket = nullptr;
-	}
-	status = netRender_DISABLED;
-	NotifyStatus();
+	cNetRenderClient->DeleteClient();
 }
 
 int CNetRender::getTotalWorkerCount()
@@ -242,20 +228,7 @@ void CNetRender::SetClient(QString _address, int _portNo)
 	address = _address;
 	portNo = _portNo;
 	ResetMessage(&msgFromServer);
-	clientSocket = new QTcpSocket(this);
-
-	reconnectTimer = new QTimer;
-	reconnectTimer->setInterval(1000);
-	connect(reconnectTimer, SIGNAL(timeout()), this, SLOT(TryServerConnect()));
-	connect(clientSocket, SIGNAL(disconnected()), this, SLOT(ServerDisconnected()));
-	connect(clientSocket, SIGNAL(readyRead()), this, SLOT(ReceiveFromServer()));
-
-	reconnectTimer->start();
-	QTimer::singleShot(50, this, SLOT(TryServerConnect()));
-	WriteLog(
-		"NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo),
-		2);
-	NotifyStatus();
+	cNetRenderClient->SetClient(_address, _portNo);
 
 	if (systemData.noGui)
 	{
@@ -263,60 +236,6 @@ void CNetRender::SetClient(QString _address, int _portNo)
 		out << "NetRender - Client Setup, link to server: " + address
 						 + ", port: " + QString::number(portNo) + "\n";
 	}
-}
-
-void CNetRender::ServerDisconnected()
-{
-	if (deviceType != netRender_CLIENT) return;
-	status = netRender_ERROR;
-	NotifyStatus();
-
-	gMainInterface->stopRequest = true;
-
-	reconnectTimer->start();
-
-	WriteLog("NetRender - server disconnected", 2);
-
-	if (systemData.noGui)
-	{
-		QTextStream out(stdout);
-		out << QString("Connection lost") + "\n";
-		out.flush();
-	}
-	else
-	{
-		qCritical() << "Connection lost";
-	}
-}
-
-void CNetRender::TryServerConnect()
-{
-	if (clientSocket)
-	{
-		WriteLog("NetRender - TryServerConnect", 3);
-		if (clientSocket->state() == QAbstractSocket::ConnectedState)
-		{
-			reconnectTimer->stop();
-		}
-		else if (clientSocket->state() == QAbstractSocket::ConnectingState
-						 || clientSocket->state() == QAbstractSocket::HostLookupState)
-		{
-			return; // wait for result
-		}
-		else
-		{
-			status = netRender_CONNECTING;
-			NotifyStatus();
-			clientSocket->close();
-			clientSocket->connectToHost(address, portNo);
-		}
-	}
-}
-
-void CNetRender::ReceiveFromServer()
-{
-	WriteLog("NetRender - ReceiveFromServer()", 3);
-	ReceiveData(clientSocket, &msgFromServer);
 }
 
 bool CNetRender::SendData(QTcpSocket *socket, sMessage msg) const
@@ -500,7 +419,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 
 					outMsg.command = netRender_BAD;
 				}
-				SendData(clientSocket, outMsg);
+				SendData(cNetRenderClient->getSocket(), outMsg);
 				break;
 			}
 			case netRender_STOP:
@@ -817,7 +736,7 @@ void CNetRender::SendRenderedLines(const QList<int>& lineNumbers, const QList<QB
 		stream << qint32(lines.at(i).size());
 		stream.writeRawData(lines.at(i).data(), lines.at(i).size());
 	}
-	SendData(clientSocket, msg);
+	SendData(cNetRenderClient->getSocket(), msg);
 }
 
 // stop rendering of all clients
@@ -887,12 +806,12 @@ void CNetRender::SetCurrentJob(
 
 void CNetRender::NotifyStatus()
 {
-	if (clientSocket != nullptr)
+	if (cNetRenderClient->getSocket() != nullptr)
 	{
 		sMessage outMsg;
 		outMsg.command = netRender_STATUS;
 		outMsg.payload.append(reinterpret_cast<char *>(&status), sizeof(qint32));
-		SendData(clientSocket, outMsg);
+		SendData(cNetRenderClient->getSocket(), outMsg);
 	}
 	emit NewStatusClient();
 }
@@ -1076,4 +995,19 @@ QByteArray *CNetRender::GetTexture(const QString& textureName, int frameNo)
 	const QList<QString> keys = textures.keys();
 	QString animatedTextureName = AnimatedFileName(textureName, frameNo, &keys);
 	return &textures[animatedTextureName];
+}
+
+void CNetRender::clientStatusChanged(int _status)
+{
+	if (IsClient())
+	{
+		status = (netRenderStatus) _status;
+		emit NotifyStatus();
+	}
+}
+
+void CNetRender::clientReceiveData()
+{
+	WriteLog("NetRender - ReceiveFromServer()", 3);
+	ReceiveData(cNetRenderClient->getSocket(), &msgFromServer);
 }

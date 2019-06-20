@@ -42,6 +42,8 @@
 #include "fractal_container.hpp"
 #include "parameters.hpp"
 
+#include "netrender_client.hpp"
+
 // forward declarations
 struct sRenderData;
 
@@ -74,12 +76,12 @@ public:
 
 	enum netRenderStatus
 	{
-		netRender_DISABLED,		// no slot configured - netrendering disabled in the program
-		netRender_READY,			// client is ready and able to receive jobs
-		netRender_WORKING,		// during rendering
-		netRender_NEW,				// just connected
-		netRender_CONNECTING, // connecting in progress
-		netRender_ERROR				// error occurred
+		netRender_DISABLED = 0,		// no slot configured - netrendering disabled in the program
+		netRender_READY = 1,			// client is ready and able to receive jobs
+		netRender_WORKING = 2,		// during rendering
+		netRender_NEW = 3,				// just connected
+		netRender_CONNECTING = 4, // connecting in progress
+		netRender_ERROR = 5				// error occurred
 	};
 
 	enum typeOfDevice
@@ -185,6 +187,7 @@ private:
 
 	//---------------- private data -----------------
 private:
+	CNetRenderClient *cNetRenderClient;
 	netRenderStatus status;
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes
@@ -194,11 +197,9 @@ private:
 	qint32 version;
 	qint32 workerCount;
 	QTcpServer *server;
-	QTcpSocket *clientSocket;
 	typeOfDevice deviceType;
 	sMessage msgFromServer;
 	sMessage msgCurrentJob;
-	QTimer *reconnectTimer;
 
 	// client data buffers
 	QString settingsText;
@@ -233,12 +234,10 @@ private slots:
 	void ClientDisconnected();
 	// received data from client
 	void ReceiveFromClient();
-	// when client is disconnected from server
-	void ServerDisconnected();
-	// received data from server
-	void ReceiveFromServer();
-	// try to connect to server
-	void TryServerConnect();
+	// received client status changed
+	void clientStatusChanged(int _status);
+	// received data on client connection
+	void clientReceiveData();
 
 signals:
 	// request to update table of clients
