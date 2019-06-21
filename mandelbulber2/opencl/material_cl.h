@@ -110,6 +110,14 @@ typedef struct
 	cl_int displacementTextureIndex;
 	cl_int normalMapTextureIndex;
 
+	cl_int surfaceGradientEnable;
+	cl_int specularGradientEnable;
+	cl_int diffuseGradientEnable;
+	cl_int luminosityGradientEnable;
+	cl_int roughnessGradientEnable;
+	cl_int reflectanceGradientEnable;
+	cl_int transparencyGradientEnable;
+
 	sFractalColoringCl fractalColoring;
 } sMaterialCl;
 
@@ -175,6 +183,14 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.normalMapTextureInvertGreen = source.normalMapTextureInvertGreen;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 	target.textureFractalize = source.textureFractalize;
+
+	target.surfaceGradientEnable = source.surfaceGradientEnable;
+	target.specularGradientEnable = source.specularGradientEnable;
+	target.diffuseGradientEnable = source.diffuseGradientEnable;
+	target.luminosityGradientEnable = source.luminosityGradientEnable;
+	target.roughnessGradientEnable = source.roughnessGradientEnable;
+	target.reflectanceGradientEnable = source.reflectanceGradientEnable;
+	target.transparencyGradientEnable = source.transparencyGradientEnable;
 
 	target.fractalColoring = clCopySFractalColoringCl(source.fractalColoring);
 

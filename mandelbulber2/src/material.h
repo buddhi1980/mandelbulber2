@@ -137,6 +137,14 @@ public:
 	bool iridescenceEnabled;
 	bool textureFractalize;
 
+	bool surfaceGradientEnable;
+	bool specularGradientEnable;
+	bool diffuseGradientEnable;
+	bool luminosityGradientEnable;
+	bool roughnessGradientEnable;
+	bool reflectanceGradientEnable;
+	bool transparencyGradientEnable;
+
 	sFractalColoring fractalColoring;
 };
 

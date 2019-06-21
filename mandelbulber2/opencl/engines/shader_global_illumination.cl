@@ -95,28 +95,43 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			__global sObjectDataCl *objectData = &renderData->objectsData[inputCopy.objectId];
 			inputCopy.material = renderData->materials[objectData->materialId];
 			inputCopy.palette = renderData->palettes[objectData->materialId];
+
+#ifdef USE_SURFACE_GRADIENT
 			inputCopy.paletteSurfaceOffset = renderData->paletteSurfaceOffsets[objectData->materialId];
 			inputCopy.paletteSurfaceLength = renderData->paletteSurfaceLengths[objectData->materialId];
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 			inputCopy.paletteSpecularOffset = renderData->paletteSpecularOffsets[objectData->materialId];
 			inputCopy.paletteSpecularLength = renderData->paletteSpecularLengths[objectData->materialId];
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 			inputCopy.paletteDiffuseOffset = renderData->paletteDiffuseOffsets[objectData->materialId];
 			inputCopy.paletteDiffuseLength = renderData->paletteDiffuseLengths[objectData->materialId];
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 			inputCopy.paletteLuminosityOffset =
 				renderData->paletteLuminosityOffsets[objectData->materialId];
 			inputCopy.paletteLuminosityLength =
 				renderData->paletteLuminosityLengths[objectData->materialId];
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 			inputCopy.paletteRoughnessOffset =
 				renderData->paletteRoughnessOffsets[objectData->materialId];
 			inputCopy.paletteRoughnessLength =
 				renderData->paletteRoughnessLengths[objectData->materialId];
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 			inputCopy.paletteReflectanceOffset =
 				renderData->paletteReflectanceOffsets[objectData->materialId];
 			inputCopy.paletteReflectanceLength =
 				renderData->paletteReflectanceLengths[objectData->materialId];
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 			inputCopy.paletteTransparencyOffset =
 				renderData->paletteTransparencyOffsets[objectData->materialId];
 			inputCopy.paletteTransparencyLength =
 				renderData->paletteTransparencyLengths[objectData->materialId];
+#endif
 
 #if USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE

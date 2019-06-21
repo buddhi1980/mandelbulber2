@@ -49,20 +49,35 @@ typedef struct
 #if defined(FULL_ENGINE) || defined(MESH_EXPORT)
 	__global sMaterialCl **materials;
 	__global float4 **palettes;
+
+#ifdef USE_SURFACE_GRADIENT
 	int *paletteSurfaceOffsets;
 	int *paletteSurfaceLengths;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 	int *paletteSpecularOffsets;
 	int *paletteSpecularLengths;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 	int *paletteDiffuseOffsets;
 	int *paletteDiffuseLengths;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 	int *paletteLuminosityOffsets;
 	int *paletteLuminosityLengths;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 	int *paletteRoughnessOffsets;
 	int *paletteRoughnessLengths;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 	int *paletteReflectanceOffsets;
 	int *paletteReflectanceLengths;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 	int *paletteTransparencyOffsets;
 	int *paletteTransparencyLengths;
+#endif
 #else
 	__global sMaterialCl *material;
 	__global float4 *palette;

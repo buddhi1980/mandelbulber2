@@ -614,6 +614,15 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 	bool anyMaterialHasExtraColoringEnabled = false;
 	bool anyMaterialHasTextureFractalize = false;
 	bool anyMaterialHasRoughSurface = false;
+
+	bool anyMaterialHasSurfaceGradient = false;
+	bool anyMaterialHasSpecularGradient = false;
+	bool anyMaterialHasDiffuseGradient = false;
+	bool anyMaterialHasLuminosityGradient = false;
+	bool anyMaterialHasRoughnessGradient = false;
+	bool anyMaterialHasReflectanceGradient = false;
+	bool anyMaterialHasTransparencyGradient = false;
+
 	foreach (cMaterial material, renderData->materials)
 	{
 		if (material.reflectance > 0.0) anyMaterialIsReflective = true;
@@ -625,6 +634,14 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		if (material.fractalColoring.extraColorEnabledFalse) anyMaterialHasExtraColoringEnabled = true;
 		if (material.textureFractalize) anyMaterialHasTextureFractalize = true;
 		if (material.roughSurface) anyMaterialHasRoughSurface = true;
+
+		if (material.surfaceGradientEnable) anyMaterialHasSurfaceGradient = true;
+		if (material.specularGradientEnable) anyMaterialHasSpecularGradient = true;
+		if (material.diffuseGradientEnable) anyMaterialHasDiffuseGradient = true;
+		if (material.luminosityGradientEnable) anyMaterialHasLuminosityGradient = true;
+		if (material.roughnessGradientEnable) anyMaterialHasRoughnessGradient = true;
+		if (material.reflectanceGradientEnable) anyMaterialHasReflectanceGradient = true;
+		if (material.transparencyGradientEnable) anyMaterialHasTransparencyGradient = true;
 	}
 	if (anyMaterialIsReflective) definesCollector += " -DUSE_REFLECTANCE";
 
@@ -652,6 +669,14 @@ void cOpenClEngineRenderFractal::SetParametersAndDataForMaterials(
 		definesCollector += " -DREFLECTIONS_MAX=1";
 	}
 	if (anyMaterialHasTextureFractalize) definesCollector += " -DFRACTALIZE_TEXTURE";
+
+	if (anyMaterialHasSurfaceGradient) definesCollector += " -DUSE_SURFACE_GRADIENT";
+	if (anyMaterialHasSpecularGradient) definesCollector += " -DUSE_SPECULAR_GRADIENT";
+	if (anyMaterialHasDiffuseGradient) definesCollector += " -DUSE_DIFFUSE_GRADIENT";
+	if (anyMaterialHasLuminosityGradient) definesCollector += " -DUSE_LUMINOSITY_GRADIENT";
+	if (anyMaterialHasRoughnessGradient) definesCollector += " -DUSE_ROUGHNESS_GRADIENT";
+	if (anyMaterialHasReflectanceGradient) definesCollector += " -DUSE_REFLECTANCE_GRADIENT";
+	if (anyMaterialHasTransparencyGradient) definesCollector += " -DUSE_TRANSPARENCY_GRADIENT";
 }
 
 void cOpenClEngineRenderFractal::DynamicDataForAOVectors(

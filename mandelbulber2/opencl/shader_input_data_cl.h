@@ -55,19 +55,33 @@ typedef struct
 	bool invertMode;
 	__global sMaterialCl *material;
 	__global float4 *palette;
+
+#ifdef USE_SURFACE_GRADIENT
 	int paletteSurfaceOffset;
 	int paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 	int paletteSpecularOffset;
 	int paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 	int paletteDiffuseOffset;
 	int paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 	int paletteLuminosityOffset;
 	int paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 	int paletteRoughnessOffset;
 	int paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 	int paletteReflectanceOffset;
 	int paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 	int paletteTransparencyOffset;
 	int paletteTransparencyLength;
-
+#endif
 } sShaderInputDataCl;

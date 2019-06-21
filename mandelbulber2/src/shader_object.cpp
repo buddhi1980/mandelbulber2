@@ -84,7 +84,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (params->mainLightEnable)
 	{
 		specular = SpecularHighlightCombined(input, input.lightVect, colour);
-		if (input.material->useColorsFromPalette)
+		if (input.material->useColorsFromPalette && input.material->specularGradientEnable)
 		{
 			specular.R *= gradients.specular.R / 256.0;
 			specular.G *= gradients.specular.G / 256.0;

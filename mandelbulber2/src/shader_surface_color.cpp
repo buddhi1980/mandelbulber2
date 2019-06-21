@@ -71,11 +71,24 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 				double colorPosition = fmod(
 					nrCol / 256.0 / 10.0 * input.material->coloring_speed + input.material->paletteOffset,
 					1.0);
-				colour = input.material->gradientSurface.GetColor(colorPosition, false);
-				// TODO - smooth mode for gradient
 
-				gradients->surface = colour;
-				gradients->specular = input.material->gradientSpecular.GetColor(colorPosition, false);
+				if (input.material->surfaceGradientEnable)
+				{
+					colour = input.material->gradientSurface.GetColor(colorPosition, false);
+					// TODO - smooth mode for gradient
+					gradients->surface = colour;
+				}
+				else
+				{
+					colour.R = input.material->color.R / 256.0;
+					colour.G = input.material->color.G / 256.0;
+					colour.B = input.material->color.B / 256.0;
+				}
+
+				if (input.material->specularGradientEnable)
+				{
+					gradients->specular = input.material->gradientSpecular.GetColor(colorPosition, false);
+				}
 			}
 			else
 			{

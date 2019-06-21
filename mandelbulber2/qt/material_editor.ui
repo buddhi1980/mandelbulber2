@@ -121,7 +121,7 @@
         <x>0</x>
         <y>0</y>
         <width>466</width>
-        <height>3683</height>
+        <height>3725</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -168,74 +168,214 @@
            <number>2</number>
           </property>
           <item>
-           <widget class="QLabel" name="label_5">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_surface_gradient_enable">
+            <property name="title">
              <string>Surface color</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_14">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_6">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_specular_gradient_enable">
+            <property name="title">
              <string>Specular highlights</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_15">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_diffuse_gradient_enable">
+            <property name="title">
              <string>Diffuse (brighter -&gt; higher glossiness)</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_16">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_8">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_luminosity_gradient_enable">
+            <property name="title">
              <string>Luminosity</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_luminosity_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_luminosity_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_9">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_roughness_gradient_enable">
+            <property name="title">
              <string>Roughness (brighter -&gt; higher roughness)</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_18">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_roughness_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_roughness_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_10">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_reflectance_gradient_enable">
+            <property name="title">
              <string>Reflectance</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_19">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_reflectance_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
           </item>
           <item>
-           <widget class="cGradientEditWidget" name="colorpalette_reflectance_gradient" native="true"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="label_11">
-            <property name="text">
+           <widget class="MyGroupBox" name="groupCheck_transparency_gradient_enable">
+            <property name="title">
              <string>Transparency</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_20">
+             <property name="spacing">
+              <number>2</number>
+             </property>
+             <property name="leftMargin">
+              <number>2</number>
+             </property>
+             <property name="topMargin">
+              <number>2</number>
+             </property>
+             <property name="rightMargin">
+              <number>2</number>
+             </property>
+             <property name="bottomMargin">
+              <number>2</number>
+             </property>
+             <item>
+              <widget class="cGradientEditWidget" name="colorpalette_transparency_gradient" native="true"/>
+             </item>
+            </layout>
            </widget>
-          </item>
-          <item>
-           <widget class="cGradientEditWidget" name="colorpalette_transparency_gradient" native="true"/>
           </item>
           <item>
            <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">

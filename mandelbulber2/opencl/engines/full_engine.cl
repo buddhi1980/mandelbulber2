@@ -75,20 +75,35 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	//--- materials
 	__global sMaterialCl *materials[MAT_ARRAY_SIZE];
 	__global float4 *palettes[MAT_ARRAY_SIZE];
+
+#ifdef USE_SURFACE_GRADIENT
 	int paletteSurfaceOffsets[MAT_ARRAY_SIZE];
 	int paletteSurfaceLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 	int paletteSpecularOffsets[MAT_ARRAY_SIZE];
 	int paletteSpecularLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 	int paletteDiffuseOffsets[MAT_ARRAY_SIZE];
 	int paletteDiffuseLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 	int paletteLuminosityOffsets[MAT_ARRAY_SIZE];
 	int paletteLuminosityLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 	int paletteRoughnessOffsets[MAT_ARRAY_SIZE];
 	int paletteRoughnessLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 	int paletteReflectanceOffsets[MAT_ARRAY_SIZE];
 	int paletteReflectanceLengths[MAT_ARRAY_SIZE];
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 	int paletteTransparencyOffsets[MAT_ARRAY_SIZE];
 	int paletteTransparencyLengths[MAT_ARRAY_SIZE];
+#endif
 
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
@@ -102,20 +117,35 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		// material header
 		int materialClOffset = GetInteger(materialOffset, inBuff);
 		int paletteItemsOffset = GetInteger(materialOffset + sizeof(int), inBuff);
+
+#ifdef USE_SURFACE_GRADIENT
 		paletteSurfaceOffsets[i] = GetInteger(materialOffset + sizeof(int) * 2, inBuff);
 		paletteSurfaceLengths[i] = GetInteger(materialOffset + sizeof(int) * 3, inBuff);
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 		paletteSpecularOffsets[i] = GetInteger(materialOffset + sizeof(int) * 4, inBuff);
 		paletteSpecularLengths[i] = GetInteger(materialOffset + sizeof(int) * 5, inBuff);
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 		paletteDiffuseOffsets[i] = GetInteger(materialOffset + sizeof(int) * 6, inBuff);
 		paletteDiffuseLengths[i] = GetInteger(materialOffset + sizeof(int) * 7, inBuff);
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 		paletteLuminosityOffsets[i] = GetInteger(materialOffset + sizeof(int) * 8, inBuff);
 		paletteLuminosityLengths[i] = GetInteger(materialOffset + sizeof(int) * 9, inBuff);
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 		paletteRoughnessOffsets[i] = GetInteger(materialOffset + sizeof(int) * 10, inBuff);
 		paletteRoughnessLengths[i] = GetInteger(materialOffset + sizeof(int) * 11, inBuff);
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 		paletteReflectanceOffsets[i] = GetInteger(materialOffset + sizeof(int) * 12, inBuff);
 		paletteReflectanceLengths[i] = GetInteger(materialOffset + sizeof(int) * 13, inBuff);
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 		paletteTransparencyOffsets[i] = GetInteger(materialOffset + sizeof(int) * 14, inBuff);
 		paletteTransparencyLengths[i] = GetInteger(materialOffset + sizeof(int) * 15, inBuff);
+#endif
 
 		// material data
 		__global sMaterialCl *materialTemp = (__global sMaterialCl *)&inBuff[materialClOffset];
@@ -343,20 +373,34 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.palettes = palettes;
 		renderData.AOVectors = AOVectors;
 		renderData.lights = lights;
+#ifdef USE_SURFACE_GRADIENT
 		renderData.paletteSurfaceOffsets = paletteSurfaceOffsets;
 		renderData.paletteSurfaceLengths = paletteSurfaceLengths;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 		renderData.paletteSpecularOffsets = paletteSpecularOffsets;
 		renderData.paletteSpecularLengths = paletteSpecularLengths;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 		renderData.paletteDiffuseOffsets = paletteDiffuseOffsets;
 		renderData.paletteDiffuseLengths = paletteDiffuseLengths;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 		renderData.paletteLuminosityOffsets = paletteLuminosityOffsets;
 		renderData.paletteLuminosityLengths = paletteLuminosityLengths;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 		renderData.paletteRoughnessOffsets = paletteRoughnessOffsets;
 		renderData.paletteRoughnessLengths = paletteRoughnessLengths;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 		renderData.paletteReflectanceOffsets = paletteReflectanceOffsets;
 		renderData.paletteReflectanceLengths = paletteReflectanceLengths;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 		renderData.paletteTransparencyOffsets = paletteTransparencyOffsets;
 		renderData.paletteTransparencyLengths = paletteTransparencyLengths;
+#endif
 		renderData.numberOfLights = numberOfLights;
 		renderData.AOVectorsCount = AOVectorsCount;
 		renderData.reflectionsMax = reflectionsMax;

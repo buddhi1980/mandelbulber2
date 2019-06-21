@@ -58,7 +58,9 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	}
 
 	sClGradientsCollection gradients;
+#ifdef USE_SPECULAR_GRADIENT
 	gradients.specular = 1.0f;
+#endif
 
 	float3 surfaceColor = SurfaceColor(consts, renderData, input, calcParam, &gradients);
 
@@ -73,10 +75,13 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	if (consts->params.mainLightEnable)
 	{
 		specular = SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor);
-		if (input->material->useColorsFromPalette)
+
+#ifdef USE_SPECULAR_GRADIENT
+		if (input->material->useColorsFromPalette && input->material->specularGradientEnable)
 		{
 			specular *= gradients.specular;
 		}
+#endif
 	}
 
 	float3 AO = 0.0f;

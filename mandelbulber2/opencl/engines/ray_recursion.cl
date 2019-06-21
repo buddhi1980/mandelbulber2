@@ -307,34 +307,48 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
+#ifdef USE_SURFACE_GRADIENT
 			shaderInputData.paletteSurfaceOffset =
 				renderData->paletteSurfaceOffsets[objectData->materialId];
 			shaderInputData.paletteSurfaceLength =
 				renderData->paletteSurfaceLengths[objectData->materialId];
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 			shaderInputData.paletteSpecularOffset =
 				renderData->paletteSpecularOffsets[objectData->materialId];
 			shaderInputData.paletteSpecularLength =
 				renderData->paletteSpecularLengths[objectData->materialId];
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 			shaderInputData.paletteDiffuseOffset =
 				renderData->paletteDiffuseOffsets[objectData->materialId];
 			shaderInputData.paletteDiffuseLength =
 				renderData->paletteDiffuseLengths[objectData->materialId];
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 			shaderInputData.paletteLuminosityOffset =
 				renderData->paletteLuminosityOffsets[objectData->materialId];
 			shaderInputData.paletteLuminosityLength =
 				renderData->paletteLuminosityLengths[objectData->materialId];
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 			shaderInputData.paletteRoughnessOffset =
 				renderData->paletteRoughnessOffsets[objectData->materialId];
 			shaderInputData.paletteRoughnessLength =
 				renderData->paletteRoughnessLengths[objectData->materialId];
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 			shaderInputData.paletteReflectanceOffset =
 				renderData->paletteReflectanceOffsets[objectData->materialId];
 			shaderInputData.paletteReflectanceLength =
 				renderData->paletteReflectanceLengths[objectData->materialId];
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 			shaderInputData.paletteTransparencyOffset =
 				renderData->paletteTransparencyOffsets[objectData->materialId];
 			shaderInputData.paletteTransparencyLength =
 				renderData->paletteTransparencyLengths[objectData->materialId];
+#endif
 
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
@@ -569,34 +583,49 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			__global sObjectDataCl *objectData = &renderData->objectsData[shaderInputData.objectId];
 			shaderInputData.material = renderData->materials[objectData->materialId];
 			shaderInputData.palette = renderData->palettes[objectData->materialId];
+#ifdef USE_SURFACE_GRADIENT
 			shaderInputData.paletteSurfaceOffset =
 				renderData->paletteSurfaceOffsets[objectData->materialId];
 			shaderInputData.paletteSurfaceLength =
 				renderData->paletteSurfaceLengths[objectData->materialId];
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 			shaderInputData.paletteSpecularOffset =
 				renderData->paletteSpecularOffsets[objectData->materialId];
 			shaderInputData.paletteSpecularLength =
 				renderData->paletteSpecularLengths[objectData->materialId];
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
 			shaderInputData.paletteDiffuseOffset =
 				renderData->paletteDiffuseOffsets[objectData->materialId];
 			shaderInputData.paletteDiffuseLength =
 				renderData->paletteDiffuseLengths[objectData->materialId];
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
 			shaderInputData.paletteLuminosityOffset =
 				renderData->paletteLuminosityOffsets[objectData->materialId];
 			shaderInputData.paletteLuminosityLength =
 				renderData->paletteLuminosityLengths[objectData->materialId];
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
 			shaderInputData.paletteRoughnessOffset =
 				renderData->paletteRoughnessOffsets[objectData->materialId];
 			shaderInputData.paletteRoughnessLength =
 				renderData->paletteRoughnessLengths[objectData->materialId];
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
 			shaderInputData.paletteReflectanceOffset =
 				renderData->paletteReflectanceOffsets[objectData->materialId];
 			shaderInputData.paletteReflectanceLength =
 				renderData->paletteReflectanceLengths[objectData->materialId];
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
 			shaderInputData.paletteTransparencyOffset =
 				renderData->paletteTransparencyOffsets[objectData->materialId];
 			shaderInputData.paletteTransparencyLength =
 				renderData->paletteTransparencyLengths[objectData->materialId];
+#endif
+			
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 

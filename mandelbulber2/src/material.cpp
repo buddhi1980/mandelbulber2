@@ -141,9 +141,11 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"transparency_interior_color", "transparency_of_interior", "transparency_of_surface",
 	"use_color_texture", "use_colors_from_palette", "use_diffusion_texture",
 	"use_displacement_texture", "use_luminosity_texture", "use_normal_map_texture",
-
-	"surface_color_palette", "surface_color_gradient", "specular_gradient", "diffuse_gradient",
-	"luminosity_gradient", "roughness_gradient", "reflectance_gradient", "transparency_gradient"};
+	"surface_gradient_enable", "specular_gradient_enable", "diffuse_gradient_enable",
+	"luminosity_gradient_enable", "roughness_gradient_enable", "reflectance_gradient_enable",
+	"transparency_gradient_enable", "surface_color_palette", "surface_color_gradient",
+	"specular_gradient", "diffuse_gradient", "luminosity_gradient", "roughness_gradient",
+	"reflectance_gradient", "transparency_gradient"};
 
 void cMaterial::setParameters(
 	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
@@ -195,6 +197,14 @@ void cMaterial::setParameters(
 		materialParam->Get<QString>(Name("reflectance_gradient", id)));
 	gradientTransparency.SetColorsFromString(
 		materialParam->Get<QString>(Name("transparency_gradient", id)));
+
+	surfaceGradientEnable = materialParam->Get<bool>(Name("surface_gradient_enable", id));
+	specularGradientEnable = materialParam->Get<bool>(Name("specular_gradient_enable", id));
+	diffuseGradientEnable = materialParam->Get<bool>(Name("diffuse_gradient_enable", id));
+	luminosityGradientEnable = materialParam->Get<bool>(Name("luminosity_gradient_enable", id));
+	roughnessGradientEnable = materialParam->Get<bool>(Name("roughness_gradient_enable", id));
+	reflectanceGradientEnable = materialParam->Get<bool>(Name("reflectance_gradient_enable", id));
+	transparencyGradientEnable = materialParam->Get<bool>(Name("transparency_gradient_enable", id));
 
 	textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
 	textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));

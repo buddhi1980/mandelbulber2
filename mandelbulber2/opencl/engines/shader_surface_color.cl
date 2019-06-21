@@ -34,8 +34,12 @@
 
 typedef struct
 {
+#ifdef USE_SURFACE_GRADIENT
 	float3 surface;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
 	float3 specular;
+#endif
 } sClGradientsCollection;
 
 float3 GradientInterpolate(
@@ -116,6 +120,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 		case objFractal: {
 #endif // defined(BOOLEAN_OPERATORS) || defined(USE_PRIMITIVES)
 
+#ifdef USE_FRACTAL_COLORING
 			if (input->material->useColorsFromPalette)
 			{
 #ifdef BOOLEAN_OPERATORS
@@ -127,7 +132,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 				pointTemp *= consts->params.formulaScale[formulaIndex];
 
 #else
-		int formulaIndex = -1;
+				int formulaIndex = -1;
 #endif
 				fout =
 					Fractal(consts, pointTemp, calcParams, calcModeColouring, input->material, formulaIndex);
@@ -137,14 +142,28 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 					nCol / 256.0f / 10.0f * input->material->coloring_speed + input->material->paletteOffset,
 					1.0f);
 
-				color = GetColorFronGradient(colorPosition, false, input->paletteSurfaceLength,
-					input->palette + input->paletteSurfaceOffset);
-
-				gradients->surface = color;
-				gradients->specular = GetColorFronGradient(colorPosition, false,
-					input->paletteSpecularLength, input->palette + input->paletteSpecularOffset);
+#ifdef USE_SURFACE_GRADIENT
+				if (input->material->surfaceGradientEnable)
+				{
+					color = GetColorFronGradient(colorPosition, false, input->paletteSurfaceLength,
+						input->palette + input->paletteSurfaceOffset);
+					gradients->surface = color;
+				}
+				else
+				{
+					color = input->material->color;
+				}
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+				if (input->material->specularGradientEnable)
+				{
+					gradients->specular = GetColorFronGradient(colorPosition, false,
+						input->paletteSpecularLength, input->palette + input->paletteSpecularOffset);
+				}
+#endif
 			}
 			else
+#endif // USE_FRACTAL_COLORING
 			{
 				color = input->material->color;
 			}
