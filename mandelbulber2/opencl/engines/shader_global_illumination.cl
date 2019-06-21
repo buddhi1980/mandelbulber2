@@ -99,6 +99,24 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			inputCopy.paletteSurfaceLength = renderData->paletteSurfaceLengths[objectData->materialId];
 			inputCopy.paletteSpecularOffset = renderData->paletteSpecularOffsets[objectData->materialId];
 			inputCopy.paletteSpecularLength = renderData->paletteSpecularLengths[objectData->materialId];
+			inputCopy.paletteDiffuseOffset = renderData->paletteDiffuseOffsets[objectData->materialId];
+			inputCopy.paletteDiffuseLength = renderData->paletteDiffuseLengths[objectData->materialId];
+			inputCopy.paletteLuminosityOffset =
+				renderData->paletteLuminosityOffsets[objectData->materialId];
+			inputCopy.paletteLuminosityLength =
+				renderData->paletteLuminosityLengths[objectData->materialId];
+			inputCopy.paletteRoughnessOffset =
+				renderData->paletteRoughnessOffsets[objectData->materialId];
+			inputCopy.paletteRoughnessLength =
+				renderData->paletteRoughnessLengths[objectData->materialId];
+			inputCopy.paletteReflectanceOffset =
+				renderData->paletteReflectanceOffsets[objectData->materialId];
+			inputCopy.paletteReflectanceLength =
+				renderData->paletteReflectanceLengths[objectData->materialId];
+			inputCopy.paletteTransparencyOffset =
+				renderData->paletteTransparencyOffsets[objectData->materialId];
+			inputCopy.paletteTransparencyLength =
+				renderData->paletteTransparencyLengths[objectData->materialId];
 
 #if USE_TEXTURES
 #ifdef USE_COLOR_TEXTURE

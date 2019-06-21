@@ -18,6 +18,7 @@ class cGradientEditWidget : public QWidget
 public:
 	cGradientEditWidget(QWidget *parent = nullptr);
 	~cGradientEditWidget();
+	void SetGrayscale();
 	void SetViewModeOnly();
 	QString GetColors() { return gradient.GetColorsAsString(); }
 	void SetColors(const QString &colorsString);
@@ -62,6 +63,7 @@ private:
 	int toolbarHeight;
 	bool viewMode;
 	int fixHeight;
+	bool grayscale;
 
 	QToolButton *buttonRandomColors;
 	QToolButton *buttonRandomColorsAndPositions;

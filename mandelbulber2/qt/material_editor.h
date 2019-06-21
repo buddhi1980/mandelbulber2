@@ -59,11 +59,6 @@ public:
 	void Colorize(int randomSeed);
 
 private slots:
-	void slotPressedButtonNewRandomPalette() const;
-	void slotPressedButtonGetPaletteFromImage();
-	void slotPressedButtonRandomize() const;
-	void slotChangedSpinBoxPaletteOffset(double value) const;
-	void slotChangedSpinBoxPaletteSize(int value) const;
 	void slotChangedComboFractalColoringAlgorithm(int index) const;
 
 private:

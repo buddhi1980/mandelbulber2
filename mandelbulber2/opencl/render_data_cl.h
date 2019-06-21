@@ -53,6 +53,16 @@ typedef struct
 	int *paletteSurfaceLengths;
 	int *paletteSpecularOffsets;
 	int *paletteSpecularLengths;
+	int *paletteDiffuseOffsets;
+	int *paletteDiffuseLengths;
+	int *paletteLuminosityOffsets;
+	int *paletteLuminosityLengths;
+	int *paletteRoughnessOffsets;
+	int *paletteRoughnessLengths;
+	int *paletteReflectanceOffsets;
+	int *paletteReflectanceLengths;
+	int *paletteTransparencyOffsets;
+	int *paletteTransparencyLengths;
 #else
 	__global sMaterialCl *material;
 	__global float4 *palette;

@@ -59,5 +59,15 @@ typedef struct
 	int paletteSurfaceLength;
 	int paletteSpecularOffset;
 	int paletteSpecularLength;
+	int paletteDiffuseOffset;
+	int paletteDiffuseLength;
+	int paletteLuminosityOffset;
+	int paletteLuminosityLength;
+	int paletteRoughnessOffset;
+	int paletteRoughnessLength;
+	int paletteReflectanceOffset;
+	int paletteReflectanceLength;
+	int paletteTransparencyOffset;
+	int paletteTransparencyLength;
 
 } sShaderInputDataCl;

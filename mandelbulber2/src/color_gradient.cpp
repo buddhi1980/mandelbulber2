@@ -19,6 +19,7 @@ cColorGradient::cColorGradient()
 	sColor positionedColor2 = {sRGB(255, 255, 255), 1.0};
 	colors.append(positionedColor2);
 
+	grayscale = false;
 	sorted = false;
 }
 
@@ -28,6 +29,7 @@ int cColorGradient::AddColor(sRGB color, double position)
 {
 	sorted = false;
 	position = CorrectPosition(position, -1);
+	color = MakeGrayscaleIfNeeded(color);
 	sColor positionedColor = {color, position};
 	colors.append(positionedColor);
 	return colors.size();
@@ -38,6 +40,7 @@ void cColorGradient::ModifyColor(int index, sRGB color)
 	if (index < colors.size())
 	{
 		sorted = false;
+		color = MakeGrayscaleIfNeeded(color);
 		colors[index].color = color;
 	}
 	else
@@ -241,6 +244,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 					color.R = colorHex / 65536;
 					color.G = (colorHex / 256) % 256;
 					color.B = colorHex % 256;
+					color = MakeGrayscaleIfNeeded(color);
 					sColor colorPos = {color, position};
 					position = CorrectPosition(position, -1);
 					colors.append(colorPos);
@@ -312,4 +316,14 @@ double cColorGradient::CorrectPosition(double position, int ignoreIndex)
 sRGB cColorGradient::GetColorByIndex(int index)
 {
 	return colors.at(index).color;
+}
+
+sRGB cColorGradient::MakeGrayscaleIfNeeded(sRGB color)
+{
+	if (grayscale)
+	{
+		int avg = (color.R + color.G + color.B) / 3;
+		color.R = color.G = color.B = avg;
+	}
+	return color;
 }

@@ -1434,8 +1434,18 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 						"8000 d4ffd4 9000 aba53c"),
 		morphNone, paramStandard);
 
-	par->addParam(cMaterial::Name("specular_gradient", materialId),
-		QString("0 eeeeee 2500 666666 5000 ffffff 7500 bbbbbb"), morphNone, paramStandard);
+	par->addParam(cMaterial::Name("specular_gradient", materialId), QString("0 ffffff"), morphNone,
+		paramStandard);
+	par->addParam(
+		cMaterial::Name("diffuse_gradient", materialId), QString("0 ffffff"), morphNone, paramStandard);
+	par->addParam(cMaterial::Name("luminosity_gradient", materialId), QString("0 000000"), morphNone,
+		paramStandard);
+	par->addParam(cMaterial::Name("roughness_gradient", materialId), QString("0 ffffff"), morphNone,
+		paramStandard);
+	par->addParam(cMaterial::Name("reflectance_gradient", materialId), QString("0 ffffff"), morphNone,
+		paramStandard);
+	par->addParam(cMaterial::Name("transparency_gradient", materialId), QString("0 ffffff"),
+		morphNone, paramStandard);
 }
 
 void DeletePrimitiveParams(

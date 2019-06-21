@@ -127,6 +127,16 @@ int cOpenClDynamicData::BuildMaterialsData(
 		cl_int paletteSizeSurface;
 		cl_int paletteOffsetSpecular;
 		cl_int paletteSizeSpecular;
+		cl_int paletteOffsetDiffuse;
+		cl_int paletteSizeDiffuse;
+		cl_int paletteOffsetLuminosity;
+		cl_int paletteSizeLuminosity;
+		cl_int paletteOffsetRoughness;
+		cl_int paletteSizeRoughness;
+		cl_int paletteOffsetReflectance;
+		cl_int paletteSizeReflectance;
+		cl_int paletteOffsetTransparency;
+		cl_int paletteSizeTransparency;
 
 		if (materials.contains(materialIndex))
 		{
@@ -160,6 +170,16 @@ int cOpenClDynamicData::BuildMaterialsData(
 				material.gradientSurface.GetListOfSortedColors();
 			QList<cColorGradient::sColor> gradientSpecular =
 				material.gradientSpecular.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientDiffuse =
+				material.gradientDiffuse.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientLuminosity =
+				material.gradientLuminosity.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientRoughness =
+				material.gradientRoughness.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientReflectance =
+				material.gradientReflectance.GetListOfSortedColors();
+			QList<cColorGradient::sColor> gradientTransparency =
+				material.gradientTransparency.GetListOfSortedColors();
 
 			paletteOffsetSurface = 0;
 			paletteSizeSurface = gradientSurface.size();
@@ -168,6 +188,26 @@ int cOpenClDynamicData::BuildMaterialsData(
 			paletteOffsetSpecular = paletteOffsetSurface + paletteSizeSurface;
 			paletteSizeSpecular = gradientSpecular.size();
 			totalSizeOfGradients += paletteSizeSpecular;
+
+			paletteOffsetDiffuse = paletteOffsetSpecular + paletteSizeSpecular;
+			paletteSizeDiffuse = gradientDiffuse.size();
+			totalSizeOfGradients += paletteSizeDiffuse;
+
+			paletteOffsetLuminosity = paletteOffsetDiffuse + paletteSizeDiffuse;
+			paletteSizeLuminosity = gradientLuminosity.size();
+			totalSizeOfGradients += paletteSizeLuminosity;
+
+			paletteOffsetRoughness = paletteOffsetLuminosity + paletteSizeLuminosity;
+			paletteSizeRoughness = gradientRoughness.size();
+			totalSizeOfGradients += paletteSizeRoughness;
+
+			paletteOffsetReflectance = paletteOffsetRoughness + paletteSizeRoughness;
+			paletteSizeReflectance = gradientReflectance.size();
+			totalSizeOfGradients += paletteSizeReflectance;
+
+			paletteOffsetTransparency = paletteOffsetReflectance + paletteSizeReflectance;
+			paletteSizeReflectance = gradientReflectance.size();
+			totalSizeOfGradients += paletteSizeReflectance;
 
 			paletteCl = new cl_float4[totalSizeOfGradients];
 
@@ -184,6 +224,41 @@ int cOpenClDynamicData::BuildMaterialsData(
 					CVector4(gradientSpecular[i].color.R / 256.0, gradientSpecular[i].color.G / 256.0,
 						gradientSpecular[i].color.B / 256.0, gradientSpecular[i].position));
 			}
+
+			for (int i = 0; i < paletteSizeDiffuse; i++)
+			{
+				paletteCl[i + paletteOffsetDiffuse] = toClFloat4(
+					CVector4(gradientDiffuse[i].color.R / 256.0, gradientDiffuse[i].color.G / 256.0,
+						gradientDiffuse[i].color.B / 256.0, gradientDiffuse[i].position));
+			}
+
+			for (int i = 0; i < paletteSizeLuminosity; i++)
+			{
+				paletteCl[i + paletteOffsetLuminosity] = toClFloat4(
+					CVector4(gradientLuminosity[i].color.R / 256.0, gradientLuminosity[i].color.G / 256.0,
+						gradientLuminosity[i].color.B / 256.0, gradientLuminosity[i].position));
+			}
+
+			for (int i = 0; i < paletteSizeRoughness; i++)
+			{
+				paletteCl[i + paletteOffsetRoughness] = toClFloat4(
+					CVector4(gradientRoughness[i].color.R / 256.0, gradientRoughness[i].color.G / 256.0,
+						gradientRoughness[i].color.B / 256.0, gradientRoughness[i].position));
+			}
+
+			for (int i = 0; i < paletteSizeReflectance; i++)
+			{
+				paletteCl[i + paletteOffsetReflectance] = toClFloat4(
+					CVector4(gradientReflectance[i].color.R / 256.0, gradientReflectance[i].color.G / 256.0,
+						gradientReflectance[i].color.B / 256.0, gradientReflectance[i].position));
+			}
+
+			for (int i = 0; i < paletteSizeTransparency; i++)
+			{
+				paletteCl[i + paletteOffsetTransparency] = toClFloat4(
+					CVector4(gradientTransparency[i].color.R / 256.0, gradientTransparency[i].color.G / 256.0,
+						gradientTransparency[i].color.B / 256.0, gradientTransparency[i].position));
+			}
 		}
 		else
 		{
@@ -193,8 +268,18 @@ int cOpenClDynamicData::BuildMaterialsData(
 			paletteSizeSurface = 2;
 			paletteOffsetSpecular = 2;
 			paletteSizeSpecular = 2;
-			paletteCl = new cl_float4[4];
-			for (int i = 0; i < 4; i++)
+			paletteOffsetDiffuse = 4;
+			paletteSizeDiffuse = 2;
+			paletteOffsetLuminosity = 6;
+			paletteSizeLuminosity = 2;
+			paletteOffsetRoughness = 8;
+			paletteSizeRoughness = 2;
+			paletteOffsetReflectance = 10;
+			paletteSizeReflectance = 2;
+			paletteOffsetTransparency = 12;
+			paletteSizeTransparency = 2;
+			paletteCl = new cl_float4[14];
+			for (int i = 0; i < 14; i++)
 			{
 				paletteCl[i] = toClFloat4(CVector4());
 			}
@@ -225,11 +310,55 @@ int cOpenClDynamicData::BuildMaterialsData(
 
 		// cl_int paletteOffsetSpecular
 		data.append(reinterpret_cast<char *>(&paletteOffsetSpecular), sizeof(paletteOffsetSpecular));
-		totalDataOffset += sizeof(paletteOffsetSurface);
+		totalDataOffset += sizeof(paletteOffsetSpecular);
 
 		// cl_int paletteSizeSpecular
 		data.append(reinterpret_cast<char *>(&paletteSizeSpecular), sizeof(paletteSizeSpecular));
 		totalDataOffset += sizeof(paletteSizeSpecular);
+
+		// cl_int paletteOffsetDiffuse
+		data.append(reinterpret_cast<char *>(&paletteOffsetDiffuse), sizeof(paletteOffsetDiffuse));
+		totalDataOffset += sizeof(paletteOffsetDiffuse);
+
+		// cl_int paletteSizeDiffuse
+		data.append(reinterpret_cast<char *>(&paletteSizeDiffuse), sizeof(paletteSizeDiffuse));
+		totalDataOffset += sizeof(paletteSizeDiffuse);
+
+		// cl_int paletteOffsetLuminosity
+		data.append(
+			reinterpret_cast<char *>(&paletteOffsetLuminosity), sizeof(paletteOffsetLuminosity));
+		totalDataOffset += sizeof(paletteOffsetLuminosity);
+
+		// cl_int paletteSizeLuminosity
+		data.append(reinterpret_cast<char *>(&paletteSizeLuminosity), sizeof(paletteSizeLuminosity));
+		totalDataOffset += sizeof(paletteSizeLuminosity);
+
+		// cl_int paletteOffsetRoughness
+		data.append(reinterpret_cast<char *>(&paletteOffsetRoughness), sizeof(paletteOffsetRoughness));
+		totalDataOffset += sizeof(paletteOffsetRoughness);
+
+		// cl_int paletteSizeRoughness
+		data.append(reinterpret_cast<char *>(&paletteSizeRoughness), sizeof(paletteSizeRoughness));
+		totalDataOffset += sizeof(paletteSizeRoughness);
+
+		// cl_int paletteOffsetReflectance
+		data.append(
+			reinterpret_cast<char *>(&paletteOffsetReflectance), sizeof(paletteOffsetReflectance));
+		totalDataOffset += sizeof(paletteOffsetReflectance);
+
+		// cl_int paletteSizeReflectance
+		data.append(reinterpret_cast<char *>(&paletteSizeReflectance), sizeof(paletteSizeReflectance));
+		totalDataOffset += sizeof(paletteSizeReflectance);
+
+		// cl_int paletteOffsetTransparency
+		data.append(
+			reinterpret_cast<char *>(&paletteOffsetTransparency), sizeof(paletteOffsetTransparency));
+		totalDataOffset += sizeof(paletteOffsetTransparency);
+
+		// cl_int paletteSizeTransparency
+		data.append(
+			reinterpret_cast<char *>(&paletteSizeTransparency), sizeof(paletteSizeTransparency));
+		totalDataOffset += sizeof(paletteSizeTransparency);
 
 		// add dummy bytes for alignment to 16
 		totalDataOffset += PutDummyToAlign(totalDataOffset, 16, &data);

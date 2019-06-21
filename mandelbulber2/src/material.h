@@ -99,6 +99,11 @@ public:
 	cColorPalette palette; // FIXME to be deleted when cColorGradiend will be done
 	cColorGradient gradientSurface;
 	cColorGradient gradientSpecular;
+	cColorGradient gradientDiffuse;
+	cColorGradient gradientLuminosity;
+	cColorGradient gradientRoughness;
+	cColorGradient gradientReflectance;
+	cColorGradient gradientTransparency;
 
 	cTexture colorTexture;
 	cTexture diffusionTexture;

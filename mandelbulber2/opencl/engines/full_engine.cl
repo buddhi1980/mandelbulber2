@@ -79,6 +79,16 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 	int paletteSurfaceLengths[MAT_ARRAY_SIZE];
 	int paletteSpecularOffsets[MAT_ARRAY_SIZE];
 	int paletteSpecularLengths[MAT_ARRAY_SIZE];
+	int paletteDiffuseOffsets[MAT_ARRAY_SIZE];
+	int paletteDiffuseLengths[MAT_ARRAY_SIZE];
+	int paletteLuminosityOffsets[MAT_ARRAY_SIZE];
+	int paletteLuminosityLengths[MAT_ARRAY_SIZE];
+	int paletteRoughnessOffsets[MAT_ARRAY_SIZE];
+	int paletteRoughnessLengths[MAT_ARRAY_SIZE];
+	int paletteReflectanceOffsets[MAT_ARRAY_SIZE];
+	int paletteReflectanceLengths[MAT_ARRAY_SIZE];
+	int paletteTransparencyOffsets[MAT_ARRAY_SIZE];
+	int paletteTransparencyLengths[MAT_ARRAY_SIZE];
 
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
@@ -96,6 +106,16 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		paletteSurfaceLengths[i] = GetInteger(materialOffset + sizeof(int) * 3, inBuff);
 		paletteSpecularOffsets[i] = GetInteger(materialOffset + sizeof(int) * 4, inBuff);
 		paletteSpecularLengths[i] = GetInteger(materialOffset + sizeof(int) * 5, inBuff);
+		paletteDiffuseOffsets[i] = GetInteger(materialOffset + sizeof(int) * 6, inBuff);
+		paletteDiffuseLengths[i] = GetInteger(materialOffset + sizeof(int) * 7, inBuff);
+		paletteLuminosityOffsets[i] = GetInteger(materialOffset + sizeof(int) * 8, inBuff);
+		paletteLuminosityLengths[i] = GetInteger(materialOffset + sizeof(int) * 9, inBuff);
+		paletteRoughnessOffsets[i] = GetInteger(materialOffset + sizeof(int) * 10, inBuff);
+		paletteRoughnessLengths[i] = GetInteger(materialOffset + sizeof(int) * 11, inBuff);
+		paletteReflectanceOffsets[i] = GetInteger(materialOffset + sizeof(int) * 12, inBuff);
+		paletteReflectanceLengths[i] = GetInteger(materialOffset + sizeof(int) * 13, inBuff);
+		paletteTransparencyOffsets[i] = GetInteger(materialOffset + sizeof(int) * 14, inBuff);
+		paletteTransparencyLengths[i] = GetInteger(materialOffset + sizeof(int) * 15, inBuff);
 
 		// material data
 		__global sMaterialCl *materialTemp = (__global sMaterialCl *)&inBuff[materialClOffset];
@@ -327,6 +347,16 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff, __global ch
 		renderData.paletteSurfaceLengths = paletteSurfaceLengths;
 		renderData.paletteSpecularOffsets = paletteSpecularOffsets;
 		renderData.paletteSpecularLengths = paletteSpecularLengths;
+		renderData.paletteDiffuseOffsets = paletteDiffuseOffsets;
+		renderData.paletteDiffuseLengths = paletteDiffuseLengths;
+		renderData.paletteLuminosityOffsets = paletteLuminosityOffsets;
+		renderData.paletteLuminosityLengths = paletteLuminosityLengths;
+		renderData.paletteRoughnessOffsets = paletteRoughnessOffsets;
+		renderData.paletteRoughnessLengths = paletteRoughnessLengths;
+		renderData.paletteReflectanceOffsets = paletteReflectanceOffsets;
+		renderData.paletteReflectanceLengths = paletteReflectanceLengths;
+		renderData.paletteTransparencyOffsets = paletteTransparencyOffsets;
+		renderData.paletteTransparencyLengths = paletteTransparencyLengths;
 		renderData.numberOfLights = numberOfLights;
 		renderData.AOVectorsCount = AOVectorsCount;
 		renderData.reflectionsMax = reflectionsMax;

@@ -121,7 +121,7 @@
         <x>0</x>
         <y>0</y>
         <width>466</width>
-        <height>3614</height>
+        <height>3683</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -188,7 +188,57 @@
            <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true"/>
           </item>
           <item>
-           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Diffuse (brighter -&gt; higher glossiness)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>Luminosity</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_luminosity_gradient" native="true"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>Roughness (brighter -&gt; higher roughness)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_roughness_gradient" native="true"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="text">
+             <string>Reflectance</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_reflectance_gradient" native="true"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="text">
+             <string>Transparency</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="cGradientEditWidget" name="colorpalette_transparency_gradient" native="true"/>
+          </item>
+          <item>
+           <layout class="QGridLayout" name="gridLayout_34" rowstretch="0,0,0,0,0,0,0,0,0" columnstretch="0,0,0">
             <property name="spacing">
              <number>2</number>
             </property>
@@ -206,23 +256,7 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="3">
-             <widget class="QPushButton" name="pushButton_randomize">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Randomize</string>
-              </property>
-             </widget>
-            </item>
-            <item row="7" column="0">
+            <item row="4" column="0">
              <widget class="QLabel" name="label_fractal_coloring_circle_radius">
               <property name="text">
                <string>Orbit trap
@@ -230,7 +264,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="2">
+            <item row="5" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_x">
               <property name="enabled">
                <bool>false</bool>
@@ -246,14 +280,14 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="0" colspan="3">
+            <item row="2" column="0" colspan="3">
              <widget class="Line" name="line_4">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
-            <item row="10" column="2">
+            <item row="7" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_z">
               <property name="enabled">
                <bool>false</bool>
@@ -269,7 +303,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="1">
+            <item row="5" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_x">
               <property name="text">
                <string>x:</string>
@@ -279,29 +313,13 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="10" column="1">
+            <item row="7" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_z">
               <property name="text">
                <string>z:</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="0" colspan="3">
-             <widget class="QPushButton" name="pushButton_getPaletteFromImage">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Creates a  color palette from a selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Grab colors from image...</string>
               </property>
              </widget>
             </item>
@@ -342,7 +360,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="7" column="1" colspan="2">
+            <item row="4" column="1" colspan="2">
              <widget class="MyDoubleSpinBox" name="spinbox_fractal_coloring_sphere_radius">
               <property name="enabled">
                <bool>false</bool>
@@ -382,7 +400,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="6" column="1" colspan="2">
+            <item row="3" column="1" colspan="2">
              <widget class="MyComboBox" name="comboBox_fractal_coloring_algorithm">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -420,7 +438,7 @@ sphere radius:</string>
               </item>
              </widget>
             </item>
-            <item row="9" column="1">
+            <item row="6" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_y">
               <property name="text">
                <string>y:</string>
@@ -430,30 +448,14 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="0" colspan="3">
-             <widget class="QPushButton" name="pushButton_randomPalette">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="toolTip">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a palette from the random seed value.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-              </property>
-              <property name="text">
-               <string>Generate new random palette</string>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_354">
               <property name="text">
                <string>Coloring algorithm:</string>
               </property>
              </widget>
             </item>
-            <item row="9" column="2">
+            <item row="6" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_y">
               <property name="enabled">
                <bool>false</bool>
@@ -506,7 +508,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="1">
+            <item row="8" column="1">
              <widget class="QLabel" name="label_fractal_coloring_line_direction_z_2">
               <property name="text">
                <string>w:</string>
@@ -516,7 +518,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="11" column="2">
+            <item row="8" column="2">
              <widget class="MyLineEdit" name="vect4_fractal_coloring_line_direction_w">
               <property name="enabled">
                <bool>false</bool>
@@ -532,7 +534,7 @@ sphere radius:</string>
               </property>
              </widget>
             </item>
-            <item row="8" column="0" rowspan="4">
+            <item row="5" column="0" rowspan="4">
              <widget class="QLabel" name="label_fractal_coloring_line_direction">
               <property name="text">
                <string>Orbit trap line
@@ -4483,8 +4485,6 @@ object size)</string>
   <tabstop>scrollArea</tabstop>
   <tabstop>spinbox_coloring_palette_offset</tabstop>
   <tabstop>spinbox_coloring_speed</tabstop>
-  <tabstop>pushButton_randomPalette</tabstop>
-  <tabstop>pushButton_getPaletteFromImage</tabstop>
   <tabstop>comboBox_fractal_coloring_algorithm</tabstop>
   <tabstop>spinbox_fractal_coloring_sphere_radius</tabstop>
   <tabstop>vect4_fractal_coloring_line_direction_x</tabstop>

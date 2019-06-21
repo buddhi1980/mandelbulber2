@@ -142,7 +142,8 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"use_color_texture", "use_colors_from_palette", "use_diffusion_texture",
 	"use_displacement_texture", "use_luminosity_texture", "use_normal_map_texture",
 
-	"surface_color_palette", "surface_color_gradient", "specular_gradient"};
+	"surface_color_palette", "surface_color_gradient", "specular_gradient", "diffuse_gradient",
+	"luminosity_gradient", "roughness_gradient", "reflectance_gradient", "transparency_gradient"};
 
 void cMaterial::setParameters(
 	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
@@ -185,6 +186,15 @@ void cMaterial::setParameters(
 	gradientSurface.SetColorsFromString(
 		materialParam->Get<QString>(Name("surface_color_gradient", id)));
 	gradientSpecular.SetColorsFromString(materialParam->Get<QString>(Name("specular_gradient", id)));
+	gradientDiffuse.SetColorsFromString(materialParam->Get<QString>(Name("diffuse_gradient", id)));
+	gradientLuminosity.SetColorsFromString(
+		materialParam->Get<QString>(Name("luminosity_gradient", id)));
+	gradientRoughness.SetColorsFromString(
+		materialParam->Get<QString>(Name("roughness_gradient", id)));
+	gradientReflectance.SetColorsFromString(
+		materialParam->Get<QString>(Name("reflectance_gradient", id)));
+	gradientTransparency.SetColorsFromString(
+		materialParam->Get<QString>(Name("transparency_gradient", id)));
 
 	textureCenter = materialParam->Get<CVector3>(Name("texture_center", id));
 	textureRotation = materialParam->Get<CVector3>(Name("texture_rotation", id));

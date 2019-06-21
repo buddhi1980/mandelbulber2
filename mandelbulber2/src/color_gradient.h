@@ -23,7 +23,8 @@ public:
 
 		static bool lessCompare(sColor a, sColor b) { return a.position < b.position; }
 	};
-
+	void SetGrayscale() { grayscale = true; }
+	bool isGrayscale() { return grayscale; }
 	int AddColor(sRGB color, double position); // returns new color index
 	void ModifyColor(int index, sRGB color);
 	void ModifyPosition(int index, double position);
@@ -44,9 +45,11 @@ private:
 	int PaletteIterator(int paletteIndex, double position) const;
 	sRGB Interpolate(int paletteIndex, double pos, bool smooth) const;
 	double CorrectPosition(double position, int ignoreIndex);
+	sRGB MakeGrayscaleIfNeeded(sRGB color);
 
 	QList<sColor> colors;
 	QList<sColor> sortedColors;
+	bool grayscale;
 	bool sorted;
 };
 

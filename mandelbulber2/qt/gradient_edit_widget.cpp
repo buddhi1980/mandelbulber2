@@ -17,7 +17,7 @@
 #include "../src/error_message.hpp"
 #include "preview_file_dialog.h"
 #include "src/system.hpp"
-#include "src/common_math.h";
+#include "src/common_math.h"
 
 cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 {
@@ -25,6 +25,7 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 	mouseDragStarted = false;
 	pressedColorIndex = 0;
 	dragStartX = 0;
+	grayscale = false;
 
 	fixHeight = systemData.GetPreferredThumbnailSize() / 1.4;
 	setFixedHeight(fixHeight);
@@ -65,6 +66,16 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent) : QWidget(parent)
 cGradientEditWidget::~cGradientEditWidget()
 {
 	// nothing to destroy
+}
+
+void cGradientEditWidget::SetGrayscale()
+{
+	buttonSaturationInc->disconnect();
+	buttonSaturationDec->disconnect();
+	delete buttonSaturationInc;
+	delete buttonSaturationDec;
+	grayscale = true;
+	gradient.SetGrayscale();
 }
 
 void cGradientEditWidget::AddToolButton(QToolButton *toolbutton, int position, QString iconName)
@@ -286,6 +297,7 @@ void cGradientEditWidget::ChangeNumberOfColors()
 	{
 		gradient.SortGradient();
 		cColorGradient newGradient;
+		if (grayscale) newGradient.SetGrayscale();
 		newGradient.DeleteAll();
 		double step = 1.0 / newNumber;
 		for (int i = 0; i < newNumber; i++)
