@@ -12221,22 +12221,35 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	CVector4 oldZ = z;
+	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		int order = fractal->transformCommon.int6;
+		double div2PI = (double)order / M_PI_2x;
 
-	int order = fractal->transformCommon.int6;
-	double div2PI = (double)order / M_PI_2x;
+		bool cy = false;
+		int sector = (int)(-div2PI * atan(z.x / z.y));
+		if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
+		double angle = (double)(sector / div2PI);
+		// z.xy = rotate(z.xy,angle); // sin
+		double tempZx = z.x;
+		z.x = z.x * cos(angle) - z.y * sin(angle);
+		z.y = tempZx * sin(angle) + z.y * cos(angle);
+		if (cy) z.y = -z.y;
+		// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+	}
+	else
+	{
+		int poly = fractal->transformCommon.int6;
+		double psi = abs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.y * z.y + z.z * z.z);
+		z.y = cos(psi) * len;
+		z.z = sin(psi) * len;
+	}
 
-	bool cy = false;
-	int sector = (int)(-div2PI * atan(z.x / z.y));
-	if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
-	double angle = (double)(sector / div2PI);
-	// z.xy = rotate(z.xy,angle); // sin
-	double tempZx = z.x;
-	z.x = z.x * cos(angle) - z.y * sin(angle);
-	z.y = tempZx * sin(angle) + z.y * cos(angle);
-	if (cy) z.y = -z.y;
-	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+	z.x += fractal->transformCommon.offset0;
+	z.y += fractal->transformCommon.offsetA0;
+
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
