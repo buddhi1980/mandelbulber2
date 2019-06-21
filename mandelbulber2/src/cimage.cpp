@@ -165,10 +165,14 @@ void cImage::ClearImage()
 	memset(opacityBuffer.data(), 0, sizeof(quint16) * quint64(width) * quint64(height));
 	memset(colourBuffer.data(), 0, sizeof(sRGB8) * quint64(width) * quint64(height));
 
-	if (opt.optionalNormal) memset(normalFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
-	if (opt.optionalSpecular) memset(specularFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
-	if (opt.optionalDiffuse) memset(diffuseFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
-	if (opt.optionalWorld) memset(worldFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	if (opt.optionalNormal)
+		memset(normalFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	if (opt.optionalSpecular)
+		memset(specularFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	if (opt.optionalDiffuse)
+		memset(diffuseFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
+	if (opt.optionalWorld)
+		memset(worldFloat.data(), 0, sizeof(sRGBFloat) * quint64(width) * quint64(height));
 
 	for (quint64 i = 0; i < quint64(width) * quint64(height); ++i)
 		zBuffer[i] = float(1e20);
@@ -780,6 +784,7 @@ void cImage::PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat op
 void cImage::AntiAliasedPoint(
 	double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer)
 {
+	previewMutex.lock();
 	double deltaX = x - int(x);
 	double deltaY = y - int(y);
 
@@ -810,11 +815,13 @@ void cImage::AntiAliasedPoint(
 	opacity2.G = opacity.G * intensity4 / sum;
 	opacity2.B = opacity.B * intensity4 / sum;
 	PutPixelAlfa(x + 1, y + 1, z, color, opacity2, layer);
+	previewMutex.unlock();
 }
 
 void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2,
 	sRGB8 color, sRGBFloat opacity, int layer)
 {
+	previewMutex.lock();
 	if ((x1 >= 0 && x1 < previewWidth && y1 >= 0 && y1 < previewHeight)
 			|| (x2 >= 0 && x2 < previewWidth && y2 >= 0 && y2 < previewHeight))
 	{
@@ -944,11 +951,13 @@ void cImage::AntiAliasedLine(double x1, double y1, double x2, double y2, float z
 			}
 		}
 	}
+	previewMutex.unlock();
 }
 
 void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
 	sRGBFloat opacity, int layer)
 {
+	previewMutex.lock();
 	if (borderWidth > 0 && r > 0)
 	{
 		double r2 = r + borderWidth;
@@ -993,6 +1002,7 @@ void cImage::CircleBorder(double x, double y, float z, double r, sRGB8 border, d
 			}
 		}
 	}
+	previewMutex.lock();
 }
 
 void cImage::NullPostEffect(QList<int> *list)
