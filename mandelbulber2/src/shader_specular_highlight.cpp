@@ -35,27 +35,32 @@
 #include "material.h"
 #include "render_worker.hpp"
 
-sRGBAfloat cRenderWorker::SpecularHighlight(
-	const sShaderInputData &input, CVector3 lightVector, float specularWidth, float roughness) const
+sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
+	float specularWidth, float roughness, sRGB diffuseGradient) const
 {
 	sRGBAfloat specular;
 	CVector3 half = lightVector - input.viewVector;
 	half.Normalize();
 	float shade2 = input.normal.Dot(half);
 	if (shade2 < 0.0f) shade2 = 0.0f;
+
+	float diffuse = 1.0;
+
 	if (input.material->useDiffusionTexture)
 	{
-		float diffuse =
-			10.0f
-			* (1.1f
-					- input.material->diffusionTextureIntensity
-							* (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
-		shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
+		diffuse *= 10.0f
+							 * (1.1f
+									 - input.material->diffusionTextureIntensity
+											 * (input.texDiffuse.R + input.texDiffuse.G + input.texDiffuse.B) / 3.0f);
 	}
-	else
+
+	if (input.material->useColorsFromPalette && input.material->diffuseGradientEnable)
 	{
-		shade2 = pow(shade2, 30.0f / specularWidth);
+		diffuse *=
+			10.0f * (1.1f - (diffuseGradient.R + diffuseGradient.G + diffuseGradient.B) / 256.0 / 3.0f);
 	}
+
+	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;
 
 	if (roughness > 0.0f)
 	{

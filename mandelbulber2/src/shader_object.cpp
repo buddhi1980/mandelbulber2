@@ -83,7 +83,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat specular;
 	if (params->mainLightEnable)
 	{
-		specular = SpecularHighlightCombined(input, input.lightVect, colour);
+		specular = SpecularHighlightCombined(input, input.lightVect, colour, gradients.diffuse);
 		if (mat->useColorsFromPalette && mat->specularGradientEnable)
 		{
 			specular.R *= gradients.specular.R / 256.0;
@@ -124,7 +124,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	// additional lights
 	sRGBAfloat auxLights;
 	sRGBAfloat auxLightsSpecular;
-	auxLights = AuxLightsShader(input, colour, &auxLightsSpecular);
+	auxLights = AuxLightsShader(input, colour, &gradients, &auxLightsSpecular);
 
 	// fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);

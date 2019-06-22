@@ -90,6 +90,11 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 					gradients->specular = input.material->gradientSpecular.GetColor(colorPosition, false);
 				}
 
+				if (input.material->diffuseGradientEnable)
+				{
+					gradients->diffuse = input.material->gradientDiffuse.GetColor(colorPosition, false);
+				}
+
 				if (input.material->luminosityGradientEnable)
 				{
 					gradients->luminosity = input.material->gradientLuminosity.GetColor(colorPosition, false);

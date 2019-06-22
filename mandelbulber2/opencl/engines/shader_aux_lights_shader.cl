@@ -35,7 +35,8 @@
 #ifdef AUX_LIGHTS
 
 float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderData,
-	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor, float3 *specularOut)
+	sShaderInputDataCl *input, sClCalcParams *calcParam, float3 surfaceColor,
+	sClGradientsCollection *gradients, float3 *specularOut)
 {
 
 	int numberOfLights = renderData->numberOfLights;
@@ -50,7 +51,7 @@ float3 AuxLightsShader(__constant sClInConstants *consts, sRenderData *renderDat
 		{
 			float3 specularAuxOutTemp;
 			float3 shadeAux = LightShading(
-				consts, renderData, input, calcParam, surfaceColor, light, &specularAuxOutTemp);
+				consts, renderData, input, calcParam, surfaceColor, light, gradients, &specularAuxOutTemp);
 			shadeAuxSum += shadeAux;
 			specularAuxSum += specularAuxOutTemp;
 		}

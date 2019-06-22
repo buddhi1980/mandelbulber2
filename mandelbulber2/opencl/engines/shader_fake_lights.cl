@@ -34,7 +34,8 @@
 
 #ifdef FAKE_LIGHTS
 float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *input,
-	sClCalcParams *calcParams, float3 surfaceColor, float3 *specularOut)
+	sClCalcParams *calcParams, float3 surfaceColor, sClGradientsCollection *gradients,
+	float3 *specularOut)
 {
 	float3 fakeLights;
 
@@ -76,7 +77,8 @@ float3 FakeLightsShader(__constant sClInConstants *consts, sShaderInputDataCl *i
 
 	fakeLights = fakeLight2 * consts->params.fakeLightsColor;
 
-	float3 fakeSpec = SpecularHighlightCombined(input, calcParams, fakeLightNormal, surfaceColor);
+	float3 fakeSpec =
+		SpecularHighlightCombined(input, calcParams, fakeLightNormal, surfaceColor, gradients);
 	fakeSpec = fakeSpec * consts->params.fakeLightsColor / r;
 
 	fakeSpec = 0.0f; // TODO to check why in CPU code it's zero

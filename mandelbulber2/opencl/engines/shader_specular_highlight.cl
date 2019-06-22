@@ -33,30 +33,36 @@
  */
 
 float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, float3 lightVector,
-	float specularWidth, float roughness)
+	float specularWidth, float roughness, sClGradientsCollection *gradients)
 {
 	float3 halfVector = lightVector - input->viewVector;
 	halfVector = fast_normalize(halfVector);
 	float specular = dot(input->normal, halfVector);
 	if (specular < 0.0f) specular = 0.0f;
 
+	float diffuse = 1.0f;
+
 #if defined(USE_TEXTURES) && defined(USE_DIFFUSION_TEXTURE)
 	if (input->material->useDiffusionTexture)
 	{
-		float diffuse =
+		diffuse *=
 			10.0f
 			* (1.1f
 					- input->material->diffusionTextureIntensity
 							* (input->texDiffuse.s0 + input->texDiffuse.s1 + input->texDiffuse.s2) / 3.0f);
-		specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
 	}
-	else
-	{
-		specular = pow(specular, 30.0f / specularWidth);
-	}
-#else
-	specular = pow(specular, 30.0f / specularWidth);
 #endif
+
+#ifdef USE_DIFFUSE_GRADIENT
+	if (input->material->useColorsFromPalette && input->material->diffuseGradientEnable)
+	{
+		diffuse *=
+			10.0f
+			* (1.1f - (gradients->diffuse.s0 + gradients->diffuse.s1 + gradients->diffuse.s2) / 3.0f);
+	}
+#endif
+
+	specular = pow(specular, 30.0f / specularWidth / diffuse) / diffuse;
 
 	if (roughness > 0.0f)
 	{

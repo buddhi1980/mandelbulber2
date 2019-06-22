@@ -74,7 +74,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 
 	if (consts->params.mainLightEnable)
 	{
-		specular = SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor);
+		specular =
+			SpecularHighlightCombined(input, calcParam, input->lightVect, surfaceColor, &gradients);
 
 #ifdef USE_SPECULAR_GRADIENT
 		if (input->material->useColorsFromPalette && input->material->specularGradientEnable)
@@ -100,13 +101,15 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 auxSpecular = 0.0f;
 
 #ifdef AUX_LIGHTS
-	auxLights = AuxLightsShader(consts, renderData, input, calcParam, surfaceColor, &auxSpecular);
+	auxLights =
+		AuxLightsShader(consts, renderData, input, calcParam, surfaceColor, &gradients, &auxSpecular);
 #endif
 
 	float3 fakeLights = 0.0f;
 	float3 fakeLightsSpecular = 0.0f;
 #ifdef FAKE_LIGHTS
-	fakeLights = FakeLightsShader(consts, input, calcParam, surfaceColor, &fakeLightsSpecular);
+	fakeLights =
+		FakeLightsShader(consts, input, calcParam, surfaceColor, &gradients, &fakeLightsSpecular);
 #endif
 
 	float3 iridescence = 1.0f;

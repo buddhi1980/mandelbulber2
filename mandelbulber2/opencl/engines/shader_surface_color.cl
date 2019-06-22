@@ -32,19 +32,6 @@
  * surface color calculation
  */
 
-typedef struct
-{
-#ifdef USE_SURFACE_GRADIENT
-	float3 surface;
-#endif
-#ifdef USE_SPECULAR_GRADIENT
-	float3 specular;
-#endif
-#ifdef USE_LUMINOSITY_GRADIENT
-	float3 luminosity;
-#endif
-} sClGradientsCollection;
-
 float3 GradientInterpolate(
 	int paletteIndex, float pos, bool smooth, int gradientSize, __global float4 *palette)
 {
@@ -93,7 +80,7 @@ int GradientIterator(
 	return newIndex;
 }
 
-float3 GetColorFronGradient(float position, bool smooth, int gradientSize, __global float4 *palette)
+float3 GetColorFromGradient(float position, bool smooth, int gradientSize, __global float4 *palette)
 {
 	int paletteIndex = GradientIterator(0, position, gradientSize, palette);
 	return GradientInterpolate(paletteIndex, position, smooth, gradientSize, palette);
@@ -148,7 +135,7 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_SURFACE_GRADIENT
 				if (input->material->surfaceGradientEnable)
 				{
-					color = GetColorFronGradient(colorPosition, false, input->paletteSurfaceLength,
+					color = GetColorFromGradient(colorPosition, false, input->paletteSurfaceLength,
 						input->palette + input->paletteSurfaceOffset);
 					gradients->surface = color;
 				}
@@ -160,14 +147,21 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_SPECULAR_GRADIENT
 				if (input->material->specularGradientEnable)
 				{
-					gradients->specular = GetColorFronGradient(colorPosition, false,
+					gradients->specular = GetColorFromGradient(colorPosition, false,
 						input->paletteSpecularLength, input->palette + input->paletteSpecularOffset);
+				}
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+				if (input->material->diffuseGradientEnable)
+				{
+					gradients->diffuse = GetColorFromGradient(colorPosition, false,
+						input->paletteDiffuseLength, input->palette + input->paletteDiffuseOffset);
 				}
 #endif
 #ifdef USE_LUMINOSITY_GRADIENT
 				if (input->material->luminosityGradientEnable)
 				{
-					gradients->luminosity = GetColorFronGradient(colorPosition, false,
+					gradients->luminosity = GetColorFromGradient(colorPosition, false,
 						input->paletteLuminosityLength, input->palette + input->paletteLuminosityOffset);
 				}
 #endif

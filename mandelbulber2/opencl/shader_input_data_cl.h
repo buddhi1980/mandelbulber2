@@ -85,3 +85,19 @@ typedef struct
 	int paletteTransparencyLength;
 #endif
 } sShaderInputDataCl;
+
+typedef struct
+{
+#ifdef USE_SURFACE_GRADIENT
+	float3 surface;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	float3 specular;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	float3 diffuse;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	float3 luminosity;
+#endif
+} sClGradientsCollection;
