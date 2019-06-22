@@ -119,9 +119,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-1655</y>
         <width>466</width>
-        <height>3725</height>
+        <height>3699</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -3373,19 +3373,6 @@ direction vector:</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="MyCheckBox" name="checkBox_luminosity_color_thesame">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="text">
-               <string>Use the same color as main color</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -4695,22 +4682,6 @@ object size)</string>
     <hint type="destinationlabel">
      <x>176</x>
      <y>-1406</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_luminosity_color_thesame</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>colorButton_luminosity_color</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>135</x>
-     <y>598</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>195</x>
-     <y>575</y>
     </hint>
    </hints>
   </connection>

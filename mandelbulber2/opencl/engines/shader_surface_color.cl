@@ -40,6 +40,9 @@ typedef struct
 #ifdef USE_SPECULAR_GRADIENT
 	float3 specular;
 #endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	float3 luminosity;
+#endif
 } sClGradientsCollection;
 
 float3 GradientInterpolate(
@@ -159,6 +162,13 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 				{
 					gradients->specular = GetColorFronGradient(colorPosition, false,
 						input->paletteSpecularLength, input->palette + input->paletteSpecularOffset);
+				}
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+				if (input->material->luminosityGradientEnable)
+				{
+					gradients->luminosity = GetColorFronGradient(colorPosition, false,
+						input->paletteLuminosityLength, input->palette + input->paletteLuminosityOffset);
 				}
 #endif
 			}

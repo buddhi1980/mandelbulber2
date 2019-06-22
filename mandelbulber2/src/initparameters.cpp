@@ -1344,8 +1344,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("is_defined", materialId), false, morphNone, paramStandard);
 	par->addParam(cMaterial::Name("luminosity_color", materialId), sRGB(65535, 65535, 65535),
 		morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("luminosity_color_thesame", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("luminosity_texture_intensity", materialId), 1.0, 0.0, 1e10,
 		morphAkima, paramStandard);
 	par->addParam(

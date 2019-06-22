@@ -198,6 +198,7 @@ private:
 	{
 		sRGB surface;
 		sRGB specular;
+		sRGB luminosity;
 	};
 
 	// functions

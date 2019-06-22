@@ -79,10 +79,16 @@ cMaterial::cMaterial()
 	textureFractalizeStartIteration = 0;
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
-	luminosityColorTheSame = false;
 	reflectionsColorTheSame = false;
 	transparencyColorTheSame = false;
 	roughSurface = false;
+	surfaceGradientEnable = false;
+	specularGradientEnable = false;
+	diffuseGradientEnable = false;
+	luminosityGradientEnable = false;
+	roughnessGradientEnable = false;
+	reflectanceGradientEnable = false;
+	transparencyGradientEnable = false;
 }
 
 cMaterial::cMaterial(
@@ -130,7 +136,7 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"fractal_coloring_xyz_y_sqrd_enabled_false", "fractal_coloring_xyz_z_sqrd_enabled_false",
 	"fractal_coloring_xyzC_111", "fresnel_reflectance", "iridescence_enabled",
 	"iridescence_intensity", "iridescence_subsurface_thickness", "is_defined", "luminosity_color",
-	"luminosity_color_thesame", "luminosity_texture_intensity", "luminosity", "metallic", "name",
+	"luminosity_texture_intensity", "luminosity", "metallic", "name",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
 	"reflectance", "reflections_color", "reflections_color_thesame", "rough_surface", "shading",
 	"specular_color", "specular_metallic_roughness", "specular_metallic_width", "specular_metallic",
@@ -179,7 +185,6 @@ void cMaterial::setParameters(
 	reflectionsColor = materialParam->Get<sRGB>(Name("reflections_color", id));
 	transparencyColor = materialParam->Get<sRGB>(Name("transparency_color", id));
 
-	luminosityColorTheSame = materialParam->Get<bool>(Name("luminosity_color_thesame", id));
 	reflectionsColorTheSame = materialParam->Get<bool>(Name("reflections_color_thesame", id));
 	transparencyColorTheSame = materialParam->Get<bool>(Name("transparency_color_thesame", id));
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));

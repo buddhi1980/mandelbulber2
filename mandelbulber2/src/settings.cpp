@@ -980,6 +980,14 @@ void cSettings::Compatibility(QString &name, QString &value) const
 			}
 			value = newValue;
 		}
+
+		if (name.contains("luminosity_color_thesame"))
+		{
+			name.replace("luminosity_color_thesame", "luminosity_gradient_enable");
+
+			QStringList split = value.split(" ");
+			int numberOfColors = split.size();
+		}
 	}
 }
 
@@ -1069,6 +1077,11 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 			par->Set(coloringOffsetParameter, par->Get<double>(coloringOffsetParameter) / paletteSize);
 			par->Set(
 				coloringSpeedParameter, par->Get<double>(coloringSpeedParameter) * 10.0 / paletteSize);
+
+			if (par->Get<bool>(mat + "_luminosity_gradient_enable"))
+			{
+				par->Set(mat + "_luminosity_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
+			}
 		}
 	}
 }

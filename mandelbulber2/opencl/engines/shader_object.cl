@@ -122,11 +122,13 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 		(mainLight * shadow * specular + fakeLightsSpecular + auxSpecular) * iridescence;
 
 	float3 luminosity;
-	if (input->material->luminosityColorTheSame)
+#ifdef USE_LUMINOSITY_GRADIENT
+	if (input->material->useColorsFromPalette && input->material->luminosityGradientEnable)
 	{
-		luminosity = input->material->luminosity * surfaceColor;
+		luminosity = input->material->luminosity * gradients.luminosity;
 	}
 	else
+#endif
 	{
 		luminosity = input->material->luminosity * input->material->luminosityColor;
 	}
