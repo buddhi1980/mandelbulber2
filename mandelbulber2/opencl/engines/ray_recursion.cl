@@ -625,7 +625,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 			shaderInputData.paletteTransparencyLength =
 				renderData->paletteTransparencyLengths[objectData->materialId];
 #endif
-			
+
 			shaderInputData.stepCount = rayMarchingOut.count;
 			shaderInputData.randomSeed = *randomSeed;
 
@@ -683,9 +683,11 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #endif
 #endif
 
+				sClGradientsCollection gradients;
+
 				specular = 0.0f;
-				objectShader = ObjectShader(
-					consts, renderData, &shaderInputData, &calcParam, &objectColour, &specular, &iridescence);
+				objectShader = ObjectShader(consts, renderData, &shaderInputData, &calcParam, &objectColour,
+					&specular, &iridescence, &gradients);
 
 #ifdef MONTE_CARLO_DOF_GLOBAL_ILLUMINATION
 				float3 globalIllumination = GlobalIlumination(
@@ -744,14 +746,26 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				if (renderData->reflectionsMax > 0)
 				{
+#if defined(USE_DIFFUSION_TEXTURE) || defined(USE_DIFFUSE_GRADIENT)
+					float3 reflectDiffused = reflect;
+
 #ifdef USE_DIFFUSION_TEXTURE
 					float diffusionIntensity = shaderInputData.material->diffusionTextureIntensity;
 					float diffusionIntensityN = 1.0f - diffusionIntensity;
 
-					float3 reflectDiffused = reflect * shaderInputData.texDiffuse * diffusionIntensity
-																	 + reflect * diffusionIntensityN;
+					reflectDiffused = reflect * shaderInputData.texDiffuse * diffusionIntensity
+														+ reflect * diffusionIntensityN;
+#endif USE_DIFFUSION_TEXTURE
 
-#else // not USE_DIFFUSION_TEXTURE
+#ifdef USE_DIFFUSE_GRADIENT
+					if (shaderInputData.material->useColorsFromPalette
+							&& shaderInputData.material->diffuseGradientEnable)
+					{
+						reflectDiffused *= gradients.diffuse;
+					}
+#endif
+
+#else // not USE_DIFFUSION_TEXTURE or USE_DIFFUSE_GRADIENT
 #ifdef USE_REFLECTANCE
 					float3 reflectDiffused = reflect;
 #else

@@ -60,7 +60,7 @@ float3 LightShading(__constant sClInConstants *consts, sRenderData *renderData,
 
 	// specular
 	float3 specular =
-		SpecularHighlightCombined(input, calcParam, lightVector, surfaceColor) * intensity;
+		SpecularHighlightCombined(input, calcParam, lightVector, surfaceColor, gradients) * intensity;
 
 #ifdef USE_SPECULAR_GRADIENT
 	if (input->material->useColorsFromPalette && input->material->specularGradientEnable)

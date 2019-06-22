@@ -217,7 +217,7 @@ private:
 
 	// shaders
 	sRGBAfloat ObjectShader(const sShaderInputData &input, sRGBAfloat *surfaceColour,
-		sRGBAfloat *specularOut, sRGBFloat *iridescence) const;
+		sRGBAfloat *specularOut, sRGBFloat *iridescence, sGradientsCollection *gradients) const;
 	CVector3 CalculateNormals(const sShaderInputData &input) const;
 	static sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input) const;

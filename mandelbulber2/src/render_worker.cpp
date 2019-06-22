@@ -1110,8 +1110,10 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			{
 				// qDebug() << "Found" << rayIndex;
 				// calculate effects for object surface
-				objectShader =
-					ObjectShader(shaderInputData, &objectColour, &recursionOut.specular, &iridescence);
+				sGradientsCollection gradients;
+
+				objectShader = ObjectShader(
+					shaderInputData, &objectColour, &recursionOut.specular, &iridescence, &gradients);
 
 				if (params->DOFMonteCarlo && params->DOFMonteCarloGlobalIllumination)
 				{
@@ -1185,6 +1187,14 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 															+ reflect * diffusionIntensityN;
 					reflectDiffused.B = reflect * shaderInputData.texDiffuse.B * diffusionIntensity
 															+ reflect * diffusionIntensityN;
+
+					if (shaderInputData.material->useColorsFromPalette
+							&& shaderInputData.material->diffuseGradientEnable)
+					{
+						reflectDiffused.R *= gradients.diffuse.R / 256.0;
+						reflectDiffused.G *= gradients.diffuse.G / 256.0;
+						reflectDiffused.B *= gradients.diffuse.B / 256.0;
+					}
 
 					reflectDiffused.R *= iridescence.R;
 					reflectDiffused.G *= iridescence.G;

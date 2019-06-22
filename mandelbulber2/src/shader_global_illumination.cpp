@@ -116,7 +116,9 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			else
 				inputCopy.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
-			sRGBAfloat objectShader = ObjectShader(inputCopy, &objectColor, &specular, &iridescence);
+			sGradientsCollection gradients;
+			sRGBAfloat objectShader =
+				ObjectShader(inputCopy, &objectColor, &specular, &iridescence, &gradients);
 			out.R += (objectShader.R + specular.R) * objectColorTemp.R;
 			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
 			out.B += (objectShader.B + specular.B) * objectColorTemp.B;

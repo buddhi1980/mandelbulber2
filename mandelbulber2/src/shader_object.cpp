@@ -37,7 +37,7 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloat *surfaceColour,
-	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut) const
+	sRGBAfloat *specularOut, sRGBFloat *iridescenceOut, sGradientsCollection *gradients) const
 {
 	sRGBAfloat output;
 
@@ -67,11 +67,10 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
-	sGradientsCollection gradients;
-	gradients.specular = sRGB(256, 256, 256);
+	gradients->specular = sRGB(256, 256, 256);
 
 	// calculate surface colour
-	sRGBAfloat colour = SurfaceColour(input, &gradients);
+	sRGBAfloat colour = SurfaceColour(input, gradients);
 	float texColInt = mat->colorTextureIntensity;
 	float texColIntN = 1.0f - mat->colorTextureIntensity;
 	colour.R *= input.texColor.R * texColInt + texColIntN;
@@ -83,12 +82,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat specular;
 	if (params->mainLightEnable)
 	{
-		specular = SpecularHighlightCombined(input, input.lightVect, colour, gradients.diffuse);
+		specular = SpecularHighlightCombined(input, input.lightVect, colour, gradients->diffuse);
 		if (mat->useColorsFromPalette && mat->specularGradientEnable)
 		{
-			specular.R *= gradients.specular.R / 256.0;
-			specular.G *= gradients.specular.G / 256.0;
-			specular.B *= gradients.specular.B / 256.0;
+			specular.R *= gradients->specular.R / 256.0;
+			specular.G *= gradients->specular.G / 256.0;
+			specular.B *= gradients->specular.B / 256.0;
 		}
 	}
 
@@ -124,7 +123,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	// additional lights
 	sRGBAfloat auxLights;
 	sRGBAfloat auxLightsSpecular;
-	auxLights = AuxLightsShader(input, colour, &gradients, &auxLightsSpecular);
+	auxLights = AuxLightsShader(input, colour, gradients, &auxLightsSpecular);
 
 	// fake orbit trap lights
 	sRGBAfloat fakeLights(0.0, 0.0, 0.0, 0.0);
@@ -139,11 +138,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (mat->useColorsFromPalette && mat->luminosityGradientEnable)
 	{
 		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients.luminosity.R / 256.0;
+									 + mat->luminosity * gradients->luminosity.R / 256.0;
 		luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients.luminosity.G / 256.0;
+									 + mat->luminosity * gradients->luminosity.G / 256.0;
 		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients.luminosity.B / 256.0;
+									 + mat->luminosity * gradients->luminosity.B / 256.0;
 	}
 	else
 	{
