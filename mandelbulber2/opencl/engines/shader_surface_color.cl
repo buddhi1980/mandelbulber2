@@ -140,10 +140,11 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 					gradients->surface = color;
 				}
 				else
+#endif
 				{
 					color = input->material->color;
 				}
-#endif
+
 #ifdef USE_SPECULAR_GRADIENT
 				if (input->material->specularGradientEnable)
 				{
