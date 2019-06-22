@@ -201,6 +201,7 @@ private:
 		sRGBFloat diffuse;
 		sRGBFloat luminosity;
 		sRGBFloat reflectance;
+		sRGBFloat trasparency;
 	};
 
 	// functions

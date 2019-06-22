@@ -1395,8 +1395,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		paramStandard);
 	par->addParam(cMaterial::Name("transparency_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
-	par->addParam(
-		cMaterial::Name("transparency_color_thesame", materialId), false, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("transparency_index_of_refraction", materialId), 1.5, 0.0, 100.0,
 		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("transparency_interior_color", materialId),

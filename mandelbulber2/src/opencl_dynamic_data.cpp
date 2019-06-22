@@ -206,8 +206,8 @@ int cOpenClDynamicData::BuildMaterialsData(
 			totalSizeOfGradients += paletteSizeReflectance;
 
 			paletteOffsetTransparency = paletteOffsetReflectance + paletteSizeReflectance;
-			paletteSizeReflectance = gradientReflectance.size();
-			totalSizeOfGradients += paletteSizeReflectance;
+			paletteSizeTransparency = gradientTransparency.size();
+			totalSizeOfGradients += paletteSizeTransparency;
 
 			paletteCl = new cl_float4[totalSizeOfGradients];
 

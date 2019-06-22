@@ -735,9 +735,13 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				resultShader.xyz = (objectShader);
 
 #ifdef USE_REFRACTION
-				if (shaderInputData.material->transparencyColorTheSame)
-					transparentShader *= (float4){objectColour.s0, objectColour.s1, objectColour.s2, 1.0f};
+#ifdef USE_TRANSPARENCY_GRADIENT
+				if (shaderInputData.material->useColorsFromPalette
+						&& shaderInputData.material->transparencyGradientEnable)
+					transparentShader *= (float4){
+						gradients.transparency.s0, gradients.transparency.s1, gradients.transparency.s2, 1.0f};
 				else
+#endif // USE_TRANSPARENCY_GRADIENT
 					transparentShader *= (float4){shaderInputData.material->transparencyColor.s0,
 						shaderInputData.material->transparencyColor.s1,
 						shaderInputData.material->transparencyColor.s2, 1.0f};
@@ -775,12 +779,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 					reflectDiffused *= iridescence;
 
-#ifdef USE_REFLECTANCE
+#ifdef USE_REFLECTANCE_GRADIENT
 					if (shaderInputData.material->useColorsFromPalette
 							&& shaderInputData.material->reflectanceGradientEnable)
 						reflectDiffused *= gradients.reflectance;
 					else
-#endif // USE_REFLECTANCE
+#endif // USE_REFLECTANCE_GRADIENT
 						reflectDiffused *= shaderInputData.material->reflectionsColor;
 
 #ifdef USE_REFRACTION

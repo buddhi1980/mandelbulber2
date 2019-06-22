@@ -107,6 +107,12 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 					gradients->reflectance =
 						input.material->gradientReflectance.GetColorFloat(colorPosition, false);
 				}
+
+				if (input.material->transparencyGradientEnable)
+				{
+					gradients->trasparency =
+						input.material->gradientTransparency.GetColorFloat(colorPosition, false);
+				}
 			}
 			else
 			{

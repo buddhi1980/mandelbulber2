@@ -122,7 +122,6 @@ public:
 	bool useColorsFromPalette;
 	bool specularPlasticEnable;
 	bool metallic;
-	bool transparencyColorTheSame;
 	bool roughSurface;
 
 	bool useColorTexture;

@@ -79,7 +79,6 @@ cMaterial::cMaterial()
 	textureFractalizeStartIteration = 0;
 	textureFractalize = false;
 	textureFractalizeCubeSize = 0.0;
-	transparencyColorTheSame = false;
 	roughSurface = false;
 	surfaceGradientEnable = false;
 	specularGradientEnable = false;
@@ -142,15 +141,14 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"specular_plastic_enable", "specular_width", "specular", "surface_color", "surface_roughness",
 	"texture_center", "texture_fractalize_cube_size", "texture_fractalize_start_iteration",
 	"texture_fractalize", "texture_mapping_type", "texture_rotation", "texture_scale",
-	"transparency_color", "transparency_color_thesame", "transparency_index_of_refraction",
-	"transparency_interior_color", "transparency_of_interior", "transparency_of_surface",
-	"use_color_texture", "use_colors_from_palette", "use_diffusion_texture",
-	"use_displacement_texture", "use_luminosity_texture", "use_normal_map_texture",
-	"surface_gradient_enable", "specular_gradient_enable", "diffuse_gradient_enable",
-	"luminosity_gradient_enable", "roughness_gradient_enable", "reflectance_gradient_enable",
-	"transparency_gradient_enable", "surface_color_palette", "surface_color_gradient",
-	"specular_gradient", "diffuse_gradient", "luminosity_gradient", "roughness_gradient",
-	"reflectance_gradient", "transparency_gradient"};
+	"transparency_color", "transparency_index_of_refraction", "transparency_interior_color",
+	"transparency_of_interior", "transparency_of_surface", "use_color_texture",
+	"use_colors_from_palette", "use_diffusion_texture", "use_displacement_texture",
+	"use_luminosity_texture", "use_normal_map_texture", "surface_gradient_enable",
+	"specular_gradient_enable", "diffuse_gradient_enable", "luminosity_gradient_enable",
+	"roughness_gradient_enable", "reflectance_gradient_enable", "transparency_gradient_enable",
+	"surface_color_palette", "surface_color_gradient", "specular_gradient", "diffuse_gradient",
+	"luminosity_gradient", "roughness_gradient", "reflectance_gradient", "transparency_gradient"};
 
 void cMaterial::setParameters(
 	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
@@ -184,7 +182,6 @@ void cMaterial::setParameters(
 	reflectionsColor = materialParam->Get<sRGB>(Name("reflections_color", id));
 	transparencyColor = materialParam->Get<sRGB>(Name("transparency_color", id));
 
-	transparencyColorTheSame = materialParam->Get<bool>(Name("transparency_color_thesame", id));
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
 
 	palette = materialParam->Get<cColorPalette>(Name("surface_color_palette", id));

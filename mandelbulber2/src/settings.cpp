@@ -982,14 +982,13 @@ void cSettings::Compatibility(QString &name, QString &value) const
 		}
 
 		if (name.contains("luminosity_color_thesame"))
-		{
 			name.replace("luminosity_color_thesame", "luminosity_gradient_enable");
-		}
 
 		if (name.contains("reflections_color_thesame"))
-		{
 			name.replace("reflections_color_thesame", "reflectance_gradient_enable");
-		}
+
+		if (name.contains("transparency_color_thesame"))
+			name.replace("transparency_color_thesame", "transparency_gradient_enable");
 	}
 }
 
@@ -1081,14 +1080,14 @@ void cSettings::Compatibility2(cParameterContainer *par, cFractalContainer *frac
 				coloringSpeedParameter, par->Get<double>(coloringSpeedParameter) * 10.0 / paletteSize);
 
 			if (par->Get<bool>(mat + "_luminosity_gradient_enable"))
-			{
 				par->Set(mat + "_luminosity_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
-			}
 
 			if (par->Get<bool>(mat + "_reflectance_gradient_enable"))
-			{
 				par->Set(mat + "_reflectance_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
-			}
+
+			if (par->Get<bool>(mat + "_transparency_gradient_enable"))
+				par->Set(
+					mat + "_transparency_gradient", par->Get<QString>(mat + "_surface_color_gradient"));
 		}
 	}
 }

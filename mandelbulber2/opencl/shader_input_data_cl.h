@@ -103,4 +103,7 @@ typedef struct
 #ifdef USE_REFLECTANCE_GRADIENT
 	float3 reflectance;
 #endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	float3 transparency;
+#endif
 } sClGradientsCollection;

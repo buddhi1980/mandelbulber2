@@ -1163,11 +1163,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				resultShader.G = (objectShader.G + recursionOut.specular.G);
 				resultShader.B = (objectShader.B + recursionOut.specular.B);
 
-				if (shaderInputData.material->transparencyColorTheSame)
+				if (shaderInputData.material->useColorsFromPalette
+						&& shaderInputData.material->transparencyGradientEnable)
 				{
-					transparentShader.R *= objectColour.R;
-					transparentShader.G *= objectColour.G;
-					transparentShader.B *= objectColour.B;
+					transparentShader.R *= gradients.trasparency.R;
+					transparentShader.G *= gradients.trasparency.G;
+					transparentShader.B *= gradients.trasparency.B;
 				}
 				else
 				{
