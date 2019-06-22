@@ -196,10 +196,10 @@ private:
 
 	struct sGradientsCollection
 	{
-		sRGB surface;
-		sRGB specular;
-		sRGB diffuse;
-		sRGB luminosity;
+		sRGBFloat surface;
+		sRGBFloat specular;
+		sRGBFloat diffuse;
+		sRGBFloat luminosity;
 	};
 
 	// functions
@@ -222,9 +222,9 @@ private:
 	static sRGBAfloat MainShading(const sShaderInputData &input);
 	sRGBAfloat MainShadow(const sShaderInputData &input) const;
 	sRGBAfloat SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
-		float specularWidth, float roughness, sRGB diffuseGradient) const;
+		float specularWidth, float roughness, sRGBFloat diffuseGradient) const;
 	sRGBAfloat SpecularHighlightCombined(const sShaderInputData &input, CVector3 lightVector,
-		sRGBAfloat surfaceColor, sRGB diffuseGradient) const;
+		sRGBAfloat surfaceColor, sRGBFloat diffuseGradient) const;
 	sRGBAfloat SurfaceColour(const sShaderInputData &input, sGradientsCollection *gradients) const;
 	sRGBAfloat FastAmbientOcclusion(const sShaderInputData &input) const;
 	sRGBAfloat AmbientOcclusion(const sShaderInputData &input) const;

@@ -1191,9 +1191,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					if (shaderInputData.material->useColorsFromPalette
 							&& shaderInputData.material->diffuseGradientEnable)
 					{
-						reflectDiffused.R *= gradients.diffuse.R / 256.0;
-						reflectDiffused.G *= gradients.diffuse.G / 256.0;
-						reflectDiffused.B *= gradients.diffuse.B / 256.0;
+						reflectDiffused.R *= gradients.diffuse.R;
+						reflectDiffused.G *= gradients.diffuse.G;
+						reflectDiffused.B *= gradients.diffuse.B;
 					}
 
 					reflectDiffused.R *= iridescence.R;

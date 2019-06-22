@@ -36,7 +36,7 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVector3 lightVector,
-	float specularWidth, float roughness, sRGB diffuseGradient) const
+	float specularWidth, float roughness, sRGBFloat diffuseGradient) const
 {
 	sRGBAfloat specular;
 	CVector3 half = lightVector - input.viewVector;
@@ -57,7 +57,7 @@ sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVect
 	if (input.material->useColorsFromPalette && input.material->diffuseGradientEnable)
 	{
 		diffuse *=
-			10.0f * (1.1f - (diffuseGradient.R + diffuseGradient.G + diffuseGradient.B) / 256.0 / 3.0f);
+			10.0f * (1.1f - (diffuseGradient.R + diffuseGradient.G + diffuseGradient.B) / 3.0f);
 	}
 
 	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;

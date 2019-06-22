@@ -30,6 +30,7 @@ public:
 	void ModifyPosition(int index, double position);
 	void RemoveColor(int index);
 	sRGB GetColor(double position, bool smooth) const;
+	sRGBFloat GetColorFloat(double position, bool smooth) const;
 	sRGB GetColorByIndex(int index);
 	QList<sColor> GetListOfColors() const;
 	QList<sColor> GetListOfSortedColors() const;
@@ -44,6 +45,7 @@ public:
 private:
 	int PaletteIterator(int paletteIndex, double position) const;
 	sRGB Interpolate(int paletteIndex, double pos, bool smooth) const;
+	sRGBFloat InterpolateFloat(int paletteIndex, double pos, bool smooth) const;
 	double CorrectPosition(double position, int ignoreIndex);
 	sRGB MakeGrayscaleIfNeeded(sRGB color);
 

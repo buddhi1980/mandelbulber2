@@ -136,6 +136,58 @@ sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth) cons
 	return color;
 }
 
+sRGBFloat cColorGradient::GetColorFloat(double position, bool smooth) const
+{
+	int paletteIndex = PaletteIterator(0, position);
+	return InterpolateFloat(paletteIndex, position, smooth);
+}
+
+sRGBFloat cColorGradient::InterpolateFloat(int paletteIndex, double pos, bool smooth) const
+{
+	sRGBFloat color;
+	// if last element then just copy color value (no interpolation)
+	if (paletteIndex == sortedColors.size() - 1)
+	{
+		color.R = sortedColors[paletteIndex - 1].color.R;
+		color.G = sortedColors[paletteIndex - 1].color.G;
+		color.B = sortedColors[paletteIndex - 1].color.B;
+	}
+	else
+	{
+		// interpolation
+		sRGBFloat color1, color2;
+
+		color1.R = sortedColors[paletteIndex].color.R;
+		color1.G = sortedColors[paletteIndex].color.G;
+		color1.B = sortedColors[paletteIndex].color.B;
+
+		color2.R = sortedColors[paletteIndex + 1].color.R;
+		color2.G = sortedColors[paletteIndex + 1].color.G;
+		color2.B = sortedColors[paletteIndex + 1].color.B;
+
+		double pos1 = sortedColors[paletteIndex].position;
+		double pos2 = sortedColors[paletteIndex + 1].position;
+		// relative delta
+		if (pos2 - pos1 > 0.0)
+		{
+			double delta = (pos - pos1) / (pos2 - pos1);
+
+			if (smooth) delta = 0.5 * (1.0 - cos(delta * M_PI));
+
+			double nDelta = 1.0 - delta;
+			color.R = (color1.R * nDelta + color2.R * delta) / 256.0;
+			color.G = (color1.G * nDelta + color2.G * delta) / 256.0;
+			color.B = (color1.B * nDelta + color2.B * delta) / 256.0;
+		}
+		else
+		{
+			qCritical() << "Wrong sequence of colors";
+			color = color1;
+		}
+	}
+	return color;
+}
+
 QVector<sRGB> cColorGradient::GetGradient(int length, bool smooth)
 {
 	QVector<sRGB> gradient;

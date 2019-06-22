@@ -67,7 +67,7 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	sRGBAfloat shadow(1.0, 1.0, 1.0, 1.0);
 	if (params->shadow && params->mainLightEnable) shadow = MainShadow(input);
 
-	gradients->specular = sRGB(256, 256, 256);
+	gradients->specular = sRGBFloat(1.0, 1.0, 1.0);
 
 	// calculate surface colour
 	sRGBAfloat colour = SurfaceColour(input, gradients);
@@ -85,9 +85,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		specular = SpecularHighlightCombined(input, input.lightVect, colour, gradients->diffuse);
 		if (mat->useColorsFromPalette && mat->specularGradientEnable)
 		{
-			specular.R *= gradients->specular.R / 256.0;
-			specular.G *= gradients->specular.G / 256.0;
-			specular.B *= gradients->specular.B / 256.0;
+			specular.R *= gradients->specular.R;
+			specular.G *= gradients->specular.G;
+			specular.B *= gradients->specular.B;
 		}
 	}
 
@@ -138,11 +138,11 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	if (mat->useColorsFromPalette && mat->luminosityGradientEnable)
 	{
 		luminosity.R = input.texLuminosity.R * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients->luminosity.R / 256.0;
+									 + mat->luminosity * gradients->luminosity.R;
 		luminosity.G = input.texLuminosity.G * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients->luminosity.G / 256.0;
+									 + mat->luminosity * gradients->luminosity.G;
 		luminosity.B = input.texLuminosity.B * mat->luminosityTextureIntensity
-									 + mat->luminosity * gradients->luminosity.B / 256.0;
+									 + mat->luminosity * gradients->luminosity.B;
 	}
 	else
 	{

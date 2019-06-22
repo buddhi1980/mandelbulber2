@@ -45,7 +45,7 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 	{
 		case fractal::objFractal:
 		{
-			sRGB colour(256, 256, 256);
+			sRGBFloat colour(1.0, 1.0, 1.0);
 			if (input.material->useColorsFromPalette)
 			{
 				int formulaIndex = input.objectId;
@@ -74,42 +74,44 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 
 				if (input.material->surfaceGradientEnable)
 				{
-					colour = input.material->gradientSurface.GetColor(colorPosition, false);
+					colour = input.material->gradientSurface.GetColorFloat(colorPosition, false);
 					// TODO - smooth mode for gradient
 					gradients->surface = colour;
 				}
 				else
 				{
-					colour.R = input.material->color.R / 256.0;
-					colour.G = input.material->color.G / 256.0;
-					colour.B = input.material->color.B / 256.0;
+					colour.R = input.material->color.R / 65536.0;
+					colour.G = input.material->color.G / 65536.0;
+					colour.B = input.material->color.B / 65536.0;
 				}
 
 				if (input.material->specularGradientEnable)
 				{
-					gradients->specular = input.material->gradientSpecular.GetColor(colorPosition, false);
+					gradients->specular =
+						input.material->gradientSpecular.GetColorFloat(colorPosition, false);
 				}
 
 				if (input.material->diffuseGradientEnable)
 				{
-					gradients->diffuse = input.material->gradientDiffuse.GetColor(colorPosition, false);
+					gradients->diffuse = input.material->gradientDiffuse.GetColorFloat(colorPosition, false);
 				}
 
 				if (input.material->luminosityGradientEnable)
 				{
-					gradients->luminosity = input.material->gradientLuminosity.GetColor(colorPosition, false);
+					gradients->luminosity =
+						input.material->gradientLuminosity.GetColorFloat(colorPosition, false);
 				}
 			}
 			else
 			{
-				colour.R = input.material->color.R / 256.0;
-				colour.G = input.material->color.G / 256.0;
-				colour.B = input.material->color.B / 256.0;
+				colour.R = input.material->color.R / 65536.0;
+				colour.G = input.material->color.G / 65536.0;
+				colour.B = input.material->color.B / 65536.0;
 			}
 
-			out.R = colour.R / 256.0f;
-			out.G = colour.G / 256.0f;
-			out.B = colour.B / 256.0f;
+			out.R = colour.R;
+			out.G = colour.G;
+			out.B = colour.B;
 			break;
 		}
 

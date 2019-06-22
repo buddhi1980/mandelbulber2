@@ -37,7 +37,7 @@
 #include "render_worker.hpp"
 
 sRGBAfloat cRenderWorker::SpecularHighlightCombined(
-	const sShaderInputData &input, CVector3 lightVector, sRGBAfloat surfaceColor, sRGB diffuseGradient) const
+	const sShaderInputData &input, CVector3 lightVector, sRGBAfloat surfaceColor, sRGBFloat diffuseGradient) const
 {
 	sRGBAfloat specular;
 	sRGBAfloat specularPlastic;
