@@ -755,7 +755,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 					reflectDiffused = reflect * shaderInputData.texDiffuse * diffusionIntensity
 														+ reflect * diffusionIntensityN;
-#endif USE_DIFFUSION_TEXTURE
+#endif // USE_DIFFUSION_TEXTURE
 
 #ifdef USE_DIFFUSE_GRADIENT
 					if (shaderInputData.material->useColorsFromPalette
@@ -763,7 +763,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					{
 						reflectDiffused *= gradients.diffuse;
 					}
-#endif
+#endif // USE_DIFFUSE_GRADIENT
 
 #else // not USE_DIFFUSION_TEXTURE or USE_DIFFUSE_GRADIENT
 #ifdef USE_REFLECTANCE
@@ -775,9 +775,12 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 
 					reflectDiffused *= iridescence;
 
-					if (shaderInputData.material->reflectionsColorTheSame)
-						reflectDiffused *= objectColour;
+#ifdef USE_REFLECTANCE
+					if (shaderInputData.material->useColorsFromPalette
+							&& shaderInputData.material->reflectanceGradientEnable)
+						reflectDiffused *= gradients.reflectance;
 					else
+#endif // USE_REFLECTANCE
 						reflectDiffused *= shaderInputData.material->reflectionsColor;
 
 #ifdef USE_REFRACTION

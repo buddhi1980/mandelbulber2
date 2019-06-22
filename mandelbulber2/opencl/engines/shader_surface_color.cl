@@ -165,6 +165,13 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 						input->paletteLuminosityLength, input->palette + input->paletteLuminosityOffset);
 				}
 #endif
+#ifdef USE_REFLECTANCE_GRADIENT
+				if (input->material->reflectanceGradientEnable)
+				{
+					gradients->reflectance = GetColorFromGradient(colorPosition, false,
+						input->paletteReflectanceLength, input->palette + input->paletteReflectanceOffset);
+				}
+#endif
 			}
 			else
 #endif // USE_FRACTAL_COLORING

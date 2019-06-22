@@ -89,7 +89,6 @@ typedef struct
 	cl_int useColorsFromPalette;
 	cl_int specularPlasticEnable;
 	cl_int metallic;
-	cl_int reflectionsColorTheSame;
 	cl_int transparencyColorTheSame;
 	cl_int roughSurface;
 
@@ -168,7 +167,6 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useColorsFromPalette = source.useColorsFromPalette;
 	target.specularPlasticEnable = source.specularPlasticEnable;
 	target.metallic = source.metallic;
-	target.reflectionsColorTheSame = source.reflectionsColorTheSame;
 	target.transparencyColorTheSame = source.transparencyColorTheSame;
 	target.roughSurface = source.roughSurface;
 

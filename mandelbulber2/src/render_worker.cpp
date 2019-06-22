@@ -1200,11 +1200,12 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					reflectDiffused.G *= iridescence.G;
 					reflectDiffused.B *= iridescence.B;
 
-					if (shaderInputData.material->reflectionsColorTheSame)
+					if (shaderInputData.material->useColorsFromPalette
+							&& shaderInputData.material->reflectanceGradientEnable)
 					{
-						reflectDiffused.R *= objectColour.R;
-						reflectDiffused.G *= objectColour.G;
-						reflectDiffused.B *= objectColour.B;
+						reflectDiffused.R *= gradients.reflectance.R;
+						reflectDiffused.G *= gradients.reflectance.G;
+						reflectDiffused.B *= gradients.reflectance.B;
 					}
 					else
 					{

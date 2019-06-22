@@ -1362,8 +1362,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(cMaterial::Name("reflections_color", materialId), sRGB(65535, 65535, 65535),
 		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("rough_surface", materialId), false, morphLinear, paramStandard);
-	par->addParam(
-		cMaterial::Name("reflections_color_thesame", materialId), false, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
