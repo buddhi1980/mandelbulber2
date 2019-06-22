@@ -100,6 +100,25 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 	fout.colorIndex = 0.0f;
 	fout.maxiter = false;
 
+#ifdef USE_SURFACE_GRADIENT
+	gradients->surface = 1.0f;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	gradients->specular = 1.0f;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	gradients->diffuse = 1.0f;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	gradients->luminosity = 0.0f;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+	gradients->reflectance = 1.0f;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	gradients->transparency = 1.0f;
+#endif
+
 	float3 pointTemp = input->point;
 	float3 color = (float3){1.0f, 1.0f, 1.0f};
 
