@@ -52,6 +52,8 @@ public:
 	~CNetRenderClient() override;
 	void SetClient(QString address, qint32 portNo);
 	QTcpSocket *getSocket() { return clientSocket; }
+	QString getAddress() { return address; }
+	qint32 getPortNo() { return portNo; }
 	void DeleteClient();
 
 private slots:

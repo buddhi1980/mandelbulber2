@@ -42,6 +42,7 @@
 
 #include "fractal_container.hpp"
 #include "parameters.hpp"
+#include "system.hpp"
 
 // forward declarations
 struct sRenderData;
@@ -114,6 +115,9 @@ public:
 	static bool ReceiveData(QTcpSocket *socket, sMessage *msg);
 	// clearing message buffer
 	static void ResetMessage(sMessage *msg);
+	// compare major version of software
+	static bool CompareMajorVersion(qint32 version1, qint32 version2);
+	static int version(){ return 1000L * MANDELBULBER_VERSION; }
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_TRANSPORT_HPP_ */

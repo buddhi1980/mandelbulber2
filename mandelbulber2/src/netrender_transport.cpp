@@ -151,3 +151,10 @@ void CNetRenderTransport::ResetMessage(sMessage *msg)
 		if (!msg->payload.isEmpty()) msg->payload.clear();
 	}
 }
+
+bool CNetRenderTransport::CompareMajorVersion(qint32 version1, qint32 version2)
+{
+	qint32 majorVersion1 = version1 / 10;
+	qint32 majorVersion2 = version2 / 10;
+	return majorVersion1 == majorVersion2;
+}

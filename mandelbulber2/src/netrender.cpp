@@ -50,12 +50,9 @@
 
 CNetRender *gNetRender = nullptr;
 
-CNetRender::CNetRender(qint32 workerCount) : QObject(nullptr)
+CNetRender::CNetRender() : QObject(nullptr)
 {
-	this->workerCount = workerCount;
 	deviceType = netRender_UNKNOWN;
-	version = 1000L * MANDELBULBER_VERSION;
-	portNo = 0;
 	status = netRender_NEW;
 	actualId = 0;
 	isUsed = false;
@@ -82,7 +79,6 @@ void CNetRender::SetServer(qint32 _portNo)
 {
 	DeleteClient();
 	DeleteServer();
-	portNo = _portNo;
 	CNetRenderTransport::ResetMessage(&msgCurrentJob);
 	deviceType = netRender_SERVER;
 	cNetRenderServer->SetServer(_portNo);
@@ -111,16 +107,14 @@ void CNetRender::SetClient(QString _address, int _portNo)
 	DeleteServer();
 	deviceType = netRender_CLIENT;
 	status = netRender_NEW;
-	address = _address;
-	portNo = _portNo;
 	CNetRenderTransport::ResetMessage(&msgFromServer);
 	cNetRenderClient->SetClient(_address, _portNo);
 
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
-		out << "NetRender - Client Setup, link to server: " + address
-						 + ", port: " + QString::number(portNo) + "\n";
+		out << "NetRender - Client Setup, link to server: " + cNetRenderClient->getAddress()
+						 + ", port: " + QString::number(cNetRenderClient->getPortNo()) + "\n";
 	}
 }
 
@@ -136,54 +130,54 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 		{
 			case netRender_VERSION:
 			{
-				sMessage outMsg;
-				QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
-				qint32 serverVersion;
-				stream >> serverVersion;
-				QByteArray buffer;
-				qint32 size;
-				stream >> size;
-				buffer.resize(size);
-				stream.readRawData(buffer.data(), size);
-				serverName = QString::fromUtf8(buffer.data(), buffer.size());
-				if (CompareMajorVersion(serverVersion, version))
+			sMessage outMsg;
+			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+			qint32 serverVersion;
+			stream >> serverVersion;
+			QByteArray buffer;
+			qint32 size;
+			stream >> size;
+			buffer.resize(size);
+			stream.readRawData(buffer.data(), size);
+			serverName = QString::fromUtf8(buffer.data(), buffer.size());
+			if (CNetRenderTransport::CompareMajorVersion(serverVersion, CNetRenderTransport::version()))
+			{
+				QString connectionMsg = "NetRender - version matches (" + QString::number(CNetRenderTransport::version()) + ")";
+				QString serverInfo = QString("NetRender - Connection established, Server is %1:%2 [%3]")
+															 .arg(cNetRenderClient->getAddress(), QString::number(cNetRenderClient->getPortNo()), serverName);
+				WriteLog(connectionMsg, 2);
+				WriteLog(serverInfo, 2);
+				if (systemData.noGui)
 				{
-					QString connectionMsg = "NetRender - version matches (" + QString::number(version) + ")";
-					QString serverInfo = QString("NetRender - Connection established, Server is %1:%2 [%3]")
-																 .arg(address, QString::number(portNo), serverName);
-					WriteLog(connectionMsg, 2);
-					WriteLog(serverInfo, 2);
-					if (systemData.noGui)
-					{
-						QTextStream out(stdout);
-						out << connectionMsg << "\n";
-						out << serverInfo << "\n";
-					}
-
-					// server version matches, send worker count
-					outMsg.command = netRender_WORKER;
-					QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
-					outStream << workerCount;
-					QString machineName = QHostInfo::localHostName();
-					outStream << qint32(machineName.toUtf8().size());
-					outStream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
-					status = netRender_READY;
-					emit NewStatusClient();
-					WriteLog(
-						QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion),
-						2);
+					QTextStream out(stdout);
+					out << connectionMsg << "\n";
+					out << serverInfo << "\n";
 				}
-				else
-				{
-					cErrorMessage::showMessage(tr("NetRender - version mismatch!\n")
-																			 + tr("Client version: %1\n").arg(version)
-																			 + tr("Server version: %1").arg(serverVersion),
-						cErrorMessage::errorMessage, gMainInterface->mainWindow);
 
-					outMsg.command = netRender_BAD;
-				}
-				SendData(cNetRenderClient->getSocket(), outMsg);
-				break;
+				// server version matches, send worker count
+				outMsg.command = netRender_WORKER;
+				QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
+				outStream << qint32(systemData.numberOfThreads);
+				QString machineName = QHostInfo::localHostName();
+				outStream << qint32(machineName.toUtf8().size());
+				outStream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
+				status = netRender_READY;
+				emit NewStatusClient();
+				WriteLog(
+					QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion),
+					2);
+			}
+			else
+			{
+				cErrorMessage::showMessage(tr("NetRender - version mismatch!\n")
+																		 + tr("Client version: %1\n").arg(CNetRenderTransport::version())
+																		 + tr("Server version: %1").arg(serverVersion),
+					cErrorMessage::errorMessage, gMainInterface->mainWindow);
+
+				outMsg.command = netRender_BAD;
+			}
+			SendData(cNetRenderClient->getSocket(), outMsg);
+			break;
 			}
 			case netRender_STOP:
 			{
@@ -214,7 +208,7 @@ void CNetRender::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 					stream >> size;
 					buffer.resize(size);
 					stream.readRawData(buffer.data(), size);
-					settingsText = QString::fromUtf8(buffer.data(), buffer.size());
+					QString settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 					WriteLog(
 						QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
 					WriteLog(
@@ -715,13 +709,6 @@ bool CNetRender::Block()
 	}
 }
 
-bool CNetRender::CompareMajorVersion(qint32 version1, qint32 version2)
-{
-	qint32 majorVersion1 = version1 / 10;
-	qint32 majorVersion2 = version2 / 10;
-	return majorVersion1 == majorVersion2;
-}
-
 QByteArray *CNetRender::GetTexture(const QString &textureName, int frameNo)
 {
 	const QList<QString> keys = textures.keys();
@@ -782,7 +769,7 @@ void CNetRender::SendVersionToClient(int index)
 	msg.command = netRender_VERSION;
 
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
-	stream << qint32(version);
+	stream << qint32(CNetRenderTransport::version());
 	QString machineName = QHostInfo::localHostName();
 	stream << qint32(machineName.toUtf8().size());
 	stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());

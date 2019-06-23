@@ -52,7 +52,7 @@ class CNetRender : public QObject
 {
 	Q_OBJECT
 public:
-	explicit CNetRender(qint32 workerCount);
+	explicit CNetRender();
 	~CNetRender() override;
 
 	//--------------- enumerations ---------------------
@@ -129,25 +129,18 @@ private:
 	{
 		return cNetRenderServer->GetClientIndexFromSocket(socket);
 	}
-	// compare major version of software
-	static bool CompareMajorVersion(qint32 version1, qint32 version2);
 
 	//---------------- private data -----------------
 private:
 	CNetRenderClient *cNetRenderClient;
 	CNetRenderServer *cNetRenderServer;
 	netRenderStatus status;
-	QString address;
 	QString serverName;
-	qint32 portNo;
-	qint32 version;
-	qint32 workerCount;
 	typeOfDevice deviceType;
 	sMessage msgFromServer;
 	sMessage msgCurrentJob;
 
 	// client data buffers
-	QString settingsText;
 	qint32 actualId;
 	QList<int> startingPositions;
 	bool isUsed;

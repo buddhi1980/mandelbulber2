@@ -240,8 +240,8 @@ void Test::netrender() const
 {
 	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
-	CNetRender *netRenderServer = new CNetRender(1);
-	CNetRender *netRenderClient = new CNetRender(1);
+	CNetRender *netRenderServer = new CNetRender();
+	CNetRender *netRenderClient = new CNetRender();
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 
