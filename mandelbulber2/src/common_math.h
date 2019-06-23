@@ -43,6 +43,8 @@
 
 #include "algebra.hpp"
 
+extern unsigned int gRandomSeed;
+
 #undef MAX
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -115,7 +117,7 @@ T SmoothCVector(const T &v1, const T &v2, double k);
 double cubicInterpolate(double p[4], double x);
 double bicubicInterpolate(double p[4][4], double x, double y);
 
-CVector3 wrap(CVector3 x, const CVector3& a, const CVector3& s);
+CVector3 wrap(CVector3 x, const CVector3 &a, const CVector3 &s);
 
 double MagicRound(double val, double maxError);
 

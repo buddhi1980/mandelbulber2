@@ -523,7 +523,8 @@ void cGradientEditWidget::pressedButtonRandomColors()
 
 void cGradientEditWidget::pressedButtonRandomColorsAndPositions()
 {
-	int numberOfColors = gradient.GetNumberOfColors() - 1;
+	gRandomSeed = static_cast<unsigned int>(QTime::currentTime().msec());
+	int numberOfColors = Random(18) + 2;
 	gradient.DeleteAll();
 	for (int i = 0; i < numberOfColors; i++)
 	{

@@ -44,7 +44,7 @@
 // http://csg.sph.umich.edu/abecasis/class/2006/615.14.pdf
 // Park-Miller Generator Without any Divisions
 // by D. Carta (1990)
-static unsigned int gRandomSeed = 1;
+unsigned int gRandomSeed = 1;
 int RandomInt()
 {
 	// After calculation below, (hi << 16) + lo = seed * 16807
@@ -187,7 +187,7 @@ double bicubicInterpolate(double p[4][4], double x, double y)
 	return cubicInterpolate(yy, x);
 }
 
-CVector3 wrap(CVector3 x, const CVector3& a, const CVector3& s)
+CVector3 wrap(CVector3 x, const CVector3 &a, const CVector3 &s)
 {
 	x -= s;
 	CVector3 out(x.x - a.x * floor(x.x / a.x) + s.x, x.y - a.y * floor(x.y / a.y) + s.y,
