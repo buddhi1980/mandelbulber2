@@ -60,6 +60,7 @@ CNetRender::CNetRender() : QObject(nullptr)
 	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
 		SLOT(clientStatusChanged(netRenderStatus)));
 	connect(cNetRenderClient, SIGNAL(receivedData()), this, SLOT(clientReceiveData()));
+	connect(cNetRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
 
 	cNetRenderServer = new CNetRenderServer();
 	connect(cNetRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,
@@ -67,6 +68,7 @@ CNetRender::CNetRender() : QObject(nullptr)
 	connect(cNetRenderServer, SIGNAL(ClientsChanged()), this, SLOT(ClientsHaveChanged()));
 	connect(cNetRenderServer, SIGNAL(NewClient(int)), this, SLOT(SendVersionToClient(int)));
 	connect(cNetRenderServer, SIGNAL(ClientReceive(int)), this, SLOT(ReceiveFromClient(int)));
+	connect(cNetRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
 }
 
 CNetRender::~CNetRender()
@@ -87,8 +89,6 @@ void CNetRender::SetServer(qint32 _portNo)
 void CNetRender::DeleteServer()
 {
 	if (deviceType != netRender_SERVER) return;
-
-	deviceType = netRender_UNKNOWN;
 	WriteLog("NetRender - Delete Server", 2);
 	cNetRenderServer->DeleteServer();
 	emit ClientsChanged();
@@ -98,7 +98,6 @@ void CNetRender::DeleteServer()
 
 void CNetRender::DeleteClient()
 {
-	deviceType = netRender_UNKNOWN;
 	cNetRenderClient->DeleteClient();
 }
 
@@ -780,4 +779,10 @@ void CNetRender::ReceiveFromClient(int index)
 {
 	ReceiveData(
 		cNetRenderServer->GetClient(index).socket, cNetRenderServer->GetMessagePointer(index));
+}
+
+void CNetRender::ResetDeviceType()
+{
+	deviceType = netRender_UNKNOWN;
+	emit NotifyStatus();
 }

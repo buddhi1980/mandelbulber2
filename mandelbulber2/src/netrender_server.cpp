@@ -113,6 +113,7 @@ void CNetRenderServer::DeleteServer()
 		server = nullptr;
 	}
 	clients.clear();
+	emit Deleted();
 }
 
 void CNetRenderServer::HandleNewConnection()
@@ -128,6 +129,7 @@ void CNetRenderServer::HandleNewConnection()
 		connect(client.socket, SIGNAL(disconnected()), this, SLOT(ClientDisconnected()));
 		connect(client.socket, SIGNAL(readyRead()), this, SLOT(ReceiveFromClient()));
 		emit NewClient(clients.size() - 1);
+		emit ClientsChanged();
 	}
 }
 

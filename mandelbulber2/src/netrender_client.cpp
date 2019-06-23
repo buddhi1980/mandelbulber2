@@ -75,6 +75,7 @@ void CNetRenderClient::DeleteClient()
 		clientSocket = nullptr;
 	}
 	emit changeClientStatus(netRender_DISABLED);
+	emit Deleted();
 }
 
 void CNetRenderClient::TryServerConnect()
@@ -131,7 +132,8 @@ void CNetRenderClient::ServerDisconnected()
 
 	gMainInterface->stopRequest = true;
 
-	reconnectTimer->start();
+	// if reconnect timer is null, the client has been disabled
+	if(reconnectTimer) reconnectTimer->start();
 
 	WriteLog("NetRender - server disconnected", 2);
 

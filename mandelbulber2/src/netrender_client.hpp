@@ -67,6 +67,7 @@ private slots:
 signals:
 	void changeClientStatus(netRenderStatus status);
 	void receivedData();
+	void Deleted();
 
 private:
 	QTcpSocket *clientSocket;

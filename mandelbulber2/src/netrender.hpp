@@ -175,6 +175,7 @@ private slots:
 	void ClientsHaveChanged();
 	void SendVersionToClient(int index);
 	void ReceiveFromClient(int index);
+	void ResetDeviceType();
 
 signals:
 	// request to update table of clients

@@ -86,6 +86,7 @@ signals:
 	void ClientsChanged();
 	void NewClient(int index);
 	void ClientReceive(int index);
+	void Deleted();
 
 private:
 	QList<sClient> clients;
