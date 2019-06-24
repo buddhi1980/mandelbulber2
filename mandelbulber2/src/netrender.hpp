@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2015-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2015-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -40,6 +40,9 @@
 #include <QtCore>
 
 #include "fractal_container.hpp"
+#include "netrender_client.hpp"
+#include "netrender_server.hpp"
+#include "netrender_transport.hpp"
 #include "parameters.hpp"
 
 // forward declarations
@@ -49,39 +52,11 @@ class CNetRender : public QObject
 {
 	Q_OBJECT
 public:
-	explicit CNetRender(qint32 workerCount);
+	explicit CNetRender();
 	~CNetRender() override;
 
 	//--------------- enumerations ---------------------
 public:
-	enum netCommand
-	{
-		netRender_NONE, // used for invalidating the message buffer after a message has been processed
-		netRender_VERSION, // ask for server version (server to clients)
-		netRender_WORKER,	// ask for number of client CPU count (client to server)
-		netRender_RENDER,	// list of lines needed to be rendered,
-											 // and suggestion which lines should be rendered first (server to clients)
-		netRender_DATA,		 // data of rendered lines (client to server)
-		netRender_BAD,		 // answer about wrong server version (client to server)
-		netRender_JOB,		 // sending of settings and textures
-											 // Receiving of job will start rendering on client (server to clients)
-		netRender_STOP,		 // terminate rendering request (server to clients)
-		netRender_STATUS,	// ask for status (server to clients)
-		netRender_SETUP,	 // send setup job id and starting positions (server to clients)
-		netRender_ACK,		 // acknowledge receiving of rendered lines (server to clients)
-		netRender_KICK_AND_KILL // command to kill the client (program exit) (server to clients)
-	};
-
-	enum netRenderStatus
-	{
-		netRender_DISABLED,		// no slot configured - netrendering disabled in the program
-		netRender_READY,			// client is ready and able to receive jobs
-		netRender_WORKING,		// during rendering
-		netRender_NEW,				// just connected
-		netRender_CONNECTING, // connecting in progress
-		netRender_ERROR				// error occurred
-	};
-
 	enum typeOfDevice
 	{
 		netRender_CLIENT,
@@ -93,31 +68,6 @@ public:
 	{
 		netRenderClient,
 		netRenderServer
-	};
-
-	//---------------- internal data structures ----------------
-private:
-	// general message frame for sending/receiving
-	struct sMessage
-	{
-		sMessage() : command(netRender_NONE), id(0), size(0) {}
-		qint32 command;
-		qint32 id;
-		qint32 size;
-		QByteArray payload;
-	};
-
-public:
-	// all information about connected clients
-	struct sClient
-	{
-		sClient() : socket(nullptr), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
-		QTcpSocket *socket;
-		sMessage msg;
-		netRenderStatus status;
-		qint32 linesRendered;
-		qint32 clientWorkerCount;
-		QString name;
 	};
 
 	//----------------- public methods --------------------------
@@ -136,13 +86,13 @@ public:
 	void DeleteClient();
 
 	// get client
-	const sClient &GetClient(int index);
+	const sClient &GetClient(int index) { return cNetRenderServer->GetClient(index); }
 	// get number of connected clients
-	qint32 GetClientCount() const { return clients.size(); }
+	qint32 GetClientCount() const { return cNetRenderServer->GetClientCount(); }
 	// get number of CPU cores for selected client
-	qint32 GetWorkerCount(qint32 index) { return clients[index].clientWorkerCount; }
+	qint32 GetWorkerCount(qint32 index) { return cNetRenderServer->GetWorkerCount(index); }
 	// get total number of available CPUs
-	qint32 getTotalWorkerCount();
+	qint32 getTotalWorkerCount() { return cNetRenderServer->getTotalWorkerCount(); }
 	// get status
 	netRenderStatus GetStatus() const { return status; }
 	// get name of the connected server
@@ -157,7 +107,7 @@ public:
 	// get line numbers which should be rendered first
 	QList<int> GetStartingPositions() const { return startingPositions; }
 	// get received textures
-	QByteArray *GetTexture(const QString& textureName, int frameNo);
+	QByteArray *GetTexture(const QString &textureName, int frameNo);
 
 	bool WaitForAllClientsReady(double timeout);
 
@@ -170,38 +120,27 @@ public:
 	void Release() { isUsed = false; }
 
 private:
-	// send data to communication partner
-	bool SendData(QTcpSocket *socket, sMessage msg) const;
-	// receive data from partner
 	void ReceiveData(QTcpSocket *socket, sMessage *msg);
+	bool SendData(QTcpSocket *socket, sMessage msg) const;
 	// process received data and send response if needed
 	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
-	// clearing message buffer
-	static void ResetMessage(sMessage *msg);
 	// get client index by given socket pointer
-	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
-	// compare major version of software
-	static bool CompareMajorVersion(qint32 version1, qint32 version2);
+	int GetClientIndexFromSocket(const QTcpSocket *socket)
+	{
+		return cNetRenderServer->GetClientIndexFromSocket(socket);
+	}
 
 	//---------------- private data -----------------
 private:
+	CNetRenderClient *cNetRenderClient;
+	CNetRenderServer *cNetRenderServer;
 	netRenderStatus status;
-	QList<sClient> clients;
-	sClient nullClient; // dummy client for fail-safe purposes
-	QString address;
 	QString serverName;
-	qint32 portNo;
-	qint32 version;
-	qint32 workerCount;
-	QTcpServer *server;
-	QTcpSocket *clientSocket;
 	typeOfDevice deviceType;
 	sMessage msgFromServer;
 	sMessage msgCurrentJob;
-	QTimer *reconnectTimer;
 
 	// client data buffers
-	QString settingsText;
 	qint32 actualId;
 	QList<int> startingPositions;
 	bool isUsed;
@@ -210,35 +149,33 @@ private:
 	//------------------- public slots -------------------
 public slots:
 	// send parameters and textures to all clients and start rendering
-	void SetCurrentJob(
-		const cParameterContainer& settings, const cFractalContainer& fractal, QStringList listOfTextures);
+	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
+		QStringList listOfTextures);
 	// send to server a list of numbers and image data of already rendered lines
-	void SendRenderedLines(const QList<int>& lineNumbers, const QList<QByteArray>& lines) const;
+	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines) const;
 	// send list of already rendered lines
-	void SendToDoList(int clientIndex, const QList<int>& done); // send list of already rendered lines
+	void SendToDoList(int clientIndex, const QList<int> &done); // send list of already rendered lines
 	// notify the server about client status change
 	void NotifyStatus();
 	// send message to all clients to stop rendering
 	void StopAll();
 	// send client id and list of list of lines to render at the beginning to selected client
-	void SendSetup(int clientIndex, int id, const QList<int>& _startingPositions);
+	void SendSetup(int clientIndex, int id, const QList<int> &_startingPositions);
 	// kicks and kills a client (can be used if client is hanging)
 	void KickAndKillClient(int clientIndex);
 
 	//------------------- private slots ------------------
 private slots:
-	// handle new client
-	void HandleNewConnection();
-	// delete client from list when disconnected
-	void ClientDisconnected();
-	// received data from client
-	void ReceiveFromClient();
-	// when client is disconnected from server
-	void ServerDisconnected();
-	// received data from server
-	void ReceiveFromServer();
-	// try to connect to server
-	void TryServerConnect();
+	// received client status changed
+	void clientStatusChanged(netRenderStatus _status);
+	// received server status changed
+	void serverStatusChanged(netRenderStatus _status);
+	// received data on client connection
+	void clientReceiveData();
+	void ClientsHaveChanged();
+	void SendVersionToClient(int index);
+	void ReceiveFromClient(int index);
+	void ResetDeviceType();
 
 signals:
 	// request to update table of clients

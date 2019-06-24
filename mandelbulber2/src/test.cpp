@@ -240,15 +240,15 @@ void Test::netrender() const
 {
 	if (IsBenchmarking()) return; // no reasonable generic network benchmark
 	// test connection of server / client over localhost
-	CNetRender *netRenderServer = new CNetRender(1);
-	CNetRender *netRenderClient = new CNetRender(1);
+	CNetRender *netRenderServer = new CNetRender();
+	CNetRender *netRenderClient = new CNetRender();
 	netRenderServer->SetServer(5555);
 	netRenderClient->SetClient("127.0.0.1", 5555);
 
 	QTest::qWait(500);
 
-	CNetRender::netRenderStatus clientStatus = netRenderClient->GetStatus();
-	QVERIFY2(clientStatus == CNetRender::netRender_READY,
+	netRenderStatus clientStatus = netRenderClient->GetStatus();
+	QVERIFY2(clientStatus == netRender_READY,
 		QString("client status wrong: should be 'READY' but is '%1'.")
 			.arg(CNetRender::GetStatusText(clientStatus))
 			.toStdString()
