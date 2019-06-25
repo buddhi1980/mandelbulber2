@@ -15,6 +15,7 @@
 #include <QtWidgets>
 
 #include "../src/error_message.hpp"
+#include "../src/random.hpp"
 #include "preview_file_dialog.h"
 #include "src/system.hpp"
 #include "src/common_math.h"
@@ -523,12 +524,14 @@ void cGradientEditWidget::pressedButtonRandomColors()
 
 void cGradientEditWidget::pressedButtonRandomColorsAndPositions()
 {
-	gRandomSeed = static_cast<unsigned int>(QTime::currentTime().msec());
-	int numberOfColors = Random(18) + 2;
+	cRandom random;
+	random.Initialize(QTime::currentTime().msec());
+
+	int numberOfColors = random.Random(18) + 2;
 	gradient.DeleteAll();
 	for (int i = 0; i < numberOfColors; i++)
 	{
-		sRGB color(Random(255), Random(255), Random(255));
+		sRGB color(random.Random(255), random.Random(255), random.Random(255));
 		double position = Random(10000) / 10000.0;
 		if (i == 0)
 		{

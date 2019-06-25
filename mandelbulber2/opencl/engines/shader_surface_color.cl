@@ -112,6 +112,9 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef USE_LUMINOSITY_GRADIENT
 	gradients->luminosity = 0.0f;
 #endif
+#ifdef USE_ROUGHNESS_GRADIENT
+	gradients->roughness = 1.0f;
+#endif
 #ifdef USE_REFLECTANCE_GRADIENT
 	gradients->reflectance = 1.0f;
 #endif
@@ -183,6 +186,13 @@ float3 SurfaceColor(__constant sClInConstants *consts, sRenderData *renderData,
 				{
 					gradients->luminosity = GetColorFromGradient(colorPosition, false,
 						input->paletteLuminosityLength, input->palette + input->paletteLuminosityOffset);
+				}
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+				if (input->material->roughnessGradientEnable)
+				{
+					gradients->roughness = GetColorFromGradient(colorPosition, false,
+						input->paletteRoughnessLength, input->palette + input->paletteRoughnessOffset);
 				}
 #endif
 #ifdef USE_REFLECTANCE_GRADIENT

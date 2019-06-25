@@ -866,11 +866,23 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate normal vector
 				vn = CalculateNormals(shaderInputData);
 
+				double roughnessGradient = 1.0;
+				if (shaderInputData.material->useColorsFromPalette
+						&& shaderInputData.material->roughnessGradientEnable)
+				{
+					sGradientsCollection gradients;
+					SurfaceColour(shaderInputData, &gradients);
+					roughnessGradient = gradients.roughness.R;
+				}
+
 				if (shaderInputData.material->roughSurface)
 				{
-					vn.x += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
-					vn.y += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
-					vn.z += shaderInputData.material->surfaceRoughness * (Random(20000) / 10000.0 - 1.0);
+					vn.x += roughnessGradient * shaderInputData.material->surfaceRoughness
+									* (Random(20000) / 10000.0 - 1.0);
+					vn.y += roughnessGradient * shaderInputData.material->surfaceRoughness
+									* (Random(20000) / 10000.0 - 1.0);
+					vn.z += roughnessGradient * shaderInputData.material->surfaceRoughness
+									* (Random(20000) / 10000.0 - 1.0);
 					vn.Normalize();
 				}
 				shaderInputData.normal = vn;

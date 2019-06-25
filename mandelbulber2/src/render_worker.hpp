@@ -200,6 +200,7 @@ private:
 		sRGBFloat specular;
 		sRGBFloat diffuse;
 		sRGBFloat luminosity;
+		sRGBFloat roughness;
 		sRGBFloat reflectance;
 		sRGBFloat trasparency;
 	};

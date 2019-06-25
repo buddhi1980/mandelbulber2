@@ -42,6 +42,13 @@ float3 SpecularHighlight(sShaderInputDataCl *input, sClCalcParams *calcParam, fl
 
 	float diffuse = 1.0f;
 
+#ifdef USE_ROUGHNESS_GRADIENT
+	if (input->material->useColorsFromPalette && input->material->roughnessGradientEnable)
+	{
+		roughness *= gradients->roughness.s0;
+	}
+#endif
+
 #if defined(USE_TEXTURES) && defined(USE_DIFFUSION_TEXTURE)
 	if (input->material->useDiffusionTexture)
 	{

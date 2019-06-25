@@ -374,17 +374,29 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				shaderInputData.normal = normal;
 
 #ifdef USE_ROUGH_SURFACE
+				float roughnessGradient = 1.0f;
+
+#ifdef USE_ROUGHNESS_GRADIENT
+				if (shaderInputData.material->useColorsFromPalette
+						&& shaderInputData.material->roughnessGradientEnable)
+				{
+					sClGradientsCollection gradients;
+					SurfaceColor(consts, renderData, &shaderInputData, &calcParam, &gradients);
+					roughnessGradient = gradients.roughness.s0;
+				}
+#endif
+
 				if (shaderInputData.material->roughSurface)
 				{
 					float roughness = shaderInputData.material->surfaceRoughness;
 					// every axis is calculated twice because of simple Random() function (increase
 					// randomness)
-					normal.x += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal.x += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal.y += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal.y += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
-					normal.z += roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.x += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.x += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.y += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.y += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.z += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
+					normal.z += roughnessGradient * roughness * (Random(20000, randomSeed) / 10000.0f - 1.0f);
 					shaderInputData.normal = normal = normalize(normal);
 				}
 #endif // USE_ROUGH_SURFACE
