@@ -222,7 +222,10 @@ int main(int argc, char *argv[])
 	// start main Qt loop
 	WriteLog("application->exec()", 2);
 	int result = 0;
-	if (!commandLineInterface.isNoGUI() && !dataFoldersUpdated) result = gApplication->exec();
+	if (!systemData.globalStopRequest)
+	{
+		if (!commandLineInterface.isNoGUI() && !dataFoldersUpdated) result = gApplication->exec();
+	}
 
 	// clean objects when exit
 	delete gPar;
