@@ -73,6 +73,35 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 	//--- main material
 
+#ifdef USE_SURFACE_GRADIENT
+	int paletteSurfaceOffset;
+	int paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	int paletteSpecularOffset;
+	int paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	int paletteDiffuseOffset;
+	int paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	int paletteLuminosityOffset;
+	int paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+	int paletteRoughnessOffset;
+	int paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+	int paletteReflectanceOffset;
+	int paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	int paletteTransparencyOffset;
+	int paletteTransparencyLength;
+#endif
+
 	// number of materials
 	int numberOfMaterials = GetInteger(materialsMainOffset, inBuff);
 
@@ -83,8 +112,35 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 	// material header
 	int materialClOffset = GetInteger(material0Offset, inBuff);
 	int paletteItemsOffset = GetInteger(material0Offset + sizeof(int), inBuff);
-	int paletteSize = GetInteger(material0Offset + sizeof(int) * 2, inBuff);
-	int paletteLength = GetInteger(material0Offset + sizeof(int) * 3, inBuff);
+
+#ifdef USE_SURFACE_GRADIENT
+	paletteSurfaceOffset = GetInteger(material0Offset + sizeof(int) * 2, inBuff);
+	paletteSurfaceLength = GetInteger(material0Offset + sizeof(int) * 3, inBuff);
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+	paletteSpecularOffset = GetInteger(material0Offset + sizeof(int) * 4, inBuff);
+	paletteSpecularLength = GetInteger(material0Offset + sizeof(int) * 5, inBuff);
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+	paletteDiffuseOffset = GetInteger(material0Offset + sizeof(int) * 6, inBuff);
+	paletteDiffuseLength = GetInteger(material0Offset + sizeof(int) * 7, inBuff);
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+	paletteLuminosityOffset = GetInteger(material0Offset + sizeof(int) * 8, inBuff);
+	paletteLuminosityLength = GetInteger(material0Offset + sizeof(int) * 9, inBuff);
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+	paletteRoughnessOffset = GetInteger(material0Offset + sizeof(int) * 10, inBuff);
+	paletteRoughnessLength = GetInteger(material0Offset + sizeof(int) * 11, inBuff);
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+	paletteReflectanceOffset = GetInteger(material0Offset + sizeof(int) * 12, inBuff);
+	paletteReflectanceLength = GetInteger(material0Offset + sizeof(int) * 13, inBuff);
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+	paletteTransparencyOffset = GetInteger(material0Offset + sizeof(int) * 14, inBuff);
+	paletteTransparencyLength = GetInteger(material0Offset + sizeof(int) * 15, inBuff);
+#endif
 
 	// material data
 	__global sMaterialCl *material = (__global sMaterialCl *)&inBuff[materialClOffset];
@@ -280,8 +336,34 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			renderData.palette = palette;
 			renderData.AOVectors = AOVectors;
 			renderData.lights = lights;
-			renderData.paletteLength = paletteLength;
-			renderData.numberOfLights = numberOfLights;
+#ifdef USE_SURFACE_GRADIENT
+			renderData.paletteSurfaceOffset = paletteSurfaceOffset;
+			renderData.paletteSurfaceLength = paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+			renderData.paletteSpecularOffset = paletteSpecularOffset;
+			renderData.paletteSpecularLength = paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+			renderData.paletteDiffuseOffset = paletteDiffuseOffset;
+			renderData.paletteDiffuseLength = paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+			renderData.paletteLuminosityOffset = paletteLuminosityOffset;
+			renderData.paletteLuminosityLength = paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+			renderData.paletteRoughnessOffset = paletteRoughnessOffset;
+			renderData.paletteRoughnessLength = paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+			renderData.paletteReflectanceOffset = paletteReflectanceOffset;
+			renderData.paletteReflectanceLength = paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+			renderData.paletteTransparencyOffset = paletteTransparencyOffset;
+			renderData.paletteTransparencyLength = paletteTransparencyLength;
+#endif
 			renderData.AOVectorsCount = AOVectorsCount;
 			renderData.reflectionsMax = 0;
 			renderData.primitives = primitives;
@@ -380,7 +462,34 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			shaderInputData.invertMode = false;
 			shaderInputData.material = material;
 			shaderInputData.palette = palette;
-			shaderInputData.paletteSize = paletteLength;
+#ifdef USE_SURFACE_GRADIENT
+			shaderInputData.paletteSurfaceOffset = renderData.paletteSurfaceOffset;
+			shaderInputData.paletteSurfaceLength = renderData.paletteSurfaceLength;
+#endif
+#ifdef USE_SPECULAR_GRADIENT
+			shaderInputData.paletteSpecularOffset = renderData.paletteSpecularOffset;
+			shaderInputData.paletteSpecularLength = renderData.paletteSpecularLength;
+#endif
+#ifdef USE_DIFFUSE_GRADIENT
+			shaderInputData.paletteDiffuseOffset = renderData.paletteDiffuseOffset;
+			shaderInputData.paletteDiffuseLength = renderData.paletteDiffuseLength;
+#endif
+#ifdef USE_LUMINOSITY_GRADIENT
+			shaderInputData.paletteLuminosityOffset = renderData.paletteLuminosityOffset;
+			shaderInputData.paletteLuminosityLength = renderData.paletteLuminosityLength;
+#endif
+#ifdef USE_ROUGHNESS_GRADIENT
+			shaderInputData.paletteRoughnessOffset = renderData.paletteRoughnessOffset;
+			shaderInputData.paletteRoughnessLength = renderData.paletteRoughnessLength;
+#endif
+#ifdef USE_REFLECTANCE_GRADIENT
+			shaderInputData.paletteReflectanceOffset = renderData.paletteReflectanceOffset;
+			shaderInputData.paletteReflectanceLength = renderData.paletteReflectanceLength;
+#endif
+#ifdef USE_TRANSPARENCY_GRADIENT
+			shaderInputData.paletteTransparencyOffset = renderData.paletteTransparencyOffset;
+			shaderInputData.paletteTransparencyLength = renderData.paletteTransparencyLength;
+#endif
 			shaderInputData.stepCount = count;
 			shaderInputData.randomSeed = randomSeed;
 
@@ -390,10 +499,12 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 
 			float3 specular = 0.0f;
 
+			sClGradientsCollection gradients;
+
 			if (found)
 			{
 				color = ObjectShader(consts, &renderData, &shaderInputData, &calcParam, &surfaceColor,
-					&specular, &iridescence);
+					&specular, &iridescence, &gradients);
 				alpha = 1.0f;
 			}
 			else
