@@ -94,7 +94,6 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 		renderData.palette = 0;
 		renderData.AOVectors = 0;
 		renderData.lights = 0;
-		renderData.paletteLength = 0;
 		renderData.numberOfLights = 0;
 		renderData.AOVectorsCount = 0;
 		renderData.reflectionsMax = 0;
