@@ -39,9 +39,13 @@
 
 bool CNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
 {
-	//			NetRender Message format         (optional)
-	// | qint32		| qint32	| qint32	|( 0 - ???	| quint16  |)
-	// | command	| id			| size		|( payload	| checksum |)
+	// ############## NetRender Message format #######################
+	// FIELD: | command  | id       | size     | payload  | checksum |
+	// SIZE:  | qint32   | qint32   | qint32   | 0 - size | quint16  |
+	// STATE: | required | required | required | optional | optional |
+	// ###############################################################
+	// Note: If size is 0, payload and checksum are omitted.
+	// ###############################################################
 
 	if (!socket) return false;
 	if (socket->state() != QAbstractSocket::ConnectedState) return false;
@@ -88,14 +92,14 @@ bool CNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
 	QDataStream socketReadStream(socket);
 
+	// read in the header
 	if (msg->command == netRender_NONE)
 	{
-		if (socket->bytesAvailable()
-				< qint64((sizeof(msg->command) + sizeof(msg->id) + sizeof(msg->size))))
+		if (socket->bytesAvailable() < sMessage::headerSize())
 		{
 			return false;
 		}
-		// meta data available
+		// header data is available
 		socketReadStream >> msg->command;
 		socketReadStream >> msg->id;
 		socketReadStream >> msg->size;
@@ -106,34 +110,31 @@ bool CNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 			3);
 	}
 
-	if (msg->size > 0)
+	// if the message does not contain a payload it is ready to be processed
+	if (msg->size <= 0) return true;
+
+
+	if (socket->bytesAvailable() < (sMessage::crcSize() + msg->size))
+		return false;
+
+	// full payload available, read to buffer
+	char *buffer = new char[msg->size];
+	socketReadStream.readRawData(buffer, msg->size);
+	msg->payload.append(buffer, msg->size);
+
+	// run crc check on the payload
+	quint16 crcCalculated = qChecksum(buffer, msg->size);
+	quint16 crcReceived;
+	socketReadStream >> crcReceived;
+	delete[] buffer;
+	if (crcCalculated != crcReceived)
 	{
-		if (socket->bytesAvailable() < qint64(sizeof(quint16) + msg->size))
-		{
-			return false;
-		}
-		// full payload available
-		char *buffer = new char[msg->size];
-		socketReadStream.readRawData(buffer, msg->size);
-		msg->payload.append(buffer, msg->size);
-
-		quint16 crcCalculated = qChecksum(buffer, msg->size);
-		quint16 crcReceived;
-		socketReadStream >> crcReceived;
-
-		delete[] buffer;
-		if (crcCalculated != crcReceived)
-		{
-			// ResetMessage(msg);
-			// socketReadStream.atEnd();
-			// socketReadStream.skipRawData(socket->bytesAvailable());
-			WriteLog("NetRender - ReceiveData() : crc error", 2);
-
-			return false;
-		}
-		msg->payload = lzoUncompress(msg->payload);
-		msg->size = msg->payload.size();
+		WriteLog("NetRender - ReceiveData() : crc error", 2);
+		return false;
 	}
+
+	msg->payload = lzoUncompress(msg->payload);
+	msg->size = msg->payload.size();
 	return true;
 }
 

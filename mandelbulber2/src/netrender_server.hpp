@@ -50,49 +50,72 @@ class CNetRenderServer : public QObject
 public:
 	explicit CNetRenderServer();
 	~CNetRenderServer() override;
+	void SetServer(int _portNo);
+	void DeleteServer();
+
 	// get client index by given socket pointer
 	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
+	// set the current render job id
+	void SetActualId(qint32 _actualId){ actualId = _actualId; }
+	// send list of already rendered lines
+	void SendToDoList(int clientIndex, const QList<int> &done); // send list of already rendered lines
+	// send client id and list of list of lines to render at the beginning to selected client
+	void SendSetup(int clientIndex, const QList<int> &_startingPositions);
+	// kicks and kills a client (can be used if client is hanging)
+	void KickAndKillClient(int clientIndex);
+	// stop rendering of all clients
+	void StopAllClients();
 	// get number of connected clients
 	qint32 GetClientCount() const { return clients.size(); }
 	// get number of CPU cores for selected client
 	qint32 GetWorkerCount(qint32 index) { return clients[index].clientWorkerCount; }
+	// get number of CPU cores for all clients
 	int getTotalWorkerCount();
-	void SetServer(int _portNo);
-	void DeleteServer();
 	// get client
 	const sClient &GetClient(int index);
-	void removeClientIndex(int index) { clients.removeAt(index); }
-	void SetClientWorkerCount(int index, qint32 clientWorkerCount)
-	{
-		clients[index].clientWorkerCount = clientWorkerCount;
-	}
-	void SetClientWorkerName(int index, QString name) { clients[index].name = name; }
-	void SetClientWorkerStatus(int index, netRenderStatus status) { clients[index].status = status; }
-	void SetClientWorkerLinesRendered(int index, int linesRendered)
-	{
-		clients[index].linesRendered = linesRendered;
-	}
-	sMessage *GetMessagePointer(int index) { return &clients[index].msg; }
+	// in cli mode this method enables waiting for the clients before start of rendering
 	bool WaitForAllClientsReady(double timeout);
+
+	// send parameters and textures to all clients and start rendering
+	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
+		QStringList listOfTextures);
 
 private slots:
 	// received data from client
 	void ClientDisconnected();
 	void ReceiveFromClient();
 	void HandleNewConnection();
+	void SendVersionToClient(int index);
 
 signals:
 	void changeServerStatus(netRenderStatus status);
-	void ClientsChanged();
 	void NewClient(int index);
-	void ClientReceive(int index);
 	void Deleted();
+	// request to update table of clients
+	void ClientsChanged();
+	void ClientsChanged(int i);
+	void ClientsChanged(int i, int j);
+	// send data of newly rendered lines to cRenderer
+	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 
 private:
+	// process received data and send response if needed
+	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
+
+	void ClientReceive(int index);
+
+	// Process methods
+	void ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestWorker(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestData(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket);
+
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes
 	qint32 portNo;
 	QTcpServer *server;
+	sMessage msgCurrentJob;
+	qint32 actualId;
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_SERVER_HPP_ */

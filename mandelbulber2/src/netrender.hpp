@@ -85,6 +85,17 @@ public:
 	// deleting client
 	void DeleteClient();
 
+	// get status
+	netRenderStatus GetStatus() const { return status; }
+	// update status
+	void SetStatus(netRenderStatus _status) { status = _status; }
+
+	// check mutex and aquire lock, if available
+	bool Block();
+	// release the lock
+	void Release() { isUsed = false; }
+
+	//++++++++++++++++++ Server related  +++++++++++++++++
 	// get client
 	const sClient &GetClient(int index) { return cNetRenderServer->GetClient(index); }
 	// get number of connected clients
@@ -93,76 +104,56 @@ public:
 	qint32 GetWorkerCount(qint32 index) { return cNetRenderServer->GetWorkerCount(index); }
 	// get total number of available CPUs
 	qint32 getTotalWorkerCount() { return cNetRenderServer->getTotalWorkerCount(); }
-	// get status
-	netRenderStatus GetStatus() const { return status; }
-	// get name of the connected server
-	QString GetServerName() const { return serverName; }
-	// update status
-	void SetStatus(netRenderStatus _status) { status = _status; }
 	// get status of Client
 	netRenderStatus GetClientStatus(int index);
+	// in cli mode this method enables waiting for the clients before start of rendering
+	bool WaitForAllClientsReady(double timeout) { return cNetRenderServer->WaitForAllClientsReady(timeout); }
 
-	// stop rendering of all clients
-	void Stop();
+	//++++++++++++++++++ Client related  +++++++++++++++++
+	// get name of the connected server
+	QString GetServerName() const { return cNetRenderClient->GetServerName(); }
 	// get line numbers which should be rendered first
-	QList<int> GetStartingPositions() const { return startingPositions; }
+	QList<int> GetStartingPositions() const { return cNetRenderClient->GetStartingPositions(); }
 	// get received textures
-	QByteArray *GetTexture(const QString &textureName, int frameNo);
-
-	bool WaitForAllClientsReady(double timeout);
+	QByteArray *GetTexture(const QString &textureName, int frameNo){
+		return cNetRenderClient->GetTexture(textureName, frameNo);
+	}
 
 	// setting status test
 	static QString GetStatusText(netRenderStatus displayStatus);
 	// setting status color
 	static QString GetStatusColor(netRenderStatus displayStatus);
 
-	bool Block();
-	void Release() { isUsed = false; }
-
-private:
-	void ReceiveData(QTcpSocket *socket, sMessage *msg);
-	bool SendData(QTcpSocket *socket, sMessage msg) const;
-	// process received data and send response if needed
-	void ProcessData(QTcpSocket *socket, sMessage *inMsg);
-	// get client index by given socket pointer
-	int GetClientIndexFromSocket(const QTcpSocket *socket)
-	{
-		return cNetRenderServer->GetClientIndexFromSocket(socket);
-	}
-
 	//---------------- private data -----------------
 private:
 	CNetRenderClient *cNetRenderClient;
 	CNetRenderServer *cNetRenderServer;
 	netRenderStatus status;
-	QString serverName;
 	typeOfDevice deviceType;
-	sMessage msgFromServer;
-	sMessage msgCurrentJob;
-
-	// client data buffers
-	qint32 actualId;
-	QList<int> startingPositions;
 	bool isUsed;
-	QMap<QString, QByteArray> textures;
 
 	//------------------- public slots -------------------
 public slots:
+	//++++++++++++++++++ Server related  +++++++++++++++++
 	// send parameters and textures to all clients and start rendering
 	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
 		QStringList listOfTextures);
-	// send to server a list of numbers and image data of already rendered lines
-	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines) const;
 	// send list of already rendered lines
 	void SendToDoList(int clientIndex, const QList<int> &done); // send list of already rendered lines
-	// notify the server about client status change
-	void NotifyStatus();
 	// send message to all clients to stop rendering
-	void StopAll();
+	void StopAllClients();
 	// send client id and list of list of lines to render at the beginning to selected client
-	void SendSetup(int clientIndex, int id, const QList<int> &_startingPositions);
+	void SendSetup(int clientIndex, const QList<int> &_startingPositions);
 	// kicks and kills a client (can be used if client is hanging)
 	void KickAndKillClient(int clientIndex);
+	// set the identification of the current render job
+	void SetCurrentRenderId(qint32 actualId);
+
+	//++++++++++++++++++ Client related  +++++++++++++++++
+	// send to server a list of numbers and image data of already rendered lines
+	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines);
+	// notify the server about client status change
+	void NotifyStatus();
 
 	//------------------- private slots ------------------
 private slots:
@@ -171,10 +162,8 @@ private slots:
 	// received server status changed
 	void serverStatusChanged(netRenderStatus _status);
 	// received data on client connection
-	void clientReceiveData();
 	void ClientsHaveChanged();
-	void SendVersionToClient(int index);
-	void ReceiveFromClient(int index);
+	// Reset the device type after client or server has been deleted
 	void ResetDeviceType();
 
 signals:

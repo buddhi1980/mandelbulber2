@@ -51,10 +51,18 @@ public:
 	explicit CNetRenderClient();
 	~CNetRenderClient() override;
 	void SetClient(QString address, qint32 portNo);
-	QTcpSocket *getSocket() { return clientSocket; }
-	QString getAddress() { return address; }
-	qint32 getPortNo() { return portNo; }
 	void DeleteClient();
+
+	// notify the server about the current client status
+	void SendStatusToServer(netRenderStatus status);
+	// get received textures
+	QByteArray *GetTexture(const QString &textureName, int frameNo);
+	// get line numbers which should be rendered first
+	QList<int> GetStartingPositions() { return startingPositions; }
+	// send to server a list of numbers and image data of already rendered lines
+	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines);
+	// get name of the connected server
+	QString GetServerName() const { return serverName; }
 
 private slots:
 	// try to connect to server
@@ -65,16 +73,41 @@ private slots:
 	void ReceiveFromServer();
 
 signals:
-	void changeClientStatus(netRenderStatus status);
-	void receivedData();
+	// The client has been deleted
 	void Deleted();
+	// send list of rendered lines to cRenderer
+	void ToDoListArrived(QList<int> done);
+	// confirmation of data receive
+	void AckReceived();
+	// the status of the client has changed to this new status
+	void changeClientStatus(netRenderStatus status);
+	// notify about the current status
+	void NotifyStatus();
 
 private:
+	void ProcessData();
+
+	// Process methods
+	void ProcessRequestVersion(sMessage *inMsg);
+	void ProcessRequestStop(sMessage *inMsg);
+	void ProcessRequestAskStatus(sMessage *inMsg);
+	void ProcessRequestJob(sMessage *inMsg);
+	void ProcessRequestRender(sMessage *inMsg);
+	void ProcessRequestSetup(sMessage *inMsg);
+	void ProcessRequestAck(sMessage *inMsg);
+	void ProcessRequestKickAndKill(sMessage *inMsg);
+
 	QTcpSocket *clientSocket;
 	QTimer *reconnectTimer;
 	QString address;
 	QString serverName;
 	qint32 portNo;
+	sMessage msgFromServer;
+
+	qint32 actualId;
+	QList<int> startingPositions;
+	QMap<QString, QByteArray> textures;
+
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_CLIENT_HPP_ */

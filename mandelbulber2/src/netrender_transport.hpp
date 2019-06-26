@@ -93,6 +93,9 @@ struct sMessage
 	qint32 id;
 	qint32 size;
 	QByteArray payload;
+
+	static qint64 headerSize(){ return qint64(sizeof(command) + sizeof(id) + sizeof(size)); }
+	static qint64 crcSize(){ return qint64(sizeof(quint16)); }
 };
 
 struct sClient
@@ -117,6 +120,7 @@ public:
 	static void ResetMessage(sMessage *msg);
 	// compare major version of software
 	static bool CompareMajorVersion(qint32 version1, qint32 version2);
+	// the numeric and comparable version of the mandelbulber instance
 	static int version(){ return 1000L * MANDELBULBER_VERSION; }
 };
 

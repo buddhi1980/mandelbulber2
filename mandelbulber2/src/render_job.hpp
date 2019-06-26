@@ -142,7 +142,7 @@ signals:
 	void sendRenderedTilesList(QList<sRenderedTileData>);
 	void SendNetRenderJob(
 		cParameterContainer settings, cFractalContainer fractal, QStringList listOfTextures);
-	void SendNetRenderSetup(int clientIndex, int id, QList<int> startingPositions);
+	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
 	void SetMinimumWidgetSize(int width, int height);
 };
 

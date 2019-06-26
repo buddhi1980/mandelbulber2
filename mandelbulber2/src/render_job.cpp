@@ -183,8 +183,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		{
 			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, QStringList)),
 				gNetRender, SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, QStringList)));
-			connect(this, SIGNAL(SendNetRenderSetup(int, int, QList<int>)), gNetRender,
-				SLOT(SendSetup(int, int, QList<int>)));
+			connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
+				SLOT(SendSetup(int, QList<int>)));
 		}
 	}
 
@@ -573,7 +573,8 @@ void cRenderJob::InitNetRender()
 	if (gNetRender->IsServer())
 	{
 		// new random id for NetRender
-		qint32 identification = rand();
+		qint32 renderId = rand();
+		gNetRender->SetCurrentRenderId(renderId);
 
 		// calculation of starting positions list and sending id to clients
 		renderData->netRenderStartingPositions.clear();
@@ -600,7 +601,7 @@ void cRenderJob::InitNetRender()
 
 				if (clientWorkerIndex >= gNetRender->GetWorkerCount(clientIndex))
 				{
-					emit SendNetRenderSetup(clientIndex, identification, startingPositionsToSend);
+					emit SendNetRenderSetup(clientIndex, startingPositionsToSend);
 					clientIndex++;
 					clientWorkerIndex = 0;
 					startingPositionsToSend.clear();
@@ -800,7 +801,7 @@ void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)
 			SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
 		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
 			SLOT(SendToDoList(int, QList<int>)));
-		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAll()));
+		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAllClients()));
 	}
 }
 
