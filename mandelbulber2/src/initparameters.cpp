@@ -1211,6 +1211,18 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		QDir::toNativeSeparators(
 			systemData.sharedDir + "textures" + QDir::separator() + "normal_map_texture.jpg"),
 		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_reflectance_texture", materialId),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "reflectance_texture.jpg"),
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_transparency_texture", materialId),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "transparency_texture.jpg"),
+		morphNone, paramStandard);
+	par->addParam(cMaterial::Name("file_roughness_texture", materialId),
+		QDir::toNativeSeparators(
+			systemData.sharedDir + "textures" + QDir::separator() + "roughness_texture.jpg"),
+		morphNone, paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_enabled_false", materialId), false, morphNone,
 		paramStandard);
 	par->addParam(cMaterial::Name("fractal_coloring_add_max", materialId), 1.0, -1e20, 1e20,
@@ -1361,7 +1373,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("reflectance", materialId), 0.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("reflections_color", materialId), sRGB(65535, 65535, 65535),
 		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("reflectance_texture_intensity", materialId), 1.0, 0.0, 1e10,
+		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("rough_surface", materialId), false, morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("roughness_texture_intensity", materialId), 1.0, 0.0, 1e10,
+		morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("shading", materialId), 1.0, 0.0, 1e15, morphAkima, paramStandard);
 	par->addParam(cMaterial::Name("specular_color", materialId), sRGB(65535, 65535, 65535),
 		morphAkima, paramStandard);
@@ -1403,6 +1419,8 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		paramStandard);
 	par->addParam(cMaterial::Name("transparency_of_surface", materialId), 0.0, 0.0, 1.0, morphAkima,
 		paramStandard);
+	par->addParam(cMaterial::Name("transparency_texture_intensity", materialId), 1.0, 0.0, 1e10,
+		morphAkima, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_color_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(
@@ -1415,6 +1433,12 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("use_luminosity_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_normal_map_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("use_reflectance_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("use_transparency_texture", materialId), false, morphLinear, paramStandard);
+	par->addParam(
+		cMaterial::Name("use_roughness_texture", materialId), false, morphLinear, paramStandard);
 
 	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
 		par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)), 1.0);

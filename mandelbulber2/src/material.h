@@ -83,6 +83,9 @@ public:
 	float colorTextureIntensity;
 	float diffusionTextureIntensity;
 	float luminosityTextureIntensity;
+	float reflectanceTextureIntensity;
+	float transparencyTextureIntensity;
+	float roughnessTextureIntensity;
 	double displacementTextureHeight;
 	double normalMapTextureHeight;
 	double iridescenceIntensity;
@@ -110,6 +113,9 @@ public:
 	cTexture luminosityTexture;
 	cTexture displacementTexture;
 	cTexture normalMapTexture;
+	cTexture reflectanceTexture;
+	cTexture transparencyTexture;
+	cTexture roughnessTexture;
 
 	CVector3 textureCenter;
 	CVector3 textureRotation;
@@ -131,6 +137,9 @@ public:
 	bool useNormalMapTexture;
 	bool normalMapTextureFromBumpmap;
 	bool normalMapTextureInvertGreen;
+	bool useReflectanceTexture;
+	bool useTransparencyTexture;
+	bool useRoughnessTexture;
 	bool iridescenceEnabled;
 	bool textureFractalize;
 

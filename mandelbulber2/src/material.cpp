@@ -63,11 +63,17 @@ cMaterial::cMaterial()
 	useLuminosityTexture = false;
 	useDisplacementTexture = false;
 	useNormalMapTexture = false;
+	useReflectanceTexture = false;
+	useTransparencyTexture = false;
+	useRoughnessTexture = false;
 	iridescenceEnabled = false;
 	textureMappingType = texture::mappingPlanar;
 	colorTextureIntensity = 0.0;
 	diffusionTextureIntensity = 0.0;
 	luminosityTextureIntensity = 0.0;
+	reflectanceTextureIntensity = 0.0;
+	transparencyTextureIntensity = 0.0;
+	roughnessTextureIntensity = 0.0;
 	displacementTextureHeight = 0.0;
 	normalMapTextureFromBumpmap = false;
 	normalMapTextureInvertGreen = false;
@@ -102,7 +108,8 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"coloring_palette_size", "coloring_random_seed", "coloring_saturation", "coloring_speed",
 	"diffusion_texture_intensity", "displacement_texture_height", "file_color_texture",
 	"file_diffusion_texture", "file_displacement_texture", "file_luminosity_texture",
-	"file_normal_map_texture", "fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
+	"file_normal_map_texture", "file_reflectance_texture", "file_transparency_texture",
+	"file_roughness_texture", "fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
 	"fractal_coloring_add_spread", "fractal_coloring_add_start_value", "fractal_coloring_algorithm",
 	"fractal_coloring_aux_color_false", "fractal_coloring_aux_color_hybrid_weight",
 	"fractal_coloring_aux_color_scale1", "fractal_coloring_aux_color_weight",
@@ -136,19 +143,23 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"iridescence_intensity", "iridescence_subsurface_thickness", "is_defined", "luminosity_color",
 	"luminosity_texture_intensity", "luminosity", "metallic", "name",
 	"normal_map_texture_from_bumpmap", "normal_map_texture_height", "normal_map_texture_invert_green",
-	"reflectance", "reflections_color", "rough_surface", "shading", "specular_color",
-	"specular_metallic_roughness", "specular_metallic_width", "specular_metallic",
-	"specular_plastic_enable", "specular_width", "specular", "surface_color", "surface_roughness",
-	"texture_center", "texture_fractalize_cube_size", "texture_fractalize_start_iteration",
-	"texture_fractalize", "texture_mapping_type", "texture_rotation", "texture_scale",
-	"transparency_color", "transparency_index_of_refraction", "transparency_interior_color",
-	"transparency_of_interior", "transparency_of_surface", "use_color_texture",
+	"reflectance", "reflections_color", "reflectance_texture_intensity", "rough_surface",
+	"roughness_texture_intensity", "shading", "specular_color", "specular_metallic_roughness",
+	"specular_metallic_width", "specular_metallic", "specular_plastic_enable", "specular_width",
+	"specular", "surface_color", "surface_roughness", "texture_center",
+	"texture_fractalize_cube_size", "texture_fractalize_start_iteration", "texture_fractalize",
+	"texture_mapping_type", "texture_rotation", "texture_scale", "transparency_color",
+	"transparency_index_of_refraction", "transparency_interior_color", "transparency_of_interior",
+	"transparency_of_surface", "transparency_texture_intensity", "use_color_texture",
 	"use_colors_from_palette", "use_diffusion_texture", "use_displacement_texture",
-	"use_luminosity_texture", "use_normal_map_texture", "surface_gradient_enable",
-	"specular_gradient_enable", "diffuse_gradient_enable", "luminosity_gradient_enable",
-	"roughness_gradient_enable", "reflectance_gradient_enable", "transparency_gradient_enable",
-	"surface_color_palette", "surface_color_gradient", "specular_gradient", "diffuse_gradient",
-	"luminosity_gradient", "roughness_gradient", "reflectance_gradient", "transparency_gradient"};
+	"use_luminosity_texture", "use_normal_map_texture", "use_reflectance_texture",
+	"use_transparency_texture", "use_roughness_texture",
+
+	"surface_gradient_enable", "specular_gradient_enable", "diffuse_gradient_enable",
+	"luminosity_gradient_enable", "roughness_gradient_enable", "reflectance_gradient_enable",
+	"transparency_gradient_enable", "surface_color_palette", "surface_color_gradient",
+	"specular_gradient", "diffuse_gradient", "luminosity_gradient", "roughness_gradient",
+	"reflectance_gradient", "transparency_gradient"};
 
 void cMaterial::setParameters(
 	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
@@ -224,6 +235,9 @@ void cMaterial::setParameters(
 	useLuminosityTexture = materialParam->Get<bool>(Name("use_luminosity_texture", id));
 	useDisplacementTexture = materialParam->Get<bool>(Name("use_displacement_texture", id));
 	useNormalMapTexture = materialParam->Get<bool>(Name("use_normal_map_texture", id));
+	useReflectanceTexture = materialParam->Get<bool>(Name("use_reflectance_texture", id));
+	useTransparencyTexture = materialParam->Get<bool>(Name("use_transparency_texture", id));
+	useRoughnessTexture = materialParam->Get<bool>(Name("use_roughness_texture", id));
 	normalMapTextureFromBumpmap =
 		materialParam->Get<bool>(Name("normal_map_texture_from_bumpmap", id));
 	normalMapTextureInvertGreen =
@@ -234,6 +248,11 @@ void cMaterial::setParameters(
 	luminosityTextureIntensity = materialParam->Get<double>(Name("luminosity_texture_intensity", id));
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
+	reflectanceTextureIntensity =
+		materialParam->Get<double>(Name("reflectance_texture_intensity", id));
+	transparencyTextureIntensity =
+		materialParam->Get<double>(Name("transparency_texture_intensity", id));
+	roughnessTextureIntensity = materialParam->Get<double>(Name("roughness_texture_intensity", id));
 
 	iridescenceEnabled = materialParam->Get<bool>(Name("iridescence_enabled", id));
 	iridescenceIntensity = materialParam->Get<double>(Name("iridescence_intensity", id));
@@ -413,6 +432,24 @@ void cMaterial::setParameters(
 					gNetRender->GetTexture(
 						materialParam->Get<QString>(Name("file_normal_map_texture", id)), frameNo),
 					cTexture::doNotUseMipmaps);
+
+			if (useReflectanceTexture)
+				reflectanceTexture.FromQByteArray(
+					gNetRender->GetTexture(
+						materialParam->Get<QString>(Name("file_reflectance_texture", id)), frameNo),
+					cTexture::useMipmaps);
+
+			if (useTransparencyTexture)
+				transparencyTexture.FromQByteArray(
+					gNetRender->GetTexture(
+						materialParam->Get<QString>(Name("file_transparency_texture", id)), frameNo),
+					cTexture::useMipmaps);
+
+			if (useRoughnessTexture)
+				roughnessTexture.FromQByteArray(
+					gNetRender->GetTexture(
+						materialParam->Get<QString>(Name("file_roughness_texture", id)), frameNo),
+					cTexture::useMipmaps);
 		}
 		else
 		{
@@ -438,6 +475,20 @@ void cMaterial::setParameters(
 				normalMapTexture =
 					cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
 						cTexture::useMipmaps, frameNo, quiet);
+
+			if (useReflectanceTexture)
+				reflectanceTexture =
+					cTexture(materialParam->Get<QString>(Name("file_reflectance_texture", id)),
+						cTexture::useMipmaps, frameNo, quiet);
+
+			if (useTransparencyTexture)
+				transparencyTexture =
+					cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
+						cTexture::useMipmaps, frameNo, quiet);
+
+			if (useRoughnessTexture)
+				roughnessTexture = cTexture(materialParam->Get<QString>(Name("file_roughness_texture", id)),
+					cTexture::useMipmaps, frameNo, quiet);
 		}
 	}
 
