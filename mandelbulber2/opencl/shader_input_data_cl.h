@@ -44,6 +44,8 @@ typedef struct
 	float3 texColor;
 	float3 texDiffuse;
 	float3 texLuminosity;
+	float3 texReflectance;
+	float3 texTransparency;
 #endif
 	float distThresh; // distance threshold depend on 'detailLevel'
 	float lastDist;

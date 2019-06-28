@@ -51,6 +51,9 @@ cOpenClTexturesData::cOpenClTexturesData(int _numberOfTextures)
 	useNormalMapTexture = false;
 	useNormalMapTextureFromBumpmap = false;
 	useDisplacementMap = false;
+	useReflectanceTexture = false;
+	useTransparencyTexture = false;
+	useRoughnessTexture = false;
 
 	usePlanarMapping = false;
 	useCylindicalMapping = false;
@@ -79,6 +82,9 @@ int cOpenClTexturesData::CheckNumberOfTextures(
 			&numberOfTextures); // will be stored as 16bit grey texture
 		CountTexture(&material.luminosityTexture, false, &listOfTextures, &numberOfTextures);
 		CountTexture(&material.normalMapTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.reflectanceTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.transparencyTexture, false, &listOfTextures, &numberOfTextures);
+		CountTexture(&material.roughnessTexture, false, &listOfTextures, &numberOfTextures);
 	}
 
 	return numberOfTextures;
@@ -126,6 +132,9 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 	useNormalMapTexture = false;
 	useNormalMapTextureFromBumpmap = false;
 	useDisplacementMap = false;
+	useReflectanceTexture = false;
+	useTransparencyTexture = false;
+	useRoughnessTexture = false;
 
 	usePlanarMapping = false;
 	useCylindicalMapping = false;
@@ -171,6 +180,27 @@ void cOpenClTexturesData::BuildAllTexturesData(const sTextures &textures,
 		{
 			BuildTextureData(&material.normalMapTexture, textureIndex, false);
 			textureIndexes->insert(material.normalMapTexture.GetFileName(), textureIndex);
+		}
+
+		if (material.reflectanceTexture.IsLoaded()) useReflectanceTexture = true;
+		if (CountTexture(&material.reflectanceTexture, false, &listOfTextures, &textureIndex))
+		{
+			BuildTextureData(&material.reflectanceTexture, textureIndex, false);
+			textureIndexes->insert(material.reflectanceTexture.GetFileName(), textureIndex);
+		}
+
+		if (material.transparencyTexture.IsLoaded()) useTransparencyTexture = true;
+		if (CountTexture(&material.transparencyTexture, false, &listOfTextures, &textureIndex))
+		{
+			BuildTextureData(&material.transparencyTexture, textureIndex, false);
+			textureIndexes->insert(material.transparencyTexture.GetFileName(), textureIndex);
+		}
+
+		if (material.roughnessTexture.IsLoaded()) useRoughnessTexture = true;
+		if (CountTexture(&material.roughnessTexture, false, &listOfTextures, &textureIndex))
+		{
+			BuildTextureData(&material.roughnessTexture, textureIndex, false);
+			textureIndexes->insert(material.roughnessTexture.GetFileName(), textureIndex);
 		}
 
 		switch (material.textureMappingType)
@@ -266,6 +296,9 @@ QString cOpenClTexturesData::GetDefinesCollector() const
 	if (useNormalMapTexture) definesCollector += " -DUSE_NORMAL_MAP_TEXTURE";
 	if (useNormalMapTextureFromBumpmap) definesCollector += " -DUSE_NORMAL_MAP_BUMP_TEXTURE";
 	if (useDisplacementMap) definesCollector += " -DUSE_DISPLACEMENT_TEXTURE";
+	if (useReflectanceTexture) definesCollector += " -DUSE_REFLECTANCE_TEXTURE";
+	if (useTransparencyTexture) definesCollector += " -DUSE_TRANSPARENCY_TEXTURE";
+	if (useRoughnessTexture) definesCollector += " -DUSE_ROUGHNESS_TEXTURE";
 	if (usePlanarMapping) definesCollector += " -DUSE_PLANAR_MAPPING";
 	if (useCylindicalMapping) definesCollector += " -DUSE_CYLINDRICAL_MAPPING";
 	if (useSphericalMapping) definesCollector += " -DUSE_SPHERICAL_MAPPING";

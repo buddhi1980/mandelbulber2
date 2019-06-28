@@ -67,6 +67,9 @@ private:
 	bool useNormalMapTexture;
 	bool useNormalMapTextureFromBumpmap;
 	bool useDisplacementMap;
+	bool useReflectanceTexture;
+	bool useTransparencyTexture;
+	bool useRoughnessTexture;
 
 	bool usePlanarMapping;
 	bool useCylindicalMapping;

@@ -165,6 +165,18 @@ int cOpenClDynamicData::BuildMaterialsData(
 			materialCl.normalMapTextureIndex =
 				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
 
+			textureName = material.reflectanceTexture.GetFileName();
+			materialCl.reflectanceTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.transparencyTexture.GetFileName();
+			materialCl.transparencyTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
+			textureName = material.roughnessTexture.GetFileName();
+			materialCl.roughnessTextureIndex =
+				textureIndexes.contains(textureName) ? textureIndexes[textureName] : -1;
+
 			// gradients
 			QList<cColorGradient::sColor> gradientSurface =
 				material.gradientSurface.GetListOfSortedColors();

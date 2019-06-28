@@ -65,6 +65,9 @@ typedef struct
 	cl_float colorTextureIntensity;
 	cl_float diffusionTextureIntensity;
 	cl_float luminosityTextureIntensity;
+	cl_float reflectanceTextureIntensity;
+	cl_float transparencyTextureIntensity;
+	cl_float roughnessTextureIntensity;
 	cl_float displacementTextureHeight;
 	cl_float normalMapTextureHeight;
 	cl_float iridescenceIntensity;
@@ -98,6 +101,9 @@ typedef struct
 	cl_int useNormalMapTexture;
 	cl_int normalMapTextureFromBumpmap;
 	cl_int normalMapTextureInvertGreen;
+	cl_int useReflectanceTexture;
+	cl_int useTransparencyTexture;
+	cl_int useRoughnessTexture;
 	cl_int iridescenceEnabled;
 	cl_int textureFractalize;
 
@@ -106,6 +112,9 @@ typedef struct
 	cl_int luminosityTextureIndex;
 	cl_int displacementTextureIndex;
 	cl_int normalMapTextureIndex;
+	cl_int reflectanceTextureIndex;
+	cl_int transparencyTextureIndex;
+	cl_int roughnessTextureIndex;
 
 	cl_int surfaceGradientEnable;
 	cl_int specularGradientEnable;
@@ -142,6 +151,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.colorTextureIntensity = source.colorTextureIntensity;
 	target.diffusionTextureIntensity = source.diffusionTextureIntensity;
 	target.luminosityTextureIntensity = source.luminosityTextureIntensity;
+	target.reflectanceTextureIntensity = source.reflectanceTextureIntensity;
+	target.transparencyTextureIntensity = source.transparencyTextureIntensity;
+	target.roughnessTextureIntensity = source.roughnessTextureIntensity;
 	target.displacementTextureHeight = source.displacementTextureHeight;
 	target.normalMapTextureHeight = source.normalMapTextureHeight;
 	target.iridescenceIntensity = source.iridescenceIntensity;
@@ -175,6 +187,9 @@ sMaterialCl clCopySMaterialCl(const cMaterial &source)
 	target.useNormalMapTexture = source.useNormalMapTexture;
 	target.normalMapTextureFromBumpmap = source.normalMapTextureFromBumpmap;
 	target.normalMapTextureInvertGreen = source.normalMapTextureInvertGreen;
+	target.useReflectanceTexture = source.useReflectanceTexture;
+	target.useTransparencyTexture = source.useTransparencyTexture;
+	target.useRoughnessTexture = source.useRoughnessTexture;
 	target.iridescenceEnabled = source.iridescenceEnabled;
 	target.textureFractalize = source.textureFractalize;
 

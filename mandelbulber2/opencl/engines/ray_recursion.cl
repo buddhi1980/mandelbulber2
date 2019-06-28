@@ -693,6 +693,16 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 				shaderInputData.texLuminosity = TextureShader(consts, &calcParam, &shaderInputData,
 					renderData, objectData, shaderInputData.material->luminosityTextureIndex, 0.0f);
 #endif
+
+#ifdef USE_REFLECTANCE_TEXTURE
+				shaderInputData.texReflectance = TextureShader(consts, &calcParam, &shaderInputData,
+					renderData, objectData, shaderInputData.material->reflectanceTextureIndex, 1.0f);
+#endif
+
+#ifdef USE_TRANSPARENCY_TEXTURE
+				shaderInputData.texTransparency = TextureShader(consts, &calcParam, &shaderInputData,
+					renderData, objectData, shaderInputData.material->transparencyTextureIndex, 1.0f);
+#endif
 #endif
 
 				sClGradientsCollection gradients;
@@ -757,6 +767,18 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 					transparentShader *= (float4){shaderInputData.material->transparencyColor.s0,
 						shaderInputData.material->transparencyColor.s1,
 						shaderInputData.material->transparencyColor.s2, 1.0f};
+
+#ifdef USE_TRANSPARENCY_TEXTURE
+				if (shaderInputData.material->useTransparencyTexture)
+				{
+					float texTransInt = shaderInputData.material->transparencyTextureIntensity;
+					float texTransIntN = 1.0f - shaderInputData.material->transparencyTextureIntensity;
+					float3 texTransparencyIntens =
+						shaderInputData.texTransparency * texTransInt + texTransIntN;
+					transparentShader *= (float4){texTransparencyIntens.s0, texTransparencyIntens.s1,
+						texTransparencyIntens.s2, transparentShader.s3};
+				}
+#endif // USE_TRANSPARENCY_TEXTURE
 #endif // USE_REFRACTION
 
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
@@ -805,6 +827,15 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #endif // USE_REFRACTION
 
 #ifdef USE_REFLECTANCE
+#ifdef USE_REFLECTANCE_TEXTURE
+					if (shaderInputData.material->useReflectanceTexture)
+					{
+						float texReflInt = shaderInputData.material->reflectanceTextureIntensity;
+						float texReflIntN = 1.0f - shaderInputData.material->reflectanceTextureIntensity;
+						reflectDiffused *= shaderInputData.texReflectance * texReflInt + texReflIntN;
+					}
+#endif // USE_REFLECTANCE_TEXTURE
+
 					float reflectDiffusedAvg =
 						(reflectDiffused.s0 + reflectDiffused.s1 + reflectDiffused.s2) / 3.0f;
 
