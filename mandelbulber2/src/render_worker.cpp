@@ -875,13 +875,22 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					roughnessGradient = gradients.roughness.R;
 				}
 
+				double roughnessTex = 1.0;
+				if (shaderInputData.material->roughnessTexture.IsLoaded()
+						&& shaderInputData.material->useRoughnessTexture)
+				{
+					double texRoughInt = shaderInputData.material->roughnessTextureIntensity;
+					double texRoughIntN = 1.0f - shaderInputData.material->roughnessTextureIntensity;
+					roughnessTex = RoughnessTexture(shaderInputData) * texRoughInt + texRoughIntN;
+				}
+
 				if (shaderInputData.material->roughSurface)
 				{
-					vn.x += roughnessGradient * shaderInputData.material->surfaceRoughness
+					vn.x += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
 									* (Random(20000) / 10000.0 - 1.0);
-					vn.y += roughnessGradient * shaderInputData.material->surfaceRoughness
+					vn.y += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
 									* (Random(20000) / 10000.0 - 1.0);
-					vn.z += roughnessGradient * shaderInputData.material->surfaceRoughness
+					vn.z += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
 									* (Random(20000) / 10000.0 - 1.0);
 					vn.Normalize();
 				}
@@ -1100,6 +1109,18 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			else
 				shaderInputData.texDiffuse = sRGBFloat(1.0, 1.0, 1.0);
 
+			if (shaderInputData.material->reflectanceTexture.IsLoaded())
+				shaderInputData.texReflectance =
+					TextureShader(shaderInputData, texture::texReflectance, shaderInputData.material);
+			else
+				shaderInputData.texReflectance = sRGBFloat(1.0, 1.0, 1.0);
+
+			if (shaderInputData.material->transparencyTexture.IsLoaded())
+				shaderInputData.texTransparency =
+					TextureShader(shaderInputData, texture::texTransparency, shaderInputData.material);
+			else
+				shaderInputData.texTransparency = sRGBFloat(1.0, 1.0, 1.0);
+
 			double reflect = shaderInputData.material->reflectance;
 			double transparent = shaderInputData.material->transparencyOfSurface;
 
@@ -1189,6 +1210,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					transparentShader.B *= shaderInputData.material->transparencyColor.B / 65536.0;
 				}
 
+				if (shaderInputData.material->useTransparencyTexture)
+				{
+					float texTransInt = shaderInputData.material->transparencyTextureIntensity;
+					float texTransIntN = 1.0f - shaderInputData.material->transparencyTextureIntensity;
+					transparentShader.R *= shaderInputData.texTransparency.R * texTransInt + texTransIntN;
+					transparentShader.G *= shaderInputData.texTransparency.G * texTransInt + texTransIntN;
+					transparentShader.B *= shaderInputData.texTransparency.B * texTransInt + texTransIntN;
+				}
+
 				if (reflectionsMax > 0)
 				{
 					sRGBFloat reflectDiffused;
@@ -1207,6 +1237,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						reflectDiffused.R *= gradients.diffuse.R;
 						reflectDiffused.G *= gradients.diffuse.G;
 						reflectDiffused.B *= gradients.diffuse.B;
+					}
+
+					if (shaderInputData.material->useReflectanceTexture)
+					{
+						float texRefInt = shaderInputData.material->reflectanceTextureIntensity;
+						float texRefIntN = 1.0f - shaderInputData.material->reflectanceTextureIntensity;
+						reflectDiffused.R *= shaderInputData.texReflectance.R * texRefInt + texRefIntN;
+						reflectDiffused.G *= shaderInputData.texReflectance.G * texRefInt + texRefIntN;
+						reflectDiffused.B *= shaderInputData.texReflectance.B * texRefInt + texRefIntN;
 					}
 
 					reflectDiffused.R *= iridescence.R;

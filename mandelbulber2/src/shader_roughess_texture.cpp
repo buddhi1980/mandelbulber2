@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2016 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2018 Mandelbulber Team        §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -29,31 +29,39 @@
  *
  * Authors: Krzysztof Marczak (buddhi1980@gmail.com)
  *
- * texture types
+ * cRenderWorker::NormalMapShader method - modifies normal vector based on normal map texture
  */
+#include <algorithm>
 
-#ifndef MANDELBULBER2_SRC_TEXTURE_ENUMS_HPP_
-#define MANDELBULBER2_SRC_TEXTURE_ENUMS_HPP_
+#include "render_data.hpp"
+#include "render_worker.hpp"
+#include "texture_mapping.hpp"
 
-namespace texture
+using std::max;
+
+double cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
 {
-enum enumTextureMapping
-{
-	mappingSpherical = 0,
-	mappingCubic = 1,
-	mappingCylindrical = 2,
-	mappingPlanar = 3
-};
+	cObjectData objectData = data->objectData[input.objectId];
+	CVector3 texX, texY;
+	double texturePixelSize;
+	CVector2<double> texPoint =
+		TextureMapping(input.point, input.normal, objectData, input.material, &texX, &texY)
+		+ CVector2<double>(0.5, 0.5);
 
-enum enumTextureSelection
-{
-	texColor = 0,
-	texDiffuse = 1,
-	texLuminosity = 2,
-	texDisplacement = 3,
-	texReflectance = 4,
-	texTransparency = 5
-};
-} // namespace texture
+	// mipmapping - calculation of texture pixel size
+	double delta = CalcDelta(input.point);
+	double deltaTexX =
+		(TextureMapping(input.point + texX * delta, input.normal, objectData, input.material)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
+			.Length();
+	double deltaTexY =
+		(TextureMapping(input.point + texY * delta, input.normal, objectData, input.material)
+			+ CVector2<double>(0.5, 0.5) - texPoint)
+			.Length();
+	deltaTexX = fabs(deltaTexX) / fabs(input.viewVector.Dot(input.normal));
+	deltaTexY = fabs(deltaTexY) / fabs(input.viewVector.Dot(input.normal));
+	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
-#endif /* MANDELBULBER2_SRC_TEXTURE_ENUMS_HPP_ */
+	sRGBFloat tex = input.material->roughnessTexture.Pixel(texPoint, texturePixelSize);
+	return (tex.R + tex.G + tex.B) / 3.0;
+}

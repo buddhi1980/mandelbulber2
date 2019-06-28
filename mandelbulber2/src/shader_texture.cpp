@@ -111,6 +111,16 @@ sRGBFloat cRenderWorker::TextureShader(
 			tex = input.material->displacementTexture.Pixel(texPoint, texturePixelSize);
 			break;
 		}
+		case texture::texReflectance:
+		{
+			tex = input.material->reflectanceTexture.Pixel(texPoint, texturePixelSize);
+			break;
+		}
+		case texture::texTransparency:
+		{
+			tex = input.material->transparencyTexture.Pixel(texPoint, texturePixelSize);
+			break;
+		}
 	}
 
 	return sRGBFloat(tex.R, tex.G, tex.B);

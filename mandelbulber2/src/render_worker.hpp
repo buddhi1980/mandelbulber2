@@ -182,6 +182,8 @@ private:
 		sRGBFloat texDiffuse;
 		sRGBFloat texColor;
 		sRGBFloat texLuminosity;
+		sRGBFloat texReflectance;
+		sRGBFloat texTransparency;
 	};
 
 	struct sRayStack
@@ -248,6 +250,7 @@ private:
 	sRGBFloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
+	double RoughnessTexture(const sShaderInputData &input) const;
 	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
 	sRGBFloat GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const;
 
