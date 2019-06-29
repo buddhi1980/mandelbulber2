@@ -44,6 +44,16 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 	sRGBFloat out;
 	sShaderInputData inputCopy = input;
 	sRGBAfloat objectColorTemp = objectColor;
+
+	sStep *stepBuff = new sStep[maxRaymarchingSteps + 2];
+	inputCopy.stepBuff = stepBuff;
+	inputCopy.stepCount = 0;
+
+	sRGBAfloat resultShader;
+	sRGBAfloat newColor = objectColor;
+	double totalOpacity = 0.0;
+
+	bool finished = false;
 	for (int rayDepth = 0; rayDepth < params->reflectionsMax; rayDepth++)
 	{
 		CVector3 reflectedDirection = inputCopy.normal;
@@ -58,9 +68,16 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 		double dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
+		inputCopy.stepCount = 0;
+		int stepCount = 0;
+
 		for (double scan = inputCopy.distThresh; scan < params->viewDistanceMax;
 				 scan += dist * params->DEFactor)
 		{
+			if (stepCount >= maxRaymarchingSteps) break;
+			sStep step;
+			step.step = dist * params->DEFactor;
+
 			CVector3 point = inputCopy.point + scan * randomizedDirection;
 
 			double distThresh = CalcDistThresh(point);
@@ -72,10 +89,17 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			dist = CalculateDistance(*params, *fractal, distanceIn, &distanceOut, data);
 			objectId = distanceOut.objectId;
 
+			step.distThresh = distThresh;
+			step.distance = dist;
+			step.iters = distanceOut.iters;
+			step.point = point;
+			stepBuff[stepCount] = step;
+
 			if (dist < distThresh)
 			{
 				if (scan < distThresh * 2.0)
 				{
+					delete[] stepBuff;
 					return out;
 				}
 				inputCopy.point = point;
@@ -86,7 +110,10 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 				found = true;
 				break;
 			}
+			stepCount++;
 		}
+
+		inputCopy.stepCount = stepCount;
 
 		if (found)
 		{
@@ -119,20 +146,40 @@ sRGBFloat cRenderWorker::GlobalIlumination(
 			sGradientsCollection gradients;
 			sRGBAfloat objectShader =
 				ObjectShader(inputCopy, &objectColor, &specular, &iridescence, &gradients);
+
+			newColor = objectColor;
+			resultShader.R = objectShader.R + specular.R;
+			resultShader.G = objectShader.G + specular.G;
+			resultShader.B = objectShader.B + specular.B;
+
 			out.R += (objectShader.R + specular.R) * objectColorTemp.R;
 			out.G += (objectShader.G + specular.G) * objectColorTemp.G;
 			out.B += (objectShader.B + specular.B) * objectColorTemp.B;
-			objectColorTemp = objectColor;
 		}
 		else
 		{
 			sRGBAfloat backgroundShader = BackgroundShader(inputCopy);
-			out.R += backgroundShader.R * objectColorTemp.R;
-			out.G += backgroundShader.G * objectColorTemp.G;
-			out.B += backgroundShader.B * objectColorTemp.B;
-			break;
+			resultShader = backgroundShader;
+			finished = true;
 		}
+
+		sRGBAfloat opacity;
+		if (params->monteCarloGIVolumetric)
+		{
+			resultShader = VolumetricShader(inputCopy, resultShader, &opacity);
+		}
+		double influence = qBound(0.0, 1.0 - totalOpacity, 1.0);
+
+		out.R += resultShader.R * objectColorTemp.R * influence;
+		out.G += resultShader.G * objectColorTemp.G * influence;
+		out.B += resultShader.B * objectColorTemp.B * influence;
+
+		totalOpacity += opacity.R;
+		objectColorTemp = newColor;
+
+		if (finished || totalOpacity > 1.0) break;
 	}
 
+	delete[] stepBuff;
 	return out;
 }

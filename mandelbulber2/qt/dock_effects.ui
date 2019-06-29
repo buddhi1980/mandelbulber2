@@ -612,7 +612,7 @@ per pixel:</string>
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
-                 <string>Global illumination by volumetric effects (OpenCL only)</string>
+                 <string>Global illumination by volumetric effects</string>
                 </property>
                </widget>
               </item>
@@ -1091,8 +1091,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>249</width>
+            <height>1037</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2038,8 +2038,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>274</width>
+            <height>379</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4134,7 +4134,7 @@ of lights:</string>
               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Simulates a large amount of lights and is relatively fast to render.&lt;/p&gt;&lt;p&gt;An orbit trap is a point, a 2D, or 3D shape defined in 3D space. The brightness of the point is dependent on how close the point's orbit gets to the orbit trap shape during the chosen iterations.&lt;/p&gt;&lt;p&gt;This effect is difficult to setup and often you need to try many different orbit trap settings.&lt;/p&gt;&lt;p&gt;These light sources illuminate the fractal surface, but do not cast shadows.&lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - orbit trap lights.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="title">
-              <string>Fake lights based on orbit &amp;traps</string>
+              <string>Orbit &amp;trap lights</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -4655,8 +4655,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1017</height>
+            <width>167</width>
+            <height>109</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
