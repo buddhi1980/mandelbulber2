@@ -12214,6 +12214,58 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
+ * poly fold
+ * @reference
+ *
+ */
+void TransfPolyFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	Q_UNUSED(aux);
+
+	// pre abs
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+
+
+	if (fractal->transformCommon.functionEnabledCx)
+
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
+
+		int poly = fractal->transformCommon.int6;
+		double psi = abs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse && z.z < 0.0) z.y = -z.y;
+		int poly = fractal->transformCommon.int6;
+		double psi = abs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.y * z.y + z.z * z.z);
+		z.y = cos(psi) * len;
+		z.z = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCzFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
+		int poly = fractal->transformCommon.int6;
+		double psi = abs(fmod(atan(z.x / z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.z * z.z + z.x * z.x);
+		z.z = cos(psi) * len;
+		z.x = sin(psi) * len;
+		//z.z = -z.z;
+	}
+
+	z += fractal->transformCommon.additionConstant000;
+}
+
+
+/**
  * poly fold sym DarkBeam's version
  * @reference
  * DarkBeam (luca) http://www.fractalforums.com/mandelbulber/
@@ -12222,33 +12274,21 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
-	if (!fractal->transformCommon.functionEnabledFalse)
-	{
-		int order = fractal->transformCommon.int6;
-		double div2PI = (double)order / M_PI_2x;
 
-		bool cy = false;
-		int sector = (int)(-div2PI * atan(z.x / z.y));
-		if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
-		double angle = (double)(sector / div2PI);
-		// z.xy = rotate(z.xy,angle); // sin
-		double tempZx = z.x;
-		z.x = z.x * cos(angle) - z.y * sin(angle);
-		z.y = tempZx * sin(angle) + z.y * cos(angle);
-		if (cy) z.y = -z.y;
-		// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
-	}
-	else
-	{
-		int poly = fractal->transformCommon.int6;
-		double psi = abs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
-		double len = sqrt(z.y * z.y + z.z * z.z);
-		z.y = cos(psi) * len;
-		z.z = sin(psi) * len;
-	}
+	int order = fractal->transformCommon.int6;
+	double div2PI = (double)order / M_PI_2x;
 
-	z.x += fractal->transformCommon.offset0;
-	z.y += fractal->transformCommon.offsetA0;
+	bool cy = false;
+	int sector = (int)(-div2PI * atan(z.x / z.y));
+	if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
+	double angle = (double)(sector / div2PI);
+	// z.xy = rotate(z.xy,angle); // sin
+	double tempZx = z.x;
+	z.x = z.x * cos(angle) - z.y * sin(angle);
+	z.y = tempZx * sin(angle) + z.y * cos(angle);
+	if (cy) z.y = -z.y;
+	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+
 
 	if (fractal->analyticDE.enabled)
 	{
@@ -12315,6 +12355,8 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 		z.x = temp * sin(angle) + z.x * cos(angle);
 		if (cx == true) z.x = -z.x;
 	}
+
+	z += fractal->transformCommon.additionConstant000;
 }
 
 /**
