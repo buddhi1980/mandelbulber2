@@ -112,8 +112,6 @@ kernel void fractal3D(__global float *outDistances, __global float *outColor, __
 
 	sRenderData renderData;
 	renderData.materials = 0;
-	renderData.palettes = 0;
-	renderData.paletteLengths = 0;
 	renderData.primitives = primitives;
 	renderData.numberOfPrimitives = numberOfPrimitives;
 	renderData.primitivesGlobalPosition = primitivesGlobalPosition;

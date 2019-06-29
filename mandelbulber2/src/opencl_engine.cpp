@@ -157,6 +157,13 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 				if (checkErr(err, "program->build()"))
 				{
 					WriteLog("OpenCl kernel program successfully compiled", 2);
+
+					for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
+					{
+						std::vector<size_t> sizes;
+						err = clPrograms[d]->getInfo(CL_PROGRAM_BINARY_SIZES, &sizes);
+						WriteLogInt("Program size", sizes[d], 2);
+					}
 					return true;
 				}
 				else

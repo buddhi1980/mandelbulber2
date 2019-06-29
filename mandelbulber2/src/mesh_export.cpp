@@ -161,12 +161,17 @@ void cMeshExport::ProcessVolume()
 
 	WriteLog("Marching cubes done.", 2);
 
-	cColorPalette palette = gPar->Get<cColorPalette>("mat1_surface_color_palette");
 	std::vector<sRGB8> colorsRGB;
+	cColorGradient gradient;
+	gradient.SetColorsFromString(gPar->Get<QString>("mat1_surface_color_gradient"));
+	double colorSpeed = gPar->Get<double>("mat1_coloring_speed");
+	double colorOffset = gPar->Get<double>("mat1_coloring_palette_offset");
 
 	for (double colorIndice : colorIndices)
 	{
-		sRGB color = palette.IndexToColour(colorIndice);
+		double nrCol = fmod(fabs(colorIndice), 248.0 * 256.0); // kept for compatibility
+		double colorPosition = fmod(nrCol / 256.0 / 10.0 * colorSpeed + colorOffset, 1.0);
+		sRGB color = gradient.GetColor(colorPosition, false);
 		sRGB8 color8(color.R, color.G, color.B);
 		colorsRGB.push_back(color8);
 	}
