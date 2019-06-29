@@ -129,6 +129,7 @@ typedef struct
 	cl_int mainLightEnable;
 	cl_int mainLightPositionAsRelative;
 	cl_int monteCarloSoftShadows;
+	cl_int monteCarloGIVolumetric;
 	cl_int penetratingLights;
 	cl_int raytracedReflections;
 	cl_int shadow;			// enable shadows
@@ -314,6 +315,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	target.mainLightEnable = source.mainLightEnable;
 	target.mainLightPositionAsRelative = source.mainLightPositionAsRelative;
 	target.monteCarloSoftShadows = source.monteCarloSoftShadows;
+	target.monteCarloGIVolumetric = source.monteCarloGIVolumetric;
 	target.penetratingLights = source.penetratingLights;
 	target.raytracedReflections = source.raytracedReflections;
 	target.shadow = source.shadow;

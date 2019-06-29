@@ -96,6 +96,8 @@ void cDockEffects::ConnectSignals() const
 
 	connect(ui->groupCheck_DOF_monte_carlo, SIGNAL(toggled(bool)), this,
 		SLOT(slotChangedEnableMCDOF(bool)));
+	connect(ui->checkBox_DOF_MC_global_illumination, SIGNAL(stateChanged(int)), this,
+		SLOT(slotChangedEnableGI(int)));
 }
 
 void cDockEffects::SynchronizeInterfaceBasicFogEnabled(cParameterContainer *par) const
@@ -246,4 +248,9 @@ void cDockEffects::slotChangedEnableMCDOF(bool state)
 			ui->groupCheck_ambient_occlusion_enabled->setChecked(false);
 		}
 	}
+}
+
+void cDockEffects::slotChangedEnableGI(int state)
+{
+	ui->checkBox_MC_global_illumination_volumetric->setEnabled(state);
 }

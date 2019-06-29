@@ -154,6 +154,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	mainLightVisibilitySize = container->Get<double>("main_light_visibility_size");
 	minN = container->Get<int>("minN");
 	monteCarloSoftShadows = container->Get<bool>("MC_soft_shadows_enable");
+	monteCarloGIVolumetric = container->Get<bool>("MC_global_illumination_volumetric");
 	N = container->Get<int>("N");
 	penetratingLights = container->Get<bool>("penetrating_lights");
 	perspectiveType = params::enumPerspectiveType(container->Get<int>("perspective_type"));

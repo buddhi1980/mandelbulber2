@@ -40,6 +40,9 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 	float3 out = 0.0f;
 	sShaderInputDataCl inputCopy = *input;
 	float3 objectColorTemp = objectColor;
+	float totalOpacity = 0.0f;
+
+	bool finished = false;
 	for (int rayDepth = 0; rayDepth < consts->params.reflectionsMax; rayDepth++)
 	{
 		float3 reflectedDirection = inputCopy.normal;
@@ -54,6 +57,10 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 		float dist = 0.0f;
 		bool found = false;
 		int objectId = 0;
+
+		float4 resultShader = 0.0f;
+		float3 newColor = objectColor;
+
 		for (float scan = inputCopy.distThresh; scan < consts->params.viewDistanceMax;
 				 scan += dist * consts->params.DEFactor)
 		{
@@ -80,6 +87,7 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 					inputCopy.distThresh, inputCopy.invertMode, calcParam);
 				inputCopy.normal = normal;
 				inputCopy.objectId = objectId;
+				inputCopy.depth = scan;
 
 				found = true;
 				break;
@@ -155,15 +163,33 @@ float3 GlobalIlumination(__constant sClInConstants *consts, sRenderData *renderD
 			float3 objectShader = ObjectShader(consts, renderData, &inputCopy, calcParam, &objectColor,
 				&specular, &iridescence, &gradients);
 
-			out += objectShader * objectColorTemp;
-			objectColorTemp = objectColor;
+			newColor = objectColor;
+			resultShader.xyz = objectShader;
 		}
 		else
 		{
+			inputCopy.point = inputCopy.point + consts->params.viewDistanceMax * randomizedDirection;
+			inputCopy.depth = consts->params.viewDistanceMax;
+
 			float3 backgroundShader = BackgroundShader(consts, renderData, image2dBackground, &inputCopy);
-			out += backgroundShader * objectColorTemp;
-			break;
+			resultShader.xyz = backgroundShader;
+			finished = true;
 		}
+
+		float opacityOut = 0.0f;
+
+#ifdef MC_GI_VOLUMETRIC
+		resultShader =
+			VolumetricShader(consts, renderData, &inputCopy, calcParam, resultShader, &opacityOut);
+#endif
+
+		float influence = clamp(1.0f - totalOpacity, 0.0f, 1.0f);
+		out += resultShader.xyz * objectColorTemp * influence;
+
+		totalOpacity += opacityOut;
+		objectColorTemp = newColor;
+
+		if (finished || totalOpacity > 1.0) break;
 	}
 	return out;
 }

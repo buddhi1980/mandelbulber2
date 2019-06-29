@@ -122,6 +122,7 @@ struct sParamRender
 	bool mainLightEnable;
 	bool mainLightPositionAsRelative;
 	bool monteCarloSoftShadows;
+	bool monteCarloGIVolumetric;
 	bool penetratingLights;
 	bool raytracedReflections;
 	bool shadow;			// enable shadows

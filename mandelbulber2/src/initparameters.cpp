@@ -311,6 +311,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam("basic_fog_enabled", false, morphLinear, paramStandard);
 	par->addParam("basic_fog_visibility", 20.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("basic_fog_color", sRGB(59399, 61202, 65535), morphLinear, paramStandard);
+
+	// DOF
 	par->addParam("DOF_enabled", false, morphLinear, paramStandard);
 	par->addParam("DOF_focus", 6.0, 0.0, 10000.0, morphLinear, paramStandard);
 	par->addParam("DOF_radius", 10.0, 0.0, 200.0, morphLinear, paramStandard);
@@ -323,6 +325,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("DOF_min_samples", 10, morphLinear, paramStandard);
 	par->addParam("DOF_max_noise", 1.0, 0.00001, 100.0, morphLinear, paramStandard);
 	par->addParam("DOF_MC_global_illumination", false, morphLinear, paramStandard);
+	par->addParam("MC_global_illumination_volumetric", false, morphLinear, paramStandard);
 	par->addParam("DOF_MC_CA_enable", false, morphLinear, paramStandard);
 	par->addParam("DOF_MC_CA_dispersion_gain", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);
 	par->addParam("DOF_MC_CA_camera_dispersion", 1.0, 1e-15, 1000.0, morphLinear, paramStandard);

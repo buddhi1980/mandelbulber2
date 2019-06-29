@@ -598,6 +598,25 @@ per pixel:</string>
                </widget>
               </item>
               <item>
+               <widget class="MyCheckBox" name="checkBox_MC_global_illumination_volumetric">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="text">
+                 <string>Global illumination by volumetric effects (OpenCL only)</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="MyCheckBox" name="checkBox_MC_soft_shadows_enable">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -1072,8 +1091,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>249</width>
-            <height>1037</height>
+            <width>545</width>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2019,8 +2038,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>379</height>
+            <width>545</width>
+            <height>1025</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4636,8 +4655,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>167</width>
-            <height>109</height>
+            <width>545</width>
+            <height>1017</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

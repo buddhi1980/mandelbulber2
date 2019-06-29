@@ -226,9 +226,9 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_roughness_texture.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_object.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
 			programEngine.append(
 				"\n#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
-			programEngine.append("\n#include \"" + openclEnginePath + "shader_volumetric.cl\"\n");
 		}
 		if (renderEngineMode == clRenderEngineTypeFull)
 		{
@@ -539,6 +539,10 @@ void cOpenClEngineRenderFractal::SetParametersForShaders(
 		if (paramRender->monteCarloSoftShadows)
 		{
 			definesCollector += " -DMC_SOFT_SHADOWS";
+		}
+		if (paramRender->monteCarloGIVolumetric)
+		{
+			definesCollector += " -DMC_GI_VOLUMETRIC";
 		}
 	}
 	if (paramRender->texturedBackground)
