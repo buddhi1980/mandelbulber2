@@ -224,6 +224,7 @@ void cOpenClEngineRenderFractal::CreateListOfIncludes(const QStringList &clHeade
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_iridescence.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_texture.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_normal_map_texture.cl\"\n");
+			programEngine.append("\n#include \"" + openclEnginePath + "shader_roughness_texture.cl\"\n");
 			programEngine.append("\n#include \"" + openclEnginePath + "shader_object.cl\"\n");
 			programEngine.append(
 				"\n#include \"" + openclEnginePath + "shader_global_illumination.cl\"\n");
