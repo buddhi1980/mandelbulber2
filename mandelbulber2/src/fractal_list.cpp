@@ -332,6 +332,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Menger - Prism Shape2", "menger_prism_shape2",
 		mengerPrismShape2, MengerPrismShape2Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Menger - Poly Fold", "menger_poly_fold",
+		mengerPolyFold, MengerPolyFoldIteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+
 	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
 		mengerPwr2Poly, MengerPwr2PolyIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));

@@ -165,6 +165,8 @@ void MengerCrossKIFSIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void MengerMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerMiddleModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerOctoIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void MengerPrismShapeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerPrismShape2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MengerPwr2PolyIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
