@@ -321,6 +321,7 @@ enum enumFractalFormula
 	transfBoxTiling4d = 1097,
 	// 2.19
 	transfDiagonalFold = 1098,
+	transfPolyFoldMulti = 1099,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
