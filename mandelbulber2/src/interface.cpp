@@ -264,6 +264,8 @@ void cInterface::ShowUi()
 		gPar->Get<bool>("opencl_enabled"));
 #endif
 
+	mainWindow->ui->actionImport_settings_from_Mandelbulb3d->setVisible(false);
+
 	if (gPar->Get<bool>("ui_colorize"))
 		ColorizeGroupBoxes(mainWindow, gPar->Get<int>("ui_colorize_random_seed"));
 
@@ -345,6 +347,8 @@ void cInterface::ConnectSignals() const
 		SLOT(slotMenuLoadExample()));
 	connect(mainWindow->ui->actionImport_settings_from_old_Mandelbulber, SIGNAL(triggered()),
 		mainWindow, SLOT(slotImportOldSettings()));
+	connect(mainWindow->ui->actionImport_settings_from_Mandelbulb3d, SIGNAL(triggered()), mainWindow,
+		SLOT(slotImportMandelbulb3dSettings()));
 	connect(mainWindow->ui->actionExportVoxelLayers, SIGNAL(triggered()), mainWindow,
 		SLOT(slotExportVoxelLayers()));
 	connect(

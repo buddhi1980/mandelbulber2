@@ -45,6 +45,7 @@
 #include "global_data.hpp"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "mandelbulb3d_settings.hpp"
 #include "material_item_model.h"
 #include "old_settings.hpp"
 #include "render_window.hpp"
@@ -72,6 +73,33 @@ void RenderWindow::slotImportOldSettings()
 		oldSettings::cOldSettings oldSettings;
 		oldSettings.LoadSettings(filename);
 		oldSettings.ConvertToNewContainer(gPar, gParFractal);
+		gMainInterface->RebuildPrimitives(gPar);
+		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+		gMainInterface->ComboMouseClickUpdate();
+		systemData.lastSettingsFile = filename;
+		setWindowTitle(QString("Mandelbulber (") + filename + ")");
+	}
+}
+
+void RenderWindow::slotImportMandelbulb3dSettings()
+{
+	QFileDialog dialog(this);
+	dialog.setOption(QFileDialog::DontUseNativeDialog);
+	dialog.setFileMode(QFileDialog::ExistingFile);
+	dialog.setNameFilter(tr("Fractals (*.m3d *.fract)"));
+	dialog.setDirectory(
+		QDir::toNativeSeparators(QFileInfo(systemData.lastSettingsFile).absolutePath()));
+	dialog.selectFile(QDir::toNativeSeparators(systemData.lastSettingsFile));
+	dialog.setAcceptMode(QFileDialog::AcceptOpen);
+	dialog.setWindowTitle(tr("Import settings from Mandelbulb3d settings file ..."));
+	QStringList filenames;
+	if (dialog.exec())
+	{
+		filenames = dialog.selectedFiles();
+		QString filename = QDir::toNativeSeparators(filenames.first());
+		cMandelbulb3dSettings m3dSettings;
+		m3dSettings.LoadSettings(filename);
+		m3dSettings.ConvertToNewContainer(gPar, gParFractal);
 		gMainInterface->RebuildPrimitives(gPar);
 		gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 		gMainInterface->ComboMouseClickUpdate();

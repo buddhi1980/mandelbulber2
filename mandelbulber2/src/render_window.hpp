@@ -132,6 +132,7 @@ private slots:
 
 	// pull down menu
 	void slotImportOldSettings();
+	void slotImportMandelbulb3dSettings();
 	void slotMenuAboutMandelbulber();
 	void slotMenuAboutQt();
 	void slotMenuAboutManual();
