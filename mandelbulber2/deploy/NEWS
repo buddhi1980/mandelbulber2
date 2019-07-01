@@ -4,8 +4,8 @@ dev v2.19
    mandelbulbPower1234
    mengerPolyFold
    transfDiagonalFold
-   transfPolyFoldMulti
-
+   transfPolyFoldAtan
+   transfPolyFoldAtan2
 
 - modified fractal formulas
    transfPolyFoldSymXY, added XY to name and updated code

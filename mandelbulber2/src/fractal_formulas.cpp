@@ -8180,6 +8180,12 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		}
 
 		z += fractal->transformCommon.additionConstant000;
+
+		// rotation
+		if (fractal->transformCommon.rotation2EnabledFalse)
+		{
+			z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+		}
 	}
 
 
@@ -12299,11 +12305,11 @@ void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
- * poly fold
+ * poly fold atan
  * @reference
- *
+ * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
  */
-void TransfPolyFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
 	// pre abs
@@ -12344,6 +12350,78 @@ void TransfPolyFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	// addition constant
 	z += fractal->transformCommon.additionConstant000;
+
+	// rotation
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	// DE tweaks
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		else
+		{
+			double avgScale = z.Length() / oldZ.Length();
+			aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		}
+	}
+}
+
+/**
+ * poly fold atan2
+ * @reference
+ * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
+ */
+void TransfPolyFoldAtan2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	// pre abs
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
+
+
+	if (fractal->transformCommon.functionEnabledCx)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
+		int poly = fractal->transformCommon.int8X;
+		double psi = abs(fmod(atan2(z.y, z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCyFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
+		int poly = fractal->transformCommon.int8Y;
+		double psi = abs(fmod(atan2(z.z, z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.y * z.y + z.z * z.z);
+		z.y = cos(psi) * len;
+		z.z = sin(psi) * len;
+	}
+
+	if (fractal->transformCommon.functionEnabledCzFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
+		int poly = fractal->transformCommon.int8Z;
+		double psi = abs(fmod(atan2(z.x, z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.z * z.z + z.x * z.x);
+		z.z = cos(psi) * len;
+		z.x = sin(psi) * len;
+	}
+
+	// addition constant
+	z += fractal->transformCommon.additionConstant000;
+
+	// rotation
+	if (fractal->transformCommon.rotation2EnabledFalse)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
 
 	// DE tweaks
 	if (fractal->analyticDE.enabled)
