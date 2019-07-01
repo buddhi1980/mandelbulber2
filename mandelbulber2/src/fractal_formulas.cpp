@@ -12415,16 +12415,23 @@ void TransfPolyFoldSymXYIteration(CVector4 &z, const sFractal *fractal, sExtende
  */
 void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	Q_UNUSED(aux);
+	CVector4 oldZ = z;
+	// pre abs
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 
 	int order = fractal->transformCommon.int6;
 	double div2PI = (double)order / M_PI_2x;
 	double temp = 0.0;
-
+	int sector;
 	if (fractal->transformCommon.functionEnabledCx)
 	{
 		bool cy = false;
-		int sector = (int)(-div2PI * atan(z.x / z.y));
+		if (!fractal->transformCommon.functionEnabledAxFalse)
+			sector = (int)(-div2PI * atan(z.x / z.y));
+		else
+			sector = (int)(-div2PI * atan2(z.x, z.y));
 		if (sector & 1) cy = true;
 		double angle = (double)(sector / div2PI);
 		temp = z.x;
@@ -12441,7 +12448,10 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
 		bool cz = false;
-		int sector = (int)(-div2PI * atan(z.y / z.z));
+		if (!fractal->transformCommon.functionEnabledAyFalse)
+			sector = (int)(-div2PI * atan(z.y / z.z));
+		else
+			sector = (int)(-div2PI * atan2(z.y, z.z));
 		if (sector & 1) cz = true;
 		double angle = (double)(sector / div2PI);
 		temp = z.y;
@@ -12452,7 +12462,10 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
 		bool cx = false;
-		int sector = (int)(-div2PI * atan(z.z / z.x));
+		if (!fractal->transformCommon.functionEnabledAzFalse)
+			sector = (int)(-div2PI * atan(z.z / z.x));
+		else
+			sector = (int)(-div2PI * atan2(z.z, z.x));
 		if (sector & 1) cx = true;
 		double angle = (double)(sector / div2PI);
 		temp = z.z;
@@ -12462,6 +12475,18 @@ void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExte
 	}
 
 	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		else
+		{
+			double avgScale = z.Length() / oldZ.Length();
+			aux.DE = aux.DE * avgScale * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		}
+	}
+
 }
 
 /**

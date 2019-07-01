@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>871</width>
-    <height>906</height>
+    <height>964</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,10 +31,10 @@
    </property>
    <item>
     <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_146">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_147">
        <property name="text">
-        <string>PolyFold Sym XY</string>
+        <string>use order  999 for smooth</string>
        </property>
       </widget>
      </item>
@@ -45,13 +45,6 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
-       <property name="text">
-        <string>switch to atan2</string>
-       </property>
-      </widget>
-     </item>
      <item row="2" column="1">
       <widget class="MyCheckBox" name="checkBox_transf_function_enabledy_false">
        <property name="text">
@@ -59,10 +52,17 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="label_147">
+     <item row="3" column="0">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabled_false">
        <property name="text">
-        <string>use order  999 for smooth</string>
+        <string>switch to atan2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_146">
+       <property name="text">
+        <string>generally use as a pre-transform</string>
        </property>
       </widget>
      </item>

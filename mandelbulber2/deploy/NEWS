@@ -1,4 +1,17 @@
 Version history
+dev v2.19
+- Added new fractal formulas
+   mandelbulbPower1234
+   mengerPolyFold
+   transfDiagonalFold
+   transfPolyFoldMulti
+
+
+- modified fractal formulas
+   transfPolyFoldSymXY, added XY to name and updated code
+   transfPolyFoldSymMulti, updated code
+
+
 
 v2.18 (June 2019)
 - Added new fractal formulas
