@@ -12364,15 +12364,23 @@ void TransfPolyFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
  * DarkBeam (luca) http://www.fractalforums.com/mandelbulber/
  * _polyfold_sym-and-polyfoldsymifs-in-mandelbulber-2/msg98162/#msg98162
  */
-void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void TransfPolyFoldSymXYIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	CVector4 oldZ = z;
+	// pre abs
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
 
 	int order = fractal->transformCommon.int6;
 	double div2PI = (double)order / M_PI_2x;
 
 	bool cy = false;
-	int sector = (int)(-div2PI * atan(z.x / z.y));
+	int sector;
+	if (!fractal->transformCommon.functionEnabledFalse)
+		sector = (int)(-div2PI * atan(z.x / z.y));
+	else
+		sector = (int)(-div2PI * atan2(z.x, z.y));
+
 	if (sector & 1) cy = true; // parity   if (sector & 1) is a "bit check", true = odd
 	double angle = (double)(sector / div2PI);
 	// z.xy = rotate(z.xy,angle); // sin
@@ -12381,6 +12389,10 @@ void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	z.y = tempZx * sin(angle) + z.y * cos(angle);
 	if (cy) z.y = -z.y;
 	// if ((order&1) && (sector == 0)) z.y = fabs(z.y); // more continuous?
+
+	// addition constant
+	z.x += fractal->transformCommon.offset0;
+	z.y += fractal->transformCommon.offsetA0;
 
 
 	if (fractal->analyticDE.enabled)

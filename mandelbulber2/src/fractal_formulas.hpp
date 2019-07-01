@@ -253,7 +253,7 @@ void TransfParabFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 void TransfPlatonicSolidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfPolyFoldMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-void TransfPolyFoldSymIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfPolyFoldSymXYIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfPolyFoldSymMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRPowerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfPwr2PolynomialIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
