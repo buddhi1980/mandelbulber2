@@ -8135,7 +8135,7 @@ void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 /**
  * menger poly fold
  * @reference
- *
+ * https://fractalforums.org/fragmentarium/17/polyfoldsym-pre-transform/2684
  */
 void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -8188,27 +8188,18 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		}
 	}
 
-
 	// Menger Sponge
-	int count = fractal->transformCommon.int1;
-	int k;
-	for (k = 0; k < count; k++)
-	{
-		z = fabs(z);
-		if (z.x - z.y < 0.0) swap(z.y, z.x);
-		if (z.x - z.z < 0.0) swap(z.z, z.x);
-		if (z.y - z.z < 0.0) swap(z.z, z.y);
-		z *= fractal->transformCommon.scale3;
-		z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
-		z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
-		if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
-		aux.DE *= fabs(fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1);
+	z = fabs(z);
+	if (z.x - z.y < 0.0) swap(z.y, z.x);
+	if (z.x - z.z < 0.0) swap(z.z, z.x);
+	if (z.y - z.z < 0.0) swap(z.z, z.y);
+	z *= fractal->transformCommon.scale3;
+	z.x -= 2.0 * fractal->transformCommon.constantMultiplierA111.x;
+	z.y -= 2.0 * fractal->transformCommon.constantMultiplierA111.y;
+	if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplierA111.z;
+	aux.DE *= fabs(fractal->transformCommon.scale3 * fractal->transformCommon.scaleA1);
 
-		z += fractal->transformCommon.additionConstantA000;
-	}
-
-
-
+	z += fractal->transformCommon.additionConstantA000;
 
 	if (fractal->analyticDE.enabled)
 	{
@@ -8221,7 +8212,6 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		}
 	}
 }
-
 
 /**
  * Msltoe Donut formula

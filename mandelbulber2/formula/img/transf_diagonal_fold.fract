@@ -1,0 +1,56 @@
+# Mandelbulber settings file
+# version 2.19
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 1.905303973153591 -3.227928325433346 2.979079905778077;
+camera_distance_to_target 4.788373965005944;
+camera_rotation 36.06424857396015 -42.47116212270898 -30.1540546375626;
+camera_top -0.7497655990005916 0.176241247563462 0.6378013556057706;
+check_for_bailout_1 false;
+flight_last_to_render 0;
+formula_1 1098;
+formula_2 98;
+formula_stop_iteration_1 4;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+mat1_fractal_coloring_add_max 0;
+mat1_fractal_coloring_add_spread 0;
+mat1_fractal_coloring_aux_color_scale1 0;
+mat1_fractal_coloring_aux_color_weight 0;
+mat1_fractal_coloring_cos_add 0;
+mat1_fractal_coloring_cos_period 0;
+mat1_fractal_coloring_ic_rad_weight 0;
+mat1_fractal_coloring_iter_add_scale 0;
+mat1_fractal_coloring_iter_add_scale_enabled_true false;
+mat1_fractal_coloring_max_color_value 0;
+mat1_fractal_coloring_orbit_trap_scale1 0;
+mat1_fractal_coloring_orbit_trap_true false;
+mat1_fractal_coloring_orbit_trap_weight 0;
+mat1_fractal_coloring_parab_scale 0;
+mat1_fractal_coloring_rad_div_de_scale1 0;
+mat1_fractal_coloring_rad_div_de_weight 0;
+mat1_fractal_coloring_rad_weight 0;
+mat1_fractal_coloring_round_scale 0;
+mat1_fractal_coloring_xyz_000 0 0 0;
+mat1_fractal_coloring_xyzC_111 0 0 0;
+mat1_is_defined true;
+mat1_surface_color_gradient 0 ff5917 1000 6e8e00 2000 fffa8e 3000 ffc309 4201 006092 5190 cf856f 6232 b20e64 6822 28a0ff 8000 d1ffd1 9000 b2ab2d;
+target -0.1739489958412476 -0.372820289380569 -0.2541213595531975;
+[fractal_1]
+transf_function_enabledAx_false true;
+transf_function_enabledAy_false true;
+transf_function_enabledAz_false true;
+transf_function_enabledCz_false true;
+transf_function_enabledz_false true;
+transf_int8_X 3;
+transf_int8_Z 5;
+transf_start_iterations_A 2;
+transf_stop_iterations_B 1;
+[fractal_2]
+transf_addition_constant 0.7 0.337972 0.337972;
+transf_constant_multiplier_111 0.7 1.053678 1;
+transf_scale3D_111 2.445328 2.644135 1.053678;

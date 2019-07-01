@@ -141,7 +141,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_45" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_45" columnstretch="0,1,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -167,6 +167,9 @@
         </item>
         <item row="1" column="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string notr="true">if (z.z &lt; 0.0) z.y= -z.y</string>
           </property>
@@ -187,6 +190,9 @@
         </item>
         <item row="2" column="2">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string notr="true">if (z.x &lt; 0.0) z.z= -z.z</string>
           </property>
@@ -220,6 +226,9 @@
         </item>
         <item row="1" column="1">
          <widget class="MySpinBox" name="spinboxInt_transf_int8_Y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -233,6 +242,9 @@
         </item>
         <item row="2" column="1">
          <widget class="MySpinBox" name="spinboxInt_transf_int8_Z">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1191,5 +1203,102 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledCx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_int8_X</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>228</x>
+     <y>103</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAx_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>557</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_int8_Y</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>269</x>
+     <y>138</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCy_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAy_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>29</x>
+     <y>135</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>569</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinboxInt_transf_int8_Z</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>15</x>
+     <y>157</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_transf_function_enabledCz_false</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledAz_false</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>28</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>557</x>
+     <y>162</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
