@@ -324,6 +324,7 @@ enum enumFractalFormula
 	transfDiagonalFold = 1098,
 	transfPolyFoldAtan = 1099,
 	transfPolyFoldAtan2 = 1100,
+	transfAbsAddConditional2 = 1101,
 
 	// hybrid color trial
 	transfHybridColor = 2000,

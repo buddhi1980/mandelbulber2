@@ -443,10 +443,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
-					double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
-					double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
+					out->distance = extendedAux.DE;
+					//double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
+					//double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 
-					out->distance = linDE + (logDE - linDE) * extendedAux.temp100;
+				//	out->distance = linDE + (logDE - linDE) * extendedAux.temp100;
 				// (logDE, linDE, extendedAux.temp100 / 100)); // temp use of auxtemp100.
 				}*/
 			}

@@ -10672,6 +10672,38 @@ void TransfAbsAddConditionalIteration(CVector4 &z, const sFractal *fractal, sExt
 }
 
 /**
+ * abs add conditional2.
+ */
+void TransfAbsAddConditional2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 Offset = fractal->transformCommon.offset111;
+	CVector4 OffsetA = fractal->transformCommon.offsetA111;
+
+	if (fractal->transformCommon.functionEnabled)
+		OffsetA = Offset;
+
+	if (fractal->transformCommon.functionEnabledx)
+	{
+		if (z.x < OffsetA.x)
+			z.x = (fabs(z.x) - Offset.x) + Offset.x;
+	}
+	if (fractal->transformCommon.functionEnabledy)
+	{
+		if (z.y < OffsetA.y)
+			z.y = (fabs(z.y) - Offset.y) + Offset.y;
+	}
+	if (fractal->transformCommon.functionEnabledz)
+	{
+		if (z.z < OffsetA.z)
+			z.z = (fabs(z.z) - Offset.z) + Offset.z;
+	}
+
+	aux.DE *= fractal->analyticDE.scale1; // DE tweak
+}
+
+
+
+/**
  * abs Negative abs constant,  z = - abs( z + constant)
  */
 void TransfNegAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -16769,11 +16801,27 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 size = fractal->transformCommon.offset1111;
-	// CVector4 wrap_mode = z;
-	CVector4 oldZ = z;
 
-	if (!fractal->transformCommon.functionEnabledFalse)
+
+	//CVector4 oldZ = z;
+	CVector4 zc = z;
+	//double fillet = fractal->transformCommon.offset0;
+	CVector4 boxSize = fractal->transformCommon.offset111;
+
+	zc = fabs(zc);
+	zc  =  zc - boxSize ;
+	//double zcd = 1.0;
+	//double dd = 1.0;
+	//CVector4 maxZc = CVector4(max(zc.x, 0.0), max(zc.y, 0.0), max(zc.z, 0.0), 0.0);
+
+	//if(any(greaterThan(zc,CVector4(0.0)))) zcd = maxZc.Length();
+
+	//else zcd =  max(zc.x, max(zc.y,zc.z));
+
+	//aux.DE = min(aux.DE, dd * pcd);
+
+	z *=fractal->transformCommon.scale1;
+	/*if (!fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
 		{
@@ -16824,7 +16872,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
 		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
 		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
-	}
+	}*/
 
 	if (fractal->analyticDE.enabled)
 	{

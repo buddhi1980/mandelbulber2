@@ -495,6 +495,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Abs Add Conditional", "transf_abs_add_conditional",
 		transfAbsAddConditional, TransfAbsAddConditionalIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Abs Add Conditional2", "transf_abs_add_conditional2",
+		transfAbsAddConditional2, TransfAbsAddConditional2Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Abs Add Multi", "transf_abs_add_multi",
 		transfAbsAddMulti, TransfAbsAddMultiIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
