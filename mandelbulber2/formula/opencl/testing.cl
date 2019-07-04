@@ -16,62 +16,47 @@
 
 REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	REAL4 size = fractal->transformCommon.offset1111;
-	// REAL4 wrap_mode = z;
-	REAL4 oldZ = z;
 
-	if (!fractal->transformCommon.functionEnabledFalse)
+	// REAL4 oldZ = z;
+	// REAL4 zc = z;
+	// REAL fillet = fractal->transformCommon.offset0;
+	REAL4 boxSize = fractal->transformCommon.offset111;
+	REAL yOffset = fractal->transformCommon.offset05;
+	// z = fabs(z);
+	// z  =  z - boxSize;
+	if (fractal->transformCommon.functionEnabled)
+		if (z.y > z.x)
+		{
+			REAL temp = z.x;
+			z.x = z.y;
+			z.y = temp;
+		}
+	if (fractal->transformCommon.functionEnabledFalse) z = z - boxSize;
+	/*REAL dist = max(z.x, max(z.y, z.z));
+	if (dist > 0.0f)
 	{
-		if (fractal->transformCommon.functionEnabledx && size.x != 0.0f)
-		{
-			z.x -= round(native_divide(z.x, size.x)) * size.x;
-		}
-		if (fractal->transformCommon.functionEnabledy && size.y != 0.0f)
-		{
-			z.y -= round(native_divide(z.y, size.y)) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledz && size.z != 0.0f)
-		{
-			z.z -= round(native_divide(z.z, size.z)) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledw && size.w != 0.0f)
-		{
-			z.w -= round(native_divide(z.w, size.w)) * size.w;
-		}
-	}
-	else
-	{
-		REAL4 repeatPos = fractal->transformCommon.offsetA1111;
-		REAL4 repeatNeg = fractal->transformCommon.offsetB1111;
+		zc.x = max(zc.x, 0.0f);
+		zc.y = max(zc.y, 0.0f);
+		zc.z = max(zc.y, 0.0f);
+		dist = max(dist, length(zc));
+	}*/
 
-		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5f) * size.x
-				&& z.x > (repeatNeg.x + 0.5f) * -size.x && size.x != 0.0f)
-		{
-			z.x -= round(native_divide(z.x, size.x)) * size.x;
-		}
-		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5f) * size.y
-				&& z.y > (repeatNeg.y + 0.5f) * -size.y && size.y != 0.0f)
-		{
-			z.y -= round(native_divide(z.y, size.y)) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5f) * size.z
-				&& z.z > (repeatNeg.z + 0.5f) * -size.z && size.z != 0.0f)
-		{
-			z.z -= round(native_divide(z.z, size.z)) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5f) * size.w
-				&& z.w > (repeatNeg.w + 0.5f) * -size.w && size.w != 0.0f)
-		{
-			z.w -= round(native_divide(z.w, size.w)) * size.w;
-		}
+	if (z.y < yOffset) z.y = abs(z.y - yOffset) + yOffset;
+	z -= fractal->transformCommon.offset000;
+	z *= fractal->transformCommon.scale1;
+	aux->DE *= fabs(fractal->transformCommon.scale1);
+	z -= fractal->transformCommon.offsetA000;
+	z = fabs(z);
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux->i >= fractal->transformCommon.startIterationsR
+			&& aux->i < fractal->transformCommon.stopIterationsR)
+	{
+		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
 
-	if (fractal->transformCommon.functionEnabledBxFalse)
-	{
-		z.x = z.x * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.x) + 1.0f));
-		z.y = z.y * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.y) + 1.0f));
-		z.z = z.z * native_divide(fractal->transformCommon.scale1, (fabs(oldZ.z) + 1.0f));
-	}
+	REAL4 zc = z;
 
 	if (fractal->analyticDE.enabled)
 	{
@@ -79,7 +64,23 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 		else
 		{
-			aux->DE = mad(aux->DE * length(z), fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+			REAL dist = max(z.x, max(z.y, z.z));
+			if (dist > 0.0f)
+			{
+				zc.x = max(z.x, 0.0f);
+				zc.y = max(z.y, 0.0f);
+
+				zc.z = max(z.z, 0.0f);
+				dist = max(dist, length(zc));
+			}
+			REAL maxDist = dist;
+			maxDist = max(maxDist, length(z));
+			aux->DE = aux->DE * native_divide(maxDist, length(z)) * fractal->analyticDE.scale1
+								+ fractal->analyticDE.offset0;
+			if (fractal->transformCommon.functionEnabledyFalse)
+			{
+				z = zc;
+			}
 		}
 	}
 	return z;

@@ -148,11 +148,12 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.const_c = c;
 	aux.old_z = z;
 	aux.sum_z = z;
-	aux.pos_neg = 1.0;
+	aux.pos_neg = 1.0f;
 	aux.cw = 0.0f;
 
 	aux.r = length(z);
 	aux.DE = 1.0f;
+	aux.dist = 1.0f;
 	aux.pseudoKleinianDE = 1.0f;
 
 	aux.actualScale = consts->fractal[fractalIndex].mandelbox.scale;
@@ -161,8 +162,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.color = 1.0f;
 	aux.colorHybrid = 0.0f;
 
-	aux.temp100 = 100.0f;
-	aux.addDist = 0.0;
+	aux.temp1000 = 1000.0f;
+	aux.addDist = 0.0f;
 
 	int sequence = 0;
 	__constant sFractalCl *fractal;

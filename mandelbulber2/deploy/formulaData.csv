@@ -59,6 +59,7 @@ mandelbulbEye,"Mandelbulb Eye",analyticDEType,logarithmicDEFunction,cpixelEnable
 mandelbulbAbsPower2,"Mandelbulb - Abs Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbAtan2Power2,"Mandelbulb - Atan2 Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbBermarte,"Mandelbulb - Bermarte",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbPower1234,"Mandelbulb - Power 1234",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPower2,"Mandelbulb - Power 2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbJuliabulb,"Mandelbulb - Juliabulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -77,6 +78,7 @@ mengerMiddleMod,"Menger - Middle Mod",analyticDEType,linearDEFunction,cpixelDisa
 mengerOcto,"Menger - Octo",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 mengerPrismShape,"Menger - Prism Shape",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 mengerPrismShape2,"Menger - Prism Shape2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
+mengerPolyFold,"Menger - Poly Fold",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
 mengerPwr2Poly,"Menger - Pwr2 Polynomial",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionIFS
 mengerSmooth,"Menger - Smooth",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
 mengerSmoothMod1,"Menger - Smooth Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionIFS,coloringFunctionDefault
@@ -121,6 +123,7 @@ quaternionCubic4d,"Quaternion Cubic 4D",deltaDEType,logarithmicDEFunction,cpixel
 transfAbsAddConstant,"T>Abs Add Constant",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddTgladFold,"T>Abs Add Tglad Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAbsAddConditional,"T>Abs Add Conditional",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+transfAbsAddConditional2,"T>Abs Add Conditional2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfAbsAddMulti,"T>Abs Add Multi",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfNegAbsAddConstant,"T>Abs Add Neg",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAddConstant,"T>Add Constant",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
@@ -149,6 +152,7 @@ transfBoxFold,"T>Box Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefa
 transfBoxFoldVaryV1,"T>Box Fold VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxFoldXYZ,"T>Box Fold XYZ",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfBoxOffset,"T>Box Offset",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfDiagonalFold,"T>Diagonal Fold",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfFoldingTetra3d,"T>Folding Tetra 3D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfGnarl,T>Gnarl,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfIterationWeight,"T>Iteration Weight",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
@@ -159,7 +163,9 @@ transfMultipleAngle,"T>Multiple angle",analyticDEType,withoutDEFunction,cpixelDi
 transfOctoFold,"T>Octo Fold",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfParabFold,"T>Parab Fold",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfPlatonicSolid,"T>Platonic Solid",deltaDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
-transfPolyFoldSym,"T>Poly Fold Sym",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfPolyFoldAtan,"T>Poly Fold Atan",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfPolyFoldAtan2,"T>Poly Fold Atan2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+transfPolyFoldSymXY,"T>Poly Fold Sym XY",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfPolyFoldSymMulti,"T>Poly Fold Sym Multi",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfPwr2Polynomial,"T>Power2 Polynomial",analyticDEType,linearDEFunction,cpixelDisabledByDefault,10,analyticFunctionLinear,coloringFunctionDefault
 transfQuaternionFold,"T>Quaternion Fold",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -219,7 +225,6 @@ transfSurfBoxFoldV24d,"T>Surf Box_Fold V2 4D",analyticDEType,linearDEFunction,cp
 transfHybridColor,"T>Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfHybridColor2,"T>Hybrid Color2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 testing,Testing,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
+testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2,analyticFunctionLogarithmic,coloringFunctionDefault
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
-testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
-mandelbulbEyeTest,"Testing Par",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2,analyticFunctionLogarithmic,coloringFunctionDefault

@@ -639,7 +639,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
 
-	fractalList->append(sFractalDescription("T>Poly Fold Sym XY", "transf_poly_fold_sym_XY",
+	fractalList->append(sFractalDescription("T>Poly Fold Sym XY", "transf_poly_fold_sym_xy",
 		transfPolyFoldSymXY, TransfPolyFoldSymXYIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 

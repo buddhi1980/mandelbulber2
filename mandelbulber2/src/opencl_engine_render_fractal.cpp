@@ -1413,7 +1413,7 @@ void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect cor
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
-	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xyz", "Cxyz", "Vcl", "Chs"});
+	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs"});
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
 	for (int i = 1; i < parts.size(); ++i)
 	{

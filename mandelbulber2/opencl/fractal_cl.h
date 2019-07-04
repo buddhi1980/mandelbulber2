@@ -96,6 +96,7 @@ typedef struct
 
 	cl_float r;
 	cl_float DE;
+	cl_float dist;
 	cl_float pseudoKleinianDE;
 	cl_float linearDE;
 
@@ -105,7 +106,6 @@ typedef struct
 	cl_float color;
 	cl_float colorHybrid;
 
-	// temp for trial
 	cl_float temp1000;
 	cl_float addDist;
 } sExtendedAuxCl;
@@ -753,7 +753,7 @@ typedef struct
 	cl_int sphereInversionEnabledFalse;
 	cl_int spheresEnabled;
 
-	// bool functionEnabledTempFalse;
+	// cl_int functionEnabledTempFalse;
 } sFractalTransformCommonCl;
 
 typedef struct
@@ -806,6 +806,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.cw = source.cw;
 	target.r = source.r;
 	target.DE = source.DE;
+	target.dist = source.dist;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
 	target.linearDE = source.linearDE;
 	target.actualScale = source.actualScale;

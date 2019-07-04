@@ -18,16 +18,23 @@
 
 REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
+	REAL4 oldZ = z;
+	// pre abs
+	if (fractal->transformCommon.functionEnabledxFalse) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledyFalse) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledzFalse) z.z = fabs(z.z);
 
 	int order = fractal->transformCommon.int6;
 	REAL div2PI = (REAL)native_divide(order, M_PI_2x);
 	REAL temp = 0.0f;
-
+	int sector;
 	if (fractal->transformCommon.functionEnabledCx)
 	{
 		bool cy = false;
-		int sector = (int)(-div2PI * atan(native_divide(z.x, z.y)));
+		if (!fractal->transformCommon.functionEnabledAxFalse)
+			sector = (int)(-div2PI * atan(native_divide(z.x, z.y)));
+		else
+			sector = (int)(-div2PI * atan2(z.x, z.y));
 		if (sector & 1) cy = true;
 		REAL angle = (REAL)(native_divide(sector, div2PI));
 		temp = z.x;
@@ -44,7 +51,10 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->transformCommon.functionEnabledCyFalse)
 	{
 		bool cz = false;
-		int sector = (int)(-div2PI * atan(native_divide(z.y, z.z)));
+		if (!fractal->transformCommon.functionEnabledAyFalse)
+			sector = (int)(-div2PI * atan(native_divide(z.y, z.z)));
+		else
+			sector = (int)(-div2PI * atan2(z.y, z.z));
 		if (sector & 1) cz = true;
 		REAL angle = (REAL)(native_divide(sector, div2PI));
 		temp = z.y;
@@ -55,7 +65,10 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 	if (fractal->transformCommon.functionEnabledCzFalse)
 	{
 		bool cx = false;
-		int sector = (int)(-div2PI * atan(native_divide(z.z, z.x)));
+		if (!fractal->transformCommon.functionEnabledAzFalse)
+			sector = (int)(-div2PI * atan(native_divide(z.z, z.x)));
+		else
+			sector = (int)(-div2PI * atan2(z.z, z.x));
 		if (sector & 1) cx = true;
 		REAL angle = (REAL)(native_divide(sector, div2PI));
 		temp = z.z;
@@ -63,5 +76,19 @@ REAL4 TransfPolyFoldSymMultiIteration(REAL4 z, __constant sFractalCl *fractal, s
 		z.x = mad(temp, native_sin(angle), z.x * native_cos(angle));
 		if (cx == true) z.x = -z.x;
 	}
+
+	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->analyticDE.enabled)
+	{
+		if (!fractal->analyticDE.enabledFalse)
+			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		else
+		{
+			REAL avgScale = native_divide(length(z), length(oldZ));
+			aux->DE = mad(aux->DE * avgScale, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		}
+	}
+
 	return z;
 }

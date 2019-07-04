@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -45,7 +45,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		z.y = (z.y - (sign(z.y) * (Add.y)));
 		z.z = (z.z - (sign(z.z) * (Add.z)));
 	}
-	// aux->color
+	// aux->color mode 1
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
 		if (z.x != oldZ.x) colorAdd += fractal->mandelbox.color.factor.x;
@@ -84,7 +84,6 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 			colorAdd +=
 				fractal->mandelbox.color.factor.z * (1.0f - native_divide((limit.z - fabs(z.z)), limit.z));
 		}
-		aux->color += colorAdd;
 	}
 
 	// mode 3
@@ -103,7 +102,7 @@ REAL4 TransfAbsAddTgladFoldIteration(REAL4 z, __constant sFractalCl *fractal, sE
 		{
 			colorAdd += fractal->mandelbox.color.factor.z * native_divide((fabs(z.z) - limit.z), limit.z);
 		}
-		aux->color += colorAdd;
 	}
+	aux->color += colorAdd;
 	return z;
 }
