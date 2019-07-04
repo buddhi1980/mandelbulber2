@@ -101,7 +101,7 @@ protected:
 	static QString GetType(const QString &name);
 
 	// contextMenuEvent doesn't overwrite method from child class, but this function cal be called
-	void contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = nullptr);
+	const QAction *contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu = nullptr);
 };
 
 #endif /* MANDELBULBER2_QT_COMMON_MY_WIDGET_WRAPPER_H_ */

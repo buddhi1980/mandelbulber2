@@ -566,9 +566,9 @@ void SynchronizeInterfaceColorGradientWidget(
 		widgetProperties props = parseWidgetProperties((*it), {"cGradientEditWidget"});
 		if (props.allowed)
 		{
-			cGradientEditWidget *colorGradientWidget = *it;
-			// colorGradientWidget->AssignParameterContainer(par);
-			// colorGradientWidget->AssignParameterName(props.paramName);
+			cGradientEditWidget *colorGradientWidget = static_cast<cGradientEditWidget *>(*it);
+			colorGradientWidget->AssignParameterContainer(par);
+			colorGradientWidget->AssignParameterName(props.paramName);
 
 			if (props.typeName == QString("colorpalette"))
 			{

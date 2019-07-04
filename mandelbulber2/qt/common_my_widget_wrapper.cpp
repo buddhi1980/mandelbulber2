@@ -44,7 +44,7 @@
 #include "src/animation_flight.hpp"
 #include "src/animation_keyframes.hpp"
 
-void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu)
+const QAction *CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *existingMenu)
 {
 	QMenu *menu;
 	if (existingMenu)
@@ -64,6 +64,8 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 	actionResetToDefault =
 		menu->addAction(QCoreApplication::translate("CommonMyWidgetWrapper", "Reset to default"));
 	actionResetToDefault->setIcon(iconReset);
+
+	const QAction *selectedItem = nullptr;
 
 	if (parameterContainer)
 	{
@@ -99,7 +101,7 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 			}
 		}
 
-		const QAction *selectedItem = menu->exec(event->globalPos());
+		selectedItem = menu->exec(event->globalPos());
 		if (selectedItem)
 		{
 			if (selectedItem == actionResetToDefault)
@@ -139,6 +141,7 @@ void CommonMyWidgetWrapper::contextMenuEvent(QContextMenuEvent *event, QMenu *ex
 								<< widget->objectName();
 	}
 	delete menu;
+	return selectedItem;
 }
 
 void CommonMyWidgetWrapper::setToolTipText()
