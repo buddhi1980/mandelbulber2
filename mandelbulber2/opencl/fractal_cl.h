@@ -106,7 +106,7 @@ typedef struct
 	cl_float colorHybrid;
 
 	// temp for trial
-	cl_float temp100;
+	cl_float temp1000;
 	cl_float addDist;
 } sExtendedAuxCl;
 
@@ -812,7 +812,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.actualScaleA = source.actualScaleA;
 	target.color = source.color;
 	target.colorHybrid = source.colorHybrid;
-	target.temp100 = source.temp100;
+	target.temp1000 = source.temp1000;
 	target.addDist = source.addDist;
 	return target;
 }

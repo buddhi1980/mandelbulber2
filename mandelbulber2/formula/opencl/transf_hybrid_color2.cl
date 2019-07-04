@@ -111,8 +111,8 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (!fractal->transformCommon.functionEnabledFalse)
 
 	{
-		aux->temp100 = min(aux->temp100, componentMaster);
-		aux->colorHybrid = aux->temp100;
+		aux->temp1000 = min(aux->temp1000, componentMaster);
+		aux->colorHybrid = aux->temp1000;
 	}
 	else
 		aux->colorHybrid = componentMaster;
