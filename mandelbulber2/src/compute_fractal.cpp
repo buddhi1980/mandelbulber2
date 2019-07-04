@@ -92,6 +92,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.r = r;
 	extendedAux.DE = 1.0;
+	extendedAux.dist = 1.0;
 	extendedAux.pseudoKleinianDE = 1.0;
 
 	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
@@ -100,7 +101,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 	extendedAux.color = 1.0;
 	extendedAux.colorHybrid = 0.0;
 
-	extendedAux.temp100 = 100.0;
+	extendedAux.temp1000 = 1000.0;
 	extendedAux.addDist = 0.0;
 
 	// main iteration loop
@@ -443,12 +444,12 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
-					out->distance = extendedAux.DE;
+					out->distance = extendedAux.dist/extendedAux.DE;
 					//double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
 					//double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 
-				//	out->distance = linDE + (logDE - linDE) * extendedAux.temp100;
-				// (logDE, linDE, extendedAux.temp100 / 100)); // temp use of auxtemp100.
+				//	out->distance = linDE + (logDE - linDE) * extendedAux.temp1000;
+				// (logDE, linDE, extendedAux.temp1000 / 100)); // temp use of auxtemp1000.
 				}*/
 			}
 			else

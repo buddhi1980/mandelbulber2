@@ -83,6 +83,7 @@ struct sExtendedAux
 
 	double r;
 	double DE;
+	double dist;
 	double pseudoKleinianDE;
 	double linearDE;
 
@@ -92,8 +93,8 @@ struct sExtendedAux
 	double color;
 	double colorHybrid;
 
-	// temp for trial
-	double temp100;
+
+	double temp1000;
 	double addDist;
 };
 

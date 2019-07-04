@@ -16788,8 +16788,8 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	if (!fractal->transformCommon.functionEnabledFalse)
 
 	{
-		aux.temp100 = min(aux.temp100, componentMaster);
-		aux.colorHybrid = aux.temp100;
+		aux.temp1000 = min(aux.temp1000, componentMaster);
+		aux.colorHybrid = aux.temp1000;
 	}
 	else
 		aux.colorHybrid = componentMaster;
@@ -16804,75 +16804,42 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 
 	//CVector4 oldZ = z;
-	CVector4 zc = z;
+	//CVector4 zc = z;
 	//double fillet = fractal->transformCommon.offset0;
 	CVector4 boxSize = fractal->transformCommon.offset111;
-
-	zc = fabs(zc);
-	zc  =  zc - boxSize ;
-	//double zcd = 1.0;
-	//double dd = 1.0;
-	//CVector4 maxZc = CVector4(max(zc.x, 0.0), max(zc.y, 0.0), max(zc.z, 0.0), 0.0);
-
-	//if(any(greaterThan(zc,CVector4(0.0)))) zcd = maxZc.Length();
-
-	//else zcd =  max(zc.x, max(zc.y,zc.z));
-
-	//aux.DE = min(aux.DE, dd * pcd);
-
-	z *=fractal->transformCommon.scale1;
-	/*if (!fractal->transformCommon.functionEnabledFalse)
+	double yOffset = fractal->transformCommon.offset05;
+	//z = fabs(z);
+	//z  =  z - boxSize;
+	if (fractal->transformCommon.functionEnabled)
+		if (z.y > z.x) swap(z.x, z.y);
+	if (fractal->transformCommon.functionEnabledFalse)
+		z  =  z - boxSize;
+	/*double dist = max(z.x, max(z.y, z.z));
+	if (dist > 0.0)
 	{
-		if (fractal->transformCommon.functionEnabledx && size.x != 0.0)
-		{
-			z.x -= round(z.x / size.x) * size.x;
-		}
-		if (fractal->transformCommon.functionEnabledy && size.y != 0.0)
-		{
-			z.y -= round(z.y / size.y) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledz && size.z != 0.0)
-		{
-			z.z -= round(z.z / size.z) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledw && size.w != 0.0)
-		{
-			z.w -= round(z.w / size.w) * size.w;
-		}
-	}
-	else
-	{
-		CVector4 repeatPos = fractal->transformCommon.offsetA1111;
-		CVector4 repeatNeg = fractal->transformCommon.offsetB1111;
-
-		if (fractal->transformCommon.functionEnabledx && z.x < (repeatPos.x + 0.5) * size.x
-				&& z.x > (repeatNeg.x + 0.5) * -size.x && size.x != 0.0)
-		{
-			z.x -= round(z.x / size.x) * size.x;
-		}
-		if (fractal->transformCommon.functionEnabledy && z.y < (repeatPos.y + 0.5) * size.y
-				&& z.y > (repeatNeg.y + 0.5) * -size.y && size.y != 0.0)
-		{
-			z.y -= round(z.y / size.y) * size.y;
-		}
-		if (fractal->transformCommon.functionEnabledz && z.z < (repeatPos.z + 0.5) * size.z
-				&& z.z > (repeatNeg.z + 0.5) * -size.z && size.z != 0.0)
-		{
-			z.z -= round(z.z / size.z) * size.z;
-		}
-		if (fractal->transformCommon.functionEnabledw && z.w < (repeatPos.w + 0.5) * size.w
-				&& z.w > (repeatNeg.w + 0.5) * -size.w && size.w != 0.0)
-		{
-			z.w -= round(z.w / size.w) * size.w;
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledBxFalse)
-	{
-		z.x = z.x * fractal->transformCommon.scale1 / (fabs(oldZ.x) + 1.0);
-		z.y = z.y * fractal->transformCommon.scale1 / (fabs(oldZ.y) + 1.0);
-		z.z = z.z * fractal->transformCommon.scale1 / (fabs(oldZ.z) + 1.0);
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.y, 0.0);
+		dist = max(dist, zc.Length());
 	}*/
+
+	if(z.y < yOffset) z.y = abs(z.y - yOffset) + yOffset;
+	z -= fractal->transformCommon.offset000;
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
+	z -= fractal->transformCommon.offsetA000;
+	z = fabs(z);
+
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	CVector4 zc = z;
 
 	if (fractal->analyticDE.enabled)
 	{
@@ -16880,7 +16847,22 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			aux.DE = aux.DE * z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			double dist = max(z.x, max(z.y, z.z));
+				if (dist > 0.0)
+				{
+					zc.x = max(z.x, 0.0);
+					zc.y = max(z.y, 0.0);
+
+					zc.z = max(z.z, 0.0);
+					dist = max(dist, zc.Length());
+				}
+			double maxDist = dist;
+			maxDist = max(maxDist, z.Length());
+			aux.DE = aux.DE * maxDist / z.Length() * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			if(fractal->transformCommon.functionEnabledyFalse)
+			{
+				z = zc;
+			}
 		}
 	}
 }
@@ -17142,7 +17124,7 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 
 /**
- * testing
+ * testing log
  */
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
