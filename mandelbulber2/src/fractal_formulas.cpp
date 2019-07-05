@@ -6505,7 +6505,7 @@ void MandelbulbPower1234Iteration(CVector4 &z, const sFractal *fractal, sExtende
 		newZ4 *= w8ts.w;
 	}
 	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux.DE = abs(de1 + de2 + de3 + de4);
+	aux.DE = fabs(de1 + de2 + de3 + de4);
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
@@ -10522,7 +10522,7 @@ void SphericalFolding(CVector4 &z, const sFractalFoldings *foldings, sExtendedAu
 
 // NEW TRANSFORM FORMULAS-----------------------------------------------------------------
 /**
- * abs add  constant,  z = abs( z + pre-offset) + post-offset
+ * abs add  constant,  z = fabs( z + pre-offset) + post-offset
  */
 void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -10540,7 +10540,7 @@ void TransfAbsAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtend
 }
 
 /**
- * abs add tglad fold,  z = abs( z + constant) - abs( z - constant) - z:
+ * abs add tglad fold,  z = fabs( z + constant) -fabs( z - constant) - z:
  * with a fold tweak option
  * This formula contains aux.color
  */
@@ -17241,7 +17241,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		newZ4 *= w8ts.w;
 	}
 	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux.DE = abs(de1 + de2 + de3 + de4);
+	aux.DE = fabs(de1 + de2 + de3 + de4);
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{

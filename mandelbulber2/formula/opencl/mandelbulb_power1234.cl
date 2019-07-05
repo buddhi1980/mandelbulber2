@@ -127,7 +127,7 @@ REAL4 MandelbulbPower1234Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		newZ4 *= w8ts.w;
 	}
 	z = newZ1 + newZ2 + newZ3 + newZ4;
-	aux->DE = abs(de1 + de2 + de3 + de4);
+	aux->DE = fabs(de1 + de2 + de3 + de4);
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
