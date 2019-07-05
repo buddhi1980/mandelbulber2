@@ -84,6 +84,8 @@ public:
 	QString GetOriginalContainerName() const { return originalContainer; }
 	void SetParameterType(enumParameterType _parType) { parType = _parType; }
 	void SetMorphType(enumMorphType _morphType) { morphType = _morphType; }
+	void SetAsGradient() { isGradientString = true; }
+	bool IsGradient() { return isGradientString; }
 	void SetOriginalContainerName(const QString &containerName) { originalContainer = containerName; }
 	bool isDefaultValue() const;
 	cMultiVal GetMultiVal(enumValueSelection selection) const;
@@ -116,6 +118,7 @@ private:
 	bool limitsDefined;
 	bool isEmpty;
 	QStringList enumLookup;
+	bool isGradientString;
 };
 
 #endif /* MANDELBULBER2_SRC_ONE_PARAMETER_HPP_ */

@@ -97,6 +97,7 @@ public:
 	bool IfExists(const QString &name) const;
 	void DeleteParameter(const QString &name);
 	QMap<QString, QString> getImageMeta();
+	void SetAsGradient(QString name);
 
 private:
 	static QString nameWithIndex(QString *str, int index);

@@ -367,7 +367,14 @@ double cColorGradient::CorrectPosition(double position, int ignoreIndex)
 
 sRGB cColorGradient::GetColorByIndex(int index)
 {
+	if (index > colors.size() - 1) index = 1; // if index is too high then get most right color
 	return colors.at(index).color;
+}
+
+double cColorGradient::GetPositionByIndex(int index)
+{
+	if (index > colors.size() - 1) index = 1; // if index is too high then get most right color
+	return colors.at(index).position;
 }
 
 sRGB cColorGradient::MakeGrayscaleIfNeeded(sRGB color)

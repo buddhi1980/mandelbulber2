@@ -44,6 +44,7 @@ cOneParameter::cOneParameter()
 	parType = paramStandard;
 	limitsDefined = false;
 	isEmpty = true;
+	isGradientString = false;
 }
 
 cOneParameter::~cOneParameter() = default;
@@ -54,6 +55,7 @@ void cOneParameter::copy(const cOneParameter &other)
 	parType = other.parType;
 	limitsDefined = other.limitsDefined;
 	isEmpty = other.isEmpty;
+	isGradientString = other.isGradientString;
 }
 
 void cOneParameter::copyNotMovable(const cOneParameter &other)

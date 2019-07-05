@@ -32,6 +32,7 @@ public:
 	sRGB GetColor(double position, bool smooth) const;
 	sRGBFloat GetColorFloat(double position, bool smooth) const;
 	sRGB GetColorByIndex(int index);
+	double GetPositionByIndex(int index);
 	QList<sColor> GetListOfColors() const;
 	QList<sColor> GetListOfSortedColors() const;
 	QVector<sRGB> GetGradient(int length, bool smooth);

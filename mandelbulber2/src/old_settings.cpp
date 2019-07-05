@@ -1144,7 +1144,7 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	{
 		double pos = double(i) * step;
 		newGradient.AddColor(oldData->palette[i], pos);
-		if (i == 0) newGradient.AddColor(oldData->palette[i], pos);
+		if (i == 0) newGradient.AddColor(oldData->palette[i], 1.0);
 	}
 	QString newPalette = newGradient.GetColorsAsString();
 	par->Set("mat1_surface_color_gradient", newPalette);

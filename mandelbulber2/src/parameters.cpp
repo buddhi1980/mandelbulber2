@@ -660,3 +660,20 @@ QMap<QString, QString> cParameterContainer::getImageMeta()
 
 	return map;
 }
+
+void cParameterContainer::SetAsGradient(QString name)
+{
+	QMutexLocker lock(&m_lock);
+
+	QMap<QString, cOneParameter>::iterator it;
+	it = myMap.find(name);
+	if (it != myMap.end())
+	{
+		it->SetAsGradient();
+	}
+	else
+	{
+		qWarning() << "cParameterContainer::SetAsGradient(QString name): element '" << name
+							 << "' doesn't exists" << endl;
+	}
+}

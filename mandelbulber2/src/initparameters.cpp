@@ -1458,19 +1458,27 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 "
 						"3b9fee "
 						"8000 d4ffd4 9000 aba53c"),
-		morphNone, paramStandard);
-	par->addParam(cMaterial::Name("specular_gradient", materialId), QString("0 ffffff"), morphNone,
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("specular_gradient", materialId), QString("0 ffffff"), morphLinear,
 		paramStandard);
-	par->addParam(
-		cMaterial::Name("diffuse_gradient", materialId), QString("0 ffffff"), morphNone, paramStandard);
-	par->addParam(cMaterial::Name("luminosity_gradient", materialId), QString("0 000000"), morphNone,
+	par->addParam(cMaterial::Name("diffuse_gradient", materialId), QString("0 ffffff"), morphLinear,
 		paramStandard);
-	par->addParam(cMaterial::Name("roughness_gradient", materialId), QString("0 ffffff"), morphNone,
+	par->addParam(cMaterial::Name("luminosity_gradient", materialId), QString("0 000000"),
+		morphLinear, paramStandard);
+	par->addParam(cMaterial::Name("roughness_gradient", materialId), QString("0 ffffff"), morphLinear,
 		paramStandard);
-	par->addParam(cMaterial::Name("reflectance_gradient", materialId), QString("0 ffffff"), morphNone,
-		paramStandard);
+	par->addParam(cMaterial::Name("reflectance_gradient", materialId), QString("0 ffffff"),
+		morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("transparency_gradient", materialId), QString("0 ffffff"),
-		morphNone, paramStandard);
+		morphLinear, paramStandard);
+
+	par->SetAsGradient(cMaterial::Name("surface_color_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("specular_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("diffuse_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("luminosity_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("roughness_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("reflectance_gradient", materialId));
+	par->SetAsGradient(cMaterial::Name("transparency_gradient", materialId));
 }
 
 void DeletePrimitiveParams(
