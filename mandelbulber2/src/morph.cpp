@@ -183,22 +183,22 @@ cOneParameter cMorph::Linear(const int key, const double factor, const bool angu
 				LinearInterpolate(factor, v1.w, v2.w, angular)));
 			break;
 		}
-		case typeColorPalette:
-		{
-			cColorPalette v1, v2;
-			cColorPalette out;
-			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
-			for (int i = 0; i < v1.GetSize(); i++)
-			{
-				out.AppendColor(
-					sRGB(int(LinearInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R, angular)),
-						int(LinearInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, angular)),
-						int(LinearInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, angular))));
-			}
-			val.Store(out);
-			break;
-		}
+			//		case typeColorPalette:
+			//		{
+			//			cColorPalette v1, v2;
+			//			cColorPalette out;
+			//			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			//			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			//			for (int i = 0; i < v1.GetSize(); i++)
+			//			{
+			//				out.AppendColor(
+			//					sRGB(int(LinearInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R, angular)),
+			//						int(LinearInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, angular)),
+			//						int(LinearInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, angular))));
+			//			}
+			//			val.Store(out);
+			//			break;
+			//}
 	}
 
 	interpolated.SetMultiVal(val, valueActual);
@@ -236,6 +236,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 	{
 		case typeNull:
 		case typeString:
+
 		case typeBool: return None(key);
 
 		case typeDouble:
@@ -286,26 +287,26 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 				CatmullRomInterpolate(factor, v1.w, v2.w, v3.w, v4.w, angular)));
 			break;
 		}
-		case typeColorPalette:
-		{
-			cColorPalette v1, v2, v3, v4;
-			cColorPalette out;
-			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
-			for (int i = 0; i < v1.GetSize(); i++)
-			{
-				out.AppendColor(sRGB(int(CatmullRomInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R,
-															 v3.GetColor(i).R, v4.GetColor(i).R, angular)),
-					int(CatmullRomInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, v3.GetColor(i).G,
-						v4.GetColor(i).G, angular)),
-					int(CatmullRomInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, v3.GetColor(i).B,
-						v4.GetColor(i).B, angular))));
-			}
-			val.Store(out);
-			break;
-		}
+			//		case typeColorPalette:
+			//		{
+			//			cColorPalette v1, v2, v3, v4;
+			//			cColorPalette out;
+			//			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			//			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			//			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			//			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			//			for (int i = 0; i < v1.GetSize(); i++)
+			//			{
+			//				out.AppendColor(sRGB(int(CatmullRomInterpolate(factor, v1.GetColor(i).R,
+			// v2.GetColor(i).R, 															 v3.GetColor(i).R, v4.GetColor(i).R,
+			// angular)), 					int(CatmullRomInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G,
+			// v3.GetColor(i).G, 						v4.GetColor(i).G, angular)),
+			// int(CatmullRomInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, v3.GetColor(i).B,
+			// v4.GetColor(i).B, angular))));
+			//			}
+			//			val.Store(out);
+			//			break;
+			//}
 	}
 
 	interpolated.SetMultiVal(val, valueActual);
@@ -408,29 +409,30 @@ cOneParameter cMorph::Akima(int const key, double const factor, bool const angul
 				AkimaInterpolate(factor, v1.w, v2.w, v3.w, v4.w, v5.w, v6.w, angular)));
 			break;
 		}
-		case typeColorPalette:
-		{
-			cColorPalette v1, v2, v3, v4, v5, v6;
-			cColorPalette out;
-			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
-			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
-			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
-			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
-			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
-			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
-			for (int i = 0; i < v1.GetSize(); i++)
-			{
-				out.AppendColor(
-					sRGB(int(AkimaInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R, v3.GetColor(i).R,
-								 v4.GetColor(i).R, v5.GetColor(i).R, v6.GetColor(i).R, angular)),
-						int(AkimaInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G, v3.GetColor(i).G,
-							v4.GetColor(i).G, v5.GetColor(i).G, v6.GetColor(i).G, angular)),
-						int(AkimaInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B, v3.GetColor(i).B,
-							v4.GetColor(i).B, v5.GetColor(i).B, v6.GetColor(i).B, angular))));
-			}
-			val.Store(out);
-			break;
-		}
+			//		case typeColorPalette:
+			//		{
+			//			cColorPalette v1, v2, v3, v4, v5, v6;
+			//			cColorPalette out;
+			//			dataSets[k1].parameter.GetMultiVal(valueActual).Get(v1);
+			//			dataSets[k2].parameter.GetMultiVal(valueActual).Get(v2);
+			//			dataSets[k3].parameter.GetMultiVal(valueActual).Get(v3);
+			//			dataSets[k4].parameter.GetMultiVal(valueActual).Get(v4);
+			//			dataSets[k5].parameter.GetMultiVal(valueActual).Get(v5);
+			//			dataSets[k6].parameter.GetMultiVal(valueActual).Get(v6);
+			//			for (int i = 0; i < v1.GetSize(); i++)
+			//			{
+			//				out.AppendColor(
+			//					sRGB(int(AkimaInterpolate(factor, v1.GetColor(i).R, v2.GetColor(i).R,
+			// v3.GetColor(i).R, 								 v4.GetColor(i).R, v5.GetColor(i).R, v6.GetColor(i).R,
+			// angular)), 						int(AkimaInterpolate(factor, v1.GetColor(i).G, v2.GetColor(i).G,
+			// v3.GetColor(i).G, 							v4.GetColor(i).G, v5.GetColor(i).G, v6.GetColor(i).G,
+			// angular)), 						int(AkimaInterpolate(factor, v1.GetColor(i).B, v2.GetColor(i).B,
+			// v3.GetColor(i).B, 							v4.GetColor(i).B, v5.GetColor(i).B, v6.GetColor(i).B,
+			// angular))));
+			//			}
+			//			val.Store(out);
+			//			break;
+			//		}
 	}
 
 	interpolated.SetMultiVal(val, valueActual);

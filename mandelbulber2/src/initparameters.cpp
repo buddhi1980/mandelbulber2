@@ -34,7 +34,6 @@
 
 #include <QtCore>
 
-#include "color_palette.hpp"
 #include "file_mesh.hpp"
 #include "files.h"
 #include "fractal.h"
@@ -1186,8 +1185,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("coloring_palette_size", materialId), 10, 1, 255, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("coloring_random_seed", materialId), 269259, morphLinear, paramStandard);
-	par->addParam(cMaterial::Name("coloring_saturation", materialId), 1.0, 0.0, 1000.0, morphLinear,
-		paramStandard);
 	par->addParam(
 		cMaterial::Name("coloring_speed", materialId), 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam(cMaterial::Name("diffusion_texture_intensity", materialId), 1.0, 0.0, 1e10,
@@ -1442,12 +1439,6 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 		cMaterial::Name("use_transparency_texture", materialId), false, morphLinear, paramStandard);
 	par->addParam(
 		cMaterial::Name("use_roughness_texture", materialId), false, morphLinear, paramStandard);
-
-	cColorPalette palette(par->Get<int>(cMaterial::Name("coloring_palette_size", materialId)),
-		par->Get<int>(cMaterial::Name("coloring_random_seed", materialId)), 1.0);
-	par->addParam(
-		cMaterial::Name("surface_color_palette", materialId), palette, morphLinear, paramStandard);
-
 	par->addParam(
 		cMaterial::Name("surface_gradient_enable", materialId), true, morphLinear, paramStandard);
 	par->addParam(
@@ -1463,13 +1454,11 @@ void InitMaterialParams(int materialId, cParameterContainer *par)
 	par->addParam(
 		cMaterial::Name("transparency_gradient_enable", materialId), false, morphLinear, paramStandard);
 
-	// old default colors - for testing compatibility
 	par->addParam(cMaterial::Name("surface_color_gradient", materialId),
 		QString("0 fd6029 1000 698403 2000 fff59b 3000 f5bd22 4000 0b5e87 5000 c68876 6000 a51c64 7000 "
 						"3b9fee "
 						"8000 d4ffd4 9000 aba53c"),
 		morphNone, paramStandard);
-
 	par->addParam(cMaterial::Name("specular_gradient", materialId), QString("0 ffffff"), morphNone,
 		paramStandard);
 	par->addParam(

@@ -91,8 +91,6 @@ void SynchronizeInterfaceFileSelectWidget(
 	QList<FileSelectWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceMyColorButton(
 	QList<MyColorButton *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
-void SynchronizeInterfaceColorPaletteWidget(
-	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceColorGradientWidget(
 	QList<cGradientEditWidget *> widgets, cParameterContainer *par, qInterface::enumReadWrite mode);
 void SynchronizeInterfaceQComboBox(

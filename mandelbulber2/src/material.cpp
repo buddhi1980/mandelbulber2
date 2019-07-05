@@ -105,16 +105,16 @@ cMaterial::~cMaterial() = default;
 
 // this static list will be use to optimize usage of material parameters
 QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palette_offset",
-	"coloring_palette_size", "coloring_random_seed", "coloring_saturation", "coloring_speed",
-	"diffusion_texture_intensity", "displacement_texture_height", "file_color_texture",
-	"file_diffusion_texture", "file_displacement_texture", "file_luminosity_texture",
-	"file_normal_map_texture", "file_reflectance_texture", "file_transparency_texture",
-	"file_roughness_texture", "fractal_coloring_add_enabled_false", "fractal_coloring_add_max",
-	"fractal_coloring_add_spread", "fractal_coloring_add_start_value", "fractal_coloring_algorithm",
-	"fractal_coloring_aux_color_false", "fractal_coloring_aux_color_hybrid_weight",
-	"fractal_coloring_aux_color_scale1", "fractal_coloring_aux_color_weight",
-	"fractal_coloring_color_4D_enabled_false", "fractal_coloring_color_preV215_false",
-	"fractal_coloring_cos_add", "fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
+	"coloring_speed", "diffusion_texture_intensity", "displacement_texture_height",
+	"file_color_texture", "file_diffusion_texture", "file_displacement_texture",
+	"file_luminosity_texture", "file_normal_map_texture", "file_reflectance_texture",
+	"file_transparency_texture", "file_roughness_texture", "fractal_coloring_add_enabled_false",
+	"fractal_coloring_add_max", "fractal_coloring_add_spread", "fractal_coloring_add_start_value",
+	"fractal_coloring_algorithm", "fractal_coloring_aux_color_false",
+	"fractal_coloring_aux_color_hybrid_weight", "fractal_coloring_aux_color_scale1",
+	"fractal_coloring_aux_color_weight", "fractal_coloring_color_4D_enabled_false",
+	"fractal_coloring_color_preV215_false", "fractal_coloring_cos_add",
+	"fractal_coloring_cos_enabled_false", "fractal_coloring_cos_period",
 	"fractal_coloring_cos_start_value", "fractal_coloring_extra_color_enabled_false",
 	"fractal_coloring_extra_color_options_false", "fractal_coloring_global_palette_false",
 	"fractal_coloring_i_start_value", "fractal_coloring_ic_fabs_enabled_false",
@@ -153,13 +153,11 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"transparency_of_surface", "transparency_texture_intensity", "use_color_texture",
 	"use_colors_from_palette", "use_diffusion_texture", "use_displacement_texture",
 	"use_luminosity_texture", "use_normal_map_texture", "use_reflectance_texture",
-	"use_transparency_texture", "use_roughness_texture",
-
-	"surface_gradient_enable", "specular_gradient_enable", "diffuse_gradient_enable",
-	"luminosity_gradient_enable", "roughness_gradient_enable", "reflectance_gradient_enable",
-	"transparency_gradient_enable", "surface_color_palette", "surface_color_gradient",
-	"specular_gradient", "diffuse_gradient", "luminosity_gradient", "roughness_gradient",
-	"reflectance_gradient", "transparency_gradient"};
+	"use_transparency_texture", "use_roughness_texture", "surface_gradient_enable",
+	"specular_gradient_enable", "diffuse_gradient_enable", "luminosity_gradient_enable",
+	"roughness_gradient_enable", "reflectance_gradient_enable", "transparency_gradient_enable",
+	"surface_color_gradient", "specular_gradient", "diffuse_gradient", "luminosity_gradient",
+	"roughness_gradient", "reflectance_gradient", "transparency_gradient"};
 
 void cMaterial::setParameters(
 	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
@@ -195,7 +193,6 @@ void cMaterial::setParameters(
 
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
 
-	palette = materialParam->Get<cColorPalette>(Name("surface_color_palette", id));
 	gradientSurface.SetColorsFromString(
 		materialParam->Get<QString>(Name("surface_color_gradient", id)));
 	gradientSpecular.SetColorsFromString(materialParam->Get<QString>(Name("specular_gradient", id)));

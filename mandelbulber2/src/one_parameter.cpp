@@ -129,7 +129,6 @@ template void cOneParameter::Set<CVector3>(CVector3 val, enumValueSelection sele
 template void cOneParameter::Set<CVector4>(CVector4 val, enumValueSelection selection);
 template void cOneParameter::Set<sRGB>(sRGB val, enumValueSelection selection);
 template void cOneParameter::Set<bool>(bool val, enumValueSelection selection);
-template void cOneParameter::Set<cColorPalette>(cColorPalette val, enumValueSelection selection);
 
 // get parameter value
 template <class T>
@@ -154,7 +153,6 @@ template CVector3 cOneParameter::Get<CVector3>(enumValueSelection selection) con
 template CVector4 cOneParameter::Get<CVector4>(enumValueSelection selection) const;
 template sRGB cOneParameter::Get<sRGB>(enumValueSelection selection) const;
 template bool cOneParameter::Get<bool>(enumValueSelection selection) const;
-template cColorPalette cOneParameter::Get<cColorPalette>(enumValueSelection selection) const;
 
 bool cOneParameter::isDefaultValue() const
 {

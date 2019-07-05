@@ -42,7 +42,6 @@
 #include "global_data.hpp"
 #include "parameters.hpp"
 
-#include "qt/color_palette_widget.h"
 #include "qt/file_select_widget.h"
 #include "qt/formula_combo_box.h"
 #include "qt/gradient_edit_widget.h"
@@ -82,9 +81,6 @@ void SynchronizeInterfaceWindow(QWidget *window, cParameterContainer *par, enumR
 
 	WriteLog("cInterface::SynchronizeInterface: MyColorButton", 3);
 	SynchronizeInterfaceMyColorButton(window->findChildren<MyColorButton *>(), par, mode);
-
-	WriteLog("cInterface::SynchronizeInterface: ColorPaletteWidget", 3);
-	SynchronizeInterfaceColorPaletteWidget(window->findChildren<ColorPaletteWidget *>(), par, mode);
 
 	WriteLog("cInterface::SynchronizeInterface: cGradientEditWidget", 3);
 	SynchronizeInterfaceColorGradientWidget(window->findChildren<cGradientEditWidget *>(), par, mode);
@@ -408,36 +404,6 @@ void SynchronizeInterfaceMyColorButton(
 			{
 				colorButton->setText("");
 				colorButton->SetColor(par->Get<sRGB>(props.paramName));
-			}
-		}
-	}
-}
-
-void SynchronizeInterfaceColorPaletteWidget(
-	QList<ColorPaletteWidget *> widgets, cParameterContainer *par, enumReadWrite mode)
-{
-	QList<ColorPaletteWidget *>::iterator it;
-	for (it = widgets.begin(); it != widgets.end(); ++it)
-	{
-		widgetProperties props = parseWidgetProperties((*it), {"ColorPaletteWidget"});
-		if (props.allowed)
-		{
-			ColorPaletteWidget *colorPaletteWidget = *it;
-			colorPaletteWidget->AssignParameterContainer(par);
-			colorPaletteWidget->AssignParameterName(props.paramName);
-
-			if (props.typeName == QString("colorpalette"))
-			{
-				if (mode == qInterface::read)
-				{
-					cColorPalette palette = colorPaletteWidget->GetPalette();
-					par->Set(props.paramName, palette);
-				}
-				else if (mode == qInterface::write)
-				{
-					cColorPalette palette = par->Get<cColorPalette>(props.paramName);
-					colorPaletteWidget->SetPalette(palette);
-				}
 			}
 		}
 	}

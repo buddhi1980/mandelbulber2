@@ -37,8 +37,6 @@
 
 #include <QWidget>
 
-#include "src/color_palette.hpp"
-
 // forward declarations
 class cAutomatedWidgets;
 class cParameterContainer;
@@ -63,7 +61,6 @@ private slots:
 
 private:
 	void ConnectSignals();
-	cColorPalette GetPaletteFromImage(const QString &filename) const;
 
 	Ui::cMaterialEditor *ui;
 	int materialIndex;

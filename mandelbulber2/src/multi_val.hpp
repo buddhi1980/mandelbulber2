@@ -38,7 +38,6 @@
 #include <QtCore>
 
 #include "algebra.hpp"
-#include "color_palette.hpp"
 #include "color_structures.hpp"
 
 namespace parameterContainer
@@ -53,7 +52,6 @@ enum enumVarType
 	typeVector4,
 	typeRgb,
 	typeBool,
-	typeColorPalette
 };
 }
 
@@ -76,7 +74,6 @@ public:
 	enumVarType Store(CVector4 val);
 	enumVarType Store(sRGB val);
 	enumVarType Store(bool val);
-	enumVarType Store(cColorPalette val);
 	enumVarType Get(double &val) const;
 	enumVarType Get(int &val) const;
 	enumVarType Get(QString &val) const;
@@ -84,13 +81,10 @@ public:
 	enumVarType Get(CVector4 &val) const;
 	enumVarType Get(sRGB &val) const;
 	enumVarType Get(bool &val) const;
-	enumVarType Get(cColorPalette &val) const;
 	enumVarType GetDefaultType() const { return type; }
 	bool operator==(const cMultiVal &m) const;
 
 private:
-	static QString MakePaletteString(cColorPalette &palette);
-	static cColorPalette GetPaletteFromString(const QString &paletteString);
 	bool isEqual(const cMultiVal &m) const;
 	void copy(const cMultiVal &other);
 

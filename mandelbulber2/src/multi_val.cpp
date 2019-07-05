@@ -153,8 +153,6 @@ enumVarType cMultiVal::Store(QString val)
 			}
 			break;
 		}
-
-		case typeColorPalette: sVal = val; break;
 	}
 	sVal = val;
 
@@ -224,14 +222,6 @@ enumVarType cMultiVal::Store(bool val)
 	return typeBool;
 }
 
-enumVarType cMultiVal::Store(cColorPalette val)
-{
-	sVal = MakePaletteString(val);
-
-	if (!typeDefined) type = typeColorPalette;
-	return typeColorPalette;
-}
-
 enumVarType cMultiVal::Get(double &val) const
 {
 	val = dVal[0];
@@ -274,46 +264,6 @@ enumVarType cMultiVal::Get(bool &val) const
 	return typeBool;
 }
 
-enumVarType cMultiVal::Get(cColorPalette &val) const
-{
-	val = GetPaletteFromString(sVal);
-	return typeColorPalette;
-}
-
-QString cMultiVal::MakePaletteString(cColorPalette &palette)
-{
-	QString paletteString;
-	for (int i = 0; i < palette.GetSize(); i++)
-	{
-		sRGB colorRGB = palette.GetColor(i);
-		int colour = colorRGB.R * 65536 + colorRGB.G * 256 + colorRGB.B;
-		colour = colour & 0x00FFFFFF;
-		if (i > 0) paletteString += " ";
-		paletteString += QString("%1").arg(colour, 6, 16, QChar('0'));
-	}
-	return paletteString;
-}
-
-cColorPalette cMultiVal::GetPaletteFromString(const QString &paletteString)
-{
-	cColorPalette colorPalette;
-	QStringList split = paletteString.split(" ");
-
-	for (int i = 0; i < split.size(); i++)
-	{
-		if (split[i].size() > 0)
-		{
-			unsigned int colour = split[i].toInt(nullptr, 16);
-			sRGB rgbColour;
-			rgbColour.R = colour / 65536;
-			rgbColour.G = (colour / 256) % 256;
-			rgbColour.B = colour % 256;
-			colorPalette.AppendColor(rgbColour);
-		}
-	}
-	return colorPalette;
-}
-
 bool cMultiVal::isEqual(const cMultiVal &m) const
 {
 	bool isEqual = true;
@@ -347,7 +297,6 @@ bool cMultiVal::isEqual(const cMultiVal &m) const
 			}
 			break;
 		}
-		case typeColorPalette:
 		case typeString:
 		{
 			if (sVal != m.sVal)

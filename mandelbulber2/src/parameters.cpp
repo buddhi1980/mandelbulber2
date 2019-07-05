@@ -102,8 +102,6 @@ template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
 	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
-template void cParameterContainer::addParam<cColorPalette>(QString name, cColorPalette defaultVal,
-	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
 
 // defining of params with limits
 template <class T>
@@ -258,7 +256,6 @@ template void cParameterContainer::Set<CVector3>(QString name, CVector3 val);
 template void cParameterContainer::Set<CVector4>(QString name, CVector4 val);
 template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
 template void cParameterContainer::Set<bool>(QString name, bool val);
-template void cParameterContainer::Set<cColorPalette>(QString name, cColorPalette val);
 
 // set parameter value by name and index
 template <class T>
@@ -319,7 +316,6 @@ template CVector3 cParameterContainer::Get<CVector3>(QString name) const;
 template CVector4 cParameterContainer::Get<CVector4>(QString name) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name) const;
 template bool cParameterContainer::Get<bool>(QString name) const;
-template cColorPalette cParameterContainer::Get<cColorPalette>(QString name) const;
 
 // get parameter value by name and index
 template <class T>
@@ -382,7 +378,6 @@ template CVector3 cParameterContainer::GetDefault<CVector3>(QString name) const;
 template CVector4 cParameterContainer::GetDefault<CVector4>(QString name) const;
 template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
 template bool cParameterContainer::GetDefault<bool>(QString name) const;
-template cColorPalette cParameterContainer::GetDefault<cColorPalette>(QString name) const;
 
 // get parameter value by name and index
 template <class T>

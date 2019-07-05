@@ -112,34 +112,6 @@ void cMaterialEditor::AssignMaterial(cParameterContainer *params, int index)
 	}
 }
 
-cColorPalette cMaterialEditor::GetPaletteFromImage(const QString &filename) const
-{
-	cColorPalette palette;
-	QImage imagePalette(filename);
-
-	SynchronizeInterfaceWindow(
-		ui->groupCheck_use_color_texture, parameterContainer, qInterface::read);
-	int paletteSize =
-		parameterContainer->Get<int>(cMaterial::Name("coloring_palette_size", materialIndex));
-
-	if (!imagePalette.isNull())
-	{
-		int width = imagePalette.width();
-		int height = imagePalette.height();
-
-		for (int i = 0; i < paletteSize; i++)
-		{
-			double angle = double(i) / paletteSize * M_PI * 2.0;
-			double x = width / 2 + cos(angle) * width * 0.4;
-			double y = height / 2 + sin(angle) * height * 0.4;
-			QRgb pixel = imagePalette.pixel(x, y);
-			sRGB pixelRGB(qRed(pixel), qGreen(pixel), qBlue(pixel));
-			palette.AppendColor(pixelRGB);
-		}
-	}
-	return palette;
-}
-
 void cMaterialEditor::slotChangedComboFractalColoringAlgorithm(int index) const
 {
 	enumFractalColoring selection = enumFractalColoring(index);

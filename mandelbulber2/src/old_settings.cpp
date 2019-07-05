@@ -35,6 +35,7 @@
 #include "old_settings.hpp"
 
 #include "camera_target.hpp"
+#include "color_gradient.h"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "fractal_list.hpp"
@@ -1134,10 +1135,19 @@ void cOldSettings::ConvertToNewContainer(cParameterContainer *par, cFractalConta
 	par->Set("fake_lights_min_iter", oldData->fractal.fakeLightsMinIter);
 	par->Set("fake_lights_max_iter", oldData->fractal.fakeLightsMaxIter);
 
-	cColorPalette palette;
-	for (auto color : oldData->palette)
-		palette.AppendColor(color);
-	par->Set("mat1_surface_color_palette", palette);
+	int numberOfColors = sizeof(oldData->palette) / sizeof(oldData->palette[0]);
+	double step = 1.0 / numberOfColors;
+
+	cColorGradient newGradient;
+	newGradient.DeleteAll();
+	for (int i = 0; i < numberOfColors; i++)
+	{
+		double pos = double(i) * step;
+		newGradient.AddColor(oldData->palette[i], pos);
+		if (i == 0) newGradient.AddColor(oldData->palette[i], pos);
+	}
+	QString newPalette = newGradient.GetColorsAsString();
+	par->Set("mat1_surface_color_gradient", newPalette);
 
 	if (oldData->fractal.primitives.boxEnable)
 	{
