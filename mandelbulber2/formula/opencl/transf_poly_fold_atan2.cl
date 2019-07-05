@@ -28,7 +28,7 @@ REAL4 TransfPolyFoldAtan2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0f) z.x = -z.x;
 		int poly = fractal->transformCommon.int8X;
 		REAL psi =
-			abs(fmod(atan2(z.y, z.x) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
+			fabs(fmod(atan2(z.y, z.x) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
 					- native_divide(M_PI_F, poly));
 		REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
 		z.x = native_cos(psi) * len;
@@ -40,7 +40,7 @@ REAL4 TransfPolyFoldAtan2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0f) z.y = -z.y;
 		int poly = fractal->transformCommon.int8Y;
 		REAL psi =
-			abs(fmod(atan2(z.z, z.y) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
+			fabs(fmod(atan2(z.z, z.y) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
 					- native_divide(M_PI_F, poly));
 		REAL len = native_sqrt(mad(z.y, z.y, z.z * z.z));
 		z.y = native_cos(psi) * len;
@@ -52,7 +52,7 @@ REAL4 TransfPolyFoldAtan2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0f) z.z = -z.z;
 		int poly = fractal->transformCommon.int8Z;
 		REAL psi =
-			abs(fmod(atan2(z.x, z.z) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
+			fabs(fmod(atan2(z.x, z.z) + native_divide(M_PI_F, poly), native_divide(M_PI_F, (0.5f * poly)))
 					- native_divide(M_PI_F, poly));
 		REAL len = native_sqrt(mad(z.z, z.z, z.x * z.x));
 		z.z = native_cos(psi) * len;

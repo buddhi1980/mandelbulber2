@@ -41,7 +41,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 		dist = max(dist, length(zc));
 	}*/
 
-	if (z.y < yOffset) z.y = abs(z.y - yOffset) + yOffset;
+	if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 	z -= fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux->DE *= fabs(fractal->transformCommon.scale1);

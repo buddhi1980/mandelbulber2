@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_poly_fold_sym_multi</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>871</width>
-    <height>1239</height>
+    <height>1857</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -399,7 +399,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>Analytic DE alternate method</string>
+         <string>Analytic DE alternative method</string>
         </property>
        </widget>
       </item>
