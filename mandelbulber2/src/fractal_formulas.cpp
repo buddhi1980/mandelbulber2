@@ -16823,7 +16823,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		dist = max(dist, zc.Length());
 	}*/
 
-	if(z.y < yOffset) z.y = abs(z.y - yOffset) + yOffset;
+	if(z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 	z -= fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
