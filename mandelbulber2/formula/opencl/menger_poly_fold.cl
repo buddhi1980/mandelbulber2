@@ -30,7 +30,7 @@ REAL4 MengerPolyFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0f) z.x = -z.x;
 			int poly = fractal->transformCommon.int8X;
-			REAL psi = abs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
+			REAL psi = fabs(fmod(atan(native_divide(z.y, z.x)) + native_divide(M_PI_F, poly),
 											 native_divide(M_PI_F, (0.5f * poly)))
 										 - native_divide(M_PI_F, poly));
 			REAL len = native_sqrt(mad(z.x, z.x, z.y * z.y));
@@ -42,7 +42,7 @@ REAL4 MengerPolyFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		{
 			if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0f) z.y = -z.y;
 			int poly = fractal->transformCommon.int8Y;
-			REAL psi = abs(fmod(atan(native_divide(z.z, z.y)) + native_divide(M_PI_F, poly),
+			REAL psi = fabs(fmod(atan(native_divide(z.z, z.y)) + native_divide(M_PI_F, poly),
 											 native_divide(M_PI_F, (0.5f * poly)))
 										 - native_divide(M_PI_F, poly));
 			REAL len = native_sqrt(mad(z.y, z.y, z.z * z.z));
@@ -54,7 +54,7 @@ REAL4 MengerPolyFoldIteration(REAL4 z, __constant sFractalCl *fractal, sExtended
 		{
 			if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0f) z.z = -z.z;
 			int poly = fractal->transformCommon.int8Z;
-			REAL psi = abs(fmod(atan(native_divide(z.x, z.z)) + native_divide(M_PI_F, poly),
+			REAL psi = fabs(fmod(atan(native_divide(z.x, z.z)) + native_divide(M_PI_F, poly),
 											 native_divide(M_PI_F, (0.5f * poly)))
 										 - native_divide(M_PI_F, poly));
 			REAL len = native_sqrt(mad(z.z, z.z, z.x * z.x));

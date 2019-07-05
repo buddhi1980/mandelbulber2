@@ -8153,7 +8153,7 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		{
 			if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
 			int poly = fractal->transformCommon.int8X;
-			double psi = abs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 			double len = sqrt(z.x * z.x + z.y * z.y);
 			z.x = cos(psi) * len;
 			z.y = sin(psi) * len;
@@ -8163,7 +8163,7 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		{
 			if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
 			int poly = fractal->transformCommon.int8Y;
-			double psi = abs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double psi = fabs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 			double len = sqrt(z.y * z.y + z.z * z.z);
 			z.y = cos(psi) * len;
 			z.z = sin(psi) * len;
@@ -8173,7 +8173,7 @@ void MengerPolyFoldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux 
 		{
 			if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
 			int poly = fractal->transformCommon.int8Z;
-			double psi = abs(fmod(atan(z.x / z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double psi = fabs(fmod(atan(z.x / z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 			double len = sqrt(z.z * z.z + z.x * z.x);
 			z.z = cos(psi) * len;
 			z.x = sin(psi) * len;
@@ -12344,7 +12344,7 @@ void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
 		int poly = fractal->transformCommon.int8X;
-		double psi = abs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
@@ -12354,7 +12354,7 @@ void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
 		int poly = fractal->transformCommon.int8Y;
-		double psi = abs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan(z.z / z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.y * z.y + z.z * z.z);
 		z.y = cos(psi) * len;
 		z.z = sin(psi) * len;
@@ -12364,7 +12364,7 @@ void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtended
 	{
 		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
 		int poly = fractal->transformCommon.int8Z;
-		double psi = abs(fmod(atan(z.x / z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan(z.x / z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.z * z.z + z.x * z.x);
 		z.z = cos(psi) * len;
 		z.x = sin(psi) * len;
@@ -12410,7 +12410,7 @@ void TransfPolyFoldAtan2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse && z.y < 0.0) z.x = -z.x;
 		int poly = fractal->transformCommon.int8X;
-		double psi = abs(fmod(atan2(z.y, z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan2(z.y, z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.x * z.x + z.y * z.y);
 		z.x = cos(psi) * len;
 		z.y = sin(psi) * len;
@@ -12420,7 +12420,7 @@ void TransfPolyFoldAtan2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		if (fractal->transformCommon.functionEnabledAyFalse && z.z < 0.0) z.y = -z.y;
 		int poly = fractal->transformCommon.int8Y;
-		double psi = abs(fmod(atan2(z.z, z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan2(z.z, z.y) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.y * z.y + z.z * z.z);
 		z.y = cos(psi) * len;
 		z.z = sin(psi) * len;
@@ -12430,7 +12430,7 @@ void TransfPolyFoldAtan2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		if (fractal->transformCommon.functionEnabledAzFalse && z.x < 0.0) z.z = -z.z;
 		int poly = fractal->transformCommon.int8Z;
-		double psi = abs(fmod(atan2(z.x, z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double psi = fabs(fmod(atan2(z.x, z.z) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
 		double len = sqrt(z.z * z.z + z.x * z.x);
 		z.z = cos(psi) * len;
 		z.x = sin(psi) * len;
@@ -16852,8 +16852,9 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				{
 					zc.x = max(z.x, 0.0);
 					zc.y = max(z.y, 0.0);
-
-					zc.z = max(z.z, 0.0);
+					if(fractal->transformCommon.functionEnabledz)
+						zc.z = z.y;
+					zc.z = max(zc.z, 0.0);
 					dist = max(dist, zc.Length());
 				}
 			double maxDist = dist;
