@@ -1,0 +1,64 @@
+# Mandelbulber settings file
+# version 2.19
+# only modified parameters
+[main_parameters]
+background_brightness 1,3;
+background_color_1 ff00 f200 3c00;
+background_color_3 f800 b500 6800;
+camera -0,1166568796427612 -2,38128280383306 1,412737698067384;
+camera_distance_to_target 1,947085857391356;
+camera_rotation 7,114098477863823 -37,23009990420512 0;
+camera_top -0,0749287839798162 0,6003597515777113 0,7962121865538451;
+detail_level 0,25;
+DOF_monte_carlo true;
+file_background /usr/share/mandelbulber2/textures/background3.jpg;
+flight_last_to_render 99999;
+formula_1 66;
+image_height 720;
+image_proportion 4;
+image_width 1280;
+keyframe_last_to_render 0;
+main_light_alpha -131,99;
+main_light_beta 49,4;
+mat1_fresnel_reflectance true;
+mat1_is_defined true;
+mat1_reflectance 1;
+mat1_rough_surface true;
+mat1_specular 40;
+mat1_specular_metallic 8;
+mat1_surface_roughness 0,08;
+mat1_texture_mapping_type 2;
+mat1_texture_rotation 0 90 0;
+mat1_texture_scale 0,5 1 0,5;
+mat1_transparency_of_surface 1;
+mat1_use_colors_from_palette false;
+mat1_use_reflectance_texture true;
+mat1_use_roughness_texture true;
+mat1_use_transparency_texture true;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_name rect;
+mat2_reflectance 1;
+mat2_rough_surface true;
+mat2_specular 40;
+mat2_specular_metallic 8;
+mat2_surface_roughness 0,08;
+mat2_texture_mapping_type 1;
+mat2_texture_scale 0,5 1 4;
+mat2_transparency_of_surface 1;
+mat2_use_colors_from_palette false;
+mat2_use_reflectance_texture true;
+mat2_use_roughness_texture true;
+mat2_use_transparency_texture true;
+N 5;
+primitive_box_1_enabled true;
+primitive_box_1_material_id 2;
+primitive_box_1_position -0,6685711357665839 0 -1,3;
+primitive_box_1_rounding 0,1;
+primitive_box_1_size 4 2 0,25;
+raytraced_reflections true;
+target -0,3086539859167921 -0,8429242598405868 0,2347167146544445;
+textured_background true;
+view_distance_max 24,65137948010551;
+[fractal_1]
+mandelbox_scale -2;

@@ -1,0 +1,55 @@
+# Mandelbulber settings file
+# version 2.19
+# only modified parameters
+[main_parameters]
+background_brightness 1,3;
+background_color_1 ff00 f200 3c00;
+background_color_3 f800 b500 6800;
+camera 0,7930633706235924 -1,949919164547048 0,390739465643563;
+camera_distance_to_target 1,382875154922035;
+camera_rotation 24,76357778549804 -17,63822567570686 0;
+camera_top -0,1269215170725015 0,2751425408253233 0,9529887253961612;
+file_background /usr/share/mandelbulber2/textures/background3.jpg;
+flight_last_to_render 99999;
+formula_1 113;
+image_height 1080;
+image_proportion 4;
+image_width 1920;
+keyframe_last_to_render 0;
+main_light_alpha -33,18;
+main_light_beta -5,71;
+main_light_position_relative false;
+mat1_diffuse_gradient 0 000000 1090 ffffff 8551 ffffff;
+mat1_diffuse_gradient_enable true;
+mat1_fractal_coloring_algorithm 1;
+mat1_is_defined true;
+mat1_specular_gradient 0 8c8c8c 2037 848484 2731 ffff00 5011 ffff00 5914 848484;
+mat1_specular_gradient_enable true;
+mat1_specular_metallic_roughness 0,8;
+mat1_specular_width 0,2;
+mat1_surface_color_gradient 0 473117;
+mat1_surface_roughness 0,08;
+mat1_texture_mapping_type 2;
+mat1_texture_rotation 0 90 0;
+mat1_texture_scale 0,5 1 0,5;
+mat2_fresnel_reflectance true;
+mat2_is_defined true;
+mat2_name rect;
+mat2_reflectance 1;
+mat2_specular 40;
+mat2_specular_metallic 8;
+mat2_texture_mapping_type 1;
+mat2_texture_scale 0,5 1 4;
+mat2_transparency_index_of_refraction 3;
+mat2_use_colors_from_palette false;
+primitive_box_1_enabled true;
+primitive_box_1_material_id 2;
+primitive_box_1_position 0 0 -1,2;
+primitive_box_1_rounding 0,1;
+primitive_box_1_size 3 3 0,25;
+raytraced_reflections true;
+target 0,2410429927927481 -0,7532403598257589 -0,02827966863428888;
+textured_background true;
+view_distance_max 24,87577850671841;
+[fractal_1]
+mandelbox_scale -2;

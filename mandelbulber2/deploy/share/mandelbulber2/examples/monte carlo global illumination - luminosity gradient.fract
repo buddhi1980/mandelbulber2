@@ -1,0 +1,47 @@
+# Mandelbulber settings file
+# version 2.19
+# only modified parameters
+[main_parameters]
+background_3_colors_enable false;
+background_color_1 0000 0000 0000;
+basic_fog_color 1c00 1d00 1f00;
+basic_fog_enabled true;
+basic_fog_visibility 4,079183578491211;
+camera 1,756250188254852 -3,258391593233689 0,9488065768481585;
+camera_distance_to_target 2,700408859252929;
+camera_rotation 23,55993611801681 -19,71631150862798 0;
+camera_top -0,1348468562961483 0,3092414951937471 0,9413745391699212;
+DE_factor 0,0625;
+DOF_max_noise 2;
+DOF_MC_global_illumination true;
+DOF_monte_carlo true;
+DOF_samples 400;
+flight_last_to_render 0;
+formula_1 7;
+hdr true;
+image_height 720;
+image_proportion 4;
+image_width 1280;
+keyframe_last_to_render 0;
+main_light_enable false;
+main_light_intensity 0,25;
+mat1_coloring_palette_offset 0,821;
+mat1_fractal_coloring_algorithm 1;
+mat1_is_defined true;
+mat1_luminosity 4;
+mat1_luminosity_gradient 0 00179b 2185 ffd500 6698 fa5d69;
+mat1_luminosity_gradient_enable true;
+mat1_specular 4;
+mat1_specular_width 0,063;
+mat1_surface_color ff00 ff00 ff00;
+mat1_surface_gradient_enable false;
+MC_global_illumination_volumetric true;
+primitive_plane_1_enabled true;
+primitive_plane_1_position 0 0 -1;
+primitive_sphere_1_enabled true;
+primitive_sphere_1_position 1,708323825102882 -0,5598870009632647 -0,6;
+primitive_sphere_1_radius 0,4;
+raytraced_reflections true;
+shadows_enabled false;
+target 0,7401535870336631 -0,9281983588223337 0,03778780952116346;
+view_distance_max 13,8172554087745;
