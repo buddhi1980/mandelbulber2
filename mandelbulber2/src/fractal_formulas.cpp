@@ -12379,6 +12379,14 @@ void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtended
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
+	if (fractal->transformCommon.functionEnabledBxFalse) // TODO remove
+		if (z.x < 1e-21 && z.x > -1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
+	if (fractal->transformCommon.functionEnabledByFalse) // TODO remove
+		if (z.y < 1e-21 && z.y > -1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
+	if (fractal->transformCommon.functionEnabledBzFalse) // TODO remove
+		if (z.z < 1e-21 && z.z > -1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
+
+
 	// DE tweaks
 	if (fractal->analyticDE.enabled)
 	{
@@ -16827,8 +16835,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	z -= fractal->transformCommon.offset000;
 	z *= fractal->transformCommon.scale1;
 	aux.DE *= fabs(fractal->transformCommon.scale1);
-	z -= fractal->transformCommon.offsetA000;
-	z = fabs(z);
+	z += fractal->transformCommon.offsetA000;
+	//z = fabs(z);
 
 
 	// rotation
@@ -16847,7 +16855,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		else
 		{
-			double dist = max(z.x, max(z.y, z.z));
+			/*double dist = max(z.x, max(z.y, z.z));
 				if (dist > 0.0)
 				{
 					zc.x = max(z.x, 0.0);
@@ -16863,7 +16871,23 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			if(fractal->transformCommon.functionEnabledyFalse)
 			{
 				z = zc;
-			}
+			}*/
+			if (fractal->transformCommon.functionEnabledFalse)
+				zc  =  zc - boxSize;
+			double zcd = 1.0;
+			zcd = max(zc.x, max(zc.y, zc.z));
+				if (zcd > 0.0)
+				{
+					zc.x = max(zc.x, 0.0);
+					zc.y = max(zc.y, 0.0);
+					zc.z = max(zc.z, 0.0);
+					zcd = zc.Length();
+				}
+
+				aux.dist = min(aux.dist , zcd / aux.DE);
+			//	pc = abs(pc) - 0.5 * auxSize;
+
+
 		}
 	}
 }

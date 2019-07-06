@@ -92,7 +92,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.r = r;
 	extendedAux.DE = 1.0;
-	extendedAux.dist = 1.0;
+	extendedAux.dist = 1000.0;
 	extendedAux.pseudoKleinianDE = 1.0;
 
 	extendedAux.actualScale = fractals.GetFractal(fractalIndex)->mandelbox.scale;
@@ -444,7 +444,7 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
-					out->distance = extendedAux.dist/extendedAux.DE;
+					out->distance = extendedAux.dist;
 					//double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
 					//double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 
