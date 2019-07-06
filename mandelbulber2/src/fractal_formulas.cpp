@@ -12379,14 +12379,6 @@ void TransfPolyFoldAtanIteration(CVector4 &z, const sFractal *fractal, sExtended
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	if (fractal->transformCommon.functionEnabledBxFalse) // TODO remove
-		if (z.x < 1e-21 && z.x > -1e-21) z.x = (z.x > 0) ? 1e-21 : -1e-21;
-	if (fractal->transformCommon.functionEnabledByFalse) // TODO remove
-		if (z.y < 1e-21 && z.y > -1e-21) z.y = (z.y > 0) ? 1e-21 : -1e-21;
-	if (fractal->transformCommon.functionEnabledBzFalse) // TODO remove
-		if (z.z < 1e-21 && z.z > -1e-21) z.z = (z.z > 0) ? 1e-21 : -1e-21;
-
-
 	// DE tweaks
 	if (fractal->analyticDE.enabled)
 	{
