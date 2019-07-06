@@ -436,6 +436,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				}
 				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
 				{
+		//								out->distance = extendedAux.dist;
+
+
+
 					if (fractals.GetFractal(0)->transformCommon.spheresEnabled)
 						z.y = min(z.y, fractals.GetFractal(0)->transformCommon.foldingValue - z.y);
 
@@ -445,6 +449,9 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
 					out->distance = extendedAux.dist;
+
+
+
 					//double logDE = ((0.5 * r * log(r)) - in.common.linearDEOffset) / extendedAux.DE;
 					//double linDE = (r - in.common.linearDEOffset) / extendedAux.DE;
 

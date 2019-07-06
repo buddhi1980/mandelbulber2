@@ -505,6 +505,7 @@ struct sFractalTransformCommon
 	double offset0005;
 	double offset05;
 	double offset1;
+	double offsetA1;
 	double offset105;
 	double offset2;
 	double offset4;

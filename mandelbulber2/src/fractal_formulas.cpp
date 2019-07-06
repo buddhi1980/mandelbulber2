@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -16801,41 +16801,58 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
-
 	//CVector4 oldZ = z;
-	//CVector4 zc = z;
 	//double fillet = fractal->transformCommon.offset0;
-	CVector4 boxSize = fractal->transformCommon.offset111;
+	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
 	double yOffset = fractal->transformCommon.offset05;
-	//z = fabs(z);
-	//z  =  z - boxSize;
 
+	if (fractal->transformCommon.functionEnabledAxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterationsX)
+				z.x = fabs(z.x);
 
+	if(fractal->transformCommon.functionEnabledAyFalse
+			&& aux.i >= fractal->transformCommon.startIterationsY
+			&& aux.i < fractal->transformCommon.stopIterationsY)
+				z.y = fabs(z.y);
 
-	if(fractal->transformCommon.functionEnabledyFalse) z = fabs(z);
+	if(fractal->transformCommon.functionEnabledAzFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZ
+			&& aux.i < fractal->transformCommon.stopIterationsZ)
+				z.z = fabs(z.z);
 
-	if (fractal->transformCommon.functionEnabledFalse)
+	if(fractal->transformCommon.functionEnabledDFalse
+			&& aux.i >= fractal->transformCommon.startIterationsD
+			&& aux.i < fractal->transformCommon.stopIterationsD)
+				if (z.y > z.x) swap(z.x, z.y);
+
+	if(fractal->transformCommon.functionEnabledBxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+				z  -=  boxSize;
+
+	if (fractal->transformCommon.functionEnabledBx)
 		z  =  z - boxSize;
 
 	if (fractal->transformCommon.functionEnabled)
 		if (z.y > z.x) swap(z.x, z.y);
 
+//if(Yflip) {if(p.y > 0.0) p.y = -p.y;}
 
-	/*double dist = max(z.x, max(z.y, z.z));
-	if (dist > 0.0)
-	{
-		zc.x = max(zc.x, 0.0);
-		zc.y = max(zc.y, 0.0);
-		zc.z = max(zc.y, 0.0);
-		dist = max(dist, zc.Length());
-	}*/
 
 	if(z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
-	z -= fractal->transformCommon.offset000;
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fabs(fractal->transformCommon.scale1);
-	z += fractal->transformCommon.offsetA000;
+
+	// offsets and scale
+	z.x -= fractal->transformCommon.offset1;
+	z.y -= fractal->transformCommon.offsetA1;
+
+
+	z *= fractal->transformCommon.scale015;
+	aux.DE *= fabs(fractal->transformCommon.scale015);
+
+
+
+	z += fractal->transformCommon.offset111;
 
 
 
@@ -16853,7 +16870,24 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	if (fractal->analyticDE.enabled)
 	{
 		if (!fractal->analyticDE.enabledFalse)
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		{
+			if (fractal->transformCommon.functionEnabledBx)
+				zc  =  fabs(zc) - boxSize;
+			double zcd = 1.0;
+			zcd = max(zc.x, max(zc.y, zc.z));
+				if (zcd > 0.0)
+				{
+					zc.x = max(zc.x, 0.0);
+					zc.y = max(zc.y, 0.0);
+					zc.z = max(zc.z, 0.0);
+					zcd = zc.Length();
+				}
+			aux.dist = min(aux.dist, zcd / aux.DE);
+			aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+		}
+
+
+
 		else
 		{
 			/*double dist = max(z.x, max(z.y, z.z));
@@ -16873,7 +16907,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			{
 				z = zc;
 			}*/
-			if (fractal->transformCommon.functionEnabledFalse)
+			/*if (fractal->transformCommon.functionEnabledFalse)
 				zc  =  fabs(zc) - boxSize;
 			double zcd = 1.0;
 			zcd = max(zc.x, max(zc.y, zc.z));
@@ -16884,10 +16918,8 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					zc.z = max(zc.z, 0.0);
 					zcd = zc.Length();
 				}
-				aux.dist = min(aux.dist, zcd / aux.DE);
-
-
-
+				aux.dist = min(aux.dist, zcd / aux.DE);*/
+							aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 	}
 }
