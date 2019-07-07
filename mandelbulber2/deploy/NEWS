@@ -6,12 +6,11 @@ dev v2.19
    transfDiagonalFold
    transfPolyFoldAtan
    transfPolyFoldAtan2
+   transfAbsAddConditional2
 
 - modified fractal formulas
    transfPolyFoldSymXY, added XY to name and updated code
    transfPolyFoldSymMulti, updated code
-
-
 
 v2.18 (June 2019)
 - Added new fractal formulas
