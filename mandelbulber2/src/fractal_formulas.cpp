@@ -16804,55 +16804,78 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	//CVector4 oldZ = z;
 	//double fillet = fractal->transformCommon.offset0;
 	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
+
+	double xOffset = fractal->transformCommon.offset0;
 	double yOffset = fractal->transformCommon.offset05;
+	if(fractal->transformCommon.functionEnabledBxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+				z  -=  boxSize;
 
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 				z.x = fabs(z.x);
 
-	if(fractal->transformCommon.functionEnabledAyFalse
+	if (fractal->transformCommon.functionEnabledAyFalse
 			&& aux.i >= fractal->transformCommon.startIterationsY
 			&& aux.i < fractal->transformCommon.stopIterationsY)
 				z.y = fabs(z.y);
 
-	if(fractal->transformCommon.functionEnabledAzFalse
+	if (fractal->transformCommon.functionEnabledAzFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZ
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 				z.z = fabs(z.z);
 
-	if(fractal->transformCommon.functionEnabledDFalse
+	if (fractal->transformCommon.functionEnabledBy
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
 				if (z.y > z.x) swap(z.x, z.y);
 
-	if(fractal->transformCommon.functionEnabledBxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsB
-			&& aux.i < fractal->transformCommon.stopIterationsB)
-				z  -=  boxSize;
+	if (fractal->transformCommon.functionEnabledBx
+			&& aux.i >= fractal->transformCommon.startIterationsI
+			&& aux.i < fractal->transformCommon.stopIterationsI)
+				z  =  z - boxSize;
 
-	if (fractal->transformCommon.functionEnabledBx)
-		z  =  z - boxSize;
+	if (fractal->transformCommon.functionEnabledByFalse
+			&& aux.i >= fractal->transformCommon.startIterationsG
+			&& aux.i < fractal->transformCommon.stopIterationsG)
+				if (z.y > z.x) swap(z.x, z.y);
 
-	if (fractal->transformCommon.functionEnabled)
-		if (z.y > z.x) swap(z.x, z.y);
+	if (fractal->transformCommon.functionEnabledxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+				if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
 
-//if(Yflip) {if(p.y > 0.0) p.y = -p.y;}
+	if (fractal->transformCommon.functionEnabledy
+			&& aux.i >= fractal->transformCommon.startIterationsC
+			&& aux.i < fractal->transformCommon.stopIterationsC)
+				if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
 
+	if (aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+				z.x -= fractal->transformCommon.offset1;
 
-	if(z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
+				z.y -= fractal->transformCommon.offsetA1;
 
 	// offsets and scale
-	z.x -= fractal->transformCommon.offset1;
-	z.y -= fractal->transformCommon.offsetA1;
+
+	//if (aux.i >= fractal->transformCommon.startIterationsG
+			//&& aux.i < fractal->transformCommon.stopIterationsG)
+	{
+		z *= fractal->transformCommon.scale015;
+		aux.DE *= fabs(fractal->transformCommon.scale015);
+	}
 
 
-	z *= fractal->transformCommon.scale015;
-	aux.DE *= fabs(fractal->transformCommon.scale015);
 
 
 
-	z += fractal->transformCommon.offset111;
+	if (aux.i >= fractal->transformCommon.startIterationsH
+			&& aux.i < fractal->transformCommon.stopIterationsH)
+				z += fractal->transformCommon.offset111;
 
 
 
