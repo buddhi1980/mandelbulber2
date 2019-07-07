@@ -132,6 +132,7 @@ void cPreferencesDialog::on_buttonBox_accepted()
 #ifdef USE_OPENCL
 	// OpenCL preference dialogue supports (1) platform
 	int selectedPlatform = ui->listWidget_opencl_platform_list->currentIndex().row();
+	if (selectedPlatform < 0) selectedPlatform = 0;
 	gPar->Set("opencl_platform", selectedPlatform);
 
 	QList<QListWidgetItem *> selectedDevicesItems =

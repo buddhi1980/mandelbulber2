@@ -77,12 +77,30 @@ void cGlobalOpenCl::InitPlatfromAndDevices()
 	{
 		openClHardware->ListOpenClPlatforms();
 
-		if (gPar->Get<int>("opencl_platform") >= 0)
-		{
-			openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
-				cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
+		int selectedPlatformIndex = gPar->Get<int>("opencl_platform");
 
-			openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+		if (openClHardware->getNumberOfPlatforms() > 0)
+		{
+			if (selectedPlatformIndex < 0
+					|| selectedPlatformIndex > openClHardware->getNumberOfPlatforms() - 1)
+			{
+				qCritical() << "Selected wrong OpenCL platform. Will be used first avaiable.";
+				selectedPlatformIndex = 0;
+				gPar->Set("opencl_platform", 0);
+			}
+
+			if (selectedPlatformIndex >= 0)
+			{
+				openClHardware->CreateContext(gPar->Get<int>("opencl_platform"),
+					cOpenClDevice::enumOpenClDeviceType(gPar->Get<int>("opencl_device_type")));
+
+				openClHardware->EnableDevicesByHashList(gPar->Get<QString>("opencl_device_list"));
+			}
+		}
+		else
+		{
+			qCritical() << "No OpenCL platforms available!";
+			gPar->Set("opencl_enabled", false);
 		}
 	}
 }
