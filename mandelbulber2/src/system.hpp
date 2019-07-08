@@ -121,6 +121,7 @@ public:
 	QString GetSlicesFolder() const { return GetDataDirectoryUsed() + "slices"; }
 	QString GetMaterialsFolder() const { return GetDataDirectoryUsed() + "materials"; }
 	QString GetAnimationFolder() const { return GetDataDirectoryUsed() + "animation"; }
+	QString GetGradientsFolder() const { return GetDataDirectoryUsed() + "gradients"; }
 
 	QString GetQueueFolder() const { return dataDirectoryHidden + "queue"; }
 	QString GetToolbarFolder() const { return dataDirectoryHidden + "toolbar"; }

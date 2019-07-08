@@ -227,7 +227,8 @@ bool InitSystem()
 		systemData.GetImagesFolder() + QDir::separator() + QString("image.jpg"));
 	systemData.lastImagePaletteFile = QDir::toNativeSeparators(
 		systemData.sharedDir + "textures" + QDir::separator() + QString("colour palette.jpg"));
-	systemData.lastGradientFile = QDir::toNativeSeparators(systemData.GetDataDirectoryPublic());
+	systemData.lastGradientFile = QDir::toNativeSeparators(
+		systemData.GetGradientsFolder() + QDir::separator() + "colors.gradient");
 
 	QLocale systemLocale = QLocale::system();
 	systemData.decimalPoint = systemLocale.decimalPoint();
@@ -359,6 +360,7 @@ bool CreateDefaultFolders()
 	result &= CreateFolder(systemData.GetMaterialsFolder());
 	result &= CreateFolder(systemData.GetAnimationFolder());
 	result &= CreateFolder(systemData.GetNetrenderFolder());
+	result &= CreateFolder(systemData.GetGradientsFolder());
 
 	RetrieveToolbarPresets(false);
 	RetrieveExampleMaterials(false);
