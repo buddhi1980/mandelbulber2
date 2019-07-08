@@ -16807,6 +16807,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 	double xOffset = fractal->transformCommon.offset0;
 	double yOffset = fractal->transformCommon.offset05;
+
 	if(fractal->transformCommon.functionEnabledBxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
@@ -16826,6 +16827,18 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i >= fractal->transformCommon.startIterationsZ
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 				z.z = fabs(z.z);
+
+	if (fractal->transformCommon.functionEnabledCxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsJ
+			&& aux.i < fractal->transformCommon.stopIterationsJ)
+	{
+		z.x = fabs(z.x);
+		int poly = fractal->transformCommon.int3;
+		double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+		double len = sqrt(z.x * z.x + z.y * z.y);
+		z.x = cos(psi) * len;
+		z.y = sin(psi) * len;
+	}
 
 	if (fractal->transformCommon.functionEnabledBy
 			&& aux.i >= fractal->transformCommon.startIterationsD
@@ -16860,25 +16873,15 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsF)
 				z.y -= fractal->transformCommon.offsetA1;
 
-	// offsets and scale
-
-	//if (aux.i >= fractal->transformCommon.startIterationsG
-			//&& aux.i < fractal->transformCommon.stopIterationsG)
+	if (aux.i >= fractal->transformCommon.startIterationsK)
 	{
 		z *= fractal->transformCommon.scale015;
 		aux.DE *= fabs(fractal->transformCommon.scale015);
 	}
 
-
-
-
-
 	if (aux.i >= fractal->transformCommon.startIterationsH
 			&& aux.i < fractal->transformCommon.stopIterationsH)
 				z += fractal->transformCommon.offset111;
-
-
-
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse

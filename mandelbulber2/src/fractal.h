@@ -606,6 +606,7 @@ struct sFractalTransformCommon
 	int intB;
 	int int1;
 	int int2;
+	int int3;
 	int int6;
 	int int8X;
 	int int8Y;

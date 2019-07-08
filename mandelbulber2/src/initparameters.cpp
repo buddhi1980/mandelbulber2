@@ -860,6 +860,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_int_B", 0, morphLinear, paramStandard);
 	par->addParam("transf_int_1", 1, morphLinear, paramStandard);
 	par->addParam("transf_int_2", 2, morphLinear, paramStandard);
+	par->addParam("transf_int_3", 3, morphLinear, paramStandard);
 	par->addParam("transf_int_6", 6, morphLinear, paramStandard);
 	par->addParam("transf_int8_X", 8, morphLinear, paramStandard);
 	par->addParam("transf_int8_Y", 8, morphLinear, paramStandard);
