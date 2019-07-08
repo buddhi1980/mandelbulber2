@@ -733,6 +733,8 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 
 	Compatibility(parameterName, value);
 
+	if (parameterName == "skip") return true;
+
 	if (parameterName.left(parameterName.indexOf('_')) == "primitive")
 	{
 		if (!par->IfExists(parameterName))
@@ -989,6 +991,12 @@ void cSettings::Compatibility(QString &name, QString &value) const
 
 		if (name.contains("transparency_color_thesame"))
 			name.replace("transparency_color_thesame", "transparency_gradient_enable");
+
+		if (name.contains("coloring_palette_size")) name = "skip";
+
+		if (name.contains("coloring_random_seed")) name = "skip";
+
+		if (name.contains("coloring_saturation")) name = "skip";
 	}
 }
 
