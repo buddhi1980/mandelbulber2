@@ -3,10 +3,12 @@ dev v2.19
 - Added new fractal formulas
    mandelbulbPower1234
    mengerPolyFold
+   ifs_xy
    transfDiagonalFold
    transfPolyFoldAtan
    transfPolyFoldAtan2
    transfAbsAddConditional2
+
 
 - modified fractal formulas
    transfPolyFoldSymXY, added XY to name and updated code
