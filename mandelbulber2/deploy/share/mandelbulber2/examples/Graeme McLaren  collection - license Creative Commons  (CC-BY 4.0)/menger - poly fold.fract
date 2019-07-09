@@ -1,0 +1,31 @@
+# Mandelbulber settings file
+# version 2.19
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera 0 -3.5 0;
+camera_distance_to_target 3.5;
+camera_rotation 0 0 0;
+camera_top 0 0 1;
+DE_factor 0.6;
+detail_level 0.5;
+flight_last_to_render 0;
+formula_1 149;
+hybrid_fractal_enable true;
+image_height 1600;
+image_proportion 1;
+image_width 1600;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+raytraced_reflections true;
+view_distance_max 9.320914707842082;
+[fractal_1]
+analyticDE_enabled_false true;
+transf_function_enabledAx_false true;
+transf_function_enabledAy_false true;
+transf_function_enabledCy_false true;
+transf_int8_Y 28;
+transf_offset_000 0.3 0.5 0;
+transf_offset_05 0.8;
+transf_offsetA_000 -0.7 0 -1.9;
+transf_scale_1 1.9;
