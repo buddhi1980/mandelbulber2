@@ -51,34 +51,11 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_X">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
-          <property name="text">
-           <string>z.z</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
+        <item row="2" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_Z">
           <property name="enabled">
            <bool>false</bool>
@@ -94,53 +71,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
-          <property name="text">
-           <string>z.x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_Y">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
-          <property name="text">
-           <string>z.y </string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_X">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="2">
+        <item row="2" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_Z">
           <property name="enabled">
            <bool>false</bool>
@@ -156,7 +87,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="1" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_Y">
           <property name="enabled">
            <bool>false</bool>
@@ -172,17 +103,141 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="label_281">
-          <property name="text">
-           <string>Start at iteration:</string>
+        <item row="0" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_X">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_Y">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="QLabel" name="label_282">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_X">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAx_false">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>z.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAy_false">
+          <property name="text">
+           <string>z.y </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledAz_false">
+          <property name="text">
+           <string>z.z</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_51">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_71">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_72">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_73">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_75">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_76">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -213,10 +268,23 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_9" columnstretch="0,0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="3" column="5">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
         <item row="4" column="0">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
           <property name="text">
@@ -224,7 +292,20 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="1">
+        <item row="3" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_G">
           <property name="enabled">
            <bool>false</bool>
@@ -240,7 +321,47 @@
           </property>
          </widget>
         </item>
-        <item row="4" column="2">
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_45">
+          <property name="text">
+           <string>poly fold integer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy">
+          <property name="text">
+           <string notr="true">diagonal fold1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="4">
+         <widget class="QLabel" name="label_53">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="5">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_J">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="5">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_G">
           <property name="enabled">
            <bool>false</bool>
@@ -256,21 +377,21 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_D">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="1" column="4">
+         <widget class="QLabel" name="label_47">
+          <property name="text">
+           <string>stop at:</string>
           </property>
-          <property name="maximum">
-           <number>999</number>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_D">
+        <item row="1" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -295,30 +416,56 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy">
-          <property name="text">
-           <string notr="true">diagonal fold1</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_J">
-          <property name="enabled">
-           <bool>false</bool>
+         <widget class="QLabel" name="label_46">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
           </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+          <property name="text">
+           <string>start at:</string>
           </property>
-          <property name="maximum">
-           <number>999</number>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="4" column="2">
+         <widget class="QLabel" name="label_52">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QLabel" name="label_50">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="4">
+         <widget class="QLabel" name="label_49">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2" colspan="2">
          <widget class="MySpinBox" name="spinboxInt_transf_int_3">
           <property name="enabled">
            <bool>false</bool>
@@ -334,29 +481,6 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_J">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_45">
-          <property name="text">
-           <string>poly fold integer</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -365,7 +489,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_7">
      <property name="title">
-      <string>box folds</string>
+      <string>box</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_9" stretch="0,0">
       <property name="spacing">
@@ -384,11 +508,18 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_15" columnstretch="0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="2">
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx">
+          <property name="text">
+           <string notr="true"> box fold1</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_I">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -402,6 +533,19 @@
          </widget>
         </item>
         <item row="0" column="1">
+         <widget class="QLabel" name="label_54">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_I">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -414,37 +558,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx">
-          <property name="text">
-           <string notr="true"> box fold1</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
-          <property name="text">
-           <string notr="true">box fold2</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
+        <item row="1" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_B">
           <property name="enabled">
            <bool>false</bool>
@@ -460,6 +574,62 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+          <property name="text">
+           <string notr="true">box fold2</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_B">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_55">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_56">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_57">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
       <item>
@@ -467,6 +637,41 @@
         <property name="spacing">
          <number>2</number>
         </property>
+        <item row="5" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_z">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>6</number>
+          </property>
+          <property name="minimum">
+           <double>-99.989999999999995</double>
+          </property>
+          <property name="maximum">
+           <double>99.989999999999995</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QLabel" name="label_124">
+          <property name="text">
+           <string notr="true">z.y</string>
+          </property>
+         </widget>
+        </item>
         <item row="3" column="2">
          <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_x">
           <property name="sizePolicy">
@@ -492,6 +697,13 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QLabel" name="label_121">
+          <property name="text">
+           <string notr="true">z.x</string>
           </property>
          </widget>
         </item>
@@ -537,48 +749,6 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="2">
-         <widget class="MyDoubleSpinBox" name="spinbox3_transf_addition_constant_0555_z">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.989999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.989999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QLabel" name="label_124">
-          <property name="text">
-           <string notr="true">z.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="label_121">
-          <property name="text">
-           <string notr="true">z.x</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -606,39 +776,11 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_10" columnstretch="0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
-          <property name="text">
-           <string notr="true">z.x</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
-          <property name="text">
-           <string notr="true">z.y</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_43">
-          <property name="text">
-           <string>offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_38">
-          <property name="text">
-           <string>offset:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="2" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_C">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -651,20 +793,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
+        <item row="0" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
           <property name="enabled">
            <bool>false</bool>
@@ -680,7 +809,28 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="2" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledy">
+          <property name="text">
+           <string notr="true">z.y</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_38">
+          <property name="text">
+           <string>offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_43">
+          <property name="text">
+           <string>offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
           <property name="enabled">
            <bool>false</bool>
@@ -696,8 +846,77 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_05">
+        <item row="0" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledx_false">
+          <property name="text">
+           <string notr="true">z.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_C">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_58">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_60">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_61">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_62">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="4">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -724,11 +943,8 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_0">
-          <property name="enabled">
-           <bool>false</bool>
-          </property>
+        <item row="3" column="1" colspan="4">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_05">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -782,21 +998,20 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_12" columnstretch="0,0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_44">
-          <property name="text">
-           <string>z.x</string>
+        <item row="0" column="4">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_111">
-          <property name="text">
-           <string>offset:</string>
+          <property name="maximum">
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -814,33 +1029,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_E">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
+        <item row="2" column="2">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_F">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -853,7 +1042,27 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
+        <item row="0" column="2">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_E">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_44">
+          <property name="text">
+           <string>z.x</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="4">
          <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_F">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -866,7 +1075,50 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1" colspan="2">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_111">
+          <property name="text">
+           <string>offset:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_63">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_64">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_65">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1" colspan="4">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -894,7 +1146,7 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1" colspan="2">
+        <item row="3" column="1" colspan="4">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -922,6 +1174,16 @@
           </property>
          </widget>
         </item>
+        <item row="2" column="3">
+         <widget class="QLabel" name="label_68">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
@@ -930,7 +1192,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_9">
      <property name="title">
-      <string>Scaling</string>
+      <string>Scale</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0,0,0">
       <property name="spacing">
@@ -949,21 +1211,7 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,1,0,1">
-        <item row="1" column="2">
-         <widget class="QLabel" name="label_51">
-          <property name="text">
-           <string>Stop Scale at iteration:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_66">
-          <property name="text">
-           <string>Start Scale at iteration:</string>
-          </property>
-         </widget>
-        </item>
+       <layout class="QGridLayout" name="gridLayout_16" columnstretch="0,0,0,0">
         <item row="1" column="1">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_S">
           <property name="sizePolicy">
@@ -987,6 +1235,29 @@
           </property>
           <property name="maximum">
            <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QLabel" name="label_67">
+          <property name="text">
+           <string>stop at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_69">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+          <property name="text">
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -1210,7 +1481,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox_6">
      <property name="title">
-      <string/>
+      <string>Offset2</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,0">
       <property name="spacing">
@@ -1229,14 +1500,33 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,1,1">
+       <layout class="QGridLayout" name="gridLayout_14" columnstretch="0,0,0,0">
         <property name="spacing">
          <number>2</number>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_115">
+         <widget class="QLabel" name="label_66">
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
           <property name="text">
-           <string>offset2</string>
+           <string>start at:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_H">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>999</number>
           </property>
          </widget>
         </item>
@@ -1254,15 +1544,12 @@
          </widget>
         </item>
         <item row="0" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_H">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+         <widget class="QLabel" name="label_70">
+          <property name="text">
+           <string>stop at:</string>
           </property>
-          <property name="maximum">
-           <number>999</number>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
           </property>
          </widget>
         </item>
@@ -1381,7 +1668,7 @@
         <item row="3" column="0" rowspan="3">
          <widget class="QLabel" name="label_110">
           <property name="text">
-           <string>offset2:</string>
+           <string>offset:</string>
           </property>
          </widget>
         </item>
@@ -1391,17 +1678,11 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
-     <property name="toolTip">
-      <string/>
-     </property>
+    <widget class="QGroupBox" name="groupBox_8">
      <property name="title">
-      <string>Rotat&amp;ion</string>
+      <string>Rotation</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1442,13 +1723,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
-         <widget class="QLabel" name="label_251">
-          <property name="text">
-           <string>Stop Rotation at iteration:</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="1">
          <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_R">
           <property name="sizePolicy">
@@ -1459,6 +1733,13 @@
           </property>
           <property name="maximum">
            <number>999</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="label_251">
+          <property name="text">
+           <string>Stop Rotation at iteration:</string>
           </property>
          </widget>
         </item>
@@ -1589,14 +1870,14 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
      <property name="title">
-      <string>Analytic D&amp;E enabled</string>
+      <string>Analytic D&amp;E tweaks</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0">
+     <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -1688,16 +1969,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item>
-       <widget class="MyCheckBox" name="checkBox_analyticDE_enabled_false">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Can sometimes improve render quality when using analytic DE&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>Analytic Linear DE</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

@@ -120,6 +120,8 @@ void GeneralizedFoldBoxIteration(CVector4 &z, const sFractal *fractal, sExtended
 void HypercomplexIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Ides2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void IfsXYIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

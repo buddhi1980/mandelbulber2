@@ -209,6 +209,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionNone,
 		coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Ifs - XY", "ifs_xy", ifsXY, IfsXYIteration,
+		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
+		coloringFunctionDefault));
+
+
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));

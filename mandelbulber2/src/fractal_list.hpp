@@ -202,6 +202,7 @@ enum enumFractalFormula
 	// 2.19
 	mandelbulbPower1234 = 148,
 	mengerPolyFold = 149,
+	ifsXY = 150,
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
