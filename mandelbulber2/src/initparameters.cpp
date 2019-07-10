@@ -511,6 +511,7 @@ void InitParams(cParameterContainer *par)
 		"toolbar_icon_size", systemData.GetPreferredThumbnailSize() / 2, 20, 400, morphNone, paramApp);
 	par->addParam("ui_colorize", true, morphNone, paramApp);
 	par->addParam("ui_colorize_random_seed", 12345, morphNone, paramApp);
+	par->addParam("display_tooltips", true, morphNone, paramApp);
 
 	par->addParam("limit_CPU_cores", get_cpu_count(), 1, get_cpu_count(), morphNone, paramApp);
 

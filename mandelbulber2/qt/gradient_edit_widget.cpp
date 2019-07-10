@@ -91,6 +91,15 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 	connect(buttonBrightnessDec, SIGNAL(clicked()), this, SLOT(pressedButtonBrightnessDec()));
 	connect(buttonSaturationInc, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationInc()));
 	connect(buttonSaturationDec, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationDec()));
+
+	buttonRandomColors->setToolTip(
+		tr("Randomize all colors in gradient without changing positions and number of colors"));
+	buttonRandomColorsAndPositions->setToolTip(
+		tr("Randomize all colors, positions, and number of colors in gradient"));
+	buttonBrightnessInc->setToolTip(tr("Increase brightness of gradient"));
+	buttonBrightnessDec->setToolTip(tr("Decrease brightness of gradient"));
+	buttonSaturationInc->setToolTip(tr("Increase saturation of colors in gradient"));
+	buttonSaturationDec->setToolTip(tr("Decrease saturation of colors in gradient"));
 }
 
 cGradientEditWidget::~cGradientEditWidget()

@@ -213,6 +213,7 @@ void cMaterialManagerView::slotEditMaterial()
 
 	cMaterialEditor *materialEditor = new cMaterialEditor(dialog);
 	materialEditor->setMinimumWidth(500);
+	materialEditor->setMinimumHeight(650);
 
 	dialog->layout()->addWidget(materialEditor);
 
@@ -232,6 +233,9 @@ void cMaterialManagerView::slotEditMaterial()
 
 	connect(buttonBox, SIGNAL(accepted()), dialog, SLOT(accept()));
 	connect(buttonBox, SIGNAL(rejected()), dialog, SLOT(reject()));
+
+	if (gPar->Get<bool>("ui_colorize"))
+		materialEditor->Colorize(gPar->Get<int>("ui_colorize_random_seed"));
 
 	int result = dialog->exec();
 

@@ -290,6 +290,9 @@ void cInterface::ShowUi()
 	mainWindow->slotPopulateCustomWindowStates();
 	systemTray = new cSystemTray(mainImage, mainWindow);
 
+	// installing event filter for disabling tooltips
+	gApplication->installEventFilter(mainWindow);
+
 	WriteLog("cInterface::ConnectSignals(void)", 2);
 	ConnectSignals();
 	WriteLog("cInterface::ConnectSignals(void) finished", 2);
