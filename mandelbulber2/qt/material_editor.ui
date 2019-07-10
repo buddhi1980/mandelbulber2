@@ -119,7 +119,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-2496</y>
+        <y>0</y>
         <width>466</width>
         <height>3855</height>
        </rect>
@@ -192,7 +192,11 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_surface_color_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines colors of fractal surface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -222,7 +226,11 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_specular_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines colors of specular highlights.&lt;/p&gt;&lt;p&gt;Brighter colors increases highlights intensity. Black color gives no highlights.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -252,7 +260,11 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_diffuse_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines intensity and width of specular highlights.&lt;/p&gt;&lt;p&gt;Higher value gives more glossy surface - brighter highlights and smaller width of them.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -282,13 +294,20 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_luminosity_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_luminosity_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines luminosity of fractal.&lt;/p&gt;&lt;p&gt;Higher brighness of gradient colors gives higher luminosity.&lt;/p&gt;&lt;p&gt;This effects works only when luminosity value is greather than zero.&lt;/p&gt;&lt;p&gt;To illuminate another objects by this gradient, there have to be enabled &lt;span style=&quot; font-style:italic;&quot;&gt;Monte Carlo Algorithm&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Calculate MC Global Illumination&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
           </item>
           <item>
            <widget class="MyGroupBox" name="groupCheck_roughness_gradient_enable">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
             <property name="title">
              <string>Roughness (brighter -&gt; higher roughness)</string>
             </property>
@@ -312,13 +331,20 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_roughness_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_roughness_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines roughness of fractal surface.&lt;/p&gt;&lt;p&gt;Higher value gives higher roughness. Black colors makes smooth surface.&lt;/p&gt;&lt;p&gt;This gradient works only when &amp;quot;Rugh surface&amp;quot; is enabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
           </item>
           <item>
            <widget class="MyGroupBox" name="groupCheck_reflectance_gradient_enable">
+            <property name="toolTip">
+             <string/>
+            </property>
             <property name="title">
              <string>Reflectance</string>
             </property>
@@ -342,7 +368,11 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_reflectance_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_reflectance_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines colors of reflected light.&lt;/p&gt;&lt;p&gt;Brighter colors increases reflectance. Black colors gives no reflections.&lt;/p&gt;&lt;p&gt;This gradient works only when &lt;span style=&quot; font-style:italic;&quot;&gt;reflectance&lt;/span&gt; is greater than zero.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -372,7 +402,11 @@
               <number>2</number>
              </property>
              <item>
-              <widget class="cGradientEditWidget" name="colorpalette_transparency_gradient" native="true"/>
+              <widget class="cGradientEditWidget" name="colorpalette_transparency_gradient" native="true">
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gradient which defines colors of transparency of fractal.&lt;/p&gt;&lt;p&gt;Brighter colors increases transparency. Black colors gives no transparency.&lt;/p&gt;&lt;p&gt;This gradient works only if &lt;span style=&quot; font-style:italic;&quot;&gt;transparency of surface&lt;/span&gt; is greather than zero&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -4774,20 +4808,10 @@ object size)</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -4795,9 +4819,24 @@ object size)</string>
    <header>my_spin_box.h</header>
   </customwidget>
   <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
    <class>MyLineEdit</class>
    <extends>QLineEdit</extends>
    <header>my_line_edit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyComboBox</class>
+   <extends>QComboBox</extends>
+   <header>my_combo_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>cButtonLoadSettingsFromWidget</class>
@@ -4813,11 +4852,6 @@ object size)</string>
    <class>cButtonResetSettingsFromWidget</class>
    <extends>QPushButton</extends>
    <header>buton_reset_settings_from_widget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>MyComboBox</class>
-   <extends>QComboBox</extends>
-   <header>my_combo_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyColorButton</class>
