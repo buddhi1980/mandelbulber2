@@ -6,7 +6,7 @@
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
  * see also COPYING file in this folder.    ~+{i%+++
  *
- * abs add tglad fold,  z = abs( z + constant) - abs( z - constant) - z:
+ * abs add tglad fold,  z = fabs( z + constant) -fabs( z - constant) - z:
  * with a fold tweak option
  * This formula contains aux.color
 

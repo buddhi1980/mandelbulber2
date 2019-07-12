@@ -75,6 +75,18 @@ REAL4 JosKleinianV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		}
 	}
 
+	if (fractal->transformCommon.functionEnabledJFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		if (z.z > z.x)
+		{
+			REAL temp = z.x;
+			z.x = z.z;
+			z.z = temp;
+		}
+	}
+
 	// kleinian
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)

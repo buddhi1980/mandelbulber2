@@ -655,7 +655,7 @@
         <property name="text">
          <string notr="true">&lt;p&gt;Menger Smooth&lt;br&gt;http://www.fractalforums.com/fragmentarium/help-t22583/&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
-&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;menger smooth 001.fract&lt;br&gt;monte carlo global illumination.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
+&lt;br&gt;&lt;b&gt;Examples using this formula&lt;/b&gt;&lt;br&gt;gradients - specular highlights.fract&lt;br&gt;menger smooth 001.fract&lt;br&gt;monte carlo global illumination.fract&lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
         <property name="wordWrap">
          <bool>true</bool>

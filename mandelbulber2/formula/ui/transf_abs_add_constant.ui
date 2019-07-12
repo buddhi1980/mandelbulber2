@@ -350,7 +350,7 @@
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;abs add  constant,  z = abs( z + pre-offset) + post-offset&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;abs add  constant,  z = fabs( z + pre-offset) + post-offset&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>

@@ -517,6 +517,7 @@ typedef struct
 	cl_float offset0005;
 	cl_float offset05;
 	cl_float offset1;
+	cl_float offsetA1;
 	cl_float offset105;
 	cl_float offset2;
 	cl_float offset4;
@@ -617,6 +618,7 @@ typedef struct
 	cl_int intB;
 	cl_int int1;
 	cl_int int2;
+	cl_int int3;
 	cl_int int6;
 	cl_int int8X;
 	cl_int int8Y;
@@ -1212,6 +1214,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset0005 = source.offset0005;
 	target.offset05 = source.offset05;
 	target.offset1 = source.offset1;
+	target.offsetA1 = source.offsetA1;
 	target.offset105 = source.offset105;
 	target.offset2 = source.offset2;
 	target.offset4 = source.offset4;
@@ -1307,6 +1310,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.intB = source.intB;
 	target.int1 = source.int1;
 	target.int2 = source.int2;
+	target.int3 = source.int3;
 	target.int6 = source.int6;
 	target.int8X = source.int8X;
 	target.int8Y = source.int8Y;
