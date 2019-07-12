@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -211,7 +211,7 @@ public:
 		// than evaluating each dimension sequentially.
 		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z));
 	}
-	CVector3 RotateAroundVectorByAngle(const CVector3& axis, double angle) const;
+	CVector3 RotateAroundVectorByAngle(const CVector3 &axis, double angle) const;
 	QString Debug() const
 	{
 		return QString("[%1, %2, %3]").arg(QString::number(x), QString::number(y), QString::number(z));
@@ -224,12 +224,12 @@ public:
 	double z;
 };
 
-inline CVector3 operator*(double scalar, const CVector3& vector)
+inline CVector3 operator*(double scalar, const CVector3 &vector)
 {
 	return CVector3(vector.x * scalar, vector.y * scalar, vector.z * scalar);
 }
 
-inline CVector3 operator/(double scalar, const CVector3& vector)
+inline CVector3 operator/(double scalar, const CVector3 &vector)
 {
 	return CVector3(scalar / vector.x, scalar / vector.y, scalar / vector.z);
 }
@@ -288,7 +288,7 @@ public:
 		z = _z;
 		w = _w;
 	}
-	inline CVector4(const CVector3& vectXYZ, double _w)
+	inline CVector4(const CVector3 &vectXYZ, double _w)
 	{
 		x = vectXYZ.x;
 		y = vectXYZ.y;
@@ -431,7 +431,7 @@ public:
 		return !(gsl_finite(x) & gsl_finite(y) & gsl_finite(z) & gsl_finite(w));
 	}
 
-	CVector4 RotateAroundVectorByAngle(const CVector3& axis, double angle) const;
+	CVector4 RotateAroundVectorByAngle(const CVector3 &axis, double angle) const;
 
 	QString Debug() const
 	{
@@ -444,12 +444,12 @@ public:
 	double x, y, z, w;
 };
 
-inline CVector4 operator*(double scalar, const CVector4& vector)
+inline CVector4 operator*(double scalar, const CVector4 &vector)
 {
 	return CVector4(vector.x * scalar, vector.y * scalar, vector.z * scalar, vector.w * scalar);
 }
 
-inline CVector4 operator/(double scalar, const CVector4& vector)
+inline CVector4 operator/(double scalar, const CVector4 &vector)
 {
 	return CVector4(scalar / vector.x, scalar / vector.y, scalar / vector.z, scalar / vector.w);
 }
@@ -614,9 +614,9 @@ public:
 	double GetGamma() const;
 	void SetRotation(double angles[3]);
 	void SetRotation(double alpha, double beta, double gamma);
-	void SetRotation(const CVector3& rotation);
-	void SetRotation2(const CVector3& rotation);
-	void SetRotation3(const CVector3& rotation);
+	void SetRotation(const CVector3 &rotation);
+	void SetRotation2(const CVector3 &rotation);
+	void SetRotation3(const CVector3 &rotation);
 	CRotationMatrix Transpose() const;
 	CMatrix33 GetMatrix() const { return matrix; }
 
@@ -678,8 +678,8 @@ public:
 	// void SetRotation2(CVector4 rotation);
 	// void SetRotation3(CVector4 rotation);
 
-	void SetRotation44a(const CVector3& rotation);
-	void SetRotation44b(const CVector3& rotation);
+	void SetRotation44a(const CVector3 &rotation);
+	void SetRotation44b(const CVector3 &rotation);
 
 	CRotationMatrix44 Transpose() const;
 	CMatrix44 GetMatrix() const { return matrix; }

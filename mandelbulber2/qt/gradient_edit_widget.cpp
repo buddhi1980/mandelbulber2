@@ -34,19 +34,20 @@
 
 #include "gradient_edit_widget.h"
 
-#include <QPainter>
-#include <QMouseEvent>
 #include <QColorDialog>
-#include <QMenu>
 #include <QInputDialog>
+#include <QMenu>
+#include <QMouseEvent>
+#include <QPainter>
 #include <QtWidgets>
 
+#include "preview_file_dialog.h"
+
+#include "src/common_math.h"
 #include "src/error_message.hpp"
 #include "src/parameters.hpp"
 #include "src/random.hpp"
-#include "preview_file_dialog.h"
 #include "src/system.hpp"
-#include "src/common_math.h"
 
 cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 		: QWidget(parent), CommonMyWidgetWrapper(this)

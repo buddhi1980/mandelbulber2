@@ -59,7 +59,8 @@ CNetRender::CNetRender() : QObject(nullptr)
 	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
 		SLOT(clientStatusChanged(netRenderStatus)));
 	connect(cNetRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(cNetRenderClient, SIGNAL(ToDoListArrived(QList<int>)), this, SIGNAL(ToDoListArrived(QList<int>)));
+	connect(cNetRenderClient, SIGNAL(ToDoListArrived(QList<int>)), this,
+		SIGNAL(ToDoListArrived(QList<int>)));
 	connect(cNetRenderClient, SIGNAL(AckReceived()), this, SIGNAL(AckReceived()));
 	connect(cNetRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
 
@@ -68,10 +69,11 @@ CNetRender::CNetRender() : QObject(nullptr)
 		SLOT(serverStatusChanged(netRenderStatus)));
 	connect(cNetRenderServer, SIGNAL(ClientsChanged()), this, SLOT(ClientsHaveChanged()));
 	connect(cNetRenderServer, SIGNAL(ClientsChanged(int)), this, SIGNAL(ClientsChanged(int)));
-	connect(cNetRenderServer, SIGNAL(ClientsChanged(int, int)), this, SIGNAL(ClientsChanged(int, int)));
+	connect(
+		cNetRenderServer, SIGNAL(ClientsChanged(int, int)), this, SIGNAL(ClientsChanged(int, int)));
 	connect(cNetRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(cNetRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)),
-					this, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
+	connect(cNetRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
+		SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
 }
 
 CNetRender::~CNetRender()
@@ -108,7 +110,8 @@ void CNetRender::SetClient(QString _address, int _portNo)
 	if (systemData.noGui)
 	{
 		QTextStream out(stdout);
-		out << QString("NetRender - Client Setup, link to server: %1, port: %2 \n").arg(_address, QString::number(_portNo));
+		out << QString("NetRender - Client Setup, link to server: %1, port: %2 \n")
+						 .arg(_address, QString::number(_portNo));
 	}
 }
 
@@ -149,8 +152,7 @@ void CNetRender::KickAndKillClient(int clientIndex)
 }
 
 // send rendered lines
-void CNetRender::SendRenderedLines(
-	const QList<int> &lineNumbers, const QList<QByteArray> &lines)
+void CNetRender::SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines)
 {
 	cNetRenderClient->SendRenderedLines(lineNumbers, lines);
 }

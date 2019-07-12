@@ -93,7 +93,6 @@ struct sExtendedAux
 	double color;
 	double colorHybrid;
 
-
 	double temp1000;
 	double addDist;
 };

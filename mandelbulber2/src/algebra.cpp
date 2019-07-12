@@ -1,7 +1,7 @@
 /**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
- * Copyright (C) 2014-18 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
+ * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
  *                                        ,=mm=§M ]=4 yJKA"/-Nsaj  "Bw,==,,
  * This file is part of Mandelbulber.    §R.r= jw",M  Km .mM  FW ",§=ß., ,TN
  *                                     ,4R =%["w[N=7]J '"5=],""]]M,w,-; T=]M
@@ -39,7 +39,7 @@
 
 #include "algebra.hpp"
 
-CVector3 CVector3::RotateAroundVectorByAngle(const CVector3& axis, double angle) const
+CVector3 CVector3::RotateAroundVectorByAngle(const CVector3 &axis, double angle) const
 {
 	CVector3 vector = *this * cos(angle);
 	vector += (axis.Cross(*this)) * sin(angle);
@@ -47,7 +47,7 @@ CVector3 CVector3::RotateAroundVectorByAngle(const CVector3& axis, double angle)
 	return vector;
 }
 
-CVector4 CVector4::RotateAroundVectorByAngle(const CVector3& axis, double angle) const
+CVector4 CVector4::RotateAroundVectorByAngle(const CVector3 &axis, double angle) const
 {
 	const CVector3 oldVector = GetXYZ();
 	CVector3 vector = oldVector * cos(angle);
@@ -227,7 +227,7 @@ void CRotationMatrix::SetRotation(double alpha, double beta, double gamma)
 	RotateY(gamma);
 }
 
-void CRotationMatrix::SetRotation(const CVector3& rotation)
+void CRotationMatrix::SetRotation(const CVector3 &rotation)
 {
 	Null();
 	RotateZ(rotation.x);
@@ -235,7 +235,7 @@ void CRotationMatrix::SetRotation(const CVector3& rotation)
 	RotateY(rotation.z);
 }
 
-void CRotationMatrix::SetRotation2(const CVector3& rotation)
+void CRotationMatrix::SetRotation2(const CVector3 &rotation)
 {
 	Null();
 	RotateZ(rotation.z);
@@ -243,7 +243,7 @@ void CRotationMatrix::SetRotation2(const CVector3& rotation)
 	RotateX(rotation.x);
 }
 
-void CRotationMatrix::SetRotation3(const CVector3& rotation)
+void CRotationMatrix::SetRotation3(const CVector3 &rotation)
 {
 	Null();
 	RotateZ(rotation.x);
@@ -574,14 +574,14 @@ void CRotationMatrix44::SetRotation(
 	RotateYW(epsilon);
 	RotateZW(zeta);
 }
-void CRotationMatrix44::SetRotation44a(const CVector3& rotation)
+void CRotationMatrix44::SetRotation44a(const CVector3 &rotation)
 {
 	Null();
 	RotateXY(rotation.x);
 	RotateYZ(rotation.y);
 	RotateXZ(rotation.z);
 }
-void CRotationMatrix44::SetRotation44b(const CVector3& rotation)
+void CRotationMatrix44::SetRotation44b(const CVector3 &rotation)
 {
 	Null();
 	RotateXW(rotation.x);

@@ -56,8 +56,7 @@ sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVect
 
 	if (input.material->useColorsFromPalette && input.material->diffuseGradientEnable)
 	{
-		diffuse *=
-			10.0f * (1.1f - (diffuseGradient.R + diffuseGradient.G + diffuseGradient.B) / 3.0f);
+		diffuse *= 10.0f * (1.1f - (diffuseGradient.R + diffuseGradient.G + diffuseGradient.B) / 3.0f);
 	}
 
 	shade2 = pow(shade2, 30.0f / specularWidth / diffuse) / diffuse;

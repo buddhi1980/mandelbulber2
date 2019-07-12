@@ -47,14 +47,14 @@
 
 struct sImageOptional
 {
-	sImageOptional() : optionalNormal(false), optionalSpecular(false),
-		optionalDiffuse(false), optionalWorld(false){}
+	sImageOptional()
+			: optionalNormal(false), optionalSpecular(false), optionalDiffuse(false), optionalWorld(false)
+	{
+	}
 	inline bool operator==(sImageOptional other) const
 	{
-		return other.optionalNormal == optionalNormal
-				&& other.optionalSpecular == optionalSpecular
-				&& other.optionalDiffuse == optionalDiffuse
-				&& other.optionalWorld == optionalWorld;
+		return other.optionalNormal == optionalNormal && other.optionalSpecular == optionalSpecular
+					 && other.optionalDiffuse == optionalDiffuse && other.optionalWorld == optionalWorld;
 	}
 
 	bool optionalNormal;

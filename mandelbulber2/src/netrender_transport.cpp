@@ -113,9 +113,7 @@ bool CNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	// if the message does not contain a payload it is ready to be processed
 	if (msg->size <= 0) return true;
 
-
-	if (socket->bytesAvailable() < (sMessage::crcSize() + msg->size))
-		return false;
+	if (socket->bytesAvailable() < (sMessage::crcSize() + msg->size)) return false;
 
 	// full payload available, read to buffer
 	char *buffer = new char[msg->size];

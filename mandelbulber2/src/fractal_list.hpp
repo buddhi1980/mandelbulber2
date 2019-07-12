@@ -298,7 +298,7 @@ enum enumFractalFormula
 	transfAddCpixelRotated = 1078,
 	transfAddConstantMod1 = 1079,
 	// 2.14
-	transfPolyFoldSymXY = 1080, // updated v2.19
+	transfPolyFoldSymXY = 1080,		 // updated v2.19
 	transfPolyFoldSymMulti = 1081, // updated v2.19
 	// 2.15
 	transfSinOrCos = 1082,

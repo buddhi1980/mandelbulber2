@@ -107,7 +107,10 @@ public:
 	// get status of Client
 	netRenderStatus GetClientStatus(int index);
 	// in cli mode this method enables waiting for the clients before start of rendering
-	bool WaitForAllClientsReady(double timeout) { return cNetRenderServer->WaitForAllClientsReady(timeout); }
+	bool WaitForAllClientsReady(double timeout)
+	{
+		return cNetRenderServer->WaitForAllClientsReady(timeout);
+	}
 
 	//++++++++++++++++++ Client related  +++++++++++++++++
 	// get name of the connected server
@@ -115,7 +118,8 @@ public:
 	// get line numbers which should be rendered first
 	QList<int> GetStartingPositions() const { return cNetRenderClient->GetStartingPositions(); }
 	// get received textures
-	QByteArray *GetTexture(const QString &textureName, int frameNo){
+	QByteArray *GetTexture(const QString &textureName, int frameNo)
+	{
 		return cNetRenderClient->GetTexture(textureName, frameNo);
 	}
 

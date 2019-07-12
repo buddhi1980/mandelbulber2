@@ -37,9 +37,10 @@
 
 #include <QToolButton>
 #include <QWidget>
-#include "src/color_gradient.h"
 
 #include "common_my_widget_wrapper.h"
+
+#include "src/color_gradient.h"
 
 class cGradientEditWidget : public QWidget, public CommonMyWidgetWrapper
 {

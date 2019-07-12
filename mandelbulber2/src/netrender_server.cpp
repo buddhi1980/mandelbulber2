@@ -184,7 +184,8 @@ void CNetRenderServer::ReceiveFromClient()
 	}
 }
 
-void CNetRenderServer::ClientReceive(int index){
+void CNetRenderServer::ClientReceive(int index)
+{
 	WriteLog("NetRender - ClientReceive()", 3);
 
 	if (clients.at(index).socket->bytesAvailable() > 0)
@@ -207,18 +208,10 @@ void CNetRenderServer::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 	{
 		switch (netCommandClient(inMsg->command))
 		{
-			case netRender_WORKER:
-				ProcessRequestWorker(inMsg, index, socket);
-				break;
-			case netRender_DATA:
-				ProcessRequestData(inMsg, index, socket);
-				break;
-			case netRender_STATUS:
-				ProcessRequestStatus(inMsg, index, socket);
-				break;
-			case netRender_BAD:
-				ProcessRequestBad(inMsg, index, socket);
-				return;
+			case netRender_WORKER: ProcessRequestWorker(inMsg, index, socket); break;
+			case netRender_DATA: ProcessRequestData(inMsg, index, socket); break;
+			case netRender_STATUS: ProcessRequestStatus(inMsg, index, socket); break;
+			case netRender_BAD: ProcessRequestBad(inMsg, index, socket); return;
 			default:
 				qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command);
 				break;
@@ -335,9 +328,8 @@ void CNetRenderServer::SetCurrentJob(
 
 void CNetRenderServer::ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket *socket)
 {
-	cErrorMessage::showMessage(
-		QObject::tr("NetRender - Client version mismatch!\n Client address:")
-			+ socket->peerAddress().toString(),
+	cErrorMessage::showMessage(QObject::tr("NetRender - Client version mismatch!\n Client address:")
+															 + socket->peerAddress().toString(),
 		cErrorMessage::errorMessage, gMainInterface->mainWindow);
 	clients.removeAt(index);
 	emit ClientsChanged();
@@ -357,10 +349,8 @@ void CNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 	stream.readRawData(buffer.data(), size);
 	clients[index].name = QString::fromUtf8(buffer.data(), buffer.size());
 
-	if (GetClient(index).status == netRender_NEW)
-		clients[index].status = netRender_READY;
-	WriteLog("NetRender - new Client #" + QString::number(index) + "("
-						 + GetClient(index).name + " - "
+	if (GetClient(index).status == netRender_NEW) clients[index].status = netRender_READY;
+	WriteLog("NetRender - new Client #" + QString::number(index) + "(" + GetClient(index).name + " - "
 						 + GetClient(index).socket->peerAddress().toString() + ")",
 		1);
 	emit ClientsChanged(index);
@@ -370,8 +360,7 @@ void CNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 		QTextStream out(stdout);
 		out << "NetRender - Client connected: Name: " + GetClient(index).name;
 		out << " IP: " + GetClient(index).socket->peerAddress().toString();
-		out << " CPUs: " + QString::number(GetClient(index).clientWorkerCount)
-						 + "\n";
+		out << " CPUs: " + QString::number(GetClient(index).clientWorkerCount) + "\n";
 	}
 
 	// when the client connects while a render is in progress, send the current job to the
@@ -405,10 +394,9 @@ void CNetRenderServer::ProcessRequestData(sMessage *inMsg, int index, QTcpSocket
 			stream.readRawData(lineData.data(), lineData.size());
 			receivedLineNumbers.append(line);
 			receivedRenderedLines.append(lineData);
-			WriteLog(
-				QString("NetRender - ProcessData(), command DATA, line %1, lineDataLength %2")
-					.arg(line)
-					.arg(lineLength),
+			WriteLog(QString("NetRender - ProcessData(), command DATA, line %1, lineDataLength %2")
+								 .arg(line)
+								 .arg(lineLength),
 				3);
 		}
 		clients[index].linesRendered += receivedLineNumbers.size();
@@ -429,11 +417,11 @@ void CNetRenderServer::ProcessRequestData(sMessage *inMsg, int index, QTcpSocket
 void CNetRenderServer::ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket)
 {
 	WriteLog("NetRender - ProcessData(), command STATUS", 3);
-	netRenderStatus clientStatus = netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));
+	netRenderStatus clientStatus =
+		netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));
 	clients[index].status = clientStatus;
 	emit ClientsChanged(index);
 }
-
 
 void CNetRenderServer::SendToDoList(int clientIndex, const QList<int> &done)
 {

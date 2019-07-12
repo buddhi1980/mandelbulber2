@@ -213,7 +213,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100, analyticFunctionLinear,
 		coloringFunctionDefault));
 
-
 	fractalList->append(sFractalDescription("IQ Bulb", "iq_bulb", iqBulb, IqBulbIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
@@ -336,9 +335,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		mengerPrismShape2, MengerPrismShape2Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Menger - Poly Fold", "menger_poly_fold",
-		mengerPolyFold, MengerPolyFoldIteration, analyticDEType, linearDEFunction,
-		cpixelDisabledByDefault, 10, analyticFunctionIFS, coloringFunctionIFS));
+	fractalList->append(sFractalDescription("Menger - Poly Fold", "menger_poly_fold", mengerPolyFold,
+		MengerPolyFoldIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
+		analyticFunctionIFS, coloringFunctionIFS));
 
 	fractalList->append(sFractalDescription("Menger - Pwr2 Polynomial", "menger_pwr2_poly",
 		mengerPwr2Poly, MengerPwr2PolyIteration, analyticDEType, linearDEFunction,
@@ -640,7 +639,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfPolyFoldAtan2, TransfPolyFoldAtan2Iteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
 
-
 	fractalList->append(sFractalDescription("T>Poly Fold Sym XY", "transf_poly_fold_sym_xy",
 		transfPolyFoldSymXY, TransfPolyFoldSymXYIteration, analyticDEType, withoutDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionNone, coloringFunctionDefault));
@@ -859,20 +857,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		analyticDEType, withoutDEFunction, cpixelDisabledByDefault, 100, analyticFunctionNone,
 		coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("Testing Log", "testing_log",
-		testingLog, TestingLogIteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 2, analyticFunctionLogarithmic, coloringFunctionDefault));
-
+	fractalList->append(sFractalDescription("Testing Log", "testing_log", testingLog,
+		TestingLogIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 2,
+		analyticFunctionLogarithmic, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Testing4d", "testing4d", testing4d, Testing4dIteration,
 		analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 100, analyticFunctionLogarithmic,
 		coloringFunctionDefault));
 
-
-
 	fractalList->append(sFractalDescription("T>Blockify", "transf_blockify", transfBlockify,
 		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
-
-
 }

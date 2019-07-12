@@ -107,7 +107,6 @@ private:
 	qint32 actualId;
 	QList<int> startingPositions;
 	QMap<QString, QByteArray> textures;
-
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_CLIENT_HPP_ */

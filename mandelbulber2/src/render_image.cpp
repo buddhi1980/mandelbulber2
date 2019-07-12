@@ -600,7 +600,9 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 				if (image->GetImageOptional()->optionalWorld)
 					image->PutPixelWorld(x, y, lineOfImage[x].worldPosition);
 				if (image->GetImageOptional()->optionalDiffuse)
-					image->PutPixelDiffuse(x, y, sRGBFloat(lineOfImage[x].colourBuffer.R / 255.0, lineOfImage[x].colourBuffer.G / 255.0, lineOfImage[x].colourBuffer.B / 255.0));
+					image->PutPixelDiffuse(x, y,
+						sRGBFloat(lineOfImage[x].colourBuffer.R / 255.0, lineOfImage[x].colourBuffer.G / 255.0,
+							lineOfImage[x].colourBuffer.B / 255.0));
 			}
 		}
 		else

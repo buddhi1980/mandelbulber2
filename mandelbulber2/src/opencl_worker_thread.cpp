@@ -65,7 +65,7 @@ cOpenClWorkerThread::cOpenClWorkerThread(
 
 cOpenClWorkerThread::~cOpenClWorkerThread()
 {
-	//nothing to destroy
+	// nothing to destroy
 }
 
 bool cOpenClWorkerThread::checkErr(cl_int err, QString functionName)

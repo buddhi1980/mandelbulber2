@@ -55,16 +55,16 @@ enum netCommand
 /* these commands are send from the server to the client */
 enum netCommandServer
 {
-	netRender_VERSION = 1,			 /* send the program version */
-	netRender_RENDER = 3,				 /* list of lines needed to be rendered,
-																and suggestion which lines should be rendered first */
-	netRender_JOB = 6,					 /* sending of settings and textures
-																Receiving of job will start rendering on client */
-	netRender_STOP = 7,					 /* terminate rendering request */
-	netRender_SETUP = 9,				 /* send setup job id and starting positions */
-	netRender_ACK = 10,					 /* acknowledge receiving of rendered lines */
+	netRender_VERSION = 1,				/* send the program version */
+	netRender_RENDER = 3,					/* list of lines needed to be rendered,
+																 and suggestion which lines should be rendered first */
+	netRender_JOB = 6,						/* sending of settings and textures
+																 Receiving of job will start rendering on client */
+	netRender_STOP = 7,						/* terminate rendering request */
+	netRender_SETUP = 9,					/* send setup job id and starting positions */
+	netRender_ACK = 10,						/* acknowledge receiving of rendered lines */
 	netRender_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
-	netRender_ASK_STATUS = 12	/* ask the client what its statis is */
+	netRender_ASK_STATUS = 12			/* ask the client what its statis is */
 };
 
 /* these commands are send from the client to the server */
@@ -94,8 +94,8 @@ struct sMessage
 	qint32 size;
 	QByteArray payload;
 
-	static qint64 headerSize(){ return qint64(sizeof(command) + sizeof(id) + sizeof(size)); }
-	static qint64 crcSize(){ return qint64(sizeof(quint16)); }
+	static qint64 headerSize() { return qint64(sizeof(command) + sizeof(id) + sizeof(size)); }
+	static qint64 crcSize() { return qint64(sizeof(quint16)); }
 };
 
 struct sClient
@@ -121,7 +121,7 @@ public:
 	// compare major version of software
 	static bool CompareMajorVersion(qint32 version1, qint32 version2);
 	// the numeric and comparable version of the mandelbulber instance
-	static int version(){ return 1000L * MANDELBULBER_VERSION; }
+	static int version() { return 1000L * MANDELBULBER_VERSION; }
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_TRANSPORT_HPP_ */

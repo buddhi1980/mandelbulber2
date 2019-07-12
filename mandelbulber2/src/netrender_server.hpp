@@ -56,7 +56,7 @@ public:
 	// get client index by given socket pointer
 	int GetClientIndexFromSocket(const QTcpSocket *socket) const;
 	// set the current render job id
-	void SetActualId(qint32 _actualId){ actualId = _actualId; }
+	void SetActualId(qint32 _actualId) { actualId = _actualId; }
 	// send list of already rendered lines
 	void SendToDoList(int clientIndex, const QList<int> &done); // send list of already rendered lines
 	// send client id and list of list of lines to render at the beginning to selected client

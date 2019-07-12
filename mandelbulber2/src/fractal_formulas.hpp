@@ -122,7 +122,6 @@ void Ides2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IdesIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void IfsXYIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-
 void IqBulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void JosKleinianV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -139,7 +138,6 @@ void Mandelbulb3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 void Mandelbulb4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void MandelbulbEyeIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
 
 void MandelbulbIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
