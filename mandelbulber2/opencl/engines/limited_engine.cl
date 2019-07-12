@@ -336,6 +336,8 @@ kernel void fractal3D(__global sClPixel *out, __global char *inBuff,
 			renderData.palette = palette;
 			renderData.AOVectors = AOVectors;
 			renderData.lights = lights;
+			renderData.numberOfLights = numberOfLights;
+
 #ifdef USE_SURFACE_GRADIENT
 			renderData.paletteSurfaceOffset = paletteSurfaceOffset;
 			renderData.paletteSurfaceLength = paletteSurfaceLength;
