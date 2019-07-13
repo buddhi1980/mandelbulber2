@@ -82,12 +82,12 @@ public:
 	bool IsAllocated() const { return isAllocated; }
 	bool ChangeSize(int w, int h, sImageOptional optional);
 	void ClearImage();
-	void ClearRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
-		QScopedArrayPointer<sRGB8> &rgb8);
-	void AllocRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
-		QScopedArrayPointer<sRGB8> &rgb8);
-	void FreeRGB(QScopedArrayPointer<sRGBFloat> &rgbFloat, QScopedArrayPointer<sRGB16> &rgb16,
-		QScopedArrayPointer<sRGB8> &rgb8);
+	void ClearRGB(
+		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
+	void AllocRGB(
+		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
+	void FreeRGB(
+		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
 
 	bool IsUsed() const { return isUsed; }
 	void BlockImage() { isUsed = true; }
@@ -199,19 +199,18 @@ public:
 	}
 
 	inline sRGBFloat GetPixelGeneric(
-		QScopedArrayPointer<sRGBFloat> &from, bool available, qint64 x, qint64 y)
+		const std::vector<sRGBFloat> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return BlackFloat();
 		return from[getImageIndex(x, y)];
 	}
 	inline sRGB16 GetPixelGeneric16(
-		QScopedArrayPointer<sRGB16> &from, bool available, qint64 x, qint64 y)
+		const std::vector<sRGB16> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return Black16();
 		return from[getImageIndex(x, y)];
 	}
-	inline sRGB8 GetPixelGeneric8(
-		QScopedArrayPointer<sRGB8> &from, bool available, qint64 x, qint64 y)
+	inline sRGB8 GetPixelGeneric8(const std::vector<sRGB8> &from, bool available, qint64 x, qint64 y)
 	{
 		if (!available) return Black8();
 		return from[getImageIndex(x, y)];
@@ -252,6 +251,8 @@ public:
 	quint16 *GetOpacityPtr() { return opacityBuffer.data(); }
 	size_t GetZBufferSize() const { return sizeof(float) * quint64(height) * quint64(width); }
 	QWidget *GetImageWidget() { return imageWidget; }
+	sRGB8 *GetPreviewPtr() { return preview2.data(); }
+	sRGB8 *GetPreviewPrimaryPtr() { return preview.data(); }
 
 	void CompileImage(QList<int> *list = nullptr);
 	void CompileImage(const QList<QRect> *list);
@@ -281,8 +282,8 @@ public:
 	quint8 *CreatePreview(double scale, int visibleWidth, int visibleHeight, QWidget *widget);
 	void UpdatePreview(QList<int> *list = nullptr);
 	void UpdatePreview(const QList<QRect> *list);
-	quint8 *GetPreviewPtr() const;
-	quint8 *GetPreviewPrimaryPtr() const;
+	const quint8 *GetPreviewConstPtr() const;
+	const quint8 *GetPreviewPrimaryConstPtr() const;
 	bool IsPreview() const;
 	void RedrawInWidget(QWidget *qWidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
@@ -316,32 +317,32 @@ private:
 	static inline sRGB8 Black8() { return sRGB8(0, 0, 0); }
 	static inline sRGBFloat BlackFloat() { return sRGBFloat(0, 0, 0); }
 
-	QScopedArrayPointer<sRGB8> image8;
-	QScopedArrayPointer<sRGB16> image16;
-	QScopedArrayPointer<sRGBFloat> imageFloat;
-	QScopedArrayPointer<sRGBFloat> postImageFloat;
+	std::vector<sRGB8> image8;
+	std::vector<sRGB16> image16;
+	std::vector<sRGBFloat> imageFloat;
+	std::vector<sRGBFloat> postImageFloat;
 
-	QScopedArrayPointer<quint8> alphaBuffer8;
-	QScopedArrayPointer<quint16> alphaBuffer16;
-	QScopedArrayPointer<quint16> opacityBuffer;
-	QScopedArrayPointer<sRGB8> colourBuffer;
-	QScopedArrayPointer<float> zBuffer;
+	std::vector<quint8> alphaBuffer8;
+	std::vector<quint16> alphaBuffer16;
+	std::vector<quint16> opacityBuffer;
+	std::vector<sRGB8> colourBuffer;
+	std::vector<float> zBuffer;
 
 	// optional image buffers
-	QScopedArrayPointer<sRGBFloat> normalFloat;
-	QScopedArrayPointer<sRGBFloat> specularFloat;
-	QScopedArrayPointer<sRGBFloat> diffuseFloat;
-	QScopedArrayPointer<sRGBFloat> worldFloat;
+	std::vector<sRGBFloat> normalFloat;
+	std::vector<sRGBFloat> specularFloat;
+	std::vector<sRGBFloat> diffuseFloat;
+	std::vector<sRGBFloat> worldFloat;
 
-	QScopedArrayPointer<sRGB8> preview;
-	QScopedArrayPointer<sRGB8> preview2;
+	std::vector<sRGB8> preview;
+	std::vector<sRGB8> preview2;
 	QWidget *imageWidget;
 
 	sImageAdjustments adj;
 	sImageOptional opt;
 	qint64 width;
 	qint64 height;
-	QScopedArrayPointer<int> gammaTable;
+	std::vector<int> gammaTable;
 	bool previewAllocated;
 	int previewWidth;
 	int previewHeight;

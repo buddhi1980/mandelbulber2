@@ -196,8 +196,8 @@ void cThumbnailWidget::AssignParameters(
 				QImage qImage = pixmap.toImage();
 				qImage = qImage.convertToFormat(QImage::Format_RGB888);
 
-				sRGB8 *previewPointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPrimaryPtr());
-				sRGB8 *preview2Pointer = reinterpret_cast<sRGB8 *>(image->GetPreviewPtr());
+				sRGB8 *previewPointer = image->GetPreviewPrimaryPtr();
+				sRGB8 *preview2Pointer = image->GetPreviewPtr();
 
 				int bWidth = qImage.width();
 				int bHeight = qImage.height();
