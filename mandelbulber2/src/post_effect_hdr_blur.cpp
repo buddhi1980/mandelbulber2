@@ -74,23 +74,23 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 	QElapsedTimer timerRefreshProgressBar;
 	timerRefreshProgressBar.start();
 
-	for (quint64 y = 0; y < image->GetHeight(); y++)
+	for (qint64 y = 0; y < qint64(image->GetHeight()); y++)
 	{
 		if (*stopRequest || systemData.globalStopRequest) break;
 
 #pragma omp parallel for
-		for (quint64 x = 0; x < image->GetWidth(); x++)
+		for (qint64 x = 0; x < qint64(image->GetWidth()); x++)
 		{
 			double weight = 0;
-			int yStart = qMax(0ULL, y - intBlurSize);
-			int yEnd = qMin(image->GetHeight(), y + intBlurSize);
+			int yStart = qMax(0LL, y - intBlurSize);
+			int yEnd = qMin(qint64(image->GetHeight()), y + intBlurSize);
 
 			sRGBFloat newPixel;
 
 			for (int yy = yStart; yy < yEnd; yy++)
 			{
-				int xStart = qMax(0ULL, x - intBlurSize);
-				int xEnd = qMin(image->GetWidth(), x + intBlurSize);
+				int xStart = qMax(0LL, x - intBlurSize);
+				int xEnd = qMin(qint64(image->GetWidth()), x + intBlurSize);
 				for (int xx = xStart; xx < xEnd; xx++)
 				{
 					double dx = x - xx;
