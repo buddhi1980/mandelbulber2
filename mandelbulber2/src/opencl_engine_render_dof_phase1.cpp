@@ -81,7 +81,7 @@ void cOpenClEngineRenderDOFPhase1::SetParameters(
 	paramsDOF.neutral = paramRender->DOFFocus;
 	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
-	numberOfPixels = paramsDOF.width * paramsDOF.height;
+	numberOfPixels = quint64(paramsDOF.width) * quint64(paramsDOF.height);
 
 	definesCollector.clear();
 }
@@ -144,7 +144,7 @@ void cOpenClEngineRenderDOFPhase1::RegisterInputOutputBuffers(const cParameterCo
 }
 
 bool cOpenClEngineRenderDOFPhase1::AssignParametersToKernelAdditional(
-	int argIterator, int deviceIndex)
+	uint argIterator, int deviceIndex)
 {
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
@@ -184,8 +184,8 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
-		int width = imageRegion.width;
-		int height = imageRegion.height;
+		quint64 width = imageRegion.width;
+		quint64 height = imageRegion.height;
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -196,40 +196,42 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 		QElapsedTimer timer;
 		timer.start();
 
-		qint64 numberOfPixels = qint64(width) * qint64(height);
-		qint64 gridWidth = width / optimalJob.stepSizeX;
-		qint64 gridHeight = height / optimalJob.stepSizeY;
+		quint64 numberOfPixels = width * height;
+		quint64 gridWidth = width / optimalJob.stepSizeX;
+		quint64 gridHeight = height / optimalJob.stepSizeY;
 		QList<QRect> lastRenderedRects;
 		qint64 pixelsRendered = 0;
 
 		// copy zBuffer and image to input buffers
-		for (int y = 0; y < height; y++)
+		for (quint64 y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (quint64 x = 0; x < width; x++)
 			{
-				qint64 i = qint64(x) + qint64(y) * width;
-				((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] =
+				quint64 i = x + y * width;
+				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.data())[i] =
 					image->GetPixelZBuffer(imageRegion.x1 + x, imageRegion.y1 + y);
+
 				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
-				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0;
-				((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
-					cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+
+				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0f;
+				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.data())[i] =
+					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 			}
 		}
 
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		for (int gridY = 0; gridY <= gridHeight; gridY++)
+		for (quint64 gridY = 0; gridY <= gridHeight; gridY++)
 		{
-			for (int gridX = 0; gridX <= gridWidth; gridX++)
+			for (quint64 gridX = 0; gridX <= gridWidth; gridX++)
 			{
-				qint64 jobX = gridX * optimalJob.stepSizeX;
-				qint64 jobY = gridY * optimalJob.stepSizeY;
-				qint64 pixelsLeftX = width - jobX;
-				qint64 pixelsLeftY = height - jobY;
-				qint64 jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
-				qint64 jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
+				quint64 jobX = gridX * optimalJob.stepSizeX;
+				quint64 jobY = gridY * optimalJob.stepSizeY;
+				quint64 pixelsLeftX = width - jobX;
+				quint64 pixelsLeftY = height - jobY;
+				quint64 jobWidth2 = min(optimalJob.stepSizeX, pixelsLeftX);
+				quint64 jobHeight2 = min(optimalJob.stepSizeY, pixelsLeftY);
 				if (jobHeight2 <= 0) continue;
 				if (jobWidth2 <= 0) continue;
 
@@ -248,17 +250,17 @@ bool cOpenClEngineRenderDOFPhase1::Render(cImage *image, bool *stopRequest)
 
 				if (!ReadBuffersFromQueue(0)) return false;
 
-				for (int y = 0; y < jobHeight2; y++)
+				for (quint64 y = 0; y < jobHeight2; y++)
 				{
-					for (int x = 0; x < jobWidth2; x++)
+					for (quint64 x = 0; x < jobWidth2; x++)
 					{
-						int xx = x + imageRegion.x1;
-						int yy = y + imageRegion.y1;
+						quint64 xx = x + imageRegion.x1;
+						quint64 yy = y + imageRegion.y1;
 
-						cl_float4 pixelCl =
-							((cl_float4 *)outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
+						cl_float4 pixelCl = reinterpret_cast<cl_float4 *>(
+							outputBuffers[0][outputIndex].ptr.data())[x + y * jobWidth2];
 						sRGBFloat pixel = {pixelCl.s[0], pixelCl.s[1], pixelCl.s[2]};
-						quint16 alpha = pixelCl.s[3] * 65535;
+						quint16 alpha = quint16(pixelCl.s[3] * 65535);
 
 						image->PutPixelPostImage(xx + jobX, yy + jobY, pixel);
 						image->PutPixelAlpha(xx + jobX, yy + jobY, alpha);

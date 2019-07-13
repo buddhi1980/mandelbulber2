@@ -52,6 +52,7 @@ CNetRenderServer::CNetRenderServer()
 {
 	actualId = 0;
 	server = nullptr;
+	portNo = 0;
 	connect(this, SIGNAL(NewClient(int)), this, SLOT(SendVersionToClient(int)));
 }
 

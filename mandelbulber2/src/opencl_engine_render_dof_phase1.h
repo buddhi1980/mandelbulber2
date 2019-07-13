@@ -59,7 +59,7 @@ public:
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
-	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
+	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 	bool Render(cImage *image, bool *stopRequest);
 	size_t CalcNeededMemory() override;
@@ -70,7 +70,7 @@ private:
 	const int outputIndex = 0;
 	QString GetKernelName() override;
 	sParamsDOF paramsDOF;
-	int numberOfPixels;
+	quint64 numberOfPixels;
 	cRegion<int> imageRegion;
 
 #endif

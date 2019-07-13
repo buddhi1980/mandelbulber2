@@ -113,8 +113,8 @@ void cOpenClHardware::ListOpenClPlatforms()
 				platformInformation.version = platformVersion.c_str();
 				platformInformation.profile = platformProfile.c_str();
 
-				WriteLog(QString("OpenCL platform #") + i + ": " + platformInformation.name + " "
-									 + platformInformation.vendor + " " + platformInformation.version + " "
+				WriteLog(QString("OpenCL platform #") + QString::number(i) + ": " + platformInformation.name
+									 + " " + platformInformation.vendor + " " + platformInformation.version + " "
 									 + platformInformation.profile,
 					2);
 

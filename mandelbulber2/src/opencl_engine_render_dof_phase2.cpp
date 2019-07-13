@@ -83,7 +83,7 @@ void cOpenClEngineRenderDOFPhase2::SetParameters(
 	paramsDOF.blurOpacity = paramRender->DOFBlurOpacity;
 	paramsDOF.maxRadius = paramRender->DOFMaxRadius;
 
-	numberOfPixels = paramsDOF.width * paramsDOF.height;
+	numberOfPixels = quint64(paramsDOF.width) * quint64(paramsDOF.height);
 
 	definesCollector.clear();
 }
@@ -147,7 +147,7 @@ void cOpenClEngineRenderDOFPhase2::RegisterInputOutputBuffers(const cParameterCo
 }
 
 bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(
-	int argIterator, int deviceIndex)
+	uint argIterator, int deviceIndex)
 {
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsDOF); // pixel offset
 	if (!checkErr(err, "kernel->setArg(2, pixelIndex)"))
@@ -161,14 +161,14 @@ bool cOpenClEngineRenderDOFPhase2::AssignParametersToKernelAdditional(
 	return true;
 }
 
-bool cOpenClEngineRenderDOFPhase2::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
+bool cOpenClEngineRenderDOFPhase2::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex)
 {
-	qint64 limitedWorkgroupSize = optimalJob.workGroupSize;
-	qint64 stepSize = optimalJob.stepSize;
+	quint64 limitedWorkgroupSize = optimalJob.workGroupSize;
+	quint64 stepSize = optimalJob.stepSize;
 
 	if (optimalJob.stepSize > pixelsLeft)
 	{
-		size_t mul = pixelsLeft / optimalJob.workGroupSize;
+		quint64 mul = pixelsLeft / optimalJob.workGroupSize;
 		if (mul > 0)
 		{
 			stepSize = mul * optimalJob.workGroupSize;
@@ -208,8 +208,8 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
-		int width = imageRegion.width;
-		int height = imageRegion.height;
+		quint64 width = imageRegion.width;
+		quint64 height = imageRegion.height;
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -221,29 +221,30 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		timer.start();
 
 		// copy zBuffer and image to input and output buffers
-		for (int y = 0; y < height; y++)
+		for (quint64 y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (quint64 x = 0; x < width; x++)
 			{
-				qint64 i = qint64(x) + qint64(y) * width;
-				((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].i = sortedZBuffer[i].i;
-				((sSortedZBufferCl *)inputBuffers[0][zBufferIndex].ptr.data())[i].z = sortedZBuffer[i].z;
+				quint64 i = x + y * width;
+				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.data())[i].i =
+					sortedZBuffer[i].i;
+				reinterpret_cast<sSortedZBufferCl *>(inputBuffers[0][zBufferIndex].ptr.data())[i].z =
+					sortedZBuffer[i].z;
 				sRGBFloat imagePixel = image->GetPixelPostImage(imageRegion.x1 + x, imageRegion.y1 + y);
-				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0;
-				((cl_float4 *)inputBuffers[0][imageIndex].ptr.data())[i] =
-					cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
-				((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
-					cl_float4{imagePixel.R, imagePixel.G, imagePixel.B, alpha};
+				float alpha = image->GetPixelAlpha(imageRegion.x1 + x, imageRegion.y1 + y) / 65535.0f;
+				reinterpret_cast<cl_float4 *>(inputBuffers[0][imageIndex].ptr.data())[i] =
+					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
+				reinterpret_cast<cl_float4 *>(inputAndOutputBuffers[0][outputIndex].ptr.data())[i] =
+					cl_float4{{imagePixel.R, imagePixel.G, imagePixel.B, alpha}};
 			}
 		}
 
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		for (qint64 pixelIndex = 0; pixelIndex < qint64(width) * qint64(height);
-				 pixelIndex += optimalJob.stepSize)
+		for (quint64 pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
-			size_t pixelsLeft = width * height - pixelIndex;
+			quint64 pixelsLeft = width * height - pixelIndex;
 
 			// assign parameters to kernel
 			if (!AssignParametersToKernel(0)) return false;
@@ -266,18 +267,18 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 
-			for (int y = 0; y < height; y++)
+			for (quint64 y = 0; y < height; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (quint64 x = 0; x < width; x++)
 				{
-					int xx = x + imageRegion.x1;
-					int yy = y + imageRegion.y1;
+					qint64 xx = x + imageRegion.x1;
+					qint64 yy = y + imageRegion.y1;
 
-					cl_float4 imagePixelCl =
-						((cl_float4 *)inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];
+					cl_float4 imagePixelCl = reinterpret_cast<cl_float4 *>(
+						inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];
 
 					sRGBFloat pixel(imagePixelCl.s[0], imagePixelCl.s[1], imagePixelCl.s[2]);
-					unsigned short alpha = imagePixelCl.s[3] * 65535.0;
+					unsigned short alpha = ushort(imagePixelCl.s[3] * 65535.0f);
 					image->PutPixelPostImage(xx, yy, pixel);
 					image->PutPixelAlpha(xx, yy, alpha);
 				}

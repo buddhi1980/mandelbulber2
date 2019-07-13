@@ -99,7 +99,7 @@ cMultiVal &cMultiVal::operator=(cMultiVal &&other)
 enumVarType cMultiVal::Store(double val)
 {
 	dVal[0] = val;
-	iVal[0] = val;
+	iVal[0] = int(val);
 	sVal = QString("%L1").arg(val, 0, 'g', 16);
 
 	if (!typeDefined) type = typeDouble;
@@ -165,9 +165,9 @@ enumVarType cMultiVal::Store(CVector3 val)
 	dVal[0] = val.x;
 	dVal[1] = val.y;
 	dVal[2] = val.z;
-	iVal[0] = val.x;
-	iVal[1] = val.y;
-	iVal[2] = val.z;
+	iVal[0] = int(val.x);
+	iVal[1] = int(val.y);
+	iVal[2] = int(val.z);
 	sVal =
 		QString("%L1 %L2 %L3").arg(val.x, 0, 'g', 16).arg(val.y, 0, 'g', 16).arg(val.z, 0, 'g', 16);
 
@@ -181,10 +181,10 @@ enumVarType cMultiVal::Store(CVector4 val)
 	dVal[1] = val.y;
 	dVal[2] = val.z;
 	dVal[3] = val.w;
-	iVal[0] = val.x;
-	iVal[1] = val.y;
-	iVal[2] = val.z;
-	iVal[3] = val.w;
+	iVal[0] = int(val.x);
+	iVal[1] = int(val.y);
+	iVal[2] = int(val.z);
+	iVal[3] = int(val.w);
 	sVal = QString("%L1 %L2 %L3 %L4")
 					 .arg(val.x, 0, 'g', 16)
 					 .arg(val.y, 0, 'g', 16)

@@ -53,18 +53,18 @@ class cOpenClEngine : public QObject
 	struct sOptimalJob
 	{
 		sOptimalJob() {}
-		
-		qint64 workGroupSize{0};
-		qint64 workGroupSizeOptimalMultiplier{0};
-		qint64 stepSize{0};
-		qint64 stepSizeX{0};
-		qint64 stepSizeY{0};
-		qint64 workGroupSizeMultiplier{1};
-		qint64 jobSizeMultiplier{1};
+
+		quint64 workGroupSize{0};
+		quint64 workGroupSizeOptimalMultiplier{0};
+		quint64 stepSize{0};
+		quint64 stepSizeX{0};
+		quint64 stepSizeY{0};
+		quint64 workGroupSizeMultiplier{1};
+		quint64 jobSizeMultiplier{1};
 		QElapsedTimer timer;
 		double lastProcessingTime{1.0};
-		qint64 sizeOfPixel{0};
-		qint64 jobSizeLimit{0};
+		quint64 sizeOfPixel{0};
+		quint64 jobSizeLimit{0};
 		double optimalProcessingCycle{0.1};
 	};
 
@@ -88,7 +88,7 @@ public:
 	void SetUseFastRelaxedMath(bool usefastMath) { useFastRelaxedMath = usefastMath; }
 	void ReleaseMemory();
 	bool AssignParametersToKernel(int deviceIndex);
-	virtual bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
+	virtual bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex)
 	{
 		Q_UNUSED(argIterator);
 		Q_UNUSED(deviceIndex);
@@ -101,7 +101,7 @@ protected:
 	bool Build(const QByteArray &programString, QString *errorText);
 	bool CreateKernels();
 	void InitOptimalJob(const cParameterContainer *params);
-	void UpdateOptimalJobStart(size_t pixelsLeft);
+	void UpdateOptimalJobStart(quint64 pixelsLeft);
 	void UpdateOptimalJobEnd();
 	virtual size_t CalcNeededMemory() = 0;
 

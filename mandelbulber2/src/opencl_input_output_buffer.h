@@ -42,16 +42,16 @@
 
 struct sClInputOutputBuffer
 {
-	sClInputOutputBuffer(qint64 itemSize, qint64 length, QString name)
+	sClInputOutputBuffer(quint64 itemSize, quint64 length, QString name)
 			: itemSize(itemSize), length(length), name(std::move(name))
 	{
 	}
 
 	static void Deleter(char *charArray) { delete[] charArray; }
 
-	qint64 size() const { return itemSize * length; }
-	qint64 itemSize;
-	qint64 length;
+	quint64 size() const { return itemSize * length; }
+	quint64 itemSize;
+	quint64 length;
 	QString name;
 	QSharedPointer<char> ptr;
 	QSharedPointer<cl::Buffer> clPtr;

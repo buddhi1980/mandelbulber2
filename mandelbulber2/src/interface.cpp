@@ -993,9 +993,9 @@ void cInterface::RefreshPostEffects()
 				if (gOpenCl->openClEngineRenderSSAO->LoadSourcesAndCompile(gPar))
 				{
 					gOpenCl->openClEngineRenderSSAO->CreateKernel4Program(gPar);
-					qint64 neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
+					size_t neededMem = gOpenCl->openClEngineRenderSSAO->CalcNeededMemory();
 					WriteLogDouble("OpenCl render SSAO - needed mem:", neededMem / 1048576.0, 2);
-					if (neededMem / 1048576 < gPar->Get<int>("opencl_memory_limit"))
+					if (neededMem / 1048576 < size_t(gPar->Get<int>("opencl_memory_limit")))
 					{
 						gOpenCl->openClEngineRenderSSAO->PreAllocateBuffers(gPar);
 						gOpenCl->openClEngineRenderSSAO->CreateCommandQueue();

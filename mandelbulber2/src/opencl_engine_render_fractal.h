@@ -84,9 +84,9 @@ public:
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
 	bool PreAllocateBuffers(const cParameterContainer *params) override;
 	bool PrepareBufferForBackground(sRenderData *renderData);
-	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
+	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
 	bool WriteBuffersToQueue();
-	bool ProcessQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
+	bool ProcessQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
 	bool ReadBuffersFromQueue();
 
 	// render 3D fractal
@@ -131,13 +131,13 @@ private:
 		sParamRender *paramRender, cNineFractals *fractals, sRenderData *renderData);
 	void SetParametersForIterationWeight(cNineFractals *fractals);
 	void CreateThreadsForOpenCLWorkers(int numberOfOpenCLWorkers,
-		const QSharedPointer<cOpenClScheduler> &scheduler, int width, int height,
+		const QSharedPointer<cOpenClScheduler> &scheduler, quint64 width, quint64 height,
 		const QSharedPointer<cOpenCLWorkerOutputQueue> &outputQueue, int numberOfSamples,
 		QList<QSharedPointer<QThread>> &threads, QList<QSharedPointer<cOpenClWorkerThread>> &workers,
 		bool *stopRequest);
 	sRGBFloat MCMixColor(const cOpenCLWorkerOutputQueue::sClSingleOutput &output,
 		const sRGBFloat &pixel, const sRGBFloat &oldPixel);
-	void PutMultiPixel(size_t xx, size_t yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
+	void PutMultiPixel(quint64 xx, quint64 yy, const sRGBFloat &newPixel, const sClPixel &pixelCl,
 		unsigned short newAlpha, sRGB8 color, unsigned short opacity, cImage *image);
 	int PeriodicRefreshOfTiles(int lastRefreshTime, QElapsedTimer &timerImageRefresh, cImage *image,
 		QList<QRect> &lastRenderedRects, QList<sRenderedTileData> &listOfRenderedTilesData);
@@ -149,6 +149,7 @@ private:
 	QScopedPointer<sClMeshExport> constantInMeshExportBuffer;
 	QList<QSharedPointer<cl::Buffer>> inCLConstMeshExportBuffer;
 
+	// FIXME: replace QByteArray with std::vector
 	QByteArray inBuffer;
 	QList<QSharedPointer<cl::Buffer>> inCLBuffer;
 
@@ -156,6 +157,8 @@ private:
 	QList<QSharedPointer<cl::Buffer>> inCLTextureBuffer;
 
 	QList<QSharedPointer<cl::Image2D>> backgroundImage2D;
+
+	// FIXME: replace QScopedArrayPointer with std::vector
 	QScopedArrayPointer<cl_uchar4> backgroungImageBuffer;
 
 	QScopedPointer<cOpenClDynamicData> dynamicData;

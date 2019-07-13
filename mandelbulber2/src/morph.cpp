@@ -290,7 +290,7 @@ cOneParameter cMorph::CatmullRom(int const key, double const factor, bool const 
 						int(CatmullRomInterpolate(factor, g[0].GetColorByIndex(i).G, g[1].GetColorByIndex(i).G,
 							g[2].GetColorByIndex(i).G, g[3].GetColorByIndex(i).G, angular)),
 						255);
-					color.B = color.B = qBound(0,
+					color.B = qBound(0,
 						int(CatmullRomInterpolate(factor, g[0].GetColorByIndex(i).B, g[1].GetColorByIndex(i).B,
 							g[2].GetColorByIndex(i).B, g[3].GetColorByIndex(i).B, angular)),
 						255);

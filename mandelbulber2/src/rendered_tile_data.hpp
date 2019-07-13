@@ -35,15 +35,19 @@
 #ifndef MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 #define MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_
 
+#include <QtCore>
+
 struct sRenderedTileData
 {
-	sRenderedTileData(int _x, int _y, int _width, int _height, double _noiseLevel)
-			: x(_x), y(_y), width(_width), height(_height), noiseLevel(_noiseLevel){};
-	int x;
-	int y;
-	int width;
-	int height;
-	double noiseLevel;
+	sRenderedTileData(quint64 _x, quint64 _y, quint64 _width, quint64 _height, float _noiseLevel)
+			: x(_x), y(_y), width(_width), height(_height), noiseLevel(_noiseLevel)
+	{
+	}
+	quint64 x;
+	quint64 y;
+	quint64 width;
+	quint64 height;
+	float noiseLevel;
 };
 
 #endif /* MANDELBULBER2_SRC_RENDERED_TILE_DATA_HPP_ */

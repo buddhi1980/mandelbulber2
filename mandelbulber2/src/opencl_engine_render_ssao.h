@@ -59,8 +59,8 @@ public:
 	void SetParameters(const sParamRender *paramRender, const cRegion<int> &region);
 	bool LoadSourcesAndCompile(const cParameterContainer *params) override;
 	void RegisterInputOutputBuffers(const cParameterContainer *params) override;
-	bool AssignParametersToKernelAdditional(int argIterator, int deviceIndex) override;
-	bool ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex);
+	bool AssignParametersToKernelAdditional(uint argIterator, int deviceIndex) override;
+	bool ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex);
 	bool Render(cImage *image, bool *stopRequest);
 	size_t CalcNeededMemory() override;
 
@@ -74,7 +74,7 @@ private:
 	sParamsSSAO paramsSSAO;
 	cRegion<int> imageRegion;
 	float intensity;
-	int numberOfPixels;
+	quint64 numberOfPixels;
 #endif
 
 signals:

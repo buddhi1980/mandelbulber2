@@ -549,7 +549,7 @@ bool cRenderer::RenderImage()
 
 void cRenderer::CreateLineData(int y, QByteArray *lineData) const
 {
-	if (y >= 0 && y < image->GetHeight())
+	if (y >= 0 && y < int(image->GetHeight()))
 	{
 		int width = image->GetWidth();
 		sAllImageData *lineOfImage = new sAllImageData[width];
@@ -582,7 +582,7 @@ void cRenderer::NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines)
 	for (int i = 0; i < lineNumbers.size(); i++)
 	{
 		int y = lineNumbers.at(i);
-		if (y >= 0 && y < image->GetHeight())
+		if (y >= 0 && y < int(image->GetHeight()))
 		{
 			sAllImageData *lineOfImage = (sAllImageData *)lines.at(i).data();
 			int width = image->GetWidth();

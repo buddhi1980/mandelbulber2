@@ -167,7 +167,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 
 			lights[i + params->auxLightNumber].position = position;
 			lights[i + params->auxLightNumber].colour = colour;
-			lights[i + params->auxLightNumber].intensity = intensity;
+			lights[i + params->auxLightNumber].intensity = float(intensity);
 			lights[i + params->auxLightNumber].enabled = true;
 			isAnyLight = true;
 

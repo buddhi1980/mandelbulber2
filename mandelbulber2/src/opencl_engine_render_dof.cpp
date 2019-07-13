@@ -92,9 +92,9 @@ bool cOpenClEngineRenderDOF::RenderDOF(const sParamRender *paramRender,
 	if (dofEnginePhase1->LoadSourcesAndCompile(params))
 	{
 		dofEnginePhase1->CreateKernel4Program(params);
-		qint64 neededMem = dofEnginePhase1->CalcNeededMemory();
+		quint64 neededMem = dofEnginePhase1->CalcNeededMemory();
 		WriteLogDouble("OpenCl render DOF Phase 1 - needed mem:", neededMem / 1048576.0, 2);
-		if (neededMem / 1048576 < params->Get<int>("opencl_memory_limit"))
+		if (neededMem / 1048576 < size_t(params->Get<int>("opencl_memory_limit")))
 		{
 			dofEnginePhase1->PreAllocateBuffers(params);
 			dofEnginePhase1->CreateCommandQueue();

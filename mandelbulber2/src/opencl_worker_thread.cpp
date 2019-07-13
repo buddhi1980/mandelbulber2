@@ -105,16 +105,16 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 			// refresh parameters (needed to update random seed)
 			engine->AssignParametersToKernel(deviceIndex);
 
-			int gridX = scheduler->getTileSequence()->at(tile).x();
-			int gridY = scheduler->getTileSequence()->at(tile).y();
-			qint64 jobX = gridX * optimalStepX;
-			qint64 jobY = gridY * optimalStepY;
-			qint64 pixelsLeftX = imageWidth - jobX;
-			qint64 pixelsLeftY = imageHeight - jobY;
-			qint64 jobWidth = min(optimalStepX, pixelsLeftX);
-			qint64 jobHeight = min(optimalStepY, pixelsLeftY);
+			quint64 gridX = scheduler->getTileSequence()->at(tile).x();
+			quint64 gridY = scheduler->getTileSequence()->at(tile).y();
+			quint64 jobX = gridX * optimalStepX;
+			quint64 jobY = gridY * optimalStepY;
+			quint64 pixelsLeftX = imageWidth - jobX;
+			quint64 pixelsLeftY = imageHeight - jobY;
+			quint64 jobWidth = min(optimalStepX, pixelsLeftX);
+			quint64 jobHeight = min(optimalStepY, pixelsLeftY);
 
-			if (jobX >= 0 && jobX < imageWidth && jobY >= 0 && jobY < imageHeight)
+			if (jobX < imageWidth && jobY < imageHeight)
 			{
 				openclProcessingTime.restart();
 				int result = ProcessClQueue(jobX, jobY, pixelsLeftX, pixelsLeftY);
@@ -135,8 +135,8 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 
 				openclprocessingTimeNanoSeconds = openclProcessingTime.nsecsElapsed();
 
-				qint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
-				qint64 outputItemlength = outputBuffers.at(outputIndex).length;
+				quint64 outputItemSize = outputBuffers.at(outputIndex).itemSize;
+				quint64 outputItemlength = outputBuffers.at(outputIndex).length;
 				cOpenCLWorkerOutputQueue::sClDataBuffer dataBuffer(outputItemSize, outputItemlength);
 
 				char *startPtr = outputBuffers.at(outputIndex).ptr.data();
@@ -194,7 +194,7 @@ void cOpenClWorkerThread::ProcessRenderingLoop()
 }
 
 bool cOpenClWorkerThread::ProcessClQueue(
-	size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY)
+	quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY)
 {
 	size_t stepSizeX = optimalStepX;
 	if (pixelsLeftX < stepSizeX) stepSizeX = pixelsLeftX;

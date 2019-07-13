@@ -105,8 +105,8 @@ cRenderWorker::~cRenderWorker()
 void cRenderWorker::doWork()
 {
 	// here will be rendering thread
-	quint64 width = image->GetWidth();
-	quint64 height = image->GetHeight();
+	int width = image->GetWidth();
+	int height = image->GetHeight();
 	double aspectRatio = double(width) / height;
 
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
@@ -142,7 +142,7 @@ void cRenderWorker::doWork()
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
 		// main loop for x
-		for (quint64 xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
+		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
 			if (systemData.globalStopRequest) break;
 			// break if by coincidence this thread started rendering the same line as some other

@@ -83,7 +83,7 @@ void cOpenClEngineRenderSSAO::SetParameters(
 	paramsSSAO.quality = paramRender->ambientOcclusionQuality * paramRender->ambientOcclusionQuality;
 	if (paramsSSAO.quality < 3) paramsSSAO.quality = 3;
 	paramsSSAO.random_mode = paramRender->SSAO_random_mode;
-	numberOfPixels = paramsSSAO.width * paramsSSAO.height;
+	numberOfPixels = quint64(paramsSSAO.width) * quint64(paramsSSAO.height);
 	intensity = paramRender->ambientOcclusion;
 
 	definesCollector.clear();
@@ -147,7 +147,7 @@ void cOpenClEngineRenderSSAO::RegisterInputOutputBuffers(const cParameterContain
 	outputBuffers[0] << sClInputOutputBuffer(sizeof(cl_float), numberOfPixels, "output buffer");
 }
 
-bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator, int deviceIndex)
+bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(uint argIterator, int deviceIndex)
 {
 	int err = clKernels.at(deviceIndex)->setArg(argIterator++, paramsSSAO); // pixel offset
 	if (!checkErr(err, "kernel->setArg(" + QString::number(argIterator) + ", paramsSSAO)"))
@@ -160,14 +160,14 @@ bool cOpenClEngineRenderSSAO::AssignParametersToKernelAdditional(int argIterator
 	return true;
 }
 
-bool cOpenClEngineRenderSSAO::ProcessQueue(qint64 pixelsLeft, qint64 pixelIndex)
+bool cOpenClEngineRenderSSAO::ProcessQueue(quint64 pixelsLeft, quint64 pixelIndex)
 {
-	qint64 limitedWorkgroupSize = optimalJob.workGroupSize;
-	qint64 stepSize = optimalJob.stepSize;
+	quint64 limitedWorkgroupSize = optimalJob.workGroupSize;
+	quint64 stepSize = optimalJob.stepSize;
 
 	if (optimalJob.stepSize > pixelsLeft)
 	{
-		size_t mul = pixelsLeft / optimalJob.workGroupSize;
+		quint64 mul = pixelsLeft / optimalJob.workGroupSize;
 		if (mul > 0)
 		{
 			stepSize = mul * optimalJob.workGroupSize;
@@ -206,8 +206,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 	if (programsLoaded)
 	{
 		// The image resolution determines the total amount of work
-		int width = imageRegion.width;
-		int height = imageRegion.height;
+		quint64 width = imageRegion.width;
+		quint64 height = imageRegion.height;
 
 		cProgressText progressText;
 		progressText.ResetTimer();
@@ -219,29 +219,29 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 
 		// copy zBuffer to input buffer
 
-		for (int y = 0; y < height; y++)
+		for (quint64 y = 0; y < height; y++)
 		{
-			for (int x = 0; x < width; x++)
+			for (quint64 x = 0; x < width; x++)
 			{
-				int i = x + y * width;
-				((cl_float *)inputBuffers[0][zBufferIndex].ptr.data())[i] =
+				quint64 i = x + y * width;
+				reinterpret_cast<cl_float *>(inputBuffers[0][zBufferIndex].ptr.data())[i] =
 					image->GetPixelZBuffer(x + imageRegion.x1, y + imageRegion.y1);
 			}
 		}
 
 		for (int i = 0; i < paramsSSAO.quality; i++)
 		{
-			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i] =
-				sin(float(i) / paramsSSAO.quality * 2.0 * M_PI);
-			((cl_float *)inputBuffers[0][sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
-				cos(float(i) / paramsSSAO.quality * 2.0 * M_PI);
+			reinterpret_cast<cl_float *>(inputBuffers[0][sineCosineIndex].ptr.data())[i] =
+				sinf(float(i) / paramsSSAO.quality * 2.0f * float(M_PI));
+			reinterpret_cast<cl_float *>(
+				inputBuffers[0][sineCosineIndex].ptr.data())[i + paramsSSAO.quality] =
+				cosf(float(i) / paramsSSAO.quality * 2.0f * float(M_PI));
 		}
 
 		// writing data to queue
 		if (!WriteBuffersToQueue()) return false;
 
-		for (qint64 pixelIndex = 0; pixelIndex < qint64(width) * qint64(height);
-				 pixelIndex += optimalJob.stepSize)
+		for (quint64 pixelIndex = 0; pixelIndex < width * height; pixelIndex += optimalJob.stepSize)
 		{
 			size_t pixelsLeft = width * height - pixelIndex;
 			UpdateOptimalJobStart(pixelsLeft);
@@ -269,15 +269,16 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 		{
 			if (!ReadBuffersFromQueue(0)) return false;
 
-			for (int y = 0; y < height; y++)
+			for (quint64 y = 0; y < height; y++)
 			{
-				for (int x = 0; x < width; x++)
+				for (quint64 x = 0; x < width; x++)
 				{
-					int xx = x + imageRegion.x1;
-					int yy = y + imageRegion.y1;
+					qint64 xx = x + imageRegion.x1;
+					qint64 yy = y + imageRegion.y1;
 
 					cl_float total_ambient =
-						((cl_float *)outputBuffers[0][outputIndex].ptr.data())[x + y * width];
+						reinterpret_cast<cl_float *>(outputBuffers[0][outputIndex].ptr.data())[x + y * width];
+
 					unsigned short opacity16 = image->GetPixelOpacity(xx, yy);
 					float opacity = opacity16 / 65535.0f;
 					sRGB8 colour = image->GetPixelColor(xx, yy);

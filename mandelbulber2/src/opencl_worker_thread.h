@@ -55,12 +55,12 @@ public:
 	cOpenClWorkerThread(
 		cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int deviceIndex);
 	~cOpenClWorkerThread() override;
-	bool ProcessClQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
+	bool ProcessClQueue(quint64 jobX, quint64 jobY, quint64 pixelsLeftX, quint64 pixelsLeftY);
 
-	void setImageHeight(qint64 imageHeight) { this->imageHeight = imageHeight; }
-	void setImageWidth(qint64 imageWidth) { this->imageWidth = imageWidth; }
-	void setOptimalStepX(qint64 optimalStepX) { this->optimalStepX = optimalStepX; }
-	void setOptimalStepY(qint64 optimalStepY) { this->optimalStepY = optimalStepY; }
+	void setImageHeight(quint64 imageHeight) { this->imageHeight = imageHeight; }
+	void setImageWidth(quint64 imageWidth) { this->imageWidth = imageWidth; }
+	void setOptimalStepX(quint64 optimalStepX) { this->optimalStepX = optimalStepX; }
+	void setOptimalStepY(quint64 optimalStepY) { this->optimalStepY = optimalStepY; }
 	void setClKernel(const QSharedPointer<cl::Kernel> &clKernel) { this->clKernel = clKernel; }
 	void setClQueue(const QSharedPointer<cl::CommandQueue> &clQueue) { this->clQueue = clQueue; }
 	void setInputAndOutputBuffers(const QList<sClInputOutputBuffer> &inputAndOutputBuffers)
@@ -99,10 +99,10 @@ private:
 
 	cOpenClEngine *engine;
 
-	qint64 optimalStepX;
-	qint64 optimalStepY;
-	qint64 imageWidth;
-	qint64 imageHeight;
+	quint64 optimalStepX;
+	quint64 optimalStepY;
+	quint64 imageWidth;
+	quint64 imageHeight;
 	double reservedGpuTime;
 	int maxMonteCarloSamples;
 	bool finishedWithSuccess;

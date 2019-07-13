@@ -94,7 +94,8 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 		// recompile also if selected devices changed
 		for (int d = 0; d < hardware->getEnabledDevices().size(); d++)
 		{
-			hashCryptProgram.addData((char *)&hardware->getSelectedDevicesIndices()[d], sizeof(int));
+			hashCryptProgram.addData(
+				reinterpret_cast<char *>(&hardware->getSelectedDevicesIndices()[d]), sizeof(int));
 		}
 		QByteArray hashProgram = hashCryptProgram.result();
 
@@ -218,7 +219,7 @@ bool cOpenClEngine::CreateKernel4Program(const cParameterContainer *params)
 {
 	if (programsLoaded)
 	{
-		optimalJob.jobSizeMultiplier = params->Get<int>("opencl_job_size_multiplier");
+		optimalJob.jobSizeMultiplier = quint64(params->Get<int>("opencl_job_size_multiplier"));
 
 		if (CreateKernels())
 		{
@@ -270,9 +271,9 @@ bool cOpenClEngine::CreateKernels()
 			}
 			else
 			{
-				optimalJob.workGroupSize = min(qint64(workGroupSize), optimalJob.workGroupSize);
+				optimalJob.workGroupSize = min(quint64(workGroupSize), optimalJob.workGroupSize);
 				optimalJob.workGroupSizeOptimalMultiplier =
-					max(qint64(workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier),
+					max(workGroupSizeOptimalMultiplier * optimalJob.jobSizeMultiplier,
 						optimalJob.workGroupSizeOptimalMultiplier);
 				;
 			}
@@ -292,18 +293,18 @@ bool cOpenClEngine::CreateKernels()
 
 void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 {
-	size_t width = params->Get<int>("image_width");
-	size_t height = params->Get<int>("image_height");
-	size_t memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024 * 1024;
-	size_t pixelCnt = width * height;
+	quint64 width = params->Get<int>("image_width");
+	quint64 height = params->Get<int>("image_height");
+	quint64 memoryLimitByUser = params->Get<int>("opencl_memory_limit") * 1024UL * 1024UL;
+	quint64 pixelCnt = width * height;
 
 	cOpenClDevice::sDeviceInformation deviceInfo = hardware->getSelectedDevicesInformation().at(0);
 
 	optimalJob.stepSize = optimalJob.workGroupSize * optimalJob.workGroupSizeOptimalMultiplier;
 
-	int exp = log(sqrt(optimalJob.stepSize + 1)) / log(2);
+	qint64 exp = qint64(log(sqrt(double(optimalJob.stepSize + 1))) / log(2.0));
 
-	optimalJob.stepSizeX = pow(2, exp);
+	optimalJob.stepSizeX = quint64(pow(2.0, double(exp)));
 	optimalJob.stepSizeY = optimalJob.stepSize / optimalJob.stepSizeX;
 
 	//	optimalJob.stepSizeX = 1;
@@ -312,11 +313,11 @@ void cOpenClEngine::InitOptimalJob(const cParameterContainer *params)
 	optimalJob.workGroupSizeMultiplier = optimalJob.workGroupSizeOptimalMultiplier;
 	optimalJob.lastProcessingTime = 1.0;
 
-	size_t maxAllocMemSize = deviceInfo.maxMemAllocSize;
-	size_t memSize = memoryLimitByUser;
+	quint64 maxAllocMemSize = quint64(deviceInfo.maxMemAllocSize);
+	quint64 memSize = memoryLimitByUser;
 	if (maxAllocMemSize > 0 && maxAllocMemSize * 0.75 < memoryLimitByUser)
 	{
-		memSize = maxAllocMemSize * 0.75;
+		memSize = quint64(maxAllocMemSize * 0.75);
 	}
 	if (optimalJob.sizeOfPixel != 0)
 	{
@@ -366,7 +367,7 @@ bool cOpenClEngine::CreateCommandQueue()
 	return false;
 }
 
-void cOpenClEngine::UpdateOptimalJobStart(size_t pixelsLeft)
+void cOpenClEngine::UpdateOptimalJobStart(quint64 pixelsLeft)
 {
 	optimalJob.timer.restart();
 	optimalJob.timer.start();
@@ -374,7 +375,7 @@ void cOpenClEngine::UpdateOptimalJobStart(size_t pixelsLeft)
 
 	optimalJob.workGroupSizeMultiplier *= processingCycleTime / optimalJob.lastProcessingTime;
 
-	qint64 maxWorkGroupSizeMultiplier = pixelsLeft / optimalJob.workGroupSize;
+	quint64 maxWorkGroupSizeMultiplier = pixelsLeft / optimalJob.workGroupSize;
 
 	if (optimalJob.workGroupSizeMultiplier > maxWorkGroupSizeMultiplier)
 		optimalJob.workGroupSizeMultiplier = maxWorkGroupSizeMultiplier;
@@ -633,7 +634,7 @@ bool cOpenClEngine::ReadBuffersFromQueue(int deviceIndex)
 
 bool cOpenClEngine::AssignParametersToKernel(int deviceIndex)
 {
-	int argIterator = 0;
+	uint argIterator = 0;
 	if (deviceIndex < inputBuffers.size())
 	{
 		for (auto &inputBuffer : inputBuffers[deviceIndex])
