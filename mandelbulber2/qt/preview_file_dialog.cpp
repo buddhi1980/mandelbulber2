@@ -197,7 +197,7 @@ void PreviewFileDialog::slotUpdateProgressAndStatus(
 {
 	info->setText(text);
 	if (!progressBar->isVisible()) progressBar->setVisible(true);
-	progressBar->setValue(progress * 1000.0);
+	progressBar->setValue(int(progress * 1000.0));
 	progressBar->setTextVisible(true);
 	progressBar->setFormat(progressText);
 	update();

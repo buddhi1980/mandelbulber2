@@ -54,11 +54,11 @@ class cAnimationFrames
 public:
 	struct sAnimationFrame
 	{
-		sAnimationFrame() : alreadyRendered(false) {}
+		sAnimationFrame() {}
 
 		cParameterContainer parameters;
 		QImage thumbnail;
-		bool alreadyRendered;
+		bool alreadyRendered{false};
 		QList<bool> alreadyRenderedSubFrames;
 	};
 

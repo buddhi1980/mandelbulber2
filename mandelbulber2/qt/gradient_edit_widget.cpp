@@ -58,14 +58,14 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 	dragStartX = 0;
 	grayscale = false;
 
-	fixHeight = systemData.GetPreferredThumbnailSize() / 1.4;
+	fixHeight = int(systemData.GetPreferredThumbnailSize() / 1.4);
 	setFixedHeight(fixHeight);
 
 	buttonWidth = fixHeight / 8;
 	if (buttonWidth % 2 == 0) buttonWidth += 1; // to always have odd width
 
 	margins = buttonWidth / 2 + 2;
-	toolbarHeight = fixHeight / 3.5;
+	toolbarHeight = int(fixHeight / 3.5);
 
 	buttonRandomColors = new QToolButton(this);
 	AddToolButton(buttonRandomColors, margins, ":gradient/icons/dice_colors.svg");
@@ -168,7 +168,7 @@ void cGradientEditWidget::paintEvent(QPaintEvent *event)
 
 int cGradientEditWidget::CalcButtonPosition(double position)
 {
-	return margins + position * (width() - 2 * margins - 1);
+	return int(margins + position * (width() - 2 * margins - 1));
 }
 
 void cGradientEditWidget::PaintButton(const cColorGradient::sColor &posColor, QPainter &painter)

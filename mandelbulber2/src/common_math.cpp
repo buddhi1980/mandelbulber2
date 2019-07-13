@@ -197,7 +197,7 @@ CVector3 wrap(CVector3 x, const CVector3 &a, const CVector3 &s)
 
 double MagicRound(double val, double maxError)
 {
-	if (val != 0)
+	if (!qIsNull(val))
 	{
 		double multiplier = pow(10.0, -int(log10(fabs(val))));
 		double rounded = val * multiplier;

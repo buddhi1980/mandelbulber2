@@ -70,21 +70,17 @@ public:
 
 	struct structSaveMeshConfig
 	{
-		structSaveMeshConfig()
-				: fileType(MESH_FILE_TYPE_PLY),
-					contentTypes(QList<enumMeshContentType>({})),
-					fileModeType(MESH_ASCII)
-		{
-		}
+		structSaveMeshConfig() {}
+
 		structSaveMeshConfig(enumMeshFileType _fileType, QList<enumMeshContentType> _contentTypes,
 			enumMeshFileModeType _fileModeType)
 				: fileType(_fileType), contentTypes(std::move(_contentTypes)), fileModeType(_fileModeType)
 		{
 		}
 
-		enumMeshFileType fileType;
-		QList<enumMeshContentType> contentTypes;
-		enumMeshFileModeType fileModeType;
+		enumMeshFileType fileType{MESH_FILE_TYPE_PLY};
+		QList<enumMeshContentType> contentTypes{QList<enumMeshContentType>({})};
+		enumMeshFileModeType fileModeType{MESH_ASCII};
 	};
 
 	struct structSaveMeshData

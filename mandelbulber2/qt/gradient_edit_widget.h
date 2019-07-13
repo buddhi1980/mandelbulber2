@@ -47,7 +47,7 @@ class cGradientEditWidget : public QWidget, public CommonMyWidgetWrapper
 	Q_OBJECT
 public:
 	cGradientEditWidget(QWidget *parent = nullptr);
-	~cGradientEditWidget();
+	~cGradientEditWidget() override;
 	void SetGrayscale();
 	void SetViewModeOnly();
 	QString GetColors() { return gradient.GetColorsAsString(); }

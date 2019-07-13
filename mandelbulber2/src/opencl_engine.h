@@ -52,32 +52,20 @@ class cOpenClEngine : public QObject
 
 	struct sOptimalJob
 	{
-		sOptimalJob()
-				: workGroupSize(0),
-					workGroupSizeOptimalMultiplier(0),
-					stepSize(0),
-					stepSizeX(0),
-					stepSizeY(0),
-					workGroupSizeMultiplier(1),
-					jobSizeMultiplier(1),
-					lastProcessingTime(1.0),
-					sizeOfPixel(0),
-					jobSizeLimit(0),
-					optimalProcessingCycle(0.1)
-		{
-		}
-		qint64 workGroupSize;
-		qint64 workGroupSizeOptimalMultiplier;
-		qint64 stepSize;
-		qint64 stepSizeX;
-		qint64 stepSizeY;
-		qint64 workGroupSizeMultiplier;
-		qint64 jobSizeMultiplier;
+		sOptimalJob() {}
+		
+		qint64 workGroupSize{0};
+		qint64 workGroupSizeOptimalMultiplier{0};
+		qint64 stepSize{0};
+		qint64 stepSizeX{0};
+		qint64 stepSizeY{0};
+		qint64 workGroupSizeMultiplier{1};
+		qint64 jobSizeMultiplier{1};
 		QElapsedTimer timer;
-		double lastProcessingTime;
-		qint64 sizeOfPixel;
-		qint64 jobSizeLimit;
-		double optimalProcessingCycle;
+		double lastProcessingTime{1.0};
+		qint64 sizeOfPixel{0};
+		qint64 jobSizeLimit{0};
+		double optimalProcessingCycle{0.1};
 	};
 
 public:

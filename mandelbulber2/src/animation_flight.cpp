@@ -401,7 +401,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 		}
 
 		// integrator for position
-		if (strafe.Length() == 0)
+		if (qIsNull(strafe.Length()))
 		{
 			double goForward = (negativeFlightSpeed) ? -1.0 : 1.0;
 			cameraAcceleration =
@@ -412,11 +412,11 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			CVector3 direction;
 			if (!orthogonalStrafe) direction = cameraTarget.GetForwardVector();
 
-			if (strafe.x != 0)
+			if (!qIsNull(strafe.x))
 			{
 				direction += cameraTarget.GetRightVector() * strafe.x;
 			}
-			if (strafe.y != 0)
+			if (!qIsNull(strafe.y))
 			{
 				direction += cameraTarget.GetTopVector() * strafe.y;
 			}
@@ -525,7 +525,7 @@ void cFlightAnimation::UpdateThumbnailFromImage(int index) const
 {
 	table->blockSignals(true);
 	const QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
-		image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
+		image->GetHeight(), image->GetWidth() * int(sizeof(sRGB8)), QImage::Format_RGB888);
 	QPixmap pixmap;
 	pixmap.convertFromImage(qImage);
 	const QIcon icon(

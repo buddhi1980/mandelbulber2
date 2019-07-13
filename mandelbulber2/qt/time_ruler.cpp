@@ -79,7 +79,7 @@ void cTimeRuler::paintEvent(QPaintEvent *event)
 
 		for (int second = 0; second < soundLength; second++)
 		{
-			int x = second * framesPerSecond;
+			int x = int(second * framesPerSecond);
 			if (x >= xStart - 50 && x <= xEnd + 50)
 			{
 				if (second % 60 == 0)

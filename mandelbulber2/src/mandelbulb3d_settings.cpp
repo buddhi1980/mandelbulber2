@@ -43,9 +43,9 @@
 #include "initparameters.hpp"
 #include "system.hpp"
 
-cMandelbulb3dSettings::cMandelbulb3dSettings() {}
+cMandelbulb3dSettings::cMandelbulb3dSettings() = default;
 
-cMandelbulb3dSettings::~cMandelbulb3dSettings() {}
+cMandelbulb3dSettings::~cMandelbulb3dSettings() = default;
 
 bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 {

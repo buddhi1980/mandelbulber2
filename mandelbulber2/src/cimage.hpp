@@ -47,20 +47,17 @@
 
 struct sImageOptional
 {
-	sImageOptional()
-			: optionalNormal(false), optionalSpecular(false), optionalDiffuse(false), optionalWorld(false)
-	{
-	}
+	sImageOptional() {}
 	inline bool operator==(sImageOptional other) const
 	{
 		return other.optionalNormal == optionalNormal && other.optionalSpecular == optionalSpecular
 					 && other.optionalDiffuse == optionalDiffuse && other.optionalWorld == optionalWorld;
 	}
 
-	bool optionalNormal;
-	bool optionalSpecular;
-	bool optionalDiffuse;
-	bool optionalWorld;
+	bool optionalNormal{false};
+	bool optionalSpecular{false};
+	bool optionalDiffuse{false};
+	bool optionalWorld{false};
 };
 
 struct sAllImageData

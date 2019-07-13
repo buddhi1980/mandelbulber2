@@ -54,7 +54,7 @@ class cOpenClWorkerThread : public QObject
 public:
 	cOpenClWorkerThread(
 		cOpenClEngine *engine, const QSharedPointer<cOpenClScheduler> scheduler, int deviceIndex);
-	~cOpenClWorkerThread();
+	~cOpenClWorkerThread() override;
 	bool ProcessClQueue(size_t jobX, size_t jobY, size_t pixelsLeftX, size_t pixelsLeftY);
 
 	void setImageHeight(qint64 imageHeight) { this->imageHeight = imageHeight; }

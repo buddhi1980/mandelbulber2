@@ -51,10 +51,10 @@ public:
 
 	void LoadAudio(const QString &filename);
 
-	int getLength() const { return length; }
+	quint64 getLength() const { return length; }
 	bool isLoaded() const { return loaded; }
 	int getSampleRate() const { return sampleRate; }
-	float getSample(int sampleIndex) const;
+	float getSample(uint sampleIndex) const;
 	void calculateFFT();
 	cAudioFFTData getFFTSample(int frame) const;
 	float getBand(int frame, double midFreq, double bandwidth, bool pitchMode) const;
@@ -78,11 +78,11 @@ private slots:
 
 private:
 	QScopedPointer<QAudioDecoder> decoder;
-	QVector<float> rawAudio;
+	std::vector<float> rawAudio;
 	QScopedArrayPointer<cAudioFFTData> fftAudio;
 	QVector<float> animation;
 	bool memoryReserved;
-	int length;
+	quint64 length;
 	int sampleRate;
 	bool loaded;
 	bool loadingInProgress;

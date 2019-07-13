@@ -191,7 +191,7 @@ void cPreferencesDialog::on_pushButton_clear_thumbnail_cache_clicked() const
 {
 	QDir thumbnailDir(systemData.GetThumbnailsFolder());
 	thumbnailDir.setFilter(QDir::AllEntries | QDir::NoDotAndDotDot);
-	int thumbnailDirCount = thumbnailDir.count();
+	uint thumbnailDirCount = thumbnailDir.count();
 
 	// confirmation dialog before clearing
 	QMessageBox::StandardButton reply;
@@ -513,8 +513,8 @@ void cPreferencesDialog::UpdateOpenCLMemoryLimits()
 			if (i.globalMemSize < deviceInformation.globalMemSize) deviceInformation = i;
 		}
 
-		cl_ulong globalMemSize = deviceInformation.globalMemSize / 1024 / 1024;
-		cl_ulong maxMemAllocSize = deviceInformation.maxMemAllocSize / 1024 / 1024;
+		int globalMemSize = int(deviceInformation.globalMemSize / 1024 / 1024);
+		int maxMemAllocSize = int(deviceInformation.maxMemAllocSize / 1024 / 1024);
 
 		ui->spinboxInt_opencl_memory_limit->setMaximum(globalMemSize);
 		ui->sliderInt_opencl_memory_limit->setMaximum(globalMemSize);

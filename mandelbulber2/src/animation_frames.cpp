@@ -529,8 +529,8 @@ T cAnimationFrames::ApplyAudioAnimationOneComponent(int frame, T oldVal,
 			params->Get<double>(QString("animsound_additionfactor_%1").arg(fullParameterNameWithSuffix));
 		const double multFactor =
 			params->Get<double>(QString("animsound_multfactor_%1").arg(fullParameterNameWithSuffix));
-		const float animSound =
-			audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(frame);
+		const double animSound =
+			double(audioTracks.GetAudioTrackPtr(fullParameterNameWithSuffix)->getAnimation(frame));
 
 		if (params->Get<bool>(QString("animsound_negative_%1").arg(fullParameterNameWithSuffix)))
 		{

@@ -59,7 +59,7 @@ MyDoubleSpinBox::~MyDoubleSpinBox()
 void MyDoubleSpinBox::paintEvent(QPaintEvent *event)
 {
 	QFont f = font();
-	f.setBold(value() != GetDefault());
+	f.setBold(!qFuzzyCompare(value(), GetDefault()));
 	setFont(f);
 	QDoubleSpinBox::paintEvent(event);
 }
@@ -139,7 +139,7 @@ void MyDoubleSpinBox::focusInEvent(QFocusEvent *event)
 			if (type == QString("spinboxd") || type == QString("spinboxd3")
 					|| type == QString("spinboxd4"))
 			{
-				int dialScale = pow(10.0, double(decimals()));
+				int dialScale = int(pow(10.0, double(decimals())));
 				slider->SetDialMode(dialScale, value());
 				hasDial = true;
 			}

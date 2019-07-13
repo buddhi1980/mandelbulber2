@@ -253,8 +253,8 @@ void cAudioSelector::audioSetup()
 	connect(audioOutput, SIGNAL(stateChanged(QAudio::State)), this,
 		SLOT(slotPlaybackStateChanged(QAudio::State)));
 
-	playBuffer =
-		QByteArray(reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * sizeof(float));
+	playBuffer = QByteArray(
+		reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * int(sizeof(float)));
 
 	if (playStream) delete playStream;
 	playStream = new QBuffer(&playBuffer);
@@ -334,18 +334,19 @@ void cAudioSelector::slotPlayPositionChanged(bool updateSlider)
 	const double totalLengthSecs = 1.0 * audio->getLength() / audio->getSampleRate();
 	const double processedSecs = 1.0 * totalLengthSecs * playStream->pos() / playStream->size();
 	const double percentRuntime = processedSecs / totalLengthSecs;
-	const int x = width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent);
+	const int x = int(width * ((1.0 + overScrollPercent * 2) * percentRuntime - overScrollPercent));
 	ui->scrollArea->horizontalScrollBar()->setValue(x);
 
 	// set text of current position and slider progress
-	const QString processedString = QDateTime::fromTime_t(processedSecs).toUTC().toString("hh:mm:ss");
+	const QString processedString =
+		QDateTime::fromTime_t(uint(processedSecs)).toUTC().toString("hh:mm:ss");
 	const QString totalLengthString =
-		QDateTime::fromTime_t(totalLengthSecs).toUTC().toString("hh:mm:ss");
+		QDateTime::fromTime_t(uint(totalLengthSecs)).toUTC().toString("hh:mm:ss");
 	ui->label_time->setText(QObject::tr("%1 / %2").arg(processedString, totalLengthString));
 	if (updateSlider)
-		ui->audio_position_slider->setValue(percentRuntime * ui->audio_position_slider->maximum());
+		ui->audio_position_slider->setValue(int(percentRuntime * ui->audio_position_slider->maximum()));
 
-	emit playPositionChanged(processedSecs * 1000);
+	emit playPositionChanged(int(processedSecs * 1000));
 }
 
 void cAudioSelector::slotPlaybackStateChanged(QAudio::State state) const

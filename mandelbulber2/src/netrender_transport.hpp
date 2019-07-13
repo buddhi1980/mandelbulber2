@@ -88,10 +88,10 @@ enum netRenderStatus
 
 struct sMessage
 {
-	sMessage() : command(netRender_NONE), id(0), size(0) {}
-	qint32 command;
-	qint32 id;
-	qint32 size;
+	sMessage() {}
+	qint32 command{netRender_NONE};
+	qint32 id{0};
+	qint32 size{0};
 	QByteArray payload;
 
 	static qint64 headerSize() { return qint64(sizeof(command) + sizeof(id) + sizeof(size)); }
@@ -100,12 +100,12 @@ struct sMessage
 
 struct sClient
 {
-	sClient() : socket(nullptr), status(netRender_NEW), linesRendered(0), clientWorkerCount(0) {}
-	QTcpSocket *socket;
+	sClient() {}
+	QTcpSocket *socket{nullptr};
 	sMessage msg;
-	netRenderStatus status;
-	qint32 linesRendered;
-	qint32 clientWorkerCount;
+	netRenderStatus status{netRender_NEW};
+	qint32 linesRendered{0};
+	qint32 clientWorkerCount{0};
 	QString name;
 };
 

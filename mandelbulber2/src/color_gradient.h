@@ -46,20 +46,20 @@ public:
 	struct sColor
 	{
 		sRGB color;
-		double position; // from 0 to 1.0
+		float position; // from 0 to 1.0
 
 		static bool lessCompare(sColor a, sColor b) { return a.position < b.position; }
 	};
 	void SetGrayscale() { grayscale = true; }
 	bool isGrayscale() { return grayscale; }
-	int AddColor(sRGB color, double position); // returns new color index
+	int AddColor(sRGB color, float position); // returns new color index
 	void ModifyColor(int index, sRGB color);
-	void ModifyPosition(int index, double position);
+	void ModifyPosition(int index, float position);
 	void RemoveColor(int index);
-	sRGB GetColor(double position, bool smooth) const;
-	sRGBFloat GetColorFloat(double position, bool smooth) const;
+	sRGB GetColor(float position, bool smooth) const;
+	sRGBFloat GetColorFloat(float position, bool smooth) const;
 	sRGB GetColorByIndex(int index);
-	double GetPositionByIndex(int index);
+	float GetPositionByIndex(int index);
 	QList<sColor> GetListOfColors() const;
 	QList<sColor> GetListOfSortedColors() const;
 	QVector<sRGB> GetGradient(int length, bool smooth);
@@ -71,10 +71,10 @@ public:
 	void DeleteAndKeepTwo();
 
 private:
-	int PaletteIterator(int paletteIndex, double position) const;
-	sRGB Interpolate(int paletteIndex, double pos, bool smooth) const;
-	sRGBFloat InterpolateFloat(int paletteIndex, double pos, bool smooth) const;
-	double CorrectPosition(double position, int ignoreIndex);
+	int PaletteIterator(int paletteIndex, float position) const;
+	sRGB Interpolate(int paletteIndex, float pos, bool smooth) const;
+	sRGBFloat InterpolateFloat(int paletteIndex, float pos, bool smooth) const;
+	float CorrectPosition(float position, int ignoreIndex);
 	sRGB MakeGrayscaleIfNeeded(sRGB color);
 
 	QList<sColor> colors;

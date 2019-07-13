@@ -114,10 +114,10 @@ void MyHistogramLabel::RedrawHistogram(QPainter &painter) const
 			// draw each column bar
 			for (int i = 0; i < size; i++)
 			{
-				int height = double(drawHeight) * max(0L, histData.GetHist(i)) / maxH;
+				int height = int(double(drawHeight) * max(0L, histData.GetHist(i)) / maxH);
 
 				painter.drawRect(QRect(legendWidthP1 + i * drawWidth / size, drawHeight - height,
-					floor(1.0 * drawWidth / size), height));
+					int(floor(1.0 * drawWidth / size)), height));
 			}
 
 			// draw max description

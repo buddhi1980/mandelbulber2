@@ -77,17 +77,17 @@ void cFFTView::AssignAudioTrack(const QSharedPointer<cAudioTrack> audiotrack)
 			for (int y = 0; y < height; y++)
 			{
 				int y2 = height - y - 1;
-				double value = 10.0 * fftFrame.data[y] / audiotrack->getMaxFft();
+				float value = 10.0f * fftFrame.data[y] / audiotrack->getMaxFft();
 
 				QRgb pixel;
-				if (value < 0.5)
+				if (value < 0.5f)
 				{
-					pixel = qRgba(0, value * 510, 0, 255);
+					pixel = qRgba(0, int(value * 510), 0, 255);
 				}
 				else
 				{
-					if (value > 1.0) value = 1.0;
-					pixel = qRgba((value - 0.5) * 510, 255, 0, 255);
+					if (value > 1.0f) value = 1.0f;
+					pixel = qRgba(int((value - 0.5f) * 510), 255, 0, 255);
 				}
 
 				QRgb *line = reinterpret_cast<QRgb *>(fftImage.scanLine(y2));

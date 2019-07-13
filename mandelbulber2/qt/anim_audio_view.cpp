@@ -68,7 +68,7 @@ void cAnimAudioView::UpdateChart(const QSharedPointer<cAudioTrack> audioTrack)
 
 		for (int frame = 0; frame < numberOfFrames; frame++)
 		{
-			const QPoint point(frame, maxY - audioTrack->getAnimation(frame) * maxY);
+			const QPoint point(frame, int(maxY - audioTrack->getAnimation(frame) * maxY));
 			painter.drawLine(prevPoint, point);
 			prevPoint = point;
 		}
@@ -95,6 +95,6 @@ void cAnimAudioView::paintEvent(QPaintEvent *event)
 void cAnimAudioView::positionChanged(qint64 position)
 {
 	const double time = position * 0.001;
-	playbackPositionX = time * framesPerSecond;
+	playbackPositionX = int(time * framesPerSecond);
 	update();
 }

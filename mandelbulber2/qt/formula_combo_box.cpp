@@ -40,7 +40,7 @@
 #include "formula_combo_box.h"
 
 #include <QStandardItemModel>
-
+#include <QLineEdit>
 #include "src/parameters.hpp"
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
@@ -69,8 +69,8 @@ cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonM
 	setCompleter(completer);
 
 	// connect signals
-	connect((const QObject *)lineEdit(), SIGNAL(textEdited(const QString &)), pFilterModel,
-		SLOT(setFilterFixedString(const QString &)));
+	connect(qobject_cast<const QObject *>(lineEdit()), SIGNAL(textEdited(const QString &)),
+		pFilterModel, SLOT(setFilterFixedString(const QString &)));
 	connect(completer, SIGNAL(activated(QString)), this, SLOT(onCompleterActivated(QString)));
 }
 

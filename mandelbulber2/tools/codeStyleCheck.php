@@ -264,7 +264,7 @@ function checkIncludeHeaders($filepath, &$fileContent, &$status, $folderName)
 
 function checkClangTidy()
 {
-	$cmakeFolder = PROJECT_PATH . '/cmake';
+	$cmakeFolder = PROJECT_PATH . 'cmake';
     shell_exec('cmake ' . escapeshellarg($cmakeFolder) . ' -DCMAKE_EXPORT_COMPILE_COMMANDS=ON');
 
 	// TODO apply more styles, maybe modernize-*?
@@ -272,7 +272,7 @@ function checkClangTidy()
 	$checks = array(
 		'modernize-avoid-bind',
 		'modernize-deprecated-headers',
-                'modernize-loop-convert',
+        'modernize-loop-convert',
 		'modernize-make-shared',
 		'modernize-make-unique',
 		'modernize-pass-by-value',
@@ -293,7 +293,8 @@ function checkClangTidy()
 		'modernize-use-nullptr',
 		'modernize-use-override',
 		'modernize-use-transparent-functors',
-		'modernize-use-using',
+		'modernize-use-default-member-init',
+		//'modernize-use-using',
 	);
 
 	$checkString = '-*,' . implode(',', $checks);
@@ -303,9 +304,9 @@ function checkClangTidy()
             . ' -checks=' . $checkString
             . ' -header-filter=".*"'
             // . ' -quiet'
-            . ' -p ' . escapeshellarg($cmakeFolder)
-            . (!isDryRun() ? ' -fix' : '')
-            . ' 2>/dev/null';
+          //  . ' -p ' . escapeshellarg($cmakeFolder)
+            . (!isDryRun() ? ' -fix' : '');
+         //   . ' 2>/dev/null';
 
 	// echo $cmd; exit;
 	$out = shell_exec($cmd);

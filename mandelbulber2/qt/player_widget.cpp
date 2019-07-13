@@ -211,7 +211,7 @@ void PlayerWidget::updateFrame()
 
 void PlayerWidget::setFPS(double fps) const
 {
-	playTimer->setInterval(1000.0 / fps);
+	playTimer->setInterval(int(1000.0 / fps));
 }
 
 void PlayerWidget::closeEvent(QCloseEvent *event)

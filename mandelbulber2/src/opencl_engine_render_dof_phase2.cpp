@@ -220,8 +220,6 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 		QElapsedTimer timer;
 		timer.start();
 
-		int numberOfPixels = width * height;
-
 		// copy zBuffer and image to input and output buffers
 		for (int y = 0; y < height; y++)
 		{

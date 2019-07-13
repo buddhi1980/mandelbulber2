@@ -209,8 +209,7 @@ void cThumbnailWidget::AssignParameters(
 						sRGB8 *line = reinterpret_cast<sRGB8 *>(qImage.scanLine(y));
 						for (int x = 0; x < bWidth; x++)
 						{
-							sRGB8 pixel(static_cast<unsigned short>(line[x].R),
-								static_cast<unsigned short>(line[x].G), static_cast<unsigned short>(line[x].B));
+							sRGB8 pixel(quint8(line[x].R), quint8(line[x].G), quint8(line[x].B));
 							previewPointer[x + y * bWidth] = pixel;
 							preview2Pointer[x + y * bWidth] = pixel;
 						}
@@ -305,7 +304,7 @@ void cThumbnailWidget::slotFullyRendered()
 	if (!disableThumbnailCache)
 	{
 		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
-			image->GetHeight(), image->GetWidth() * sizeof(sRGB8), QImage::Format_RGB888);
+			image->GetHeight(), image->GetWidth() * int(sizeof(sRGB8)), QImage::Format_RGB888);
 		QPixmap pixmap;
 		pixmap.convertFromImage(qImage);
 

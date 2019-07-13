@@ -147,7 +147,7 @@ void cDockImageAdjustments::slotChangedComboImageProportion(int index) const
 	ui->spinboxInt_image_width->setEnabled(enableSlider);
 
 	const int height = ui->spinboxInt_image_height->value();
-	int width = height * ratio;
+	int width = int(height * ratio);
 
 	if (!enableSlider)
 	{
@@ -182,7 +182,7 @@ void cDockImageAdjustments::slotPressedResolutionPreset() const
 	double calculatedProportion = double(width) / height;
 	for (int i = 0; i < numberOfProportions; i++)
 	{
-		if (calculatedProportion == ProportionEnumToRatio(enumImageProportion(i)))
+		if (qFuzzyCompare(calculatedProportion, ProportionEnumToRatio(enumImageProportion(i))))
 		{
 			proportion = enumImageProportion(i);
 		}

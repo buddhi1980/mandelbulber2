@@ -10,8 +10,8 @@ if (file_exists(realpath(dirname(__FILE__)) . '/customConfig.php'))
 
 if (!defined('MANDELBULBER_EXEC_PATH')) define('MANDELBULBER_EXEC_PATH', 'mandelbulber2');
 if (!defined('CLANG_FORMAT_EXEC_PATH')) define('CLANG_FORMAT_EXEC_PATH', 'clang-format');
-if(!defined('RUN_CLANG_TIDY_EXEC_PATH')) define('RUN_CLANG_TIDY_EXEC_PATH', 'run-clang-tidy-5.0.py');
-if(!defined('CLANG_APPLY_BINARY_PATH')) define('CLANG_APPLY_BINARY_PATH', '/usr/bin/clang-apply-replacements-5.0');
+if(!defined('RUN_CLANG_TIDY_EXEC_PATH')) define('RUN_CLANG_TIDY_EXEC_PATH', '/usr/bin/run-clang-tidy-6.0.py');
+if(!defined('CLANG_APPLY_BINARY_PATH')) define('CLANG_APPLY_BINARY_PATH', '/usr/bin/clang-apply-replacements-6.0');
 
 checkArguments();
 

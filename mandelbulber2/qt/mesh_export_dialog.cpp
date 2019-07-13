@@ -104,7 +104,7 @@ void cMeshExportDialog::on_pushButton_start_render_layers_clicked()
 		QList<MeshFileSave::enumMeshContentType> meshContent({MeshFileSave::MESH_CONTENT_GEOMETRY});
 		if (gPar->Get<bool>("mesh_color")) meshContent << MeshFileSave::MESH_CONTENT_COLOR;
 		MeshFileSave::structSaveMeshConfig meshConfig(MeshFileSave::MESH_FILE_TYPE_PLY, meshContent,
-			(MeshFileSave::enumMeshFileModeType)gPar->Get<int>("mesh_file_mode"));
+			MeshFileSave::enumMeshFileModeType(gPar->Get<int>("mesh_file_mode")));
 
 		slicerBusy = true;
 		meshExport = new cMeshExport(

@@ -136,7 +136,7 @@ void cFrameSliderPopup::SetDialMode(int scale, double val)
 	ui->slider->hide();
 	ui->dial->setMaximum(scale * 180);
 	ui->dial->setMinimum(-scale * 180);
-	ui->dial->setValue(val * scale);
+	ui->dial->setValue(int(val * scale));
 	dialScale = scale;
 	dialMode = true;
 	connect(ui->dial, SIGNAL(valueChanged(int)), this, SLOT(slotDialValueChanged(int)));
@@ -156,7 +156,7 @@ void cFrameSliderPopup::slotUpdateValue(int val)
 void cFrameSliderPopup::slotUpdateValue(double val)
 {
 	blockSignals(true);
-	ui->dial->setValue(val * dialScale);
+	ui->dial->setValue(int(val * dialScale));
 	blockSignals(false);
 }
 

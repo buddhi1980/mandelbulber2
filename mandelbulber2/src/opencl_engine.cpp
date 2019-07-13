@@ -119,7 +119,7 @@ bool cOpenClEngine::Build(const QByteArray &programString, QString *errorText)
 			sources.emplace_back(programString.constData(), size_t(programString.length()));
 
 			// creating cl::Program
-			cl_int err;
+			cl_int err = 0;
 
 			// Creates a program from source strings and Context.
 			// Context initialized with support for multiple devices.
@@ -504,34 +504,34 @@ bool cOpenClEngine::PreAllocateBuffers(const cParameterContainer *params)
 
 void cOpenClEngine::ReleaseMemory()
 {
-	for (int i = 0; i < outputBuffers.size(); i++)
+	for (auto &i : outputBuffers)
 	{
-		for (auto &outputBuffer : outputBuffers[i])
+		for (auto &outputBuffer : i)
 		{
 			outputBuffer.ptr.reset();
 			outputBuffer.clPtr.reset();
 		}
-		outputBuffers[i].clear();
+		i.clear();
 	}
 
-	for (int i = 0; i < inputBuffers.size(); i++)
+	for (auto &i : inputBuffers)
 	{
-		for (auto &inputBuffer : inputBuffers[i])
+		for (auto &inputBuffer : i)
 		{
 			inputBuffer.ptr.reset();
 			inputBuffer.clPtr.reset();
 		}
-		inputBuffers[i].clear();
+		i.clear();
 	}
 
-	for (int i = 0; i < inputAndOutputBuffers.size(); i++)
+	for (auto &i : inputAndOutputBuffers)
 	{
-		for (auto &inputAndOutputBuffer : inputAndOutputBuffers[i])
+		for (auto &inputAndOutputBuffer : i)
 		{
 			inputAndOutputBuffer.ptr.reset();
 			inputAndOutputBuffer.clPtr.reset();
 		}
-		inputAndOutputBuffers[i].clear();
+		i.clear();
 	}
 }
 

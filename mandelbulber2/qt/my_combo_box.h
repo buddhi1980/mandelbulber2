@@ -45,7 +45,7 @@ class MyComboBox : public QComboBox, public CommonMyWidgetWrapper
 
 public:
 	MyComboBox(QWidget *parent = nullptr);
-	~MyComboBox();
+	~MyComboBox() override;
 
 protected:
 	void contextMenuEvent(QContextMenuEvent *event) override;

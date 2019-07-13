@@ -86,5 +86,9 @@ double traceBehindFractal(cParameterContainer *params, cFractalContainer *fracta
 
 		if ((paramRender->camera - point).Length() > distanceLimit) break;
 	}
+
+	delete paramRender;
+	delete nineFractals;
+
 	return distanceBehind;
 }

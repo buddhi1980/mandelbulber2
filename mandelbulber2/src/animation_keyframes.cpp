@@ -1416,7 +1416,7 @@ void cKeyframeAnimation::UpdateAnimationPath() const
 			{
 				point.lights[l] = tempPar.Get<CVector3>("aux_light_position", l + 1);
 				sRGB color16 = tempPar.Get<sRGB>("aux_light_colour", l + 1);
-				sRGB8 color8(color16.R / 256, color16.G / 256, color16.B / 256);
+				sRGB8 color8(quint8(color16.R / 256), quint8(color16.G / 256), quint8(color16.B / 256));
 				point.lightColor[l] = color8;
 			}
 			animationPathData.animationPath.append(point);

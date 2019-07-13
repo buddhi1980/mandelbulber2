@@ -61,16 +61,16 @@ struct sTextures
 
 struct sRenderData
 {
-	sRenderData() : rendererID(0), stopRequest(nullptr), lastPercentage(1.0), reduceDetail(1.0) {}
+	sRenderData() {}
 
-	int rendererID;
+	int rendererID{0};
 	cRegion<int> screenRegion;
 	cRegion<double> imageRegion;
 	sTextures textures;
 	cLights lights;
-	bool *stopRequest;
-	double lastPercentage;
-	double reduceDetail;
+	bool *stopRequest{nullptr};
+	double lastPercentage{1.0};
+	double reduceDetail{1.0};
 	cStatistics statistics;
 	QList<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;

@@ -158,22 +158,18 @@ public:
 
 	struct sCameraDragData
 	{
-		sCameraDragData()
-				: cameraDraggingStarted(false),
-					startZ(0.0),
-					button(Qt::NoButton),
-					lastStartRenderingTime(0){};
-		bool cameraDraggingStarted;
+		sCameraDragData() {}
+		bool cameraDraggingStarted{false};
 		CVector2<double> startScreenPoint;
 		CVector2<double> startNormalizedPoint;
-		double startZ;
+		double startZ{0.0};
 		CVector3 startCamera;
 		CVector3 startTarget;
 		CVector3 startTopVector;
 		CVector3 startIndicatedPoint;
-		Qt::MouseButtons button;
+		Qt::MouseButtons button{Qt::NoButton};
 		QElapsedTimer lastRefreshTime;
-		qint64 lastStartRenderingTime;
+		qint64 lastStartRenderingTime{0};
 	} cameraDragData;
 };
 

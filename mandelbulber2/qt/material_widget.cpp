@@ -171,7 +171,7 @@ void cMaterialWidget::InitializeData()
 
 		if (materialEditorWidget)
 		{
-			int time = (timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1;
+			int time = int((timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1);
 			// qDebug() << timeAssignData << timeUpdateData << lastRenderTime << time;
 			timerPeriodicRefresh->start(time);
 		}
@@ -195,7 +195,7 @@ void cMaterialWidget::slotPeriodicRender()
 	}
 	if (!timerPeriodicRefresh->isActive())
 	{
-		int time = (timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1;
+		int time = int((timeUpdateData + timeAssignData + lastRenderTime) * 2000.0 + 1);
 		if (time > 10000) time = 10000;
 
 		timerPeriodicRefresh->start(time);

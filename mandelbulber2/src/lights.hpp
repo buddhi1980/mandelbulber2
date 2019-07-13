@@ -48,9 +48,9 @@ struct sLight
 {
 	CVector3 position;
 	sRGB colour;
-	float intensity;
-	bool enabled;
-	sLight() : position(), colour(), intensity(), enabled() {}
+	float intensity{0.0f};
+	bool enabled{false};
+	sLight() {}
 };
 
 class cLights : public QObject

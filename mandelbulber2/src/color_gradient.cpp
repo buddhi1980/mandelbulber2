@@ -52,9 +52,9 @@ cColorGradient::cColorGradient()
 	sorted = false;
 }
 
-cColorGradient::~cColorGradient() {}
+cColorGradient::~cColorGradient() = default;
 
-int cColorGradient::AddColor(sRGB color, double position)
+int cColorGradient::AddColor(sRGB color, float position)
 {
 	sorted = false;
 	position = CorrectPosition(position, -1);
@@ -78,7 +78,7 @@ void cColorGradient::ModifyColor(int index, sRGB color)
 	}
 }
 
-void cColorGradient::ModifyPosition(int index, double position)
+void cColorGradient::ModifyPosition(int index, float position)
 {
 	position = CorrectPosition(position, index);
 
@@ -113,7 +113,7 @@ void cColorGradient::RemoveColor(int index)
 	}
 }
 
-int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition) const
+int cColorGradient::PaletteIterator(int paletteIndex, float colorPosition) const
 {
 	int newIndex = paletteIndex;
 	while (newIndex < sortedColors.size() - 1 && colorPosition > sortedColors[newIndex + 1].position)
@@ -123,13 +123,13 @@ int cColorGradient::PaletteIterator(int paletteIndex, double colorPosition) cons
 	return newIndex;
 }
 
-sRGB cColorGradient::GetColor(double position, bool smooth) const
+sRGB cColorGradient::GetColor(float position, bool smooth) const
 {
 	int paletteIndex = PaletteIterator(0, position);
 	return Interpolate(paletteIndex, position, smooth);
 }
 
-sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth) const
+sRGB cColorGradient::Interpolate(int paletteIndex, float pos, bool smooth) const
 {
 	sRGB color;
 	// if last element then just copy color value (no interpolation)
@@ -142,19 +142,19 @@ sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth) cons
 		// interpolation
 		sRGB color1 = sortedColors[paletteIndex].color;
 		sRGB color2 = sortedColors[paletteIndex + 1].color;
-		double pos1 = sortedColors[paletteIndex].position;
-		double pos2 = sortedColors[paletteIndex + 1].position;
+		float pos1 = sortedColors[paletteIndex].position;
+		float pos2 = sortedColors[paletteIndex + 1].position;
 		// relative delta
-		if (pos2 - pos1 > 0.0)
+		if (pos2 - pos1 > 0.0f)
 		{
-			double delta = (pos - pos1) / (pos2 - pos1);
+			float delta = (pos - pos1) / (pos2 - pos1);
 
-			if (smooth) delta = 0.5 * (1.0 - cos(delta * M_PI));
+			if (smooth) delta = 0.5f * (1.0f - cosf(delta * float(M_PI)));
 
-			double nDelta = 1.0 - delta;
-			color.R = color1.R * nDelta + color2.R * delta;
-			color.G = color1.G * nDelta + color2.G * delta;
-			color.B = color1.B * nDelta + color2.B * delta;
+			float nDelta = 1.0f - delta;
+			color.R = int(color1.R * nDelta + color2.R * delta);
+			color.G = int(color1.G * nDelta + color2.G * delta);
+			color.B = int(color1.B * nDelta + color2.B * delta);
 		}
 		else
 		{
@@ -165,13 +165,13 @@ sRGB cColorGradient::Interpolate(int paletteIndex, double pos, bool smooth) cons
 	return color;
 }
 
-sRGBFloat cColorGradient::GetColorFloat(double position, bool smooth) const
+sRGBFloat cColorGradient::GetColorFloat(float position, bool smooth) const
 {
 	int paletteIndex = PaletteIterator(0, position);
 	return InterpolateFloat(paletteIndex, position, smooth);
 }
 
-sRGBFloat cColorGradient::InterpolateFloat(int paletteIndex, double pos, bool smooth) const
+sRGBFloat cColorGradient::InterpolateFloat(int paletteIndex, float pos, bool smooth) const
 {
 	sRGBFloat color;
 	// if last element then just copy color value (no interpolation)
@@ -194,19 +194,19 @@ sRGBFloat cColorGradient::InterpolateFloat(int paletteIndex, double pos, bool sm
 		color2.G = sortedColors[paletteIndex + 1].color.G;
 		color2.B = sortedColors[paletteIndex + 1].color.B;
 
-		double pos1 = sortedColors[paletteIndex].position;
-		double pos2 = sortedColors[paletteIndex + 1].position;
+		float pos1 = sortedColors[paletteIndex].position;
+		float pos2 = sortedColors[paletteIndex + 1].position;
 		// relative delta
-		if (pos2 - pos1 > 0.0)
+		if (pos2 - pos1 > 0.0f)
 		{
-			double delta = (pos - pos1) / (pos2 - pos1);
+			float delta = (pos - pos1) / (pos2 - pos1);
 
-			if (smooth) delta = 0.5 * (1.0 - cos(delta * M_PI));
+			if (smooth) delta = 0.5f * (1.0f - cosf(delta * float(M_PI)));
 
-			double nDelta = 1.0 - delta;
-			color.R = (color1.R * nDelta + color2.R * delta) / 256.0;
-			color.G = (color1.G * nDelta + color2.G * delta) / 256.0;
-			color.B = (color1.B * nDelta + color2.B * delta) / 256.0;
+			float nDelta = 1.0f - delta;
+			color.R = float((color1.R * nDelta + color2.R * delta) / 256.0f);
+			color.G = (color1.G * nDelta + color2.G * delta) / 256.0f;
+			color.B = (color1.B * nDelta + color2.B * delta) / 256.0f;
 		}
 		else
 		{
@@ -228,10 +228,10 @@ QVector<sRGB> cColorGradient::GetGradient(int length, bool smooth)
 
 		int paletteIndex = 0;
 
-		double step = 1.0 / (length - 1);
+		float step = 1.0f / (length - 1);
 		for (int i = 0; i < length; i++)
 		{
-			double pos = i * step;
+			float pos = i * step;
 			paletteIndex = PaletteIterator(paletteIndex, pos);
 			sRGB color = Interpolate(paletteIndex, pos, smooth);
 			gradient.append(color);
@@ -308,7 +308,7 @@ void cColorGradient::SetColorsFromString(const QString &string)
 	}
 	else
 	{
-		double position = 0.0;
+		float position = 0.0f;
 		sRGB color;
 
 		for (int i = 0; i < split.size(); i++)
@@ -317,11 +317,11 @@ void cColorGradient::SetColorsFromString(const QString &string)
 			{
 				if (i % 2 == 0)
 				{
-					position = split[i].toInt() / 10000.0;
+					position = split[i].toInt() / 10000.0f;
 				}
 				else
 				{
-					unsigned int colorHex = split[i].toInt(nullptr, 16);
+					int colorHex = split[i].toInt(nullptr, 16);
 					color.R = colorHex / 65536;
 					color.G = (colorHex / 256) % 256;
 					color.B = colorHex % 256;
@@ -360,28 +360,28 @@ void cColorGradient::DeleteAndKeepTwo()
 	}
 }
 
-double cColorGradient::CorrectPosition(double position, int ignoreIndex)
+float cColorGradient::CorrectPosition(float position, int ignoreIndex)
 {
-	position = qBound(0.0, position, 1.0);
+	position = qBound(0.0f, position, 1.0f);
 	bool positionIncorrect = false;
 
-	bool rightDirection = (position < 0.5) ? true : false;
+	bool rightDirection = (position < 0.5f) ? true : false;
 
 	do
 	{
 		for (int i = 0; i < colors.size(); i++)
 		{
 			if (i == ignoreIndex) continue;
-			if (fabs(position - colors[i].position) < 0.0001)
+			if (fabsf(position - colors[i].position) < 0.0001f)
 			{
 				positionIncorrect = true;
 				if (rightDirection)
 				{
-					position += 0.0001;
+					position += 0.0001f;
 				}
 				else
 				{
-					position -= 0.0001;
+					position -= 0.0001f;
 				}
 			}
 			else
@@ -400,7 +400,7 @@ sRGB cColorGradient::GetColorByIndex(int index)
 	return colors.at(index).color;
 }
 
-double cColorGradient::GetPositionByIndex(int index)
+float cColorGradient::GetPositionByIndex(int index)
 {
 	if (index > colors.size() - 1) index = 1; // if index is too high then get most right color
 	return colors.at(index).position;

@@ -146,8 +146,8 @@ void cDockGamepad::slotGamepadLook() const
 		const double yaw = gamepad.axisLeftY();
 		WriteLog("Gamepad - slotGamepadLook-Yaw | value: " + QString::number(yaw), 3);
 		WriteLog("Gamepad - slotGamepadLook-Pitch | value: " + QString::number(pitch), 3);
-		ui->sl_gamepad_angle_yaw->setValue(100 * yaw);
-		ui->sl_gamepad_angle_pitch->setValue(100 * pitch);
+		ui->sl_gamepad_angle_yaw->setValue(int(100 * yaw));
+		ui->sl_gamepad_angle_pitch->setValue(int(100 * pitch));
 		const double sensitivity = 0.5;
 		CVector2<double> yawPitch(pitch, yaw);
 		yawPitch = yawPitch.Deadband() * sensitivity;
@@ -176,9 +176,9 @@ void cDockGamepad::slotGamepadMove() const
 		WriteLog("Gamepad - slotGamepadMove-X | value: " + QString::number(x), 3);
 		WriteLog("Gamepad - slotGamepadMove-Y | value: " + QString::number(y), 3);
 		WriteLog("Gamepad - slotGamepadMove-Z | value: " + QString::number(z), 3);
-		ui->sl_gamepad_movement_x->setValue(100 * x);
-		ui->sl_gamepad_movement_y->setValue(100 * y);
-		ui->sl_gamepad_movement_z->setValue(100 * z);
+		ui->sl_gamepad_movement_x->setValue(int(100 * x));
+		ui->sl_gamepad_movement_y->setValue(int(100 * y));
+		ui->sl_gamepad_movement_z->setValue(int(100 * z));
 		// Maintain z-axis speed
 		sensitivity = 1 / 10.0;
 		const double threshold = .001;
@@ -213,7 +213,7 @@ void cDockGamepad::slotGamepadRoll() const
 		if (gamepad.buttonL1()) value += 1;
 		if (gamepad.buttonR1()) value -= 1;
 		WriteLog("Gamepad - slotGamepadRoll | value: " + QString::number(value), 3);
-		ui->sl_gamepad_angle_roll->setValue(100 * value);
+		ui->sl_gamepad_angle_roll->setValue(int(100 * value));
 		emit gMainInterface->renderedImage->RotationChanged(value);
 	}
 }
@@ -227,7 +227,7 @@ void cDockGamepad::slotGamepadSpeed() const
 		if (gamepad.buttonA()) value += 1;
 		if (gamepad.buttonB()) value -= 1;
 		WriteLog("Gamepad - slotGamepadSpeed | value: " + QString::number(value), 3);
-		ui->sl_gamepad_movement_z->setValue(100 * value);
+		ui->sl_gamepad_movement_z->setValue(int(100 * value));
 		if (gamepad.buttonA() != gamepad.buttonB())
 		{
 			if (gamepad.buttonA())

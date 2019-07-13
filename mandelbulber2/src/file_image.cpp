@@ -279,23 +279,23 @@ void ImageFileSaveJPG::SaveImage()
 			case IMAGE_CONTENT_ZBUFFER:
 			{
 				float *zbuffer = image->GetZBufferPtr();
-				uint64_t size = image->GetWidth() * image->GetHeight();
+				int64_t size = image->GetWidth() * image->GetHeight();
 				unsigned char *zBuffer8Bit = new unsigned char[size];
 				float minZ = float(1.0e50);
 				float maxZ = 0.0;
-				for (uint64_t i = 0; i < size; i++)
+				for (int64_t i = 0; i < size; i++)
 				{
 					float z = zbuffer[i];
-					if (z > maxZ && z < 1e19) maxZ = z;
+					if (z > maxZ && z < 1e19f) maxZ = z;
 					if (z < minZ) minZ = z;
 				}
-				double kZ = log(maxZ / minZ);
+				float kZ = log(maxZ / minZ);
 
-				for (uint64_t y = 0; y < image->GetHeight(); y++)
+				for (int64_t y = 0; y < image->GetHeight(); y++)
 				{
-					for (uint64_t x = 0; x < image->GetWidth(); x++)
+					for (int64_t x = 0; x < image->GetWidth(); x++)
 					{
-						uint64_t ptr = (x + y * image->GetWidth());
+						int64_t ptr = (x + y * image->GetWidth());
 						float z = image->GetPixelZBuffer(x, y);
 						float z1 = log(z / minZ) / kZ;
 						int intZ = z1 * 240;
@@ -931,6 +931,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
+				default: pixel = sRGBAfloat();
 			}
 			sRGB8 pixel8 = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
 			qScanLine[3 * x + 0] = pixel8.R;
@@ -1240,6 +1241,7 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
+				default: pixel = sRGBFloat();
 			}
 			if (imfQuality == Imf::FLOAT)
 			{

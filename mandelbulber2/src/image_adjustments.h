@@ -37,16 +37,13 @@
 
 struct sImageAdjustments
 {
-	sImageAdjustments()
-			: brightness(1.0), contrast(1.0), imageGamma(1.0), saturation(1.0), hdrEnabled(false)
-	{
-	}
+	sImageAdjustments() {}
 
-	float brightness;
-	float contrast;
-	float imageGamma;
-	float saturation;
-	bool hdrEnabled;
+	float brightness{1.0};
+	float contrast{1.0};
+	float imageGamma{1.0};
+	float saturation{1.0};
+	bool hdrEnabled{false};
 };
 
 #endif /* MANDELBULBER2_SRC_IMAGE_ADJUSTMENTS_H_ */
