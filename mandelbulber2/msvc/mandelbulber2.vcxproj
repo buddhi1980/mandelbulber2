@@ -610,8 +610,8 @@
     <CAExcludePath>$(SourceDir)build-win;$(SourceDir)packages;$(WindowsSDK_IncludePath);$(CAExcludePath)</CAExcludePath>
   </PropertyGroup>
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\..\packages\bulbqt-msvc-x64.5.9.4.10785\build\native\bulbqt-msvc-x64.targets" Condition="Exists('..\..\packages\bulbqt-msvc-x64.5.9.4.10785\build\native\bulbqt-msvc-x64.targets')" />
-    <Import Project="..\..\packages\bulbqt-msvc-x86.5.9.4.10785\build\native\bulbqt-msvc-x86.targets" Condition="Exists('..\..\packages\bulbqt-msvc-x86.5.9.4.10785\build\native\bulbqt-msvc-x86.targets')" />
+    <Import Project="..\..\packages\bulbqt-msvc-x64.5.13.0.10786\build\native\bulbqt-msvc-x64.targets" Condition="Exists('..\..\packages\bulbqt-msvc-x64.5.13.0.10786\build\native\bulbqt-msvc-x64.targets')" />
+    <Import Project="..\..\packages\bulbqt-msvc-x86.5.13.0.10786\build\native\bulbqt-msvc-x86.targets" Condition="Exists('..\..\packages\bulbqt-msvc-x86.5.13.0.10786\build\native\bulbqt-msvc-x86.targets')" />
     <Import Project="..\..\packages\flac-msvc-x64.1.3.2.8787\build\native\flac-msvc-x64.targets" Condition="Exists('..\..\packages\flac-msvc-x64.1.3.2.8787\build\native\flac-msvc-x64.targets')" />
     <Import Project="..\..\packages\flac-msvc-x86.1.3.2.8787\build\native\flac-msvc-x86.targets" Condition="Exists('..\..\packages\flac-msvc-x86.1.3.2.8787\build\native\flac-msvc-x86.targets')" />
     <Import Project="..\..\packages\gsl-msvc-x64.2.4.0.8788\build\native\gsl-msvc-x64.targets" Condition="Exists('..\..\packages\gsl-msvc-x64.2.4.0.8788\build\native\gsl-msvc-x64.targets')" />
@@ -642,8 +642,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\bulbqt-msvc-x64.5.9.4.10785\build\native\bulbqt-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\bulbqt-msvc-x64.5.9.4.10785\build\native\bulbqt-msvc-x64.targets'))" />
-    <Error Condition="!Exists('..\..\packages\bulbqt-msvc-x86.5.9.4.10785\build\native\bulbqt-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\bulbqt-msvc-x86.5.9.4.10785\build\native\bulbqt-msvc-x86.targets'))" />
+    <Error Condition="!Exists('..\..\packages\bulbqt-msvc-x64.5.13.0.10786\build\native\bulbqt-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\bulbqt-msvc-x64.5.13.0.10786\build\native\bulbqt-msvc-x64.targets'))" />
+    <Error Condition="!Exists('..\..\packages\bulbqt-msvc-x86.5.13.0.10786\build\native\bulbqt-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\bulbqt-msvc-x86.5.13.0.10786\build\native\bulbqt-msvc-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\flac-msvc-x64.1.3.2.8787\build\native\flac-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\flac-msvc-x64.1.3.2.8787\build\native\flac-msvc-x64.targets'))" />
     <Error Condition="!Exists('..\..\packages\flac-msvc-x86.1.3.2.8787\build\native\flac-msvc-x86.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\flac-msvc-x86.1.3.2.8787\build\native\flac-msvc-x86.targets'))" />
     <Error Condition="!Exists('..\..\packages\gsl-msvc-x64.2.4.0.8788\build\native\gsl-msvc-x64.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\gsl-msvc-x64.2.4.0.8788\build\native\gsl-msvc-x64.targets'))" />
