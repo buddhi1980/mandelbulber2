@@ -345,7 +345,7 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Gamepad.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Gui.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Multimedia.dll&quot; &quot;$(OutDir)&quot;" />
-    
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5MultimediaQuick.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5MultimediaWidgets.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Network.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Svg.dll&quot; &quot;$(OutDir)&quot;" />
@@ -357,7 +357,7 @@
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Gamepadd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Guid.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Multimediad.dll&quot; &quot;$(OutDir)&quot;" />
-    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5MultimediaQuick_pd.dll&quot; &quot;$(OutDir)&quot;" />
+    <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5MultimediaQuickd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5MultimediaWidgetsd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Networkd.dll&quot; &quot;$(OutDir)&quot;" />
     <Exec Command="xcopy /Y /Q &quot;$(QtDir)\bin\Qt5Svgd.dll&quot; &quot;$(OutDir)&quot;" />
