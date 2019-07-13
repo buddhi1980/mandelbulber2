@@ -80,7 +80,7 @@ public:
 
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
-	bool ChangeSize(int w, int h, sImageOptional optional);
+	bool ChangeSize(ulong w, ulong h, sImageOptional optional);
 	void ClearImage();
 	void ClearRGB(
 		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
@@ -98,12 +98,12 @@ public:
 
 	void SetFastPreview(bool enable) { fastPreview = enable; }
 
-	inline qint64 getImageIndex(const qint64 x, const qint64 y) const
+	inline quint64 getImageIndex(const qint64 x, const qint64 y) const
 	{
 		// assert(x >= 0 && x < width && y >= 0 && y < height);
-		if (x >= 0 && x < width && y >= 0 && y < height)
+		if (x >= 0 && x < long(width) && y >= 0 && y < long(height))
 		{
-			return qint64(x) + qint64(y) * qint64(width);
+			return quint64(x) + quint64(y) * quint64(width);
 		}
 		else
 		{
@@ -271,10 +271,8 @@ public:
 	void SetImageOptional(sImageOptional optInput) { opt = optInput; }
 	sImageOptional *GetImageOptional() { return &opt; }
 
-	quint8 *ConvertGenericRGBTo8bit(
-		QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB8> &to);
-	quint8 *ConvertGenericRGBTo16bit(
-		QScopedArrayPointer<sRGBFloat> &from, QScopedArrayPointer<sRGB16> &to);
+	quint8 *ConvertGenericRGBTo8bit(std::vector<sRGBFloat> &from, std::vector<sRGB8> &to);
+	quint8 *ConvertGenericRGBTo16bit(std::vector<sRGBFloat> &from, std::vector<sRGB16> &to);
 	quint8 *ConvertTo8bit();
 	quint8 *ConvertTo8bit(const QList<QRect> *list);
 	quint8 *ConvertAlphaTo8bit();
@@ -287,15 +285,15 @@ public:
 	bool IsPreview() const;
 	void RedrawInWidget(QWidget *qWidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
-	void Squares(int y, int progressiveFactor);
+	void Squares(ulong y, int progressiveFactor);
 	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
 
 	void PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer);
-	void AntiAliasedPoint(double x, double y, float z, sRGB8 color, sRGBFloat opacity, int layer);
-	void AntiAliasedLine(double x1, double y1, double x2, double y2, float z1, float z2, sRGB8 color,
+	void AntiAliasedPoint(float x, float y, float z, sRGB8 color, sRGBFloat opacity, int layer);
+	void AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, float z2, sRGB8 color,
 		sRGBFloat opacity, int layer);
-	void CircleBorder(double x, double y, float z, double r, sRGB8 border, double borderWidth,
+	void CircleBorder(float x, float y, float z, float r, sRGB8 border, float borderWidth,
 		sRGBFloat opacity, int layer);
 
 	bool IsStereoLeftRight() const { return isStereoLeftRight; }
@@ -340,12 +338,12 @@ private:
 
 	sImageAdjustments adj;
 	sImageOptional opt;
-	qint64 width;
-	qint64 height;
+	quint64 width;
+	quint64 height;
 	std::vector<int> gammaTable;
 	bool previewAllocated;
-	int previewWidth;
-	int previewHeight;
+	quint64 previewWidth;
+	quint64 previewHeight;
 	double previewScale;
 	int previewVisibleWidth;
 	int previewVisibleHeight;
