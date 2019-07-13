@@ -254,7 +254,7 @@ void cAudioSelector::audioSetup()
 		SLOT(slotPlaybackStateChanged(QAudio::State)));
 
 	playBuffer = QByteArray(
-		reinterpret_cast<char *>(audio->getRawAudio()), audio->getLength() * int(sizeof(float)));
+		reinterpret_cast<char *>(audio->getRawAudio()), int(audio->getLength() * sizeof(float)));
 
 	if (playStream) delete playStream;
 	playStream = new QBuffer(&playBuffer);

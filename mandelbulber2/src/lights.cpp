@@ -154,8 +154,8 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			}
 			else
 			{
-				colour = sRGB(random.Random(20000, 100000, 1), random.Random(20000, 100000, 1),
-					random.Random(20000, 100000, 1));
+				colour = sRGB(int(random.Random(20000, 100000, 1)), int(random.Random(20000, 100000, 1)),
+					int(random.Random(20000, 100000, 1)));
 				double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
 				colour.R *= convertColorRatio;
 				colour.G *= convertColorRatio;

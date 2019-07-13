@@ -206,7 +206,8 @@ void cInterface::ShowUi()
 	mainImage->ConvertTo8bit();
 	mainImage->UpdatePreview();
 	mainImage->SetAsMainImage();
-	renderedImage->setMinimumSize(mainImage->GetPreviewWidth(), mainImage->GetPreviewHeight());
+	renderedImage->setMinimumSize(
+		int(mainImage->GetPreviewWidth()), int(mainImage->GetPreviewHeight()));
 	renderedImage->AssignImage(mainImage);
 	renderedImage->AssignParameters(gPar, gParFractal);
 

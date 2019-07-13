@@ -142,9 +142,9 @@ void MeshFileSavePLY::SavePLY()
 	{
 		if (isBinary)
 		{
-			oB.writeRawData((char *)&meshData.vertices->at(i * 3), sizeof(double) * 3);
-			oB.writeRawData((char *)&meshData.colorIndices->at(i), sizeof(double) * 1);
-			oB.writeRawData((char *)&alpha, sizeof(double) * 1);
+			oB.writeRawData(reinterpret_cast<char *>(&meshData.vertices->at(i * 3)), sizeof(double) * 3);
+			oB.writeRawData(reinterpret_cast<char *>(&meshData.colorIndices->at(i)), sizeof(double) * 1);
+			oB.writeRawData(reinterpret_cast<char *>(&alpha), sizeof(double) * 1);
 		}
 		else
 		{
@@ -176,18 +176,18 @@ void MeshFileSavePLY::SavePLY()
 	{
 		if (isBinary)
 		{
-			int p1 = meshData.polygons->at(i + 2);
-			int p2 = meshData.polygons->at(i + 1);
-			int p3 = meshData.polygons->at(i + 0);
-			oB.writeRawData((char *)&polygonSize, sizeof(char) * 1);
-			oB.writeRawData((char *)&p1, sizeof(int) * 1);
-			oB.writeRawData((char *)&p2, sizeof(int) * 1);
-			oB.writeRawData((char *)&p3, sizeof(int) * 1);
+			qint64 p1 = meshData.polygons->at(i + 2);
+			qint64 p2 = meshData.polygons->at(i + 1);
+			qint64 p3 = meshData.polygons->at(i + 0);
+			oB.writeRawData(reinterpret_cast<char *>(&polygonSize), sizeof(char) * 1);
+			oB.writeRawData(reinterpret_cast<char *>(&p1), sizeof(int) * 1);
+			oB.writeRawData(reinterpret_cast<char *>(&p2), sizeof(int) * 1);
+			oB.writeRawData(reinterpret_cast<char *>(&p3), sizeof(int) * 1);
 		}
 		else
 		{
 			oT << QString("%1 %2 %3 %4\n")
-							.arg((int)polygonSize)
+							.arg(polygonSize)
 							.arg(meshData.polygons->at(i + 2))
 							.arg(meshData.polygons->at(i + 1))
 							.arg(meshData.polygons->at(i + 0))

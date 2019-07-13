@@ -82,7 +82,7 @@ int fcopy(const char *source, const char *dest)
 	// ------ file reading
 
 	FILE *pFile;
-	long int lSize;
+	size_t lSize;
 	char *buffer;
 	size_t result;
 

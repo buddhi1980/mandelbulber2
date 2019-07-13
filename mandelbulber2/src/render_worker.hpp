@@ -155,7 +155,7 @@ private:
 		sRGBAfloat objectColour;
 		sRGBAfloat specular;
 		CVector3 normal;
-		double fogOpacity;
+		float fogOpacity;
 		bool found;
 	};
 
@@ -250,7 +250,7 @@ private:
 	sRGBFloat TextureShader(
 		const sShaderInputData &input, texture::enumTextureSelection texSelect, cMaterial *mat) const;
 	CVector3 NormalMapShader(const sShaderInputData &input) const;
-	double RoughnessTexture(const sShaderInputData &input) const;
+	float RoughnessTexture(const sShaderInputData &input) const;
 	sRGBFloat IridescenceShader(const sShaderInputData &input) const;
 	sRGBFloat GlobalIlumination(const sShaderInputData &input, sRGBAfloat objectColor) const;
 
@@ -270,7 +270,7 @@ private:
 	CVector3 baseZ;
 	CVector3 viewAngle;
 	CVector3 shadowVector;
-	double actualHue;
+	float actualHue;
 	int AOVectorsCount;
 	int reflectionsMax;
 	bool stopRequest;

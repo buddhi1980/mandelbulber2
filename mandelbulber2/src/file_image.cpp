@@ -269,21 +269,21 @@ void ImageFileSaveJPG::SaveImage()
 		switch (currentChannelKey)
 		{
 			case IMAGE_CONTENT_COLOR:
-				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), image->GetWidth(), image->GetHeight(),
-					gPar->Get<int>("jpeg_quality"), image->getMeta());
+				SaveJPEGQt(fullFilename, image->ConvertTo8bit(), int(image->GetWidth()),
+					int(image->GetHeight()), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ALPHA:
-				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), image->GetWidth(),
-					image->GetHeight(), gPar->Get<int>("jpeg_quality"), image->getMeta());
+				SaveJPEGQtGreyscale(fullFilename, image->ConvertAlphaTo8bit(), int(image->GetWidth()),
+					int(image->GetHeight()), gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 			{
 				float *zbuffer = image->GetZBufferPtr();
-				int64_t size = image->GetWidth() * image->GetHeight();
+				quint64 size = image->GetWidth() * image->GetHeight();
 				unsigned char *zBuffer8Bit = new unsigned char[size];
 				float minZ = float(1.0e50);
 				float maxZ = 0.0;
-				for (int64_t i = 0; i < size; i++)
+				for (quint64 i = 0; i < size; i++)
 				{
 					float z = zbuffer[i];
 					if (z > maxZ && z < 1e19f) maxZ = z;
@@ -291,16 +291,16 @@ void ImageFileSaveJPG::SaveImage()
 				}
 				float kZ = log(maxZ / minZ);
 
-				for (int64_t y = 0; y < image->GetHeight(); y++)
+				for (quint64 y = 0; y < image->GetHeight(); y++)
 				{
-					for (int64_t x = 0; x < image->GetWidth(); x++)
+					for (quint64 x = 0; x < image->GetWidth(); x++)
 					{
-						int64_t ptr = (x + y * image->GetWidth());
+						quint64 ptr = (x + y * image->GetWidth());
 						float z = image->GetPixelZBuffer(x, y);
 						float z1 = log(z / minZ) / kZ;
-						int intZ = z1 * 240;
-						if (z > 1e19) intZ = 255;
-						zBuffer8Bit[ptr] = (unsigned char)intZ;
+						int intZ = int(z1 * 240);
+						if (z > 1e19f) intZ = 255;
+						zBuffer8Bit[ptr] = uchar(intZ);
 					}
 				}
 				SaveJPEGQtGreyscale(fullFilename, zBuffer8Bit, image->GetWidth(), image->GetHeight(),
@@ -312,7 +312,7 @@ void ImageFileSaveJPG::SaveImage()
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
-				SaveJPEGQt32(fullFilename, channel.value(), image->GetWidth(), image->GetHeight(),
+				SaveJPEGQt32(fullFilename, channel.value(), int(image->GetWidth()), int(image->GetHeight()),
 					gPar->Get<int>("jpeg_quality"), image->getMeta());
 				break;
 			default: qWarning() << "Unknown channel for JPG"; break;
@@ -525,7 +525,7 @@ void ImageFileSavePNG::SavePNG(
 					if (z < minZ) minZ = z;
 				}
 			}
-			double kZ = log(maxZ / minZ);
+			float kZ = log(maxZ / minZ);
 
 			for (uint64_t y = 0; y < height; y++)
 			{
@@ -570,8 +570,8 @@ void ImageFileSavePNG::SavePNG(
 							{
 								float z = image->GetPixelZBuffer(x, y);
 								float z1 = log(z / minZ) / kZ;
-								int intZ = z1 * 60000;
-								if (z > 1e19) intZ = 65535;
+								int intZ = int(z1 * 60000);
+								if (z > 1e19f) intZ = 65535;
 
 								unsigned short *typedColorPtr = reinterpret_cast<unsigned short *>(&colorPtr[ptr]);
 								*typedColorPtr = static_cast<unsigned short>(intZ);
@@ -580,7 +580,7 @@ void ImageFileSavePNG::SavePNG(
 							{
 								float z = image->GetPixelZBuffer(x, y);
 								float z1 = log(z / minZ) / kZ;
-								int intZ = z1 * 240;
+								int intZ = int(z1 * 240);
 								if (z > 1e19) intZ = 255;
 
 								unsigned char *typedColorPtr = reinterpret_cast<unsigned char *>(&colorPtr[ptr]);
@@ -846,12 +846,14 @@ void ImageFileSavePNG::SavePngRgbPixel(
 			|| imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 	{
 		sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
-		*typedColorPtr = sRGB16(pixel.R * 65535.0f, pixel.G * 65535.0f, pixel.B * 65535.0f);
+		*typedColorPtr =
+			sRGB16(ushort(pixel.R * 65535.0f), ushort(pixel.G * 65535.0f), ushort(pixel.B * 65535.0f));
 	}
 	else
 	{
 		sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
-		*typedColorPtr = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+		*typedColorPtr =
+			sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
 	}
 }
 
@@ -933,7 +935,8 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
 				default: pixel = sRGBAfloat();
 			}
-			sRGB8 pixel8 = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+			sRGB8 pixel8 =
+				sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
 			qScanLine[3 * x + 0] = pixel8.R;
 			qScanLine[3 * x + 1] = pixel8.G;
 			qScanLine[3 * x + 2] = pixel8.B;
@@ -1053,7 +1056,7 @@ void ImageFileSaveEXR::SaveEXR(
 		header.channels().insert("G", Imf::Channel(imfQuality, 1, 1, linear));
 		header.channels().insert("B", Imf::Channel(imfQuality, 1, 1, linear));
 
-		int pixelSize = sizeof(tsRGB<half>);
+		uint64_t pixelSize = sizeof(tsRGB<half>);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(tsRGB<float>);
 		char *buffer = new char[uint64_t(width) * height * pixelSize];
 		tsRGB<half> *halfPointer = reinterpret_cast<tsRGB<half> *>(buffer);
@@ -1100,7 +1103,7 @@ void ImageFileSaveEXR::SaveEXR(
 
 		header.channels().insert("A", Imf::Channel(imfQuality, 1, 1, linear));
 
-		int pixelSize = sizeof(half);
+		uint64_t pixelSize = sizeof(half);
 		if (imfQuality == Imf::FLOAT) pixelSize = sizeof(float);
 		char *buffer = new char[uint64_t(width) * height * pixelSize];
 		half *halfPointer = reinterpret_cast<half *>(buffer);
@@ -1147,7 +1150,7 @@ void ImageFileSaveEXR::SaveEXR(
 		}
 		else
 		{
-			int pixelSize = sizeof(half);
+			uint64_t pixelSize = sizeof(half);
 			char *buffer = new char[uint64_t(width) * height * pixelSize];
 			half *halfPointer = reinterpret_cast<half *>(buffer);
 
@@ -1374,18 +1377,18 @@ bool ImageFileSaveTIFF::SaveTIFF(
 						{
 							sRGBAfloat *typedColorPtr = reinterpret_cast<sRGBAfloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
-							typedColorPtr->R = rgbPointer.R / 65536.0;
-							typedColorPtr->G = rgbPointer.G / 65536.0;
-							typedColorPtr->B = rgbPointer.B / 65536.0;
-							typedColorPtr->A = image->GetPixelAlpha(x, y) / 65536.0;
+							typedColorPtr->R = rgbPointer.R / 65536.0f;
+							typedColorPtr->G = rgbPointer.G / 65536.0f;
+							typedColorPtr->B = rgbPointer.B / 65536.0f;
+							typedColorPtr->A = image->GetPixelAlpha(x, y) / 65536.0f;
 						}
 						else
 						{
 							sRGBFloat *typedColorPtr = reinterpret_cast<sRGBFloat *>(&colorPtr[ptr]);
 							sRGB16 rgbPointer = image->GetPixelImage16(x, y);
-							typedColorPtr->R = rgbPointer.R / 65536.0;
-							typedColorPtr->G = rgbPointer.G / 65536.0;
-							typedColorPtr->B = rgbPointer.B / 65536.0;
+							typedColorPtr->R = rgbPointer.R / 65536.0f;
+							typedColorPtr->G = rgbPointer.G / 65536.0f;
+							typedColorPtr->B = rgbPointer.B / 65536.0f;
 						}
 					}
 					else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
@@ -1432,7 +1435,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 					{
 						float *typedColorPtr = reinterpret_cast<float *>(&colorPtr[ptr]);
-						*typedColorPtr = image->GetPixelAlpha(x, y) / 65536.0;
+						*typedColorPtr = image->GetPixelAlpha(x, y) / 65536.0f;
 					}
 					if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 					{
@@ -1514,12 +1517,14 @@ void ImageFileSaveTIFF::SaveTiffRgbPixel(
 	else if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16)
 	{
 		sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
-		*typedColorPtr = sRGB16(pixel.R * 65535.0f, pixel.G * 65535.0f, pixel.B * 65535.0f);
+		*typedColorPtr =
+			sRGB16(ushort(pixel.R * 65535.0f), ushort(pixel.G * 65535.0f), ushort(pixel.B * 65535.0f));
 	}
 	else
 	{
 		sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
-		*typedColorPtr = sRGB8(pixel.R * 255.0f, pixel.G * 255.0f, pixel.B * 255.0f);
+		*typedColorPtr =
+			sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
 	}
 }
 

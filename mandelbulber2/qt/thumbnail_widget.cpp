@@ -303,8 +303,8 @@ void cThumbnailWidget::slotFullyRendered()
 	isRendered = true;
 	if (!disableThumbnailCache)
 	{
-		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), image->GetWidth(),
-			image->GetHeight(), image->GetWidth() * int(sizeof(sRGB8)), QImage::Format_RGB888);
+		QImage qImage(static_cast<const uchar *>(image->ConvertTo8bit()), int(image->GetWidth()),
+			int(image->GetHeight()), int(image->GetWidth() * sizeof(sRGB8)), QImage::Format_RGB888);
 		QPixmap pixmap;
 		pixmap.convertFromImage(qImage);
 

@@ -90,12 +90,12 @@ public:
 private:
 	// ## helper methods for ReadCLI
 	// arguments to cause print and exit
-	static void printExampleHelpAndExit();
-	static void printInputHelpAndExit();
-	static void printOpenCLHelpAndExit();
-	static void printParametersAndExit();
-	static void runTestCasesAndExit();
-	void runBenchmarksAndExit();
+	[[noreturn]] static void printExampleHelpAndExit();
+	[[noreturn]] static void printInputHelpAndExit();
+	[[noreturn]] static void printOpenCLHelpAndExit();
+	[[noreturn]] static void printParametersAndExit();
+	[[noreturn]] static void runTestCasesAndExit();
+	[[noreturn]] void runBenchmarksAndExit();
 
 	// argument handling methods
 	void handleServer();

@@ -100,7 +100,7 @@ cAnimationFrames::sAnimationFrame cKeyframes::GetInterpolatedFrame(
 		{
 			morph.append(new cMorph());
 		}
-		for (int k = fmax(0, keyframe - 2); k <= fmin(frames.size() - 1, keyframe + 3); k++)
+		for (int k = qMax(0, keyframe - 2); k <= qMin(frames.size() - 1, keyframe + 3); k++)
 		{
 			if (morph[i]->findInMorph(k) == -1)
 			{

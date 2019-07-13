@@ -38,8 +38,8 @@
 sRGBFloat Hsv2rgb(float hue, float sat, float val)
 {
 	sRGBFloat rgb;
-	float h = hue / 60.0;
-	int i = floor(hue / 60);
+	float h = hue / 60.0f;
+	int i = int(floorf(hue / 60.0f));
 	float f = h - i;
 	float p = val * (1 - sat);
 	float q = val * (1 - (sat * f));

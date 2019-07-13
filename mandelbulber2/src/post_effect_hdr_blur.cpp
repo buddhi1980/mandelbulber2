@@ -69,27 +69,27 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 
 	cProgressText progressText;
 	progressText.ResetTimer();
-	float percentDone = 0.0;
+	double percentDone = 0.0;
 
 	QElapsedTimer timerRefreshProgressBar;
 	timerRefreshProgressBar.start();
 
-	for (ulong y = 0; y < image->GetHeight(); y++)
+	for (quint64 y = 0; y < image->GetHeight(); y++)
 	{
 		if (*stopRequest || systemData.globalStopRequest) break;
 
 #pragma omp parallel for
-		for (ulong x = 0; x < image->GetWidth(); x++)
+		for (quint64 x = 0; x < image->GetWidth(); x++)
 		{
 			double weight = 0;
-			int yStart = qMax(0UL, y - intBlurSize);
+			int yStart = qMax(0ULL, y - intBlurSize);
 			int yEnd = qMin(image->GetHeight(), y + intBlurSize);
 
 			sRGBFloat newPixel;
 
 			for (int yy = yStart; yy < yEnd; yy++)
 			{
-				int xStart = qMax(0UL, x - intBlurSize);
+				int xStart = qMax(0ULL, x - intBlurSize);
 				int xEnd = qMin(image->GetWidth(), x + intBlurSize);
 				for (int xx = xStart; xx < xEnd; xx++)
 				{

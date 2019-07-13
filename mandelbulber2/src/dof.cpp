@@ -102,7 +102,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
 			{
 				float z = image->GetPixelZBuffer(x, y);
-				if (z < 1e-14) continue;
+				if (z < 1e-14f) continue;
 				float blur1 = (z - neutral) / z * deep;
 				float blur = fabs(blur1);
 				if (blur > maxRadius) blur = maxRadius;
@@ -222,7 +222,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 			// Randomize Z-buffer
 
-			for (qint64 i = sortBufferSize - 1; i >= 0; i--)
+			for (qint64 i = qint64(sortBufferSize) - 1; i >= 0; i--)
 			{
 				if (*stopRequest || systemData.globalStopRequest) throw tr("DOF terminated");
 				sSortZ<float> temp;
@@ -236,7 +236,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 				qint64 ii;
 				do
 				{
-					ii = i - Random(randomStep);
+					ii = i - Random(int(randomStep));
 					if (ii <= 0) ii = 0;
 					sSortZ<float> temp2 = temp_sort[ii];
 					float z2 = temp2.z;
@@ -283,12 +283,12 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 #pragma omp parallel for schedule(dynamic, 1)
 				for (int j = 0; j < screenRegion.height; j++)
 				{
-					quint64 index = quint64(i) * quint64(screenRegion.height) + qint64(j);
+					quint64 index = quint64(i) * quint64(screenRegion.height) + quint64(j);
 					quint64 ii = temp_sort[sortBufferSize - index - 1].i;
 					int x = int(ii % quint64(imageWidth));
 					int y = int(ii / quint64(imageWidth));
 					float z = image->GetPixelZBuffer(x, y);
-					if (z < 1e-14) continue;
+					if (z < 1e-14f) continue;
 					float blur = fabs(z - neutral) / z * deep + 1.0f;
 					if (blur > maxRadius) blur = maxRadius;
 					int size = int(blur);
@@ -328,7 +328,7 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 					timerRefreshProgressBar.restart();
 
 					percentDone =
-						((float)pass + 1.0 + (float)i / screenRegion.width) / (numberOfPasses + 1.0);
+						(double(pass) + 1.0 + double(i) / screenRegion.width) / (numberOfPasses + 1.0);
 					progressTxt = progressText.getText(percentDone);
 
 					emit updateProgressAndStatus(statusText, progressTxt, percentDone);

@@ -74,9 +74,9 @@ public:
 	float reflectance;
 	float luminosity;
 	float surfaceRoughness;
-	double transparencyIndexOfRefraction;
-	double transparencyOfInterior;
-	double transparencyOfSurface;
+	float transparencyIndexOfRefraction;
+	float transparencyOfInterior;
+	float transparencyOfSurface;
 	double paletteOffset;
 	double coloring_speed;
 	float colorTextureIntensity;

@@ -39,7 +39,7 @@
 
 using std::max;
 
-double cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
+float cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
 {
 	cObjectData objectData = data->objectData[input.objectId];
 	CVector3 texX, texY;
@@ -63,5 +63,5 @@ double cRenderWorker::RoughnessTexture(const sShaderInputData &input) const
 	texturePixelSize = 1.0 / max(deltaTexX, deltaTexY);
 
 	sRGBFloat tex = input.material->roughnessTexture.Pixel(texPoint, texturePixelSize);
-	return (tex.R + tex.G + tex.B) / 3.0;
+	return (tex.R + tex.G + tex.B) / 3.0f;
 }

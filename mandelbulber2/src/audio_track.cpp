@@ -116,8 +116,8 @@ void cAudioTrack::LoadAudio(const QString &_filename)
 
 		if (sfInfo.frames > 0)
 		{
-			rawAudio.reserve(ulong(sfInfo.frames));
-			rawAudio.resize(ulong(sfInfo.frames));
+			rawAudio.reserve(quint64(sfInfo.frames));
+			rawAudio.resize(quint64(sfInfo.frames));
 
 			float *tempBuff = new float[sfInfo.frames * sfInfo.channels];
 			const sf_count_t readSamples = sf_readf_float(infile, tempBuff, sfInfo.frames);
@@ -224,7 +224,7 @@ void cAudioTrack::slotFinished()
 	emit loadingFinished();
 }
 
-float cAudioTrack::getSample(uint sampleIndex) const
+float cAudioTrack::getSample(quint64 sampleIndex) const
 {
 	if (isLoaded() && sampleIndex < length)
 	{

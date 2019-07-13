@@ -105,8 +105,8 @@ cRenderWorker::~cRenderWorker()
 void cRenderWorker::doWork()
 {
 	// here will be rendering thread
-	int width = image->GetWidth();
-	int height = image->GetHeight();
+	quint64 width = image->GetWidth();
+	quint64 height = image->GetHeight();
 	double aspectRatio = double(width) / height;
 
 	if (params->perspectiveType == params::perspEquirectangular) aspectRatio = 2.0;
@@ -142,7 +142,7 @@ void cRenderWorker::doWork()
 		if (ys < data->screenRegion.y1 || ys > data->screenRegion.y2) continue;
 
 		// main loop for x
-		for (int xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
+		for (quint64 xs = 0; xs < width; xs += scheduler->GetProgressiveStep())
 		{
 			if (systemData.globalStopRequest) break;
 			// break if by coincidence this thread started rendering the same line as some other
@@ -249,9 +249,9 @@ void cRenderWorker::doWork()
 				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
 					actualHue = Random(3600) / 10.0;
-					rgbFromHsv = Hsv2rgb(fmod(360.0f + actualHue - 60.0f, 360.0f), 1.0f, 2.0f);
+					rgbFromHsv = Hsv2rgb(fmodf(360.0f + float(actualHue) - 60.0f, 360.0f), 1.0f, 2.0f);
 					CVector3 randVector(
-						0.0, actualHue / 20000.0 * params->DOFMonteCarloCACameraDispersion, 0.0);
+						0.0, actualHue / 20000.0f * params->DOFMonteCarloCACameraDispersion, 0.0);
 					CVector3 randVectorRot = mRot.RotateVector(randVector);
 					viewVector -= randVectorRot;
 					viewVector.Normalize();
@@ -374,12 +374,12 @@ void cRenderWorker::doWork()
 					}
 				}
 
-				alpha = resultShader.A * 65535;
-				opacity16 = opacity * 65535;
+				alpha = ushort(resultShader.A * 65535);
+				opacity16 = ushort(opacity * 65535);
 
-				colour.R = objectColour.R * 255;
-				colour.G = objectColour.G * 255;
-				colour.B = objectColour.B * 255;
+				colour.R = uchar(objectColour.R * 255);
+				colour.G = uchar(objectColour.G * 255);
+				colour.B = uchar(objectColour.B * 255);
 
 				if (image->GetImageOptional()->optionalNormal)
 				{
@@ -419,20 +419,20 @@ void cRenderWorker::doWork()
 				if (data->stereo.isEnabled() && data->stereo.GetMode() == cStereo::stereoRedCyan)
 				{
 					finalPixel = data->stereo.MixColorsRedCyan(pixelLeftEye, pixelRightEye);
-					finalPixel.R = finalPixel.R / repeats * 2.0;
-					finalPixel.G = finalPixel.G / repeats * 2.0;
-					finalPixel.B = finalPixel.B / repeats * 2.0;
+					finalPixel.R = finalPixel.R / repeats * 2.0f;
+					finalPixel.G = finalPixel.G / repeats * 2.0f;
+					finalPixel.B = finalPixel.B / repeats * 2.0f;
 				}
 				else
 				{
 					finalPixel.R = finalPixelDOF.R / repeats;
 					finalPixel.G = finalPixelDOF.G / repeats;
 					finalPixel.B = finalPixelDOF.B / repeats;
-					alpha = finalAlphaDOF / repeats;
-					opacity16 = finalOpacityDOF / repeats;
-					colour.R = finalColourDOF.R / repeats;
-					colour.G = finalColourDOF.G / repeats;
-					colour.B = finalColourDOF.B / repeats;
+					alpha = ushort(finalAlphaDOF / repeats);
+					opacity16 = ushort(finalOpacityDOF / repeats);
+					colour.R = uchar(finalColourDOF.R / repeats);
+					colour.G = uchar(finalColourDOF.G / repeats);
+					colour.B = uchar(finalColourDOF.B / repeats);
 				}
 				data->statistics.totalNumberOfDOFRepeats += repeats;
 				data->statistics.totalNoise += monteCarloNoise;
@@ -465,7 +465,7 @@ void cRenderWorker::doWork()
 								image->PutPixelWorld(xxx, yyy, worldPositionRGB);
 							if (image->GetImageOptional()->optionalDiffuse)
 								image->PutPixelDiffuse(
-									xxx, yyy, sRGBFloat(colour.R / 255.0, colour.G / 255.0, colour.B / 255.0));
+									xxx, yyy, sRGBFloat(colour.R / 255.0f, colour.G / 255.0f, colour.B / 255.0f));
 						}
 					}
 				}
@@ -853,8 +853,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			cObjectData objectData = data->objectData[shaderInputData.objectId];
 			shaderInputData.material = &data->materials[objectData.materialId];
 
-			double reflect = shaderInputData.material->reflectance;
-			double transparent = shaderInputData.material->transparencyOfSurface;
+			float reflect = shaderInputData.material->reflectance;
+			float transparent = shaderInputData.material->transparencyOfSurface;
 
 			rayStack[rayIndex].out.rayMarchingOut = rayMarchingOut;
 
@@ -866,7 +866,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate normal vector
 				vn = CalculateNormals(shaderInputData);
 
-				double roughnessGradient = 1.0;
+				float roughnessGradient = 1.0;
 				if (shaderInputData.material->useColorsFromPalette
 						&& shaderInputData.material->roughnessGradientEnable)
 				{
@@ -875,23 +875,23 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					roughnessGradient = gradients.roughness.R;
 				}
 
-				double roughnessTex = 1.0;
+				float roughnessTex = 1.0;
 				if (shaderInputData.material->roughnessTexture.IsLoaded()
 						&& shaderInputData.material->useRoughnessTexture)
 				{
-					double texRoughInt = shaderInputData.material->roughnessTextureIntensity;
-					double texRoughIntN = 1.0f - shaderInputData.material->roughnessTextureIntensity;
+					float texRoughInt = shaderInputData.material->roughnessTextureIntensity;
+					float texRoughIntN = 1.0f - shaderInputData.material->roughnessTextureIntensity;
 					roughnessTex = RoughnessTexture(shaderInputData) * texRoughInt + texRoughIntN;
 				}
 
 				if (shaderInputData.material->roughSurface)
 				{
 					vn.x += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0 - 1.0);
+									* (Random(20000) / 10000.0f - 1.0f);
 					vn.y += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0 - 1.0);
+									* (Random(20000) / 10000.0f - 1.0f);
 					vn.z += roughnessTex * roughnessGradient * shaderInputData.material->surfaceRoughness
-									* (Random(20000) / 10000.0 - 1.0);
+									* (Random(20000) / 10000.0f - 1.0f);
 					vn.Normalize();
 				}
 				shaderInputData.normal = vn;
@@ -901,24 +901,24 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					vn = NormalMapShader(shaderInputData);
 				}
 
-				double hueEffect = 1.0;
+				float hueEffect = 1.0;
 				if (params->DOFMonteCarlo && params->DOFMonteCarloChromaticAberration)
 				{
-					double aberrationStrength = params->DOFMonteCarloCADispersionGain * 0.01;
-					hueEffect = 1.0f - aberrationStrength + aberrationStrength * actualHue / 180.0;
+					float aberrationStrength = params->DOFMonteCarloCADispersionGain * 0.01f;
+					hueEffect = 1.0f - aberrationStrength + aberrationStrength * actualHue / 180.0f;
 				}
 
 				// prepare refraction values
-				double n1, n2;
+				float n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
 				{
 					n1 = shaderInputData.material->transparencyIndexOfRefraction
 							 / hueEffect; // reverse refractive indices
-					n2 = 1.0;
+					n2 = 1.0f;
 				}
 				else
 				{
-					n1 = 1.0;
+					n1 = 1.0f;
 					n2 = shaderInputData.material->transparencyIndexOfRefraction / hueEffect;
 				}
 
@@ -932,7 +932,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						rayStack[rayIndex].rayBranch = rayBranchRefraction;
 
 						// calculate reflection
-						if (reflect > 0.0)
+						if (reflect > 0.0f)
 						{
 							rayIndex++; // increase recursion level
 
@@ -977,7 +977,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 						rayStack[rayIndex].rayBranch = rayBranchDone;
 						// qDebug() << "Transparency" << rayIndex;
 						// calculate refraction (transparency)
-						if (transparent > 0.0)
+						if (transparent > 0.0f)
 						{
 
 							rayIndex++; // increase recursion level
@@ -1121,15 +1121,15 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 			else
 				shaderInputData.texTransparency = sRGBFloat(1.0, 1.0, 1.0);
 
-			double reflect = shaderInputData.material->reflectance;
-			double transparent = shaderInputData.material->transparencyOfSurface;
+			float reflect = shaderInputData.material->reflectance;
+			float transparent = shaderInputData.material->transparencyOfSurface;
 
 			sRGBAfloat resultShader = rayStack[rayIndex].in.resultShader;
 			sRGBAfloat objectColour = rayStack[rayIndex].in.objectColour;
 			sRGBFloat transparentColor =
-				sRGBFloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0,
-					shaderInputData.material->transparencyInteriorColor.G / 65536.0,
-					shaderInputData.material->transparencyInteriorColor.B / 65536.0);
+				sRGBFloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0f,
+					shaderInputData.material->transparencyInteriorColor.G / 65536.0f,
+					shaderInputData.material->transparencyInteriorColor.B / 65536.0f);
 			resultShader.R = transparentColor.R;
 			resultShader.G = transparentColor.G;
 			resultShader.B = transparentColor.B;
@@ -1160,7 +1160,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				// calculate reflectance according to Fresnel equations
 
 				// prepare refraction values
-				double n1, n2;
+				float n1, n2;
 				if (rayStack[rayIndex].in.calcInside) // if trace is inside the object
 				{
 					n1 =
@@ -1173,16 +1173,16 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					n2 = shaderInputData.material->transparencyIndexOfRefraction;
 				}
 
-				double reflectance = 1.0;
-				double reflectanceN = 1.0;
+				float reflectance = 1.0;
+				float reflectanceN = 1.0;
 
 				if (shaderInputData.material->fresnelReflectance)
 				{
 					reflectance = Reflectance(
 						shaderInputData.normal, rayStack[rayIndex].in.rayMarchingIn.direction, n1, n2);
-					if (reflectance < 0.0) reflectance = 0.0;
-					if (reflectance > 1.0) reflectance = 1.0;
-					reflectanceN = 1.0 - reflectance;
+					if (reflectance < 0.0f) reflectance = 0.0f;
+					if (reflectance > 1.0f) reflectance = 1.0f;
+					reflectanceN = 1.0f - reflectance;
 				}
 
 				if (rayIndex == reflectionsMax)
@@ -1205,9 +1205,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				}
 				else
 				{
-					transparentShader.R *= shaderInputData.material->transparencyColor.R / 65536.0;
-					transparentShader.G *= shaderInputData.material->transparencyColor.G / 65536.0;
-					transparentShader.B *= shaderInputData.material->transparencyColor.B / 65536.0;
+					transparentShader.R *= shaderInputData.material->transparencyColor.R / 65536.0f;
+					transparentShader.G *= shaderInputData.material->transparencyColor.G / 65536.0f;
+					transparentShader.B *= shaderInputData.material->transparencyColor.B / 65536.0f;
 				}
 
 				if (shaderInputData.material->useTransparencyTexture)
@@ -1222,8 +1222,8 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				if (reflectionsMax > 0)
 				{
 					sRGBFloat reflectDiffused;
-					double diffusionIntensity = shaderInputData.material->diffusionTextureIntensity;
-					double diffusionIntensityN = 1.0 - diffusionIntensity;
+					float diffusionIntensity = shaderInputData.material->diffusionTextureIntensity;
+					float diffusionIntensityN = 1.0f - diffusionIntensity;
 					reflectDiffused.R = reflect * shaderInputData.texDiffuse.R * diffusionIntensity
 															+ reflect * diffusionIntensityN;
 					reflectDiffused.G = reflect * shaderInputData.texDiffuse.G * diffusionIntensity
@@ -1261,31 +1261,31 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					}
 					else
 					{
-						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R / 65536.0;
-						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G / 65536.0;
-						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B / 65536.0;
+						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R / 65536.0f;
+						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G / 65536.0f;
+						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B / 65536.0f;
 					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN
-													 + (1.0 - transparent * reflectanceN) * resultShader.R;
+													 + (1.0f - transparent * reflectanceN) * resultShader.R;
 					resultShader.G = transparentShader.G * transparent * reflectanceN
-													 + (1.0 - transparent * reflectanceN) * resultShader.G;
+													 + (1.0f - transparent * reflectanceN) * resultShader.G;
 					resultShader.B = transparentShader.B * transparent * reflectanceN
-													 + (1.0 - transparent * reflectanceN) * resultShader.B;
+													 + (1.0f - transparent * reflectanceN) * resultShader.B;
 
-					double reflectDiffusedAvg =
-						(reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0;
+					float reflectDiffusedAvg =
+						(reflectDiffused.R + reflectDiffused.G + reflectDiffused.B) / 3.0f;
 
 					resultShader.R = reflectShader.R * reflectDiffused.R * reflectance
-													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.R;
+													 + (1.0f - reflectance * reflectDiffusedAvg) * resultShader.R;
 					resultShader.G = reflectShader.G * reflectDiffused.G * reflectance
-													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.G;
+													 + (1.0f - reflectance * reflectDiffusedAvg) * resultShader.G;
 					resultShader.B = reflectShader.B * reflectDiffused.B * reflectance
-													 + (1.0 - reflectance * reflectDiffusedAvg) * resultShader.B;
+													 + (1.0f - reflectance * reflectDiffusedAvg) * resultShader.B;
 				}
-				if (resultShader.R < 0.0) resultShader.R = 0.0;
-				if (resultShader.G < 0.0) resultShader.G = 0.0;
-				if (resultShader.B < 0.0) resultShader.B = 0.0;
+				if (resultShader.R < 0.0f) resultShader.R = 0.0f;
+				if (resultShader.G < 0.0f) resultShader.G = 0.0f;
+				if (resultShader.B < 0.0f) resultShader.B = 0.0f;
 			}
 			else // if object not found then calculate background
 			{
@@ -1315,12 +1315,13 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					// transparentColor.G = color.G;
 					// transparentColor.B = color.B;
 
-					double opacity = (-1.0 + 1.0 / shaderInputData.material->transparencyOfInterior) * step;
-					if (opacity > 1.0) opacity = 1.0;
+					float opacity =
+						(-1.0f + 1.0f / shaderInputData.material->transparencyOfInterior) * float(step);
+					if (opacity > 1.0f) opacity = 1.0f;
 
-					resultShader.R = opacity * transparentColor.R + (1.0 - opacity) * resultShader.R;
-					resultShader.G = opacity * transparentColor.G + (1.0 - opacity) * resultShader.G;
-					resultShader.B = opacity * transparentColor.B + (1.0 - opacity) * resultShader.B;
+					resultShader.R = opacity * transparentColor.R + (1.0f - opacity) * resultShader.R;
+					resultShader.G = opacity * transparentColor.G + (1.0f - opacity) * resultShader.G;
+					resultShader.B = opacity * transparentColor.B + (1.0f - opacity) * resultShader.B;
 				}
 			}
 			else // if now is outside the object, then calculate all volumetric effects like fog, glow...
@@ -1368,7 +1369,7 @@ void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) cons
 	if (params->perspectiveType == params::perspThreePoint)
 	{
 		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
-		float randAngle = Random(65536);
+		double randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 		CVector3 randVectorRot = mRot.RotateVector(randVector);
 		CVector3 viewVectorTemp = *viewVector;
@@ -1380,7 +1381,7 @@ void cRenderWorker::MonteCarloDOF(CVector3 *startRay, CVector3 *viewVector) cons
 	{
 		CVector3 viewVectorTemp = *viewVector;
 		double randR = 0.0015 * params->DOFRadius * params->DOFFocus * sqrt(Random(65536) / 65536.0);
-		float randAngle = Random(65536);
+		double randAngle = Random(65536);
 		CVector3 randVector(randR * sin(randAngle), 0.0, randR * cos(randAngle));
 
 		CVector3 side = viewVectorTemp.Cross(params->topVector);

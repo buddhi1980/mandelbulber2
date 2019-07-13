@@ -54,11 +54,11 @@ public:
 	quint64 getLength() const { return length; }
 	bool isLoaded() const { return loaded; }
 	int getSampleRate() const { return sampleRate; }
-	float getSample(uint sampleIndex) const;
+	float getSample(quint64 sampleIndex) const;
 	void calculateFFT();
 	cAudioFFTData getFFTSample(int frame) const;
 	float getBand(int frame, double midFreq, double bandwidth, bool pitchMode) const;
-	int getNumberOfFrames() const { return numberOfFrames; };
+	int getNumberOfFrames() const { return numberOfFrames; }
 	void setFramesPerSecond(double _framesPerSecond);
 	double getFramesPerSecond() const { return framesPerSecond; }
 	float getMaxFft() const { return maxFft; }

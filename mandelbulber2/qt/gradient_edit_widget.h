@@ -66,7 +66,7 @@ private:
 	void contextMenuEvent(QContextMenuEvent *event) override;
 
 	void PaintButton(const cColorGradient::sColor &posColor, QPainter &painter);
-	int CalcButtonPosition(double colorPosition);
+	int CalcButtonPosition(float colorPosition);
 	int FindButtonAtPosition(int x);
 	void AddColor(QContextMenuEvent *event);
 	void RemoveColor(QContextMenuEvent *event);

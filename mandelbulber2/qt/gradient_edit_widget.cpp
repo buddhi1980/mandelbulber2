@@ -166,7 +166,7 @@ void cGradientEditWidget::paintEvent(QPaintEvent *event)
 	}
 }
 
-int cGradientEditWidget::CalcButtonPosition(double position)
+int cGradientEditWidget::CalcButtonPosition(float position)
 {
 	return int(margins + position * (width() - 2 * margins - 1));
 }
@@ -228,7 +228,7 @@ void cGradientEditWidget::mouseMoveEvent(QMouseEvent *event)
 
 		if (mouseDragStarted)
 		{
-			double pos = double(event->x() - margins) / (width() - 2 * margins - 1);
+			float pos = float(event->x() - margins) / (width() - 2 * margins - 1);
 			gradient.ModifyPosition(pressedColorIndex, pos);
 			emit update();
 		}
@@ -306,7 +306,7 @@ void cGradientEditWidget::AddColor(QContextMenuEvent *event)
 {
 	int xClick = event->x();
 	int gradientWidth = width() - 2 * margins;
-	double pos = double(xClick - margins) / gradientWidth;
+	float pos = float(xClick - margins) / gradientWidth;
 	gradient.SortGradient();
 	sRGB color = gradient.GetColor(pos, false);
 	gradient.AddColor(color, pos);
@@ -341,18 +341,18 @@ void cGradientEditWidget::ChangeNumberOfColors()
 		cColorGradient newGradient;
 		if (grayscale) newGradient.SetGrayscale();
 		newGradient.DeleteAll();
-		double step = 1.0 / newNumber;
+		float step = 1.0f / newNumber;
 		for (int i = 0; i < newNumber; i++)
 		{
 			if (i == 0)
 			{
-				sRGB color = gradient.GetColor(0.0, false);
-				newGradient.AddColor(color, 0.0);
-				newGradient.AddColor(color, 1.0);
+				sRGB color = gradient.GetColor(0.0f, false);
+				newGradient.AddColor(color, 0.0f);
+				newGradient.AddColor(color, 1.0f);
 			}
 			else
 			{
-				double pos = step * i;
+				float pos = step * i;
 				sRGB color = gradient.GetColor(pos, false);
 				newGradient.AddColor(color, pos);
 			}
@@ -386,14 +386,14 @@ void cGradientEditWidget::GrabColors()
 			int numberOfColors = gradient.GetNumberOfColors();
 			gradient.DeleteAll();
 
-			double step = 1.0 / numberOfColors;
+			float step = 1.0f / numberOfColors;
 
 			for (int i = 0; i < numberOfColors; i++)
 			{
 				double angle = double(i) / numberOfColors * M_PI * 2.0;
 				double x = width / 2 + cos(angle) * width * 0.4;
 				double y = height / 2 + sin(angle) * height * 0.4;
-				QRgb pixel = imagePalette.pixel(x, y);
+				QRgb pixel = imagePalette.pixel(int(x), int(y));
 				sRGB pixelRGB(qRed(pixel), qGreen(pixel), qBlue(pixel));
 
 				if (i == 0)
@@ -403,7 +403,7 @@ void cGradientEditWidget::GrabColors()
 				}
 				else
 				{
-					double pos = step * i;
+					float pos = step * i;
 					gradient.AddColor(pixelRGB, pos);
 				}
 			}
@@ -571,11 +571,11 @@ void cGradientEditWidget::pressedButtonRandomColorsAndPositions()
 	for (int i = 0; i < numberOfColors; i++)
 	{
 		sRGB color(random.Random(255), random.Random(255), random.Random(255));
-		double position = Random(10000) / 10000.0;
+		float position = Random(10000) / 10000.0f;
 		if (i == 0)
 		{
-			gradient.AddColor(color, 0.0);
-			gradient.AddColor(color, 1.0);
+			gradient.AddColor(color, 0.0f);
+			gradient.AddColor(color, 1.0f);
 		}
 		else
 		{

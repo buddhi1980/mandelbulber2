@@ -61,7 +61,7 @@ public:
 	};
 
 	void RenderStillImage(QString filename, QString imageFileFormat);
-	static void RenderQueue();
+	[[noreturn]] static void RenderQueue();
 	void RenderVoxel(QString voxelFormat);
 	void RenderFlightAnimation() const;
 	void RenderKeyframeAnimation() const;

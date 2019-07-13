@@ -998,8 +998,8 @@ void cCommandLineInterface::handleImageFileFormat()
 	{
 		const ImageFileSave::enumImageFileType fileType =
 			ImageFileSave::ImageFileType(cliData.imageFileFormat);
-		gPar->Set("keyframe_animation_image_type", (int)fileType);
-		gPar->Set("flight_animation_image_type", (int)fileType);
+		gPar->Set("keyframe_animation_image_type", int(fileType));
+		gPar->Set("flight_animation_image_type", int(fileType));
 	}
 }
 

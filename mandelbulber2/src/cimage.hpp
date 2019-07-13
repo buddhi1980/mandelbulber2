@@ -80,7 +80,7 @@ public:
 
 	~cImage();
 	bool IsAllocated() const { return isAllocated; }
-	bool ChangeSize(ulong w, ulong h, sImageOptional optional);
+	bool ChangeSize(quint64 w, quint64 h, sImageOptional optional);
 	void ClearImage();
 	void ClearRGB(
 		std::vector<sRGBFloat> &rgbFloat, std::vector<sRGB16> &rgb16, std::vector<sRGB8> &rgb8);
@@ -101,7 +101,7 @@ public:
 	inline quint64 getImageIndex(const qint64 x, const qint64 y) const
 	{
 		// assert(x >= 0 && x < width && y >= 0 && y < height);
-		if (x >= 0 && x < long(width) && y >= 0 && y < long(height))
+		if (x >= 0 && x < qint64(width) && y >= 0 && y < qint64(height))
 		{
 			return quint64(x) + quint64(y) * quint64(width);
 		}
@@ -259,10 +259,10 @@ public:
 	void NullPostEffect(QList<int> *list = nullptr);
 	void NullPostEffect(const QList<QRect> *list);
 
-	ulong GetWidth() const { return width; }
-	ulong GetHeight() const { return height; }
-	ulong GetPreviewWidth() const { return previewWidth; }
-	ulong GetPreviewHeight() const { return previewHeight; }
+	quint64 GetWidth() const { return width; }
+	quint64 GetHeight() const { return height; }
+	quint64 GetPreviewWidth() const { return previewWidth; }
+	quint64 GetPreviewHeight() const { return previewHeight; }
 	int GetPreviewVisibleWidth() const { return previewVisibleWidth; }
 	int GetPreviewVisibleHeight() const { return previewVisibleHeight; }
 	int GetUsedMB() const;
@@ -285,7 +285,7 @@ public:
 	bool IsPreview() const;
 	void RedrawInWidget(QWidget *qWidget = nullptr);
 	double GetPreviewScale() const { return previewScale; }
-	void Squares(ulong y, int progressiveFactor);
+	void Squares(quint64 y, int progressiveFactor);
 	void CalculateGammaTable();
 	sRGB16 CalculatePixel(sRGBFloat pixel);
 

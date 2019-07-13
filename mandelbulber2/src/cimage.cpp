@@ -137,7 +137,7 @@ void cImage::AllocRGB(
 	rgb8.resize(width * height);
 }
 
-bool cImage::ChangeSize(ulong w, ulong h, sImageOptional optional)
+bool cImage::ChangeSize(quint64 w, quint64 h, sImageOptional optional)
 {
 	if (w != width || h != height || !(optional == *GetImageOptional()) || allocLater)
 	{
@@ -266,7 +266,7 @@ void cImage::CalculateGammaTable()
 	{
 		gammaTable.resize(65536);
 
-		for (ulong i = 0; i < 65536; i++)
+		for (quint64 i = 0; i < 65536; i++)
 		{
 			gammaTable[i] = int(powf(i / 65536.0f, 1.0f / adj.imageGamma) * 65535.0f);
 		}
@@ -277,15 +277,15 @@ void cImage::CalculateGammaTable()
 void cImage::CompileImage(QList<int> *list)
 {
 	int listIndex = 0;
-	for (ulong y = 0; y < height; y++)
+	for (quint64 y = 0; y < height; y++)
 	{
 		if (list)
 		{
 			if (listIndex >= list->size()) break;
-			y = ulong(list->at(listIndex));
+			y = quint64(list->at(listIndex));
 			listIndex++;
 		}
-		for (ulong x = 0; x < width; x++)
+		for (quint64 x = 0; x < width; x++)
 		{
 			quint64 address = x + y * width;
 			sRGBFloat pixel = postImageFloat[address];
@@ -301,9 +301,9 @@ void cImage::CompileImage(const QList<QRect> *list)
 	{
 		for (auto rect : *list)
 		{
-			for (ulong y = ulong(rect.top()); y <= ulong(rect.bottom()); y++)
+			for (quint64 y = quint64(rect.top()); y <= quint64(rect.bottom()); y++)
 			{
-				for (ulong x = ulong(rect.left()); x <= ulong(rect.right()); x++)
+				for (quint64 x = quint64(rect.left()); x <= quint64(rect.right()); x++)
 				{
 					quint64 address = x + y * width;
 					sRGBFloat pixel = postImageFloat[address];
@@ -367,9 +367,9 @@ quint8 *cImage::ConvertTo8bit(const QList<QRect> *list)
 	for (auto rect : *list)
 	{
 		{
-			for (ulong y = ulong(rect.top()); y <= ulong(rect.bottom()); y++)
+			for (quint64 y = quint64(rect.top()); y <= quint64(rect.bottom()); y++)
 			{
-				for (ulong x = ulong(rect.left()); x <= ulong(rect.right()); x++)
+				for (quint64 x = quint64(rect.left()); x <= quint64(rect.right()); x++)
 				{
 					quint64 address = x + y * width;
 					image8[address].R = image16[address].R / 256;
@@ -418,8 +418,8 @@ sRGB8 cImage::Interpolation(float x, float y) const
 	sRGB8 colour = sRGB8(0, 0, 0);
 	if (x >= 0 && x < width - 1 && y >= 0 && y < height - 1)
 	{
-		ulong ix = ulong(x);
-		ulong iy = ulong(y);
+		quint64 ix = quint64(x);
+		quint64 iy = quint64(y);
 		int rx = int((x - ix) * 256);
 		int ry = int((y - iy) * 256);
 		int rxi = 255 - rx;
@@ -444,8 +444,8 @@ quint8 *cImage::CreatePreview(
 	double scale, int visibleWidth, int visibleHeight, QWidget *widget = nullptr)
 {
 	previewMutex.lock();
-	ulong w = ulong(width * scale);
-	ulong h = ulong(height * scale);
+	quint64 w = quint64(width * scale);
+	quint64 h = quint64(height * scale);
 
 	if (w != previewWidth || h != previewHeight || !previewAllocated)
 	{
@@ -478,8 +478,8 @@ void cImage::UpdatePreview(QList<int> *list)
 	if (previewAllocated && !allocLater)
 	{
 		previewMutex.lock();
-		ulong w = previewWidth;
-		ulong h = previewHeight;
+		quint64 w = previewWidth;
+		quint64 h = previewHeight;
 
 		if (width == w && height == h)
 		{
@@ -500,7 +500,7 @@ void cImage::UpdatePreview(QList<int> *list)
 
 			int listIndex = 0;
 
-			for (ulong y = 0; y < h; y++)
+			for (quint64 y = 0; y < h; y++)
 			{
 
 				if (list)
@@ -516,12 +516,12 @@ void cImage::UpdatePreview(QList<int> *list)
 					}
 				}
 
-				for (ulong x = 0; x < w; x++)
+				for (quint64 x = 0; x < w; x++)
 				{
 					if (fastPreview)
 					{
-						ulong xx = ulong(x * scaleX);
-						ulong yy = ulong(y * scaleY);
+						quint64 xx = quint64(x * scaleX);
+						quint64 yy = quint64(y * scaleY);
 						preview[x + y * w] = image8[yy * width + xx];
 					}
 					else
@@ -568,8 +568,8 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 	if (previewAllocated && !allocLater)
 	{
 		previewMutex.lock();
-		ulong w = previewWidth;
-		ulong h = previewHeight;
+		quint64 w = previewWidth;
+		quint64 h = previewHeight;
 
 		if (width == w && height == h)
 		{
@@ -590,26 +590,26 @@ void cImage::UpdatePreview(const QList<QRect> *list)
 				float deltaX = scaleX / countX;
 				float deltaY = scaleY / countY;
 
-				ulong xStart = ulong(rect.left() / scaleX);
-				xStart = qMax(xStart, 0UL);
-				ulong xEnd = ulong((rect.right() + 1) / scaleX);
+				quint64 xStart = quint64(rect.left() / scaleX);
+				xStart = qMax(xStart, 0ULL);
+				quint64 xEnd = quint64((rect.right() + 1) / scaleX);
 				xEnd = qMin(xEnd, w - 1);
-				ulong yStart = ulong(rect.top() / scaleY);
-				yStart = qMax(yStart, 0UL);
-				ulong yEnd = ulong((rect.bottom() + 1) / scaleY);
+				quint64 yStart = quint64(rect.top() / scaleY);
+				yStart = qMax(yStart, 0ULL);
+				quint64 yEnd = quint64((rect.bottom() + 1) / scaleY);
 				yEnd = qMin(yEnd, h - 1);
 
 				//#ifndef _WIN32
 				//#pragma omp parallel for
 				//#endif
-				for (ulong y = yStart; y <= yEnd; y++)
+				for (quint64 y = yStart; y <= yEnd; y++)
 				{
-					for (ulong x = xStart; x <= xEnd; x++)
+					for (quint64 x = xStart; x <= xEnd; x++)
 					{
 						if (fastPreview)
 						{
-							ulong xx = ulong(x * scaleX);
-							ulong yy = ulong(y * scaleY);
+							quint64 xx = quint64(x * scaleX);
+							quint64 yy = quint64(y * scaleY);
 							preview[x + y * w] = image8[yy * width + xx];
 						}
 						else
@@ -714,13 +714,13 @@ void cImage::RedrawInWidget(QWidget *qWidget)
 	}
 }
 
-void cImage::Squares(ulong y, int pFactor)
+void cImage::Squares(quint64 y, int pFactor)
 {
 	progressiveFactor = pFactor;
-	ulong pf = ulong(pFactor);
-	for (ulong x = 0; x <= width - ulong(pf); x += pf)
+	quint64 pf = quint64(pFactor);
+	for (quint64 x = 0; x <= width - quint64(pf); x += pf)
 	{
-		ulong ptr = x + y * width;
+		quint64 ptr = x + y * width;
 		sRGBFloat pixelTemp = imageFloat[ptr];
 		sRGBFloat postPixelTemp = postImageFloat[ptr];
 		float zBufferTemp = zBuffer[ptr];
@@ -728,9 +728,9 @@ void cImage::Squares(ulong y, int pFactor)
 		quint16 alphaTemp = alphaBuffer16[ptr];
 		quint16 opacityTemp = opacityBuffer[ptr];
 
-		for (ulong yy = 0; yy < pf; yy++)
+		for (quint64 yy = 0; yy < pf; yy++)
 		{
-			for (ulong xx = 0; xx < pf; xx++)
+			for (quint64 xx = 0; xx < pf; xx++)
 			{
 				if (xx == 0 && yy == 0) continue;
 				quint64 ptr2 = (x + xx) + (y + yy) * (width);
@@ -747,7 +747,7 @@ void cImage::Squares(ulong y, int pFactor)
 
 void cImage::PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer)
 {
-	if (x >= 0 && x < long(previewWidth) && y >= 0 && y < long(previewHeight))
+	if (x >= 0 && x < qint64(previewWidth) && y >= 0 && y < qint64(previewHeight))
 	{
 		quint64 address = quint64(x) + quint64(y) * quint64(previewWidth);
 		float zImage = GetPixelZBuffer(int(x / previewScale), int(y / previewScale));
@@ -862,20 +862,20 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 					xx2 = x1;
 				}
 
-				long start = long(xx1);
+				qint64 start = qint64(xx1);
 				if (start < 0L) start = 0;
-				long end = long(xx2);
-				if (end > long(previewWidth)) end = long(previewWidth);
+				qint64 end = qint64(xx2);
+				if (end > qint64(previewWidth)) end = qint64(previewWidth);
 
-				for (long intX = start; intX <= end; intX++)
+				for (qint64 intX = start; intX <= end; intX++)
 				{
 					float x = intX;
 					float y = k * (x - x1) + y1;
 					float z = kz * (x - x1) + z1;
-					long xx = long(0.5f + x);
+					qint64 xx = qint64(0.5f + x);
 					for (float d = -1; d <= 1; d++)
 					{
-						long yy = long(0.5f + y + d);
+						qint64 yy = qint64(0.5f + y + d);
 						float distance = 1.0f * fabsf(A * x + B * yy + C) * denominator;
 						if (distance >= 1.0f) distance = 1.0f;
 						float opacity2;
@@ -912,20 +912,20 @@ void cImage::AntiAliasedLine(float x1, float y1, float x2, float y2, float z1, f
 					yy2 = y1;
 				}
 
-				long start = long(yy1);
+				qint64 start = qint64(yy1);
 				if (start < 0) start = 0;
-				long end = long(yy2);
-				if (end > long(previewHeight)) end = long(previewHeight);
+				qint64 end = qint64(yy2);
+				if (end > qint64(previewHeight)) end = qint64(previewHeight);
 
-				for (long intY = start; intY <= end; intY++)
+				for (qint64 intY = start; intY <= end; intY++)
 				{
 					float y = intY;
 					float x = k * (y - y1) + x1;
 					float z = kz * (y - y1) + z1;
-					long yy = long(0.5f + y);
+					qint64 yy = qint64(0.5f + y);
 					for (int d = -1; d <= 1; d++)
 					{
-						long xx = long(0.5f + x + d);
+						qint64 xx = qint64(0.5f + x + d);
 						float distance = fabsf(A * xx + B * y + C) * denominator;
 						if (distance >= 1.0f) distance = 1.0f;
 						float opacity2;
@@ -960,27 +960,27 @@ void cImage::CircleBorder(
 		float r2 = r + borderWidth;
 		float r1 = r - borderWidth;
 		if (r1 < 0) r1 = 0;
-		long y1 = long(y - r2);
-		long y2 = long(y + r2);
+		qint64 y1 = qint64(y - r2);
+		qint64 y2 = qint64(y + r2);
 
 		float wspJ = 1.0f / borderWidth;
 
-		for (long yy = y1; yy <= y2; yy++)
+		for (qint64 yy = y1; yy <= y2; yy++)
 		{
 			float dyy = yy - y;
 			float dxx = r2 * r2 - dyy * dyy;
 			if (dxx < 0) dxx = 0;
 			float dx = sqrtf(dxx);
-			long x1 = long(x - dx);
-			long x2 = long(x + dx);
+			qint64 x1 = qint64(x - dx);
+			qint64 x2 = qint64(x + dx);
 
 			float dxx2 = r1 * r1 - dyy * dyy;
 			if (dxx2 < 0) dxx2 = 0;
 			float dx2 = sqrtf(dxx2);
-			long x12 = long(x - dx2);
-			long x22 = long(x + dx2);
+			qint64 x12 = qint64(x - dx2);
+			qint64 x22 = qint64(x + dx2);
 
-			for (long xx = x1; xx <= x2; xx++)
+			for (qint64 xx = x1; xx <= x2; xx++)
 			{
 				if (xx <= x12 || xx >= x22)
 				{
@@ -1013,18 +1013,18 @@ void cImage::NullPostEffect(QList<int> *list)
 		else
 		{
 			int listIndex = 0;
-			for (ulong y = 0; y < height; y++)
+			for (quint64 y = 0; y < height; y++)
 			{
 				if (list)
 				{
 					if (listIndex >= list->size()) break;
-					y = ulong(list->at(listIndex));
+					y = quint64(list->at(listIndex));
 					listIndex++;
 				}
 
-				long offset = long(y * width);
+				qint64 offset = qint64(y * width);
 				auto first = imageFloat.begin() + offset;
-				auto last = imageFloat.begin() + offset + long(width);
+				auto last = imageFloat.begin() + offset + qint64(width);
 				auto fisrDest = postImageFloat.begin() + offset;
 
 				std::copy(first, last, fisrDest);
@@ -1039,9 +1039,9 @@ void cImage::NullPostEffect(const QList<QRect> *list)
 	{
 		for (auto rect : *list)
 		{
-			for (ulong y = ulong(rect.top()); y <= ulong(rect.bottom()); y++)
+			for (quint64 y = quint64(rect.top()); y <= quint64(rect.bottom()); y++)
 			{
-				long offset = long(y * width) + rect.left();
+				qint64 offset = qint64(y * width) + rect.left();
 				auto first = imageFloat.begin() + offset;
 				auto last = imageFloat.begin() + offset + rect.width();
 				auto fisrDest = postImageFloat.begin() + offset;
@@ -1056,7 +1056,7 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 {
 	if (isStereoLeftRight && left && right)
 	{
-		ulong halfWidth = width / 2;
+		quint64 halfWidth = width / 2;
 		left->ChangeSize(halfWidth, height, opt);
 		right->ChangeSize(halfWidth, height, opt);
 

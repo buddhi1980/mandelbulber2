@@ -156,7 +156,7 @@ struct sParamRender
 	double absMinMarchingStep;
 	float ambientOcclusion;
 	double ambientOcclusionFastTune;
-	double auxLightPreIntensity[4];
+	float auxLightPreIntensity[4];
 	double auxLightVisibility;
 	double auxLightVisibilitySize;
 	double auxLightRandomRadius;
@@ -180,8 +180,8 @@ struct sParamRender
 	double DOFMaxRadius;
 	double DOFBlurOpacity;
 	double DOFMaxNoise;
-	double DOFMonteCarloCADispersionGain;
-	double DOFMonteCarloCACameraDispersion;
+	float DOFMonteCarloCADispersionGain;
+	float DOFMonteCarloCACameraDispersion;
 	double fakeLightsIntensity;
 	double fakeLightsVisibility;
 	double fakeLightsVisibilitySize;
