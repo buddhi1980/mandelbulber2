@@ -218,7 +218,7 @@ public:
 	inline void BlendPixelImage16(qint64 x, qint64 y, float factor, sRGB16 other)
 	{
 		float factorN = 1.0f - factor;
-		qint64 imgIndex = getImageIndex(x, y);
+		quint64 imgIndex = getImageIndex(x, y);
 		image16[imgIndex].R = quint16(image16[imgIndex].R * factorN + other.R * factor);
 		image16[imgIndex].G = quint16(image16[imgIndex].G * factorN + other.G * factor);
 		image16[imgIndex].B = quint16(image16[imgIndex].B * factorN + other.B * factor);
@@ -227,7 +227,7 @@ public:
 	inline void BlendPixelPostImage(qint64 x, qint64 y, float factor, sRGBFloat other)
 	{
 		float factorN = 1.0f - factor;
-		qint64 imgIndex = getImageIndex(x, y);
+		quint64 imgIndex = getImageIndex(x, y);
 		postImageFloat[imgIndex].R = postImageFloat[imgIndex].R * factorN + other.R * factor;
 		postImageFloat[imgIndex].G = postImageFloat[imgIndex].G * factorN + other.G * factor;
 		postImageFloat[imgIndex].B = postImageFloat[imgIndex].B * factorN + other.B * factor;
@@ -236,7 +236,7 @@ public:
 	inline void BlendPixelAlpha(qint64 x, qint64 y, float factor, quint16 other)
 	{
 		float factorN = 1.0f - factor;
-		qint64 imgIndex = getImageIndex(x, y);
+		quint64 imgIndex = getImageIndex(x, y);
 		alphaBuffer16[imgIndex] = quint16(alphaBuffer16[imgIndex] * factorN + other * factor);
 	}
 
@@ -259,10 +259,10 @@ public:
 	void NullPostEffect(QList<int> *list = nullptr);
 	void NullPostEffect(const QList<QRect> *list);
 
-	int GetWidth() const { return width; }
-	int GetHeight() const { return height; }
-	int GetPreviewWidth() const { return previewWidth; }
-	int GetPreviewHeight() const { return previewHeight; }
+	ulong GetWidth() const { return width; }
+	ulong GetHeight() const { return height; }
+	ulong GetPreviewWidth() const { return previewWidth; }
+	ulong GetPreviewHeight() const { return previewHeight; }
 	int GetPreviewVisibleWidth() const { return previewVisibleWidth; }
 	int GetPreviewVisibleHeight() const { return previewVisibleHeight; }
 	int GetUsedMB() const;

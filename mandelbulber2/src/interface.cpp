@@ -973,8 +973,8 @@ void cInterface::RefreshPostEffects()
 		RefreshMainImage();
 
 		// replace image size parameters in case if user changed image size just before image update
-		gPar->Set("image_width", mainImage->GetWidth());
-		gPar->Set("image_height", mainImage->GetHeight());
+		gPar->Set("image_width", int(mainImage->GetWidth()));
+		gPar->Set("image_height", int(mainImage->GetHeight()));
 
 		stopRequest = false;
 		if (gPar->Get<bool>("ambient_occlusion_enabled")

@@ -132,8 +132,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	// needed when image has to fit in widget
 	if (useSizeFromImage)
 	{
-		paramsContainer->Set("image_width", image->GetWidth());
-		paramsContainer->Set("image_height", image->GetHeight());
+		paramsContainer->Set("image_width", int(image->GetWidth()));
+		paramsContainer->Set("image_height", int(image->GetHeight()));
 	}
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
