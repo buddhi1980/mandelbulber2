@@ -22,7 +22,6 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 	if (aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
-		z.x += 0.000000001f; // so not detected as a  zero change in z
 		REAL componentMaster = 0.0f;
 		REAL orbitPoints = 0.0f;
 
@@ -99,17 +98,11 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 				REAL distFour = length(PtFour);
 				orbitPoints = min(orbitPoints, distFour);
 			}
-
 			orbitPoints *= fractal->transformCommon.scaleA1;
 		}
 
-		if (aux->i >= fractal->transformCommon.startIterationsT
-				&& aux->i < fractal->transformCommon.stopIterationsT)
-		{
-			// build  componentMaster
-
-			componentMaster = (totalDist + orbitPoints + lastVec + totalR);
-		}
+		// build  componentMaster
+		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
 		componentMaster *= fractal->transformCommon.scale;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -118,7 +111,9 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			aux->colorHybrid = aux->temp1000;
 		}
 		else
+		{
 			aux->colorHybrid = componentMaster;
+		}
 	}
 	return z;
 }

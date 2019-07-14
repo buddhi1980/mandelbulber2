@@ -16815,7 +16815,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 	if (aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		z.x += 0.000000001; // so not detected as a  zero change in z
 		double componentMaster = 0.0;
 		double orbitPoints = 0.0;
 
@@ -16892,17 +16891,11 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 				double distFour = PtFour.Length();
 				orbitPoints = min(orbitPoints, distFour);
 			}
-
 			orbitPoints *= fractal->transformCommon.scaleA1;
 		}
 
-		if (aux.i >= fractal->transformCommon.startIterationsT
-				&& aux.i < fractal->transformCommon.stopIterationsT)
-		{
-			// build  componentMaster
-
-			componentMaster = (totalDist + orbitPoints + lastVec + totalR);
-		}
+		// build  componentMaster
+		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
 		componentMaster *= fractal->transformCommon.scale;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -16911,7 +16904,9 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			aux.colorHybrid = aux.temp1000;
 		}
 		else
+		{
 			aux.colorHybrid = componentMaster;
+		}
 	}
 }
 
