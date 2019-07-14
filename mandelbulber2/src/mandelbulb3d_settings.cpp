@@ -90,6 +90,8 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 			out.writeRawData((((char *)&parsedLong) + 1), 3);
 		}
 	}
+	// must return a value for msvc Error C4716 must return a value
+	return false;
 }
 
 void cMandelbulb3dSettings::ConvertToNewContainer(
