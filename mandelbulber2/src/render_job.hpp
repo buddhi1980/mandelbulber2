@@ -106,8 +106,8 @@ private:
 #ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(
 		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
-	void RenderSSAOWithOpenCl(
-		sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result);
+	void RenderSSAOWithOpenCl(sParamRender *params, const cRegion<int> &region,
+		cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
 #endif
 

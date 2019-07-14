@@ -129,11 +129,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 						double r2 = lightDist / lightSize;
 						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
-						double lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
+						float lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
 
-						output.R += lightDensity * light->colour.R / 65536.0;
-						output.G += lightDensity * light->colour.G / 65536.0;
-						output.B += lightDensity * light->colour.B / 65536.0;
+						output.R += lightDensity * light->colour.R / 65536.0f;
+						output.G += lightDensity * light->colour.G / 65536.0f;
+						output.B += lightDensity * light->colour.B / 65536.0f;
 						output.A += lightDensity;
 
 						if (miniSteps == lastMiniSteps)
@@ -154,19 +154,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			sFractalIn fractIn(point, params->minN, params->N, params->common, -1, false);
 			sFractalOut fractOut;
 			Compute<fractal::calcModeOrbitTrap>(*fractal, fractIn, &fractOut);
-			double r = fractOut.orbitTrapR;
-			r = sqrt(1.0 / (r + 1.0e-30));
-			double fakeLight = 1.0
-												 / (pow(r, 10.0 / params->fakeLightsVisibilitySize)
-															 * pow(10.0, 10.0 / params->fakeLightsVisibilitySize)
-														 + 0.1);
-			output.R +=
-				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.R / 65536.0f;
-			output.G +=
-				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.G / 65536.0f;
-			output.B +=
-				fakeLight * step * params->fakeLightsVisibility * params->fakeLightsColor.B / 65536.0f;
-			output.A += fakeLight * step * params->fakeLightsVisibility;
+			float r = fractOut.orbitTrapR;
+			r = sqrtf(1.0f / (r + 1.0e-20f));
+			float fakeLight = 1.0f
+												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
+															* powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
+														+ 0.1f);
+			output.R += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R
+									/ 65536.0f;
+			output.G += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G
+									/ 65536.0f;
+			output.B += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B
+									/ 65536.0f;
+			output.A += fakeLight * float(step) * params->fakeLightsVisibility;
 		}
 
 		//---------------------- volumetric lights with shadows in fog
@@ -176,14 +176,14 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			if (i == 0 && params->volumetricLightEnabled[0] && params->mainLightEnable)
 			{
 				sRGBAfloat shadowOutputTemp = MainShadow(input2);
-				output.R += shadowOutputTemp.R * step * params->volumetricLightIntensity[0]
-										* params->mainLightColour.R / 65536.0;
-				output.G += shadowOutputTemp.G * step * params->volumetricLightIntensity[0]
-										* params->mainLightColour.G / 65536.0;
-				output.B += shadowOutputTemp.B * step * params->volumetricLightIntensity[0]
-										* params->mainLightColour.B / 65536.0;
-				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0 * step
-										* params->volumetricLightIntensity[0];
+				output.R += shadowOutputTemp.R * float(step) * params->volumetricLightIntensity[0]
+										* params->mainLightColour.R / 65536.0f;
+				output.G += shadowOutputTemp.G * float(step) * params->volumetricLightIntensity[0]
+										* params->mainLightColour.G / 65536.0f;
+				output.B += shadowOutputTemp.B * float(step) * params->volumetricLightIntensity[0]
+										* params->mainLightColour.B / 65536.0f;
+				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0f
+										* float(step) * params->volumetricLightIntensity[0];
 			}
 			if (data->lights.IsAnyLightEnabled() && i > 0)
 			{
@@ -191,17 +191,18 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 				if (light->enabled && params->volumetricLightEnabled[i])
 				{
 					CVector3 lightVectorTemp = light->position - point;
-					double distanceLight = lightVectorTemp.Length();
-					double distanceLight2 = distanceLight * distanceLight;
+					float distanceLight = lightVectorTemp.Length();
+					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
-					double lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
-					output.R += lightShadow * light->colour.R / 65536.0 * params->volumetricLightIntensity[i]
-											* step / distanceLight2;
-					output.G += lightShadow * light->colour.G / 65536.0 * params->volumetricLightIntensity[i]
-											* step / distanceLight2;
-					output.B += lightShadow * light->colour.B / 65536.0 * params->volumetricLightIntensity[i]
-											* step / distanceLight2;
-					output.A += lightShadow * params->volumetricLightIntensity[i] * step / distanceLight2;
+					float lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
+					output.R += lightShadow * light->colour.R / 65536.0f * params->volumetricLightIntensity[i]
+											* float(step) / distanceLight2;
+					output.G += lightShadow * light->colour.G / 65536.0f * params->volumetricLightIntensity[i]
+											* float(step) / distanceLight2;
+					output.B += lightShadow * light->colour.B / 65536.0f * params->volumetricLightIntensity[i]
+											* float(step) / distanceLight2;
+					output.A +=
+						lightShadow * params->volumetricLightIntensity[i] * float(step) / distanceLight2;
 				}
 			}
 		}
@@ -315,19 +316,19 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						if (light->enabled)
 						{
 							CVector3 lightVectorTemp = light->position - point;
-							double distanceLight = lightVectorTemp.Length();
-							double distanceLight2 = distanceLight * distanceLight;
+							float distanceLight = lightVectorTemp.Length();
+							float distanceLight2 = distanceLight * distanceLight;
 							lightVectorTemp.Normalize();
 
-							double lightShadow = 1.0;
+							float lightShadow = 1.0;
 							if (params->iterFogShadows)
 							{
 								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 							}
-							double intensity = light->intensity * params->iterFogBrightnessBoost;
-							newColour.R += lightShadow * light->colour.R / 65536.0 / distanceLight2 * intensity;
-							newColour.G += lightShadow * light->colour.G / 65536.0 / distanceLight2 * intensity;
-							newColour.B += lightShadow * light->colour.B / 65536.0 / distanceLight2 * intensity;
+							float intensity = light->intensity * params->iterFogBrightnessBoost;
+							newColour.R += lightShadow * light->colour.R / 65536.0f / distanceLight2 * intensity;
+							newColour.G += lightShadow * light->colour.G / 65536.0f / distanceLight2 * intensity;
+							newColour.B += lightShadow * light->colour.B / 65536.0f / distanceLight2 * intensity;
 						}
 					}
 				}

@@ -45,7 +45,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	absMinMarchingStep = container->Get<double>("abs_min_marching_step");
 	antialiasingEnabled = container->Get<bool>("antialiasing_enabled");
 	antialiasingSize = container->Get<int>("antialiasing_size");
-	ambientOcclusion = container->Get<double>("ambient_occlusion");
+	ambientOcclusion = container->Get<float>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
@@ -100,8 +100,8 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DOFBlurOpacity = container->Get<double>("DOF_blur_opacity");
 	DOFMaxNoise = container->Get<double>("DOF_max_noise");
 	DOFMonteCarloChromaticAberration = container->Get<bool>("DOF_MC_CA_enable");
-	DOFMonteCarloCADispersionGain = container->Get<double>("DOF_MC_CA_dispersion_gain");
-	DOFMonteCarloCACameraDispersion = container->Get<double>("DOF_MC_CA_camera_dispersion");
+	DOFMonteCarloCADispersionGain = container->Get<float>("DOF_MC_CA_dispersion_gain");
+	DOFMonteCarloCACameraDispersion = container->Get<float>("DOF_MC_CA_camera_dispersion");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
 	fakeLightsColor = container->Get<sRGB>("fake_lights_color");
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
@@ -116,29 +116,29 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	glowColor1 = container->Get<sRGB>("glow_color", 1);
 	glowColor2 = container->Get<sRGB>("glow_color", 2);
 	glowEnabled = container->Get<bool>("glow_enabled");
-	glowIntensity = container->Get<double>("glow_intensity");
+	glowIntensity = container->Get<float>("glow_intensity");
 	hdrBlurEnabled = container->Get<bool>("hdr_blur_enabled");
 	hdrBlurRadius = container->Get<double>("hdr_blur_radius");
 	hdrBlurIntensity = container->Get<double>("hdr_blur_intensity");
 	hybridFractalEnable = container->Get<bool>("hybrid_fractal_enable");
-	imageAdjustments.brightness = container->Get<double>("brightness");
-	imageAdjustments.contrast = container->Get<double>("contrast");
+	imageAdjustments.brightness = container->Get<float>("brightness");
+	imageAdjustments.contrast = container->Get<float>("contrast");
 	imageAdjustments.hdrEnabled = container->Get<bool>("hdr");
-	imageAdjustments.imageGamma = container->Get<double>("gamma");
-	imageAdjustments.saturation = container->Get<double>("saturation");
+	imageAdjustments.imageGamma = container->Get<float>("gamma");
+	imageAdjustments.saturation = container->Get<float>("saturation");
 	imageHeight = container->Get<int>("image_height");
 	imageWidth = container->Get<int>("image_width");
 	interiorMode = container->Get<bool>("interior_mode");
-	iterFogBrightnessBoost = container->Get<double>("iteration_fog_brightness_boost");
-	iterFogColor1Maxiter = container->Get<double>("iteration_fog_color_1_maxiter");
-	iterFogColor2Maxiter = container->Get<double>("iteration_fog_color_2_maxiter");
+	iterFogBrightnessBoost = container->Get<float>("iteration_fog_brightness_boost");
+	iterFogColor1Maxiter = container->Get<float>("iteration_fog_color_1_maxiter");
+	iterFogColor2Maxiter = container->Get<float>("iteration_fog_color_2_maxiter");
 	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 1);
 	iterFogColour2 = container->Get<sRGB>("iteration_fog_color", 2);
 	iterFogColour3 = container->Get<sRGB>("iteration_fog_color", 3);
 	iterFogEnabled = container->Get<bool>("iteration_fog_enable");
 	iterFogOpacity = container->Get<double>("iteration_fog_opacity");
-	iterFogOpacityTrim = container->Get<double>("iteration_fog_opacity_trim");
-	iterFogOpacityTrimHigh = container->Get<double>("iteration_fog_opacity_trim_high");
+	iterFogOpacityTrim = container->Get<float>("iteration_fog_opacity_trim");
+	iterFogOpacityTrimHigh = container->Get<float>("iteration_fog_opacity_trim_high");
 	iterFogShadows = container->Get<bool>("iteration_fog_shadows");
 	legacyCoordinateSystem = container->Get<bool>("legacy_coordinate_system");
 	limitMax = container->Get<CVector3>("limit_max");
@@ -148,7 +148,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	mainLightBeta = container->Get<double>("main_light_beta");
 	mainLightColour = container->Get<sRGB>("main_light_colour");
 	mainLightEnable = container->Get<bool>("main_light_enable");
-	mainLightIntensity = container->Get<double>("main_light_intensity");
+	mainLightIntensity = container->Get<float>("main_light_intensity");
 	mainLightPositionAsRelative = container->Get<bool>("main_light_position_relative");
 	mainLightVisibility = container->Get<double>("main_light_visibility");
 	mainLightVisibilitySize = container->Get<double>("main_light_visibility_size");
@@ -171,7 +171,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	SSAO_random_mode = container->Get<bool>("SSAO_random_mode");
 	stereoEyeDistance = container->Get<double>("stereo_eye_distance");
 	stereoInfiniteCorrection = container->Get<double>("stereo_infinite_correction");
-	stereoSwapEyes = container->Get<double>("stereo_swap_eyes");
+	stereoSwapEyes = container->Get<bool>("stereo_swap_eyes");
 	sweetSpotHAngle = container->Get<double>("sweet_spot_horizontal_angle") / 180.0 * M_PI;
 	sweetSpotVAngle = container->Get<double>("sweet_spot_vertical_angle") / 180.0 * M_PI;
 	target = container->Get<CVector3>("target");
@@ -189,7 +189,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	volFogColour2 = container->Get<sRGB>("fog_color", 2);
 	volFogColour2Distance = container->Get<double>("volumetric_fog_colour_2_distance");
 	volFogColour3 = container->Get<sRGB>("fog_color", 3);
-	volFogDensity = container->Get<double>("volumetric_fog_density");
+	volFogDensity = container->Get<float>("volumetric_fog_density");
 	volFogDistanceFactor = container->Get<double>("volumetric_fog_distance_factor");
 	volFogDistanceFromSurface = container->Get<double>("volumetric_fog_distance_from_surface");
 	volFogEnabled = container->Get<bool>("volumetric_fog_enabled");
@@ -202,7 +202,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	for (int i = 0; i < 4; ++i)
 	{
 		auxLightPre[i] = container->Get<CVector3>("aux_light_position", i + 1);
-		auxLightPreIntensity[i] = container->Get<double>("aux_light_intensity", i + 1);
+		auxLightPreIntensity[i] = container->Get<float>("aux_light_intensity", i + 1);
 		auxLightPreEnabled[i] = container->Get<bool>("aux_light_enabled", i + 1);
 		auxLightPreColour[i] = container->Get<sRGB>("aux_light_colour", i + 1);
 	}

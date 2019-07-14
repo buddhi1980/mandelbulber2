@@ -166,22 +166,22 @@ void cMaterial::setParameters(
 
 	int frameNo = materialParam->Get<int>("frame_no");
 
-	shading = materialParam->Get<double>(Name("shading", id));
-	specular = materialParam->Get<double>(Name("specular", id));
-	specularWidth = materialParam->Get<double>(Name("specular_width", id));
-	specularMetallic = materialParam->Get<double>(Name("specular_metallic", id));
-	specularMetallicWidth = materialParam->Get<double>(Name("specular_metallic_width", id));
-	specularMetallicRoughness = materialParam->Get<double>(Name("specular_metallic_roughness", id));
+	shading = materialParam->Get<float>(Name("shading", id));
+	specular = materialParam->Get<float>(Name("specular", id));
+	specularWidth = materialParam->Get<float>(Name("specular_width", id));
+	specularMetallic = materialParam->Get<float>(Name("specular_metallic", id));
+	specularMetallicWidth = materialParam->Get<float>(Name("specular_metallic_width", id));
+	specularMetallicRoughness = materialParam->Get<float>(Name("specular_metallic_roughness", id));
 	specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
 	specularPlasticEnable = materialParam->Get<bool>(Name("specular_plastic_enable", id));
 	metallic = materialParam->Get<bool>(Name("metallic", id));
-	reflectance = materialParam->Get<double>(Name("reflectance", id));
-	luminosity = materialParam->Get<double>(Name("luminosity", id));
-	surfaceRoughness = materialParam->Get<double>(Name("surface_roughness", id));
+	reflectance = materialParam->Get<float>(Name("reflectance", id));
+	luminosity = materialParam->Get<float>(Name("luminosity", id));
+	surfaceRoughness = materialParam->Get<float>(Name("surface_roughness", id));
 	transparencyIndexOfRefraction =
-		materialParam->Get<double>(Name("transparency_index_of_refraction", id));
-	transparencyOfInterior = materialParam->Get<double>(Name("transparency_of_interior", id));
-	transparencyOfSurface = materialParam->Get<double>(Name("transparency_of_surface", id));
+		materialParam->Get<float>(Name("transparency_index_of_refraction", id));
+	transparencyOfInterior = materialParam->Get<float>(Name("transparency_of_interior", id));
+	transparencyOfSurface = materialParam->Get<float>(Name("transparency_of_surface", id));
 	paletteOffset = materialParam->Get<double>(Name("coloring_palette_offset", id));
 	coloring_speed = materialParam->Get<double>(Name("coloring_speed", id));
 
@@ -240,16 +240,16 @@ void cMaterial::setParameters(
 	normalMapTextureInvertGreen =
 		materialParam->Get<bool>(Name("normal_map_texture_invert_green", id));
 
-	colorTextureIntensity = materialParam->Get<double>(Name("color_texture_intensity", id));
-	diffusionTextureIntensity = materialParam->Get<double>(Name("diffusion_texture_intensity", id));
-	luminosityTextureIntensity = materialParam->Get<double>(Name("luminosity_texture_intensity", id));
+	colorTextureIntensity = materialParam->Get<float>(Name("color_texture_intensity", id));
+	diffusionTextureIntensity = materialParam->Get<float>(Name("diffusion_texture_intensity", id));
+	luminosityTextureIntensity = materialParam->Get<float>(Name("luminosity_texture_intensity", id));
 	displacementTextureHeight = materialParam->Get<double>(Name("displacement_texture_height", id));
 	normalMapTextureHeight = materialParam->Get<double>(Name("normal_map_texture_height", id));
 	reflectanceTextureIntensity =
-		materialParam->Get<double>(Name("reflectance_texture_intensity", id));
+		materialParam->Get<float>(Name("reflectance_texture_intensity", id));
 	transparencyTextureIntensity =
-		materialParam->Get<double>(Name("transparency_texture_intensity", id));
-	roughnessTextureIntensity = materialParam->Get<double>(Name("roughness_texture_intensity", id));
+		materialParam->Get<float>(Name("transparency_texture_intensity", id));
+	roughnessTextureIntensity = materialParam->Get<float>(Name("roughness_texture_intensity", id));
 
 	iridescenceEnabled = materialParam->Get<bool>(Name("iridescence_enabled", id));
 	iridescenceIntensity = materialParam->Get<double>(Name("iridescence_intensity", id));
@@ -305,7 +305,7 @@ void cMaterial::setParameters(
 
 	// orbitTrap weight control
 	fractalColoring.orbitTrapTrue =
-		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_true", id));
+		materialParam->Get<bool>(Name("fractal_coloring_orbit_trap_true", id));
 	fractalColoring.orbitTrapWeight =
 		materialParam->Get<double>(Name("fractal_coloring_orbit_trap_weight", id));
 	// fractalColoring.initialMinimumR =
@@ -313,7 +313,7 @@ void cMaterial::setParameters(
 
 	// aux.color
 	fractalColoring.auxColorFalse =
-		materialParam->Get<double>(Name("fractal_coloring_aux_color_false", id));
+		materialParam->Get<bool>(Name("fractal_coloring_aux_color_false", id));
 	fractalColoring.auxColorWeight =
 		materialParam->Get<double>(Name("fractal_coloring_aux_color_weight", id));
 	fractalColoring.auxColorHybridWeight =

@@ -317,6 +317,12 @@ template CVector4 cParameterContainer::Get<CVector4>(QString name) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name) const;
 template bool cParameterContainer::Get<bool>(QString name) const;
 
+template <>
+float cParameterContainer::Get<float>(QString name) const
+{
+	return float(Get<double>(name));
+}
+
 // get parameter value by name and index
 template <class T>
 T cParameterContainer::Get(QString name, int index) const
@@ -351,6 +357,12 @@ template CVector3 cParameterContainer::Get<CVector3>(QString name, int index) co
 template CVector4 cParameterContainer::Get<CVector4>(QString name, int index) const;
 template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
 template bool cParameterContainer::Get<bool>(QString name, int index) const;
+
+template <>
+float cParameterContainer::Get<float>(QString name, int index) const
+{
+	return float(Get<double>(name, index));
+}
 
 // get parameter default value by name
 template <class T>

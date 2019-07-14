@@ -271,8 +271,8 @@ bool cOpenClEngineRenderDOFPhase2::Render(
 			{
 				for (quint64 x = 0; x < width; x++)
 				{
-					qint64 xx = x + imageRegion.x1;
-					qint64 yy = y + imageRegion.y1;
+					quint64 xx = x + imageRegion.x1;
+					quint64 yy = y + imageRegion.y1;
 
 					cl_float4 imagePixelCl = reinterpret_cast<cl_float4 *>(
 						inputAndOutputBuffers[0][outputIndex].ptr.data())[x + y * width];

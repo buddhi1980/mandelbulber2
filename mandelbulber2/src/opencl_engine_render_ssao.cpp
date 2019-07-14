@@ -273,8 +273,8 @@ bool cOpenClEngineRenderSSAO::Render(cImage *image, bool *stopRequest)
 			{
 				for (quint64 x = 0; x < width; x++)
 				{
-					qint64 xx = x + imageRegion.x1;
-					qint64 yy = y + imageRegion.y1;
+					quint64 xx = x + imageRegion.x1;
+					quint64 yy = y + imageRegion.y1;
 
 					cl_float total_ambient =
 						reinterpret_cast<cl_float *>(outputBuffers[0][outputIndex].ptr.data())[x + y * width];

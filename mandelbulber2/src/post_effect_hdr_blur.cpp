@@ -61,7 +61,7 @@ void cPostEffectHdrBlur::Render(bool *stopRequest)
 
 	const double blurSize = radius * (image->GetWidth() + image->GetHeight()) * 0.001;
 	const double blurSize2 = blurSize * blurSize;
-	const int intBlurSize = blurSize + 1;
+	const int intBlurSize = int(blurSize + 1);
 	const double limiter = intensity;
 
 	QString statusText = QObject::tr("Rendering HDR Blur effect");

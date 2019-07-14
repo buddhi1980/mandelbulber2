@@ -745,9 +745,9 @@ void cImage::Squares(quint64 y, int pFactor)
 	}
 }
 
-void cImage::PutPixelAlfa(qint64 x, qint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer)
+void cImage::PutPixelAlfa(quint64 x, quint64 y, float z, sRGB8 color, sRGBFloat opacity, int layer)
 {
-	if (x >= 0 && x < qint64(previewWidth) && y >= 0 && y < qint64(previewHeight))
+	if (x < previewWidth && y < previewHeight)
 	{
 		quint64 address = quint64(x) + quint64(y) * quint64(previewWidth);
 		float zImage = GetPixelZBuffer(int(x / previewScale), int(y / previewScale));

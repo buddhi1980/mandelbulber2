@@ -102,7 +102,6 @@ public:
 	static bool sortByCenterDistanceAsc(
 		const QPoint &v1, const QPoint &v2, int gridWidth, int gridHeight);
 
-	void MarkCurrentPendingTile(cImage *image, QRect corners);
 	void ReleaseMemory();
 	size_t CalcNeededMemory() override;
 	void SetMeshExportParameters(const sClMeshExport *meshParams);

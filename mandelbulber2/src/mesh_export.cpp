@@ -108,9 +108,9 @@ void cMeshExport::ProcessVolume()
 	limitMax += CVector3(extension, extension, extension);
 	limitMin -= CVector3(extension, extension, extension);
 
-	w = sizeX / step;
-	h = sizeY / step;
-	l = sizeZ / step;
+	w = int(sizeX / step);
+	h = int(sizeY / step);
+	l = int(sizeZ / step);
 
 	limitMax.x = limitMin.x + w * step;
 	limitMax.y = limitMin.y + h * step;
@@ -172,7 +172,7 @@ void cMeshExport::ProcessVolume()
 		double nrCol = fmod(fabs(colorIndice), 248.0 * 256.0); // kept for compatibility
 		double colorPosition = fmod(nrCol / 256.0 / 10.0 * colorSpeed + colorOffset, 1.0);
 		sRGB color = gradient.GetColor(colorPosition, false);
-		sRGB8 color8(color.R, color.G, color.B);
+		sRGB8 color8(uchar(color.R), uchar(color.G), uchar(color.B));
 		colorsRGB.push_back(color8);
 	}
 

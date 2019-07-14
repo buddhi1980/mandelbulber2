@@ -49,8 +49,8 @@ cPostRenderingDOF::cPostRenderingDOF(cImage *_image) : QObject(), image(_image) 
 void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neutral,
 	int numberOfPasses, float blurOpacity, float maxRadius, bool *stopRequest)
 {
-	int imageWidth = image->GetWidth();
-	int imageHeight = image->GetHeight();
+	quint64 imageWidth = image->GetWidth();
+	quint64 imageHeight = image->GetHeight();
 
 	sRGBFloat *temp_image = new sRGBFloat[quint64(imageWidth) * quint64(imageHeight)];
 	unsigned short *temp_alpha = new unsigned short[quint64(imageWidth) * quint64(imageHeight)];
@@ -59,11 +59,11 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 
 	{
 		quint64 index = 0;
-		for (int y = screenRegion.y1; y < screenRegion.y2; y++)
+		for (quint64 y = quint64(screenRegion.y1); y < quint64(screenRegion.y2); y++)
 		{
-			for (int x = screenRegion.x1; x < screenRegion.x2; x++)
+			for (quint64 x = quint64(screenRegion.x1); x < quint64(screenRegion.x2); x++)
 			{
-				quint64 ptr = quint64(x) + quint64(y) * quint64(imageWidth);
+				quint64 ptr = x + y * imageWidth;
 				temp_image[ptr] = image->GetPixelPostImage(x, y);
 				temp_alpha[ptr] = image->GetPixelAlpha(x, y);
 				temp_sort[index].z = image->GetPixelZBuffer(x, y);
@@ -108,9 +108,9 @@ void cPostRenderingDOF::Render(cRegion<int> screenRegion, float deep, float neut
 				if (blur > maxRadius) blur = maxRadius;
 				int size = int(blur);
 				int xStart = max(x - size, 0);
-				int xStop = min(x + size, screenRegion.x2 - 1);
+				int xStop = min(x + size, int(screenRegion.x2 - 1));
 				int yStart = max(y - size, 0);
-				int yStop = min(y + size, screenRegion.y2 - 1);
+				int yStop = min(y + size, int(screenRegion.y2 - 1));
 
 				float totalWeight = 0.0f;
 				sRGBFloat tempPixel;

@@ -944,10 +944,10 @@ void cInterface::RefreshMainImage()
 	{
 		SynchronizeInterface(gPar, gParFractal, qInterface::read);
 		sImageAdjustments imageAdjustments;
-		imageAdjustments.brightness = gPar->Get<double>("brightness");
-		imageAdjustments.contrast = gPar->Get<double>("contrast");
-		imageAdjustments.imageGamma = gPar->Get<double>("gamma");
-		imageAdjustments.saturation = gPar->Get<double>("saturation");
+		imageAdjustments.brightness = gPar->Get<float>("brightness");
+		imageAdjustments.contrast = gPar->Get<float>("contrast");
+		imageAdjustments.imageGamma = gPar->Get<float>("gamma");
+		imageAdjustments.saturation = gPar->Get<float>("saturation");
 		imageAdjustments.hdrEnabled = gPar->Get<bool>("hdr");
 
 		mainImage->SetImageParameters(imageAdjustments);

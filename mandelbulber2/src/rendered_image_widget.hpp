@@ -141,9 +141,9 @@ private:
 	void DisplayCoordinates();
 	void Display3DCursor(CVector2<int> screenPoint, double z);
 	void DisplayCrosshair() const;
-	void Compass(CVector3 rotation, QPointF center, float size);
+	void Compass(CVector3 rotation, QPointF center, double size);
 	void Draw3DBox(
-		double scale, double fov, CVector2<double> point, double z, cStereo::enumEye eye) const;
+		float scale, float fov, CVector2<float> point, float z, cStereo::enumEye eye) const;
 	static QPointF CalcPointPersp(const CVector3 &point, const CRotationMatrix &rot, double persp);
 	void DrawAnimationPath();
 	void PaintLastRenderedTilesInfo();

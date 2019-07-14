@@ -80,7 +80,7 @@ int cRenderer::InitProgresiveSteps()
 
 	if (progressiveSteps < 0) progressiveSteps = 0;
 
-	int progressive = pow(2.0, double(progressiveSteps) - 1);
+	int progressive = int(pow(2.0, double(progressiveSteps) - 1));
 	if (progressive == 0) progressive = 1;
 
 	return progressive;

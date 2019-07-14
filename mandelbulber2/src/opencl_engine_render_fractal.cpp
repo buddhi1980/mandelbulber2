@@ -995,17 +995,13 @@ void cOpenClEngineRenderFractal::PutMultiPixel(quint64 xx, quint64 yy, const sRG
 	const sClPixel &pixelCl, unsigned short newAlpha, sRGB8 color, unsigned short opacity,
 	cImage *image)
 {
-	qint64 ixx = qint64(xx);
-	qint64 iyy = qint64(yy);
-
-	image->PutPixelImage(ixx, iyy, newPixel);
-	image->PutPixelZBuffer(ixx, iyy, pixelCl.zBuffer);
-	image->PutPixelAlpha(ixx, iyy, newAlpha);
-	image->PutPixelColor(ixx, iyy, color);
-	image->PutPixelOpacity(ixx, iyy, opacity);
+	image->PutPixelImage(xx, yy, newPixel);
+	image->PutPixelZBuffer(xx, yy, pixelCl.zBuffer);
+	image->PutPixelAlpha(xx, yy, newAlpha);
+	image->PutPixelColor(xx, yy, color);
+	image->PutPixelOpacity(xx, yy, opacity);
 	if (image->GetImageOptional()->optionalDiffuse)
-		image->PutPixelDiffuse(
-			ixx, iyy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
+		image->PutPixelDiffuse(xx, yy, sRGBFloat(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f));
 }
 
 int cOpenClEngineRenderFractal::PeriodicRefreshOfTiles(int lastRefreshTime,
@@ -1375,45 +1371,6 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 	int quartV2 = cV2.x() > 0 ? (cV2.y() > 0 ? 1 : 0) : (cV2.y() > 0 ? 2 : 3);
 	if (quartV1 != quartV2) return quartV1 < quartV2;
 	return quartV1 < 2 ? v1.y() >= v2.y() : v1.y() < v2.y();
-}
-
-void cOpenClEngineRenderFractal::MarkCurrentPendingTile(cImage *image, QRect corners)
-{
-	int edgeWidth = max(1, min(corners.width(), corners.height()) / 10);
-	int edgeLength = max(1, min(corners.width(), corners.height()) / 4);
-	for (int _xx = 0; _xx < corners.width(); _xx++)
-	{
-		int xx = _xx + corners.x();
-		for (int _yy = 0; _yy < corners.height(); _yy++)
-		{
-			int yy = _yy + corners.y();
-			bool border = false;
-			if (_xx < edgeWidth || _xx > corners.width() - edgeWidth)
-			{
-				border = _yy < edgeLength || _yy > corners.height() - edgeLength;
-			}
-			if (!border && (_yy < edgeWidth || _yy > corners.height() - edgeWidth))
-			{
-				border = _xx < edgeLength || _xx > corners.width() - edgeLength;
-			}
-			image->PutPixelImage(xx, yy, border ? sRGBFloat(1, 1, 1) : sRGBFloat(0, 0, 0));
-			image->PutPixelColor(xx, yy, sRGB8(255, 255, 255));
-			image->PutPixelOpacity(xx, yy, 65535);
-			image->PutPixelAlpha(xx, yy, 1);
-			if (image->GetImageOptional()->optionalDiffuse)
-				image->PutPixelDiffuse(xx, yy, sRGBFloat(1, 1, 1));
-		}
-	}
-	QList<QRect> currentRenderededLines;
-	currentRenderededLines << corners;
-	image->NullPostEffect(&currentRenderededLines);
-	image->CompileImage(&currentRenderededLines);
-	if (image->IsPreview())
-	{
-		image->ConvertTo8bit(&currentRenderededLines);
-		image->UpdatePreview(&currentRenderededLines);
-		emit updateImage();
-	}
 }
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)

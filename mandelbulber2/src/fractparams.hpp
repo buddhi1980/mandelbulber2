@@ -183,8 +183,8 @@ struct sParamRender
 	float DOFMonteCarloCADispersionGain;
 	float DOFMonteCarloCACameraDispersion;
 	double fakeLightsIntensity;
-	double fakeLightsVisibility;
-	double fakeLightsVisibilitySize;
+	float fakeLightsVisibility;
+	float fakeLightsVisibilitySize;
 	double fogVisibility;
 	double formulaScale[NUMBER_OF_FRACTALS];
 	double fov; // perspective factor
@@ -219,7 +219,7 @@ struct sParamRender
 	double volFogDistanceFactor;
 	double volFogDistanceFromSurface;
 	double volumetricLightDEFactor;
-	double volumetricLightIntensity[5];
+	float volumetricLightIntensity[5];
 
 	sImageAdjustments imageAdjustments;
 

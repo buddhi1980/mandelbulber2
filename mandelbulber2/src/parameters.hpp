@@ -57,6 +57,7 @@ public:
 	template <class T>
 	void addParam(QString name, T defaultVal, enumMorphType morphType, enumParameterType parType,
 		QStringList enumLookup = {});
+
 	template <class T>
 	void addParam(QString name, T defaultVal, T minVal, T maxVal, enumMorphType morphType,
 		enumParameterType parType);
@@ -74,8 +75,10 @@ public:
 
 	template <class T>
 	T Get(QString name) const;
+
 	template <class T>
 	T Get(QString name, int index) const;
+
 	template <class T>
 	T GetDefault(QString name) const;
 	template <class T>
@@ -113,5 +116,108 @@ private:
 
 	mutable QMutex m_lock;
 };
+
+extern template void cParameterContainer::addParam<double>(QString name, double defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<int>(QString name, int defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<QString>(QString name, QString defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<bool>(QString name, bool defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+
+extern template void cParameterContainer::addParam<double>(QString name, double defaultVal,
+	double minVal, double maxVal, enumMorphType morphType, enumParameterType parType);
+extern template void cParameterContainer::addParam<int>(QString name, int defaultVal, int minVal,
+	int maxVal, enumMorphType morphType, enumParameterType parType);
+extern template void cParameterContainer::addParam<CVector3>(QString name, CVector3 defaultVal,
+	CVector3 minVal, CVector3 maxVal, enumMorphType morphType, enumParameterType parType);
+extern template void cParameterContainer::addParam<CVector4>(QString name, CVector4 defaultVal,
+	CVector4 minVal, CVector4 maxVal, enumMorphType morphType, enumParameterType parType);
+extern template void cParameterContainer::addParam<sRGB>(QString name, sRGB defaultVal, sRGB minVal,
+	sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+
+extern template void cParameterContainer::addParam<double>(QString name, int index,
+	double defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<QString>(QString name, int index,
+	QString defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<CVector3>(QString name, int index,
+	CVector3 defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<CVector4>(QString name, int index,
+	CVector4 defaultVal, enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+extern template void cParameterContainer::addParam<bool>(QString name, int index, bool defaultVal,
+	enumMorphType morphType, enumParameterType parType, QStringList enumLookup);
+
+extern template void cParameterContainer::addParam<double>(QString name, int index,
+	double defaultVal, double minVal, double maxVal, enumMorphType morphType,
+	enumParameterType parType);
+extern template void cParameterContainer::addParam<int>(QString name, int index, int defaultVal,
+	int minVal, int maxVal, enumMorphType morphType, enumParameterType parType);
+extern template void cParameterContainer::addParam<CVector3>(QString name, int index,
+	CVector3 defaultVal, CVector3 minVal, CVector3 maxVal, enumMorphType morphType,
+	enumParameterType parType);
+extern template void cParameterContainer::addParam<CVector4>(QString name, int index,
+	CVector4 defaultVal, CVector4 minVal, CVector4 maxVal, enumMorphType morphType,
+	enumParameterType parType);
+extern template void cParameterContainer::addParam<sRGB>(QString name, int index, sRGB defaultVal,
+	sRGB minVal, sRGB maxVal, enumMorphType morphType, enumParameterType parType);
+
+extern template void cParameterContainer::Set<double>(QString name, double val);
+extern template void cParameterContainer::Set<int>(QString name, int val);
+extern template void cParameterContainer::Set<QString>(QString name, QString val);
+extern template void cParameterContainer::Set<CVector3>(QString name, CVector3 val);
+extern template void cParameterContainer::Set<CVector4>(QString name, CVector4 val);
+extern template void cParameterContainer::Set<sRGB>(QString name, sRGB val);
+extern template void cParameterContainer::Set<bool>(QString name, bool val);
+
+extern template void cParameterContainer::Set<double>(QString name, int index, double val);
+extern template void cParameterContainer::Set<int>(QString name, int index, int val);
+extern template void cParameterContainer::Set<QString>(QString name, int index, QString val);
+extern template void cParameterContainer::Set<CVector3>(QString name, int index, CVector3 val);
+extern template void cParameterContainer::Set<CVector4>(QString name, int index, CVector4 val);
+extern template void cParameterContainer::Set<sRGB>(QString name, int index, sRGB val);
+extern template void cParameterContainer::Set<bool>(QString name, int index, bool val);
+
+extern template double cParameterContainer::Get<double>(QString name) const;
+extern template int cParameterContainer::Get<int>(QString name) const;
+extern template QString cParameterContainer::Get<QString>(QString name) const;
+extern template CVector3 cParameterContainer::Get<CVector3>(QString name) const;
+extern template CVector4 cParameterContainer::Get<CVector4>(QString name) const;
+extern template sRGB cParameterContainer::Get<sRGB>(QString name) const;
+extern template bool cParameterContainer::Get<bool>(QString name) const;
+
+extern template double cParameterContainer::Get<double>(QString name, int index) const;
+extern template int cParameterContainer::Get<int>(QString name, int index) const;
+extern template QString cParameterContainer::Get<QString>(QString name, int index) const;
+extern template CVector3 cParameterContainer::Get<CVector3>(QString name, int index) const;
+extern template CVector4 cParameterContainer::Get<CVector4>(QString name, int index) const;
+extern template sRGB cParameterContainer::Get<sRGB>(QString name, int index) const;
+extern template bool cParameterContainer::Get<bool>(QString name, int index) const;
+
+extern template double cParameterContainer::GetDefault<double>(QString name) const;
+extern template int cParameterContainer::GetDefault<int>(QString name) const;
+extern template QString cParameterContainer::GetDefault<QString>(QString name) const;
+extern template CVector3 cParameterContainer::GetDefault<CVector3>(QString name) const;
+extern template CVector4 cParameterContainer::GetDefault<CVector4>(QString name) const;
+extern template sRGB cParameterContainer::GetDefault<sRGB>(QString name) const;
+extern template bool cParameterContainer::GetDefault<bool>(QString name) const;
+
+extern template double cParameterContainer::GetDefault<double>(QString name, int index) const;
+extern template int cParameterContainer::GetDefault<int>(QString name, int index) const;
+extern template QString cParameterContainer::GetDefault<QString>(QString name, int index) const;
+extern template CVector3 cParameterContainer::GetDefault<CVector3>(QString name, int index) const;
+extern template CVector4 cParameterContainer::GetDefault<CVector4>(QString name, int index) const;
+extern template sRGB cParameterContainer::GetDefault<sRGB>(QString name, int index) const;
+extern template bool cParameterContainer::GetDefault<bool>(QString name, int index) const;
 
 #endif /* MANDELBULBER2_SRC_PARAMETERS_HPP_ */
