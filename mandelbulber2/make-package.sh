@@ -112,6 +112,8 @@ then
 	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameLinux/makefiles/"
 	cp -vu "$sourceDir/qmake/mandelbulber-opencl.pro" "$destNameLinux/makefiles/"
 	cp -vu "$sourceDir/qmake/common.pri" "$destNameLinux/makefiles/"
+	cp -vu "$sourceDir/qmake/installer.pri" "$destNameLinux/makefiles/"
+	
 	cp -vu "$sourceDir/qmake/mandelbulber.pro" "$destNameWin/source/makefiles/"
 	cp -vu "$sourceDir/qmake/mandelbulber-opencl.pro" "$destNameWin/source/makefiles/"
 	cp -vu "$sourceDir/qmake/common.pri" "$destNameWin/source/makefiles/"
