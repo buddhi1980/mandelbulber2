@@ -42,6 +42,7 @@ float2 TextureMapping(float3 inPoint, float3 normalVector, __global sObjectDataC
 	point = Matrix33MulFloat3(objectData->rotationMatrix, point);
 	point /= objectData->size;
 	point = Matrix33MulFloat3(material->rotMatrix, point);
+	normalVector = Matrix33MulFloat3(objectData->rotationMatrix, normalVector);
 
 	switch (material->textureMappingType)
 	{

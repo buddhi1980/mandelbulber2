@@ -50,6 +50,7 @@ CVector2<double> TextureMapping(CVector3 inPoint, CVector3 normalVector,
 	point = objectData.rotationMatrix.RotateVector(point);
 	point /= objectData.size;
 	point = material->rotMatrix.RotateVector(point);
+	normalVector = objectData.rotationMatrix.RotateVector(normalVector);
 
 	switch (material->textureMappingType)
 	{

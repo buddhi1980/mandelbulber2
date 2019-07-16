@@ -250,6 +250,10 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	{
 		formulaMaterialId[0] = container->Get<int>("formula_material_id");
 		(*objectData)[0].materialId = formulaMaterialId[0];
+		(*objectData)[0].position = container->Get<CVector3>("fractal_position");
+		(*objectData)[0].size = CVector3(1.0, 1.0, 1.0);
+		(*objectData)[0].SetRotation(container->Get<CVector3>("fractal_rotation"));
+		(*objectData)[0].objectType = fractal::objFractal;
 	}
 
 	common.fakeLightsMaxIter = container->Get<int>("fake_lights_max_iter");
