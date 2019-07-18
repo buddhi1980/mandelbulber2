@@ -1,5 +1,5 @@
 # Mandelbulber settings file
-# version 2.18
+# version 2.19
 # only modified parameters
 [main_parameters]
 ambient_occlusion 2;
@@ -15,19 +15,18 @@ aux_light_volumetric_intensity_4 100;
 background_color_1 0000 0000 0000;
 background_color_2 5500 0000 0000;
 basic_fog_color eb3b ffff 0000;
-basic_fog_visibility 1.862087136662866e-12;
+basic_fog_visibility 1,862087136662866e-12;
 box_folding true;
 box_folding_limit 3;
-box_folding_value 6.3;
-camera 0.4801835478366061 -0.2923578230963722 0.7759817653238761;
-camera_distance_to_target 0.2729735374450684;
-camera_rotation -122.1100534956176 86.80148647911908 3.256521593919337e-08;
-camera_top -0.8457091749158594 0.5307191746295662 0.05579560147223396;
+box_folding_value 6,3;
+camera 0,4801835478366061 -0,2923578230963722 0,7759817653238761;
+camera_distance_to_target 0,2729735374450684;
+camera_rotation -122,1100534956176 86,80148647911908 3,256521593919337e-08;
+camera_top -0,8457091749158594 0,5307191746295662 0,05579560147223396;
 DE_thresh 1;
 delta_DE_function 2;
-DOF_focus 1.479108388168207e-14;
+DOF_focus 1,479108388168207e-14;
 DOF_MC_CA_enable true;
-DOF_MC_global_illumination true;
 DOF_monte_carlo true;
 flight_last_to_render 0;
 fog_color_1 0000 0000 0000;
@@ -47,26 +46,24 @@ iteration_fog_color_2_maxiter 165;
 keyframe_last_to_render 0;
 legacy_coordinate_system true;
 limit_max 10 10 5;
-limit_min -10 -10 -0.01;
+limit_min -10 -10 -0,01;
 limits_enabled true;
 main_light_beta -45;
-main_light_intensity 0.7;
+main_light_intensity 0,7;
 main_light_volumetric_intensity 100;
-mat1_coloring_palette_size 3;
-mat1_coloring_random_seed 534513;
-mat1_coloring_speed 0.1;
+mat1_coloring_speed 0,3333;
 mat1_is_defined true;
 mat1_metallic false;
 mat1_specular 1;
 mat1_specular_width 1;
-mat1_surface_color_palette 9a260d f3ffdd 000000;
+mat1_surface_color_gradient 0 9a260d 3333 f3ffdd 6666 000000;
 MC_soft_shadows_enable true;
 raytraced_reflections true;
 spherical_folding true;
 stereo_enabled true;
-stereo_eye_distance 0.002208574338005465;
-target 0.4930844065684833 -0.3004536713027399 1.048530067888896;
-view_distance_max 54.50900746077869;
+stereo_eye_distance 0,002208574338005465;
+target 0,4930844065684833 -0,3004536713027399 1,048530067888896;
+view_distance_max 54,50900746077869;
 volumetric_fog_density 0;
 [fractal_2]
 IFS_rotation_enabled true;

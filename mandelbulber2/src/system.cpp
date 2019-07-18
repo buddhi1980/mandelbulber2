@@ -586,6 +586,15 @@ void UpdateDefaultPaths()
 void UpdateUIStyle()
 {
 	// set ui style
+#ifdef _WIN32
+	if (gPar->Get<int>("ui_style_type") < 0)
+	{
+		QStringList listOfStyles = QStyleFactory::keys();
+		int indexOfFusion = listOfStyles.indexOf("Fusion");
+		gPar->Set<int>("ui_style_type", indexOfFusion);
+	}
+#endif
+
 	if (gPar->Get<int>("ui_style_type") >= 0
 			&& gPar->Get<int>("ui_style_type") < QStyleFactory::keys().size())
 	{
