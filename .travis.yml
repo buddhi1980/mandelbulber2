@@ -24,6 +24,7 @@ install:
       && sudo apt-get install -y mesa-common-dev libgl1-mesa-dev
       && sudo apt-get install -y qt57base qt57tools qt57multimedia
       && sudo apt-get install -y libpng12-0 libpng12-dev libgsl0-dev libgsl0ldbl libgomp1 liblzo2-2 liblzo2-dev
+      && sudo apt-get install -y libqt5svg5
       && sudo apt-get install -y libtiff5
       && sudo apt-get install -y libsndfile1-dev tree
       && sudo apt-get install opencl-headers ocl-icd-libopencl1 ocl-icd-opencl-dev
