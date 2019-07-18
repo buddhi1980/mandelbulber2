@@ -114,7 +114,7 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "version: <b>" + QString(MANDELBULBER_VERSION_STRING) + "</b>" + "<br>";
 	text += "<br>";
 	text += "Licence: GNU GPL version 3.0<br>";
-	text += "Copyright Ⓒ 2018<br>";
+	text += "Copyright Ⓒ 2019<br>";
 	text += "project leader: Krzysztof Marczak<br>";
 	text += "programmers:<br>";
 	text += "Krzysztof Marczak<br>";
@@ -123,9 +123,12 @@ void RenderWindow::slotMenuAboutMandelbulber()
 	text += "Bernardo Martelli<br>";
 	text += "Robert Pancoast<br>";
 	text += "<br>";
+	text += "Thanks to many friends from Mandelbulber community<br>";
 	text +=
-		"Thanks to many friends from <a "
-		"href=\"http://www.fractalforums.com\">www.fractalforums.com</a> for help<br>";
+		"<a "
+		"href=\"https://www.facebook.com/groups/mandelbulber/\">https://www.facebook.com/groups/"
+		"mandelbulber/</a>";
+	text += "<br>for help<br>";
 	text += "<br>";
 	text += "<a href=\"http://www.mandelbulber.com\">www.mandelbulber.com</a>";
 
