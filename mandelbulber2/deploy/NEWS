@@ -8,11 +8,36 @@ dev v2.19
    transfPolyFoldAtan
    transfPolyFoldAtan2
    transfAbsAddConditional2
-
-
 - modified fractal formulas
    transfPolyFoldSymXY, added XY to name and updated code
    transfPolyFoldSymMulti, updated code
+- Shaders: surface color palette replaced with gradient editor
+- Shaders: added gradient for specular highlights
+- Shaders: added gradient for diffusion
+- Shaders: added gradient for luminosity
+- Shaders: added gradient for reflectance
+- Shaders: added gradient for transparency
+- Shaders: added gradient for roughness
+- Shaders: added texture mapping for reflectance
+- Shaders: added texture mapping for transparency
+- Shaders: added texture mapping for roughness
+- Shaders: added global illumination by volumetric effects
+- Shaders: Fixed bug: corrected rotation of textures when main fractal object is rotated 
+- Animation: added morphing of gradients
+- UI: added context menu and quick action buttons for gradients
+- UI: Added option in preferences to disable tooltips (fixed issue #213)
+- UI: Select Fusion UI style as default when none is selected
+- Settings: added conversion of old color palettes to new gradients
+- Image: added saving diffuse optional channel
+- Image: added saving world coordinate optional channel
+- Code: refactored code for NetRender
+- Code: a lot of small code improvements and cleaning up
+- Compilation: Added missing installer.pri to the Linux package
+- Compilation: moved to Qt 5.12 in msvc builds for Windows
+- Fixed bug: fix for crashing when preview size was changed during rendering
+- Fixed bug: when program was closed during populating toolbar, there was left zombie process.
+- Fixed bug #609: Now it is not possible to run with OpenCL platform index -1
+- Examples: added many new example settings
 
 v2.18 (June 2019)
 - Added new fractal formulas

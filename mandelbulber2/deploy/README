@@ -144,7 +144,7 @@ make install
 ------------
 
 - Debian Buster x64
-- Ubuntu 17
+- Ubuntu 19.04
 
 - gcc 8.3
 - clang 7.0
