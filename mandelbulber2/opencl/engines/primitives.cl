@@ -155,7 +155,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 	float planeDistance = point.z;
 	if (planeDistance < amplitude * 10.0f)
 	{
-		float phase = primitive->data.water.animSpeed * primitive->data.water.animFrame * 0.1f;
+		float phase = -primitive->data.water.animSpeed * primitive->data.water.animFrame * 0.1f;
 
 		if (primitive->data.water.waveFromObjectsEnable)
 		{
@@ -171,19 +171,22 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 		float waveY = -objectWave;
 		float p = 1.0f;
 		float p2 = 0.05f;
+
+		point.x += phase * 0.05f;
+
 		for (int i = 1; i <= primitive->data.water.iterations; i++)
 		{
 			float p3 = p * p2;
-			float shift = phase / (i / 3.0f + 1.0f);
-			waveXTemp =
-				sin(i + 0.4f * (waveX)*p3 + sin(k * point.y / length * p3) + point.x / length * p3 + shift)
-				/ p;
-			waveYTemp = cos(i + 0.4f * (waveY)*p3 + sin(point.x / length * p3) + k * point.y / length * p3
-											+ shift * 0.23f)
+			float shift = phase / (i / 2.697f + 1.0f);
+			waveXTemp = sin(i + 0.4f * (waveX)*p3 + sin(k * point.y / length * p3 + shift * 0.134f * p3)
+											+ point.x / length * p3 + shift * p3)
+									/ p;
+			waveYTemp = cos(i + 0.4f * (waveY)*p3 + sin(point.x / length * p3 + shift * 0.0179f * p3)
+											+ k * point.y / length * p3 + shift * 0.023f * p3)
 									/ p;
 			waveX += waveXTemp;
 			waveY += waveYTemp;
-			p2 = p2 + (1.0f - p2) * 0.7f;
+			p2 = p2 + (1.0f - p2 + 0.5f * sin(shift * 0.0323f)) * 0.7f;
 			p *= 1.872f;
 		}
 

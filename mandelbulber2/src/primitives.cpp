@@ -384,7 +384,7 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 	double planeDistance = point.z;
 	if (planeDistance < amplitude * 10.0)
 	{
-		double phase = animSpeed * animFrame * 0.1;
+		double phase = -animSpeed * animFrame * 0.1;
 
 		if (waveFromObjectsEnable)
 		{
@@ -399,19 +399,22 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 		double waveY = -objectWave;
 		double p = 1.0;
 		double p2 = 0.05;
+
+		point.x += phase * 0.05;
+
 		for (int i = 1; i <= iterations; i++)
 		{
 			float p3 = p * p2;
-			double shift = phase / (i / 3.0 + 1.0);
-			waveXTemp =
-				sin(i + 0.4 * (waveX)*p3 + sin(k * point.y / length * p3) + point.x / length * p3 + shift)
-				/ p;
-			waveYTemp = cos(i + 0.4 * (waveY)*p3 + sin(point.x / length * p3) + k * point.y / length * p3
-											+ shift * 0.23)
+			float shift = phase / (i / 2.697 + 1.0);
+			waveXTemp = sin(i + 0.4 * (waveX)*p3 + sin(k * point.y / length * p3 + shift * 0.134 * p3)
+											+ point.x / length * p3 + shift * p3)
+									/ p;
+			waveYTemp = cos(i + 0.4 * (waveY)*p3 + sin(point.x / length * p3 + shift * 0.0179 * p3)
+											+ k * point.y / length * p3 + shift * 0.023 * p3)
 									/ p;
 			waveX += waveXTemp;
 			waveY += waveYTemp;
-			p2 = p2 + (1.0 - p2) * 0.7;
+			p2 = p2 + (1.0 - p2 + 0.5 * sin(shift * 0.0323)) * 0.7;
 			p *= 1.872;
 		}
 

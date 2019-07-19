@@ -24,6 +24,7 @@ dev v2.19
 - Shaders: added global illumination by volumetric effects
 - Shaders: Fixed bug: corrected rotation of textures when main fractal object is rotated 
 - Animation: added morphing of gradients
+- Primitives: improved water animation
 - UI: added context menu and quick action buttons for gradients
 - UI: Added option in preferences to disable tooltips (fixed issue #213)
 - UI: Select Fusion UI style as default when none is selected
