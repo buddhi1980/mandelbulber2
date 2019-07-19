@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
-    <height>1103</height>
+    <width>608</width>
+    <height>1156</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -152,8 +152,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>545</width>
-            <height>1025</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -2708,8 +2708,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>527</width>
-            <height>1854</height>
+            <width>551</width>
+            <height>1863</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -4261,7 +4261,7 @@ of lights:</string>
                 <item row="3" column="2">
                  <widget class="MyLineEdit" name="logedit_fake_lights_visibility">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of visible lights. It is volumetric effect.&lt;/p&gt;&lt;p&gt;Quality of this effect can by controled by &lt;span style=&quot; font-style:italic;&quot;&gt;Effects / Volumetric / Custom DE step multiplier for volumetric effects&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -4291,7 +4291,10 @@ of lights:</string>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_93">
                   <property name="text">
-                   <string>Visibility of glow:</string>
+                   <string>Visibility of glow (volumetric efect):</string>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
