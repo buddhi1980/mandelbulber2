@@ -50,10 +50,15 @@ public:
 	cMandelbulb3dSettings();
 	~cMandelbulb3dSettings();
 	bool LoadSettings(const QString &filename);
-	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal) const;
-	long FourCharsTo3Bytes(QString fourChars);
+	void ConvertToNewContainer(cParameterContainer *params, cFractalContainer *fractal);
+	quint64 FourCharsTo3Bytes(char* fourChars);
 
 private:
+	int getSettingsInt(int position);
+	int getSettings16Bit(int position);
+	int getSettings8Bit(int position);
+	double getSettingsDouble(int position);
+
 	QString settingsBinaryString;
 	QString settingsTitle;
 	QByteArray settings;

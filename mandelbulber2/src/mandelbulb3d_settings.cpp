@@ -79,15 +79,24 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 
 	if (settingsBinaryString != "")
 	{
+		QByteArray settingsBinaryBytes = settingsBinaryString.toLocal8Bit();
+		QDataStream in(&settingsBinaryBytes, QIODevice::ReadOnly);
 		QDataStream out(&settings, QIODevice::WriteOnly);
-		out.setByteOrder(QDataStream::LittleEndian); // this is windows!
-		for (int i = 0; i < settingsBinaryString.size(); i += 4)
+		out.setByteOrder(QDataStream::LittleEndian);
+		int chunkSize = 4;
+		char fourChars[chunkSize];
+		while (!in.atEnd())
 		{
-			QString fourChars = settingsBinaryString.mid(i, 4);
-			long parsedLong = FourCharsTo3Bytes(fourChars);
+			in.readRawData(fourChars, chunkSize);
+			quint64 parsedLong = FourCharsTo3Bytes(fourChars);
 			// qDebug() << parsedLong;
-			// from the bytes of the long [0123] only [123] are used and need to be appended
-			out.writeRawData((((char *)&parsedLong) + 1), 3);
+			// from the bytes of the long [0123] only [321] are used and need to be appended
+			// out.writeRawData((((char *)&parsedLong) + 1), 3);
+			char *parsedLongPtr = (char *) &parsedLong;
+			out.writeRawData(parsedLongPtr + 2, 1);
+			out.writeRawData(parsedLongPtr + 1, 1);
+			out.writeRawData(parsedLongPtr + 0, 1);
+			// out.writeRawData(parsedLongPtr + 0, 1);
 		}
 	}
 	// must return a value for msvc Error C4716 must return a value
@@ -95,7 +104,7 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 }
 
 void cMandelbulb3dSettings::ConvertToNewContainer(
-	cParameterContainer *par, cFractalContainer *fractal) const
+	cParameterContainer *par, cFractalContainer *fractal)
 {
 	// general parameters
 	par->ResetAllToDefault();
@@ -107,32 +116,83 @@ void cMandelbulb3dSettings::ConvertToNewContainer(
 	// MandId: Integer;                  //or byte + 3 free bytes
 
 	// Width, Height, Iterations: Integer; // MandId, Iterations could be Word?
-	/* TODO bool ok;
-	int a = settings.mid(0, 4).toHex().toInt(&ok, 16);
-	int b = settings.mid(8, 4).toHex().toInt(&ok, 16);
-	int c = settings.mid(12, 4).toHex().toInt(&ok, 16);
-	par->Set("image_width", settings.mid(4, 4).toInt());
-	par->Set("image_width", settings.mid(8, 4).toInt()); */
+	int TMandHeader10Off = 0;
+	int mandId = getSettingsInt(TMandHeader10Off);
+	par->Set("image_width", getSettingsInt(TMandHeader10Off + 4));
+	par->Set("image_width", getSettingsInt(TMandHeader10Off + 8));
+	par->Set("max_iter", getSettingsInt(TMandHeader10Off + 12));
+/*
+		// iOptions: Word;                   // iOptions: SmoothNs: (SpinEdit2.Value shl 6) or FirstStepRandom=bit1 or StepSubDEstop=bit3
+		getSettings16Bit(TMandHeader10Off + 16);
+		// bNewOptions: Byte;                // bit1: Quaternion instead of RotationMatrix! bit2: color on it nr:
+		getSettings8Bit(TMandHeader10Off + 18);
+		// bColorOnIt: Byte;                 //0: disabled 1: outputvec:=inputvec (1)2..255 iterate n-1 times + docolor
+		getSettings8Bit(TMandHeader10Off + 19);
+		// dZstart, dZend: Double;           //#20
+		getSettingsDouble(TMandHeader10Off + 20);
+		getSettingsDouble(TMandHeader10Off + 28);
+		// dXmid, dYmid, dZmid: Double;      //#36
+		getSettingsDouble(TMandHeader10Off + 36);
+		getSettingsDouble(TMandHeader10Off + 44);
+		getSettingsDouble(TMandHeader10Off + 52);*/
+	/*qCritical() << "ID: " << mandId << "width: " << par->Get<int>("image_width")
+					 << ", height: " << par->Get<int>("image_height");*/
 }
 
-long cMandelbulb3dSettings::FourCharsTo3Bytes(QString fourChars)
+int cMandelbulb3dSettings::getSettingsInt(int position){
+	bool ok;
+	QByteArray a = settings.mid(position, 4);
+	int ret = a.at(0);
+	// int ret = .toHex().toInt(&ok, 16);
+	// if(!ok) qCritical() << "getSettingsInt() error for position: " << position;
+	qCritical() << "getSettingsInt() return for position: " << position << " is " << ret;
+	return ret;
+}
+
+int cMandelbulb3dSettings::getSettings16Bit(int position){
+	bool ok;
+	int ret = settings.mid(position, 2).toHex().toInt(&ok, 16);
+	if(!ok) qCritical() << "getSettings16Bit() error for position: " << position;
+	qCritical() << "getSettings16Bit() return for position: " << position << " is " << ret;
+	return ret;
+}
+
+int cMandelbulb3dSettings::getSettings8Bit(int position){
+	bool ok;
+	int ret = settings.mid(position, 1).toHex().toInt(&ok, 16);
+	if(!ok) qCritical() << "getSettings8Bit() error for position: " << position;
+	qCritical() << "getSettings8Bit() return for position: " << position << " is " << ret;
+	return ret;
+}
+
+double cMandelbulb3dSettings::getSettingsDouble(int position){
+	bool ok;
+	double ret = 0; // settings.mid(position, 8).toDouble(ok);
+	if(!ok) qCritical() << "getSettingsDouble() error for position: " << position;
+	qCritical() << "getSettingsDouble() return for position: " << position << " is " << ret;
+	return ret;
+}
+
+quint64 cMandelbulb3dSettings::FourCharsTo3Bytes(char* fourChars)
 {
 	// see also mandelbulb implementation here:
 	// https://github.com/thargor6/mb3d/blob/66c45c98eb666e1cb0ccb8aaf36bccbb3fc574d2/DivUtils.pas
-	long i = 0;
-	const char *rawBytes = fourChars.toLatin1().toStdString().c_str();
+	quint64 i = 0;
 	for (char b = 0; b < 4; b++)
 	{
-		char c = rawBytes[b];
-		if ((c >= 46 && c <= 57) || (c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		char c = fourChars[b];
+		bool c_46_57 = (c >= 46 && c <= 57);
+		bool c_65_90 = (c >= 65 && c <= 90);
+		bool c_97_122 = (c >= 97 && c <= 122);
+		if(c_46_57 || c_65_90 || c_97_122)
 		{
-			if (c > 96)
+			if (c_97_122)
 				c -= 59;
-			else if (c > 64)
+			else if (c_65_90)
 				c -= 53;
-			else
+			else if(c_46_57)
 				c -= 46;
-			i += c << ((b - 0) * 6);
+			i = (i + c) << (min(1, b - 0) * 6);
 		}
 	}
 	return i;
