@@ -83,7 +83,8 @@ bool cMandelbulb3dSettings::LoadSettings(const QString &filename)
 		QDataStream in(&settingsBinaryBytes, QIODevice::ReadOnly);
 		QDataStream out(&settings, QIODevice::WriteOnly);
 		out.setByteOrder(QDataStream::LittleEndian);
-		int chunkSize = 4;
+		// mitigate Error E0028 expression must have a constant value 
+		const int chunkSize = 4;
 		char fourChars[chunkSize];
 		while (!in.atEnd())
 		{
