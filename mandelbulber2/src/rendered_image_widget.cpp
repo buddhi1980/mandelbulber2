@@ -731,6 +731,7 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 	if (event->isAutoRepeat())
 	{
 		event->ignore();
+		emit keyRelease(event);
 	}
 	else
 	{
@@ -777,6 +778,7 @@ void RenderedImage::keyReleaseEvent(QKeyEvent *event)
 			emit keyRelease(event);
 		}
 	}
+	event->ignore(); // pass pressed key event to parents
 }
 
 void RenderedImage::wheelEvent(QWheelEvent *event)

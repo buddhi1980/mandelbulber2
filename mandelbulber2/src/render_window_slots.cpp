@@ -188,7 +188,7 @@ void RenderWindow::slotKeyReleaseOnImage(QKeyEvent *event)
 	currentKeyEvents.removeOne(event->key());
 	lastKeyEventModifiers = event->modifiers();
 	slotKeyHandle();
-	buttonPressTimer->start();
+	buttonPressTimer->stop();
 }
 
 void RenderWindow::slotButtonLongPress()
@@ -912,6 +912,11 @@ bool RenderWindow::eventFilter(QObject *obj, QEvent *event)
 		{
 			return true;
 		}
+	}
+	else if (event->type() == QEvent::ShortcutOverride)
+	{
+		buttonPressTimer->stop();
+		return QMainWindow::eventFilter(obj, event);
 	}
 	else
 	{
