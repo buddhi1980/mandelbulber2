@@ -1,0 +1,173 @@
+# Azure CI build file
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema
+    
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+    - ci-test
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+    - master
+
+jobs:
+# ------------------------------------------------------------------------------
+# Linux
+# ------------------------------------------------------------------------------
+# Note: 'agentImage' is the Microsoft-hosted agent. 'containerImage' is the
+#        Docker container where the build occurs.
+# Note: 'containerImage' images are hosted on DockerHub.
+
+# TODO: Move Docker images to ASWF DockerHub account
+
+- job: Linux
+  strategy:
+    matrix:
+      CentOS 7 gcc VFX CY2019:
+        agentImage: 'ubuntu-16.04'
+        containerImage: aswfstaging/ci-openexr:2019.0
+        cxxCompiler: g++
+        cCompiler: gcc
+        installSh: ''
+#      CentOS 7 gcc VFX CY2020:
+#        agentImage: 'ubuntu-16.04'
+#        containerImage: aswfstaging/ci-openexr:2020.0
+#        cxxCompiler: g++
+#        cCompiler: gcc
+#        installSh: ''
+      CentOS 7 Clang 7 VFX CY2019:
+        agentImage: 'ubuntu-16.04'
+        containerImage: aswfstaging/ci-openexr:2019.0
+        cxxCompiler: clang++
+        cCompiler: clang
+        installSh: ''
+#      CentOS 7 Clang 7 VFX CY2020:
+#        agentImage: 'ubuntu-16.04'
+#        containerImage: aswfstaging/ci-openexr:2020.0
+#        cxxCompiler: clang++
+#        cCompiler: clang
+#        installSh: ''
+  pool:
+    vmImage: $(agentImage)
+  container: $[ variables['containerImage'] ]
+
+  steps:
+  - template: share/ci/templates/checkout.yml
+  - bash: $(installSh)
+    displayName: Install dependencies
+    condition: and(succeeded(), variables['installSh'])
+
+  - template: share/ci/templates/configure.yml
+    parameters:
+      cxxCompiler: $(cxxCompiler)
+      cCompiler: $(cCompiler)
+
+  - template: share/ci/templates/build.yml
+    parameters:
+      cxxCompiler: $(cxxCompiler)
+      cCompiler: $(cCompiler)
+      cmakeOpts: -- -j4
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    displayName: 'Publish test results'
+    inputs:
+      testResultsFormat: 'cTest'
+      testResultsFiles: '**/Test*.xml' 
+      failTaskOnFailedTests: true
+
+# ------------------------------------------------------------------------------
+#  SonarCloud static analysis
+# ------------------------------------------------------------------------------
+- job: SonarCloud
+  displayName: SonarCloud Ubuntu 16.04 VFX CY2019
+  condition: in(variables['Build.Reason'], 'Manual', 'Schedule')
+  pool:
+    vmImage: 'ubuntu-16.04'
+  container: aswfstaging/ci-base:2019.0
+
+  steps:
+  - template: share/ci/templates/checkout.yml
+  - bash: ''
+    displayName: Install dependencies
+  - template: share/ci/templates/configure.yml
+    parameters:
+      cxxFlags: -g -O0 -fprofile-arcs -ftest-coverage
+      cmakeOpts: |
+        -DCMAKE_EXE_LINKER_FLAGS="-lgcov" \
+        -DCMAKE_CXX_OUTPUT_EXTENSION_REPLACE=ON
+
+  - template: share/ci/templates/build_sonar.yml
+
+# ------------------------------------------------------------------------------
+# macOS
+# ------------------------------------------------------------------------------
+#- job: macOS
+#  strategy:
+#    matrix:
+#      10.14 AppleClang 10.0:
+#        agentImage: 'macOS-10.14'
+#      10.13 AppleClang 10.0:
+#        agentImage: 'macOS-10.13'
+#  pool:
+#    vmImage: $(agentImage)
+#
+#  steps:
+#  - template: share/ci/templates/checkout.yml
+#  - bash: |
+#      share/ci/scripts/macos/install.sh
+#      share/ci/scripts/macos/install_python.sh 2.7.16
+#    displayName: Install dependencies
+#
+#  - template: share/ci/templates/configure.yml
+#    parameters:
+#      cmakeOpts: |
+#        -DPYTHON_INCLUDE_DIR=$(python-config --prefix)/include/python2.7 \
+#        -DPYTHON_LIBRARY=$(python-config --prefix)/lib/libpython2.7.dylib \
+#        -DPYTHON_EXECUTABLE=$(which python2)
+#
+#  - template: share/ci/templates/build.yml
+#    parameters:
+#      cmakeOpts: -- -j4
+
+# ------------------------------------------------------------------------------
+# Windows
+# ------------------------------------------------------------------------------
+#- job: Windows
+#  strategy:
+#    matrix:
+#      2016 MSVC 14.16:
+#        agentImage: 'vs2017-win2016'
+#        buildSharedLibs: ON
+#      2016 MSVC 14.16 (Static):
+#        agentImage: 'vs2017-win2016'
+#        buildSharedLibs: OFF
+#      2012 MSVC 14.0:
+#        agentImage: 'vs2015-win2012r2'
+#        buildSharedLibs: ON
+#  pool:
+#    vmImage: $(agentImage)
+#
+#  steps:
+#  - template: share/ci/templates/checkout.yml
+#  - powershell: |
+#      share/ci/scripts/windows/install_python.ps1 2.7.16
+#      share/ci/scripts/windows/install_cmake.ps1 3.12.4
+#    displayName: Install dependencies
+#
+#  - template: share/ci/templates/configure.yml
+#    parameters:
+#      buildSharedLibs: $(buildSharedLibs)
+#      verbose: ON
+#      cmakeOpts: |
+#        -DCMAKE_GENERATOR_PLATFORM=x64 \
+#        -DPYTHON_EXECUTABLE=$(which python)
+#
+#  - template: share/ci/templates/build.yml
+
+
