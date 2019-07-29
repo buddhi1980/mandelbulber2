@@ -1,5 +1,5 @@
 Version history
-dev v2.19
+v2.19 (July 2019)
 - Added new fractal formulas
    mandelbulbPower1234
    mengerPolyFold
@@ -28,6 +28,7 @@ dev v2.19
 - UI: added context menu and quick action buttons for gradients
 - UI: Added option in preferences to disable tooltips (fixed issue #213)
 - UI: Select Fusion UI style as default when none is selected
+- UI: Fixed bugs #682 and #594: after using ctrl+s cursor permanently jumped to the right in edit fields 
 - Settings: added conversion of old color palettes to new gradients
 - Image: added saving diffuse optional channel
 - Image: added saving world coordinate optional channel
