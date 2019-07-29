@@ -88,13 +88,13 @@ qmake mandelbulber-opencl.pro
 make all
 cd ..
 
-4.4 Instalation
+4.4 Installation
 
 Run the install script:
 ./install
 (This will also run the compilation if program was not compiled)
 
-5. COMPILING develomnent version
+5. COMPILING development version
 --------------------------------
 
 Get actual code from GitHub:
@@ -127,8 +127,8 @@ sudo make install
 run:
 /usr/local/bin/mandelbulber2
 
-5.3 Compile and install the program to custom location and specyfy custom program 
-data directory. SHARED_PATH specifies wher the program will look for data files.
+5.3 Compile and install the program to custom location and specify custom program
+data directory. SHARED_PATH specifies where the program will look for data files.
 
 Create directory for the program:
 mkdir mandelbulberStandalone
