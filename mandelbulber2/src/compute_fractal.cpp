@@ -444,6 +444,10 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 					out->distance = min(z.y, fractals.GetFractal(0)->analyticDE.tweak005)
 													/ max(extendedAux.DE, fractals.GetFractal(0)->analyticDE.offset1);
 				}
+				else if (fractals.GetDEFunctionType(0) == fractal::josKleinianDEFunction)
+				{
+					out->distance = extendedAux.dist;
+				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
 					out->distance = extendedAux.dist;
@@ -491,6 +495,11 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 						out->distance =
 							min(z.y, fractals.GetFractal(sequence)->analyticDE.tweak005)
 							/ max(extendedAux.DE, fractals.GetFractal(sequence)->analyticDE.offset1);
+						break;
+					}
+					case analyticFunctionDIFS:
+					{
+						out->distance = extendedAux.dist;
 						break;
 					}
 

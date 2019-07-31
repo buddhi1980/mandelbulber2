@@ -345,7 +345,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	bool useLinearDEFunction = false;
 	bool useLogarithmicDEFunction = false;
 	bool usePseudoKleinianDEFunction = false;
-	bool useJosKleinianDEFunction = true;
+	bool useJosKleinianDEFunction = false;
+	bool useDIFSDEFunction = false;
 	if (fractals->IsHybrid())
 	{
 		if (deType == fractal::analyticDEType)
@@ -361,6 +362,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				case fractal::josKleinianDEFunction:
 					definesCollector += " -DANALYTIC_JOS_KLEINIAN_DE";
 					break;
+				case fractal::dIFSDEFunction: definesCollector += " -DANALYTIC_DIFS_DE"; break;
 				default: break;
 			}
 		}
@@ -373,6 +375,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 				case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 				case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 				case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
+				case fractal::dIFSDEFunction: useDIFSDEFunction = true; break;
 				default: break;
 			}
 		}
@@ -396,6 +399,7 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 					case fractal::logarithmicDEFunction: useLogarithmicDEFunction = true; break;
 					case fractal::pseudoKleinianDEFunction: usePseudoKleinianDEFunction = true; break;
 					case fractal::josKleinianDEFunction: useJosKleinianDEFunction = true; break;
+					case fractal::dIFSDEFunction: useDIFSDEFunction = true; break;
 					default: break;
 				}
 			}
@@ -412,6 +416,8 @@ void cOpenClEngineRenderFractal::SetParametersForDistanceEstimationMethod(
 	if (usePseudoKleinianDEFunction) definesCollector += " -DDELTA_PSEUDO_KLEINIAN_DE";
 
 	if (useJosKleinianDEFunction) definesCollector += " -DDELTA_JOS_KLEINIAN_DE";
+
+	if (useDIFSDEFunction) definesCollector += " -DDELTA_DIFS_DE";
 }
 
 void cOpenClEngineRenderFractal::CreateListOfUsedFormulas(cNineFractals *fractals)

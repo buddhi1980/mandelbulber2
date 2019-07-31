@@ -362,6 +362,10 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 				distance = (fabs(rxy * z.y) / r) / (dr);
 				maxiter = false;
 			}
+			else if (fractals.GetDEFunctionType(forcedFormulaIndex) == fractal::dIFSDEFunction)
+			{
+				distance = r; // FIXME: Can we calculate dIFS in deltaDE mode ???
+			}
 		}
 		else
 		{

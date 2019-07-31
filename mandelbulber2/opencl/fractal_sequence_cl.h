@@ -62,7 +62,8 @@ typedef enum
 	clAnalyticFunctionLogarithmic = 2,
 	clAnalyticFunctionIFS = 3,
 	clAnalyticFunctionPseudoKleinian = 4,
-	clAnalyticFunctionJosKleinian = 5
+	clAnalyticFunctionJosKleinian = 5,
+	clAnalyticFunctionDIFS = 6
 } enumDEAnalyticFunctionCl;
 
 typedef enum
