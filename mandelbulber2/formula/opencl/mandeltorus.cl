@@ -65,7 +65,7 @@ REAL4 MandeltorusIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		rh1 = native_powr(rhrad, power2);
 		rh2 = native_powr(rhrad, power1);
 
-		float sintheta = (1.5f + native_cos(tangle)) * rh2; // mode2
+		REAL sintheta = (1.5f + native_cos(tangle)) * rh2; // mode2
 		z.x = sintheta * native_cos(phipow);
 		z.z = sintheta * native_sin(phipow);
 		z.y = native_sin(tangle) * rh1; // mode 2

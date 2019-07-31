@@ -68,7 +68,7 @@ REAL4 MengerCrossKIFSIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{ // CrossMengerKIFS
-		float lengthL;
+		REAL lengthL;
 		// z = ( z );//+ preAdd );
 		z.y = fabs(z.y);
 		z.z = fabs(z.z);

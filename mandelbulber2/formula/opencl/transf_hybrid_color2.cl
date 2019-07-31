@@ -37,8 +37,8 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		// REAL lengthIter = 0.0f;
 		// REAL boxTrap = 0.0f;
 		// REAL sphereTrap = 0.0f;
-		// float lastDist = 0.0f;
-		// float addI = 0.0f;
+		// REAL lastDist = 0.0f;
+		// REAL addI = 0.0f;
 
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)

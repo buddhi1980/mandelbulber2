@@ -31,8 +31,8 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 		REAL4 v = fractal->transformCommon.vec111;
 		v = native_divide(v, length(v)); // normalise
-		float c = native_cos(useAngle * M_PI_180);
-		float s = native_sin(useAngle * M_PI_180);
+		REAL c = native_cos(useAngle * M_PI_180);
+		REAL s = native_sin(useAngle * M_PI_180);
 		REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
 
 		rotVec.x = z.x * (mad((1.0f - c), v.x * v.x, c)) + z.y * (mad((1.0f - c) * v.x, v.y, s * v.z))
@@ -48,8 +48,8 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		REAL4 v = fractal->transformCommon.vec111;
 		v = native_divide(v, length(v)); // normalise
-		float c = native_cos(useAngle * M_PI_180);
-		float s = native_sin(useAngle * M_PI_180);
+		REAL c = native_cos(useAngle * M_PI_180);
+		REAL s = native_sin(useAngle * M_PI_180);
 		REAL4 rotVec = (REAL4){0.0f, 0.0f, 0.0f, z.w};
 
 		rotVec.x = z.x * (mad((1.0f - c), v.x * v.x, c)) + z.y * (mad((1.0f - c) * v.x, v.y, s * v.z))
@@ -63,8 +63,8 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 
 		/*	REAL4 v = fractal->transformCommon.vec111;
 			v = native_divide(v, length(v)); // normalise
-			float c = native_cos(useAngle * M_PI_180);
-			float s = native_sin(useAngle * M_PI_180);
+			REAL c = native_cos(useAngle * M_PI_180);
+			REAL s = native_sin(useAngle * M_PI_180);
 			REAL4 rotVec = (REAL4) {0.0f, 0.0f, 0.0f, z.w};
 
 			CMatrix44 rotM = CMatrix44(c + (1.0f - c) * v.x * v.x, (1.0f - c) * v.x * v.y - s * v.z, (1.0f
