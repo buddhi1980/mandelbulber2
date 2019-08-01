@@ -18,32 +18,32 @@ REAL4 TransfRotationIterControlsIteration(
 {
 	Q_UNUSED(aux);
 	REAL4 tp;
-	if (fractal->transformCommon.rotation44a.x != 0
+	if (fractal->transformCommon.rotation44a.y != 0
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
 		tp = z;
-		REAL alpha = fractal->transformCommon.rotation44a.x * M_PI_180;
-		z.x = mad(tp.x, native_cos(alpha), tp.y * native_sin(alpha));
-		z.y = mad(tp.x, -native_sin(alpha), tp.y * native_cos(alpha));
+		REAL alpha = fractal->transformCommon.rotation44a.y * -M_PI_180;
+		z.y = mad(tp.y, native_cos(alpha), tp.z * native_sin(alpha));
+		z.z = mad(tp.y, -native_sin(alpha), tp.z * native_cos(alpha));
 	}
-	if (fractal->transformCommon.rotation44a.y != 0
+	if (fractal->transformCommon.rotation44a.z != 0
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
 	{
 		tp = z;
-		REAL beta = fractal->transformCommon.rotation44a.y * M_PI_180;
-		z.y = mad(tp.y, native_cos(beta), tp.z * native_sin(beta));
-		z.z = mad(tp.y, -native_sin(beta), tp.z * native_cos(beta));
+		REAL beta = fractal->transformCommon.rotation44a.z * M_PI_180;
+		z.x = mad(tp.x, native_cos(beta), tp.z * native_sin(beta));
+		z.z = mad(tp.x, -native_sin(beta), tp.z * native_cos(beta));
 	}
-	if (fractal->transformCommon.rotation44a.z != 0
+	if (fractal->transformCommon.rotation44a.x != 0
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)
 	{
 		tp = z;
-		REAL gamma = fractal->transformCommon.rotation44a.z * M_PI_180;
-		z.x = mad(tp.x, native_cos(gamma), tp.z * native_sin(gamma));
-		z.z = mad(tp.x, -native_sin(gamma), tp.z * native_cos(gamma));
+		REAL gamma = fractal->transformCommon.rotation44a.x * -M_PI_180;
+		z.x = mad(tp.x, native_cos(gamma), tp.y * native_sin(gamma));
+		z.y = mad(tp.x, -native_sin(gamma), tp.y * native_cos(gamma));
 	}
 	return z;
 }

@@ -13051,32 +13051,34 @@ void TransfRotationIterControlsIteration(CVector4 &z, const sFractal *fractal, s
 {
 	Q_UNUSED(aux);
 	CVector4 tp;
-	if (fractal->transformCommon.rotation44a.x != 0
+	if (fractal->transformCommon.rotation44a.y != 0
 			&& aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
 		tp = z;
-		double alpha = fractal->transformCommon.rotation44a.x * M_PI_180;
-		z.x = tp.x * cos(alpha) + tp.y * sin(alpha);
-		z.y = tp.x * -sin(alpha) + tp.y * cos(alpha);
+		double alpha = fractal->transformCommon.rotation44a.y * -M_PI_180;
+		z.y = tp.y * cos(alpha) + tp.z * sin(alpha);
+		z.z = tp.y * -sin(alpha) + tp.z * cos(alpha);
 	}
-	if (fractal->transformCommon.rotation44a.y != 0
+
+	if (fractal->transformCommon.rotation44a.z != 0
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
 	{
 		tp = z;
-		double beta = fractal->transformCommon.rotation44a.y * M_PI_180;
-		z.y = tp.y * cos(beta) + tp.z * sin(beta);
-		z.z = tp.y * -sin(beta) + tp.z * cos(beta);
+		double beta = fractal->transformCommon.rotation44a.z * M_PI_180;
+		z.x = tp.x * cos(beta) + tp.z * sin(beta);
+		z.z = tp.x * -sin(beta) + tp.z * cos(beta);
 	}
-	if (fractal->transformCommon.rotation44a.z != 0
+
+	if (fractal->transformCommon.rotation44a.x != 0
 			&& aux.i >= fractal->transformCommon.startIterationsC
 			&& aux.i < fractal->transformCommon.stopIterationsC)
 	{
 		tp = z;
-		double gamma = fractal->transformCommon.rotation44a.z * M_PI_180;
-		z.x = tp.x * cos(gamma) + tp.z * sin(gamma);
-		z.z = tp.x * -sin(gamma) + tp.z * cos(gamma);
+		double gamma = fractal->transformCommon.rotation44a.x * -M_PI_180;
+		z.x = tp.x * cos(gamma) + tp.y * sin(gamma);
+		z.y = tp.x * -sin(gamma) + tp.y * cos(gamma);
 	}
 }
 
