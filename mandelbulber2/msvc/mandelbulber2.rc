@@ -61,8 +61,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,19,0,0
- PRODUCTVERSION 2,19,0,0
+ FILEVERSION 2,20,0,0
+ PRODUCTVERSION 2,20,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +79,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Mandelbulber Team"
             VALUE "FileDescription", "Mandelbulber generates three-dimensional fractals."
-            VALUE "FileVersion", "2.19"
+            VALUE "FileVersion", "2.20-dev"
             VALUE "InternalName", "mandelbulber2.exe"
             VALUE "LegalCopyright", "Copyright (C) 2019 Mandelbulber Team"
             VALUE "OriginalFilename", "mandelbulber2.exe"
             VALUE "ProductName", "Mandelbulber"
-            VALUE "ProductVersion", "2.19"
+            VALUE "ProductVersion", "2.20-dev"
         END
     END
     BLOCK "VarFileInfo"
