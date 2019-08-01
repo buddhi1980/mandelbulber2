@@ -3930,11 +3930,27 @@ void BoxFoldBulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void BoxFoldBulbPow2V3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations1)
+	{
+		double rr = 1.0;
+		z += fractal->transformCommon.offset000;
+		rr = z.Dot(z);
+		z *= fractal->transformCommon.scaleG1 / rr;
+		aux.DE *= (fractal->transformCommon.scaleG1 / rr);
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux.DE *= fractal->transformCommon.scaleA1;
+	}
+
 	// CVector4 c = aux.const_c;
 	double colorAdd = 0.0;
 	double rrCol = 0.0;
 	CVector4 zCol = z;
 	CVector4 oldZ = z;
+
 	// tglad fold
 	if (aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
