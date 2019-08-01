@@ -477,6 +477,8 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 		z.y = min(z.y, consts->fractal[0].transformCommon.foldingValue - z.y);
 	dist = min(z.y, consts->fractal[0].analyticDE.tweak005)
 				 / max(fabs(aux.DE), consts->fractal[0].analyticDE.offset1);
+#elif ANALYTIC_DIFS_DE
+	dist = aux.dist;
 #else
 	dist = length(z);
 #endif
@@ -512,6 +514,11 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 				if (fractal->transformCommon.spheresEnabled)
 					z.y = min(z.y, fractal->transformCommon.foldingValue - z.y);
 				dist = min(z.y, fractal->analyticDE.tweak005) / max(aux.DE, fractal->analyticDE.offset1);
+				break;
+			}
+			case clAnalyticFunctionDIFS:
+			{
+				dist = aux.dist;
 				break;
 			}
 			case clAnalyticFunctionNone: dist = -1.0; break;

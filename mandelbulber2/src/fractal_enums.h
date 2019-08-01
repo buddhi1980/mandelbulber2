@@ -57,7 +57,7 @@ enum enumDEFunctionType
 	dIFSDEFunction = 5,
 	// testingDEFunction = 6,
 	numberOfDEFunctions = 5, // used to prepare array
-	// numberOfDEFunctions = 6, // used to prepare array
+	// numberOfDEFunctions = 5, // used to prepare array
 	withoutDEFunction = 99
 };
 
