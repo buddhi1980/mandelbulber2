@@ -329,6 +329,11 @@ function:</string>
             <string>JosKleinian</string>
            </property>
           </item>
+          <item>
+           <property name="text">
+            <string>dIFS</string>
+           </property>
+          </item>
          </widget>
         </item>
         <item row="3" column="1" colspan="2">
