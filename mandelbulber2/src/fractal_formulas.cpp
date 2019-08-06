@@ -16934,6 +16934,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
  */
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
+	double colorAdd = 0.0;
 	// CVector4 oldZ = z;
 	// double fillet = fractal->transformCommon.offset0;
 	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
@@ -17099,6 +17100,14 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				aux.dist = min(aux.dist, zcd / aux.DE);*/
 			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
+	}
+
+	if (fractal->foldColor.auxColorEnabled)
+	{
+
+		colorAdd += fractal->mandelbox.color.factor.x;
+		colorAdd += fractal->mandelbox.color.factor.y * aux.i;
+		aux.color += colorAdd;
 	}
 }
 
