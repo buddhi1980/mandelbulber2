@@ -197,7 +197,7 @@ void CNetRenderServer::ClientReceive(int index)
 			CNetRenderTransport::ResetMessage(&clients[index].msg);
 
 			// try to get the next message, if available
-			ClientReceive(index);
+			ClientReceive(index); // FIXME convert recursion to while()
 		}
 	}
 }
@@ -237,6 +237,7 @@ const sClient &CNetRenderServer::GetClient(int index)
 		return nullClient;
 	}
 }
+
 bool CNetRenderServer::WaitForAllClientsReady(double timeout)
 {
 	QElapsedTimer timer;
