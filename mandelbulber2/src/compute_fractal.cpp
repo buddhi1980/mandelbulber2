@@ -445,10 +445,13 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 				else if (fractals.GetDEFunctionType(0) == fractal::dIFSDEFunction)
 				{
 					out->distance = extendedAux.dist;
+					//double distDE = (r - in.common.linearDEOffset) / extendedAux.DE;
+					//out->distance =  distDE + (extendedAux.dist - distDE) * extendedAux.temp1000 / 1000.0;
 				}
 				/*else if (fractals.GetDEFunctionType(0) == fractal:: testingDEFunction)
 				{
-					out->distance = extendedAux.dist;
+					double distDE = (r - in.common.linearDEOffset) / extendedAux.DE;
+					out->distance =  distDE + (extendedAux.dist - distDE) * extendedAux.temp1000 / 1000.0;
 
 
 

@@ -17064,7 +17064,6 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				zcd = zc.Length();
 			}
 			aux.dist = min(aux.dist, zcd / aux.DE);
-			aux.dist = aux.dist * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 		}
 
 		else
@@ -17098,15 +17097,30 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 					zcd = zc.Length();
 				}
 				aux.dist = min(aux.dist, zcd / aux.DE);*/
-			aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+			if (fractal->transformCommon.functionEnabledBx) zc = fabs(zc) - boxSize;
+			double zcd = 1.0;
+			zcd = max(zc.x, max(zc.y, zc.z));
+			if (zcd > 0.0)
+			{
+				zc.x = max(zc.x, 0.0);
+				zc.y = max(zc.y, 0.0);
+				zc.z = max(zc.z, 0.0);
+				zcd = zc.Length();
+			}
+			aux.dist = min(aux.dist, zcd / aux.DE);
+			double distDE = (z.Length()) /aux.DE;
+			aux.dist =  distDE + (aux.dist - distDE) * fractal->transformCommon.scale1;
+
 		}
+					aux.temp1000 *= fractal->transformCommon.scaleA1;
 	}
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
 
-		colorAdd += fractal->mandelbox.color.factor.x;
-		colorAdd += fractal->mandelbox.color.factor.y * aux.i;
+		colorAdd = fractal->mandelbox.color.factor.x * aux.dist;
+		colorAdd += fractal->mandelbox.color.factor.y;
+		colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
 		aux.color += colorAdd;
 	}
 }
