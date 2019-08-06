@@ -17109,8 +17109,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			}
 			aux.dist = min(aux.dist, zcd / aux.DE);
 			double distDE = (z.Length()) /aux.DE;
-			aux.dist =  distDE + (aux.dist - distDE) * fractal->transformCommon.scale1;
-
+			aux.dist =  aux.dist + (distDE - aux.dist) * (1.0 -  pow(1.0 - fractal->transformCommon.scale1, fractal->transformCommon.scaleB1));
 		}
 					aux.temp1000 *= fractal->transformCommon.scaleA1;
 	}
