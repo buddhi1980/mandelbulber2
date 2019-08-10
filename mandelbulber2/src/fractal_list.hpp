@@ -210,6 +210,10 @@ enum enumFractalFormula
 	scatorPower2 = 173,					 // added V2.15
 	scatorPower2StdR = 174,			 // added V2.15
 
+	// mandelbulber dIFS
+	dIFSBoxDiagonalV1 = 600,
+	dIFSBoxDiagonalV2 = 601,
+
 	mandelbulbEye = 800,
 
 	transfAddConstant = 1001,
@@ -333,6 +337,9 @@ enum enumFractalFormula
 	testing = 2100,
 	testing4d = 2101,
 	testingLog = 2103,
+
+
+
 };
 }
 
