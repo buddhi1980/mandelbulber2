@@ -6,7 +6,7 @@ Mandelbulber VFX Tools
 <br>
 
 ## About
-**Mandelbulber VFX Tools** is a work in progress collection of little Tools and helper Scripts to integrate *Mandelbulber* Frcatals into a VFX Pipeline.
+**Mandelbulber VFX Tools** is a work in progress collection of little Tools and helper Scripts to integrate *Mandelbulber* Frcatals into a VFX Pipeline developed by [Adrian Meyer](https://github.com/MeyerAdrian).
 Mainly *©SideFX Houdini* and *©The Foundry's Nuke*.
 All the code is developed during my studies at Animationsinstitut at Filmakademie Baden-Württemberg in the course Animation & Visual Effects.
 
