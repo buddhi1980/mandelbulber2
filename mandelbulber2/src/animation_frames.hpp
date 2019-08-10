@@ -58,8 +58,6 @@ public:
 
 		cParameterContainer parameters;
 		QImage thumbnail;
-		bool alreadyRendered{false};
-		QList<bool> alreadyRenderedSubFrames;
 	};
 
 	struct sParameterDescription
@@ -88,8 +86,6 @@ public:
 	void GetFrameAndConsolidate(int index, cParameterContainer *params, cFractalContainer *fractal);
 	sAnimationFrame GetFrame(int index) const;
 	int GetNumberOfFrames() const;
-	virtual int GetUnrenderedTillIndex(int index);
-	virtual int GetUnrenderedTotal();
 	void Clear();
 	void ClearAll();
 	virtual void AddAnimatedParameter(const QString &parameterName, const cOneParameter &defaultValue,

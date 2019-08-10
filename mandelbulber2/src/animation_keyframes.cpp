@@ -588,7 +588,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	const int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
 
-	if (endFrame == 0) endFrame = keyframes->GetNumberOfFrames() * frames_per_keyframe;
+	int totalFrames = keyframes->GetNumberOfFrames() * frames_per_keyframe;
+
+	if (endFrame == 0) endFrame = totalFrames;
 
 	if (startFrame == endFrame)
 	{
@@ -604,6 +606,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
 		imageWidget->SetEnableClickModes(false);
 	}
+
+	QVector<bool> alreadyRenderedFrames;
+	alreadyRenderedFrames.resize(totalFrames);
 
 	try
 	{
@@ -646,21 +651,24 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		// Check if frames have already been rendered
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
-			cAnimationFrames::sAnimationFrame frame = keyframes->GetFrame(index);
-			frame.alreadyRenderedSubFrames.clear();
 			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
 				const QString filename = GetKeyframeFilename(index, subIndex);
 				const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
-				frame.alreadyRenderedSubFrames.append(
-					QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
+				alreadyRenderedFrames[frameNo] =
+					(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
 			}
-			keyframes->ModifyFrame(index, frame);
 		}
-		const int unrenderedTotal = keyframes->GetUnrenderedTotal();
+
+		// count number of unrendered frames
+		int unrenderedTotalBeforeRender = 0;
+		for (int i = 0; i < totalFrames; i++)
+		{
+			if (!alreadyRenderedFrames[i]) unrenderedTotalBeforeRender++;
+		}
 
 		// message if all frames are already rendered
-		if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotal == 0)
+		if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotalBeforeRender == 0)
 		{
 			bool deletePreviousRender;
 			const QString questionTitle = QObject::tr("Truncate Image Folder");
@@ -716,9 +724,18 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			gNetRender->SetCurrentRenderId(renderId);
 			gNetRender->isAnimation = true;
 
+			int frameIndex = 0;
 			for (int i = 0; i < gNetRender->GetClientCount(); i++)
 			{
-				QList<int> startingFrames = {1, 2, 3};
+				QList<int> startingFrames;
+				for (int i = 0; i < numberOfFramesForNetRender; i++)
+				{
+					// looking for next unrendered frame
+					while (alreadyRenderedFrames[frameIndex] && frameIndex < totalFrames)
+						frameIndex++;
+
+					startingFrames.append(frameIndex);
+				}
 				// storage for number of already rendered frames need to be changed
 				emit SendNetRenderSetup(i, startingFrames);
 			}
@@ -731,23 +748,20 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		keyframes->ClearMorphCache();
 
 		// main loop for rendering of frames
+		int renderedFramesCount = 0;
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
 			//-------------- rendering of interpolated keyframes ----------------
 			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
-				// skip already rendered frame
-				if (keyframes->GetFrame(index).alreadyRenderedSubFrames[subIndex])
-				{
-					continue;
-				}
-
 				const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
 
+				// skip already rendered frame
+				if (alreadyRenderedFrames[frameIndex]) continue;
+
 				double percentDoneFrame;
-				if (unrenderedTotal > 0)
-					percentDoneFrame =
-						(keyframes->GetUnrenderedTillIndex(frameIndex) * 1.0) / unrenderedTotal;
+				if (unrenderedTotalBeforeRender > 0)
+					percentDoneFrame = double(renderedFramesCount) / unrenderedTotalBeforeRender;
 				else
 					percentDoneFrame = 1.0;
 
@@ -792,6 +806,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				const ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+				renderedFramesCount++;
+				alreadyRenderedFrames[frameIndex] = true;
 
 				gApplication->processEvents();
 			}

@@ -53,7 +53,7 @@ void cAnimationFrames::AddFrame(
 	const cParameterContainer &params, const cFractalContainer &fractal, int index)
 {
 	sAnimationFrame frame;
-	frame.alreadyRendered = false;
+
 	for (auto &parameterDescription : listOfParameters)
 	{
 		const cParameterContainer *container =
@@ -169,29 +169,6 @@ void cAnimationFrames::RegenerateAudioTracks(cParameterContainer *param)
 void cAnimationFrames::RefreshAllAudioTracks(cParameterContainer *param)
 {
 	audioTracks.RefreshAllAudioTracks(param);
-}
-
-int cAnimationFrames::GetUnrenderedTotal()
-{
-	return GetUnrenderedTillIndex(frames.count() - 1);
-}
-
-int cAnimationFrames::GetUnrenderedTillIndex(int index)
-{
-	if (index >= 0 && index < frames.count())
-	{
-		int count = 0;
-		for (int i = 0; i < index; i++)
-		{
-			if (!frames.at(i).alreadyRendered) count++;
-		}
-		return count;
-	}
-	else
-	{
-		qWarning() << "cAnimationFrames::GetUnrenderedTillIndex(int index): wrong index" << index;
-		return 0;
-	}
 }
 
 int cAnimationFrames::GetNumberOfFrames() const

@@ -768,6 +768,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		imageWidget->SetEnableClickModes(false);
 	}
 
+	QVector<bool> alreadyRenderedFrames;
+	alreadyRenderedFrames.resize(frames->GetNumberOfFrames());
+
 	try
 	{
 		const int startFrame = params->Get<int>("flight_first_to_render");
@@ -778,14 +781,18 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
 			const QString filename = GetFlightFilename(index);
-			cAnimationFrames::sAnimationFrame frame = frames->GetFrame(index);
-			frame.alreadyRendered = QFile(filename).exists() || index < startFrame || index >= endFrame;
-			frames->ModifyFrame(index, frame);
+			alreadyRenderedFrames[index] =
+				QFile(filename).exists() || index < startFrame || index >= endFrame;
 		}
 
-		const int unrenderedTotal = frames->GetUnrenderedTotal();
+		// count number of unrendered frames
+		int unrenderedTotalBeforeRender = 0;
+		for (int i = 0; i < frames->GetNumberOfFrames(); i++)
+		{
+			if (!alreadyRenderedFrames[i]) unrenderedTotalBeforeRender++;
+		}
 
-		if (frames->GetNumberOfFrames() > 0 && unrenderedTotal == 0)
+		if (frames->GetNumberOfFrames() > 0 && unrenderedTotalBeforeRender == 0)
 		{
 			bool deletePreviousRender;
 			const QString questionTitle = QObject::tr("Truncate Image Folder");
@@ -835,22 +842,24 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			}
 		}
 
+		int renderedFramesCount = 0;
 		for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 		{
 
 			double percentDoneFrame;
-			if (unrenderedTotal > 0)
-				percentDoneFrame = (frames->GetUnrenderedTillIndex(index) * 1.0) / unrenderedTotal;
+
+			if (unrenderedTotalBeforeRender > 0)
+				percentDoneFrame = (double(renderedFramesCount)) / unrenderedTotalBeforeRender;
 			else
 				percentDoneFrame = 1.0;
 
 			const QString progressTxt = progressText.getText(percentDoneFrame);
 
 			// Skip already rendered frames
-			if (frames->GetFrame(index).alreadyRendered)
+			if (alreadyRenderedFrames[index])
 			{
 				// int firstMissing = index;
-				while (index < frames->GetNumberOfFrames() && frames->GetFrame(index).alreadyRendered)
+				while (index < frames->GetNumberOfFrames() && alreadyRenderedFrames[index])
 				{
 					index++;
 				}
@@ -894,6 +903,9 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 			const ImageFileSave::enumImageFileType fileType =
 				ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 			SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+
+			renderedFramesCount++;
+			alreadyRenderedFrames[index] = true;
 
 			gApplication->processEvents();
 		}

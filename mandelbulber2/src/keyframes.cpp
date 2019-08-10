@@ -145,32 +145,6 @@ void cKeyframes::GetInterpolatedFrameAndConsolidate(
 	}
 }
 
-int cKeyframes::GetUnrenderedTotal()
-{
-	return GetUnrenderedTillIndex((frames.count() - 1) * GetFramesPerKeyframe());
-}
-
-int cKeyframes::GetUnrenderedTillIndex(int frameIndex)
-{
-	if (frameIndex >= 0 && frameIndex < frames.count() * GetFramesPerKeyframe())
-	{
-		int count = 0;
-		for (int index = 0; index < frameIndex; ++index)
-		{
-			int keyframe = index / GetFramesPerKeyframe();
-			int subIndex = index % GetFramesPerKeyframe();
-			if (!frames.at(keyframe).alreadyRenderedSubFrames[subIndex]) count++;
-		}
-		return count;
-	}
-	else
-	{
-		qWarning() << "cAnimationFrames::GetUnrenderedTillIndex(int index): wrong frameIndex: "
-							 << frameIndex;
-		return 0;
-	}
-}
-
 void cKeyframes::ChangeMorphType(int parameterIndex, parameterContainer::enumMorphType morphType)
 {
 	using namespace parameterContainer;

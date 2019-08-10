@@ -139,6 +139,7 @@ private:
 	bool lastToRenderMax = false;
 	QSize previewSize;
 	CVector3 actualCameraPosition;
+	const int numberOfFramesForNetRender = 10;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
