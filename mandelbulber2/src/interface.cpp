@@ -52,6 +52,7 @@
 #include "initparameters.hpp"
 #include "material_item_model.h"
 #include "my_ui_loader.h"
+#include "netrender.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_engine_render_dof.h"
 #include "opencl_engine_render_fractal.h"
@@ -506,6 +507,8 @@ void cInterface::StartRender(bool noUndo)
 		}
 		mainImage->BlockImage();
 	}
+
+	gNetRender->isAnimation = false;
 
 	repeatRequest = false;
 	progressBarAnimation->hide();

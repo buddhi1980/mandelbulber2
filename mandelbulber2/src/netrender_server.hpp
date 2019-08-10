@@ -80,6 +80,10 @@ public:
 	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
 		QStringList listOfTextures);
 
+	// send parameters and start rendering animation from frame n
+	void SetCurrentAnimation(
+		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
+
 private slots:
 	// received data from client
 	void ClientDisconnected();

@@ -151,6 +151,8 @@ signals:
 	void showErrorMessage(
 		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 	void notifyRenderKeyframeRenderStatus(QString text, QString progressText);
+
+	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;

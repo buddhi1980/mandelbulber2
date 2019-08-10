@@ -55,6 +55,7 @@ CNetRender::CNetRender() : QObject(nullptr)
 	deviceType = netRender_UNKNOWN;
 	status = netRender_NEW;
 	isUsed = false;
+	isAnimation = false;
 	cNetRenderClient = new CNetRenderClient();
 	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
 		SLOT(clientStatusChanged(netRenderStatus)));

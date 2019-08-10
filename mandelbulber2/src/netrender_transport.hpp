@@ -65,8 +65,9 @@ enum netCommandServer
 	netRender_ACK = 10,						/* acknowledge receiving of rendered lines */
 	netRender_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
 	netRender_ASK_STATUS = 12,		/* ask the client what its statis is */
-	netRender_ANIM = 13,					/* sending of settings and start rendering of animation */
-	netRender_SEND_REQ_FILE				/* send file requested by client (e.g. texture)*/
+	netRender_ANIM_KEY = 13,			/* sending of settings and start rendering of keyframe animation */
+	netRender_ANIM_FLIGHT = 14,		/* sending of settings and start rendering of flight animation */
+	netRender_SEND_REQ_FILE = 18	/* send file requested by client (e.g. texture)*/
 };
 
 /* these commands are send from the client to the server */
@@ -76,9 +77,9 @@ enum netCommandClient
 	netRender_DATA = 4,							 /* data of rendered lines */
 	netRender_BAD = 5,							 /* answer about wrong server version */
 	netRender_STATUS = 8,						 /* send status update */
-	netRender_SEND_FILE_HEADER = 14, /* send file data header */
-	netRender_SEND_FILE_DATA = 15,	 /* send chunk of file data */
-	netRender_REQ_FILE = 16					 /* ask server of a file (e.g. texture) */
+	netRender_SEND_FILE_HEADER = 15, /* send file data header */
+	netRender_SEND_FILE_DATA = 16,	 /* send chunk of file data */
+	netRender_REQ_FILE = 17					 /* ask server of a file (e.g. texture) */
 };
 
 enum netRenderStatus

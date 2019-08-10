@@ -207,6 +207,8 @@ void CNetRenderClient::ProcessData()
 		case netRender_SETUP: ProcessRequestSetup(inMsg); break;
 		case netRender_ACK: ProcessRequestAck(inMsg); break;
 		case netRender_KICK_AND_KILL: ProcessRequestKickAndKill(inMsg); break;
+		case netRender_ANIM_FLIGHT: ProcessRequestRenderAnimation(inMsg); break;
+		case netRender_ANIM_KEY: ProcessRequestRenderAnimation(inMsg); break;
 		default: qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command); break;
 	}
 }
@@ -434,4 +436,16 @@ void CNetRenderClient::ProcessRequestKickAndKill(sMessage *inMsg)
 	Q_UNUSED(inMsg);
 	WriteLog("NetRender - ProcessData(), command KICK AND KILL", 2);
 	QApplication::quit();
+}
+
+void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
+{
+	WriteLog("NetRender - ProcessData(), command ANIM", 2);
+
+	if (inMsg->command == netRender_ANIM_FLIGHT)
+	{
+	}
+	else if (inMsg->command == netRender_ANIM_KEY)
+	{
+	}
 }

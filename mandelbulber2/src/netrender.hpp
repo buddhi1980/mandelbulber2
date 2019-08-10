@@ -128,6 +128,9 @@ public:
 	// setting status color
 	static QString GetStatusColor(netRenderStatus displayStatus);
 
+public:
+	bool isAnimation;
+
 	//---------------- private data -----------------
 private:
 	CNetRenderClient *cNetRenderClient;

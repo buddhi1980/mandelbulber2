@@ -96,6 +96,7 @@ private:
 	void ProcessRequestSetup(sMessage *inMsg);
 	void ProcessRequestAck(sMessage *inMsg);
 	void ProcessRequestKickAndKill(sMessage *inMsg);
+	void ProcessRequestRenderAnimation(sMessage *inMsg);
 
 	QTcpSocket *clientSocket;
 	QTimer *reconnectTimer;

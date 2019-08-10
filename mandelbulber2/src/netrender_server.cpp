@@ -328,8 +328,48 @@ void CNetRenderServer::SetCurrentJob(
 	}
 }
 
+void CNetRenderServer::SetCurrentAnimation(
+	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
+{
+	WriteLog(QString("NetRender - Sending animation to %1 client(s)").arg(clients.size()), 2);
+	cSettings settingsData(cSettings::formatNetRender);
+	size_t dataSize = settingsData.CreateText(&settings, &fractal);
+
+	if (dataSize > 0)
+	{
+		QString settingsText = settingsData.GetSettingsText();
+
+		if (isFlight)
+			msgCurrentJob.command = netRender_ANIM_FLIGHT;
+		else
+			msgCurrentJob.command = netRender_ANIM_KEY;
+
+		QDataStream stream(&msgCurrentJob.payload, QIODevice::WriteOnly);
+
+		// write settings
+		stream << actualId;
+		stream << qint32(settingsText.toUtf8().size());
+		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
+	}
+
+	for (int i = 0; i < GetClientCount(); i++)
+	{
+		auto &client = GetClient(i);
+		CNetRenderTransport::SendData(client.socket, msgCurrentJob, actualId);
+		clients[i].linesRendered = 0;
+	}
+
+	// NOTE: before SetCurrentAnimation() need to be:
+	// generated actualID by
+	// qint32 renderId = rand();
+	// gNetRender->SetCurrentRenderId(renderId);
+	// and called SendSetup() to send actualID and starting
+	// frame numbers
+}
+
 void CNetRenderServer::ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket *socket)
 {
+	Q_UNUSED(inMsg);
 	cErrorMessage::showMessage(QObject::tr("NetRender - Client version mismatch!\n Client address:")
 															 + socket->peerAddress().toString(),
 		cErrorMessage::errorMessage, gMainInterface->mainWindow);
@@ -340,6 +380,9 @@ void CNetRenderServer::ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket 
 
 void CNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSocket *socket)
 {
+	Q_UNUSED(inMsg);
+	Q_UNUSED(socket);
+
 	QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 	qint32 clientWorkerCount;
 	stream >> clientWorkerCount;
@@ -377,6 +420,9 @@ void CNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 
 void CNetRenderServer::ProcessRequestData(sMessage *inMsg, int index, QTcpSocket *socket)
 {
+	Q_UNUSED(inMsg);
+	Q_UNUSED(socket);
+
 	WriteLog("NetRender - ProcessData(), command DATA", 3);
 	if (inMsg->id == actualId)
 	{
@@ -418,6 +464,9 @@ void CNetRenderServer::ProcessRequestData(sMessage *inMsg, int index, QTcpSocket
 
 void CNetRenderServer::ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket)
 {
+	Q_UNUSED(inMsg);
+	Q_UNUSED(socket);
+
 	WriteLog("NetRender - ProcessData(), command STATUS", 3);
 	netRenderStatus clientStatus =
 		netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));

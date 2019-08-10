@@ -143,6 +143,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		connect(ui->checkBox_show_light_path_4, SIGNAL(stateChanged(int)), this,
 			SLOT(slotUpdateAnimationPathSelection()));
 
+		// NetRender for animation
+		connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
+			SLOT(SendSetup(int, QList<int>)));
+
 		table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
@@ -703,6 +707,20 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			else
 			{
 				throw false;
+			}
+		}
+
+		if (gNetRender->IsServer())
+		{
+			qint32 renderId = rand();
+			gNetRender->SetCurrentRenderId(renderId);
+			gNetRender->isAnimation = true;
+
+			for (int i = 0; i < gNetRender->GetClientCount(); i++)
+			{
+				QList<int> startingFrames = {1, 2, 3};
+				// storage for number of already rendered frames need to be changed
+				emit SendNetRenderSetup(i, startingFrames);
 			}
 		}
 
