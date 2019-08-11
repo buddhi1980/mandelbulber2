@@ -15,13 +15,9 @@ steps:
     if [ "$CCOMPILER" ]; then
         export CC="$CCOMPILER"
     fi
-    echo `which cmake`
-    cmake --build . \
-          --target install \
-          --config ${{ parameters.buildType }} \
-          ${{ parameters.cmakeOpts }}
+    echo todo
   workingDirectory: _build
-  displayName: Build OpenEXR
+  displayName: Build
 
 - template: test.yml
 
