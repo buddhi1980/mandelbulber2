@@ -43,6 +43,7 @@ The possibilities are literally **infinite**!
 ## Features
 
 - High-Performance computing with multiple graphics accelerator cards (multi-GPU support via OpenCL)
+- Mathematical Models and Monte Carlo Algorithms for photo-realistic scenes
 - [Enlightening Documentation](https://github.com/buddhi1980/mandelbulber_doc/)
 - Renders trigonometric, hyper-complex, Mandelbox, IFS, and many other 3D fractals
 - Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
