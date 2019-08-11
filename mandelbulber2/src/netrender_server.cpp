@@ -347,7 +347,6 @@ void CNetRenderServer::SetCurrentAnimation(
 		QDataStream stream(&msgCurrentJob.payload, QIODevice::WriteOnly);
 
 		// write settings
-		stream << actualId;
 		stream << qint32(settingsText.toUtf8().size());
 		stream.writeRawData(settingsText.toUtf8().data(), settingsText.toUtf8().size());
 	}
@@ -358,13 +357,6 @@ void CNetRenderServer::SetCurrentAnimation(
 		CNetRenderTransport::SendData(client.socket, msgCurrentJob, actualId);
 		clients[i].linesRendered = 0;
 	}
-
-	// NOTE: before SetCurrentAnimation() need to be:
-	// generated actualID by
-	// qint32 renderId = rand();
-	// gNetRender->SetCurrentRenderId(renderId);
-	// and called SendSetup() to send actualID and starting
-	// frame numbers
 }
 
 void CNetRenderServer::ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket *socket)

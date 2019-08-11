@@ -154,6 +154,8 @@ signals:
 	void notifyRenderKeyframeRenderStatus(QString text, QString progressText);
 
 	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
+	void NetRenderCurrentAnimation(
+		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;

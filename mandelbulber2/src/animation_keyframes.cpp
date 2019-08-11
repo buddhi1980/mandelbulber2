@@ -146,8 +146,13 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		// NetRender for animation
 		connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
 			SLOT(SendSetup(int, QList<int>)));
+		connect(this,
+			SIGNAL(
+				NetRenderCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)),
+			gNetRender,
+			SLOT(SetCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)));
 
-		table = ui->tableWidget_keyframe_animation;
+			table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
 		if (keyframes->GetListOfUsedParameters().size() == 0)
@@ -735,6 +740,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						frameIndex++;
 
 					startingFrames.append(frameIndex);
+					frameIndex++;
 				}
 				// storage for number of already rendered frames need to be changed
 				emit SendNetRenderSetup(i, startingFrames);

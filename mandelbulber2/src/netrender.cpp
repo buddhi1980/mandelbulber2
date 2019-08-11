@@ -127,6 +127,12 @@ void CNetRender::SetCurrentJob(
 	cNetRenderServer->SetCurrentJob(settings, fractal, listOfTextures);
 }
 
+void CNetRender::SetCurrentAnimation(
+	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
+{
+	cNetRenderServer->SetCurrentAnimation(settings, fractal, isFlight);
+}
+
 void CNetRender::SendToDoList(int clientIndex, const QList<int> &done)
 {
 	cNetRenderServer->SendToDoList(clientIndex, done);
