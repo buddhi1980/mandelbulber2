@@ -2,6 +2,9 @@
 # Render Folders
 render*/
 
+# Compiled python bytecode
+*.pyc
+
 # Build Directories
 mandelbulber2/deploy/share/mandelbulber2/mandelbulber2
 build/
