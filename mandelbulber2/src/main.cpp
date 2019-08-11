@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 	DefineFractalList(&fractalList);
 
 	// Netrender
-	gNetRender = new CNetRender();
+	gNetRender = new cNetRender();
 
 	// loading AppSettings
 	QString iniFileName = systemData.GetIniFile();

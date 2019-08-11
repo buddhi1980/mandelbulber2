@@ -81,7 +81,7 @@ void CNetRenderClient::DeleteClient()
 		delete clientSocket;
 		clientSocket = nullptr;
 	}
-	emit changeClientStatus(netRender_DISABLED);
+	emit changeClientStatus(netRenderSts_DISABLED);
 	emit Deleted();
 }
 
@@ -96,7 +96,7 @@ void CNetRenderClient::TryServerConnect()
 			case QAbstractSocket::ConnectingState:
 			case QAbstractSocket::HostLookupState: return; // wait for result
 			default:
-				emit changeClientStatus(netRender_CONNECTING);
+				emit changeClientStatus(netRenderSts_CONNECTING);
 				clientSocket->close();
 				clientSocket->connectToHost(address, portNo);
 				break;
@@ -117,7 +117,7 @@ void CNetRenderClient::SetClient(QString _address, int _portNo)
 	WriteLog(
 		"NetRender - Client Setup, link to server: " + address + ", port: " + QString::number(portNo),
 		2);
-	emit changeClientStatus(netRender_CONNECTING);
+	emit changeClientStatus(netRenderSts_CONNECTING);
 }
 
 void CNetRenderClient::ReceiveFromServer()
@@ -125,10 +125,10 @@ void CNetRenderClient::ReceiveFromServer()
 	WriteLog("NetRender - ReceiveFromServer()", 3);
 	if (clientSocket->bytesAvailable() > 0)
 	{
-		if (CNetRenderTransport::ReceiveData(clientSocket, &msgFromServer))
+		if (cNetRenderTransport::ReceiveData(clientSocket, &msgFromServer))
 		{
 			ProcessData();
-			CNetRenderTransport::ResetMessage(&msgFromServer);
+			cNetRenderTransport::ResetMessage(&msgFromServer);
 
 			// try to get the next message, if available
 			ReceiveFromServer();
@@ -138,7 +138,7 @@ void CNetRenderClient::ReceiveFromServer()
 
 void CNetRenderClient::ServerDisconnected()
 {
-	emit changeClientStatus(netRender_ERROR);
+	emit changeClientStatus(netRenderSts_ERROR);
 
 	gMainInterface->stopRequest = true;
 
@@ -164,9 +164,9 @@ void CNetRenderClient::SendStatusToServer(netRenderStatus status)
 	if (clientSocket != nullptr)
 	{
 		sMessage outMsg;
-		outMsg.command = netRender_STATUS;
+		outMsg.command = netRenderCmd_STATUS;
 		outMsg.payload.append(reinterpret_cast<char *>(&status), sizeof(qint32));
-		CNetRenderTransport::SendData(clientSocket, outMsg, actualId);
+		cNetRenderTransport::SendData(clientSocket, outMsg, actualId);
 	}
 }
 
@@ -182,7 +182,7 @@ void CNetRenderClient::SendRenderedLines(
 	const QList<int> &lineNumbers, const QList<QByteArray> &lines)
 {
 	sMessage msg;
-	msg.command = netRender_DATA;
+	msg.command = netRenderCmd_DATA;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 	for (int i = 0; i < lineNumbers.size(); i++)
 	{
@@ -191,7 +191,7 @@ void CNetRenderClient::SendRenderedLines(
 		stream.writeRawData(lines.at(i).data(), lines.at(i).size());
 	}
 	WriteLog(QString("NetRender - SendRenderedLines(), %1 lines").arg(lineNumbers.size()), 3);
-	CNetRenderTransport::SendData(clientSocket, msg, actualId);
+	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }
 
 void CNetRenderClient::ProcessData()
@@ -199,16 +199,16 @@ void CNetRenderClient::ProcessData()
 	sMessage *inMsg = &msgFromServer;
 	switch (netCommandServer(inMsg->command))
 	{
-		case netRender_VERSION: ProcessRequestVersion(inMsg); break;
-		case netRender_STOP: ProcessRequestStop(inMsg); break;
-		case netRender_ASK_STATUS: ProcessRequestAskStatus(inMsg); break;
-		case netRender_JOB: ProcessRequestJob(inMsg); break;
-		case netRender_RENDER: ProcessRequestRender(inMsg); break;
-		case netRender_SETUP: ProcessRequestSetup(inMsg); break;
-		case netRender_ACK: ProcessRequestAck(inMsg); break;
-		case netRender_KICK_AND_KILL: ProcessRequestKickAndKill(inMsg); break;
-		case netRender_ANIM_FLIGHT: ProcessRequestRenderAnimation(inMsg); break;
-		case netRender_ANIM_KEY: ProcessRequestRenderAnimation(inMsg); break;
+		case netRenderCmd_VERSION: ProcessRequestVersion(inMsg); break;
+		case netRenderCmd_STOP: ProcessRequestStop(inMsg); break;
+		case netRenderCmd_ASK_STATUS: ProcessRequestAskStatus(inMsg); break;
+		case netRenderCmd_JOB: ProcessRequestJob(inMsg); break;
+		case netRenderCmd_RENDER: ProcessRequestRender(inMsg); break;
+		case netRenderCmd_SETUP: ProcessRequestSetup(inMsg); break;
+		case netRenderCmd_ACK: ProcessRequestAck(inMsg); break;
+		case netRenderCmd_KICK_AND_KILL: ProcessRequestKickAndKill(inMsg); break;
+		case netRenderCmd_ANIM_FLIGHT: ProcessRequestRenderAnimation(inMsg); break;
+		case netRenderCmd_ANIM_KEY: ProcessRequestRenderAnimation(inMsg); break;
 		default: qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command); break;
 	}
 }
@@ -225,10 +225,10 @@ void CNetRenderClient::ProcessRequestVersion(sMessage *inMsg)
 	buffer.resize(size);
 	stream.readRawData(buffer.data(), size);
 	serverName = QString::fromUtf8(buffer.data(), buffer.size());
-	if (CNetRenderTransport::CompareMajorVersion(serverVersion, CNetRenderTransport::version()))
+	if (cNetRenderTransport::CompareMajorVersion(serverVersion, cNetRenderTransport::version()))
 	{
 		QString connectionMsg =
-			"NetRender - version matches (" + QString::number(CNetRenderTransport::version()) + ")";
+			"NetRender - version matches (" + QString::number(cNetRenderTransport::version()) + ")";
 		QString serverInfo = QString("NetRender - Connection established, Server is %1:%2 [%3]")
 													 .arg(address, QString::number(portNo), serverName);
 		WriteLog(connectionMsg, 2);
@@ -241,27 +241,27 @@ void CNetRenderClient::ProcessRequestVersion(sMessage *inMsg)
 		}
 
 		// server version matches, send worker count
-		outMsg.command = netRender_WORKER;
+		outMsg.command = netRenderCmd_WORKER;
 		QDataStream outStream(&outMsg.payload, QIODevice::WriteOnly);
 		outStream << qint32(systemData.numberOfThreads);
 		QString machineName = QHostInfo::localHostName();
 		outStream << qint32(machineName.toUtf8().size());
 		outStream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
-		emit changeClientStatus(netRender_READY);
+		emit changeClientStatus(netRenderSts_READY);
 		WriteLog(
 			QString("NetRender - ProcessData(), command VERSION, version %1").arg(serverVersion), 2);
 	}
 	else
 	{
 		cErrorMessage::showMessage(tr("NetRender - version mismatch!\n")
-																 + tr("Client version: %1\n").arg(CNetRenderTransport::version())
+																 + tr("Client version: %1\n").arg(cNetRenderTransport::version())
 																 + tr("Server version: %1").arg(serverVersion),
 			cErrorMessage::errorMessage, gMainInterface->mainWindow);
 
-		outMsg.command = netRender_BAD;
+		outMsg.command = netRenderCmd_BAD;
 	}
 
-	CNetRenderTransport::SendData(clientSocket, outMsg, actualId);
+	cNetRenderTransport::SendData(clientSocket, outMsg, actualId);
 }
 
 void CNetRenderClient::ProcessRequestStop(sMessage *inMsg)
@@ -288,7 +288,7 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 		QByteArray buffer;
 		qint32 size;
-		emit changeClientStatus(netRender_WORKING);
+		emit changeClientStatus(netRenderSts_WORKING);
 
 		// read settings
 		stream >> size;
@@ -442,10 +442,10 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 {
 	WriteLog("NetRender - ProcessData(), command ANIM", 2);
 
-	if (inMsg->command == netRender_ANIM_FLIGHT)
+	if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
 	{
 	}
-	else if (inMsg->command == netRender_ANIM_KEY)
+	else if (inMsg->command == netRenderCmd_ANIM_KEY)
 	{
 	}
 }

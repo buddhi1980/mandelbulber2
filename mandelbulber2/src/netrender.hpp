@@ -48,34 +48,34 @@
 // forward declarations
 struct sRenderData;
 
-class CNetRender : public QObject
+class cNetRender : public QObject
 {
 	Q_OBJECT
 public:
-	explicit CNetRender();
-	~CNetRender() override;
+	explicit cNetRender();
+	~cNetRender() override;
 
 	//--------------- enumerations ---------------------
 public:
 	enum typeOfDevice
 	{
-		netRender_CLIENT,
-		netRender_SERVER,
-		netRender_UNKNOWN
+		netRenderDeviceType_CLIENT,
+		netRenderDeviceType_SERVER,
+		netRenderDevuceType_UNKNOWN
 	};
 
 	enum enumUiNetRenderMode
 	{
-		netRenderClient,
-		netRenderServer
+		netRenderModeClient,
+		netRenderModeServer
 	};
 
 	//----------------- public methods --------------------------
 public:
 	// ask if server is established
-	bool IsServer() const { return deviceType == netRender_SERVER; }
+	bool IsServer() const { return deviceType == netRenderDeviceType_SERVER; }
 	// ask if client is connected
-	bool IsClient() const { return deviceType == netRender_CLIENT; }
+	bool IsClient() const { return deviceType == netRenderDeviceType_CLIENT; }
 	// initializing server
 	void SetServer(qint32 _portNo);
 	// deleting server
@@ -97,30 +97,30 @@ public:
 
 	//++++++++++++++++++ Server related  +++++++++++++++++
 	// get client
-	const sClient &GetClient(int index) { return cNetRenderServer->GetClient(index); }
+	const sClient &GetClient(int index) { return netRenderServer->GetClient(index); }
 	// get number of connected clients
-	qint32 GetClientCount() const { return cNetRenderServer->GetClientCount(); }
+	qint32 GetClientCount() const { return netRenderServer->GetClientCount(); }
 	// get number of CPU cores for selected client
-	qint32 GetWorkerCount(qint32 index) { return cNetRenderServer->GetWorkerCount(index); }
+	qint32 GetWorkerCount(qint32 index) { return netRenderServer->GetWorkerCount(index); }
 	// get total number of available CPUs
-	qint32 getTotalWorkerCount() { return cNetRenderServer->getTotalWorkerCount(); }
+	qint32 getTotalWorkerCount() { return netRenderServer->getTotalWorkerCount(); }
 	// get status of Client
 	netRenderStatus GetClientStatus(int index);
 	// in cli mode this method enables waiting for the clients before start of rendering
 	bool WaitForAllClientsReady(double timeout)
 	{
-		return cNetRenderServer->WaitForAllClientsReady(timeout);
+		return netRenderServer->WaitForAllClientsReady(timeout);
 	}
 
 	//++++++++++++++++++ Client related  +++++++++++++++++
 	// get name of the connected server
-	QString GetServerName() const { return cNetRenderClient->GetServerName(); }
+	QString GetServerName() const { return netRenderClient->GetServerName(); }
 	// get line numbers which should be rendered first
-	QList<int> GetStartingPositions() const { return cNetRenderClient->GetStartingPositions(); }
+	QList<int> GetStartingPositions() const { return netRenderClient->GetStartingPositions(); }
 	// get received textures
 	QByteArray *GetTexture(const QString &textureName, int frameNo)
 	{
-		return cNetRenderClient->GetTexture(textureName, frameNo);
+		return netRenderClient->GetTexture(textureName, frameNo);
 	}
 
 	// setting status test
@@ -133,8 +133,8 @@ public:
 
 	//---------------- private data -----------------
 private:
-	CNetRenderClient *cNetRenderClient;
-	CNetRenderServer *cNetRenderServer;
+	CNetRenderClient *netRenderClient;
+	cNetRenderServer *netRenderServer;
 	netRenderStatus status;
 	typeOfDevice deviceType;
 	bool isUsed;
@@ -192,6 +192,6 @@ signals:
 	void NewStatusServer();
 };
 
-extern CNetRender *gNetRender;
+extern cNetRender *gNetRender;
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_HPP_ */

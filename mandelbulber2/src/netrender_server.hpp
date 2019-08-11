@@ -44,12 +44,12 @@
 // forward declarations
 struct sRenderData;
 
-class CNetRenderServer : public QObject
+class cNetRenderServer : public QObject
 {
 	Q_OBJECT
 public:
-	explicit CNetRenderServer();
-	~CNetRenderServer() override;
+	explicit cNetRenderServer();
+	~cNetRenderServer() override;
 	void SetServer(int _portNo);
 	void DeleteServer();
 

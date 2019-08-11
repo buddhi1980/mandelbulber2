@@ -55,41 +55,41 @@ enum netCommand
 /* these commands are send from the server to the client */
 enum netCommandServer
 {
-	netRender_VERSION = 1,				/* send the program version */
-	netRender_RENDER = 3,					/* list of lines (frames) needed to be rendered,
-																 and suggestion which lines should be rendered first */
-	netRender_JOB = 6,						/* sending of settings and textures
-																 Receiving of job will start rendering on client */
-	netRender_STOP = 7,						/* terminate rendering request */
-	netRender_SETUP = 9,					/* send setup job id and starting positions */
-	netRender_ACK = 10,						/* acknowledge receiving of rendered lines */
-	netRender_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
-	netRender_ASK_STATUS = 12,		/* ask the client what its statis is */
-	netRender_ANIM_KEY = 13,			/* sending of settings and start rendering of keyframe animation */
-	netRender_ANIM_FLIGHT = 14,		/* sending of settings and start rendering of flight animation */
-	netRender_SEND_REQ_FILE = 18	/* send file requested by client (e.g. texture)*/
+	netRenderCmd_VERSION = 1,				 /* send the program version */
+	netRenderCmd_RENDER = 3,				 /* list of lines (frames) needed to be rendered,
+																and suggestion which lines should be rendered first */
+	netRenderCmd_JOB = 6,						 /* sending of settings and textures
+																	Receiving of job will start rendering on client */
+	netRenderCmd_STOP = 7,					 /* terminate rendering request */
+	netRenderCmd_SETUP = 9,					 /* send setup job id and starting positions */
+	netRenderCmd_ACK = 10,					 /* acknowledge receiving of rendered lines */
+	netRenderCmd_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
+	netRenderCmd_ASK_STATUS = 12,		 /* ask the client what its statis is */
+	netRenderCmd_ANIM_KEY = 13,		 /* sending of settings and start rendering of keyframe animation */
+	netRenderCmd_ANIM_FLIGHT = 14, /* sending of settings and start rendering of flight animation */
+	netRenderCmd_SEND_REQ_FILE = 18 /* send file requested by client (e.g. texture)*/
 };
 
 /* these commands are send from the client to the server */
 enum netCommandClient
 {
-	netRender_WORKER = 2,						 /* send the worker stats */
-	netRender_DATA = 4,							 /* data of rendered lines */
-	netRender_BAD = 5,							 /* answer about wrong server version */
-	netRender_STATUS = 8,						 /* send status update */
-	netRender_SEND_FILE_HEADER = 15, /* send file data header */
-	netRender_SEND_FILE_DATA = 16,	 /* send chunk of file data */
-	netRender_REQ_FILE = 17					 /* ask server of a file (e.g. texture) */
+	netRenderCmd_WORKER = 2,						/* send the worker stats */
+	netRenderCmd_DATA = 4,							/* data of rendered lines */
+	netRenderCmd_BAD = 5,								/* answer about wrong server version */
+	netRenderCmd_STATUS = 8,						/* send status update */
+	netRenderCmd_SEND_FILE_HEADER = 15, /* send file data header */
+	netRenderCmd_SEND_FILE_DATA = 16,		/* send chunk of file data */
+	netRenderCmd_REQ_FILE = 17					/* ask server of a file (e.g. texture) */
 };
 
 enum netRenderStatus
 {
-	netRender_DISABLED = 0,		/* no slot configured - netrendering disabled in the program */
-	netRender_READY = 1,			/* client is ready and able to receive jobs */
-	netRender_WORKING = 2,		/* during rendering */
-	netRender_NEW = 3,				/* just connected */
-	netRender_CONNECTING = 4, /* connecting in progress */
-	netRender_ERROR = 5				/* error occurred */
+	netRenderSts_DISABLED = 0,		/* no slot configured - netrendering disabled in the program */
+	netRenderSts_READY = 1,			/* client is ready and able to receive jobs */
+	netRenderSts_WORKING = 2,		/* during rendering */
+	netRenderSts_NEW = 3,				/* just connected */
+	netRenderSts_CONNECTING = 4, /* connecting in progress */
+	netRenderSts_ERROR = 5				/* error occurred */
 };
 
 struct sMessage
@@ -109,13 +109,13 @@ struct sClient
 	sClient() {}
 	QTcpSocket *socket{nullptr};
 	sMessage msg;
-	netRenderStatus status{netRender_NEW};
+	netRenderStatus status{netRenderSts_NEW};
 	qint32 linesRendered{0};
 	qint32 clientWorkerCount{0};
 	QString name;
 };
 
-class CNetRenderTransport
+class cNetRenderTransport
 {
 public:
 	// send data to communication partner

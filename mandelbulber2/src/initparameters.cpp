@@ -468,7 +468,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("auto_save_images", false, morphNone, paramApp);
 	par->addParam("save_image_format", 0, morphNone, paramApp);
 	par->addParam("image_preview_scale", 3, 0, 6, morphNone, paramApp);
-	par->addParam("netrender_mode", int(CNetRender::netRenderServer), morphNone, paramApp);
+	par->addParam("netrender_mode", int(cNetRender::netRenderModeServer), morphNone, paramApp);
 	par->addParam("netrender_client_remote_address", QString("localhost"), morphNone, paramApp);
 	par->addParam("netrender_client_remote_port", 5555, morphNone, paramApp);
 	par->addParam("netrender_server_local_port", 5555, morphNone, paramApp);

@@ -157,8 +157,8 @@ void cDockRenderingEngine::slotNetRenderClientDisconnect()
 
 void cDockRenderingEngine::slotNetRenderClientServerChange(int index) const
 {
-	ui->groupBox_netrender_client_config->setVisible(index == CNetRender::netRender_CLIENT);
-	ui->groupBox_netrender_server_config->setVisible(index == CNetRender::netRender_SERVER);
+	ui->groupBox_netrender_client_config->setVisible(index == cNetRender::netRenderDeviceType_CLIENT);
+	ui->groupBox_netrender_server_config->setVisible(index == cNetRender::netRenderDeviceType_SERVER);
 }
 
 void cDockRenderingEngine::slotNetRenderClientListUpdate() const
@@ -227,8 +227,8 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j) const
 		case 2: cell->setText(QString::number(gNetRender->GetClient(i).clientWorkerCount)); break;
 		case 3:
 		{
-			QString text = CNetRender::GetStatusText(gNetRender->GetClient(i).status);
-			QString color = CNetRender::GetStatusColor(gNetRender->GetClient(i).status);
+			QString text = cNetRender::GetStatusText(gNetRender->GetClient(i).status);
+			QString color = cNetRender::GetStatusColor(gNetRender->GetClient(i).status);
 
 			cell->setText(text);
 			cell->setTextColor(color);
@@ -259,8 +259,8 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate(int i, int j) const
 
 void cDockRenderingEngine::slotNetRenderStatusServerUpdate() const
 {
-	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
-	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
+	QString text = cNetRender::GetStatusText(gNetRender->GetStatus());
+	QString color = cNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_server_status->setText(text);
 	ui->label_netrender_server_status->setStyleSheet(
 				"QLabel { color: " + color + "; font-weight: bold; border: 2px solid darkgray; border-radius: 3px;"
@@ -272,8 +272,8 @@ void cDockRenderingEngine::slotNetRenderStatusServerUpdate() const
 
 void cDockRenderingEngine::slotNetRenderStatusClientUpdate() const
 {
-	QString text = CNetRender::GetStatusText(gNetRender->GetStatus());
-	QString color = CNetRender::GetStatusColor(gNetRender->GetStatus());
+	QString text = cNetRender::GetStatusText(gNetRender->GetStatus());
+	QString color = cNetRender::GetStatusColor(gNetRender->GetStatus());
 	ui->label_netrender_client_connected_server->setText(gNetRender->GetServerName());
 	ui->label_netrender_client_status->setText(text);
 	ui->label_netrender_client_status->setStyleSheet(

@@ -37,7 +37,7 @@
 
 #include "lzo_compression.h"
 
-bool CNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
+bool cNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
 {
 	// ############## NetRender Message format #######################
 	// FIELD: | command  | id       | size     | payload  | checksum |
@@ -88,7 +88,7 @@ bool CNetRenderTransport::SendData(QTcpSocket *socket, sMessage msg, qint32 id)
 	return true;
 }
 
-bool CNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
+bool cNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 {
 	QDataStream socketReadStream(socket);
 
@@ -137,7 +137,7 @@ bool CNetRenderTransport::ReceiveData(QTcpSocket *socket, sMessage *msg)
 	return true;
 }
 
-void CNetRenderTransport::ResetMessage(sMessage *msg)
+void cNetRenderTransport::ResetMessage(sMessage *msg)
 {
 	if (msg == nullptr)
 	{
@@ -152,7 +152,7 @@ void CNetRenderTransport::ResetMessage(sMessage *msg)
 	}
 }
 
-bool CNetRenderTransport::CompareMajorVersion(qint32 version1, qint32 version2)
+bool cNetRenderTransport::CompareMajorVersion(qint32 version1, qint32 version2)
 {
 	qint32 majorVersion1 = version1 / 10;
 	qint32 majorVersion2 = version2 / 10;

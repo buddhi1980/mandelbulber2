@@ -48,65 +48,65 @@
 #include "system.hpp"
 #include "texture.hpp"
 
-CNetRender *gNetRender = nullptr;
+cNetRender *gNetRender = nullptr;
 
-CNetRender::CNetRender() : QObject(nullptr)
+cNetRender::cNetRender() : QObject(nullptr)
 {
-	deviceType = netRender_UNKNOWN;
-	status = netRender_NEW;
+	deviceType = netRenderDevuceType_UNKNOWN;
+	status = netRenderSts_NEW;
 	isUsed = false;
 	isAnimation = false;
-	cNetRenderClient = new CNetRenderClient();
-	connect(cNetRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
+	netRenderClient = new CNetRenderClient();
+	connect(netRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
 		SLOT(clientStatusChanged(netRenderStatus)));
-	connect(cNetRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(cNetRenderClient, SIGNAL(ToDoListArrived(QList<int>)), this,
+	connect(netRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
+	connect(netRenderClient, SIGNAL(ToDoListArrived(QList<int>)), this,
 		SIGNAL(ToDoListArrived(QList<int>)));
-	connect(cNetRenderClient, SIGNAL(AckReceived()), this, SIGNAL(AckReceived()));
-	connect(cNetRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
+	connect(netRenderClient, SIGNAL(AckReceived()), this, SIGNAL(AckReceived()));
+	connect(netRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
 
-	cNetRenderServer = new CNetRenderServer();
-	connect(cNetRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,
+	netRenderServer = new cNetRenderServer();
+	connect(netRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,
 		SLOT(serverStatusChanged(netRenderStatus)));
-	connect(cNetRenderServer, SIGNAL(ClientsChanged()), this, SLOT(ClientsHaveChanged()));
-	connect(cNetRenderServer, SIGNAL(ClientsChanged(int)), this, SIGNAL(ClientsChanged(int)));
+	connect(netRenderServer, SIGNAL(ClientsChanged()), this, SLOT(ClientsHaveChanged()));
+	connect(netRenderServer, SIGNAL(ClientsChanged(int)), this, SIGNAL(ClientsChanged(int)));
 	connect(
-		cNetRenderServer, SIGNAL(ClientsChanged(int, int)), this, SIGNAL(ClientsChanged(int, int)));
-	connect(cNetRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(cNetRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
+		netRenderServer, SIGNAL(ClientsChanged(int, int)), this, SIGNAL(ClientsChanged(int, int)));
+	connect(netRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
+	connect(netRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
 		SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
 }
 
-CNetRender::~CNetRender()
+cNetRender::~cNetRender()
 {
 	DeleteServer();
 	DeleteClient();
 }
 
-void CNetRender::SetServer(qint32 _portNo)
+void cNetRender::SetServer(qint32 _portNo)
 {
 	DeleteClient();
 	DeleteServer();
-	deviceType = netRender_SERVER;
-	cNetRenderServer->SetServer(_portNo);
+	deviceType = netRenderDeviceType_SERVER;
+	netRenderServer->SetServer(_portNo);
 }
 
-void CNetRender::DeleteServer()
+void cNetRender::DeleteServer()
 {
-	if (deviceType != netRender_SERVER) return;
+	if (deviceType != netRenderDeviceType_SERVER) return;
 	WriteLog("NetRender - Delete Server", 2);
-	cNetRenderServer->DeleteServer();
+	netRenderServer->DeleteServer();
 	emit ClientsChanged();
-	status = netRender_DISABLED;
+	status = netRenderSts_DISABLED;
 	emit NewStatusServer();
 }
 
-void CNetRender::SetClient(QString _address, int _portNo)
+void cNetRender::SetClient(QString _address, int _portNo)
 {
 	DeleteServer();
-	deviceType = netRender_CLIENT;
-	status = netRender_NEW;
-	cNetRenderClient->SetClient(_address, _portNo);
+	deviceType = netRenderDeviceType_CLIENT;
+	status = netRenderSts_NEW;
+	netRenderClient->SetClient(_address, _portNo);
 
 	if (systemData.noGui)
 	{
@@ -116,101 +116,101 @@ void CNetRender::SetClient(QString _address, int _portNo)
 	}
 }
 
-void CNetRender::DeleteClient()
+void cNetRender::DeleteClient()
 {
-	cNetRenderClient->DeleteClient();
+	netRenderClient->DeleteClient();
 }
 
-void CNetRender::SetCurrentJob(
+void cNetRender::SetCurrentJob(
 	const cParameterContainer &settings, const cFractalContainer &fractal, QStringList listOfTextures)
 {
-	cNetRenderServer->SetCurrentJob(settings, fractal, listOfTextures);
+	netRenderServer->SetCurrentJob(settings, fractal, listOfTextures);
 }
 
-void CNetRender::SetCurrentAnimation(
+void cNetRender::SetCurrentAnimation(
 	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
 {
-	cNetRenderServer->SetCurrentAnimation(settings, fractal, isFlight);
+	netRenderServer->SetCurrentAnimation(settings, fractal, isFlight);
 }
 
-void CNetRender::SendToDoList(int clientIndex, const QList<int> &done)
+void cNetRender::SendToDoList(int clientIndex, const QList<int> &done)
 {
-	cNetRenderServer->SendToDoList(clientIndex, done);
+	netRenderServer->SendToDoList(clientIndex, done);
 }
 
-void CNetRender::StopAllClients()
+void cNetRender::StopAllClients()
 {
-	cNetRenderServer->StopAllClients();
+	netRenderServer->StopAllClients();
 }
 
-void CNetRender::SetCurrentRenderId(qint32 actualId)
+void cNetRender::SetCurrentRenderId(qint32 actualId)
 {
-	cNetRenderServer->SetActualId(actualId);
+	netRenderServer->SetActualId(actualId);
 }
 
-void CNetRender::SendSetup(int clientIndex, const QList<int> &_startingPositions)
+void cNetRender::SendSetup(int clientIndex, const QList<int> &_startingPositions)
 {
-	cNetRenderServer->SendSetup(clientIndex, _startingPositions);
+	netRenderServer->SendSetup(clientIndex, _startingPositions);
 }
 
-void CNetRender::KickAndKillClient(int clientIndex)
+void cNetRender::KickAndKillClient(int clientIndex)
 {
-	cNetRenderServer->KickAndKillClient(clientIndex);
+	netRenderServer->KickAndKillClient(clientIndex);
 }
 
 // send rendered lines
-void CNetRender::SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines)
+void cNetRender::SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines)
 {
-	cNetRenderClient->SendRenderedLines(lineNumbers, lines);
+	netRenderClient->SendRenderedLines(lineNumbers, lines);
 }
 
-void CNetRender::NotifyStatus()
+void cNetRender::NotifyStatus()
 {
 	emit NewStatusClient();
-	cNetRenderClient->SendStatusToServer(status);
+	netRenderClient->SendStatusToServer(status);
 }
 
-QString CNetRender::GetStatusText(netRenderStatus displayStatus)
+QString cNetRender::GetStatusText(netRenderStatus displayStatus)
 {
 	switch (displayStatus)
 	{
-		case netRender_DISABLED: return tr("DISABLED");
-		case netRender_READY: return tr("READY");
-		case netRender_WORKING: return tr("WORKING");
-		case netRender_NEW: return tr("NEW");
-		case netRender_CONNECTING: return tr("(RE-)CONNECTING");
-		case netRender_ERROR: return tr("ERROR");
+		case netRenderSts_DISABLED: return tr("DISABLED");
+		case netRenderSts_READY: return tr("READY");
+		case netRenderSts_WORKING: return tr("WORKING");
+		case netRenderSts_NEW: return tr("NEW");
+		case netRenderSts_CONNECTING: return tr("(RE-)CONNECTING");
+		case netRenderSts_ERROR: return tr("ERROR");
 	}
 	return tr("UNKNOWN");
 }
 
-QString CNetRender::GetStatusColor(netRenderStatus displayStatus)
+QString cNetRender::GetStatusColor(netRenderStatus displayStatus)
 {
 	switch (displayStatus)
 	{
-		case netRender_DISABLED: return "darkgrey";
-		case netRender_READY: return "darkgreen";
-		case netRender_WORKING: return "darkblue";
-		case netRender_NEW: return "darkpurple";
-		case netRender_CONNECTING: return "darkorange";
-		case netRender_ERROR: return "darkred";
+		case netRenderSts_DISABLED: return "darkgrey";
+		case netRenderSts_READY: return "darkgreen";
+		case netRenderSts_WORKING: return "darkblue";
+		case netRenderSts_NEW: return "darkpurple";
+		case netRenderSts_CONNECTING: return "darkorange";
+		case netRenderSts_ERROR: return "darkred";
 	}
 	return "red";
 }
 
-netRenderStatus CNetRender::GetClientStatus(int index)
+netRenderStatus cNetRender::GetClientStatus(int index)
 {
 	if (index < GetClientCount())
 	{
-		return cNetRenderServer->GetClient(index).status;
+		return netRenderServer->GetClient(index).status;
 	}
 	else
 	{
-		return netRender_ERROR;
+		return netRenderSts_ERROR;
 	}
 }
 
-bool CNetRender::Block()
+bool cNetRender::Block()
 {
 	if (isUsed)
 	{
@@ -223,7 +223,7 @@ bool CNetRender::Block()
 	}
 }
 
-void CNetRender::clientStatusChanged(netRenderStatus _status)
+void cNetRender::clientStatusChanged(netRenderStatus _status)
 {
 	if (IsClient())
 	{
@@ -232,7 +232,7 @@ void CNetRender::clientStatusChanged(netRenderStatus _status)
 	}
 }
 
-void CNetRender::serverStatusChanged(netRenderStatus _status)
+void cNetRender::serverStatusChanged(netRenderStatus _status)
 {
 	if (IsServer())
 	{
@@ -241,13 +241,13 @@ void CNetRender::serverStatusChanged(netRenderStatus _status)
 	}
 }
 
-void CNetRender::ClientsHaveChanged()
+void cNetRender::ClientsHaveChanged()
 {
 	emit ClientsChanged();
 }
 
-void CNetRender::ResetDeviceType()
+void cNetRender::ResetDeviceType()
 {
-	deviceType = netRender_UNKNOWN;
+	deviceType = netRenderDevuceType_UNKNOWN;
 	emit NotifyStatus();
 }
