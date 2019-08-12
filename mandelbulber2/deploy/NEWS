@@ -1,4 +1,11 @@
 Version history
+v2.20
+- Added new fractal formulas
+
+- modified fractal formulas
+   boxFoldBulbPow2V3, added sphere invert
+   transfRotationIterControls, fix order of rotations
+
 v2.19 (July 2019)
 - Added new fractal formulas
    mandelbulbPower1234

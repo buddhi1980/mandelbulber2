@@ -849,6 +849,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		DIFSBoxDiagonalV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "dIFS_box_diagonal_v3", dIFSBoxDiagonalV3,
+		DIFSBoxDiagonalV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
 	// ------------------ hybrid color trial -----------------------
 
 	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",
