@@ -15,10 +15,9 @@ steps:
     if [ "$CCOMPILER" ]; then
         export CC="$CCOMPILER"
     fi
-    export LD_LIBRARY_PATH=$PWD/IlmBase/Half:$PWD/IlmBase/IlmThread:$PWD/IlmBase/Iex:$PWD/IlmBase/IexMath:$PWD/IlmBase/Imath:$PWD/OpenEXR/IlmImf:$PWD/OpenEXR/IlmImfUtil:$LD_LIBRARY_PATH
-    build-wrapper-linux-x86-64 --out-dir bw_output make clean all
+    export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
   workingDirectory: _build
-  displayName: Build OpenEXR with build-wrapper
+  displayName: Build
 
 - template: test.yml
 

@@ -972,6 +972,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offset_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetA_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offsetF_000", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
+	par->addParam("transf_offset_001", CVector3(0.0, 0.0, 1.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_002", CVector3(0.0, 0.0, 2.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_010", CVector3(0.0, 1.0, 0.0), morphAkima, paramStandard);
 	par->addParam("transf_offset_100", CVector3(1.0, 0.0, 0.0), morphAkima, paramStandard);

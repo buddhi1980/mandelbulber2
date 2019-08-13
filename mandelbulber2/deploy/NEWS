@@ -1,4 +1,13 @@
 Version history
+
+v2.20
+- Added new fractal formulas
+   riemannSphereHobold
+
+- modified fractal formulas
+   boxFoldBulbPow2V3, added sphere invert
+   transfRotationIterControls, fix order of rotations
+
 v2.19-1
 - fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance
 

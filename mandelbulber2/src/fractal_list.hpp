@@ -171,7 +171,7 @@ enum enumFractalFormula
 	aboxMod12 = 123,
 	quaternionCubic4d = 124,
 	boxFoldBulbPow2V2 = 125,
-	boxFoldBulbPow2V3 = 126,
+	boxFoldBulbPow2V3 = 126, // added sphere invert
 	aboxMod13 = 127,
 	boxFoldQuat = 128,
 	// 2.13
@@ -203,16 +203,23 @@ enum enumFractalFormula
 	mandelbulbPower1234 = 148,
 	mengerPolyFold = 149,
 	ifsXY = 150,
+	// 2.20
+	riemannSphereHobold = 151,
+
 
 	// 152 to 172 reserved for scator
 	scatorPower2Imaginary = 152, // fixed r calc v2.14
-	scatorPower2Real = 156,			 // added V2.15
-	scatorPower2 = 173,					 // added V2.15
-	scatorPower2StdR = 174,			 // added V2.15
+	scatorPower2Real = 156, // added V2.15
+	scatorPower2 = 173, // added V2.15
+	scatorPower2StdR = 174, // added V2.15
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxDiagonalV2 = 601,
+	dIFSBoxDiagonalV3 = 602,
+
+
+
 
 	mandelbulbEye = 800,
 

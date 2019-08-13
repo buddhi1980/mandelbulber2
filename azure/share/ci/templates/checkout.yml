@@ -5,4 +5,4 @@ steps:
 - checkout: self
   clean: true
   fetchDepth: 50
-  displayName: Checkout OpenEXR source
+  displayName: Checkout source

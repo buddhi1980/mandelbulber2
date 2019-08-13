@@ -58,51 +58,51 @@ jobs:
 
   steps:
   - template: azure/share/ci/templates/checkout.yml
-  - bash: $(installSh)
-    displayName: Install dependencies
-    condition: and(succeeded(), variables['installSh'])
+  # - bash: $(installSh)
+    # displayName: Install dependencies
+    # condition: and(succeeded(), variables['installSh'])
 
-  - template: azure/share/ci/templates/configure.yml
-    parameters:
-      cxxCompiler: $(cxxCompiler)
-      cCompiler: $(cCompiler)
+  # - template: azure/share/ci/templates/configure.yml
+    # parameters:
+      # cxxCompiler: $(cxxCompiler)
+      # cCompiler: $(cCompiler)
 
-  - template: azure/share/ci/templates/build.yml
-    parameters:
-      cxxCompiler: $(cxxCompiler)
-      cCompiler: $(cCompiler)
-      cmakeOpts: -- -j4
+  # - template: azure/share/ci/templates/build.yml
+    # parameters:
+      # cxxCompiler: $(cxxCompiler)
+      # cCompiler: $(cCompiler)
+      # cmakeOpts: -- -j4
 
-  - task: PublishTestResults@2
-    condition: succeededOrFailed()
-    displayName: 'Publish test results'
-    inputs:
-      testResultsFormat: 'cTest'
-      testResultsFiles: '**/Test*.xml' 
-      failTaskOnFailedTests: true
+  # - task: PublishTestResults@2
+    # condition: succeededOrFailed()
+    # displayName: 'Publish test results'
+    # inputs:
+      # testResultsFormat: 'cTest'
+      # testResultsFiles: '**/Test*.xml' 
+      # failTaskOnFailedTests: true
 
 # ------------------------------------------------------------------------------
 #  SonarCloud static analysis
 # ------------------------------------------------------------------------------
-- job: SonarCloud
-  displayName: SonarCloud Ubuntu 16.04 VFX CY2019
-  condition: in(variables['Build.Reason'], 'Manual', 'Schedule')
-  pool:
-    vmImage: 'ubuntu-16.04'
-  container: aswfstaging/ci-base:2019.0
+# - job: SonarCloud
+  # displayName: SonarCloud Ubuntu 16.04 VFX CY2019
+  # condition: in(variables['Build.Reason'], 'Manual', 'Schedule')
+  # pool:
+    # vmImage: 'ubuntu-16.04'
+  # container: aswfstaging/ci-base:2019.0
 
-  steps:
-  - template: azure/share/ci/templates/checkout.yml
-  - bash: ''
-    displayName: Install dependencies
-  - template: azure/share/ci/templates/configure.yml
-    parameters:
-      cxxFlags: -g -O0 -fprofile-arcs -ftest-coverage
-      cmakeOpts: |
-        -DCMAKE_EXE_LINKER_FLAGS="-lgcov" \
-        -DCMAKE_CXX_OUTPUT_EXTENSION_REPLACE=ON
+  # steps:
+  # - template: azure/share/ci/templates/checkout.yml
+  # - bash: ''
+    # displayName: Install dependencies
+  # - template: azure/share/ci/templates/configure.yml
+    # parameters:
+      # cxxFlags: -g -O0 -fprofile-arcs -ftest-coverage
+      # cmakeOpts: |
+        # -DCMAKE_EXE_LINKER_FLAGS="-lgcov" \
+        # -DCMAKE_CXX_OUTPUT_EXTENSION_REPLACE=ON
 
-  - template: azure/share/ci/templates/build_sonar.yml
+  # - template: azure/share/ci/templates/build_sonar.yml
 
 # ------------------------------------------------------------------------------
 # macOS

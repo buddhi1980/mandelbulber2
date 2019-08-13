@@ -422,6 +422,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		riemannBulbMsltoeMod2, RiemannBulbMsltoeMod2Iteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("Riemann - Sphere Hobold", "riemann_sphere_hobold",
+		riemannSphereHobold, RiemannSphereHoboldIteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
+
+
+
+
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",
 		scatorPower2Real, ScatorPower2RealIteration, deltaDEType, logarithmicDEFunction,
@@ -847,6 +854,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("DIFS Box Diagonal V2", "dIFS_box_diagonal_v2", dIFSBoxDiagonalV2,
 		DIFSBoxDiagonalV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "dIFS_box_diagonal_v3", dIFSBoxDiagonalV3,
+		DIFSBoxDiagonalV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 	// ------------------ hybrid color trial -----------------------
