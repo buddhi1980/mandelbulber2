@@ -1,4 +1,7 @@
 Version history
+v2.19-1
+- fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance
+
 v2.19 (July 2019)
 - Added new fractal formulas
    mandelbulbPower1234
