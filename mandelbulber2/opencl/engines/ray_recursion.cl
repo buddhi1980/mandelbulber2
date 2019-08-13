@@ -793,7 +793,7 @@ sRayRecursionOut RayRecursion(sRayRecursionIn in, sRenderData *renderData,
 #if defined(USE_REFRACTION) || defined(USE_REFLECTANCE)
 				if (renderData->reflectionsMax > 0)
 				{
-#if defined(USE_DIFFUSION_TEXTURE) || defined(USE_DIFFUSE_GRADIENT)
+#if (defined(USE_DIFFUSION_TEXTURE) || defined(USE_DIFFUSE_GRADIENT)) && defined(USE_REFLECTANCE)
 					float3 reflectDiffused = reflect;
 
 #ifdef USE_DIFFUSION_TEXTURE
