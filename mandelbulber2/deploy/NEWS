@@ -1,6 +1,7 @@
 Version history
 v2.20
 - Added new fractal formulas
+   riemannSphereHobold
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert

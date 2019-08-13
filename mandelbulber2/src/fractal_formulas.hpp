@@ -194,6 +194,7 @@ void RiemannSphereMsltoeIteration(CVector4 &z, const sFractal *fractal, sExtende
 void RiemannSphereMsltoeV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannSphereMsltoeV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void ScatorPower2ImaginaryIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void ScatorPower2RealIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
