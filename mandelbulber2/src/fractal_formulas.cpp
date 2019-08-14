@@ -9944,7 +9944,10 @@ void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 
-	z *= fractal->transformCommon.scale / aux.r; // normalize vector to unit length => project onto sphere
+	z *=  fractal->transformCommon.scale08 / aux.r; // normalize vector to unit length => project onto sphere
+
+
+
 
 	// find X-related iso-plane: polar projection onto unit circle
 	double Kx = 2.0 * z.x * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.x * z.x + 1.0);
@@ -9965,6 +9968,8 @@ void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtende
 	double n1x = K2y - 1.0;
 	double n1y = -K2x;
 
+	n1x += fractal->transformCommon.offsetA0;
+
 	// find Z-related iso-plane: polar projection onto unit circle
 	double Kz = 2.0 * z.z * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
 	Ky = 1.0 - 2.0 * ((z.y - 2.0) * z.y + 1.0) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
@@ -9983,6 +9988,9 @@ void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtende
 	double n2y = -K2z;
 	double n2z = K2y - 1.0;
 
+	n2z += fractal->transformCommon.offsetB0;
+
+
 	// compute position of doubled point as intersection of planes and sphere
 	// solved ray parameter
 	double nt = 2.0 * (n1x * n1x * n2z * n2z) / ((n1x * n1x + n1y * n1y) * n2z * n2z
@@ -10000,7 +10008,11 @@ void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtende
 
 	if (fractal->transformCommon.rotationEnabled)
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = fractal->analyticDE.offset1 + aux.DE * fabs( fractal->transformCommon.scale08) / aux.r;
+		aux.DE *= 8.0 * fractal->analyticDE.scale1 * z.Length() / aux.r;
+	}
 }
 
 /**

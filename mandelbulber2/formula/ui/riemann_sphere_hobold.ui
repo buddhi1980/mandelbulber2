@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>844</width>
-    <height>1147</height>
+    <height>1235</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -180,7 +180,7 @@
       </widget>
      </item>
      <item row="1" column="3">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_08">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -280,14 +280,14 @@
      <item row="3" column="1" colspan="2">
       <widget class="QLabel" name="label_140">
        <property name="text">
-        <string>temp s:</string>
+        <string>offset n1x: </string>
        </property>
       </widget>
      </item>
      <item row="4" column="1" colspan="2">
       <widget class="QLabel" name="label_142">
        <property name="text">
-        <string>temp t:</string>
+        <string>offset n2z:</string>
        </property>
       </widget>
      </item>
@@ -440,6 +440,113 @@
     </widget>
    </item>
    <item>
+    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled">
+     <property name="toolTip">
+      <string>Occasionally disable in Hybrid Mode. A few hybrid settings may work best with the analytic DE code disabled in this formula.</string>
+     </property>
+     <property name="title">
+      <string>Analytic D&amp;E option</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_52">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="leftMargin">
+       <number>2</number>
+      </property>
+      <property name="topMargin">
+       <number>2</number>
+      </property>
+      <property name="rightMargin">
+       <number>2</number>
+      </property>
+      <property name="bottomMargin">
+       <number>2</number>
+      </property>
+      <item>
+       <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,0,1">
+        <property name="spacing">
+         <number>2</number>
+        </property>
+        <item row="2" column="1">
+         <widget class="QLabel" name="label_177">
+          <property name="text">
+           <string>aux.DE offset1:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_176">
+          <property name="text">
+           <string>aux.DE scale1:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>99.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="prefix">
+           <string/>
+          </property>
+          <property name="suffix">
+           <string/>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>0.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>99.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
     <widget class="MyGroupBox" name="groupCheck_info">
      <property name="title">
       <string>Infor&amp;mation</string>
@@ -575,7 +682,7 @@
  </customwidgets>
  <tabstops>
   <tabstop>spinboxd3_transf_rotation_y</tabstop>
-  <tabstop>spinbox_transf_scale</tabstop>
+  <tabstop>spinbox_transf_scale_08</tabstop>
   <tabstop>spinbox3_transf_addition_constant_x</tabstop>
   <tabstop>spinbox3_transf_addition_constant_y</tabstop>
   <tabstop>spinbox3_transf_addition_constant_z</tabstop>
