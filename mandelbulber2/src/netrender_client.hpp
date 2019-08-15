@@ -58,7 +58,7 @@ public:
 	// get received textures
 	QByteArray *GetTexture(const QString &textureName, int frameNo);
 	// get line numbers which should be rendered first
-	QList<int> GetStartingPositions() { return startingPositions; }
+	QVector<int> GetStartingPositions() { return startingPositions; }
 	// send to server a list of numbers and image data of already rendered lines
 	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines);
 	// get name of the connected server
@@ -108,7 +108,7 @@ private:
 	sMessage msgFromServer;
 
 	qint32 actualId;
-	QList<int> startingPositions;
+	QVector<int> startingPositions;
 	QMap<QString, QByteArray> textures;
 };
 

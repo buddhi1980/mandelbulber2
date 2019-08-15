@@ -86,9 +86,9 @@ public:
 	QList<int> CheckForCollisions(double minDist, bool *stopRequest);
 	void UpdateActualCameraPosition(const CVector3 &cameraPosition);
 
-	void SetNetRenderStartingFrames(const QList<int> &startingFrames)
+	void SetNetRenderStartingFrames(const QVector<int> &startingFrames)
 	{
-		netRenderStartingFrames = startingFrames;
+		netRenderListOfFramesToRender = startingFrames;
 	}
 
 public slots:
@@ -144,8 +144,7 @@ private:
 	bool lastToRenderMax = false;
 	QSize previewSize;
 	CVector3 actualCameraPosition;
-	const int numberOfFramesForNetRender = 10;
-	QList<int> netRenderStartingFrames;
+	QVector<int> netRenderListOfFramesToRender;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

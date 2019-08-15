@@ -118,7 +118,7 @@ public:
 	// get name of the connected server
 	QString GetServerName() const { return netRenderClient->GetServerName(); }
 	// get line numbers which should be rendered first
-	QList<int> GetStartingPositions() const { return netRenderClient->GetStartingPositions(); }
+	QVector<int> GetStartingPositions() const { return netRenderClient->GetStartingPositions(); }
 	// get received textures
 	QByteArray *GetTexture(const QString &textureName, int frameNo)
 	{

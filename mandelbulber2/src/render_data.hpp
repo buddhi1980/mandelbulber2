@@ -72,7 +72,7 @@ struct sRenderData
 	double lastPercentage{1.0};
 	double reduceDetail{1.0};
 	cStatistics statistics;
-	QList<int> netRenderStartingPositions;
+	QVector<int> netRenderStartingPositions;
 	cRenderingConfiguration configuration;
 
 	QMap<int, cMaterial> materials; // 'int' is an ID

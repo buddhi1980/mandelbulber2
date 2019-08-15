@@ -619,6 +619,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	QVector<bool> alreadyRenderedFrames;
 	alreadyRenderedFrames.resize(totalFrames);
 
+	QVector<bool> reservedFrames;
+	reservedFrames.resize(totalFrames);
+
 	try
 	{
 		// updating parameters
@@ -666,6 +669,13 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
 				alreadyRenderedFrames[frameNo] =
 					(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
+
+				if (gNetRender->IsClient())
+				{
+					if (frameNo < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[frameNo] = true;
+				}
+
+				reservedFrames[frameNo] = alreadyRenderedFrames[frameNo];
 			}
 		}
 
@@ -729,6 +739,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		if (gNetRender->IsServer())
 		{
+			int numberOfFramesForNetRender =
+				unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
+			if (numberOfFramesForNetRender > 100) numberOfFramesForNetRender = 100;
+
 			qint32 renderId = rand();
 			gNetRender->SetCurrentRenderId(renderId);
 			gNetRender->SetAnimation(true);
@@ -744,6 +758,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						frameIndex++;
 
 					startingFrames.append(frameIndex);
+					reservedFrames[frameIndex] = true;
 					frameIndex++;
 				}
 				// storage for number of already rendered frames need to be changed
@@ -770,6 +785,21 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				// skip already rendered frame
 				if (alreadyRenderedFrames[frameIndex]) continue;
+				if (reservedFrames[frameIndex]) continue;
+
+				if (gNetRender->IsClient())
+				{
+					bool frameFound = false;
+					for (int f = 0; f < netRenderListOfFramesToRender.size(); f++)
+					{
+						if (netRenderListOfFramesToRender[f] == frameIndex)
+						{
+							frameFound = true;
+							break;
+						}
+					}
+					if (!frameFound) continue;
+				}
 
 				double percentDoneFrame;
 				if (unrenderedTotalBeforeRender > 0)
