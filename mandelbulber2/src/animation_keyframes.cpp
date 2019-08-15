@@ -144,6 +144,7 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			SLOT(slotUpdateAnimationPathSelection()));
 
 		// NetRender for animation
+		// signals to NetRender
 		connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
 			SLOT(SendSetup(int, QList<int>)));
 		connect(this,
@@ -152,7 +153,10 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			gNetRender,
 			SLOT(SetCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)));
 
-			table = ui->tableWidget_keyframe_animation;
+		// signals from NetRender
+		connect(gNetRender, SIGNAL(KeyframeAnimationRender()), this, SLOT(slotRenderKeyframes()));
+
+		table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
 		if (keyframes->GetListOfUsedParameters().size() == 0)
@@ -727,7 +731,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			qint32 renderId = rand();
 			gNetRender->SetCurrentRenderId(renderId);
-			gNetRender->isAnimation = true;
+			gNetRender->SetAnimation(true);
 
 			int frameIndex = 0;
 			for (int i = 0; i < gNetRender->GetClientCount(); i++)
@@ -744,6 +748,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				}
 				// storage for number of already rendered frames need to be changed
 				emit SendNetRenderSetup(i, startingFrames);
+
+				emit NetRenderCurrentAnimation(*params, *fractalParams, false);
 			}
 		}
 

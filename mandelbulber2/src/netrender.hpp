@@ -111,6 +111,8 @@ public:
 	{
 		return netRenderServer->WaitForAllClientsReady(timeout);
 	}
+	void SetAnimation(bool isAnim) { isAnimation = isAnim; }
+	bool IsAnimation() { return isAnimation; }
 
 	//++++++++++++++++++ Client related  +++++++++++++++++
 	// get name of the connected server
@@ -128,9 +130,6 @@ public:
 	// setting status color
 	static QString GetStatusColor(netRenderStatus displayStatus);
 
-public:
-	bool isAnimation;
-
 	//---------------- private data -----------------
 private:
 	CNetRenderClient *netRenderClient;
@@ -138,6 +137,7 @@ private:
 	netRenderStatus status;
 	typeOfDevice deviceType;
 	bool isUsed;
+	bool isAnimation;
 
 	//------------------- public slots -------------------
 public slots:
@@ -187,6 +187,8 @@ signals:
 	void ToDoListArrived(QList<int> done);
 	// confirmation of data receive
 	void AckReceived();
+	// signal to start rendering keyframe animation
+	void KeyframeAnimationRender();
 
 	void NewStatusClient();
 	void NewStatusServer();

@@ -37,6 +37,7 @@
 #include <QAbstractSocket>
 #include <QHostInfo>
 
+#include "animation_keyframes.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
@@ -55,6 +56,7 @@ CNetRenderClient::CNetRenderClient()
 	reconnectTimer->setInterval(1000);
 	connect(reconnectTimer, SIGNAL(timeout()), this, SLOT(TryServerConnect()));
 	actualId = 0;
+	portNo = 0;
 }
 
 CNetRenderClient::~CNetRenderClient()
@@ -440,12 +442,74 @@ void CNetRenderClient::ProcessRequestKickAndKill(sMessage *inMsg)
 
 void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 {
-	WriteLog("NetRender - ProcessData(), command ANIM", 2);
+	WriteLog("NetRender - ProcessRequestRenderAnimation()", 2);
+	if (inMsg->id == actualId)
+	{
+		if (inMsg->command == netRenderCmd_ANIM_FLIGHT || inMsg->command == netRenderCmd_ANIM_KEY)
+		{
+			if (inMsg->command == netRenderCmd_ANIM_KEY)
+			{
+				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
+				gKeyframeAnimation->SetNetRenderStartingFrames(startingPositions);
+			}
 
-	if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
-	{
-	}
-	else if (inMsg->command == netRenderCmd_ANIM_KEY)
-	{
+			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+			QByteArray buffer;
+			qint32 size;
+			emit changeClientStatus(netRenderSts_WORKING);
+
+			// read settings
+			stream >> size;
+			buffer.resize(size);
+			stream.readRawData(buffer.data(), size);
+			QString settingsText = QString::fromUtf8(buffer.data(), buffer.size());
+			WriteLog(QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
+			WriteLog(
+				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
+
+			cSettings parSettings(cSettings::formatCondensedText);
+			parSettings.BeQuiet(true);
+
+			gInterfaceReadyForSynchronization = false;
+			parSettings.LoadFromString(settingsText);
+
+			if (inMsg->command == netRenderCmd_ANIM_KEY)
+			{
+				parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
+			}
+			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
+			{
+				parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr);
+			}
+
+			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
+
+			gInterfaceReadyForSynchronization = true;
+			if (!systemData.noGui)
+			{
+				gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+				emit KeyframeAnimationRender();
+			}
+			else
+			{
+				// in noGui mode it must be started as separate thread to be able to process event loop
+
+				// TODO: headless code for animation
+
+				gMainInterface->headless = new cHeadless;
+
+				auto *thread = new QThread; // deleted by deleteLater()
+				gMainInterface->headless->moveToThread(thread);
+				QObject::connect(
+					thread, SIGNAL(started()), gMainInterface->headless, SLOT(slotNetRender()));
+				thread->setObjectName("RenderJob");
+				thread->start();
+
+				QObject::connect(gMainInterface->headless, SIGNAL(finished()), gMainInterface->headless,
+					SLOT(deleteLater()));
+				QObject::connect(gMainInterface->headless, SIGNAL(finished()), thread, SLOT(quit()));
+				QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+			}
+		}
 	}
 }

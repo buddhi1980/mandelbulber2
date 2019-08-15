@@ -43,6 +43,7 @@
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "keyframes.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
 #include "system.hpp"
@@ -332,8 +333,17 @@ void cNetRenderServer::SetCurrentAnimation(
 	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
 {
 	WriteLog(QString("NetRender - Sending animation to %1 client(s)").arg(clients.size()), 2);
-	cSettings settingsData(cSettings::formatNetRender);
-	size_t dataSize = settingsData.CreateText(&settings, &fractal);
+	cSettings settingsData(cSettings::formatCondensedText);
+	size_t dataSize;
+
+	if (isFlight)
+	{
+		dataSize = settingsData.CreateText(&settings, &fractal, gAnimFrames, nullptr);
+	}
+	else
+	{
+		dataSize = settingsData.CreateText(&settings, &fractal, nullptr, gKeyframes);
+	}
 
 	if (dataSize > 0)
 	{

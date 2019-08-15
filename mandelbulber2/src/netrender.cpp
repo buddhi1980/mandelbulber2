@@ -64,6 +64,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 		SIGNAL(ToDoListArrived(QList<int>)));
 	connect(netRenderClient, SIGNAL(AckReceived()), this, SIGNAL(AckReceived()));
 	connect(netRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
+	connect(
+		netRenderClient, SIGNAL(KeyframeAnimationRender()), this, SIGNAL(KeyframeAnimationRender()));
 
 	netRenderServer = new cNetRenderServer();
 	connect(netRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,

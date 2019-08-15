@@ -83,6 +83,8 @@ signals:
 	void changeClientStatus(netRenderStatus status);
 	// notify about the current status
 	void NotifyStatus();
+	// signal to start rendering keyframe animation
+	void KeyframeAnimationRender();
 
 private:
 	void ProcessData();

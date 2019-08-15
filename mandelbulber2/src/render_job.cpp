@@ -138,7 +138,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	width = paramsContainer->Get<int>("image_width");
 	height = paramsContainer->Get<int>("image_height");
 
-	if (stereo.isEnabled() && !gNetRender->IsClient())
+	if (stereo.isEnabled() && (!gNetRender->IsClient() || gNetRender->IsAnimation()))
 	{
 		CVector2<int> modifiedResolution = stereo.ModifyImageResolution(CVector2<int>(width, height));
 		width = modifiedResolution.x;
@@ -171,15 +171,13 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		if ((gNetRender->IsClient() || gNetRender->IsServer()) && canUseNetRender)
 		{
 			image->ClearImage();
-			//			image->UpdatePreview();
-			//			if (hasQWidget) emit updateImage();
 		}
 	}
 
 	if (config.UseNetRender() && canUseNetRender)
 	{
 		// connect signals
-		if (gNetRender->IsServer())
+		if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 		{
 			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, QStringList)),
 				gNetRender, SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, QStringList)));
@@ -526,7 +524,8 @@ bool cRenderJob::Execute()
 int cRenderJob::GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo)
 {
 	int noOfRepeats = 1;
-	if (!gNetRender->IsClient() && paramsContainer->Get<bool>("stereo_enabled")
+	if ((!gNetRender->IsClient() || gNetRender->IsAnimation())
+			&& paramsContainer->Get<bool>("stereo_enabled")
 			&& paramsContainer->Get<int>("stereo_mode") == cStereo::stereoRedCyan
 			&& ((paramsContainer->Get<bool>("ambient_occlusion_enabled")
 						&& paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeScreenSpace)
@@ -553,12 +552,12 @@ void cRenderJob::SetupStereoEyes(int repeat, bool twoPassStereo)
 		renderData->stereo.ForceEye(eye);
 		paramsContainer->Set("stereo_actual_eye", int(eye));
 	}
-	else if (!gNetRender->IsClient())
+	else if (!gNetRender->IsClient() || gNetRender->IsAnimation())
 	{
 		paramsContainer->Set("stereo_actual_eye", int(cStereo::eyeNone));
 	}
 
-	if (gNetRender->IsClient())
+	if (gNetRender->IsClient() && !gNetRender->IsAnimation())
 	{
 		cStereo::enumEye eye = cStereo::enumEye(paramsContainer->Get<int>("stereo_actual_eye"));
 		if (eye != cStereo::eyeNone)
@@ -570,7 +569,7 @@ void cRenderJob::SetupStereoEyes(int repeat, bool twoPassStereo)
 
 void cRenderJob::InitNetRender()
 {
-	if (gNetRender->IsServer())
+	if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 	{
 		// new random id for NetRender
 		qint32 renderId = rand();
@@ -616,7 +615,7 @@ void cRenderJob::InitNetRender()
 	}
 
 	// get starting positions received from server
-	if (gNetRender->IsClient())
+	if (gNetRender->IsClient() && !gNetRender->IsAnimation())
 	{
 		renderData->netRenderStartingPositions = gNetRender->GetStartingPositions();
 	}
@@ -785,7 +784,7 @@ void cRenderJob::ConnectUpdateSinalsSlots(const cRenderer *renderer)
 
 void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)
 {
-	if (gNetRender->IsClient())
+	if (gNetRender->IsClient() && !gNetRender->IsAnimation())
 	{
 		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender,
 			SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
@@ -795,7 +794,7 @@ void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)
 		QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
 	}
 
-	if (gNetRender->IsServer())
+	if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 	{
 		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer,
 			SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));

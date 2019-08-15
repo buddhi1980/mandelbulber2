@@ -508,7 +508,7 @@ void cInterface::StartRender(bool noUndo)
 		mainImage->BlockImage();
 	}
 
-	gNetRender->isAnimation = false;
+	gNetRender->SetAnimation(false);
 
 	repeatRequest = false;
 	progressBarAnimation->hide();
