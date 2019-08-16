@@ -513,3 +513,16 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 		}
 	}
 }
+
+void CNetRenderClient::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
+{
+	sMessage msg;
+	msg.command = netRenderCmd_FRAME_DONE;
+	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+
+	stream << qint32(frameIndex);
+	stream << qint32(sizeOfToDoList);
+
+	WriteLog(QString("NetRender - ConfirmRenderedFrame(), frame %1").arg(frameIndex), 3);
+	cNetRenderTransport::SendData(clientSocket, msg, actualId);
+}

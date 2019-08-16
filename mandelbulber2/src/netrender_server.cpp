@@ -214,6 +214,7 @@ void cNetRenderServer::ProcessData(QTcpSocket *socket, sMessage *inMsg)
 			case netRenderCmd_DATA: ProcessRequestData(inMsg, index, socket); break;
 			case netRenderCmd_STATUS: ProcessRequestStatus(inMsg, index, socket); break;
 			case netRenderCmd_BAD: ProcessRequestBad(inMsg, index, socket); return;
+			case netRenderCmd_FRAME_DONE: ProcessRequestFrameDone(inMsg, index, socket); return;
 			default:
 				qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command);
 				break;
@@ -378,6 +379,37 @@ void cNetRenderServer::ProcessRequestBad(sMessage *inMsg, int index, QTcpSocket 
 	clients.removeAt(index);
 	emit ClientsChanged();
 	return; // to avoid resetting already deleted message buffer
+}
+
+void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpSocket *socket)
+{
+	Q_UNUSED(inMsg);
+	Q_UNUSED(socket);
+
+	WriteLog("NetRender - ProcessData(), command DATA", 3);
+	if (inMsg->id == actualId)
+	{
+		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+		qint32 frameIndex;
+		qint32 sizeOfListToDo;
+
+		while (!stream.atEnd())
+		{
+			stream >> frameIndex;
+			stream >> sizeOfListToDo;
+
+			WriteLog(QString("NetRender - ProcessData(), command FRAME_DONE, frame %1, toDoLength %2")
+								 .arg(frameIndex)
+								 .arg(sizeOfListToDo),
+				3);
+		}
+
+		emit FinishedFrame(frameIndex, sizeOfListToDo);
+	}
+	else
+	{
+		WriteLog("NetRender - received DATA message with wrong id", 1);
+	}
 }
 
 void cNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSocket *socket)

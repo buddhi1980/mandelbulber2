@@ -63,6 +63,8 @@ public:
 	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines);
 	// get name of the connected server
 	QString GetServerName() const { return serverName; }
+	// notify server that frame was just rendered
+	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
 
 private slots:
 	// try to connect to server
@@ -109,6 +111,7 @@ private:
 
 	qint32 actualId;
 	QVector<int> startingPositions;
+	QList<int> framesToRender;
 	QMap<QString, QByteArray> textures;
 };
 

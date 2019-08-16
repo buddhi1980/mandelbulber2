@@ -79,17 +79,18 @@ enum netCommandClient
 	netRenderCmd_STATUS = 8,						/* send status update */
 	netRenderCmd_SEND_FILE_HEADER = 15, /* send file data header */
 	netRenderCmd_SEND_FILE_DATA = 16,		/* send chunk of file data */
-	netRenderCmd_REQ_FILE = 17					/* ask server of a file (e.g. texture) */
+	netRenderCmd_REQ_FILE = 17,					/* ask server of a file (e.g. texture) */
+	netRenderCmd_FRAME_DONE = 19				/* confirmation of finished rendering frame */
 };
 
 enum netRenderStatus
 {
-	netRenderSts_DISABLED = 0,		/* no slot configured - netrendering disabled in the program */
-	netRenderSts_READY = 1,			/* client is ready and able to receive jobs */
-	netRenderSts_WORKING = 2,		/* during rendering */
-	netRenderSts_NEW = 3,				/* just connected */
+	netRenderSts_DISABLED = 0,	 /* no slot configured - netrendering disabled in the program */
+	netRenderSts_READY = 1,			 /* client is ready and able to receive jobs */
+	netRenderSts_WORKING = 2,		 /* during rendering */
+	netRenderSts_NEW = 3,				 /* just connected */
 	netRenderSts_CONNECTING = 4, /* connecting in progress */
-	netRenderSts_ERROR = 5				/* error occurred */
+	netRenderSts_ERROR = 5			 /* error occurred */
 };
 
 struct sMessage

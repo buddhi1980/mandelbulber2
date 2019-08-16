@@ -152,9 +152,13 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 				NetRenderCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)),
 			gNetRender,
 			SLOT(SetCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)));
+		connect(this, SIGNAL(NetRenderConfirmRendered(int, int)), gNetRender,
+			SLOT(ConfirmRenderedFrame(int, int)));
 
 		// signals from NetRender
 		connect(gNetRender, SIGNAL(KeyframeAnimationRender()), this, SLOT(slotRenderKeyframes()));
+		connect(gNetRender, SIGNAL(FinishedFrame(int, int)), this,
+			SLOT(slotNetRenderFinishedFrame(int, int)));
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -852,6 +856,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				renderedFramesCount++;
 				alreadyRenderedFrames[frameIndex] = true;
 
+				emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
+				netRenderListOfFramesToRender.removeAll(frameIndex);
+
 				gApplication->processEvents();
 			}
 			//--------------------------------------------------------------------
@@ -1532,4 +1539,16 @@ void cKeyframeAnimation::UpdateCameraDistanceInformation() const
 				tr("Camera distance from selected keyframe: %1").arg(distance));
 		}
 	}
+}
+
+void cKeyframeAnimation::SetNetRenderStartingFrames(const QVector<int> &startingFrames)
+{
+	netRenderListOfFramesToRender.clear();
+	netRenderListOfFramesToRender.append(startingFrames.toList());
+}
+
+void cKeyframeAnimation::slotNetRenderFinishedFrame(int frameIndex, int sizeOfToDoList)
+{
+	qDebug() << frameIndex;
+	qDebug() << sizeOfToDoList;
 }

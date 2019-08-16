@@ -101,6 +101,7 @@ signals:
 	void ClientsChanged(int i, int j);
 	// send data of newly rendered lines to cRenderer
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
+	void FinishedFrame(int frameIndex, int sizeOfDoDoList);
 
 private:
 	// process received data and send response if needed
@@ -113,6 +114,7 @@ private:
 	void ProcessRequestWorker(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestData(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpSocket *socket);
 
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes

@@ -164,6 +164,8 @@ public slots:
 	void SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines);
 	// notify the server about client status change
 	void NotifyStatus();
+	// notify server that frame was just rendered
+	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
 
 	//------------------- private slots ------------------
 private slots:
@@ -189,6 +191,8 @@ signals:
 	void AckReceived();
 	// signal to start rendering keyframe animation
 	void KeyframeAnimationRender();
+	// signal to animation about finished frame
+	void FinishedFrame(int, int);
 
 	void NewStatusClient();
 	void NewStatusServer();

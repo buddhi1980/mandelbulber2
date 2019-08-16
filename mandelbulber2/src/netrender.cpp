@@ -57,6 +57,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 	isUsed = false;
 	isAnimation = false;
 	netRenderClient = new CNetRenderClient();
+
+	// client signals
 	connect(netRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
 		SLOT(clientStatusChanged(netRenderStatus)));
 	connect(netRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
@@ -67,6 +69,7 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(
 		netRenderClient, SIGNAL(KeyframeAnimationRender()), this, SIGNAL(KeyframeAnimationRender()));
 
+	// server signals
 	netRenderServer = new cNetRenderServer();
 	connect(netRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,
 		SLOT(serverStatusChanged(netRenderStatus)));
@@ -77,6 +80,7 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(netRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
 	connect(netRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
 		SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
+	connect(netRenderServer, SIGNAL(FinishedFrame(int, int)), this, SIGNAL(FinishedFrame(int, int)));
 }
 
 cNetRender::~cNetRender()
@@ -252,4 +256,9 @@ void cNetRender::ResetDeviceType()
 {
 	deviceType = netRenderDevuceType_UNKNOWN;
 	emit NotifyStatus();
+}
+
+void cNetRender::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
+{
+	netRenderClient->ConfirmRenderedFrame(frameIndex, sizeOfToDoList);
 }

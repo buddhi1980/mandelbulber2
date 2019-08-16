@@ -197,7 +197,7 @@ void cRenderer::SendRenderedLinesToNetRender(QList<int> &listToSend)
 {
 	// sending rendered lines to NetRender server
 	if (data->configuration.UseNetRender() && gNetRender->IsClient()
-			&& gNetRender->GetStatus() == netRenderSts_WORKING)
+			&& gNetRender->GetStatus() == netRenderSts_WORKING && !gNetRender->IsAnimation())
 	{
 		// If ACK was already received, then server is ready to take new data.
 		if (netRenderAckReceived)
@@ -231,7 +231,7 @@ void cRenderer::SendRenderedLinesToNetRender(QList<int> &listToSend)
 
 void cRenderer::UpdateNetRenderToDoList()
 {
-	if (data->configuration.UseNetRender() && gNetRender->IsServer())
+	if (data->configuration.UseNetRender() && gNetRender->IsServer() && !gNetRender->IsAnimation())
 	{
 		QList<int> toDoList = scheduler->CreateDoneList();
 		if (toDoList.size() > data->configuration.GetNumberOfThreads())
@@ -248,7 +248,7 @@ void cRenderer::SendRenderedLinesToNetRenderAfterRendering(QList<int> listToSend
 {
 	// send last rendered lines
 	if (data->configuration.UseNetRender() && gNetRender->IsClient()
-			&& gNetRender->GetStatus() == netRenderSts_WORKING)
+			&& gNetRender->GetStatus() == netRenderSts_WORKING && !gNetRender->IsAnimation())
 	{
 		if (netRenderAckReceived)
 		{
@@ -464,7 +464,7 @@ bool cRenderer::RenderImage()
 
 		if (data->configuration.UseNetRender())
 		{
-			if (gNetRender->IsServer())
+			if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 			{
 				emit StopAllClients();
 			}
@@ -473,7 +473,8 @@ bool cRenderer::RenderImage()
 		image->NullPostEffect();
 
 		// post efects
-		if (!(gNetRender->IsClient() && data->configuration.UseNetRender()))
+		if (!((gNetRender->IsClient() || gNetRender->IsAnimation())
+					&& data->configuration.UseNetRender()))
 		{
 			if (params->ambientOcclusionEnabled
 					&& params->ambientOcclusionMode == params::AOModeScreenSpace)
@@ -522,7 +523,7 @@ bool cRenderer::RenderImage()
 
 		if (data->configuration.UseNetRender())
 		{
-			if (gNetRender->IsClient())
+			if (gNetRender->IsClient() && !gNetRender->IsAnimation())
 			{
 				gNetRender->SetStatus(netRenderSts_READY);
 				emit NotifyClientStatus();
