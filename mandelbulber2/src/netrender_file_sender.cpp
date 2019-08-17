@@ -34,9 +34,10 @@
  */
 
 #include "netrender_file_sender.hpp"
+
 #include "system.hpp"
 
-NetrenderFileSender::NetrenderFileSender(QObject *parent) : QObject(parent)
+cNetrenderFileSender::cNetrenderFileSender(QObject *parent) : QObject(parent)
 {
 	actualFileSize = 0;
 	actualChunkIndex = 0;
@@ -45,9 +46,9 @@ NetrenderFileSender::NetrenderFileSender(QObject *parent) : QObject(parent)
 	lastChunk = false;
 }
 
-NetrenderFileSender::~NetrenderFileSender() = default;
+cNetrenderFileSender::~cNetrenderFileSender() = default;
 
-void NetrenderFileSender::AddFileToQueue(const QString &filename)
+void cNetrenderFileSender::AddFileToQueue(const QString &filename)
 {
 	fileQueue.enqueue(filename);
 
@@ -58,7 +59,7 @@ void NetrenderFileSender::AddFileToQueue(const QString &filename)
 	}
 }
 
-void NetrenderFileSender::AcknowledgeReceived()
+void cNetrenderFileSender::AcknowledgeReceived()
 {
 	if (sendingInProgress)
 	{
@@ -84,7 +85,7 @@ void NetrenderFileSender::AcknowledgeReceived()
 	}
 }
 
-void NetrenderFileSender::sendFileOverNetrender(const QString &fileName)
+void cNetrenderFileSender::sendFileOverNetrender(const QString &fileName)
 {
 	int fileSize = QFile(fileName).size();
 
@@ -96,30 +97,41 @@ void NetrenderFileSender::sendFileOverNetrender(const QString &fileName)
 		{
 			actualFileName = fileName;
 			actualFileSize = fileSize;
-			actualNumberOfChunks = ceil(fileSize / NetrenderFileSender::CHUNK_SIZE);
+			actualNumberOfChunks = ceil(fileSize / cNetrenderFileSender::CHUNK_SIZE);
 			actualChunkIndex = 0;
 			sendingInProgress = true;
 			lastChunk = false;
 
-			emit NetRenderSendHeader(fileSize, fileName);
+			QString nameWithoutPath = QFileInfo(fileName).fileName();
+			emit NetRenderSendHeader(fileSize, nameWithoutPath);
 		}
 		else
 		{
 			qCritical() << "Cannot open file to send via NetRender" << fileName;
+			sendingInProgress = false;
 		}
 	}
 }
 
-void NetrenderFileSender::SendDataChunk()
+void cNetrenderFileSender::SendDataChunk()
 {
 	if (actualFile.isOpen())
 	{
-		qint64 bytesLeft = actualFileSize - actualChunkIndex * CHUNK_SIZE;
-		qint64 bytesToRead = qMax(CHUNK_SIZE, bytesLeft);
+		qint64 bytesLeft = actualFileSize - actualChunkIndex * cNetrenderFileSender::CHUNK_SIZE;
+		qint64 bytesToRead = qMax(cNetrenderFileSender::CHUNK_SIZE, bytesLeft);
 		QByteArray data = actualFile.read(bytesToRead);
 		actualChunkIndex++;
 		emit NetRenderSendChunk(actualChunkIndex, data);
 
-		if (bytesLeft == bytesToRead) lastChunk = true;
+		if (bytesLeft == bytesToRead)
+		{
+			lastChunk = true;
+			actualFile.close();
+		}
+	}
+	else
+	{
+		qCritical() << "File is no longer open" << actualFileName;
+		sendingInProgress = false;
 	}
 }

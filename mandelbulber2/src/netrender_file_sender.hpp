@@ -38,22 +38,20 @@
 
 #include <QtCore>
 
-class NetrenderFileSender : public QObject
+class cNetrenderFileSender : public QObject
 {
 	Q_OBJECT
 	const qint64 CHUNK_SIZE = 1024 * 1024;
 
 public:
-	NetrenderFileSender(QObject *parent = nullptr);
-	~NetrenderFileSender() override;
+	cNetrenderFileSender(QObject *parent = nullptr);
+	~cNetrenderFileSender() override;
 
 public slots:
 	void AddFileToQueue(const QString &filename);
 	void AcknowledgeReceived();
 
 private:
-	QString netrenderFolder;
-	QFileSystemWatcher netrenderFolderWatcher;
 	void sendFileOverNetrender(const QString &file);
 	void SendDataChunk(); // after acknowledge
 

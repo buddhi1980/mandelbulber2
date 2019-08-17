@@ -89,7 +89,7 @@ int fcopy(const char *source, const char *dest)
 	pFile = fopen(source, "rb");
 	if (pFile == nullptr)
 	{
-		printf("Can't open source file for copying: %s\n", source);
+		qCritical() << "Can't open source file for copying: " << source;
 		return 1;
 	}
 
@@ -107,7 +107,7 @@ int fcopy(const char *source, const char *dest)
 		result = fread(buffer, 1, lSize, pFile);
 		if (result != size_t(lSize))
 		{
-			printf("Can't read source file for copying: %s\n", source);
+			qCritical() << "Can't read source file for copying: " << source;
 			delete[] buffer;
 			fclose(pFile);
 			return 2;
@@ -126,7 +126,7 @@ int fcopy(const char *source, const char *dest)
 	pFile = fopen(dest, "wb");
 	if (pFile == nullptr)
 	{
-		printf("Can't open destination file for copying: %s\n", dest);
+		qCritical() << "Can't open destination file for copying: " << dest;
 		delete[] buffer;
 		return 3;
 	}

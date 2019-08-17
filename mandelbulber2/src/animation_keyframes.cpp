@@ -1252,9 +1252,14 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 
 	QString dir;
 	if (netRenderCache)
-		dir = systemData.GetNetrenderFolder() + QDir::separator();
+	{
+		dir = systemData.GetNetrenderFolder() + QDir::separator()
+					+ QString("pid%1_").arg(QCoreApplication::applicationPid());
+	}
 	else
+	{
 		dir = params->Get<QString>("anim_keyframe_dir");
+	}
 
 	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
