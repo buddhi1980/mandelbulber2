@@ -37,7 +37,6 @@
 #define MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_
 
 #include <QtCore>
-#include "netrender.hpp"
 
 class NetrenderFileSender : public QObject
 {

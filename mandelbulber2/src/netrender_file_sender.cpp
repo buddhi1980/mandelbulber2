@@ -34,6 +34,7 @@
  */
 
 #include "netrender_file_sender.hpp"
+#include "system.hpp"
 
 NetrenderFileSender::NetrenderFileSender(QObject *parent) : QObject(parent)
 {
@@ -104,7 +105,7 @@ void NetrenderFileSender::sendFileOverNetrender(const QString &fileName)
 		}
 		else
 		{
-			qCritical("Cannot open file to send via NetRender") << fileName;
+			qCritical() << "Cannot open file to send via NetRender" << fileName;
 		}
 	}
 }
@@ -114,7 +115,7 @@ void NetrenderFileSender::SendDataChunk()
 	if (actualFile.isOpen())
 	{
 		qint64 bytesLeft = actualFileSize - actualChunkIndex * CHUNK_SIZE;
-		qint64 bytesToRead = max(CHUNK_SIZE, bytesLeft);
+		qint64 bytesToRead = qMax(CHUNK_SIZE, bytesLeft);
 		QByteArray data = actualFile.read(bytesToRead);
 		actualChunkIndex++;
 		emit NetRenderSendChunk(actualChunkIndex, data);

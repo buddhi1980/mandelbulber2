@@ -673,7 +673,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
-				const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
+				const QString filename = GetKeyframeFilename(index, subIndex, false);
 				const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
 				alreadyRenderedFrames[frameNo] =
 					(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
@@ -858,7 +858,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				renderJob->UpdateParameters(params, fractalParams);
 				const int result = renderJob->Execute();
 				if (!result) throw false;
-				const QString filename = GetKeyframeFilename(index, subIndex);
+				const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
 				const ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
 				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
