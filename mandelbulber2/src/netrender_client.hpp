@@ -87,6 +87,8 @@ signals:
 	void NotifyStatus();
 	// signal to start rendering keyframe animation
 	void KeyframeAnimationRender();
+	// signal to update list of frames to render
+	void UpdateFramesToDo(QList<int> listOfFrames);
 
 private:
 	void ProcessData();
@@ -101,6 +103,7 @@ private:
 	void ProcessRequestAck(sMessage *inMsg);
 	void ProcessRequestKickAndKill(sMessage *inMsg);
 	void ProcessRequestRenderAnimation(sMessage *inMsg);
+	void ProcessRequestFramesToDo(sMessage *inMsg);
 
 	QTcpSocket *clientSocket;
 	QTimer *reconnectTimer;

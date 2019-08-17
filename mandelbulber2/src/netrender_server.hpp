@@ -75,14 +75,14 @@ public:
 	const sClient &GetClient(int index);
 	// in cli mode this method enables waiting for the clients before start of rendering
 	bool WaitForAllClientsReady(double timeout);
-
 	// send parameters and textures to all clients and start rendering
 	void SetCurrentJob(const cParameterContainer &settings, const cFractalContainer &fractal,
 		QStringList listOfTextures);
-
 	// send parameters and start rendering animation from frame n
 	void SetCurrentAnimation(
 		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
+	// send list of frames to render next
+	void SendFramesToDoList(int clientIndex, const QList<int> &frameNumbers);
 
 private slots:
 	// received data from client
@@ -101,7 +101,7 @@ signals:
 	void ClientsChanged(int i, int j);
 	// send data of newly rendered lines to cRenderer
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
-	void FinishedFrame(int frameIndex, int sizeOfDoDoList);
+	void FinishedFrame(int clientIndex, int frameIndex, int sizeOfDoDoList);
 
 private:
 	// process received data and send response if needed

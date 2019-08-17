@@ -57,17 +57,18 @@ enum netCommandServer
 {
 	netRenderCmd_VERSION = 1,				 /* send the program version */
 	netRenderCmd_RENDER = 3,				 /* list of lines (frames) needed to be rendered,
-																and suggestion which lines should be rendered first */
+														and suggestion which lines should be rendered first */
 	netRenderCmd_JOB = 6,						 /* sending of settings and textures
 																	Receiving of job will start rendering on client */
 	netRenderCmd_STOP = 7,					 /* terminate rendering request */
 	netRenderCmd_SETUP = 9,					 /* send setup job id and starting positions */
 	netRenderCmd_ACK = 10,					 /* acknowledge receiving of rendered lines */
 	netRenderCmd_KICK_AND_KILL = 11, /* command to kill the client (program exit) */
-	netRenderCmd_ASK_STATUS = 12,		 /* ask the client what its statis is */
+	netRenderCmd_ASK_STATUS = 12,		 /* ask the client what its status is */
 	netRenderCmd_ANIM_KEY = 13,		 /* sending of settings and start rendering of keyframe animation */
 	netRenderCmd_ANIM_FLIGHT = 14, /* sending of settings and start rendering of flight animation */
-	netRenderCmd_SEND_REQ_FILE = 18 /* send file requested by client (e.g. texture)*/
+	netRenderCmd_SEND_REQ_FILE = 18, /* send file requested by client (e.g. texture)*/
+	netRenderCmd_FRAMES_TODO = 20		 /* send list of frames to do next */
 };
 
 /* these commands are send from the client to the server */

@@ -211,6 +211,7 @@ void CNetRenderClient::ProcessData()
 		case netRenderCmd_KICK_AND_KILL: ProcessRequestKickAndKill(inMsg); break;
 		case netRenderCmd_ANIM_FLIGHT: ProcessRequestRenderAnimation(inMsg); break;
 		case netRenderCmd_ANIM_KEY: ProcessRequestRenderAnimation(inMsg); break;
+		case netRenderCmd_FRAMES_TODO: ProcessRequestFramesToDo(inMsg); break;
 		default: qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command); break;
 	}
 }
@@ -488,7 +489,24 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			if (!systemData.noGui)
 			{
 				gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-				emit KeyframeAnimationRender();
+				// emit KeyframeAnimationRender();
+
+				auto keyframesRenderThread = new cKeyframeRenderThread; // deleted by deleteLater()
+				auto *thread = new QThread;															// deleted by deleteLater()
+				keyframesRenderThread->moveToThread(thread);
+
+				QObject::connect(
+					thread, SIGNAL(started()), keyframesRenderThread, SLOT(startAnimationRender()));
+
+				thread->setObjectName("KeyframesRender");
+				thread->start();
+
+				QObject::connect(keyframesRenderThread, SIGNAL(renderingFinished()), keyframesRenderThread,
+					SLOT(deleteLater()));
+				QObject::connect(keyframesRenderThread, SIGNAL(renderingFinished()), thread, SLOT(quit()));
+				QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+
+				// gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 			}
 			else
 			{
@@ -511,6 +529,39 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
 			}
 		}
+	}
+}
+
+void CNetRenderClient::ProcessRequestFramesToDo(sMessage *inMsg)
+{
+	WriteLog("NetRender - ProcessRequestRenderAnimation()", 2);
+	if (inMsg->id == actualId)
+	{
+		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+
+		QList<int> frameList;
+		qint32 frameListSize;
+		stream >> frameListSize;
+		startingPositions.clear();
+		for (int i = 0; i < frameListSize; i++)
+		{
+			qint32 frame;
+			stream >> frame;
+			frameList.append(frame);
+			WriteLog(QString("NetRender - ProcessData(), command FRAMES_TODO, start line %1 = %2")
+								 .arg(i)
+								 .arg(frame),
+				3);
+		}
+		qDebug() << frameList;
+		emit UpdateFramesToDo(frameList);
+	}
+	else
+	{
+		WriteLog(
+			QString("NetRender - received FRAMES_TODO message with wrong id. Local %1 vs Remote %2")
+				.arg(QString::number(actualId), QString::number(inMsg->id)),
+			1);
 	}
 }
 

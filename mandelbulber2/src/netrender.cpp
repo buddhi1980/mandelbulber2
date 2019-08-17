@@ -68,6 +68,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(netRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
 	connect(
 		netRenderClient, SIGNAL(KeyframeAnimationRender()), this, SIGNAL(KeyframeAnimationRender()));
+	connect(netRenderClient, SIGNAL(UpdateFramesToDo(QList<int>)), this,
+		SIGNAL(UpdateFramesToDo(QList<int>)));
 
 	// server signals
 	netRenderServer = new cNetRenderServer();
@@ -80,7 +82,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(netRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
 	connect(netRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
 		SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
-	connect(netRenderServer, SIGNAL(FinishedFrame(int, int)), this, SIGNAL(FinishedFrame(int, int)));
+	connect(netRenderServer, SIGNAL(FinishedFrame(int, int, int)), this,
+		SIGNAL(FinishedFrame(int, int, int)));
 }
 
 cNetRender::~cNetRender()
@@ -164,6 +167,11 @@ void cNetRender::KickAndKillClient(int clientIndex)
 	netRenderServer->KickAndKillClient(clientIndex);
 }
 
+void cNetRender::SendFramesToDoList(int clientIndex, QList<int> frameNumbers)
+{
+	netRenderServer->SendFramesToDoList(clientIndex, frameNumbers);
+}
+
 // send rendered lines
 void cNetRender::SendRenderedLines(const QList<int> &lineNumbers, const QList<QByteArray> &lines)
 {
@@ -174,6 +182,11 @@ void cNetRender::NotifyStatus()
 {
 	emit NewStatusClient();
 	netRenderClient->SendStatusToServer(status);
+}
+
+void cNetRender::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
+{
+	netRenderClient->ConfirmRenderedFrame(frameIndex, sizeOfToDoList);
 }
 
 QString cNetRender::GetStatusText(netRenderStatus displayStatus)
@@ -256,9 +269,4 @@ void cNetRender::ResetDeviceType()
 {
 	deviceType = netRenderDevuceType_UNKNOWN;
 	emit NotifyStatus();
-}
-
-void cNetRender::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
-{
-	netRenderClient->ConfirmRenderedFrame(frameIndex, sizeOfToDoList);
 }

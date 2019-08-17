@@ -157,8 +157,12 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 		// signals from NetRender
 		connect(gNetRender, SIGNAL(KeyframeAnimationRender()), this, SLOT(slotRenderKeyframes()));
-		connect(gNetRender, SIGNAL(FinishedFrame(int, int)), this,
-			SLOT(slotNetRenderFinishedFrame(int, int)));
+		connect(gNetRender, SIGNAL(FinishedFrame(int, int, int)), this,
+			SLOT(slotNetRenderFinishedFrame(int, int, int)));
+		connect(this, SIGNAL(NetRenderSendFramesToDoList(int, QList<int>)), gNetRender,
+			SLOT(SendFramesToDoList(int, QList<int>)));
+		connect(gNetRender, SIGNAL(UpdateFramesToDo(QList<int>)), this,
+			SLOT(slotNetRenderUpdateFramesToDo(QList<int>)));
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -623,7 +627,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	QVector<bool> alreadyRenderedFrames;
 	alreadyRenderedFrames.resize(totalFrames);
 
-	QVector<bool> reservedFrames;
+	reservedFrames.clear();
 	reservedFrames.resize(totalFrames);
 
 	try
@@ -745,7 +749,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			int numberOfFramesForNetRender =
 				unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
-			if (numberOfFramesForNetRender > 100) numberOfFramesForNetRender = 100;
+			if (numberOfFramesForNetRender > maxFramesForNetRender)
+				numberOfFramesForNetRender = maxFramesForNetRender;
 
 			qint32 renderId = rand();
 			gNetRender->SetCurrentRenderId(renderId);
@@ -805,6 +810,11 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					if (!frameFound) continue;
 				}
 
+				if (gNetRender->IsServer())
+				{
+					reservedFrames[frameIndex] = true;
+				}
+
 				double percentDoneFrame;
 				if (unrenderedTotalBeforeRender > 0)
 					percentDoneFrame = double(renderedFramesCount) / unrenderedTotalBeforeRender;
@@ -839,10 +849,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 					mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 				}
 
-				if (gNetRender->IsServer())
-				{
-					gNetRender->WaitForAllClientsReady(10.0);
-				}
+				//				if (gNetRender->IsServer())
+				//				{
+				//					gNetRender->WaitForAllClientsReady(10.0);
+				//				}
 
 				params->Set("frame_no", frameIndex);
 				renderJob->UpdateParameters(params, fractalParams);
@@ -1547,8 +1557,51 @@ void cKeyframeAnimation::SetNetRenderStartingFrames(const QVector<int> &starting
 	netRenderListOfFramesToRender.append(startingFrames.toList());
 }
 
-void cKeyframeAnimation::slotNetRenderFinishedFrame(int frameIndex, int sizeOfToDoList)
+void cKeyframeAnimation::slotNetRenderFinishedFrame(
+	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
 	qDebug() << frameIndex;
 	qDebug() << sizeOfToDoList;
+
+	// counting left frames
+	int countLeft = reservedFrames.count(false);
+
+	// calculate maximum list size
+	int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2 + 1;
+	if (numberOfFramesForNetRender > maxFramesForNetRender)
+		numberOfFramesForNetRender = maxFramesForNetRender;
+
+	// calculate number for frames to supplement
+	int numberOfNewFrames = numberOfFramesForNetRender - sizeOfToDoList;
+
+	if (numberOfNewFrames > 0)
+	{
+		QList<int> toDoList;
+
+		// looking for not reserved frame
+		for (int f = 0; f < reservedFrames.size(); f++)
+		{
+			if (!reservedFrames[f])
+			{
+				toDoList.append(f);
+				reservedFrames[f] = true;
+			}
+			if (toDoList.size() >= numberOfNewFrames) break;
+		}
+		NetRenderSendFramesToDoList(clientIndex, toDoList);
+	}
+}
+
+void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
+{
+	netRenderListOfFramesToRender.append(listOfFrames);
+	qDebug() << netRenderListOfFramesToRender;
+}
+
+
+
+void cKeyframeRenderThread::startAnimationRender()
+{
+	gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
+	emit renderingFinished();
 }

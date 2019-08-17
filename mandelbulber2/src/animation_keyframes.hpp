@@ -96,7 +96,8 @@ public slots:
 	void slotIncreaseCurrentTableIndex();
 	void slotDecreaseCurrentTableIndex();
 	void slotModifyKeyframe();
-	void slotNetRenderFinishedFrame(int frameIndex, int sizeOfToDoList);
+	void slotNetRenderFinishedFrame(int clientIndex, int frameIndex, int sizeOfToDoList);
+	void slotNetRenderUpdateFramesToDo(QList<int> listOfFrames);
 
 private slots:
 	void slotSelectKeyframeAnimImageDir() const;
@@ -142,6 +143,8 @@ private:
 	QSize previewSize;
 	CVector3 actualCameraPosition;
 	QList<int> netRenderListOfFramesToRender;
+	QVector<bool> reservedFrames;
+	const int maxFramesForNetRender = 10;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
@@ -159,8 +162,20 @@ signals:
 	void NetRenderCurrentAnimation(
 		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
 	void NetRenderConfirmRendered(int frameIndex, int toDoListLength);
+	void NetRenderSendFramesToDoList(int clientIndex, QList<int> frameNumbers);
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;
+
+class cKeyframeRenderThread : public QThread
+{
+	Q_OBJECT;
+
+public slots:
+	void startAnimationRender();
+
+signals:
+	void renderingFinished();
+};
 
 #endif /* MANDELBULBER2_SRC_ANIMATION_KEYFRAMES_HPP_ */

@@ -404,7 +404,7 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 				3);
 		}
 
-		emit FinishedFrame(frameIndex, sizeOfListToDo);
+		emit FinishedFrame(index, frameIndex, sizeOfListToDo);
 	}
 	else
 	{
@@ -595,4 +595,29 @@ void cNetRenderServer::SendVersionToClient(int index)
 	stream << qint32(machineName.toUtf8().size());
 	stream.writeRawData(machineName.toUtf8().data(), machineName.toUtf8().size());
 	cNetRenderTransport::SendData(GetClient(index).socket, msg, actualId);
+}
+
+void cNetRenderServer::SendFramesToDoList(int clientIndex, const QList<int> &frameNumbers)
+{
+	WriteLog("NetRender - send frames to do to client", 2);
+	if (clientIndex < GetClientCount())
+	{
+		qDebug() << "NetRender send frame numbers" << frameNumbers;
+		sMessage msg;
+		msg.command = netRenderCmd_FRAMES_TODO;
+		QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+		stream << qint32(frameNumbers.size());
+		for (int frameNumber : frameNumbers)
+		{
+			stream << qint32(frameNumber);
+		}
+		cNetRenderTransport::SendData(GetClient(clientIndex).socket, msg, actualId);
+	}
+	else
+	{
+		qCritical() << "cNetRenderServer::SendFramesToDoList(int clientIndex, int id, QList<int> "
+									 "startingPositions): "
+									 "Client index out of range:"
+								<< clientIndex;
+	}
 }
