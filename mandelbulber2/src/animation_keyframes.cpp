@@ -673,7 +673,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			for (int subIndex = 0; subIndex < keyframes->GetFramesPerKeyframe(); subIndex++)
 			{
-				const QString filename = GetKeyframeFilename(index, subIndex);
+				const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
 				const int frameNo = index * keyframes->GetFramesPerKeyframe() + subIndex;
 				alreadyRenderedFrames[frameNo] =
 					(QFile(filename).exists() || frameNo < startFrame || frameNo >= endFrame);
@@ -1246,11 +1246,17 @@ void cKeyframeAnimation::slotRefreshTable()
 	RefreshTable();
 }
 
-QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex) const
+QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const
 {
 	const int frameIndex = index * keyframes->GetFramesPerKeyframe() + subIndex;
-	QString filename = params->Get<QString>("anim_keyframe_dir") + "frame_"
-										 + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
+
+	QString dir;
+	if (netRenderCache)
+		dir = systemData.GetNetrenderFolder() + QDir::separator();
+	else
+		dir = params->Get<QString>("anim_keyframe_dir");
+
+	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
 									params->Get<int>("keyframe_animation_image_type")));
@@ -1597,8 +1603,6 @@ void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 	netRenderListOfFramesToRender.append(listOfFrames);
 	qDebug() << netRenderListOfFramesToRender;
 }
-
-
 
 void cKeyframeRenderThread::startAnimationRender()
 {

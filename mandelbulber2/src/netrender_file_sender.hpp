@@ -29,51 +29,47 @@
  *
  * Authors: Sebastian Jennen (jenzebas@gmail.com)
  *
- * NetrenderFileWatch class - watches for transmissable files on the client to
+ * NetrenderFileSender class - watches for transmissable files on the client to
  * send to the server
  */
 
-#include "netrender_file_watch.hpp"
+#ifndef MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_
+#define MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_
 
-NetrenderFileWatch::NetrenderFileWatch(const QString &_netrenderFolder) : QObject(nullptr)
+#include <QtCore>
+#include "netrender.hpp"
+
+class NetrenderFileSender : public QObject
 {
-	netrenderFolder = _netrenderFolder;
-	netrenderFolderWatcher.addPath(_netrenderFolder);
-	connect(&netrenderFolderWatcher, SIGNAL(directoryChanged(const QString &)), this,
-		SLOT(netrenderFolderChanged()));
-}
+	Q_OBJECT
+	const qint64 CHUNK_SIZE = 1024 * 1024;
 
-NetrenderFileWatch::~NetrenderFileWatch() = default;
+public:
+	NetrenderFileSender(QObject *parent = nullptr);
+	~NetrenderFileSender() override;
 
-void NetrenderFileWatch::netrenderFolderChanged()
-{
-	// get all files, which are not processing
-	QStringList netrenderFolderFiles =
-		QDir(netrenderFolder).entryList(QDir::NoDotAndDotDot | QDir::Files);
-	// make paths absolute
-	for (int i = 0; i < netrenderFolderFiles.size(); i++)
-	{
-		QString netrenderFile = netrenderFolder + QDir::separator() + netrenderFolderFiles.at(i);
-		// skip processing files
-		if (netrenderFile.endsWith(".processing")) continue;
-		// mark these files as processing
-		QFile::rename(netrenderFile, netrenderFile + ".processing");
-		// send chunked file over netrender
-		sendFileOverNetrender(netrenderFile + ".processing");
-		// delete sent file
-		QFile(netrenderFile + ".processing").remove();
-	}
-}
+public slots:
+	void AddFileToQueue(const QString &filename);
+	void AcknowledgeReceived();
 
-void NetrenderFileWatch::sendFileOverNetrender(const QString &file)
-{
-	int filesize = QFile(file).size();
-	int chunks = ceil(filesize / NetrenderFileWatch::CHUNK_SIZE);
-	for (int chunk; chunk < chunks; chunk++)
-	{
-		int offset = chunk * NetrenderFileWatch::CHUNK_SIZE;
-		// TODO: something like this
-		// emit sendFileChunk(file, chunk, offset, min(filesize - offset,
-		// NetrenderFileWatch::CHUNK_SIZE));
-	}
-}
+private:
+	QString netrenderFolder;
+	QFileSystemWatcher netrenderFolderWatcher;
+	void sendFileOverNetrender(const QString &file);
+	void SendDataChunk(); // after acknowledge
+
+	QQueue<QString> fileQueue;
+	QString actualFileName;
+	qint64 actualFileSize;
+	qint64 actualNumberOfChunks;
+	qint64 actualChunkIndex;
+	bool sendingInProgress;
+	bool lastChunk;
+	QFile actualFile;
+
+signals:
+	void NetRenderSendHeader(int size, QString filename);
+	void NetRenderSendChunk(int chunkIndex, QByteArray data);
+};
+
+#endif /* MANDELBULBER2_SRC_NETRENDER_FILE_SENDER_HPP_ */

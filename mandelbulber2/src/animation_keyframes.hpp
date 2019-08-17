@@ -122,7 +122,7 @@ private:
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int index = -1);
 	void AddRow(int row, const QString &fullParameterName, int index);
 	void NewKeyframe(int index);
-	QString GetKeyframeFilename(int index, int subIndex) const;
+	QString GetKeyframeFilename(int index, int subIndex, bool netRenderCache) const;
 	static QColor MorphType2Color(parameterContainer::enumMorphType morphType);
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPath() const;
