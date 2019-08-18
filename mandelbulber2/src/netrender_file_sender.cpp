@@ -118,7 +118,7 @@ void cNetRenderFileSender::SendDataChunk()
 	if (actualFile.isOpen())
 	{
 		qint64 bytesLeft = actualFileSize - actualChunkIndex * cNetRenderFileSender::CHUNK_SIZE;
-		qint64 bytesToRead = qMax(cNetRenderFileSender::CHUNK_SIZE, bytesLeft);
+		qint64 bytesToRead = qMin(cNetRenderFileSender::CHUNK_SIZE, bytesLeft);
 		QByteArray data = actualFile.read(bytesToRead);
 		actualChunkIndex++;
 		emit NetRenderSendChunk(actualChunkIndex, data);

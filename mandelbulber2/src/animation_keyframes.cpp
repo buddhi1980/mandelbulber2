@@ -844,7 +844,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (!systemData.noGui && image->IsMainImage())
 				{
-					mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
+					// FIXME: writing to interface from not main thread is not thread safe!
+					// mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 					// show distance in statistics table
 					const double distance = mainInterface->GetDistanceForPoint(
@@ -1577,9 +1578,6 @@ void cKeyframeAnimation::SetNetRenderStartingFrames(const QVector<int> &starting
 void cKeyframeAnimation::slotNetRenderFinishedFrame(
 	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
-	qDebug() << frameIndex;
-	qDebug() << sizeOfToDoList;
-
 	// counting left frames
 	int countLeft = reservedFrames.count(false);
 
@@ -1612,7 +1610,6 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 {
 	netRenderListOfFramesToRender.append(listOfFrames);
-	qDebug() << netRenderListOfFramesToRender;
 }
 
 void cKeyframeRenderThread::startAnimationRender()

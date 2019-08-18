@@ -53,7 +53,7 @@ void cNetRenderFileReceiver::ReceiveChunk(int clientIndex, int chunkIndex, QByte
 		{
 			qint64 bytesLeft =
 				fileInfo.fileSize - fileInfo.chunkIndex * cNetRenderFileReceiver::CHUNK_SIZE;
-			qint64 expectedChunkSize = qMax(bytesLeft, cNetRenderFileReceiver::CHUNK_SIZE);
+			qint64 expectedChunkSize = qMin(bytesLeft, cNetRenderFileReceiver::CHUNK_SIZE);
 			if (data.size() == expectedChunkSize)
 			{
 				QFile file(fileInfo.fullFilePathInCache);

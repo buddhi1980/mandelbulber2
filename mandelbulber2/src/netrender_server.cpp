@@ -551,7 +551,7 @@ void cNetRenderServer::ProcessRequestFileHeader(sMessage *inMsg, int index, QTcp
 	}
 	else
 	{
-		WriteLog("NetRender - received DATA message with wrong id", 1);
+		WriteLog("NetRender - received SEND_FILE_HEADER message with wrong id", 1);
 	}
 }
 void cNetRenderServer::ProcessRequestFileDataChunk(sMessage *inMsg, int index, QTcpSocket *socket)
@@ -570,9 +570,8 @@ void cNetRenderServer::ProcessRequestFileDataChunk(sMessage *inMsg, int index, Q
 
 		if (chunkSize > 0)
 		{
-			QByteArray bufferForName;
-			bufferForName.resize(chunkSize);
-			stream.readRawData(bufferForName.data(), chunkSize);
+			chunkData.resize(chunkSize);
+			stream.readRawData(chunkData.data(), chunkSize);
 		}
 
 		WriteLog(QString("NetRender - ProcessRequestFileHeader(), command SEND_FILE_DATA, chunkIndex "
@@ -591,7 +590,7 @@ void cNetRenderServer::ProcessRequestFileDataChunk(sMessage *inMsg, int index, Q
 	}
 	else
 	{
-		WriteLog("NetRender - received DATA message with wrong id", 1);
+		WriteLog("NetRender - received SEND_FILE_DATA message with wrong id", 1);
 	}
 }
 
@@ -689,7 +688,6 @@ void cNetRenderServer::SendFramesToDoList(int clientIndex, const QList<int> &fra
 	WriteLog("NetRender - send frames to do to client", 2);
 	if (clientIndex < GetClientCount())
 	{
-		qDebug() << "NetRender send frame numbers" << frameNumbers;
 		sMessage msg;
 		msg.command = netRenderCmd_FRAMES_TODO;
 		QDataStream stream(&msg.payload, QIODevice::WriteOnly);

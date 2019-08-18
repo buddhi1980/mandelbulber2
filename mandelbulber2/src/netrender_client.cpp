@@ -561,7 +561,6 @@ void CNetRenderClient::ProcessRequestFramesToDo(sMessage *inMsg)
 								 .arg(frame),
 				3);
 		}
-		qDebug() << frameList;
 		emit UpdateFramesToDo(frameList);
 	}
 	else
@@ -608,7 +607,7 @@ void CNetRenderClient::SendFileDataChunk(int chunkIndex, QByteArray data)
 	msg.command = netRenderCmd_SEND_FILE_DATA;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 
-	stream << qint64(chunkIndex);
+	stream << qint32(chunkIndex);
 	stream << qint32(data.size());
 	stream.writeRawData(data.data(), data.size());
 
