@@ -165,6 +165,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			SLOT(SendFramesToDoList(int, QList<int>)));
 		connect(gNetRender, SIGNAL(UpdateFramesToDo(QList<int>)), this,
 			SLOT(slotNetRenderUpdateFramesToDo(QList<int>)));
+		connect(
+			this, &cKeyframeAnimation::NetRenderStopAllClients, gNetRender, &cNetRender::StopAllClients);
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -620,11 +622,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		return false;
 	}
 
-	if (!systemData.noGui && image->IsMainImage())
+	if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 	{
-		// FIXME: it is not thread safe to modify widgets from not main thread
-		// mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
-		// imageWidget->SetEnableClickModes(false);
+		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+		imageWidget->SetEnableClickModes(false);
 	}
 
 	QVector<bool> alreadyRenderedFrames;
@@ -750,8 +751,13 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 		if (gNetRender->IsServer())
 		{
-			int numberOfFramesForNetRender =
-				unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
+			int numberOfFramesForNetRender;
+			if (gNetRender->GetClientCount() == 0)
+				numberOfFramesForNetRender = 0;
+			else
+				numberOfFramesForNetRender =
+					unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
+
 			if (numberOfFramesForNetRender > maxFramesForNetRender)
 				numberOfFramesForNetRender = maxFramesForNetRender;
 
@@ -842,9 +848,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				params->Set("camera_rotation", cameraTarget.GetRotation() * 180.0 / M_PI);
 				params->Set("camera_distance_to_target", cameraTarget.GetDistance());
 
-				if (!systemData.noGui && image->IsMainImage())
+				if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 				{
-					// FIXME: writing to interface from not main thread is not thread safe!
 					// mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 					// show distance in statistics table
@@ -852,11 +857,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						params->Get<CVector3>("camera"), params, fractalParams);
 					mainInterface->mainWindow->GetWidgetDockStatistics()->UpdateDistanceToFractal(distance);
 				}
-
-				//				if (gNetRender->IsServer())
-				//				{
-				//					gNetRender->WaitForAllClientsReady(10.0);
-				//				}
 
 				params->Set("frame_no", frameIndex);
 				renderJob->UpdateParameters(params, fractalParams);
@@ -888,6 +888,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 	catch (bool ex)
 	{
+		emit NetRenderStopAllClients();
 		QString resultStatus = QObject::tr("Rendering terminated");
 		if (ex) resultStatus += " - " + QObject::tr("Error occured, see log output");
 		emit updateProgressAndStatus(
@@ -903,11 +904,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		return false;
 	}
 
-	if (!systemData.noGui && image->IsMainImage())
+	if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 	{
-		// FIXME: it is not thread safe to modify widgets from not main thread
-		//		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
-		//		imageWidget->SetEnableClickModes(true);
+		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+		imageWidget->SetEnableClickModes(true);
 	}
 
 	return true;
