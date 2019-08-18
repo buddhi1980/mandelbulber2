@@ -43,6 +43,7 @@
 
 // forward declarations
 struct sRenderData;
+class cNetRenderFileReceiver;
 
 class cNetRenderServer : public QObject
 {
@@ -102,6 +103,8 @@ signals:
 	// send data of newly rendered lines to cRenderer
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void FinishedFrame(int clientIndex, int frameIndex, int sizeOfDoDoList);
+	void ReceivedFileHeader(int index, qint64 fileSize, QString fileName);
+	void ReceivedFileData(int index, int chunkIndex, QByteArray chunkData);
 
 private:
 	// process received data and send response if needed
@@ -115,6 +118,8 @@ private:
 	void ProcessRequestData(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFileHeader(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFileDataChunk(sMessage *inMsg, int index, QTcpSocket *socket);
 
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes
@@ -122,6 +127,7 @@ private:
 	QTcpServer *server;
 	sMessage msgCurrentJob;
 	qint32 actualId;
+	cNetRenderFileReceiver *fileReceiver;
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_SERVER_HPP_ */

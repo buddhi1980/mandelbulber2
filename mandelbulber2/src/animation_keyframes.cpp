@@ -154,6 +154,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			SLOT(SetCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)));
 		connect(this, SIGNAL(NetRenderConfirmRendered(int, int)), gNetRender,
 			SLOT(ConfirmRenderedFrame(int, int)));
+		connect(this, SIGNAL(NetRenderAddFileToSender(QString)), gNetRender,
+			SIGNAL(AddFileToSender(QString)));
 
 		// signals from NetRender
 		connect(gNetRender, SIGNAL(KeyframeAnimationRender()), this, SLOT(slotRenderKeyframes()));
@@ -620,8 +622,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	if (!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
-		imageWidget->SetEnableClickModes(false);
+		// FIXME: it is not thread safe to modify widgets from not main thread
+		// mainInterface->mainWindow->GetWidgetDockNavigation()->LockAllFunctions();
+		// imageWidget->SetEnableClickModes(false);
 	}
 
 	QVector<bool> alreadyRenderedFrames;
@@ -869,6 +872,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
 				netRenderListOfFramesToRender.removeAll(frameIndex);
 
+				emit NetRenderAddFileToSender(filename);
+
 				gApplication->processEvents();
 			}
 			//--------------------------------------------------------------------
@@ -899,8 +904,9 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	if (!systemData.noGui && image->IsMainImage())
 	{
-		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
-		imageWidget->SetEnableClickModes(true);
+		// FIXME: it is not thread safe to modify widgets from not main thread
+		//		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+		//		imageWidget->SetEnableClickModes(true);
 	}
 
 	return true;

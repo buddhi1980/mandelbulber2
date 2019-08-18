@@ -38,17 +38,17 @@
 
 #include <QtCore>
 
-class cNetrenderFileSender : public QObject
+class cNetRenderFileSender : public QObject
 {
 	Q_OBJECT
 	const qint64 CHUNK_SIZE = 1024 * 1024;
 
 public:
-	cNetrenderFileSender(QObject *parent = nullptr);
-	~cNetrenderFileSender() override;
+	cNetRenderFileSender(QObject *parent = nullptr);
+	~cNetRenderFileSender() override;
 
 public slots:
-	void AddFileToQueue(const QString &filename);
+	void AddFileToQueue(QString filename);
 	void AcknowledgeReceived();
 
 private:
@@ -65,7 +65,7 @@ private:
 	QFile actualFile;
 
 signals:
-	void NetRenderSendHeader(int size, QString filename);
+	void NetRenderSendHeader(qint64 size, QString filename);
 	void NetRenderSendChunk(int chunkIndex, QByteArray data);
 };
 

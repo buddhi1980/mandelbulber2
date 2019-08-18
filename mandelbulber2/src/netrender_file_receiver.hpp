@@ -5,8 +5,8 @@
  *      Author: krzysztof
  */
 
-#ifndef MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_H_
-#define MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_H_
+#ifndef MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_
+#define MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_
 
 #include <QtCore>
 
@@ -20,7 +20,7 @@ public:
 	~cNetRenderFileReceiver() override;
 
 public slots:
-	void ReceiveHeader(int clientIndex, int size, QString fileName);
+	void ReceiveHeader(int clientIndex, qint64 size, QString fileName);
 	void ReceiveChunk(int clientIndex, int chunkIndex, QByteArray data);
 
 private:
@@ -36,4 +36,4 @@ private:
 	QMap<int, sFileInfo> fileInfos;
 };
 
-#endif /* MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_H_ */
+#endif /* MANDELBULBER2_SRC_NETRENDER_FILE_RECEIVER_HPP_ */

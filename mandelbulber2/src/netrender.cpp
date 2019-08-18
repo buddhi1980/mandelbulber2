@@ -70,6 +70,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 		netRenderClient, SIGNAL(KeyframeAnimationRender()), this, SIGNAL(KeyframeAnimationRender()));
 	connect(netRenderClient, SIGNAL(UpdateFramesToDo(QList<int>)), this,
 		SIGNAL(UpdateFramesToDo(QList<int>)));
+	connect(
+		this, SIGNAL(AddFileToSender(QString)), netRenderClient, SIGNAL(AddFileToSender(QString)));
 
 	// server signals
 	netRenderServer = new cNetRenderServer();

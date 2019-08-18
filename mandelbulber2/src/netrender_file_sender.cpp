@@ -37,7 +37,7 @@
 
 #include "system.hpp"
 
-cNetrenderFileSender::cNetrenderFileSender(QObject *parent) : QObject(parent)
+cNetRenderFileSender::cNetRenderFileSender(QObject *parent) : QObject(parent)
 {
 	actualFileSize = 0;
 	actualChunkIndex = 0;
@@ -46,9 +46,9 @@ cNetrenderFileSender::cNetrenderFileSender(QObject *parent) : QObject(parent)
 	lastChunk = false;
 }
 
-cNetrenderFileSender::~cNetrenderFileSender() = default;
+cNetRenderFileSender::~cNetRenderFileSender() = default;
 
-void cNetrenderFileSender::AddFileToQueue(const QString &filename)
+void cNetRenderFileSender::AddFileToQueue(QString filename)
 {
 	fileQueue.enqueue(filename);
 
@@ -59,7 +59,7 @@ void cNetrenderFileSender::AddFileToQueue(const QString &filename)
 	}
 }
 
-void cNetrenderFileSender::AcknowledgeReceived()
+void cNetRenderFileSender::AcknowledgeReceived()
 {
 	if (sendingInProgress)
 	{
@@ -85,7 +85,7 @@ void cNetrenderFileSender::AcknowledgeReceived()
 	}
 }
 
-void cNetrenderFileSender::sendFileOverNetrender(const QString &fileName)
+void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 {
 	int fileSize = QFile(fileName).size();
 
@@ -97,7 +97,7 @@ void cNetrenderFileSender::sendFileOverNetrender(const QString &fileName)
 		{
 			actualFileName = fileName;
 			actualFileSize = fileSize;
-			actualNumberOfChunks = ceil(fileSize / cNetrenderFileSender::CHUNK_SIZE);
+			actualNumberOfChunks = ceil(fileSize / cNetRenderFileSender::CHUNK_SIZE);
 			actualChunkIndex = 0;
 			sendingInProgress = true;
 			lastChunk = false;
@@ -113,12 +113,12 @@ void cNetrenderFileSender::sendFileOverNetrender(const QString &fileName)
 	}
 }
 
-void cNetrenderFileSender::SendDataChunk()
+void cNetRenderFileSender::SendDataChunk()
 {
 	if (actualFile.isOpen())
 	{
-		qint64 bytesLeft = actualFileSize - actualChunkIndex * cNetrenderFileSender::CHUNK_SIZE;
-		qint64 bytesToRead = qMax(cNetrenderFileSender::CHUNK_SIZE, bytesLeft);
+		qint64 bytesLeft = actualFileSize - actualChunkIndex * cNetRenderFileSender::CHUNK_SIZE;
+		qint64 bytesToRead = qMax(cNetRenderFileSender::CHUNK_SIZE, bytesLeft);
 		QByteArray data = actualFile.read(bytesToRead);
 		actualChunkIndex++;
 		emit NetRenderSendChunk(actualChunkIndex, data);

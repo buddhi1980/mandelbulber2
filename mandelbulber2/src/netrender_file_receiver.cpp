@@ -5,7 +5,7 @@
  *      Author: krzysztof
  */
 
-#include "netrender_file_receiver.h"
+#include "netrender_file_receiver.hpp"
 
 #include "initparameters.hpp"
 #include "system.hpp"
@@ -14,7 +14,7 @@ cNetRenderFileReceiver::cNetRenderFileReceiver(QObject *parent) : QObject(parent
 
 cNetRenderFileReceiver::~cNetRenderFileReceiver() = default;
 
-void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, int _size, QString _fileName)
+void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, qint64 _size, QString _fileName)
 {
 	if (!fileInfos.contains(clientIndex)) fileInfos.insert(clientIndex, sFileInfo());
 
@@ -40,7 +40,7 @@ void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, int _size, QString _
 	}
 	else
 	{
-		qCritical() << "Can't open fime for write to NetRender cache " << fullFilePath;
+		qCritical() << "Can't open file for write to NetRender cache " << fullFilePath;
 	}
 }
 
@@ -66,7 +66,7 @@ void cNetRenderFileReceiver::ReceiveChunk(int clientIndex, int chunkIndex, QByte
 				}
 				else
 				{
-					qCritical() << "Can't open fime for write to NetRender cache "
+					qCritical() << "Can't open file for write to NetRender cache "
 											<< fileInfo.fullFilePathInCache;
 				}
 

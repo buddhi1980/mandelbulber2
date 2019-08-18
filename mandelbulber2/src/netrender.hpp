@@ -190,6 +190,8 @@ signals:
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	// signal to animation about finished frame
 	void FinishedFrame(int clientIndex, int frameIndex, int sizeOfToDoList);
+	// add file to file sender queue
+	void AddFileToSender(QString fileName);
 
 	//++++++++++++++++ Client related ++++++++++++++++
 	// send list of rendered lines to cRenderer

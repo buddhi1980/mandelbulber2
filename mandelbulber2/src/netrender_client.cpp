@@ -44,6 +44,7 @@
 #include "headless.h"
 #include "initparameters.hpp"
 #include "interface.hpp"
+#include "netrender_file_sender.hpp"
 #include "render_window.hpp"
 #include "settings.hpp"
 #include "system.hpp"
@@ -57,6 +58,13 @@ CNetRenderClient::CNetRenderClient()
 	connect(reconnectTimer, SIGNAL(timeout()), this, SLOT(TryServerConnect()));
 	actualId = 0;
 	portNo = 0;
+	fileSender = new cNetRenderFileSender(this);
+	connect(fileSender, SIGNAL(NetRenderSendHeader(qint64, QString)), this,
+		SLOT(SendFileHeader(qint64, QString)));
+	connect(fileSender, SIGNAL(NetRenderSendChunk(int, QByteArray)), this,
+		SLOT(SendFileDataChunk(int, QByteArray)));
+	connect(this, SIGNAL(AddFileToSender(QString)), fileSender, SLOT(AddFileToQueue(QString)));
+	connect(this, SIGNAL(AckReceived()), fileSender, SLOT(AcknowledgeReceived()));
 }
 
 CNetRenderClient::~CNetRenderClient()
@@ -575,5 +583,39 @@ void CNetRenderClient::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
 	stream << qint32(sizeOfToDoList);
 
 	WriteLog(QString("NetRender - ConfirmRenderedFrame(), frame %1").arg(frameIndex), 3);
+	cNetRenderTransport::SendData(clientSocket, msg, actualId);
+}
+
+void CNetRenderClient::SendFileHeader(qint64 fileSize, QString nameWithoutPath)
+{
+	sMessage msg;
+	msg.command = netRenderCmd_SEND_FILE_HEADER;
+	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+
+	stream << qint64(fileSize);
+	stream << qint32(nameWithoutPath.toUtf8().size());
+	stream.writeRawData(nameWithoutPath.toUtf8().data(), nameWithoutPath.toUtf8().size());
+
+	WriteLog(
+		QString("NetRender - SendFileHeader(), name %1 size %2").arg(nameWithoutPath).arg(fileSize), 3);
+
+	cNetRenderTransport::SendData(clientSocket, msg, actualId);
+}
+
+void CNetRenderClient::SendFileDataChunk(int chunkIndex, QByteArray data)
+{
+	sMessage msg;
+	msg.command = netRenderCmd_SEND_FILE_DATA;
+	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+
+	stream << qint64(chunkIndex);
+	stream << qint32(data.size());
+	stream.writeRawData(data.data(), data.size());
+
+	WriteLog(QString("NetRender - SendFileDataChunk(), chunk index %1 size %2")
+						 .arg(chunkIndex)
+						 .arg(data.size()),
+		3);
+
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }

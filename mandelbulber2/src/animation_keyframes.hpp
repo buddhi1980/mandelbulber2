@@ -163,6 +163,7 @@ signals:
 		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
 	void NetRenderConfirmRendered(int frameIndex, int toDoListLength);
 	void NetRenderSendFramesToDoList(int clientIndex, QList<int> frameNumbers);
+	void NetRenderAddFileToSender(QString);
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;

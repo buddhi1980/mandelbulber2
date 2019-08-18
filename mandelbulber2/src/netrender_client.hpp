@@ -43,6 +43,7 @@
 
 // forward declarations
 struct sRenderData;
+class cNetRenderFileSender;
 
 class CNetRenderClient : public QObject
 {
@@ -73,6 +74,10 @@ private slots:
 	void ServerDisconnected();
 	// received data from server
 	void ReceiveFromServer();
+	// send file header
+	void SendFileHeader(qint64 fileSize, QString nameWithoutPath);
+	// send file data chunk
+	void SendFileDataChunk(int chunkIndex, QByteArray data);
 
 signals:
 	// The client has been deleted
@@ -89,6 +94,8 @@ signals:
 	void KeyframeAnimationRender();
 	// signal to update list of frames to render
 	void UpdateFramesToDo(QList<int> listOfFrames);
+	// add file to file sender queue
+	void AddFileToSender(QString fileName);
 
 private:
 	void ProcessData();
@@ -116,6 +123,7 @@ private:
 	QVector<int> startingPositions;
 	QList<int> framesToRender;
 	QMap<QString, QByteArray> textures;
+	cNetRenderFileSender *fileSender;
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_CLIENT_HPP_ */
