@@ -38,7 +38,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Riemann Sphere Hobold</string>
+      <string>Riemann Sphere Hobold power 8</string>
      </property>
     </widget>
    </item>
@@ -51,7 +51,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Scale and Offsets:</string>
+      <string>Bailout radius should be less than 2.5 in Hybrid Mode</string>
      </property>
     </widget>
    </item>

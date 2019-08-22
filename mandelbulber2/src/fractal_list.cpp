@@ -421,13 +421,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Riemann - Bulb Msltoe Mod2", "riemann_bulb_msltoe_mod2",
 		riemannBulbMsltoeMod2, RiemannBulbMsltoeMod2Iteration, deltaDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 1.5, analyticFunctionNone, coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("Riemann - Sphere Hobold", "riemann_sphere_hobold",
-		riemannSphereHobold, RiemannSphereHoboldIteration, deltaDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionNone, coloringFunctionDefault));
-
-
-
+	fractalList->append(sFractalDescription("Riemann - Sphere Hobold Pow4", "riemann_sphere_hobold_pow4",
+		riemannSphereHoboldPow4, RiemannSphereHoboldPow4Iteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 2.5, analyticFunctionNone, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Riemann - Sphere Hobold Pow8", "riemann_sphere_hobold_pow8",
+		riemannSphereHoboldPow8, RiemannSphereHoboldPow8Iteration, deltaDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 2.5, analyticFunctionNone, coloringFunctionDefault));
 
 	// Scator Algebra formulas
 	fractalList->append(sFractalDescription("Scator Power 2 Real", "scator_power2_real",

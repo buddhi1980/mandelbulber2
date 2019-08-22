@@ -9937,17 +9937,85 @@ void RiemannBulbMsltoeMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 /**
- * RiemannSphereHobold
+ * RiemannSphereHobold power 4
  * @reference https://fractalforums.org/fractal-mathematics-and-new-theories/28/
  * riemandelettuce-without-trigonometry/2996/msg16097#msg16097
  */
-void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void RiemannSphereHoboldPow4Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	z *=  fractal->transformCommon.scale08 / aux.r; // normalize vector to unit length => project onto sphere
 
+	// find X-related iso-plane: polar projection onto unit circle
+	double Kx = 2.0 * z.x * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.x * z.x + 1.0);
+	double Ky = 1.0 - 2.0 * ((z.y - 2.0) * z.y + 1.0) /
+		((z.y - 2.0) * z.y + z.x * z.x + 1.0);
 
+	// doubled point
+	double K2x = -2.0 * Kx * Ky;
+	double K2y = -(Ky * Ky - Kx * Kx);
 
+	// one more doublings (for total power four)
+	Kx = -2.0 * K2x * K2y;
+	Ky = -(K2y * K2y - K2x * K2x);
+	//K2x = -2.0 * Kx * Ky;
+	//K2y = -(Ky * Ky - Kx * Kx);
+
+	// (relevant) normal vector coordinates of doubled point plane
+	double n1x = Ky - 1.0;
+	double n1y = -Kx;
+
+	n1x += fractal->transformCommon.offsetA0;
+
+	// find Z-related iso-plane: polar projection onto unit circle
+	double Kz = 2.0 * z.z * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
+	Ky = 1.0 - 2.0 * ((z.y - 2.0) * z.y + 1.0) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
+
+	// doubled point
+	double K2z = -2.0 * Kz * Ky;
+	K2y = -(Ky * Ky - Kz * Kz);
+
+	// one more doublings (for total power four)
+	Kz = -2.0 * K2z * K2y;
+	Ky = -(K2y * K2y - K2z * K2z);
+
+	// (relevant) normal vector coordinates of doubled point plane
+	double n2y = -Kz;
+	double n2z = Ky - 1.0;
+
+	n2z += fractal->transformCommon.offsetB0;
+
+	// compute position of doubled point as intersection of planes and sphere
+	// solved ray parameter
+	double nt = 2.0 * (n1x * n1x * n2z * n2z) / ((n1x * n1x + n1y * n1y) * n2z * n2z
+				+ n1x * n1x * n2y * n2y);
+
+	// doubled point position
+	z.y = 1.0 - nt;
+	z.x = n1y * (1.0 - z.y) / n1x;
+	z.z = n2y * (1.0 - z.y) / n2z;
+
+	// raise original length to the power, then add constant
+	z *= aux.r * aux.r; // for 4th power
+
+	z += fractal->transformCommon.additionConstant000;
+
+	if (fractal->transformCommon.rotationEnabled)
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	if (fractal->analyticDE.enabled)
+	{
+		aux.DE = fractal->analyticDE.offset1 + aux.DE * fabs( fractal->transformCommon.scale08) / aux.r;
+		aux.DE *= 4.0 * fractal->analyticDE.scale1 * z.Length() / aux.r;
+	}
+}
+
+/**
+ * RiemannSphereHobold power8
+ * @reference https://fractalforums.org/fractal-mathematics-and-new-theories/28/
+ * riemandelettuce-without-trigonometry/2996/msg16097#msg16097
+ */
+void RiemannSphereHoboldPow8Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z *=  fractal->transformCommon.scale08 / aux.r; // normalize vector to unit length => project onto sphere
 
 	// find X-related iso-plane: polar projection onto unit circle
 	double Kx = 2.0 * z.x * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.x * z.x + 1.0);
@@ -9989,7 +10057,6 @@ void RiemannSphereHoboldIteration(CVector4 &z, const sFractal *fractal, sExtende
 	double n2z = K2y - 1.0;
 
 	n2z += fractal->transformCommon.offsetB0;
-
 
 	// compute position of doubled point as intersection of planes and sphere
 	// solved ray parameter
@@ -16765,7 +16832,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 {
 	double colorAdd = 0.0;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-
+	//if (aux.i == 0) aux.dist = z.Length() - boxSize.x; // mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
 	// diag 1
 	if (aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
@@ -16857,8 +16924,9 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 
 	CVector4 zc = z;
-	 zc = fabs(zc) - boxSize;
+	zc = fabs(zc) - boxSize;
 	double zcd = 1.0;
+
 	zcd = max(zc.x, max(zc.y, zc.z));
 	if (zcd > 0.0)
 	{
@@ -16868,7 +16936,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		zcd = zc.Length();
 	}
 	aux.dist = min(aux.dist, zcd / aux.DE);
-
+	//aux.dist = min(aux.dist, z.Length() - boxSize.x/ aux.DE); //mmmmmmmmmmmmmmmmmmmm
 
 	if (fractal->foldColor.auxColorEnabled)
 	{
@@ -17414,6 +17482,8 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		// double sphereTrap = 0.0;
 		// double lastDist = 0.0;
 		// double addI = 0.0;
+
+		// Note aux.addDist is used in more than one color function
 
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)

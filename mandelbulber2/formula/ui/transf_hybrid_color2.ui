@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_hybrid_color2</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -482,10 +482,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -513,10 +513,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -544,10 +544,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -596,10 +596,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -648,10 +648,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -679,10 +679,10 @@ provides complete control</string>
            <number>6</number>
           </property>
           <property name="minimum">
-           <double>-99.989999999999995</double>
+           <double>-999.990000000000009</double>
           </property>
           <property name="maximum">
-           <double>99.989999999999995</double>
+           <double>999.990000000000009</double>
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
@@ -772,10 +772,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -803,10 +803,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -834,10 +834,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -930,10 +930,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -961,10 +961,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -992,10 +992,10 @@ provides complete control</string>
               <number>6</number>
              </property>
              <property name="minimum">
-              <double>-99.989999999999995</double>
+              <double>-999.990000000000009</double>
              </property>
              <property name="maximum">
-              <double>99.989999999999995</double>
+              <double>999.990000000000009</double>
              </property>
              <property name="singleStep">
               <double>0.100000000000000</double>
@@ -1289,14 +1289,14 @@ provides complete control</string>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
