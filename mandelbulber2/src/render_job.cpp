@@ -179,10 +179,8 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 		// connect signals
 		if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 		{
-			connect(this, SIGNAL(SendNetRenderJob(cParameterContainer, cFractalContainer, QStringList)),
-				gNetRender, SLOT(SetCurrentJob(cParameterContainer, cFractalContainer, QStringList)));
-			connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
-				SLOT(SendSetup(int, QList<int>)));
+			connect(this, &cRenderJob::SendNetRenderJob, gNetRender, &cNetRender::SetCurrentJob);
+			connect(this, &cRenderJob::SendNetRenderSetup, gNetRender, &cNetRender::SendSetup);
 		}
 	}
 
@@ -786,21 +784,17 @@ void cRenderJob::ConnectNetRenderSignalsSlots(const cRenderer *renderer)
 {
 	if (gNetRender->IsClient() && !gNetRender->IsAnimation())
 	{
-		QObject::connect(renderer, SIGNAL(sendRenderedLines(QList<int>, QList<QByteArray>)), gNetRender,
-			SLOT(SendRenderedLines(QList<int>, QList<QByteArray>)));
-		QObject::connect(
-			gNetRender, SIGNAL(ToDoListArrived(QList<int>)), renderer, SLOT(ToDoListArrived(QList<int>)));
-		QObject::connect(renderer, SIGNAL(NotifyClientStatus()), gNetRender, SLOT(NotifyStatus()));
-		QObject::connect(gNetRender, SIGNAL(AckReceived()), renderer, SLOT(AckReceived()));
+		connect(renderer, &cRenderer::sendRenderedLines, gNetRender, &cNetRender::SendRenderedLines);
+		connect(gNetRender, &cNetRender::ToDoListArrived, renderer, &cRenderer::ToDoListArrived);
+		connect(renderer, &cRenderer::NotifyClientStatus, gNetRender, &cNetRender::NotifyStatus);
+		connect(gNetRender, &cNetRender::AckReceived, renderer, &cRenderer::AckReceived);
 	}
 
 	if (gNetRender->IsServer() && !gNetRender->IsAnimation())
 	{
-		QObject::connect(gNetRender, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), renderer,
-			SLOT(NewLinesArrived(QList<int>, QList<QByteArray>)));
-		QObject::connect(renderer, SIGNAL(SendToDoList(int, QList<int>)), gNetRender,
-			SLOT(SendToDoList(int, QList<int>)));
-		QObject::connect(renderer, SIGNAL(StopAllClients()), gNetRender, SLOT(StopAllClients()));
+		connect(gNetRender, &cNetRender::NewLinesArrived, renderer, &cRenderer::NewLinesArrived);
+		connect(renderer, &cRenderer::SendToDoList, gNetRender, &cNetRender::SendToDoList);
+		connect(renderer, &cRenderer::StopAllClients, gNetRender, &cNetRender::StopAllClients);
 	}
 }
 

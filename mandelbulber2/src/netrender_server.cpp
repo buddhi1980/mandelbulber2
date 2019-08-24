@@ -56,11 +56,11 @@ cNetRenderServer::cNetRenderServer()
 	server = nullptr;
 	portNo = 0;
 	fileReceiver = new cNetRenderFileReceiver(this);
-	connect(this, SIGNAL(NewClient(int)), this, SLOT(SendVersionToClient(int)));
-	connect(this, SIGNAL(ReceivedFileHeader(int, qint64, QString)), fileReceiver,
-		SLOT(ReceiveHeader(int, qint64, QString)));
-	connect(this, SIGNAL(ReceivedFileData(int, int, QByteArray)), fileReceiver,
-		SLOT(ReceiveChunk(int, int, QByteArray)));
+	connect(this, &cNetRenderServer::NewClient, this, &cNetRenderServer::SendVersionToClient);
+	connect(this, &cNetRenderServer::ReceivedFileHeader, fileReceiver,
+		&cNetRenderFileReceiver::ReceiveHeader);
+	connect(
+		this, &cNetRenderServer::ReceivedFileData, fileReceiver, &cNetRenderFileReceiver::ReceiveChunk);
 }
 
 cNetRenderServer::~cNetRenderServer()
@@ -137,8 +137,8 @@ void cNetRenderServer::HandleNewConnection()
 		client.socket = server->nextPendingConnection();
 		clients.append(client);
 
-		connect(client.socket, SIGNAL(disconnected()), this, SLOT(ClientDisconnected()));
-		connect(client.socket, SIGNAL(readyRead()), this, SLOT(ReceiveFromClient()));
+		connect(client.socket, &QTcpSocket::disconnected, this, &cNetRenderServer::ClientDisconnected);
+		connect(client.socket, &QTcpSocket::readyRead, this, &cNetRenderServer::ReceiveFromClient);
 		emit NewClient(clients.size() - 1);
 		emit ClientsChanged();
 	}
@@ -438,7 +438,7 @@ void cNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 	WriteLog("NetRender - new Client #" + QString::number(index) + "(" + GetClient(index).name + " - "
 						 + GetClient(index).socket->peerAddress().toString() + ")",
 		1);
-	emit ClientsChanged(index);
+	emit ClientsChangedRow(index);
 
 	if (systemData.noGui)
 	{
@@ -510,7 +510,7 @@ void cNetRenderServer::ProcessRequestStatus(sMessage *inMsg, int index, QTcpSock
 	netRenderStatus clientStatus =
 		netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));
 	clients[index].status = clientStatus;
-	emit ClientsChanged(index);
+	emit ClientsChangedRow(index);
 }
 
 void cNetRenderServer::ProcessRequestFileHeader(sMessage *inMsg, int index, QTcpSocket *socket)

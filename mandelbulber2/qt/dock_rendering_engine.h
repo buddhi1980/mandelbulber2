@@ -95,8 +95,8 @@ private slots:
 	static void slotCheckBoxDisableNetRender(bool on);
 	void slotNetRenderKickAndKill();
 	void slotNetRenderClientListUpdate() const;
-	void slotNetRenderClientListUpdate(int i) const;
-	void slotNetRenderClientListUpdate(int i, int j) const;
+	void slotNetRenderClientListUpdateRow(int i) const;
+	void slotNetRenderClientListUpdateCell(int i, int j) const;
 	void slotNetRenderStatusServerUpdate() const;
 	void slotNetRenderStatusClientUpdate() const;
 

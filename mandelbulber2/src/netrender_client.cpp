@@ -55,16 +55,18 @@ CNetRenderClient::CNetRenderClient()
 	clientSocket = nullptr;
 	reconnectTimer = new QTimer;
 	reconnectTimer->setInterval(1000);
-	connect(reconnectTimer, SIGNAL(timeout()), this, SLOT(TryServerConnect()));
+	connect(reconnectTimer, &QTimer::timeout, this, &CNetRenderClient::TryServerConnect);
 	actualId = 0;
 	portNo = 0;
 	fileSender = new cNetRenderFileSender(this);
-	connect(fileSender, SIGNAL(NetRenderSendHeader(qint64, QString)), this,
-		SLOT(SendFileHeader(qint64, QString)));
-	connect(fileSender, SIGNAL(NetRenderSendChunk(int, QByteArray)), this,
-		SLOT(SendFileDataChunk(int, QByteArray)));
-	connect(this, SIGNAL(AddFileToSender(QString)), fileSender, SLOT(AddFileToQueue(QString)));
-	connect(this, SIGNAL(AckReceived()), fileSender, SLOT(AcknowledgeReceived()));
+	connect(fileSender, &cNetRenderFileSender::NetRenderSendHeader, this,
+		&CNetRenderClient::SendFileHeader);
+	connect(fileSender, &cNetRenderFileSender::NetRenderSendChunk, this,
+		&CNetRenderClient::SendFileDataChunk);
+	connect(
+		this, &CNetRenderClient::AddFileToSender, fileSender, &cNetRenderFileSender::AddFileToQueue);
+	connect(
+		this, &CNetRenderClient::AckReceived, fileSender, &cNetRenderFileSender::AcknowledgeReceived);
 }
 
 CNetRenderClient::~CNetRenderClient()
@@ -119,8 +121,8 @@ void CNetRenderClient::SetClient(QString _address, int _portNo)
 	address = _address;
 	portNo = _portNo;
 	clientSocket = new QTcpSocket(this);
-	connect(clientSocket, SIGNAL(disconnected()), this, SLOT(ServerDisconnected()));
-	connect(clientSocket, SIGNAL(readyRead()), this, SLOT(ReceiveFromServer()));
+	connect(clientSocket, &QTcpSocket::disconnected, this, &CNetRenderClient::ServerDisconnected);
+	connect(clientSocket, &QTcpSocket::readyRead, this, &CNetRenderClient::ReceiveFromServer);
 
 	reconnectTimer->start();
 	QTimer::singleShot(50, this, SLOT(TryServerConnect()));
@@ -368,14 +370,14 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 
 			auto *thread = new QThread; // deleted by deleteLater()
 			gMainInterface->headless->moveToThread(thread);
-			QObject::connect(thread, SIGNAL(started()), gMainInterface->headless, SLOT(slotNetRender()));
+			connect(thread, &QThread::started, gMainInterface->headless, &cHeadless::slotNetRender);
 			thread->setObjectName("RenderJob");
 			thread->start();
 
-			QObject::connect(gMainInterface->headless, SIGNAL(finished()), gMainInterface->headless,
-				SLOT(deleteLater()));
-			QObject::connect(gMainInterface->headless, SIGNAL(finished()), thread, SLOT(quit()));
-			QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+			connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
+				&cHeadless::deleteLater);
+			connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
+			connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 		}
 	}
 	else
@@ -503,16 +505,17 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				auto *thread = new QThread;															// deleted by deleteLater()
 				keyframesRenderThread->moveToThread(thread);
 
-				QObject::connect(
-					thread, SIGNAL(started()), keyframesRenderThread, SLOT(startAnimationRender()));
+				connect(thread, &QThread::started, keyframesRenderThread,
+					&cKeyframeRenderThread::startAnimationRender);
 
 				thread->setObjectName("KeyframesRender");
 				thread->start();
 
-				QObject::connect(keyframesRenderThread, SIGNAL(renderingFinished()), keyframesRenderThread,
-					SLOT(deleteLater()));
-				QObject::connect(keyframesRenderThread, SIGNAL(renderingFinished()), thread, SLOT(quit()));
-				QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+				connect(keyframesRenderThread, &cKeyframeRenderThread::renderingFinished,
+					keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
+				connect(
+					keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
 				// gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 			}
@@ -526,15 +529,14 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 
 				auto *thread = new QThread; // deleted by deleteLater()
 				gMainInterface->headless->moveToThread(thread);
-				QObject::connect(
-					thread, SIGNAL(started()), gMainInterface->headless, SLOT(slotNetRender()));
+				connect(thread, &QThread::started, gMainInterface->headless, &cHeadless::slotNetRender);
 				thread->setObjectName("RenderJob");
 				thread->start();
 
-				QObject::connect(gMainInterface->headless, SIGNAL(finished()), gMainInterface->headless,
-					SLOT(deleteLater()));
-				QObject::connect(gMainInterface->headless, SIGNAL(finished()), thread, SLOT(quit()));
-				QObject::connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+				connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
+					&cHeadless::deleteLater);
+				connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 			}
 		}
 	}

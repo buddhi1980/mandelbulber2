@@ -127,6 +127,8 @@ void cNetRenderFileSender::SendDataChunk()
 		{
 			lastChunk = true;
 			actualFile.close();
+			// delete file when is no longer needed
+			actualFile.remove();
 		}
 	}
 	else

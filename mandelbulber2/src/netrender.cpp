@@ -59,33 +59,31 @@ cNetRender::cNetRender() : QObject(nullptr)
 	netRenderClient = new CNetRenderClient();
 
 	// client signals
-	connect(netRenderClient, SIGNAL(changeClientStatus(netRenderStatus)), this,
-		SLOT(clientStatusChanged(netRenderStatus)));
-	connect(netRenderClient, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(netRenderClient, SIGNAL(ToDoListArrived(QList<int>)), this,
-		SIGNAL(ToDoListArrived(QList<int>)));
-	connect(netRenderClient, SIGNAL(AckReceived()), this, SIGNAL(AckReceived()));
-	connect(netRenderClient, SIGNAL(NotifyStatus()), this, SLOT(NotifyStatus()));
 	connect(
-		netRenderClient, SIGNAL(KeyframeAnimationRender()), this, SIGNAL(KeyframeAnimationRender()));
-	connect(netRenderClient, SIGNAL(UpdateFramesToDo(QList<int>)), this,
-		SIGNAL(UpdateFramesToDo(QList<int>)));
+		netRenderClient, &CNetRenderClient::changeClientStatus, this, &cNetRender::clientStatusChanged);
+	connect(netRenderClient, &CNetRenderClient::Deleted, this, &cNetRender::ResetDeviceType);
+	connect(netRenderClient, &CNetRenderClient::ToDoListArrived, this, &cNetRender::ToDoListArrived);
+	connect(netRenderClient, &CNetRenderClient::AckReceived, this, &cNetRender::AckReceived);
+	connect(netRenderClient, &CNetRenderClient::NotifyStatus, this, &cNetRender::NotifyStatus);
+	connect(netRenderClient, &CNetRenderClient::KeyframeAnimationRender, this,
+		&cNetRender::KeyframeAnimationRender);
 	connect(
-		this, SIGNAL(AddFileToSender(QString)), netRenderClient, SIGNAL(AddFileToSender(QString)));
+		netRenderClient, &CNetRenderClient::UpdateFramesToDo, this, &cNetRender::UpdateFramesToDo);
+	connect(this, &cNetRender::AddFileToSender, netRenderClient, &CNetRenderClient::AddFileToSender);
 
 	// server signals
 	netRenderServer = new cNetRenderServer();
-	connect(netRenderServer, SIGNAL(changeServerStatus(netRenderStatus)), this,
-		SLOT(serverStatusChanged(netRenderStatus)));
-	connect(netRenderServer, SIGNAL(ClientsChanged()), this, SLOT(ClientsHaveChanged()));
-	connect(netRenderServer, SIGNAL(ClientsChanged(int)), this, SIGNAL(ClientsChanged(int)));
 	connect(
-		netRenderServer, SIGNAL(ClientsChanged(int, int)), this, SIGNAL(ClientsChanged(int, int)));
-	connect(netRenderServer, SIGNAL(Deleted()), this, SLOT(ResetDeviceType()));
-	connect(netRenderServer, SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)), this,
-		SIGNAL(NewLinesArrived(QList<int>, QList<QByteArray>)));
-	connect(netRenderServer, SIGNAL(FinishedFrame(int, int, int)), this,
-		SIGNAL(FinishedFrame(int, int, int)));
+		netRenderServer, &cNetRenderServer::changeServerStatus, this, &cNetRender::serverStatusChanged);
+	connect(
+		netRenderServer, &cNetRenderServer::ClientsChanged, this, &cNetRender::ClientsHaveChanged);
+	connect(
+		netRenderServer, &cNetRenderServer::ClientsChangedRow, this, &cNetRender::ClientsChangedRow);
+	connect(
+		netRenderServer, &cNetRenderServer::ClientsChangedCell, this, &cNetRender::ClientsChangedCell);
+	connect(netRenderServer, &cNetRenderServer::Deleted, this, &cNetRender::ResetDeviceType);
+	connect(netRenderServer, &cNetRenderServer::NewLinesArrived, this, &cNetRender::NewLinesArrived);
+	connect(netRenderServer, &cNetRenderServer::FinishedFrame, this, &cNetRender::FinishedFrame);
 }
 
 cNetRender::~cNetRender()

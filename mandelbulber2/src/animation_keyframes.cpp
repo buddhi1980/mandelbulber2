@@ -145,26 +145,23 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 
 		// NetRender for animation
 		// signals to NetRender
-		connect(this, SIGNAL(SendNetRenderSetup(int, QList<int>)), gNetRender,
-			SLOT(SendSetup(int, QList<int>)));
-		connect(this,
-			SIGNAL(
-				NetRenderCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)),
-			gNetRender,
-			SLOT(SetCurrentAnimation(const cParameterContainer &, const cFractalContainer &, bool)));
-		connect(this, SIGNAL(NetRenderConfirmRendered(int, int)), gNetRender,
-			SLOT(ConfirmRenderedFrame(int, int)));
-		connect(this, SIGNAL(NetRenderAddFileToSender(QString)), gNetRender,
-			SIGNAL(AddFileToSender(QString)));
+		connect(this, &cKeyframeAnimation::SendNetRenderSetup, gNetRender, &cNetRender::SendSetup);
+		connect(this, &cKeyframeAnimation::NetRenderCurrentAnimation, gNetRender,
+			&cNetRender::SetCurrentAnimation);
+		connect(this, &cKeyframeAnimation::NetRenderConfirmRendered, gNetRender,
+			&cNetRender::ConfirmRenderedFrame);
+		connect(this, &cKeyframeAnimation::NetRenderAddFileToSender, gNetRender,
+			&cNetRender::AddFileToSender);
 
 		// signals from NetRender
-		connect(gNetRender, SIGNAL(KeyframeAnimationRender()), this, SLOT(slotRenderKeyframes()));
-		connect(gNetRender, SIGNAL(FinishedFrame(int, int, int)), this,
-			SLOT(slotNetRenderFinishedFrame(int, int, int)));
-		connect(this, SIGNAL(NetRenderSendFramesToDoList(int, QList<int>)), gNetRender,
-			SLOT(SendFramesToDoList(int, QList<int>)));
-		connect(gNetRender, SIGNAL(UpdateFramesToDo(QList<int>)), this,
-			SLOT(slotNetRenderUpdateFramesToDo(QList<int>)));
+		connect(gNetRender, &cNetRender::KeyframeAnimationRender, this,
+			&cKeyframeAnimation::slotRenderKeyframes);
+		connect(gNetRender, &cNetRender::FinishedFrame, this,
+			&cKeyframeAnimation::slotNetRenderFinishedFrame);
+		connect(this, &cKeyframeAnimation::NetRenderSendFramesToDoList, gNetRender,
+			&cNetRender::SendFramesToDoList);
+		connect(gNetRender, &cNetRender::UpdateFramesToDo, this,
+			&cKeyframeAnimation::slotNetRenderUpdateFramesToDo);
 		connect(
 			this, &cKeyframeAnimation::NetRenderStopAllClients, gNetRender, &cNetRender::StopAllClients);
 

@@ -3,7 +3,7 @@ QT += core gui uitools widgets network testlib multimedia
 macx:QT += svg
 
 CONFIG += link_pkgconfig
-CONFIG += c++11
+CONFIG += c++14
 
 # optional dependecies
 qtHaveModule(gamepad){

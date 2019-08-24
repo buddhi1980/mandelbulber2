@@ -98,8 +98,8 @@ signals:
 	void Deleted();
 	// request to update table of clients
 	void ClientsChanged();
-	void ClientsChanged(int i);
-	void ClientsChanged(int i, int j);
+	void ClientsChangedRow(int i);
+	void ClientsChangedCell(int i, int j);
 	// send data of newly rendered lines to cRenderer
 	void NewLinesArrived(QList<int> lineNumbers, QList<QByteArray> lines);
 	void FinishedFrame(int clientIndex, int frameIndex, int sizeOfDoDoList);
