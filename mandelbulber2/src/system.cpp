@@ -400,6 +400,8 @@ bool CreateDefaultFolders()
 	actualFileNames.actualFilenamePalette =
 		QDir::toNativeSeparators(actualFileNames.actualFilenamePalette);
 
+	ClearNetRenderCache();
+	DeleteOldThumbnails();
 	return result;
 }
 
@@ -876,4 +878,50 @@ bool IsOutputTty()
 #else
 	return isatty(fileno(stdout));
 #endif
+}
+
+void ClearNetRenderCache()
+{
+	QDir dir(systemData.GetNetrenderFolder());
+	if (dir.exists())
+	{
+		QDirIterator it(dir);
+		while (it.hasNext())
+		{
+			QFile file(it.next());
+			file.remove();
+		}
+	}
+}
+
+void DeleteOldThumbnails()
+{
+	QDir dir(systemData.GetThumbnailsFolder());
+	int counter = 0;
+	qint64 totalSize = 0;
+	if (dir.exists())
+	{
+		QDirIterator it(dir);
+		while (it.hasNext())
+		{
+			QFile file(it.next());
+			QFileInfo fileInfo(file);
+			QDateTime dateTime = fileInfo.lastModified();
+			qint64 days = dateTime.daysTo(QDateTime::currentDateTime());
+			if (days > 90)
+			{
+				totalSize += file.size();
+				file.remove();
+				counter++;
+			}
+		}
+	}
+	if (counter > 0)
+	{
+		QString message = QString("Removed %1 old files from thumbnail cache. Saved %2 MB")
+												.arg(counter)
+												.arg(totalSize / 1024 / 1024);
+		qInfo() << message;
+		WriteLog(message, 2);
+	}
 }

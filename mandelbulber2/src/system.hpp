@@ -202,6 +202,8 @@ void WriteLogString(const QString &text, const QString &value, int verbosityLeve
 void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders();
+void ClearNetRenderCache();
+void DeleteOldThumbnails();
 bool CreateFolder(const QString &name);
 void DeleteAllFilesFromDirectory(const QString &folder, const QString &filterExpression,
 	QRegExp::PatternSyntax pattern = QRegExp::Wildcard);
