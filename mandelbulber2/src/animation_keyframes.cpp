@@ -1575,6 +1575,8 @@ void cKeyframeAnimation::SetNetRenderStartingFrames(const QVector<int> &starting
 void cKeyframeAnimation::slotNetRenderFinishedFrame(
 	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
+	Q_UNUSED(frameIndex);
+
 	// counting left frames
 	int countLeft = reservedFrames.count(false);
 

@@ -154,6 +154,8 @@ void cDockFractal::ConnectSignals() const
 		ui->vect3_julia_c_y, SIGNAL(textChanged(const QString &)), this, SLOT(slotChangedJuliaPoint()));
 	connect(
 		ui->vect3_julia_c_z, SIGNAL(textChanged(const QString &)), this, SLOT(slotChangedJuliaPoint()));
+	connect(ui->logedit_julia_preview_distance, SIGNAL(textChanged(const QString &)), this,
+		SLOT(slotChangedJuliaPoint()));
 
 	connect(ui->pushButton_get_julia_constant, SIGNAL(clicked()), this,
 		SLOT(slotPressedButtonGetJuliaConstant()));
@@ -372,8 +374,14 @@ void cDockFractal::slotChangedJuliaPoint() const
 		params.Set("julia_mode", true);
 		params.Set("ambient_occlusion_enabled", true);
 		params.Copy("camera_top", gPar);
-		params.Copy("formula_1", gPar);
+		for (int i = 1; i <= NUMBER_OF_FRACTALS; i++)
+		{
+			params.Copy(QString("formula_%1").arg(i), gPar);
+		}
+		params.Copy("hybrid_fractal_enable", gPar);
 		params.Copy("fractal_constant_factor", gPar);
+		params.Copy("opencl_mode", gPar);
+		params.Copy("opencl_enabled", gPar);
 
 		ui->previewwidget_julia->AssignParameters(params, *gParFractal);
 		ui->previewwidget_julia->update();
