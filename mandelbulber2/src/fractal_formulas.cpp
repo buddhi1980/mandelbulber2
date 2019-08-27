@@ -436,7 +436,7 @@ void MandelboxSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	aux.color += rk1 * fractal->mandelbox.color.factorSp1;
 	aux.color += rk21 * fractal->mandelbox.color.factorSp2;
 
-	z = fractal->mandelbox.mainRot.RotateVector(z);
+	if (fractal->mandelbox.mainRotationEnabled) z = fractal->mandelbox.mainRot.RotateVector(z);
 	z = z * fractal->mandelbox.scale;
 
 	aux.DE = aux.DE * fabs(fractal->mandelbox.scale) + 1.0;
@@ -8144,16 +8144,9 @@ void MengerPrismShape2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
  */
 void MengerSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	double sc1 = fractal->transformCommon.scale3 - 1.0;		// 3 - 1 = 2, 2/3 = 0.6667;
-	double sc2 = sc1 / fractal->transformCommon.scale3;		//  8 - 1 = 7, 7/8 = 0.89ish;
-	double OffsetS = fractal->transformCommon.offset0005; //
-
-	if (fractal->transformCommon.functionEnabled)
-	{
-		// the closer to origin the greater the effect of OffsetSQ
-		z = CVector4(
-			sqrt(z.x * z.x + OffsetS), sqrt(z.y * z.y + OffsetS), sqrt(z.z * z.z + OffsetS), z.w);
-	}
+	double sc1 = fractal->transformCommon.scale3 - 1.0; // 3 - 1 = 2, 2/3 = 0.6667;
+	double sc2 = sc1 / fractal->transformCommon.scale3; //  8 - 1 = 7, 7/8 = 0.89ish;
+	double OffsetS = fractal->transformCommon.offset0005;
 
 	double t;
 	CVector4 OffsetC = fractal->transformCommon.offset1105;
@@ -8205,7 +8198,6 @@ void MengerSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
  */
 void MengerSmoothMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-
 	if (fractal->transformCommon.functionEnabled)
 	{
 		z = CVector4(sqrt(z.x * z.x + fractal->transformCommon.offset0),

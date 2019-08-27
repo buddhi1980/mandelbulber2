@@ -56,9 +56,16 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="label_258">
+     <property name="text">
+      <string>Analytic DE loses detail</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QLabel" name="label_257">
      <property name="text">
-      <string>Normal range of scale is 0.7 to 1.0</string>
+      <string>Normal range of scale is 0.7 to 1.0 for DeltaDE</string>
      </property>
     </widget>
    </item>
