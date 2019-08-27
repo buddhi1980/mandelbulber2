@@ -9956,7 +9956,7 @@ void RiemannSphereHoboldPow4Iteration(CVector4 &z, const sFractal *fractal, sExt
 	double n1x = Ky - 1.0;
 	double n1y = -Kx;
 
-	n1x += fractal->transformCommon.offsetA0;
+	n1x += fractal->transformCommon.offsetA0; // offset tweak
 
 	// find Z-related iso-plane: polar projection onto unit circle
 	double Kz = 2.0 * z.z * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
@@ -9974,7 +9974,17 @@ void RiemannSphereHoboldPow4Iteration(CVector4 &z, const sFractal *fractal, sExt
 	double n2y = -Kz;
 	double n2z = Ky - 1.0;
 
-	n2z += fractal->transformCommon.offsetB0;
+	n2z += fractal->transformCommon.offsetB0; // offset tweak
+
+	// internal rotation
+	if (fractal->transformCommon.angle0 != 0)
+	{
+		double tpx = n1x;
+		double tpz = n2z;
+		double beta = fractal->transformCommon.angle0 * M_PI_180;
+		n1x = tpx * cos(beta) + tpz * sin(beta);
+		n2z = tpx * -sin(beta) + tpz * cos(beta);
+	}
 
 	// compute position of doubled point as intersection of planes and sphere
 	// solved ray parameter
@@ -10028,7 +10038,7 @@ void RiemannSphereHoboldPow8Iteration(CVector4 &z, const sFractal *fractal, sExt
 	double n1x = K2y - 1.0;
 	double n1y = -K2x;
 
-	n1x += fractal->transformCommon.offsetA0;
+	n1x += fractal->transformCommon.offsetA0; // offset tweak
 
 	// find Z-related iso-plane: polar projection onto unit circle
 	double Kz = 2.0 * z.z * (1.0 - z.y) / ((z.y - 2.0) * z.y + z.z * z.z + 1.0);
@@ -10048,7 +10058,17 @@ void RiemannSphereHoboldPow8Iteration(CVector4 &z, const sFractal *fractal, sExt
 	double n2y = -K2z;
 	double n2z = K2y - 1.0;
 
-	n2z += fractal->transformCommon.offsetB0;
+	n2z += fractal->transformCommon.offsetB0; // offset tweak
+
+	// internal rotation
+	if (fractal->transformCommon.angle0 != 0)
+	{
+		double tpx = n1x;
+		double tpz = n2z;
+		double beta = fractal->transformCommon.angle0 * M_PI_180;
+		n1x = tpx * cos(beta) + tpz * sin(beta);
+		n2z = tpx * -sin(beta) + tpz * cos(beta);
+	}
 
 	// compute position of doubled point as intersection of planes and sphere
 	// solved ray parameter
