@@ -8148,6 +8148,10 @@ void MengerSmoothIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	double sc2 = sc1 / fractal->transformCommon.scale3; //  8 - 1 = 7, 7/8 = 0.89ish;
 	double OffsetS = fractal->transformCommon.offset0005;
 
+	// the closer to origin the greater the effect of OffsetSQ
+	z = CVector4(
+		sqrt(z.x * z.x + OffsetS), sqrt(z.y * z.y + OffsetS), sqrt(z.z * z.z + OffsetS), z.w);
+
 	double t;
 	CVector4 OffsetC = fractal->transformCommon.offset1105;
 
@@ -18027,7 +18031,80 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	CVector4 c = aux.const_c;
+
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse
+				&& aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse
+				&& aux.i >= fractal->transformCommon.startIterationsY
+				&& aux.i < fractal->transformCommon.stopIterationsY)
+			z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse
+				&& aux.i >= fractal->transformCommon.startIterationsZ
+				&& aux.i < fractal->transformCommon.stopIterationsZ)
+			z.z = fabs(z.z);
+	}
+
+
+	double theta, phi, pwr, ss;
+
+	aux.r = z.Length();
+	double power = fractal->transformCommon.scaleB1;
+	double radialAngle = fractal->bulb.alphaAngleOffset;
+
+
+	//double lettuce = fractal->bulb.alphaAngleOffset / length(0.001 + aux.c - z);
+	CVector4 diff = CVector4(0.001, 0.001, 0.001, 0.0) + aux.c - z; // 0.001
+	aux.c = z;
+//	double diffL = diff.Length();
+	double lettuce = radialAngle / diff.Length();
+
+	if (!fractal->transformCommon.functionEnabledxFalse)
+	{
+		lettuce = 1.0 - lettuce;
+	}
+	else
+	{
+		lettuce = lettuce + (1.0 - lettuce) * fractal->transformCommon.scaleA1;
+	}
+	//double lettuce = 1.0 - radialAngle / diffL;
+	//double lettuce = radialAngle / diffL;
+	//lettuce = lettuce + (1.0 - lettuce) * fractal->transformCommon.scaleA1;
+
+
+	// original:   theta = atan2(length(pos.xy), pos.z);
+	// theta = atan2(length(pos.xy) * lettuce, pos.z);     // <-- added 'lettuce' effect
+	double xyL = sqrt(z.x * z.x + z.y * z.y);
+	theta = atan2(xyL * lettuce, z.z); // <-- added 'lettuce' effect
+
+	 phi = atan2(z.y, z.x) * power; // - 1.0;
+	 pwr = pow(aux.r, power);
+	 ss = sin(theta * power) * pwr;
+
+	z.x += ss * cos(phi);
+	z.y += ss * sin(phi);
+	z.z += pwr * cos(theta * power);
+
+	aux.DE = (pow(aux.r, power - 1.0) * power * aux.DE ) + 1.0;
+
+	z += fractal->transformCommon.additionConstant000;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*	CVector4 c = aux.const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -18199,7 +18276,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+	}*/
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
