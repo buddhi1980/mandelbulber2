@@ -118,8 +118,9 @@ private:
 	void ProcessRequestData(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestStatus(sMessage *inMsg, int index, QTcpSocket *socket);
 	void ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpSocket *socket);
-	void ProcessRequestFileHeader(sMessage *inMsg, int index, QTcpSocket *socket);
-	void ProcessRequestFileDataChunk(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFrameFileHeader(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFrameFileDataChunk(sMessage *inMsg, int index, QTcpSocket *socket);
+	void ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket *socket);
 
 	QList<sClient> clients;
 	sClient nullClient; // dummy client for fail-safe purposes

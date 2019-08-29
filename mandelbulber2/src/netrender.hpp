@@ -168,6 +168,8 @@ public slots:
 	void NotifyStatus();
 	// notify server that frame was just rendered
 	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
+	// get file from NetRender cache or from server (returns file path in cache)
+	QString GetFileFromNetRender(QString requiredFileName);
 
 	//------------------- private slots ------------------
 private slots:

@@ -203,7 +203,7 @@ void handle_winch(int sig);
 int get_cpu_count();
 bool CreateDefaultFolders();
 void ClearNetRenderCache();
-void DeleteOldThumbnails();
+void DeleteOldChache(const QString &directoryPath, int days);
 bool CreateFolder(const QString &name);
 void DeleteAllFilesFromDirectory(const QString &folder, const QString &filterExpression,
 	QRegExp::PatternSyntax pattern = QRegExp::Wildcard);

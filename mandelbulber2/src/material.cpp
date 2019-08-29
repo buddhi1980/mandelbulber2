@@ -398,95 +398,93 @@ void cMaterial::setParameters(
 
 	if (loadTextures)
 	{
-		if (gNetRender->IsClient())
-		{
-			if (useColorTexture)
-				colorTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_color_texture", id)), frameNo),
-					cTexture::useMipmaps);
+		//		if (gNetRender->IsClient())
+		//		{
+		//			if (useColorTexture)
+		//				colorTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_color_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//
+		//			if (useDiffusionTexture)
+		//				diffusionTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_diffusion_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//
+		//			if (useLuminosityTexture)
+		//				luminosityTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_luminosity_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//
+		//			if (useDisplacementTexture)
+		//				displacementTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_displacement_texture", id)), frameNo),
+		//					cTexture::doNotUseMipmaps);
+		//
+		//			if (useNormalMapTexture)
+		//				normalMapTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_normal_map_texture", id)), frameNo),
+		//					cTexture::doNotUseMipmaps);
+		//
+		//			if (useReflectanceTexture)
+		//				reflectanceTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_reflectance_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//
+		//			if (useTransparencyTexture)
+		//				transparencyTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_transparency_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//
+		//			if (useRoughnessTexture)
+		//				roughnessTexture.FromQByteArray(
+		//					gNetRender->GetTexture(
+		//						materialParam->Get<QString>(Name("file_roughness_texture", id)), frameNo),
+		//					cTexture::useMipmaps);
+		//		}
+		//		else
+		//		{
+		if (useColorTexture)
+			colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
 
-			if (useDiffusionTexture)
-				diffusionTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_diffusion_texture", id)), frameNo),
-					cTexture::useMipmaps);
+		if (useDiffusionTexture)
+			diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
 
-			if (useLuminosityTexture)
-				luminosityTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_luminosity_texture", id)), frameNo),
-					cTexture::useMipmaps);
+		if (useLuminosityTexture)
+			luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
 
-			if (useDisplacementTexture)
-				displacementTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_displacement_texture", id)), frameNo),
-					cTexture::doNotUseMipmaps);
+		if (useDisplacementTexture)
+			displacementTexture =
+				cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)),
+					cTexture::doNotUseMipmaps, frameNo, quiet);
 
-			if (useNormalMapTexture)
-				normalMapTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_normal_map_texture", id)), frameNo),
-					cTexture::doNotUseMipmaps);
+		if (useNormalMapTexture)
+			normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
 
-			if (useReflectanceTexture)
-				reflectanceTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_reflectance_texture", id)), frameNo),
-					cTexture::useMipmaps);
-
-			if (useTransparencyTexture)
-				transparencyTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_transparency_texture", id)), frameNo),
-					cTexture::useMipmaps);
-
-			if (useRoughnessTexture)
-				roughnessTexture.FromQByteArray(
-					gNetRender->GetTexture(
-						materialParam->Get<QString>(Name("file_roughness_texture", id)), frameNo),
-					cTexture::useMipmaps);
-		}
-		else
-		{
-			if (useColorTexture)
-				colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)),
+		if (useReflectanceTexture)
+			reflectanceTexture =
+				cTexture(materialParam->Get<QString>(Name("file_reflectance_texture", id)),
 					cTexture::useMipmaps, frameNo, quiet);
 
-			if (useDiffusionTexture)
-				diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)),
+		if (useTransparencyTexture)
+			transparencyTexture =
+				cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
 					cTexture::useMipmaps, frameNo, quiet);
 
-			if (useLuminosityTexture)
-				luminosityTexture =
-					cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)),
-						cTexture::useMipmaps, frameNo, quiet);
-
-			if (useDisplacementTexture)
-				displacementTexture =
-					cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)),
-						cTexture::doNotUseMipmaps, frameNo, quiet);
-
-			if (useNormalMapTexture)
-				normalMapTexture =
-					cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
-						cTexture::useMipmaps, frameNo, quiet);
-
-			if (useReflectanceTexture)
-				reflectanceTexture =
-					cTexture(materialParam->Get<QString>(Name("file_reflectance_texture", id)),
-						cTexture::useMipmaps, frameNo, quiet);
-
-			if (useTransparencyTexture)
-				transparencyTexture =
-					cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
-						cTexture::useMipmaps, frameNo, quiet);
-
-			if (useRoughnessTexture)
-				roughnessTexture = cTexture(materialParam->Get<QString>(Name("file_roughness_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet);
-		}
+		if (useRoughnessTexture)
+			roughnessTexture = cTexture(materialParam->Get<QString>(Name("file_roughness_texture", id)),
+				cTexture::useMipmaps, frameNo, quiet);
+		//		}
 	}
 
 	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);

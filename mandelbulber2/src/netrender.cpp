@@ -270,3 +270,24 @@ void cNetRender::ResetDeviceType()
 	deviceType = netRenderDevuceType_UNKNOWN;
 	emit NotifyStatus();
 }
+
+QString cNetRender::GetFileFromNetRender(QString requiredFileName)
+{
+	// this method need to be thread safe!
+
+	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+	hashCrypt.addData(requiredFileName.toLocal8Bit());
+	QByteArray hash = hashCrypt.result();
+	QString hashString = hash.toHex();
+	QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
+												+ QFileInfo(requiredFileName).suffix();
+	if (QFile::exists(fileInCache))
+	{
+		return fileInCache;
+	}
+	else
+	{
+		netRenderClient->RequestFileFromServer(requiredFileName);
+		return fileInCache;
+	}
+}

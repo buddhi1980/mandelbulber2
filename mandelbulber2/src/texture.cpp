@@ -45,6 +45,7 @@
 #include "files.h"
 #include "qimage.h"
 #include "resource_http_provider.hpp"
+#include "netrender.hpp"
 
 // constructor
 cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet)
@@ -56,12 +57,19 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 	WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
 	filename = AnimatedFileName(filename, frameNo);
 
-	WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
-	filename = FilePathHelperTextures(filename);
+	if (gNetRender->IsClient())
+	{
+		filename = gNetRender->GetFileFromNetRender(filename);
+	}
+	else
+	{
+		WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
+		filename = FilePathHelperTextures(filename);
 
-	WriteLogString("Loading texture - httpProvider()", filename, 3);
-	cResourceHttpProvider httpProvider(filename);
-	if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+		WriteLogString("Loading texture - httpProvider()", filename, 3);
+		cResourceHttpProvider httpProvider(filename);
+		if (httpProvider.IsUrl()) filename = httpProvider.cacheAndGetFilename();
+	}
 
 	// try to load image if it's PNG format (this one supports 16-bit depth images)
 	WriteLogString("Loading texture - LoadPNG()", filename, 3);

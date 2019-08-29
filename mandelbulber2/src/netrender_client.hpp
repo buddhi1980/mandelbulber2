@@ -66,6 +66,8 @@ public:
 	QString GetServerName() const { return serverName; }
 	// notify server that frame was just rendered
 	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
+	// request for file from server
+	void RequestFileFromServer(QString filename);
 
 private slots:
 	// try to connect to server
@@ -78,6 +80,8 @@ private slots:
 	void SendFileHeader(qint64 fileSize, QString nameWithoutPath);
 	// send file data chunk
 	void SendFileDataChunk(int chunkIndex, QByteArray data);
+	// request for file from server
+	void SlotRequestFileFromServer(QString filename);
 
 signals:
 	// The client has been deleted
@@ -96,6 +100,8 @@ signals:
 	void UpdateFramesToDo(QList<int> listOfFrames);
 	// add file to file sender queue
 	void AddFileToSender(QString fileName);
+	// request for file from server
+	void SignalRequestFileFromServer(QString filename);
 
 private:
 	void ProcessData();
@@ -111,6 +117,7 @@ private:
 	void ProcessRequestKickAndKill(sMessage *inMsg);
 	void ProcessRequestRenderAnimation(sMessage *inMsg);
 	void ProcessRequestFramesToDo(sMessage *inMsg);
+	void ProcessRequestReceivedFile(sMessage *inMsg);
 
 	QTcpSocket *clientSocket;
 	QTimer *reconnectTimer;
@@ -124,6 +131,9 @@ private:
 	QList<int> framesToRender;
 	QMap<QString, QByteArray> textures;
 	cNetRenderFileSender *fileSender;
+
+	bool fileReceived = false;
+	QString requestedFileName;
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_CLIENT_HPP_ */

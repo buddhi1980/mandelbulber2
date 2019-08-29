@@ -46,6 +46,7 @@ class cNetRenderFileSender : public QObject
 public:
 	cNetRenderFileSender(QObject *parent = nullptr);
 	~cNetRenderFileSender() override;
+	void ClearState();
 
 public slots:
 	void AddFileToQueue(QString filename);

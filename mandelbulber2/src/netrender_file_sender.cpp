@@ -46,6 +46,16 @@ cNetRenderFileSender::cNetRenderFileSender(QObject *parent) : QObject(parent)
 	lastChunk = false;
 }
 
+void cNetRenderFileSender::ClearState()
+{
+	fileQueue.clear();
+	actualFileName.clear();
+	actualFileSize = 0;
+	actualNumberOfChunks = 0;
+	sendingInProgress = false;
+	lastChunk = false;
+}
+
 cNetRenderFileSender::~cNetRenderFileSender() = default;
 
 void cNetRenderFileSender::AddFileToQueue(QString filename)

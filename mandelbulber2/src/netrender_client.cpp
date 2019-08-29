@@ -67,6 +67,8 @@ CNetRenderClient::CNetRenderClient()
 		this, &CNetRenderClient::AddFileToSender, fileSender, &cNetRenderFileSender::AddFileToQueue);
 	connect(
 		this, &CNetRenderClient::AckReceived, fileSender, &cNetRenderFileSender::AcknowledgeReceived);
+	connect(this, &CNetRenderClient::SignalRequestFileFromServer, this,
+		&CNetRenderClient::SlotRequestFileFromServer, Qt::QueuedConnection);
 }
 
 CNetRenderClient::~CNetRenderClient()
@@ -123,6 +125,8 @@ void CNetRenderClient::SetClient(QString _address, int _portNo)
 	clientSocket = new QTcpSocket(this);
 	connect(clientSocket, &QTcpSocket::disconnected, this, &CNetRenderClient::ServerDisconnected);
 	connect(clientSocket, &QTcpSocket::readyRead, this, &CNetRenderClient::ReceiveFromServer);
+
+	fileSender->ClearState();
 
 	reconnectTimer->start();
 	QTimer::singleShot(50, this, SLOT(TryServerConnect()));
@@ -222,6 +226,7 @@ void CNetRenderClient::ProcessData()
 		case netRenderCmd_ANIM_FLIGHT: ProcessRequestRenderAnimation(inMsg); break;
 		case netRenderCmd_ANIM_KEY: ProcessRequestRenderAnimation(inMsg); break;
 		case netRenderCmd_FRAMES_TODO: ProcessRequestFramesToDo(inMsg); break;
+		case netRenderCmd_SEND_REQ_FILE: ProcessRequestReceivedFile(inMsg); break;
 		default: qWarning() << "NetRender - command unknown: " + QString::number(inMsg->command); break;
 	}
 }
@@ -574,6 +579,54 @@ void CNetRenderClient::ProcessRequestFramesToDo(sMessage *inMsg)
 	}
 }
 
+void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
+{
+	WriteLog("NetRender - ProcessRequestReceivedFile()", 2);
+	if (inMsg->id == actualId)
+	{
+		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+
+		qint64 fileSize;
+		stream >> fileSize;
+
+		WriteLog(QString("NetRender - ProcessRequestReceivedFile(), file size: %1").arg(fileSize), 2);
+		if (fileSize > 0)
+		{
+			QByteArray buffer;
+			buffer.resize(fileSize);
+			stream.readRawData(buffer.data(), fileSize);
+
+			QCryptographicHash hashCrypt(QCryptographicHash::Md4);
+			hashCrypt.addData(requestedFileName.toLocal8Bit());
+			QByteArray hash = hashCrypt.result();
+			QString hashString = hash.toHex();
+			QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
+														+ QFileInfo(requestedFileName).suffix();
+
+			QFile file(fileInCache);
+			if (file.open(QIODevice::WriteOnly))
+			{
+				file.write(buffer);
+				file.close();
+				fileReceived = true;
+			}
+			else
+			{
+				WriteLog(
+					QString("NetRender SEND_REQ_FILE: cannot open file %1 for writing %1").arg(fileInCache),
+					1);
+			}
+		}
+	}
+	else
+	{
+		WriteLog(
+			QString("NetRender - received SEND_REQ_FILE message with wrong id. Local %1 vs Remote %2")
+				.arg(QString::number(actualId), QString::number(inMsg->id)),
+			1);
+	}
+}
+
 void CNetRenderClient::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
 {
 	sMessage msg;
@@ -617,6 +670,34 @@ void CNetRenderClient::SendFileDataChunk(int chunkIndex, QByteArray data)
 						 .arg(chunkIndex)
 						 .arg(data.size()),
 		3);
+
+	cNetRenderTransport::SendData(clientSocket, msg, actualId);
+}
+
+void CNetRenderClient::RequestFileFromServer(QString filename)
+{
+	emit SignalRequestFileFromServer(filename);
+	QElapsedTimer timerForTimeOut;
+	timerForTimeOut.start();
+	while (!fileReceived /*&& timerForTimeOut.msecsSinceReference() < 180 * 1000*/)
+	{
+		Wait(10);
+	}
+	fileReceived = false;
+}
+
+void CNetRenderClient::SlotRequestFileFromServer(QString filename)
+{
+	sMessage msg;
+	msg.command = netRenderCmd_REQ_FILE;
+	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
+
+	stream << qint32(filename.toUtf8().size());
+	stream.writeRawData(filename.toUtf8().data(), filename.toUtf8().size());
+
+	requestedFileName = filename;
+
+	WriteLog(QString("NetRender - SlotRequestFileFromServer(), name %1").arg(filename), 3);
 
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }

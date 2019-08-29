@@ -401,7 +401,9 @@ bool CreateDefaultFolders()
 		QDir::toNativeSeparators(actualFileNames.actualFilenamePalette);
 
 	ClearNetRenderCache();
-	DeleteOldThumbnails();
+	DeleteOldChache(systemData.GetThumbnailsFolder(), 90);
+	DeleteOldChache(systemData.GetHttpCacheFolder(), 10);
+
 	return result;
 }
 
@@ -894,9 +896,9 @@ void ClearNetRenderCache()
 	}
 }
 
-void DeleteOldThumbnails()
+void DeleteOldChache(const QString &directoryPath, int days)
 {
-	QDir dir(systemData.GetThumbnailsFolder());
+	QDir dir(directoryPath);
 	int counter = 0;
 	qint64 totalSize = 0;
 	if (dir.exists())
@@ -918,8 +920,9 @@ void DeleteOldThumbnails()
 	}
 	if (counter > 0)
 	{
-		QString message = QString("Removed %1 old files from thumbnail cache. Saved %2 MB")
+		QString message = QString("Removed %1 old files from %2. Saved %3 MB")
 												.arg(counter)
+												.arg(directoryPath)
 												.arg(totalSize / 1024 / 1024);
 		qInfo() << message;
 		WriteLog(message, 2);
