@@ -213,7 +213,7 @@ enum enumFractalFormula
 	// 2.20
 	riemannSphereHoboldPow4 = 180,
 	riemannSphereHoboldPow8 = 181,
-
+	mandelbulbKosalos = 182,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

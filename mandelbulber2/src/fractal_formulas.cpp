@@ -18052,7 +18052,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	double theta, phi, pwr, ss;
 
 	aux.r = z.Length();
-	double power = fractal->transformCommon.scaleB1;
+	double power = fractal->bulb.power;
 	double radialAngle = fractal->bulb.alphaAngleOffset;
 
 
@@ -18280,3 +18280,66 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
+
+/**
+ * by kosalos
+ * https://fractalforums.org/fractal-mathematics-and-new-theories/28/julia-sets-and-altering-the-iterate-afterwards/2871/msg16342#msg16342
+ * This formula contains aux.c for oldZ
+ */
+void MandelbulbKosalosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse) z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse) z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse) z.z = fabs(z.z);
+	}
+
+	double theta, phi, pwr, ss;
+
+	double power = fractal->bulb.power;
+	double radialAngle = fractal->transformCommon.scaleA1 / 100.0;
+
+
+	//double lettuce = fractal->bulb.alphaAngleOffset / length(0.001 + aux.c - z);
+	CVector4 diffVec = CVector4(0.001, 0.001, 0.001, 0.0) + aux.c - z; // 0.001
+	//CVector4 diffVec = aux.c - z; // 0.001
+
+	aux.c = z;
+	double lettuce = radialAngle / diffVec.Length();
+
+	if (!fractal->transformCommon.functionEnabledxFalse)
+	{
+		lettuce = 1.0 - lettuce;
+	}
+	else
+	{
+		lettuce = lettuce + (1.0 - lettuce) * fractal->transformCommon.scaleB1;
+	}
+	//double lettuce = 1.0 - radialAngle / diffL;
+	//double lettuce = radialAngle / diffL;
+	//lettuce = lettuce + (1.0 - lettuce) * fractal->transformCommon.scaleA1;
+
+
+	// original:   theta = atan2(length(pos.xy), pos.z);
+	// theta = atan2(length(pos.xy) * lettuce, pos.z);     // <-- added 'lettuce' effect
+	double xyL = sqrt(z.x * z.x + z.y * z.y);
+	theta = atan2(xyL * lettuce, z.z); // <-- added 'lettuce' effect
+
+	 phi = atan2(z.y, z.x) * power; // - 1.0;
+	 pwr = pow(aux.r, power);
+	 ss = sin(theta * power) * pwr;
+
+	z.x += ss * cos(phi); // old z + new z
+	z.y += ss * sin(phi);
+	z.z += pwr * cos(theta * power);
+
+	aux.DE = (pow(aux.r, power - 1.0) * power * aux.DE ) + 1.0; // + fractal->analyticDE.offset1;
+
+	z.z += fractal->transformCommon.offset0;
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+
+}
+
