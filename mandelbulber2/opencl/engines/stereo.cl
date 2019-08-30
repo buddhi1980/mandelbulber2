@@ -86,14 +86,14 @@ void StereoViewVectorCorrection(float correction, const matrix33 *mRot, const ma
 	if (eye == 0)
 	{
 		viewVectorTemp = RotateAroundVectorByAngle(
-			viewVectorTemp, (float3){0.0f, 0.0f, 1.0f}, correction / 10.0f / M_PI);
+			viewVectorTemp, (float3){0.0f, 0.0f, 1.0f}, correction / 10.0f / M_PI_F);
 		viewVectorTemp = Matrix33MulFloat3(*mRot, viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}
 	else
 	{
 		viewVectorTemp = RotateAroundVectorByAngle(
-			viewVectorTemp, (float3){0.0f, 0.0f, 1.0f}, -correction / 10.0f / M_PI);
+			viewVectorTemp, (float3){0.0f, 0.0f, 1.0f}, -correction / 10.0f / M_PI_F);
 		viewVectorTemp = Matrix33MulFloat3(*mRot, viewVectorTemp);
 		*viewVector = viewVectorTemp;
 	}

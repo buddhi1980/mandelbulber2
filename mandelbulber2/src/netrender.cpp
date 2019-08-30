@@ -50,6 +50,18 @@
 
 cNetRender *gNetRender = nullptr;
 
+// TODO: sending of file format to save animation
+// TODO: sending OpenCL Mode
+// TODO: correct sending of textures when used animated textures
+// TODO: to add sending audio files for AnimBySound
+// TODO: to check headless mode
+// TODO: to check sending of textures when source file is missing
+// TODO: to add sending rendering status form client to server
+// TODO: to add sending of rendering preview
+// TODO: to modify NetRender status table
+// TODO: to disable animation validate option before rendering
+// TODO: to implement NetRender for flight animation rendering
+
 cNetRender::cNetRender() : QObject(nullptr)
 {
 	deviceType = netRenderDevuceType_UNKNOWN;

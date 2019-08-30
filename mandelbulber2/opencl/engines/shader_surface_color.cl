@@ -54,7 +54,7 @@ float3 GradientInterpolate(
 		{
 			float delta = (pos - pos1) / (pos2 - pos1);
 
-			if (smooth) delta = 0.5f * (1.0f - cos(delta * M_PI));
+			if (smooth) delta = 0.5f * (1.0f - cos(delta * M_PI_F));
 
 			float nDelta = 1.0f - delta;
 			color.s0 = color1.s0 * nDelta + color2.s0 * delta;

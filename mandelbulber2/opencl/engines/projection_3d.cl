@@ -38,7 +38,7 @@ inline float3 CalculateViewVector(float2 normalizedPoint, float fov)
 	float3 viewVector;
 
 #if defined(PERSP_FISH_EYE) || defined(PERSP_FISH_EYE_CUT)
-	float2 v = normalizedPoint * M_PI;
+	float2 v = normalizedPoint * M_PI_F;
 	float r = length(v);
 	if (r == 0.0f)
 	{
@@ -54,7 +54,7 @@ inline float3 CalculateViewVector(float2 normalizedPoint, float fov)
 #endif
 
 #ifdef PERSP_EQUIRECTANGULAR
-	float2 v = normalizedPoint * M_PI;
+	float2 v = normalizedPoint * M_PI_F;
 	viewVector.x = sin(fov * v.x) * cos(fov * v.y);
 	viewVector.z = sin(fov * v.y);
 	viewVector.y = cos(fov * v.x) * cos(fov * v.y);

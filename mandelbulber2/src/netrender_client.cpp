@@ -679,7 +679,7 @@ void CNetRenderClient::RequestFileFromServer(QString filename)
 	emit SignalRequestFileFromServer(filename);
 	QElapsedTimer timerForTimeOut;
 	timerForTimeOut.start();
-	while (!fileReceived /*&& timerForTimeOut.msecsSinceReference() < 180 * 1000*/)
+	while (!fileReceived && timerForTimeOut.msecsSinceReference() < 180 * 1000)
 	{
 		Wait(10);
 	}
