@@ -347,7 +347,8 @@ void cNetRenderServer::SetCurrentAnimation(
 	const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight)
 {
 	WriteLog(QString("NetRender - Sending animation to %1 client(s)").arg(clients.size()), 2);
-	cSettings settingsData(cSettings::formatCondensedText);
+	cSettings settingsData(cSettings::formatFullText);
+	settingsData.SetListAppSettings(listOfAppSettingToTransfer);
 	size_t dataSize;
 
 	if (isFlight)

@@ -71,6 +71,7 @@ public:
 	void BeQuiet(bool _quiet) { quiet = _quiet; }
 	QString GetSettingsText() const;
 	void SetListOfParametersToProcess(const QStringList &list) { listOfParametersToProcess = list; }
+	void SetListAppSettings(const QStringList &list) { listOfAppSettings = list; }
 
 private:
 	QString CreateHeader() const;
@@ -104,6 +105,7 @@ private:
 	int csvNoOfColumns;
 	QStringList listOfLoadedPrimitives;
 	QStringList listOfParametersToProcess;
+	QStringList listOfAppSettings;
 
 	QList<QString> linesWithSoundParameters;
 	bool foundAnimSoundParameters;

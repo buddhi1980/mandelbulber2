@@ -50,7 +50,6 @@
 
 cNetRender *gNetRender = nullptr;
 
-// TODO: sending of file format to save animation
 // TODO: sending OpenCL Mode
 // TODO: correct sending of textures when used animated textures
 // TODO: to add sending audio files for AnimBySound
@@ -61,6 +60,7 @@ cNetRender *gNetRender = nullptr;
 // TODO: to modify NetRender status table
 // TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
+// TODO: send all image channels
 
 cNetRender::cNetRender() : QObject(nullptr)
 {

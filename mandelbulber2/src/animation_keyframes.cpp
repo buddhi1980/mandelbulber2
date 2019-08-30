@@ -634,7 +634,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	try
 	{
 		// updating parameters
-		if (!systemData.noGui && image->IsMainImage())
+		if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 		{
 			mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 			gUndo.Store(params, fractalParams, nullptr, keyframes);
@@ -847,7 +847,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 				{
-					// mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
+					mainInterface->SynchronizeInterface(params, fractalParams, qInterface::write);
 
 					// show distance in statistics table
 					const double distance = mainInterface->GetDistanceForPoint(
@@ -862,7 +862,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				const QString filename = GetKeyframeFilename(index, subIndex, gNetRender->IsClient());
 				const ImageFileSave::enumImageFileType fileType =
 					ImageFileSave::enumImageFileType(params->Get<int>("keyframe_animation_image_type"));
-				SaveImage(filename, fileType, image, gMainInterface->mainWindow);
+				QStringList listOfSavedFiles =
+					SaveImage(filename, fileType, image, gMainInterface->mainWindow);
 
 				renderedFramesCount++;
 				alreadyRenderedFrames[frameIndex] = true;
@@ -870,7 +871,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
 				netRenderListOfFramesToRender.removeAll(frameIndex);
 
-				emit NetRenderAddFileToSender(filename);
+				for (QString channelFileName : listOfSavedFiles)
+				{
+					emit NetRenderAddFileToSender(channelFileName);
+				}
 
 				gApplication->processEvents();
 			}

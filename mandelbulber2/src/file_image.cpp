@@ -209,9 +209,11 @@ QString ImageFileSave::CreateFullFileNameAndMakeDir(const QString &filename,
 	return fullFilename;
 }
 
-void ImageFileSavePNG::SaveImage()
+QStringList ImageFileSavePNG::SaveImage()
 {
 	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
@@ -226,6 +228,8 @@ void ImageFileSavePNG::SaveImage()
 
 		QString fullFilename =
 			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "png");
+
+		listOfSavedFiles.append(fullFilename);
 
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
@@ -247,11 +251,15 @@ void ImageFileSavePNG::SaveImage()
 		currentChannel++;
 	}
 	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
 }
 
-void ImageFileSaveJPG::SaveImage()
+QStringList ImageFileSaveJPG::SaveImage()
 {
 	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
 
 	currentChannel = 0;
 	totalChannel = imageConfig.size();
@@ -261,6 +269,8 @@ void ImageFileSaveJPG::SaveImage()
 
 		QString fullFilename =
 			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "jpg");
+
+		listOfSavedFiles.append(fullFilename);
 
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
@@ -320,12 +330,16 @@ void ImageFileSaveJPG::SaveImage()
 		currentChannel++;
 	}
 	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
 }
 
 #ifdef USE_TIFF
-void ImageFileSaveTIFF::SaveImage()
+QStringList ImageFileSaveTIFF::SaveImage()
 {
 	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
 
 	bool appendAlpha = gPar->Get<bool>("append_alpha_png")
 										 && imageConfig.contains(IMAGE_CONTENT_COLOR)
@@ -339,6 +353,8 @@ void ImageFileSaveTIFF::SaveImage()
 
 		QString fullFilename =
 			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "tiff");
+
+		listOfSavedFiles.append(fullFilename);
 
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
@@ -360,16 +376,25 @@ void ImageFileSaveTIFF::SaveImage()
 		currentChannel++;
 	}
 	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
 }
 #endif /* USE_TIFF */
 
 #ifdef USE_EXR
-void ImageFileSaveEXR::SaveImage()
+QStringList ImageFileSaveEXR::SaveImage()
 {
 	updateProgressAndStatusStarted();
+
+	QStringList listOfSavedFiles;
+
 	QString fullFilename = filename + ".exr";
+	listOfSavedFiles.append(fullFilename);
+
 	SaveEXR(fullFilename, image, imageConfig);
 	updateProgressAndStatusFinished();
+
+	return listOfSavedFiles;
 }
 #endif /* USE_EXR */
 

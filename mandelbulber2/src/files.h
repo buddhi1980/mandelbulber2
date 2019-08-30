@@ -53,7 +53,9 @@ int fcopy(const char *source, const char *dest);
 std::string removeFileExtension(const std::string &filename);
 void BufferNormalize16(sRGB16 *buffer, unsigned int size);
 // void SaveAllImageLayers(const char *filename, cImage *image);
-void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
+
+// SaveImage() returns list of saved files
+QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
 	QObject *updateReceiver = nullptr);
 sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight);
 

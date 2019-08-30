@@ -268,10 +268,24 @@ QString cSettings::CreateHeader() const
 QString cSettings::CreateOneLine(const cParameterContainer *par, QString name) const
 {
 	QString text;
+
 	enumParameterType parType = par->GetParameterType(name);
-	if (((format == formatFullText || format == formatCondensedText) && parType == paramStandard)
-			|| (format == formatNetRender && (parType == paramStandard || parType == paramOnlyForNet))
-			|| (format == formatAppSettings && parType == paramApp))
+
+	bool selNormal =
+		(format == formatFullText || format == formatCondensedText) && parType == paramStandard;
+
+	bool selNetRender =
+		(format == formatNetRender) && (parType == paramStandard || parType == paramOnlyForNet);
+
+	// adding selected appSettings to standard settings file
+	bool additinalAppSetting = false;
+	if (parType == paramApp && !listOfAppSettings.isEmpty())
+	{
+		if (listOfAppSettings.contains(name)) additinalAppSetting = true;
+	}
+	bool selAppSettings = (format == formatAppSettings && parType == paramApp) || additinalAppSetting;
+
+	if (selNormal || selNetRender || selAppSettings)
 	{
 		QString value;
 		enumVarType type = par->GetVarType(name);

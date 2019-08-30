@@ -483,7 +483,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			WriteLog(
 				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
 
-			cSettings parSettings(cSettings::formatCondensedText);
+			cSettings parSettings(cSettings::formatFullText);
 			parSettings.BeQuiet(true);
 
 			gInterfaceReadyForSynchronization = false;
@@ -679,7 +679,8 @@ void CNetRenderClient::RequestFileFromServer(QString filename)
 	emit SignalRequestFileFromServer(filename);
 	QElapsedTimer timerForTimeOut;
 	timerForTimeOut.start();
-	while (!fileReceived && timerForTimeOut.msecsSinceReference() < 180 * 1000)
+	//&& timerForTimeOut.msecsSinceReference() < 180 * 1000
+	while (!fileReceived && !systemData.globalStopRequest)
 	{
 		Wait(10);
 	}

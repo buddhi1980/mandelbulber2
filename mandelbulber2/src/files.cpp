@@ -187,9 +187,11 @@ void BufferNormalize16(sRGB16 *buffer, unsigned int size)
 	}
 }
 
-void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
+QStringList SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cImage *image,
 	QObject *updateReceiver)
 {
+	QStringList listOfSavedFiles;
+
 	ImageFileSave::ImageConfig imageConfig;
 	QStringList imageChannelNames = ImageFileSave::ImageChannelNames();
 
@@ -225,7 +227,9 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			}
-			imageFileSave->SaveImage();
+			QStringList list = imageFileSave->SaveImage();
+			listOfSavedFiles.append(list);
+
 			delete imageFileSave;
 		}
 
@@ -240,7 +244,9 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 					SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 					SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 			}
-			imageFileSave->SaveImage();
+			QStringList list = imageFileSave->SaveImage();
+			listOfSavedFiles.append(list);
+
 			delete imageFileSave;
 		}
 
@@ -258,10 +264,13 @@ void SaveImage(QString filename, ImageFileSave::enumImageFileType fileType, cIma
 				SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)), updateReceiver,
 				SLOT(slotUpdateProgressAndStatus(const QString &, const QString &, double)));
 		}
-		imageFileSave->SaveImage();
+		QStringList list = imageFileSave->SaveImage();
+		listOfSavedFiles.append(list);
+
 		delete imageFileSave;
 	}
-	// return SaveImage(fileWithoutExtension, fileType, image, imageConfig);
+
+	return listOfSavedFiles;
 }
 
 sRGBA16 *LoadPNG(QString filename, int &outWidth, int &outHeight)
