@@ -49,6 +49,7 @@
 #include "fractparams.hpp"
 #include "global_data.hpp"
 #include "material.h"
+#include "netrender.hpp"
 #include "nine_fractals.hpp"
 #include "opencl_dynamic_data.hpp"
 #include "opencl_hardware.h"
@@ -1256,6 +1257,11 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 				}
 
 				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
+
+				if(gNetRender->IsServer())
+				{
+					gApplication->processEvents();
+				}
 
 			} // while something in queue
 

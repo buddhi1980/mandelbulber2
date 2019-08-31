@@ -50,7 +50,8 @@
 
 cNetRender *gNetRender = nullptr;
 
-// TODO: sending OpenCL Mode
+// TODO: KeyframesRender() on server side have to be launched in separate therad to not lock event
+// loop (NetRender has not enough time slots to process events)
 // TODO: correct sending of textures when used animated textures
 // TODO: to add sending audio files for AnimBySound
 // TODO: to check headless mode
@@ -60,7 +61,6 @@ cNetRender *gNetRender = nullptr;
 // TODO: to modify NetRender status table
 // TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
-// TODO: send all image channels
 
 cNetRender::cNetRender() : QObject(nullptr)
 {
