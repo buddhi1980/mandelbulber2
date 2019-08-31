@@ -295,7 +295,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 	fractalList->append(sFractalDescription("Mandelbulb - Kosalos", "mandelbulb_kosalos",
 		mandelbulbKosalos, MandelbulbKosalosIteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 
 
 
