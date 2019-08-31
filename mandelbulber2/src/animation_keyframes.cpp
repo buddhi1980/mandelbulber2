@@ -868,12 +868,15 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				renderedFramesCount++;
 				alreadyRenderedFrames[frameIndex] = true;
 
-				emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
-				netRenderListOfFramesToRender.removeAll(frameIndex);
-
-				for (QString channelFileName : listOfSavedFiles)
+				if (gNetRender->IsClient())
 				{
-					emit NetRenderAddFileToSender(channelFileName);
+					emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
+					netRenderListOfFramesToRender.removeAll(frameIndex);
+
+					for (QString channelFileName : listOfSavedFiles)
+					{
+						emit NetRenderAddFileToSender(channelFileName);
+					}
 				}
 
 				gApplication->processEvents();

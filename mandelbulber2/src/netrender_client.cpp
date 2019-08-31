@@ -294,7 +294,7 @@ void CNetRenderClient::ProcessRequestStop(sMessage *inMsg)
 void CNetRenderClient::ProcessRequestAskStatus(sMessage *inMsg)
 {
 	Q_UNUSED(inMsg);
-	WriteLog("NetRender - ProcessData(), command STATUS", 3);
+	WriteLog("NetRender - ProcessData(), command STATUS", 2);
 	NotifyStatus();
 }
 
@@ -314,7 +314,7 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 		stream.readRawData(buffer.data(), size);
 		QString settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 		WriteLog(QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
-		WriteLog(QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
+		WriteLog(QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 2);
 
 		// getting textures from server
 		textures.clear();
@@ -395,7 +395,7 @@ void CNetRenderClient::ProcessRequestJob(sMessage *inMsg)
 
 void CNetRenderClient::ProcessRequestRender(sMessage *inMsg)
 {
-	WriteLog("NetRender - ProcessData(), command RENDER", 3);
+	WriteLog("NetRender - ProcessData(), command RENDER", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -409,7 +409,7 @@ void CNetRenderClient::ProcessRequestRender(sMessage *inMsg)
 			done.append(line);
 		}
 		WriteLog(
-			QString("NetRender - ProcessData(), command RENDER, done list size: %1").arg(done.size()), 3);
+			QString("NetRender - ProcessData(), command RENDER, done list size: %1").arg(done.size()), 2);
 		emit ToDoListArrived(done);
 	}
 	else
@@ -436,13 +436,13 @@ void CNetRenderClient::ProcessRequestSetup(sMessage *inMsg)
 		stream >> line;
 		startingPositions.append(line);
 		WriteLog(
-			QString("NetRender - ProcessData(), command SETUP, start line %1 = %2").arg(i).arg(line), 3);
+			QString("NetRender - ProcessData(), command SETUP, start line %1 = %2").arg(i).arg(line), 2);
 	}
 }
 
 void CNetRenderClient::ProcessRequestAck(sMessage *inMsg)
 {
-	WriteLog("NetRender - ProcessData(), command ACK", 3);
+	WriteLog("NetRender - ProcessData(), command ACK", 2);
 	if (inMsg->id == actualId)
 	{
 		emit AckReceived();
@@ -481,7 +481,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			QString settingsText = QString::fromUtf8(buffer.data(), buffer.size());
 			WriteLog(QString("NetRender - ProcessData(), command JOB, settings size: %1").arg(size), 2);
 			WriteLog(
-				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 3);
+				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 2);
 
 			cSettings parSettings(cSettings::formatFullText);
 			parSettings.BeQuiet(true);
@@ -566,7 +566,7 @@ void CNetRenderClient::ProcessRequestFramesToDo(sMessage *inMsg)
 			WriteLog(QString("NetRender - ProcessData(), command FRAMES_TODO, start line %1 = %2")
 								 .arg(i)
 								 .arg(frame),
-				3);
+				2);
 		}
 		emit UpdateFramesToDo(frameList);
 	}
@@ -636,7 +636,7 @@ void CNetRenderClient::ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList)
 	stream << qint32(frameIndex);
 	stream << qint32(sizeOfToDoList);
 
-	WriteLog(QString("NetRender - ConfirmRenderedFrame(), frame %1").arg(frameIndex), 3);
+	WriteLog(QString("NetRender - ConfirmRenderedFrame(), frame %1").arg(frameIndex), 2);
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }
 
@@ -651,7 +651,7 @@ void CNetRenderClient::SendFileHeader(qint64 fileSize, QString nameWithoutPath)
 	stream.writeRawData(nameWithoutPath.toUtf8().data(), nameWithoutPath.toUtf8().size());
 
 	WriteLog(
-		QString("NetRender - SendFileHeader(), name %1 size %2").arg(nameWithoutPath).arg(fileSize), 3);
+		QString("NetRender - SendFileHeader(), name %1 size %2").arg(nameWithoutPath).arg(fileSize), 2);
 
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }
@@ -669,7 +669,7 @@ void CNetRenderClient::SendFileDataChunk(int chunkIndex, QByteArray data)
 	WriteLog(QString("NetRender - SendFileDataChunk(), chunk index %1 size %2")
 						 .arg(chunkIndex)
 						 .arg(data.size()),
-		3);
+		2);
 
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }
@@ -698,7 +698,7 @@ void CNetRenderClient::SlotRequestFileFromServer(QString filename)
 
 	requestedFileName = filename;
 
-	WriteLog(QString("NetRender - SlotRequestFileFromServer(), name %1").arg(filename), 3);
+	WriteLog(QString("NetRender - SlotRequestFileFromServer(), name %1").arg(filename), 2);
 
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }

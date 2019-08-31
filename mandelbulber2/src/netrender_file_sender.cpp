@@ -121,6 +121,11 @@ void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 			sendingInProgress = false;
 		}
 	}
+	else
+	{
+		qCritical() << "sendFileOverNetrender(): File not found" << fileName;
+		sendingInProgress = false;
+	}
 }
 
 void cNetRenderFileSender::SendDataChunk()

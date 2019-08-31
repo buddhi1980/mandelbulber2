@@ -399,7 +399,7 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 {
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessData(), command DATA", 3);
+	WriteLog("NetRender - ProcessData(), command DATA", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -414,7 +414,7 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 			WriteLog(QString("NetRender - ProcessData(), command FRAME_DONE, frame %1, toDoLength %2")
 								 .arg(frameIndex)
 								 .arg(sizeOfListToDo),
-				3);
+				2);
 		}
 
 		emit FinishedFrame(index, frameIndex, sizeOfListToDo);
@@ -460,7 +460,7 @@ void cNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 	{
 		cNetRenderTransport::SendData(GetClient(index).socket, msgCurrentJob, actualId);
 		clients[index].linesRendered = 0;
-		WriteLog("CNetRender::ProcessData(): Send data at reconnect", 3);
+		WriteLog("CNetRender::ProcessData(): Send data at reconnect", 2);
 	}
 }
 
@@ -512,7 +512,7 @@ void cNetRenderServer::ProcessRequestStatus(sMessage *inMsg, int index, QTcpSock
 	Q_UNUSED(inMsg);
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessData(), command STATUS", 3);
+	WriteLog("NetRender - ProcessData(), command STATUS", 2);
 	netRenderStatus clientStatus =
 		netRenderStatus(*reinterpret_cast<qint32 *>(inMsg->payload.data()));
 	clients[index].status = clientStatus;
@@ -523,7 +523,7 @@ void cNetRenderServer::ProcessRequestFrameFileHeader(sMessage *inMsg, int index,
 {
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessRequestFileHeader(), command SEND_FILE_HEADER", 3);
+	WriteLog("NetRender - ProcessRequestFileHeader(), command SEND_FILE_HEADER", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -545,7 +545,7 @@ void cNetRenderServer::ProcessRequestFrameFileHeader(sMessage *inMsg, int index,
 										 "%1, fileName %2")
 							 .arg(fileSize)
 							 .arg(fileName),
-			3);
+			2);
 
 		emit ReceivedFileHeader(index, fileSize, fileName);
 
@@ -565,7 +565,7 @@ void cNetRenderServer::ProcessRequestFrameFileDataChunk(
 {
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessRequestFileDataChunk(), command SEND_FILE_DATA", 3);
+	WriteLog("NetRender - ProcessRequestFileDataChunk(), command SEND_FILE_DATA", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -585,7 +585,7 @@ void cNetRenderServer::ProcessRequestFrameFileDataChunk(
 										 "%1, chunkSize %2")
 							 .arg(chunkIndex)
 							 .arg(chunkSize),
-			3);
+			2);
 
 		emit ReceivedFileData(index, chunkIndex, chunkData);
 
@@ -605,7 +605,7 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 {
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessRequestFileDataChunk(), command REQ_FILE", 3);
+	WriteLog("NetRender - ProcessRequestFileDataChunk(), command REQ_FILE", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -623,7 +623,7 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 
 		WriteLog(QString("NetRender - ProcessRequestFileHeader(), command REQ_FILE, fileName %1")
 							 .arg(fileName),
-			3);
+			2);
 
 		// send file
 		sMessage outMsg;

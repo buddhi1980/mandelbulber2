@@ -229,24 +229,38 @@ QStringList ImageFileSavePNG::SaveImage()
 		QString fullFilename =
 			CreateFullFileNameAndMakeDir(filename, currentChannelKey, channel.value().postfix, "png");
 
-		listOfSavedFiles.append(fullFilename);
-
 		emit updateProgressAndStatus(getJobName(),
 			QObject::tr("Saving channel: %1").arg(ImageChannelName(currentChannelKey)),
 			1.0 * currentChannel / totalChannel);
 
 		switch (currentChannelKey)
 		{
-			case IMAGE_CONTENT_COLOR: SavePNG(fullFilename, image, channel.value(), appendAlpha); break;
-			case IMAGE_CONTENT_ALPHA:
-				if (!appendAlpha) SavePNG(fullFilename, image, channel.value());
+			case IMAGE_CONTENT_COLOR:
+			{
+				SavePNG(fullFilename, image, channel.value(), appendAlpha);
+				listOfSavedFiles.append(fullFilename);
 				break;
+			}
+			case IMAGE_CONTENT_ALPHA:
+			{
+				if (!appendAlpha)
+				{
+					SavePNG(fullFilename, image, channel.value());
+					listOfSavedFiles.append(fullFilename);
+				}
+				break;
+			}
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
-			default: SavePNG(fullFilename, image, channel.value()); break;
+			default:
+			{
+				SavePNG(fullFilename, image, channel.value());
+				listOfSavedFiles.append(fullFilename);
+				break;
+			}
 		}
 		currentChannel++;
 	}
