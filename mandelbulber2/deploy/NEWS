@@ -2,7 +2,9 @@ Version history
 
 v2.20
 - Added new fractal formulas
-   riemannSphereHobold
+   riemannSphereHoboldPow4
+   riemannSphereHoboldPow8
+   mandelbulbKosalos
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert

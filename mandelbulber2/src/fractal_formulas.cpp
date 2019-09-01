@@ -6148,6 +6148,61 @@ void MandelbulbKaliMultiIteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
+ * based on formula by kosalos
+ * https://fractalforums.org/fractal-mathematics-and-new-theories/28
+ * /julia-sets-and-altering-the-iterate-afterwards/2871/msg16342#msg16342
+ * This formula contains aux.const_c, and uses aux.c for oldZ
+ */
+void MandelbulbKosalosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 c = aux.const_c;
+	double power = fractal->bulb.power;
+
+	CVector4 diffVec = CVector4(0.001, 0.001, 0.001, 0.0) + aux.c - z;
+	aux.c = z;
+	double diffLen = diffVec.Length(); // > 3.16e-5
+	double thetaTweak = fractal->transformCommon.scaleA1 * 0.01
+			/ (diffLen + fractal->transformCommon.offsetA0 * 0.01);
+
+	if (!fractal->transformCommon.functionEnabledxFalse)
+	{
+		thetaTweak = (1.0 - thetaTweak);
+	}
+	else // mode2
+	{
+		thetaTweak = thetaTweak + (1.0 - thetaTweak) * fractal->transformCommon.scaleB1;
+	}
+
+	double xyL = sqrt(z.x * z.x + z.y * z.y);
+	double theta = atan2(xyL * thetaTweak, z.z); // <-- added 'thetaTweak' effect
+
+	double phi = atan2(z.y, z.x) * power;
+	double pwr = pow(aux.r, power);
+	double ss = sin(theta * power) * pwr;
+
+	if (!fractal->transformCommon.addCpixelEnabledFalse) // z = old z + new z
+	{
+		z.x += ss * cos(phi);
+		z.y += ss * sin(phi);
+		z.z += pwr * cos(theta * power);
+		aux.DE += (pow(aux.r, power - 1.0) * power * aux.DE);
+		z.z += fractal->transformCommon.offset0;
+	}
+	else // z = f(z) + c
+	{
+		z.x = ss * cos(phi);
+		z.y = ss * sin(phi);
+		z.z = pwr * cos(theta * power);
+		aux.DE = (pow(aux.r, power - 1.0) * power * aux.DE);
+		z.z += fractal->transformCommon.offset0;
+		c *= fractal->transformCommon.constantMultiplierC111;
+		if (!fractal->transformCommon.functionEnabledyFalse) z += c;
+		else z += CVector4(c.y, c.x, c.z, 0.0);
+	}
+	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
+}
+
+/**
  * mandelbulbMulti 3D
  */
 void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -18281,58 +18336,5 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
-/**
- * based on formula by kosalos
- * https://fractalforums.org/fractal-mathematics-and-new-theories/28/julia-sets-and-altering-the-iterate-afterwards/2871/msg16342#msg16342
- * This formula contains aux.c for oldZ
- */
-void MandelbulbKosalosIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
-{
-	double theta, phi, pwr, ss;
 
-	double power = fractal->bulb.power;
-	double radialAngle = fractal->transformCommon.scaleA1 / 100.0;
-
-	CVector4 diffVec = CVector4(0.001, 0.001, 0.001, 0.0) + aux.c - z;
-	double diffLen = diffVec.Length(); // > 3.16e-5
-	double thetaTweak = radialAngle / (diffLen + fractal->transformCommon.offsetA0);
-
-	if (!fractal->transformCommon.functionEnabledxFalse)
-	{
-		thetaTweak = (1.0 - thetaTweak);
-	}
-	else // mode2
-	{
-		thetaTweak = thetaTweak + (1.0 - thetaTweak) * fractal->transformCommon.scaleB1;
-	}
-
-	double xyL = sqrt(z.x * z.x + z.y * z.y);
-	theta = atan2(xyL * thetaTweak, z.z); // <-- added 'thetaTweak' effect
-
-
-	phi = atan2(z.y, z.x) * power;
-	pwr = pow(aux.r, power);
-	ss = sin(theta * power) * pwr;
-
-	if (!fractal->transformCommon.functionEnabledyFalse)
-	{
-		z.x += ss * cos(phi); // old z + new z
-		z.y += ss * sin(phi);
-		z.z += pwr * cos(theta * power);
-	}
-	else
-	{
-		z.x = ss * cos(phi);
-		z.y = ss * sin(phi);
-		z.z = pwr * cos(theta * power);
-	}
-
-		aux.DE += (pow(aux.r, power - 1.0) * power * aux.DE ) + fractal->analyticDE.offset1;
-
-	z.z += fractal->transformCommon.offset0;
-
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1;
-
-}
 

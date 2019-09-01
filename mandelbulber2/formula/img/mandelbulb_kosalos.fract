@@ -1,0 +1,33 @@
+# Mandelbulber settings file
+# version 2.20
+# only modified parameters
+[main_parameters]
+ambient_occlusion_enabled true;
+camera -1.499942677673136 -2.598076211353316 -0.01311349285057033;
+camera_distance_to_target 3;
+camera_rotation -29.99905188728754 0.2504500625699408 29.56620085953404;
+camera_top 0.4254250757345037 -0.2499999999999997 0.8697778480372398;
+detail_level 4;
+flight_last_to_render 0;
+formula_1 182;
+hdr true;
+hybrid_fractal_enable true;
+image_height 256;
+image_width 256;
+keyframe_last_to_render 0;
+mat1_is_defined true;
+mat1_metallic false;
+mat1_specular 1;
+mat1_specular_width 1;
+mat1_surface_color_gradient 0 fd6029 999 698403 1999 fff59b 2999 f5bd22 3999 0b5e87 5000 c68876 5999 a51c64 7000 3b9fee 7999 d4ffd4 9000 aba53c;
+view_distance_max 9.508223651932356;
+[fractal_1]
+alpha_angle_offset 54.834437;
+transf_addition_constant 0.388994 0 0;
+transf_function_enabled_false true;
+transf_function_enabledAy_false true;
+transf_function_enabledBz_false true;
+transf_function_enabledD_false true;
+transf_function_enabledE_false true;
+transf_function_enabledK_false true;
+transf_scaleB_1 0.826087;
