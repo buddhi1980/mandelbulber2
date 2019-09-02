@@ -50,10 +50,11 @@ class cMaterial
 {
 public:
 	cMaterial();
-	cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet);
+	cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet,
+		bool useNetRender);
 	~cMaterial();
-	void setParameters(
-		int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet);
+	void setParameters(int _id, const cParameterContainer *materialParam, bool loadTextures,
+		bool quiet, bool useNetRender);
 
 	static QString Name(const QString &name, int materialId)
 	{
@@ -153,6 +154,6 @@ public:
 };
 
 void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials,
-	bool loadTextures, bool quiet);
+	bool loadTextures, bool quiet, bool useNetRender);
 
 #endif /* MANDELBULBER2_SRC_MATERIAL_H_ */

@@ -257,16 +257,16 @@ void cRenderJob::LoadTextures(int frameNo, const cRenderingConfiguration &config
 	if (paramsContainer->Get<bool>("textured_background"))
 		renderData->textures.backgroundTexture =
 			cTexture(paramsContainer->Get<QString>("file_background"), cTexture::doNotUseMipmaps, frameNo,
-				config.UseIgnoreErrors());
+				config.UseIgnoreErrors(), config.UseNetRender());
 
 	if (paramsContainer->Get<bool>("env_mapping_enable"))
 		renderData->textures.envmapTexture = cTexture(paramsContainer->Get<QString>("file_envmap"),
-			cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors());
+			cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors(), config.UseNetRender());
 
 	if (paramsContainer->Get<int>("ambient_occlusion_mode") == params::AOModeMultipleRays
 			&& paramsContainer->Get<bool>("ambient_occlusion_enabled"))
 		renderData->textures.lightmapTexture = cTexture(paramsContainer->Get<QString>("file_lightmap"),
-			cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors());
+			cTexture::doNotUseMipmaps, frameNo, config.UseIgnoreErrors(), config.UseNetRender());
 	//	}
 }
 
@@ -317,7 +317,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 	renderData->stopRequest = stopRequest;
 
 	CreateMaterialsMap(paramsContainer, &renderData->materials, loadTextures,
-		renderData->configuration.UseIgnoreErrors());
+		renderData->configuration.UseIgnoreErrors(), renderData->configuration.UseNetRender());
 
 	// preparation of lights
 	// connect signal for progress bar update

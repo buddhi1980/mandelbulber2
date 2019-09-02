@@ -57,7 +57,7 @@ public:
 		useMipmaps
 	};
 
-	cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet);
+	cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet, bool useNetRender);
 	cTexture();
 	cTexture(const cTexture &tex);
 	cTexture &operator=(const cTexture &tex);

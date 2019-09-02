@@ -48,7 +48,8 @@
 #include "netrender.hpp"
 
 // constructor
-cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet)
+cTexture::cTexture(
+	QString filename, enumUseMipmaps mode, int frameNo, bool beQuiet, bool useNetRender)
 {
 	bitmap = nullptr;
 
@@ -57,7 +58,7 @@ cTexture::cTexture(QString filename, enumUseMipmaps mode, int frameNo, bool beQu
 	WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
 	filename = AnimatedFileName(filename, frameNo);
 
-	if (gNetRender->IsClient())
+	if (gNetRender->IsClient() && useNetRender)
 	{
 		filename = gNetRender->GetFileFromNetRender(filename);
 	}

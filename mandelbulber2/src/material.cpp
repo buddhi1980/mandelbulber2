@@ -95,10 +95,10 @@ cMaterial::cMaterial()
 	transparencyGradientEnable = false;
 }
 
-cMaterial::cMaterial(
-	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
+cMaterial::cMaterial(int _id, const cParameterContainer *materialParam, bool loadTextures,
+	bool quiet, bool useNetRender)
 {
-	setParameters(_id, materialParam, loadTextures, quiet);
+	setParameters(_id, materialParam, loadTextures, quiet, useNetRender);
 }
 
 cMaterial::~cMaterial() = default;
@@ -159,8 +159,8 @@ QStringList cMaterial::paramsList = {"color_texture_intensity", "coloring_palett
 	"surface_color_gradient", "specular_gradient", "diffuse_gradient", "luminosity_gradient",
 	"roughness_gradient", "reflectance_gradient", "transparency_gradient"};
 
-void cMaterial::setParameters(
-	int _id, const cParameterContainer *materialParam, bool loadTextures, bool quiet)
+void cMaterial::setParameters(int _id, const cParameterContainer *materialParam, bool loadTextures,
+	bool quiet, bool useNetRender)
 {
 	id = _id;
 
@@ -452,46 +452,46 @@ void cMaterial::setParameters(
 		//		{
 		if (useColorTexture)
 			colorTexture = cTexture(materialParam->Get<QString>(Name("file_color_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet);
+				cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useDiffusionTexture)
 			diffusionTexture = cTexture(materialParam->Get<QString>(Name("file_diffusion_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet);
+				cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useLuminosityTexture)
 			luminosityTexture = cTexture(materialParam->Get<QString>(Name("file_luminosity_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet);
+				cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useDisplacementTexture)
 			displacementTexture =
 				cTexture(materialParam->Get<QString>(Name("file_displacement_texture", id)),
-					cTexture::doNotUseMipmaps, frameNo, quiet);
+					cTexture::doNotUseMipmaps, frameNo, quiet, useNetRender);
 
 		if (useNormalMapTexture)
 			normalMapTexture = cTexture(materialParam->Get<QString>(Name("file_normal_map_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet);
+				cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useReflectanceTexture)
 			reflectanceTexture =
 				cTexture(materialParam->Get<QString>(Name("file_reflectance_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet);
+					cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useTransparencyTexture)
 			transparencyTexture =
 				cTexture(materialParam->Get<QString>(Name("file_transparency_texture", id)),
-					cTexture::useMipmaps, frameNo, quiet);
+					cTexture::useMipmaps, frameNo, quiet, useNetRender);
 
 		if (useRoughnessTexture)
 			roughnessTexture = cTexture(materialParam->Get<QString>(Name("file_roughness_texture", id)),
-				cTexture::useMipmaps, frameNo, quiet);
+				cTexture::useMipmaps, frameNo, quiet, useNetRender);
 		//		}
 	}
 
 	rotMatrix.SetRotation2(textureRotation / 180 * M_PI);
 }
 
-void CreateMaterialsMap(
-	const cParameterContainer *params, QMap<int, cMaterial> *materials, bool loadTextures, bool quiet)
+void CreateMaterialsMap(const cParameterContainer *params, QMap<int, cMaterial> *materials,
+	bool loadTextures, bool quiet, bool useNetRender)
 {
 	materials->clear();
 	QList<QString> listOfParameters = params->GetListOfParameters();
@@ -503,7 +503,7 @@ void CreateMaterialsMap(
 			int matIndex = parameterName.midRef(3, positionOfDash - 3).toInt();
 			if (parameterName.midRef(positionOfDash + 1) == "is_defined")
 			{
-				materials->insert(matIndex, cMaterial(matIndex, params, loadTextures, quiet));
+				materials->insert(matIndex, cMaterial(matIndex, params, loadTextures, quiet, useNetRender));
 			}
 		}
 	}

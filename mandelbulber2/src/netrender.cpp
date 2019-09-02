@@ -50,9 +50,7 @@
 
 cNetRender *gNetRender = nullptr;
 
-// TODO: KeyframesRender() on server side have to be launched in separate therad to not lock event
-// loop (NetRender has not enough time slots to process events)
-// TODO: correct sending of textures when used animated textures
+// TODO: correct restarting of rendering when started again from frame 0
 // TODO: to add sending audio files for AnimBySound
 // TODO: to check headless mode
 // TODO: to check sending of textures when source file is missing
