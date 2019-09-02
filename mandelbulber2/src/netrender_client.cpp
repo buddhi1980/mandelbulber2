@@ -617,6 +617,13 @@ void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
 					1);
 			}
 		}
+		else
+		{
+			WriteLog(QString("NetRender SEND_REQ_FILE: cannot get file %1 from NetRender")
+								 .arg(requestedFileName),
+				1);
+			fileReceived = true;
+		}
 	}
 	else
 	{
@@ -679,8 +686,7 @@ void CNetRenderClient::RequestFileFromServer(QString filename)
 	emit SignalRequestFileFromServer(filename);
 	QElapsedTimer timerForTimeOut;
 	timerForTimeOut.start();
-	//&& timerForTimeOut.msecsSinceReference() < 180 * 1000
-	while (!fileReceived && !systemData.globalStopRequest)
+	while (!fileReceived && !systemData.globalStopRequest && timerForTimeOut.elapsed() < 180000)
 	{
 		Wait(10);
 	}
