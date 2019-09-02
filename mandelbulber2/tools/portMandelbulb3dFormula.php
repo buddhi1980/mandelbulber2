@@ -16,50 +16,87 @@ printStart();
 $retDecBinPath = '~/Downloads/retdec/bin'; // from here: https://github.com/avast/retdec
 $bin2hexPath = '~/Downloads/intelhex-master/scripts'; // from here https://github.com/bialix/intelhex
 $mb3dFolder = @$argv[1]; // retrieve from here: https://github.com/coast77777777777/mb3d, see folder M3Formulas
+$targetFolder = dirname(__FILE__) . '/../formula/mb3dTemporaryFormulas';
 if(substr($mb3dFolder, -1, 1) != '/') $mb3dFolder .= '/';
 $i = 0;
+if(!file_exists($targetFolder)) mkdir($targetFolder);
 foreach (glob($mb3dFolder . "M3Formulas/*.m3f") as $filename) {
+        // if(stripos($filename, 'quick') === false) continue; // test with simple formula: "quickdudley"
 	echo "Handling: $filename" . PHP_EOL;
 	portFormulaFromFile($filename);
 	$i++;
 }
 
 function portFormulaFromFile($fileName){
+    global $targetFolder;
 	$contents = file_get_contents($fileName);
 	$code = detectCode($contents);
 	$options = detectOptions($contents);
+        preg_match('/def\s*function_0.*([\s\S]+?)# -------/', $code, $match);
+        $codeePart = $match[1];
+	$cCode = transpilePythonToC($codeePart);
+        $headerFilePath = $targetFolder . '/' . str_ireplace('.m3f', '.h', basename($fileName));
 	// $constants = detectConstants(); // TODO
 	// $description = detectDescription(); // TODO
-	// print_r($options);
-	die();
+        file_put_contents($headerFilePath, $cCode);
+}
+
+function transpilePythonToC($code){
+    // add semicolor at end of non empty lines
+    $lines = explode(PHP_EOL, $code);
+    foreach ($lines as &$line){
+        if(trim($line) != ''){
+			$line = $line .';';
+        }
+    }
+    $code = implode(PHP_EOL, $lines);
+    $code = str_replace('eax', 'z.x', $code);
+    $code = str_replace('ecx', 'z.y', $code);
+    $code = str_replace('edx', 'z.z', $code);
+    $cCodeFormula = 'const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
+	{
+        ' . $code . '
+	}';
+    return $cCodeFormula;
 }
 
 function detectCode($contents){
 	global $bin2hexPath, $retDecBinPath;
 	preg_match('/\[CODE\]([\s\S]+)\[END\]/', $contents, $match);
 	$code = trim($match[1]);
-	echo 'Detected following code:' . PHP_EOL;
-	echo $code;
+	// echo 'Detected following code:' . PHP_EOL . $code;
 
-	echo 'Convert code to binary...' . PHP_EOL;
+	// echo 'Convert code to binary...' . PHP_EOL;
 	file_put_contents('/tmp/code.hex', $code);
 	shell_exec('xxd -r -p /tmp/code.hex /tmp/code.bin');
 
-	echo 'Convert binary to intel hex...' . PHP_EOL;
+	// echo 'Convert binary to intel hex...' . PHP_EOL;
 	shell_exec($bin2hexPath . '/bin2hex.py /tmp/code.bin > /tmp/code.ihex');
-	echo 'Created following intelHex:' . PHP_EOL;
-	echo file_get_contents('/tmp/code.ihex');
+	// echo 'Created following intelHex:' . file_get_contents('/tmp/code.ihex');
 
-	echo 'Decompile intel hex to python ...' . PHP_EOL;
-	$cmdDec = $retDecBinPath . '/retdec-decompiler.py \
-		-a x86-64 -e little \
-	    --backend-no-symbolic-names \
-	    --backend-no-var-renaming \
-	    -l py \
-	    /tmp/code.ihex';
+	// echo 'Decompile intel hex to python ...' . PHP_EOL;
+	$cmdFlags = [];
+	$cmdFlags[] = '-a x86-64'; // target x86-64 processors
+	$cmdFlags[] = '-e little'; // set endianness to little (pascal in windows is source)
+	$cmdFlags[] = '--backend-no-symbolic-names'; // keep original names (local variables)
+	$cmdFlags[] = '--backend-no-var-renaming'; // keep original names (registers)
+	// $cmdFlags[] = '--backend-no-opts'; // needs to be optimized, keep this commented out
+	// $cmdFlags[] = '--backend-aggressive-opts'; // breaks the code?
+	// $cmdFlags[] = '--backend-keep-all-brackets'; // no, we dont want brackets
+	$cmdFlags[] = '--backend-keep-library-funcs'; // why not?
+	// $cmdFlags[] = '--backend-no-compound-operators'; // no effect?
+	// $cmdFlags[] = '--backend-no-time-varying-info'; // no effect?
+	// $cmdFlags[] = '--backend-strict-fpu-semantics'; // no effect?
+	$cmdFlags[] = '-l py'; // set the target language
+
+	$cmdFlags[] = '-o /tmp/code.res'; // set the output file
+	$cmdDec = $retDecBinPath . '/retdec-decompiler.py ' . implode(' ', $cmdFlags) . ' /tmp/code.ihex';
 	shell_exec($cmdDec);
-	echo 'Created following python code:' . PHP_EOL;
-	echo file_get_contents('/tmp/code.ihex.py');
+	// echo $cmdDec;
+	// echo 'Created following code:' . PHP_EOL;
+	$code = file_get_contents('/tmp/code.res');
+	// die($code);
+	return $code;
 }
 
 function detectOptions($content){
