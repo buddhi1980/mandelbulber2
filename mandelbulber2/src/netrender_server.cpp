@@ -631,6 +631,7 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 		outMsg.command = netRenderCmd_SEND_REQ_FILE;
 
 		fileName = FilePathHelperTextures(fileName);
+		bool failure = false;
 		if (QFile::exists(fileName))
 		{
 			QFile file(fileName);
@@ -646,11 +647,20 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 			else
 			{
 				WriteLog(QString("NetRender REQ_FILE: can't open file %1").arg(fileName), 1);
+				failure = true;
 			}
 		}
 		else
 		{
 			WriteLog(QString("NetRender REQ_FILE: file %1 doesn't exist").arg(fileName), 1);
+			failure = true;
+		}
+
+		if (failure)
+		{
+			QDataStream stream(&outMsg.payload, QIODevice::WriteOnly);
+			stream << qint64(-1); // -1 means that file coudn't be loaded
+			cNetRenderTransport::SendData(GetClient(index).socket, outMsg, actualId);
 		}
 	}
 	else

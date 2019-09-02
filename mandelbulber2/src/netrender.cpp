@@ -59,6 +59,7 @@ cNetRender *gNetRender = nullptr;
 // TODO: to modify NetRender status table
 // TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
+// TODO: to correct calculation of % of progress
 
 cNetRender::cNetRender() : QObject(nullptr)
 {
