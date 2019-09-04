@@ -134,8 +134,8 @@ function checkArguments()
 	foreach ($argv as $i => $arg) {
 		if ($i == 0) continue;
 		if (!in_array($arg, array('nondry', 'verbose', 'warning', 'checkCl', 'checkTidy'))){
-			if($argv[0] != 'portMandelbulb3dFormula.php')
-				die('Unknown argument: ' . $arg . PHP_EOL);
+			//if($argv[0] != 'portMandelbulb3dFormula.php')
+			//	die('Unknown argument: ' . $arg . PHP_EOL);
 		}
 	}
 }

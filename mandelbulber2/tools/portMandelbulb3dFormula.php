@@ -13,8 +13,8 @@
 <?php
 require_once(dirname(__FILE__) . '/common.inc.php');
 printStart();
-$retDecBinPath = '~/Downloads/retdec/bin'; // from here: https://github.com/avast/retdec
-$bin2hexPath = '~/Downloads/intelhex-master/scripts'; // from here https://github.com/bialix/intelhex
+$retDecBinPath = '/usr/local/bin'; // from here: https://github.com/avast/retdec
+$bin2hexPath = '/usr/local/bin'; // from here https://github.com/bialix/intelhex
 $mb3dFolder = @$argv[1]; // retrieve from here: https://github.com/coast77777777777/mb3d, see folder M3Formulas
 $targetFolder = dirname(__FILE__) . '/../formula/mb3dTemporaryFormulas';
 if(substr($mb3dFolder, -1, 1) != '/') $mb3dFolder .= '/';
@@ -31,11 +31,18 @@ function portFormulaFromFile($fileName){
     global $targetFolder;
 	$contents = file_get_contents($fileName);
 	$code = detectCode($contents);
+	
+// 	$cFilePath = $targetFolder . '/' . str_ireplace('.m3f', '.py', basename($fileName));
+// 	file_put_contents($cFilePath, $code);
+	
 	$options = detectOptions($contents);
         preg_match('/def\s*function_0.*([\s\S]+?)# -------/', $code, $match);
         $codeePart = $match[1];
+        
 	$cCode = transpilePythonToC($codeePart);
         $headerFilePath = $targetFolder . '/' . str_ireplace('.m3f', '.h', basename($fileName));
+        $cFilePath = $targetFolder . '/' . str_ireplace('.m3f', '.h', basename($fileName));
+        
 	// $constants = detectConstants(); // TODO
 	// $description = detectDescription(); // TODO
         file_put_contents($headerFilePath, $cCode);
@@ -51,8 +58,8 @@ function transpilePythonToC($code){
     }
     $code = implode(PHP_EOL, $lines);
     $code = str_replace('eax', 'z.x', $code);
-    $code = str_replace('ecx', 'z.y', $code);
-    $code = str_replace('edx', 'z.z', $code);
+    $code = str_replace('edx', 'z.y', $code);
+    $code = str_replace('ecx', 'z.z', $code);
     $cCodeFormula = 'const inline void FormulaCode(CVector4 &z, const sFractal *fractal, sExtendedAux &aux) override
 	{
         ' . $code . '
@@ -64,11 +71,11 @@ function detectCode($contents){
 	global $bin2hexPath, $retDecBinPath;
 	preg_match('/\[CODE\]([\s\S]+)\[END\]/', $contents, $match);
 	$code = trim($match[1]);
-	// echo 'Detected following code:' . PHP_EOL . $code;
+	//echo 'Detected following code:' . PHP_EOL . $code;
 
 	// echo 'Convert code to binary...' . PHP_EOL;
 	file_put_contents('/tmp/code.hex', $code);
-	shell_exec('xxd -r -p /tmp/code.hex /tmp/code.bin');
+	shell_exec('xxd -r -p /tmp/code.hex >/tmp/code.bin');
 
 	// echo 'Convert binary to intel hex...' . PHP_EOL;
 	shell_exec($bin2hexPath . '/bin2hex.py /tmp/code.bin > /tmp/code.ihex');
@@ -76,9 +83,9 @@ function detectCode($contents){
 
 	// echo 'Decompile intel hex to python ...' . PHP_EOL;
 	$cmdFlags = [];
-	$cmdFlags[] = '-a x86-64'; // target x86-64 processors
+	$cmdFlags[] = '-a x86'; // target x86-64 processors
 	$cmdFlags[] = '-e little'; // set endianness to little (pascal in windows is source)
-	$cmdFlags[] = '--backend-no-symbolic-names'; // keep original names (local variables)
+	//$cmdFlags[] = '--backend-no-symbolic-names'; // keep original names (local variables)
 	$cmdFlags[] = '--backend-no-var-renaming'; // keep original names (registers)
 	// $cmdFlags[] = '--backend-no-opts'; // needs to be optimized, keep this commented out
 	// $cmdFlags[] = '--backend-aggressive-opts'; // breaks the code?
@@ -93,8 +100,9 @@ function detectCode($contents){
 	$cmdDec = $retDecBinPath . '/retdec-decompiler.py ' . implode(' ', $cmdFlags) . ' /tmp/code.ihex';
 	shell_exec($cmdDec);
 	// echo $cmdDec;
-	// echo 'Created following code:' . PHP_EOL;
+	//echo 'Created following code:' . PHP_EOL;
 	$code = file_get_contents('/tmp/code.res');
+	//echo $code;
 	// die($code);
 	return $code;
 }
