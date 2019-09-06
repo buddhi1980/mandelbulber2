@@ -90,7 +90,7 @@ typedef struct
 	cl_float4 c;
 	cl_float4 const_c;
 	cl_float4 old_z;
-	cl_float4 sum_z;
+	//cl_float4 sum_z;
 	cl_float pos_neg;
 	cl_float cw;
 
@@ -118,22 +118,22 @@ typedef struct
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
-	cl_float scaleA0;
-	cl_float scaleB0;
-	cl_float scaleD0;
-	cl_float scaleF0;
-	cl_float scaleA1;
-	cl_float scaleB1;
-	cl_float scaleC1;
+	//cl_float scaleA0;
+	//cl_float scaleB0;
+	//cl_float scaleD0;
+	//cl_float scaleF0;
+	//cl_float scaleA1;
+	//cl_float scaleB1;
+	//cl_float scaleC1;
 
-	cl_int intAx0;
-	cl_int intAy0;
-	cl_int intAz0;
+	//cl_int intAx0;
+	//cl_int intAy0;
+	//cl_int intAz0;
 
 	cl_int auxColorEnabled;
 	cl_int auxColorEnabledFalse;
 
-	cl_int distanceEnabledFalse;
+	//cl_int distanceEnabledFalse;
 } sFoldColorCl;
 
 typedef struct
@@ -803,7 +803,7 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.c = toClFloat4(source.c);
 	target.const_c = toClFloat4(source.const_c);
 	target.old_z = toClFloat4(source.old_z);
-	target.sum_z = toClFloat4(source.sum_z);
+	//target.sum_z = toClFloat4(source.sum_z);
 	target.pos_neg = source.pos_neg;
 	target.cw = source.cw;
 	target.r = source.r;
@@ -828,19 +828,19 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	target.factorR = source.factorR;
 	target.factorSp1 = source.factorSp1;
 	target.factorSp2 = source.factorSp2;
-	target.scaleA0 = source.scaleA0;
-	target.scaleB0 = source.scaleB0;
-	target.scaleD0 = source.scaleD0;
-	target.scaleF0 = source.scaleF0;
-	target.scaleA1 = source.scaleA1;
-	target.scaleB1 = source.scaleB1;
-	target.scaleC1 = source.scaleC1;
-	target.intAx0 = source.intAx0;
-	target.intAy0 = source.intAy0;
-	target.intAz0 = source.intAz0;
+	//target.scaleA0 = source.scaleA0;
+	//target.scaleB0 = source.scaleB0;
+	//target.scaleD0 = source.scaleD0;
+	//target.scaleF0 = source.scaleF0;
+	//target.scaleA1 = source.scaleA1;
+	//target.scaleB1 = source.scaleB1;
+	//target.scaleC1 = source.scaleC1;
+	//target.intAx0 = source.intAx0;
+	//target.intAy0 = source.intAy0;
+	//target.intAz0 = source.intAz0;
 	target.auxColorEnabled = source.auxColorEnabled;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
-	target.distanceEnabledFalse = source.distanceEnabledFalse;
+	//target.distanceEnabledFalse = source.distanceEnabledFalse;
 	return target;
 }
 
