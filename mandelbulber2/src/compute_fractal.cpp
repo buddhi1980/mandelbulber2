@@ -85,8 +85,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 
 	extendedAux.c = z;
 	extendedAux.const_c = z;
-	extendedAux.old_z = CVector4(0.0, 0.0, 0.0, 0.0);
-	extendedAux.sum_z = CVector4(0.0, 0.0, 0.0, 0.0);
+	extendedAux.old_z = z;
+	//extendedAux.sum_z = z; //CVector4(0.0, 0.0, 0.0, 0.0);
 	extendedAux.pos_neg = 1.0;
 	extendedAux.cw = 0;
 
@@ -119,6 +119,8 @@ void Compute(const cNineFractals &fractals, const sFractalIn &in, sFractalOut *o
 		lastLastZ = lastZ;
 		;
 		lastZ = z;
+
+		extendedAux.old_z = lastGoodZ; // temp TODO treplac
 
 		// hybrid fractal sequence
 		if (in.forcedFormulaIndex >= 0)

@@ -11164,10 +11164,7 @@ void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 	// std offset
 	z += fractal->transformCommon.additionConstantA000;
 
-
-
-
-	// offset
+	// plus iter control and alternate offset
 	if (fractal->transformCommon.functionEnabledAxFalse)
 	{
 		if (aux.i >= fractal->transformCommon.startIterationsA
@@ -11215,14 +11212,8 @@ void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 			}
 		}
 	}
-
-
-
-
 	aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
 }
-
-
 
 /**
  * Adds c constant to z vector. C addition constant varies based on iteration parameters.
@@ -17472,7 +17463,7 @@ void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
 
 		temp30 = max(max(temp31.x, temp31.y), temp31.z);
-		temp30 *= fractal->foldColor.scaleA1;
+		temp30 *= fractal->transformCommon.scaleD1;
 		linearOffset = temp30;
 	}
 
@@ -17602,8 +17593,9 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		double componentMaster = 0.0;
 		double orbitPoints = 0.0;
 
-		double totalDist = 0.0;
-		double totalR = 0.0;
+		//double totalDist = 0.0;
+		double distL = 0.0;
+		double newR = 0.0;
 		double lastVec = 0.0;
 		// double auxColor = 0.0;
 
@@ -17622,10 +17614,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)
 		{
-			double total = aux.addDist;
-			double newR = z.Length(); // aux.r?
-			totalR = (total + newR) * fractal->transformCommon.scaleD1;
-			aux.addDist = totalR;
+			newR = aux.r * fractal->transformCommon.scaleD1;
 		}
 
 		// max distance travelled
@@ -17634,26 +17623,21 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 			CVector4 oldPt = aux.old_z;
 			CVector4 newPt = z;
 			CVector4 diffZ = oldPt - newPt;
-			double dist = diffZ.Length();
-			aux.addDist += dist;
-			totalDist = aux.addDist * fractal->foldColor.scaleC1;
-			aux.old_z = z;
+			distL = diffZ.Length() * fractal->transformCommon.scaleC1;
 		}
 
-		// last two  z lengths
+		// last two z lengths
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{
 			if (aux.i < fractal->transformCommon.stopIterationsM)
 			{
-				double lastZ = aux.addDist;
-				double newZ = z.Length();
-
+				CVector4 oldPt  = aux.old_z;
+				double lastZ = oldPt.Length(); // aux.old_r;
+				double newZ = aux.r;
 				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = newZ / lastZ;
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = lastZ / newZ;
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
-
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = lastZ - newZ;
 				lastVec *= fractal->transformCommon.scaleB1;
-				aux.addDist = newZ;
 			}
 		}
 
@@ -17681,7 +17665,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 
 		// build  componentMaster
-		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
+		componentMaster = (distL + orbitPoints + lastVec + newR);
 		componentMaster *= fractal->transformCommon.scale;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -17691,7 +17675,7 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 		}
 		else
 		{
-			aux.colorHybrid = componentMaster;
+			aux.colorHybrid += componentMaster;
 		}
 	}
 }

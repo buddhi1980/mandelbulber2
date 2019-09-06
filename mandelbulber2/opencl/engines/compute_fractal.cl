@@ -147,7 +147,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.c = c;
 	aux.const_c = c;
 	aux.old_z = z;
-	aux.sum_z = z;
+	//aux.sum_z = z;
 	aux.pos_neg = 1.0f;
 	aux.cw = 0.0f;
 
@@ -193,6 +193,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 
 		lastLastZ = lastZ;
 		lastZ = z;
+		aux.old_z = lastZ;
 
 #ifdef BOX_FOLDING
 		z = BoxFolding(z, &consts->params.common.foldings, &aux);

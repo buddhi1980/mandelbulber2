@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_hybrid_color</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="enabled">
    <bool>true</bool>
@@ -94,7 +94,7 @@
          <number>2</number>
         </property>
         <item row="0" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_scaleA1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleD_1">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -1544,14 +1544,14 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MyCheckBox</class>
-   <extends>QCheckBox</extends>
-   <header>my_check_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyDoubleSpinBox</class>
    <extends>QDoubleSpinBox</extends>
    <header>my_double_spin_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MyCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>my_check_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

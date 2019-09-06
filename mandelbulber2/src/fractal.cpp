@@ -256,18 +256,18 @@ sFractal::sFractal(const cParameterContainer *container)
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
 
-	foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
-	foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
-	foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
-	foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
-	foldColor.scaleA1 = container->Get<double>("fold_color_scaleA1");
-	foldColor.scaleB1 = container->Get<double>("fold_color_scaleB1");
+	//foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
+	//foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
+	//foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
+	//foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
+	//foldColor.scaleA1 = container->Get<double>("fold_color_scaleA1");
+	//foldColor.scaleB1 = container->Get<double>("fold_color_scaleB1");
 
-	foldColor.intAx0 = container->Get<int>("fold_color_int_Ax0");
-	foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
-	foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
+	//foldColor.intAx0 = container->Get<int>("fold_color_int_Ax0");
+	//foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
+	//foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
 
-	foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
+	//foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");

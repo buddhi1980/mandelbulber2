@@ -77,7 +77,7 @@ struct sExtendedAux
 	CVector4 c;
 	CVector4 const_c;
 	CVector4 old_z;
-	CVector4 sum_z;
+	//CVector4 sum_z;
 	double pos_neg;
 	double cw;
 
@@ -105,22 +105,22 @@ struct sFoldColor
 	double factorR;
 	double factorSp1;
 	double factorSp2;
-	double scaleA0;
-	double scaleB0;
-	double scaleD0;
-	double scaleF0;
-	double scaleA1;
-	double scaleB1;
-	double scaleC1;
+	//double scaleA0;
+	//double scaleB0;
+	//double scaleD0;
+	//double scaleF0;
+	//double scaleA1;
+	//double scaleB1;
+	//double scaleC1;
 
-	int intAx0;
-	int intAy0;
-	int intAz0;
+	//int intAx0;
+	//int intAy0;
+	//int intAz0;
 
 	bool auxColorEnabled;
 	bool auxColorEnabledFalse;
 
-	bool distanceEnabledFalse;
+	//bool distanceEnabledFalse;
 };
 
 struct sFractalGeneralizedFoldBox
