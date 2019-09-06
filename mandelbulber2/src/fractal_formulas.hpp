@@ -218,6 +218,7 @@ void TransfAddCpixelSymmetricalIteration(CVector4 &z, const sFractal *fractal, s
 void TransfAddCpixelVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddConstantIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddConstantMod1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddConstantVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfAddExp2ZIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfBenesiCubeSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

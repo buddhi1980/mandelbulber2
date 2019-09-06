@@ -5,6 +5,7 @@ v2.20
    riemannSphereHoboldPow4
    riemannSphereHoboldPow8
    mandelbulbKosalos
+   transfAddConstantMod2
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert

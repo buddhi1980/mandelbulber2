@@ -533,6 +533,10 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Add Constant Mod1", "transf_add_constant_mod1",
 		transfAddConstantMod1, TransfAddConstantMod1Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Add Constant Mod2", "transf_add_constant_mod2",
+		transfAddConstantMod2, TransfAddConstantMod2Iteration, analyticDEType, linearDEFunction,
+		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
+
 
 	// Add Cpixel Transforms
 	fractalList->append(sFractalDescription("T>Add Cpixel", "transf_add_cpixel", transfAddCpixel,

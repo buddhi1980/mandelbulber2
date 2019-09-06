@@ -11156,6 +11156,75 @@ void TransfAddConstantMod1Iteration(CVector4 &z, const sFractal *fractal, sExten
 }
 
 /**
+ * Adds c constant to z vector
+ * This formula contains aux.pos_neg
+ */
+void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// std offset
+	z += fractal->transformCommon.additionConstantA000;
+
+
+
+
+	// offset
+	if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			if (fractal->transformCommon.functionEnabledBxFalse)
+			{
+				z.x += aux.pos_neg * fractal->transformCommon.additionConstant000.x;
+			}
+			else
+			{
+				z.x += fractal->transformCommon.additionConstant000.x;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			if (fractal->transformCommon.functionEnabledByFalse)
+			{
+				z.y += aux.pos_neg * fractal->transformCommon.additionConstant000.y;
+			}
+			else
+			{
+				z.y += fractal->transformCommon.additionConstant000.y;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+		{
+			if (fractal->transformCommon.functionEnabledBzFalse)
+			{
+				z.z += aux.pos_neg * fractal->transformCommon.additionConstant000.z;
+			}
+			else
+			{
+				z.z += fractal->transformCommon.additionConstant000.z;
+			}
+		}
+	}
+
+
+
+
+	aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
+}
+
+
+
+/**
  * Adds c constant to z vector. C addition constant varies based on iteration parameters.
  */
 void TransfAddConstantVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
