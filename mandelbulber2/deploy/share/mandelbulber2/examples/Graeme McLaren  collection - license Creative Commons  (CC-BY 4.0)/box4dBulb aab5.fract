@@ -31,7 +31,6 @@ mat1_fractal_coloring_init_cond_enabled_false true;
 mat1_fractal_coloring_iter_add_scale 5;
 mat1_fractal_coloring_orbit_trap_true false;
 mat1_fractal_coloring_rad_div_de_weight 2.1;
-mat1_fractal_coloring_rad_div_log_de_false true;
 mat1_fractal_coloring_xyz_000 0 0 2.800006;
 mat1_fractal_coloring_xyz_bias_enabled_false true;
 mat1_fractal_coloring_xyzC_111 0 0 3.8;
