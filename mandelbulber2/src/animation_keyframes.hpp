@@ -143,7 +143,9 @@ private:
 	QSize previewSize;
 	CVector3 actualCameraPosition;
 	QList<int> netRenderListOfFramesToRender;
+	QVector<bool> alreadyRenderedFrames;
 	QVector<bool> reservedFrames;
+	int renderedFramesCount = 0; // used for countig frames rendered with NetRender
 	const int maxFramesForNetRender = 10;
 
 signals:

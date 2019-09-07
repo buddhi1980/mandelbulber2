@@ -53,13 +53,11 @@ cNetRender *gNetRender = nullptr;
 // TODO: correct restarting of rendering when started again from frame 0
 // TODO: to add sending audio files for AnimBySound
 // TODO: to check headless mode
-// TODO: to check sending of textures when source file is missing
 // TODO: to add sending rendering status form client to server
 // TODO: to add sending of rendering preview
 // TODO: to modify NetRender status table
 // TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
-// TODO: to correct calculation of % of progress
 
 cNetRender::cNetRender() : QObject(nullptr)
 {

@@ -606,7 +606,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 	const int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
 
-	int totalFrames = keyframes->GetNumberOfFrames() * frames_per_keyframe;
+	int totalFrames = (keyframes->GetNumberOfFrames() - 1) * frames_per_keyframe;
 
 	if (endFrame == 0) endFrame = totalFrames;
 
@@ -625,11 +625,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		imageWidget->SetEnableClickModes(false);
 	}
 
-	QVector<bool> alreadyRenderedFrames;
 	alreadyRenderedFrames.resize(totalFrames);
+	alreadyRenderedFrames.fill(false);
 
 	reservedFrames.clear();
 	reservedFrames.resize(totalFrames);
+	reservedFrames.fill(false);
 
 	try
 	{
@@ -681,7 +682,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				if (gNetRender->IsClient())
 				{
-					if (frameNo < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[frameNo] = true;
+					if (netRenderListOfFramesToRender.size() > 0)
+					{
+						if (frameNo < netRenderListOfFramesToRender[0]) alreadyRenderedFrames[frameNo] = true;
+					}
 				}
 
 				reservedFrames[frameNo] = alreadyRenderedFrames[frameNo];
@@ -790,7 +794,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		keyframes->ClearMorphCache();
 
 		// main loop for rendering of frames
-		int renderedFramesCount = 0;
+		renderedFramesCount = 0;
 		for (int index = 0; index < keyframes->GetNumberOfFrames() - 1; ++index)
 		{
 			//-------------- rendering of interpolated keyframes ----------------
@@ -1583,6 +1587,12 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
 	Q_UNUSED(frameIndex);
+
+	renderedFramesCount++;
+	if (frameIndex < alreadyRenderedFrames.size())
+	{
+		alreadyRenderedFrames[frameIndex] = true;
+	}
 
 	// counting left frames
 	int countLeft = reservedFrames.count(false);

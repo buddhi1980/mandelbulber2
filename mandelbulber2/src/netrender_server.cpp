@@ -399,7 +399,7 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 {
 	Q_UNUSED(socket);
 
-	WriteLog("NetRender - ProcessData(), command DATA", 2);
+	WriteLog("NetRender - ProcessData(), command FRAME_DONE", 2);
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
