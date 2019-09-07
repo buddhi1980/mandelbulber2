@@ -11300,7 +11300,70 @@ void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
 			}
 		}
 	}
-	aux.pos_neg *= -1.0 * fractal->transformCommon.scale1;
+	aux.pos_neg *= fractal->transformCommon.scaleNeg1;
+}
+
+/**
+ * Adds c constant to z vector
+ * This formula contains aux.pos_neg
+ */
+void TransfAddConstantRotV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	// std offset
+	z += fractal->transformCommon.additionConstantA000;
+
+	CVector4 rotadd = fractal->transformCommon.additionConstant000;
+	rotadd = fractal->transformCommon.rotationMatrix.RotateVector(rotadd);
+
+	// plus iter control and alternate offset
+	if (fractal->transformCommon.functionEnabledAxFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			if (fractal->transformCommon.functionEnabledBxFalse)
+			{
+				z.x += aux.pos_neg * rotadd.x;
+			}
+			else
+			{
+				z.x += rotadd.x;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledAyFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+		{
+			if (fractal->transformCommon.functionEnabledByFalse)
+			{
+				z.y += aux.pos_neg * rotadd.y;
+			}
+			else
+			{
+				z.y += rotadd.y;
+			}
+		}
+	}
+
+	if (fractal->transformCommon.functionEnabledAzFalse)
+	{
+		if (aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+		{
+			if (fractal->transformCommon.functionEnabledBzFalse)
+			{
+				z.z += aux.pos_neg * rotadd.z;
+			}
+			else
+			{
+				z.z += rotadd.z;
+			}
+		}
+	}
+	aux.pos_neg *= fractal->transformCommon.scaleNeg1;
 }
 
 /**

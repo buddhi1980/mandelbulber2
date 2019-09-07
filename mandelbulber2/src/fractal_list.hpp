@@ -342,7 +342,7 @@ enum enumFractalFormula
 	transfAbsAddConditional2 = 1101,
 	// 2.20
 	transfAddConstantMod2 = 1102,
-
+	transfAddConstantRotV1 = 1103,
 
 	// hybrid color trial
 	transfHybridColor = 2000,
