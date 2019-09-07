@@ -5,6 +5,7 @@ v2.20
    riemannSphereHoboldPow4
    riemannSphereHoboldPow8
    mandelbulbKosalos
+   mandelbulbKosalosV2
    transfAddConstantMod2
 
 - modified fractal formulas

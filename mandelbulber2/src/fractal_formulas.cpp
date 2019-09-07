@@ -6229,7 +6229,6 @@ void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 
 	double theta;
-
 	if (!fractal->transformCommon.functionEnabledAzFalse)
 	{
 		double xyL = sqrt(z.x * z.x + z.y * z.y);
@@ -6239,11 +6238,7 @@ void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	{
 		theta = asin(z.z / aux.r * thetaTweak);
 	}
-
 	theta = (theta + fractal->bulb.betaAngleOffset) * power;
-
-
-
 
 	double phi = atan2(z.y, z.x) * power;
 	double pwr = pow(aux.r, power);
@@ -18283,17 +18278,13 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 
 	phi = atan2(z.y, z.x) * power; // - 1.0;
 	pwr = pow(aux.r, power);
-	//ss = sin(theta * power) * pwr;
+	ss = sin(theta * power) * pwr;
 
-	//z.x += ss * cos(phi);
-	//z.y += ss * sin(phi);
-	//z.z += pwr * cos(theta * power);
+	z.x += ss * cos(phi);
+	z.y += ss * sin(phi);
+	z.z += pwr * cos(theta * power);
 
-	double cs = cos(theta * power) * pwr;
 
-	z.x += cs * sin(phi);
-	z.y += cs * cos(phi);
-	z.z += pwr *sin(theta * power);
 
 
 	aux.DE = (pow(aux.r, power - 1.0) * power * aux.DE ) + 1.0;
