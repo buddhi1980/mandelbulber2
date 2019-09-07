@@ -115,7 +115,7 @@ cTexture::cTexture(
 	else
 	{
 		if (!beQuiet && !useNetRender)
-			cErrorMessage::showMessage(
+			gErrorMessage->showMessageFromOtherThread(
 				QObject::tr("Can't load texture!\n") + filename, cErrorMessage::errorMessage);
 		width = 100;
 		height = 100;

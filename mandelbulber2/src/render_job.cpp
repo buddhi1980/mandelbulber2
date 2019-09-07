@@ -193,8 +193,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 	renderData = new sRenderData;
 
 	renderData->stereo = stereo;
-
-	PrepareData(config);
+	renderData->configuration = config;
 
 	ready = true;
 
@@ -270,11 +269,10 @@ void cRenderJob::LoadTextures(int frameNo, const cRenderingConfiguration &config
 	//	}
 }
 
-void cRenderJob::PrepareData(const cRenderingConfiguration &config)
+void cRenderJob::PrepareData()
 {
 	WriteLog("Init renderData", 2);
 	renderData->rendererID = id;
-	renderData->configuration = config;
 
 	if (!canUseNetRender) renderData->configuration.DisableNetRender();
 
@@ -310,7 +308,7 @@ void cRenderJob::PrepareData(const cRenderingConfiguration &config)
 
 	if (loadTextures)
 	{
-		LoadTextures(frameNo, config);
+		LoadTextures(frameNo, renderData->configuration);
 	}
 
 	// assign stop handler
@@ -340,6 +338,8 @@ bool cRenderJob::Execute()
 
 	bool twoPassStereo = false;
 	int noOfRepeats = GetNumberOfRepeatsOfStereoLoop(&twoPassStereo);
+
+	PrepareData();
 
 	if (!paramsContainer->Get<bool>("opencl_enabled") || !gOpenCl
 			|| cOpenClEngineRenderFractal::enumClRenderEngineMode(
@@ -817,8 +817,6 @@ void cRenderJob::UpdateParameters(
 		paramsContainer->Set("image_width", width);
 		paramsContainer->Set("image_height", height);
 	}
-
-	PrepareData(renderData->configuration);
 }
 
 void cRenderJob::ReduceDetail() const

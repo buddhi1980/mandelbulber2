@@ -42,6 +42,12 @@
 
 cErrorMessage *gErrorMessage = nullptr;
 
+cErrorMessage::cErrorMessage(QObject *parent) : QObject(parent)
+{
+	connect(this, &cErrorMessage::signalShowMessage, this, &cErrorMessage::slotShowMessage,
+		Qt::QueuedConnection);
+}
+
 void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidget *parent)
 {
 	QTextStream out(stdout);
@@ -123,4 +129,10 @@ void cErrorMessage::showMessage(QString text, enumMessageType messageType, QWidg
 void cErrorMessage::slotShowMessage(QString text, enumMessageType messageType, QWidget *parent)
 {
 	showMessage(text, messageType, parent);
+}
+
+void cErrorMessage::showMessageFromOtherThread(
+	QString text, enumMessageType messageType, QWidget *parent)
+{
+	emit signalShowMessage(text, messageType, parent);
 }

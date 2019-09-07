@@ -93,7 +93,7 @@ public slots:
 
 private:
 	bool InitImage(int w, int h, const sImageOptional &optional);
-	void PrepareData(const cRenderingConfiguration &config);
+	void PrepareData();
 	void ReduceDetail() const;
 	QStringList CreateListOfUsedTextures() const;
 	int GetNumberOfRepeatsOfStereoLoop(bool *twoPassStereo);
@@ -106,8 +106,8 @@ private:
 #ifdef USE_OPENCL
 	bool RenderFractalWithOpenCl(
 		sParamRender *params, cNineFractals *fractals, cProgressText *progressText);
-	void RenderSSAOWithOpenCl(sParamRender *params, const cRegion<int> &region,
-		cProgressText *progressText, bool *result);
+	void RenderSSAOWithOpenCl(
+		sParamRender *params, const cRegion<int> &region, cProgressText *progressText, bool *result);
 	void RenderDOFWithOpenCl(sParamRender *params, bool *result);
 #endif
 
