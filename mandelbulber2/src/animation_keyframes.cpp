@@ -566,7 +566,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	if (image->IsUsed())
 	{
 		emit showErrorMessage(
-			QObject::tr("Rendering engine is busy. Stop unfinished rendering before starting new one"),
+			QObject::tr(
+				"Rendering engine is busy. Stop unfinished rendering before starting rendering animation"),
 			cErrorMessage::errorMessage);
 		return false;
 	}
@@ -607,6 +608,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	const int frames_per_keyframe = params->Get<int>("frames_per_keyframe");
 
 	int totalFrames = (keyframes->GetNumberOfFrames() - 1) * frames_per_keyframe;
+
+	if (totalFrames < 1) totalFrames = 1;
 
 	if (endFrame == 0) endFrame = totalFrames;
 
@@ -700,53 +703,56 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		}
 
 		// message if all frames are already rendered
-		if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotalBeforeRender == 0)
+		if (!gNetRender->IsClient())
 		{
-			bool deletePreviousRender;
-			const QString questionTitle = QObject::tr("Truncate Image Folder");
-			const QString questionText =
-				QObject::tr(
-					"The animation has already been rendered completely.\n Do you want to purge the output "
-					"folder?\n")
-				+ QObject::tr("This will delete all images in the image folder.\nProceed?");
-
-			if (!systemData.noGui)
+			if (keyframes->GetNumberOfFrames() - 1 > 0 && unrenderedTotalBeforeRender == 0)
 			{
-				QMessageBox::StandardButton reply = QMessageBox::NoButton;
-				emit QuestionMessage(
-					questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
-				while (reply == QMessageBox::NoButton)
+				bool deletePreviousRender;
+				const QString questionTitle = QObject::tr("Truncate Image Folder");
+				const QString questionText =
+					QObject::tr(
+						"The animation has already been rendered completely.\n Do you want to purge the output "
+						"folder?\n")
+					+ QObject::tr("This will delete all images in the image folder.\nProceed?");
+
+				if (!systemData.noGui)
 				{
-					gApplication->processEvents();
+					QMessageBox::StandardButton reply = QMessageBox::NoButton;
+					emit QuestionMessage(
+						questionTitle, questionText, QMessageBox::Yes | QMessageBox::No, &reply);
+					while (reply == QMessageBox::NoButton)
+					{
+						gApplication->processEvents();
+					}
+					deletePreviousRender = (reply == QMessageBox::Yes);
 				}
-				deletePreviousRender = (reply == QMessageBox::Yes);
-			}
-			else
-			{
-				// Exit if silent mode
-				if (systemData.silent)
+				else
 				{
-					exit(0);
-				}
+					// Exit if silent mode
+					if (systemData.silent)
+					{
+						exit(0);
+					}
 
-				deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
-			}
-
-			if (deletePreviousRender)
-			{
-				cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_keyframe_dir"));
-
-				if (!systemData.noGui && image->IsMainImage())
-				{
-					mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
-					imageWidget->SetEnableClickModes(true);
+					deletePreviousRender = cHeadless::ConfirmMessage(questionTitle + "\n" + questionText);
 				}
 
-				return RenderKeyframes(stopRequest);
-			}
-			else
-			{
-				throw false;
+				if (deletePreviousRender)
+				{
+					cAnimationFrames::WipeFramesFromFolder(params->Get<QString>("anim_keyframe_dir"));
+
+					if (!systemData.noGui && image->IsMainImage())
+					{
+						mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
+						imageWidget->SetEnableClickModes(true);
+					}
+
+					return RenderKeyframes(stopRequest);
+				}
+				else
+				{
+					throw false;
+				}
 			}
 		}
 
@@ -773,18 +779,35 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				for (int i = 0; i < numberOfFramesForNetRender; i++)
 				{
 					// looking for next unrendered frame
-					while (alreadyRenderedFrames[frameIndex] && frameIndex < totalFrames)
+					bool notFound = false;
+					while (alreadyRenderedFrames[frameIndex])
+					{
 						frameIndex++;
+						if (frameIndex >= totalFrames)
+						{
+							notFound = true;
+							break;
+						}
+					}
 
-					startingFrames.append(frameIndex);
-					reservedFrames[frameIndex] = true;
-					frameIndex++;
+					if (notFound)
+					{
+						break;
+					}
+					else
+					{
+						startingFrames.append(frameIndex);
+						reservedFrames[frameIndex] = true;
+						frameIndex++;
+					}
 				}
-				// storage for number of already rendered frames need to be changed
-				emit SendNetRenderSetup(i, startingFrames);
-
-				emit NetRenderCurrentAnimation(*params, *fractalParams, false);
+				if (startingFrames.size() > 0)
+				{
+					emit SendNetRenderSetup(i, startingFrames);
+				}
 			}
+
+			emit NetRenderCurrentAnimation(*params, *fractalParams, false);
 		}
 
 		// total number of frames
