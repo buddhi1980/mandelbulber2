@@ -113,6 +113,7 @@ private slots:
 	void slotCellClicked(int row, int column) const;
 	void slotSetConstantTargetDistance();
 	void slotUpdateAnimationPathSelection();
+	void slotAnimationStopRequest();
 
 private:
 	void PrepareTable();
@@ -148,6 +149,7 @@ private:
 	int renderedFramesCount = 0; // used for countig frames rendered with NetRender
 	const int maxFramesForNetRender = 50;
 	const int minFramesForNetRender = 5;
+	bool animationStopRequest = false;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

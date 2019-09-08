@@ -164,6 +164,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			&cKeyframeAnimation::slotNetRenderUpdateFramesToDo);
 		connect(
 			this, &cKeyframeAnimation::NetRenderStopAllClients, gNetRender, &cNetRender::StopAllClients);
+		connect(gNetRender, &cNetRender::animationStopRequest, this,
+			&cKeyframeAnimation::slotAnimationStopRequest);
 
 		table = ui->tableWidget_keyframe_animation;
 
@@ -573,6 +575,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 
 	*stopRequest = false;
+	animationStopRequest = false;
 
 	// preparing Render Job
 	QScopedPointer<cRenderJob> renderJob(
@@ -867,7 +870,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 						+ progressTxt,
 					percentDoneFrame, cProgressText::progress_ANIMATION);
 
-				if (*stopRequest || systemData.globalStopRequest) throw false;
+				if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 				// recalculation of camera rotation and distance (just for display purposes)
@@ -927,7 +930,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	}
 	catch (bool ex)
 	{
-		emit NetRenderStopAllClients();
+		if (gNetRender->IsServer())
+		{
+			emit NetRenderStopAllClients();
+		}
 		QString resultStatus = QObject::tr("Rendering terminated");
 		if (ex) resultStatus += " - " + QObject::tr("Error occured, see log output");
 		emit updateProgressAndStatus(
@@ -1663,6 +1669,11 @@ void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 {
 	netRenderListOfFramesToRender.append(listOfFrames);
 	qDebug() << "Client: got frames toDo:" << listOfFrames;
+}
+
+void cKeyframeAnimation::slotAnimationStopRequest()
+{
+	animationStopRequest = true;
 }
 
 void cKeyframeRenderThread::startAnimationRender()

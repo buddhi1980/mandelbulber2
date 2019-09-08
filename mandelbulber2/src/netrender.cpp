@@ -58,8 +58,7 @@ cNetRender *gNetRender = nullptr;
 // TODO: to modify NetRender status table
 // TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
-// TODO: stopping sometimes doesn't work
-// TODO: some of frames are always missing
+// TODO: to fix problem with looped animated textures
 
 cNetRender::cNetRender() : QObject(nullptr)
 {
@@ -80,6 +79,8 @@ cNetRender::cNetRender() : QObject(nullptr)
 		&cNetRender::KeyframeAnimationRender);
 	connect(
 		netRenderClient, &CNetRenderClient::UpdateFramesToDo, this, &cNetRender::UpdateFramesToDo);
+	connect(netRenderClient, &CNetRenderClient::animationStopRequest, this,
+		&cNetRender::animationStopRequest);
 	connect(this, &cNetRender::AddFileToSender, netRenderClient, &CNetRenderClient::AddFileToSender);
 
 	// server signals

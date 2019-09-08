@@ -204,6 +204,8 @@ signals:
 	void KeyframeAnimationRender();
 	// signal to update list of frames to render
 	void UpdateFramesToDo(QList<int> listOfFrames);
+	// stop rendering animation;
+	void animationStopRequest();
 
 	void NewStatusClient();
 	void NewStatusServer();

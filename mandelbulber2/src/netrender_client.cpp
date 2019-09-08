@@ -288,6 +288,8 @@ void CNetRenderClient::ProcessRequestStop(sMessage *inMsg)
 	// status = netRender_READY;
 	gMainInterface->stopRequest = true;
 	// NotifyStatus();
+	emit animationStopRequest();
+
 	WriteLog("NetRender - ProcessData(), command STOP", 2);
 }
 

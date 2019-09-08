@@ -102,6 +102,8 @@ signals:
 	void AddFileToSender(QString fileName);
 	// request for file from server
 	void SignalRequestFileFromServer(QString filename);
+	// stop rendering animation;
+	void animationStopRequest();
 
 private:
 	void ProcessData();
