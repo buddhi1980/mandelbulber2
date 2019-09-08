@@ -146,7 +146,8 @@ private:
 	QVector<bool> alreadyRenderedFrames;
 	QVector<bool> reservedFrames;
 	int renderedFramesCount = 0; // used for countig frames rendered with NetRender
-	const int maxFramesForNetRender = 10;
+	const int maxFramesForNetRender = 50;
+	const int minFramesForNetRender = 5;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

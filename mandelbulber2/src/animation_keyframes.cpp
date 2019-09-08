@@ -760,10 +760,16 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			int numberOfFramesForNetRender;
 			if (gNetRender->GetClientCount() == 0)
+			{
 				numberOfFramesForNetRender = 0;
+			}
 			else
+			{
 				numberOfFramesForNetRender =
 					unrenderedTotalBeforeRender / gNetRender->GetClientCount() / 2 + 1;
+				if (numberOfFramesForNetRender < minFramesForNetRender)
+					numberOfFramesForNetRender = minFramesForNetRender;
+			}
 
 			if (numberOfFramesForNetRender > maxFramesForNetRender)
 				numberOfFramesForNetRender = maxFramesForNetRender;
@@ -894,6 +900,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				renderedFramesCount++;
 				alreadyRenderedFrames[frameIndex] = true;
+
+				qDebug() << "Finished rendering frame" << frameIndex;
 
 				if (gNetRender->IsClient())
 				{
@@ -1611,6 +1619,8 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 {
 	Q_UNUSED(frameIndex);
 
+	qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
+
 	renderedFramesCount++;
 	if (frameIndex < alreadyRenderedFrames.size())
 	{
@@ -1621,7 +1631,9 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 	int countLeft = reservedFrames.count(false);
 
 	// calculate maximum list size
-	int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2 + 1;
+	int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2;
+	if (numberOfFramesForNetRender < minFramesForNetRender)
+		numberOfFramesForNetRender = minFramesForNetRender;
 	if (numberOfFramesForNetRender > maxFramesForNetRender)
 		numberOfFramesForNetRender = maxFramesForNetRender;
 
@@ -1643,12 +1655,14 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 			if (toDoList.size() >= numberOfNewFrames) break;
 		}
 		NetRenderSendFramesToDoList(clientIndex, toDoList);
+		qDebug() << "Server: new toDo list" << toDoList;
 	}
 }
 
 void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 {
 	netRenderListOfFramesToRender.append(listOfFrames);
+	qDebug() << "Client: got frames toDo:" << listOfFrames;
 }
 
 void cKeyframeRenderThread::startAnimationRender()
