@@ -8874,13 +8874,10 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	double tempL = temp.Length();
 	// if (tempL < 1e-21)
 	//	tempL = 1e-21;
-	z *= fractal->transformCommon.scale3D111;
 
-	aux.DE *= fabs(z.Length() / tempL);
-
-	if (fabs(z.x) < fabs(z.z)) swap(z.x, z.z);
-	if (fabs(z.x) < fabs(z.y)) swap(z.x, z.y);
-	if (fabs(z.y) < fabs(z.z)) swap(z.y, z.z);
+	if (fabs(z.x) < fabs(z.z) * fractal->transformCommon.constantMultiplier111.x) swap(z.x, z.z);
+	if (fabs(z.x) < fabs(z.y) * fractal->transformCommon.constantMultiplier111.y) swap(z.x, z.y);
+	if (fabs(z.y) < fabs(z.z) * fractal->transformCommon.constantMultiplier111.z) swap(z.y, z.z);
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
@@ -8890,6 +8887,9 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	}
 	if (z.x * z.z < 0.0) z.z = -z.z;
 	if (z.x * z.y < 0.0) z.y = -z.y;
+
+	z *= fractal->transformCommon.scale3D111;
+	aux.DE *= fabs(z.Length() / tempL);
 
 	temp.x = z.x * z.x - z.y * z.y - z.z * z.z;
 	temp.y = 2.0 * z.x * z.y;
