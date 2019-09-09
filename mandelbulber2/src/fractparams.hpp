@@ -135,6 +135,7 @@ struct sParamRender
 	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;
 
+	sRGB ambientOcclusionColor;
 	sRGB auxLightPreColour[4];
 	sRGB auxLightRandomColor;
 	sRGB background_color1; // background colour

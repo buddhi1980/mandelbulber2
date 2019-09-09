@@ -47,6 +47,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	antialiasingSize = container->Get<int>("antialiasing_size");
 	ambientOcclusion = container->Get<float>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
+	ambientOcclusionColor = container->Get<sRGB>("ambient_occlusion_color");
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");

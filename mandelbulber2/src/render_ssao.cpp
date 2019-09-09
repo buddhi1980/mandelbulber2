@@ -113,6 +113,7 @@ void cRenderSSAO::RenderSSAO(QList<int> *list)
 		threadData[i].startLine = startLine + i;
 		threadData[i].noOfThreads = numberOfThreads;
 		threadData[i].quality = quality;
+		threadData[i].color = params->ambientOcclusionColor;
 		threadData[i].done = 0;
 		threadData[i].progressive = progressive;
 		threadData[i].stopRequest = false;

@@ -106,9 +106,9 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 		}
 	}
 	sRGBAfloat ambient2;
-	ambient2.R = ambient.R * params->ambientOcclusion;
-	ambient2.G = ambient.G * params->ambientOcclusion;
-	ambient2.B = ambient.B * params->ambientOcclusion;
+	ambient2.R = ambient.R * params->ambientOcclusion * params->ambientOcclusionColor.R / 65536.0f;
+	ambient2.G = ambient.G * params->ambientOcclusion * params->ambientOcclusionColor.G / 65536.0f;
+	ambient2.B = ambient.B * params->ambientOcclusion * params->ambientOcclusionColor.B / 65536.0f;
 
 	// environment mapping
 	sRGBAfloat envMapping(0.0, 0.0, 0.0, 0.0);

@@ -76,7 +76,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -153,7 +153,7 @@
             <x>0</x>
             <y>0</y>
             <width>569</width>
-            <height>1078</height>
+            <height>1052</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -738,21 +738,21 @@ per pixel:</string>
                 <property name="spacing">
                  <number>2</number>
                 </property>
-                <item row="1" column="0">
+                <item row="2" column="0">
                  <widget class="QLabel" name="label_103">
                   <property name="text">
                    <string>Quality:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="0">
+                <item row="4" column="0">
                  <widget class="QLabel" name="label_127">
                   <property name="text">
                    <string>Type:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
+                <item row="2" column="2">
                  <widget class="MySpinBox" name="spinboxInt_ambient_occlusion_quality">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -768,7 +768,7 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
+                <item row="3" column="2">
                  <widget class="MyDoubleSpinBox" name="spinbox_ambient_occlusion_fast_tune">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -799,7 +799,7 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
+                <item row="3" column="0">
                  <widget class="QLabel" name="label_132">
                   <property name="text">
                    <string>Fast AO tune:</string>
@@ -841,7 +841,7 @@ per pixel:</string>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="4" column="2">
                  <widget class="MyComboBox" name="comboBox_ambient_occlusion_mode">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
@@ -867,6 +867,29 @@ per pixel:</string>
                     <string>Screen space</string>
                    </property>
                   </item>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="MyColorButton" name="colorButton_ambient_occlusion_color" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_71">
+                  <property name="text">
+                   <string>Color:</string>
+                  </property>
                  </widget>
                 </item>
                </layout>
@@ -1091,8 +1114,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>249</width>
-            <height>1037</height>
+            <width>569</width>
+            <height>1052</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2038,8 +2061,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>379</height>
+            <width>569</width>
+            <height>1052</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -4658,8 +4681,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>167</width>
-            <height>109</height>
+            <width>569</width>
+            <height>1044</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

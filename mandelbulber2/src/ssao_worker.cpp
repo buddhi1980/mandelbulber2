@@ -68,6 +68,8 @@ void cSSAOWorker::doWork()
 	int height = threadData->region.height;
 	int startX = threadData->region.x1;
 	int endX = threadData->region.x2;
+	sRGBFloat aoColor(
+		threadData->color.R / 65536.0, threadData->color.G / 65536.0, threadData->color.B / 65536.0);
 
 	double *cosine = new double[quality];
 	double *sine = new double[quality];
@@ -232,9 +234,9 @@ void cSSAOWorker::doWork()
 				sRGB8 colour = image->GetPixelColor(x + xx, y);
 				sRGBFloat pixel = image->GetPixelPostImage(x + xx, y);
 				float shadeFactor = 1.0f / 256.0f * total_ambient * intensity * (1.0f - opacity);
-				pixel.R = pixel.R + colour.R * shadeFactor;
-				pixel.G = pixel.G + colour.G * shadeFactor;
-				pixel.B = pixel.B + colour.B * shadeFactor;
+				pixel.R = pixel.R + colour.R * shadeFactor * aoColor.R;
+				pixel.G = pixel.G + colour.G * shadeFactor * aoColor.G;
+				pixel.B = pixel.B + colour.B * shadeFactor * aoColor.B;
 				image->PutPixelPostImage(x + xx, y, pixel);
 			}
 		}

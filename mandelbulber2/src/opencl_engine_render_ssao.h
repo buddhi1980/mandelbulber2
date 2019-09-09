@@ -35,6 +35,7 @@
 #ifndef MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 #define MANDELBULBER2_SRC_OPENCL_ENGINE_RENDER_SSAO_H_
 
+#include "color_structures.hpp"
 #include "include_header_wrapper.hpp"
 #include "opencl_engine.h"
 #include "region.hpp"
@@ -74,6 +75,7 @@ private:
 	sParamsSSAO paramsSSAO;
 	cRegion<int> imageRegion;
 	float intensity;
+	sRGBFloat aoColor;
 	quint64 numberOfPixels;
 #endif
 

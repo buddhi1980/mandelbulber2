@@ -44,6 +44,7 @@
 #include <QList>
 #include <QThread>
 
+#include "color_structures.hpp"
 #include "region.hpp"
 
 // forward declarations
@@ -61,6 +62,7 @@ public:
 		int noOfThreads;
 		int quality;
 		int progressive;
+		sRGB color;
 		unsigned int done;
 		bool stopRequest;
 		QList<int> *list;

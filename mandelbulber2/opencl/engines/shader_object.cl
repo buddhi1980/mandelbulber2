@@ -89,7 +89,7 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #ifdef AO_MODE_MULTIPLE_RAYS
 		AO = AmbientOcclusion(consts, renderData, input, calcParam);
 #endif
-		AO *= consts->params.ambientOcclusion;
+		AO *= consts->params.ambientOcclusion * consts->params.ambientOcclusionColor;
 	}
 
 	float3 auxLights = 0.0f;

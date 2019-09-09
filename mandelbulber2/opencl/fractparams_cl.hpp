@@ -142,6 +142,7 @@ typedef struct
 	cl_int volumetricLightAnyEnabled;
 	cl_int volFogEnabled;
 
+	cl_float3 ambientOcclusionColor;
 	cl_float3 auxLightPreColour[4];
 	cl_float3 auxLightRandomColor;
 	cl_float3 background_color1; // background colour
@@ -330,6 +331,7 @@ inline sParamRenderCl clCopySParamRenderCl(const sParamRender &source)
 	}
 	target.volumetricLightAnyEnabled = source.volumetricLightAnyEnabled;
 	target.volFogEnabled = source.volFogEnabled;
+	target.ambientOcclusionColor = toClFloat3(source.ambientOcclusionColor);
 	for (int i = 0; i < 4; i++)
 	{
 		target.auxLightPreColour[i] = toClFloat3(source.auxLightPreColour[i]);
