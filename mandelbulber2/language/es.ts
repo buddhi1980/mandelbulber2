@@ -7,53 +7,55 @@
         <location filename="../src/netrender.cpp" line="498"/>
         <source>NetRender - version mismatch!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>NetRender - ¡no coincide la versión!
+</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="499"/>
         <source>Client version: %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Versión de cliente: %1
+</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="500"/>
         <source>Server version: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Versión de servidor: %1</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="975"/>
         <source>DISABLED</source>
-        <translation type="unfinished"></translation>
+        <translation>DESHABILITADO</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="976"/>
         <source>READY</source>
-        <translation type="unfinished"></translation>
+        <translation>LISTO</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="977"/>
         <source>WORKING</source>
-        <translation type="unfinished"></translation>
+        <translation>TRABAJANDO</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="978"/>
         <source>NEW</source>
-        <translation type="unfinished"></translation>
+        <translation>NUEVO</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="979"/>
         <source>(RE-)CONNECTING</source>
-        <translation type="unfinished"></translation>
+        <translation>(RE-)CONECTANDO</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="980"/>
         <source>ERROR</source>
-        <translation type="unfinished"></translation>
+        <translation>ERROR</translation>
     </message>
     <message>
         <location filename="../src/netrender.cpp" line="982"/>
         <source>UNKNOWN</source>
-        <translation type="unfinished"></translation>
+        <translation>DESCONOCIDO</translation>
     </message>
 </context>
 <context>
@@ -61,7 +63,7 @@
     <message>
         <location filename="../qt/color_palette_widget.cpp" line="122"/>
         <source>Edit color #%1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar color-#%1 de %2</translation>
     </message>
 </context>
 <context>
@@ -69,37 +71,37 @@
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="65"/>
         <source>Reset to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer a  predeterminado</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="77"/>
         <source>Add to flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a animación de vuelo</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="83"/>
         <source>Remove from flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar de animación de vuelo</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="91"/>
         <source>Add to keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a animación de fotogramas clave</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="97"/>
         <source>Remove from keyframe animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar de animación de fotogramas clave</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="149"/>
         <source>Parameter&amp;nbsp;name:&amp;nbsp;</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre&amp;nbsp;parámetros:&amp;nbsp;</translation>
     </message>
     <message>
         <location filename="../qt/common_my_widget_wrapper.cpp" line="151"/>
         <source>Default&amp;nbsp;value:&amp;nbsp;</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor&amp;nbsp;por defecto:&amp;nbsp;</translation>
     </message>
 </context>
 <context>
@@ -107,12 +109,12 @@
     <message>
         <location filename="../qt/file_select_widget.cpp" line="123"/>
         <source>Images (*.jpg *.jpeg *.png *.bmp)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes (*.jpg *.jpeg *.png *.bmp)</translation>
     </message>
     <message>
         <location filename="../qt/file_select_widget.cpp" line="127"/>
         <source>Select file for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar archivo para %1</translation>
     </message>
 </context>
 <context>
@@ -120,7 +122,7 @@
     <message>
         <location filename="../src/file_image.hpp" line="222"/>
         <source>Saving %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1</translation>
     </message>
 </context>
 <context>
@@ -128,7 +130,7 @@
     <message>
         <location filename="../src/file_image.hpp" line="189"/>
         <source>Saving %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1</translation>
     </message>
 </context>
 <context>
@@ -136,7 +138,7 @@
     <message>
         <location filename="../src/file_image.hpp" line="168"/>
         <source>Saving %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1</translation>
     </message>
 </context>
 <context>
@@ -144,7 +146,7 @@
     <message>
         <location filename="../src/file_image.hpp" line="206"/>
         <source>Saving %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1</translation>
     </message>
 </context>
 <context>
@@ -152,12 +154,12 @@
     <message>
         <location filename="../src/file_mesh.cpp" line="112"/>
         <source>Mesh Export - Failed to open output file!</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportación de malla - ¡No se pudo abrir el archivo de salida!</translation>
     </message>
     <message>
         <location filename="../src/file_mesh.hpp" line="137"/>
         <source>Saving %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1</translation>
     </message>
 </context>
 <context>
@@ -165,7 +167,7 @@
     <message>
         <location filename="../qt/my_color_button.cpp" line="135"/>
         <source>Edit color: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar color: %1</translation>
     </message>
 </context>
 <context>
@@ -173,17 +175,17 @@
     <message>
         <location filename="../qt/my_group_box.cpp" line="131"/>
         <source>Load to this groupbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar a esta caja de grupo</translation>
     </message>
     <message>
         <location filename="../qt/my_group_box.cpp" line="134"/>
         <source>Save from this groupbox</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar desde esta caja de grupo</translation>
     </message>
     <message>
         <location filename="../qt/my_group_box.cpp" line="137"/>
         <source>Reset all to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer todo a predeterminado</translation>
     </message>
 </context>
 <context>
@@ -191,17 +193,17 @@
     <message>
         <location filename="../qt/my_line_edit.cpp" line="233"/>
         <source>Copy vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Copiar vector</translation>
     </message>
     <message>
         <location filename="../qt/my_line_edit.cpp" line="234"/>
         <source>Paste vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Pegar vector</translation>
     </message>
     <message>
         <location filename="../qt/my_line_edit.cpp" line="235"/>
         <source>Reset vector to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer vector a predeterminado</translation>
     </message>
 </context>
 <context>
@@ -210,32 +212,32 @@
         <location filename="../qt/my_table_widget_anim.cpp" line="73"/>
         <location filename="../qt/my_table_widget_anim.cpp" line="108"/>
         <source>Render this frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar este fotograma</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="79"/>
         <source>Interpolate next frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpolar siguientes fotogramas</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="109"/>
         <source>Delete all frames to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar todos los fotogramas hasta aquí</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="110"/>
         <source>Delete all frames from here</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar todos los fotograma desde aquí</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="146"/>
         <source>Remove &apos;%1&apos; from animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar &apos;%1&apos; de animación</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_anim.cpp" line="161"/>
         <source>Refresh all thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar todas las miniaturas</translation>
     </message>
 </context>
 <context>
@@ -244,77 +246,77 @@
         <location filename="../qt/my_table_widget_keyframes.cpp" line="73"/>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="113"/>
         <source>Render this keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar este fotograma clave</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="79"/>
         <source>Interpolate next keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpolar siguientes fotogramas clave</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="114"/>
         <source>Delete this keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar este fotograma clave</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="115"/>
         <source>Delete all keyframes to here</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar todos los fotograma clave hasta aquí</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="116"/>
         <source>Delete all keyframes from here</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar todos los fotograma clave desde aquí</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="153"/>
         <source>Remove &apos;%1&apos; from animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar &apos;%1&apos; de animación</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="154"/>
         <source>Interpolation type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de interpolación</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="155"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Ninguno</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="156"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="157"/>
         <source>Linear angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Ángulo lineal</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="158"/>
         <source>CatMulRom</source>
-        <translation type="unfinished"></translation>
+        <translation>CatMulRom</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="159"/>
         <source>CatMulRom angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Ángulo CatMulRom</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="160"/>
         <source>Akima</source>
-        <translation type="unfinished"></translation>
+        <translation>Akima</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="161"/>
         <source>Akima angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Ángula Akima</translation>
     </message>
     <message>
         <location filename="../qt/my_table_widget_keyframes.cpp" line="220"/>
         <source>Refresh all thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar todas las miniaturas</translation>
     </message>
 </context>
 <context>
@@ -322,17 +324,17 @@
     <message>
         <location filename="../qt/preview_file_dialog.cpp" line="55"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista previa</translation>
     </message>
     <message>
         <location filename="../qt/preview_file_dialog.cpp" line="77"/>
         <source>Add to presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a preajuste</translation>
     </message>
     <message>
         <location filename="../qt/preview_file_dialog.cpp" line="80"/>
         <source>Add to queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a cola</translation>
     </message>
 </context>
 <context>
@@ -340,126 +342,133 @@
     <message>
         <location filename="../qt/audio_selector.cpp" line="343"/>
         <source>%1 / %2</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 / %2</translation>
     </message>
     <message>
         <location filename="../qt/file_select_widget.cpp" line="157"/>
         <source>file path invalid</source>
-        <translation type="unfinished"></translation>
+        <translation>ruta de archivo inválida</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="98"/>
         <source>Delete material?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Eliminar material?</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="99"/>
         <source>Are you sure to delete selected material?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de eliminar el material seleccionado?</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="111"/>
         <source>You cannot delete last material!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No puede eliminar el último material!</translation>
     </message>
     <message>
         <location filename="../qt/mesh_export_dialog.cpp" line="132"/>
         <location filename="../qt/voxel_export_dialog.cpp" line="123"/>
         <source>Voxel Export is busy. Stop unfinished rendering before starting new voxel export job.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportado de Voxeles está ocupado. Cancele render sin terminar antes de empezar una nueva tarea de exportado de voxeles.</translation>
     </message>
     <message>
         <location filename="../qt/mesh_export_dialog.cpp" line="183"/>
         <source>Mesh Export is busy. Stop unfinished rendering before closing the mesh export dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportado de mallas está ocupado. Pare render sin terminar antes de empezar una nueva tarea de exportado de mallas.</translation>
     </message>
     <message>
         <location filename="../qt/player_widget.cpp" line="128"/>
         <source>No frames to play</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay fotogramas para reproducir</translation>
     </message>
     <message>
         <location filename="../qt/player_widget.cpp" line="193"/>
         <location filename="../src/animation_flight.cpp" line="862"/>
         <source>Frame %1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma %1 de %2</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="195"/>
         <source>Are you sure to clear the thumbnail cache?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de eliminar la caché de miniaturas?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="196"/>
         <source>Are you sure to clear the thumbnail cache?
 There are currently %1 thumbnails cached. These will be deleted and rerendered when necessary.
  Clear now?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de eliminar la caché de miniaturas?
+Hay actualmente %1 miniaturas en caché. Éstas serán eliminadas y re-renderizadas cuando sea necesario.
+¿Eliminar ahora?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="217"/>
         <source>Are you sure to load the thumbnail cache from the server?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de cargar la caché de miniaturas desde el servidor?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="218"/>
         <source>This will try to load missing common thumbnails from the server.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto tratará de cargar miniaturas faltantes desde el servidor.
+¿Proceder?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="249"/>
         <source>Are you sure to generate all example thumbnail cache files?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de generar la caché de  miniaturas de muestra?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="365"/>
         <source>Retrieve toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar barra de miniaturas</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="366"/>
         <source>Are you sure to retrieve default presets into toolbar?
 It could overwrite some of existing presets.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de restaurar las muestras por defecto a la barra de miniaturas?
+Ésto podría sobreescribir algunas de las muestras existentes
+¿Proceder?</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="379"/>
         <source>Retrieve materials</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar materiales</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="380"/>
         <source>Are you sure to retrieve default materials into materials folder?
 It could overwrite some of existing materials.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de restaurar los materiales por defecto dentro de la carpeta de materiales?
+Ésto podría sobreescribir algunos de los materiales existentes
+¿Proceder?</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="106"/>
         <source>Formulas</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulas</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="107"/>
         <source>Formulas 4d</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulas 4d</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="108"/>
         <source>Transforms</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformaciones</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="109"/>
         <source>Transforms 4d</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformaciones 4d</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="110"/>
         <source>Hybrid coloring</source>
-        <translation type="unfinished"></translation>
+        <translation>Coloreado híbrido</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="121"/>
@@ -467,40 +476,40 @@ Proceed?</source>
         <location filename="../qt/tab_fractal.cpp" line="181"/>
         <location filename="../qt/tab_fractal.cpp" line="188"/>
         <source>Don&apos;t add global C constant</source>
-        <translation type="unfinished"></translation>
+        <translation>No añadir constante C global</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.cpp" line="174"/>
         <source>Add global C constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir constante C global</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="115"/>
         <location filename="../src/command_line_interface.cpp" line="1162"/>
         <source>Cannot start voxel export. Specified folder (%1) does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede iniciar el exportado de voxeles. La carpeta especificada (%1) no existe.</translation>
     </message>
     <message>
         <location filename="../qt/voxel_export_dialog.cpp" line="190"/>
         <source>Voxel Export is busy. Stop unfinished rendering before closing the voxel export dialog.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportado de Voxeles está ocupado. Cancele render sin terminar antes de cerrar la caja de diálogo de exportado de voxeles.</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="193"/>
         <location filename="../src/animation_keyframes.cpp" line="294"/>
         <source>No frames to render</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay fotogramas para renderizar</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="199"/>
         <location filename="../src/animation_keyframes.cpp" line="300"/>
         <source>The folder %1 does not exist. Please specify a valid location.</source>
-        <translation type="unfinished"></translation>
+        <translation>La carpeta %1 no existe. Especifique una ruta válida por favor.</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="227"/>
         <source>Are you sure to start recording of new animation?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Está seguro de comenzar la grabación nueva animación?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="228"/>
@@ -510,12 +519,13 @@ Proceed?</source>
         <location filename="../src/animation_keyframes.cpp" line="1021"/>
         <source>This will delete all images in the image folder.
 Proceed?</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto eliminará todas las imágenes en la carpeta.
+¿Proceder?</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="245"/>
         <source>No frames recorded before. Unable to continue.</source>
-        <translation type="unfinished"></translation>
+        <translation>No se han grabado fotogramas previamente. No se puede continuar.</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="254"/>
@@ -523,18 +533,18 @@ Proceed?</source>
         <location filename="../src/animation_keyframes.cpp" line="545"/>
         <location filename="../src/interface.cpp" line="2328"/>
         <source>Rendering engine is busy. Stop unfinished rendering before starting new one</source>
-        <translation type="unfinished"></translation>
+        <translation>Motor de render ocupado. Pare renderizado sin terminar antes de comenzar uno nuevo</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="267"/>
         <source>Recording flight path</source>
-        <translation type="unfinished"></translation>
+        <translation>Grabando trayectoria de vuelo</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="361"/>
         <location filename="../src/animation_flight.cpp" line="369"/>
         <source>Recording flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Grabando animación de vuelo</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="789"/>
@@ -542,7 +552,7 @@ Proceed?</source>
         <location filename="../src/animation_keyframes.cpp" line="660"/>
         <location filename="../src/animation_keyframes.cpp" line="1020"/>
         <source>Truncate Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Truncar carpeta de imagen</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="791"/>
@@ -550,12 +560,14 @@ Proceed?</source>
         <source>The animation has already been rendered completely.
  Do you want to purge the output folder?
 </source>
-        <translation type="unfinished"></translation>
+        <translation>La animación ya ha sido renderizada por completo.
+¿Quiere purgar el directorio de salida?
+</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="861"/>
         <source>Animation start</source>
-        <translation type="unfinished"></translation>
+        <translation>Comienzo de animación</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="899"/>
@@ -563,154 +575,158 @@ Proceed?</source>
         <location filename="../src/animation_keyframes.cpp" line="781"/>
         <location filename="../src/animation_keyframes.cpp" line="785"/>
         <source>Animation finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Animación terminada</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="907"/>
         <location filename="../src/animation_keyframes.cpp" line="789"/>
         <source>Rendering terminated</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizado completado</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="908"/>
         <location filename="../src/animation_keyframes.cpp" line="790"/>
         <source>Error occured, see log output</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocurrieron errores, vea el log de sailda</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="962"/>
         <location filename="../src/animation_keyframes.cpp" line="846"/>
         <source>Refreshing animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizando animación</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1064"/>
         <location filename="../src/animation_keyframes.cpp" line="922"/>
         <source>Animation Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Carpeta de imágenes de animación</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1067"/>
         <location filename="../src/animation_keyframes.cpp" line="925"/>
         <source>Choose Animation Image Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccione carpeta de animación de imágenes</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1312"/>
         <source>Export flight to keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar vuelo a fotogramas clave</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="1313"/>
         <source>There are already captured keyframes present.
 Discard current keyframes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya existen fotogramas clave capturados.
+¿Descartar fotogramas clave actuales?</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="220"/>
         <location filename="../src/animation_keyframes.cpp" line="238"/>
         <source>No keyframe selected</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay ningún fotograma clave seleccionado</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="590"/>
         <source>There is no frame to render: first frame to render and last frame to render are equals.</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay fotogramas para renderizar: el primer fotograma y el último para renderizar son indénticos.</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="634"/>
         <location filename="../src/animation_keyframes.cpp" line="1309"/>
         <source>Camera collides with fractal at following frames:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Cámara colisiona con fractal en los siguientes fotogramas:
+</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="736"/>
         <source>Rendering animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizando animación</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="737"/>
         <source>Frame %1 of %2 (key %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma %1 de %2 (clave-%3)</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1188"/>
         <source>Export keyframes to flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar fotogramas clave a vuelo</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1189"/>
         <source>There are already captured flight frames present.
 Discard current flight frames ?</source>
-        <translation type="unfinished"></translation>
+        <translation>Ya existen fotogramas al vuelo capturados.
+¿Descartar fotogramas al vuelo actuales?</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1212"/>
         <source>Exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportando</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1263"/>
         <location filename="../src/animation_keyframes.cpp" line="1283"/>
         <source>Checking for collisions</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobando colisiones</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1264"/>
         <source>Checking for collisions on keyframe # %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobando colisiones en fotograma clave # %1</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1284"/>
         <source>Checking for collisions finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobación de colisiones terminada</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1314"/>
         <source>No collisions detected
 </source>
-        <translation type="unfinished"></translation>
+        <translation>No se han detectado colisiones
+</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1368"/>
         <source>Cannot change target distance. Missing camera parameters in keyframes</source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede modificar la distanca al objetivo. Faltan parámetros de cámara en fotograms clave</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="373"/>
         <source>You have to specify a settings file, for this configuration!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡Debe especificar un archivo de ajuste para esta configuración!</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="444"/>
         <source>Some useful example commands:</source>
-        <translation type="unfinished"></translation>
+        <translation>Algunos comandos de ejemplo útiles:</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="447"/>
         <source>Simple render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render simple</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="450"/>
         <source>Renders the file on the cli (no window required).</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderiza el archivo con la línea de comandos (no necesita ventana).</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="452"/>
         <source>Animation render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render de animación</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="456"/>
         <source>Renders the keyframe animation of the file keyframe_fractal.fract within frames 200 till 300.</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderiza la animación fotogramas clave del archivo keyframe_fractal.fract dentro de los fotogramaa 200 hasta 300.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="461"/>
         <source>Network render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render de red</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="467"/>
@@ -718,22 +734,25 @@ Discard current flight frames ?</source>
 On each client run (1), 192.168.100.1 should be substituted with the IP address of the server.
 On the server run (2) with the settings required for the render and additionally &apos;--server&apos;.
 The server will start and wait a short time for the clients to connect. Then the whole system will start rendering.</source>
-        <translation type="unfinished"></translation>
+        <translation>Puede renderizar con múltiples máquinas dentro de una red. Una es un servidor (2) y múltiples clientes (1) que pueden conectarse para ayudar al renderizado.
+En cada cliente ejecute (1), 192.168.100.1 deberá ser sustituido con la dirección IP del servidor.
+En el servidor ejecute (1), con los ajustes requeridos para el render y adicionalmente &apos;--server&apos;.
+El servidor empezará y espera un breve tiempo a que los clientes se conecten. Entonces todo el sistema empezará a renderizar.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="476"/>
         <source>Voxel volume render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render de volumen de Voxel</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="483"/>
         <source>Renders the voxel volume in the bounding box of [x(-1 - 1); y(-1 - 1); z(-1 - 1)] with a resolution of 200x200x200 in the ply format and saves as working folder/slices/output.ply.</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderiza el volumen de Voxel en un cuadro delimitador de [x(-1 - 1); y(-1 - 1); z(-1 - 1)] con una resolución de 200x200x200 en formato ply con guardado en carpeta de trabajo/slices/output.ply.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="489"/>
         <source>Queue render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render en cola</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="493"/>
@@ -741,7 +760,10 @@ The server will start and wait a short time for the clients to connect. Then the
 Mandelbulber runs in background and waits for jobs.
 The output will be written to /tmp/queue.log.
 (will not work under Windows)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ejecuta la instancia de mandelbulber en modo cola y lo demoniza.
+Mandelbulber se ejecutará en segundo plano y esperará para trabajos.
+La salida se escribirá en /tmp/queue.log.
+(no funciona en Windows)</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="507"/>
@@ -752,7 +774,13 @@ These files can be of type:
   Folder - if the specified argument is a folder all .fract files inside the folder will be added to the queue
 You can also use &quot;-&quot; as a special argument to indicate that the filename, or the whole file contents are specified in stdin, example: cat example.fract | mandelbulber2 -
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Mandelbulber también acepta un número arbitrario de archivos de entrada
+Estos archivos pueden ser de tipo:
+  archivo .fract - archivo común para fractales
+  archivo .fractlist - Un archivo de trabajo en cola, todas las entradas dentro del archivo de cola serán añadidas a la cola actual.
+  Carpeta.-.si el argumento especificado es una carpeta todos los achivos .fract dentro de la carpeta serán añadidas a la cola.
+También puede usar- &quot;-&quot; como argumento especial para que el nombre de archivo, o todo el contenido sea especificado en stdin, ejemplo:cat example.fract | mandelbulber2 -
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="526"/>
@@ -760,147 +788,161 @@ You can also use &quot;-&quot; as a special argument to indicate that the filena
 When Mandelbulber is already configured to use OpenCL, it will also run OpenCL from commandline by default.
 The configuration can also be done directly from this commandline by setting the optional settings directly.
 These can be given by the default --override option, available opencl specific options are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mandelbulber puede usar OpenCL para acelerar el renderizado.
+Cuando Mandelbulber está configurado para usar OpenCL, también se usará OpenCL por predeterminado desde la linea de comandos.
+Esta configuración también puede hacerse directamente desde ésta línea de comandos agregando los ajustes opcionales.
+Estos pueden ser introducidos con la opción predeterminada --override , las opciones disponibles para opencl específicas son:</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="533"/>
         <source>boolean to enable OpenCL</source>
-        <translation type="unfinished"></translation>
+        <translation>boleano para habilitar OpenCL</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="535"/>
         <source>platform index to use, see available platforms below</source>
-        <translation type="unfinished"></translation>
+        <translation>Índice de la plataforma a usar, vea plataformas disponibles abajo</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="536"/>
         <source>Possible device types of the platform to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Posibles tipos de dispositivos a usar por la plataforma</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="538"/>
         <location filename="../src/command_line_interface.cpp" line="548"/>
         <location filename="../src/command_line_interface.cpp" line="555"/>
         <source>possible values: [%1]</source>
-        <translation type="unfinished"></translation>
+        <translation>valore posibles: [%1]</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="541"/>
         <source>right now only one device at a time is supported.</source>
-        <translation type="unfinished"></translation>
+        <translation>por ahora un solo dispositivo a la vez está soportado.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="544"/>
         <source>Mode of the render engine, &apos;fast&apos; has no effects, &apos;limited&apos; has basic effects, &apos;full&apos; contains all shaders.</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo del motor de render, &apos;rápido&apos; no tiene efectos, &apos;limitado&apos; tiene efectos básicos, &apos;completo&apos; tiene todos los sombreados.</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="551"/>
         <source>Floating point precision of Render (single is faster, but less accurate)</source>
-        <translation type="unfinished"></translation>
+        <translation>Precisión de coma flotante del render (single es más rápido pero menos preciso)</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="557"/>
         <source>Memory limit in MB</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de memoria en MB</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="561"/>
         <source>Available platforms are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Plataformas disponibles:</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="573"/>
         <source>Available devices for the selected platform (%1) are:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivos disponibles para la plataforma seleccionada (%1):</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="591"/>
         <source>Example invocation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Invocación de ejemplo:</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="620"/>
         <source>
 List of fractal parameters:
 </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Lista de parámetros fractales:
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="690"/>
         <source>Example output path invalid
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Ruta de salida de ejemplo inválida
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="761"/>
         <source>Specified server port is invalid
 </source>
-        <translation type="unfinished"></translation>
+        <translation>El puerto de servidor especificado es inválido
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="774"/>
         <source>NetRender - Waiting for clients
 </source>
-        <translation type="unfinished"></translation>
+        <translation>NetRender - En espera de clientes
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="794"/>
         <source>Specified client port is invalid
 </source>
-        <translation type="unfinished"></translation>
+        <translation>El puerto de cliente especificado es inválido
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="818"/>
         <location filename="../src/command_line_interface.cpp" line="883"/>
         <location filename="../src/main.cpp" line="192"/>
         <source>Cannot init queue: </source>
-        <translation type="unfinished"></translation>
+        <translation>No se puede iniciar cola: </translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="864"/>
         <source>Cannot load file!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se puede cargar archivo!
+</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="952"/>
         <source>Specified resolution not valid
 both dimensions need to be &gt; 0</source>
-        <translation type="unfinished"></translation>
+        <translation>La resolución especificada no es válida
+ambas medidad deben ser &gt; 0</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="962"/>
         <source>Specified resolution not valid
 resolution has to be in the form WIDTHxHEIGHT</source>
-        <translation type="unfinished"></translation>
+        <translation>La resolución especificada no es válida
+resolución debe ser en forma de ANCHURAxALTURA</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="975"/>
         <source>Specified frames per key not valid
 need to be &gt; 0</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotogramas especificados por clave no es válido
+debe ser &gt; 0</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="988"/>
         <source>Specified imageFileFormat is not valid
 allowed formats are: </source>
-        <translation type="unfinished"></translation>
+        <translation>Formato de archivo de imagen especificado no es válido
+formatos admitidos son: </translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1014"/>
         <source>There are no flight animation frames in specified settings file</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay fotogramas de animación de vuelo en el archivo de ajuste especificado</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1025"/>
         <source>You cannot render keyframe animation at the same time as flight animation</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">No puede renderizar animación de fotogramas clave al mismo tiempo que animación de vuelo</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1038"/>
         <source>There are no keyframes in specified settings file</source>
-        <translation type="unfinished"></translation>
+        <translation>No hay fotogramas clave de en el archivo de ajuste especificado</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1058"/>
@@ -908,102 +950,106 @@ allowed formats are: </source>
         <location filename="../src/command_line_interface.cpp" line="1107"/>
         <location filename="../src/command_line_interface.cpp" line="1136"/>
         <source>Animation has only %1 frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Animación sólo contiene %1 fotogramas</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1098"/>
         <location filename="../src/command_line_interface.cpp" line="1128"/>
         <source>End frame has to be greater than start frame which is %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma final tiene que ser mas grande que el fotograma de comienzo el cúal es %1</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1150"/>
         <source>Specified voxel format is not valid
 allowed formats are: </source>
-        <translation type="unfinished"></translation>
+        <translation>Formato de archivo de voxel especificado no es válido
+formatos admitidos son: </translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1183"/>
         <source>No opencl platforms found</source>
-        <translation type="unfinished"></translation>
+        <translation>No se encontraron plataformas opencl</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1192"/>
         <source>No opencl devices found</source>
-        <translation type="unfinished"></translation>
+        <translation>No se encontraron dispositivos opencl</translation>
     </message>
     <message>
         <location filename="../src/command_line_interface.cpp" line="1197"/>
         <source>Not compiled for opencl</source>
-        <translation type="unfinished"></translation>
+        <translation>No compilado para opencl</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="78"/>
         <source>Rendering Depth Of Field effect - phase I</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizando efecto desenfoque de profundidad de campo - fase I</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="205"/>
         <source>Rendering Depth Of Field effect - phase II</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizando efecto desenfoque de profundidad de campo - fase II</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="208"/>
         <source>Sorting zBuffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Clasificando zBuffer</translation>
     </message>
     <message>
         <location filename="../src/dof.cpp" line="217"/>
         <source>Randomizing zBuffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatorizando zBuffer</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="55"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="57"/>
         <source>Error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="59"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
+        <translation>Nota</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="78"/>
         <source>Mandelbulber warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Advertencia de Mandelbulber</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="83"/>
         <source>Mandelbulber error</source>
-        <translation type="unfinished"></translation>
+        <translation>Error de Mandelbulber</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="88"/>
         <source>Mandelbulber information</source>
-        <translation type="unfinished"></translation>
+        <translation>Información de Mandelbulber</translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="101"/>
         <source>
 Warning: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Advertencia: </translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="108"/>
         <source>
 Error: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Error: </translation>
     </message>
     <message>
         <location filename="../src/error_message.cpp" line="114"/>
         <source>
 Note: </source>
-        <translation type="unfinished"></translation>
+        <translation>
+Nota: </translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="152"/>
@@ -1011,36 +1057,39 @@ Note: </source>
         <location filename="../src/file_image.cpp" line="271"/>
         <location filename="../src/file_image.cpp" line="321"/>
         <source>Saving channel: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando canal: %1</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="157"/>
         <source>Started</source>
-        <translation type="unfinished"></translation>
+        <translation>Comenzado</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="161"/>
         <source>Finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminado</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="195"/>
         <source>Cannot create directory for image!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se puede crear directorio para imagen!
+</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="203"/>
         <source>Directory for new image is not accessible!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No es accesible el directorio para nueva imagen!
+</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="632"/>
         <location filename="../src/file_image.cpp" line="706"/>
         <source>Can&apos;t save image to PNG file!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se puede guardar imagen a archivo PNG!
+</translation>
     </message>
     <message>
         <location filename="../src/file_image.cpp" line="859"/>
@@ -1048,7 +1097,8 @@ Note: </source>
         <location filename="../src/file_image.cpp" line="929"/>
         <source>Can&apos;t save image to JPEG file!
 </source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se puede guardar imagen a archivo JPEG!
+</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="536"/>
@@ -1059,29 +1109,29 @@ Note: </source>
         <location filename="../src/interface.cpp" line="952"/>
         <location filename="../src/interface.cpp" line="1075"/>
         <source>You cannot apply changes during rendering. You will do this after rendering.</source>
-        <translation type="unfinished"></translation>
+        <translation>No puede aplicar cambios durante el renderizado. Hágalo después de acabar el render.</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="995"/>
         <source>Not enough free memory in OpenCL device to render SSAO effect!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No hay suficiente memoria libre en el dispositivo OpenCL para renderizar el efecto SSAO!</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1713"/>
         <location filename="../src/interface.cpp" line="1738"/>
         <source>Resetting view</source>
-        <translation type="unfinished"></translation>
+        <translation>Restableciendo vista</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1714"/>
         <source>Fractal size calculation</source>
-        <translation type="unfinished"></translation>
+        <translation>Cálculo de tamaño fractal</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1738"/>
         <location filename="../src/interface.cpp" line="1882"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation>Terminado</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1814"/>
@@ -1132,7 +1182,7 @@ Note: </source>
     <message>
         <location filename="../src/interface.cpp" line="1939"/>
         <source>Delete </source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar </translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="1946"/>
@@ -1222,12 +1272,12 @@ Note: </source>
     <message>
         <location filename="../src/interface.cpp" line="2181"/>
         <source>Quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>¿Salir?</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2186"/>
         <source>Yes, don&apos;t ask again</source>
-        <translation type="unfinished"></translation>
+        <translation>Si, no preguntar de nuevo</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2242"/>
@@ -1809,516 +1859,517 @@ File version: </source>
         <location filename="../qt/render_window.ui" line="20"/>
         <location filename="../qt/ui_render_window.h" line="1047"/>
         <source>Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>Mandelbulber</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="129"/>
         <location filename="../qt/ui_render_window.h" line="1093"/>
         <source>Zoom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="149"/>
         <location filename="../qt/ui_render_window.h" line="1094"/>
         <source>Fit to window</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustar a la ventana</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="154"/>
         <location filename="../qt/ui_render_window.h" line="1095"/>
         <source>400%</source>
-        <translation type="unfinished"></translation>
+        <translation>400%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="159"/>
         <location filename="../qt/ui_render_window.h" line="1096"/>
         <source>200%</source>
-        <translation type="unfinished"></translation>
+        <translation>200%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="164"/>
         <location filename="../qt/ui_render_window.h" line="1097"/>
         <source>100%</source>
-        <translation type="unfinished"></translation>
+        <translation>100%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="169"/>
         <location filename="../qt/ui_render_window.h" line="1098"/>
         <source>50%</source>
-        <translation type="unfinished"></translation>
+        <translation>50%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="174"/>
         <location filename="../qt/ui_render_window.h" line="1099"/>
         <source>25%</source>
-        <translation type="unfinished"></translation>
+        <translation>25%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="179"/>
         <location filename="../qt/ui_render_window.h" line="1100"/>
         <source>10%</source>
-        <translation type="unfinished"></translation>
+        <translation>10%</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="200"/>
         <location filename="../qt/ui_render_window.h" line="1102"/>
         <source>Show cursor</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar cursor</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="214"/>
         <location filename="../qt/ui_render_window.h" line="1103"/>
         <source>Mouse click function:</source>
-        <translation type="unfinished"></translation>
+        <translation>Función click  ratón:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="233"/>
         <location filename="../qt/ui_render_window.h" line="1107"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for action which will be executed after clicking on the image&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;No action - blocks functionality of mouse pointer&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Move the camera - moves the camera or target (depends on movement and rotation mode)&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set fog visibility - sets visibility distance for basic fog effect&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Set DOF focus - sets object which will appear in focus&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Get Julia constant - gets value of constant for Julia fractal&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Place light #n - places light in selected place (mouse wheel controls distance from fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selecciona la acción a ejecutar después de hacer click en la imagen&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Sin acción - bloquea la acción del puntero del ratón&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Mover la  cámara - mueve la cámara o  objetivo (depende del movimiento y modo de rotación )&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Establecer visibilidad de niebla - establece la distancia visible para  niebla básica&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Establecer profundidad de enfoque de campo - establece objeto que aparecerá enfocado&lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Obtener constante para Julia  - obtener los valores para conjunto de Julia &lt;/li&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Situar punto de luz #n - coloca punto de luz en el espacio seleccionado (rueda del ratón controla la distancia desde el fractal) &lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="237"/>
         <location filename="../qt/ui_render_window.h" line="1104"/>
         <source>No action</source>
-        <translation type="unfinished"></translation>
+        <translation>Sin Acción</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="245"/>
         <location filename="../qt/ui_render_window.h" line="1110"/>
         <source>Grid:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuadrícula:</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="253"/>
         <location filename="../qt/ui_render_window.h" line="1111"/>
         <source>Crosshair</source>
-        <translation type="unfinished"></translation>
+        <translation>Punto de mira</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="258"/>
         <location filename="../qt/ui_render_window.h" line="1112"/>
         <source>Thirds grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuadrícula de tercios</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="263"/>
         <location filename="../qt/ui_render_window.h" line="1113"/>
         <source>Golden ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Sección áurea</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="301"/>
         <location filename="../qt/ui_render_window.h" line="1115"/>
         <source>I&amp;mage</source>
-        <translation type="unfinished"></translation>
+        <translation>I&amp;magen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="312"/>
         <location filename="../qt/ui_render_window.h" line="1116"/>
         <location filename="../src/render_window_menu.cpp" line="161"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivo</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="316"/>
         <location filename="../qt/ui_render_window.h" line="1117"/>
         <source>&amp;Recent settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajustes recientes...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="342"/>
         <location filename="../qt/ui_render_window.h" line="1118"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="346"/>
         <location filename="../qt/ui_render_window.h" line="1119"/>
         <source>Saved window &amp;layouts</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardado de distribución de &amp;ventanas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="371"/>
         <location filename="../qt/ui_render_window.h" line="1120"/>
         <source>A&amp;bout</source>
-        <translation type="unfinished"></translation>
+        <translation>A&amp;cerca de</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="379"/>
         <location filename="../qt/ui_render_window.h" line="1121"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="386"/>
         <location filename="../qt/ui_render_window.h" line="1122"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Ayuda</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="417"/>
         <location filename="../qt/ui_render_window.h" line="1123"/>
         <source>&amp;Image adjustments</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ajustes de imagen</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="490"/>
         <location filename="../qt/ui_render_window.h" line="1124"/>
         <source>&amp;Navigation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Navegación</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="520"/>
         <location filename="../qt/ui_render_window.h" line="1125"/>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <translation>barra de herramientas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="535"/>
         <location filename="../qt/ui_render_window.h" line="1126"/>
         <source>Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Efectos</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="605"/>
         <location filename="../qt/ui_render_window.h" line="1127"/>
         <source>Ob&amp;jects</source>
-        <translation type="unfinished"></translation>
+        <translation>Ob&amp;jetos</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="672"/>
         <location filename="../qt/ui_render_window.h" line="1128"/>
         <source>&amp;Rendering engine</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Motor de render</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="742"/>
         <location filename="../qt/ui_render_window.h" line="1129"/>
         <source>Info</source>
-        <translation type="unfinished"></translation>
+        <translation>Info</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="772"/>
         <location filename="../qt/ui_render_window.h" line="1130"/>
         <source>&amp;Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Animación</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="802"/>
         <location filename="../qt/ui_render_window.h" line="1131"/>
         <source>&amp;Statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Estadísticas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="835"/>
         <location filename="../qt/ui_render_window.h" line="1133"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Queue tool allows for rendering a collection of settings files in the background.&lt;/p&gt;&lt;p&gt;While the list of settings files is being rendered, you can continue to work in the main window and also add more settings to the queue.&lt;/p&gt;&lt;p&gt;Methods to manage queue:&lt;br/&gt;- by adding items using &lt;span style=&quot; font-style:italic;&quot;&gt;Add current settings&lt;/span&gt; button&lt;br/&gt;- by editing queue.fractlist file&lt;br/&gt;- by putting files into queue folder and use button &lt;span style=&quot; font-style:italic;&quot;&gt;Add orphaned&lt;br/&gt;&lt;/span&gt;- by adding single settings or lists using command line interface&lt;/p&gt;&lt;p&gt;Temporary settings files are stored in $HOME/.mandelbulber/queue folder and the list is in $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;The queue can be rendered in another instance of Mandelbulber program, as the queue is shared between applications. You can also launch another Mandelbulber from command line interface with -q option. Then this application will watch queue and render automatically all new items.&lt;/p&gt;&lt;p&gt;Result images are saved into $HOME/.mandelbulber/images directory (or another if it&apos;s specified in application preferences.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La herramienta de cola permite renderizar un conjunto de archivos de parámetros en segundo plano.&lt;/p&gt;&lt;p&gt;Mientras el conjunto de parámetros se renderiza, puede continuar trabjando en la ventana principal y seguir añadiendo ajustes a la cola:&lt;br/&gt;- añadiendo ajustes usando el botón de &lt;span style=&quot; font-style:italic;&quot;&gt;Añadir ajustes actuales&lt;/span&gt;&lt;br/&gt;- editando el archivo queue.fractlist&lt;br/&gt;- añadiendo archivos a la carpeta de cola y usando el botón de&lt;span style=&quot; font-style:italic;&quot;&gt;Añadir huérfano&lt;br/&gt;&lt;/span&gt;- añadiendo ajustes individuales o listas mediante la línea de comandos&lt;/p&gt;&lt;p&gt;Los archivos temporales de ajustes se guardan en la carpeta $HOME/.mandelbulber/queue y de lista en $HOME/.mandelbulber/queue.fractlist&lt;/p&gt;&lt;p&gt;La cola puede ser renderizada en otras instancias de Mandelbulber, al estar la cola compartida entre aplicaciones. También puede lanzar otro Mandelbulber a través de la linea de comandos con la opción-q . De esta manera, la aplicación observa la cola y renderiza automáticamente todos los ajustes nuevos.&lt;/p&gt;&lt;p&gt;Las imágenes resultantes se guradan en el directorio $HOME/.mandelbulber/images (u otro directorio especificado en las preferencias del programa.)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="841"/>
         <location filename="../qt/ui_render_window.h" line="1136"/>
         <source>&amp;Queue</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cola</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="908"/>
         <location filename="../qt/ui_render_window.h" line="1137"/>
         <source>&amp;Measurement</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Medición</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="972"/>
         <location filename="../qt/ui_render_window.h" line="1138"/>
         <source>Ma&amp;terial editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Ed&amp;itor de materiales</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1033"/>
         <location filename="../qt/ui_render_window.h" line="1139"/>
         <source>Materials</source>
-        <translation type="unfinished"></translation>
+        <translation>Materiales</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1063"/>
         <location filename="../qt/ui_render_window.h" line="1140"/>
         <source>&amp;Gamepad</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mando de juego</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1116"/>
         <location filename="../qt/ui_render_window.h" line="1048"/>
         <source>&amp;Save as JPG...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar como JPG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1125"/>
         <location filename="../qt/ui_render_window.h" line="1049"/>
         <source>Save &amp;as PNG...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar como PNG...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1134"/>
         <location filename="../qt/ui_render_window.h" line="1050"/>
         <source>Save as &amp;PNG 16 bit...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar como PNG 16 bit...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1143"/>
         <location filename="../qt/ui_render_window.h" line="1051"/>
         <source>Save as PNG &amp;16 bit with alpha channel</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar como PNG 16 bit... con canal alfa</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1152"/>
         <location filename="../qt/ui_render_window.h" line="1052"/>
         <source>&amp;Load settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Cargar ajustes...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1164"/>
         <location filename="../qt/ui_render_window.h" line="1053"/>
         <source>Load settings &amp;from clipboard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes &amp;desde portapapeles...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1176"/>
         <location filename="../qt/ui_render_window.h" line="1054"/>
         <source>&amp;Save settings</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar ajustes</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1188"/>
         <location filename="../qt/ui_render_window.h" line="1055"/>
         <source>Save settings &amp;to clipboard</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes &amp;al portapapeles</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1200"/>
         <location filename="../qt/ui_render_window.h" line="1056"/>
         <source>Save settings as...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes como...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1203"/>
         <location filename="../qt/ui_render_window.h" line="1058"/>
         <source>Save settings in selected file</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes en fichero seleccionado</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1215"/>
         <location filename="../qt/ui_render_window.h" line="1060"/>
         <source>&amp;Program Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Preferencias</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1227"/>
         <location filename="../qt/ui_render_window.h" line="1061"/>
         <source>&amp;Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Salir</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1239"/>
         <location filename="../qt/ui_render_window.h" line="1062"/>
         <source>&amp;Save window layout as default</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Guardar distribución de ventanas como predeterminado</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1248"/>
         <location filename="../qt/ui_render_window.h" line="1063"/>
         <source>&amp;Default window layout</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Distribución de ventanas predeterminado</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1257"/>
         <location filename="../qt/ui_render_window.h" line="1064"/>
         <source>&amp;Window layout for animation</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Distribución de ventanas para animación</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1262"/>
         <location filename="../qt/ui_render_window.h" line="1065"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de &amp;QT</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1267"/>
         <location filename="../qt/ui_render_window.h" line="1066"/>
         <location filename="../src/interface.cpp" line="185"/>
         <source>About &amp;User Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de &amp;manual de usuario</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1272"/>
         <location filename="../qt/ui_render_window.h" line="1067"/>
         <source>About &amp;Third Party</source>
-        <translation type="unfinished"></translation>
+        <translation>Acerca de &amp;Terceros</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1281"/>
         <location filename="../qt/ui_render_window.h" line="1068"/>
         <source>&amp;About Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Acerca de Mandelbulber</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1290"/>
         <location filename="../qt/ui_render_window.h" line="1069"/>
         <source>&amp;Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Deshacer</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1302"/>
         <location filename="../qt/ui_render_window.h" line="1070"/>
         <source>&amp;Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rehacer</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1314"/>
         <location filename="../qt/ui_render_window.h" line="1071"/>
         <source>&amp;Import settings from old Mandelbulber (v1.21)...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importar ajustes de Mandelbulber antiguo (v1.21)...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1326"/>
         <location filename="../qt/ui_render_window.h" line="1072"/>
         <source>Export &amp;Voxel Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar &amp;Capas de Voxel</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1335"/>
         <location filename="../qt/ui_render_window.h" line="1073"/>
         <source>Load &amp;example...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar &amp;ejemplo...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1346"/>
         <location filename="../qt/ui_render_window.h" line="1074"/>
         <source>Show a&amp;nimation dock</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>No current precise translation for Dock</translatorcomment>
+        <translation>Mostrar dock de a&amp;nimación</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1357"/>
         <location filename="../qt/ui_render_window.h" line="1075"/>
         <source>Show &amp;gamepad dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar &amp;dock de mando de juego</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1368"/>
         <location filename="../qt/ui_render_window.h" line="1076"/>
         <source>Show &amp;queue dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar dock de &amp;cola</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1379"/>
         <location filename="../qt/ui_render_window.h" line="1077"/>
         <source>Show &amp;Info dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar dock de &amp;Información</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1390"/>
         <location filename="../qt/ui_render_window.h" line="1078"/>
         <source>Show &amp;toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar &amp;barra de herramientas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1402"/>
         <location filename="../qt/ui_render_window.h" line="1079"/>
         <source>Sta&amp;ck all docks</source>
-        <translation type="unfinished"></translation>
+        <translation>Api&amp;lar todos los docks</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1410"/>
         <location filename="../qt/ui_render_window.h" line="1080"/>
         <source>S&amp;how statistics</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;ostrar estadísticas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1419"/>
         <location filename="../qt/ui_render_window.h" line="1081"/>
         <source>Save as &amp;EXR</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar como &amp;EXR</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1428"/>
         <location filename="../qt/ui_render_window.h" line="1082"/>
         <source>Save as &amp;TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar como &amp;TIFF</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1437"/>
         <location filename="../qt/ui_render_window.h" line="1083"/>
         <source>Add current settings to toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir ajustes actuales a barra de herramientas</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1446"/>
         <location filename="../qt/ui_render_window.h" line="1084"/>
         <source>Add c&amp;urrent window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir a&amp;justes actuales de ventana</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1454"/>
         <location filename="../qt/ui_render_window.h" line="1085"/>
         <source>Show &amp;measurement dock</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar dock de &amp;medición</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1463"/>
         <location filename="../qt/ui_render_window.h" line="1086"/>
         <source>Export &amp;Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar &amp;Malla</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1471"/>
         <location filename="../qt/ui_render_window.h" line="1087"/>
         <source>Test</source>
-        <translation type="unfinished"></translation>
+        <translation>Prueba</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1480"/>
         <location filename="../qt/ui_render_window.h" line="1088"/>
         <source>&amp;Remove Window settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eliminar ajustes de ventana...</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1489"/>
         <location filename="../qt/ui_render_window.h" line="1089"/>
         <source>&amp;User Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Manual de usuario</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1501"/>
         <location filename="../qt/ui_render_window.h" line="1090"/>
         <source>&amp;News</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Novedades</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1510"/>
         <location filename="../qt/ui_render_window.h" line="1091"/>
         <source>&amp;HotKeys</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Atajos de teclado</translation>
     </message>
     <message>
         <location filename="../qt/render_window.ui" line="1521"/>
         <location filename="../qt/ui_render_window.h" line="1092"/>
         <source>Detach image &amp;from main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Desanclar imagen &amp;de ventana principal</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="183"/>
         <source>Info &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>Info &amp;Qt</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="187"/>
         <source>&amp;Info Mandelbulber</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Info Mandelbulber</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="189"/>
         <source>Info &amp;Third Party</source>
-        <translation type="unfinished"></translation>
+        <translation>Info de &amp;Terceros</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="61"/>
@@ -2326,332 +2377,332 @@ File version: </source>
         <location filename="../src/render_window_menu.cpp" line="371"/>
         <location filename="../src/render_window_menu.cpp" line="611"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractales (*.txt *.fract)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="66"/>
         <source>Import settings from old Mandelbulber (v1.21)...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar ajustes de Mandelbulber antiguo (v1.21)...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="150"/>
         <source>Ctrl</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="152"/>
         <source>Alt</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="154"/>
         <source>Shift</source>
-        <translation type="unfinished"></translation>
+        <translation>Mayúscula</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="159"/>
         <source>Main Program Hotkeys</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajos de teclado de programa principal</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="162"/>
         <location filename="../src/render_window_menu.cpp" line="376"/>
         <source>Load settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="164"/>
         <source>Load settings from clipboard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes desde portapapeles...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="165"/>
         <source>Load example...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ejemplo...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="167"/>
         <location filename="../src/render_window_menu.cpp" line="617"/>
         <source>Save settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="169"/>
         <source>Save settings to clipboard...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes al portapapeles...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="171"/>
         <source>Import legacy settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar ajustes heredados...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="172"/>
         <source>Export Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar Malla</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="173"/>
         <source>Program Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Preferencias</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="174"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="178"/>
         <source>Other</source>
-        <translation type="unfinished"></translation>
+        <translation>Otro</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="179"/>
         <source>Undo</source>
-        <translation type="unfinished"></translation>
+        <translation>Deshacer</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="180"/>
         <source>Redo</source>
-        <translation type="unfinished"></translation>
+        <translation>Rehacer</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="181"/>
         <source>Show User Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar Manual de usuario</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="182"/>
         <source>Show (these) Hotkeys</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar (estos) atajos de teclado</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="184"/>
         <source>Terminate all calculations</source>
-        <translation type="unfinished"></translation>
+        <translation>Finalizar todos los cálculos</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="189"/>
         <source>Render Window Hotkeys</source>
-        <translation type="unfinished"></translation>
+        <translation>Atajos de teclado ventana de Render</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="192"/>
         <source>Movement</source>
-        <translation type="unfinished"></translation>
+        <translation>Movimiento</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="193"/>
         <location filename="../src/render_window_menu.cpp" line="217"/>
         <source>up</source>
-        <translation type="unfinished"></translation>
+        <translation>arriba</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="194"/>
         <location filename="../src/render_window_menu.cpp" line="218"/>
         <source>down</source>
-        <translation type="unfinished"></translation>
+        <translation>abajo</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="195"/>
         <location filename="../src/render_window_menu.cpp" line="197"/>
         <location filename="../src/render_window_menu.cpp" line="219"/>
         <source>left</source>
-        <translation type="unfinished"></translation>
+        <translation>izquierda</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="197"/>
         <location filename="../src/render_window_menu.cpp" line="219"/>
         <location filename="../src/render_window_menu.cpp" line="221"/>
         <source>Arrow left</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha izquierda</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="198"/>
         <location filename="../src/render_window_menu.cpp" line="200"/>
         <location filename="../src/render_window_menu.cpp" line="220"/>
         <source>right</source>
-        <translation type="unfinished"></translation>
+        <translation>derecha</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="200"/>
         <location filename="../src/render_window_menu.cpp" line="220"/>
         <location filename="../src/render_window_menu.cpp" line="223"/>
         <source>Arrow right</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha derecha</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="201"/>
         <location filename="../src/render_window_menu.cpp" line="203"/>
         <location filename="../src/render_window_menu.cpp" line="205"/>
         <source>forward</source>
-        <translation type="unfinished"></translation>
+        <translation>adelante</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="203"/>
         <location filename="../src/render_window_menu.cpp" line="205"/>
         <location filename="../src/render_window_menu.cpp" line="217"/>
         <source>Arrow up</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha arriba</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="206"/>
         <location filename="../src/render_window_menu.cpp" line="207"/>
         <location filename="../src/render_window_menu.cpp" line="209"/>
         <source>backward</source>
-        <translation type="unfinished"></translation>
+        <translation>atrás</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="207"/>
         <location filename="../src/render_window_menu.cpp" line="209"/>
         <location filename="../src/render_window_menu.cpp" line="218"/>
         <source>Arrow down</source>
-        <translation type="unfinished"></translation>
+        <translation>Flecha abajo</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="211"/>
         <source>Mouse Wheel</source>
-        <translation type="unfinished"></translation>
+        <translation>Rueda del ratón</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="212"/>
         <source>forward / backward</source>
-        <translation type="unfinished"></translation>
+        <translation>adelante / atrás</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="216"/>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="221"/>
         <source>Roll left</source>
-        <translation type="unfinished"></translation>
+        <translation>Girar a la izquierda</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="223"/>
         <source>Roll right</source>
-        <translation type="unfinished"></translation>
+        <translation>Girar a la derecha</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="228"/>
         <source>Render Window Keyframe / Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar Fotograma clave / Vuelo</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="231"/>
         <source>Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuelo</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="232"/>
         <source>Left mouse click</source>
-        <translation type="unfinished"></translation>
+        <translation>Click izquierdo del ratón</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="232"/>
         <source>Increase speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Incrementar velocidad</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="233"/>
         <source>Right mouse click</source>
-        <translation type="unfinished"></translation>
+        <translation>Click derecho del ratón</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="233"/>
         <source>Decrease speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Reducir velocidad</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="235"/>
         <location filename="../src/render_window_menu.cpp" line="236"/>
         <source>Arrow keys</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclas de flecha</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="235"/>
         <source>Move forward and sideward</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover hacia adelante y lateral</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="236"/>
         <source>Move sideward only</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover solamente lateral</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="238"/>
         <source>Spacebar</source>
-        <translation type="unfinished"></translation>
+        <translation>Barra espaciadora</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="238"/>
         <source>Pause / Unpause</source>
-        <translation type="unfinished"></translation>
+        <translation>Pausa / Reanudar</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="239"/>
         <source>Roll rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación de giro</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="243"/>
         <source>Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma clave</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="244"/>
         <source>Add Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir Fotograma clave</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="245"/>
         <source>Modify current Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Modificar Fotograma clave actual</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="246"/>
         <source>Move to next Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Saltar al siguiente Fotograma clave</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="247"/>
         <source>Move to previous Keyframe</source>
-        <translation type="unfinished"></translation>
+        <translation>Retroceder  Fotograma clave previo</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="353"/>
         <source>Load example settings...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes de ejemplo...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="490"/>
         <source>JPEG images (*.jpg *.jpeg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes JPEG (*.jpg *.jpeg)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="495"/>
         <location filename="../src/render_window_menu.cpp" line="540"/>
         <location filename="../src/render_window_menu.cpp" line="573"/>
         <source>PNG images (*.png)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes PNG (*.png)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="501"/>
         <source>EXR images (*.exr)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes EXR (*.exr)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="509"/>
         <source>TIFF images (*.tiff)</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes TIFF (*.tiff)</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="522"/>
         <location filename="../src/render_window_menu.cpp" line="544"/>
         <location filename="../src/render_window_menu.cpp" line="577"/>
         <source>Save image to %1 file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar imagen a %1 archivo...</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="551"/>
@@ -2659,39 +2710,39 @@ File version: </source>
         <location filename="../src/render_window_menu.cpp" line="584"/>
         <location filename="../src/render_window_menu.cpp" line="595"/>
         <source>Saving %1 image</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardando %1 imagen</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="552"/>
         <location filename="../src/render_window_menu.cpp" line="585"/>
         <source>Saving image started</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardado de imagen comenzado</translation>
     </message>
     <message>
         <location filename="../src/render_window_menu.cpp" line="563"/>
         <location filename="../src/render_window_menu.cpp" line="596"/>
         <source>Saving image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardado de imagen terminado</translation>
     </message>
     <message>
         <location filename="../src/render_window_slots.cpp" line="618"/>
         <source>Add window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir ajustes de ventana</translation>
     </message>
     <message>
         <location filename="../src/render_window_slots.cpp" line="619"/>
         <source>Enter a name for the new window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingrese un nombre para ajustes de ventana nuevos</translation>
     </message>
     <message>
         <location filename="../src/render_window_slots.cpp" line="679"/>
         <source>Remove window settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar ajustes de ventana</translation>
     </message>
     <message>
         <location filename="../src/render_window_slots.cpp" line="680"/>
         <source>Select window setting to remove</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar ajustes de ventana a eliminar</translation>
     </message>
 </context>
 <context>
@@ -2699,129 +2750,143 @@ File version: </source>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="199"/>
         <source>Move camera and target</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover cámara y objetivo</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="200"/>
         <source>Move camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover cámara</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="201"/>
         <source>Move target</source>
-        <translation type="unfinished"></translation>
+        <translation>Mover objetivo</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="205"/>
         <source>Change fog visibility</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar visibilidad de niebla</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="206"/>
         <source>Change DOF focus</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar enfoque de profundidad de campo</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="208"/>
         <source>Place light #</source>
-        <translation type="unfinished"></translation>
+        <translation>Situar punto de luz</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="209"/>
         <source>
 Ctrl + Mouse wheel - light fov / bkw</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Ctrl + Rueda ratón - luz adelante / atrás</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="212"/>
         <source>Place </source>
-        <translation type="unfinished"></translation>
+        <translation>Situar </translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="215"/>
         <source>Get Julia constant</source>
-        <translation type="unfinished"></translation>
+        <translation>Obtener constante de Julia</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="217"/>
         <source>LMB - increase speed</source>
-        <translation type="unfinished"></translation>
+        <translation>BIR - aumentar velocidad</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="218"/>
         <source>
 RMB - decrease speed</source>
-        <translation type="unfinished"></translation>
+        <translation>
+BDR - disminuir velocidad</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="219"/>
         <source>
 arrow keys - sidewards</source>
-        <translation type="unfinished"></translation>
+        <translation>
+teclas de flecha - hacia un lado</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="220"/>
         <source>
 z, x keys - roll</source>
-        <translation type="unfinished"></translation>
+        <translation>
+teclas z, x . rodar</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="221"/>
         <source>
 spacebar - pause</source>
-        <translation type="unfinished"></translation>
+        <translation>
+barra espaciadora - pausa</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="222"/>
         <source>
 hold shift key - orthogonal move</source>
-        <translation type="unfinished"></translation>
+        <translation>
+mantener pulsada la tecla mayús - movimiento ortogonal</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="226"/>
         <source>Place center of random light</source>
-        <translation type="unfinished"></translation>
+        <translation>Colocar el centro de luz aleatoria</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="227"/>
         <source>
 also calculates</source>
-        <translation type="unfinished"></translation>
+        <translation>
+calcula también</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="228"/>
         <source>
 distribution radius of lights to 50%,</source>
-        <translation type="unfinished"></translation>
+        <translation>
+Distribución de radio de luces a 50%,</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="229"/>
         <source>
 max distance from fractal to 10%</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>not clear desde and a
+</translatorcomment>
+        <translation>
+distancia máxima desde fractal a 10%</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="230"/>
         <source>
 of distance [center to camera position]</source>
-        <translation type="unfinished"></translation>
+        <translation>
+de distancia [posición centrar a cámara]</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="233"/>
         <source>Get coordinates</source>
-        <translation type="unfinished"></translation>
+        <translation>Obtener coordinadas</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="234"/>
         <source>
 and distance</source>
-        <translation type="unfinished"></translation>
+        <translation>
+y distancia</translation>
     </message>
     <message>
         <location filename="../src/rendered_image_widget.cpp" line="236"/>
         <source>Wrap limits
 around object</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>No possible translation for wrap</translatorcomment>
+        <translation>Definir límites alrededor del objeto</translation>
     </message>
 </context>
 <context>
@@ -2830,79 +2895,79 @@ around object</source>
         <location filename="../qt/audio_selector.ui" line="14"/>
         <location filename="../qt/ui_audio_selector.h" line="512"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="24"/>
         <location filename="../qt/ui_audio_selector.h" line="514"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Load audio from file.&lt;/p&gt;&lt;p&gt;Parameter values can be animated in response to the input from audio files.&lt;/p&gt;&lt;p&gt;The following formats are supported:&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - supported only under Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Carga audio desde archivo.&lt;/p&gt;&lt;p&gt;Los valores de los parámetros se pueden animar respondiendo a la entrada de archivos de audio.&lt;/p&gt;&lt;p&gt;Los siguientes formatos son compatibles :&lt;/p&gt;&lt;p&gt;- *.wav (wave form audio format)&lt;/p&gt;&lt;p&gt;- *.ogg (Ogg Vorbis)&lt;/p&gt;&lt;p&gt;- *.flac (Free Lossless Audio Format)&lt;/p&gt;&lt;p&gt;- *.mp3 (MPEG II Audio Layer 3) - solamente compatible en  Linux&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="27"/>
         <location filename="../qt/ui_audio_selector.h" line="516"/>
         <source>Select audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar archivo de audio</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="38"/>
         <location filename="../qt/ui_audio_selector.h" line="518"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;path to audio file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ruta a archivo de audio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="50"/>
         <location filename="../qt/ui_audio_selector.h" line="521"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Play loaded audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reproduce archivo de audio cargado&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="53"/>
         <location filename="../qt/ui_audio_selector.h" line="523"/>
         <source>Play sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir sonido</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="64"/>
         <location filename="../qt/ui_audio_selector.h" line="525"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop playing audio track&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Para la reproducción de pista de audio&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="67"/>
         <location filename="../qt/ui_audio_selector.h" line="527"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="80"/>
         <location filename="../qt/ui_audio_selector.h" line="529"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove audio track from animation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Elimina pista de audio de la animación&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="83"/>
         <location filename="../qt/ui_audio_selector.h" line="531"/>
         <source>Delete audio track</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar pista de audio</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="94"/>
         <location filename="../qt/ui_audio_selector.h" line="533"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;There are two types of parameters in this program.&#xa0;&#xa0; The first type can have negative values entered, the second type&#xa0; cannot. &lt;span style=&quot; text-decoration: underline;&quot;&gt;It is important&lt;/span&gt; when animating a parameter of the second type, that the functions and settings used do not result in a negative number.&lt;/p&gt;&lt;p&gt;Animation by Sound can be used in combination with animation from the Keyframe table. &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Animation by Sound, which uses digital data from audio files to adjust parameter values obtained from the keyframe animation table.&lt;/p&gt;&lt;p&gt;The change in a parameter value can be in response to either the amplitude or the pitch of the sound sampled at each frame (independent from keyframes.)&lt;/p&gt;&lt;p&gt;There are two types of parameters in this program.   The first type can have negative values entered, the second type  cannot. &lt;span style=&quot; text-decoration: underline;&quot;&gt;It is important&lt;/span&gt; when animating a parameter of the second type, that the functions and settings used do not result in a negative number.&lt;/p&gt;&lt;p&gt;Animation by Sound can be used in combination with animation from the Keyframe table. &lt;/p&gt;&lt;p&gt;Example:&lt;/p&gt;&lt;p&gt;An object can be moving in a linear direction in respect to the keyframe animation table calculation, and at the same time have this movement responding to the audio.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="97"/>
         <location filename="../qt/ui_audio_selector.h" line="535"/>
         <source>Enable animation by so&amp;und</source>
-        <translation type="unfinished"></translation>
+        <translation>Habilitar animación por so&amp;nido</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="123"/>
         <location filename="../qt/ui_audio_selector.h" line="536"/>
         <source>Addition factor</source>
-        <translation type="unfinished"></translation>
+        <translation>Factor de adición</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="130"/>
@@ -3004,7 +3069,7 @@ around object</source>
         <location filename="../qt/audio_selector.ui" line="371"/>
         <location filename="../qt/ui_audio_selector.h" line="581"/>
         <source>Threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbral:</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.ui" line="383"/>
@@ -3090,17 +3155,17 @@ around object</source>
         <location filename="../qt/audio_selector.ui" line="725"/>
         <location filename="../qt/ui_audio_selector.h" line="614"/>
         <source>-- / --</source>
-        <translation type="unfinished"></translation>
+        <translation>-- / --</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.cpp" line="82"/>
         <source>Audio files (*.wav *.mp3 *.flac *.ogg)</source>
-        <translation type="unfinished"></translation>
+        <translation>Archivos de audio (*.wav *.mp3 *.flac *.ogg)</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.cpp" line="84"/>
         <source>Select audio file...</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar archivo de audio...</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.cpp" line="124"/>
@@ -3110,12 +3175,12 @@ around object</source>
     <message>
         <location filename="../qt/audio_selector.cpp" line="363"/>
         <source>Pause Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Pausar Audio</translation>
     </message>
     <message>
         <location filename="../qt/audio_selector.cpp" line="368"/>
         <source>Play Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Reproducir Audio</translation>
     </message>
 </context>
 <context>
@@ -3123,17 +3188,17 @@ around object</source>
     <message>
         <location filename="../src/audio_track.cpp" line="100"/>
         <source>Loading sound file</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargando archivo de sonido</translation>
     </message>
     <message>
         <location filename="../src/audio_track.cpp" line="152"/>
         <source>Decompressing audio file</source>
-        <translation type="unfinished"></translation>
+        <translation>Descomprimiendo archivo de audio</translation>
     </message>
     <message>
         <location filename="../src/audio_track.cpp" line="270"/>
         <source>Calculating FFT</source>
-        <translation type="unfinished"></translation>
+        <translation>Calculando FFT</translation>
     </message>
 </context>
 <context>
@@ -3141,7 +3206,7 @@ around object</source>
     <message>
         <location filename="../qt/buton_load_settings_from_widget.cpp" line="64"/>
         <source>Load settings only to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes solamente a %1</translation>
     </message>
 </context>
 <context>
@@ -3149,12 +3214,12 @@ around object</source>
     <message>
         <location filename="../qt/buton_reset_settings_from_widget.cpp" line="47"/>
         <source>Reset settings only in %1 widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer ajustes solamente en widget %1</translation>
     </message>
     <message>
         <location filename="../qt/buton_reset_settings_from_widget.cpp" line="70"/>
         <source>Reset settings only in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer ajustes solamente en %1</translation>
     </message>
 </context>
 <context>
@@ -3162,12 +3227,12 @@ around object</source>
     <message>
         <location filename="../qt/buton_save_settings_from_widget.cpp" line="47"/>
         <source>Save settings only from %1 widget</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes solo desde módulo %1</translation>
     </message>
     <message>
         <location filename="../qt/buton_save_settings_from_widget.cpp" line="70"/>
         <source>Save settings only from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes solo desde %1</translation>
     </message>
 </context>
 <context>
@@ -3176,31 +3241,31 @@ around object</source>
         <location filename="../qt/detached_window.ui" line="14"/>
         <location filename="../qt/ui_detached_window.h" line="66"/>
         <source>Rendered image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen renderizada</translation>
     </message>
     <message>
         <location filename="../qt/detached_window.ui" line="43"/>
         <location filename="../qt/ui_detached_window.h" line="72"/>
         <source>&amp;View</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ver</translation>
     </message>
     <message>
         <location filename="../qt/detached_window.ui" line="52"/>
         <location filename="../qt/ui_detached_window.h" line="67"/>
         <source>Attach to main window</source>
-        <translation type="unfinished"></translation>
+        <translation>Acoplar a ventana principal</translation>
     </message>
     <message>
         <location filename="../qt/detached_window.ui" line="57"/>
         <location filename="../qt/ui_detached_window.h" line="68"/>
         <source>Toggle full screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternar pantalla completa</translation>
     </message>
     <message>
         <location filename="../qt/detached_window.ui" line="60"/>
         <location filename="../qt/ui_detached_window.h" line="70"/>
         <source>F11</source>
-        <translation type="unfinished"></translation>
+        <translation>F11</translation>
     </message>
 </context>
 <context>
@@ -3776,7 +3841,7 @@ keyframes</source>
         <location filename="../qt/dock_effects.ui" line="14"/>
         <location filename="../qt/ui_dock_effects.h" line="2869"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="34"/>
@@ -3792,7 +3857,7 @@ keyframes</source>
         <location filename="../qt/ui_dock_effects.h" line="3261"/>
         <location filename="../qt/ui_dock_effects.h" line="3511"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="41"/>
@@ -3808,7 +3873,7 @@ keyframes</source>
         <location filename="../qt/ui_dock_effects.h" line="3262"/>
         <location filename="../qt/ui_dock_effects.h" line="3512"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="48"/>
@@ -3824,109 +3889,109 @@ keyframes</source>
         <location filename="../qt/ui_dock_effects.h" line="3263"/>
         <location filename="../qt/ui_dock_effects.h" line="3513"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="76"/>
         <location filename="../qt/ui_dock_effects.h" line="3014"/>
         <source>Ray-tracing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ray-tracing</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="152"/>
         <location filename="../qt/ui_dock_effects.h" line="2877"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate calculation of ray-traced reflections and transparency. Reflectance can be set by &lt;span style=&quot; font-style:italic;&quot;&gt;Material/Reflection. &lt;/span&gt;Transparency settings are in the same tab as reflection.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activa el cálculo del trazado de rayos de reflejos y transparencia. La reflectancia puede ajustarse mediante &lt;span style=&quot; font-style:italic;&quot;&gt;Material/Reflejos. &lt;/span&gt;Ajustes de Transparencia están en la misma pestaña que reflejos.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="155"/>
         <location filename="../qt/ui_dock_effects.h" line="2879"/>
         <source>Ray-&amp;traced reflections and transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Reflejos y transparencia por &amp;trazado de rayos</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="190"/>
         <location filename="../qt/ui_dock_effects.h" line="2881"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum number of ray bounces which are calculated for a given pixel.&lt;/p&gt;&lt;p&gt;This value affects reflections, refraction and MC Global Illumination &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Máximo número de veces que los rayos son calculados por pixel dado.&lt;/p&gt;&lt;p&gt;Este valor afecta a reflectancias, refracción y Iluminación Global MC &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="200"/>
         <location filename="../qt/ui_dock_effects.h" line="2883"/>
         <source>Reflections depth:</source>
-        <translation type="unfinished"></translation>
+        <translation>Profundidad de reflejos:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="212"/>
         <location filename="../qt/ui_dock_effects.h" line="2885"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Depth of field is the effect in which objects within some range of distances in a scene appear in focus, and objects nearer or farther than this range appear out of focus.&lt;/p&gt;&lt;p&gt;note: using DOF prevents one-pass anaglyph rendering, unless Monte carlo algorithm mode is selected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Profundidad de campo es el efecto en el cual objetos  dentro de un rango de distancia en una escena aparecen enfocados, y objetos cercanos o mas lejos de ese rango aparece desenfocado.&lt;/p&gt;&lt;p&gt;nota: utilizar Profundidad de campo previene renderizado de un-solo-pase anáglifo, al menos que el algoritmo Monte Carlo sea seleccionado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="215"/>
         <location filename="../qt/ui_dock_effects.h" line="2887"/>
         <source>Depth of field</source>
-        <translation type="unfinished"></translation>
+        <translation>Profundidad de campo</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="244"/>
         <location filename="../qt/ui_dock_effects.h" line="2888"/>
         <source>Focus distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia de enfoque:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="251"/>
         <location filename="../qt/ui_dock_effects.h" line="2889"/>
         <source>Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="258"/>
         <location filename="../qt/ui_dock_effects.h" line="2891"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It&apos;s the distance where objects appear in focus.&lt;/p&gt;&lt;p&gt;Distance can be set bu using button &lt;span style=&quot; font-style:italic;&quot;&gt;Set focus distance by mouse&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;low focus distance&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;high focus distance&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Es la distancia donde los objetos aparecen enfocados.&lt;/p&gt;&lt;p&gt;La distancia puede ajustarse usando el botón &lt;span style=&quot; font-style:italic;&quot;&gt;Establecer distancia de enfoque con ratón&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;baja distancia de enfoque&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;alta distancia de enfoque&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus close.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - focus far.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="271"/>
         <location filename="../qt/ui_dock_effects.h" line="2894"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensity of DOF effect (average radius of blur)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radius = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radius = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intensidad de profundidad de enfoque (promedio de radio de difuminado)&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;radio = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;radio = 50&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DOF - radius 50.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="299"/>
         <location filename="../qt/ui_dock_effects.h" line="2898"/>
         <source>Number of passes:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de pases:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="312"/>
         <location filename="../qt/ui_dock_effects.h" line="2900"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of passes of rendering DOF effect. One pass is enough for most of cases. But for more realistic blur it can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cantidad de pases del efecto de Profundidad de Campo. Un pase suele ser suficiente para la mayoría de casos. Pero puede incrementarse (p.ej. a 4) para un difuminado más realista y en consecuencia la opacidad de difuminado debe disminuirse (p.ej. a 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="325"/>
         <location filename="../qt/ui_dock_effects.h" line="2902"/>
         <source>Blur opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opacidad de difuminado:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="338"/>
         <location filename="../qt/ui_dock_effects.h" line="2904"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacity of blur effect used during second phase of rendering the DOF effect. 4.0 is correct for most of cases. But for more realistic blur the number of passes can be increased (e.g to 4) and blur opacity should be accordingly decreased (e.g. to 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opacidad del efecto de difuminado durante la segunda fase del cálculo del efecto de Profundidad. 4.0 es correcto para la mayoría de los casos. Pero para un difuminado más realista el número de pases puede incrementarse (p.ej. a 4) y la opacidad de difuminado consecuentemente reducirse (p.ej. a 1.0)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="366"/>
         <location filename="../qt/ui_dock_effects.h" line="2908"/>
         <source>Maximum blur radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio máximo de desenfoque:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="379"/>
         <location filename="../qt/ui_dock_effects.h" line="2910"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum radius of generated blur. Lower value can speed up rendering but effect will be less realistic.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radio máximo de desenfoque generado. Valores más bajos aceleran el cálculo pero el efecto será menos realista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="415"/>
@@ -3934,7 +3999,7 @@ keyframes</source>
         <location filename="../qt/ui_dock_effects.h" line="2915"/>
         <location filename="../qt/ui_dock_effects.h" line="3522"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Update image after changes of DOF settings. Can be updated even after image rendering.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Actualiza la imagen después de aplicar cambios en los ajustes de Profundidad de Campo. Puede actualizarse incluso después de renderizar la imagen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="418"/>
@@ -3942,118 +4007,121 @@ keyframes</source>
         <location filename="../qt/ui_dock_effects.h" line="2917"/>
         <location filename="../qt/ui_dock_effects.h" line="3524"/>
         <source>Update image</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizar imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="431"/>
         <location filename="../qt/ui_dock_effects.h" line="2919"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Setting of focus distance by mouse pointer. &lt;/p&gt;&lt;p&gt;Click on this button and then point the object on image which you want to appear in focus.&lt;/p&gt;&lt;p&gt;After using it don&apos;t forget to change &lt;span style=&quot; font-style:italic;&quot;&gt;Navigation&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Mouse click function&lt;/span&gt; to continue work with the camera.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Establecimiento de  distancia de enfoque con ratón &lt;/p&gt;&lt;p&gt;Haga clic en este botón y a continuación seleccione el punto en la imagen donde desea obtener el enfocado.&lt;/p&gt;&lt;p&gt;Después de usarlo no olvide cambiar &lt;span style=&quot; font-style:italic;&quot;&gt;Navegación&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Función de clic de ratón&lt;/span&gt; para seguir operando con la cámara.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="434"/>
         <location filename="../qt/ui_dock_effects.h" line="2921"/>
         <source>Set focus distance by mouse</source>
-        <translation type="unfinished"></translation>
+        <translation>Establecer distancia de enfoque con ratón</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="444"/>
         <location filename="../qt/ui_dock_effects.h" line="2923"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables Monte Carlo algorithms for rendering the depth of field (DOF), global illumination, ambient occlusion (with multiple rays) and soft shadows effects. This mode is extremely slow for rendering, but gives a very realistic appearance of effects.&lt;/p&gt;&lt;p&gt;In addition Monte Carlo algorithm provides high quality adaptive anti-aliasing.&lt;/p&gt;&lt;p&gt;Every pixed (or tile) of the image is rendered multiple times with randomly changed parameters. Every repeat reduces noise. Sampling of each pixel (or tile) is stopped when noise is reduced to defined level (defined by &amp;quot;Max noise level&amp;quot; parameter&amp;quot;) or when maximum number of repeats is reached (defined by &amp;quot;Max number of samples&amp;quot;). &lt;/p&gt;&lt;p&gt;Remark: This effect cannot work properly when screen space ambient occlusion is enabled. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita los algoritmos de Monte Carlo para renderizar la profunidad de campo (DOF), iluminación global, oclusión ambiental (con rayos múltiples) y efectos de sombreado suave. Este modo es extremadamente lento, pero da una apariencia  muy realista en los efectos.&lt;/p&gt;&lt;p&gt;En adición, el algoritmo Monte Carlo provee un antialiasing adaptativo de alta calidad.&lt;/p&gt;&lt;p&gt;Cada pixel (o cuadrado) es calculado varias veces con muestras aleatorias. Cada repetición reduce ruido. El sampleado de cada pixel (o cuadrado) se para cuando el ruido es reducido al nivel definido (definido por &amp;quot;parámetro&amp;quot; Máx nivel ruido&amp;quot;) o cuando se ha alcanzado el nº máximo de repeticiones (definido por &amp;quot;Nº máximo de muestras&amp;quot;). &lt;/p&gt;&lt;p&gt;Nota: Este efecto no puede funcionar correctamente cuando screen space occlusion está habilitado. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="447"/>
         <location filename="../qt/ui_dock_effects.h" line="2925"/>
         <source>&amp;Monte Carlo algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Algoritmo Monte Carlo</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="482"/>
         <location filename="../qt/ui_dock_effects.h" line="2927"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum number of MC samples calculated for each image pixel. Increasing this parameter can reduce visible noise, ( by improving calculation of noise level estimation).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número mínimo de muestras MC calculadas para cada pixel. Incrementando este valor puede reducir ruido visible, (mediante aumento de cálculo de estimación de nivel de ruido).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="498"/>
         <location filename="../qt/ui_dock_effects.h" line="2930"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of MC samples calculated for each image pixel. Higher values reduce the noise on the image but increase the rendering time. &lt;/p&gt;&lt;p&gt;For instance if the number of samples is 100, then the rendering will take 100 times longer compared to the effect disabled.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número de muestras MC calculadas para cada pixel. Valores altos reducen ruido pero aumentan el tiempo de render. &lt;/p&gt;&lt;p&gt;Por ejemplo si el nº de muestras es 100, el renderizado tardará 100 veces más tiempo comparado con el efecto deshabilitado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="508"/>
         <location filename="../qt/ui_dock_effects.h" line="2932"/>
         <source>Max number of samples
 per pixel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nº máximo de muestras
+por pixel:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="516"/>
         <location filename="../qt/ui_dock_effects.h" line="2934"/>
         <source>Min number of samples
 per pixel:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nº mínimo de muestras
+por pixel:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="524"/>
         <location filename="../qt/ui_dock_effects.h" line="2937"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Limit of noise level for each image pixel. Every pixel is calculated multiple times until estimated noise reaches maximum noise level percentage.&lt;/p&gt;&lt;p&gt;A lower value reduces visible noise on the final image, but increases rendering time. Decreasing the maximum noise level by half, increases the rendering time by 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Límite de nivel de ruido para cada pixel Cada pixel es calculado varias veces hasta que el ruido estimado alcanza el porcentaje de nivel de ruido máximo.&lt;/p&gt;&lt;p&gt;Un valor más bajo reduce ruido visible en la imagen final, pero incrementa el tiempo de renderizado.Reduciendo el nivel de ruido máximo por la mitad incrementará el tiempo de render por 4.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="531"/>
         <location filename="../qt/ui_dock_effects.h" line="2939"/>
         <source>Max noise level
 (percentage)</source>
-        <translation type="unfinished"></translation>
+        <translation>Máx nivel de ruido
+(porcentaje)</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="539"/>
         <location filename="../qt/ui_dock_effects.h" line="2942"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Average number of MC samples that have been calculated  for each image pixel.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número promedio de muestras MC que han sido calculadas para cada pixel de la imagen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="542"/>
         <location filename="../qt/ui_dock_effects.h" line="2944"/>
         <source>Average number of MC samples:</source>
-        <translation type="unfinished"></translation>
+        <translation>Número promedio de muestras MC:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="549"/>
         <location filename="../qt/ui_dock_effects.h" line="2946"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimated average noise caused by Monte Carlo effects.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimado promedio de ruido causado por los efectos Monte Carlo.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="552"/>
         <location filename="../qt/ui_dock_effects.h" line="2948"/>
         <source>Average noise:</source>
-        <translation type="unfinished"></translation>
+        <translation>Promedio de ruido:</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="567"/>
         <location filename="../qt/ui_dock_effects.h" line="2950"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic global illumination using Monte Carlo algorithm. &lt;/p&gt;&lt;p&gt;Number of light bounces is defined by the &amp;quot;reflections depth&amp;quot; parameter at the top of tab.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita el cálculo de iluminación global realista usando el algoritmo de MonteCarlo.&lt;/p&gt;&lt;p&gt;Número de rebotes de luz es definido mediante el parámetro&amp;quot;profundidad de reflejos&amp;quot; en la pestaña superior.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="570"/>
         <location filename="../qt/ui_dock_effects.h" line="2952"/>
         <source>Calculate MC global illumination</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcular iluminación global MC</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="583"/>
         <location filename="../qt/ui_dock_effects.h" line="2954"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables calculation of realistic soft shadows using Monte Carlo algorithm.&lt;/p&gt;&lt;p&gt;Soft shadow cone for main light source is defined by &lt;span style=&quot; font-style:italic;&quot;&gt;Soft shadow code angle&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Lights&lt;/span&gt; tab)&lt;/p&gt;&lt;p&gt;Soft shadow cone for auxiliary lights is defined by C&lt;span style=&quot; font-style:italic;&quot;&gt;ustom lights options&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Size.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita el cálculo de sombras suaves realistas usando el algoritmo Monte Carlo.&lt;/p&gt;&lt;p&gt;El cono de sombra suave para la luz global es definido mediante&lt;span style=&quot; font-style:italic;&quot;&gt;Ángulo de cono de sombra suave&lt;/span&gt; (&lt;span style=&quot; font-style:italic;&quot;&gt;Pestaña&lt;/span&gt; Luces)&lt;/p&gt;&lt;p&gt;El cono de sombras suaves para luces auxiliares es definido por &lt;span style=&quot; font-style:italic;&quot;&gt;Opciones de luces personalizadas&lt;/span&gt; / &lt;span style=&quot; font-style:italic;&quot;&gt;Tamaño.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="586"/>
         <location filename="../qt/ui_dock_effects.h" line="2956"/>
         <source>Calculate MC soft shadows</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcular sombras suaves MC</translation>
     </message>
     <message>
         <location filename="../qt/dock_effects.ui" line="593"/>
@@ -6023,272 +6091,273 @@ Do you want to enable hybrid fractals or boolean mode?</source>
         <location filename="../qt/dock_image_adjustments.ui" line="14"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="643"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="34"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="644"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="41"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="645"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="48"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="646"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="57"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="647"/>
         <source>Image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="83"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="648"/>
         <source>Image width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ancho de imagen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="90"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="649"/>
         <source>Image height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto de imagen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="97"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="650"/>
         <source>Image proportion:</source>
-        <translation type="unfinished"></translation>
+        <translation>Proporción:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="106"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="651"/>
         <source>×2</source>
-        <translation type="unfinished"></translation>
+        <translation>x2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="113"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="652"/>
         <source>÷2</source>
-        <translation type="unfinished"></translation>
+        <translation>÷2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="128"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="662"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Force image proportion&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Forzar proporción de imagen&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="132"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="653"/>
         <source>Free</source>
-        <translation type="unfinished"></translation>
+        <translation>Libre</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="137"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="654"/>
         <source>1:1</source>
-        <translation type="unfinished"></translation>
+        <translation>1:1</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="142"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="655"/>
         <source>4:3</source>
-        <translation type="unfinished"></translation>
+        <translation>4:3</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="147"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="656"/>
         <source>3:2</source>
-        <translation type="unfinished"></translation>
+        <translation>3:2</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="152"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="657"/>
         <source>16:9</source>
-        <translation type="unfinished"></translation>
+        <translation>16:9</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="157"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="658"/>
         <source>16:10</source>
-        <translation type="unfinished"></translation>
+        <translation>16:10</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="162"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="659"/>
         <source>2:1</source>
-        <translation type="unfinished"></translation>
+        <translation>2:1</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="176"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="665"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Height of rendered image in pixel&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Altura de imagen renderizada en pixeles&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="198"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="668"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Width of rendered image in pixel&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Anchura de imagen renderizada en pixeles&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="216"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="670"/>
         <source>Anti-aliasin&amp;g</source>
-        <translation type="unfinished"></translation>
+        <translation>Anti-aliasin&amp;g</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="245"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="671"/>
         <source>Number of samples (n x n):</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de muestras (n x n):</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="276"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="673"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuando esta opción está habilitada, la apariencia fractal es mantenida a cualquier resolución. &lt;/p&gt;&lt;p&gt;El nivel de detalle fractal será automáticamente ajustado para coincidir a cualquier tamaño de imagen. &lt;/p&gt;&lt;p&gt;Por instancia, si el tamaño es doblado, el nivel de detalle será reducido a la mitad.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="279"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="675"/>
         <source>Connect fractal detail level with image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar nivel de detalle fractal con tamaño de imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="286"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="677"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Presets for rendered image size&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preajustes para tamaño de imagen a renderizar&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="289"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="679"/>
         <source>Presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Preajustes</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="443"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="690"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of stereoscopic images and animations for viewing with 3D glasses.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita renderizado de imágenes y animaciones estereoscópicas para ver con gafas 3D.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="446"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="692"/>
         <source>S&amp;tereoscopic rendering</source>
-        <translation type="unfinished"></translation>
+        <translation>R&amp;enderizado estereoscópico</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="475"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="693"/>
         <source>Distance between eyes</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia entre ojos</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="482"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="699"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines how stereoscopic image will be rendered.&lt;/p&gt;&lt;p&gt;Left-right - View for left eye will be rendered on the left side of the image. View for right eye will be on the right side.&lt;/p&gt;&lt;p&gt;Top-bottom - View for left eye will be rendered on the top half of the image. View for right eye will be on the bottom half of the image.&lt;/p&gt;&lt;p&gt;Anaglyph red/cyan - Image will be rendered as an anaglyph dedicated for red/cyan 3D glasses. Using this option it is possible to edit the fractal with 3D view directly in the application window using regular display.  Cheap 3D glasses are all that is required. For fractal exploration it is recommended to not use SSAO ambient occlusion, because it is rendered in 2 passes (try to use &amp;quot;Fast&amp;quot; ambient occlusion).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Define cómo será el renderizado de imágenes estereoscópicas.&lt;/p&gt;&lt;p&gt;Izquierda-derecha - Vista para ojo izquierdo será renderizado en la parte izquierda de la imagen. Vista para el ojo derecho estará en el lado derecho.&lt;/p&gt;&lt;p&gt;Arriba abajo -  Vista para ojo izquierdo será renderizado en la mitad superior de la imagen. Vista para ojo derecho será renderizado en la mitad inferior de la imagen.&lt;/p&gt;&lt;p&gt;Anaglifo rojo/cian- La imagen será renderizada como un anaglifo dedicado para gafas 3D rojo/cian. Usar esta opción posibilita editar el fractal directamente en la ventana de la aplicación usando ajustes comunes.  Solamente se necesitan unas gafas 3D económicas. Para exploración fractal se recomienda no usar oclusión ambiental SSAO porque es calculado en 2 pases (trate de usar &amp;quot;Rápido&amp;quot; en modo oclusión ambiental).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="486"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="694"/>
         <source>Left - right</source>
-        <translation type="unfinished"></translation>
+        <translation>Izquierda - derecha</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="491"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="695"/>
         <source>Top - bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Arriba - abajo</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="496"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="696"/>
         <source>Anaglyph - red/cyan</source>
-        <translation type="unfinished"></translation>
+        <translation>Anaglifo - rojo/cian</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="504"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="701"/>
         <source>Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="517"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="703"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Swaps left and right eye on rendered image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Intercambia ojo izqda y derecha en imagen renderizada.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="520"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="705"/>
         <source>Swap eyes</source>
-        <translation type="unfinished"></translation>
+        <translation>Intercambiar ojos</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="527"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="706"/>
         <source>Infinite distance correction</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia de corrección infinita</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="534"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="708"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The distance between two virtual eyes. Higher values make the 3D effect more intense. &lt;/p&gt;&lt;p&gt;The optimal distance between eyes is about 1%-5% of the distance to the viewed object. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;La distancia entre dos ojos virtuales. Valores mas altos hacen el efecto 3D más intenso. &lt;/p&gt;&lt;p&gt;La distancia óptima entre ojos es entre 1%-5% de la distancia del objeto visto. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="547"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="711"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjusts the appearance of the 3D effect for the furthest objects (or background). If the value of this parameter is higher then the background objects will appear further away. &lt;/p&gt;&lt;p&gt;As an example, the optimal value of this parameter for a 24 inch display could be about 0.4. For bigger display this value should be lower. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ajusta la apariencia del efecto 3D para los objetos más lejanos (o el fondo). Si el valor de este parámetro es más alto que el fondo, los objetos en el fondo se muestran más lejanos. &lt;/p&gt;&lt;p&gt;Como ejemplo, el valor óptimo de este parámetro para una pantalla de 24 pulgadas sería alrededor de 0.4. Para pantallas más grandes este valor debe ser más bajo. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="580"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="715"/>
         <source>Image quality presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Preajustes de calidad de imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="615"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="717"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Normal quality preset.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Screen Space Ambient Occlusion (SSAO) mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ajuste de calidad normal.&lt;/p&gt;&lt;p&gt;Oclusión ambiental está habilitado en modo Screen Space Ambient Occlusion (SSAO).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="618"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="719"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="631"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="721"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A fast preset but with low quality.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned off.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Un ajuste rápido pero con calidad baja.&lt;/p&gt;&lt;p&gt;Oclusión ambiental está deshabilitado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="634"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="723"/>
         <source>Low
 (no ambient occlusion)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bajo
+(sin oclusión ambiental)</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="648"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="726"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The highest quality preset and the slowest.&lt;/p&gt;&lt;p&gt;Ambient occlusion is turned on in Multiple Rays mode. Raymarching step is decreased to 0.2 to reduce fractal calculation errors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;El ajuste más alto de calidad y el más lento.&lt;/p&gt;&lt;p&gt;Oclusión ambiental está habilitado en modo Multiple Rays. Raymarching step es reducido a 0.2 para  reducir errores de cálculo fractal.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="651"/>
@@ -6296,13 +6365,15 @@ Do you want to enable hybrid fractals or boolean mode?</source>
         <source> High
 (HQ ambient occlusion
 accurate raymarching)</source>
-        <translation type="unfinished"></translation>
+        <translation> Alto
+(oclusión ambiental HQ)
+raymarching preciso</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="666"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="732"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This is the fastest preset but with the lowest quality.&lt;/p&gt;&lt;p&gt;Shadows, ambient occlusion and raytraced reflections are turned off. Detail level is decreased to 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;El ajuste más rápido pero con la más baja calidad.&lt;/p&gt;&lt;p&gt;Sombras, oclusión ambiental y reflejos están deshabilitados. El nivel de detalle es reducido a 0.5.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="669"/>
@@ -6310,25 +6381,27 @@ accurate raymarching)</source>
         <source>Very low
 (no shadows
 no ambient occlusion)</source>
-        <translation type="unfinished"></translation>
+        <translation>Muy bajo
+(sin sombras
+ni oclusión ambiental)</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="683"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="738"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjustments for image colors. Can be changed after rendering&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ajustes para los colores de imagen. Se puede cambiar después del render&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="686"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="740"/>
         <source>Picture</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="718"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="742"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contrast of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Contraste de imagen&lt;/p&gt;&lt;p&gt;Use botón &lt;span style=&quot; font-style:italic;&quot;&gt;aplicar cambios&lt;/span&gt; para actualizar la imagen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="746"/>
@@ -6336,142 +6409,142 @@ no ambient occlusion)</source>
         <location filename="../qt/ui_dock_image_adjustments.h" line="747"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="761"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Gamma de imagen&lt;/p&gt;&lt;p&gt;Use botón &lt;span style=&quot; font-style:italic;&quot;&gt;aplicar cambios&lt;/span&gt; para actualizar la imagen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="774"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="752"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brightness of image&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Brillo de imagen&lt;/p&gt;&lt;p&gt;Use botón &lt;span style=&quot; font-style:italic;&quot;&gt;aplicar cambios&lt;/span&gt; para actualizar la imagen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="796"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="756"/>
         <source>Gamma:</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="803"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="757"/>
         <source>Brightness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Brillo:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="810"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="758"/>
         <source>Contrast:</source>
-        <translation type="unfinished"></translation>
+        <translation>Contraste:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="817"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="759"/>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Saturación</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="854"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="766"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High dynamic range effect. Reduces brightness of the brightest pixels to prevent oversaturation.&lt;/p&gt;&lt;p&gt;Use &lt;span style=&quot; font-style:italic;&quot;&gt;apply changes&lt;/span&gt; button to update image&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Efecto de alto rango dinámico. Reduce el brillo en los pixeles más luminosos para prevenir sobresaturación.&lt;/p&gt;&lt;p&gt;Use botón &lt;span style=&quot; font-style:italic;&quot;&gt;aplicar cambios&lt;/span&gt; para actualizar la imagen&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="857"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="768"/>
         <source>High Dynamic Range (HDR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alto Rango Dinámico (HDR)</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="864"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="770"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Apply changes of image colors&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aplica cambios de los colores de imagen&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="867"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="772"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar Cambios</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="881"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="773"/>
         <source>Camera</source>
-        <translation type="unfinished"></translation>
+        <translation>Cámara</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="904"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="774"/>
         <source>Field of view:</source>
-        <translation type="unfinished"></translation>
+        <translation>Campo de visión:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="917"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="781"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Type of perspective projection.&lt;/p&gt;&lt;p&gt;- Three-point perspective  projection, has two vanishing points on the horizon line and one on zenith or nadir&lt;/p&gt;&lt;p&gt;- Fish eye - simulates fish eye camera. &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0 corresponds to 180 degree&lt;/p&gt;&lt;p&gt;- Equirectangular - is dedicated to render 360 degree panoramas. Image proportion should be set to 2:1 and &lt;span style=&quot; font-style:italic;&quot;&gt;Field of view&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Fulldome - is dedicated to render images for displaying in fulldome.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Tipos de projección en perspectiva.&lt;/p&gt;&lt;p&gt;- Perspectiva de tres puntos tiene dos puntos de fuga en la linea de  horizonte y uno en el cenit o nadir&lt;/p&gt;&lt;p&gt;- Ojo de pez - simula un objetivo de ojo de pez. &lt;span style=&quot; font-style:italic;&quot;&gt;Campo de visión&lt;/span&gt; = 1.0 corresponde a 180 grados&lt;/p&gt;&lt;p&gt;- Equirectangular - dedicado a renderizar panorámicas de 360 grados. La proporción de imagen debe ajustarse a 2:1 y &lt;span style=&quot; font-style:italic;&quot;&gt;Campo de visión&lt;/span&gt; = 1.0&lt;/p&gt;&lt;p&gt;- Tipo domo - está dedicado a renderizar imágenes para mostrarse en tipo cúpula.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="921"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="775"/>
         <source>Three-point perspective</source>
-        <translation type="unfinished"></translation>
+        <translation>Perspectiva de tres puntos</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="926"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="776"/>
         <source>Fish eye</source>
-        <translation type="unfinished"></translation>
+        <translation>Objetivo ojo de pez</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="931"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="777"/>
         <source>Equirectangular</source>
-        <translation type="unfinished"></translation>
+        <translation>Equirectangular</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="936"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="778"/>
         <source>Fulldome</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo domo</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="944"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="783"/>
         <source>Perspective type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo de perspectiva:</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="957"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="785"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Field of view of camera. Higher value gives wider view.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Campo de visión de la cámara. Valores altos dan una perspectiva amplia.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="987"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="790"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;For compatibility of coordinate system with old Mandelbulber v. 1.21 .fract files&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Para compatibilidad con antiguos ficheros .fract de Mandelbulber v.121&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.ui" line="990"/>
         <location filename="../qt/ui_dock_image_adjustments.h" line="792"/>
         <source>Coordinate system like in Mandelbulber v1.21</source>
-        <translation type="unfinished"></translation>
+        <translation>Sistema de coordenadas como en Mandelbulber v1.21</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.cpp" line="365"/>
         <source>Change preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Cambiar ajuste</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.cpp" line="385"/>
         <source>Edit resolution preset</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar ajuste de resolución</translation>
     </message>
     <message>
         <location filename="../qt/dock_image_adjustments.cpp" line="386"/>
         <source>Type new preset in format WIDTHxHEIGHT</source>
-        <translation type="unfinished"></translation>
+        <translation>Teclee nuevo ajuste en formato ANCHOxALTO</translation>
     </message>
 </context>
 <context>
@@ -6480,43 +6553,43 @@ no ambient occlusion)</source>
         <location filename="../qt/dock_measurements.ui" line="6"/>
         <location filename="../qt/ui_dock_measurements.h" line="150"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Form</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="27"/>
         <location filename="../qt/ui_dock_measurements.h" line="151"/>
         <source>Get point by mouse pointer</source>
-        <translation type="unfinished"></translation>
+        <translation>Obtener posición con ratón</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="45"/>
         <location filename="../qt/ui_dock_measurements.h" line="152"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="62"/>
         <location filename="../qt/ui_dock_measurements.h" line="153"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="79"/>
         <location filename="../qt/ui_dock_measurements.h" line="154"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="109"/>
         <location filename="../qt/ui_dock_measurements.h" line="155"/>
         <source>Distance from last point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia desde última posición:</translation>
     </message>
     <message>
         <location filename="../qt/dock_measurements.ui" line="129"/>
         <location filename="../qt/ui_dock_measurements.h" line="156"/>
         <source>Distance from camera:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia desde cámara:</translation>
     </message>
 </context>
 <context>
@@ -6973,133 +7046,133 @@ to target:</source>
         <location filename="../qt/dock_queue.ui" line="14"/>
         <location filename="../qt/ui_dock_queue.h" line="219"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="40"/>
         <location filename="../qt/ui_dock_queue.h" line="221"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Remove files from queue folder which are not on the list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Elimina archivos de la carpeta de cola que no están en la lista.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="43"/>
         <location filename="../qt/ui_dock_queue.h" line="223"/>
         <source>Remove orphaned</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar huérfano</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="54"/>
         <location filename="../qt/ui_dock_queue.h" line="225"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Render all elements from the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Renderiza todos los elementos desde la lista de cola.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="57"/>
         <location filename="../qt/ui_dock_queue.h" line="227"/>
         <source>Render queue</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar cola</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="68"/>
         <location filename="../qt/ui_dock_queue.h" line="229"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add orphaned files to the list from queue folder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Añade archivos huérfanos a la lista desde la carpeta de cola&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="71"/>
         <location filename="../qt/ui_dock_queue.h" line="231"/>
         <source>Add orphaned</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir huérfano</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="82"/>
         <location filename="../qt/ui_dock_queue.h" line="233"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Creates a settings file from the current Program Preferences, saves it to the queue folder and adds the entry to the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crea un archivo de parámetro desde las Preferencias de Programa actuales, lo guarda a la carpeta de cola y añade la entrada a la lista de cola&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="85"/>
         <location filename="../qt/ui_dock_queue.h" line="235"/>
         <source>Add current settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir ajustes actuales</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="96"/>
         <location filename="../qt/ui_dock_queue.h" line="237"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copies the selected source file to the queue folder and adds the entry to the queue list.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Copia el archivo de origen seleccionado a la carpeta de cola y añade la entrada a la lista de cola.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="99"/>
         <location filename="../qt/ui_dock_queue.h" line="239"/>
         <source>Add from file</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir desde archivo</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="110"/>
         <location filename="../qt/ui_dock_queue.h" line="241"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Terminate rendering of queue.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Termina el renderizado de cola.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="113"/>
         <location filename="../qt/ui_dock_queue.h" line="243"/>
         <source>STOP</source>
-        <translation type="unfinished"></translation>
+        <translation>PARAR</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="130"/>
         <location filename="../qt/ui_dock_queue.h" line="250"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for image format for still images&lt;/p&gt;&lt;p&gt;For more image format settings go to &lt;span style=&quot; font-style:italic;&quot;&gt;File/Program Preferences&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selección de formato de imagen para imágenes fijas&lt;/p&gt;&lt;p&gt;Para mas ajustes de formatos de imagen vaya a &lt;span style=&quot; font-style:italic;&quot;&gt;Archivo/Preferencias de Programa&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="134"/>
         <location filename="../qt/ui_dock_queue.h" line="244"/>
         <source>PNG</source>
-        <translation type="unfinished"></translation>
+        <translation>PNG</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="139"/>
         <location filename="../qt/ui_dock_queue.h" line="245"/>
         <source>JPG</source>
-        <translation type="unfinished"></translation>
+        <translation>JPG</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="144"/>
         <location filename="../qt/ui_dock_queue.h" line="246"/>
         <source>EXR</source>
-        <translation type="unfinished"></translation>
+        <translation>EXR</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="149"/>
         <location filename="../qt/ui_dock_queue.h" line="247"/>
         <source>TIFF</source>
-        <translation type="unfinished"></translation>
+        <translation>TIFF</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="157"/>
         <location filename="../qt/ui_dock_queue.h" line="252"/>
         <source>Image file format:</source>
-        <translation type="unfinished"></translation>
+        <translation>Formato de imagen:</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="192"/>
         <location filename="../qt/ui_dock_queue.h" line="254"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables rendering of queue previews in the queue table.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita renderizado de vistas previas en la lista de cola.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="195"/>
         <location filename="../qt/ui_dock_queue.h" line="256"/>
         <source>Show Queue thumbnails</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar miniaturas de Cola</translation>
     </message>
     <message>
         <location filename="../qt/dock_queue.ui" line="236"/>
         <location filename="../qt/ui_dock_queue.h" line="257"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista previa</translation>
     </message>
 </context>
 <context>
@@ -7108,31 +7181,31 @@ to target:</source>
         <location filename="../qt/dock_rendering_engine.ui" line="14"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1042"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="34"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1043"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="41"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1044"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="48"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1045"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="57"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1046"/>
         <source>Fractal formula iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Iteraciones de fórmula fractal</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="86"/>
@@ -7140,271 +7213,278 @@ to target:</source>
         <source>Maximum number
 of fractal iterations
 (maxiter):</source>
-        <translation type="unfinished"></translation>
+        <translation>Número máximo
+de iteraciones fractales
+(maxiter):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="95"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1051"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The vector values are checked during each iteration of fractal formula to see if they have reached a critical &apos;escape&apos; condition or &apos;bailout&apos;. If that condition is reached, the calculation is stopped. Condition is: if length of vector is greater than bailout, then break iteration loop.&lt;/p&gt;&lt;p&gt;In some cases higher value can increase image quality, but it will increase rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Los valores vectoriales son comprobados durante cada iteración de la fórmula fractal para ver si han alcanzado una condición crítica de la condición &apos;escape&apos; o &apos;bailout&apos;.Si se alcanza la condición, se parará el cálculo. Es condición: si la longitud es  mayor que bailout,. entonces rompe el bucle de iteraciones&lt;/p&gt;&lt;p&gt;En algunos casos valores altos incrementan la calidad de imagen, pero aumentará el tiempo de renderizado.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="108"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1054"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables using default (recommended) bailout value. Each fractal formula has different optimal bailout value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita usar bailout predeterminado (recomendado)  para cada fórmula fractal. Cada fórmula fractal tiene diferentes valores óptimos de bailout.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="111"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1056"/>
         <source>Use default bailout for
 each fractal formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar bailout por defecto para cada fórmula fractal</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="125"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1059"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The higher the maximum number of iterations (&amp;quot;maxiter&amp;quot;) is, the more detail and subtlety emerge in the final image, but also the longer time it will take to calculate the fractal image. &lt;/p&gt;&lt;p&gt;In normal operation this should be set as high as possible because &amp;quot;Distance estimation&amp;quot; algorithm limits number of iteration (almost no influence on rendering speed)&lt;/p&gt;&lt;p&gt;When &lt;span style=&quot; font-style:italic;&quot;&gt;Stop at maximum iteration&lt;/span&gt; is selected, then this parameter controls detail level.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuanto más alto sea el número máximo de iteraciones(&amp;quot;maxiter&amp;quot;) , más detalle y finura surge en la imagen final, pero también tomará más tiempo en calcular la imagen fractal. &lt;/p&gt;&lt;p&gt;En operaciones normales debería establecerse lo más alto posible porque&amp;quot;El algoritmo de Distancia estimada&amp;quot;limita el número de iteraciones (apenas tiene influencia en la velocidad de renderizado)&lt;/p&gt;&lt;p&gt;Cuando &lt;span style=&quot; font-style:italic;&quot;&gt;Parar a máxima iteración&lt;/span&gt; está selecionado, entonces éste parámetro controlará el nivel de detalle.&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;maxiter = 10&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;maxiter = 15&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 10.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - maxiter - 15.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="138"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1061"/>
         <source>Bailout
 (escape condition):</source>
-        <translation type="unfinished"></translation>
+        <translation>Bailout
+(condición de escape):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="151"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1063"/>
         <source>Distance estimation (quality control)</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia estimada (control de calidad)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="180"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1065"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for medium image quality.&lt;/p&gt;&lt;p&gt;It gives 0.1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiza &apos;Multiplicador Raymarching step &apos; para una calidad de imagen media.&lt;/p&gt;&lt;p&gt;Devuelve 0.1% de distancia estimada errónea (pixeles con ruido potencial)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="183"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1067"/>
         <source>Medium quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad media</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="196"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1073"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;- Automatic mode uses distance estimation method defined for selected fractal&lt;/p&gt;&lt;p&gt;- Force &amp;quot;Delta DE&amp;quot; method uses  Delta DE algorithm which is slower but works also with untypical fractal configurations&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimación de distancia es un método que calcula la distancia aproximada de la superficie fractal desde cualquier punto en el espacio.&lt;/p&gt;&lt;p&gt;- Modo automático usa el método de estimación de distancia definido para el fractal seleccionado&lt;/p&gt;&lt;p&gt;- Forzar método &amp;quot;Delta DE&amp;quot; usa algoritmo Delta DE el cual es más lento pero funciona también con configuraciones fractales atípicas&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="200"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1068"/>
         <source>Automatic (analytic if possible)</source>
-        <translation type="unfinished"></translation>
+        <translation>Automático (analítico si es posible)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="205"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1069"/>
         <source>Force &quot;Delta DE&quot; method</source>
-        <translation type="unfinished"></translation>
+        <translation>Forzar método &quot;Delta DE&quot;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="210"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1070"/>
         <source>Force &quot;Analytic DE&quot; method</source>
-        <translation type="unfinished"></translation>
+        <translation>Forzar método &quot;DE Analítico&quot;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="218"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1075"/>
         <source>Distance estimation
 method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Método de
+estimación de distancia:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="226"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1078"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This parameter has the biggest influence on overall quality of image and rendering speed.&lt;/p&gt;&lt;p&gt;Higher value gives faster rendering but more noise on image.&lt;/p&gt;&lt;p&gt;When rays are traced, for each step there are estimated distances to the fractal surface. Optimally , the jump distance for every ray-marching step would be equal to the estimated distance. This would produce a small number of steps and good quality. However the distance can be only estimated, so it&apos;s not always accurate. It can produce oversteppings which will be visible on the image as random noise.&lt;/p&gt;&lt;p&gt;In some cases you need to adjust  this parameter to find a balance between acceptable image quality and a reasonable rendering time.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (optimal - good quality and fast)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (visible strong noise on image)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;As a quality indicator, the&lt;span style=&quot; font-style:italic;&quot;&gt;Percentage of wrong distance estimations&lt;/span&gt; ( visible in &lt;span style=&quot; font-style:italic;&quot;&gt;Statistics&lt;/span&gt; dock ) can be used . &lt;/p&gt;&lt;p&gt;To optimize this parameter the histograms of iteration count and ray-marching step count,  can be used .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Este ajuste tiene la mayor influencia en la calidad general de la imagen y la velocidad de renderización.&lt;/p&gt;&lt;p&gt;Valores altos dan un renderizado rápido pero con mucho ruido en la imagen.&lt;/p&gt;&lt;p&gt;Cuando los rayos son trazados, existen distancias estimadas para cada paso hacia la superficie fractal. Óptimamente , la distancia de salto para cada ray marching step sería igual a la distancia estimada. Esto produciría un número reducido de pasos (steps) y buena calidad. Sin embargo la distancia solo puede ser estimada, así que no siempre es precisa. Puede generar rebasamiento el cual será visible en la imagen como ruido aleatorio.&lt;/p&gt;&lt;p&gt;En algunos casos necesitará ajustar este parámetro para encontrar un balance entre una calidad aceptable y tiempo de render razonable.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;step multiplier = 1.0 (óptimo - buena calidad y rápido)&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;step multiplier = 5 (Ruido fuerte visible en la  imagen)&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - DE step factor 4.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;p&gt;Como indicador de calidad, el &lt;span style=&quot; font-style:italic;&quot;&gt;Porcentaje de estimación de distancia erróneos&lt;/span&gt; ( visible en &lt;span style=&quot; font-style:italic;&quot;&gt;Estadísticas&lt;/span&gt; ventana de acoplamiento ) puede ser usado .&lt;/p&gt;&lt;p&gt;Para optimizar este ajuste, se pueden usar los histogramas de conteo de iteraciones y  conteo de ray marching step .&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="233"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1082"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of points on image which are probably calculated wrong.&lt;/p&gt;&lt;p&gt;Higher value usually means more visible noise or artifacts on image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Porcentaje de puntos en la imagen que  probalemente sean calculados con error.&lt;/p&gt;&lt;p&gt;Valores altos indican normalmente más ruido o artefactos en la imagen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="236"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1084"/>
         <source>Percentage of wrong distance estimations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Porcentaje de estimación de distancia erróneos:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="243"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1085"/>
         <source>Used distance estimation algorithm:</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmo de estimación de distancia usado:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="250"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1086"/>
         <source>Optimization:</source>
-        <translation type="unfinished"></translation>
+        <translation>Optimización:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="257"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1087"/>
         <source>Raymarching step mult.
 (controls quality):</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador Raymarching step
+(controla calidad):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="265"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1089"/>
         <source>Distance estimation
 function:</source>
-        <translation type="unfinished"></translation>
+        <translation>Función distancia estimada:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="273"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1092"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for low image quality and fast rendering&lt;/p&gt;&lt;p&gt;It gives 1% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiza &apos;Multiplicador Raymarching step &apos; para una calidad de imagen baja y render rápido&lt;/p&gt;&lt;p&gt;Devuelve 1% de distancia estimada errónea (pixeles con ruido potencial)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="276"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1094"/>
         <source>Low quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad baja</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="292"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1102"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance estimation is a method which calculates approximate distance to fractal surface from any point in space.&lt;/p&gt;&lt;p&gt;In some fractal functions the length of the iteration vector increases exponentially and some in a linear manner.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>no se muestra</translatorcomment>
+        <translation type="unfinished">¿&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Estimación de distancia es un método que calcula la distancia aproximada de la superficie fractal desde cualquier punto en el espacio.&lt;/p&gt;&lt;p&gt;En algunas funciones fractales la longitud del vector de iteración se incremente exponencialmente y en otros casos de manera lineal.&lt;/p&gt;&lt;p&gt;- Automatic mode - finds the best method for actual settings of fractal&lt;/p&gt;&lt;p&gt;- Delta DE Logarithmic - the best for fractals with exponential growth of iteration vector (e.g. Mandelbulb)&lt;/p&gt;&lt;p&gt;- Delta DE Linear - the best for fractals with linear growth of iteration vector (e.g. Mandelbox, IFS)&lt;/p&gt;&lt;p&gt;- Delta DE Pseudo Kleinian - distance estimation mode dedicated for hybrids with Pseudo Kleinian formulas&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="296"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1095"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Automático</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="301"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1096"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineal</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="306"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1097"/>
         <source>Logarithmic</source>
-        <translation type="unfinished"></translation>
+        <translation>Logarítmico</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="311"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1098"/>
         <source>Pseudo Kleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>Pseudo Kleinian</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="316"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1099"/>
         <source>JosKleinian</source>
-        <translation type="unfinished"></translation>
+        <translation>JosKleinian</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="324"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1105"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimize &apos;Raymarching step multiplier&apos; for high image quality and slow rendering&lt;/p&gt;&lt;p&gt;It gives 0.01% of wrong distance estimations (pixels with potential noise)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Optimiza &apos;Multiplicador Raymarching step &apos; para una calidad de imagen alta y render lento&lt;/p&gt;&lt;p&gt;Devuelve 0.01% de distancia estimada errónea (pixeles con ruido potencial)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="327"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1107"/>
         <source>High quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad alta</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="339"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1108"/>
         <source>Detail level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de detalle</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="359"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1110"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controls how much detail will be visible on fractal surface. When it is set to 1.0, then minimum visible detail has size of 2 pixels.&lt;/p&gt;&lt;p&gt;Higher value gives more detailed image, but slows down rendering.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;detail level 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;detail level 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Controla cuánto detalle será visible en la superficie fractal. Cuando está establecido en 1.0, entonces el nivel mínimo de detalle tiene un tamaño de 2 pixeles.&lt;/p&gt;&lt;p&gt;Valores más altos dan una imagen mas detallada,  pero ralentizará el renderizado.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;nivel de detalle 0.2&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;nivel de detalle 0.5&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;nivel de detalle 1.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.2.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 0.5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="366"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1112"/>
         <source>Detail level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de detalle:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="375"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1114"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When this option is enabled, the fractal appearance is maintained at all resolutions. &lt;/p&gt;&lt;p&gt;The fractal detail level will be automatically adjusted to match any change of image resolution. &lt;/p&gt;&lt;p&gt;For instance, if the resolution is doubled then the detail level will be reduced by half.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuando esta opción está habilitada, la apariencia fractal se mantiene a todas resoluciones. &lt;/p&gt;&lt;p&gt;El nivel de detalle fractal será ajustado automáticamente para coincidir con cualquier cambio en la resolución de imagen.&lt;/p&gt;&lt;p&gt;Por instancia, si la resolución es doblada, el nivel de detalle es reducido a la mitad.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="378"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1116"/>
         <source>Connect fractal detail level
 with image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar nivel de detalle fractal con
+resolución de imagen</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="386"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1119"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When not enabled, the program automatically reduces the level of detail for the farthest regions of the fractal. If you go closer to the fractal surface, the program increases the level of detail.&lt;/p&gt;&lt;p&gt;If enabled, then in every region of the fractal,  the detail level (size) will be the same.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cuano está deshabilitado, el programa reduce automáticamente el nivel de detalle de las regiones mas lejanas del fractal.&lt;/p&gt;&lt;p&gt;Si está habilitado, cada región del fractal tendrá el mismo nivel de detalle (tamaño) por igual.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="389"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1121"/>
         <source>Cons&amp;tant detail size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de de&amp;talle constante</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="421"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1123"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Distance threshold which defines detail size.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Umbral de distancia que define el tamaño de detalle.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="428"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1125"/>
         <source>distance threshold:</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbral de distancia:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="437"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1126"/>
         <source>Calculate threshold</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcular umbral</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="450"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1127"/>
         <source>Shape control</source>
-        <translation type="unfinished"></translation>
+        <translation>Control de forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="474"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1129"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches off stopping of ray-marching at distance threshold. When it&apos;s checked detail level is controlled with &lt;span style=&quot; font-style:italic;&quot;&gt;Max. fractal iterations&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deshabilita la parada de ray marching al umbral de distancia. Cuando está habilitado el nivel de detalle es controlado con &lt;span style=&quot; font-style:italic;&quot;&gt;Número máx. de iteraciones fractales&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="477"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1131"/>
         <source>Stop at maximum iteration (at maxiter)</source>
-        <translation type="unfinished"></translation>
+        <translation>Parar en iteración máxima ( en maxiter)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="490"/>
@@ -7416,13 +7496,13 @@ with image resolution</source>
         <location filename="../qt/dock_rendering_engine.ui" line="493"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1135"/>
         <source>Interior mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo interior</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="503"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1136"/>
         <source>Surface (normal vector) calculation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Cálculo de superficie (normal vector):</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="529"/>
@@ -7440,7 +7520,7 @@ with image resolution</source>
         <location filename="../qt/dock_rendering_engine.ui" line="545"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1141"/>
         <source>Non-DE shading mode (slow)</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo de No-DE sombreado (lento)</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="552"/>
@@ -7452,31 +7532,31 @@ with image resolution</source>
         <location filename="../qt/dock_rendering_engine.ui" line="564"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1145"/>
         <source>View distance limits</source>
-        <translation type="unfinished"></translation>
+        <translation>Límites de distancia visible</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="590"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1146"/>
         <source>minimum view distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia visible mínima:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="597"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1148"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;All objects closer than this distance won&apos;t be visible&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Todo los objetos  más cerca de esta distancia no serán visibles&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="604"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1150"/>
         <source>maximum view distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia visible máxima:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="611"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1152"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Defines visibility distance. All objects farther  than this distance won&apos;t be visible. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Define la distancia de visibilidad. Todos los objetos mas lejanos que esta distancia no serán visibles. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="623"/>
@@ -7500,13 +7580,13 @@ with image resolution</source>
         <location filename="../qt/dock_rendering_engine.ui" line="659"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1161"/>
         <source>Bounding Box to limit</source>
-        <translation type="unfinished"></translation>
+        <translation>Cuadro delimitador a limítrofe</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="674"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1162"/>
         <source>maximum bounding box:</source>
-        <translation type="unfinished"></translation>
+        <translation>máximo cuadro delimitador:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="683"/>
@@ -7518,19 +7598,19 @@ with image resolution</source>
         <location filename="../qt/dock_rendering_engine.ui" line="695"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1164"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="782"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1165"/>
         <source>Y</source>
-        <translation type="unfinished"></translation>
+        <translation>Y</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="869"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1166"/>
         <source>Z</source>
-        <translation type="unfinished"></translation>
+        <translation>Z</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="969"/>
@@ -7538,13 +7618,13 @@ with image resolution</source>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1167"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1172"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="999"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1168"/>
         <source>bottom left front corner:</source>
-        <translation type="unfinished"></translation>
+        <translation>esquina superior izquierda:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1022"/>
@@ -7552,7 +7632,7 @@ with image resolution</source>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1169"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1173"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1038"/>
@@ -7560,97 +7640,97 @@ with image resolution</source>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1170"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1174"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1078"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1171"/>
         <source>top right back corner:</source>
-        <translation type="unfinished"></translation>
+        <translation>esquina superior derecha:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1138"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1176"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This feature allows the connection of multiple computers into a network to share rendering.&lt;/p&gt;&lt;p&gt;The same image or animation can be rendered using an unlimited number of computers. The increased computing power will reduce rendering time.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Esta característica permite la conexión de múltiples computadoras dentro de una red para compartir el renderizado.&lt;/p&gt;&lt;p&gt;La misma imagen o animación puede ser renderizada a través de un número ilimitado de computadoras. La potencia incrementada de computación reduce el tiempo de render.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1141"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1178"/>
         <source>NetRender</source>
-        <translation type="unfinished"></translation>
+        <translation>Render de red</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1173"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1179"/>
         <source>Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Modo:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1186"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1184"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Switches between server and client.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Server&lt;/span&gt; is the main application in the network. It controls rendering process, sends data to all clients and collects data from them. &lt;br/&gt;Server compiles parts of images received from the clients and finally displays the whole image. It also renders image.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Client&lt;/span&gt; receives jobs from server. It renders only the parts of the image which the server ask for. It displays only partial image.&lt;/p&gt;&lt;p&gt;To start rendering process on all computers you need to press Render button on Server.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Conmutador entre servidor y cliente.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Servidor&lt;/span&gt; es la aplicación principal dentro de la red. Gestiona el proceso de renderizado, envía datos a todos los clientes y recoge datos de ellos. &lt;br/&gt;Servidor compila partes de la imagen recibidos de los clientes y muestra finalmente la imagen entera. También renderiza la imagen.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Cliente&lt;/span&gt; recibe trabajo del servidor. Sólamente renderiza partes de la imagen que es mandado por el servidor. Sólamente muestra la imagen de modo parcial&lt;/p&gt;&lt;p&gt;Para comenzar el renderizado en todos los ordenadores necesita presionar el botón Render en Servidor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1193"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1180"/>
         <source>Client</source>
-        <translation type="unfinished"></translation>
+        <translation>Cliente</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1198"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1181"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidor</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1211"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1186"/>
         <source>Client configuration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de cliente:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1243"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1188"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IP address or name of the computer where Mandelbulber  is launched in server mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dirección IP o nombre del ordenador donde Mandelbulber es ejecutado en modo servidor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1250"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1190"/>
         <source>Remote server address:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección de servidor remoto:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1257"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1191"/>
         <source>Remote server port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto de servidor remoto:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1270"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1193"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port number which is set on Mandelbulber which runs in server mode.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número de puerto que está configurado en Mandelbulber que es ejecutado en modo servidor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1296"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1196"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Establish connection with server.&lt;/p&gt;&lt;p&gt;When connection is established, status should change to READY&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Establece conexión con el servidor.&lt;/p&gt;&lt;p&gt;Cuando se ha establecido la conexión, el estado debería cambiar a LISTO&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1299"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1198"/>
         <source>Connect to server</source>
-        <translation type="unfinished"></translation>
+        <translation>Conectar a servidor</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1319"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1199"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>Desconectar</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1337"/>
@@ -7658,7 +7738,7 @@ with image resolution</source>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1200"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1214"/>
         <source>Status:</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1348"/>
@@ -7666,91 +7746,91 @@ with image resolution</source>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1201"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1215"/>
         <source>DISABLED</source>
-        <translation type="unfinished"></translation>
+        <translation>DESHABILITADO</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1355"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1202"/>
         <source>Connected Server:</source>
-        <translation type="unfinished"></translation>
+        <translation>Servidores conectados:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1362"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1203"/>
         <source>---</source>
-        <translation type="unfinished"></translation>
+        <translation>---</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1374"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1204"/>
         <source>Server configuration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración de servidor:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1406"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1206"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Internet port number which will be used for server. This port has to not be blocked by a firewall or  passed through a router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número de puerto de Internet que será usado para el servidor. Este puerto no debe estar bloqueado por un cortafuegos o pasado a través de un router.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1419"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1208"/>
         <source>Local server port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Puerto de servidor local:</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1439"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1210"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts Mandelbulber to work as server.&lt;/p&gt;&lt;p&gt;After pressing this button, application starts to watch clients and connect to them. &lt;/p&gt;&lt;p&gt;If connection with a client is established, then this client is displayed in the table below.&lt;/p&gt;&lt;p&gt;To establish a connection with a client, the Connect button must be pressed on the client side &lt;/p&gt;&lt;p&gt;If all needed computers are already connected, then the server is ready for operation. If you press Render button, then the server and all the clients will start rendering of the same image.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ejecuta Mandelbulber para trabajar como servidor.&lt;/p&gt;&lt;p&gt;Después de presionar este botón, la aplicación comienza a mirar por clientes y conectarse a ellos. &lt;/p&gt;&lt;p&gt;Si se ha establecido la conexión con un cliente, éste se muestra en la tabla de abajo.&lt;/p&gt;&lt;p&gt;Para establecer conexión con un cliente, el botón Conectar debe ser presionado en el lado del cliente &lt;/p&gt;&lt;p&gt;Si todos los ordenadores requeridos están conectados, el servidor está listo para operar. Si presiona el botón Render, el servidor y todos los clientes comenzarán a renderizar la misma imagen.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1442"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1212"/>
         <source>Launch server and watch for clients</source>
-        <translation type="unfinished"></translation>
+        <translation>Lanzar servidor y mirar por clientes</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1462"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1213"/>
         <source>Stop Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Parar Servidor</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.ui" line="1500"/>
         <location filename="../qt/ui_dock_rendering_engine.h" line="1216"/>
         <source>List of connected clients</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista de clientes conectados</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="179"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="179"/>
         <source>Host</source>
-        <translation type="unfinished"></translation>
+        <translation>Anfitrión</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="179"/>
         <source>CPUs</source>
-        <translation type="unfinished"></translation>
+        <translation>CPUs</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="179"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="179"/>
         <source>Lines done</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineas terminadas</translation>
     </message>
     <message>
         <location filename="../qt/dock_rendering_engine.cpp" line="180"/>
         <source>Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Acciones</translation>
     </message>
 </context>
 <context>
@@ -7759,61 +7839,62 @@ with image resolution</source>
         <location filename="../qt/dock_statistics.ui" line="14"/>
         <location filename="../qt/ui_dock_statistics.h" line="157"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="57"/>
         <location filename="../qt/ui_dock_statistics.h" line="158"/>
         <source>Histogram of fractal iteration count</source>
-        <translation type="unfinished"></translation>
+        <translation>Histograma de recuento de iteraciones fractales</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="99"/>
         <location filename="../qt/ui_dock_statistics.h" line="159"/>
         <source>Histogram of ray-marching step count</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>No existing proper translation for ray-marching step</translatorcomment>
+        <translation>Histograma de recuento de RMS (ray-marching step)</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="157"/>
         <location filename="../qt/ui_dock_statistics.h" line="163"/>
         <source>Total number of iterations</source>
-        <translation type="unfinished"></translation>
+        <translation>Número total de iteraciones</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="162"/>
         <location filename="../qt/ui_dock_statistics.h" line="165"/>
         <source>Number of iterations per pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de iteraciones por pixel</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="167"/>
         <location filename="../qt/ui_dock_statistics.h" line="167"/>
         <source>Number of iterations per second</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de iteraciones por segundo</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="172"/>
         <location filename="../qt/ui_dock_statistics.h" line="169"/>
         <source>Distance estimation algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmo de estimación de distancia</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="177"/>
         <location filename="../qt/ui_dock_statistics.h" line="171"/>
         <source>Percentage of wrong distance estimations</source>
-        <translation type="unfinished"></translation>
+        <translation>Porcentaje de estimación de distancia erróneos</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="182"/>
         <location filename="../qt/ui_dock_statistics.h" line="173"/>
         <source>Distance of camera to fractal surface</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia de cámara a superficie fractal</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="187"/>
         <location filename="../qt/ui_dock_statistics.h" line="161"/>
         <source>Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.ui" line="192"/>
@@ -7827,27 +7908,27 @@ with image resolution</source>
         <location filename="../qt/ui_dock_statistics.h" line="184"/>
         <location filename="../qt/ui_dock_statistics.h" line="186"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.cpp" line="79"/>
         <source>Percentage of wrong distance estimations: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Porcentaje de estimación de distancia erróneos %1</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.cpp" line="81"/>
         <source>Used distance estimation algorithm: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmo de distancia estimada usada: %1</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.cpp" line="83"/>
         <source>Average number of MC samples: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Número promedio de muestras MC: %1</translation>
     </message>
     <message>
         <location filename="../qt/dock_statistics.cpp" line="85"/>
         <source>Average noise [%]: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Promedio de ruido [%]: %1</translation>
     </message>
 </context>
 <context>
@@ -7857,22 +7938,22 @@ with image resolution</source>
         <location filename="../src/file_downloader.cpp" line="80"/>
         <location filename="../src/file_downloader.cpp" line="142"/>
         <source>File downloader</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarga de archivos</translation>
     </message>
     <message>
         <location filename="../src/file_downloader.cpp" line="66"/>
         <source>retrieving file list</source>
-        <translation type="unfinished"></translation>
+        <translation>recuperando lista de archivos</translation>
     </message>
     <message>
         <location filename="../src/file_downloader.cpp" line="80"/>
         <source>finished, downloaded %1 files</source>
-        <translation type="unfinished"></translation>
+        <translation>terminado, descargado %1 archivos</translation>
     </message>
     <message>
         <location filename="../src/file_downloader.cpp" line="143"/>
         <source>file %1 downloaded, %2 of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>archivo %1 descargado, %2 de %3</translation>
     </message>
 </context>
 <context>
@@ -7880,28 +7961,28 @@ with image resolution</source>
     <message>
         <location filename="../src/animation_flight.cpp" line="268"/>
         <source>waiting %1 seconds</source>
-        <translation type="unfinished"></translation>
+        <translation>esperando %1 segundos</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="362"/>
         <source>Recording flight animation. Frame: </source>
-        <translation type="unfinished"></translation>
+        <translation>Grabando animación de vuelo. Fotograma: </translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="370"/>
         <source>Paused. Frame: </source>
-        <translation type="unfinished"></translation>
+        <translation>Pausado. Fotograma: </translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="551"/>
         <location filename="../src/animation_flight.cpp" line="553"/>
         <source>preview</source>
-        <translation type="unfinished"></translation>
+        <translation>vista previa</translation>
     </message>
     <message>
         <location filename="../src/animation_flight.cpp" line="963"/>
         <source>Refreshing animation frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizando fotogramas de animación</translation>
     </message>
 </context>
 <context>
@@ -7910,31 +7991,31 @@ with image resolution</source>
         <location filename="../qt/slider_popup.ui" line="20"/>
         <location filename="../qt/ui_slider_popup.h" line="168"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Fotograma</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="100"/>
         <location filename="../qt/ui_slider_popup.h" line="170"/>
         <source>Hide slider</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar deslizador</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="103"/>
         <location filename="../qt/ui_slider_popup.h" line="172"/>
         <source>X</source>
-        <translation type="unfinished"></translation>
+        <translation>X</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="113"/>
         <location filename="../qt/ui_slider_popup.h" line="174"/>
         <source>Reset value to default</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer valor a predeterminado</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="116"/>
         <location filename="../qt/ui_slider_popup.h" line="176"/>
         <source>R</source>
-        <translation type="unfinished"></translation>
+        <translation>R</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="126"/>
@@ -7942,103 +8023,103 @@ with image resolution</source>
         <location filename="../qt/ui_slider_popup.h" line="178"/>
         <location filename="../qt/ui_slider_popup.h" line="194"/>
         <source>Zero</source>
-        <translation type="unfinished"></translation>
+        <translation>Cero</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="129"/>
         <location filename="../qt/ui_slider_popup.h" line="180"/>
         <source>0</source>
-        <translation type="unfinished"></translation>
+        <translation>0</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="139"/>
         <location filename="../qt/ui_slider_popup.h" line="182"/>
         <source>Inversion of sign</source>
-        <translation type="unfinished"></translation>
+        <translation>Inversión de signo</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="142"/>
         <location filename="../qt/ui_slider_popup.h" line="184"/>
         <source>-</source>
-        <translation type="unfinished"></translation>
+        <translation>-</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="152"/>
         <location filename="../qt/ui_slider_popup.h" line="186"/>
         <source>Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Doble</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="155"/>
         <location filename="../qt/ui_slider_popup.h" line="188"/>
         <source>x2</source>
-        <translation type="unfinished"></translation>
+        <translation>x2</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="165"/>
         <location filename="../qt/ui_slider_popup.h" line="190"/>
         <source>Half</source>
-        <translation type="unfinished"></translation>
+        <translation>Mitad</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="168"/>
         <location filename="../qt/ui_slider_popup.h" line="192"/>
         <source>÷2</source>
-        <translation type="unfinished"></translation>
+        <translation>÷2</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="181"/>
         <location filename="../qt/ui_slider_popup.h" line="196"/>
         <source>↑</source>
-        <translation type="unfinished"></translation>
+        <translation>↑</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="191"/>
         <location filename="../qt/ui_slider_popup.h" line="198"/>
         <source>90 degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>90 grados</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="194"/>
         <location filename="../qt/ui_slider_popup.h" line="200"/>
         <source>→</source>
-        <translation type="unfinished"></translation>
+        <translation>→</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="204"/>
         <location filename="../qt/ui_slider_popup.h" line="202"/>
         <source>180 degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>180 grados</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="207"/>
         <location filename="../qt/ui_slider_popup.h" line="204"/>
         <source>↓</source>
-        <translation type="unfinished"></translation>
+        <translation>↓</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="217"/>
         <location filename="../qt/ui_slider_popup.h" line="206"/>
         <source>-90 degrees</source>
-        <translation type="unfinished"></translation>
+        <translation>-90 grados</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="220"/>
         <location filename="../qt/ui_slider_popup.h" line="208"/>
         <source>←</source>
-        <translation type="unfinished"></translation>
+        <translation>←</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="230"/>
         <location filename="../qt/ui_slider_popup.h" line="210"/>
         <source>&quot;Magic Round&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>&quot;Redondeo Mágico&quot;</translation>
     </message>
     <message>
         <location filename="../qt/slider_popup.ui" line="233"/>
         <location filename="../qt/ui_slider_popup.h" line="212"/>
         <source>∅</source>
-        <translation type="unfinished"></translation>
+        <translation>∅</translation>
     </message>
 </context>
 <context>
@@ -8047,27 +8128,28 @@ with image resolution</source>
         <location filename="../src/headless.cpp" line="114"/>
         <source>Image saved to: %1
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen guardada a %1
+</translation>
     </message>
     <message>
         <location filename="../src/headless.cpp" line="330"/>
         <source>Total number of iters</source>
-        <translation type="unfinished"></translation>
+        <translation>Número total de iteraciones</translation>
     </message>
     <message>
         <location filename="../src/headless.cpp" line="334"/>
         <source>Number of iters / pixel</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de iteraciones / pixel</translation>
     </message>
     <message>
         <location filename="../src/headless.cpp" line="339"/>
         <source>Number of iters / second</source>
-        <translation type="unfinished"></translation>
+        <translation>Número de iteraciones / segundo</translation>
     </message>
     <message>
         <location filename="../src/headless.cpp" line="344"/>
         <source>Percentage of wrong DE</source>
-        <translation type="unfinished"></translation>
+        <translation>Porcentaje erróneo de DE</translation>
     </message>
 </context>
 <context>
@@ -8076,7 +8158,7 @@ with image resolution</source>
         <location filename="../qt/image_save_dialog.ui" line="14"/>
         <location filename="../qt/ui_image_save_dialog.h" line="296"/>
         <source>Save Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar Imagen</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="59"/>
@@ -8088,38 +8170,39 @@ with image resolution</source>
         <location filename="../qt/image_save_dialog.ui" line="62"/>
         <location filename="../qt/ui_image_save_dialog.h" line="301"/>
         <source>Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes de imagen</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="83"/>
         <location filename="../qt/ui_image_save_dialog.h" line="302"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estos ajustes afectan a las acciones de &quot;Guardar como JPG/PNG/EXR/TIFF&quot;
+y guardado de fotogramas de animación.</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="96"/>
         <location filename="../qt/ui_image_save_dialog.h" line="304"/>
         <source>Image Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de imagen</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="103"/>
         <location filename="../qt/ui_image_save_dialog.h" line="305"/>
         <source>Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="110"/>
         <location filename="../qt/ui_image_save_dialog.h" line="306"/>
         <source>Postfix</source>
-        <translation type="unfinished"></translation>
+        <translation>Sufijo</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="117"/>
         <location filename="../qt/ui_image_save_dialog.h" line="307"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="128"/>
@@ -8133,7 +8216,7 @@ with image resolution</source>
         <location filename="../qt/ui_image_save_dialog.h" line="328"/>
         <location filename="../qt/ui_image_save_dialog.h" line="334"/>
         <source>8 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>8-bit</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="133"/>
@@ -8147,7 +8230,7 @@ with image resolution</source>
         <location filename="../qt/ui_image_save_dialog.h" line="329"/>
         <location filename="../qt/ui_image_save_dialog.h" line="335"/>
         <source>16 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>16 bit</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="138"/>
@@ -8161,75 +8244,77 @@ with image resolution</source>
         <location filename="../qt/ui_image_save_dialog.h" line="330"/>
         <location filename="../qt/ui_image_save_dialog.h" line="336"/>
         <source>32 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>32 bit</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="153"/>
         <location filename="../qt/ui_image_save_dialog.h" line="313"/>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfa</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="186"/>
         <location filename="../qt/ui_image_save_dialog.h" line="319"/>
         <source>Z Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Buffer</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="219"/>
         <location filename="../qt/ui_image_save_dialog.h" line="325"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los siguientes canales sólo serán renderizados bajo demanda
+y sólo se mostrarán después de habilitado y re-renderizado.</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="227"/>
         <location filename="../qt/ui_image_save_dialog.h" line="327"/>
         <source>Surface Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Superficie Normal</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="260"/>
         <location filename="../qt/ui_image_save_dialog.h" line="333"/>
         <source>Specular</source>
-        <translation type="unfinished"></translation>
+        <translation>Brillo</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="298"/>
         <location filename="../qt/ui_image_save_dialog.h" line="339"/>
         <source>Misc Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuración miscelánea de imagen</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="324"/>
         <location filename="../qt/ui_image_save_dialog.h" line="340"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir alfa a imagen (sólo PNG y TIFF)</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="331"/>
         <location filename="../qt/ui_image_save_dialog.h" line="341"/>
         <source>Use linear colorspace (only EXR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar espacio de color lineal (sólo EXR)</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="338"/>
         <location filename="../qt/ui_image_save_dialog.h" line="342"/>
         <source>JPEG quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad JPEG:</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="355"/>
         <location filename="../qt/ui_image_save_dialog.h" line="343"/>
         <source>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda imágenes esteroscópicas izquierda y derecha en archivos separados
+(modo esteroscópico tiene que ser &quot;izquierda-derecha&quot;)</translation>
     </message>
     <message>
         <location filename="../qt/image_save_dialog.ui" line="363"/>
         <location filename="../qt/ui_image_save_dialog.h" line="345"/>
         <source>Save each channel in separate folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar cada canal en carpetas separadas</translation>
     </message>
 </context>
 <context>
@@ -8238,17 +8323,17 @@ and will only be present after enabling and re-render.</source>
         <location filename="../src/interface.cpp" line="2737"/>
         <location filename="../src/interface.cpp" line="2760"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractales (*.txt *.fract)</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2742"/>
         <source>Save settings from %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar ajustes desde %1</translation>
     </message>
     <message>
         <location filename="../src/interface.cpp" line="2765"/>
         <source>Load settings to %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar ajustes a %1</translation>
     </message>
 </context>
 <context>
@@ -8258,27 +8343,27 @@ and will only be present after enabling and re-render.</source>
         <location filename="../src/animation_keyframes.cpp" line="347"/>
         <source>Keyframe
 previews</source>
-        <translation type="unfinished"></translation>
+        <translation>Vistas previas de fotogramas clave</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="847"/>
         <source>Refreshing animation frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualizando fotogramas de animación</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1212"/>
         <source>Exporting keyframes to flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportando fotogramas clave a animación de vuelo</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1380"/>
         <source>Audio</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio</translation>
     </message>
     <message>
         <location filename="../src/animation_keyframes.cpp" line="1452"/>
         <source>Camera distance from selected keyframe: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Distancia de cámara desde el fotograma clave seleccionado: %1</translation>
     </message>
 </context>
 <context>
@@ -8287,43 +8372,43 @@ previews</source>
         <location filename="../qt/material_editor.ui" line="14"/>
         <location filename="../qt/ui_material_editor.h" line="2546"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="37"/>
         <location filename="../qt/ui_material_editor.h" line="2547"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="44"/>
         <location filename="../qt/ui_material_editor.h" line="2548"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="51"/>
         <location filename="../qt/ui_material_editor.h" line="2549"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="75"/>
         <location filename="../qt/ui_material_editor.h" line="2550"/>
         <source>Material name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre de material:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="88"/>
         <location filename="../qt/ui_material_editor.h" line="2552"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Material name used in Material Manager&lt;/p&gt;&lt;p&gt;Tip: Well named materials will be easier to find in Material Manager&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nombre del material usado en el administrador de Materiales&lt;/p&gt;&lt;p&gt;Consejo: Materiales con un buen nombre serán más fáciles de encontrar en el administrador de Materiales&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="144"/>
         <location filename="../qt/ui_material_editor.h" line="2555"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of the object&apos;s surface . This color is used when &apos;Use colors from palette&apos; is disabled or when the material is to be applied to a non-fractal object.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color de la superficie del objeto . Este color será usado cuando &apos;Usar colores de la paleta&apos; está deshabilitado o cuando el material está para usarse sobre objetos no fractales.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="147"/>
@@ -8339,81 +8424,83 @@ previews</source>
         <location filename="../qt/ui_material_editor.h" line="2963"/>
         <location filename="../qt/ui_material_editor.h" line="2977"/>
         <source>PushButton</source>
-        <translation type="unfinished"></translation>
+        <translation>Pulsador</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="154"/>
         <location filename="../qt/ui_material_editor.h" line="2558"/>
         <source>Single color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Color único:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="163"/>
         <location filename="../qt/ui_material_editor.h" line="2560"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables coloring of fractal surface using mathematical algorithms and a color palette. &lt;/p&gt;&lt;p&gt;This option works only for fractal objects, (not for primitive objects.)&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;palette off&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;palette on&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita coloreado de la superficie fractal usando algoritmos matemáticos y una paleta de colores. &lt;/p&gt;&lt;p&gt;Esta opción solo funciona para objetos fractales, (no para objetos primitivos.)&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;paleta deshabilitada&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;paleta habilitada&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - resolution 1.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="166"/>
         <location filename="../qt/ui_material_editor.h" line="2562"/>
         <source>&amp;Use colors from a palette</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Usar colores de una paleta</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="195"/>
         <location filename="../qt/ui_material_editor.h" line="2563"/>
         <source>Color speed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Velocidad de color:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="202"/>
         <location filename="../qt/ui_material_editor.h" line="2564"/>
         <source>Random seed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Semilla aleatoria:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="209"/>
         <location filename="../qt/ui_material_editor.h" line="2565"/>
         <source>Palette offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset de paleta:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="216"/>
         <location filename="../qt/ui_material_editor.h" line="2566"/>
         <source>Palette size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de paleta:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="223"/>
         <location filename="../qt/ui_material_editor.h" line="2567"/>
         <source>Palette:
 (click to edit)</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta:
+(clic para editar)</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="237"/>
         <location filename="../qt/ui_material_editor.h" line="2570"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a new random seed and palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Genera una nueva semilla y paleta aleatoria&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="240"/>
         <location filename="../qt/ui_material_editor.h" line="2572"/>
         <source>Randomize</source>
-        <translation type="unfinished"></translation>
+        <translation>Aleatorizar</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="247"/>
         <location filename="../qt/ui_material_editor.h" line="2573"/>
         <source>Orbit trap
 sphere radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radio de esfera
+de Orbit Trap:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="264"/>
         <location filename="../qt/ui_material_editor.h" line="2576"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of the line used in the orbit trap coloring algorithm&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dirección del vector de línea usada en el agoritmo de coloreado de orbit trap&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="287"/>
@@ -8423,7 +8510,7 @@ sphere radius:</source>
         <location filename="../qt/ui_material_editor.h" line="2628"/>
         <location filename="../qt/ui_material_editor.h" line="2637"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Direction vector of line in orbit trap algorithm for coloring&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Dirección del vector de línea usada en el agoritmo de coloreado de orbit trap&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="294"/>
@@ -8433,7 +8520,7 @@ sphere radius:</source>
         <location filename="../qt/ui_material_editor.h" line="3036"/>
         <location filename="../qt/ui_material_editor.h" line="3037"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="304"/>
@@ -8443,97 +8530,98 @@ sphere radius:</source>
         <location filename="../qt/ui_material_editor.h" line="3033"/>
         <location filename="../qt/ui_material_editor.h" line="3052"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="320"/>
         <location filename="../qt/ui_material_editor.h" line="2584"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Cyclic palette of colors which is used to color the fractal surface.&lt;/p&gt;&lt;p&gt;Click on a color to edit the palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Paleta de colores cíclicos usados para colorear la superficie fractal.&lt;/p&gt;&lt;p&gt;Clic en un color para editar la paleta &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="355"/>
         <location filename="../qt/ui_material_editor.h" line="2587"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Creates a  color palette from a selected picture&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Crea una paleta de colores desde una imagen seleccionada&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="358"/>
         <location filename="../qt/ui_material_editor.h" line="2589"/>
         <source>Grab colors from image...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tomar colores desde imagen...</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="365"/>
         <location filename="../qt/ui_material_editor.h" line="2590"/>
         <source>Saturation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Saturación:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="378"/>
         <location filename="../qt/ui_material_editor.h" line="2592"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of colors used in the color palette.&lt;/p&gt;&lt;p&gt;To apply changes to the palette size, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número de colores usado en la paleta de colores.&lt;/p&gt;&lt;p&gt;Haga clic para aplicar cambios al tamaño de paleta &lt;span style=&quot; font-style:italic;&quot;&gt;Genera una nueva paleta aleatoria&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="397"/>
         <location filename="../qt/ui_material_editor.h" line="2595"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturation of colors in a random color palette &lt;/p&gt;&lt;p&gt;To apply changes of saturation, click on &lt;span style=&quot; font-style:italic;&quot;&gt;Generate new random palette&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saturación de colores usado en la paleta de colores aleatoria.&lt;/p&gt;&lt;p&gt;Haga clic para aplicar cambios al tamaño de paleta &lt;span style=&quot; font-style:italic;&quot;&gt;Genera una nueva paleta aleatoria&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="434"/>
         <location filename="../qt/ui_material_editor.h" line="2600"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color palette speed sets the frequency of color changing&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;speed 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;speed 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Velocidad de paleta de colores ajusta la frecuencia de cambio de color&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; cellspacing=&quot;2&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;velocidad 0.3&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;velocidad 1.0&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;velocidad 5.0&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 0.3.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colouring enabled.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;img src=&quot;:/tooltips/tooltips_images/image - shader - colour speed 5.jpg&quot;/&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="474"/>
         <location filename="../qt/ui_material_editor.h" line="2605"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radius of the sphere used in the orbit trap coloring algorithm &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Radio de la esfera usado en el algoritmo de coloreado en orbit trap &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="511"/>
         <location filename="../qt/ui_material_editor.h" line="2610"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Seed value for the random palette generator&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Valor de semilla para el generador de paleta aleatoria&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="527"/>
         <location filename="../qt/ui_material_editor.h" line="2619"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin.  The value is the value at the &lt;span style=&quot; text-decoration: underline;&quot;&gt;end&lt;/span&gt; of orbit trap iterations&lt;/p&gt;&lt;p&gt;The rest of the algorithms use the minimum value recorded &lt;span style=&quot; text-decoration: underline;&quot;&gt;during&lt;/span&gt; the orbit trap iterations.&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection between different coloring algorithms based on an orbit trap calculation, (distance of point from orbit trap.)&lt;/p&gt;&lt;p&gt;- Standard: orbit trap defined as a point at the origin.  The value is the value at the &lt;span style=&quot; text-decoration: underline;&quot;&gt;end&lt;/span&gt; of orbit trap iterations&lt;/p&gt;&lt;p&gt;The rest of the algorithms use the minimum value recorded &lt;span style=&quot; text-decoration: underline;&quot;&gt;during&lt;/span&gt; the orbit trap iterations.&lt;/p&gt;&lt;p&gt;- orbit trap: z.Dot(point): orbit trap defined as the starting coordinates of the point being iterated&lt;/p&gt;&lt;p&gt;- orbit trap: Sphere: orbit trap defined as a sphere surface&lt;/p&gt;&lt;p&gt;- orbit trap: Cross: orbit trap defined as a cross&lt;/p&gt;&lt;p&gt;- orbit trap: Line: orbit trap defined as a line in set direction&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="531"/>
         <location filename="../qt/ui_material_editor.h" line="2612"/>
         <source>Standard</source>
-        <translation type="unfinished"></translation>
+        <translation>Estándar</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="536"/>
         <location filename="../qt/ui_material_editor.h" line="2613"/>
         <source>orbit trap: z.Dot(point)</source>
-        <translation type="unfinished"></translation>
+        <translation>orbit trap: z.Dot(punto)</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="541"/>
         <location filename="../qt/ui_material_editor.h" line="2614"/>
         <source>orbit trap: Sphere</source>
-        <translation type="unfinished"></translation>
+        <translation>orbit trap: Esfera</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="546"/>
         <location filename="../qt/ui_material_editor.h" line="2615"/>
         <source>orbit trap: Cross</source>
-        <translation type="unfinished"></translation>
+        <translation>orbit trap: Cruz</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="551"/>
         <location filename="../qt/ui_material_editor.h" line="2616"/>
         <source>orbit trap: Line</source>
-        <translation type="unfinished"></translation>
+        <translation>orbit trap: Línea</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="559"/>
@@ -8543,44 +8631,45 @@ sphere radius:</source>
         <location filename="../qt/ui_material_editor.h" line="3035"/>
         <location filename="../qt/ui_material_editor.h" line="3051"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="575"/>
         <location filename="../qt/ui_material_editor.h" line="2623"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate a palette from the random seed value.&lt;/p&gt;&lt;p&gt;This applies changes to palette size and color saturation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Genera una paleta a partir del valor aleatorio de semilla.&lt;/p&gt;&lt;p&gt;Esto aplicará cambios al tamaño de la paleta y la saturación de color.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="578"/>
         <location filename="../qt/ui_material_editor.h" line="2625"/>
         <source>Generate new random palette</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar nueva paleta aleatoria</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="585"/>
         <location filename="../qt/ui_material_editor.h" line="2626"/>
         <source>Coloring algorithm:</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmo de color:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="614"/>
         <location filename="../qt/ui_material_editor.h" line="2631"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shift along the color palette&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Desplazamiento junto con la paleta de color&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="645"/>
         <location filename="../qt/ui_material_editor.h" line="2635"/>
         <source>w:</source>
-        <translation type="unfinished"></translation>
+        <translation>w:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="671"/>
         <location filename="../qt/ui_material_editor.h" line="2639"/>
         <source>Orbit trap line
 direction vector:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dirección de vector
+ de orbit trap línea:</translation>
     </message>
     <message>
         <location filename="../qt/material_editor.ui" line="681"/>
@@ -9662,53 +9751,53 @@ object size)</source>
         <location filename="../qt/material_manager_view.ui" line="20"/>
         <location filename="../qt/ui_material_manager_view.h" line="144"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="46"/>
         <location filename="../qt/ui_material_manager_view.h" line="145"/>
         <source>New material</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuevo material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="57"/>
         <location filename="../qt/ui_material_manager_view.h" line="146"/>
         <source>Delete material</source>
-        <translation type="unfinished"></translation>
+        <translation>Eliminar material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="68"/>
         <location filename="../qt/ui_material_manager_view.h" line="147"/>
         <source>Edit material</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar material</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="99"/>
         <location filename="../qt/ui_material_manager_view.h" line="148"/>
         <source>Load materials...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar material...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.ui" line="110"/>
         <location filename="../qt/ui_material_manager_view.h" line="149"/>
         <source>Save material as....</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar material como...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="122"/>
         <location filename="../qt/material_manager_view.cpp" line="177"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractales (*.txt *.fract)</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="127"/>
         <source>Load material...</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar material...</translation>
     </message>
     <message>
         <location filename="../qt/material_manager_view.cpp" line="182"/>
         <source>Save material...</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar material...</translation>
     </message>
 </context>
 <context>
@@ -9716,7 +9805,7 @@ object size)</source>
     <message>
         <location filename="../qt/material_selector.cpp" line="131"/>
         <source>Material manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestor de materiales</translation>
     </message>
 </context>
 <context>
@@ -9724,22 +9813,24 @@ object size)</source>
     <message>
         <location filename="../src/mesh_export.cpp" line="71"/>
         <source>Processing layer %1 of %2</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Procesando capa %1 de %2</translatorcomment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../src/mesh_export.cpp" line="76"/>
         <source>Mesh Export</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Exportado de malla</translatorcomment>
+        <translation>Exportación de malla</translation>
     </message>
     <message>
         <location filename="../src/mesh_export.cpp" line="184"/>
         <source>Mesh Export finished - Cancelled export</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportación de malla terminada - Exportación cancelada</translation>
     </message>
     <message>
         <location filename="../src/mesh_export.cpp" line="186"/>
         <source>Mesh Export finished - Processed %1 layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportación de malla terminada - Procesando %1 capas</translation>
     </message>
 </context>
 <context>
@@ -9909,7 +10000,7 @@ object size)</source>
     <message>
         <location filename="../src/opencl_engine_render_dof.cpp" line="252"/>
         <source>OpenCL DOF finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenfoque de profundidad de campo OpenCL terminado</translation>
     </message>
 </context>
 <context>
@@ -9917,27 +10008,27 @@ object size)</source>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="93"/>
         <source>OpenCL DOF - initializing</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenfoque OpenCL - Inicializando</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="93"/>
         <source>Compiling sources for DOF phase 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Compilando fuentes para Desenfoque fase 1</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="193"/>
         <source>OpenCL - rendering DOF - phase 1</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - renderizando Desenfoque - fase 1</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="238"/>
         <source>OpenCL - rendering DOF phase 1</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - renderizando Desenfoque fase 1</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase1.cpp" line="286"/>
         <source>OpenCL - rendering DOF phase 1 finished</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCl - render de desenfoque fase 1 completado</translation>
     </message>
 </context>
 <context>
@@ -9945,27 +10036,27 @@ object size)</source>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="95"/>
         <source>OpenCL DOF - initializing</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenfoque OpenCL - Inicializando</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="95"/>
         <source>Compiling sources for DOF phase 2</source>
-        <translation type="unfinished"></translation>
+        <translation>Compilando fuentes para Desenfoque fase 2</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="217"/>
         <source>OpenCL - rendering DOF - phase 1</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - renderizando Desenfoque - fase 1</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="253"/>
         <source>OpenCL - rendering DOF - phase 2</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - renderizando Desenfoque - fase 2</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_dof_phase2.cpp" line="298"/>
         <source>OpenCL - rendering DOF phase 2 finished</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCl - render de desenfoque fase 2 completado</translation>
     </message>
 </context>
 <context>
@@ -9973,23 +10064,23 @@ object size)</source>
     <message>
         <location filename="../src/opencl_engine_render_fractal.cpp" line="126"/>
         <source>OpenCl - initializing</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - inicializando</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_fractal.cpp" line="126"/>
         <source>Compiling OpenCL programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Compilando programas OpenCL</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_fractal.cpp" line="807"/>
         <location filename="../src/opencl_engine_render_fractal.cpp" line="1046"/>
         <source>OpenCl - rendering image (workgroup %1 pixels)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - Renderizando imagen (grupo de trabajo %1 pixeles)</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_fractal.cpp" line="1126"/>
         <source>OpenCL - rendering image finished</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCl - render de imagen completado</translation>
     </message>
 </context>
 <context>
@@ -9997,23 +10088,23 @@ object size)</source>
     <message>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="95"/>
         <source>OpenCl SSAO - initializing</source>
-        <translation type="unfinished"></translation>
+        <translation>SSAO OpenCL - inicializando</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="95"/>
         <source>Compiling sources for SSAO</source>
-        <translation type="unfinished"></translation>
+        <translation>Compilando fuentes para SSAO</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="213"/>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="252"/>
         <source>OpenCl - rendering SSAO</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL - renderizando SSAO</translation>
     </message>
     <message>
         <location filename="../src/opencl_engine_render_ssao.cpp" line="304"/>
         <source>OpenCl - rendering SSAO finished</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCl - render SSAO completado</translation>
     </message>
 </context>
 <context>
@@ -10023,7 +10114,7 @@ object size)</source>
         <location filename="../src/dof.cpp" line="228"/>
         <location filename="../src/dof.cpp" line="283"/>
         <source>DOF terminated</source>
-        <translation type="unfinished"></translation>
+        <translation>Desenfoque completado</translation>
     </message>
 </context>
 <context>
@@ -10032,235 +10123,236 @@ object size)</source>
         <location filename="../qt/preferences_dialog.ui" line="14"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1001"/>
         <source>Program Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Preferencias de Programa</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="47"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1049"/>
         <source>General</source>
-        <translation type="unfinished"></translation>
+        <translation>General</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="83"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1002"/>
         <source>Default file paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Rutas de archivo por defecto</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="123"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1004"/>
         <source>Settings:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="141"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1006"/>
         <source>Images:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imágenes:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="151"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1007"/>
         <source>Textures:</source>
-        <translation type="unfinished"></translation>
+        <translation>Texturas:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="177"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1009"/>
         <source>System Look and Feel</source>
-        <translation type="unfinished"></translation>
+        <translation>Apariencia del programa</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="198"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1010"/>
         <source>To apply changes of these settings you need to restart the application</source>
-        <translation type="unfinished"></translation>
+        <translation>Para que los cambios surtan efecto necesita reiniciar la aplicación</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="210"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1011"/>
         <source>UI Style type</source>
-        <translation type="unfinished"></translation>
+        <translation>Estilo de interfaz</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="220"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1012"/>
         <source>Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Idioma</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="227"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1013"/>
         <source>UI Skin</source>
-        <translation type="unfinished"></translation>
+        <translation>Piel</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="235"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1014"/>
         <source>normal</source>
-        <translation type="unfinished"></translation>
+        <translation>normal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="240"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1015"/>
         <source>dark</source>
-        <translation type="unfinished"></translation>
+        <translation>oscuro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="245"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1016"/>
         <source>light</source>
-        <translation type="unfinished"></translation>
+        <translation>claro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="250"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1017"/>
         <source>space light</source>
-        <translation type="unfinished"></translation>
+        <translation>espacial claro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="255"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1018"/>
         <source>space dark</source>
-        <translation type="unfinished"></translation>
+        <translation>espacial oscuro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="260"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1019"/>
         <source>space dark green</source>
-        <translation type="unfinished"></translation>
+        <translation>espacial verde oscuro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="265"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1020"/>
         <source>space dark blue</source>
-        <translation type="unfinished"></translation>
+        <translation>espacial azul oscuro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="270"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1021"/>
         <source>space dark red</source>
-        <translation type="unfinished"></translation>
+        <translation>espacial rojo oscuro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="278"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1023"/>
         <source>UI font size (points)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tamaño de letra de interfaz (puntos)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="308"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1024"/>
         <source>Toolbar icon size (pixels)</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>*</translatorcomment>
+        <translation>Tamaño de miniaturas (en pixeles)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="315"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1026"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Language of application texts.&lt;/p&gt;&lt;p&gt;You need to restart application to apply changes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Lenguaje de idioma de la aplicación.&lt;/p&gt;&lt;p&gt;Necesita reiniciar la aplicación para aplicar los cambios&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="322"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1028"/>
         <source>Colorize group&amp;Boxes</source>
-        <translation type="unfinished"></translation>
+        <translation>Colorear Cajas de &amp;grupo</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="345"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1029"/>
         <source>Seed for random colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Semilla para colores aleatorios</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="375"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1030"/>
         <source>Advanced</source>
-        <translation type="unfinished"></translation>
+        <translation>Avanzado</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="404"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1031"/>
         <source>Max. number of CPU cores to use</source>
-        <translation type="unfinished"></translation>
+        <translation>Máx. nº de núcleos de CPU a usar</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="428"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1032"/>
         <source>Logging verbosity level</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivel de verbosidad de registro</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="452"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1033"/>
         <source>Lowest priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad mas baja</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="457"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1034"/>
         <source>Low priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad baja</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="462"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1035"/>
         <source>Normal priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad normal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="467"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1036"/>
         <source>High priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad alta</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="475"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1038"/>
         <source>Rendering threads priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Prioridad de hilos de render</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="482"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1039"/>
         <source>Image auto-refresh period [seconds]</source>
-        <translation type="unfinished"></translation>
+        <translation>Tiempo de auto-refresco de imagen [segundos]</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="495"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1041"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplies fractal c constant by this value.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiplica constante c fractal por este valor.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="525"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1045"/>
         <source>Do not ask for quit confirmation</source>
-        <translation type="unfinished"></translation>
+        <translation>No preguntar confirmación para salir</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="532"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1046"/>
         <source>Do not show description on settings load</source>
-        <translation type="unfinished"></translation>
+        <translation>No mostrar descripción al cargar ajustes</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="539"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1047"/>
         <source>Retrieve default toolbar presets</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar ajustes por defecto de barra de miniaturas</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="546"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1048"/>
         <source>Retrieve default materials in material folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Restaurar materiales por defecto en carpeta de materiales</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="575"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1103"/>
         <source>Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Imagen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="611"/>
@@ -10272,38 +10364,39 @@ object size)</source>
         <location filename="../qt/preferences_dialog.ui" line="614"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1054"/>
         <source>Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajustes de imagen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="635"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1055"/>
         <source>These settings affect &quot;Save as JPG/PNG/EXR/TIFF&quot; actions
  and saving animation frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Estos ajustes afectan a las acciones de &quot;Guardar como JPG/PNG/EXR/TIFF&quot;
+y guardado de fotogramas de animación.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="648"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1057"/>
         <source>Image Channel</source>
-        <translation type="unfinished"></translation>
+        <translation>Canal de imagen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="655"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1058"/>
         <source>Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="662"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1059"/>
         <source>Postfix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajuste posterior</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="669"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1060"/>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Color</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="680"/>
@@ -10317,7 +10410,7 @@ object size)</source>
         <location filename="../qt/ui_preferences_dialog.h" line="1081"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1087"/>
         <source>8 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>8 bit</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="685"/>
@@ -10331,7 +10424,7 @@ object size)</source>
         <location filename="../qt/ui_preferences_dialog.h" line="1082"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1088"/>
         <source>16 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>16-bit</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="690"/>
@@ -10345,135 +10438,138 @@ object size)</source>
         <location filename="../qt/ui_preferences_dialog.h" line="1083"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1089"/>
         <source>32 bit</source>
-        <translation type="unfinished"></translation>
+        <translation>32-bit</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="705"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1066"/>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfa</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="738"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1072"/>
         <source>Z Buffer</source>
-        <translation type="unfinished"></translation>
+        <translation>Z Buffer</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="771"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1078"/>
         <source>Following channels are only rendered on demand
 and will only be present after enabling and re-render.</source>
-        <translation type="unfinished"></translation>
+        <translation>Los siguientes canales sólo serán renderizados bajo demanda
+y sólo se mostrarán después de habilitado y re-renderizado.</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="779"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1080"/>
         <source>Surface Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Superficie Normal</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="812"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1086"/>
         <source>Specular</source>
-        <translation type="unfinished"></translation>
+        <translation>Brillo</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="850"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1092"/>
         <source>Misc Image Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Miscelánea configuración de imagen</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="876"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1093"/>
         <source>JPEG quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>Calidad JPEG:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="893"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1094"/>
         <source>Save each channel in separate folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar cada canal en carpetas separadas</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="900"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1095"/>
         <source>Use linear colorspace (only EXR)</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar espacio de color lineal (sólo EXR)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="907"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1096"/>
         <source>Save stereoscopic left and right images in separate files
 (stereoscopic mode has to be &quot;left-right&quot;)</source>
-        <translation type="unfinished"></translation>
+        <translation>Guarda imágenes esteroscópicas izquierda y derecha en archivos separados
+(modo esteroscópico tiene que ser &quot;izquierda-derecha&quot;)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="915"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1098"/>
         <source>Append alpha to image (only PNG and TIFF)</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir alfa a imagen (sólo PNG y TIFF)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="927"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1099"/>
         <source>Thumbnail options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opciones de miniatura</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="953"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1100"/>
         <source>Clear</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>* should be &apos;Aclarar&apos; but it is incorrect and confusing. </translatorcomment>
+        <translation>Borrar</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="964"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1101"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="975"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1102"/>
         <source>Generate</source>
-        <translation type="unfinished"></translation>
+        <translation>Generar</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1013"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1142"/>
         <source>OpenCL (GPU)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCL (GPU)</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1049"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1104"/>
         <source>OpenCL ena&amp;ble</source>
-        <translation type="unfinished"></translation>
+        <translation>Hab&amp;ilitar OpenCL</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1073"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1105"/>
         <source>This will offload the rendering to an OpenCL device (GPU, CPU, Accelerator Card).</source>
-        <translation type="unfinished"></translation>
+        <translation>Esto pasará el renderizado a un dispositivo OpenCL (GPU, CPU, Tarjeta aceleradora).</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1095"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1106"/>
         <source>single</source>
-        <translation type="unfinished"></translation>
+        <translation>simple</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1100"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1107"/>
         <source>double</source>
-        <translation type="unfinished"></translation>
+        <translation>doble</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1108"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1109"/>
         <source>Memory Limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de memoria:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1134"/>
@@ -10485,79 +10581,79 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/preferences_dialog.ui" line="1147"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1113"/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1154"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1114"/>
         <source>Precision</source>
-        <translation type="unfinished"></translation>
+        <translation>Precisión</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1164"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1115"/>
         <source>All GPU devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los dispositivos GPU</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1169"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1116"/>
         <source>Default device</source>
-        <translation type="unfinished"></translation>
+        <translation>Dispositivo predeterminado</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1174"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1117"/>
         <source>All devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los dispositivos</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1179"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1118"/>
         <source>All CPU devices</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los dispositivos CPU</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1184"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1119"/>
         <source>All accelerators</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos los aceleradores</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1207"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1121"/>
         <source>Platforms</source>
-        <translation type="unfinished"></translation>
+        <translation>Plataformas</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1230"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1123"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It disables &apos;compute cache&apos; used by NVidia driver. It is sometimes needed to use this option to refresh precompiled OpenCL programs after changing OpenCL source files (e.g. after upgrade of the program).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deshabilita &apos;compute cache&apos; usado por el controlador NVidia. A veces es necesario usar esta opción para actualizar programas precompilados OpenCL despueś de cambiar los archivos de origen (p.ej. después de actualizar el programa).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1233"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1125"/>
         <source>Disable cache for OpenCL programs</source>
-        <translation type="unfinished"></translation>
+        <translation>Deshabilita caché para programas OpenCl</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1240"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1127"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It enables -cl-fast-relaxed-math OpenCL flag. It provides additional speed by removing some checks to the math operations like division by zero or Not-a-Number. In some cases it can lead to unpredictable results.&lt;/p&gt;&lt;p&gt;It is needed to restart the program to apply this option.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita llamada  -cl-fast-relaxed-math de OpenCL Provee velocidad adicional al eliminar algunas comprobaciones de operaciones matemáticas como division por cero o No un número.. En algunos casos puede llevar a resultados impredecibles.&lt;/p&gt;&lt;p&gt;Es necesario reiniciar el programa para usar esta función.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1243"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1129"/>
         <source>Use fast relaxed math</source>
-        <translation type="unfinished"></translation>
+        <translation>Usar fast relaxed math</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1250"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1130"/>
         <source>Suggested memory limit:</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de memoria aconsejado:</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1260"/>
@@ -10575,44 +10671,44 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/preferences_dialog.ui" line="1280"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1135"/>
         <source>Percentage of reserved GPU time for a system</source>
-        <translation type="unfinished"></translation>
+        <translation>Porcentaje de tiempo reservado de GPU para el sistema</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1296"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1137"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Percentage of GPU time which will be reserved for another processes like a system.&lt;/p&gt;&lt;p&gt;Higher value will generate longer waits between launching next OpenCL jobs. During this time the system will have opportunity to update UI. It will cause reduction of rendering speed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Porcentaje de tiempo de GPU que será reservado para otros procesos como un sistema&lt;/p&gt;&lt;p&gt;Valores altos generarán tiempos de espera mas largos entre cargas de trabajo OpenCL Durante ese tiempo el sistema tendrá la oportunidad de actualizar la interfaz gráfica. Esto causará reducción de velocidad de renderizado.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.ui" line="1326"/>
         <location filename="../qt/ui_preferences_dialog.h" line="1141"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber can use OpenCL to accelerate rendering.&lt;br/&gt;For more information about setup and workflow see the User Manual&lt;br/&gt;under Menu &amp;gt; Help &amp;gt; User Manual.&lt;/p&gt;&lt;p&gt;OpenCL support is still alpha and lacks the following features&lt;br/&gt;present in the non-OpenCL mode:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;HDR blur&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;stereoscopic images&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;NetRender&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Mandelbulber puede usar OpenCL para acelerar el renderizado.&lt;br/&gt;Consulte el manual de usuario para más información acerca de configuración y flujo de trabajo&lt;br/&gt;bajo Menú &amp;gt; Ayuda &amp;gt; Manual de usuario.&lt;/p&gt;&lt;p&gt;El soporte OpenCl está todavía en alfa y carece de las siguientes características &lt;br/&gt;presentes en modo no OpenCl:&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Difuminado HDR&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Imágenes estereoscópicas&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Render de red&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;anti-aliasing&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="157"/>
         <source>Select default directory for images</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar directorio predeterminado para imágenes</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="168"/>
         <source>Select default directory for settings files</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar directorio predeterminado para ajustes de archivo</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="179"/>
         <source>Select default directory for textures</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleccionar directorio predeterminado para texturas</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="301"/>
         <source>rendering %1, %2 of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>renderizando %1, %2 de %3</translation>
     </message>
     <message>
         <location filename="../qt/preferences_dialog.cpp" line="519"/>
         <source>Suggested memory limit (based on CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB</source>
-        <translation type="unfinished"></translation>
+        <translation>Límite de memoria aconsejado (basado en CL_DEVICE_MAX_MEM_ALLOC_SIZE): %1 MB</translation>
     </message>
 </context>
 <context>
@@ -10620,12 +10716,12 @@ and will only be present after enabling and re-render.</source>
     <message>
         <location filename="../qt/pushbutton_anim_sound.cpp" line="69"/>
         <source>Audio loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio cargado</translation>
     </message>
     <message>
         <location filename="../qt/pushbutton_anim_sound.cpp" line="76"/>
         <source>Anim By Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Animación por sonido</translation>
     </message>
 </context>
 <context>
@@ -10634,47 +10730,47 @@ and will only be present after enabling and re-render.</source>
         <location filename="../src/queue.cpp" line="453"/>
         <location filename="../src/queue.cpp" line="457"/>
         <source>STILL</source>
-        <translation type="unfinished"></translation>
+        <translation>FIJA</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="454"/>
         <source>FLIGHT</source>
-        <translation type="unfinished"></translation>
+        <translation>VUELO</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="455"/>
         <source>KEYFRAME</source>
-        <translation type="unfinished"></translation>
+        <translation>FOTOGRAMA CLAVE</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="601"/>
         <source>Fractals (*.txt *.fract)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fractales(*.txt*.fract)</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="605"/>
         <source>Add file to queue...</source>
-        <translation type="unfinished"></translation>
+        <translation>Añadir archivo a cola...</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="664"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nombre</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="664"/>
         <source>Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Vista previa</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="664"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../src/queue.cpp" line="664"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Acción</translation>
     </message>
 </context>
 <context>
@@ -10682,27 +10778,27 @@ and will only be present after enabling and re-render.</source>
     <message>
         <location filename="../src/render_job.cpp" line="455"/>
         <source>OpenCl - rendering - all finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizado - OpenCL - todo completado</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="464"/>
         <source>Finished Render</source>
-        <translation type="unfinished"></translation>
+        <translation>Render completado</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="464"/>
         <source>The image has been rendered completely.</source>
-        <translation type="unfinished"></translation>
+        <translation>La imagen ha sido renderizada por completo.</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="619"/>
         <source>OpenCl - rendering finished</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenCl - render completado</translation>
     </message>
     <message>
         <location filename="../src/render_job.cpp" line="686"/>
         <source>OpenCl - rendering SSAO finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizado SSAO - OpenCL completado</translation>
     </message>
 </context>
 <context>
@@ -10710,32 +10806,32 @@ and will only be present after enabling and re-render.</source>
     <message>
         <location filename="../qt/system_tray.cpp" line="59"/>
         <source>Render Image</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar imagen</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="60"/>
         <source>Render Animation</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar animación</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="61"/>
         <source>Render Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>Renderizar animación de vuelo</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="62"/>
         <source>Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>Parar</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="63"/>
         <source>Show Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar notificaciones</translation>
     </message>
     <message>
         <location filename="../qt/system_tray.cpp" line="64"/>
         <source>Quit</source>
-        <translation type="unfinished"></translation>
+        <translation>Salir</translation>
     </message>
 </context>
 <context>
@@ -10744,127 +10840,128 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/tab_fractal.ui" line="14"/>
         <location filename="../qt/ui_tab_fractal.h" line="666"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Forma</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="34"/>
         <location filename="../qt/ui_tab_fractal.h" line="667"/>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Cargar</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="41"/>
         <location filename="../qt/ui_tab_fractal.h" line="668"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Guardar</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="48"/>
         <location filename="../qt/ui_tab_fractal.h" line="669"/>
         <source>Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="89"/>
         <location filename="../qt/ui_tab_fractal.h" line="670"/>
         <source>Reset formula parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Restablecer parámetros de fórmula</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="102"/>
         <location filename="../qt/ui_tab_fractal.h" line="672"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not less than &apos;Start at iteration&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Esta fórmula fractal será usada cuando el nº de iteración será no menor que &apos;Comienza en iteración&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="118"/>
         <location filename="../qt/ui_tab_fractal.h" line="674"/>
         <source>Start at iteration :</source>
-        <translation type="unfinished"></translation>
+        <translation>Comienza en iteración:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="131"/>
         <location filename="../qt/ui_tab_fractal.h" line="675"/>
         <source>Weight:</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>Carga might be ambiguos. &quot;Peso&quot; is  good but too confusing</translatorcomment>
+        <translation>Peso:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="144"/>
         <location filename="../qt/ui_tab_fractal.h" line="677"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selection for fractal formula. Fractal formula defines shape of fractal.&lt;/p&gt;&lt;p&gt;Algorithm (code) for selected formula is visible in Information box.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selección para fórmula fractal. La fórmula fractal define la forma del fractal.&lt;/p&gt;&lt;p&gt;El algoritmo (código) es visible en el panel de información para la fórmula seleccionada.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="160"/>
         <location filename="../qt/ui_tab_fractal.h" line="680"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of result of fractal formula. If weight is zero then result is ignored. If result is 1 then is fully taken.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Peso del resultado de la fórmula fractal. Si el peso es cero, el resultado será ignorado. Si el peso es 1 entonces será tenido en cuenta.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="188"/>
         <location filename="../qt/ui_tab_fractal.h" line="685"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of iterations to calculate for this formula&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Número de iteraciones para el cálculo de esta fórmula&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="207"/>
         <location filename="../qt/ui_tab_fractal.h" line="687"/>
         <source>Iterations:</source>
-        <translation type="unfinished"></translation>
+        <translation>Iteraciones:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="220"/>
         <location filename="../qt/ui_tab_fractal.h" line="689"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enables checking of bailout condition for this fractal formula. &lt;/p&gt;&lt;p&gt;Bailout condition is checked at the end of each iteration. If the length of the iteration vector is longer than the value defined by &apos;bailout&apos; parameter,  then the  iterating  stops.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Habilita la comprobación de bailout para esta fórmula fractal &lt;/p&gt;&lt;p&gt;La condición bailout se comprueba al final de cada iteración. Si la longitud del vector de iteración es más grande que el valor definido por el parámetro de &apos;bailout&apos;,  se para la iteración.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="223"/>
         <location filename="../qt/ui_tab_fractal.h" line="691"/>
         <source>Check for bailout condition</source>
-        <translation type="unfinished"></translation>
+        <translation>Comprobar condición bailout</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="230"/>
         <location filename="../qt/ui_tab_fractal.h" line="692"/>
         <source>Stop at Iteration:</source>
-        <translation type="unfinished"></translation>
+        <translation>Termina en iteración:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="243"/>
         <location filename="../qt/ui_tab_fractal.h" line="694"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This fractal formula will be used when iteration number will be not higher than &apos;Stop at iteration&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Esta fórmula fractal será usada cuando el número de iteraciónes sea no mas grande que &apos;Termina en iteración&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="259"/>
         <location filename="../qt/ui_tab_fractal.h" line="697"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disables adding Cpixel  constant to the result of fractal iteration (e.g. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Deshabilita añadir la constante de Cpixel al resultado de la iteración fractal (p.ej. z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n+1&lt;/span&gt; = z&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;&lt;span style=&quot; vertical-align:super;&quot;&gt;2&lt;/span&gt; + C)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="262"/>
         <location filename="../qt/ui_tab_fractal.h" line="699"/>
         <source>Don&apos;t add C constant</source>
-        <translation type="unfinished"></translation>
+        <translation>No añadir constante C global</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="274"/>
         <location filename="../qt/ui_tab_fractal.h" line="700"/>
         <source>Formula specific parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>Parámetros específicos de fórmula</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="305"/>
         <location filename="../qt/ui_tab_fractal.h" line="701"/>
         <source>C constant addition for this fractal formula</source>
-        <translation type="unfinished"></translation>
+        <translation>Suma de constante C para esta fórmula fractal</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="323"/>
         <location filename="../qt/ui_tab_fractal.h" line="702"/>
         <source>&amp;Julia mode</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Modo Julia</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="358"/>
@@ -10876,13 +10973,13 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/ui_tab_fractal.h" line="731"/>
         <location filename="../qt/ui_tab_fractal.h" line="736"/>
         <source>y:</source>
-        <translation type="unfinished"></translation>
+        <translation>y:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="368"/>
         <location filename="../qt/ui_tab_fractal.h" line="704"/>
         <source>Julia constant (c):</source>
-        <translation type="unfinished"></translation>
+        <translation>Constante Julia (c):</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="401"/>
@@ -10894,7 +10991,7 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/ui_tab_fractal.h" line="723"/>
         <location filename="../qt/ui_tab_fractal.h" line="738"/>
         <source>z:</source>
-        <translation type="unfinished"></translation>
+        <translation>z:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="417"/>
@@ -10906,68 +11003,70 @@ and will only be present after enabling and re-render.</source>
         <location filename="../qt/ui_tab_fractal.h" line="726"/>
         <location filename="../qt/ui_tab_fractal.h" line="737"/>
         <source>x:</source>
-        <translation type="unfinished"></translation>
+        <translation>x:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="553"/>
         <location filename="../qt/ui_tab_fractal.h" line="714"/>
         <source>Constant multiplier:</source>
-        <translation type="unfinished"></translation>
+        <translation>Multiplicador constante:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="592"/>
         <location filename="../qt/ui_tab_fractal.h" line="717"/>
         <source>Initial w-axis value
 for 4D fractals</source>
-        <translation type="unfinished"></translation>
+        <translation>Valor de eje-w inicial 
+para fractales 4D</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="639"/>
         <location filename="../qt/ui_tab_fractal.h" line="721"/>
         <source>Material for fractal</source>
-        <translation type="unfinished"></translation>
+        <translation>Material para fractal</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="673"/>
         <location filename="../qt/ui_tab_fractal.h" line="722"/>
         <source>Transform (fractal positioning)</source>
-        <translation type="unfinished"></translation>
+        <translation>Transformación (posicionamiento de fractal)</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="725"/>
         <location filename="../qt/ui_tab_fractal.h" line="724"/>
         <source>shift:</source>
-        <translation type="unfinished"></translation>
+        <translation>desplazamiento:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="732"/>
         <location filename="../qt/ui_tab_fractal.h" line="725"/>
         <source>Y-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación eje Y:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="885"/>
         <location filename="../qt/ui_tab_fractal.h" line="734"/>
         <source>X-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación eje X:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="892"/>
         <location filename="../qt/ui_tab_fractal.h" line="735"/>
         <source>Z-axis rotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotación eje Z:</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="967"/>
         <location filename="../qt/ui_tab_fractal.h" line="739"/>
         <source>Repeat</source>
-        <translation type="unfinished"></translation>
+        <translatorcomment>reiterar --possible better, dunno</translatorcomment>
+        <translation>Repetir</translation>
     </message>
     <message>
         <location filename="../qt/tab_fractal.ui" line="974"/>
         <location filename="../qt/ui_tab_fractal.h" line="740"/>
         <source>scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>escala:</translation>
     </message>
 </context>
 <context>
@@ -11144,7 +11243,7 @@ for 4D fractals</source>
     <message>
         <location filename="../qt/wave_form_view.cpp" line="165"/>
         <source>Not able to load audio file!</source>
-        <translation type="unfinished"></translation>
+        <translation>¡No se puede cargar archivo de audio!</translation>
     </message>
 </context>
 <context>

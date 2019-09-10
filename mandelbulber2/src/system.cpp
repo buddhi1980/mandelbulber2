@@ -239,6 +239,7 @@ bool InitSystem()
 	systemData.supportedLanguages.insert("de_DE", "Deutsch");
 	systemData.supportedLanguages.insert("it_IT", "Italiano");
 	systemData.supportedLanguages.insert("nl_NL", "Nederlands");
+	systemData.supportedLanguages.insert("es_ES", "Español");
 
 	// get number of columns of console
 	systemData.terminalWidth = 80;
@@ -896,7 +897,7 @@ void ClearNetRenderCache()
 	}
 }
 
-void DeleteOldChache(const QString &directoryPath, int days)
+void DeleteOldChache(const QString &directoryPath, int maxDays)
 {
 	QDir dir(directoryPath);
 	int counter = 0;
@@ -910,7 +911,7 @@ void DeleteOldChache(const QString &directoryPath, int days)
 			QFileInfo fileInfo(file);
 			QDateTime dateTime = fileInfo.lastModified();
 			qint64 days = dateTime.daysTo(QDateTime::currentDateTime());
-			if (days > 90)
+			if (days > maxDays)
 			{
 				totalSize += file.size();
 				file.remove();
