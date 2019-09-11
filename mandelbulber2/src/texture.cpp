@@ -55,15 +55,15 @@ cTexture::cTexture(
 
 	WriteLogString("Loading texture", filename, 2);
 
-	WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
-	filename = AnimatedFileName(filename, frameNo);
-
 	if (gNetRender->IsClient() && useNetRender)
 	{
-		filename = gNetRender->GetFileFromNetRender(filename);
+		filename = gNetRender->GetFileFromNetRender(filename, frameNo);
 	}
 	else
 	{
+		WriteLogString("Loading texture - AnimatedFileName()", filename, 3);
+		filename = AnimatedFileName(filename, frameNo);
+
 		WriteLogString("Loading texture - FilePathHelperTextures()", filename, 3);
 		filename = FilePathHelperTextures(filename);
 

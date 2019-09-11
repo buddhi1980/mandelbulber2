@@ -609,8 +609,10 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 	if (inMsg->id == actualId)
 	{
 		QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
+		qint32 frameIndex;
 		qint32 fileNameLength;
 		QString fileName;
+		stream >> frameIndex;
 		stream >> fileNameLength;
 
 		if (fileNameLength > 0)
@@ -630,7 +632,12 @@ void cNetRenderServer::ProcessRequestFile(sMessage *inMsg, int index, QTcpSocket
 		outMsg.id = actualId;
 		outMsg.command = netRenderCmd_SEND_REQ_FILE;
 
+		if (frameIndex >= 0)
+		{
+			fileName = AnimatedFileName(fileName, frameIndex);
+		}
 		fileName = FilePathHelperTextures(fileName);
+
 		bool failure = false;
 		if (QFile::exists(fileName))
 		{

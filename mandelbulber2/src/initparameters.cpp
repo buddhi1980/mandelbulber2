@@ -391,7 +391,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("fake_lights_enabled", false, morphLinear, paramStandard);
 	par->addParam("fake_lights_intensity", 1.0, 0.0, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_visibility", 1.0, 0.0, 1e15, morphLinear, paramStandard);
-	par->addParam("fake_lights_visibility_size", 5.0, 0.0, 1e15, morphLinear, paramStandard);
+	par->addParam("fake_lights_visibility_size", 5.0, 0.1, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_thickness", 1.0, 1e-6, 1e15, morphLinear, paramStandard);
 	par->addParam("fake_lights_orbit_trap", CVector3(2.0, 0.0, 0.0), morphLinear, paramStandard);
 	par->addParam("fake_lights_min_iter", 1, 0, 250, morphLinear, paramStandard);

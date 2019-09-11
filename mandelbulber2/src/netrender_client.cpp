@@ -600,6 +600,11 @@ void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
 
 			QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 			hashCrypt.addData(requestedFileName.toLocal8Bit());
+			if(frameIndexForRequestedFile >= 0)
+			{
+				QString stringFrameNumber = QString::number(frameIndexForRequestedFile);
+				hashCrypt.addData(stringFrameNumber.toLocal8Bit());
+			}
 			QByteArray hash = hashCrypt.result();
 			QString hashString = hash.toHex();
 			QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
@@ -683,9 +688,9 @@ void CNetRenderClient::SendFileDataChunk(int chunkIndex, QByteArray data)
 	cNetRenderTransport::SendData(clientSocket, msg, actualId);
 }
 
-void CNetRenderClient::RequestFileFromServer(QString filename)
+void CNetRenderClient::RequestFileFromServer(QString filename, int frameIndex)
 {
-	emit SignalRequestFileFromServer(filename);
+	emit SignalRequestFileFromServer(filename, frameIndex);
 	QElapsedTimer timerForTimeOut;
 	timerForTimeOut.start();
 	while (!fileReceived && !systemData.globalStopRequest && timerForTimeOut.elapsed() < 180000)
@@ -695,16 +700,18 @@ void CNetRenderClient::RequestFileFromServer(QString filename)
 	fileReceived = false;
 }
 
-void CNetRenderClient::SlotRequestFileFromServer(QString filename)
+void CNetRenderClient::SlotRequestFileFromServer(QString filename, int frameIndex)
 {
 	sMessage msg;
 	msg.command = netRenderCmd_REQ_FILE;
 	QDataStream stream(&msg.payload, QIODevice::WriteOnly);
 
+	stream << qint32(frameIndex);
 	stream << qint32(filename.toUtf8().size());
 	stream.writeRawData(filename.toUtf8().data(), filename.toUtf8().size());
 
 	requestedFileName = filename;
+	frameIndexForRequestedFile = frameIndex;
 
 	WriteLog(QString("NetRender - SlotRequestFileFromServer(), name %1").arg(filename), 2);
 

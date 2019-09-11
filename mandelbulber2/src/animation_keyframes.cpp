@@ -652,7 +652,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		keyframes->RefreshAllAudioTracks(params);
 
 		// checking for collisions
-		if (!systemData.noGui && image->IsMainImage())
+		if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 		{
 			if (params->Get<bool>("keyframe_auto_validate"))
 			{
@@ -1633,35 +1633,39 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 		alreadyRenderedFrames[frameIndex] = true;
 	}
 
-	// counting left frames
-	int countLeft = reservedFrames.count(false);
-
-	// calculate maximum list size
-	int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2;
-	if (numberOfFramesForNetRender < minFramesForNetRender)
-		numberOfFramesForNetRender = minFramesForNetRender;
-	if (numberOfFramesForNetRender > maxFramesForNetRender)
-		numberOfFramesForNetRender = maxFramesForNetRender;
-
-	// calculate number for frames to supplement
-	int numberOfNewFrames = numberOfFramesForNetRender - sizeOfToDoList;
-
-	if (numberOfNewFrames > 0)
+	if (!animationStopRequest)
 	{
-		QList<int> toDoList;
 
-		// looking for not reserved frame
-		for (int f = 0; f < reservedFrames.size(); f++)
+		// counting left frames
+		int countLeft = reservedFrames.count(false);
+
+		// calculate maximum list size
+		int numberOfFramesForNetRender = countLeft / gNetRender->GetClientCount() / 2;
+		if (numberOfFramesForNetRender < minFramesForNetRender)
+			numberOfFramesForNetRender = minFramesForNetRender;
+		if (numberOfFramesForNetRender > maxFramesForNetRender)
+			numberOfFramesForNetRender = maxFramesForNetRender;
+
+		// calculate number for frames to supplement
+		int numberOfNewFrames = numberOfFramesForNetRender - sizeOfToDoList;
+
+		if (numberOfNewFrames > 0)
 		{
-			if (!reservedFrames[f])
+			QList<int> toDoList;
+
+			// looking for not reserved frame
+			for (int f = 0; f < reservedFrames.size(); f++)
 			{
-				toDoList.append(f);
-				reservedFrames[f] = true;
+				if (!reservedFrames[f])
+				{
+					toDoList.append(f);
+					reservedFrames[f] = true;
+				}
+				if (toDoList.size() >= numberOfNewFrames) break;
 			}
-			if (toDoList.size() >= numberOfNewFrames) break;
+			NetRenderSendFramesToDoList(clientIndex, toDoList);
+			qDebug() << "Server: new toDo list" << toDoList;
 		}
-		NetRenderSendFramesToDoList(clientIndex, toDoList);
-		qDebug() << "Server: new toDo list" << toDoList;
 	}
 }
 

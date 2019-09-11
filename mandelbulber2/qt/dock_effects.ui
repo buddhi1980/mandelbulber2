@@ -152,8 +152,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1052</height>
+            <width>306</width>
+            <height>852</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1114,8 +1114,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1052</height>
+            <width>249</width>
+            <height>1037</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2061,8 +2061,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1052</height>
+            <width>274</width>
+            <height>379</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2730,7 +2730,7 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-785</y>
             <width>551</width>
             <height>1863</height>
            </rect>
@@ -4277,7 +4277,7 @@ of lights:</string>
                    <double>10.000000000000000</double>
                   </property>
                   <property name="singleStep">
-                   <double>0.500000000000000</double>
+                   <double>0.100000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -4681,8 +4681,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>569</width>
-            <height>1044</height>
+            <width>167</width>
+            <height>109</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">

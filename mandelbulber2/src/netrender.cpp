@@ -50,15 +50,12 @@
 
 cNetRender *gNetRender = nullptr;
 
-// TODO: correct restarting of rendering when started again from frame 0
 // TODO: to add sending audio files for AnimBySound
 // TODO: to check headless mode
 // TODO: to add sending rendering status form client to server
 // TODO: to add sending of rendering preview
 // TODO: to modify NetRender status table
-// TODO: to disable animation validate option before rendering
 // TODO: to implement NetRender for flight animation rendering
-// TODO: to fix problem with looped animated textures
 
 cNetRender::cNetRender() : QObject(nullptr)
 {
@@ -283,12 +280,22 @@ void cNetRender::ResetDeviceType()
 	emit NotifyStatus();
 }
 
-QString cNetRender::GetFileFromNetRender(QString requiredFileName)
+QString cNetRender::GetFileFromNetRender(QString requiredFileName, int frameIndex)
 {
 	// this method need to be thread safe!
 
 	QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 	hashCrypt.addData(requiredFileName.toLocal8Bit());
+	if (requiredFileName.contains('%'))
+	{
+		QString stringFrameNumber = QString::number(frameIndex);
+		hashCrypt.addData(stringFrameNumber.toLocal8Bit());
+	}
+	else
+	{
+		frameIndex = -1;
+	}
+
 	QByteArray hash = hashCrypt.result();
 	QString hashString = hash.toHex();
 	QString fileInCache = systemData.GetNetrenderFolder() + QDir::separator() + hashString + "."
@@ -299,7 +306,7 @@ QString cNetRender::GetFileFromNetRender(QString requiredFileName)
 	}
 	else
 	{
-		netRenderClient->RequestFileFromServer(requiredFileName);
+		netRenderClient->RequestFileFromServer(requiredFileName, frameIndex);
 		return fileInCache;
 	}
 }

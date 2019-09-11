@@ -67,7 +67,7 @@ public:
 	// notify server that frame was just rendered
 	void ConfirmRenderedFrame(int frameIndex, int sizeOfToDoList);
 	// request for file from server
-	void RequestFileFromServer(QString filename);
+	void RequestFileFromServer(QString filename, int frameIndex);
 
 private slots:
 	// try to connect to server
@@ -81,7 +81,7 @@ private slots:
 	// send file data chunk
 	void SendFileDataChunk(int chunkIndex, QByteArray data);
 	// request for file from server
-	void SlotRequestFileFromServer(QString filename);
+	void SlotRequestFileFromServer(QString filename, int frameIndex);
 
 signals:
 	// The client has been deleted
@@ -101,7 +101,7 @@ signals:
 	// add file to file sender queue
 	void AddFileToSender(QString fileName);
 	// request for file from server
-	void SignalRequestFileFromServer(QString filename);
+	void SignalRequestFileFromServer(QString filename, int frameIndex);
 	// stop rendering animation;
 	void animationStopRequest();
 
@@ -136,6 +136,7 @@ private:
 
 	bool fileReceived = false;
 	QString requestedFileName;
+	int frameIndexForRequestedFile = -1;
 };
 
 #endif /* MANDELBULBER2_SRC_NETRENDER_CLIENT_HPP_ */

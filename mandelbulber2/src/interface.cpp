@@ -2247,6 +2247,8 @@ bool cInterface::QuitApplicationDialog()
 				settings.setValue("detachedWindowGeometry", detachedWindow->saveGeometry());
 			}
 
+			ClearNetRenderCache();
+
 			gApplication->quit();
 			quit = true;
 			break;
