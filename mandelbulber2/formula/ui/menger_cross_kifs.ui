@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>menger_cross_kifs</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -655,7 +655,7 @@
       <item>
        <widget class="QLabel" name="label_112">
         <property name="text">
-         <string>Prism Shape Rotation</string>
+         <string>Prism Shape Rotation (T&gt;Rotation)</string>
         </property>
        </widget>
       </item>
@@ -1283,7 +1283,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_function_enabledR_false">
         <property name="title">
-         <string>&amp;Rotation</string>
+         <string>&amp;Rotation (T&gt;Rotation2)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1649,25 +1649,25 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

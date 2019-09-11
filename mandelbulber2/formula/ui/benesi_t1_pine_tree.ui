@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_t1_pine_tree</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>979</width>
-    <height>2621</height>
+    <height>2671</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -415,7 +415,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
         <property name="title">
-         <string>Mag Transform &amp;T1 Internal Rotation</string>
+         <string>Mag Transform &amp;T1 Internal Rotation (T&gt;Rotation)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1151,7 +1151,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation2_enabled_false">
      <property name="title">
-      <string>Pos&amp;t Rotation</string>
+      <string>Pos&amp;t Rotation (T&gt;Rotation2)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1464,25 +1464,25 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

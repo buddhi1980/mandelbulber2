@@ -5666,7 +5666,7 @@ void MandelbulbAbsPower2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
- * MandelbulbAbsPower2Iteration
+ * MandelbulbAtan22Iteration
  */
 void MandelbulbAtan2Power2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -6286,9 +6286,6 @@ void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	}
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
-
-
-
 
 /**
  * mandelbulbMulti 3D
@@ -8870,10 +8867,6 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	CVector4 c = aux.const_c;
 	CVector4 oldZ = z;
 	aux.DE = aux.DE * 2.0 * aux.r;
-	CVector4 temp = z;
-	double tempL = temp.Length();
-	// if (tempL < 1e-21)
-	//	tempL = 1e-21;
 
 	if (fabs(z.x) < fabs(z.z) * fractal->transformCommon.constantMultiplier111.x) swap(z.x, z.z);
 	if (fabs(z.x) < fabs(z.y) * fractal->transformCommon.constantMultiplier111.y) swap(z.x, z.y);
@@ -8889,8 +8882,9 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	if (z.x * z.y < 0.0) z.y = -z.y;
 
 	z *= fractal->transformCommon.scale3D111;
-	aux.DE *= fabs(z.Length() / tempL);
+	aux.DE *= z.Length() / aux.r;
 
+	CVector4 temp = z;
 	temp.x = z.x * z.x - z.y * z.y - z.z * z.z;
 	temp.y = 2.0 * z.x * z.y;
 	temp.z = 2.0 * z.x * z.z;
@@ -8901,6 +8895,13 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+	double lengthTempZ = -z.Length();
+	// if (lengthTempZ > -1e-21)
+	//	lengthTempZ = -1e-21;   //  z is neg.)
+	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
+	z *= fractal->transformCommon.scale1;
+	aux.DE *= fabs(fractal->transformCommon.scale1);
 
 	if (fractal->transformCommon.addCpixelEnabledFalse)
 	{
@@ -8914,12 +8915,6 @@ void MsltoeSym4ModIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z.y += sign(z.y) * tempFAB.y;
 		z.z += sign(z.z) * tempFAB.z;
 	}
-	double lengthTempZ = -z.Length();
-	// if (lengthTempZ > -1e-21)
-	//	lengthTempZ = -1e-21;   //  z is neg.)
-	z *= 1.0 + fractal->transformCommon.offset / lengthTempZ;
-	z *= fractal->transformCommon.scale1;
-	aux.DE *= fabs(fractal->transformCommon.scale1);
 }
 
 /**

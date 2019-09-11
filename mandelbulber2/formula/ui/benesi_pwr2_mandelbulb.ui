@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_pwr2_mandelbulb</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -692,7 +692,7 @@
       <item>
        <widget class="MyGroupBox" name="groupCheck_transf_rotation_enabled">
         <property name="title">
-         <string>Mag Transform &amp;T1 Internal Rotation</string>
+         <string>Mag Transform &amp;T1 Internal Rotation (T&gt;Rotation)</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
@@ -1606,7 +1606,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_rotation2_enabled_false">
      <property name="title">
-      <string>Pos&amp;t Rotation</string>
+      <string>Pos&amp;t Rotation (T&gt;Rotation2)</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -2074,14 +2074,14 @@
    <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
-   <class>MySpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>my_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyCheckBox</class>
    <extends>QCheckBox</extends>
    <header>my_check_box.h</header>
+  </customwidget>
+  <customwidget>
+   <class>MySpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>my_spin_box.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

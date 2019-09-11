@@ -565,7 +565,7 @@ void sFractal::RecalculateFractalParams()
 		IFS.direction[i].Normalize();
 	}
 
-	mandelbox.mainRot.SetRotation2(mandelbox.rotationMain * M_PI_180);
+	mandelbox.mainRot.SetRotation2(mandelbox.rotationMain * M_PI_180); // Rotation
 
 	for (int fold = 0; fold < MANDELBOX_FOLDS; ++fold)
 	{
@@ -588,10 +588,9 @@ void sFractal::RecalculateFractalParams()
 		transformCommon.rotation44a * (M_PI / 180.0)); // ..........................
 	transformCommon.rotationMatrix44.SetRotation44b(
 		transformCommon.rotation44b * (M_PI / 180.0)); // ...............................
-	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI / 180.0));
-	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI / 180.0));
-	transformCommon.rotationMatrixVary.SetRotation2(transformCommon.rotationVary * M_PI_180);
-
+	transformCommon.rotationMatrix.SetRotation2(transformCommon.rotation * (M_PI_180)); // T>Rotation
+	transformCommon.rotationMatrix2.SetRotation2(transformCommon.rotation2 * (M_PI_180)); // T>Rotation2
+	transformCommon.rotationMatrixVary.SetRotation2(transformCommon.rotationVary * M_PI_180); // TODO check
 	transformCommon.sqtR = sqrt(transformCommon.minR05);
 	transformCommon.mboxFactor1 = 1.0 / transformCommon.sqtR; // for orig. abox asurf
 

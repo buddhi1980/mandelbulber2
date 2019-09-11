@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>benesi_pine_tree</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>871</width>
-    <height>876</height>
+    <height>890</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -184,7 +184,7 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_angle_0">
+      <widget class="MyDoubleSpinBox" name="spinboxd_transf_angle_0">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
          <horstretch>0</horstretch>
@@ -201,10 +201,10 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>-99.989999999999995</double>
+        <double>-36000.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>99.989999999999995</double>
+        <double>36000.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>1.000000000000000</double>
