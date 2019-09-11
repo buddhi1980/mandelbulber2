@@ -1,11 +1,18 @@
 import hou
 import sys
+import os
 from collections import OrderedDict
 
 # info
 __author__ = "Adrian Meyer @Animationsinstitut Filmakademie Baden-Wuerttemberg"
 __copyright__ = "2019 All rights reserved. See LICENSE for more details."
 __status__ = "Prototype"
+
+def create_render_dir():
+    input = hou.ui.readInput("Path to Create", buttons=('OK',))
+    path = input[1]
+    os.mkdir(path)
+    print "{}\nDirectory created.".format(path)
 
 
 folder_name = "Mandelbulber Animation"
@@ -111,6 +118,7 @@ def import_animation():
         keyframes_anim_out = "\n".join(keyframes_anim_out.split("\n")[1:-2])
 
         keyframes_anim_parms = keyframes_anim_out.split("\n")[0]
+
         keyframes_anim_interpolation = keyframes_anim_out.split("\n")[-1]
         keyframes_anim_out = keyframes_anim_out.split("\n")[1:-1]
         keyframes_anim_out = "\n".join(keyframes_anim_out)
@@ -171,11 +179,14 @@ def import_animation():
 
     anim_parms = anim_parms.split(" ")
 
+    extensions = ["x", "y", "z", "w"]
     anim_parms_split = []
     for parm in anim_parms:
+        
         split = parm.rsplit("_", 1)
-        if len(split) > 1:
-            anim_parms_split.append(split[0])
+        if parm[-1] in extensions:
+            if len(split) > 1:
+                anim_parms_split.append(split[0])
         else:
             anim_parms_split.append(parm)
 
@@ -229,7 +240,7 @@ def import_animation():
             parm.setKeyframe(hou.Keyframe(0))
             parm_pattern.append(parm.path())
     parm_pattern = " ".join(parm_pattern)
-    # print "\nParm Pattern: " + parm_pattern
+    #print "\nParm Pattern: " + parm_pattern
 
     # load data from .chan file
 
@@ -314,10 +325,11 @@ def export_animation():
 
     parm_pattern = []
     for parm in parms:
-        parm.setAutoscope(1)
-        parm.setScope(1)
-        parm.setKeyframe(hou.Keyframe(0))
-        parm_pattern.append(parm.path())
+        if parm.name() != "display_size":
+            parm.setAutoscope(1)
+            parm.setScope(1)
+            parm.setKeyframe(hou.Keyframe(0))
+            parm_pattern.append(parm.path())
     parm_pattern = " ".join(parm_pattern)
     # print "\nParm Pattern: " + parm_pattern
 

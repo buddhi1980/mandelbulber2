@@ -9,6 +9,7 @@
     <memberTool name="reload_som_mandelbulber"/>
     <memberTool name="import_anim"/>
     <memberTool name="export_anim"/>
+    <memberTool name="create_render_dir"/>
   </toolshelf>
 
   <tool name="reload_som_mandelbulber" label="Reload Module" icon="SOP_python">
@@ -107,16 +108,23 @@ except:
   </tool>
 
   <tool name="import_anim" label="Import Animation" icon="ROP_channel">
+    <helpText><![CDATA["""Imports Animation from Mandelbulber .fract File"""]]></helpText>
     <script scriptType="python"><![CDATA[import hou_mandelbulber
-reload(hou_mandelbulber)
 
 hou_mandelbulber.import_animation()]]></script>
   </tool>
 
   <tool name="export_anim" label="Export Animation" icon="ROP_channel">
+    <helpText><![CDATA["""Exports edited Animation back to Mandelbulber .fract File"""]]></helpText>
     <script scriptType="python"><![CDATA[import hou_mandelbulber
-reload(hou_mandelbulber)
 
 hou_mandelbulber.export_animation()]]></script>
+  </tool>
+
+  <tool name="create_render_dir" label="Create Render Dir" icon="SOP_file">
+    <helpText><![CDATA["""Helper Tool to create non existent Render Directory, when editing the 'path for images' String in Mandelbulber. Mandelbulber does not create the Directory on render and throws an Error."""]]></helpText>
+    <script scriptType="python"><![CDATA[import hou_mandelbulber
+
+hou_mandelbulber.create_render_dir()]]></script>
   </tool>
 </shelfDocument>
