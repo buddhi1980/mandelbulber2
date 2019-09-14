@@ -109,6 +109,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
 	fakeLightsVisibilitySize = container->Get<double>("fake_lights_visibility_size");
+	fillLightColor = container->Get<sRGB>("fill_light_color");
 	fogColor = container->Get<sRGB>("basic_fog_color");
 	fogEnabled = container->Get<bool>("basic_fog_enabled");
 	fogVisibility = container->Get<double>("basic_fog_visibility");

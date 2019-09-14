@@ -43,6 +43,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 	float3 specular = 0.0f;
 	float3 shadow = 1.0f;
 
+	float3 fillLight = consts->params.fillLightColor;
+
 	if (consts->params.mainLightEnable)
 	{
 		shade = MainShading(input);
@@ -137,8 +139,8 @@ float3 ObjectShader(__constant sClInConstants *consts, sRenderData *renderData,
 #endif
 #endif
 
-	color = surfaceColor * (mainLight * shadow * shade + auxLights + fakeLights + AO) + totalSpecular
-					+ luminosity;
+	color = surfaceColor * (fillLight + mainLight * shadow * shade + auxLights + fakeLights + AO)
+					+ totalSpecular + luminosity;
 	*outSpecular = totalSpecular;
 
 	*outSurfaceColor = surfaceColor;

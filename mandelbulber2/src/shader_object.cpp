@@ -47,6 +47,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	cMaterial *mat = input.material;
 	input.normal = vn;
 
+	// fill light
+	sRGBAfloat fillLight;
+	fillLight.R = params->fillLightColor.R / 65536.0;
+	fillLight.G = params->fillLightColor.G / 65536.0;
+	fillLight.B = params->fillLightColor.B / 65536.0;
+
 	// main light
 	sRGBAfloat mainLight;
 	mainLight.R = params->mainLightIntensity * params->mainLightColour.R / 65536.0f;
@@ -162,9 +168,12 @@ sRGBAfloat cRenderWorker::ObjectShader(const sShaderInputData &_input, sRGBAfloa
 	*iridescenceOut = iridescence;
 
 	// total shader
-	output.R = envMapping.R + (ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
-	output.G = envMapping.G + (ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
-	output.B = envMapping.B + (ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
+	output.R =
+		envMapping.R + (fillLight.R + ambient2.R + mainLight.R * shade.R * shadow.R) * colour.R;
+	output.G =
+		envMapping.G + (fillLight.G + ambient2.G + mainLight.G * shade.G * shadow.G) * colour.G;
+	output.B =
+		envMapping.B + (fillLight.B + ambient2.B + mainLight.B * shade.B * shadow.B) * colour.B;
 
 	output.R += (auxLights.R + fakeLights.R) * colour.R;
 	output.G += (auxLights.G + fakeLights.G) * colour.G;

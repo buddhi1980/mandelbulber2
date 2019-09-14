@@ -142,6 +142,7 @@ struct sParamRender
 	sRGB background_color2;
 	sRGB background_color3;
 	sRGB fakeLightsColor;
+	sRGB fillLightColor;
 	sRGB fogColor;
 	sRGB glowColor1;
 	sRGB glowColor2;

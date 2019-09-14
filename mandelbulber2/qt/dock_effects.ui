@@ -76,7 +76,7 @@
       <enum>QTabWidget::West</enum>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <property name="usesScrollButtons">
       <bool>true</bool>
@@ -152,8 +152,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>306</width>
-            <height>852</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_34">
@@ -1114,8 +1114,8 @@ per pixel:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>249</width>
-            <height>1037</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_35">
@@ -2061,8 +2061,8 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>274</width>
-            <height>379</height>
+            <width>569</width>
+            <height>1078</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_36">
@@ -2730,9 +2730,9 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-785</y>
+            <y>0</y>
             <width>551</width>
-            <height>1863</height>
+            <height>1885</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_41">
@@ -2850,6 +2850,23 @@ Set 100 to keep compatibility with version &lt;=2.12</string>
                   </property>
                   <property name="singleStep">
                    <double>1.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>Fill light color:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="MyColorButton" name="colorButton_fill_light_color" native="true">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Color of light source&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="text" stdset="0">
+                   <string>PushButton</string>
                   </property>
                  </widget>
                 </item>
@@ -4681,8 +4698,8 @@ of lights:</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>167</width>
-            <height>109</height>
+            <width>569</width>
+            <height>1070</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_3">
