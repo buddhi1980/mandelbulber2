@@ -95,6 +95,7 @@ struct sPrimitiveWater : sPrimitiveBasic
 	bool waveFromObjectsEnable;
 	double relativeAmplitude;
 	double animSpeed;
+	double animProgressionSpeed;
 	double length;
 	double waveFromObjectsRelativeAmplitude;
 	int iterations;

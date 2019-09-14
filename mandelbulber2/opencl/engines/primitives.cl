@@ -172,7 +172,7 @@ float PrimitiveWater(__global sPrimitiveCl *primitive, float3 _point, float dist
 		float p = 1.0f;
 		float p2 = 0.05f;
 
-		point.x += phase * 0.05f;
+		point.x += phase * 0.05f * (primitive->data.water.animProgressionSpeed * 3.0f - 3.0f);
 
 		for (int i = 1; i <= primitive->data.water.iterations; i++)
 		{

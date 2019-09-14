@@ -34,7 +34,7 @@
      <property name="spacing">
       <number>2</number>
      </property>
-     <item row="6" column="2">
+     <item row="7" column="2">
       <widget class="MySpinBox" name="spinboxInt_iterations">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -85,14 +85,14 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
+     <item row="8" column="0">
       <widget class="QLabel" name="label_8">
        <property name="text">
         <string>X-axis rotation:</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="0">
+     <item row="7" column="0">
       <widget class="QLabel" name="label_17">
        <property name="text">
         <string>Iterations:</string>
@@ -106,7 +106,7 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="2">
+     <item row="10" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_z">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -137,7 +137,7 @@
      <item row="5" column="0">
       <widget class="QLabel" name="label_20">
        <property name="text">
-        <string>Wave speed (anim.):</string>
+        <string>Waving speed (anim.):</string>
        </property>
       </widget>
      </item>
@@ -161,14 +161,14 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="0">
+     <item row="9" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>Y-axis rotation:</string>
        </property>
       </widget>
      </item>
-     <item row="8" column="2">
+     <item row="9" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_y">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -196,7 +196,7 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0">
+     <item row="10" column="0">
       <widget class="QLabel" name="label_15">
        <property name="text">
         <string>Z-axis rotation:</string>
@@ -263,7 +263,7 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="2">
+     <item row="8" column="2">
       <widget class="MyDoubleSpinBox" name="spinboxd3_rotation_x">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -298,14 +298,14 @@
        </property>
       </widget>
      </item>
-     <item row="12" column="0">
+     <item row="13" column="0">
       <widget class="QLabel" name="label_21">
        <property name="text">
         <string>Material:</string>
        </property>
       </widget>
      </item>
-     <item row="12" column="1" colspan="2">
+     <item row="13" column="1" colspan="2">
       <widget class="cMaterialSelector" name="materialselector_material_id" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -315,7 +315,7 @@
        </property>
       </widget>
      </item>
-     <item row="11" column="0" colspan="3">
+     <item row="12" column="0" colspan="3">
       <widget class="MyCheckBox" name="checkBox_empty">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -328,7 +328,7 @@
        </property>
       </widget>
      </item>
-     <item row="10" column="0" colspan="3">
+     <item row="11" column="0" colspan="3">
       <widget class="MyGroupBox" name="groupCheck_wave_from_objects_enable">
        <property name="title">
         <string>Shape of waves adapted &amp;to objects shape</string>
@@ -374,6 +374,41 @@
          </layout>
         </item>
        </layout>
+      </widget>
+     </item>
+     <item row="6" column="2">
+      <widget class="MyDoubleSpinBox" name="spinbox_anim_progression_speed">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="prefix">
+        <string/>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="decimals">
+        <number>2</number>
+       </property>
+       <property name="minimum">
+        <double>-100.000000000000000</double>
+       </property>
+       <property name="maximum">
+        <double>100.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.100000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>Progression speed (anim.):</string>
+       </property>
       </widget>
      </item>
     </layout>

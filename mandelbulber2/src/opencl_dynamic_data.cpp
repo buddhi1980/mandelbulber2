@@ -644,6 +644,7 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 						primitiveCl.data.water.waveFromObjectsEnable = water->waveFromObjectsEnable;
 						primitiveCl.data.water.relativeAmplitude = water->relativeAmplitude;
 						primitiveCl.data.water.animSpeed = water->animSpeed;
+						primitiveCl.data.water.animProgressionSpeed = water->animProgressionSpeed;
 						primitiveCl.data.water.length = water->length;
 						primitiveCl.data.water.waveFromObjectsRelativeAmplitude =
 							water->waveFromObjectsRelativeAmplitude;

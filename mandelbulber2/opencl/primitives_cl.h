@@ -66,6 +66,7 @@ typedef struct
 	cl_int waveFromObjectsEnable;
 	cl_float relativeAmplitude;
 	cl_float animSpeed;
+	cl_float animProgressionSpeed;
 	cl_float length;
 	cl_float waveFromObjectsRelativeAmplitude;
 	cl_int iterations;

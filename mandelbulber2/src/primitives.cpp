@@ -167,6 +167,7 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 				obj->relativeAmplitude = par->Get<double>(item.name + "_relative_amplitude");
 				obj->length = par->Get<double>(item.name + "_length");
 				obj->animSpeed = par->Get<double>(item.name + "_anim_speed");
+				obj->animProgressionSpeed = par->Get<double>(item.name + "_anim_progression_speed");
 				obj->iterations = par->Get<int>(item.name + "_iterations");
 				obj->waveFromObjectsEnable = par->Get<bool>(item.name + "_wave_from_objects_enable");
 				obj->waveFromObjectsRelativeAmplitude =
@@ -400,7 +401,9 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 		double p = 1.0;
 		double p2 = 0.05;
 
-		point.x += phase * 0.05;
+		point.x += phase * 0.05
+							 * (animProgressionSpeed * 3.0
+									 - 3.0); // 3.0 to keep compatibility and to have 0.0 stopping moving
 
 		for (int i = 1; i <= iterations; i++)
 		{

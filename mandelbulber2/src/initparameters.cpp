@@ -1158,6 +1158,7 @@ void InitPrimitiveParams(
 			par->addParam(QString(primitiveName) + "_relative_amplitude", 0.2, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_length", 0.1, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_anim_speed", 1.0, morphAkima, paramStandard);
+			par->addParam(QString(primitiveName) + "_anim_progression_speed", 1.0, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_iterations", 5, morphAkima, paramStandard);
 			par->addParam(QString(primitiveName) + "_empty", false, morphAkima, paramStandard);
 			par->addParam(
