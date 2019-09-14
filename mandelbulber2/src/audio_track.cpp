@@ -45,6 +45,7 @@
 
 #include "audio_fft_data.h"
 #include "files.h"
+#include "netrender.hpp"
 #include "system.hpp"
 
 // custom includes
@@ -83,7 +84,15 @@ void cAudioTrack::Clear()
 
 void cAudioTrack::LoadAudio(const QString &_filename)
 {
-	QString filename = FilePathHelperSounds(_filename);
+	QString filename;
+	if (gNetRender->IsClient())
+	{
+		filename = gNetRender->GetFileFromNetRender(_filename, -1);
+	}
+	else
+	{
+		filename = FilePathHelperSounds(_filename);
+	}
 	// check if file exists
 	QFileInfo file(filename);
 	if (!(file.exists() && file.isFile())) return;

@@ -178,8 +178,14 @@ class cKeyframeRenderThread : public QThread
 {
 	Q_OBJECT;
 
+public:
+	cKeyframeRenderThread(QString &settingsText);
+
 public slots:
 	void startAnimationRender();
+
+private:
+	QString settingsText;
 
 signals:
 	void renderingFinished();

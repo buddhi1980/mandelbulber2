@@ -48,6 +48,7 @@
 #include "files.h"
 #include "global_data.hpp"
 #include "headless.h"
+#include "initparameters.hpp"
 #include "interface.hpp"
 #include "netrender.hpp"
 #include "render_job.hpp"
@@ -65,6 +66,7 @@
 #include "qt/pushbutton_anim_sound.h"
 #include "qt/system_tray.hpp"
 #include "qt/thumbnail_widget.h"
+#include "settings.hpp"
 
 cKeyframeAnimation *gKeyframeAnimation = nullptr;
 
@@ -1680,8 +1682,18 @@ void cKeyframeAnimation::slotAnimationStopRequest()
 	animationStopRequest = true;
 }
 
+cKeyframeRenderThread::cKeyframeRenderThread(QString &_settingsText) : QThread()
+{
+	settingsText = _settingsText;
+}
+
 void cKeyframeRenderThread::startAnimationRender()
 {
+	cSettings parSettings(cSettings::formatFullText);
+	parSettings.BeQuiet(true);
+	parSettings.LoadFromString(settingsText);
+	parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
+
 	gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 	emit renderingFinished();
 }

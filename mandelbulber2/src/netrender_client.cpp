@@ -485,21 +485,6 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			WriteLog(
 				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 2);
 
-			cSettings parSettings(cSettings::formatFullText);
-			parSettings.BeQuiet(true);
-
-			gInterfaceReadyForSynchronization = false;
-			parSettings.LoadFromString(settingsText);
-
-			if (inMsg->command == netRenderCmd_ANIM_KEY)
-			{
-				parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
-			}
-			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
-			{
-				parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr);
-			}
-
 			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
 
 			gInterfaceReadyForSynchronization = true;
@@ -508,8 +493,9 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 				// emit KeyframeAnimationRender();
 
-				auto keyframesRenderThread = new cKeyframeRenderThread; // deleted by deleteLater()
-				auto *thread = new QThread;															// deleted by deleteLater()
+				auto keyframesRenderThread =
+					new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
+				auto *thread = new QThread;								 // deleted by deleteLater()
 				keyframesRenderThread->moveToThread(thread);
 
 				connect(thread, &QThread::started, keyframesRenderThread,
@@ -600,7 +586,7 @@ void CNetRenderClient::ProcessRequestReceivedFile(sMessage *inMsg)
 
 			QCryptographicHash hashCrypt(QCryptographicHash::Md4);
 			hashCrypt.addData(requestedFileName.toLocal8Bit());
-			if(frameIndexForRequestedFile >= 0)
+			if (frameIndexForRequestedFile >= 0)
 			{
 				QString stringFrameNumber = QString::number(frameIndexForRequestedFile);
 				hashCrypt.addData(stringFrameNumber.toLocal8Bit());
@@ -696,6 +682,7 @@ void CNetRenderClient::RequestFileFromServer(QString filename, int frameIndex)
 	while (!fileReceived && !systemData.globalStopRequest && timerForTimeOut.elapsed() < 180000)
 	{
 		Wait(10);
+		gApplication->processEvents();
 	}
 	fileReceived = false;
 }
