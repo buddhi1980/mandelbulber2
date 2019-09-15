@@ -85,8 +85,7 @@ void cOpenClEngineRenderSSAO::SetParameters(
 	paramsSSAO.random_mode = paramRender->SSAO_random_mode;
 	numberOfPixels = quint64(paramsSSAO.width) * quint64(paramsSSAO.height);
 	intensity = paramRender->ambientOcclusion;
-	aoColor = sRGBFloat(paramRender->ambientOcclusionColor.R / 65536.0,
-		paramRender->ambientOcclusionColor.G / 65536.0, paramRender->ambientOcclusionColor.B / 65536.0);
+	aoColor = paramRender->ambientOcclusionColor;
 
 	definesCollector.clear();
 }

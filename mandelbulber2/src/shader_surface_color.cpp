@@ -80,9 +80,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 				}
 				else
 				{
-					colour.R = input.material->color.R / 65536.0;
-					colour.G = input.material->color.G / 65536.0;
-					colour.B = input.material->color.B / 65536.0;
+					colour.R = input.material->color.R;
+					colour.G = input.material->color.G;
+					colour.B = input.material->color.B;
 				}
 
 				if (input.material->specularGradientEnable)
@@ -122,9 +122,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 			}
 			else
 			{
-				colour.R = input.material->color.R / 65536.0;
-				colour.G = input.material->color.G / 65536.0;
-				colour.B = input.material->color.B / 65536.0;
+				colour.R = input.material->color.R;
+				colour.G = input.material->color.G;
+				colour.B = input.material->color.B;
 			}
 
 			out.R = colour.R;
@@ -143,9 +143,9 @@ sRGBAfloat cRenderWorker::SurfaceColour(
 		case fractal::objTorus:
 		case fractal::objCylinder:
 		{
-			out.R = input.material->color.R / 65536.0f;
-			out.G = input.material->color.G / 65536.0f;
-			out.B = input.material->color.B / 65536.0f;
+			out.R = input.material->color.R;
+			out.G = input.material->color.G;
+			out.B = input.material->color.B;
 			break;
 		}
 		case fractal::objNone:

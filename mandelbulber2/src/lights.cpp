@@ -107,7 +107,7 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 			{
 				lights[i].position = CVector3(0.0, 0.0, 0.0);
 				lights[i].intensity = 0.0;
-				lights[i].colour = sRGB(0, 0, 0);
+				lights[i].colour = sRGBFloat(0.0, 0.0, 0.0);
 				lights[i].enabled = false;
 			}
 		}
@@ -147,16 +147,16 @@ void cLights::Set(const cParameterContainer *_params, const cFractalContainer *_
 				if (trialNumber > 100000) break;
 			}
 
-			sRGB colour;
+			sRGBFloat colour;
 			if (params->auxLightRandomInOneColor)
 			{
 				colour = params->auxLightRandomColor;
 			}
 			else
 			{
-				colour = sRGB(int(random.Random(20000, 100000, 1)), int(random.Random(20000, 100000, 1)),
-					int(random.Random(20000, 100000, 1)));
-				double convertColorRatio = 65536.0 / dMax(colour.R, colour.G, colour.B);
+				colour = sRGBFloat(float(random.Random(20000, 100000, 1)),
+					float(random.Random(20000, 100000, 1)), float(random.Random(20000, 100000, 1)));
+				double convertColorRatio = 1.0 / dMax(colour.R, colour.G, colour.B);
 				colour.R *= convertColorRatio;
 				colour.G *= convertColorRatio;
 				colour.B *= convertColorRatio;

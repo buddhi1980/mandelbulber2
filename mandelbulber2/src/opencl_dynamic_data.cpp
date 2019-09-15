@@ -444,7 +444,7 @@ void cOpenClDynamicData::BuildAOVectorsData(const sVectorsAround *AOVectors, cl_
 
 		sVectorsAroundCl vector;
 		vector.v = toClFloat3(AOVectors[i].v);
-		vector.color = toClFloat3(sRGB(AOVectors[i].R, AOVectors[i].G, AOVectors[i].B));
+		vector.color = toClFloat3(AOVectors[i].color);
 		vector.alpha = AOVectors[i].alpha;
 		vector.beta = AOVectors[i].beta;
 

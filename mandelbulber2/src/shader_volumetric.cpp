@@ -62,9 +62,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 	float glow = input.stepCount * params->glowIntensity / 512.0f * float(params->DEFactor);
 	float glowN = 1.0f - glow;
 	if (glowN < 0.0f) glowN = 0.0f;
-	float glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow) / 65536.0f;
-	float glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow) / 65536.0f;
-	float glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow) / 65536.0f;
+	float glowR = (params->glowColor1.R * glowN + params->glowColor2.R * glow);
+	float glowG = (params->glowColor1.G * glowN + params->glowColor2.G * glow);
+	float glowB = (params->glowColor1.B * glowN + params->glowColor2.B * glow);
 
 	double totalStep = 0.0;
 
@@ -131,9 +131,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 						double bellFunction = 1.0 / (1.0 + pow(r2, 4.0));
 						float lightDensity = miniStep * bellFunction * params->auxLightVisibility / lightSize;
 
-						output.R += lightDensity * light->colour.R / 65536.0f;
-						output.G += lightDensity * light->colour.G / 65536.0f;
-						output.B += lightDensity * light->colour.B / 65536.0f;
+						output.R += lightDensity * light->colour.R;
+						output.G += lightDensity * light->colour.G;
+						output.B += lightDensity * light->colour.B;
 						output.A += lightDensity;
 
 						if (miniSteps == lastMiniSteps)
@@ -160,12 +160,12 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 												/ (powf(r, 10.0f / params->fakeLightsVisibilitySize)
 															* powf(10.0f, 10.0f / params->fakeLightsVisibilitySize)
 														+ 0.1f);
-			output.R += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R
-									/ 65536.0f;
-			output.G += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G
-									/ 65536.0f;
-			output.B += fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B
-									/ 65536.0f;
+			output.R +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.R;
+			output.G +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.G;
+			output.B +=
+				fakeLight * float(step) * params->fakeLightsVisibility * params->fakeLightsColor.B;
 			output.A += fakeLight * float(step) * params->fakeLightsVisibility;
 		}
 
@@ -177,11 +177,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			{
 				sRGBAfloat shadowOutputTemp = MainShadow(input2);
 				output.R += shadowOutputTemp.R * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.R / 65536.0f;
+										* params->mainLightColour.R;
 				output.G += shadowOutputTemp.G * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.G / 65536.0f;
+										* params->mainLightColour.G;
 				output.B += shadowOutputTemp.B * float(step) * params->volumetricLightIntensity[0]
-										* params->mainLightColour.B / 65536.0f;
+										* params->mainLightColour.B;
 				output.A += (shadowOutputTemp.R + shadowOutputTemp.G + shadowOutputTemp.B) / 3.0f
 										* float(step) * params->volumetricLightIntensity[0];
 			}
@@ -195,11 +195,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 					float distanceLight2 = distanceLight * distanceLight;
 					lightVectorTemp.Normalize();
 					float lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
-					output.R += lightShadow * light->colour.R / 65536.0f * params->volumetricLightIntensity[i]
+					output.R += lightShadow * light->colour.R * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
-					output.G += lightShadow * light->colour.G / 65536.0f * params->volumetricLightIntensity[i]
+					output.G += lightShadow * light->colour.G * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
-					output.B += lightShadow * light->colour.B / 65536.0f * params->volumetricLightIntensity[i]
+					output.B += lightShadow * light->colour.B * params->volumetricLightIntensity[i]
 											* float(step) / distanceLight2;
 					output.A +=
 						lightShadow * params->volumetricLightIntensity[i] * float(step) / distanceLight2;
@@ -212,9 +212,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 		{
 			float fogDensity = step / params->fogVisibility;
 			if (fogDensity > 1.0f) fogDensity = 1.0f;
-			output.R = fogDensity * params->fogColor.R / 65536.0f + (1.0f - fogDensity) * output.R;
-			output.G = fogDensity * params->fogColor.G / 65536.0f + (1.0f - fogDensity) * output.G;
-			output.B = fogDensity * params->fogColor.B / 65536.0f + (1.0f - fogDensity) * output.B;
+			output.R = fogDensity * params->fogColor.R + (1.0f - fogDensity) * output.R;
+			output.G = fogDensity * params->fogColor.G + (1.0f - fogDensity) * output.G;
+			output.B = fogDensity * params->fogColor.B + (1.0f - fogDensity) * output.B;
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
 		}
@@ -244,9 +244,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 			float fogDensity = 0.3f * fogIntensity * densityTemp / (1.0f + fogIntensity * densityTemp);
 			if (fogDensity > 1) fogDensity = 1.0;
 
-			output.R = fogDensity * fogTempR / 65536.0f + (1.0f - fogDensity) * output.R;
-			output.G = fogDensity * fogTempG / 65536.0f + (1.0f - fogDensity) * output.G;
-			output.B = fogDensity * fogTempB / 65536.0f + (1.0f - fogDensity) * output.B;
+			output.R = fogDensity * fogTempR + (1.0f - fogDensity) * output.R;
+			output.G = fogDensity * fogTempG + (1.0f - fogDensity) * output.G;
+			output.B = fogDensity * fogTempB + (1.0f - fogDensity) * output.B;
 
 			totalOpacity = fogDensity + (1.0f - fogDensity) * totalOpacity;
 			output.A = fogDensity + (1.0f - fogDensity) * output.A;
@@ -301,11 +301,11 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 								shadowOutputTemp.G *= params->iterFogBrightnessBoost;
 								shadowOutputTemp.B *= params->iterFogBrightnessBoost;
 							}
-							newColour.R += shadowOutputTemp.R * params->mainLightColour.R / 65536.0f
+							newColour.R += shadowOutputTemp.R * params->mainLightColour.R
 														 * params->mainLightIntensity;
-							newColour.G += shadowOutputTemp.G * params->mainLightColour.G / 65536.0f
+							newColour.G += shadowOutputTemp.G * params->mainLightColour.G
 														 * params->mainLightIntensity;
-							newColour.B += shadowOutputTemp.B * params->mainLightColour.B / 65536.0f
+							newColour.B += shadowOutputTemp.B * params->mainLightColour.B
 														 * params->mainLightIntensity;
 						}
 					}
@@ -326,9 +326,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 								lightShadow = AuxShadow(input2, distanceLight, lightVectorTemp, light->intensity);
 							}
 							float intensity = light->intensity * params->iterFogBrightnessBoost;
-							newColour.R += lightShadow * light->colour.R / 65536.0f / distanceLight2 * intensity;
-							newColour.G += lightShadow * light->colour.G / 65536.0f / distanceLight2 * intensity;
-							newColour.B += lightShadow * light->colour.B / 65536.0f / distanceLight2 * intensity;
+							newColour.R += lightShadow * light->colour.R / distanceLight2 * intensity;
+							newColour.G += lightShadow * light->colour.G / distanceLight2 * intensity;
+							newColour.B += lightShadow * light->colour.B / distanceLight2 * intensity;
 						}
 					}
 				}
@@ -344,9 +344,9 @@ sRGBAfloat cRenderWorker::VolumetricShader(
 
 				if (opacity > 1.0f) opacity = 1.0f;
 
-				output.R = output.R * (1.0f - opacity) + newColour.R * opacity * fogColR / 65536.0f;
-				output.G = output.G * (1.0f - opacity) + newColour.G * opacity * fogColG / 65536.0f;
-				output.B = output.B * (1.0f - opacity) + newColour.B * opacity * fogColB / 65536.0f;
+				output.R = output.R * (1.0f - opacity) + newColour.R * opacity * fogColR;
+				output.G = output.G * (1.0f - opacity) + newColour.G * opacity * fogColG;
+				output.B = output.B * (1.0f - opacity) + newColour.B * opacity * fogColB;
 				totalOpacity = opacity + (1.0f - opacity) * totalOpacity;
 				output.A = opacity + (1.0f - opacity) * output.A;
 			}

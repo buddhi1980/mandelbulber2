@@ -47,7 +47,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	antialiasingSize = container->Get<int>("antialiasing_size");
 	ambientOcclusion = container->Get<float>("ambient_occlusion");
 	ambientOcclusionEnabled = container->Get<bool>("ambient_occlusion_enabled");
-	ambientOcclusionColor = container->Get<sRGB>("ambient_occlusion_color");
+	ambientOcclusionColor = toRGBFloat(container->Get<sRGB>("ambient_occlusion_color"));
 	ambientOcclusionFastTune = container->Get<double>("ambient_occlusion_fast_tune");
 	ambientOcclusionMode = params::enumAOMode(container->Get<int>("ambient_occlusion_mode"));
 	ambientOcclusionQuality = container->Get<int>("ambient_occlusion_quality");
@@ -61,13 +61,13 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	auxLightRandomIntensity = container->Get<double>("random_lights_intensity");
 	auxLightRandomEnabled = container->Get<bool>("random_lights_group");
 	auxLightRandomInOneColor = container->Get<bool>("random_lights_one_color_enable");
-	auxLightRandomColor = container->Get<sRGB>("random_lights_color");
+	auxLightRandomColor = toRGBFloat(container->Get<sRGB>("random_lights_color"));
 	auxLightVisibility = container->Get<double>("aux_light_visibility");
 	auxLightVisibilitySize = container->Get<double>("aux_light_visibility_size");
 	background3ColorsEnable = container->Get<bool>("background_3_colors_enable");
-	background_color1 = container->Get<sRGB>("background_color", 1);
-	background_color2 = container->Get<sRGB>("background_color", 2);
-	background_color3 = container->Get<sRGB>("background_color", 3);
+	background_color1 = toRGBFloat(container->Get<sRGB>("background_color", 1));
+	background_color2 = toRGBFloat(container->Get<sRGB>("background_color", 2));
+	background_color3 = toRGBFloat(container->Get<sRGB>("background_color", 3));
 	background_brightness = container->Get<double>("background_brightness");
 	backgroundHScale = container->Get<double>("background_h_scale");
 	backgroundVScale = container->Get<double>("background_v_scale");
@@ -104,19 +104,19 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	DOFMonteCarloCADispersionGain = container->Get<float>("DOF_MC_CA_dispersion_gain");
 	DOFMonteCarloCACameraDispersion = container->Get<float>("DOF_MC_CA_camera_dispersion");
 	envMappingEnable = container->Get<bool>("env_mapping_enable");
-	fakeLightsColor = container->Get<sRGB>("fake_lights_color");
+	fakeLightsColor = toRGBFloat(container->Get<sRGB>("fake_lights_color"));
 	fakeLightsEnabled = container->Get<bool>("fake_lights_enabled");
 	fakeLightsIntensity = container->Get<double>("fake_lights_intensity");
 	fakeLightsVisibility = container->Get<double>("fake_lights_visibility");
 	fakeLightsVisibilitySize = container->Get<double>("fake_lights_visibility_size");
-	fillLightColor = container->Get<sRGB>("fill_light_color");
-	fogColor = container->Get<sRGB>("basic_fog_color");
+	fillLightColor = toRGBFloat(container->Get<sRGB>("fill_light_color"));
+	fogColor = toRGBFloat(container->Get<sRGB>("basic_fog_color"));
 	fogEnabled = container->Get<bool>("basic_fog_enabled");
 	fogVisibility = container->Get<double>("basic_fog_visibility");
 	fov = container->Get<double>("fov");
 	frameNo = container->Get<int>("frame_no");
-	glowColor1 = container->Get<sRGB>("glow_color", 1);
-	glowColor2 = container->Get<sRGB>("glow_color", 2);
+	glowColor1 = toRGBFloat(container->Get<sRGB>("glow_color", 1));
+	glowColor2 = toRGBFloat(container->Get<sRGB>("glow_color", 2));
 	glowEnabled = container->Get<bool>("glow_enabled");
 	glowIntensity = container->Get<float>("glow_intensity");
 	hdrBlurEnabled = container->Get<bool>("hdr_blur_enabled");
@@ -134,9 +134,9 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	iterFogBrightnessBoost = container->Get<float>("iteration_fog_brightness_boost");
 	iterFogColor1Maxiter = container->Get<float>("iteration_fog_color_1_maxiter");
 	iterFogColor2Maxiter = container->Get<float>("iteration_fog_color_2_maxiter");
-	iterFogColour1 = container->Get<sRGB>("iteration_fog_color", 1);
-	iterFogColour2 = container->Get<sRGB>("iteration_fog_color", 2);
-	iterFogColour3 = container->Get<sRGB>("iteration_fog_color", 3);
+	iterFogColour1 = toRGBFloat(container->Get<sRGB>("iteration_fog_color", 1));
+	iterFogColour2 = toRGBFloat(container->Get<sRGB>("iteration_fog_color", 2));
+	iterFogColour3 = toRGBFloat(container->Get<sRGB>("iteration_fog_color", 3));
 	iterFogEnabled = container->Get<bool>("iteration_fog_enable");
 	iterFogOpacity = container->Get<double>("iteration_fog_opacity");
 	iterFogOpacityTrim = container->Get<float>("iteration_fog_opacity_trim");
@@ -148,7 +148,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	limitsEnabled = container->Get<bool>("limits_enabled");
 	mainLightAlpha = container->Get<double>("main_light_alpha");
 	mainLightBeta = container->Get<double>("main_light_beta");
-	mainLightColour = container->Get<sRGB>("main_light_colour");
+	mainLightColour = toRGBFloat(container->Get<sRGB>("main_light_colour"));
 	mainLightEnable = container->Get<bool>("main_light_enable");
 	mainLightIntensity = container->Get<float>("main_light_intensity");
 	mainLightPositionAsRelative = container->Get<bool>("main_light_position_relative");
@@ -186,11 +186,11 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 	viewAngle = container->Get<CVector3>("camera_rotation");
 	viewDistanceMax = container->Get<double>("view_distance_max");
 	viewDistanceMin = container->Get<double>("view_distance_min");
-	volFogColour1 = container->Get<sRGB>("fog_color", 1);
+	volFogColour1 = toRGBFloat(container->Get<sRGB>("fog_color", 1));
 	volFogColour1Distance = container->Get<double>("volumetric_fog_colour_1_distance");
-	volFogColour2 = container->Get<sRGB>("fog_color", 2);
+	volFogColour2 = toRGBFloat(container->Get<sRGB>("fog_color", 2));
 	volFogColour2Distance = container->Get<double>("volumetric_fog_colour_2_distance");
-	volFogColour3 = container->Get<sRGB>("fog_color", 3);
+	volFogColour3 = toRGBFloat(container->Get<sRGB>("fog_color", 3));
 	volFogDensity = container->Get<float>("volumetric_fog_density");
 	volFogDistanceFactor = container->Get<double>("volumetric_fog_distance_factor");
 	volFogDistanceFromSurface = container->Get<double>("volumetric_fog_distance_from_surface");
@@ -206,7 +206,7 @@ sParamRender::sParamRender(const cParameterContainer *container, QVector<cObject
 		auxLightPre[i] = container->Get<CVector3>("aux_light_position", i + 1);
 		auxLightPreIntensity[i] = container->Get<float>("aux_light_intensity", i + 1);
 		auxLightPreEnabled[i] = container->Get<bool>("aux_light_enabled", i + 1);
-		auxLightPreColour[i] = container->Get<sRGB>("aux_light_colour", i + 1);
+		auxLightPreColour[i] = toRGBFloat(container->Get<sRGB>("aux_light_colour", i + 1));
 	}
 
 	for (int i = 1; i <= 4; i++)

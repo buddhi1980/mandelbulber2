@@ -47,7 +47,7 @@ class cFractalContainer;
 struct sLight
 {
 	CVector3 position;
-	sRGB colour;
+	sRGBFloat colour;
 	float intensity{0.0f};
 	bool enabled{false};
 	sLight() {}

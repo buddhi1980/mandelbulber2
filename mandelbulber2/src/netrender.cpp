@@ -50,7 +50,7 @@
 
 cNetRender *gNetRender = nullptr;
 
-// TODO: to add sending audio files for AnimBySound
+// TODO: to check why cliect hangs after loading mp3 file (second rendering)
 // TODO: to check headless mode
 // TODO: to add sending rendering status form client to server
 // TODO: to add sending of rendering preview

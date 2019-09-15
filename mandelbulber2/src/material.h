@@ -92,12 +92,12 @@ public:
 	double iridescenceSubsurfaceThickness;
 	double textureFractalizeCubeSize;
 
-	sRGB color;
-	sRGB luminosityColor;
-	sRGB transparencyInteriorColor;
-	sRGB reflectionsColor;
-	sRGB specularColor;
-	sRGB transparencyColor;
+	sRGBFloat color;
+	sRGBFloat luminosityColor;
+	sRGBFloat transparencyInteriorColor;
+	sRGBFloat reflectionsColor;
+	sRGBFloat specularColor;
+	sRGBFloat transparencyColor;
 
 	cColorGradient gradientSurface;
 	cColorGradient gradientSpecular;

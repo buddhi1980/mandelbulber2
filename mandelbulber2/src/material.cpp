@@ -172,7 +172,7 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	specularMetallic = materialParam->Get<float>(Name("specular_metallic", id));
 	specularMetallicWidth = materialParam->Get<float>(Name("specular_metallic_width", id));
 	specularMetallicRoughness = materialParam->Get<float>(Name("specular_metallic_roughness", id));
-	specularColor = materialParam->Get<sRGB>(Name("specular_color", id));
+	specularColor = toRGBFloat(materialParam->Get<sRGB>(Name("specular_color", id)));
 	specularPlasticEnable = materialParam->Get<bool>(Name("specular_plastic_enable", id));
 	metallic = materialParam->Get<bool>(Name("metallic", id));
 	reflectance = materialParam->Get<float>(Name("reflectance", id));
@@ -185,11 +185,12 @@ void cMaterial::setParameters(int _id, const cParameterContainer *materialParam,
 	paletteOffset = materialParam->Get<double>(Name("coloring_palette_offset", id));
 	coloring_speed = materialParam->Get<double>(Name("coloring_speed", id));
 
-	color = materialParam->Get<sRGB>(Name("surface_color", id));
-	luminosityColor = materialParam->Get<sRGB>(Name("luminosity_color", id));
-	transparencyInteriorColor = materialParam->Get<sRGB>(Name("transparency_interior_color", id));
-	reflectionsColor = materialParam->Get<sRGB>(Name("reflections_color", id));
-	transparencyColor = materialParam->Get<sRGB>(Name("transparency_color", id));
+	color = toRGBFloat(materialParam->Get<sRGB>(Name("surface_color", id)));
+	luminosityColor = toRGBFloat(materialParam->Get<sRGB>(Name("luminosity_color", id)));
+	transparencyInteriorColor =
+		toRGBFloat(materialParam->Get<sRGB>(Name("transparency_interior_color", id)));
+	reflectionsColor = toRGBFloat(materialParam->Get<sRGB>(Name("reflections_color", id)));
+	transparencyColor = toRGBFloat(materialParam->Get<sRGB>(Name("transparency_color", id)));
 
 	roughSurface = materialParam->Get<bool>(Name("rough_surface", id));
 

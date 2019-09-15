@@ -62,7 +62,7 @@ public:
 		int noOfThreads;
 		int quality;
 		int progressive;
-		sRGB color;
+		sRGBFloat color;
 		unsigned int done;
 		bool stopRequest;
 		QList<int> *list;

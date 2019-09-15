@@ -135,24 +135,24 @@ struct sParamRender
 	bool volumetricLightAnyEnabled;
 	bool volFogEnabled;
 
-	sRGB ambientOcclusionColor;
-	sRGB auxLightPreColour[4];
-	sRGB auxLightRandomColor;
-	sRGB background_color1; // background colour
-	sRGB background_color2;
-	sRGB background_color3;
-	sRGB fakeLightsColor;
-	sRGB fillLightColor;
-	sRGB fogColor;
-	sRGB glowColor1;
-	sRGB glowColor2;
-	sRGB iterFogColour1;
-	sRGB iterFogColour2;
-	sRGB iterFogColour3;
-	sRGB mainLightColour;
-	sRGB volFogColour1;
-	sRGB volFogColour2;
-	sRGB volFogColour3;
+	sRGBFloat ambientOcclusionColor;
+	sRGBFloat auxLightPreColour[4];
+	sRGBFloat auxLightRandomColor;
+	sRGBFloat background_color1; // background colour
+	sRGBFloat background_color2;
+	sRGBFloat background_color3;
+	sRGBFloat fakeLightsColor;
+	sRGBFloat fillLightColor;
+	sRGBFloat fogColor;
+	sRGBFloat glowColor1;
+	sRGBFloat glowColor2;
+	sRGBFloat iterFogColour1;
+	sRGBFloat iterFogColour2;
+	sRGBFloat iterFogColour3;
+	sRGBFloat mainLightColour;
+	sRGBFloat volFogColour1;
+	sRGBFloat volFogColour2;
+	sRGBFloat volFogColour3;
 
 	double absMaxMarchingStep;
 	double absMinMarchingStep;

@@ -560,11 +560,13 @@ void cRenderWorker::PrepareAOVectors()
 			AOVectorsAround[counter].v = d;
 			int X = int((a + b) / (2.0 * M_PI) * lightMapWidth + lightMapWidth * 8.5) % lightMapWidth;
 			int Y = int(b / (M_PI)*lightMapHeight + lightMapHeight * 8.5) % lightMapHeight;
-			AOVectorsAround[counter].R = data->textures.lightmapTexture.FastPixel(X, Y).R;
-			AOVectorsAround[counter].G = data->textures.lightmapTexture.FastPixel(X, Y).G;
-			AOVectorsAround[counter].B = data->textures.lightmapTexture.FastPixel(X, Y).B;
-			if (AOVectorsAround[counter].R > 10 || AOVectorsAround[counter].G > 10
-					|| AOVectorsAround[counter].B > 10)
+			sRGBFloat color(data->textures.lightmapTexture.FastPixel(X, Y).R / 65535.0,
+				data->textures.lightmapTexture.FastPixel(X, Y).G / 65535.0,
+				data->textures.lightmapTexture.FastPixel(X, Y).B / 65535.0);
+			AOVectorsAround[counter].color = color;
+
+			if (AOVectorsAround[counter].color.R > 0.001 || AOVectorsAround[counter].color.G > 0.001
+					|| AOVectorsAround[counter].color.B > 0.001)
 			{
 				counter++;
 			}
@@ -580,9 +582,7 @@ void cRenderWorker::PrepareAOVectors()
 		AOVectorsAround[0].v.x = 0;
 		AOVectorsAround[0].v.y = 0;
 		AOVectorsAround[0].v.z = 0;
-		AOVectorsAround[0].R = 0;
-		AOVectorsAround[0].G = 0;
-		AOVectorsAround[0].B = 0;
+		AOVectorsAround[0].color = sRGBFloat();
 	}
 	AOVectorsCount = counter;
 }
@@ -1126,10 +1126,7 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 
 			sRGBAfloat resultShader = rayStack[rayIndex].in.resultShader;
 			sRGBAfloat objectColour = rayStack[rayIndex].in.objectColour;
-			sRGBFloat transparentColor =
-				sRGBFloat(shaderInputData.material->transparencyInteriorColor.R / 65536.0f,
-					shaderInputData.material->transparencyInteriorColor.G / 65536.0f,
-					shaderInputData.material->transparencyInteriorColor.B / 65536.0f);
+			sRGBFloat transparentColor = shaderInputData.material->transparencyInteriorColor;
 			resultShader.R = transparentColor.R;
 			resultShader.G = transparentColor.G;
 			resultShader.B = transparentColor.B;
@@ -1205,9 +1202,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 				}
 				else
 				{
-					transparentShader.R *= shaderInputData.material->transparencyColor.R / 65536.0f;
-					transparentShader.G *= shaderInputData.material->transparencyColor.G / 65536.0f;
-					transparentShader.B *= shaderInputData.material->transparencyColor.B / 65536.0f;
+					transparentShader.R *= shaderInputData.material->transparencyColor.R;
+					transparentShader.G *= shaderInputData.material->transparencyColor.G;
+					transparentShader.B *= shaderInputData.material->transparencyColor.B;
 				}
 
 				if (shaderInputData.material->useTransparencyTexture)
@@ -1261,9 +1258,9 @@ cRenderWorker::sRayRecursionOut cRenderWorker::RayRecursion(
 					}
 					else
 					{
-						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R / 65536.0f;
-						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G / 65536.0f;
-						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B / 65536.0f;
+						reflectDiffused.R *= shaderInputData.material->reflectionsColor.R;
+						reflectDiffused.G *= shaderInputData.material->reflectionsColor.G;
+						reflectDiffused.B *= shaderInputData.material->reflectionsColor.B;
 					}
 
 					resultShader.R = transparentShader.R * transparent * reflectanceN

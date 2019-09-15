@@ -487,10 +487,9 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 
 			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
 
-			gInterfaceReadyForSynchronization = true;
 			if (!systemData.noGui)
 			{
-				gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
+				// gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 				// emit KeyframeAnimationRender();
 
 				auto keyframesRenderThread =

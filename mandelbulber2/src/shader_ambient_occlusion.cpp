@@ -103,22 +103,16 @@ sRGBAfloat cRenderWorker::AmbientOcclusion(const sShaderInputData &input) const
 
 		intense = shadowTemp;
 
-		AO.R += intense * v.R;
-		AO.G += intense * v.G;
-		AO.B += intense * v.B;
+		AO.R += intense * v.color.R;
+		AO.G += intense * v.color.G;
+		AO.B += intense * v.color.B;
 	}
 
-	if (params->DOFEnabled && params->DOFMonteCarlo)
+	if (!params->DOFMonteCarlo)
 	{
-		AO.R /= 65536.0;
-		AO.G /= 65536.0;
-		AO.B /= 65536.0;
-	}
-	else
-	{
-		AO.R /= AOVectorsCount * 65536.0;
-		AO.G /= AOVectorsCount * 65536.0;
-		AO.B /= AOVectorsCount * 65536.0;
+		AO.R /= AOVectorsCount;
+		AO.G /= AOVectorsCount;
+		AO.B /= AOVectorsCount;
 	}
 
 	return AO;

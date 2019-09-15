@@ -103,4 +103,19 @@ using sRGBA8 = tsRGBA<quint8>;
 using sRGBA16 = tsRGBA<quint16>;
 using sRGBAfloat = tsRGBA<float>;
 
+inline sRGBFloat toRGBFloat(sRGB c)
+{
+	return sRGBFloat(c.R / 65536.0, c.G / 65536.0, c.B / 65536.0);
+}
+
+inline sRGBFloat toRGBFloat(sRGB16 c)
+{
+	return sRGBFloat(c.R / 65536.0, c.G / 65536.0, c.B / 65536.0);
+}
+
+inline sRGBFloat toRGBFloat(sRGB8 c)
+{
+	return sRGBFloat(c.R / 256.0, c.G / 256.0, c.B / 256.0);
+}
+
 #endif /* MANDELBULBER2_SRC_COLOR_STRUCTURES_HPP_ */

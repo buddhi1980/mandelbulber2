@@ -67,10 +67,10 @@ sRGBAfloat cRenderWorker::SpecularHighlight(const sShaderInputData &input, CVect
 	}
 	if (shade2 > 15.0f) shade2 = 15.0f;
 	specular.R =
-		shade2 * input.material->specularColor.R / 65536.0f * (input.texDiffuse.R * 0.5f + 0.5f);
+		shade2 * input.material->specularColor.R * (input.texDiffuse.R * 0.5f + 0.5f);
 	specular.G =
-		shade2 * input.material->specularColor.G / 65536.0f * (input.texDiffuse.G * 0.5f + 0.5f);
+		shade2 * input.material->specularColor.G * (input.texDiffuse.G * 0.5f + 0.5f);
 	specular.B =
-		shade2 * input.material->specularColor.B / 65536.0f * (input.texDiffuse.B * 0.5f + 0.5f);
+		shade2 * input.material->specularColor.B * (input.texDiffuse.B * 0.5f + 0.5f);
 	return specular;
 }

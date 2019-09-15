@@ -58,9 +58,7 @@ struct sVectorsAround
 	double alpha;
 	double beta;
 	CVector3 v;
-	int R;
-	int G;
-	int B;
+	sRGBFloat color;
 };
 
 class cRenderWorker : public QObject

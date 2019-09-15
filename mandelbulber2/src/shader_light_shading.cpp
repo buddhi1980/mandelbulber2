@@ -94,13 +94,13 @@ sRGBAfloat cRenderWorker::LightShading(const sShaderInputData &input, sRGBAfloat
 		}
 	}
 
-	shading.R = shade * light->colour.R / 65536.0f;
-	shading.G = shade * light->colour.G / 65536.0f;
-	shading.B = shade * light->colour.B / 65536.0f;
+	shading.R = shade * light->colour.R;
+	shading.G = shade * light->colour.G;
+	shading.B = shade * light->colour.B;
 
-	outSpecular->R = specular.R * light->colour.R / 65536.0f;
-	outSpecular->G = specular.G * light->colour.G / 65536.0f;
-	outSpecular->B = specular.B * light->colour.B / 65536.0f;
+	outSpecular->R = specular.R * light->colour.R;
+	outSpecular->G = specular.G * light->colour.G;
+	outSpecular->B = specular.B * light->colour.B;
 
 	return shading;
 }

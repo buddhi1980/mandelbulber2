@@ -68,8 +68,7 @@ void cSSAOWorker::doWork()
 	int height = threadData->region.height;
 	int startX = threadData->region.x1;
 	int endX = threadData->region.x2;
-	sRGBFloat aoColor(
-		threadData->color.R / 65536.0, threadData->color.G / 65536.0, threadData->color.B / 65536.0);
+	sRGBFloat aoColor =	threadData->color;
 
 	double *cosine = new double[quality];
 	double *sine = new double[quality];
