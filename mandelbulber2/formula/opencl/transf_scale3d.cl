@@ -16,6 +16,11 @@
 REAL4 TransfScale3dIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
 	z *= fractal->transformCommon.scale3D111;
-	aux->DE = aux->DE * native_divide(length(z), aux->r) + 1.0f;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux->DE = aux->DE * native_divide(length(z), aux->r) + 1.0f;
+	else
+		aux->DE =
+			aux->DE * native_divide(length(z), aux->r) * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 	return z;
 }

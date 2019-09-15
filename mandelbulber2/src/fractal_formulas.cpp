@@ -13868,7 +13868,12 @@ void TransfScaleVaryVCLIteration(CVector4 &z, const sFractal *fractal, sExtended
 void TransfScale3dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	z *= fractal->transformCommon.scale3D111;
-	aux.DE = aux.DE * z.Length() / aux.r + 1.0;
+
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * z.Length() / aux.r + 1.0;
+	else
+		aux.DE =
+			aux.DE * z.Length() / aux.r * fractal->analyticDE.scale1 + fractal->analyticDE.offset1;
 }
 
 /**
