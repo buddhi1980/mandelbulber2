@@ -11304,61 +11304,31 @@ void TransfAddConstantMod2Iteration(CVector4 &z, const sFractal *fractal, sExten
  */
 void TransfAddConstantRotV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	// std offset
-	z += fractal->transformCommon.additionConstantA000;
-
-	CVector4 rotadd = fractal->transformCommon.additionConstant000;
+	CVector4 rotadd = fractal->transformCommon.additionConstantA000;
 	rotadd = fractal->transformCommon.rotationMatrix.RotateVector(rotadd);
 
-	// plus iter control and alternate offset
-	if (fractal->transformCommon.functionEnabledAxFalse)
+	if (!fractal->transformCommon.functionEnabledFalse)
+	{
+		z += aux.pos_neg * rotadd;
+	}
+	else // iter controls
 	{
 		if (aux.i >= fractal->transformCommon.startIterationsA
 				&& aux.i < fractal->transformCommon.stopIterationsA)
-		{
-			if (fractal->transformCommon.functionEnabledBxFalse)
-			{
-				z.x += aux.pos_neg * rotadd.x;
-			}
-			else
-			{
-				z.x += rotadd.x;
-			}
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledAyFalse)
-	{
+					z.x += aux.pos_neg * rotadd.x;
 		if (aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
-		{
-			if (fractal->transformCommon.functionEnabledByFalse)
-			{
-				z.y += aux.pos_neg * rotadd.y;
-			}
-			else
-			{
-				z.y += rotadd.y;
-			}
-		}
-	}
-
-	if (fractal->transformCommon.functionEnabledAzFalse)
-	{
+					z.y += aux.pos_neg * rotadd.y;
 		if (aux.i >= fractal->transformCommon.startIterationsC
 				&& aux.i < fractal->transformCommon.stopIterationsC)
-		{
-			if (fractal->transformCommon.functionEnabledBzFalse)
-			{
-				z.z += aux.pos_neg * rotadd.z;
-			}
-			else
-			{
-				z.z += rotadd.z;
-			}
-		}
+					z.z += aux.pos_neg * rotadd.z;
 	}
+	// update for next
 	aux.pos_neg *= fractal->transformCommon.scaleNeg1;
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE =
+			aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 
 /**
