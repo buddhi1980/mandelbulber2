@@ -109,7 +109,7 @@ enum enumFractalFormula
 	benesiPineTree = 66,	 // updated addCpixel V2.16
 	benesiT1PineTree = 67, // updated V2.09, rot2 v2.14
 	msltoeSym3Mod = 68,
-	msltoeSym4Mod = 69,
+	msltoeSym4Mod = 69, // fix scal , add mult
 	eiffieMsltoe = 70, // updated V2.08. DE v2.15
 	riemannSphereMsltoeV1 = 71,
 	riemannSphereMsltoe = 72,
@@ -215,6 +215,7 @@ enum enumFractalFormula
 	riemannSphereHoboldPow8 = 181,
 	mandelbulbKosalos = 182,
 	mandelbulbKosalosV2 = 183,
+	riemannSphereHoboldMulti = 184,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,

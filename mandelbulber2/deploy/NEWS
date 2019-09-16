@@ -4,6 +4,7 @@ v2.20
 - Added new fractal formulas
    riemannSphereHoboldPow4
    riemannSphereHoboldPow8
+   riemannSphereHoboldMulti
    mandelbulbKosalos
    mandelbulbKosalosV2
    transfAddConstantMod2
@@ -11,6 +12,7 @@ v2.20
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert
    transfRotationIterControls, fix order of rotations
+   msltoeSym4Mod, added mul and fixed scale
 
 v2.19-1
 - fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance
