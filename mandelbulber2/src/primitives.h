@@ -43,6 +43,14 @@
 #include "object_data.hpp"
 #include "object_types.hpp"
 
+enum enumPrimitiveBooleanOperator
+{
+	primBooleanOperatorAND = 0,
+	primBooleanOperatorOR = 1,
+	primBooleanOperatorSUB = 2,
+	primBooleanOperatorRevSUB = 3
+};
+
 // forward declarations
 class cParameterContainer;
 struct sRenderData;
@@ -61,8 +69,9 @@ struct sPrimitiveItem
 
 struct sPrimitiveBasic : cObjectData
 {
-	bool enable;
-	int objectId;
+	bool enable = false;
+	int objectId = 0;
+	enumPrimitiveBooleanOperator booleanOperator = primBooleanOperatorOR;
 	virtual ~sPrimitiveBasic() = default;
 	virtual double PrimitiveDistance(CVector3 _point) const = 0;
 };
@@ -161,8 +170,8 @@ class cPrimitives
 public:
 	cPrimitives(const cParameterContainer *par, QVector<cObjectData> *objectData = nullptr);
 	~cPrimitives();
-	double TotalDistance(
-		CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const;
+	double TotalDistance(CVector3 point, double fractalDistance, double detailSize,
+		bool normalCalculationMode, int *closestObjectId, sRenderData *data) const;
 	const QList<sPrimitiveBasic *> *GetListOfPrimitives() const { return &allPrimitives; }
 
 	CVector3 allPrimitivesPosition;

@@ -1108,6 +1108,7 @@ void InitPrimitiveParams(
 		QString(primitiveName) + "_position", CVector3(0.0, 0.0, 0.0), morphAkima, paramStandard);
 	par->addParam(
 		QString(primitiveName) + "_rotation", CVector3(0.0, 0.0, 0.0), morphAkimaAngle, paramStandard);
+	par->addParam(QString(primitiveName) + "_boolean_operator", 1, morphLinear, paramStandard);
 
 	// left to keep compatibility with older versions
 	par->addParam(
@@ -1505,6 +1506,7 @@ void DeletePrimitiveParams(
 	par->DeleteParameter(QString(primitiveName) + "_reflection");
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
+	par->DeleteParameter(QString(primitiveName) + "_boolean_operator");
 
 	switch (objectType)
 	{
@@ -1551,6 +1553,7 @@ void DeletePrimitiveParams(
 			par->DeleteParameter(QString(primitiveName) + "_relative_amplitude");
 			par->DeleteParameter(QString(primitiveName) + "_length");
 			par->DeleteParameter(QString(primitiveName) + "_anim_speed");
+			par->DeleteParameter(QString(primitiveName) + "_anim_progression_speed");
 			par->DeleteParameter(QString(primitiveName) + "_iterations");
 			par->DeleteParameter(QString(primitiveName) + "_empty");
 			par->DeleteParameter(QString(primitiveName) + "_wave_from_objects_enable");

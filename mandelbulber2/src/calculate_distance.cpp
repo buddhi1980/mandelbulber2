@@ -192,8 +192,8 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 		distance = DisplacementMap(distance, pointFractalized, 0, data, reduceDisplacement);
 	}
 
-	distance =
-		min(distance, params.primitives.TotalDistance(in.point, distance, &out->objectId, data));
+	distance = params.primitives.TotalDistance(
+		in.point, distance, in.detailSize, in.normalCalculationMode, &out->objectId, data);
 
 	//****************************************************
 

@@ -247,8 +247,8 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		primitive->objectType = item.type;
 		primitive->SetRotation(par->Get<CVector3>(item.name + "_rotation"));
 		primitive->enable = par->Get<bool>(item.name + "_enabled");
-		// primitive->reflect = par->Get<double>(item.name + "_reflection");
-		// primitive->color = par->Get<sRGB>(item.name + "_color");
+		primitive->booleanOperator =
+			enumPrimitiveBooleanOperator(par->Get<int>(item.name + "_boolean_operator"));
 
 		if (objectData)
 		{
@@ -437,8 +437,8 @@ double sPrimitiveTorus::PrimitiveDistance(CVector3 _point) const
 	return empty ? fabs(dist) : dist;
 }
 
-double cPrimitives::TotalDistance(
-	CVector3 point, double fractalDistance, int *closestObjectId, sRenderData *data) const
+double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double detailSize,
+	bool normalCalculationMode, int *closestObjectId, sRenderData *data) const
 {
 	using namespace fractal;
 	int closestObject = *closestObjectId;
@@ -464,13 +464,93 @@ double cPrimitives::TotalDistance(
 					distTemp = primitive->PrimitiveDistance(point2);
 				}
 				distTemp = DisplacementMap(distTemp, point2, primitive->objectId, data);
-				if (distTemp < distance)
+
+				switch (primitive->booleanOperator)
 				{
-					closestObject = primitive->objectId;
-					// color = plane.color;
-					// reflect = plane.reflect;
+					case primBooleanOperatorOR:
+					{
+						if (distTemp < distance)
+						{
+							closestObject = primitive->objectId;
+						}
+						distance = min(distance, distTemp);
+						break;
+					}
+					case primBooleanOperatorAND:
+					{
+						if (distTemp > distance)
+						{
+							closestObject = primitive->objectId;
+						}
+						distance = max(distance, distTemp);
+						break;
+					}
+					case primBooleanOperatorSUB:
+					{
+						const double limit = 1.5;
+						if (distance < detailSize) // if inside 1st
+						{
+							if (distTemp < detailSize * limit * 1.5)
+							{
+								closestObject = primitive->objectId;
+							}
+
+							if (distTemp < detailSize * limit) // if inside 2nd
+							{
+								if (normalCalculationMode)
+								{
+									distance = detailSize * limit - distTemp;
+								}
+								else
+								{
+									distance = detailSize * limit;
+								}
+							}
+							else // if outside of 2nd
+							{
+								distance = max(detailSize * limit - distTemp, distance);
+								if (distance < 0) distance = 0;
+							}
+						}
+						break;
+					}
+					case primBooleanOperatorRevSUB:
+					{
+						int closestObjectTemp = closestObject;
+						closestObject = primitive->objectId;
+						const double limit = 1.5;
+						if (distTemp < detailSize) // if inside 2nd
+						{
+							if (distance < detailSize * limit * 1.5)
+							{
+								closestObject = closestObjectTemp;
+							}
+
+							if (distance < detailSize * limit) // if inside 1st
+							{
+								if (normalCalculationMode)
+								{
+									distance = detailSize * limit - distance;
+								}
+								else
+								{
+									distance = detailSize * limit;
+								}
+							}
+							else // if outside of 1st
+							{
+								distTemp = max(detailSize * limit - distance, distTemp);
+								distance = distTemp;
+								if (distance < 0) distance = 0;
+							}
+						}
+						else
+						{
+							distance = distTemp;
+						}
+						break;
+					}
 				}
-				distance = min(distance, distTemp);
 			}
 		}
 
