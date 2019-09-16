@@ -24,13 +24,31 @@ def import_animation():
     print "_" * 50
     print "\n"
 
-    fract_filepath = hou.ui.selectFile(title="Source .fract File", pattern="*.fract")
 
+    # precision fixing
+    precision_scale = 1000000.0
+
+
+    fract_filepath = hou.ui.selectFile(title="Source .fract File", pattern="*.fract")
     if fract_filepath == "":
         print "Import cancelled."
         sys.exit()
 
+    precision_scale = hou.ui.readInput("Please enter 'Value Scale Scale Factor' for easier editing of small values in Houdini",
+                                        close_choice=1,
+                                        buttons=('OK', 'Cancel'),
+                                        title="Value Scale",
+                                        initial_contents="1000.0")
+
+    if precision_scale[0] == 1:
+        print "Import cancelled."
+        sys.exit()
+
+    precision_scale = float(precision_scale[1])
+
     print "Mandelbulber File:\n{}\n".format(fract_filepath)
+
+    print "Precision Scale fior Import: {}\n".format(precision_scale)
 
     fract_file = open(fract_filepath, "r")
     fract_string = fract_file.read()
@@ -92,6 +110,18 @@ def import_animation():
         for line in flight_anim.split("\n"):
             line = " ".join(line.split(";")[1:])
             line = line.replace(",", ".")
+
+            # precision fixing
+            nums = []
+            try:
+                for num in line.split(" "):
+                    num = float(num) * precision_scale
+                    num = str(num)
+                    nums.append(num)
+                line = " ".join(nums)
+            except:
+                pass
+
             flight_anim_out += line + "\n"
 
         flight_anim_parms = flight_anim_out.split("\n")[1]
@@ -114,6 +144,18 @@ def import_animation():
         for line in keyframes_anim.split("\n"):
             line = " ".join(line.split(";")[1:])
             line = line.replace(",", ".")
+
+            # precision fixing
+            nums = []
+            try:
+                for num in line.split(" "):
+                    num = float(num) * precision_scale
+                    num = str(num)
+                    nums.append(num)
+                line = " ".join(nums)
+            except:
+                pass
+
             keyframes_anim_out += line + "\n"
         keyframes_anim_out = "\n".join(keyframes_anim_out.split("\n")[1:-2])
 
@@ -219,6 +261,7 @@ def import_animation():
         i += 1
 
     parm_folder.addParmTemplate(hou.FloatParmTemplate("display_size", "Display Size", 1))
+    parm_folder.addParmTemplate(hou.FloatParmTemplate("precision_scale", "Precision Scale", 1))
     parm_group.append(parm_folder)
     anim_null.setParmTemplateGroup(parm_group)
 
@@ -234,7 +277,8 @@ def import_animation():
 
     parm_pattern = []
     for parm in parms:
-        if parm.name() != "display_size":
+        parm_exceptions = ["display_size", "precision_scale"]
+        if parm.name() not in parm_exceptions:
             parm.setAutoscope(1)
             parm.setScope(1)
             parm.setKeyframe(hou.Keyframe(0))
@@ -251,6 +295,9 @@ def import_animation():
 
     display_size_parm = anim_null.parm("display_size")
     display_size_parm.set(0.025)
+
+    precision_scale_parm = anim_null.parm("precision_scale")
+    precision_scale_parm.set(precision_scale)
 
     # cam null
     cam_null = hou.node("/obj/").createNode("null", "cam_null")
@@ -323,9 +370,13 @@ def export_animation():
     parms = anim_null.parmsInFolder((folder_name,))
     parm_tuples = anim_null.parmTuplesInFolder((folder_name,))
 
+    precision_scale_parm = anim_null.parm("precision_scale")
+    precision_scale = precision_scale_parm.eval()
+
     parm_pattern = []
     for parm in parms:
-        if parm.name() != "display_size":
+        parm_exceptions = ["display_size", "precision_scale"]
+        if parm.name() not in parm_exceptions:
             parm.setAutoscope(1)
             parm.setScope(1)
             parm.setKeyframe(hou.Keyframe(0))
@@ -341,23 +392,34 @@ def export_animation():
     hou.hscript("chwrite {} {}".format(parm_pattern, chan_filepath))
     print "Exported .chan File from Houdini succesfully:\n{}".format(chan_filepath)
 
-    # read date from .chan file back in
+    # read data from .chan file back in
 
     chan_file = open(chan_filepath, "r")
     chan_string = chan_file.read()
     chan_file.close()
 
-    chan_string = chan_string.replace("\t", ";")
-    chan_string = chan_string.replace(".", ",")
-
     chan_string_lines = chan_string.split("\n")[:-1]
 
     chan_string_out = []
+
     i = 0
     for line in chan_string_lines:
-        line = "{}{}".format(i, line)
+        vals = []
+        nums = []
+        # precision fixing
+        vals = line.split("\t")[1:]
+        for num in vals:
+            num = float(num) / precision_scale
+            num = str(num)
+            nums.append(num)
+
+        line = ";".join(nums)
+        line = line.replace(".", ",")
+
+        line = "{};{}".format(i, line)
         chan_string_out.append(line)
         i += 1
+        
     flight_anim_out = "\n".join(chan_string_out)
 
     # print "\n.chan String:"
