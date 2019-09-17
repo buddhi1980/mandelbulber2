@@ -40,6 +40,14 @@
 #include "opencl_algebra.h"
 #endif
 
+typedef enum
+{
+	clPrimBooleanOperatorAND = 0,
+	clPrimBooleanOperatorOR = 1,
+	clPrimBooleanOperatorSUB = 2,
+	clPrimBooleanOperatorRevSUB = 3
+} enumClPrimitiveBooleanOperator;
+
 // primitive specified parameters
 typedef struct
 {
@@ -138,6 +146,7 @@ typedef struct
 {
 	sObjectDataCl object; // structure
 	uPrimitiveCl data;		// union !!!
+	enumClPrimitiveBooleanOperator booleanOperator;
 } sPrimitiveCl;
 
 #endif /* MANDELBULBER2_OPENCL_PRIMITIVES_CL_H_ */

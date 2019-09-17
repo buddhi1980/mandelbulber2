@@ -215,7 +215,8 @@ float PrimitiveTorus(__global sPrimitiveCl *primitive, float3 _point)
 #endif
 
 float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *renderData,
-	float3 point, float fractalDistance, int *closestObjectId)
+	float3 point, float fractalDistance, float detailSize, bool normalCalculationMode,
+	int *closestObjectId)
 {
 	int numberOfPrimitives = renderData->numberOfPrimitives;
 	int closestObject = *closestObjectId;
@@ -312,12 +313,92 @@ float TotalDistanceToPrimitives(__constant sClInConstants *consts, sRenderData *
 			distTemp = DisplacementMap(distTemp, point2, primitive->object.objectId, renderData, 1.0f);
 #endif
 
-			if (distTemp < dist)
+			switch (primitive->booleanOperator)
 			{
-				closestObject = primitive->object.objectId;
-			}
+				case clPrimBooleanOperatorOR:
+				{
+					if (distTemp < dist)
+					{
+						closestObject = primitive->object.objectId;
+					}
+					dist = min(dist, distTemp);
+					break;
+				}
+				case clPrimBooleanOperatorAND:
+				{
+					if (distTemp > dist)
+					{
+						closestObject = primitive->object.objectId;
+					}
+					dist = max(dist, distTemp);
+					break;
+				}
+				case clPrimBooleanOperatorSUB:
+				{
+					const float limit = 1.5f;
+					if (dist < detailSize) // if inside 1st
+					{
+						if (distTemp < detailSize * limit * 1.5f)
+						{
+							closestObject = primitive->object.objectId;
+						}
 
-			dist = min(dist, distTemp);
+						if (distTemp < detailSize * limit) // if inside 2nd
+						{
+							if (normalCalculationMode)
+							{
+								dist = max(detailSize * limit - distTemp, dist);
+							}
+							else
+							{
+								dist = detailSize * limit;
+							}
+						}
+						else // if outside of 2nd
+						{
+							dist = max(detailSize * limit - distTemp, dist);
+							if (dist < 0.0f) dist = 0.0f;
+						}
+					}
+					break;
+				}
+				case clPrimBooleanOperatorRevSUB:
+				{
+					int closestObjectTemp = closestObject;
+					closestObject = primitive->object.objectId;
+					const float limit = 1.5f;
+					if (distTemp < detailSize) // if inside 2nd
+					{
+						if (dist < detailSize * limit * 1.5f)
+						{
+							closestObject = closestObjectTemp;
+						}
+
+						if (dist < detailSize * limit) // if inside 1st
+						{
+							if (normalCalculationMode)
+							{
+								dist = max(detailSize * limit - dist, distTemp);
+							}
+							else
+							{
+								dist = detailSize * limit;
+							}
+						}
+						else // if outside of 1st
+						{
+							distTemp = max(detailSize * limit - dist, distTemp);
+							dist = distTemp;
+							if (dist < 0.0f) dist = 0.0f;
+						}
+					}
+					else
+					{
+						dist = distTemp;
+					}
+					break;
+				}
+			} // switch
 		}
 	}
 

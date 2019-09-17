@@ -296,8 +296,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 #endif // USE_DISPLACEMENT_TEXTURE
 
 #ifdef USE_PRIMITIVES
-	out.distance = min(out.distance,
-		TotalDistanceToPrimitives(consts, renderData, point, out.distance, &closestObjectId));
+	out.distance = TotalDistanceToPrimitives(consts, renderData, point, out.distance,
+		calcParam->detailSize, calcParam->normalCalculationMode, &closestObjectId);
 	out.objectId = closestObjectId;
 #endif
 
@@ -439,11 +439,23 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 					float limit = 1.5f;
 					if (dist < calcParam->detailSize) // if inside 1st
 					{
+						if (distTemp < calcParam->detailSize * limit * 1.5)
+						{
+							outTemp.objectId = 1 + i;
+							out.z = outTemp.z;
+							out.iters = outTemp.iters;
+							out.distance = outTemp.distance;
+							out.colorIndex = outTemp.colorIndex;
+							out.orbitTrapR = outTemp.orbitTrapR;
+							out.maxiter = outTemp.maxiter;
+							out.objectId = outTemp.objectId;
+						}
+
 						if (distTemp < calcParam->detailSize * limit) // if inside 2nd
 						{
 							if (calcParam->normalCalculationMode)
 							{
-								dist = calcParam->detailSize * limit - distTemp;
+								dist = max(calcParam->detailSize * limit - distTemp, dist);
 							}
 							else
 							{
@@ -452,18 +464,6 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 						}
 						else // if outside of 2nd
 						{
-							if (calcParam->detailSize * limit - distTemp > dist)
-							{
-								outTemp.objectId = 1 + i;
-								out.z = outTemp.z;
-								out.iters = outTemp.iters;
-								out.distance = outTemp.distance;
-								out.colorIndex = outTemp.colorIndex;
-								out.orbitTrapR = outTemp.orbitTrapR;
-								out.maxiter = outTemp.maxiter;
-								out.objectId = outTemp.objectId;
-							}
-
 							dist = max(calcParam->detailSize * limit - distTemp, dist);
 							if (dist < 0) dist = 0;
 						}
@@ -480,7 +480,8 @@ formulaOut CalculateDistance(__constant sClInConstants *consts, float3 point,
 	int closestObjectId = out.objectId;
 
 #ifdef USE_PRIMITIVES
-	dist = min(dist, TotalDistanceToPrimitives(consts, renderData, point, dist, &closestObjectId));
+	dist = TotalDistanceToPrimitives(consts, renderData, point, dist, calcParam->detailSize,
+		calcParam->normalCalculationMode, &closestObjectId);
 	out.objectId = closestObjectId;
 #endif
 

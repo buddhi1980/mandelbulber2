@@ -587,6 +587,8 @@ QString cOpenClDynamicData::BuildPrimitivesData(const cPrimitives *primitivesCon
 		primitiveCl.object.position = toClFloat3(primitive->position);
 		primitiveCl.object.rotationMatrix = toClMatrix33(primitive->rotationMatrix);
 		primitiveCl.object.size = toClFloat3(primitive->size);
+		primitiveCl.booleanOperator =
+			static_cast<enumClPrimitiveBooleanOperator>(primitive->booleanOperator);
 
 		try
 		{

@@ -146,11 +146,17 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 						const double limit = 1.5;
 						if (distance < in.detailSize) // if inside 1st
 						{
+							if (distTemp < in.detailSize * limit * 1.5)
+							{
+								outTemp.objectId = 1 + i;
+								*out = outTemp;
+							}
+
 							if (distTemp < in.detailSize * limit) // if inside 2nd
 							{
 								if (in.normalCalculationMode)
 								{
-									distance = in.detailSize * limit - distTemp;
+									distance = max(in.detailSize * limit - distTemp, distance);
 								}
 								else
 								{
@@ -159,12 +165,6 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 							}
 							else // if outside of 2nd
 							{
-								if (in.detailSize * limit - distTemp > distance)
-								{
-									outTemp.objectId = 1 + i;
-									*out = outTemp;
-								}
-
 								distance = max(in.detailSize * limit - distTemp, distance);
 								if (distance < 0) distance = 0;
 							}

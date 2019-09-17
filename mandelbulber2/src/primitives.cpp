@@ -499,7 +499,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 							{
 								if (normalCalculationMode)
 								{
-									distance = detailSize * limit - distTemp;
+									distance = max(detailSize * limit - distTemp, distance);
 								}
 								else
 								{
@@ -530,7 +530,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 							{
 								if (normalCalculationMode)
 								{
-									distance = detailSize * limit - distance;
+									distance = max(detailSize * limit - distance, distTemp);
 								}
 								else
 								{
@@ -550,7 +550,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 						}
 						break;
 					}
-				}
+				} //switch
 			}
 		}
 
