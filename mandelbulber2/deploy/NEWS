@@ -15,6 +15,10 @@ v2.20
    transfRotationIterControls, fix order of rotations
    msltoeSym4Mod, added mul and fixed scale
    aboxMod13,add missing sphere fold iter controls
+   transfSurfBoxFoldV24d = 1104, // duplicated number 1089
+
+
+
 
 v2.19-1
 - fixed bug #702 -  there was OpenCL compiler error when used diffusion texture and transparency without reflectance

@@ -324,7 +324,7 @@ enum enumFractalFormula
 	transfAddCpixelSinOrCos = 1087,
 	// 2.16
 	transfSurfBoxFoldV2 = 1088,
-	transfSurfBoxFoldV24d = 1089,
+	//transfSurfBoxFoldV24d = 1089,
 	// 2.17
 	transfBoxWrap4d = 1089,
 	transfSphericalInvV2 = 1090,
@@ -344,6 +344,7 @@ enum enumFractalFormula
 	// 2.20
 	transfAddConstantMod2 = 1102,
 	transfAddConstantRotV1 = 1103,
+	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
 
 	// hybrid color trial
 	transfHybridColor = 2000,
