@@ -1677,26 +1677,30 @@ void AboxMod13Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		z = CVector4(z.z, z.y, z.x, z.w);
 	}
 	// spherical fold
-	double rr = z.Dot(z);
-
-	z += fractal->mandelbox.offset;
-
-	// if (r2 < 1e-21) r2 = 1e-21;
-	if (rr < fractal->transformCommon.minR2p25)
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
 	{
-		double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
-		z *= tglad_factor1;
-		aux.DE *= tglad_factor1;
-		colorAdd += fractal->mandelbox.color.factorSp1;
+		double rr = z.Dot(z);
+
+		z += fractal->mandelbox.offset;
+
+		// if (r2 < 1e-21) r2 = 1e-21;
+		if (rr < fractal->transformCommon.minR2p25)
+		{
+			double tglad_factor1 = fractal->transformCommon.maxR2d1 / fractal->transformCommon.minR2p25;
+			z *= tglad_factor1;
+			aux.DE *= tglad_factor1;
+			colorAdd += fractal->mandelbox.color.factorSp1;
+		}
+		else if (rr < fractal->transformCommon.maxR2d1)
+		{
+			double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
+			z *= tglad_factor2;
+			aux.DE *= tglad_factor2;
+			colorAdd += fractal->mandelbox.color.factorSp2;
+		}
+		z -= fractal->mandelbox.offset;
 	}
-	else if (rr < fractal->transformCommon.maxR2d1)
-	{
-		double tglad_factor2 = fractal->transformCommon.maxR2d1 / rr;
-		z *= tglad_factor2;
-		aux.DE *= tglad_factor2;
-		colorAdd += fractal->mandelbox.color.factorSp2;
-	}
-	z -= fractal->mandelbox.offset;
 
 	double useScale = fractal->mandelbox.scale;
 	if (fractal->transformCommon.functionEnabledXFalse

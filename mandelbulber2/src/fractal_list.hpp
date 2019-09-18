@@ -172,7 +172,7 @@ enum enumFractalFormula
 	quaternionCubic4d = 124,
 	boxFoldBulbPow2V2 = 125,
 	boxFoldBulbPow2V3 = 126, // added sphere invert
-	aboxMod13 = 127,
+	aboxMod13 = 127, // add missing sphere fold iter controls
 	boxFoldQuat = 128,
 	// 2.13
 	coastalbrot = 129,
