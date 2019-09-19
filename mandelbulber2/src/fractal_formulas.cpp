@@ -17405,7 +17405,7 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledCyFalse
 			&& aux.i >= fractal->transformCommon.startIterationsG
 			&& aux.i < fractal->transformCommon.stopIterationsG)
-		if (z.y > z.x) swap(z.x, z.y);
+		if (z.x > z.y) swap(z.x, z.y);
 
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
@@ -17887,7 +17887,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// double fillet = fractal->transformCommon.offset0;
 	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
 
-	/*double xOffset = fractal->transformCommon.offset0;
+	double xOffset = fractal->transformCommon.offset0;
 	double yOffset = fractal->transformCommon.offset05;
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -17993,7 +17993,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}*/
+	}
 
 	CVector4 zc = z;
 
@@ -18513,15 +18513,56 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 /**
- * Testing  fragmentarium code, mdifs by knighty (jan 2012)
+ * Testing difs DE transform
  *
  */
 void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	// CVector4 oldZ = z;
-	// double fillet = fractal->transformCommon.offset0;
-	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
+	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+
+
+	// xyz box fold
+	if (fractal->transformCommon.functionEnabledBxFalse
+			&& aux.i >= fractal->transformCommon.startIterationsB
+			&& aux.i < fractal->transformCommon.stopIterationsB)
+				z = fabs(z) - fractal->transformCommon.additionConstant111;
+
+
+
+
+	// scale
+	double useScale = 1.0;
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		useScale = aux.actualScaleA + fractal->transformCommon.scale1;
+
+		z *= useScale;
+
+		if (!fractal->analyticDE.enabledFalse)
+			aux.DE = aux.DE * fabs(useScale) + 1.0;
+		else
+			aux.DE = aux.DE * fabs(useScale) * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+		if (fractal->transformCommon.functionEnabledFFalse
+				&& aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			if (fractal->transformCommon.functionEnabledMFalse)
+				aux.actualScaleA = -vary;
+			else
+				aux.actualScaleA = aux.actualScaleA - vary;
+		}
+	}
+
+
+	z += fractal->transformCommon.offset000;
+
+
 
 	// DE
 	CVector4 zc = z;
