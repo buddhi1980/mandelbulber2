@@ -4344,7 +4344,7 @@ void BoxFoldBulbMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 /**
  * BoxFold Quaternion
- * This formula contains aux.color and aux.actualScale
+ * This formula contains aux.color, aux.pos_neg and aux.actualScale
  * Sometimes Delta DE Linear works best.
  */
 void BoxFoldQuatIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -17384,11 +17384,11 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux.i >= fractal->transformCommon.startIterationsD
 			&& aux.i < fractal->transformCommon.stopIterationsD)
-		if (z.x > z.y) swap(z.x, z.y);
+				if (z.x > z.y) swap(z.x, z.y);
 
-	/*
-		//double xOffset = fractal->transformCommon.offset0;
-		//double yOffset = fractal->transformCommon.offset05;
+
+		double xOffset = fractal->transformCommon.offset0;
+		double yOffset = fractal->transformCommon.offset05;
 
 		if (fractal->transformCommon.functionEnabledxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsA
@@ -17399,7 +17399,7 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 				&& aux.i >= fractal->transformCommon.startIterationsC
 				&& aux.i < fractal->transformCommon.stopIterationsC)
 			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
-	*/
+
 
 	// diag 2
 	if (fractal->transformCommon.functionEnabledCyFalse
@@ -17468,13 +17468,17 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	zc = fabs(zc) - boxSize;
 	double zcd = 1.0;
 	zcd = max(zc.x, max(zc.y, zc.z));
-	if (zcd > 0.0)
+	if (fractal->transformCommon.functionEnabledJFalse && zcd > 0.0 + fractal->transformCommon.offsetC0 * 100.0) //........................test
 	{
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
 		zc.z = max(zc.z, 0.0);
 		zcd = zc.Length();
+		colorAdd = 6.0; // ....................................
 	}
+	else colorAdd = 8.0; // ....................................
+
+
 	if (!fractal->transformCommon.functionEnabledPFalse)
 		aux.dist = min(aux.dist, zcd / aux.DE);
 	else
@@ -17487,8 +17491,9 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		colorAdd = fractal->mandelbox.color.factor.x * aux.dist;
 		colorAdd += fractal->mandelbox.color.factor.y;
 		colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-		aux.color += colorAdd;
+		//aux.color += colorAdd;
 	}
+	aux.color = colorAdd; // ....................................
 }
 
 /**
@@ -17882,7 +17887,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	// double fillet = fractal->transformCommon.offset0;
 	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
 
-	double xOffset = fractal->transformCommon.offset0;
+	/*double xOffset = fractal->transformCommon.offset0;
 	double yOffset = fractal->transformCommon.offset05;
 
 	if (fractal->transformCommon.functionEnabledBxFalse
@@ -17988,7 +17993,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i < fractal->transformCommon.stopIterationsR)
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
-	}
+	}*/
 
 	CVector4 zc = z;
 
@@ -18506,6 +18511,41 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	}
 	if (fractal->analyticDE.enabledFalse)
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+}
+/**
+ * Testing  fragmentarium code, mdifs by knighty (jan 2012)
+ *
+ */
+void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double colorAdd = 0.0;
+	// CVector4 oldZ = z;
+	// double fillet = fractal->transformCommon.offset0;
+	CVector4 boxSize = fractal->transformCommon.additionConstant0555;
+
+	// DE
+	CVector4 zc = z;
+	zc = fabs(zc) - boxSize;
+	double zcd = 1.0;
+	zcd = max(zc.x, max(zc.y, zc.z));
+	if (fractal->transformCommon.functionEnabledJFalse && zcd > 0.0 + fractal->transformCommon.offsetC0 * 100.0) //........................test
+	{
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		zcd = zc.Length();
+		colorAdd = 6.0; // ....................................
+	}
+	else colorAdd = 8.0; // ....................................
+
+
+	if (!fractal->transformCommon.functionEnabledPFalse)
+		aux.dist = min(aux.dist, zcd / aux.DE);
+	else
+		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetD0 / 1000.0;
+
+
+	aux.color = colorAdd; // ....................................
 }
 
 

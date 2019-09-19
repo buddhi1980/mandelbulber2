@@ -908,4 +908,11 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Blockify", "transf_blockify", transfBlockify,
 		TransfBlockifyIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault)); //  log or linear???
+
+	fractalList->append(sFractalDescription("Testing Transform", "testing_transform", testingTransform, TestingTransformIteration,
+		analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100, analyticFunctionDIFS,
+		coloringFunctionDefault));
+
+
+
 }

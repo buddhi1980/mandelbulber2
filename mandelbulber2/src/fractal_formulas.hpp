@@ -350,5 +350,6 @@ void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtended
 void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 #endif /* MANDELBULBER2_SRC_FRACTAL_FORMULAS_HPP_ */

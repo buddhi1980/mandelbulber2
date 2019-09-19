@@ -352,7 +352,7 @@ enum enumFractalFormula
 	testing = 2100,
 	testing4d = 2101,
 	testingLog = 2103,
-
+	testingTransform = 2104,
 
 
 };
