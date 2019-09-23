@@ -101,6 +101,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 		case IMAGE_CONTENT_ALPHA: return "alpha";
 		case IMAGE_CONTENT_ZBUFFER: return "zbuffer";
 		case IMAGE_CONTENT_NORMAL: return "normal";
+		case IMAGE_CONTENT_NORMAL_WORLD: return "normalWorld";
 		case IMAGE_CONTENT_SPECULAR: return "specular";
 		case IMAGE_CONTENT_DIFFUSE: return "diffuse";
 		case IMAGE_CONTENT_WORLD_POSITION: return "world";
@@ -110,7 +111,7 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world"});
+	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world", "normalWorld"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -252,6 +253,7 @@ QStringList ImageFileSavePNG::SaveImage()
 			}
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_NORMAL_WORLD:
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
@@ -333,6 +335,7 @@ QStringList ImageFileSaveJPG::SaveImage()
 				break;
 			}
 			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_NORMAL_WORLD:
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
@@ -382,6 +385,7 @@ QStringList ImageFileSaveTIFF::SaveImage()
 				break;
 			case IMAGE_CONTENT_ZBUFFER:
 			case IMAGE_CONTENT_NORMAL:
+			case IMAGE_CONTENT_NORMAL_WORLD:
 			case IMAGE_CONTENT_SPECULAR:
 			case IMAGE_CONTENT_DIFFUSE:
 			case IMAGE_CONTENT_WORLD_POSITION:
@@ -469,6 +473,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ALPHA:
 			case IMAGE_CONTENT_ZBUFFER: colorType = PNG_COLOR_TYPE_GRAY; break;
 			case IMAGE_CONTENT_NORMAL: colorType = PNG_COLOR_TYPE_RGB; break;
+			case IMAGE_CONTENT_NORMAL_WORLD: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_SPECULAR: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_DIFFUSE: colorType = PNG_COLOR_TYPE_RGB; break;
 			case IMAGE_CONTENT_WORLD_POSITION: colorType = PNG_COLOR_TYPE_RGB; break;
@@ -494,6 +499,7 @@ void ImageFileSavePNG::SavePNG(
 			case IMAGE_CONTENT_ALPHA: pixelSize *= 1; break;
 			case IMAGE_CONTENT_ZBUFFER: pixelSize *= 1; break;
 			case IMAGE_CONTENT_NORMAL: pixelSize *= 3; break;
+			case IMAGE_CONTENT_NORMAL_WORLD: pixelSize *= 3; break;
 			case IMAGE_CONTENT_SPECULAR: pixelSize *= 3; break;
 			case IMAGE_CONTENT_DIFFUSE: pixelSize *= 3; break;
 			case IMAGE_CONTENT_WORLD_POSITION: pixelSize *= 3; break;
@@ -534,6 +540,7 @@ void ImageFileSavePNG::SavePNG(
 				break;
 				case IMAGE_CONTENT_ZBUFFER:
 				case IMAGE_CONTENT_NORMAL:
+				case IMAGE_CONTENT_NORMAL_WORLD:
 				case IMAGE_CONTENT_SPECULAR:
 				case IMAGE_CONTENT_DIFFUSE:
 				case IMAGE_CONTENT_WORLD_POSITION:
@@ -629,6 +636,9 @@ void ImageFileSavePNG::SavePNG(
 						break;
 						case IMAGE_CONTENT_NORMAL:
 							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y));
+							break;
+						case IMAGE_CONTENT_NORMAL_WORLD:
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormalWorld(x, y));
 							break;
 						case IMAGE_CONTENT_SPECULAR:
 							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y));
@@ -969,6 +979,7 @@ bool ImageFileSaveJPG::SaveJPEGQt32(QString filename, structSaveImageChannel ima
 			switch (imageChannel.contentType)
 			{
 				case IMAGE_CONTENT_NORMAL: pixel = image->GetPixelNormal(x, y); break;
+				case IMAGE_CONTENT_NORMAL_WORLD: pixel = image->GetPixelNormalWorld(x, y); break;
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
@@ -1212,6 +1223,12 @@ void ImageFileSaveEXR::SaveEXR(
 			&frameBuffer, width, height);
 	}
 
+	if (imageConfig.contains(IMAGE_CONTENT_NORMAL_WORLD))
+	{
+		SaveExrRgbChannel(QStringList{"nW.X", "nW.Y", "nW.Z"}, imageConfig[IMAGE_CONTENT_NORMAL_WORLD], &header,
+			&frameBuffer, width, height);
+	}
+
 	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))
 	{
 		SaveExrRgbChannel(QStringList{"s.X", "s.Y", "s.Z"}, imageConfig[IMAGE_CONTENT_SPECULAR],
@@ -1280,6 +1297,7 @@ void ImageFileSaveEXR::SaveExrRgbChannel(QStringList names, structSaveImageChann
 			switch (imageChannel.contentType)
 			{
 				case IMAGE_CONTENT_NORMAL: pixel = image->GetPixelNormal(x, y); break;
+				case IMAGE_CONTENT_NORMAL_WORLD: pixel = image->GetPixelNormalWorld(x, y); break;
 				case IMAGE_CONTENT_SPECULAR: pixel = image->GetPixelSpecular(x, y); break;
 				case IMAGE_CONTENT_DIFFUSE: pixel = image->GetPixelDiffuse(x, y); break;
 				case IMAGE_CONTENT_WORLD_POSITION: pixel = image->GetPixelWorld(x, y); break;
@@ -1352,6 +1370,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ALPHA:
 		case IMAGE_CONTENT_ZBUFFER: colorType = PHOTOMETRIC_MINISBLACK; break;
 		case IMAGE_CONTENT_NORMAL: colorType = PHOTOMETRIC_RGB; break;
+		case IMAGE_CONTENT_NORMAL_WORLD: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_SPECULAR: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_DIFFUSE: colorType = PHOTOMETRIC_RGB; break;
 		case IMAGE_CONTENT_WORLD_POSITION: colorType = PHOTOMETRIC_RGB; break;
@@ -1365,6 +1384,7 @@ bool ImageFileSaveTIFF::SaveTIFF(
 		case IMAGE_CONTENT_ALPHA: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_ZBUFFER: samplesPerPixel = 1; break;
 		case IMAGE_CONTENT_NORMAL: samplesPerPixel = 3; break;
+		case IMAGE_CONTENT_NORMAL_WORLD: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_SPECULAR: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_DIFFUSE: samplesPerPixel = 3; break;
 		case IMAGE_CONTENT_WORLD_POSITION: samplesPerPixel = 3; break;
@@ -1515,6 +1535,9 @@ bool ImageFileSaveTIFF::SaveTIFF(
 				break;
 				case IMAGE_CONTENT_NORMAL:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y));
+					break;
+				case IMAGE_CONTENT_NORMAL_WORLD:
+					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormalWorld(x, y));
 					break;
 				case IMAGE_CONTENT_SPECULAR:
 					SaveTiffRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y));

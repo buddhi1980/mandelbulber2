@@ -523,6 +523,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("alpha_enabled", false, morphNone, paramApp);
 	par->addParam("zbuffer_enabled", false, morphNone, paramApp);
 	par->addParam("normal_enabled", false, morphNone, paramApp);
+	par->addParam("normalWorld_enabled", false, morphNone, paramApp);
 	par->addParam("specular_enabled", false, morphNone, paramApp);
 	par->addParam("diffuse_enabled", false, morphNone, paramApp);
 	par->addParam("world_enabled", false, morphNone, paramApp);
@@ -534,6 +535,8 @@ void InitParams(cParameterContainer *par)
 	par->addParam(
 		"normal_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
+		"normalWorld_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
+	par->addParam(
 		"specular_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
 	par->addParam(
 		"diffuse_quality", int(ImageFileSave::IMAGE_CHANNEL_QUALITY_32), morphNone, paramApp);
@@ -543,6 +546,7 @@ void InitParams(cParameterContainer *par)
 	par->addParam("alpha_postfix", QString("_alpha"), morphNone, paramApp);
 	par->addParam("zbuffer_postfix", QString("_zbuffer"), morphNone, paramApp);
 	par->addParam("normal_postfix", QString("_normal"), morphNone, paramApp);
+	par->addParam("normalWorld_postfix", QString("_normalWorld"), morphNone, paramApp);
 	par->addParam("specular_postfix", QString("_specular"), morphNone, paramApp);
 	par->addParam("diffuse_postfix", QString("_diffuse"), morphNone, paramApp);
 	par->addParam("world_postfix", QString("_world"), morphNone, paramApp);

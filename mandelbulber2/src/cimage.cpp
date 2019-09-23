@@ -100,6 +100,7 @@ bool cImage::AllocMem()
 				opacityBuffer.resize(width * height);
 				colourBuffer.resize(width * height);
 				normalFloat.resize(width * height);
+				normalFloatWorld.resize(width * height);
 				specularFloat.resize(width * height);
 				diffuseFloat.resize(width * height);
 				worldFloat.resize(width * height);
@@ -166,6 +167,7 @@ void cImage::ClearImage()
 	std::fill(colourBuffer.begin(), colourBuffer.end(), sRGB8());
 
 	if (opt.optionalNormal) std::fill(normalFloat.begin(), normalFloat.end(), sRGBFloat());
+	if (opt.optionalNormalWorld) std::fill(normalFloatWorld.begin(), normalFloatWorld.end(), sRGBFloat());
 	if (opt.optionalSpecular) std::fill(specularFloat.begin(), specularFloat.end(), sRGBFloat());
 	if (opt.optionalDiffuse) std::fill(diffuseFloat.begin(), diffuseFloat.end(), sRGBFloat());
 	if (opt.optionalWorld) std::fill(worldFloat.begin(), worldFloat.end(), sRGBFloat());
@@ -197,6 +199,7 @@ void cImage::FreeImage()
 	zBuffer.clear();
 
 	normalFloat.clear();
+	normalFloatWorld.clear();
 	specularFloat.clear();
 	diffuseFloat.clear();
 	worldFloat.clear();
@@ -331,6 +334,7 @@ int cImage::GetUsedMB() const
 
 	quint64 optionalChannels = 0;
 	if (opt.optionalNormal) optionalChannels++;
+	if (opt.optionalNormalWorld) optionalChannels++;
 	if (opt.optionalSpecular) optionalChannels++;
 	if (opt.optionalDiffuse) optionalChannels++;
 	if (opt.optionalWorld) optionalChannels++;
@@ -1099,6 +1103,11 @@ void cImage::GetStereoLeftRightImages(cImage *left, cImage *right)
 				{
 					left->normalFloat[ptrNew] = normalFloat[ptrLeft];
 					right->normalFloat[ptrNew] = normalFloat[ptrRight];
+				}
+				if (opt.optionalNormalWorld)
+				{
+					left->normalFloatWorld[ptrNew] = normalFloatWorld[ptrLeft];
+					right->normalFloatWorld[ptrNew] = normalFloatWorld[ptrRight];
 				}
 				if (opt.optionalSpecular)
 				{

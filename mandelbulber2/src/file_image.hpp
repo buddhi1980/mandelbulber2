@@ -104,6 +104,8 @@ public:
 		IMAGE_CONTENT_DIFFUSE = 5,
 
 		IMAGE_CONTENT_WORLD_POSITION = 6,
+
+		IMAGE_CONTENT_NORMAL_WORLD = 7
 	};
 
 	enum enumImageChannelQualityType

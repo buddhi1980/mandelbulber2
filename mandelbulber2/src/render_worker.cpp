@@ -186,6 +186,7 @@ void cRenderWorker::doWork()
 			unsigned short alpha = 65535;
 			unsigned short opacity16 = 65535;
 			sRGBFloat normalFloat;
+			sRGBFloat normalFloatWorld;
 			sRGBFloat specularFloat;
 			double depth = 1e20;
 			sRGBFloat worldPositionRGB;
@@ -386,8 +387,18 @@ void cRenderWorker::doWork()
 					CVector3 normalRotated = mRotInv.RotateVector(normal);
 					normalRotated.Normalize();
 					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
-					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
-					normalFloat.B = 1.0 - normalRotated.y;
+					normalFloat.G = (1.0 + normalRotated.y) / 2.0;
+					normalFloat.B = (1.0 + normalRotated.z) / 2.0; // <-- changed this so it corresponds to World Position and World Normal pass. Also normalized B component.
+					//normalFloat.B = 1.0 - normalRotated.y;  // <-- old
+				}
+
+				if (image->GetImageOptional()->optionalNormalWorld)
+				{
+					CVector3 normalNormalized = normal;
+					normalNormalized.Normalize();
+					normalFloatWorld.R = normalNormalized.x;
+					normalFloatWorld.G = normalNormalized.y;
+					normalFloatWorld.B = normalNormalized.z;
 				}
 
 				finalPixelDOF.R += finalPixel.R;
@@ -459,6 +470,8 @@ void cRenderWorker::doWork()
 							image->PutPixelOpacity(xxx, yyy, opacity16);
 							if (image->GetImageOptional()->optionalNormal)
 								image->PutPixelNormal(xxx, yyy, normalFloat);
+							if (image->GetImageOptional()->optionalNormalWorld)
+								image->PutPixelNormalWorld(xxx, yyy, normalFloatWorld);
 							if (image->GetImageOptional()->optionalSpecular)
 								image->PutPixelSpecular(xxx, yyy, specularFloat);
 							if (image->GetImageOptional()->optionalWorld)

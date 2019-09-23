@@ -149,6 +149,7 @@ bool cRenderJob::Init(enumMode _mode, const cRenderingConfiguration &config)
 
 	sImageOptional imageOptional;
 	imageOptional.optionalNormal = paramsContainer->Get<bool>("normal_enabled");
+	imageOptional.optionalNormalWorld = paramsContainer->Get<bool>("normalWorld_enabled");
 	imageOptional.optionalSpecular = paramsContainer->Get<bool>("specular_enabled");
 	imageOptional.optionalWorld = paramsContainer->Get<bool>("world_enabled");
 	imageOptional.optionalDiffuse = paramsContainer->Get<bool>("diffuse_enabled");
