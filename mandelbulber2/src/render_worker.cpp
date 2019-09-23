@@ -387,8 +387,8 @@ void cRenderWorker::doWork()
 					CVector3 normalRotated = mRotInv.RotateVector(normal);
 					normalRotated.Normalize();
 					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
-					normalFloat.G = (1.0 + normalRotated.y) / 2.0;
-					normalFloat.B = (1.0 + normalRotated.z) / 2.0; // <-- changed this so it corresponds to World Position and World Normal pass. Also normalized B component.
+					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
+					normalFloat.B = (1.0 + normalRotated.y) / 2.0; // <-- Also normalized B component.
 					//normalFloat.B = 1.0 - normalRotated.y;  // <-- old
 				}
 
