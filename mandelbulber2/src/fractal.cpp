@@ -293,6 +293,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offsetA1 = container->Get<double>("transf_offsetA_1");
 	transformCommon.offset105 = container->Get<double>("transf_offset_105");
 	transformCommon.offset2 = container->Get<double>("transf_offset_2");
+	transformCommon.offsetA2 = container->Get<double>("transf_offsetA_2");
 	transformCommon.offset4 = container->Get<double>("transf_offset_4");
 	transformCommon.pwr05 = container->Get<double>("transf_pwr_05");
 	transformCommon.pwr4 = container->Get<double>("transf_pwr_4");

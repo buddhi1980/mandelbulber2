@@ -831,6 +831,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetA_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetA_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
