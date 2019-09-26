@@ -17295,7 +17295,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
+	double colorDE = aux.dist;
 	CVector4 zc = z;
 	zc = fabs(zc) - boxSize;
 	double zcd = 1.0;
@@ -17313,21 +17313,14 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 
 	if (fractal->foldColor.auxColorEnabledFalse)
 	{
-
-		colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
-		colorAdd += fractal->mandelbox.color.factor.y;
-		colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-		colorAdd += fractal->mandelbox.color.factorSp1 * max(zc.x, zc.y);
+		//colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
+		//colorAdd += fractal->mandelbox.color.factor.y;
+		//colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
+		//colorAdd += fractal->mandelbox.color.factorSp1 * max(zc.x, zc.y);
 		// colorAdd += fractal->mandelbox.color.factorSp2 * trunc(max(zc.x, zc.y));
 		// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
-		colorAdd += fractal->mandelbox.color.factorSp2 * useScale;
-
-		// aux.colorHybrid += colorAdd;
-
-		if (!fractal->foldColor.auxColorEnabled)
-			aux.color += colorAdd;
-		else
-			aux.color = max(colorAdd, aux.color);
+		colorAdd += fractal->foldColor.difs1;
+		if (colorDE != aux.dist) aux.color += colorAdd;
 	}
 }
 
@@ -18548,7 +18541,21 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double colorAdd = 0.0;
 	CVector4  oldZ = z;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+double cylinder = 0.0;
+	if (fractal->transformCommon.functionEnabledGFalse)
+		//&& aux.i >= fractal->transformCommon.startIterationsM
+		//&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		double cylinderRadius = fractal->transformCommon.radius1;
+		double cylinderHeight = fractal->transformCommon.offsetA1;
+				//- fractal->transformCommon.scale0 * aux.i;
 
+		double cyl = sqrt(z.x * z.x + z.y * z.y);
+		double cylX = cyl - cylinderRadius;
+		double cylZ = fabs(z.z) - cylinderHeight;
+		cyl = sqrt(cylX * cylX + cylZ * cylZ);
+		cylinder = min(max(cylX,cylZ), 0.0) + max(cyl, 0.0);
+	}
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAx
@@ -18667,8 +18674,14 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	// offset
 	z += fractal->transformCommon.offset002;
 
-
-
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+	double colorDE = aux.dist;
 	// DE
 	if (fractal->transformCommon.functionEnabledM
 		&& aux.i >= fractal->transformCommon.startIterationsO
@@ -18703,12 +18716,35 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		double sphereRadius = fractal->transformCommon.foldingLimit
 				- fractal->transformCommon.scale0 * aux.i;
 		double sphere = oldZ.Length() - sphereRadius; //auxSize;
-
-			aux.dist = min(aux.dist, sphere / aux.DE);
+		aux.dist = min(aux.dist, sphere / aux.DE);
 	}
+	if (fractal->transformCommon.functionEnabledGFalse)
+		//&& aux.i >= fractal->transformCommon.startIterationsM
+		//&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		/*double cylinderRadius = fractal->transformCommon.radius1;
+		double cylinderHeight = fractal->transformCommon.offsetA1;
+				//- fractal->transformCommon.scale0 * aux.i;
+
+		double cyl = sqrt(oldZ.x * oldZ.x + oldZ.y * oldZ.y);
+		double cylX = cyl - cylinderRadius;
+		double cylZ = fabs(oldZ.z) - cylinderHeight;
+		cyl = sqrt(cylX * cylX + cylZ * cylZ);
+		double cylinder = min(max(cylX,cylZ), 0.0) + max(cyl, 0.0);*/
+		aux.dist = min(aux.dist, cylinder / aux.DE);
+
+		/*vec2 d = abs(vec2(length(pos.xz),pos.y)) - vec2(h,r);
+		dxz =  length xy - h
+		dy = fabs y - r
+
+		return min(max(d.x,d.y),0.0) + length(max(d,0.0));*/
 
 
-	aux.color = colorAdd; // ....................................
+
+
+	}
+	if (colorDE != aux.dist) aux.color += 1.0;
+	//aux.color = colorAdd; // ....................................
 }
 
 

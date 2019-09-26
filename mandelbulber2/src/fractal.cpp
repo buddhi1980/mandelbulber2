@@ -245,29 +245,18 @@ sFractal::sFractal(const cParameterContainer *container)
 	Cpara.iterB = container->Get<int>("Cpara_iterB");
 	Cpara.iterC = container->Get<int>("Cpara_iterC");
 
+	analyticDE.enabled = container->Get<bool>("analyticDE_enabled");
+	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
 	analyticDE.scale1 = container->Get<double>("analyticDE_scale_1");
 	analyticDE.tweak005 = container->Get<double>("analyticDE_tweak_005");
 	analyticDE.offset0 = container->Get<double>("analyticDE_offset_0");
 	analyticDE.offset1 = container->Get<double>("analyticDE_offset_1");
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
-	analyticDE.enabled = container->Get<bool>("analyticDE_enabled");
-	analyticDE.enabledFalse = container->Get<bool>("analyticDE_enabled_false");
 
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
+	foldColor.difs1 = container->Get<double>("fold_color_difs1");
 
-	//foldColor.scaleA0 = container->Get<double>("fold_color_scaleA0");
-	//foldColor.scaleB0 = container->Get<double>("fold_color_scaleB0");
-	//foldColor.scaleD0 = container->Get<double>("fold_color_scaleD0");
-	//foldColor.scaleF0 = container->Get<double>("fold_color_scaleF0");
-	//foldColor.scaleA1 = container->Get<double>("fold_color_scaleA1");
-	//foldColor.scaleB1 = container->Get<double>("fold_color_scaleB1");
-
-	//foldColor.intAx0 = container->Get<int>("fold_color_int_Ax0");
-	//foldColor.intAy0 = container->Get<int>("fold_color_int_Ay0");
-	//foldColor.intAz0 = container->Get<int>("fold_color_int_Az0");
-
-	//foldColor.distanceEnabledFalse = container->Get<bool>("fold_color_distance_enabled_false");
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");
@@ -299,6 +288,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.pwr4 = container->Get<double>("transf_pwr_4");
 	transformCommon.pwr8 = container->Get<double>("transf_pwr_8");
 	transformCommon.pwr8a = container->Get<double>("transf_pwr_8a");
+	transformCommon.radius1 = container->Get<double>("transf_radius_1");
 	transformCommon.scaleNeg1 = container->Get<double>("transf_scale_neg1");
 	transformCommon.scale = container->Get<double>("transf_scale");
 	transformCommon.scale0 = container->Get<double>("transf_scale_0");
@@ -536,6 +526,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledDFalse = container->Get<bool>("transf_function_enabledD_false");
 	transformCommon.functionEnabledEFalse = container->Get<bool>("transf_function_enabledE_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
+	transformCommon.functionEnabledGFalse = container->Get<bool>("transf_function_enabledG_false");
 	transformCommon.functionEnabledJFalse = container->Get<bool>("transf_function_enabledJ_false");
 	transformCommon.functionEnabledKFalse = container->Get<bool>("transf_function_enabledK_false");
 	transformCommon.functionEnabledM = container->Get<bool>("transf_function_enabledM");

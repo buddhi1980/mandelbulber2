@@ -776,35 +776,18 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("Cpara_iterC", 250, morphLinear, paramStandard);
 
 	// analyticDE controls
+	par->addParam("analyticDE_enabled", true, morphLinear, paramStandard);
+	par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
+	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_tweak_005", 0.05, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_0", 0.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("analyticDE_offset_2", 1.0, morphAkima, paramStandard);
-	// par->addParam("analyticDE_factor_2", 2.0, morphAkima, paramStandard);
-	par->addParam("analyticDE_scale_1", 1.0, morphAkima, paramStandard);
-	par->addParam("analyticDE_enabled", true, morphLinear, paramStandard);
-	par->addParam("analyticDE_enabled_false", false, morphLinear, paramStandard);
-	// par->addParam("analyticDE_enabled_auxR2_false", false, morphLinear, paramStandard);
-	// par->addParam("analyticDE_offset_linear", 1.0, morphAkima, paramStandard);
-	// par->addParam("analyticDE_scale_linear", 1.0, morphAkima, paramStandard);
 
 	// color controls
 	par->addParam("fold_color_aux_color_enabled", true, morphLinear, paramStandard);
 	par->addParam("fold_color_aux_color_enabled_false", false, morphLinear, paramStandard);
-
-	// par->addParam("fold_color_scaleA0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleB0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleD0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleF0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleA1", 1.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleB1", 1.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_scaleC1", 1.0, morphAkima, paramStandard);
-
-	// par->addParam("fold_color_int_Ax0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_int_Ay0", 0.0, morphAkima, paramStandard);
-	// par->addParam("fold_color_int_Az0", 0.0, morphAkima, paramStandard);
-
-	// par->addParam("fold_color_distance_enabled_false", false, morphLinear, paramStandard);
+	par->addParam("fold_color_difs1", 1.0, morphAkima, paramStandard);
 
 	// common parameters for transforming formulas
 	par->addParam("transf_angle_0", 0.0, morphAkimaAngle, paramStandard);
@@ -837,6 +820,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_8", 8.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_8a", 8.0, morphAkima, paramStandard);
+	par->addParam("transf_radius_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_neg1", -1.0, morphAkima, paramStandard);
 	par->addParam("transf_scale", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_scale_0", 0.0, morphAkima, paramStandard);
@@ -1073,6 +1057,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledD_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledG_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledJ_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledM", true, morphLinear, paramStandard);

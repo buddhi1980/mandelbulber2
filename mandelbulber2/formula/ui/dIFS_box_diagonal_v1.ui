@@ -1560,7 +1560,7 @@
          </widget>
         </item>
         <item row="5" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_mandelbox_color_Sp2">
+         <widget class="MyDoubleSpinBox" name="spinbox_fold_color_difs0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1590,7 +1590,7 @@
         <item row="5" column="0">
          <widget class="QLabel" name="label_47">
           <property name="text">
-           <string>usescale</string>
+           <string>iter color (-1 = none)</string>
           </property>
          </widget>
         </item>

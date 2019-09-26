@@ -100,27 +100,13 @@ struct sExtendedAux
 struct sFoldColor
 {
 	CVector3 factor;
-
 	CVector4 factor4D;
 	double factorR;
 	double factorSp1;
 	double factorSp2;
-	//double scaleA0;
-	//double scaleB0;
-	//double scaleD0;
-	//double scaleF0;
-	//double scaleA1;
-	//double scaleB1;
-	//double scaleC1;
-
-	//int intAx0;
-	//int intAy0;
-	//int intAz0;
-
+	double difs1;
 	bool auxColorEnabled;
 	bool auxColorEnabledFalse;
-
-	//bool distanceEnabledFalse;
 };
 
 struct sFractalGeneralizedFoldBox
@@ -477,15 +463,11 @@ struct sFractalAnalyticDE
 {
 	bool enabled;
 	bool enabledFalse;
-	// bool enabledAuxR2False; // only used once. Remove
 	double scale1;
 	double tweak005;
 	double offset0;
 	double offset1;
 	double offset2;
-	// double factor2;
-	// double scaleLin; // out of date name, only 4 uses. Remove
-	// double offsetLin; // out of date name, only 4 uses. Remove
 };
 
 // common parameters for transforming formulas
@@ -517,6 +499,7 @@ struct sFractalTransformCommon
 	double minR2p25;
 	double maxR2d1;
 	double maxMinR2factor;
+	double radius1;
 	double scaleNeg1;
 	double scale;
 	double scale0;
@@ -735,6 +718,7 @@ struct sFractalTransformCommon
 	bool functionEnabledDFalse;
 	bool functionEnabledEFalse;
 	bool functionEnabledFFalse;
+	bool functionEnabledGFalse;
 	bool functionEnabledJFalse;
 	bool functionEnabledKFalse;
 	bool functionEnabledM;
