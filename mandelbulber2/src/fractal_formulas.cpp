@@ -17295,7 +17295,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	double colorDE = aux.dist;
+	double colorDist = aux.dist;
 	CVector4 zc = z;
 	zc = fabs(zc) - boxSize;
 	double zcd = 1.0;
@@ -17311,16 +17311,19 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	aux.dist = min(aux.dist, zcd / aux.DE);
 	// aux.dist = min(aux.dist, z.Length() - boxSize.x/ aux.DE); //mmmmmmmmmmmmmmmmmmmm
 
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled)
 	{
-		//colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
-		//colorAdd += fractal->mandelbox.color.factor.y;
-		//colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-		//colorAdd += fractal->mandelbox.color.factorSp1 * max(zc.x, zc.y);
-		// colorAdd += fractal->mandelbox.color.factorSp2 * trunc(max(zc.x, zc.y));
-		// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
+			colorAdd += fractal->mandelbox.color.factor.y * round(max(z.x, z.y));
+			colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
+			colorAdd += fractal->mandelbox.color.factorSp1 * max(z.x, z.y); //
+			//colorAdd += fractal->mandelbox.color.factorSp2 * trunc(max(zc.x, zc.y));
+			// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
+		}
 		colorAdd += fractal->foldColor.difs1;
-		if (colorDE != aux.dist) aux.color += colorAdd;
+		if (colorDist != aux.dist) aux.color += colorAdd;
 	}
 }
 
@@ -17458,6 +17461,7 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+	double colorDist = aux.dist;
 	// DE
 	CVector4 zc = z;
 	zc = fabs(zc) - boxSize;
@@ -17479,16 +17483,11 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	else
 		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetD0 / 1000.0;
 
-
-	if (fractal->foldColor.auxColorEnabledFalse)
+	if (fractal->foldColor.auxColorEnabled)
 	{
-
-		colorAdd = fractal->mandelbox.color.factor.x * aux.dist;
-		colorAdd += fractal->mandelbox.color.factor.y;
-		colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-		//aux.color += colorAdd;
+		colorAdd = fractal->foldColor.difs1;
+		if (colorDist != aux.dist) aux.color += colorAdd;
 	}
-	aux.color = colorAdd; // ....................................
 }
 
 /**
@@ -17607,7 +17606,7 @@ void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-
+	double colorDist = aux.dist;
 	// dIFS DE
 	CVector4 zc = z;
 	if (fractal->transformCommon.functionEnabledBx) zc = fabs(zc) - boxSize;
@@ -17622,12 +17621,10 @@ void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	aux.dist = min(aux.dist, zcd / aux.DE);
 
-	if (fractal->foldColor.auxColorEnabled) // TODO
+	if (fractal->foldColor.auxColorEnabled)
 	{
-		colorAdd = fractal->mandelbox.color.factor.x * aux.dist;
-		colorAdd += fractal->mandelbox.color.factor.y;
-		colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-		aux.color += colorAdd;
+		colorAdd = fractal->foldColor.difs1;
+		if (colorDist != aux.dist) aux.color += colorAdd;
 	}
 }
 
@@ -18035,7 +18032,7 @@ void TestingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		/*else
 		{
-			/*double dist = max(z.x, max(z.y, z.z));
+			double dist = max(z.x, max(z.y, z.z));
 				if (dist > 0.0)
 				{
 					zc.x = max(z.x, 0.0);
@@ -18541,21 +18538,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double colorAdd = 0.0;
 	CVector4  oldZ = z;
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-double cylinder = 0.0;
-	if (fractal->transformCommon.functionEnabledGFalse)
-		//&& aux.i >= fractal->transformCommon.startIterationsM
-		//&& aux.i < fractal->transformCommon.stopIterationsM)
-	{
-		double cylinderRadius = fractal->transformCommon.radius1;
-		double cylinderHeight = fractal->transformCommon.offsetA1;
-				//- fractal->transformCommon.scale0 * aux.i;
 
-		double cyl = sqrt(z.x * z.x + z.y * z.y);
-		double cylX = cyl - cylinderRadius;
-		double cylZ = fabs(z.z) - cylinderHeight;
-		cyl = sqrt(cylX * cylX + cylZ * cylZ);
-		cylinder = min(max(cylX,cylZ), 0.0) + max(cyl, 0.0);
-	}
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAx
@@ -18681,7 +18664,7 @@ double cylinder = 0.0;
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-	double colorDE = aux.dist;
+	double colorDist = aux.dist;
 	// DE
 	if (fractal->transformCommon.functionEnabledM
 		&& aux.i >= fractal->transformCommon.startIterationsO
@@ -18718,19 +18701,35 @@ double cylinder = 0.0;
 		double sphere = oldZ.Length() - sphereRadius; //auxSize;
 		aux.dist = min(aux.dist, sphere / aux.DE);
 	}
-	if (fractal->transformCommon.functionEnabledGFalse)
-		//&& aux.i >= fractal->transformCommon.startIterationsM
-		//&& aux.i < fractal->transformCommon.stopIterationsM)
+	if (fractal->transformCommon.functionEnabledGFalse
+		&& aux.i >= fractal->transformCommon.startIterations
+		&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		/*double cylinderRadius = fractal->transformCommon.radius1;
+
+		double cylinderRadius = fractal->transformCommon.radius1;
 		double cylinderHeight = fractal->transformCommon.offsetA1;
 				//- fractal->transformCommon.scale0 * aux.i;
 
-		double cyl = sqrt(oldZ.x * oldZ.x + oldZ.y * oldZ.y);
-		double cylX = cyl - cylinderRadius;
-		double cylZ = fabs(oldZ.z) - cylinderHeight;
-		cyl = sqrt(cylX * cylX + cylZ * cylZ);
-		double cylinder = min(max(cylX,cylZ), 0.0) + max(cyl, 0.0);*/
+
+		double cylR = 0.0;
+		double cylH = 0.0;
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			cylR = sqrt(oldZ.x * oldZ.x + oldZ.y * oldZ.y);
+			cylH = fabs(oldZ.z) - cylinderHeight;
+		}
+		else
+		{
+			cylR = sqrt(oldZ.x * oldZ.x + oldZ.z * oldZ.z);
+			cylH = fabs(oldZ.y) - cylinderHeight;
+		}
+
+
+		double cylRm = cylR - cylinderRadius;
+
+		cylR = sqrt(cylRm * cylRm + cylH * cylH);
+		double cylinder = min(max(cylRm,cylH), 0.0) + max(cylR, 0.0);
+
 		aux.dist = min(aux.dist, cylinder / aux.DE);
 
 		/*vec2 d = abs(vec2(length(pos.xz),pos.y)) - vec2(h,r);
@@ -18743,8 +18742,20 @@ double cylinder = 0.0;
 
 
 	}
-	if (colorDE != aux.dist) aux.color += 1.0;
-	//aux.color = colorAdd; // ....................................
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
+			colorAdd += fractal->mandelbox.color.factor.y * round(max(z.x, z.y));
+			colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
+			colorAdd += fractal->mandelbox.color.factorSp1 * max(z.x, z.y); //
+			//colorAdd += fractal->mandelbox.color.factorSp2 * trunc(max(zc.x, zc.y));
+			// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (colorDist != aux.dist) aux.color += colorAdd;
+	}
 }
 
 
