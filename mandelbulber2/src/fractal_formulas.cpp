@@ -18664,50 +18664,62 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
+
+
+		// DE
 	double colorDist = aux.dist;
-	// DE
+	CVector4 zc = z;
+
+		if (fractal->transformCommon.functionEnabledCzFalse)
+			zc = oldZ;
+
+
+
+	// box
 	if (fractal->transformCommon.functionEnabledM
 		&& aux.i >= fractal->transformCommon.startIterationsO
 		&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
-		CVector4 zc = z;
-		zc = fabs(zc) - boxSize;
-		double zcd = 1.0;
-		zcd = max(zc.x, max(zc.y, zc.z));
-		if (fractal->transformCommon.functionEnabledJFalse && zcd > 0.0 + fractal->transformCommon.offsetC0 * 100.0) //........................test
+		CVector4 bxV = zc;
+		double bxD = 0.0;
+		bxV = fabs(bxV) - boxSize;
+		bxD = max(bxV.x, max(bxV.y, bxV.z));
+		if (fractal->transformCommon.functionEnabledJFalse && bxD > 0.0 + fractal->transformCommon.offsetC0 * 100.0) //........................test
 		{
-			zc.x = max(zc.x, 0.0);
-			zc.y = max(zc.y, 0.0);
-			zc.z = max(zc.z, 0.0);
-			zcd = zc.Length();
+			bxV.x = max(bxV.x, 0.0);
+			bxV.y = max(bxV.y, 0.0);
+			bxV.z = max(bxV.z, 0.0);
+			bxD = bxV.Length();
 			colorAdd = 6.0; // ....................................
 		}
 		else colorAdd = 8.0; // ....................................
 
-
-		// round
+					// round box
 		if (!fractal->transformCommon.functionEnabledPFalse)
-			aux.dist = min(aux.dist, zcd / aux.DE);
+			aux.dist = min(aux.dist, bxD / aux.DE);
 		else
-			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetD0 / 1000.0;
+			aux.dist = min(aux.dist, bxD / aux.DE) - fractal->transformCommon.offsetD0 / 1000.0;
 	}
-
+		// sphere
 	if (fractal->transformCommon.functionEnabledKFalse
 		&& aux.i >= fractal->transformCommon.startIterationsM
 		&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		double sphereRadius = fractal->transformCommon.foldingLimit
 				- fractal->transformCommon.scale0 * aux.i;
-		double sphere = oldZ.Length() - sphereRadius; //auxSize;
-		aux.dist = min(aux.dist, sphere / aux.DE);
+		double spD = zc.Length() - sphereRadius; //auxSize; //mmmmmmmmmmtest z
+		aux.dist = min(aux.dist, spD / aux.DE);
 	}
+
+		// rings
 	if (fractal->transformCommon.functionEnabledGFalse
 		&& aux.i >= fractal->transformCommon.startIterations
 		&& aux.i < fractal->transformCommon.stopIterations)
 	{
-
+		double zcd = 0.0;
 		double cylinderRadius = fractal->transformCommon.radius1;
 		double cylinderHeight = fractal->transformCommon.offsetA1;
+		double radius2 = fractal->transformCommon.offset0005;
 				//- fractal->transformCommon.scale0 * aux.i;
 
 
@@ -18715,30 +18727,44 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		double cylH = 0.0;
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
-			cylR = sqrt(oldZ.x * oldZ.x + oldZ.y * oldZ.y);
-			cylH = fabs(oldZ.z) - cylinderHeight;
+			cylR = sqrt(zc.x * zc.x + zc.y * zc.y);
+			cylH = fabs(zc.z) - cylinderHeight;
 		}
 		else
 		{
-			cylR = sqrt(oldZ.x * oldZ.x + oldZ.z * oldZ.z);
-			cylH = fabs(oldZ.y) - cylinderHeight;
+			cylR = sqrt(zc.y * zc.y + zc.z * zc.z);
+			cylH = fabs(zc.x) - cylinderHeight;
 		}
-
-
 		double cylRm = cylR - cylinderRadius;
 
-		cylR = sqrt(cylRm * cylRm + cylH * cylH);
-		double cylinder = min(max(cylRm,cylH), 0.0) + max(cylR, 0.0);
-
+		if (!fractal->transformCommon.functionEnabledXFalse)
+			zcd = sqrt(cylRm * cylRm + cylH * cylH); //  cccccccccccc wrong
+		else
+		{
+			CVector4 topV = zc;
+			topV.x = max(cylR, 0.0);
+			topV.y = 0.0;
+			topV.z = max(cylH, 0.0);
+			zcd = topV.Length();
+		}
+		double cylinder = min(max(cylRm,cylH) - radius2, 0.0) + zcd;
 		aux.dist = min(aux.dist, cylinder / aux.DE);
 
-		/*vec2 d = abs(vec2(length(pos.xz),pos.y)) - vec2(h,r);
-		dxz =  length xy - h
-		dy = fabs y - r
+		/*vec2 d = abs(vec2(length(pos.xz),pos.y)) - vec2(r,h);
+		dxz =  length xy - r
+		dy = fabs y - h
 
 		return min(max(d.x,d.y),0.0) + length(max(d,0.0));*/
 
 
+
+	//{ vec2 d = abs(vec2(length(pos.xy),pos.z)) - vec2(r,h);
+	//return min(max(d.x,d.y),0.0) + length(max(d,0.0));}
+
+		//{ vec2 q = vec2(length(pos.xy)-tx,pos.z);
+
+
+		// return length(q)-ty;}
 
 
 	}
