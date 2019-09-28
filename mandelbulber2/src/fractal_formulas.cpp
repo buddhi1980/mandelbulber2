@@ -18668,10 +18668,10 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 		// DE
 	double colorDist = aux.dist;
-	CVector4 zc = z;
+	CVector4 zc = oldZ;
 
-		if (fractal->transformCommon.functionEnabledCzFalse)
-			zc = oldZ;
+		//if (fractal->transformCommon.functionEnabledCzFalse)
+		//	zc = oldZ;
 
 
 
@@ -18711,51 +18711,42 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
 
-		// rings
+		// cylinder
 	if (fractal->transformCommon.functionEnabledGFalse
 		&& aux.i >= fractal->transformCommon.startIterations
 		&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double zcd = 0.0;
-		double cylinderRadius = fractal->transformCommon.radius1;
-		double cylinderHeight = fractal->transformCommon.offsetA1;
+		double cylD = 0.0;
+		//double cylinderRadius = fractal->transformCommon.radius1;
+		//double cylinderHeight = fractal->transformCommon.offsetA1;
 		double radius2 = fractal->transformCommon.offset0005;
 				//- fractal->transformCommon.scale0 * aux.i;
-
 
 		double cylR = 0.0;
 		double cylH = 0.0;
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
 			cylR = sqrt(zc.x * zc.x + zc.y * zc.y);
-			cylH = fabs(zc.z) - cylinderHeight;
+			cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
 		}
 		else
 		{
 			cylR = sqrt(zc.y * zc.y + zc.z * zc.z);
-			cylH = fabs(zc.x) - cylinderHeight;
+			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
 		}
-		double cylRm = cylR - cylinderRadius;
+		double cylRm = cylR - fractal->transformCommon.radius1;
 
 		if (!fractal->transformCommon.functionEnabledXFalse)
-			zcd = sqrt(cylRm * cylRm + cylH * cylH); //  cccccccccccc wrong
-		else
 		{
-			CVector4 topV = zc;
-			topV.x = max(cylR, 0.0);
-			topV.y = 0.0;
-			topV.z = max(cylH, 0.0);
-			zcd = topV.Length();
+			if (!fractal->transformCommon.functionEnabledzFalse)
+				cylR = cylRm;
+			cylR = max(cylR, 0.0);
+			double cylHm = max(cylH, 0.0);
+			cylD  = sqrt(cylR * cylR + cylHm * cylHm);
 		}
-		double cylinder = min(max(cylRm,cylH) - radius2, 0.0) + zcd;
-		aux.dist = min(aux.dist, cylinder / aux.DE);
-
-		/*vec2 d = abs(vec2(length(pos.xz),pos.y)) - vec2(r,h);
-		dxz =  length xy - r
-		dy = fabs y - h
-
-		return min(max(d.x,d.y),0.0) + length(max(d,0.0));*/
-
+		else cylD  = sqrt(cylRm * cylRm + cylH * cylH);
+		cylD = min(max(cylRm,cylH) - radius2, 0.0) + cylD ;
+		aux.dist = min(aux.dist, cylD / aux.DE);
 
 
 	//{ vec2 d = abs(vec2(length(pos.xy),pos.z)) - vec2(r,h);

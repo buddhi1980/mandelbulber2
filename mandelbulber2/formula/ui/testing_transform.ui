@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>4955</height>
+    <height>5005</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1574,13 +1574,6 @@
     </widget>
    </item>
    <item>
-    <widget class="MyCheckBox" name="checkBox_transf_function_enabledCz_false">
-     <property name="text">
-      <string>testing oldZ</string>
-     </property>
-    </widget>
-   </item>
-   <item>
     <layout class="QGridLayout" name="gridLayout_68" columnstretch="0,0">
      <property name="spacing">
       <number>2</number>
@@ -1915,7 +1908,7 @@
    <item>
     <widget class="MyGroupBox" name="groupCheck_transf_function_enabledG_false">
      <property name="title">
-      <string>Ring&amp;s</string>
+      <string>Cyl&amp;inder</string>
      </property>
      <property name="checkable">
       <bool>true</bool>
@@ -1996,7 +1989,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout_32" columnstretch="0,0">
+       <layout class="QGridLayout" name="gridLayout_32" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
@@ -2070,17 +2063,10 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
-          <property name="text">
-           <string>swap axis</string>
-          </property>
-         </widget>
-        </item>
         <item row="6" column="1">
          <widget class="MyCheckBox" name="checkBox_transf_function_enabledX_false">
           <property name="text">
-           <string>top etc</string>
+           <string>rings</string>
           </property>
          </widget>
         </item>
@@ -2116,6 +2102,20 @@
           </property>
           <property name="singleStep">
            <double>0.100000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledz_false">
+          <property name="text">
+           <string>tops</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledSw_false">
+          <property name="text">
+           <string>swap axis</string>
           </property>
          </widget>
         </item>
