@@ -111,7 +111,8 @@ QString ImageFileSave::ImageChannelName(enumImageContentType imageContentType)
 
 QStringList ImageFileSave::ImageChannelNames()
 {
-	return QStringList({"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world", "normalWorld"});
+	return QStringList(
+		{"color", "alpha", "zbuffer", "normal", "specular", "diffuse", "world", "normalWorld"});
 }
 
 ImageFileSave::enumImageFileType ImageFileSave::ImageFileType(QString imageFileExtension)
@@ -635,19 +636,19 @@ void ImageFileSavePNG::SavePNG(
 						}
 						break;
 						case IMAGE_CONTENT_NORMAL:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y));
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormal(x, y), false);
 							break;
 						case IMAGE_CONTENT_NORMAL_WORLD:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormalWorld(x, y));
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelNormalWorld(x, y), true);
 							break;
 						case IMAGE_CONTENT_SPECULAR:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y));
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelSpecular(x, y), false);
 							break;
 						case IMAGE_CONTENT_DIFFUSE:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelDiffuse(x, y));
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelDiffuse(x, y), false);
 							break;
 						case IMAGE_CONTENT_WORLD_POSITION:
-							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y));
+							SavePngRgbPixel(imageChannel, &colorPtr[ptr], image->GetPixelWorld(x, y), false);
 							break;
 					}
 				}
@@ -889,20 +890,36 @@ void ImageFileSavePNG::SaveFromTilesPNG16(const char *filename, int width, int h
 }
 
 void ImageFileSavePNG::SavePngRgbPixel(
-	structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel)
+	structSaveImageChannel imageChannel, char *colorPtr, sRGBFloat pixel, bool signedInput)
 {
 	if (imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_16
 			|| imageChannel.channelQuality == IMAGE_CHANNEL_QUALITY_32)
 	{
 		sRGB16 *typedColorPtr = reinterpret_cast<sRGB16 *>(colorPtr);
-		*typedColorPtr =
-			sRGB16(ushort(pixel.R * 65535.0f), ushort(pixel.G * 65535.0f), ushort(pixel.B * 65535.0f));
+		if (signedInput)
+		{
+			*typedColorPtr = sRGB16(ushort((1.0f + pixel.R) * 0.5f * 65535.0f),
+				ushort((1.0f + pixel.G) * 0.5f * 65535.0f), ushort((1.0f + pixel.B) * 0.5f * 65535.0f));
+		}
+		else
+		{
+			*typedColorPtr =
+				sRGB16(ushort(pixel.R * 65535.0f), ushort(pixel.G * 65535.0f), ushort(pixel.B * 65535.0f));
+		}
 	}
 	else
 	{
 		sRGB8 *typedColorPtr = reinterpret_cast<sRGB8 *>(colorPtr);
-		*typedColorPtr =
-			sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
+		if (signedInput)
+		{
+			*typedColorPtr = sRGB8(uchar((1.0f + pixel.R) * 0.5f * 255.0f),
+				uchar((1.0f + pixel.G) * 0.5f * 255.0f), uchar((1.0f + pixel.B) * 0.5f * 255.0f));
+		}
+		else
+		{
+			*typedColorPtr =
+				sRGB8(uchar(pixel.R * 255.0f), uchar(pixel.G * 255.0f), uchar(pixel.B * 255.0f));
+		}
 	}
 }
 
@@ -1225,8 +1242,8 @@ void ImageFileSaveEXR::SaveEXR(
 
 	if (imageConfig.contains(IMAGE_CONTENT_NORMAL_WORLD))
 	{
-		SaveExrRgbChannel(QStringList{"nW.X", "nW.Y", "nW.Z"}, imageConfig[IMAGE_CONTENT_NORMAL_WORLD], &header,
-			&frameBuffer, width, height);
+		SaveExrRgbChannel(QStringList{"nW.X", "nW.Y", "nW.Z"}, imageConfig[IMAGE_CONTENT_NORMAL_WORLD],
+			&header, &frameBuffer, width, height);
 	}
 
 	if (imageConfig.contains(IMAGE_CONTENT_SPECULAR))

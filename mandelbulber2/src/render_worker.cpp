@@ -388,8 +388,8 @@ void cRenderWorker::doWork()
 					normalRotated.Normalize();
 					normalFloat.R = (1.0 + normalRotated.x) / 2.0;
 					normalFloat.G = (1.0 + normalRotated.z) / 2.0;
-					normalFloat.B = (1.0 + normalRotated.y) / 2.0; // <-- Also normalized B component.
-					//normalFloat.B = 1.0 - normalRotated.y;  // <-- old
+					normalFloat.B = (1.0 - normalRotated.y) / 2.0; // <-- Also normalized B component.
+					// normalFloat.B = 1.0 - normalRotated.y;  // <-- old
 				}
 
 				if (image->GetImageOptional()->optionalNormalWorld)
