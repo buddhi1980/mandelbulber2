@@ -36,7 +36,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tabGeneral">
       <attribute name="icon">
@@ -57,8 +57,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>588</width>
-            <height>743</height>
+            <width>582</width>
+            <height>741</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_general">
@@ -602,8 +602,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>588</width>
-            <height>743</height>
+            <width>582</width>
+            <height>741</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_image">
@@ -962,6 +962,39 @@ and will only be present after enabling and re-render.</string>
                   </property>
                  </widget>
                 </item>
+                <item row="6" column="0">
+                 <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+                  <property name="text">
+                   <string>World Normal</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="MyComboBox" name="comboBox_normalWorld_quality">
+                  <item>
+                   <property name="text">
+                    <string>8 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>16 bit</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>32 bit</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="MyLineEdit" name="text_normalWorld_postfix">
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </item>
@@ -1153,8 +1186,8 @@ and will only be present after enabling and re-render.</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>251</width>
-            <height>912</height>
+            <width>565</width>
+            <height>769</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_OpenCL">

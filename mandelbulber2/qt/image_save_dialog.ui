@@ -393,6 +393,39 @@ and will only be present after enabling and re-render.</string>
                 </property>
                </widget>
               </item>
+			  <item row="6" column="0">
+               <widget class="MyCheckBox" name="checkBox_normalWorld_enabled">
+                <property name="text">
+                 <string>World Normal</string>
+                </property>
+               </widget>
+              </item>
+              <item row="6" column="1">
+               <widget class="MyComboBox" name="comboBox_normalWorld_quality">
+                <item>
+                 <property name="text">
+                  <string>8 bit</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>16 bit</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>32 bit</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item row="6" column="2">
+               <widget class="MyLineEdit" name="text_normalWorld_postfix">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>

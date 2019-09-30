@@ -51,10 +51,11 @@ struct sImageOptional
 	inline bool operator==(sImageOptional other) const
 	{
 		return other.optionalNormal == optionalNormal && other.optionalSpecular == optionalSpecular
-					 && other.optionalDiffuse == optionalDiffuse && other.optionalWorld == optionalWorld;
+					 && other.optionalDiffuse == optionalDiffuse && other.optionalWorld == optionalWorld && other.optionalNormalWorld;
 	}
 
 	bool optionalNormal{false};
+	bool optionalNormalWorld{false};
 	bool optionalSpecular{false};
 	bool optionalDiffuse{false};
 	bool optionalWorld{false};
@@ -66,6 +67,7 @@ struct sAllImageData
 	quint16 alphaBuffer;
 	quint16 opacityBuffer;
 	sRGBFloat normalFloat;
+	sRGBFloat normalFloatWorld;
 	sRGBFloat normalSpecular;
 	sRGBFloat worldPosition;
 	sRGB8 colourBuffer;
@@ -145,6 +147,10 @@ public:
 	{
 		normalFloat[getImageIndex(x, y)] = pixel;
 	}
+	inline void PutPixelNormalWorld(quint64 x, quint64 y, sRGBFloat pixel)
+	{
+		normalFloatWorld[getImageIndex(x, y)] = pixel;
+	}
 	inline void PutPixelSpecular(quint64 x, quint64 y, sRGBFloat pixel)
 	{
 		specularFloat[getImageIndex(x, y)] = pixel;
@@ -187,6 +193,10 @@ public:
 	inline sRGBFloat GetPixelNormal(quint64 x, quint64 y)
 	{
 		return GetPixelGeneric(normalFloat, opt.optionalNormal, x, y);
+	}
+	inline sRGBFloat GetPixelNormalWorld(quint64 x, quint64 y)
+	{
+		return GetPixelGeneric(normalFloatWorld, opt.optionalNormalWorld, x, y);
 	}
 	inline sRGBFloat GetPixelSpecular(quint64 x, quint64 y)
 	{
@@ -332,6 +342,7 @@ private:
 
 	// optional image buffers
 	std::vector<sRGBFloat> normalFloat;
+	std::vector<sRGBFloat> normalFloatWorld;
 	std::vector<sRGBFloat> specularFloat;
 	std::vector<sRGBFloat> diffuseFloat;
 	std::vector<sRGBFloat> worldFloat;
