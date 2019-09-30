@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>transf_add_constant_mod1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -235,16 +235,19 @@
        </layout>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx">
         <property name="text">
-         <string>Enable polynomial square mode:</string>
+         <string>Enable polynomial cubic mode:</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+       <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
-         <string>Enable polynomial cubic mode:</string>
+         <string>Enable polynomial square mode:</string>
         </property>
        </widget>
       </item>
@@ -263,14 +266,14 @@
         <item row="6" column="1">
          <widget class="QLabel" name="label_146">
           <property name="text">
-           <string>inverse scale</string>
+           <string>offset scale:</string>
           </property>
          </widget>
         </item>
         <item row="5" column="1">
          <widget class="QLabel" name="label_147">
           <property name="text">
-           <string>offset scale</string>
+           <string>z scale:</string>
           </property>
          </widget>
         </item>
@@ -380,7 +383,7 @@
          </widget>
         </item>
         <item row="5" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -402,7 +405,7 @@
          </widget>
         </item>
         <item row="6" column="3">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_1">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -549,15 +552,15 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MyDoubleSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>my_double_spin_box.h</header>
-  </customwidget>
-  <customwidget>
    <class>MyGroupBox</class>
    <extends>QGroupBox</extends>
    <header>my_group_box.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MyDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>my_double_spin_box.h</header>
   </customwidget>
   <customwidget>
    <class>MySpinBox</class>
@@ -577,5 +580,22 @@
   <tabstop>groupCheck_info</tabstop>
  </tabstops>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_transf_function_enabledBx</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_transf_function_enabledBy_false</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>107</x>
+     <y>181</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>128</x>
+     <y>208</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
