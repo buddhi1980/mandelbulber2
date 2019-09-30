@@ -124,6 +124,18 @@ cPrimitives::cPrimitives(const cParameterContainer *par, QVector<cObjectData> *o
 		}
 	}
 
+	// bubble sort by calculation order
+	for (int i = listOfPrimitives.size() - 1; i > 0; i--)
+	{
+		for (int j = 0; j < listOfPrimitives.size() - 1; j++)
+		{
+			int order1 = par->Get<int>(listOfPrimitives.at(j).name + "_calculation_order");
+			int order2 = par->Get<int>(listOfPrimitives.at(j + 1).name + "_calculation_order");
+
+			if (order1 > order2) listOfPrimitives.swap(j, j + 1);
+		}
+	}
+
 	for (auto item : listOfPrimitives)
 	{
 		using namespace fractal;
@@ -403,7 +415,7 @@ double sPrimitiveWater::PrimitiveDistanceWater(CVector3 _point, double distanceF
 
 		point.x += phase * 0.05
 							 * (animProgressionSpeed * 3.0
-									 - 3.0); // 3.0 to keep compatibility and to have 0.0 stopping moving
+									- 3.0); // 3.0 to keep compatibility and to have 0.0 stopping moving
 
 		for (int i = 1; i <= iterations; i++)
 		{
@@ -550,7 +562,7 @@ double cPrimitives::TotalDistance(CVector3 point, double fractalDistance, double
 						}
 						break;
 					}
-				} //switch
+				} // switch
 			}
 		}
 

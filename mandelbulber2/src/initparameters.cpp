@@ -1117,6 +1117,7 @@ void InitPrimitiveParams(
 
 	par->addParam(QString(primitiveName) + "_enabled", false, morphAkima, paramStandard);
 	par->addParam(QString(primitiveName) + "_material_id", 1, morphNone, paramStandard);
+	par->addParam(QString(primitiveName) + "_calculation_order", 1, morphNone, paramStandard);
 
 	switch (objectType)
 	{
@@ -1507,6 +1508,7 @@ void DeletePrimitiveParams(
 	par->DeleteParameter(QString(primitiveName) + "_enabled");
 	par->DeleteParameter(QString(primitiveName) + "_material_id");
 	par->DeleteParameter(QString(primitiveName) + "_boolean_operator");
+	par->DeleteParameter(QString(primitiveName) + "_calculation_order");
 
 	switch (objectType)
 	{

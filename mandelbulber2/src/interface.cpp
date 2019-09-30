@@ -1954,13 +1954,13 @@ void cInterface::NewPrimitive(const QString &primitiveType, int index)
 	layout->addLayout(buttonsLayout);
 
 	QPushButton *setPositionButton = new QPushButton(
-		QObject::tr("Set position of %1 # %2 by mouse pointer").arg(primitiveType).arg(newId),
+		QObject::tr("Set position of\n%1 # %2\nby mouse pointer").arg(primitiveType).arg(newId),
 		mainWidget);
 	setPositionButton->setObjectName(QString("setPositionButton_") + primitiveFullName);
 	buttonsLayout->addWidget(setPositionButton);
 
 	QPushButton *deleteButton = new QPushButton(
-		QObject::tr("Delete ") + primitiveType + " # " + QString::number(newId), mainWidget);
+		QObject::tr("Delete\n") + primitiveType + " # " + QString::number(newId), mainWidget);
 	deleteButton->setObjectName(QString("deleteButton_") + primitiveFullName);
 	buttonsLayout->addWidget(deleteButton);
 
