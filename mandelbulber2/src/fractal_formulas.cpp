@@ -18670,10 +18670,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
 
-		//if (fractal->transformCommon.functionEnabledCzFalse)
-		//	zc = oldZ;
-
-
+	if (fractal->transformCommon.functionEnabledCzFalse)
+	zc = z;
 
 	// box
 	if (fractal->transformCommon.functionEnabledM
@@ -18717,8 +18715,6 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double cylD = 0.0;
-		//double cylinderRadius = fractal->transformCommon.radius1;
-		//double cylinderHeight = fractal->transformCommon.offsetA1;
 		double radius2 = fractal->transformCommon.offset0005;
 				//- fractal->transformCommon.scale0 * aux.i;
 
@@ -18747,8 +18743,21 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		else cylD  = sqrt(cylRm * cylRm + cylH * cylH);
 		cylD = min(max(cylRm,cylH) - radius2, 0.0) + cylD ;
 		aux.dist = min(aux.dist, cylD / aux.DE);
+	}
 
+	// torus
+	if (fractal->transformCommon.functionEnabledAwFalse
+		&& aux.i >= fractal->transformCommon.startIterationsT
+		&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		double T1 = fractal->transformCommon.offset4;
+		double T2 = fractal->transformCommon.offset105;
+		double T3 = sqrt(zc.y * zc.y + zc.x * zc.x) - T1;
+		double T4 = zc.z;
+		double T5 = sqrt(T3 * T3 + T4 * T4) - T2;
+			aux.dist = min(aux.dist, T5 / aux.DE);
 
+	}
 	//{ vec2 d = abs(vec2(length(pos.xy),pos.z)) - vec2(r,h);
 	//return min(max(d.x,d.y),0.0) + length(max(d,0.0));}
 
@@ -18756,9 +18765,12 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 
 		// return length(q)-ty;}
+		//{ vec2 q = vec2(length(pos.xy)-tx,pos.z);
 
 
-	}
+		// return length(q)-ty;}
+
+
 	if (fractal->foldColor.auxColorEnabled)
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
@@ -18771,8 +18783,9 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
 		}
 		colorAdd += fractal->foldColor.difs1;
-		if (colorDist != aux.dist) aux.color += colorAdd;
+		//if (colorDist != aux.dist) aux.color += colorAdd;
 	}
+	if (colorDist != aux.dist) aux.color += colorAdd;
 }
 
 
