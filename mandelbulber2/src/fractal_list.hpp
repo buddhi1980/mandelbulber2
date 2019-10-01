@@ -221,7 +221,7 @@ enum enumFractalFormula
 	dIFSBoxDiagonalV1 = 600,
 	dIFSBoxDiagonalV2 = 601,
 	dIFSBoxDiagonalV3 = 602,
-
+	dIFSCylinder = 603,
 
 
 
