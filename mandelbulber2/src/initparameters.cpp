@@ -902,6 +902,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_start_iterations_O", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_O", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_P", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_P", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_P1", 1, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_R", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_R", 250, morphLinear, paramStandard);

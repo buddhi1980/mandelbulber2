@@ -571,6 +571,7 @@ struct sFractalTransformCommon
 	int startIterationsO;
 	int stopIterationsO;
 	int startIterationsP;
+	int stopIterationsP;
 	int stopIterationsP1;
 	int startIterationsR;
 	int stopIterationsR;
