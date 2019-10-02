@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mandelbulber v2, a 3D fractal generator       ,=#MKNmMMKmmßMNWy,
  *                                             ,B" ]L,,p%%%,,,§;, "K
  * Copyright (C) 2014-19 Mandelbulber Team     §R-==%w["'~5]m%=L.=~5N
@@ -812,6 +812,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetB_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetC_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetD_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetR_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);
 	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
@@ -875,6 +876,8 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_C1", 1, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_Cy", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Cy", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_D", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_D1", 1, morphLinear, paramStandard);
@@ -892,9 +895,10 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_stop_iterations_J", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_K", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_K", 250, morphLinear, paramStandard);
-
 	par->addParam("transf_start_iterations_M", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_M", 250, morphLinear, paramStandard);
+	par->addParam("transf_start_iterations_N", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_N", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_O", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_O", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_P", 0, morphLinear, paramStandard);
@@ -1066,12 +1070,16 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledM", true, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledM_false", false, morphLinear, paramStandard);
-
+	par->addParam("transf_function_enabledN_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledO_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledP_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledR_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledS_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledSw_false", false, morphLinear, paramStandard);
+
+	par->addParam("transf_function_enabledT_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledX_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledY_false", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation_enabled", false, morphLinear, paramStandard);
 	par->addParam("transf_rotation2_enabled_false", false, morphLinear, paramStandard);
 	par->addParam("transf_sphere_inversion_enabled_false", false, morphLinear, paramStandard);
@@ -1084,6 +1092,11 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("platonic_solid_frequency", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_amplitude", 1.0, morphAkima, paramStandard);
 	par->addParam("platonic_solid_rhoMul", 1.0, morphAkima, paramStandard);
+
+
+
+
+
 
 	// dummy parameter for information group box
 	par->addParam("info", false, morphNone, paramStandard);

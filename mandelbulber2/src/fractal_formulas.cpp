@@ -18736,11 +18736,17 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		{
 			if (!fractal->transformCommon.functionEnabledzFalse)
 				cylR = cylRm;
+
+
 			cylR = max(cylR, 0.0);
+
+
 			double cylHm = max(cylH, 0.0);
 			cylD  = sqrt(cylR * cylR + cylHm * cylHm);
 		}
 		else cylD  = sqrt(cylRm * cylRm + cylH * cylH);
+
+
 		cylD = min(max(cylRm,cylH) - radius2, 0.0) + cylD ;
 		aux.dist = min(aux.dist, cylD / aux.DE);
 	}
@@ -18799,8 +18805,8 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	CVector4 boxSize = fractal->transformCommon.additionConstant111;
 
 
-	// abs
-	if (fractal->transformCommon.functionEnabledAx
+	// abs z
+	/*if (fractal->transformCommon.functionEnabledAx
 			&& aux.i >= fractal->transformCommon.startIterationsX
 			&& aux.i < fractal->transformCommon.stopIterationsX)
 		z.x = fabs(z.x);
@@ -18808,7 +18814,7 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	if (fractal->transformCommon.functionEnabledAy
 			&& aux.i >= fractal->transformCommon.startIterationsY
 			&& aux.i < fractal->transformCommon.stopIterationsY)
-		z.y = fabs(z.y);
+		z.y = fabs(z.y);*/
 
 	if (fractal->transformCommon.functionEnabledAzFalse
 			&& aux.i >= fractal->transformCommon.startIterationsZ
@@ -18863,8 +18869,8 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	// diag 2
 	if (fractal->transformCommon.functionEnabledCyFalse
-			&& aux.i >= fractal->transformCommon.startIterationsG
-			&& aux.i < fractal->transformCommon.stopIterationsG)
+			&& aux.i >= fractal->transformCommon.startIterationsCy
+			&& aux.i < fractal->transformCommon.stopIterationsCy)
 		if (z.x > z.y) swap(z.x, z.y);
 
 
@@ -18897,7 +18903,7 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			// update actualScaleA for next iteration
 			double vary = fractal->transformCommon.scaleVary0
 										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledMFalse)
+			if (fractal->transformCommon.functionEnabledYFalse)
 				aux.actualScaleA = -vary;
 			else
 				aux.actualScaleA = aux.actualScaleA - vary;
@@ -18934,7 +18940,7 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 	// box
 	if (fractal->transformCommon.functionEnabledM
-		&& aux.i >= fractal->transformCommon.startIterationsO
+		&& aux.i >= fractal->transformCommon.startIterationsG
 		&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
 		CVector4 bxV = zc;
@@ -18969,15 +18975,14 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	}*/
 
 		// cylinder
-	if (fractal->transformCommon.functionEnabledGFalse)
-
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double cylD = 0.0;
-		double radius2 = fractal->transformCommon.offset0005;
-				//- fractal->transformCommon.scale0 * aux.i;
 
 		double cylR = 0.0;
 		double cylH = 0.0;
+		// swap axis
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
 			cylR = sqrt(zc.x * zc.x + zc.y * zc.y);
@@ -18988,78 +18993,49 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			cylR = sqrt(zc.y * zc.y + zc.z * zc.z);
 			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
 		}
-		double cylRm = cylR - fractal->transformCommon.radius1;
-
-
 		double absZ = abs(zc.z);
-		if (fractal->transformCommon.functionEnabledKFalse) absZ = zc.z;
-		if (fractal->transformCommon.functionEnabledAwFalse) absZ *= absZ;
-		cylRm += fractal->transformCommon.scale0 * absZ;
 
-		/*if (fractal->transformCommon.functionEnabledAwFalse
+		if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+		{
+			absZ = zc.z;
+		}
+
+		if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
-			cylRm += fractal->transformCommon.scale0 + absZ;
-		}*/
-
-
-		if (!fractal->transformCommon.functionEnabledXFalse)
-		{
-			if (!fractal->transformCommon.functionEnabledzFalse)
-				cylR = cylRm;
-
-			cylR = max(cylR, 0.0);
-
-			double cylHm = max(cylH, 0.0);
-
-			cylD  = sqrt(cylR * cylR + cylHm * cylHm);
+			absZ *= absZ;
 		}
-		else cylD  = sqrt(cylRm * cylRm + cylH * cylH);
+		double cylRm = cylR - fractal->transformCommon.radius1;
+		cylRm += fractal->transformCommon.scale0 * absZ;
+		//double temp = cylRm;
+		if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
+		{
+			double temp = max(cylR, 0.0);
+			double cylHm = max(cylH, 0.0);
+			cylD  = sqrt(temp * temp + cylHm * cylHm);
+		}
+		else
+		{
+			double temp = max(cylRm, 0.0);
+			double cylHm = max(cylH, 0.0);
+			cylD  = sqrt(temp * temp + cylHm * cylHm);
+		}
 
-		cylD = min(max(cylRm,cylH) - radius2, 0.0) + cylD ;
+		if (fractal->transformCommon.functionEnabledOFalse
+			&& aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
+		{
+			cylD  = sqrt(cylRm * cylRm + cylH * cylH);
+		}
+		cylD = min(max(cylRm,cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
+
 		aux.dist = min(aux.dist, cylD / aux.DE);
 	}
-/*	float absZ = abs(oldP.z);
-
-
-	if (absOff)  absZ = oldP.z;
-
-	if (zSqrd ) absZ *= absZ;
-
-
-
-
-	float height = h;
-
-	if (gb ) height =  h * hOffset * (oldP.z);
-
-
-	float dx = sqrt(oldP.x * oldP.x + oldP.y * oldP.y) - (r -  rzScale * absZ );*/
-	// torus
-	/*if (fractal->transformCommon.functionEnabledAwFalse
-		&& aux.i >= fractal->transformCommon.startIterationsT
-		&& aux.i < fractal->transformCommon.stopIterationsT)
-	{
-		double T1 = fractal->transformCommon.offset4;
-		double T2 = fractal->transformCommon.offset105;
-		double T3 = sqrt(zc.y * zc.y + zc.x * zc.x) - T1;
-		double T4 = zc.z;
-		double T5 = sqrt(T3 * T3 + T4 * T4) - T2;
-			aux.dist = min(aux.dist, T5 / aux.DE);
-
-	}*/
-	//{ vec2 d = abs(vec2(length(pos.xy),pos.z)) - vec2(r,h);
-	//return min(max(d.x,d.y),0.0) + length(max(d,0.0));}
-
-		//{ vec2 q = vec2(length(pos.xy)-tx,pos.z);
-
-
-		// return length(q)-ty;}
-		//{ vec2 q = vec2(length(pos.xy)-tx,pos.z);
-
-
-		// return length(q)-ty;}
 
 
 	if (fractal->foldColor.auxColorEnabled)

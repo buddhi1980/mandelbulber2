@@ -276,6 +276,7 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.offsetB0 = container->Get<double>("transf_offsetB_0");
 	transformCommon.offsetC0 = container->Get<double>("transf_offsetC_0");
 	transformCommon.offsetD0 = container->Get<double>("transf_offsetD_0");
+	transformCommon.offsetR0 = container->Get<double>("transf_offsetR_0");
 	transformCommon.offset0005 = container->Get<double>("transf_offset_0005");
 	transformCommon.offset05 = container->Get<double>("transf_offset_05");
 	transformCommon.offset1 = container->Get<double>("transf_offset_1");
@@ -337,6 +338,8 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.startIterationsB = container->Get<int>("transf_start_iterations_B");
 	transformCommon.stopIterationsB = container->Get<int>("transf_stop_iterations_B");
 	transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_C");
+	transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_Cy");
+	transformCommon.startIterationsC = container->Get<int>("transf_start_iterations_Cy");
 	transformCommon.stopIterationsC = container->Get<int>("transf_stop_iterations_C");
 	transformCommon.stopIterationsC1 = container->Get<int>("transf_stop_iterations_C1");
 	transformCommon.startIterationsD = container->Get<int>("transf_start_iterations_D");
@@ -359,6 +362,8 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	transformCommon.startIterationsM = container->Get<int>("transf_start_iterations_M");
 	transformCommon.stopIterationsM = container->Get<int>("transf_stop_iterations_M");
+	transformCommon.startIterationsN = container->Get<int>("transf_start_iterations_N");
+	transformCommon.stopIterationsN = container->Get<int>("transf_stop_iterations_N");
 	transformCommon.startIterationsO = container->Get<int>("transf_start_iterations_O");
 	transformCommon.stopIterationsO = container->Get<int>("transf_stop_iterations_O");
 	transformCommon.startIterationsP = container->Get<int>("transf_start_iterations_P");
@@ -531,11 +536,15 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledKFalse = container->Get<bool>("transf_function_enabledK_false");
 	transformCommon.functionEnabledM = container->Get<bool>("transf_function_enabledM");
 	transformCommon.functionEnabledMFalse = container->Get<bool>("transf_function_enabledM_false");
+	transformCommon.functionEnabledNFalse = container->Get<bool>("transf_function_enabledN_false");
+	transformCommon.functionEnabledOFalse = container->Get<bool>("transf_function_enabledO_false");
 	transformCommon.functionEnabledPFalse = container->Get<bool>("transf_function_enabledP_false");
 	transformCommon.functionEnabledRFalse = container->Get<bool>("transf_function_enabledR_false");
 	transformCommon.functionEnabledSFalse = container->Get<bool>("transf_function_enabledS_false");
 	transformCommon.functionEnabledSwFalse = container->Get<bool>("transf_function_enabledSw_false");
+	transformCommon.functionEnabledTFalse = container->Get<bool>("transf_function_enabledT_false");
 	transformCommon.functionEnabledXFalse = container->Get<bool>("transf_function_enabledX_false");
+	transformCommon.functionEnabledYFalse = container->Get<bool>("transf_function_enabledY_false");
 	transformCommon.juliaMode = container->Get<bool>("transf_constant_julia_mode");
 	transformCommon.rotationEnabled = container->Get<bool>("transf_rotation_enabled");
 	transformCommon.rotation2EnabledFalse = container->Get<bool>("transf_rotation2_enabled_false");
@@ -545,6 +554,7 @@ sFractal::sFractal(const cParameterContainer *container)
 
 	// transformCommon.functionEnabledTempFalse =
 	//	container->Get<bool>("transf_function_enabled_temp_false");
+
 
 	WriteLog("cFractal::RecalculateFractalParams(void)", 3);
 

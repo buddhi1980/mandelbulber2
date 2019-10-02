@@ -484,6 +484,7 @@ struct sFractalTransformCommon
 	double offsetB0;
 	double offsetC0;
 	double offsetD0;
+	double offsetR0;
 	double offset0005;
 	double offset05;
 	double offset1;
@@ -544,6 +545,8 @@ struct sFractalTransformCommon
 	int startIterationsC;
 	int stopIterationsC;
 	int stopIterationsC1;
+	int startIterationsCy;
+	int stopIterationsCy;
 	int startIterationsD;
 	int stopIterationsD;
 	int stopIterationsD1;
@@ -563,6 +566,8 @@ struct sFractalTransformCommon
 	int stopIterationsK;
 	int startIterationsM;
 	int stopIterationsM;
+	int startIterationsN;
+	int stopIterationsN;
 	int startIterationsO;
 	int stopIterationsO;
 	int startIterationsP;
@@ -723,11 +728,15 @@ struct sFractalTransformCommon
 	bool functionEnabledKFalse;
 	bool functionEnabledM;
 	bool functionEnabledMFalse;
+	bool functionEnabledNFalse;
+	bool functionEnabledOFalse;
 	bool functionEnabledPFalse;
 	bool functionEnabledRFalse;
 	bool functionEnabledSFalse;
 	bool functionEnabledSwFalse;
+	bool functionEnabledTFalse;
 	bool functionEnabledXFalse;
+	bool functionEnabledYFalse;
 	bool juliaMode;
 	bool rotationEnabled;
 	bool rotation2EnabledFalse;
@@ -736,6 +745,7 @@ struct sFractalTransformCommon
 
 	// bool functionEnabledTempFalse;
 };
+
 
 struct sFractal
 {
@@ -767,6 +777,7 @@ struct sFractal
 	sFractalCombo4 combo4;
 	sFractalCombo5 combo5;
 	sFractalCombo6 combo6;
+
 
 #ifdef USE_OPENCL
 //	double customParameters[15];
