@@ -18970,7 +18970,8 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double cylD = 0.0;
-
+		double absZ = abs(zc.z);
+		double lengthCyl = zc.z;
 		double cylR = 0.0;
 		double cylH = 0.0;
 		// swap axis
@@ -18983,14 +18984,15 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		{
 			cylR = sqrt(zc.y * zc.y + zc.z * zc.z);
 			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
+			absZ = abs(zc.x);
+			lengthCyl = zc.x;
 		}
-		double absZ = abs(zc.z);
 
 		if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 		{
-			absZ = zc.z;
+			absZ = lengthCyl;
 		}
 
 		if (fractal->transformCommon.functionEnabledTFalse
@@ -19033,16 +19035,21 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			colorAdd += fractal->mandelbox.color.factor.x * aux.dist;
-			colorAdd += fractal->mandelbox.color.factor.y * round(max(z.x, z.y));
-			colorAdd += fractal->mandelbox.color.factor.z * z.x * z.y;
-			colorAdd += fractal->mandelbox.color.factorSp1 * max(z.x, z.y); //
-			//colorAdd += fractal->mandelbox.color.factorSp2 * trunc(max(zc.x, zc.y));
-			// colorAdd += fractal->mandelbox.color.factorSp2 * round(max(zc.x, zc.y));
+			colorAdd += fractal->foldColor.difs0000.x * aux.dist;
+
+			colorAdd += fractal->foldColor.difs0000.y * abs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
+			colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
+
 		}
 		colorAdd += fractal->foldColor.difs1;
 		//if (colorDist != aux.dist) aux.color += colorAdd;
 	}
-	if (colorDist != aux.dist) aux.color += colorAdd;
+	if (fractal->foldColor.auxColorEnabledA)
+	{
+		if (colorDist != aux.dist) aux.color += colorAdd;
+	}
+
+	else aux.color += colorAdd;
 }
 

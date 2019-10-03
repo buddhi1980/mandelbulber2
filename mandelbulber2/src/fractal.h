@@ -101,12 +101,15 @@ struct sFoldColor
 {
 	CVector3 factor;
 	CVector4 factor4D;
+	CVector4 difs0000;
 	double factorR;
 	double factorSp1;
 	double factorSp2;
 	double difs1;
 	bool auxColorEnabled;
+	bool auxColorEnabledA;
 	bool auxColorEnabledFalse;
+	bool auxColorEnabledAFalse;
 };
 
 struct sFractalGeneralizedFoldBox

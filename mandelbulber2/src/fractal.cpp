@@ -254,9 +254,11 @@ sFractal::sFractal(const cParameterContainer *container)
 	analyticDE.offset2 = container->Get<double>("analyticDE_offset_2");
 
 	foldColor.auxColorEnabled = container->Get<bool>("fold_color_aux_color_enabled");
+	foldColor.auxColorEnabledA = container->Get<bool>("fold_color_aux_color_enabledA");
 	foldColor.auxColorEnabledFalse = container->Get<bool>("fold_color_aux_color_enabled_false");
+	foldColor.auxColorEnabledAFalse = container->Get<bool>("fold_color_aux_color_enabledA_false");
 	foldColor.difs1 = container->Get<double>("fold_color_difs1");
-
+	foldColor.difs0000 = container->Get<CVector4>("fold_color_difs_0000");
 
 	// common parameters for transforming formulas
 	transformCommon.angle0 = container->Get<double>("transf_angle_0");
