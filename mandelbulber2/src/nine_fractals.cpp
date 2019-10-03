@@ -73,14 +73,22 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 	isBoolean = generalPar->Get<bool>("boolean_operators");
 	double maxBailout = 0.0;
 
+	// getting data from all formuala slots
 	for (int i = 0; i < NUMBER_OF_FRACTALS; i++)
 	{
+		// allocating memory for formula data
 		fractals[i] = new sFractal(&par->at(i));
+
+		// getting selected formula
 		fractals[i]->formula = fractal::enumFractalFormula(generalPar->Get<int>("formula", i + 1));
+
+		// setting formula to "none" if disabled
 		if (!generalPar->Get<bool>("fractal_enable", i + 1))
 		{
 			fractals[i]->formula = fractal::none;
 		}
+
+		// getting settings form formula
 		formulaWeight[i] = generalPar->Get<double>("formula_weight", i + 1);
 		formulaStartIteration[i] = generalPar->Get<int>("formula_start_iteration", i + 1);
 		formulaStopIteration[i] = generalPar->Get<int>("formula_stop_iteration", i + 1);
@@ -93,6 +101,7 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 			fractalList[GetIndexOnFractalList(fractals[i]->formula)].DEAnalyticFunction;
 		coloringFunction[i] = fractalList[GetIndexOnFractalList(fractals[i]->formula)].coloringFunction;
 
+		// decide if use check for bailout
 		if (isBoolean || (!isBoolean && !isHybrid))
 			checkForBailout[i] = true;
 		else
@@ -115,7 +124,6 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 		addCConstant[i] = addc;
 
 		// default bailout or global one
-
 		if (useDefaultBailout)
 		{
 			if (isHybrid)
@@ -226,13 +234,21 @@ cNineFractals::cNineFractals(const cFractalContainer *par, const cParameterConta
 				}
 			}
 
-			int maxCount = -1;
-			for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
+			// checking if used dIFS formula
+			if (DEFunctionCount[fractal::dIFSDEFunction] > 0)
 			{
-				if (DEFunctionCount[i] > maxCount)
+				DEFunctionType[0] = fractal::dIFSDEFunction;
+			}
+			else // use method which used in the highest iteration count
+			{
+				int maxCount = -1;
+				for (int i = 1; i <= fractal::numberOfDEFunctions; i++)
 				{
-					maxCount = DEFunctionCount[i];
-					DEFunctionType[0] = fractal::enumDEFunctionType(i);
+					if (DEFunctionCount[i] > maxCount)
+					{
+						maxCount = DEFunctionCount[i];
+						DEFunctionType[0] = fractal::enumDEFunctionType(i);
+					}
 				}
 			}
 		}
