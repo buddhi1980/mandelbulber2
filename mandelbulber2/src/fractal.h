@@ -487,7 +487,12 @@ struct sFractalTransformCommon
 	double offsetB0;
 	double offsetC0;
 	double offsetD0;
+	double offsetE0;
+	double offsetF0;
 	double offsetR0;
+
+
+
 	double offset0005;
 	double offset05;
 	double offset1;
@@ -548,6 +553,8 @@ struct sFractalTransformCommon
 	int startIterationsC;
 	int stopIterationsC;
 	int stopIterationsC1;
+	int startIterationsCx;
+	int stopIterationsCx;
 	int startIterationsCy;
 	int stopIterationsCy;
 	int startIterationsD;
@@ -724,6 +731,9 @@ struct sFractalTransformCommon
 	bool functionEnabledCxFalse;
 	bool functionEnabledCyFalse;
 	bool functionEnabledCzFalse;
+	bool functionEnabledAFalse;
+	bool functionEnabledBFalse;
+	bool functionEnabledCFalse;
 	bool functionEnabledDFalse;
 	bool functionEnabledEFalse;
 	bool functionEnabledFFalse;

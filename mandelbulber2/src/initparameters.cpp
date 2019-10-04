@@ -815,7 +815,16 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetB_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetC_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetD_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetE_0", 0.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetF_0", 0.0, morphAkima, paramStandard);
+
+
 	par->addParam("transf_offsetR_0", 0.0, morphAkima, paramStandard);
+
+
+
+
+
 	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);
 	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
@@ -879,6 +888,10 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_start_iterations_C", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_C", 250, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_C1", 1, morphLinear, paramStandard);
+
+	par->addParam("transf_start_iterations_Cx", 0, morphLinear, paramStandard);
+	par->addParam("transf_stop_iterations_Cx", 250, morphLinear, paramStandard);
+
 	par->addParam("transf_start_iterations_Cy", 0, morphLinear, paramStandard);
 	par->addParam("transf_stop_iterations_Cy", 250, morphLinear, paramStandard);
 	par->addParam("transf_start_iterations_D", 0, morphLinear, paramStandard);
@@ -1066,6 +1079,10 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledCx_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCy_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledCz_false", false, morphLinear, paramStandard);
+
+	par->addParam("transf_function_enabledA_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledB_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledC_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledD_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
