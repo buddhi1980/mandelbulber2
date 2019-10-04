@@ -18811,7 +18811,6 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
 
-
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 			// xy box fold
@@ -18841,10 +18840,14 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			z.y = sin(psi) * len;
 		}
 
-		// diag 1
+		// diag folds
 		if (fractal->transformCommon.functionEnabledCxFalse
 				&& aux.i >= fractal->transformCommon.startIterationsCx
 				&& aux.i < fractal->transformCommon.stopIterationsCx)
+					if (z.x > z.y) swap(z.x, z.y);
+		if (fractal->transformCommon.functionEnabledCyFalse
+				&& aux.i >= fractal->transformCommon.startIterationsCy
+				&& aux.i < fractal->transformCommon.stopIterationsCy)
 					if (z.x > z.z) swap(z.x, z.z);
 
 		// abs offsets
@@ -18906,7 +18909,7 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		z.y += fractal->transformCommon.offsetF0;
 
 	// offset
-	z -= fractal->transformCommon.offset002;
+	z += fractal->transformCommon.offset002;
 
 	// rotation
 	if (fractal->transformCommon.functionEnabledRFalse
@@ -18963,7 +18966,6 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 			&& aux.i >= fractal->transformCommon.startIterationsN
 			&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
-			//cylR = cylR - fractal->transformCommon.radius1;
 			double temp =  max(cylR, 0.0);
 			double cylHm = max(cylH, 0.0);
 			cylD  = sqrt(temp * temp + cylHm * cylHm);
@@ -18991,12 +18993,10 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	{
 		if (fractal->foldColor.auxColorEnabledFalse)
 		{
-			colorAdd += fractal->foldColor.difs0000.x * aux.dist;
-
-			colorAdd += fractal->foldColor.difs0000.y * abs(z.x * z.y);
-			colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
-			colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
-
+			colorAdd += fractal->foldColor.difs0000.x * abs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			//colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
+			//colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
 		}
 		colorAdd += fractal->foldColor.difs1;
 		if (fractal->foldColor.auxColorEnabledA)
