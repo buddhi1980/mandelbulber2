@@ -544,7 +544,6 @@ sFractal::sFractal(const cParameterContainer *container)
 	transformCommon.functionEnabledAFalse = container->Get<bool>("transf_function_enabledA_false");
 	transformCommon.functionEnabledBFalse = container->Get<bool>("transf_function_enabledB_false");
 	transformCommon.functionEnabledCFalse = container->Get<bool>("transf_function_enabledC_false");
-
 	transformCommon.functionEnabledDFalse = container->Get<bool>("transf_function_enabledD_false");
 	transformCommon.functionEnabledEFalse = container->Get<bool>("transf_function_enabledE_false");
 	transformCommon.functionEnabledFFalse = container->Get<bool>("transf_function_enabledF_false");
