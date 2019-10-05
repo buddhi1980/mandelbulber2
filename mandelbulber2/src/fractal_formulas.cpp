@@ -17302,7 +17302,7 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		CVector4 boxSize = fractal->transformCommon.additionConstant111;
-		// abs sqrd
+		// curve
 		if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
@@ -17312,17 +17312,14 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			boxSize.x += fractal->transformCommon.scale0 * absZ;
 			boxSize.y += fractal->transformCommon.scale0 * absZ;
 		}
-		// no absz
+		// pyramid
 		if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 		{
-			boxSize.x += fractal->transformCommon.scaleA0 * zc.z;
-			boxSize.y += fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.x -= fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.y -= fractal->transformCommon.scaleA0 * zc.z;
 		}
-
-
-
 		zc = fabs(zc) - boxSize;
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
@@ -17330,7 +17327,6 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 		double zcd = zc.Length();
 
 		aux.dist = min(aux.dist, zcd / aux.DE);
-
 	}
 
 	// aux.color
@@ -19097,8 +19093,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
-
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAxFalse
@@ -19122,16 +19117,15 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	{
 		//z.x -= boxSize.x;
 		//z.y -= boxSize.y;
-		z.x = fabs(z.x + boxSize.x) - fabs(z.x - boxSize.x) - z.x;
-		z.y = fabs(z.y + boxSize.y) - fabs(z.y - boxSize.y) - z.y;
-
+		z.x = fabs(z.x + boxFold.x) - fabs(z.x - boxFold.x) - z.x;
+		z.y = fabs(z.y + boxFold.y) - fabs(z.y - boxFold.y) - z.y;
 
 	}
 	// xyz box fold
 	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;
+		z -= boxFold;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -19228,16 +19222,42 @@ void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	double colorDist = aux.dist;
 	// DE
 	CVector4 zc = z;
-	zc = fabs(zc) - boxSize;
-	zc.x = max(zc.x, 0.0);
-	zc.y = max(zc.y, 0.0);
-	zc.z = max(zc.z, 0.0);
-	double zcd = zc.Length();
+	// box
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		CVector4 boxSize = fractal->transformCommon.additionConstant111;
+		// curve
+		if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+		{
+			double absZ = abs(z.z);
+			absZ *= absZ;
+			boxSize.x += fractal->transformCommon.scale0 * absZ;
+			boxSize.y += fractal->transformCommon.scale0 * absZ;
+		}
+		// pyramid
+		if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+		{
+			boxSize.x -= fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.y -= fractal->transformCommon.scaleA0 * zc.z;
+		}
+		zc = fabs(zc) - boxSize;
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		double zcd = zc.Length();
 
-	if (!fractal->transformCommon.functionEnabledGFalse)
 		aux.dist = min(aux.dist, zcd / aux.DE);
-	else
-		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+
+		if (!fractal->transformCommon.functionEnabledGFalse)
+			aux.dist = min(aux.dist, zcd / aux.DE);
+		else
+			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+	}
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
