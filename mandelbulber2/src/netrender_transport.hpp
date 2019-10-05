@@ -112,7 +112,7 @@ struct sClient
 	QTcpSocket *socket{nullptr};
 	sMessage msg;
 	netRenderStatus status{netRenderSts_NEW};
-	qint32 linesRendered{0};
+	qint32 itemsRendered{0};
 	qint32 clientWorkerCount{0};
 	QString name;
 };

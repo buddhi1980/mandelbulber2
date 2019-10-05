@@ -334,7 +334,7 @@ void cNetRenderServer::SetCurrentJob(
 		{
 			auto &client = GetClient(i);
 			cNetRenderTransport::SendData(client.socket, msgCurrentJob, actualId);
-			clients[i].linesRendered = 0;
+			clients[i].itemsRendered = 0;
 		}
 	}
 	else
@@ -380,7 +380,7 @@ void cNetRenderServer::SetCurrentAnimation(
 	{
 		auto &client = GetClient(i);
 		cNetRenderTransport::SendData(client.socket, msgCurrentJob, actualId);
-		clients[i].linesRendered = 0;
+		clients[i].itemsRendered = 0;
 	}
 }
 
@@ -418,6 +418,8 @@ void cNetRenderServer::ProcessRequestFrameDone(sMessage *inMsg, int index, QTcpS
 		}
 
 		emit FinishedFrame(index, frameIndex, sizeOfListToDo);
+
+		clients[index].itemsRendered++;
 	}
 	else
 	{
@@ -459,7 +461,7 @@ void cNetRenderServer::ProcessRequestWorker(sMessage *inMsg, int index, QTcpSock
 	if (msgCurrentJob.command != netRender_NONE)
 	{
 		cNetRenderTransport::SendData(GetClient(index).socket, msgCurrentJob, actualId);
-		clients[index].linesRendered = 0;
+		clients[index].itemsRendered = 0;
 		WriteLog("CNetRender::ProcessData(): Send data at reconnect", 2);
 	}
 }
@@ -492,7 +494,7 @@ void cNetRenderServer::ProcessRequestData(sMessage *inMsg, int index, QTcpSocket
 								 .arg(lineLength),
 				3);
 		}
-		clients[index].linesRendered += receivedLineNumbers.size();
+		clients[index].itemsRendered += receivedLineNumbers.size();
 		emit NewLinesArrived(receivedLineNumbers, receivedRenderedLines);
 
 		// send acknowledge

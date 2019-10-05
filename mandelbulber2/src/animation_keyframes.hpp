@@ -170,6 +170,7 @@ signals:
 	void NetRenderSendFramesToDoList(int clientIndex, QList<int> frameNumbers);
 	void NetRenderAddFileToSender(QString);
 	void NetRenderStopAllClients();
+	void NetRenderNotifyClientStatus();
 };
 
 extern cKeyframeAnimation *gKeyframeAnimation;

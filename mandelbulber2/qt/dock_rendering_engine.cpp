@@ -125,7 +125,7 @@ void cDockRenderingEngine::ConnectSignals() const
 	connect(gNetRender, &cNetRender::ClientsChangedRow, this,
 		&cDockRenderingEngine::slotNetRenderClientListUpdateRow);
 	connect(gNetRender, &cNetRender::ClientsChangedCell, this,
-		&cDockRenderingEngine::slotNetRenderClientListUpdateRow);
+		&cDockRenderingEngine::slotNetRenderClientListUpdateCell);
 
 	connect(ui->checkBox_connect_detail_level_2, SIGNAL(stateChanged(int)), this,
 		SIGNAL(stateChangedConnectDetailLevel(int)));
@@ -180,7 +180,7 @@ void cDockRenderingEngine::slotNetRenderClientListUpdate() const
 	if (table->columnCount() == 0)
 	{
 		QStringList header;
-		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Lines done")
+		header << tr("Name") << tr("Host") << tr("CPUs") << tr("Status") << tr("Items done")
 					 << tr("Actions");
 		table->setColumnCount(header.size());
 		table->setHorizontalHeaderLabels(header);
@@ -239,7 +239,7 @@ void cDockRenderingEngine::slotNetRenderClientListUpdateCell(int i, int j) const
 			cell->setBackgroundColor(Qt::white);
 			break;
 		}
-		case 4: cell->setText(QString::number(gNetRender->GetClient(i).linesRendered)); break;
+		case 4: cell->setText(QString::number(gNetRender->GetClient(i).itemsRendered)); break;
 		case 5:
 		{
 			QFrame *frame = new QFrame;

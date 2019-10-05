@@ -154,6 +154,8 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 			&cNetRender::ConfirmRenderedFrame);
 		connect(this, &cKeyframeAnimation::NetRenderAddFileToSender, gNetRender,
 			&cNetRender::AddFileToSender);
+		connect(this, &cKeyframeAnimation::NetRenderNotifyClientStatus, gNetRender,
+			&cNetRender::NotifyStatus);
 
 		// signals from NetRender
 		connect(gNetRender, &cNetRender::KeyframeAnimationRender, this,
@@ -912,6 +914,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 				{
 					emit NetRenderConfirmRendered(frameIndex, netRenderListOfFramesToRender.size());
 					netRenderListOfFramesToRender.removeAll(frameIndex);
+					emit NetRenderNotifyClientStatus();
 
 					for (QString channelFileName : listOfSavedFiles)
 					{
@@ -936,6 +939,13 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		{
 			emit NetRenderStopAllClients();
 		}
+
+		if (gNetRender->IsClient())
+		{
+			gNetRender->SetStatus(netRenderSts_READY);
+			emit NetRenderNotifyClientStatus();
+		}
+
 		QString resultStatus = QObject::tr("Rendering terminated");
 		if (ex) resultStatus += " - " + QObject::tr("Error occured, see log output");
 		emit updateProgressAndStatus(
@@ -955,6 +965,12 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	{
 		mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 		imageWidget->SetEnableClickModes(true);
+	}
+
+	if (gNetRender->IsClient())
+	{
+		gNetRender->SetStatus(netRenderSts_READY);
+		emit NetRenderNotifyClientStatus();
 	}
 
 	return true;
@@ -1318,7 +1334,7 @@ QString cKeyframeAnimation::GetKeyframeFilename(int index, int subIndex, bool ne
 	QString filename = dir + "frame_" + QString("%1").arg(frameIndex, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(ImageFileSave::enumImageFileType(
-									params->Get<int>("keyframe_animation_image_type")));
+								params->Get<int>("keyframe_animation_image_type")));
 	return filename;
 }
 
