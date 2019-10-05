@@ -599,10 +599,10 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	if (systemData.noGui)
 	{
 		config.DisableRefresh();
-		config.DisableProgressiveRender();
 		config.EnableNetRender();
 	}
 
+	config.DisableProgressiveRender();
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 
 	cProgressText progressText;
@@ -1709,7 +1709,7 @@ void cKeyframeRenderThread::startAnimationRender()
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromString(settingsText);
 	parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
-
+	gNetRender->SetAnimation(true);
 	gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
 	emit renderingFinished();
 }

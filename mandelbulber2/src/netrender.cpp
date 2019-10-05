@@ -52,7 +52,6 @@ cNetRender *gNetRender = nullptr;
 
 // TODO: to check why cliect hangs after loading mp3 file (second rendering)
 // TODO: to check headless mode
-// TODO: to add sending rendering status form client to server
 // TODO: to add sending of rendering preview
 // TODO: to modify NetRender status table
 // TODO: to implement NetRender for flight animation rendering
