@@ -222,7 +222,7 @@ enum enumFractalFormula
 	dIFSBoxV1 = 601,
 	dIFSBoxDiagonalV3 = 602,
 	dIFSCylinder = 603,
-
+	dIFSSphere = 604,
 
 
 	mandelbulbEye = 800,
