@@ -49,6 +49,8 @@
 // custom includes
 #ifdef USE_OPENCL
 
+#if __has_include("CL/cl2.hpp") || __has_include("OpenCL/cl2.hpp")
+
 #ifndef CL_HPP_TARGET_OPENCL_VERSION
 #define CL_HPP_TARGET_OPENCL_VERSION 120
 #endif
@@ -74,10 +76,31 @@
 #endif // _WIN32
 // OpenCL SDK for all others
 #if defined(__APPLE__) || defined(__MACOSX)
-#include <OpenCL/cl.hpp>
+#include <OpenCL/cl2.hpp>
 #else
 #include <CL/cl2.hpp>
 #endif
+
+#else // cl2.cpp doesn't exist
+#ifndef CL_TARGET_OPENCL_VERSION
+#define CL_TARGET_OPENCL_VERSION 120
+#endif
+
+#ifdef _WIN32
+#ifndef _MSC_VER
+// clew for cross compile
+#include "clew.h"
+#include "clew-cl.hpp"
+#endif // NOT _MSC_VER
+#endif // _WIN32
+// OpenCL SDK for all others
+#if defined(__APPLE__) || defined(__MACOSX)
+#include <OpenCL/cl.hpp>
+#else
+#include <CL/cl.hpp>
+#endif
+#endif //_has_include("cl2.hpp")
+
 #endif // USE_OPENCL
 
 // include math header here with opencl
