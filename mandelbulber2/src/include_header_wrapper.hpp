@@ -38,19 +38,31 @@
 
 #if defined(_MSC_VER)
 #pragma warning(push)
- // MSVC defines math constants elsewhere, do not warn about the
- // redefinition in math.h
+// MSVC defines math constants elsewhere, do not warn about the
+// redefinition in math.h
 #pragma warning(disable : 4005) // macro redefinition
 
 // MSVC declares 'clEnqueueTask' deprecated in cl.h/hpp
 #pragma warning(disable : 4996) // declared deprecated
-#endif // _MSC_VER
+#endif													// _MSC_VER
 
 // custom includes
 #ifdef USE_OPENCL
 
-#ifndef CL_TARGET_OPENCL_VERSION
-#define CL_TARGET_OPENCL_VERSION 120
+#ifndef CL_HPP_TARGET_OPENCL_VERSION
+#define CL_HPP_TARGET_OPENCL_VERSION 120
+#endif
+
+#ifndef CL_HPP_MINIMUM_OPENCL_VERSION
+#define CL_HPP_MINIMUM_OPENCL_VERSION 120
+#endif
+
+#ifndef CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
+#define CL_HPP_ENABLE_PROGRAM_CONSTRUCTION_FROM_ARRAY_COMPATIBILITY
+#endif
+
+#ifndef CL_HPP_CL_1_2_DEFAULT_BUILD
+#define CL_HPP_CL_1_2_DEFAULT_BUILD
 #endif
 
 #ifdef _WIN32
@@ -64,7 +76,7 @@
 #if defined(__APPLE__) || defined(__MACOSX)
 #include <OpenCL/cl.hpp>
 #else
-#include <CL/cl.hpp>
+#include <CL/cl2.hpp>
 #endif
 #endif // USE_OPENCL
 
