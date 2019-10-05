@@ -918,7 +918,7 @@
          </widget>
         </item>
         <item row="1" column="1" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetE_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetE_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -946,7 +946,7 @@
          </widget>
         </item>
         <item row="3" column="1" colspan="2">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetF_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetF_2">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>

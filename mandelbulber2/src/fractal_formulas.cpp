@@ -17576,11 +17576,11 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offsetE0;
+		z.x -= fractal->transformCommon.offset2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetF0;
+		z.y -= fractal->transformCommon.offsetA2;
 
 	// scale
 	double useScale = 1.0;
@@ -17608,11 +17608,11 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	// reverse offset part 2
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x += fractal->transformCommon.offsetE0;
+		z.x += fractal->transformCommon.offsetE2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y += fractal->transformCommon.offsetF0;
+		z.y += fractal->transformCommon.offsetF2;
 
 	// offset
 	z += fractal->transformCommon.offset001;
@@ -18979,7 +18979,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		}
 	}
 
-	// reverse offset part 2
+	// reverse offset part 2Diagonal
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
 		z.x += fractal->transformCommon.offsetE0;
@@ -19087,10 +19087,10 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 }*/
 /**
- * DIFSBoxDiagonalV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * DIFSBoxV1Iteration  fragmentarium code, mdifs by knighty (jan 2012)
  *
  */
-void DIFSBoxDiagonalV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
 	CVector4 boxFold = fractal->transformCommon.additionConstantA111;

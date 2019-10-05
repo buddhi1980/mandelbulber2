@@ -873,8 +873,8 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		DIFSBoxDiagonalV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Box Diagonal V2", "dIFS_box_diagonal_v2", dIFSBoxDiagonalV2,
-		DIFSBoxDiagonalV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+	fractalList->append(sFractalDescription("DIFS Box V1", "dIFS_box_v1", dIFSBoxV1,
+		DIFSBoxV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "dIFS_box_diagonal_v3", dIFSBoxDiagonalV3,
