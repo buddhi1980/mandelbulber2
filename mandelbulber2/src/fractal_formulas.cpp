@@ -17205,7 +17205,7 @@ void TransfSurfBoxFoldV24dIteration(CVector4 &z, const sFractal *fractal, sExten
 void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
 	double colorAdd = 0.0;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// diag 1
 	if (aux.i >= fractal->transformCommon.startIterationsCx
@@ -17223,8 +17223,8 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	if (aux.i >= fractal->transformCommon.startIterationsA
 			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z.x -= boxSize.x;
-		z.y -= boxSize.y;
+		z.x -= boxFold.x;
+		z.y -= boxFold.y;
 	}
 
 	// abs offsets
@@ -17296,13 +17296,42 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 	}
 	double colorDist = aux.dist;
 	CVector4 zc = z;
-	zc = fabs(zc) - boxSize;
-	zc.x = max(zc.x, 0.0);
-	zc.y = max(zc.y, 0.0);
-	zc.z = max(zc.z, 0.0);
-	double zcd = zc.Length();
 
-	aux.dist = min(aux.dist, zcd / aux.DE);
+	// box
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		CVector4 boxSize = fractal->transformCommon.additionConstant111;
+		// abs sqrd
+		if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+		{
+			double absZ = abs(z.z);
+			absZ *= absZ;
+			boxSize.x += fractal->transformCommon.scale0 * absZ;
+			boxSize.y += fractal->transformCommon.scale0 * absZ;
+		}
+		// no absz
+		if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+		{
+			boxSize.x += fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.y += fractal->transformCommon.scaleA0 * zc.z;
+		}
+
+
+
+		zc = fabs(zc) - boxSize;
+		zc.x = max(zc.x, 0.0);
+		zc.y = max(zc.y, 0.0);
+		zc.z = max(zc.z, 0.0);
+		double zcd = zc.Length();
+
+		aux.dist = min(aux.dist, zcd / aux.DE);
+
+	}
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)

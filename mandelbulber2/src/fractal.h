@@ -490,9 +490,6 @@ struct sFractalTransformCommon
 	double offsetE0;
 	double offsetF0;
 	double offsetR0;
-
-
-
 	double offset0005;
 	double offset05;
 	double offset1;
@@ -512,6 +509,7 @@ struct sFractalTransformCommon
 	double scaleNeg1;
 	double scale;
 	double scale0;
+	double scaleA0;
 	double scale025;
 	double scale05;
 	double scale08;
@@ -531,7 +529,6 @@ struct sFractalTransformCommon
 	double scaleB3;
 	double scale4;
 	double scale8;
-
 	double scaleMain2;
 	double scaleVary0;
 
