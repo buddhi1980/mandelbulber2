@@ -91,7 +91,7 @@ void cRenderer::InitializeThreadData(cRenderWorker::sThreadData *threadData)
 	for (int i = 0; i < data->configuration.GetNumberOfThreads(); i++)
 	{
 		threadData[i].id = i + 1;
-		if (data->configuration.UseNetRender())
+		if (data->configuration.UseNetRender() && !gNetRender->IsAnimation())
 		{
 			if (i < data->netRenderStartingPositions.size())
 			{

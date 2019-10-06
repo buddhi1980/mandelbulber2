@@ -51,8 +51,7 @@ cRenderingConfiguration::cRenderingConfiguration()
 
 bool cRenderingConfiguration::UseNetRender() const
 {
-	return ((gNetRender->IsClient() || gNetRender->IsServer()) && !gNetRender->IsAnimation())
-				 && enableNetRender;
+	return (gNetRender->IsClient() || gNetRender->IsServer()) && enableNetRender;
 }
 
 bool cRenderingConfiguration::UseImageRefresh() const

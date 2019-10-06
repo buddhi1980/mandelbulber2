@@ -55,6 +55,7 @@ cNetRender *gNetRender = nullptr;
 // TODO: to add sending of rendering preview
 // TODO: to modify NetRender status table
 // TODO: to implement NetRender for flight animation rendering
+// FIXME: animated textures are not transfered
 
 cNetRender::cNetRender() : QObject(nullptr)
 {

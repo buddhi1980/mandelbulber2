@@ -599,7 +599,6 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	if (systemData.noGui)
 	{
 		config.DisableRefresh();
-		config.EnableNetRender();
 	}
 
 	config.DisableProgressiveRender();
