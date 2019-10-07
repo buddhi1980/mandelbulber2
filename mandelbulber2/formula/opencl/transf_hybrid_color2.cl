@@ -25,8 +25,9 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		REAL componentMaster = 0.0f;
 		REAL orbitPoints = 0.0f;
 
-		REAL totalDist = 0.0f;
-		REAL totalR = 0.0f;
+		// REAL totalDist = 0.0f;
+		REAL distL = 0.0f;
+		REAL newR = 0.0f;
 		REAL lastVec = 0.0f;
 		// REAL auxColor = 0.0f;
 
@@ -40,13 +41,12 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		// REAL lastDist = 0.0f;
 		// REAL addI = 0.0f;
 
+		// Note aux->addDist is used in more than one color function
+
 		// summation of r
 		if (fractal->transformCommon.functionEnabledMFalse)
 		{
-			REAL total = aux->addDist;
-			REAL newR = length(z); // aux->r?
-			totalR = (total + newR) * fractal->transformCommon.scaleD1;
-			aux->addDist = totalR;
+			newR = aux->r * fractal->transformCommon.scaleD1;
 		}
 
 		// max distance travelled
@@ -55,26 +55,21 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 			REAL4 oldPt = aux->old_z;
 			REAL4 newPt = z;
 			REAL4 diffZ = oldPt - newPt;
-			REAL dist = length(diffZ);
-			aux->addDist += dist;
-			totalDist = aux->addDist * fractal->foldColor.scaleC1;
-			aux->old_z = z;
+			distL = length(diffZ) * fractal->transformCommon.scaleC1;
 		}
 
-		// last two  z lengths
+		// last two z lengths
 		if (fractal->transformCommon.functionEnabledPFalse)
 		{
 			if (aux->i < fractal->transformCommon.stopIterationsM)
 			{
-				REAL lastZ = aux->addDist;
-				REAL newZ = length(z);
-
+				REAL4 oldPt = aux->old_z;
+				REAL lastZ = length(oldPt); // aux->old_r;
+				REAL newZ = aux->r;
 				if (fractal->transformCommon.functionEnabledAzFalse) lastVec = native_divide(newZ, lastZ);
 				if (fractal->transformCommon.functionEnabledByFalse) lastVec = native_divide(lastZ, newZ);
-				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = fabs(lastZ - newZ);
-
+				if (fractal->transformCommon.functionEnabledBzFalse) lastVec = lastZ - newZ;
 				lastVec *= fractal->transformCommon.scaleB1;
-				aux->addDist = newZ;
 			}
 		}
 
@@ -102,7 +97,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 
 		// build  componentMaster
-		componentMaster = (totalDist + orbitPoints + lastVec + totalR);
+		componentMaster = (distL + orbitPoints + lastVec + newR);
 		componentMaster *= fractal->transformCommon.scale;
 
 		if (!fractal->transformCommon.functionEnabledFalse)
@@ -112,7 +107,7 @@ REAL4 TransfHybridColor2Iteration(REAL4 z, __constant sFractalCl *fractal, sExte
 		}
 		else
 		{
-			aux->colorHybrid = componentMaster;
+			aux->colorHybrid += componentMaster;
 		}
 	}
 	return z;

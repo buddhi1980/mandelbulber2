@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2017 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -25,9 +25,9 @@ REAL4 CollatzModIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 
 	z = constantMult
 			+ mad(fractal->transformCommon.scale4, z,
-					-(mad(fractal->transformCommon.scale2, z, fractal->transformCommon.constantMultiplier111))
-						* RotateAroundVectorByAngle4(z, fractal->transformCommon.constantMultiplier111.xyz,
-								M_PI_F * fractal->transformCommon.scale1)); // * cPI ;
+				-(mad(fractal->transformCommon.scale2, z, fractal->transformCommon.constantMultiplier111))
+					* RotateAroundVectorByAngle4(z, fractal->transformCommon.constantMultiplier111.xyz,
+						M_PI_F * fractal->transformCommon.scale1)); // * cPI ;
 
 	z *= fractal->transformCommon.scale025;
 

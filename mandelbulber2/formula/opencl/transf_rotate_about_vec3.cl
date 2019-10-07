@@ -25,7 +25,7 @@ REAL4 TransfRotateAboutVec3Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 				(1.0f
 					- native_recip((1.0f
 													+ native_divide((aux->i - fractal->transformCommon.startIterationsRV),
-															fractal->transformCommon.offset0))))
+														fractal->transformCommon.offset0))))
 				* fractal->transformCommon.scale1;
 		}
 

@@ -27,6 +27,7 @@ REAL4 TransfRotationIterControlsIteration(
 		z.y = mad(tp.y, native_cos(alpha), tp.z * native_sin(alpha));
 		z.z = mad(tp.y, -native_sin(alpha), tp.z * native_cos(alpha));
 	}
+
 	if (fractal->transformCommon.rotation44a.z != 0
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -36,6 +37,7 @@ REAL4 TransfRotationIterControlsIteration(
 		z.x = mad(tp.x, native_cos(beta), tp.z * native_sin(beta));
 		z.z = mad(tp.x, -native_sin(beta), tp.z * native_cos(beta));
 	}
+
 	if (fractal->transformCommon.rotation44a.x != 0
 			&& aux->i >= fractal->transformCommon.startIterationsC
 			&& aux->i < fractal->transformCommon.stopIterationsC)

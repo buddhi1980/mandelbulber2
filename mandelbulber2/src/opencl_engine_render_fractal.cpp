@@ -1258,7 +1258,7 @@ bool cOpenClEngineRenderFractal::RenderMulti(
 
 				lastRenderedRects.append(SizedRectangle(jobX, jobY, jobWidth, jobHeight));
 
-				if(gNetRender->IsServer())
+				if (gNetRender->IsServer())
 				{
 					gApplication->processEvents();
 				}
@@ -1387,9 +1387,10 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
-	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs"});
+	qDebug() << s;
+	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs", "Difs"});
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
-	for (int i = 1; i < parts.size(); ++i)
+	for (int i = 0; i < parts.size(); ++i)
 	{
 		parts[i].replace(0, 1, parts[i][0].toUpper());
 
@@ -1399,6 +1400,8 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 			parts[i] = parts[i].toUpper();
 		}
 	}
+
+	qDebug() << parts;
 
 	return parts.join("");
 }

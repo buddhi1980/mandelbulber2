@@ -32,7 +32,7 @@ REAL4 TransfHybridColorIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		if (fractal->transformCommon.functionEnabledM) temp31 = fabs(temp31);
 
 		temp30 = max(max(temp31.x, temp31.y), temp31.z);
-		temp30 *= fractal->foldColor.scaleA1;
+		temp30 *= fractal->transformCommon.scaleD1;
 		linearOffset = temp30;
 	}
 

@@ -66,6 +66,8 @@ mandelbulbPow2V2,"Mandelbulb - Pow2 V2",analyticDEType,logarithmicDEFunction,cpi
 mandelbulbJuliabulb,"Mandelbulb - Juliabulb",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbKali,"Mandelbulb - Kali",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbKaliMulti,"Mandelbulb - Kali Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbKosalos,"Mandelbulb - Kosalos",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
+mandelbulbKosalosV2,"Mandelbulb - Kosalos V2",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbMulti,"Mandelbulb - Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbMulti2,"Mandelbulb - Multi2",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 mandelbulbQuat,"Mandelbulb - Quat",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -104,6 +106,9 @@ riemannSphereMsltoe,"Riemann - Sphere Msltoe",deltaDEType,logarithmicDEFunction,
 riemannSphereMsltoeV1,"Riemann - Sphere Msltoe V1",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 riemannSphereMsltoeV2,"Riemann - Sphere Msltoe V2",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 riemannBulbMsltoeMod2,"Riemann - Bulb Msltoe Mod2",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,1.5,analyticFunctionNone,coloringFunctionDefault
+riemannSphereHoboldPow4,"Riemann - Sphere Hobold Pow4",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2.5,analyticFunctionLogarithmic,coloringFunctionDefault
+riemannSphereHoboldPow8,"Riemann - Sphere Hobold Pow8",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2.5,analyticFunctionLogarithmic,coloringFunctionDefault
+riemannSphereHoboldMulti,"Riemann - Sphere Hobold Multi",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2.5,analyticFunctionLogarithmic,coloringFunctionDefault
 scatorPower2Real,"Scator Power 2 Real",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 scatorPower2Imaginary,"Scator Power 2 Imaginary",deltaDEType,logarithmicDEFunction,cpixelDisabledByDefault,10,analyticFunctionNone,coloringFunctionDefault
 scatorPower2,"Scator Power 2",analyticDEType,logarithmicDEFunction,cpixelDisabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
@@ -131,6 +136,8 @@ transfAddConstant,"T>Add Constant",analyticDEType,withoutDEFunction,cpixelDisabl
 transfAddConstantVaryV1,"T>Add Constant VaryV1",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAddExp2Z,"T>Add exp2(z)",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfAddConstantMod1,"T>Add Constant Mod1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+transfAddConstantMod2,"T>Add Constant Mod2",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+transfAddConstantRotV1,"T>Add Constant Rot V1",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfAddCpixel,"T>Add Cpixel",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelAxisSwap,"T>Add Cpixel - Axis Swap",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
 transfAddCpixelRotated,"T>Add Cpixel - Rotated",analyticDEType,withoutDEFunction,cpixelAlreadyHas,100,analyticFunctionNone,coloringFunctionDefault
@@ -223,9 +230,15 @@ transfRotation4d,"T>Rotation 4D",analyticDEType,withoutDEFunction,cpixelDisabled
 transfScale4d,"T>Scale 4D",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfSphericalFold4d,"T>Spherical Fold 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
 transfSurfBoxFoldV24d,"T>Surf Box_Fold V2 4D",analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+dIFSBoxDiagonalV1,"DIFS Box Diagonal V1",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSBoxV1,"DIFS Box V1",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSBoxDiagonalV3,"DIFS Box Diagonal V3",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSCylinder,"DIFS Cylinder",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+dIFSSphere,"DIFS Sphere",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
 transfHybridColor,"T>Hybrid Color",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
 transfHybridColor2,"T>Hybrid Color2",analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
-testing,Testing,analyticDEType,withoutDEFunction,cpixelDisabledByDefault,100,analyticFunctionNone,coloringFunctionDefault
-testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,2,analyticFunctionLogarithmic,coloringFunctionDefault
+testing,Testing,analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault
+testingLog,"Testing Log",analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,10,analyticFunctionLogarithmic,coloringFunctionDefault
 testing4d,Testing4d,analyticDEType,logarithmicDEFunction,cpixelEnabledByDefault,100,analyticFunctionLogarithmic,coloringFunctionDefault
 transfBlockify,T>Blockify,analyticDEType,linearDEFunction,cpixelDisabledByDefault,100,analyticFunctionLinear,coloringFunctionDefault
+testingTransform,"Testing Transform",analyticDEType,dIFSDEFunction,cpixelDisabledByDefault,100,analyticFunctionDIFS,coloringFunctionDefault

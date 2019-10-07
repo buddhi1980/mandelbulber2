@@ -50,7 +50,7 @@ REAL4 MandelboxSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtende
 	aux->color += rk1 * fractal->mandelbox.color.factorSp1;
 	aux->color += rk21 * fractal->mandelbox.color.factorSp2;
 
-	z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
+	if (fractal->mandelbox.mainRotationEnabled) z = Matrix33MulFloat4(fractal->mandelbox.mainRot, z);
 	z = z * fractal->mandelbox.scale;
 
 	aux->DE = mad(aux->DE, fabs(fractal->mandelbox.scale), 1.0f);

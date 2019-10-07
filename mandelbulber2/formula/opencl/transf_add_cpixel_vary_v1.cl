@@ -23,7 +23,7 @@ REAL4 TransfAddCpixelVaryV1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	if (aux->i >= fractal->transformCommon.startIterations250
 			&& aux->i < fractal->transformCommon.stopIterations
 			&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations250
-					 != 0))
+					!= 0))
 	{
 
 		int iterationRange =

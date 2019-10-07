@@ -15,6 +15,7 @@
 
 REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+
 	REAL4 c = aux->const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{

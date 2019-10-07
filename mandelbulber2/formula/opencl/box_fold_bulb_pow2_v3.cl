@@ -1,6 +1,6 @@
 /**
  * Mandelbulber v2, a 3D fractal generator  _%}}i*<.        ____                _______
- * Copyright (C) 2018 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
+ * Copyright (C) 2019 Mandelbulber Team   _>]|=||i=i<,     / __ \___  ___ ___  / ___/ /
  *                                        \><||i|=>>%)    / /_/ / _ \/ -_) _ \/ /__/ /__
  * This file is part of Mandelbulber.     )<=i=]=|=i<>    \____/ .__/\__/_//_/\___/____/
  * The project is licensed under GPLv3,   -<>>=|><|||`        /_/
@@ -16,11 +16,27 @@
 
 REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
+	// sphere inversion
+	if (fractal->transformCommon.sphereInversionEnabledFalse
+			&& aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations1)
+	{
+		REAL rr = 1.0f;
+		z += fractal->transformCommon.offset000;
+		rr = dot(z, z);
+		z *= native_divide(fractal->transformCommon.scaleG1, rr);
+		aux->DE *= (native_divide(fractal->transformCommon.scaleG1, rr));
+		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
+		z *= fractal->transformCommon.scaleA1;
+		aux->DE *= fractal->transformCommon.scaleA1;
+	}
+
 	// REAL4 c = aux->const_c;
 	REAL colorAdd = 0.0f;
 	REAL rrCol = 0.0f;
 	REAL4 zCol = z;
 	REAL4 oldZ = z;
+
 	// tglad fold
 	if (aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
@@ -183,9 +199,9 @@ REAL4 BoxFoldBulbPow2V3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 		{
 			aux->DE = aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
 									* native_divide(
-											native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
-																	+ 2.0f + fractal->analyticDE.offset2),
-											SQRT_3)
+										native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
+																+ 2.0f + fractal->analyticDE.offset2),
+										SQRT_3)
 								+ fractal->analyticDE.offset1;
 		}
 

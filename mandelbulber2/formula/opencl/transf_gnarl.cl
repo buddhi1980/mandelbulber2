@@ -41,7 +41,7 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 		tempZ.x = z.x
 							+ stepX
 									* (native_sin(
-											Gamma * (z.y - xx) + native_sin(Alpha * (mad(Beta, native_cos(z.y), z.y)))));
+										Gamma * (z.y - xx) + native_sin(Alpha * (mad(Beta, native_cos(z.y), z.y)))));
 		tempZ.y =
 			z.y
 			+ stepY
@@ -59,8 +59,8 @@ REAL4 TransfGnarlIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAux
 																- Alpha * native_sin((yy + native_sin(Beta * yy)))));
 		tempZ.x = yy
 							- stepX
-									* (native_sin(xx * native_sqrt(fabs(xx))
-																+ native_sin(Alpha * (xx + native_sin(Beta * xx)))));
+									* (native_sin(
+										xx * native_sqrt(fabs(xx)) + native_sin(Alpha * (xx + native_sin(Beta * xx)))));
 		z = tempZ;
 	}
 

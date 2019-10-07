@@ -16,7 +16,6 @@
 
 REAL4 MengerSmoothMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-
 	if (fractal->transformCommon.functionEnabled)
 	{
 		z = (REAL4){native_sqrt(mad(z.x, z.x, fractal->transformCommon.offset0)),

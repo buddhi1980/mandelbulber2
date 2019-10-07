@@ -45,7 +45,7 @@ REAL4 AboxMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl 
 	{
 		z.z = fractal->mandelbox.foldingValue * fractal->transformCommon.scale1
 					- fabs(mad(-fractal->mandelbox.foldingValue, fractal->transformCommon.scale1,
-							fabs(z.z + fractal->transformCommon.additionConstant000.z)))
+						fabs(z.z + fractal->transformCommon.additionConstant000.z)))
 					- fabs(fractal->transformCommon.additionConstant000.z);
 		if (z.z != oldZ.z) aux->color += fractal->mandelbox.color.factor.z;
 	}
