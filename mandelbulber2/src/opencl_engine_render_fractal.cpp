@@ -1387,7 +1387,6 @@ bool cOpenClEngineRenderFractal::sortByCenterDistanceAsc(
 
 QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 {
-	qDebug() << s;
 	QStringList upperCaseLookup({"Vs", "Kifs", "De", "Xy", "Xyz", "Cxyz", "Vcl", "Chs", "Difs"});
 	QStringList parts = s.split('_', QString::SkipEmptyParts);
 	for (int i = 0; i < parts.size(); ++i)
@@ -1400,9 +1399,6 @@ QString cOpenClEngineRenderFractal::toCamelCase(const QString &s)
 			parts[i] = parts[i].toUpper();
 		}
 	}
-
-	qDebug() << parts;
-
 	return parts.join("");
 }
 
