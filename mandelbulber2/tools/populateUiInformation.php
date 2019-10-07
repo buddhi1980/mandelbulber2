@@ -749,6 +749,7 @@ function upgradeFunctionName($functionName, $functionNameNew)
 
 function from_camel_case($input)
 {
+        $input = str_replace('dIFS', 'difs', $input); // explicitly keep those
 	preg_match_all('@([A-Z][A-Z0-9]*(?=$|[A-Z][a-z0-9])|[A-Za-z][a-z0-9]+)@', $input, $matches);
 	$ret = $matches[0];
 	foreach ($ret as &$match) {
