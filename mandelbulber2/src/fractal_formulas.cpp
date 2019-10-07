@@ -17365,7 +17365,7 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 
 		aux.dist = min(aux.dist, zcd / aux.DE);
 
-		if (!fractal->transformCommon.functionEnabledGFalse)
+		if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, zcd / aux.DE);
 		else
 			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
@@ -18819,7 +18819,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
 
-	if (fractal->transformCommon.functionEnabledAwFalse)
+	if (fractal->transformCommon.functionEnabledFFalse)
 	zc = z;
 
 	// box
@@ -18845,7 +18845,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, bxD / aux.DE);
 		else
-			aux.dist = min(aux.dist, bxD / aux.DE) - fractal->transformCommon.offsetA0 / 1000.0;
+			aux.dist = min(aux.dist, bxD / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
 	}
 		// sphere
 	if (fractal->transformCommon.functionEnabledMFalse

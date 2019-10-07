@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>5118</height>
+    <height>5174</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -337,7 +337,7 @@
          <number>2</number>
         </property>
         <item row="0" column="2">
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_I">
+         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_A">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -499,14 +499,14 @@
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
           <property name="text">
            <string notr="true">box fold XYZ</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_I">
+         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_A">
           <property name="enabled">
            <bool>true</bool>
           </property>
@@ -522,7 +522,7 @@
          </widget>
         </item>
         <item row="0" column="0">
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
           <property name="text">
            <string notr="true">box fold XY</string>
           </property>
@@ -1568,26 +1568,19 @@
       <number>2</number>
      </property>
      <item row="1" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledAw_false">
+      <widget class="MyCheckBox" name="checkBox_transf_function_enabledF_false">
        <property name="text">
         <string>testing z</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
+     <item row="2" column="1">
       <widget class="QFrame" name="frame_2">
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
        <property name="frameShadow">
         <enum>QFrame::Raised</enum>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
-       <property name="text">
-        <string>testing</string>
        </property>
       </widget>
      </item>
@@ -1808,7 +1801,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetB_0">
           <property name="enabled">
            <bool>true</bool>
           </property>
