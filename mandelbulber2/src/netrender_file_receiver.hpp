@@ -28,6 +28,7 @@ private:
 	{
 		QString fileName;
 		QString fullFilePathInCache;
+		QString dirName;
 		qint64 fileSize;
 		int chunkIndex = 0;
 		bool receivingStarted = false;
