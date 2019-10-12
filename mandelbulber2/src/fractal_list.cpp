@@ -191,6 +191,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		CollatzModIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 10,
 		analyticFunctionIFS, coloringFunctionIFS));
 
+	// dIFS formulas
+	fractalList->append(sFractalDescription("DIFS Box V1", "difs_box_v1", dIFSBoxV1,
+		DIFSBoxV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Box Diagonal V1", "difs_box_diagonal_v1", dIFSBoxDiagonalV1,
+		DIFSBoxDiagonalV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Cylinder", "difs_cylinder", dIFSCylinder,
+		DIFSCylinderIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
 		FoldBoxMod1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionABox));
@@ -869,27 +880,17 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSurfBoxFoldV24d, TransfSurfBoxFoldV24dIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Box Diagonal V1", "difs_box_diagonal_v1", dIFSBoxDiagonalV1,
-		DIFSBoxDiagonalV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Box V1", "difs_box_v1", dIFSBoxV1,
-		DIFSBoxV1Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "difs_box_diagonal_v3", dIFSBoxDiagonalV3,
-		DIFSBoxDiagonalV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Cylinder", "difs_cylinder", dIFSCylinder,
-		DIFSCylinderIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("DIFS Sphere", "difs_sphere", dIFSSphere,
 		DIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
-
+	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "difs_box_diagonal_v3", dIFSBoxDiagonalV3,
+		DIFSBoxDiagonalV3Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 	// ------------------ hybrid color trial -----------------------
 
 	fractalList->append(sFractalDescription("T>Hybrid Color", "transf_hybrid_color",

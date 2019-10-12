@@ -18741,11 +18741,11 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	double useScale = 1.0;
@@ -18777,11 +18777,11 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	// reverse offset part 2
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x += fractal->transformCommon.offset2;
+		z.x += fractal->transformCommon.offsetE2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y += fractal->transformCommon.offsetA2;
+		z.y += fractal->transformCommon.offsetF2;
 
 	// offset
 	z += fractal->transformCommon.offset001;
@@ -18832,7 +18832,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
 		double sphereRadius =
-			fractal->transformCommon.foldingLimit - fractal->transformCommon.scale0 * aux.i;
+			fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
@@ -18843,7 +18843,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double cylD = 0.0;
-		double radius2 = fractal->transformCommon.offset0005;
+		double radius2 = fractal->transformCommon.offsetR0;
 		//- fractal->transformCommon.scale0 * aux.i;
 
 		double cylR = 0.0;
@@ -18879,12 +18879,11 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		double T1 = fractal->transformCommon.offset4;
-		double T2 = fractal->transformCommon.offset105;
-		double T3 = sqrt(zc.y * zc.y + zc.x * zc.x) - T1;
-		double T4 = zc.z;
-		double T5 = sqrt(T3 * T3 + T4 * T4) - T2;
-		aux.dist = min(aux.dist, T5 / aux.DE);
+		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x)
+				- fractal->transformCommon.offsetR2;
+		double T2 = sqrt(T1 * T1 + zc.z * zc.z)
+				- fractal->transformCommon.offset05;
+		aux.dist = min(aux.dist, T2 / aux.DE);
 	}
 
 	// aux.color
@@ -19184,11 +19183,11 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	double useScale = 1.0;
@@ -19300,7 +19299,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
 
 		double sphereRadius =
-			fractal->transformCommon.radius1 - fractal->transformCommon.scale0 * aux.i;
+			fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
