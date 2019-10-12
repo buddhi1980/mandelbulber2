@@ -201,12 +201,12 @@ QString ImageFileSave::CreateFullFileNameAndMakeDir(const QString &filename,
 		}
 		else
 		{
-			fullFilename = filename + "." + extension;
+			fullFilename = QDir::toNativeSeparators(filename + "." + extension);
 		}
 	}
 	else
 	{
-		fullFilename = filename + postfix + "." + extension;
+		fullFilename = QDir::toNativeSeparators(filename + postfix + "." + extension);
 	}
 	return fullFilename;
 }
