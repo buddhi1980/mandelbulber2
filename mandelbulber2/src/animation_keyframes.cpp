@@ -145,32 +145,6 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		connect(ui->checkBox_show_light_path_4, SIGNAL(stateChanged(int)), this,
 			SLOT(slotUpdateAnimationPathSelection()));
 
-		// NetRender for animation
-		// signals to NetRender
-		connect(this, &cKeyframeAnimation::SendNetRenderSetup, gNetRender, &cNetRender::SendSetup);
-		connect(this, &cKeyframeAnimation::NetRenderCurrentAnimation, gNetRender,
-			&cNetRender::SetCurrentAnimation);
-		connect(this, &cKeyframeAnimation::NetRenderConfirmRendered, gNetRender,
-			&cNetRender::ConfirmRenderedFrame);
-		connect(this, &cKeyframeAnimation::NetRenderAddFileToSender, gNetRender,
-			&cNetRender::AddFileToSender);
-		connect(this, &cKeyframeAnimation::NetRenderNotifyClientStatus, gNetRender,
-			&cNetRender::NotifyStatus);
-
-		// signals from NetRender
-		connect(gNetRender, &cNetRender::KeyframeAnimationRender, this,
-			&cKeyframeAnimation::slotRenderKeyframes);
-		connect(gNetRender, &cNetRender::FinishedFrame, this,
-			&cKeyframeAnimation::slotNetRenderFinishedFrame);
-		connect(this, &cKeyframeAnimation::NetRenderSendFramesToDoList, gNetRender,
-			&cNetRender::SendFramesToDoList);
-		connect(gNetRender, &cNetRender::UpdateFramesToDo, this,
-			&cKeyframeAnimation::slotNetRenderUpdateFramesToDo);
-		connect(
-			this, &cKeyframeAnimation::NetRenderStopAllClients, gNetRender, &cNetRender::StopAllClients);
-		connect(gNetRender, &cNetRender::animationStopRequest, this,
-			&cKeyframeAnimation::slotAnimationStopRequest);
-
 		table = ui->tableWidget_keyframe_animation;
 
 		// add default parameters for animation
@@ -188,6 +162,32 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		ui = nullptr;
 		table = nullptr;
 	}
+
+	// NetRender for animation
+	// signals to NetRender
+	connect(this, &cKeyframeAnimation::SendNetRenderSetup, gNetRender, &cNetRender::SendSetup);
+	connect(this, &cKeyframeAnimation::NetRenderCurrentAnimation, gNetRender,
+		&cNetRender::SetCurrentAnimation);
+	connect(this, &cKeyframeAnimation::NetRenderConfirmRendered, gNetRender,
+		&cNetRender::ConfirmRenderedFrame);
+	connect(
+		this, &cKeyframeAnimation::NetRenderAddFileToSender, gNetRender, &cNetRender::AddFileToSender);
+	connect(
+		this, &cKeyframeAnimation::NetRenderNotifyClientStatus, gNetRender, &cNetRender::NotifyStatus);
+
+	// signals from NetRender
+	connect(gNetRender, &cNetRender::KeyframeAnimationRender, this,
+		&cKeyframeAnimation::slotRenderKeyframes);
+	connect(
+		gNetRender, &cNetRender::FinishedFrame, this, &cKeyframeAnimation::slotNetRenderFinishedFrame);
+	connect(this, &cKeyframeAnimation::NetRenderSendFramesToDoList, gNetRender,
+		&cNetRender::SendFramesToDoList);
+	connect(gNetRender, &cNetRender::UpdateFramesToDo, this,
+		&cKeyframeAnimation::slotNetRenderUpdateFramesToDo);
+	connect(
+		this, &cKeyframeAnimation::NetRenderStopAllClients, gNetRender, &cNetRender::StopAllClients);
+	connect(gNetRender, &cNetRender::animationStopRequest, this,
+		&cKeyframeAnimation::slotAnimationStopRequest);
 
 	connect(this, SIGNAL(showErrorMessage(QString, cErrorMessage::enumMessageType, QWidget *)),
 		gErrorMessage, SLOT(slotShowMessage(QString, cErrorMessage::enumMessageType, QWidget *)));
@@ -575,9 +575,12 @@ QSharedPointer<cRenderJob> cKeyframeAnimation::PrepareRenderJob(bool *stopReques
 		SIGNAL(updateProgressAndStatus(const QString &, const QString &, double)));
 	connect(renderJob.data(), SIGNAL(updateStatistics(cStatistics)), this,
 		SIGNAL(updateStatistics(cStatistics)));
-	connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
-	connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
-		mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
+	if (!systemData.noGui)
+	{
+		connect(renderJob.data(), SIGNAL(updateImage()), mainInterface->renderedImage, SLOT(update()));
+		connect(renderJob.data(), SIGNAL(sendRenderedTilesList(QList<sRenderedTileData>)),
+			mainInterface->renderedImage, SLOT(showRenderedTilesList(QList<sRenderedTileData>)));
+	}
 	return renderJob;
 }
 

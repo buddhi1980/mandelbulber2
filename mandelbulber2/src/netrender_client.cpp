@@ -38,6 +38,7 @@
 #include <QHostInfo>
 
 #include "animation_keyframes.hpp"
+#include "cimage.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
@@ -467,6 +468,13 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 		{
 			if (inMsg->command == netRenderCmd_ANIM_KEY)
 			{
+				if (systemData.noGui)
+				{
+					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					gKeyframeAnimation = new cKeyframeAnimation(
+						gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
+				}
+
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
 				gKeyframeAnimation->SetNetRenderStartingFrames(startingPositions);
 			}
@@ -487,7 +495,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 
 			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
 
-			if (!systemData.noGui)
+			if (!systemData.noGui || true)
 			{
 				// gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
 				// emit KeyframeAnimationRender();

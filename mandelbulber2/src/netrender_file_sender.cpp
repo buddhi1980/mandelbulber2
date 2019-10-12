@@ -115,7 +115,6 @@ void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 			// extract name of folder for image layers
 			QString nameWithoutNetRenderFolder = fileName;
 			nameWithoutNetRenderFolder.remove(systemData.GetNetrenderFolder() + QDir::separator());
-			qDebug() << nameWithoutNetRenderFolder;
 
 			QString onlyFileName = QFileInfo(fileName).fileName();
 
@@ -129,7 +128,6 @@ void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 				separateFolderName = separateFolderName.mid(0, separateFolderName.length() - 1);
 				fileNameForHeader = QString("DIR[%1]%2").arg(separateFolderName).arg(onlyFileName);
 			}
-			qDebug() << fileNameForHeader;
 
 			emit NetRenderSendHeader(fileSize, fileNameForHeader);
 		}
