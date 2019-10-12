@@ -495,49 +495,22 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 
 			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
 
-			if (!systemData.noGui || true)
-			{
-				// gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-				// emit KeyframeAnimationRender();
+			auto keyframesRenderThread =
+				new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
+			auto *thread = new QThread;								 // deleted by deleteLater()
+			keyframesRenderThread->moveToThread(thread);
 
-				auto keyframesRenderThread =
-					new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
-				auto *thread = new QThread;								 // deleted by deleteLater()
-				keyframesRenderThread->moveToThread(thread);
+			connect(thread, &QThread::started, keyframesRenderThread,
+				&cKeyframeRenderThread::startAnimationRender);
 
-				connect(thread, &QThread::started, keyframesRenderThread,
-					&cKeyframeRenderThread::startAnimationRender);
+			thread->setObjectName("KeyframesRender");
+			thread->start();
 
-				thread->setObjectName("KeyframesRender");
-				thread->start();
-
-				connect(keyframesRenderThread, &cKeyframeRenderThread::renderingFinished,
-					keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
-				connect(
-					keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
-				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-
-				// gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
-			}
-			else
-			{
-				// in noGui mode it must be started as separate thread to be able to process event loop
-
-				// TODO: headless code for animation
-
-				gMainInterface->headless = new cHeadless;
-
-				auto *thread = new QThread; // deleted by deleteLater()
-				gMainInterface->headless->moveToThread(thread);
-				connect(thread, &QThread::started, gMainInterface->headless, &cHeadless::slotNetRender);
-				thread->setObjectName("RenderJob");
-				thread->start();
-
-				connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
-					&cHeadless::deleteLater);
-				connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
-				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-			}
+			connect(keyframesRenderThread, &cKeyframeRenderThread::renderingFinished,
+				keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
+			connect(
+				keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
+			connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 		}
 	}
 }
