@@ -636,23 +636,25 @@ void cParameterContainer::AddParamFromOneParameter(QString name, const cOneParam
 	}
 }
 
+// FIXME: This code need to be moved to the better place (e.g. to separate .cpp and .h files)
+// cParameterContainer is general container and should not be specialized
 QMap<QString, QString> cParameterContainer::getImageMeta()
 {
 	QMap<QString, QString> map;
 	CVector3 camera = Get<CVector3>("camera");
-	map.insert(QString("camera.x"), QString::number(camera.x));
-	map.insert(QString("camera.y"), QString::number(camera.y));
-	map.insert(QString("camera.z"), QString::number(camera.z));
+	map.insert(QString("camera.x"), QString::number(camera.x, 'g', 16));
+	map.insert(QString("camera.y"), QString::number(camera.y, 'g', 16));
+	map.insert(QString("camera.z"), QString::number(camera.z, 'g', 16));
 
 	CVector3 target = Get<CVector3>("target");
-	map.insert(QString("target.x"), QString::number(target.x));
-	map.insert(QString("target.y"), QString::number(target.y));
-	map.insert(QString("target.z"), QString::number(target.z));
+	map.insert(QString("target.x"), QString::number(target.x, 'g', 16));
+	map.insert(QString("target.y"), QString::number(target.y, 'g', 16));
+	map.insert(QString("target.z"), QString::number(target.z, 'g', 16));
 
 	CVector3 rotation = Get<CVector3>("camera_rotation");
-	map.insert(QString("camera_rotation.x"), QString::number(rotation.x));
-	map.insert(QString("camera_rotation.y"), QString::number(rotation.y));
-	map.insert(QString("camera_rotation.z"), QString::number(rotation.z));
+	map.insert(QString("camera_rotation.z"), QString::number(rotation.x));							// yaw
+	map.insert(QString("camera_rotation.x"), QString::number(0.5 - M_PI - rotation.y)); // pitch
+	map.insert(QString("camera_rotation.y"), QString::number(rotation.z));							// roll
 
 	map.insert(QString("fov"), QString::number(Get<double>("fov")));
 
