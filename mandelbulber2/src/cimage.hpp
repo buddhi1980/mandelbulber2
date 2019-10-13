@@ -50,8 +50,9 @@ struct sImageOptional
 	sImageOptional() {}
 	inline bool operator==(sImageOptional other) const
 	{
-		return other.optionalNormal == optionalNormal && other.optionalSpecular == optionalSpecular
-					 && other.optionalDiffuse == optionalDiffuse && other.optionalWorld == optionalWorld && other.optionalNormalWorld;
+		return (other.optionalNormal == optionalNormal) && (other.optionalSpecular == optionalSpecular)
+					 && (other.optionalDiffuse == optionalDiffuse) && (other.optionalWorld == optionalWorld)
+					 && (other.optionalNormalWorld == optionalNormalWorld);
 	}
 
 	bool optionalNormal{false};
