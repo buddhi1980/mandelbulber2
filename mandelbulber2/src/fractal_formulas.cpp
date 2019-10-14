@@ -19106,7 +19106,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 {
 	double colorAdd = 0.0;
 	CVector4 oldZ = z;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx
@@ -19131,14 +19131,14 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 				&& aux.i >= fractal->transformCommon.startIterationsA
 				&& aux.i < fractal->transformCommon.stopIterationsA)
 		{
-			z.x -= boxSize.x;
-			z.y -= boxSize.y;
+			z.x -= boxFold.x;
+			z.y -= boxFold.y;
 		}
 		// xyz box fold
 		if (fractal->transformCommon.functionEnabledByFalse
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
-			z -= boxSize;
+			z -= boxFold;
 
 		// polyfold
 		if (fractal->transformCommon.functionEnabledPFalse
@@ -19236,11 +19236,66 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
 
-	// cylinder
-	if (aux.i >= fractal->transformCommon.startIterations
+	// sphere
+	if (fractal->transformCommon.functionEnabledM
+			&& aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double cylD = 0.0;
+		double sphereRadius =
+		fractal->transformCommon.offsetR1;
+		double spD = zc.Length() - sphereRadius;
+		aux.dist = min(aux.dist, spD / aux.DE);
+	}
+	// ellispoid
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		CVector4 rads4 = fractal->transformCommon.additionConstant111;
+		CVector3 rads3 = CVector3 (rads4.x, rads4.y, rads4.z);
+		double tempX = zc.x;
+		double tempY = zc.y;
+		double tempZ = zc.z;
+
+		if (fractal->transformCommon.functionEnabledNFalse
+				&& aux.i >= fractal->transformCommon.startIterationsN
+				&& aux.i < fractal->transformCommon.stopIterationsN)
+		{
+			double absZ = fabs(zc.z);
+			tempX = zc.x + absZ * fractal->transformCommon.scaleA0;
+			tempY = zc.y + absZ * fractal->transformCommon.scaleA0;
+		}
+
+
+		// z.z sqrd
+		if (fractal->transformCommon.functionEnabledTFalse
+				&& aux.i >= fractal->transformCommon.startIterationsT
+				&& aux.i < fractal->transformCommon.stopIterationsT)
+		{
+			tempZ = zc.z * zc.z;
+		}
+
+
+		CVector3 rV = CVector3 (tempX, tempY, tempZ);
+		rV /= rads3;
+
+		CVector3 rrV = rV;
+		rrV /= rads3;
+
+		double rd = rV.Length();
+		double rrd = rrV.Length();
+		double ellD = rd * (rd - 1.0) / rrd;
+		aux.dist = min(aux.dist, ellD / aux.DE);
+	}
+
+
+
+
+
+
+
+
+		/*double cylD = 0.0;
 		double absZ = fabs(zc.z);
 		double lengthCyl = zc.z;
 		double cylR = 0.0;
@@ -19265,24 +19320,11 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		{
 			absZ = lengthCyl;
 		}
-		// abs sqrd
-		if (fractal->transformCommon.functionEnabledTFalse
-				&& aux.i >= fractal->transformCommon.startIterationsT
-				&& aux.i < fractal->transformCommon.stopIterationsT)
-		{
-			absZ *= absZ;
-		}
+
 		double cylRm = cylR - fractal->transformCommon.radius1;
 		cylRm += fractal->transformCommon.scale0 * absZ;
 		// tops
-		if (fractal->transformCommon.functionEnabledNFalse
-				&& aux.i >= fractal->transformCommon.startIterationsN
-				&& aux.i < fractal->transformCommon.stopIterationsN)
-		{
-			double temp = max(cylR, 0.0);
-			double cylHm = max(cylH, 0.0);
-			cylD = sqrt(temp * temp + cylHm * cylHm);
-		}
+
 		else
 		{
 			double temp = max(cylRm, 0.0);
@@ -19296,13 +19338,10 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		{
 			cylD = sqrt(cylRm * cylRm + cylH * cylH);
 		}
-		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
+		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;*/
 
-		double sphereRadius =
-			fractal->transformCommon.offsetR1;
-		double spD = zc.Length() - sphereRadius;
-		aux.dist = min(aux.dist, spD / aux.DE);
-	}
+
+
 
 	// aux.color
 	if (fractal->foldColor.auxColorEnabled)
