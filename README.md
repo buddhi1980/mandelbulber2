@@ -49,7 +49,7 @@ The possibilities are literally **infinite**!
 - Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
 - Rich GUI in Qt 5 environment
 - Unlimited image resolution on 64-bit systems
-- Program developed for x86 and x64 CPUs (Linux, Windows, OSX)
+- Program developed for x86 and x64 CPUs (Linux, Windows, macOS)
 - Simple 3D navigator
 - Distributed Network Rendering
 - Key-frame animation for all parameters with different interpolations
@@ -97,7 +97,7 @@ These scripts install all dependencies, compile the program, and create symbolic
 
 [Arch Linux AUR Package (Current git snapshot)](https://aur.archlinux.org/packages/mandelbulber2-git/)
 
-In addition, there exists an MSVC Solution located in this git package. The solution accommodates all dependencies with NUGET for autonomous compilation of OpenCL accelerated Binary.
+In addition, there exists an MSVC Solution located in this git package. The solution accommodates all dependencies with NUGET for autonomous compilation of OpenCL accelerated binary.
 
 The system requires the QT5 framework in conjunction with LZO for real-time data compression and GSL for scientific resources.
 
