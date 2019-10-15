@@ -9,7 +9,7 @@ camera 0,7930633706235924 -1,949919164547048 0,390739465643563;
 camera_distance_to_target 1,382875154922035;
 camera_rotation 24,76357778549804 -17,63822567570686 0;
 camera_top -0,1269215170725015 0,2751425408253233 0,9529887253961612;
-file_background /usr/share/mandelbulber2/textures/background3.jpg;
+file_background $SHARED_PATH/share/mandelbulber2/textures/background3.jpg;
 flight_last_to_render 99999;
 formula_1 113;
 image_height 1080;

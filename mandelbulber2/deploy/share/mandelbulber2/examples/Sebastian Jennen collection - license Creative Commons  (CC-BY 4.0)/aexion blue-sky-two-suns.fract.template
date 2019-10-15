@@ -30,7 +30,7 @@ delta_DE_function 2;
 DOF_enabled true;
 DOF_focus 0,1373683363199234;
 DOF_radius 0,5;
-file_background /usr/share/mandelbulber2/textures/envmap6.jpg;
+file_background $SHARED_PATH/share/mandelbulber2/textures/envmap6.jpg;
 flight_last_to_render 0;
 fog_color_1 a700 8f00 5f00;
 fog_color_2 9900 9100 7b00;

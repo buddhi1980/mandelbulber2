@@ -45,7 +45,7 @@ packages needed to RUN
 packages needed to COMPILE
     build-essential qt5-default libpng-dev qttools5-dev qttools5-dev-tools
     libgsl-dev libgomp1 qtmultimedia5-dev libqt5multimedia5-plugins
-    libsndfile1-dev liblzo2-dev
+    libsndfile1-dev liblzo2-dev gettext
 
 Installing packages on Ubuntu, Debian stable (jessie) or Mint: 
 sudo apt-get install build-essential libqt5gui5 qt5-default libpng16-16 \
