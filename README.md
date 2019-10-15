@@ -49,7 +49,7 @@ The possibilities are literally **infinite**!
 - Complex 3D raymarching: hard shadows, ambient occlusion, depth of field, translucency & refraction, etc.
 - Rich GUI in Qt 5 environment
 - Unlimited image resolution on 64-bit systems
-- Program developed for x86 and x64 CPUs (Linux, Windows, macOS)
+- Program developed for ARM (experimental), x86 and x64 CPUs (Linux, Windows, macOS)
 - Simple 3D navigator
 - Distributed Network Rendering
 - Key-frame animation for all parameters with different interpolations
