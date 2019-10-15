@@ -77,7 +77,7 @@ struct sExtendedAux
 	CVector4 c;
 	CVector4 const_c;
 	CVector4 old_z;
-	//CVector4 sum_z;
+	// CVector4 sum_z;
 	double pos_neg;
 	double cw;
 
@@ -85,7 +85,6 @@ struct sExtendedAux
 	double DE;
 	double dist;
 	double pseudoKleinianDE;
-	double linearDE;
 
 	double actualScale;
 	double actualScaleA;
@@ -761,7 +760,6 @@ struct sFractalTransformCommon
 	// bool functionEnabledTempFalse;
 };
 
-
 struct sFractal
 {
 	sFractal(const cParameterContainer *par);
@@ -792,7 +790,6 @@ struct sFractal
 	sFractalCombo4 combo4;
 	sFractalCombo5 combo5;
 	sFractalCombo6 combo6;
-
 
 #ifdef USE_OPENCL
 //	double customParameters[15];
