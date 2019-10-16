@@ -18,7 +18,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 {
 	REAL colorAdd = 0.0f;
 	REAL4 oldZ = z;
-	REAL4 boxSize = fractal->transformCommon.additionConstant111;
+	REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAx
@@ -36,18 +36,18 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
 	// xy box fold
-	if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux->i >= fractal->transformCommon.startIterationsI
-			&& aux->i < fractal->transformCommon.stopIterationsI)
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
 	{
-		z.x -= boxSize.x;
-		z.y -= boxSize.y;
+		z.x -= boxFold.x;
+		z.y -= boxFold.y;
 	}
 	// xyz box fold
-	if (fractal->transformCommon.functionEnabledByFalse
+	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;
+		z -= boxFold;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux->i >= fractal->transformCommon.startIterationsP
@@ -104,11 +104,11 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// reverse offset part 1
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	REAL useScale = 1.0f;
@@ -141,11 +141,11 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	// reverse offset part 2
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x += fractal->transformCommon.offset2;
+		z.x += fractal->transformCommon.offsetE2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y += fractal->transformCommon.offsetA2;
+		z.y += fractal->transformCommon.offsetF2;
 
 	// offset
 	z += fractal->transformCommon.offset001;
@@ -166,23 +166,21 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 
 	// box
 	if (fractal->transformCommon.functionEnabledM
-			&& aux->i >= fractal->transformCommon.startIterationsO
-			&& aux->i < fractal->transformCommon.stopIterationsO)
+			&& aux->i >= fractal->transformCommon.startIterations
+			&& aux->i < fractal->transformCommon.stopIterations)
 	{
+		REAL4 boxFold = fractal->transformCommon.additionConstantA111;
 		REAL4 bxV = zc;
 		REAL bxD = 0.0f;
 		bxV = fabs(bxV) - boxSize;
 		bxD = max(bxV.x, max(bxV.y, bxV.z));
-		if (fractal->transformCommon.functionEnabledJFalse && bxD > 0.0f)
+		if (bxD > 0.0f)
 		{
 			bxV.x = max(bxV.x, 0.0f);
 			bxV.y = max(bxV.y, 0.0f);
 			bxV.z = max(bxV.z, 0.0f);
 			bxD = length(bxV);
-			colorAdd = 6.0f; // ....................................
 		}
-		else
-			colorAdd = 8.0f; // ....................................
 
 		// round box
 		if (!fractal->transformCommon.functionEnabledEFalse)
@@ -196,19 +194,18 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterationsM
 			&& aux->i < fractal->transformCommon.stopIterationsM)
 	{
-		REAL sphereRadius =
-			mad(-aux->i, fractal->transformCommon.scale0, fractal->transformCommon.foldingLimit);
+		REAL sphereRadius = fractal->transformCommon.offsetR1;
 		REAL spD = length(zc) - sphereRadius;
 		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
 	}
 
 	// cylinder
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux->i >= fractal->transformCommon.startIterations
-			&& aux->i < fractal->transformCommon.stopIterations)
+	if (fractal->transformCommon.functionEnabledOFalse
+			&& aux->i >= fractal->transformCommon.startIterationsO
+			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
 		REAL cylD = 0.0f;
-		REAL radius2 = fractal->transformCommon.offset0005;
+		REAL radius2 = fractal->transformCommon.transformCommon.offsetR0;
 		//- fractal->transformCommon.scale0 * aux->i;
 
 		REAL cylR = 0.0f;
@@ -240,12 +237,12 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 	}
 
 	// torus
-	if (fractal->transformCommon.functionEnabledAwFalse
+	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux->i >= fractal->transformCommon.startIterationsT
 			&& aux->i < fractal->transformCommon.stopIterationsT)
 	{
-		REAL T1 = fractal->transformCommon.offset4;
-		REAL T2 = fractal->transformCommon.offset105;
+		REAL T1 = fractal->transformCommon.offsetR2;
+		REAL T2 = fractal->transformCommon.offset05;
 		REAL T3 = native_sqrt(mad(zc.y, zc.y, zc.x * zc.x)) - T1;
 		REAL T4 = zc.z;
 		REAL T5 = native_sqrt(mad(T3, T3, T4 * T4)) - T2;

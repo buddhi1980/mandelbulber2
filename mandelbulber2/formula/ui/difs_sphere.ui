@@ -252,7 +252,7 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledBx_false">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledA_false">
              <property name="text">
               <string notr="true">box fold XY</string>
              </property>
@@ -291,7 +291,7 @@
             </widget>
            </item>
            <item row="1" column="0">
-            <widget class="MyCheckBox" name="checkBox_transf_function_enabledBy_false">
+            <widget class="MyCheckBox" name="checkBox_transf_function_enabledB_false">
              <property name="text">
               <string notr="true">box fold XYZ</string>
              </property>

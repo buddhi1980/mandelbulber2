@@ -18667,7 +18667,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 {
 	double colorAdd = 0.0;
 	CVector4 oldZ = z;
-	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
 
 	// abs
 	if (fractal->transformCommon.functionEnabledAx
@@ -18685,18 +18685,18 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
 	// xy box fold
-	if (fractal->transformCommon.functionEnabledBxFalse
-			&& aux.i >= fractal->transformCommon.startIterationsI
-			&& aux.i < fractal->transformCommon.stopIterationsI)
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
 	{
-		z.x -= boxSize.x;
-		z.y -= boxSize.y;
+		z.x -= boxFold.x;
+		z.y -= boxFold.y;
 	}
 	// xyz box fold
-	if (fractal->transformCommon.functionEnabledByFalse
+	if (fractal->transformCommon.functionEnabledBFalse
 			&& aux.i >= fractal->transformCommon.startIterationsB
 			&& aux.i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;
+		z -= boxFold;
 	// polyfold
 	if (fractal->transformCommon.functionEnabledPFalse
 			&& aux.i >= fractal->transformCommon.startIterationsP
@@ -18802,23 +18802,21 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 	// box
 	if (fractal->transformCommon.functionEnabledM
-			&& aux.i >= fractal->transformCommon.startIterationsO
-			&& aux.i < fractal->transformCommon.stopIterationsO)
+			&& aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
 	{
+		CVector4 boxSize = fractal->transformCommon.additionConstant111;
 		CVector4 bxV = zc;
 		double bxD = 0.0;
 		bxV = fabs(bxV) - boxSize;
 		bxD = max(bxV.x, max(bxV.y, bxV.z));
-		if (fractal->transformCommon.functionEnabledJFalse && bxD > 0.0)
+		if (bxD > 0.0)
 		{
 			bxV.x = max(bxV.x, 0.0);
 			bxV.y = max(bxV.y, 0.0);
 			bxV.z = max(bxV.z, 0.0);
 			bxD = bxV.Length();
-			colorAdd = 6.0; // ....................................
 		}
-		else
-			colorAdd = 8.0; // ....................................
 
 		// round box
 		if (!fractal->transformCommon.functionEnabledEFalse)
@@ -18838,9 +18836,9 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 
 	// cylinder
-	if (fractal->transformCommon.functionEnabledGFalse
-			&& aux.i >= fractal->transformCommon.startIterations
-			&& aux.i < fractal->transformCommon.stopIterations)
+	if (fractal->transformCommon.functionEnabledOFalse
+			&& aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
 	{
 		double cylD = 0.0;
 		double radius2 = fractal->transformCommon.offsetR0;
@@ -18875,7 +18873,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 
 	// torus
-	if (fractal->transformCommon.functionEnabledAwFalse
+	if (fractal->transformCommon.functionEnabledTFalse
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
@@ -19127,7 +19125,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// xy box fold
-		if (fractal->transformCommon.functionEnabledBxFalse
+		if (fractal->transformCommon.functionEnabledAFalse
 				&& aux.i >= fractal->transformCommon.startIterationsA
 				&& aux.i < fractal->transformCommon.stopIterationsA)
 		{
@@ -19135,7 +19133,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			z.y -= boxFold.y;
 		}
 		// xyz box fold
-		if (fractal->transformCommon.functionEnabledByFalse
+		if (fractal->transformCommon.functionEnabledBFalse
 				&& aux.i >= fractal->transformCommon.startIterationsB
 				&& aux.i < fractal->transformCommon.stopIterationsB)
 			z -= boxFold;
@@ -19242,7 +19240,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double sphereRadius =
-		fractal->transformCommon.offsetR1;
+			fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}

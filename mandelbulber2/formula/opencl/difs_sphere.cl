@@ -18,7 +18,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 {
 	REAL colorAdd = 0.0f;
 	REAL4 oldZ = z;
-	REAL4 boxSize = fractal->transformCommon.additionConstant111;
+	REAL4 boxSize = fractal->transformCommon.additionConstantA111;
 
 	// abs z
 	if (fractal->transformCommon.functionEnabledAx
@@ -39,7 +39,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// xy box fold
-		if (fractal->transformCommon.functionEnabledBxFalse
+		if (fractal->transformCommon.functionEnabledAFalse
 				&& aux->i >= fractal->transformCommon.startIterationsA
 				&& aux->i < fractal->transformCommon.stopIterationsA)
 		{
@@ -47,7 +47,7 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 			z.y -= boxSize.y;
 		}
 		// xyz box fold
-		if (fractal->transformCommon.functionEnabledByFalse
+		if (fractal->transformCommon.functionEnabledBFalse
 				&& aux->i >= fractal->transformCommon.startIterationsB
 				&& aux->i < fractal->transformCommon.stopIterationsB)
 			z -= boxSize;
@@ -107,11 +107,11 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	// reverse offset part 1
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	REAL useScale = 1.0f;
@@ -160,72 +160,21 @@ REAL4 DIFSSphereIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 	REAL colorDist = aux->dist;
 	REAL4 zc = oldZ;
 
-	// cylinder
-	if (aux->i >= fractal->transformCommon.startIterations
+	// sphere
+	if (fractal->transformCommon.functionEnabledM
+			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL cylD = 0.0f;
-		REAL absZ = fabs(zc.z);
-		REAL lengthCyl = zc.z;
-		REAL cylR = 0.0f;
-		REAL cylH = 0.0f;
-		// swap axis
-		if (!fractal->transformCommon.functionEnabledSwFalse)
-		{
-			cylR = native_sqrt(mad(zc.x, zc.x, zc.y * zc.y));
-			cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
-		}
-		else
-		{
-			cylR = native_sqrt(mad(zc.y, zc.y, zc.z * zc.z));
-			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
-			absZ = fabs(zc.x);
-			lengthCyl = zc.x;
-		}
-		// no absz
-		if (fractal->transformCommon.functionEnabledMFalse
-				&& aux->i >= fractal->transformCommon.startIterationsM
-				&& aux->i < fractal->transformCommon.stopIterationsM)
-		{
-			absZ = lengthCyl;
-		}
-		// abs sqrd
-		if (fractal->transformCommon.functionEnabledTFalse
-				&& aux->i >= fractal->transformCommon.startIterationsT
-				&& aux->i < fractal->transformCommon.stopIterationsT)
-		{
-			absZ *= absZ;
-		}
-		REAL cylRm = cylR - fractal->transformCommon.radius1;
-		cylRm += fractal->transformCommon.scale0 * absZ;
-		// tops
-		if (fractal->transformCommon.functionEnabledNFalse
-				&& aux->i >= fractal->transformCommon.startIterationsN
-				&& aux->i < fractal->transformCommon.stopIterationsN)
-		{
-			REAL temp = max(cylR, 0.0f);
-			REAL cylHm = max(cylH, 0.0f);
-			cylD = native_sqrt(mad(temp, temp, cylHm * cylHm));
-		}
-		else
-		{
-			REAL temp = max(cylRm, 0.0f);
-			REAL cylHm = max(cylH, 0.0f);
-			cylD = native_sqrt(mad(temp, temp, cylHm * cylHm));
-		}
-
-		if (fractal->transformCommon.functionEnabledOFalse
-				&& aux->i >= fractal->transformCommon.startIterationsO
-				&& aux->i < fractal->transformCommon.stopIterationsO)
-		{
-			cylD = native_sqrt(mad(cylRm, cylRm, cylH * cylH));
-		}
-		cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0f) + cylD;
-
 		REAL sphereRadius =
-			mad(-aux->i, fractal->transformCommon.scale0, fractal->transformCommon.radius1);
+			fractal->transformCommon.offsetR1;
 		REAL spD = length(zc) - sphereRadius;
 		aux->dist = min(aux->dist, native_divide(spD, aux->DE));
+	}
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux->i >= fractal->transformCommon.startIterationsM
+			&& aux->i < fractal->transformCommon.stopIterationsM)
+	{
+		// ellipsoid?
 	}
 
 	// aux->color
