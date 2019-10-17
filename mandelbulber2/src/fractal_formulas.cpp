@@ -19073,7 +19073,6 @@ void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 			bxV.z = max(bxV.z, 0.0);
 			bxD = bxV.Length();
 		}
-
 		aux.dist = min(aux.dist, bxD / aux.DE);
 	}
 
@@ -19261,7 +19260,6 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		{
 			double absZ = fabs(zc.z);
 			tempX = zc.x + absZ * fractal->transformCommon.scale0;
-
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
@@ -19679,31 +19677,31 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
 
-	// Torus - link
+	// Torus - stretched
 	if (fractal->transformCommon.functionEnabledMFalse
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		double linkX = fractal->transformCommon.offset1;
-		double linkY = fractal->transformCommon.offsetA0;
+		double lenX = fractal->transformCommon.offset1;
+		double lenY = fractal->transformCommon.offsetA0;
 		if (fractal->transformCommon.functionEnabledNFalse
 				&& aux.i >= fractal->transformCommon.startIterationsN
 				&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
 			double absX = fabs(zc.x);
-			linkX  = linkX  + absX * fractal->transformCommon.scale0;
+			lenX  += absX * fractal->transformCommon.scale0;
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
 		{
 			double absY = fabs(zc.y);
-			linkY = linkY + absY * fractal->transformCommon.scaleA0;
+			lenY += absY * fractal->transformCommon.scaleA0;
 		}
-		CVector3 q = CVector3(max(abs(zc.y) - linkY, 0.0), max(abs(zc.x) - linkX, 0.0), zc.z );
-		double linkD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetT1;
-		linkD = sqrt(linkD * linkD + q.z * q.z) - fractal->transformCommon.offsetA05;
-		aux.dist = min(aux.dist, linkD / aux.DE);
+		CVector3 q = CVector3(max(abs(zc.y) - lenY, 0.0), max(abs(zc.x) - lenX, 0.0), zc.z );
+		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetT1;
+		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
+		aux.dist = min(aux.dist, streD / aux.DE);
 	}
 
 	// aux.color

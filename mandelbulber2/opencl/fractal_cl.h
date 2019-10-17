@@ -1225,6 +1225,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset05 = source.offset05;
 	target.offset1 = source.offset1;
 	target.offsetA1 = source.offsetA1;
+	target.offsetR1 = source.offsetR1;
 	target.offset105 = source.offset105;
 	target.offset2 = source.offset2;
 	target.offsetA2 = source.offsetA2;
