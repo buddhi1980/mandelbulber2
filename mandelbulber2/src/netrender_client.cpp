@@ -470,6 +470,7 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			{
 				if (systemData.noGui)
 				{
+					// FIXME memory leak - cImage is not deleted!
 					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
 					gKeyframeAnimation = new cKeyframeAnimation(
 						gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
