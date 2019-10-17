@@ -12,7 +12,7 @@ unix {
 
 	sharefiles.files = $$ROOT/deploy/share/mandelbulber2
 	sharefiles.path = $$PREFIX/share
-	sharefiles.extra = $$ROOT/deploy/patch-templates.sh
+	sharefiles.extra = $$ROOT/deploy/patch-templates.sh $$ROOT/deploy $$SHARED_PATH
 	INSTALLS += sharefiles
 	
 	formulaui.files = $$ROOT/formula/ui
