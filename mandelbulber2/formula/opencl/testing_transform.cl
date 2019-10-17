@@ -205,7 +205,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i < fractal->transformCommon.stopIterationsO)
 	{
 		REAL cylD = 0.0f;
-		REAL radius2 = fractal->transformCommon.transformCommon.offsetR0;
+		REAL radius2 = fractal->transformCommon.offsetR0;
 		//- fractal->transformCommon.scale0 * aux->i;
 
 		REAL cylR = 0.0f;
