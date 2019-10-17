@@ -169,7 +169,7 @@ REAL4 TestingTransformIteration(REAL4 z, __constant sFractalCl *fractal, sExtend
 			&& aux->i >= fractal->transformCommon.startIterations
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
-		REAL4 boxFold = fractal->transformCommon.additionConstantA111;
+		REAL4 boxSize = fractal->transformCommon.additionConstantA111;
 		REAL4 bxV = zc;
 		REAL bxD = 0.0f;
 		bxV = fabs(bxV) - boxSize;

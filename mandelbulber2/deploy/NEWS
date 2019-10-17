@@ -9,6 +9,9 @@ v2.20
    mandelbulbKosalosV2
    transfAddConstantMod2
    transfAddConstantRotV1
+   dIFSBoxDiagonalV1
+   dIFSBoxV1
+   dIFSCylinder
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert
