@@ -224,6 +224,7 @@ enum enumFractalFormula
 	dIFSCylinder = 603,
 	dIFSSphere = 604,
 	dIFSEllipsoid = 605,
+	dIFSTorus = 606,
 
 	mandelbulbEye = 800,
 

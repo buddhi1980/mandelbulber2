@@ -882,14 +882,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 
 
-
+	fractalList->append(sFractalDescription("DIFS Ellipsoid", "difs_ellipsoid", dIFSEllipsoid,
+		DIFSEllipsoidIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("DIFS Sphere", "difs_sphere", dIFSSphere,
 		DIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Ellipsoid", "difs_ellipsoid", dIFSEllipsoid,
-		DIFSEllipsoidIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+	fractalList->append(sFractalDescription("DIFS Torus", "difs_torus", dIFSTorus,
+		DIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 
