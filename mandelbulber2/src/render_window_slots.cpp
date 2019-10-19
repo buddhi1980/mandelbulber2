@@ -785,7 +785,14 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 {
 	ui->statusbar->showMessage(text, 0);
 	MyProgressBar *progressBar = nullptr;
-	bool isQueue = sender() && sender()->objectName() == "Queue";
+  bool isQueue  = false;
+
+  //FIXME: sender can be deleted by another thread (e.g. ImageFileSave exists very short time)
+  //  if (sender())
+//  {
+//     isQueue = sender()->objectName() == "Queue";
+//  }
+
 	switch (progressType)
 	{
 		case cProgressText::progress_IMAGE:
