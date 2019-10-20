@@ -94,8 +94,9 @@ public:
 	void DeleteFramesTo(int index) const;
 	void UpdateThumbnailFromImage(int index) const;
 	void InterpolateForward(int row, int column);
-	QString GetFlightFilename(int index) const;
+	QString GetFlightFilename(int index, bool netRenderCache) const;
 	void UpdateLimitsForFrameRange() const;
+	void SetNetRenderStartingFrames(const QVector<int> &startingFrames);
 
 public slots:
 	bool slotRenderFlight();

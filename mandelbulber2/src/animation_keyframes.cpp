@@ -1698,8 +1698,6 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 {
 	Q_UNUSED(frameIndex);
 
-	qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
-
 	renderedFramesCount++;
 	if (frameIndex < alreadyRenderedFrames.size())
 	{
@@ -1708,6 +1706,7 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 
 	if (!animationStopRequest && animationIsRendered)
 	{
+		qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
 		// counting left frames
 		int countLeft = reservedFrames.count(false);
@@ -1744,8 +1743,11 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 
 void cKeyframeAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 {
-	netRenderListOfFramesToRender.append(listOfFrames);
-	qDebug() << "Client: got frames toDo:" << listOfFrames;
+	if (animationIsRendered)
+	{
+		netRenderListOfFramesToRender.append(listOfFrames);
+		qDebug() << "Client: got frames toDo:" << listOfFrames;
+	}
 }
 
 void cKeyframeAnimation::slotAnimationStopRequest()

@@ -37,6 +37,7 @@
 #include <QAbstractSocket>
 #include <QHostInfo>
 
+#include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
 #include "cimage.hpp"
 #include "error_message.hpp"
@@ -480,6 +481,20 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 				gKeyframeAnimation->SetNetRenderStartingFrames(startingPositions);
 			}
 
+			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
+			{
+				if (systemData.noGui)
+				{
+					// FIXME memory leak - cImage is not deleted!
+					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					gFlightAnimation = new cFlightAnimation(
+						gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
+				}
+
+				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
+				gFlightAnimation->SetNetRenderStartingFrames(startingPositions);
+			}
+
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
 			QByteArray buffer;
 			qint32 size;
@@ -494,24 +509,48 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			WriteLog(
 				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 2);
 
-			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
+			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
+			{
+				WriteLog("NetRender - ProcessData(), command ANIM_FLIGHT, starting rendering", 2);
 
-			auto keyframesRenderThread =
-				new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
-			auto *thread = new QThread;								 // deleted by deleteLater()
-			keyframesRenderThread->moveToThread(thread);
+				auto flightRenderThread =
+					new cFligtAnimRenderThread(settingsText); // deleted by deleteLater()
+				auto *thread = new QThread;									// deleted by deleteLater()
+				flightRenderThread->moveToThread(thread);
 
-			connect(thread, &QThread::started, keyframesRenderThread,
-				&cKeyframeRenderThread::startAnimationRender);
+				connect(thread, &QThread::started, flightRenderThread,
+					&cFligtAnimRenderThread::startAnimationRender);
 
-			thread->setObjectName("KeyframesRender");
-			thread->start();
+				thread->setObjectName("AnimFlightRender");
+				thread->start();
 
-			connect(keyframesRenderThread, &cKeyframeRenderThread::renderingFinished,
-				keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
-			connect(
-				keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
-			connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+				connect(flightRenderThread, &cFligtAnimRenderThread::renderingFinished, flightRenderThread,
+					&cFligtAnimRenderThread::deleteLater);
+				connect(
+					flightRenderThread, &cFligtAnimRenderThread::renderingFinished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+			}
+			else if (inMsg->command == netRenderCmd_ANIM_KEY)
+			{
+				WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
+
+				auto keyframesRenderThread =
+					new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
+				auto *thread = new QThread;								 // deleted by deleteLater()
+				keyframesRenderThread->moveToThread(thread);
+
+				connect(thread, &QThread::started, keyframesRenderThread,
+					&cKeyframeRenderThread::startAnimationRender);
+
+				thread->setObjectName("KeyframesRender");
+				thread->start();
+
+				connect(keyframesRenderThread, &cKeyframeRenderThread::renderingFinished,
+					keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
+				connect(
+					keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+			}
 		}
 	}
 }

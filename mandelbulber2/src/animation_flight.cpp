@@ -517,7 +517,7 @@ void cFlightAnimation::RecordFlight(bool continueRecording)
 			UpdateThumbnailFromImage(newColumn);
 		}
 
-		const QString filename = GetFlightFilename(index);
+		const QString filename = GetFlightFilename(index, false);
 		const ImageFileSave::enumImageFileType fileType =
 			ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 		SaveImage(filename, fileType, image, gMainInterface->mainWindow);
@@ -794,7 +794,7 @@ void cFlightAnimation::CheckWhichFramesAreAlreadyRendered(const sFrameRanges &fr
 	// Check if frames have already been rendered
 	for (int index = 0; index < frames->GetNumberOfFrames(); ++index)
 	{
-		const QString filename = GetFlightFilename(index);
+		const QString filename = GetFlightFilename(index, false);
 		alreadyRenderedFrames[index] =
 			QFile(filename).exists() || index < frameRanges.startFrame || index >= frameRanges.endFrame;
 
@@ -989,7 +989,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		return false;
 	}
 
-	if (!systemData.noGui && image->IsMainImage())
+	if (!systemData.noGui && image->IsMainImage() && !gNetRender->IsClient())
 	{
 		mainInterface->SynchronizeInterface(params, fractalParams, qInterface::read);
 		gUndo.Store(params, fractalParams, frames, nullptr);
@@ -1036,6 +1036,8 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 		}
 
 		CheckWhichFramesAreAlreadyRendered(frameRanges);
+
+		animationIsRendered = true;
 
 		// count number of unrendered frames
 		frameRanges.unrenderedTotalBeforeRender = 0;
@@ -1101,7 +1103,7 @@ bool cFlightAnimation::RenderFlight(bool *stopRequest)
 
 			// save frame
 			QStringList listOfSavedFiles;
-			const QString filename = GetFlightFilename(index);
+			const QString filename = GetFlightFilename(index, gNetRender->IsClient());
 			const ImageFileSave::enumImageFileType fileType =
 				ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type"));
 			listOfSavedFiles = SaveImage(filename, fileType, image, gMainInterface->mainWindow);
@@ -1534,10 +1536,20 @@ void cFlightAnimation::slotRefreshTable()
 	RefreshTable();
 }
 
-QString cFlightAnimation::GetFlightFilename(int index) const
+QString cFlightAnimation::GetFlightFilename(int index, bool netRenderCache) const
 {
-	QString filename = params->Get<QString>("anim_flight_dir") + "frame_"
-										 + QString("%1").arg(index, 7, 10, QChar('0'));
+	QString dir;
+	if (netRenderCache)
+	{
+		dir = systemData.GetNetrenderFolder() + QDir::separator()
+					+ QString("pid%1_").arg(QCoreApplication::applicationPid());
+	}
+	else
+	{
+		dir = params->Get<QString>("anim_flight_dir");
+	}
+
+	QString filename = dir + "frame_" + QString("%1").arg(index, 7, 10, QChar('0'));
 	filename += "."
 							+ ImageFileSave::ImageFileExtension(
 								ImageFileSave::enumImageFileType(params->Get<int>("flight_animation_image_type")));
@@ -1605,12 +1617,16 @@ void cFlightAnimation::slotCellDoubleClicked(int row, int column) const
 	}
 }
 
+void cFlightAnimation::SetNetRenderStartingFrames(const QVector<int> &startingFrames)
+{
+	netRenderListOfFramesToRender.clear();
+	netRenderListOfFramesToRender.append(startingFrames.toList());
+}
+
 void cFlightAnimation::slotNetRenderFinishedFrame(
 	int clientIndex, int frameIndex, int sizeOfToDoList)
 {
 	Q_UNUSED(frameIndex);
-
-	qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
 	renderedFramesCount++;
 	if (frameIndex < alreadyRenderedFrames.size())
@@ -1620,6 +1636,7 @@ void cFlightAnimation::slotNetRenderFinishedFrame(
 
 	if (!animationStopRequest && animationIsRendered)
 	{
+		qDebug() << "Server: got information about finished frame" << frameIndex << sizeOfToDoList;
 
 		// counting left frames
 		int countLeft = reservedFrames.count(false);
@@ -1656,8 +1673,11 @@ void cFlightAnimation::slotNetRenderFinishedFrame(
 
 void cFlightAnimation::slotNetRenderUpdateFramesToDo(QList<int> listOfFrames)
 {
-	netRenderListOfFramesToRender.append(listOfFrames);
-	qDebug() << "Client: got frames toDo:" << listOfFrames;
+	if (animationIsRendered)
+	{
+		netRenderListOfFramesToRender.append(listOfFrames);
+		qDebug() << "Client: got frames toDo:" << listOfFrames;
+	}
 }
 
 void cFlightAnimation::slotAnimationStopRequest()
@@ -1665,12 +1685,17 @@ void cFlightAnimation::slotAnimationStopRequest()
 	animationStopRequest = true;
 }
 
+cFligtAnimRenderThread::cFligtAnimRenderThread(QString &_settingsText) : QThread()
+{
+	settingsText = _settingsText;
+}
+
 void cFligtAnimRenderThread::startAnimationRender()
 {
 	cSettings parSettings(cSettings::formatFullText);
 	parSettings.BeQuiet(true);
 	parSettings.LoadFromString(settingsText);
-	parSettings.Decode(gPar, gParFractal, nullptr, gKeyframes);
+	parSettings.Decode(gPar, gParFractal, gAnimFrames, nullptr);
 	gNetRender->SetAnimation(true);
 	gFlightAnimation->RenderFlight(&gMainInterface->stopRequest);
 	emit renderingFinished();
