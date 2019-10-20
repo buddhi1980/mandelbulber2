@@ -107,11 +107,11 @@ REAL4 DIFSCylinderIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 	// reverse offset part 1
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux->i >= fractal->transformCommon.startIterationsF
 			&& aux->i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	REAL useScale = 1.0f;

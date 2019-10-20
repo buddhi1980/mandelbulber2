@@ -17624,11 +17624,11 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
 			&& aux.i < fractal->transformCommon.stopIterationsE)
-		z.x -= fractal->transformCommon.offset2;
+		z.x -= fractal->transformCommon.offsetE2;
 
 	if (aux.i >= fractal->transformCommon.startIterationsF
 			&& aux.i < fractal->transformCommon.stopIterationsF)
-		z.y -= fractal->transformCommon.offsetA2;
+		z.y -= fractal->transformCommon.offsetF2;
 
 	// scale
 	double useScale = 1.0;
