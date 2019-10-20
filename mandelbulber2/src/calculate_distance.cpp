@@ -132,6 +132,7 @@ double CalculateDistance(const sParamRender &params, const cNineFractals &fracta
 							*out = outTemp;
 						}
 						distance = min(distTemp, distance);
+						// distance = smoothMin(distance, distTemp, 0.2);
 						break;
 					case params::booleanOperatorAND:
 						if (distTemp > distance)

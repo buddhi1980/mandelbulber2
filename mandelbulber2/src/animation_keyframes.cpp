@@ -176,8 +176,6 @@ cKeyframeAnimation::cKeyframeAnimation(cInterface *_interface, cKeyframes *_fram
 		this, &cKeyframeAnimation::NetRenderNotifyClientStatus, gNetRender, &cNetRender::NotifyStatus);
 
 	// signals from NetRender
-	connect(gNetRender, &cNetRender::KeyframeAnimationRender, this,
-		&cKeyframeAnimation::slotRenderKeyframes);
 	connect(
 		gNetRender, &cNetRender::FinishedFrame, this, &cKeyframeAnimation::slotNetRenderFinishedFrame);
 	connect(this, &cKeyframeAnimation::NetRenderSendFramesToDoList, gNetRender,
@@ -847,14 +845,14 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 	QSharedPointer<cRenderJob> renderJob = PrepareRenderJob(stopRequest);
 
 	cRenderingConfiguration config;
-	config.EnableNetRender();
 
 	if (systemData.noGui)
 	{
 		config.DisableRefresh();
 	}
-
+	config.EnableNetRender();
 	config.DisableProgressiveRender();
+
 	renderJob->Init(cRenderJob::keyframeAnim, config);
 
 	cProgressText progressText;
@@ -905,6 +903,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		if (startRenderKeyframesAgain) return RenderKeyframes(stopRequest);
 		if (!result) throw false;
 
+		animationIsRendered = true;
+
 		if (gNetRender->IsServer())
 		{
 			InitJobsForClients(frameRanges);
@@ -946,7 +946,8 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 
 				UpadeProgressInformation(frameRanges, &progressText, frameIndex, index);
 
-				emit if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
+				if (*stopRequest || systemData.globalStopRequest || animationStopRequest) throw false;
+
 				keyframes->GetInterpolatedFrameAndConsolidate(frameIndex, params, fractalParams);
 
 				// recalculation of camera rotation and distance (just for display purposes)
@@ -1010,7 +1011,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 			mainInterface->mainWindow->GetWidgetDockNavigation()->UnlockAllFunctions();
 			imageWidget->SetEnableClickModes(true);
 		}
-
+		animationIsRendered = false;
 		return false;
 	}
 
@@ -1026,6 +1027,7 @@ bool cKeyframeAnimation::RenderKeyframes(bool *stopRequest)
 		emit NetRenderNotifyClientStatus();
 	}
 
+	animationIsRendered = false;
 	return true;
 }
 
@@ -1704,7 +1706,7 @@ void cKeyframeAnimation::slotNetRenderFinishedFrame(
 		alreadyRenderedFrames[frameIndex] = true;
 	}
 
-	if (!animationStopRequest)
+	if (!animationStopRequest && animationIsRendered)
 	{
 
 		// counting left frames

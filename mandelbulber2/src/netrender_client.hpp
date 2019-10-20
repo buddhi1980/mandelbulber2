@@ -94,8 +94,6 @@ signals:
 	void changeClientStatus(netRenderStatus status);
 	// notify about the current status
 	void NotifyStatus();
-	// signal to start rendering keyframe animation
-	void KeyframeAnimationRender();
 	// signal to update list of frames to render
 	void UpdateFramesToDo(QList<int> listOfFrames);
 	// add file to file sender queue

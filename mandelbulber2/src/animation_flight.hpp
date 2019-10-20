@@ -56,6 +56,7 @@ class cFractalContainer;
 class cParameterContainer;
 class MyTableWidgetAnim;
 class RenderedImage;
+class cRenderJob;
 
 namespace Ui
 {
@@ -71,6 +72,14 @@ public:
 	{
 		speedRelative,
 		speedConstant
+	};
+
+	struct sFrameRanges
+	{
+		int startFrame;
+		int endFrame;
+		int totalFrames;
+		int unrenderedTotalBeforeRender;
 	};
 
 	cFlightAnimation(cInterface *_interface, cAnimationFrames *_frames, cImage *_image,
@@ -90,6 +99,9 @@ public:
 
 public slots:
 	bool slotRenderFlight();
+	void slotNetRenderFinishedFrame(int clientIndex, int frameIndex, int sizeOfToDoList);
+	void slotNetRenderUpdateFramesToDo(QList<int> listOfFrames);
+	void slotAnimationStopRequest();
 
 private slots:
 	void slotRecordFlight();
@@ -117,6 +129,17 @@ private:
 	int AddVariableToTable(
 		const cAnimationFrames::sParameterDescription &parameterDescription, int index);
 	int AddColumn(const cAnimationFrames::sAnimationFrame &frame, int indexOfExistingColumn = -1);
+	QSharedPointer<cRenderJob> PrepareRenderJob(bool *stopRequest);
+	bool InitFrameRanges(sFrameRanges *frameRanges);
+	void InitFrameMarkers(const sFrameRanges &frameRanges);
+	void CheckWhichFramesAreAlreadyRendered(const sFrameRanges &frameRanges);
+	bool AllFramesAlreadyRendered(const sFrameRanges &frameRanges, bool *startRenderKeyframesAgain);
+	void InitJobsForClients(const sFrameRanges &frameRanges);
+	void UpadeProgressInformation(
+		const sFrameRanges &frameRanges, cProgressText *progressText, int index);
+	void UpdateCameraAndTarget();
+	void ConfirmAndSendRenderedFrames(const int frameIndex, const QStringList &listOfSavedFiles);
+
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
 	cAnimationFrames *frames;
@@ -138,6 +161,15 @@ private:
 	bool recordPause;
 	QSize previewSize;
 
+	QList<int> netRenderListOfFramesToRender;
+	QVector<bool> alreadyRenderedFrames;
+	QVector<bool> reservedFrames;
+	int renderedFramesCount = 0; // used for countig frames rendered with NetRender
+	const int maxFramesForNetRender = 50;
+	const int minFramesForNetRender = 5;
+	bool animationStopRequest = false;
+	bool animationIsRendered = false;
+
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
 		cProgressText::enumProgressType progressType = cProgressText::progress_IMAGE);
@@ -149,8 +181,34 @@ signals:
 	void showErrorMessage(
 		QString text, cErrorMessage::enumMessageType messageType, QWidget *parent = nullptr);
 	void notifyRenderFlightRenderStatus(QString text, QString progressText);
+
+	void SendNetRenderSetup(int clientIndex, QList<int> startingPositions);
+	void NetRenderCurrentAnimation(
+		const cParameterContainer &settings, const cFractalContainer &fractal, bool isFlight);
+	void NetRenderConfirmRendered(int frameIndex, int toDoListLength);
+	void NetRenderSendFramesToDoList(int clientIndex, QList<int> frameNumbers);
+	void NetRenderAddFileToSender(QString);
+	void NetRenderStopAllClients();
+	void NetRenderNotifyClientStatus();
 };
 
 extern cFlightAnimation *gFlightAnimation;
+
+class cFligtAnimRenderThread : public QThread
+{
+	Q_OBJECT;
+
+public:
+	cFligtAnimRenderThread(QString &settingsText);
+
+public slots:
+	void startAnimationRender();
+
+private:
+	QString settingsText;
+
+signals:
+	void renderingFinished();
+};
 
 #endif /* MANDELBULBER2_SRC_ANIMATION_FLIGHT_HPP_ */

@@ -200,8 +200,6 @@ signals:
 	void ToDoListArrived(QList<int> done);
 	// confirmation of data receive
 	void AckReceived();
-	// signal to start rendering keyframe animation
-	void KeyframeAnimationRender();
 	// signal to update list of frames to render
 	void UpdateFramesToDo(QList<int> listOfFrames);
 	// stop rendering animation;

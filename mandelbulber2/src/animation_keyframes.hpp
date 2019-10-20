@@ -171,6 +171,7 @@ private:
 	const int maxFramesForNetRender = 50;
 	const int minFramesForNetRender = 5;
 	bool animationStopRequest = false;
+	bool animationIsRendered = false;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,
