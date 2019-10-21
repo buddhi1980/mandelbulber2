@@ -6296,6 +6296,117 @@ void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 }
 
 /**
+ * lambdabulb
+ * based on fractalrebels code http://www.fractalforums.com/mandelbulb-renderings/lambdabulb/
+ * z=c(z-z^p)
+ */
+void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		if (fractal->transformCommon.functionEnabledAxFalse
+				&& aux.i >= fractal->transformCommon.startIterationsX
+				&& aux.i < fractal->transformCommon.stopIterationsX)
+			z.x = fabs(z.x);
+		if (fractal->transformCommon.functionEnabledAyFalse
+				&& aux.i >= fractal->transformCommon.startIterationsY
+				&& aux.i < fractal->transformCommon.stopIterationsY)
+			z.y = fabs(z.y);
+		if (fractal->transformCommon.functionEnabledAzFalse
+				&& aux.i >= fractal->transformCommon.startIterationsZ
+				&& aux.i < fractal->transformCommon.stopIterationsZ)
+			z.z = fabs(z.z);
+	}
+
+	CVector4 z1 = z;
+	CVector4 lc = fractal->transformCommon.offset001;
+
+
+
+	double  Pwr = fractal->bulb.power;
+	// if (aux.r < 1e-21) aux.r = 1e-21;
+	if (fractal->transformCommon.functionEnabledAFalse)
+	{
+		z1.z = -z1.z;
+	}
+	const double th0 = asin(z1.z / aux.r) + fractal->bulb.betaAngleOffset;
+	const double ph0 = atan2(z1.y, z1.x) + fractal->bulb.alphaAngleOffset;
+	double rp = pow(aux.r, Pwr);
+	const double th = th0 * Pwr;
+	const double ph = ph0 * Pwr;
+	const double cth = cos(th);
+	//aux.DE = (rp * aux.DE) * Pwr + 1.0;
+	//rp *= aux.r;
+	z1.x = cth * cos(ph) * rp;
+	z1.y = cth * sin(ph) * rp;
+	z1.z = sin(th) * rp;
+	z1 = z - z1;
+
+	//vec3 triMul(vec3 a, vec3 b) {
+	double ra = lc.Length();
+	double phia = atan2(lc.y, lc.x); // azimuth
+	double thetaa = asin(lc.z / ra);
+
+	double rb = z1.Length();
+	double phib = atan2(z1.y, z1.x); // azimuth
+	double thetab = 0.0;
+	if (fractal->transformCommon.functionEnabledBFalse)
+	{
+		z1.z = -z1.z;
+
+	}
+	thetab = asin(z1.z / rb);
+
+	double r = ra * rb;
+	double phi = phia + phib;
+	double theta = thetaa + thetab;
+	double ctha = cos(theta);
+	z.x = ctha * cos(phi) * r;
+	z.y = ctha * sin(phi) * r;
+	z.z = sin(theta) * r;
+
+	if (fractal->transformCommon.functionEnabledKFalse)
+	{
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD)
+			swap(z.x, z.y);
+		if (fractal->transformCommon.functionEnabledEFalse
+				&& aux.i >= fractal->transformCommon.startIterationsE
+				&& aux.i < fractal->transformCommon.stopIterationsE)
+			swap(z.x, z.z);
+
+		// swap
+		if (fractal->transformCommon.functionEnabledBxFalse) z.x = -z.x;
+		if (fractal->transformCommon.functionEnabledByFalse) z.y = -z.y;
+		if (fractal->transformCommon.functionEnabledBzFalse) z.z = -z.z;
+	}
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	double bias = fractal->transformCommon.scaleC1;
+	double iterScale = fractal->transformCommon.scale0;
+	bias = bias + aux.i * iterScale;
+
+
+	//aux.DE= max(aux.DE * DerivativeBias,pow( r, fractal->bulb.power - 1.0 ) * aux.DE * fractal->bulb.power + 1.0);
+	aux.DE = max(aux.DE * bias, pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0);
+	//ux.DE =  pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0;
+	//if (aux.DE < fractal->analyticDE.scale1) aux.DE = fractal->analyticDE.scale1;
+
+	if (fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
+
+}
+
+
+/**
  * mandelbulbMulti 3D
  */
 void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -18897,81 +19008,8 @@ void Testing4dIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
  */
 void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
-	if (fractal->transformCommon.functionEnabledFalse)
-	{
-		if (fractal->transformCommon.functionEnabledAxFalse
-				&& aux.i >= fractal->transformCommon.startIterationsX
-				&& aux.i < fractal->transformCommon.stopIterationsX)
-			z.x = fabs(z.x);
-		if (fractal->transformCommon.functionEnabledAyFalse
-				&& aux.i >= fractal->transformCommon.startIterationsY
-				&& aux.i < fractal->transformCommon.stopIterationsY)
-			z.y = fabs(z.y);
-		if (fractal->transformCommon.functionEnabledAzFalse
-				&& aux.i >= fractal->transformCommon.startIterationsZ
-				&& aux.i < fractal->transformCommon.stopIterationsZ)
-			z.z = fabs(z.z);
-	}
 
-	CVector4 z1 = z;
-
-
-	double  Pwr = fractal->transformCommon.scaleB1; //fractal->bulb.power;;
-	// if (aux.r < 1e-21) aux.r = 1e-21;
-	const double th0 = asin(z1.z / aux.r); // + fractal->bulb.betaAngleOffset;
-	const double ph0 = atan2(z1.y, z1.x); //  + fractal->bulb.alphaAngleOffset;
-	double rp = pow(aux.r, Pwr);
-	const double th = th0 * Pwr;
-	const double ph = ph0 * Pwr;
-	const double cth = cos(th);
-	//aux.DE = (rp * aux.DE) * Pwr + 1.0;
-	//rp *= aux.r;
-	z1.x = cth * cos(ph) * rp;
-	z1.y = cth * sin(ph) * rp;
-	z1.z = sin(th) * rp;
-
-	z1 = z - z1;
-	CVector4 lc = fractal->transformCommon.additionConstant000;
-
-	//vec3 triMul(vec3 a, vec3 b) {
-	double ra = lc.Length();
-	double phia = atan2(lc.y, lc.x); // azimuth
-	double thetaa = 0.0;
-
-	thetaa = asin(lc.z / ra);
-
-	double rb = z1.Length();
-	double phib = atan2(z1.y, z1.x); // azimuth
-	double thetab = 0.0;
-
-	thetab = asin(z1.z / rb);
-
-	double r = ra * rb;
-	double phi = phia + phib;
-	double theta = thetaa + thetab;
-	double ctha = cos(theta);
-	z.x = ctha * cos(phi) * r;
-	z.y = ctha * sin(phi) * r;
-	z.z = sin(theta) * r;
-
-
-	CVector4 temp = fractal->transformCommon.offset1111;
-	double bias = fractal->transformCommon.scaleA1;
-	bias = bias + aux.i * temp.x;
-
-
-	//aux.DE= max(aux.DE * DerivativeBias,pow( r, fractal->bulb.power - 1.0 ) * aux.DE * fractal->bulb.power + 1.0);
-	aux.DE = max(aux.DE * bias, pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0);
-	//ux.DE =  pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0;
-	//if (aux.DE < fractal->analyticDE.scale1) aux.DE = fractal->analyticDE.scale1;
-
-	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
-
-
-
-/*	CVector4 c = aux.const_c;
+	CVector4 c = aux.const_c;
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		if (fractal->transformCommon.functionEnabledAxFalse
@@ -19145,7 +19183,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 	if (fractal->analyticDE.enabledFalse)
-		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;*/
+		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
 }
 /**
  * Testing difs DE transform

@@ -285,15 +285,6 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb - Bermarte", "mandelbulb_bermarte",
 		mandelbulbBermarte, MandelbulbBermarteIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Mandelbulb - Power 1234", "mandelbulb_power1234",
-		mandelbulbPower1234, MandelbulbPower1234Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Mandelbulb - Power 2", "mandelbulb_power2",
-		mandelbulbPower2, MandelbulbPower2Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
-	fractalList->append(sFractalDescription("Mandelbulb - Pow2 V2", "mandelbulb_pow2_v2",
-		mandelbulbPow2V2, MandelbulbPow2V2Iteration, analyticDEType, logarithmicDEFunction,
-		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Juliabulb", "mandelbulb_juliabulb",
 		mandelbulbJuliabulb, MandelbulbJuliabulbIteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
@@ -309,11 +300,25 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("Mandelbulb - Kosalos V2", "mandelbulb_kosalos_v2",
 		mandelbulbKosalosV2, MandelbulbKosalosV2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("Mandelbulb - Lambda", "mandelbulb_lambda",
+		mandelbulbLambda, MandelbulbLambdaIteration, analyticDEType, logarithmicDEFunction,
+		cpixelDisabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("Mandelbulb - Multi", "mandelbulb_multi", mandelbulbMulti,
 		MandelbulbMultiIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
 		analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Multi2", "mandelbulb_multi2",
 		mandelbulbMulti2, MandelbulbMulti2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Power 1234", "mandelbulb_power1234",
+		mandelbulbPower1234, MandelbulbPower1234Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Power 2", "mandelbulb_power2",
+		mandelbulbPower2, MandelbulbPower2Iteration, analyticDEType, logarithmicDEFunction,
+		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("Mandelbulb - Pow2 V2", "mandelbulb_pow2_v2",
+		mandelbulbPow2V2, MandelbulbPow2V2Iteration, analyticDEType, logarithmicDEFunction,
 		cpixelEnabledByDefault, 10, analyticFunctionLogarithmic, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("Mandelbulb - Quat", "mandelbulb_quat", mandelbulbQuat,
 		MandelbulbQuatIteration, analyticDEType, logarithmicDEFunction, cpixelEnabledByDefault, 10,
