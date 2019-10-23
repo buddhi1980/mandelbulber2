@@ -201,6 +201,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("DIFS Cylinder", "difs_cylinder", dIFSCylinder,
 		DIFSCylinderIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Ellipsoid", "difs_ellipsoid", dIFSEllipsoid,
+		DIFSEllipsoidIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Sphere", "difs_sphere", dIFSSphere,
+		DIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("DIFS Torus", "difs_torus", dIFSTorus,
+		DIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("Fold Box - Mod 1", "fold_box_mod1", foldBoxMod1,
 		FoldBoxMod1Iteration, analyticDEType, linearDEFunction, cpixelEnabledByDefault, 100,
@@ -887,17 +896,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 
 
 
-	fractalList->append(sFractalDescription("DIFS Ellipsoid", "difs_ellipsoid", dIFSEllipsoid,
-		DIFSEllipsoidIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("DIFS Sphere", "difs_sphere", dIFSSphere,
-		DIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
-
-	fractalList->append(sFractalDescription("DIFS Torus", "difs_torus", dIFSTorus,
-		DIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
-		analyticFunctionDIFS, coloringFunctionDefault));
 
 
 	fractalList->append(sFractalDescription("DIFS Box Diagonal V3", "difs_box_diagonal_v3", dIFSBoxDiagonalV3,
