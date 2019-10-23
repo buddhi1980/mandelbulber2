@@ -6298,6 +6298,7 @@ void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 /**
  * lambdabulb
  * based on fractalrebels code http://www.fractalforums.com/mandelbulb-renderings/lambdabulb/
+ * and http://bugman123.com/Hypercomplex/ LambdaBulb
  * z=c(z-z^p)
  */
 void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -6342,28 +6343,51 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	z1.z = sin(th) * rp;
 	z1 = z - z1;
 
-	//vec3 triMul(vec3 a, vec3 b) {
-	double ra = lc.Length();
-	double phia = atan2(lc.y, lc.x); // azimuth
-	double thetaa = asin(lc.z / ra);
-
-	double rb = z1.Length();
-	double phib = atan2(z1.y, z1.x); // azimuth
-	double thetab = 0.0;
-	if (fractal->transformCommon.functionEnabledBFalse)
+	if (!fractal->transformCommon.functionEnabledCFalse)
 	{
-		z1.z = -z1.z;
+		//vec3 triMul(vec3 a, vec3 b) non-trig
 
+		if (lc.x > -1e-21 && lc.x < 1e-21)
+			lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
+		if (lc.y > -1e-21 && lc.y < 1e-21)
+			lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
+
+		double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
+		double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);
+		double a = r1 * r2;
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			z1.z = -z1.z;
+		}
+		a = 1.0 - z1.z * lc.z / a;
+		z.x = a * (z1.x * lc.x - z1.y * lc.y);
+		z.y = a * (lc.x * z1.y + z1.x * lc.y);
+		z.z = r2 * z1.z + r1 * lc.z;
 	}
-	thetab = asin(z1.z / rb);
+	else
+	{
+		double ra = lc.Length();
+		double phia = atan2(lc.y, lc.x); // azimuth
+		double thetaa = asin(lc.z / ra);
 
-	double r = ra * rb;
-	double phi = phia + phib;
-	double theta = thetaa + thetab;
-	double ctha = cos(theta);
-	z.x = ctha * cos(phi) * r;
-	z.y = ctha * sin(phi) * r;
-	z.z = sin(theta) * r;
+		double rb = z1.Length();
+		double phib = atan2(z1.y, z1.x); // azimuth
+		double thetab = 0.0;
+		if (fractal->transformCommon.functionEnabledBFalse)
+		{
+			z1.z = -z1.z;
+		}
+		thetab = asin(z1.z / rb);
+
+		double r = ra * rb;
+		double phi = phia + phib;
+		double theta = thetaa + thetab;
+		double ctha = cos(theta);
+		z.x = ctha * cos(phi) * r;
+		z.y = ctha * sin(phi) * r;
+		z.z = sin(theta) * r;
+	}
+
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
