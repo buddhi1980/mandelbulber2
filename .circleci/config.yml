@@ -3,7 +3,7 @@ version: 2
 jobs:
   build-and-pack:
     macos:
-      xcode: "8.3.3"
+      xcode: "9.2"
     working_directory: ~/mandelbulber2/
     steps:
       - checkout
