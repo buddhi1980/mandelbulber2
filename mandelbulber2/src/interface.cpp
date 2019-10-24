@@ -266,6 +266,10 @@ void cInterface::ShowUi()
 		gPar->Get<bool>("opencl_enabled"));
 #endif
 
+	QShortcut *shortcut = new QShortcut(QKeySequence(Qt::Key_F11), mainWindow);
+	shortcut->setContext(Qt::ApplicationShortcut);
+	connect(shortcut, &QShortcut::activated, mainWindow, &RenderWindow::ToggleFullScreen);
+
 	mainWindow->ui->actionImport_settings_from_Mandelbulb3d->setVisible(false);
 
 	if (gPar->Get<bool>("ui_colorize"))

@@ -52,6 +52,7 @@
 #include "settings.hpp"
 #include "system.hpp"
 
+#include "qt/detached_window.h"
 #include "qt/material_editor.h"
 #include "qt/mesh_export_dialog.h"
 #include "qt/preferences_dialog.h"
@@ -785,13 +786,13 @@ void RenderWindow::slotUpdateProgressAndStatus(const QString &text, const QStrin
 {
 	ui->statusbar->showMessage(text, 0);
 	MyProgressBar *progressBar = nullptr;
-  bool isQueue  = false;
+	bool isQueue = false;
 
-  //FIXME: sender can be deleted by another thread (e.g. ImageFileSave exists very short time)
-  //  if (sender())
-//  {
-//     isQueue = sender()->objectName() == "Queue";
-//  }
+	// FIXME: sender can be deleted by another thread (e.g. ImageFileSave exists very short time)
+	//  if (sender())
+	//  {
+	//     isQueue = sender()->objectName() == "Queue";
+	//  }
 
 	switch (progressType)
 	{
@@ -928,5 +929,20 @@ bool RenderWindow::eventFilter(QObject *obj, QEvent *event)
 	else
 	{
 		return QMainWindow::eventFilter(obj, event);
+	}
+}
+
+void RenderWindow::ToggleFullScreen()
+{
+	if (!ui->actionDetach_image_from_main_window->isChecked())
+	{
+		gMainInterface->DetachMainImageWidget();
+		gMainInterface->detachedWindow->showFullScreen();
+		ui->actionDetach_image_from_main_window->setChecked(true);
+	}
+	else
+	{
+		gMainInterface->AttachMainImageWidget();
+		ui->actionDetach_image_from_main_window->setChecked(false);
 	}
 }

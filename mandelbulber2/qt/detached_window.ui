@@ -35,7 +35,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuView">
@@ -55,9 +55,6 @@
   <action name="actionFull_screen">
    <property name="text">
     <string>Toggle full screen</string>
-   </property>
-   <property name="shortcut">
-    <string>F11</string>
    </property>
   </action>
  </widget>

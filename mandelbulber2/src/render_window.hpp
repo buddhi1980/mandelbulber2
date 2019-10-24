@@ -132,6 +132,7 @@ private slots:
 	static void slotMaterialEdited();
 	void ResetDocksPositions();
 	void ResetGlobalStopRequest();
+	void ToggleFullScreen();
 
 	// pull down menu
 	void slotImportOldSettings();
