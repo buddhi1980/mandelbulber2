@@ -6321,72 +6321,45 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 
 	CVector4 z1 = z;
 	CVector4 lc = fractal->transformCommon.offset001;
-
-
-
+	double th0 = fractal->bulb.betaAngleOffset;
+	double ph0 = fractal->bulb.alphaAngleOffset;
 	double  Pwr = fractal->bulb.power;
 	// if (aux.r < 1e-21) aux.r = 1e-21;
 	if (fractal->transformCommon.functionEnabledAFalse)
 	{
 		z1.z = -z1.z;
 	}
-	const double th0 = asin(z1.z / aux.r) + fractal->bulb.betaAngleOffset;
-	const double ph0 = atan2(z1.y, z1.x) + fractal->bulb.alphaAngleOffset;
+	th0 += asin(z1.z / aux.r);
+	ph0 += atan2(z1.y, z1.x);
 	double rp = pow(aux.r, Pwr);
 	const double th = th0 * Pwr;
 	const double ph = ph0 * Pwr;
-	const double cth = cos(th);
+	double costh = cos(th);
+	z1 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
+
 	//aux.DE = (rp * aux.DE) * Pwr + 1.0;
 	//rp *= aux.r;
-	z1.x = cth * cos(ph) * rp;
-	z1.y = cth * sin(ph) * rp;
-	z1.z = sin(th) * rp;
+
 	z1 = z - z1;
 
-	if (!fractal->transformCommon.functionEnabledCFalse)
+	//vec3 triMul(vec3 a, vec3 b) non-trig
+
+	if (lc.x > -1e-21 && lc.x < 1e-21)
+		lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
+	if (lc.y > -1e-21 && lc.y < 1e-21)
+		lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
+
+	double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
+	double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);
+	double a = r1 * r2;
+	if (fractal->transformCommon.functionEnabledBFalse)
 	{
-		//vec3 triMul(vec3 a, vec3 b) non-trig
-
-		if (lc.x > -1e-21 && lc.x < 1e-21)
-			lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
-		if (lc.y > -1e-21 && lc.y < 1e-21)
-			lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
-
-		double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
-		double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);
-		double a = r1 * r2;
-		if (fractal->transformCommon.functionEnabledBFalse)
-		{
-			z1.z = -z1.z;
-		}
-		a = 1.0 - z1.z * lc.z / a;
-		z.x = a * (z1.x * lc.x - z1.y * lc.y);
-		z.y = a * (lc.x * z1.y + z1.x * lc.y);
-		z.z = r2 * z1.z + r1 * lc.z;
+		z1.z = -z1.z;
 	}
-	else
-	{
-		double ra = lc.Length();
-		double phia = atan2(lc.y, lc.x); // azimuth
-		double thetaa = asin(lc.z / ra);
-
-		double rb = z1.Length();
-		double phib = atan2(z1.y, z1.x); // azimuth
-		double thetab = 0.0;
-		if (fractal->transformCommon.functionEnabledBFalse)
-		{
-			z1.z = -z1.z;
-		}
-		thetab = asin(z1.z / rb);
-
-		double r = ra * rb;
-		double phi = phia + phib;
-		double theta = thetaa + thetab;
-		double ctha = cos(theta);
-		z.x = ctha * cos(phi) * r;
-		z.y = ctha * sin(phi) * r;
-		z.z = sin(theta) * r;
-	}
+	a = 1.0 - z1.z * lc.z / a;
+	z.x = a * (z1.x * lc.x - z1.y * lc.y);
+	z.y = a * (lc.x * z1.y + z1.x * lc.y);
+	z.z = r2 * z1.z + r1 * lc.z;
 
 
 	if (fractal->transformCommon.functionEnabledKFalse)
@@ -19264,6 +19237,7 @@ void TestingLogIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 				&& aux.i < fractal->transformCommon.stopIterationsZ)
 			z.z = fabs(z.z);
 	}
+
 	double r = aux.r;
 	double de1 = 0.0;
 	double de2 = 0.0;
