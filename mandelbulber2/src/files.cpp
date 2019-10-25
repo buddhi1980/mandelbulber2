@@ -437,12 +437,16 @@ bool FileExists(const QString &path)
 
 QString FilePathHelper(const QString &path, const QStringList &pathList)
 {
-	// QString newPath;
+	// Prefer $SHARED_DIR to a file in a directory called "$SHARED_DIR", so that
+	// examples don't depend on the launch directory
+	// For a relative path starting with "$SHARED_DIR", use "./$SHARED_DIR"
+	QString newPath = path;
+	newPath.replace(QRegExp("^\\$SHARED_DIR"), (SHARED_DIR));
 
 	// original file was found
-	if (FileExists(path)) return path;
+	if (FileExists(newPath)) return newPath;
 
-	WriteLogCout("File " + path + " not found. Looking for the file in alternate locations\n", 2);
+	WriteLogCout("File " + newPath + " not found. Looking for the file in alternate locations\n", 2);
 
 	foreach (QString alternatePath, pathList)
 	{
