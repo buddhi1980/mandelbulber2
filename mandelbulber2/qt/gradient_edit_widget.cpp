@@ -78,11 +78,14 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 	buttonBrightnessDec = new QToolButton(this);
 	AddToolButton(
 		buttonBrightnessDec, margins + (toolbarHeight + 2) * 3, ":gradient/icons/gradient-darker.svg");
+	buttonPaletteInvert = new QToolButton(this);
+	AddToolButton(
+		buttonPaletteInvert, margins + (toolbarHeight + 2) * 4, ":gradient/icons/gradient-invert.svg");
 	buttonSaturationInc = new QToolButton(this);
-	AddToolButton(buttonSaturationInc, margins + (toolbarHeight + 2) * 4,
+	AddToolButton(buttonSaturationInc, margins + (toolbarHeight + 2) * 5,
 		":gradient/icons/gradient-high-saturation.svg");
 	buttonSaturationDec = new QToolButton(this);
-	AddToolButton(buttonSaturationDec, margins + (toolbarHeight + 2) * 5,
+	AddToolButton(buttonSaturationDec, margins + (toolbarHeight + 2) * 6,
 		":gradient/icons/gradient-low-saturation.svg");
 
 	connect(buttonRandomColors, SIGNAL(clicked()), this, SLOT(pressedButtonRandomColors()));
@@ -90,6 +93,7 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 		SLOT(pressedButtonRandomColorsAndPositions()));
 	connect(buttonBrightnessInc, SIGNAL(clicked()), this, SLOT(pressedButtonBrightnessInc()));
 	connect(buttonBrightnessDec, SIGNAL(clicked()), this, SLOT(pressedButtonBrightnessDec()));
+	connect(buttonPaletteInvert, SIGNAL(clicked()), this, SLOT(pressedButtonInvert()));
 	connect(buttonSaturationInc, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationInc()));
 	connect(buttonSaturationDec, SIGNAL(clicked()), this, SLOT(pressedButtonSaturationDec()));
 
@@ -99,6 +103,7 @@ cGradientEditWidget::cGradientEditWidget(QWidget *parent)
 		tr("Randomize all colors, positions, and number of colors in gradient"));
 	buttonBrightnessInc->setToolTip(tr("Increase brightness of gradient"));
 	buttonBrightnessDec->setToolTip(tr("Decrease brightness of gradient"));
+	buttonPaletteInvert->setToolTip(tr("Invert palette"));
 	buttonSaturationInc->setToolTip(tr("Increase saturation of colors in gradient"));
 	buttonSaturationDec->setToolTip(tr("Decrease saturation of colors in gradient"));
 }
@@ -639,6 +644,21 @@ void cGradientEditWidget::pressedButtonSaturationDec()
 		color.R = qBound(0, int((color.R - average) * -0.2 + color.R), 255);
 		color.G = qBound(0, int((color.G - average) * -0.2 + color.G), 255);
 		color.B = qBound(0, int((color.B - average) * -0.2 + color.B), 255);
+
+		gradient.ModifyColor(i, color);
+		if (i == 1) gradient.ModifyColor(0, color);
+	}
+	update();
+}
+
+void cGradientEditWidget::pressedButtonInvert()
+{
+	for (int i = 1; i < gradient.GetNumberOfColors(); i++)
+	{
+		sRGB color = gradient.GetColorByIndex(i);
+		color.R = qBound(0, 255 - color.R, 255);
+		color.G = qBound(0, 255 - color.G, 255);
+		color.B = qBound(0, 255 - color.B, 255);
 
 		gradient.ModifyColor(i, color);
 		if (i == 1) gradient.ModifyColor(0, color);

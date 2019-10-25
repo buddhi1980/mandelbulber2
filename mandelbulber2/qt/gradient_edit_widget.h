@@ -88,6 +88,7 @@ private slots:
 	void pressedButtonBrightnessDec();
 	void pressedButtonSaturationInc();
 	void pressedButtonSaturationDec();
+	void pressedButtonInvert();
 
 private:
 	cColorGradient gradient;
@@ -109,6 +110,7 @@ private:
 	QToolButton *buttonBrightnessDec;
 	QToolButton *buttonSaturationInc;
 	QToolButton *buttonSaturationDec;
+	QToolButton *buttonPaletteInvert;
 
 signals:
 	void openEditor();
