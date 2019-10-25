@@ -27,7 +27,7 @@ DE_factor 0,78125;
 DE_thresh 1;
 delta_DE_function 0;
 DOF_focus 1,479108388168207e-14;
-file_lightmap /usr/share/mandelbulber2/textures/lightmap2.jpg;
+file_lightmap $SHARED_DIR/textures/lightmap2.jpg;
 flight_last_to_render 0;
 fog_color_1 0000 0000 0000;
 formula_1 10;
