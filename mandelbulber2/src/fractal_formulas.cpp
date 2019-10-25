@@ -6325,13 +6325,10 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double ph0 = fractal->bulb.alphaAngleOffset;
 	double  Pwr = fractal->bulb.power;
 	// if (aux.r < 1e-21) aux.r = 1e-21;
-	if (fractal->transformCommon.functionEnabledAFalse)
-	{
-		z1.z = -z1.z;
-	}
+	if (fractal->transformCommon.functionEnabledAFalse) z1.z = -z1.z;
 	th0 += asin(z1.z / aux.r);
 	ph0 += atan2(z1.y, z1.x);
-	double rp = pow(aux.r, Pwr);
+	double rp = pow(aux.r, Pwr - fractal->transformCommon.offset0);
 	const double th = th0 * Pwr;
 	const double ph = ph0 * Pwr;
 	double costh = cos(th);
@@ -6352,15 +6349,11 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
 	double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);
 	double a = r1 * r2;
-	if (fractal->transformCommon.functionEnabledBFalse)
-	{
-		z1.z = -z1.z;
-	}
+	if (fractal->transformCommon.functionEnabledBFalse) z1.z = -z1.z;
 	a = 1.0 - z1.z * lc.z / a;
 	z.x = a * (z1.x * lc.x - z1.y * lc.y);
 	z.y = a * (lc.x * z1.y + z1.x * lc.y);
 	z.z = r2 * z1.z + r1 * lc.z;
-
 
 	if (fractal->transformCommon.functionEnabledKFalse)
 	{
@@ -6387,21 +6380,13 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
 
-	double bias = fractal->transformCommon.scaleC1;
-	double iterScale = fractal->transformCommon.scale0;
-	bias = bias + aux.i * iterScale;
-
-
-	//aux.DE= max(aux.DE * DerivativeBias,pow( r, fractal->bulb.power - 1.0 ) * aux.DE * fractal->bulb.power + 1.0);
-	aux.DE = max(aux.DE * bias, pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0);
-	//ux.DE =  pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0;
-	//if (aux.DE < fractal->analyticDE.scale1) aux.DE = fractal->analyticDE.scale1;
-
 	if (fractal->analyticDE.enabledFalse)
+	{
+		double bias = fractal->transformCommon.scaleC1;
+		aux.DE = max(aux.DE * bias, pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0);
 		aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
+	}
 }
-
 
 /**
  * mandelbulbMulti 3D
