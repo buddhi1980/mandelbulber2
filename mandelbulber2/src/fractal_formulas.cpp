@@ -6323,7 +6323,7 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	CVector4 lc = fractal->transformCommon.offset001;
 	double th0 = fractal->bulb.betaAngleOffset;
 	double ph0 = fractal->bulb.alphaAngleOffset;
-	double  Pwr = fractal->bulb.power;
+	double Pwr = fractal->bulb.power;
 	// if (aux.r < 1e-21) aux.r = 1e-21;
 	if (fractal->transformCommon.functionEnabledAFalse) z1.z = -z1.z;
 	th0 += asin(z1.z / aux.r);
@@ -6334,17 +6334,15 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double costh = cos(th);
 	z1 = rp * CVector4(costh * cos(ph), sin(ph) * costh, sin(th), 0.0);
 
-	//aux.DE = (rp * aux.DE) * Pwr + 1.0;
-	//rp *= aux.r;
+	// aux.DE = (rp * aux.DE) * Pwr + 1.0;
+	// rp *= aux.r;
 
 	z1 = z - z1;
 
-	//vec3 triMul(vec3 a, vec3 b) non-trig
+	// vec3 triMul(vec3 a, vec3 b) non-trig
 
-	if (lc.x > -1e-21 && lc.x < 1e-21)
-		lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
-	if (lc.y > -1e-21 && lc.y < 1e-21)
-		lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
+	if (lc.x > -1e-21 && lc.x < 1e-21) lc.x = (lc.x > 0) ? 1e-21 : -1e-21;
+	if (lc.y > -1e-21 && lc.y < 1e-21) lc.y = (lc.y > 0) ? 1e-21 : -1e-21;
 
 	double r1 = sqrt(z1.x * z1.x + z1.y * z1.y);
 	double r2 = sqrt(lc.x * lc.x + lc.y * lc.y);
@@ -6381,9 +6379,8 @@ void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	}
 
 	double bias = fractal->transformCommon.scaleC1;
-	aux.DE = max(aux.DE * bias, pow( aux.r, Pwr - 1.0 ) * aux.DE * Pwr + 1.0);
+	aux.DE = max(aux.DE * bias, pow(aux.r, Pwr - 1.0) * aux.DE * Pwr + 1.0);
 	aux.DE = aux.DE * fractal->analyticDE.scale1 + fractal->analyticDE.offset0;
-
 }
 
 /**
@@ -17841,17 +17838,13 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 		// swap axis
 		if (!fractal->transformCommon.functionEnabledJFalse)
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.z * zc.z)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 		}
 		else
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.x * zc.x)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
 		}
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
@@ -17898,7 +17891,7 @@ void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsZ
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
-		//folds
+	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// xy box fold
@@ -18014,28 +18007,26 @@ void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		CVector4 rads4 = fractal->transformCommon.additionConstant111;
-		CVector3 rads3 = CVector3 (rads4.x, rads4.y, rads4.z);
+		CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
 		double tempX = zc.x;
 		double tempY = zc.y;
 		double tempZ = zc.z;
 		double absZ = fabs(zc.z);
 
-		if (fractal->transformCommon.functionEnabledJFalse)
-			absZ = zc.z;
+		if (fractal->transformCommon.functionEnabledJFalse) absZ = zc.z;
 
 		if (fractal->transformCommon.functionEnabledNFalse
 				&& aux.i >= fractal->transformCommon.startIterationsN
 				&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
-			//double absZ = fabs(zc.z);
+			// double absZ = fabs(zc.z);
 			tempX = zc.x + absZ * fractal->transformCommon.scale0;
-
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
 		{
-			//double absZ = fabs(zc.z);
+			// double absZ = fabs(zc.z);
 			tempY = zc.y + absZ * fractal->transformCommon.scaleA0;
 		}
 
@@ -18047,7 +18038,7 @@ void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			tempZ = zc.z * zc.z;
 		}
 
-		CVector3 rV = CVector3 (tempX, tempY, tempZ);
+		CVector3 rV = CVector3(tempX, tempY, tempZ);
 		rV /= rads3;
 
 		CVector3 rrV = rV;
@@ -18063,8 +18054,7 @@ void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		double sphereRadius =
-		fractal->transformCommon.offsetR1;
+		double sphereRadius = fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
@@ -18229,8 +18219,7 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double sphereRadius =
-			fractal->transformCommon.offsetR1;
+		double sphereRadius = fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
@@ -18243,17 +18232,13 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		// swap axis
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.z * zc.z)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 		}
 		else
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.x * zc.x)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
 		}
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
@@ -18301,7 +18286,7 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			&& aux.i >= fractal->transformCommon.startIterationsZ
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
-		//folds
+	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// xy box fold
@@ -18413,26 +18398,22 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 	CVector4 zc = oldZ;
 
 	// torus
-	if (fractal->transformCommon.functionEnabledM
-			&& aux.i >= fractal->transformCommon.startIterations
+	if (fractal->transformCommon.functionEnabledM && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double torD;
 		// swap axis
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.z * zc.z)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 		}
 		else
 		{
-			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z)
-					- fractal->transformCommon.offsetT1;
-			torD = sqrt(T1 * T1 + zc.x * zc.x)
-					- fractal->transformCommon.offset05;
+			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
 		}
+
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
 
@@ -18448,7 +18429,7 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
 			double absX = fabs(zc.x);
-			lenX  += absX * fractal->transformCommon.scale0;
+			lenX += absX * fractal->transformCommon.scale0;
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
@@ -18457,7 +18438,7 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 			double absY = fabs(zc.y);
 			lenY += absY * fractal->transformCommon.scaleA0;
 		}
-		CVector3 q = CVector3(max(abs(zc.y) - lenY, 0.0), max(abs(zc.x) - lenX, 0.0), zc.z );
+		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
 		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
 		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
 		aux.dist = min(aux.dist, streD / aux.DE);
@@ -19441,7 +19422,6 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 				&& aux.i < fractal->transformCommon.stopIterationsCx)
 			if (z.y > z.x) swap(z.x, z.y);
 
-
 		// abs offsets
 		if (fractal->transformCommon.functionEnabledCFalse
 				&& aux.i >= fractal->transformCommon.startIterationsC
@@ -19463,7 +19443,6 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 				&& aux.i >= fractal->transformCommon.startIterationsCy
 				&& aux.i < fractal->transformCommon.stopIterationsCy)
 			if (z.y > z.x) swap(z.x, z.y);
-
 	}
 
 	// reverse offset part 1
@@ -19529,8 +19508,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	if (fractal->transformCommon.functionEnabledFFalse) zc = z;
 
 	// box
-	if (fractal->transformCommon.functionEnabledM
-			&& aux.i >= fractal->transformCommon.startIterations
+	if (fractal->transformCommon.functionEnabledM && aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		CVector4 boxSize = fractal->transformCommon.additionConstant111;
@@ -19557,8 +19535,7 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i >= fractal->transformCommon.startIterationsM
 			&& aux.i < fractal->transformCommon.stopIterationsM)
 	{
-		double sphereRadius =
-			fractal->transformCommon.offsetR1;
+		double sphereRadius = fractal->transformCommon.offsetR1;
 		double spD = zc.Length() - sphereRadius;
 		aux.dist = min(aux.dist, spD / aux.DE);
 	}
@@ -19605,10 +19582,8 @@ void TestingTransformIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 			&& aux.i >= fractal->transformCommon.startIterationsT
 			&& aux.i < fractal->transformCommon.stopIterationsT)
 	{
-		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x)
-				- fractal->transformCommon.offsetT1;
-		double torD = sqrt(T1 * T1 + zc.z * zc.z)
-				- fractal->transformCommon.offset05;
+		double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+		double torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 		aux.dist = min(aux.dist, torD / aux.DE);
 	}
 
@@ -19847,7 +19822,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			&& aux.i >= fractal->transformCommon.startIterationsZ
 			&& aux.i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
-		//folds
+	// folds
 	if (fractal->transformCommon.functionEnabledFalse)
 	{
 		// xy box fold
@@ -19957,7 +19932,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	// DE
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
-		double bxD = 0.0;
+	double bxD = 0.0;
 	// torus
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
@@ -19970,47 +19945,52 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 		// fabs() and menger fold
 		{
 			zc = fabs(zc + fractal->transformCommon.additionConstantA000);
-			//if (z.x - z.y < 0.0) swap(z.y, z.x);
-			//if (z.x - z.z < 0.0) swap(z.z, z.x);
-			//if (z.y - z.z < 0.0) swap(z.z, z.y);
+			// if (z.x - z.y < 0.0) swap(z.y, z.x);
+			// if (z.x - z.z < 0.0) swap(z.z, z.x);
+			// if (z.y - z.z < 0.0) swap(z.z, z.y);
 
-			if (zc.y>zc.x) swap(zc.y, zc.x);
-			if (zc.y>zc.z) swap(zc.z, zc.y);
+			if (zc.y > zc.x) swap(zc.y, zc.x);
+			if (zc.y > zc.z) swap(zc.z, zc.y);
 			if (fractal->transformCommon.functionEnabledJFalse)
-				{if (zc.y <1.0 / offsetPy) zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;}
+			{
+				if (zc.y < 1.0 / offsetPy) zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;
+			}
 
-			else {zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;}
+			else
+			{
+				zc.y = fabs(zc.y - 1.0 / offsetPy) + 1.0 / offsetPy;
+			}
 
-			//			if (fractal->transformCommon.functionEnabledM) {zc.y = fabs(zc.y - 3.0 / offsetPy) + 3.0 / offsetPy;}
+			//			if (fractal->transformCommon.functionEnabledM) {zc.y = fabs(zc.y - 3.0 / offsetPy)
+			//+ 3.0 / offsetPy;}
 			zc *= fractal->transformCommon.scale3;
 			aux.DE *= fractal->transformCommon.scale3;
 
-			 rr = zc.Length();
-
+			rr = zc.Length();
 		}
 
 		// menger offsets
-		//z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
-		//z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
-		//if (fractal->transformCommon.functionEnabled)
+		// z.x -= 2.0 * fractal->transformCommon.constantMultiplier111.x;
+		// z.y -= 2.0 * fractal->transformCommon.constantMultiplier111.y;
+		// if (fractal->transformCommon.functionEnabled)
 		//	if (z.z > 1.0) z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		//}
-		//else
+		// else
 		//{
 		//	z.z -= 2.0 * fractal->transformCommon.constantMultiplier111.z;
 		//}
 
 		zc = fabs(zc) - boxFold;
 
-		//if(any(greaterThan(p,vec3(0.)))) r2=length(max(p,0.));
+		// if(any(greaterThan(p,vec3(0.)))) r2=length(max(p,0.));
 
-		//else r2 =max (p.x,max(p.y,p.z));
+		// else r2 =max (p.x,max(p.y,p.z));
 
-		//return r2*dd*auxSize;
+		// return r2*dd*auxSize;
 
 		CVector4 bxV = zc;
 
-		//bxV = fabs(bxV) - boxSize;
+		// bxV = fabs(bxV) - boxSize;
 		bxD = max(bxV.x, max(bxV.y, bxV.z));
 		if (bxD > 0.0)
 		{
@@ -20036,7 +20016,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 				&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
 			double absX = fabs(zc.x);
-			lenX  += absX * fractal->transformCommon.scale0;
+			lenX += absX * fractal->transformCommon.scale0;
 		}
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
@@ -20045,7 +20025,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			double absY = fabs(zc.y);
 			lenY += absY * fractal->transformCommon.scaleA0;
 		}
-		CVector3 q = CVector3(max(abs(zc.y) - lenY, 0.0), max(abs(zc.x) - lenX, 0.0), zc.z );
+		CVector3 q = CVector3(max(abs(zc.y) - lenY, 0.0), max(abs(zc.x) - lenX, 0.0), zc.z);
 		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
 		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
 		aux.dist = min(aux.dist, streD / aux.DE);
@@ -20070,7 +20050,3 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			aux.color += colorAdd;
 	}
 }
-
-
-
-

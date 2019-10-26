@@ -191,7 +191,6 @@ REAL4 DIFSBoxDiagonalV3Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			bxV.z = max(bxV.z, 0.0f);
 			bxD = length(bxV);
 		}
-
 		aux->dist = min(aux->dist, native_divide(bxD, aux->DE));
 	}
 

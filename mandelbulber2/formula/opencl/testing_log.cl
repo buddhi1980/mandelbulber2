@@ -32,6 +32,7 @@ REAL4 TestingLogIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxC
 				&& aux->i < fractal->transformCommon.stopIterationsZ)
 			z.z = fabs(z.z);
 	}
+
 	REAL r = aux->r;
 	REAL de1 = 0.0f;
 	REAL de2 = 0.0f;

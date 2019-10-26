@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>4667</height>
+    <width>823</width>
+    <height>4095</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -680,14 +680,14 @@
         <item row="1" column="2">
          <widget class="QLabel" name="label_51">
           <property name="text">
-           <string>Stop Scale at iteration:</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start Scale at iteration:</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
@@ -793,7 +793,7 @@
            <item>
             <widget class="QLabel" name="label_74">
              <property name="text">
-              <string>Start vary iter. count =</string>
+              <string>Start iter. count =</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -822,7 +822,7 @@
            <item>
             <widget class="QLabel" name="label_59">
              <property name="text">
-              <string>Stop vary at iter. count =</string>
+              <string>Stop at iter. count =</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1101,14 +1101,14 @@
         <item row="0" column="0">
          <widget class="QLabel" name="label_250">
           <property name="text">
-           <string>Start Rotation at iteration:</string>
+           <string>Start at iteration:</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Stop Rotation at iteration:</string>
+           <string>Stop at iteration:</string>
           </property>
          </widget>
         </item>

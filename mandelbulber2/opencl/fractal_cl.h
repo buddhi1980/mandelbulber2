@@ -90,7 +90,7 @@ typedef struct
 	cl_float4 c;
 	cl_float4 const_c;
 	cl_float4 old_z;
-	// CVector4 sum_z;
+	// cl_float4 sum_z;
 	cl_float pos_neg;
 	cl_float cw;
 
@@ -504,9 +504,11 @@ typedef struct
 	cl_float offsetR0;
 	cl_float offset0005;
 	cl_float offset05;
+	cl_float offsetA05;
 	cl_float offset1;
 	cl_float offsetA1;
 	cl_float offsetR1;
+	cl_float offsetT1;
 	cl_float offset105;
 	cl_float offset2;
 	cl_float offsetA2;
@@ -751,6 +753,7 @@ typedef struct
 	cl_int functionEnabledEFalse;
 	cl_int functionEnabledFFalse;
 	cl_int functionEnabledGFalse;
+	cl_int functionEnabledIFalse;
 	cl_int functionEnabledJFalse;
 	cl_int functionEnabledKFalse;
 	cl_int functionEnabledM;
@@ -1223,9 +1226,11 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offsetR0 = source.offsetR0;
 	target.offset0005 = source.offset0005;
 	target.offset05 = source.offset05;
+	target.offsetA05 = source.offsetA05;
 	target.offset1 = source.offset1;
 	target.offsetA1 = source.offsetA1;
 	target.offsetR1 = source.offsetR1;
+	target.offsetT1 = source.offsetT1;
 	target.offset105 = source.offset105;
 	target.offset2 = source.offset2;
 	target.offsetA2 = source.offsetA2;
@@ -1459,6 +1464,7 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledEFalse = source.functionEnabledEFalse;
 	target.functionEnabledFFalse = source.functionEnabledFFalse;
 	target.functionEnabledGFalse = source.functionEnabledGFalse;
+	target.functionEnabledIFalse = source.functionEnabledIFalse;
 	target.functionEnabledJFalse = source.functionEnabledJFalse;
 	target.functionEnabledKFalse = source.functionEnabledKFalse;
 	target.functionEnabledM = source.functionEnabledM;
