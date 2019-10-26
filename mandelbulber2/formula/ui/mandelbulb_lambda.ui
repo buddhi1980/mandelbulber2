@@ -879,14 +879,11 @@
     </widget>
    </item>
    <item>
-    <widget class="MyGroupBox" name="groupCheck_analyticDE_enabled_false">
+    <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Analytic D&amp;E tweak controls</string>
+      <string>Analytic DE controls</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0">
+     <layout class="QVBoxLayout" name="verticalLayout_3" stretch="0">
       <property name="spacing">
        <number>2</number>
       </property>
@@ -903,11 +900,11 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QGridLayout" name="gridLayout_27" columnstretch="0,0,1">
+       <layout class="QGridLayout" name="gridLayout_8" columnstretch="0,1">
         <property name="spacing">
          <number>2</number>
         </property>
-        <item row="1" column="2">
+        <item row="1" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_offset_0">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -935,7 +932,21 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_177">
+          <property name="text">
+           <string>offset0:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_182">
+          <property name="text">
+           <string>scale1:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_analyticDE_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -963,20 +974,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="0" colspan="2">
-         <widget class="QLabel" name="label_182">
-          <property name="text">
-           <string>scale1:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label_177">
-          <property name="text">
-           <string>offset0:</string>
-          </property>
-         </widget>
-        </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_183">
           <property name="text">
@@ -984,7 +981,7 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1" colspan="2">
+        <item row="2" column="1">
          <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleC_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">

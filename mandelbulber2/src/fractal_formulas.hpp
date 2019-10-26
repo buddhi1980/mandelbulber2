@@ -348,7 +348,7 @@ void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 
 void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
+void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
