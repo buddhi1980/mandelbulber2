@@ -1109,7 +1109,9 @@ void ImageFileSaveEXR::SaveEXR(
 	Imf::Header header(width, height);
 	Imf::FrameBuffer frameBuffer;
 
-	header.compression() = Imf::ZIP_COMPRESSION;
+	//compress each scan line on its own. This gives a good compression / read performance tradeoff
+	header.compression() = Imf::ZIPS_COMPRESSION;
+
 	bool linear = gPar->Get<bool>("linear_colorspace");
 
 	if (imageConfig.contains(IMAGE_CONTENT_COLOR))
