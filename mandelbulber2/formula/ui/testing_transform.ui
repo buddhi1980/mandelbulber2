@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>testing_transform</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -175,14 +175,14 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_281">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_282">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -980,7 +980,7 @@
         <item>
          <widget class="QLabel" name="label_67">
           <property name="text">
-           <string>Start Scale at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
@@ -1006,7 +1006,7 @@
         <item>
          <widget class="QLabel" name="label_52">
           <property name="text">
-           <string>Stop Scale at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -1099,7 +1099,7 @@
            <item>
             <widget class="QLabel" name="label_75">
              <property name="text">
-              <string>Start vary iter. count =</string>
+              <string>start iteration=</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1128,7 +1128,7 @@
            <item>
             <widget class="QLabel" name="label_60">
              <property name="text">
-              <string>Stop vary at iter. count =</string>
+              <string>stop iteration=</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1394,7 +1394,7 @@
         <item>
          <widget class="QLabel" name="label_250">
           <property name="text">
-           <string>Start Rotation at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
@@ -1414,7 +1414,7 @@
         <item>
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Stop Rotation at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -1613,14 +1613,14 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1,0,1">
         <property name="topMargin">
          <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="label_80">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1649,7 +1649,7 @@
         <item>
          <widget class="QLabel" name="label_65">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1863,14 +1863,14 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0,1">
         <property name="topMargin">
          <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="label_78">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1899,7 +1899,7 @@
         <item>
          <widget class="QLabel" name="label_63">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2005,7 +2005,7 @@
         <item>
          <widget class="QLabel" name="label_77">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2034,7 +2034,7 @@
         <item>
          <widget class="QLabel" name="label_62">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2217,14 +2217,14 @@
        <number>2</number>
       </property>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,1,0,1">
         <property name="topMargin">
          <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="label_79">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -2253,7 +2253,7 @@
         <item>
          <widget class="QLabel" name="label_64">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>difs_cylinder</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>4095</height>
+    <height>5991</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -175,14 +175,14 @@
         <item row="0" column="1">
          <widget class="QLabel" name="label_281">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
         <item row="0" column="2">
          <widget class="QLabel" name="label_282">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -945,7 +945,7 @@
         <item>
          <widget class="QLabel" name="label_66">
           <property name="text">
-           <string>Start at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
@@ -971,7 +971,7 @@
         <item>
          <widget class="QLabel" name="label_51">
           <property name="text">
-           <string>Stop at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -1064,7 +1064,7 @@
            <item>
             <widget class="QLabel" name="label_74">
              <property name="text">
-              <string>Start at iter. count</string>
+              <string>start iteration=</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1093,7 +1093,7 @@
            <item>
             <widget class="QLabel" name="label_59">
              <property name="text">
-              <string>Stop at iter. count</string>
+              <string>stop iteration=</string>
              </property>
              <property name="wordWrap">
               <bool>true</bool>
@@ -1359,7 +1359,7 @@
         <item>
          <widget class="QLabel" name="label_250">
           <property name="text">
-           <string>Start Rotation at iteration:</string>
+           <string>start iteration=</string>
           </property>
          </widget>
         </item>
@@ -1379,7 +1379,7 @@
         <item>
          <widget class="QLabel" name="label_251">
           <property name="text">
-           <string>Stop Rotation at iteration:</string>
+           <string>stop iteration=</string>
           </property>
          </widget>
         </item>
@@ -1551,7 +1551,7 @@
         <item>
          <widget class="QLabel" name="label_79">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1580,7 +1580,7 @@
         <item>
          <widget class="QLabel" name="label_64">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1767,7 +1767,7 @@
      <item row="0" column="1">
       <widget class="QLabel" name="label_283">
        <property name="text">
-        <string>Start at iteration:</string>
+        <string>start iteration=</string>
        </property>
       </widget>
      </item>
@@ -1839,7 +1839,7 @@
      <item row="0" column="2">
       <widget class="QLabel" name="label_284">
        <property name="text">
-        <string>Stop at iteration:</string>
+        <string>stop iteration=</string>
        </property>
       </widget>
      </item>
@@ -1968,7 +1968,7 @@
         <item>
          <widget class="QLabel" name="label_80">
           <property name="text">
-           <string>Start iter. count =</string>
+           <string>start iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>
@@ -1997,7 +1997,7 @@
         <item>
          <widget class="QLabel" name="label_65">
           <property name="text">
-           <string>Stop at iter. count =</string>
+           <string>stop iteration=</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>

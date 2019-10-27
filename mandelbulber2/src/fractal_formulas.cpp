@@ -20050,3 +20050,234 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			aux.color += colorAdd;
 	}
 }
+
+/**
+ * DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and  darkbeams optimized verion @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * "Beautiful iso-surface made of a hexagonal grid of tubes.
+ * Taken from K3DSurf forum, posted by user abdelhamid belaid."
+ */
+void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	double colorAdd = 0.0;
+	CVector4 oldZ = z;
+	CVector4 boxFold = fractal->transformCommon.additionConstantA111;
+
+	// abs z
+	if (fractal->transformCommon.functionEnabledAx
+			&& aux.i >= fractal->transformCommon.startIterationsX
+			&& aux.i < fractal->transformCommon.stopIterationsX)
+		z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledAy
+			&& aux.i >= fractal->transformCommon.startIterationsY
+			&& aux.i < fractal->transformCommon.stopIterationsY)
+		z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledAzFalse
+			&& aux.i >= fractal->transformCommon.startIterationsZ
+			&& aux.i < fractal->transformCommon.stopIterationsZ)
+		z.z = fabs(z.z);
+	// folds
+	if (fractal->transformCommon.functionEnabledFalse)
+	{
+		// xy box fold
+		if (fractal->transformCommon.functionEnabledAFalse
+				&& aux.i >= fractal->transformCommon.startIterationsA
+				&& aux.i < fractal->transformCommon.stopIterationsA)
+		{
+			z.x -= boxFold.x;
+			z.y -= boxFold.y;
+		}
+		// xyz box fold
+		if (fractal->transformCommon.functionEnabledBFalse
+				&& aux.i >= fractal->transformCommon.startIterationsB
+				&& aux.i < fractal->transformCommon.stopIterationsB)
+			z -= boxFold;
+		// polyfold
+		if (fractal->transformCommon.functionEnabledPFalse
+				&& aux.i >= fractal->transformCommon.startIterationsP
+				&& aux.i < fractal->transformCommon.stopIterationsP)
+		{
+			z.x = fabs(z.x);
+			int poly = fractal->transformCommon.int6;
+			double psi = fabs(fmod(atan(z.y / z.x) + M_PI / poly, M_PI / (0.5 * poly)) - M_PI / poly);
+			double len = sqrt(z.x * z.x + z.y * z.y);
+			z.x = cos(psi) * len;
+			z.y = sin(psi) * len;
+		}
+		// diag fold1
+		if (fractal->transformCommon.functionEnabledCxFalse
+				&& aux.i >= fractal->transformCommon.startIterationsCx
+				&& aux.i < fractal->transformCommon.stopIterationsCx)
+			if (z.x > z.y) swap(z.x, z.y);
+		// abs offsets
+		if (fractal->transformCommon.functionEnabledCFalse
+				&& aux.i >= fractal->transformCommon.startIterationsC
+				&& aux.i < fractal->transformCommon.stopIterationsC)
+		{
+			double xOffset = fractal->transformCommon.offsetC0;
+			if (z.x < xOffset) z.x = fabs(z.x - xOffset) + xOffset;
+		}
+		if (fractal->transformCommon.functionEnabledDFalse
+				&& aux.i >= fractal->transformCommon.startIterationsD
+				&& aux.i < fractal->transformCommon.stopIterationsD)
+		{
+			double yOffset = fractal->transformCommon.offsetD0;
+			if (z.y < yOffset) z.y = fabs(z.y - yOffset) + yOffset;
+		}
+		// diag fold2
+		if (fractal->transformCommon.functionEnabledCyFalse
+				&& aux.i >= fractal->transformCommon.startIterationsCy
+				&& aux.i < fractal->transformCommon.stopIterationsCy)
+			if (z.x > z.y) swap(z.x, z.y);
+	}
+
+	// reverse offset part 1
+	if (aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+		z.x -= fractal->transformCommon.offsetE2;
+
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
+		z.y -= fractal->transformCommon.offsetF2;
+
+	// scale
+	double useScale = 1.0;
+	if (aux.i >= fractal->transformCommon.startIterationsS
+			&& aux.i < fractal->transformCommon.stopIterationsS)
+	{
+		useScale = aux.actualScaleA + fractal->transformCommon.scale2;
+		z *= useScale;
+		aux.DE = aux.DE * fabs(useScale) + 1.0;
+		// scale vary
+		if (fractal->transformCommon.functionEnabledKFalse
+				&& aux.i >= fractal->transformCommon.startIterationsK
+				&& aux.i < fractal->transformCommon.stopIterationsK)
+		{
+			// update actualScaleA for next iteration
+			double vary = fractal->transformCommon.scaleVary0
+										* (fabs(aux.actualScaleA) - fractal->transformCommon.scaleC1);
+			if (fractal->transformCommon.functionEnabledCzFalse)
+				aux.actualScaleA = -vary;
+			else
+				aux.actualScaleA = aux.actualScaleA - vary;
+		}
+	}
+
+	// reverse offset part 2
+	if (aux.i >= fractal->transformCommon.startIterationsE
+			&& aux.i < fractal->transformCommon.stopIterationsE)
+		z.x += fractal->transformCommon.offsetE2;
+
+	if (aux.i >= fractal->transformCommon.startIterationsF
+			&& aux.i < fractal->transformCommon.stopIterationsF)
+		z.y += fractal->transformCommon.offsetF2;
+
+	// offset
+	z += fractal->transformCommon.offset001;
+
+	// rotation
+	if (fractal->transformCommon.functionEnabledRFalse
+			&& aux.i >= fractal->transformCommon.startIterationsR
+			&& aux.i < fractal->transformCommon.stopIterationsR)
+	{
+		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
+	}
+
+	// DE
+	double colorDist = aux.dist;
+	CVector4 zc = oldZ;
+
+	// Hextgrid2
+	if (aux.i >= fractal->transformCommon.startIterations
+			&& aux.i < fractal->transformCommon.stopIterations)
+	{
+		/*double torD;
+		// swap axis
+		if (!fractal->transformCommon.functionEnabledSwFalse)
+		{
+			double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+		}
+		else
+		{
+			double T1 = sqrt(zc.y * zc.y + zc.z * zc.z) - fractal->transformCommon.offsetT1;
+			torD = sqrt(T1 * T1 + zc.x * zc.x) - fractal->transformCommon.offset05;
+		}*/
+
+		double cosPi6 = cos(M_PI / 6.0);
+		double yFloor = fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0);
+
+		/*double hexD =
+		pow(min(max(fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0),
+		fabs(zc.x - 3.0 / cosPi6 * floor(zc.x / 3.0 * cosPi6 + 0.5))
+		* cosPi6
+		+ fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0) * sin(M_PI / 6.0))
+		- 1.0,
+		fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0)),
+		2.0)
+		+ zc.z * zc.z - fractal->transformCommon.offset0005; //0.0225;*/
+
+
+		double hexD =
+		pow(min(max(yFloor,
+		fabs(zc.x - 3.0 / cosPi6 * floor(zc.x / 3.0 * cosPi6 + 0.5))
+		* cosPi6
+		+ yFloor * sin(M_PI / 6.0))
+		- 1.0,
+		yFloor),
+		2.0)
+		+ zc.z * zc.z - fractal->transformCommon.offset0005; //0.0225;
+
+
+
+		aux.dist = min(aux.dist, hexD / aux.DE);
+	}
+
+	// Torus - stretched
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		double lenX = fractal->transformCommon.offset1;
+		double lenY = fractal->transformCommon.offsetA0;
+		if (fractal->transformCommon.functionEnabledNFalse
+				&& aux.i >= fractal->transformCommon.startIterationsN
+				&& aux.i < fractal->transformCommon.stopIterationsN)
+		{
+			double absX = fabs(zc.x);
+			lenX += absX * fractal->transformCommon.scale0;
+		}
+		if (fractal->transformCommon.functionEnabledOFalse
+				&& aux.i >= fractal->transformCommon.startIterationsO
+				&& aux.i < fractal->transformCommon.stopIterationsO)
+		{
+			double absY = fabs(zc.y);
+			lenY += absY * fractal->transformCommon.scaleA0;
+		}
+		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
+		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
+		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
+		aux.dist = min(aux.dist, streD / aux.DE);
+	}
+
+	// aux.color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
+			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux.dist) aux.color += colorAdd;
+		}
+		else
+			aux.color += colorAdd;
+	}
+}
+

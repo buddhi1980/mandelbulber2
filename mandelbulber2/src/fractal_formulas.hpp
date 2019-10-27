@@ -345,6 +345,7 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
