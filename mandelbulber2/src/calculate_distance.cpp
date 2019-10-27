@@ -289,6 +289,9 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 				distance = in.detailSize * 1.01;
 			}
 		}
+
+		if (distance < 0.0) distance = 0.0;
+		if (distance > 10.0) distance = 10.0;
 	}
 	else
 	{
@@ -406,6 +409,9 @@ double CalculateDistanceSimple(const sParamRender &params, const cNineFractals &
 				distance = in.detailSize * 1.01;
 			}
 		}
+
+		if (distance < 0.0) distance = 0.0;
+		if (distance > 10.0) distance = 10.0;
 	}
 
 	return distance;

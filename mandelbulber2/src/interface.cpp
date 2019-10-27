@@ -1736,7 +1736,7 @@ void cInterface::ResetView()
 	sParamRender *params = new sParamRender(gPar);
 	cNineFractals *fractals = new cNineFractals(gParFractal, gPar);
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		cProgressText::ProgressStatusText(QObject::tr("Resetting view"),
 			QObject::tr("Fractal size calculation"), i / 50.0, cProgressText::progress_IMAGE);
@@ -1757,7 +1757,7 @@ void cInterface::ResetView()
 				break;
 			}
 			distStep = dist * DEFactor * 0.5;
-			if (distStep > 5.0) distStep = 5.0;
+			if (distStep > 1.0) distStep = 1.0;
 			// qDebug() << "i" << i << "scan" << scan << "direction" << direction.Debug();
 		}
 		if (scan > maxDist) maxDist = scan;
