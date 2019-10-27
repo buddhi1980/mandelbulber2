@@ -203,6 +203,7 @@ void RenderWindow::slotMenuAboutHotKeys()
 	text += " <tr><th>" + ctrlBadge + " + M</th><td>" + tr("Export Mesh") + "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + P</th><td>" + tr("Program Preferences") + "</td></tr>";
 	text += " <tr><th>" + ctrlBadge + " + Q</th><td>" + tr("Quit") + "</td></tr>";
+	text += " <tr><th>F11</th><td>" + tr("Full screen") + "</td></tr>";
 	text += "</table>";
 
 	text += "<table style='margin-top: 10px;' border='1'>";

@@ -25,26 +25,28 @@ REAL4 TransfAddConstantMod1Iteration(REAL4 z, __constant sFractalCl *fractal, sE
 	{
 		REAL4 temp = fractal->transformCommon.additionConstant000;
 		REAL4 temp2 = temp * temp;
-		REAL4 temp3 = z * z * fractal->transformCommon.scaleA1;
-		z.x -= (native_divide((temp.x * temp2.x), (temp3.x + temp2.x)) - 2.0f * temp.x)
+		REAL4 z2 = z * z * fractal->transformCommon.scaleA1;
+		z.x -= (native_divide((temp.x * temp2.x), (z2.x + temp2.x)) - 2.0f * temp.x)
 					 * fractal->transformCommon.scale1;
-		z.y -= (native_divide((temp.y * temp2.y), (temp3.y + temp2.y)) - 2.0f * temp.y)
+		z.y -= (native_divide((temp.y * temp2.y), (z2.y + temp2.y)) - 2.0f * temp.y)
 					 * fractal->transformCommon.scale1;
-		z.z -= (native_divide((temp.z * temp2.z), (temp3.z + temp2.z)) - 2.0f * temp.z)
+		z.z -= (native_divide((temp.z * temp2.z), (z2.z + temp2.z)) - 2.0f * temp.z)
 					 * fractal->transformCommon.scale1;
 	}
+
 	else if (fractal->transformCommon.functionEnabledByFalse
 					 && aux->i >= fractal->transformCommon.startIterationsX
 					 && aux->i < fractal->transformCommon.stopIterationsX)
 	{
 		REAL4 temp = fractal->transformCommon.additionConstant000;
 		REAL4 temp2 = temp * temp;
-		REAL4 temp3 = z * z * fractal->transformCommon.scaleA1;
-		z.x -= (native_divide((temp2.x), (temp3.x + temp2.x)) - 2.0f * temp.x)
+		REAL4 z2 = z * z * fractal->transformCommon.scaleA1;
+
+		z.x -= (native_divide((temp2.x), (z2.x + temp2.x)) - 2.0f * temp.x)
 					 * fractal->transformCommon.scale1; // * sign(z.x);
-		z.y -= (native_divide((temp2.y), (temp3.y + temp2.y)) - 2.0f * temp.y)
+		z.y -= (native_divide((temp2.y), (z2.y + temp2.y)) - 2.0f * temp.y)
 					 * fractal->transformCommon.scale1; // * sign(z.y);
-		z.z -= (native_divide((temp2.z), (temp3.z + temp2.z)) - 2.0f * temp.z)
+		z.z -= (native_divide((temp2.z), (z2.z + temp2.z)) - 2.0f * temp.z)
 					 * fractal->transformCommon.scale1; // * sign(z.z);
 	}
 	return z;

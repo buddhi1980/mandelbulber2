@@ -132,10 +132,11 @@ private:
 
 public:
 	const QStringList listOfAppSettingToTransfer = {"opencl_mode", "color_enabled", "alpha_enabled",
-		"zbuffer_enabled", "normal_enabled", "normalWorld_enabled", "specular_enabled", "diffuse_enabled", "world_enabled",
-		"color_quality", "alpha_quality", "zbuffer_quality", "normal_postfix", "specular_postfix",
-		"diffuse_postfix", "world_postfix", "append_alpha_png", "linear_colorspace", "jpeg_quality",
-		"stereoscopic_in_separate_files", "optional_image_channels_enabled",
+		"zbuffer_enabled", "normal_enabled", "normalWorld_enabled", "specular_enabled",
+		"diffuse_enabled", "world_enabled", "color_quality", "alpha_quality", "zbuffer_quality",
+		"normal_postfix", "specular_postfix", "diffuse_postfix", "world_postfix", "append_alpha_png",
+		"linear_colorspace", "jpeg_quality", "stereoscopic_in_separate_files",
+		"save_channels_in_separate_folders", "optional_image_channels_enabled",
 		"flight_animation_image_type", "keyframe_animation_image_type"};
 };
 

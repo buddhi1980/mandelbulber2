@@ -55,6 +55,7 @@ class cFractalContainer;
 class cParameterContainer;
 class MyTableWidgetKeyframes;
 class RenderedImage;
+class cRenderJob;
 
 namespace Ui
 {
@@ -68,6 +69,15 @@ class cKeyframeAnimation : public QObject
 public:
 	static const int reservedColumns = 1;
 	static const int animSoundColumn = 0;
+
+	struct sFrameRanges
+	{
+		int startFrame;
+		int endFrame;
+		int framesPerKeyframe;
+		int totalFrames;
+		int unrenderedTotalBeforeRender;
+	};
 
 	cKeyframeAnimation(cInterface *_interface, cKeyframes *_frames, cImage *_image,
 		QWidget *_imageWidget, cParameterContainer *_params, cFractalContainer *_fractal,
@@ -128,6 +138,17 @@ private:
 	void AddAnimSoundColumn() const;
 	void UpdateAnimationPath() const;
 	void UpdateCameraDistanceInformation() const;
+	QSharedPointer<cRenderJob> PrepareRenderJob(bool *stopRequest);
+	bool InitFrameRanges(sFrameRanges *frameRanges);
+	void InitFrameMarkers(const sFrameRanges &frameRanges);
+	void VerifyAnimation(bool *stopRequest);
+	void CheckWhichFramesAreAlreadyRendered(const sFrameRanges &frameRanges);
+	bool AllFramesAlreadyRendered(const sFrameRanges &frameRanges, bool *startRenderKeyframesAgain);
+	void InitJobsForClients(const sFrameRanges &frameRanges);
+	void UpdateCameraAndTarget();
+	void ConfirmAndSendRenderedFrames(const int frameIndex, const QStringList &listOfSavedFiles);
+	void UpadeProgressInformation(
+		const sFrameRanges &frameRanges, cProgressText *progressText, const int frameIndex, int index);
 
 	cInterface *mainInterface;
 	Ui::cDockAnimation *ui;
@@ -150,6 +171,7 @@ private:
 	const int maxFramesForNetRender = 50;
 	const int minFramesForNetRender = 5;
 	bool animationStopRequest = false;
+	bool animationIsRendered = false;
 
 signals:
 	void updateProgressAndStatus(const QString &text, const QString &progressText, double progress,

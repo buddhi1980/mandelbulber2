@@ -112,8 +112,33 @@ void cNetRenderFileSender::sendFileOverNetrender(const QString &fileName)
 			sendingInProgress = true;
 			lastChunk = false;
 
-			QString nameWithoutPath = QFileInfo(fileName).fileName();
-			emit NetRenderSendHeader(fileSize, nameWithoutPath);
+			qDebug() << "fileName" << fileName;
+
+			// extract name of folder for image layers
+			QString nameWithoutNetRenderFolder = fileName;
+			nameWithoutNetRenderFolder.remove(systemData.GetNetrenderFolder() + QDir::separator());
+			qDebug() << "systemData.GetNetrenderFolder() + QDir::separator()"
+							 << systemData.GetNetrenderFolder() + QDir::separator();
+			qDebug() << "nameWithoutNetRenderFolder" << nameWithoutNetRenderFolder;
+
+			QString onlyFileName = QFileInfo(fileName).fileName();
+			qDebug() << "onlyFileName" << onlyFileName;
+
+			QString separateFolderName = nameWithoutNetRenderFolder;
+			separateFolderName.remove(onlyFileName);
+			qDebug() << "separateFolderName" << separateFolderName;
+
+			// encapsulation of name of folder
+			QString fileNameForHeader = onlyFileName;
+			if (separateFolderName.length() > 1)
+			{
+				separateFolderName = separateFolderName.mid(0, separateFolderName.length() - 1);
+				qDebug() << "separateFolderName2" << separateFolderName;
+				fileNameForHeader = QString("DIR[%1]%2").arg(separateFolderName).arg(onlyFileName);
+				qDebug() << "fileNameForHeader" << fileNameForHeader;
+			}
+
+			emit NetRenderSendHeader(fileSize, fileNameForHeader);
 		}
 		else
 		{

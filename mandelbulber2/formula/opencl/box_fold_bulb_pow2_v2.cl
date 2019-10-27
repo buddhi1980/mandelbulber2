@@ -90,7 +90,7 @@ REAL4 BoxFoldBulbPow2V2Iteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			aux->r * aux->DE * 16.0f * fractal->analyticDE.scale1
 				* native_divide(native_sqrt(fractal->foldingIntPow.zFactor * fractal->foldingIntPow.zFactor
 																		+ 2.0f + fractal->analyticDE.offset2),
-						SQRT_3)
+					SQRT_3)
 			+ fractal->analyticDE.offset1;
 
 		z *= 2.0f;

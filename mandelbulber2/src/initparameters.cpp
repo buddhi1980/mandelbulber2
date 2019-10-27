@@ -818,22 +818,21 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_offsetE_0", 0.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetF_0", 0.0, morphAkima, paramStandard);
 
-
 	par->addParam("transf_offsetR_0", 0.0, morphAkima, paramStandard);
-
-
-
-
 
 	par->addParam("transf_offset_0005", 0.005, morphAkima, paramStandard);
 	par->addParam("transf_offset_05", 0.5, morphAkima, paramStandard);
+	par->addParam("transf_offsetA_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetA_1", 1.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetR_1", 1.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetT_1", 1.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_105", 1.5, morphAkima, paramStandard);
 	par->addParam("transf_offset_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetA_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetE_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_offsetF_2", 2.0, morphAkima, paramStandard);
+	par->addParam("transf_offsetR_2", 2.0, morphAkima, paramStandard);
 	par->addParam("transf_offset_4", 4.0, morphAkima, paramStandard);
 	par->addParam("transf_pwr_05", 0.5, morphAkima, paramStandard);
 	par->addParam("transf_pwr_4", 4.0, morphAkima, paramStandard);
@@ -1090,6 +1089,7 @@ void InitFractalParams(cParameterContainer *par)
 	par->addParam("transf_function_enabledE_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledF_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledG_false", false, morphLinear, paramStandard);
+	par->addParam("transf_function_enabledI_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledJ_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledK_false", false, morphLinear, paramStandard);
 	par->addParam("transf_function_enabledM", true, morphLinear, paramStandard);

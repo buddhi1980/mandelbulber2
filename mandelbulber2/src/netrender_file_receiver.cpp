@@ -19,9 +19,20 @@ void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, qint64 _size, QStrin
 	if (!fileInfos.contains(clientIndex)) fileInfos.insert(clientIndex, sFileInfo());
 
 	QString receivedFileName = _fileName;
+
+	QString dirName;
+
+	if (receivedFileName.left(4) == "DIR[")
+	{
+		int posOfBracket = receivedFileName.indexOf("]");
+		dirName = receivedFileName.mid(4, posOfBracket - 1 - 3);
+		receivedFileName = receivedFileName.mid(posOfBracket + 1);
+	}
+
 	int firstDash = receivedFileName.indexOf('_');
 	QString fileName = receivedFileName.mid(firstDash + 1);
-	QString fullFilePath = systemData.GetNetrenderFolder() + QDir::separator() + fileName;
+
+	QString fullFilePath = systemData.GetNetrenderFolder() + QDir::separator() + dirName + fileName;
 
 	QFile file(fullFilePath);
 	if (file.open(QIODevice::WriteOnly))
@@ -30,6 +41,7 @@ void cNetRenderFileReceiver::ReceiveHeader(int clientIndex, qint64 _size, QStrin
 
 		fileInfo.fileSize = _size;
 		fileInfo.receivingStarted = true;
+		fileInfo.dirName = dirName;
 		fileInfo.chunkIndex = 0;
 		fileInfo.fileName = fileName;
 		fileInfo.fullFilePathInCache = fullFilePath;
@@ -74,7 +86,27 @@ void cNetRenderFileReceiver::ReceiveChunk(int clientIndex, int chunkIndex, QByte
 				if (bytesLeft == expectedChunkSize)
 				{
 					fileInfo.receivingStarted = false;
-					QString destFileName = gPar->Get<QString>("anim_keyframe_dir") + fileInfo.fileName;
+
+					QString destFileName;
+
+					if (fileInfo.dirName.isEmpty())
+					{
+						destFileName = gPar->Get<QString>("anim_keyframe_dir") + fileInfo.fileName;
+					}
+					else
+					{
+						QDir dir(gPar->Get<QString>("anim_keyframe_dir"));
+						if (dir.exists())
+						{
+							if (!dir.exists(fileInfo.dirName))
+							{
+								dir.mkdir(fileInfo.dirName);
+							}
+						}
+						destFileName = gPar->Get<QString>("anim_keyframe_dir") + fileInfo.dirName
+													 + QDir::separator() + fileInfo.fileName;
+					}
+
 					file.copy(destFileName);
 					file.remove();
 				}

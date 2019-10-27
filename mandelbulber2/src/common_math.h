@@ -69,6 +69,13 @@ inline T clamp(T x, T min, T max)
 	return qBound(min, x, max);
 }
 
+// reference: https://www.iquilezles.org/www/articles/smin/smin.htm
+inline double smoothMin(double a, double b, double k)
+{
+	double h = std::max(k - fabs(a - b), 0.0) / k;
+	return std::min(a, b) - h * h * h * k * (1.0 / 6.0);
+}
+
 // polynomial smooth min;
 // reference: http://www.iquilezles.org/www/articles/smin/smin.htm
 inline double dsmin(double a, double b, double k = 1)

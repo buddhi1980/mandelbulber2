@@ -7,8 +7,15 @@ v2.20
    riemannSphereHoboldMulti
    mandelbulbKosalos
    mandelbulbKosalosV2
+   mandelbulbLambda
    transfAddConstantMod2
    transfAddConstantRotV1
+   dIFSBoxDiagonalV1
+   dIFSBoxV1
+   dIFSCylinder
+   dIFSSphere
+   dIFSEllipsoid
+   dIFSTorus
 
 - modified fractal formulas
    boxFoldBulbPow2V3, added sphere invert

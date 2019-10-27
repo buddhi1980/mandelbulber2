@@ -796,6 +796,12 @@ bool cSettings::DecodeOneLine(cParameterContainer *par, QString line)
 		}
 	}
 
+	if (parameterName.left(15) == "flightanimsound")
+	{
+		// ignore this line from settings
+		return true;
+	}
+
 	enumVarType varType = par->GetVarType(parameterName);
 
 	if (varType == typeNull)

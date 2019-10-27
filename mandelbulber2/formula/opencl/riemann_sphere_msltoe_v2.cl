@@ -17,8 +17,6 @@
 
 REAL4 RiemannSphereMsltoeV2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	Q_UNUSED(aux);
-
 	REAL theta = 0.0f;
 	REAL phi = 0.0f;
 	REAL rx;

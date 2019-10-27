@@ -18,14 +18,11 @@ REAL4 MengerSmoothIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAu
 {
 	REAL sc1 = fractal->transformCommon.scale3 - 1.0f;							// 3 - 1 = 2f, 2/3 = 0.6667f;
 	REAL sc2 = native_divide(sc1, fractal->transformCommon.scale3); //  8 - 1 = 7f, 7/8 = 0.89ish;
-	REAL OffsetS = fractal->transformCommon.offset0005;							//
+	REAL OffsetS = fractal->transformCommon.offset0005;
 
-	if (fractal->transformCommon.functionEnabled)
-	{
-		// the closer to origin the greater the effect of OffsetSQ
-		z = (REAL4){native_sqrt(mad(z.x, z.x, OffsetS)), native_sqrt(mad(z.y, z.y, OffsetS)),
-			native_sqrt(mad(z.z, z.z, OffsetS)), z.w};
-	}
+	// the closer to origin the greater the effect of OffsetSQ
+	z = (REAL4){native_sqrt(mad(z.x, z.x, OffsetS)), native_sqrt(mad(z.y, z.y, OffsetS)),
+		native_sqrt(mad(z.z, z.z, OffsetS)), z.w};
 
 	REAL t;
 	REAL4 OffsetC = fractal->transformCommon.offset1105;

@@ -72,8 +72,6 @@ cNetRender::cNetRender() : QObject(nullptr)
 	connect(netRenderClient, &CNetRenderClient::ToDoListArrived, this, &cNetRender::ToDoListArrived);
 	connect(netRenderClient, &CNetRenderClient::AckReceived, this, &cNetRender::AckReceived);
 	connect(netRenderClient, &CNetRenderClient::NotifyStatus, this, &cNetRender::NotifyStatus);
-	connect(netRenderClient, &CNetRenderClient::KeyframeAnimationRender, this,
-		&cNetRender::KeyframeAnimationRender);
 	connect(
 		netRenderClient, &CNetRenderClient::UpdateFramesToDo, this, &cNetRender::UpdateFramesToDo);
 	connect(netRenderClient, &CNetRenderClient::animationStopRequest, this,

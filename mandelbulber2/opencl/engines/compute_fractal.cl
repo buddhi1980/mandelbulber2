@@ -133,6 +133,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	formulaOut out;
 	out.maxiter = true;
 	out.orbitTrapR = 0.0f;
+	out.colorIndex = 0.0f;
 
 	float colorMin = 1000.0;
 	float orbitTrapTotal = 0.0f;
@@ -147,7 +148,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 	aux.c = c;
 	aux.const_c = c;
 	aux.old_z = z;
-	//aux.sum_z = z;
+	// aux.sum_z = z;
 	aux.pos_neg = 1.0f;
 	aux.cw = 0.0f;
 
@@ -242,6 +243,7 @@ formulaOut Fractal(__constant sClInConstants *consts, float3 point, sClCalcParam
 			out.distance = 10.0f;
 			out.iters = 1;
 			out.z = z;
+			out.colorIndex = 0.0f;
 			return out;
 		}
 

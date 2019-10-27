@@ -36,7 +36,7 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 					(1.0f
 						- native_recip((1.0f
 														+ native_divide((aux->i - fractal->transformCommon.startIterationsA),
-																fractal->transformCommon.offset0000.x))))
+															fractal->transformCommon.offset0000.x))))
 					* fractal->transformCommon.scale1111.x;
 			}
 			z.x = fabs(z.x + limit.x) - fabs(z.x - limit.x) - z.x;
@@ -49,7 +49,7 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 					(1.0f
 						- native_recip((1.0f
 														+ native_divide((aux->i - fractal->transformCommon.startIterationsB),
-																fractal->transformCommon.offset0000.y))))
+															fractal->transformCommon.offset0000.y))))
 					* fractal->transformCommon.scale1111.y;
 			}
 			z.y = fabs(z.y + limit.y) - fabs(z.y - limit.y) - z.y;
@@ -62,7 +62,7 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 					(1.0f
 						- native_recip((1.0f
 														+ native_divide((aux->i - fractal->transformCommon.startIterationsC),
-																fractal->transformCommon.offset0000.z))))
+															fractal->transformCommon.offset0000.z))))
 					* fractal->transformCommon.scale1111.z;
 			}
 			z.z = fabs(z.z + limit.z) - fabs(z.z - limit.z) - z.z;
@@ -75,7 +75,7 @@ REAL4 TransfBoxFold4dTgladIteration(REAL4 z, __constant sFractalCl *fractal, sEx
 					(1.0f
 						- native_recip((1.0f
 														+ native_divide((aux->i - fractal->transformCommon.startIterationsD),
-																fractal->transformCommon.offset0000.w))))
+															fractal->transformCommon.offset0000.w))))
 					* fractal->transformCommon.scale1111.w;
 			}
 			z.w = fabs(z.w + limit.w) - fabs(z.w - limit.w) - z.w;

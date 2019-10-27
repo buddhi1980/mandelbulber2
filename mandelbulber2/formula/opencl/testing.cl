@@ -16,17 +16,18 @@
 
 REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *aux)
 {
-	// REAL4 oldZ = z;
-	// REAL fillet = fractal->transformCommon.offset0;
+	REAL colorAdd = 0.0f;
+
+	REAL sphere = length(z) - fractal->transformCommon.foldingLimit; // auxSize;
 	REAL4 boxSize = fractal->transformCommon.additionConstant0555;
 
-	REAL xOffset = fractal->transformCommon.offset0;
-	REAL yOffset = fractal->transformCommon.offset05;
+	// REAL4 oldZ = z;
+	// REAL fillet = fractal->transformCommon.offset0;
 
-	if (fractal->transformCommon.functionEnabledBxFalse
+	/*if (fractal->transformCommon.functionEnabledBxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsB
 			&& aux->i < fractal->transformCommon.stopIterationsB)
-		z -= boxSize;
+		z -= boxSize;*/
 
 	if (fractal->transformCommon.functionEnabledAxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsX
@@ -42,6 +43,11 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			&& aux->i >= fractal->transformCommon.startIterationsZ
 			&& aux->i < fractal->transformCommon.stopIterationsZ)
 		z.z = fabs(z.z);
+
+	if (fractal->transformCommon.functionEnabledBxFalse
+			&& aux->i >= fractal->transformCommon.startIterationsB
+			&& aux->i < fractal->transformCommon.stopIterationsB)
+		z -= boxSize;
 
 	if (fractal->transformCommon.functionEnabledCxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsJ
@@ -72,6 +78,9 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			&& aux->i < fractal->transformCommon.stopIterationsI)
 		z = z - boxSize;
 
+	REAL xOffset = fractal->transformCommon.offset0;
+	REAL yOffset = fractal->transformCommon.offset05;
+
 	if (fractal->transformCommon.functionEnabledxFalse
 			&& aux->i >= fractal->transformCommon.startIterationsA
 			&& aux->i < fractal->transformCommon.stopIterationsA)
@@ -90,15 +99,12 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			&& aux->i < fractal->transformCommon.stopIterationsF)
 		z.y -= fractal->transformCommon.offsetA1;
 
-	if (fractal->transformCommon.functionEnabledByFalse
-			&& aux->i >= fractal->transformCommon.startIterationsG
-			&& aux->i < fractal->transformCommon.stopIterationsG)
-		if (z.y > z.x)
-		{
-			REAL temp = z.x;
-			z.x = z.y;
-			z.y = temp;
-		}
+	/*	if (fractal->transformCommon.functionEnabledByFalse
+				&& aux->i >= fractal->transformCommon.startIterationsG
+				&& aux->i < fractal->transformCommon.stopIterationsG)
+			if (z.y > z.x) { REAL temp = z.x; z.x = z.y; z.y = temp; }
+
+	*/
 
 	// scale
 	REAL useScale = 1.0f;
@@ -115,14 +121,14 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			aux->DE =
 				mad(aux->DE * fabs(useScale), fractal->analyticDE.scale1, fractal->analyticDE.offset1);
 
-		if (fractal->transformCommon.functionEnabledFFalse
+		if (fractal->transformCommon.functionEnabledKFalse
 				&& aux->i >= fractal->transformCommon.startIterationsK
 				&& aux->i < fractal->transformCommon.stopIterationsK)
 		{
 			// update actualScaleA for next iteration
 			REAL vary = fractal->transformCommon.scaleVary0
 									* (fabs(aux->actualScaleA) - fractal->transformCommon.scaleC1);
-			if (fractal->transformCommon.functionEnabledMFalse)
+			if (fractal->transformCommon.functionEnabledCzFalse)
 				aux->actualScaleA = -vary;
 			else
 				aux->actualScaleA = aux->actualScaleA - vary;
@@ -140,7 +146,7 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 	{
 		z = Matrix33MulFloat4(fractal->transformCommon.rotationMatrix, z);
 	}
-
+	REAL colorDist = aux->dist;
 	REAL4 zc = z;
 
 	if (fractal->analyticDE.enabled)
@@ -158,12 +164,13 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 				zcd = length(zc);
 			}
 			aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
-			aux->dist = mad(aux->dist, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
 		}
+		if (fractal->transformCommon.functionEnabledKFalse)
+			aux->dist = min(aux->dist, native_divide(sphere, aux->DE));
 
-		else
+		/*else
 		{
-			/*REAL dist = max(z.x, max(z.y, z.z));
+			REAL dist = max(z.x, max(z.y, z.z));
 				if (dist > 0.0f)
 				{
 					zc.x = max(z.x, 0.0f);
@@ -180,20 +187,54 @@ REAL4 TestingIteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl *
 			{
 				z = zc;
 			}*/
-			/*if (fractal->transformCommon.functionEnabledFalse)
-				zc  =  fabs(zc) - boxSize;
-			REAL zcd = 1.0f;
-			zcd = max(zc.x, max(zc.y, zc.z));
-				if (zcd > 0.0f)
-				{
-					zc.x = max(zc.x, 0.0f);
-					zc.y = max(zc.y, 0.0f);
-					zc.z = max(zc.z, 0.0f);
-					zcd = length(zc);
-				}
-				aux->dist = min(aux->dist, native_divide(zcd, aux->DE));*/
-			aux->DE = mad(aux->DE, fractal->analyticDE.scale1, fractal->analyticDE.offset0);
+		/*if (fractal->transformCommon.functionEnabledFalse)
+			zc  =  fabs(zc) - boxSize;
+		REAL zcd = 1.0f;
+		zcd = max(zc.x, max(zc.y, zc.z));
+			if (zcd > 0.0f)
+			{
+				zc.x = max(zc.x, 0.0f);
+				zc.y = max(zc.y, 0.0f);
+				zc.z = max(zc.z, 0.0f);
+				zcd = length(zc);
+			}
+			aux->dist = min(aux->dist, native_divide(zcd, aux->DE)); //
+		if (fractal->transformCommon.functionEnabledBx) zc = fabs(zc) - boxSize;
+		REAL zcd = 1.0f;
+		zcd = max(zc.x, max(zc.y, zc.z));
+		if (zcd > 0.0f)
+		{
+			zc.x = max(zc.x, 0.0f);
+			zc.y = max(zc.y, 0.0f);
+			zc.z = max(zc.z, 0.0f);
+			zcd = length(zc);
 		}
+		aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
+		REAL distDE = native_divide((length(z)), aux->DE);
+		aux->dist =
+			mad((1.0f - native_powr(1.0f - fractal->transformCommon.scale1,
+	fractal->transformCommon.scaleB1)), (distDE - aux->dist), aux->dist);
+
+	}*/
+	}
+
+	// aux->color
+	if (fractal->foldColor.auxColorEnabled)
+	{
+		if (fractal->foldColor.auxColorEnabledFalse)
+		{
+			colorAdd += fractal->foldColor.difs0000.x * fabs(z.x * z.y);
+			colorAdd += fractal->foldColor.difs0000.y * max(z.x, z.y);
+			// colorAdd += fractal->foldColor.difs0000.z * round(abs(z.x * z.y));
+			// colorAdd += fractal->foldColor.difs0000.w * max(z.x, z.y); //
+		}
+		colorAdd += fractal->foldColor.difs1;
+		if (fractal->foldColor.auxColorEnabledA)
+		{
+			if (colorDist != aux->dist) aux->color += colorAdd;
+		}
+		else
+			aux->color += colorAdd;
 	}
 	return z;
 }

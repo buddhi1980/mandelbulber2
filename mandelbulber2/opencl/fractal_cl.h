@@ -90,7 +90,7 @@ typedef struct
 	cl_float4 c;
 	cl_float4 const_c;
 	cl_float4 old_z;
-	//cl_float4 sum_z;
+	// cl_float4 sum_z;
 	cl_float pos_neg;
 	cl_float cw;
 
@@ -98,7 +98,6 @@ typedef struct
 	cl_float DE;
 	cl_float dist;
 	cl_float pseudoKleinianDE;
-	cl_float linearDE;
 
 	cl_float actualScale;
 	cl_float actualScaleA;
@@ -113,27 +112,16 @@ typedef struct
 typedef struct
 {
 	cl_float3 factor;
-
 	cl_float4 factor4D;
+	cl_float4 difs0000;
 	cl_float factorR;
 	cl_float factorSp1;
 	cl_float factorSp2;
-	//cl_float scaleA0;
-	//cl_float scaleB0;
-	//cl_float scaleD0;
-	//cl_float scaleF0;
-	//cl_float scaleA1;
-	//cl_float scaleB1;
-	//cl_float scaleC1;
-
-	//cl_int intAx0;
-	//cl_int intAy0;
-	//cl_int intAz0;
-
+	cl_float difs1;
 	cl_int auxColorEnabled;
+	cl_int auxColorEnabledA;
 	cl_int auxColorEnabledFalse;
-
-	//cl_int distanceEnabledFalse;
+	cl_int auxColorEnabledAFalse;
 } sFoldColorCl;
 
 typedef struct
@@ -490,15 +478,11 @@ typedef struct
 {
 	cl_int enabled;
 	cl_int enabledFalse;
-	// cl_int enabledAuxR2False; // only used once. Remove
 	cl_float scale1;
 	cl_float tweak005;
 	cl_float offset0;
 	cl_float offset1;
 	cl_float offset2;
-	// cl_float factor2;
-	// cl_float scaleLin; // out of date name, only 4 uses. Remove
-	// cl_float offsetLin; // out of date name, only 4 uses. Remove
 } sFractalAnalyticDECl;
 
 // common parameters for transforming formulas
@@ -514,12 +498,23 @@ typedef struct
 	cl_float offsetA0;
 	cl_float offsetB0;
 	cl_float offsetC0;
+	cl_float offsetD0;
+	cl_float offsetE0;
+	cl_float offsetF0;
+	cl_float offsetR0;
 	cl_float offset0005;
 	cl_float offset05;
+	cl_float offsetA05;
 	cl_float offset1;
 	cl_float offsetA1;
+	cl_float offsetR1;
+	cl_float offsetT1;
 	cl_float offset105;
 	cl_float offset2;
+	cl_float offsetA2;
+	cl_float offsetE2;
+	cl_float offsetF2;
+	cl_float offsetR2;
 	cl_float offset4;
 	cl_float multiplication;
 	cl_float minR0;
@@ -528,8 +523,11 @@ typedef struct
 	cl_float minR2p25;
 	cl_float maxR2d1;
 	cl_float maxMinR2factor;
+	cl_float radius1;
+	cl_float scaleNeg1;
 	cl_float scale;
 	cl_float scale0;
+	cl_float scaleA0;
 	cl_float scale025;
 	cl_float scale05;
 	cl_float scale08;
@@ -549,7 +547,6 @@ typedef struct
 	cl_float scaleB3;
 	cl_float scale4;
 	cl_float scale8;
-
 	cl_float scaleMain2;
 	cl_float scaleVary0;
 
@@ -571,6 +568,10 @@ typedef struct
 	cl_int startIterationsC;
 	cl_int stopIterationsC;
 	cl_int stopIterationsC1;
+	cl_int startIterationsCx;
+	cl_int stopIterationsCx;
+	cl_int startIterationsCy;
+	cl_int stopIterationsCy;
 	cl_int startIterationsD;
 	cl_int stopIterationsD;
 	cl_int stopIterationsD1;
@@ -590,9 +591,12 @@ typedef struct
 	cl_int stopIterationsK;
 	cl_int startIterationsM;
 	cl_int stopIterationsM;
+	cl_int startIterationsN;
+	cl_int stopIterationsN;
 	cl_int startIterationsO;
 	cl_int stopIterationsO;
 	cl_int startIterationsP;
+	cl_int stopIterationsP;
 	cl_int stopIterationsP1;
 	cl_int startIterationsR;
 	cl_int stopIterationsR;
@@ -619,6 +623,9 @@ typedef struct
 	cl_int int1;
 	cl_int int2;
 	cl_int int3;
+	cl_int int3X;
+	cl_int int3Y;
+	cl_int int3Z;
 	cl_int int6;
 	cl_int int8X;
 	cl_int int8Y;
@@ -651,6 +658,8 @@ typedef struct
 	cl_float4 offset000;
 	cl_float4 offsetA000;
 	cl_float4 offsetF000;
+	cl_float4 offset001;
+	cl_float4 offset002;
 	cl_float4 offset010;
 	cl_float4 offset100;
 	cl_float4 offset1105;
@@ -737,18 +746,27 @@ typedef struct
 	cl_int functionEnabledCxFalse;
 	cl_int functionEnabledCyFalse;
 	cl_int functionEnabledCzFalse;
+	cl_int functionEnabledAFalse;
+	cl_int functionEnabledBFalse;
+	cl_int functionEnabledCFalse;
 	cl_int functionEnabledDFalse;
 	cl_int functionEnabledEFalse;
 	cl_int functionEnabledFFalse;
+	cl_int functionEnabledGFalse;
+	cl_int functionEnabledIFalse;
 	cl_int functionEnabledJFalse;
 	cl_int functionEnabledKFalse;
 	cl_int functionEnabledM;
 	cl_int functionEnabledMFalse;
+	cl_int functionEnabledNFalse;
+	cl_int functionEnabledOFalse;
 	cl_int functionEnabledPFalse;
 	cl_int functionEnabledRFalse;
 	cl_int functionEnabledSFalse;
 	cl_int functionEnabledSwFalse;
+	cl_int functionEnabledTFalse;
 	cl_int functionEnabledXFalse;
+	cl_int functionEnabledYFalse;
 	cl_int juliaMode;
 	cl_int rotationEnabled;
 	cl_int rotation2EnabledFalse;
@@ -803,14 +821,12 @@ inline sExtendedAuxCl clCopySExtendedAuxCl(const sExtendedAux &source)
 	target.c = toClFloat4(source.c);
 	target.const_c = toClFloat4(source.const_c);
 	target.old_z = toClFloat4(source.old_z);
-	//target.sum_z = toClFloat4(source.sum_z);
 	target.pos_neg = source.pos_neg;
 	target.cw = source.cw;
 	target.r = source.r;
 	target.DE = source.DE;
 	target.dist = source.dist;
 	target.pseudoKleinianDE = source.pseudoKleinianDE;
-	target.linearDE = source.linearDE;
 	target.actualScale = source.actualScale;
 	target.actualScaleA = source.actualScaleA;
 	target.color = source.color;
@@ -825,22 +841,15 @@ inline sFoldColorCl clCopySFoldColorCl(const sFoldColor &source)
 	sFoldColorCl target;
 	target.factor = toClFloat3(source.factor);
 	target.factor4D = toClFloat4(source.factor4D);
+	target.difs0000 = toClFloat4(source.difs0000);
 	target.factorR = source.factorR;
 	target.factorSp1 = source.factorSp1;
 	target.factorSp2 = source.factorSp2;
-	//target.scaleA0 = source.scaleA0;
-	//target.scaleB0 = source.scaleB0;
-	//target.scaleD0 = source.scaleD0;
-	//target.scaleF0 = source.scaleF0;
-	//target.scaleA1 = source.scaleA1;
-	//target.scaleB1 = source.scaleB1;
-	//target.scaleC1 = source.scaleC1;
-	//target.intAx0 = source.intAx0;
-	//target.intAy0 = source.intAy0;
-	//target.intAz0 = source.intAz0;
+	target.difs1 = source.difs1;
 	target.auxColorEnabled = source.auxColorEnabled;
+	target.auxColorEnabledA = source.auxColorEnabledA;
 	target.auxColorEnabledFalse = source.auxColorEnabledFalse;
-	//target.distanceEnabledFalse = source.distanceEnabledFalse;
+	target.auxColorEnabledAFalse = source.auxColorEnabledAFalse;
 	return target;
 }
 
@@ -1211,12 +1220,23 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offsetA0 = source.offsetA0;
 	target.offsetB0 = source.offsetB0;
 	target.offsetC0 = source.offsetC0;
+	target.offsetD0 = source.offsetD0;
+	target.offsetE0 = source.offsetE0;
+	target.offsetF0 = source.offsetF0;
+	target.offsetR0 = source.offsetR0;
 	target.offset0005 = source.offset0005;
 	target.offset05 = source.offset05;
+	target.offsetA05 = source.offsetA05;
 	target.offset1 = source.offset1;
 	target.offsetA1 = source.offsetA1;
+	target.offsetR1 = source.offsetR1;
+	target.offsetT1 = source.offsetT1;
 	target.offset105 = source.offset105;
 	target.offset2 = source.offset2;
+	target.offsetA2 = source.offsetA2;
+	target.offsetE2 = source.offsetE2;
+	target.offsetF2 = source.offsetF2;
+	target.offsetR2 = source.offsetR2;
 	target.offset4 = source.offset4;
 	target.multiplication = source.multiplication;
 	target.minR0 = source.minR0;
@@ -1225,8 +1245,11 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.minR2p25 = source.minR2p25;
 	target.maxR2d1 = source.maxR2d1;
 	target.maxMinR2factor = source.maxMinR2factor;
+	target.radius1 = source.radius1;
+	target.scaleNeg1 = source.scaleNeg1;
 	target.scale = source.scale;
 	target.scale0 = source.scale0;
+	target.scaleA0 = source.scaleA0;
 	target.scale025 = source.scale025;
 	target.scale05 = source.scale05;
 	target.scale08 = source.scale08;
@@ -1265,6 +1288,10 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.startIterationsC = source.startIterationsC;
 	target.stopIterationsC = source.stopIterationsC;
 	target.stopIterationsC1 = source.stopIterationsC1;
+	target.startIterationsCx = source.startIterationsCx;
+	target.stopIterationsCx = source.stopIterationsCx;
+	target.startIterationsCy = source.startIterationsCy;
+	target.stopIterationsCy = source.stopIterationsCy;
 	target.startIterationsD = source.startIterationsD;
 	target.stopIterationsD = source.stopIterationsD;
 	target.stopIterationsD1 = source.stopIterationsD1;
@@ -1284,9 +1311,12 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.stopIterationsK = source.stopIterationsK;
 	target.startIterationsM = source.startIterationsM;
 	target.stopIterationsM = source.stopIterationsM;
+	target.startIterationsN = source.startIterationsN;
+	target.stopIterationsN = source.stopIterationsN;
 	target.startIterationsO = source.startIterationsO;
 	target.stopIterationsO = source.stopIterationsO;
 	target.startIterationsP = source.startIterationsP;
+	target.stopIterationsP = source.stopIterationsP;
 	target.stopIterationsP1 = source.stopIterationsP1;
 	target.startIterationsR = source.startIterationsR;
 	target.stopIterationsR = source.stopIterationsR;
@@ -1311,6 +1341,9 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.int1 = source.int1;
 	target.int2 = source.int2;
 	target.int3 = source.int3;
+	target.int3X = source.int3X;
+	target.int3Y = source.int3Y;
+	target.int3Z = source.int3Z;
 	target.int6 = source.int6;
 	target.int8X = source.int8X;
 	target.int8Y = source.int8Y;
@@ -1342,6 +1375,8 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.offset000 = toClFloat4(source.offset000);
 	target.offsetA000 = toClFloat4(source.offsetA000);
 	target.offsetF000 = toClFloat4(source.offsetF000);
+	target.offset001 = toClFloat4(source.offset001);
+	target.offset002 = toClFloat4(source.offset002);
 	target.offset010 = toClFloat4(source.offset010);
 	target.offset100 = toClFloat4(source.offset100);
 	target.offset1105 = toClFloat4(source.offset1105);
@@ -1422,18 +1457,27 @@ inline sFractalTransformCommonCl clCopySFractalTransformCommonCl(
 	target.functionEnabledCxFalse = source.functionEnabledCxFalse;
 	target.functionEnabledCyFalse = source.functionEnabledCyFalse;
 	target.functionEnabledCzFalse = source.functionEnabledCzFalse;
+	target.functionEnabledAFalse = source.functionEnabledAFalse;
+	target.functionEnabledBFalse = source.functionEnabledBFalse;
+	target.functionEnabledCFalse = source.functionEnabledCFalse;
 	target.functionEnabledDFalse = source.functionEnabledDFalse;
 	target.functionEnabledEFalse = source.functionEnabledEFalse;
 	target.functionEnabledFFalse = source.functionEnabledFFalse;
+	target.functionEnabledGFalse = source.functionEnabledGFalse;
+	target.functionEnabledIFalse = source.functionEnabledIFalse;
 	target.functionEnabledJFalse = source.functionEnabledJFalse;
 	target.functionEnabledKFalse = source.functionEnabledKFalse;
 	target.functionEnabledM = source.functionEnabledM;
 	target.functionEnabledMFalse = source.functionEnabledMFalse;
+	target.functionEnabledNFalse = source.functionEnabledNFalse;
+	target.functionEnabledOFalse = source.functionEnabledOFalse;
 	target.functionEnabledPFalse = source.functionEnabledPFalse;
 	target.functionEnabledRFalse = source.functionEnabledRFalse;
 	target.functionEnabledSFalse = source.functionEnabledSFalse;
 	target.functionEnabledSwFalse = source.functionEnabledSwFalse;
+	target.functionEnabledTFalse = source.functionEnabledTFalse;
 	target.functionEnabledXFalse = source.functionEnabledXFalse;
+	target.functionEnabledYFalse = source.functionEnabledYFalse;
 	target.juliaMode = source.juliaMode;
 	target.rotationEnabled = source.rotationEnabled;
 	target.rotation2EnabledFalse = source.rotation2EnabledFalse;

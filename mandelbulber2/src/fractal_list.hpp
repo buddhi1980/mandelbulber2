@@ -216,6 +216,7 @@ enum enumFractalFormula
 	mandelbulbKosalos = 182,
 	mandelbulbKosalosV2 = 183,
 	riemannSphereHoboldMulti = 184,
+	mandelbulbLambda = 185,
 
 	// mandelbulber dIFS
 	dIFSBoxDiagonalV1 = 600,
@@ -223,7 +224,10 @@ enum enumFractalFormula
 	dIFSBoxDiagonalV3 = 602,
 	dIFSCylinder = 603,
 	dIFSSphere = 604,
-
+	dIFSEllipsoid = 605,
+	dIFSTorus = 606,
+	dIFSMenger = 607,
+	dIFSHextgrid2 = 608,
 
 	mandelbulbEye = 800,
 

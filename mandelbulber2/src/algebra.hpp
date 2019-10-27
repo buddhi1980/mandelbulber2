@@ -377,6 +377,7 @@ public:
 		w /= s;
 		return *this;
 	}
+
 	inline bool operator==(const CVector4 &v) const
 	{
 		return x == v.x && y == v.y && z == v.z && w == v.w;

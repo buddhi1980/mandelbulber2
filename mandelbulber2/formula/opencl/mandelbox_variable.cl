@@ -77,7 +77,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsC),
-																	fractal->transformCommon.offsetA000.x))))
+																fractal->transformCommon.offsetA000.x))))
 						* fractal->transformCommon.scale3D111.x;
 				}
 				z.x = fabs(z.x + limit4.x) - fabs(z.x - limit4.x) - z.x;
@@ -90,7 +90,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsY),
-																	fractal->transformCommon.offsetA000.y))))
+																fractal->transformCommon.offsetA000.y))))
 						* fractal->transformCommon.scale3D111.y;
 				}
 				z.y = fabs(z.y + limit4.y) - fabs(z.y - limit4.y) - z.y;
@@ -103,7 +103,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsZ),
-																	fractal->transformCommon.offsetA000.z))))
+																fractal->transformCommon.offsetA000.z))))
 						* fractal->transformCommon.scale3D111.z;
 				}
 				z.z = fabs(z.z + limit4.z) - fabs(z.z - limit4.z) - z.z;
@@ -124,7 +124,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				(1.0f
 					- native_recip((1.0f
 													+ native_divide((aux->i - fractal->transformCommon.startIterationsB),
-															fractal->transformCommon.offsetA0))))
+														fractal->transformCommon.offsetA0))))
 				* fractal->transformCommon.scaleA1;
 		}
 	}
@@ -137,7 +137,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 				(1.0f
 					- native_recip((1.0f
 													+ native_divide((aux->i - fractal->transformCommon.startIterationsA),
-															fractal->transformCommon.offset0))))
+														fractal->transformCommon.offset0))))
 				* fractal->transformCommon.scale1;
 		}
 	}
@@ -174,7 +174,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 			if (aux->i >= fractal->transformCommon.startIterations
 					&& aux->i < fractal->transformCommon.stopIterations
 					&& (fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations
-							 != 0))
+							!= 0))
 			{
 				REAL iterationRange =
 					fractal->transformCommon.stopIterations - fractal->transformCommon.startIterations;
@@ -270,7 +270,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsM),
-																	fractal->transformCommon.offsetF000.x))))
+																fractal->transformCommon.offsetF000.x))))
 						* fractal->transformCommon.constantMultiplierB111.x;
 				}
 			}
@@ -282,7 +282,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsO),
-																	fractal->transformCommon.offsetF000.y))))
+																fractal->transformCommon.offsetF000.y))))
 						* fractal->transformCommon.constantMultiplierB111.y;
 				}
 			}
@@ -294,7 +294,7 @@ REAL4 MandelboxVariableIteration(REAL4 z, __constant sFractalCl *fractal, sExten
 						(1.0f
 							- native_recip((1.0f
 															+ native_divide((aux->i - fractal->transformCommon.startIterationsP),
-																	fractal->transformCommon.offsetF000.z))))
+																fractal->transformCommon.offsetF000.z))))
 						* fractal->transformCommon.constantMultiplierB111.z;
 				}
 			}

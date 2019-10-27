@@ -11,7 +11,7 @@ camera_rotation 7,114098477863823 -37,23009990420512 0;
 camera_top -0,0749287839798162 0,6003597515777113 0,7962121865538451;
 detail_level 0,25;
 DOF_monte_carlo true;
-file_background /usr/share/mandelbulber2/textures/background3.jpg;
+file_background $SHARED_DIR/textures/background3.jpg;
 flight_last_to_render 99999;
 formula_1 66;
 image_height 720;

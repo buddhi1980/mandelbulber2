@@ -37,7 +37,9 @@
 #include <QAbstractSocket>
 #include <QHostInfo>
 
+#include "animation_flight.hpp"
 #include "animation_keyframes.hpp"
+#include "cimage.hpp"
 #include "error_message.hpp"
 #include "fractal_container.hpp"
 #include "global_data.hpp"
@@ -467,8 +469,30 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 		{
 			if (inMsg->command == netRenderCmd_ANIM_KEY)
 			{
+				if (systemData.noGui)
+				{
+					// FIXME memory leak - cImage is not deleted!
+					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					gKeyframeAnimation = new cKeyframeAnimation(
+						gMainInterface, gKeyframes, image, nullptr, gPar, gParFractal, nullptr);
+				}
+
 				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
 				gKeyframeAnimation->SetNetRenderStartingFrames(startingPositions);
+			}
+
+			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
+			{
+				if (systemData.noGui)
+				{
+					// FIXME memory leak - cImage is not deleted!
+					cImage *image = new cImage(gPar->Get<int>("image_width"), gPar->Get<int>("image_height"));
+					gFlightAnimation = new cFlightAnimation(
+						gMainInterface, gAnimFrames, image, nullptr, gPar, gParFractal, nullptr);
+				}
+
+				WriteLog("NetRender - ProcessData(), command ANIM_KEY", 2);
+				gFlightAnimation->SetNetRenderStartingFrames(startingPositions);
 			}
 
 			QDataStream stream(&inMsg->payload, QIODevice::ReadOnly);
@@ -485,12 +509,30 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 			WriteLog(
 				QString("NetRender - ProcessData(), command JOB, settings: %1").arg(settingsText), 2);
 
-			WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
-
-			if (!systemData.noGui)
+			if (inMsg->command == netRenderCmd_ANIM_FLIGHT)
 			{
-				// gMainInterface->SynchronizeInterface(gPar, gParFractal, qInterface::write);
-				// emit KeyframeAnimationRender();
+				WriteLog("NetRender - ProcessData(), command ANIM_FLIGHT, starting rendering", 2);
+
+				auto flightRenderThread =
+					new cFligtAnimRenderThread(settingsText); // deleted by deleteLater()
+				auto *thread = new QThread;									// deleted by deleteLater()
+				flightRenderThread->moveToThread(thread);
+
+				connect(thread, &QThread::started, flightRenderThread,
+					&cFligtAnimRenderThread::startAnimationRender);
+
+				thread->setObjectName("AnimFlightRender");
+				thread->start();
+
+				connect(flightRenderThread, &cFligtAnimRenderThread::renderingFinished, flightRenderThread,
+					&cFligtAnimRenderThread::deleteLater);
+				connect(
+					flightRenderThread, &cFligtAnimRenderThread::renderingFinished, thread, &QThread::quit);
+				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
+			}
+			else if (inMsg->command == netRenderCmd_ANIM_KEY)
+			{
+				WriteLog("NetRender - ProcessData(), command ANIM_KEY, starting rendering", 2);
 
 				auto keyframesRenderThread =
 					new cKeyframeRenderThread(settingsText); // deleted by deleteLater()
@@ -507,27 +549,6 @@ void CNetRenderClient::ProcessRequestRenderAnimation(sMessage *inMsg)
 					keyframesRenderThread, &cKeyframeRenderThread::deleteLater);
 				connect(
 					keyframesRenderThread, &cKeyframeRenderThread::renderingFinished, thread, &QThread::quit);
-				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
-
-				// gKeyframeAnimation->RenderKeyframes(&gMainInterface->stopRequest);
-			}
-			else
-			{
-				// in noGui mode it must be started as separate thread to be able to process event loop
-
-				// TODO: headless code for animation
-
-				gMainInterface->headless = new cHeadless;
-
-				auto *thread = new QThread; // deleted by deleteLater()
-				gMainInterface->headless->moveToThread(thread);
-				connect(thread, &QThread::started, gMainInterface->headless, &cHeadless::slotNetRender);
-				thread->setObjectName("RenderJob");
-				thread->start();
-
-				connect(gMainInterface->headless, &cHeadless::finished, gMainInterface->headless,
-					&cHeadless::deleteLater);
-				connect(gMainInterface->headless, &cHeadless::finished, thread, &QThread::quit);
 				connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 			}
 		}

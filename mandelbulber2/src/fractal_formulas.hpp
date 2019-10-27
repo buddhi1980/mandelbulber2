@@ -153,6 +153,7 @@ void MandelbulbKosalosIteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void MandelbulbKosalosV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbMulti2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void MandelbulbLambdaIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPower1234Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void MandelbulbPow2V2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -343,9 +344,12 @@ void DIFSBoxDiagonalV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedA
 void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSBoxDiagonalV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void DIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+
 void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
-
+void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
