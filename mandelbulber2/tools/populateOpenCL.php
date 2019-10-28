@@ -106,6 +106,7 @@ function autogenOpenCLFile($copyFile, &$status)
 		array('find' => '/(\s)double(\s)/', 'replace' => '$1cl_float$2'),
 		array('find' => '/(\s)float(\s)/', 'replace' => '$1cl_float$2'),
 		array('find' => '/(\s)sRGB(\s)/', 'replace' => '$1cl_float3$2'),
+		array('find' => '/(\s)sRGBFloat(\s)/', 'replace' => '$1cl_float3$2'),
 		array('find' => '/(\s)CVector3(\s)/', 'replace' => '$1cl_float3$2'),
 		array('find' => '/(\s)CVector3/', 'replace' => '$1cl_float3'),
 		array('find' => '/(\s)CVector4(\s)/', 'replace' => '$1cl_float4$2'),
@@ -127,7 +128,7 @@ function autogenOpenCLFile($copyFile, &$status)
 
 		// TODO rework these regexes
 		array('find' => '/using namespace[\s\S]*?\n}\n/', 'replace' => ""), // no namespace support -> TODO fix files with namespaces
-		array('find' => '/\nnamespace[\s\S]*?{([\s\S]*?\n)}\n/', 'replace' => "\n$1"), // no namespace support -> TODO fix files with namespaces
+		array('find' => '/\nnamespace[\s\S]*?{([\s\S]*?\n)};?(?:\s*\/\/.*)?\n/', 'replace' => "\n$1"), // no namespace support -> TODO fix files with namespaces
 		array('find' => '/sParamRenderCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sFractalCl\([\s\S]*?\);/', 'replace' => ""), // remove constructor
 		array('find' => '/sImageAdjustmentsCl\([\s\S]*?}/', 'replace' => ""), // remove constructor
@@ -151,6 +152,8 @@ function autogenOpenCLFile($copyFile, &$status)
 
 
 		array('find' => '/([a-zA-Z0-9_]+\(\));/', 'replace' => ""), // remove constructor declaration
+		array('find' => '/([a-zA-Z0-9_\[\]\s\-\+]+)(?:{.*})?(;.*)/', 'replace' => "$1$2"), // remove braced initializer
+
 	);
 	foreach ($openCLReplaceLookup as $item) {
 		$content = preg_replace($item['find'], $item['replace'], $content);
