@@ -354,7 +354,10 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
+void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

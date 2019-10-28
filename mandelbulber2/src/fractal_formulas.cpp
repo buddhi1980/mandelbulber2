@@ -18520,6 +18520,96 @@ void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 }
 
 /**
+ * TransfDifsCylinderIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+
+	double cylR = sqrt(zc.x * zc.x + zc.y * zc.y) - fractal->transformCommon.radius1;
+	double cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+
+	cylR = max(cylR, 0.0);
+	cylH = max(cylH, 0.0);
+	double cylD = sqrt(cylR * cylR + cylH * cylH);
+	cylD = min(max(cylR, cylH), 0.0) + cylD;
+
+	aux.dist = min(aux.dist, cylD / aux.DE);
+}
+
+/**
+ * TransfDIFSEllipsoidIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSEllipsoidIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+
+	CVector4 rads4 = fractal->transformCommon.additionConstant111;
+	CVector3 rads3 = CVector3(rads4.x, rads4.y, rads4.z);
+	double tempX = zc.x;
+	double tempY = zc.y;
+	double tempZ = zc.z;
+
+	CVector3 rV = CVector3(tempX, tempY, tempZ);
+	rV /= rads3;
+
+	CVector3 rrV = rV;
+	rrV /= rads3;
+
+	double rd = rV.Length();
+	double rrd = rrV.Length();
+	double ellD = rd * (rd - 1.0) / rrd;
+	aux.dist = min(aux.dist, ellD / aux.DE);
+}
+
+/**
+ * DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and  darkbeams optimized verion @reference
+ * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
+ * "Beautiful iso-surface made of a hexagonal grid of tubes.
+ * Taken from K3DSurf forum, posted by user abdelhamid belaid."
+ */
+void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+
+	double cosPi6 = cos(M_PI / 6.0);
+	double yFloor = fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0);
+	double hexD =
+	pow(min(max(yFloor,
+	fabs(zc.x - 3.0 / cosPi6 * floor(zc.x / 3.0 * cosPi6 + 0.5))
+	* cosPi6 + yFloor * sin(M_PI / 6.0))- 1.0, yFloor), 2.0)
+	+ zc.z * zc.z - fractal->transformCommon.offset0005;
+
+	aux.dist = min(aux.dist, hexD / aux.DE);
+}
+
+/**
+ * TransfDIFSPrismIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+
+	CVector4 q = fabs(zc);
+	double priD = max(q.z - fractal->transformCommon.offset05,
+		max(q.x * SQRT_3_4 + zc.y * 0.5, -zc.y) - fractal->transformCommon.offsetT1 * 0.5);
+
+	aux.dist = min(aux.dist, priD / aux.DE);
+}
+
+/**
  * TransfDifsSphereIteration  fragmentarium code, mdifs by knighty (jan 2012)
  */
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
@@ -18542,8 +18632,8 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 	double torD;
-	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
-	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
+	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offset05;
+	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offsetT1;
 	aux.dist = min(aux.dist, torD / aux.DE);
 }
 
@@ -20013,7 +20103,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	{
 		z = fractal->transformCommon.rotationMatrix.RotateVector(z);
 	}
-		double rr; // .................
+
 	// DE
 	double colorDist = aux.dist;
 	CVector4 zc = oldZ;
@@ -20022,7 +20112,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-
+		double rr;
 		double offsetPy = fractal->transformCommon.offset4;
 		int count = fractal->transformCommon.int8X; // Menger Sponge
 		int k;

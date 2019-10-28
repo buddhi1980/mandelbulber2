@@ -357,12 +357,12 @@ enum enumFractalFormula
 	// mandelbulber transfdIFS
 	// 2.20
 	transfDIFSBox = 1600,
-//	transfDIFSCylinder = 1601,
-//	transfDIFSEllipsoid = 1602,
-//	transfDIFSHextgrid2 = 1603,
+	transfDIFSCylinder = 1601,
+	transfDIFSEllipsoid = 1602,
+	transfDIFSHextgrid2 = 1603,
 	transfDIFSSphere = 1604,
 	transfDIFSTorus = 1605,
-
+	transfDIFSPrism = 1606,
 
 
 

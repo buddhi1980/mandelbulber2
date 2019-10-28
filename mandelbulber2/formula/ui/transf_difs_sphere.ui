@@ -142,7 +142,7 @@
      <item row="0" column="0" rowspan="3">
       <widget class="QLabel" name="label_113">
        <property name="text">
-        <string>Offset:</string>
+        <string>offset:</string>
        </property>
       </widget>
      </item>
