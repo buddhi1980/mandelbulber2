@@ -18588,9 +18588,8 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
 	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 	double gridMin = min(gridMax - size * 0.5, yFloor);
+	double hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 
-	double hexD = pow(fabs(gridMin), 2.0);
-	hexD += zc.z * zc.z;
 	hexD -= fractal->transformCommon.offset0005;
 
 	aux.dist = min(aux.dist, hexD / aux.DE);
@@ -20321,9 +20320,8 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
 		double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 		double gridMin = min(gridMax - size * 0.5, yFloor);
+		double hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
 
-		double hexD = pow(fabs(gridMin), 2.0);
-		hexD += zc.z * zc.z;
 		hexD -= fractal->transformCommon.offset0005;
 
 		aux.dist = min(aux.dist, hexD / aux.DE);
