@@ -135,8 +135,8 @@ public:
 signals:
 	// request to update table of queue items
 	void queueChanged();
-	void queueChanged(int i);
-	void queueChanged(int i, int j);
+	void queueChangedRow(int i);
+	void queueChangedCell(int i, int j);
 
 public slots:
 	void slotQueueRender() const;
@@ -156,8 +156,8 @@ private slots:
 	void slotQueueMoveItemDown();
 	void slotQueueTypeChanged(int index);
 	void slotQueueListUpdate();
-	void slotQueueListUpdate(int i);
-	void slotQueueListUpdate(int i, int j);
+	void slotQueueListUpdateRow(int i);
+	void slotQueueListUpdateCell(int i, int j);
 	void slotStopRequest();
 	void slotShowQueueThumbsChanges(int state);
 
@@ -181,8 +181,8 @@ private:
 
 	cImage *image;
 
-	QFileSystemWatcher queueFileWatcher;
-	QFileSystemWatcher queueFolderWatcher;
+	QFileSystemWatcher *queueFileWatcher;
+	QFileSystemWatcher *queueFolderWatcher;
 
 	QList<structQueueItem> queueListFromFile;
 	QStringList queueListFileSystem;

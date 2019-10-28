@@ -10,6 +10,8 @@ v2.20
    mandelbulbLambda
    transfAddConstantMod2
    transfAddConstantRotV1
+   transfScaleOffset
+   transfScaleOffsetV2
    dIFSBoxDiagonalV1
    dIFSBoxV1
    dIFSCylinder

@@ -64,6 +64,9 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	const QString &_queueFolder, QObject *parent)
 		: QObject(parent), mainInterface(_interface)
 {
+	queueFileWatcher = new QFileSystemWatcher(this);
+	queueFolderWatcher = new QFileSystemWatcher(this);
+
 	// initializes queue and create necessary files and folders
 	queueListFileName = _queueListFileName;
 	queueFolder = _queueFolder;
@@ -87,12 +90,12 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	}
 
 	// watch queue folder and the queue file in the filesystem
-	queueFileWatcher.addPath(queueListFileName);
-	queueFolderWatcher.addPath(queueFolder);
-	QApplication::connect(&queueFileWatcher, SIGNAL(fileChanged(const QString &)), this,
-		SLOT(queueFileChanged(const QString &)));
-	QApplication::connect(&queueFolderWatcher, SIGNAL(directoryChanged(const QString &)), this,
-		SLOT(queueFolderChanged(const QString &)));
+	queueFileWatcher->addPath(queueListFileName);
+	queueFolderWatcher->addPath(queueFolder);
+
+	connect(queueFileWatcher, &QFileSystemWatcher::fileChanged, this, &cQueue::queueFileChanged);
+	connect(
+		queueFolderWatcher, &QFileSystemWatcher::directoryChanged, this, &cQueue::queueFolderChanged);
 
 	UpdateListFromQueueFile();
 	UpdateListFromFileSystem();
@@ -103,25 +106,24 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 	{
 		ui = mainInterface->mainWindow->GetWidgetDockQueue()->GetUi();
 		// Queue
-		QApplication::connect(ui->pushButton_queue_add_current_settings, SIGNAL(clicked()), this,
-			SLOT(slotQueueAddCurrentSettings()));
+		connect(ui->pushButton_queue_add_current_settings, &QPushButton::clicked, this,
+			&cQueue::slotQueueAddCurrentSettings);
+		QApplication::connect(ui->pushButton_queue_add_from_file, &QPushButton::clicked, this,
+			&cQueue::slotQueueAddFromFile);
+		QApplication::connect(ui->pushButton_queue_add_orphaned, &QPushButton::clicked, this,
+			&cQueue::slotQueueAddOrphaned);
+		QApplication::connect(ui->pushButton_queue_remove_orphaned, &QPushButton::clicked, this,
+			&cQueue::slotQueueRemoveOrphaned);
 		QApplication::connect(
-			ui->pushButton_queue_add_from_file, SIGNAL(clicked()), this, SLOT(slotQueueAddFromFile()));
+			ui->pushButton_queue_render_queue, &QPushButton::clicked, this, &cQueue::slotQueueRender);
 		QApplication::connect(
-			ui->pushButton_queue_add_orphaned, SIGNAL(clicked()), this, SLOT(slotQueueAddOrphaned()));
-		QApplication::connect(ui->pushButton_queue_remove_orphaned, SIGNAL(clicked()), this,
-			SLOT(slotQueueRemoveOrphaned()));
-		QApplication::connect(
-			ui->pushButton_queue_render_queue, SIGNAL(clicked()), this, SLOT(slotQueueRender()));
-		QApplication::connect(
-			ui->pushButton_queue_stop_rendering, SIGNAL(clicked()), this, SLOT(slotStopRequest()));
-		QApplication::connect(ui->checkBox_show_queue_thumbnails, SIGNAL(stateChanged(int)), this,
-			SLOT(slotShowQueueThumbsChanges(int)));
+			ui->pushButton_queue_stop_rendering, &QPushButton::clicked, this, &cQueue::slotStopRequest);
+		QApplication::connect(ui->checkBox_show_queue_thumbnails, &QCheckBox::stateChanged, this,
+			&cQueue::slotShowQueueThumbsChanges);
 
-		QApplication::connect(this, SIGNAL(queueChanged()), this, SLOT(slotQueueListUpdate()));
-		QApplication::connect(this, SIGNAL(queueChanged(int)), this, SLOT(slotQueueListUpdate(int)));
-		QApplication::connect(
-			this, SIGNAL(queueChanged(int, int)), this, SLOT(slotQueueListUpdate(int, int)));
+		QApplication::connect(this, &cQueue::queueChanged, this, &cQueue::slotQueueListUpdate);
+		QApplication::connect(this, &cQueue::queueChangedRow, this, &cQueue::slotQueueListUpdateRow);
+		QApplication::connect(this, &cQueue::queueChangedCell, this, &cQueue::slotQueueListUpdateCell);
 
 		renderedImageWidget = mainInterface->mainWindow->GetWidgetDockQueue()->GetRenderedImageWidget();
 		image->CreatePreview(1.0, 400, 300, renderedImageWidget);
@@ -143,7 +145,7 @@ cQueue::cQueue(cInterface *_interface, const QString &_queueListFileName,
 
 cQueue::~cQueue()
 {
-	delete image;
+	if (image) delete image;
 }
 
 void cQueue::Append(const QString &filename, enumRenderType renderType)
@@ -186,7 +188,6 @@ void cQueue::Append(cParameterContainer *par, cFractalContainer *fractPar, cAnim
 void cQueue::AppendList(const QString &filename)
 {
 	// add all entries from list given with filename to current list
-	// qDebug() << "AppendList: " << filename;
 	if (QFileInfo(filename).suffix() == QString("fractlist"))
 	{
 		mutex.lock();
@@ -471,7 +472,6 @@ QString cQueue::GetTypeColor(enumRenderType queueType)
 
 void cQueue::queueFileChanged(const QString &path)
 {
-	// qDebug() << "queueFileChanged";
 	if (path == queueListFileName)
 	{
 		UpdateListFromQueueFile();
@@ -480,7 +480,6 @@ void cQueue::queueFileChanged(const QString &path)
 
 void cQueue::queueFolderChanged(const QString &path)
 {
-	// qDebug() << "queueFolderChanged";
 	if (path == queueFolder)
 	{
 		UpdateListFromFileSystem();
@@ -676,23 +675,23 @@ void cQueue::slotQueueListUpdate()
 	// update table
 	for (int i = 0; i < table->rowCount(); i++)
 	{
-		emit queueChanged(i);
-		gApplication->processEvents();
+		emit queueChangedRow(i);
+		// gApplication->processEvents();
 	}
 }
 
-void cQueue::slotQueueListUpdate(int i)
+void cQueue::slotQueueListUpdateRow(int i)
 {
 	// update row i
 	QTableWidget *table = ui->tableWidget_queue_list;
 	table->setRowHeight(i, 70);
 	for (int j = 0; j < table->columnCount(); j++)
 	{
-		emit queueChanged(i, j);
+		emit queueChangedCell(i, j);
 	}
 }
 
-void cQueue::slotQueueListUpdate(int i, int j)
+void cQueue::slotQueueListUpdateCell(int i, int j)
 {
 	// update element in row i, column j
 	QTableWidget *table = ui->tableWidget_queue_list;
