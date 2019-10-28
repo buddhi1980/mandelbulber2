@@ -894,6 +894,18 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSurfBoxFoldV24d, TransfSurfBoxFoldV24dIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
+	fractalList->append(sFractalDescription("T>DIFS Torus", "transf_difs_torus", transfDIFSTorus,
+		TransfDIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
+	fractalList->append(sFractalDescription("T>DIFS Sphere", "transf_difs_sphere", transfDIFSSphere,
+		TransfDIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
+
+
+
+
+
 	fractalList->append(sFractalDescription("DIFS Hextgrid2", "difs_hextgrid2", dIFSHextgrid2,
 		DIFSHextgrid2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));

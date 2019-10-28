@@ -350,6 +350,27 @@ enum enumFractalFormula
 	transfAddConstantRotV1 = 1103,
 	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
 
+
+
+
+
+	// mandelbulber transfdIFS
+	// 2.20
+//	transfDIFSBox = 1600,
+//	transfDIFSCylinder = 1601,
+//	transfDIFSEllipsoid = 1602,
+//	transfDIFSHextgrid2 = 1603,
+	transfDIFSSphere = 1604,
+	transfDIFSTorus = 1605,
+
+
+
+
+
+
+
+
+
 	// hybrid color trial
 	transfHybridColor = 2000,
 	transfHybridColor2 = 2001,
