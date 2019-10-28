@@ -279,6 +279,8 @@ void TransfRotationFoldingPlaneIteration(CVector4 &z, const sFractal *fractal, s
 void TransfRotationVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfRotationFoldingIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfScaleOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfScaleOffsetV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryV212Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryMultiIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfScaleVaryV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
@@ -351,11 +353,11 @@ void DIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
-void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
+void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
-
+void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 
 void TransfHybridColorIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);
 void TransfHybridColor2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux);

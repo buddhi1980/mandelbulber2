@@ -349,14 +349,14 @@ enum enumFractalFormula
 	transfAddConstantMod2 = 1102,
 	transfAddConstantRotV1 = 1103,
 	transfSurfBoxFoldV24d = 1104, // duplicated number 1089
-
-
+	transfScaleOffset = 1105,
+	transfScaleOffsetV2 = 1106,
 
 
 
 	// mandelbulber transfdIFS
 	// 2.20
-//	transfDIFSBox = 1600,
+	transfDIFSBox = 1600,
 //	transfDIFSCylinder = 1601,
 //	transfDIFSEllipsoid = 1602,
 //	transfDIFSHextgrid2 = 1603,

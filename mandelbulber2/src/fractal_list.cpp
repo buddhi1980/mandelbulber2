@@ -745,6 +745,13 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Scale", "transf_scale", transfScale,
 		TransfScaleIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Scale Offset", "transf_scale_offset", transfScaleOffset,
+		TransfScaleOffsetIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>Scale OffsetV2", "transf_scale_offset_v2", transfScaleOffsetV2,
+		TransfScaleOffsetV2Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionLinear, coloringFunctionDefault));
+
 	fractalList->append(sFractalDescription("T>Scale Vary V2.12", "transf_scale_vary_v212",
 		transfScaleVaryV212, TransfScaleVaryV212Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
@@ -894,15 +901,16 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		transfSurfBoxFoldV24d, TransfSurfBoxFoldV24dIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
 
-	fractalList->append(sFractalDescription("T>DIFS Torus", "transf_difs_torus", transfDIFSTorus,
-		TransfDIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+	fractalList->append(sFractalDescription("T>DIFS Box", "transf_difs_box", transfDIFSBox,
+		TransfDIFSBoxIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 
 	fractalList->append(sFractalDescription("T>DIFS Sphere", "transf_difs_sphere", transfDIFSSphere,
 		TransfDIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-
-
+	fractalList->append(sFractalDescription("T>DIFS Torus", "transf_difs_torus", transfDIFSTorus,
+		TransfDIFSTorusIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 
 
 

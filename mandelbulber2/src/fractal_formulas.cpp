@@ -13826,6 +13826,43 @@ void TransfScaleIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &au
 }
 
 /**
+ * scale - offset  simple
+ */
+void TransfScaleOffsetIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z -= fractal->transformCommon.additionConstant000;
+	z *= fractal->transformCommon.scale1;
+	z += fractal->transformCommon.additionConstant000;
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset1;
+}
+
+/**
+ * scale - offsetV2  abs
+ */
+void TransfScaleOffsetV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	z += fractal->transformCommon.additionConstantA000;
+
+	if (fractal->transformCommon.functionEnabledx) z.x = fabs(z.x);
+	if (fractal->transformCommon.functionEnabledy) z.y = fabs(z.y);
+	if (fractal->transformCommon.functionEnabledz) z.z = fabs(z.z);
+
+	z -= fractal->transformCommon.offsetA000;
+
+	z *= fractal->transformCommon.scale1;
+	z += fractal->transformCommon.additionConstant000;
+	if (!fractal->analyticDE.enabledFalse)
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) + 1.0;
+	else
+		aux.DE = aux.DE * fabs(fractal->transformCommon.scale) * fractal->analyticDE.scale1
+						 + fractal->analyticDE.offset0;
+}
+
+/**
  * scale vary V2.12.- based on DarkBeam's maths
  * @reference
  * http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/
@@ -18465,8 +18502,25 @@ void DIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 }
 
 /**
+ * TransfDifsBoxIteration  fragmentarium code, mdifs by knighty (jan 2012)
+ */
+void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+	zc = fabs(zc) - boxSize;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
+	zc.z = max(zc.z, 0.0);
+	double zcd = zc.Length();
+
+	aux.dist = min(aux.dist, zcd / aux.DE);
+}
+
+/**
  * TransfDifsSphereIteration  fragmentarium code, mdifs by knighty (jan 2012)
- * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
 void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 {
@@ -18477,7 +18531,6 @@ void TransfDIFSSphereIteration(CVector4 &z, const sFractal *fractal, sExtendedAu
 	double spD = zc.Length() - sphereRadius;
 	aux.dist = min(aux.dist, spD / aux.DE);
 }
-
 
 /**
  * TransfDifsTorusIteration  fragmentarium code, mdifs by knighty (jan 2012)
