@@ -18581,13 +18581,17 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 
+	double size = fractal->transformCommon.scale1;
+
 	double cosPi6 = cos(M_PI / 6.0);
-	double yFloor = fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0);
-	double hexD =
-	pow(min(max(yFloor,
-	fabs(zc.x - 3.0 / cosPi6 * floor(zc.x / 3.0 * cosPi6 + 0.5))
-	* cosPi6 + yFloor * sin(M_PI / 6.0))- 1.0, yFloor), 2.0)
-	+ zc.z * zc.z - fractal->transformCommon.offset0005;
+	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
+	double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
+	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
+	double gridMin = min(gridMax - size * 0.5, yFloor);
+
+	double hexD = pow(fabs(gridMin), 2.0);
+	hexD += zc.z * zc.z;
+	hexD -= fractal->transformCommon.offset0005;
 
 	aux.dist = min(aux.dist, hexD / aux.DE);
 }
@@ -18636,8 +18640,6 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offsetT1;
 	aux.dist = min(aux.dist, torD / aux.DE);
 }
-
-
 
 //  experimental testing
 /**
@@ -20200,7 +20202,7 @@ void DIFSMengerIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux
 			double absY = fabs(zc.y);
 			lenY += absY * fractal->transformCommon.scaleA0;
 		}
-		CVector3 q = CVector3(max(abs(zc.y) - lenY, 0.0), max(abs(zc.x) - lenX, 0.0), zc.z);
+		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
 		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
 		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
 		aux.dist = min(aux.dist, streD / aux.DE);
@@ -20251,7 +20253,6 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
 	}
-
 
 	// reverse offset part 1
 	if (aux.i >= fractal->transformCommon.startIterationsE
@@ -20313,42 +20314,19 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
+		double size = fractal->transformCommon.scale1;
+
 		double cosPi6 = cos(M_PI / 6.0);
-		double yFloor = fabs(zc.y - floor(zc.y / 2.0 + 0.5) * 2.0);
-		double hexD =
-		pow(min(max(yFloor,
-		fabs(zc.x - 3.0 / cosPi6 * floor(zc.x / 3.0 * cosPi6 + 0.5))
-		* cosPi6 + yFloor * sin(M_PI / 6.0))- 1.0, yFloor), 2.0)
-		+ zc.z * zc.z - fractal->transformCommon.offset0005;
+		double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
+		double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
+		double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
+		double gridMin = min(gridMax - size * 0.5, yFloor);
+
+		double hexD = pow(fabs(gridMin), 2.0);
+		hexD += zc.z * zc.z;
+		hexD -= fractal->transformCommon.offset0005;
 
 		aux.dist = min(aux.dist, hexD / aux.DE);
-	}
-
-	// Torus - stretched
-	if (fractal->transformCommon.functionEnabledMFalse
-			&& aux.i >= fractal->transformCommon.startIterationsM
-			&& aux.i < fractal->transformCommon.stopIterationsM)
-	{
-		double lenX = fractal->transformCommon.offset1;
-		double lenY = fractal->transformCommon.offsetA0;
-		if (fractal->transformCommon.functionEnabledNFalse
-				&& aux.i >= fractal->transformCommon.startIterationsN
-				&& aux.i < fractal->transformCommon.stopIterationsN)
-		{
-			double absX = fabs(zc.x);
-			lenX += absX * fractal->transformCommon.scale0;
-		}
-		if (fractal->transformCommon.functionEnabledOFalse
-				&& aux.i >= fractal->transformCommon.startIterationsO
-				&& aux.i < fractal->transformCommon.stopIterationsO)
-		{
-			double absY = fabs(zc.y);
-			lenY += absY * fractal->transformCommon.scaleA0;
-		}
-		CVector3 q = CVector3(max(fabs(zc.y) - lenY, 0.0), max(fabs(zc.x) - lenX, 0.0), zc.z);
-		double streD = sqrt(q.x * q.x + q.y * q.y) - fractal->transformCommon.offsetR1;
-		streD = sqrt(streD * streD + q.z * q.z) - fractal->transformCommon.offsetA05;
-		aux.dist = min(aux.dist, streD / aux.DE);
 	}
 
 	// aux.color
@@ -20370,4 +20348,3 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			aux.color += colorAdd;
 	}
 }
-

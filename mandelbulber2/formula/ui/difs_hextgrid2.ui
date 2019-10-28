@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
+ <class>difs_hextgrid2</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>970</width>
-    <height>5778</height>
+    <width>886</width>
+    <height>4095</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">difs_torus</string>
+   <string notr="true">difs_hextgrid2</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -1333,12 +1333,12 @@ offset:</string>
         <item row="1" column="0">
          <widget class="QLabel" name="label_13">
           <property name="text">
-           <string>n</string>
+           <string>size</string>
           </property>
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_2">
+         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_1">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
@@ -1396,456 +1396,7 @@ offset:</string>
            <double>100000.000000000000000</double>
           </property>
           <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="MyGroupBox" name="groupCheck_transf_function_enabledM_false">
-     <property name="title">
-      <string>Stret&amp;ched torus shape controls</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,0,0,0,0,0">
-      <property name="spacing">
-       <number>2</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,1,0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_78">
-          <property name="text">
-           <string>start iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_M">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_63">
-          <property name="text">
-           <string>stop iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_M">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QGridLayout" name="gridLayout_71" columnstretch="0,1">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item row="3" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offset_1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_12">
-          <property name="text">
-           <string>radius1:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_05">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_18">
-          <property name="text">
-           <string>tube radius:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>lengthX:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetR_1">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>0.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>99.998999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-100000.000000000000000</double>
-          </property>
-          <property name="maximum">
-           <double>100000.000000000000000</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="label_20">
-          <property name="text">
-           <string>lengthY:</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,1,0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledN_false">
-          <property name="text">
-           <string>deform z.x</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_81">
-          <property name="text">
-           <string>start iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_N">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_67">
-          <property name="text">
-           <string>stop iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_N">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_10">
-          <property name="text">
-           <string>z.x scale:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scale_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.998999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.998999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0,1,0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="MyCheckBox" name="checkBox_transf_function_enabledO_false">
-          <property name="text">
-           <string>deform z.y</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_82">
-          <property name="text">
-           <string>start iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_start_iterations_O">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_68">
-          <property name="text">
-           <string>stop iteration=</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MySpinBox" name="spinboxInt_transf_stop_iterations_O">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="maximum">
-           <number>999</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,1">
-        <property name="topMargin">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QLabel" name="label_11">
-          <property name="text">
-           <string>z.y scale:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="MyDoubleSpinBox" name="spinbox_transf_scaleA_0">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="prefix">
-           <string/>
-          </property>
-          <property name="suffix">
-           <string/>
-          </property>
-          <property name="decimals">
-           <number>6</number>
-          </property>
-          <property name="minimum">
-           <double>-99.998999999999995</double>
-          </property>
-          <property name="maximum">
-           <double>99.998999999999995</double>
-          </property>
-          <property name="singleStep">
-           <double>0.100000000000000</double>
+           <double>0.010000000000000</double>
           </property>
          </widget>
         </item>
@@ -2034,7 +1585,7 @@ offset:</string>
       <item>
        <widget class="QLabel" name="label_information_general">
         <property name="text">
-         <string notr="true">&lt;p&gt;DifsTorusIteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm&lt;/p&gt;&lt;table&gt;
+         <string notr="true">&lt;p&gt;DIFSHextgrid2Iteration  fragmentarium code, mdifs by knighty (jan 2012)&lt;br&gt;and  darkbeams optimized verion @reference&lt;br&gt;http://www.fractalforums.com/mandelbulb-3d/custom-formulas-and-transforms-release-t17106/&lt;br&gt;&quot;Beautiful iso-surface made of a hexagonal grid of tubes.&lt;br&gt;Taken from K3DSurf forum, posted by user abdelhamid belaid.&quot;&lt;/p&gt;&lt;table&gt;
 &lt;/table&gt;
 &lt;h3&gt;Code&lt;/h3&gt;</string>
         </property>
@@ -2056,78 +1607,23 @@ offset:</string>
         </property>
         <property name="text">
          <string notr="true">&lt;body style=&quot;background-color:#fff5ee&quot;&gt;
-&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;DIFSTorusIteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+&lt;pre style=&quot;color:#000000; background-color:#fff5ee;  font-family:'Courier New',monospace;&quot;&gt;&lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;void&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;DIFSHextgrid2Iteration&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;CVector4 &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;const&lt;/span&gt; sFractal &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; sExtendedAux &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
 &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; colorAdd &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   CVector4 oldZ &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-  CVector4 boxFold &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstantA111&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// abs z&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAx
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// sphere inversion&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;sphereInversionEnabledFalse
       &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsX
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsX&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAy
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsY
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsY&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAzFalse
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsZ
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsZ&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// folds&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
+      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterations1&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// xy box fold&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledAFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsA
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsA&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;-=&lt;/span&gt; boxFold&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;-=&lt;/span&gt; boxFold&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// xyz box fold&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledBFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsB
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsB&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-      z &lt;span style=&quot;color:#676767&quot;&gt;-=&lt;/span&gt; boxFold&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// polyfold&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledPFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsP
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsP&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;int&lt;/span&gt; poly &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;int6&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; psi &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;fmod&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;atan&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) +&lt;/span&gt; M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; poly&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; M_PI &lt;span style=&quot;color:#676767&quot;&gt;/ (&lt;/span&gt;&lt;span style=&quot;color:#ff1493&quot;&gt;0.5&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; poly&lt;span style=&quot;color:#676767&quot;&gt;)) -&lt;/span&gt; M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; poly&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; len &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;cos&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;psi&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; len&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;psi&lt;span style=&quot;color:#676767&quot;&gt;) *&lt;/span&gt; len&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// diag fold1&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCxFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsCx
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsCx&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// abs offsets&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsC
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsC&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; xOffset &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetC0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; xOffset&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; xOffset&lt;span style=&quot;color:#676767&quot;&gt;) +&lt;/span&gt; xOffset&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledDFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsD
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsD&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; yOffset &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetD0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; yOffset&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; yOffset&lt;span style=&quot;color:#676767&quot;&gt;) +&lt;/span&gt; yOffset&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// diag fold2&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledCyFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsCy
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsCy&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;swap&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; rr &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; z&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;Dot&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleG1 &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; rr&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*= (&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleG1 &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; rr&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;additionConstant000 &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset000&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    z &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE &lt;span style=&quot;color:#676767&quot;&gt;*=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// reverse offset part 1&lt;/span&gt;
@@ -2186,50 +1682,23 @@ offset:</string>
   &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; colorDist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
   CVector4 zc &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; oldZ&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// torus&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledM &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterations
+  &lt;span style=&quot;color:#2929cc&quot;&gt;// Hextgrid2&lt;/span&gt;
+  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterations
       &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterations&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; torD&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#2929cc&quot;&gt;// swap axis&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(!&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledSwFalse&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; T1 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetT1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      torD &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;T1 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; T1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset05&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;else&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; T1 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetT1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-      torD &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;T1 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; T1 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset05&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; torD &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
 
-  &lt;span style=&quot;color:#2929cc&quot;&gt;// Torus - stretched&lt;/span&gt;
-  &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledMFalse
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsM
-      &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsM&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-  &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; lenX &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; lenY &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetA0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledNFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsN
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsN&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; absX &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      lenX &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; absX &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scale0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;if&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;functionEnabledOFalse
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;gt;=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;startIterationsO
-        &lt;span style=&quot;color:#676767&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;i &lt;span style=&quot;color:#676767&quot;&gt;&amp;lt;&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;stopIterationsO&lt;span style=&quot;color:#676767&quot;&gt;)&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;{&lt;/span&gt;
-      &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; absY &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-      lenY &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; absY &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;scaleA0&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
-    CVector3 q &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;CVector3&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;max&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; lenY&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;),&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;max&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; lenX&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;),&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
-    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; streD &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetR1&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    streD &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sqrt&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;streD &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; streD &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; q&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;) -&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offsetA05&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
-    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; streD &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; cosPi6 &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;cos&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;6.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; yFloor &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;floor&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;y &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.5&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; xFloor &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.5&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; cosPi6 &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;floor&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;x &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;1.5&lt;/span&gt; &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; cosPi6 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.5&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; gridMax &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;max&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;yFloor&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; xFloor &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; cosPi6 &lt;span style=&quot;color:#676767&quot;&gt;+&lt;/span&gt; yFloor &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;sin&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;M_PI &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;6.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;));&lt;/span&gt;
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; gridMin &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;gridMax &lt;span style=&quot;color:#676767&quot;&gt;-&lt;/span&gt; size &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;0.5&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; yFloor&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+
+    &lt;span style=&quot;color:#2e8b57; font-weight:bold&quot;&gt;double&lt;/span&gt; hexD &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;pow&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color:#00008f&quot;&gt;fabs&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;gridMin&lt;span style=&quot;color:#676767&quot;&gt;),&lt;/span&gt; &lt;span style=&quot;color:#ff1493&quot;&gt;2.0&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
+    hexD &lt;span style=&quot;color:#676767&quot;&gt;+=&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z &lt;span style=&quot;color:#676767&quot;&gt;*&lt;/span&gt; zc&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;z&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+    hexD &lt;span style=&quot;color:#676767&quot;&gt;-=&lt;/span&gt; fractal&lt;span style=&quot;color:#676767&quot;&gt;-&amp;gt;&lt;/span&gt;transformCommon&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;offset0005&lt;span style=&quot;color:#676767&quot;&gt;;&lt;/span&gt;
+
+    aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist &lt;span style=&quot;color:#676767&quot;&gt;=&lt;/span&gt; &lt;span style=&quot;color:#00008f&quot;&gt;min&lt;/span&gt;&lt;span style=&quot;color:#676767&quot;&gt;(&lt;/span&gt;aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;dist&lt;span style=&quot;color:#676767&quot;&gt;,&lt;/span&gt; hexD &lt;span style=&quot;color:#676767&quot;&gt;/&lt;/span&gt; aux&lt;span style=&quot;color:#676767&quot;&gt;.&lt;/span&gt;DE&lt;span style=&quot;color:#676767&quot;&gt;);&lt;/span&gt;
   &lt;span style=&quot;color:#676767&quot;&gt;}&lt;/span&gt;
 
   &lt;span style=&quot;color:#2929cc&quot;&gt;// aux.color&lt;/span&gt;
