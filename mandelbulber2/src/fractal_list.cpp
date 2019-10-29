@@ -751,15 +751,12 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>Scale OffsetV2", "transf_scale_offset_v2", transfScaleOffsetV2,
 		TransfScaleOffsetV2Iteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>Scale Vary V2.12", "transf_scale_vary_v212",
 		transfScaleVaryV212, TransfScaleVaryV212Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>Scale Vary Multi", "transf_scale_vary_multi",
 		transfScaleVaryMulti, TransfScaleVaryMultiIteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>Scale VaryV1", "transf_scale_vary_v1",
 		transfScaleVaryV1, TransfScaleVaryV1Iteration, analyticDEType, linearDEFunction,
 		cpixelDisabledByDefault, 100, analyticFunctionLinear, coloringFunctionDefault));
@@ -770,6 +767,7 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 		TransfScale3dIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
 
+	// Sin Cos Transforms
 	fractalList->append(sFractalDescription("T>Sin Or Cos", "transf_sin_or_cos", transfSinOrCos,
 		TransfSinOrCosIteration, analyticDEType, linearDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionLinear, coloringFunctionDefault));
@@ -913,11 +911,9 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>DIFS Hextgrid2", "transf_difs_hextgrid2", transfDIFSHextgrid2,
 		TransfDIFSHextgrid2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>DIFS Prism", "transf_difs_prism", transfDIFSPrism,
 		TransfDIFSPrismIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-
 	fractalList->append(sFractalDescription("T>DIFS Sphere", "transf_difs_sphere", transfDIFSSphere,
 		TransfDIFSSphereIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
