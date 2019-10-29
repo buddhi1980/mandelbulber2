@@ -18605,9 +18605,10 @@ void TransfDIFSPrismIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 
-	CVector4 q = fabs(zc);
-	double priD = max(q.z - fractal->transformCommon.offset05,
-		max(q.x * SQRT_3_4 + zc.y * 0.5, -zc.y) - fractal->transformCommon.offsetT1 * 0.5);
+	double px = fabs(zc.x);
+	double py = fabs(zc.y);
+	double priD = max(px - fractal->transformCommon.offset1,
+		max(py * SQRT_3_4 + zc.z * 0.5, -zc.z) - fractal->transformCommon.offset05);
 
 	aux.dist = min(aux.dist, priD / aux.DE);
 }
@@ -18635,8 +18636,8 @@ void TransfDIFSTorusIteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 	double torD;
-	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offset05;
-	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offsetT1;
+	double T1 = sqrt(zc.y * zc.y + zc.x * zc.x) - fractal->transformCommon.offsetT1;
+	torD = sqrt(T1 * T1 + zc.z * zc.z) - fractal->transformCommon.offset05;
 	aux.dist = min(aux.dist, torD / aux.DE);
 }
 
@@ -20314,6 +20315,7 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double size = fractal->transformCommon.scale1;
+		zc.z *= fractal->transformCommon.scaleF1;
 
 		double cosPi6 = cos(M_PI / 6.0);
 		double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));

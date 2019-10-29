@@ -97,7 +97,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
 		REAL size = fractal->transformCommon.scale1;
-
+		zc.z *= fractal->transformCommon.scaleF1;
 		REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
 		REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
 		REAL xFloor = fabs(zc.x
