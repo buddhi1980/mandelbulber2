@@ -908,15 +908,15 @@ void DefineFractalList(QList<sFractalDescription> *fractalList)
 	fractalList->append(sFractalDescription("T>DIFS Box", "transf_difs_box", transfDIFSBox,
 		TransfDIFSBoxIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
+	fractalList->append(sFractalDescription("T>DIFS Box V2", "transf_difs_box_v2", transfDIFSBoxV2,
+		TransfDIFSBoxV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
+		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>DIFS Cylinder", "transf_difs_cylinder", transfDIFSCylinder,
 		TransfDIFSCylinderIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
 	fractalList->append(sFractalDescription("T>DIFS Cylinder V2", "transf_difs_cylinder_v2", transfDIFSCylinderV2,
 		TransfDIFSCylinderV2Iteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));
-
-
-
 	fractalList->append(sFractalDescription("T>DIFS Ellipsoid", "transf_difs_ellipsoid", transfDIFSEllipsoid,
 		TransfDIFSEllipsoidIteration, analyticDEType, dIFSDEFunction, cpixelDisabledByDefault, 100,
 		analyticFunctionDIFS, coloringFunctionDefault));

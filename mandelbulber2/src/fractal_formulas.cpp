@@ -17465,19 +17465,21 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 				&& aux.i >= fractal->transformCommon.startIterationsT
 				&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
-			double absZ = fabs(z.z);
-			absZ *= absZ;
-			boxSize.x += fractal->transformCommon.scale0 * absZ;
-			boxSize.y += fractal->transformCommon.scale0 * absZ;
+			double absZZ = zc.z * zc.z * fractal->transformCommon.scale0;
+			boxSize.x += absZZ;
+			boxSize.y += absZZ;
 		}
+
 		// pyramid
 		if (fractal->transformCommon.functionEnabledMFalse
 				&& aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 		{
-			boxSize.x -= fractal->transformCommon.scaleA0 * zc.z;
-			boxSize.y -= fractal->transformCommon.scaleA0 * zc.z;
+			double subZ = fractal->transformCommon.scaleA0 * zc.z;
+			boxSize.x -= subZ;
+			boxSize.y -= subZ;
 		}
+
 		zc = fabs(zc) - boxSize;
 		zc.x = max(zc.x, 0.0);
 		zc.y = max(zc.y, 0.0);
@@ -17489,7 +17491,7 @@ void DIFSBoxV1Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
 		if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, zcd / aux.DE);
 		else
-			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
 	}
 
 	// aux.color
@@ -18525,6 +18527,58 @@ void TransfDIFSBoxIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 }
 
 /**
+ * TransfDifsBoxV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ */
+void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+
+	// curve
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		double absZZ = zc.z * zc.z * fractal->transformCommon.scale0;
+		boxSize.x += absZZ;
+		boxSize.y += absZZ;
+	}
+
+	// pyramid
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		double subZ = fractal->transformCommon.scaleA0 * zc.z;
+		boxSize.x -= subZ;
+		boxSize.y -= subZ;
+	}
+
+	zc = fabs(zc) - boxSize;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
+	zc.z = max(zc.z, 0.0);
+	double zcd = zc.Length();
+
+	aux.dist = min(aux.dist, zcd / aux.DE);
+
+
+
+	/*	if (!fractal->transformCommon.functionEnabledEFalse)
+			aux.dist = min(aux.dist, zcd / aux.DE);
+		else
+			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+	}*/
+
+
+
+
+
+}
+
+/**
  * TransfDifsCylinderIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
@@ -18661,6 +18715,7 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 
+	zc.z *= fractal->transformCommon.scaleF1; // good be reciprocal, but ??
 	double size = fractal->transformCommon.scale1;
 	double hexD =0.0;
 	double cosPi6 = cos(M_PI / 6.0);

@@ -166,10 +166,9 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 				&& aux->i >= fractal->transformCommon.startIterationsT
 				&& aux->i < fractal->transformCommon.stopIterationsT)
 		{
-			REAL absZ = fabs(z.z);
-			absZ *= absZ;
-			boxSize.x += fractal->transformCommon.scale0 * absZ;
-			boxSize.y += fractal->transformCommon.scale0 * absZ;
+			REAL absZZ = zc.z * zc.z * fractal->transformCommon.scale0;
+			boxSize.x += absZZ;
+			boxSize.y += absZZ;
 		}
 		// pyramid
 		if (fractal->transformCommon.functionEnabledMFalse
@@ -191,7 +190,7 @@ REAL4 DIFSBoxV1Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedAuxCl
 			aux->dist = min(aux->dist, native_divide(zcd, aux->DE));
 		else
 			aux->dist = min(aux->dist, native_divide(zcd, aux->DE))
-									- native_divide(fractal->transformCommon.offsetB0, 1000.0f);
+									- fractal->transformCommon.offsetB0;
 	}
 
 	// aux->color
