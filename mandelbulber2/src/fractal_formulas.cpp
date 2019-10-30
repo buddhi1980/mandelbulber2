@@ -18564,19 +18564,60 @@ void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	aux.dist = min(aux.dist, zcd / aux.DE);
 
-
-
 	/*	if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, zcd / aux.DE);
 		else
 			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
 	}*/
+}
+
+/**
+ * TransfDifsBoxV3Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ */
+void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+	CVector4 boxSize = fractal->transformCommon.additionConstant111;
+
+	// curvy shape
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		double Zxx = zc.x * zc.x;
+		double Zzz = zc.z * zc.z;
+		boxSize.x += Zzz * fractal->transformCommon.constantMultiplier000.x;
+		boxSize.y += Zzz * fractal->transformCommon.constantMultiplier000.y;
+		boxSize.z += Zxx * fractal->transformCommon.constantMultiplier000.z;
+	}
+
+	// uneven box
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		CVector4 subZ  =  CVector4(z.y, z.z, z.x, z.w) * fractal->transformCommon.scale3D000;
+		boxSize -= subZ;
+	}
+
+	zc = fabs(zc) - boxSize;
+	zc.x = max(zc.x, 0.0);
+	zc.y = max(zc.y, 0.0);
+	zc.z = max(zc.z, 0.0);
+	double zcd = zc.Length();
+
+	aux.dist = min(aux.dist, zcd / aux.DE);
 
 
-
-
+	if (!fractal->transformCommon.functionEnabledEFalse)
+		aux.dist = min(aux.dist, zcd / aux.DE);
+	else
+		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
 
 }
+
 
 /**
  * TransfDifsCylinderIteration  fragmentarium code, mdifs by knighty (jan 2012)

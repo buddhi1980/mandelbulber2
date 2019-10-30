@@ -365,7 +365,7 @@ enum enumFractalFormula
 	transfDIFSPrism = 1606,
 	transfDIFSBoxV2 = 1607,
 	transfDIFSCylinderV2 = 1608,
-
+	transfDIFSBoxV3 = 1609,
 
 
 
