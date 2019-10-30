@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>difs_box_v1</class>
+ <class>Form</class>
  <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
@@ -1979,7 +1979,7 @@
       <number>2</number>
      </property>
      <item row="1" column="1">
-      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetA_0">
+      <widget class="MyDoubleSpinBox" name="spinbox_transf_offsetB_0">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -2005,7 +2005,7 @@
         <double>99.998999999999995</double>
        </property>
        <property name="singleStep">
-        <double>0.100000000000000</double>
+        <double>0.010000000000000</double>
        </property>
       </widget>
      </item>
