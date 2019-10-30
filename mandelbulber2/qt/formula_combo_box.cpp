@@ -41,7 +41,12 @@
 
 #include <QStandardItemModel>
 #include <QLineEdit>
+#include <QWidget>
+
+#include "src/common_math.h"
+#include "src/random.hpp"
 #include "src/parameters.hpp"
+
 QMap<QString, QIcon> cFormulaComboBox::iconCache;
 
 cFormulaComboBox::cFormulaComboBox(QWidget *parent) : QComboBox(parent), CommonMyWidgetWrapper(this)
@@ -107,8 +112,8 @@ void cFormulaComboBox::setModel(QAbstractItemModel *model)
 	completer->setModel(pFilterModel);
 }
 
-void cFormulaComboBox::populateItemsFromFractalList(
-	QList<sFractalDescription> fractalList, QList<QPair<int, QString> /* */> insertHeader)
+void cFormulaComboBox::populateItemsFromFractalList(QList<sFractalDescription> fractalList,
+	QList<QPair<int, QString> /* */> insertHeader, int randomSeedForColors)
 {
 	clear();
 	for (int f = 0; f < fractalList.size(); f++)
@@ -119,6 +124,21 @@ void cFormulaComboBox::populateItemsFromFractalList(
 	// set headings and separator of formulas and transforms
 	QFont fontHeading;
 	fontHeading.setBold(true);
+
+	QPalette palette = window()->palette();
+	QColor globalColor = palette.background().color();
+	int brightness = globalColor.value();
+
+	int rBase = globalColor.red();
+	int gBase = globalColor.green();
+	int bBase = globalColor.blue();
+
+	cRandom random;
+	random.Initialize(randomSeedForColors);
+
+	QColor color = globalColor;
+
+	int previousComboIndex = 0;
 
 	for (int hIndex = 0; hIndex < insertHeader.size(); hIndex++)
 	{
@@ -132,12 +152,42 @@ void cFormulaComboBox::populateItemsFromFractalList(
 				comboIndex = fIndex + 2 * hIndex;
 			}
 		}
+
 		if (comboIndex == -1)
 		{
 			qCritical() << "Cannot insert combobox Header!";
 		}
 		else
 		{
+			QColor itemsColor;
+			if (brightness > 20)
+			{
+				int r = random.Random(40) + rBase - 20;
+				r = clamp(r, 0, 255);
+				int g = random.Random(40) + gBase - 20;
+				g = clamp(g, 0, 255);
+				int b = random.Random(40) + bBase - 20;
+				b = clamp(b, 0, 255);
+				itemsColor = QColor(r, g, b);
+			}
+			else
+			{
+				int r = random.Random(40) + rBase;
+				r = clamp(r, 0, 255);
+				int g = random.Random(40) + gBase;
+				g = clamp(g, 0, 255);
+				int b = random.Random(40) + bBase;
+				b = clamp(b, 0, 255);
+				itemsColor = QColor(r, g, b);
+			}
+
+			for (int i = previousComboIndex; i < comboIndex; i++)
+			{
+				setItemData(i, itemsColor, Qt::BackgroundRole);
+			}
+
+			previousComboIndex = comboIndex;
+
 			insertItem(comboIndex, header.second);
 			setItemData(comboIndex, fontHeading, Qt::FontRole);
 			setItemData(comboIndex, Qt::AlignCenter, Qt::TextAlignmentRole);

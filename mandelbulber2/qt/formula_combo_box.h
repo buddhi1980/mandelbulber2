@@ -57,8 +57,8 @@ public:
 	~cFormulaComboBox() override;
 	void setModel(QAbstractItemModel *model);
 	void setModelColumn(int visibleColumn);
-	void populateItemsFromFractalList(
-		QList<sFractalDescription> fractalList, QList<QPair<int, QString> /* */> insertHeader);
+	void populateItemsFromFractalList(QList<sFractalDescription> fractalList,
+		QList<QPair<int, QString> /* */> insertHeader, int randomSeedForColors);
 
 	void resetToDefault() override;
 	QString getDefaultAsString() override;
