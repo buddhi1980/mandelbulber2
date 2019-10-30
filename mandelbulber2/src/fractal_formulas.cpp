@@ -17806,56 +17806,60 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 	if (aux.i >= fractal->transformCommon.startIterations
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
-		double cylD = 0.0;
-		double absZ = fabs(zc.z);
-		double lengthCyl = zc.z;
-		double cylR = 0.0;
-		double cylH = 0.0;
-		// swap axis
+		double cylR, lengthCyl, absH, temp;
+
+		//swap
 		if (!fractal->transformCommon.functionEnabledSwFalse)
 		{
-			cylR = sqrt(zc.x * zc.x + zc.y * zc.y);
-			cylH = fabs(zc.z) - fractal->transformCommon.offsetA1;
+			cylR = zc.x * zc.x;
+			absH = fabs(zc.z);
+			lengthCyl = zc.z;
 		}
 		else
 		{
-			cylR = sqrt(zc.y * zc.y + zc.z * zc.z);
-			cylH = fabs(zc.x) - fractal->transformCommon.offsetA1;
-			absZ = fabs(zc.x);
+			cylR = zc.z * zc.z;
+			absH = fabs(zc.x);
 			lengthCyl = zc.x;
 		}
+		cylR = sqrt(cylR + zc.y * zc.y);
+		double cylH = absH - fractal->transformCommon.offsetA1;
+
 		// no absz
 		if (fractal->transformCommon.functionEnabledMFalse
 				&& aux.i >= fractal->transformCommon.startIterationsM
 				&& aux.i < fractal->transformCommon.stopIterationsM)
 		{
-			absZ = lengthCyl;
+			absH = lengthCyl;
 		}
+
 		// abs sqrd
 		if (fractal->transformCommon.functionEnabledTFalse
 				&& aux.i >= fractal->transformCommon.startIterationsT
 				&& aux.i < fractal->transformCommon.stopIterationsT)
 		{
-			absZ *= absZ;
+			absH *= absH;
 		}
+
 		double cylRm = cylR - fractal->transformCommon.radius1;
-		cylRm += fractal->transformCommon.scale0 * absZ;
+		cylRm += fractal->transformCommon.scale0 * absH;
+
 		// tops
 		if (fractal->transformCommon.functionEnabledNFalse
 				&& aux.i >= fractal->transformCommon.startIterationsN
 				&& aux.i < fractal->transformCommon.stopIterationsN)
 		{
-			double temp = max(cylR, 0.0);
-			double cylHm = max(cylH, 0.0);
-			cylD = sqrt(temp * temp + cylHm * cylHm);
+			temp = cylR;
 		}
 		else
 		{
-			double temp = max(cylRm, 0.0);
-			double cylHm = max(cylH, 0.0);
-			cylD = sqrt(temp * temp + cylHm * cylHm);
+			temp = cylRm;
 		}
+		temp = max(temp, 0.0);
+		double cylHm = max(cylH, 0.0);
+		double cylD = sqrt(temp * temp + cylHm * cylHm);
 
+
+		// rings
 		if (fractal->transformCommon.functionEnabledOFalse
 				&& aux.i >= fractal->transformCommon.startIterationsO
 				&& aux.i < fractal->transformCommon.stopIterationsO)
@@ -17866,6 +17870,7 @@ void DIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtendedAux &a
 
 		aux.dist = min(aux.dist, cylD / aux.DE);
 	}
+
 	// torus
 	if (fractal->transformCommon.functionEnabledIFalse
 			&& aux.i >= fractal->transformCommon.startIterationsI
@@ -18541,6 +18546,81 @@ void TransfDIFSCylinderIteration(CVector4 &z, const sFractal *fractal, sExtended
 }
 
 /**
+ * TransfDifsCylinderV2Iteration  fragmentarium code, mdifs by knighty (jan 2012)
+ * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
+ */
+void TransfDIFSCylinderV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &aux)
+{
+	CVector4 oldZ = z;
+	z += fractal->transformCommon.offset001;
+	CVector4 zc = oldZ;
+
+	double cylR, lengthCyl, absH, temp;
+
+	//swap
+	if (!fractal->transformCommon.functionEnabledSwFalse)
+	{
+		cylR = zc.x * zc.x;
+		absH = fabs(zc.z);
+		lengthCyl = zc.z;
+	}
+	else
+	{
+		cylR = zc.z * zc.z;
+		absH = fabs(zc.x);
+		lengthCyl = zc.x;
+	}
+	cylR = sqrt(cylR + zc.y * zc.y);
+	double cylH = absH - fractal->transformCommon.offsetA1;
+
+	// no absz
+	if (fractal->transformCommon.functionEnabledMFalse
+			&& aux.i >= fractal->transformCommon.startIterationsM
+			&& aux.i < fractal->transformCommon.stopIterationsM)
+	{
+		absH = lengthCyl;
+	}
+
+	// abs sqrd
+	if (fractal->transformCommon.functionEnabledTFalse
+			&& aux.i >= fractal->transformCommon.startIterationsT
+			&& aux.i < fractal->transformCommon.stopIterationsT)
+	{
+		absH *= absH;
+	}
+
+	double cylRm = cylR - fractal->transformCommon.radius1;
+	cylRm += fractal->transformCommon.scale0 * absH;
+
+	// tops
+	if (fractal->transformCommon.functionEnabledNFalse
+			&& aux.i >= fractal->transformCommon.startIterationsN
+			&& aux.i < fractal->transformCommon.stopIterationsN)
+	{
+		temp = cylR;
+	}
+	else
+	{
+		temp = cylRm;
+	}
+	temp = max(temp, 0.0);
+	double cylHm = max(cylH, 0.0);
+	double cylD = sqrt(temp * temp + cylHm * cylHm);
+
+
+	// rings
+	if (fractal->transformCommon.functionEnabledOFalse
+			&& aux.i >= fractal->transformCommon.startIterationsO
+			&& aux.i < fractal->transformCommon.stopIterationsO)
+	{
+		cylD = sqrt(cylRm * cylRm + cylH * cylH);
+	}
+	cylD = min(max(cylRm, cylH) - fractal->transformCommon.offsetR0, 0.0) + cylD;
+
+	aux.dist = min(aux.dist, cylD / aux.DE);
+}
+
+/**
  * TransfDIFSEllipsoidIteration  fragmentarium code, mdifs by knighty (jan 2012)
  * and http://www.iquilezles.org/www/articles/distfunctions/distfunctions.htm
  */
@@ -18582,13 +18662,16 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	CVector4 zc = oldZ;
 
 	double size = fractal->transformCommon.scale1;
-
+	double hexD =0.0;
 	double cosPi6 = cos(M_PI / 6.0);
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
 	double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
 	double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 	double gridMin = min(gridMax - size * 0.5, yFloor);
-	double hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
+	if (!fractal->transformCommon.functionEnabledJFalse)
+		hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
+	else
+		hexD = max(fabs(gridMin), fabs(zc.z));
 
 	hexD -= fractal->transformCommon.offset0005;
 
@@ -20316,14 +20399,16 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 	{
 		double size = fractal->transformCommon.scale1;
 		zc.z *= fractal->transformCommon.scaleF1;
-
+		double hexD = 0.0;
 		double cosPi6 = cos(M_PI / 6.0);
 		double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
 		double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
 		double gridMax = max(yFloor, xFloor * cosPi6 + yFloor * sin(M_PI / 6.0));
 		double gridMin = min(gridMax - size * 0.5, yFloor);
-		double hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
-
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			hexD = sqrt(gridMin * gridMin + zc.z * zc.z);
+		else
+			hexD = max(fabs(gridMin), fabs(zc.z));
 		hexD -= fractal->transformCommon.offset0005;
 
 		aux.dist = min(aux.dist, hexD / aux.DE);

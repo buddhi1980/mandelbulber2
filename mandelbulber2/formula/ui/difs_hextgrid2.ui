@@ -1435,6 +1435,13 @@ offset:</string>
           </property>
          </widget>
         </item>
+        <item row="4" column="0" colspan="2">
+         <widget class="MyCheckBox" name="checkBox_transf_function_enabledJ_false">
+          <property name="text">
+           <string>square cross-section</string>
+          </property>
+         </widget>
+        </item>
        </layout>
       </item>
      </layout>
