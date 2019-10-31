@@ -36,6 +36,24 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 		aux->DE *= fractal->transformCommon.scaleA1;
 	}
 
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux->i >= fractal->transformCommon.startIterationsA
+			&& aux->i < fractal->transformCommon.stopIterationsA)
+	{
+		REAL4 tempA, tempB;
+		if (fractal->transformCommon.functionEnabledx)
+			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+		if (fractal->transformCommon.functionEnabledAx)
+			tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
+		z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
+		if (fractal->transformCommon.functionEnabledy)
+			tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+		if (fractal->transformCommon.functionEnabledAy)
+			tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
+		z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
+	}
+
 	// reverse offset part 1
 	if (aux->i >= fractal->transformCommon.startIterationsE
 			&& aux->i < fractal->transformCommon.stopIterationsE)
@@ -98,7 +116,7 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 	{
 		REAL size = fractal->transformCommon.scale1;
 		REAL hexD = 0.0f;
-		zc.z = native_recip(fractal->transformCommon.scaleF1);
+		zc.z = native_divide(zc.z, fractal->transformCommon.scaleF1);
 
 		REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
 		REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));

@@ -18567,7 +18567,7 @@ void TransfDIFSBoxV2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 	/*	if (!fractal->transformCommon.functionEnabledEFalse)
 			aux.dist = min(aux.dist, zcd / aux.DE);
 		else
-			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0 / 1000.0;
+			aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
 	}*/
 }
 
@@ -18610,12 +18610,10 @@ void TransfDIFSBoxV3Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux
 
 	aux.dist = min(aux.dist, zcd / aux.DE);
 
-
 	if (!fractal->transformCommon.functionEnabledEFalse)
 		aux.dist = min(aux.dist, zcd / aux.DE);
 	else
 		aux.dist = min(aux.dist, zcd / aux.DE) - fractal->transformCommon.offsetB0;
-
 }
 
 
@@ -20432,6 +20430,25 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 		z += fractal->transformCommon.additionConstant000 - fractal->transformCommon.offset000;
 		z *= fractal->transformCommon.scaleA1;
 		aux.DE *= fractal->transformCommon.scaleA1;
+	}
+
+	if (fractal->transformCommon.functionEnabledAFalse
+			&& aux.i >= fractal->transformCommon.startIterationsA
+			&& aux.i < fractal->transformCommon.stopIterationsA)
+	{
+		CVector4 tempA, tempB;
+		//CVector4 oldZ = z;
+		if (fractal->transformCommon.functionEnabledx)
+			tempA.x = fabs(z.x + fractal->transformCommon.additionConstant111.x);
+		if (fractal->transformCommon.functionEnabledAx)
+			tempB.x = fabs(z.x - fractal->transformCommon.additionConstantA111.x);
+		z.x = tempA.x - tempB.x - (z.x * fractal->transformCommon.scale3D111.x);
+
+		if (fractal->transformCommon.functionEnabledy)
+			tempA.y = fabs(z.y + fractal->transformCommon.additionConstant111.y);
+		if (fractal->transformCommon.functionEnabledAy)
+			tempB.y = fabs(z.y - fractal->transformCommon.additionConstantA111.y);
+		z.y = tempA.y - tempB.y - (z.y * fractal->transformCommon.scale3D111.y);
 	}
 
 	// reverse offset part 1

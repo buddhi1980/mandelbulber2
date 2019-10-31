@@ -25,7 +25,7 @@ REAL4 TransfDIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExt
 
 	REAL size = fractal->transformCommon.scale1;
 	REAL hexD = 0.0;
-	zc.z = native_recip(fractal->transformCommon.scaleF1);
+	zc.z = native_divide(zc.z, fractal->transformCommon.scaleF1);
 
 	REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
 	REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
