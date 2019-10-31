@@ -18756,9 +18756,10 @@ void TransfDIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtende
 	z += fractal->transformCommon.offset001;
 	CVector4 zc = oldZ;
 
-	zc.z *= fractal->transformCommon.scaleF1; // good be reciprocal, but ??
 	double size = fractal->transformCommon.scale1;
 	double hexD =0.0;
+	zc.z /= fractal->transformCommon.scaleF1;
+
 	double cosPi6 = cos(M_PI / 6.0);
 	double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
 	double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));
@@ -20494,8 +20495,9 @@ void DIFSHextgrid2Iteration(CVector4 &z, const sFractal *fractal, sExtendedAux &
 			&& aux.i < fractal->transformCommon.stopIterations)
 	{
 		double size = fractal->transformCommon.scale1;
-		zc.z *= fractal->transformCommon.scaleF1;
 		double hexD = 0.0;
+		zc.z /= fractal->transformCommon.scaleF1;
+
 		double cosPi6 = cos(M_PI / 6.0);
 		double yFloor = fabs(zc.y - size * floor(zc.y / size + 0.5));
 		double xFloor = fabs(zc.x - size * 1.5 / cosPi6 * floor(zc.x / size / 1.5 * cosPi6 + 0.5));

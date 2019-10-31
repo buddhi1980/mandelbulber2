@@ -97,7 +97,9 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 			&& aux->i < fractal->transformCommon.stopIterations)
 	{
 		REAL size = fractal->transformCommon.scale1;
-		zc.z *= fractal->transformCommon.scaleF1;
+		REAL hexD = 0.0f;
+		zc.z = native_recip(fractal->transformCommon.scaleF1);
+
 		REAL cosPi6 = native_cos(native_divide(M_PI_F, 6.0f));
 		REAL yFloor = fabs(zc.y - size * floor(native_divide(zc.y, size) + 0.5f));
 		REAL xFloor = fabs(zc.x
@@ -105,7 +107,11 @@ REAL4 DIFSHextgrid2Iteration(REAL4 z, __constant sFractalCl *fractal, sExtendedA
 													 * floor(native_divide(native_divide(zc.x, size), 1.5f) * cosPi6 + 0.5f));
 		REAL gridMax = max(yFloor, xFloor * cosPi6 + yFloor * native_sin(native_divide(M_PI_F, 6.0f)));
 		REAL gridMin = min(gridMax - size * 0.5f, yFloor);
-		REAL hexD = native_sqrt(mad(gridMin, gridMin, zc.z * zc.z));
+
+		if (!fractal->transformCommon.functionEnabledJFalse)
+			hexD = native_sqrt(mad(gridMin, gridMin, zc.z * zc.z));
+		else
+			hexD = max(fabs(gridMin), fabs(zc.z));
 
 		hexD -= fractal->transformCommon.offset0005;
 

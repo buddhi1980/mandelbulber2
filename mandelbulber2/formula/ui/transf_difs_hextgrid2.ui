@@ -241,7 +241,7 @@
         <number>6</number>
        </property>
        <property name="minimum">
-        <double>0.000001000000000</double>
+        <double>0.100000000000000</double>
        </property>
        <property name="maximum">
         <double>99.998999999999995</double>
@@ -250,7 +250,7 @@
         <double>0.100000000000000</double>
        </property>
        <property name="value">
-        <double>0.000001000000000</double>
+        <double>0.100000000000000</double>
        </property>
       </widget>
      </item>
